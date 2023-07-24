@@ -7,464 +7,508 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Components",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Components",
+                  "members" : [
                     [
-                      "Example Component for F Prime FSW framework."
-                    ],
-                    {
-                      "DefComponent" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : "Active",
-                            "name" : "HelloWorld",
-                            "members" : [
-                              [
-                                [
-                                  "Command to issue greeting with maximum length of 20 characters"
-                                ],
-                                {
-                                  "SpecCommand" : {
-                                    "node" : {
-                                      "data" : {
-                                        "kind" : {
-                                          "Async" : {
-                                            
-                                          }
-                                        },
-                                        "name" : "SAY_HELLO",
-                                        "params" : [
-                                          [
-                                            [
-                                            ],
-                                            {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "kind" : "Value",
-                                                  "name" : "greeting",
-                                                  "typeName" : {
-                                                    "data" : {
-                                                      "TypeNameString" : {
-                                                        "size" : {
-                                                          "Option" : {
-                                                            "Some" : {
+                      [
+                        "Example Component for F Prime FSW framework."
+                      ],
+                      {
+                        "DefComponent" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "kind" : "Active",
+                                "name" : "HelloWorld",
+                                "members" : [
+                                  [
+                                    [
+                                      "Command to issue greeting with maximum length of 20 characters"
+                                    ],
+                                    {
+                                      "SpecCommand" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "kind" : {
+                                                "Async" : {
+                                                  
+                                                }
+                                              },
+                                              "name" : "SAY_HELLO",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "kind" : "Value",
+                                                          "name" : "greeting",
+                                                          "typeName" : {
+                                                            "astNode" : {
                                                               "data" : {
-                                                                "ExprLiteralInt" : {
-                                                                  "value" : "20"
+                                                                "TypeNameString" : {
+                                                                  "size" : {
+                                                                    "Option" : {
+                                                                      "Some" : {
+                                                                        "astNode" : {
+                                                                          "data" : {
+                                                                            "ExprLiteralInt" : {
+                                                                              "value" : "20"
+                                                                            }
+                                                                          },
+                                                                          "id" : 61
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
                                                                 }
                                                               },
-                                                              "id" : 61
+                                                              "id" : 62
                                                             }
                                                           }
-                                                        }
+                                                        },
+                                                        "id" : 63
                                                       }
-                                                    },
-                                                    "id" : 62
-                                                  }
-                                                },
-                                                "id" : 63
+                                                    }
+                                                  },
+                                                  [
+                                                    "Greeting to repeat in the Hello event"
+                                                  ]
+                                                ]
+                                              ],
+                                              "opcode" : {
+                                                "Option" : "None"
+                                              },
+                                              "priority" : {
+                                                "Option" : "None"
+                                              },
+                                              "queueFull" : {
+                                                "Option" : "None"
                                               }
                                             },
-                                            [
-                                              "Greeting to repeat in the Hello event"
-                                            ]
-                                          ]
-                                        ],
-                                        "opcode" : {
-                                          "Option" : "None"
-                                        },
-                                        "priority" : {
-                                          "Option" : "None"
-                                        },
-                                        "queueFull" : {
-                                          "Option" : "None"
+                                            "id" : 64
+                                          }
                                         }
-                                      },
-                                      "id" : 64
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Greeting event with maximum greeting length of 20 characters"
-                                ],
-                                {
-                                  "SpecEvent" : {
-                                    "node" : {
-                                      "data" : {
-                                        "name" : "Hello",
-                                        "params" : [
-                                          [
-                                            [
-                                            ],
-                                            {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "kind" : "Value",
-                                                  "name" : "greeting",
-                                                  "typeName" : {
-                                                    "data" : {
-                                                      "TypeNameString" : {
-                                                        "size" : {
-                                                          "Option" : {
-                                                            "Some" : {
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Greeting event with maximum greeting length of 20 characters"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "name" : "Hello",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "kind" : "Value",
+                                                          "name" : "greeting",
+                                                          "typeName" : {
+                                                            "astNode" : {
                                                               "data" : {
-                                                                "ExprLiteralInt" : {
-                                                                  "value" : "20"
+                                                                "TypeNameString" : {
+                                                                  "size" : {
+                                                                    "Option" : {
+                                                                      "Some" : {
+                                                                        "astNode" : {
+                                                                          "data" : {
+                                                                            "ExprLiteralInt" : {
+                                                                              "value" : "20"
+                                                                            }
+                                                                          },
+                                                                          "id" : 68
+                                                                        }
+                                                                      }
+                                                                    }
+                                                                  }
                                                                 }
                                                               },
-                                                              "id" : 68
+                                                              "id" : 69
                                                             }
                                                           }
-                                                        }
+                                                        },
+                                                        "id" : 70
                                                       }
-                                                    },
-                                                    "id" : 69
-                                                  }
-                                                },
-                                                "id" : 70
+                                                    }
+                                                  },
+                                                  [
+                                                    "Greeting supplied from the SAY_HELLO command"
+                                                  ]
+                                                ]
+                                              ],
+                                              "severity" : "ActivityHigh",
+                                              "id" : {
+                                                "Option" : "None"
+                                              },
+                                              "format" : {
+                                                "astNode" : {
+                                                  "data" : "I say: {}",
+                                                  "id" : 71
+                                                }
+                                              },
+                                              "throttle" : {
+                                                "Option" : "None"
                                               }
                                             },
-                                            [
-                                              "Greeting supplied from the SAY_HELLO command"
-                                            ]
-                                          ]
-                                        ],
-                                        "severity" : "ActivityHigh",
-                                        "id" : {
-                                          "Option" : "None"
-                                        },
-                                        "format" : {
-                                          "data" : "I say: {}",
-                                          "id" : 71
-                                        },
-                                        "throttle" : {
-                                          "Option" : "None"
-                                        }
-                                      },
-                                      "id" : 72
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "A count of the number of greetings issued"
-                                ],
-                                {
-                                  "SpecTlmChannel" : {
-                                    "node" : {
-                                      "data" : {
-                                        "name" : "GreetingCount",
-                                        "typeName" : {
-                                          "data" : {
-                                            "TypeNameInt" : {
-                                              "name" : "U32"
-                                            }
-                                          },
-                                          "id" : 73
-                                        },
-                                        "id" : {
-                                          "Option" : "None"
-                                        },
-                                        "update" : {
-                                          "Option" : "None"
-                                        },
-                                        "format" : {
-                                          "Option" : "None"
-                                        },
-                                        "low" : [
-                                        ],
-                                        "high" : [
-                                        ]
-                                      },
-                                      "id" : 74
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for requesting the current time"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "TimeGet",
-                                          "name" : "timeCaller",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                            "id" : 72
                                           }
                                         }
-                                      },
-                                      "id" : 75
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for sending command registrations"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "CommandReg",
-                                          "name" : "cmdRegOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "A count of the number of greetings issued"
+                                    ],
+                                    {
+                                      "SpecTlmChannel" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "name" : "GreetingCount",
+                                              "typeName" : {
+                                                "astNode" : {
+                                                  "data" : {
+                                                    "TypeNameInt" : {
+                                                      "name" : "U32"
+                                                    }
+                                                  },
+                                                  "id" : 73
+                                                }
+                                              },
+                                              "id" : {
+                                                "Option" : "None"
+                                              },
+                                              "update" : {
+                                                "Option" : "None"
+                                              },
+                                              "format" : {
+                                                "Option" : "None"
+                                              },
+                                              "low" : [
+                                              ],
+                                              "high" : [
+                                              ]
+                                            },
+                                            "id" : 74
                                           }
                                         }
-                                      },
-                                      "id" : 76
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for receiving commands"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "CommandRecv",
-                                          "name" : "cmdIn",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for requesting the current time"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "TimeGet",
+                                                "name" : "timeCaller",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 75
                                           }
                                         }
-                                      },
-                                      "id" : 77
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for sending command responses"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "CommandResp",
-                                          "name" : "cmdResponseOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending command registrations"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "CommandReg",
+                                                "name" : "cmdRegOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 76
                                           }
                                         }
-                                      },
-                                      "id" : 78
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for sending textual representation of events"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "TextEvent",
-                                          "name" : "logTextOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for receiving commands"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "CommandRecv",
+                                                "name" : "cmdIn",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 77
                                           }
                                         }
-                                      },
-                                      "id" : 79
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for sending events to downlink"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "Event",
-                                          "name" : "logOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending command responses"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "CommandResp",
+                                                "name" : "cmdResponseOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 78
                                           }
                                         }
-                                      },
-                                      "id" : 80
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port for sending telemetry channels to downlink"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "Telemetry",
-                                          "name" : "tlmOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending textual representation of events"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "TextEvent",
+                                                "name" : "logTextOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 79
                                           }
                                         }
-                                      },
-                                      "id" : 81
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port to return the value of a parameter"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "ParamGet",
-                                          "name" : "prmGetOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending events to downlink"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "Event",
+                                                "name" : "logOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 80
                                           }
                                         }
-                                      },
-                                      "id" : 82
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Port to set the value of a parameter"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "Special" : {
-                                          "inputKind" : {
-                                            "Option" : "None"
-                                          },
-                                          "kind" : "ParamSet",
-                                          "name" : "prmSetOut",
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending telemetry channels to downlink"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "Telemetry",
+                                                "name" : "tlmOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 81
                                           }
                                         }
-                                      },
-                                      "id" : 85
-                                    }
-                                  }
-                                },
-                                [
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port to return the value of a parameter"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "ParamGet",
+                                                "name" : "prmGetOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 82
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port to set the value of a parameter"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : {
+                                                  "Option" : "None"
+                                                },
+                                                "kind" : "ParamSet",
+                                                "name" : "prmSetOut",
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 85
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
                                 ]
-                              ]
-                            ]
-                          },
-                          "id" : 86
+                              },
+                              "id" : 86
+                            }
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 87
+                },
+                "id" : 87
+              }
             }
           }
         },

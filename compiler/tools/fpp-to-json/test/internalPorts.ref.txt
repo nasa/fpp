@@ -8,10 +8,12 @@
         {
           "DefAbsType" : {
             "node" : {
-              "data" : {
-                "name" : "T"
-              },
-              "id" : 0
+              "astNode" : {
+                "data" : {
+                  "name" : "T"
+                },
+                "id" : 0
+              }
             }
           }
         },
@@ -26,79 +28,91 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Active",
-                "name" : "InternalSelfMessage",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Active",
+                  "name" : "InternalSelfMessage",
+                  "members" : [
                     [
-                      "An internal port for sending data of type T"
-                    ],
-                    {
-                      "SpecInternalPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "pInternal",
-                            "params" : [
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "kind" : "Value",
-                                      "name" : "t",
-                                      "typeName" : {
-                                        "data" : {
-                                          "TypeNameQualIdent" : {
-                                            "name" : {
-                                              "data" : {
-                                                "Unqualified" : {
-                                                  "name" : "T"
-                                                }
-                                              },
-                                              "id" : 38
+                      [
+                        "An internal port for sending data of type T"
+                      ],
+                      {
+                        "SpecInternalPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "pInternal",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "kind" : "Value",
+                                            "name" : "t",
+                                            "typeName" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "TypeNameQualIdent" : {
+                                                    "name" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "Unqualified" : {
+                                                            "name" : "T"
+                                                          }
+                                                        },
+                                                        "id" : 38
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 39
+                                              }
                                             }
-                                          }
-                                        },
-                                        "id" : 39
+                                          },
+                                          "id" : 40
+                                        }
                                       }
                                     },
-                                    "id" : 40
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "priority" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "10"
+                                          }
+                                        },
+                                        "id" : 41
+                                      }
+                                    }
                                   }
                                 },
-                                [
-                                ]
-                              ]
-                            ],
-                            "priority" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "10"
-                                    }
-                                  },
-                                  "id" : 41
+                                "queueFull" : {
+                                  "Option" : {
+                                    "Some" : "Drop"
+                                  }
                                 }
-                              }
-                            },
-                            "queueFull" : {
-                              "Option" : {
-                                "Some" : "Drop"
-                              }
+                              },
+                              "id" : 42
                             }
-                          },
-                          "id" : 42
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 43
+                },
+                "id" : 43
+              }
             }
           }
         },
@@ -443,12 +457,84 @@
     "39" : "T"
   },
   "typeMap" : {
-    "0" : "T",
-    "39" : "T",
+    "0" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                      "A data type T"
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 0
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 0
+          }
+        },
+        "name" : "T"
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                      "A data type T"
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 0
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 0
+          }
+        },
+        "name" : "T"
+      }
+    },
     "41" : "Integer"
   },
   "valueMap" : {
-    "41" : "10"
+    "41" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   },
   "componentMap" : {
     "43" : {

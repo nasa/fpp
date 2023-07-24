@@ -8,18 +8,22 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "numPingPorts",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "10"
+              "astNode" : {
+                "data" : {
+                  "name" : "numPingPorts",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "10"
+                        }
+                      },
+                      "id" : 0
                     }
-                  },
-                  "id" : 0
-                }
-              },
-              "id" : 1
+                  }
+                },
+                "id" : 1
+              }
             }
           }
         },
@@ -32,159 +36,187 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Queued",
-                "name" : "Health",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Queued",
+                  "name" : "Health",
+                  "members" : [
                     [
-                      "Ping output port"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "General" : {
-                              "kind" : "Output",
-                              "name" : "pingOut",
-                              "size" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "ExprIdent" : {
-                                        "value" : "numPingPorts"
-                                      }
-                                    },
-                                    "id" : 2
-                                  }
-                                }
-                              },
-                              "port" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "Qualified" : {
-                                        "qualifier" : {
+                      [
+                        "Ping output port"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : "Output",
+                                  "name" : "pingOut",
+                                  "size" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
                                           "data" : {
-                                            "Unqualified" : {
-                                              "name" : "Svc"
+                                            "ExprIdent" : {
+                                              "value" : "numPingPorts"
                                             }
                                           },
-                                          "id" : 3
-                                        },
-                                        "name" : {
-                                          "data" : "Ping",
-                                          "id" : 4
+                                          "id" : 2
                                         }
                                       }
-                                    },
-                                    "id" : 5
-                                  }
-                                }
-                              },
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 6
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Ping input port"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "General" : {
-                              "kind" : "AsyncInput",
-                              "name" : "pingIn",
-                              "size" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "ExprIdent" : {
-                                        "value" : "numPingPorts"
-                                      }
-                                    },
-                                    "id" : 7
-                                  }
-                                }
-                              },
-                              "port" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "Qualified" : {
-                                        "qualifier" : {
+                                    }
+                                  },
+                                  "port" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
                                           "data" : {
-                                            "Unqualified" : {
-                                              "name" : "Svc"
+                                            "Qualified" : {
+                                              "qualifier" : {
+                                                "astNode" : {
+                                                  "data" : {
+                                                    "Unqualified" : {
+                                                      "name" : "Svc"
+                                                    }
+                                                  },
+                                                  "id" : 3
+                                                }
+                                              },
+                                              "name" : {
+                                                "astNode" : {
+                                                  "data" : "Ping",
+                                                  "id" : 4
+                                                }
+                                              }
                                             }
                                           },
-                                          "id" : 8
-                                        },
-                                        "name" : {
-                                          "data" : "Ping",
-                                          "id" : 9
+                                          "id" : 5
                                         }
                                       }
-                                    },
-                                    "id" : 10
+                                    }
+                                  },
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
                                   }
                                 }
                               },
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 6
                             }
-                          },
-                          "id" : 11
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Corresponding port numbers of pingOut and pingIn must match"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortMatching" : {
-                        "node" : {
-                          "data" : {
-                            "port1" : {
-                              "data" : "pingOut",
-                              "id" : 18
-                            },
-                            "port2" : {
-                              "data" : "pingIn",
-                              "id" : 19
-                            }
-                          },
-                          "id" : 20
-                        }
-                      }
-                    },
                     [
+                      [
+                        "Ping input port"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : "AsyncInput",
+                                  "name" : "pingIn",
+                                  "size" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "ExprIdent" : {
+                                              "value" : "numPingPorts"
+                                            }
+                                          },
+                                          "id" : 7
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "port" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Qualified" : {
+                                              "qualifier" : {
+                                                "astNode" : {
+                                                  "data" : {
+                                                    "Unqualified" : {
+                                                      "name" : "Svc"
+                                                    }
+                                                  },
+                                                  "id" : 8
+                                                }
+                                              },
+                                              "name" : {
+                                                "astNode" : {
+                                                  "data" : "Ping",
+                                                  "id" : 9
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "id" : 10
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Corresponding port numbers of pingOut and pingIn must match"
+                      ],
+                      {
+                        "SpecPortMatching" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "port1" : {
+                                  "astNode" : {
+                                    "data" : "pingOut",
+                                    "id" : 18
+                                  }
+                                },
+                                "port2" : {
+                                  "astNode" : {
+                                    "data" : "pingIn",
+                                    "id" : 19
+                                  }
+                                }
+                              },
+                              "id" : 20
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 21
+                },
+                "id" : 21
+              }
             }
           }
         },
@@ -197,33 +229,37 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Svc",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Svc",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Ping",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Ping",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 24
                             }
-                          },
-                          "id" : 24
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 25
+                },
+                "id" : 25
+              }
             }
           }
         },
@@ -465,10 +501,26 @@
     "7" : "Integer"
   },
   "valueMap" : {
-    "0" : "10",
-    "1" : "10",
-    "2" : "10",
-    "7" : "10"
+    "0" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   },
   "componentMap" : {
     "21" : {
@@ -483,35 +535,43 @@
               "size" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 2
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "numPingPorts"
+                        }
+                      },
+                      "id" : 2
+                    }
                   }
                 }
               },
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Svc"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Svc"
+                                }
+                              },
+                              "id" : 3
                             }
                           },
-                          "id" : 3
-                        },
-                        "name" : {
-                          "data" : "Ping",
-                          "id" : 4
+                          "name" : {
+                            "astNode" : {
+                              "data" : "Ping",
+                              "id" : 4
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 5
+                      },
+                      "id" : 5
+                    }
                   }
                 }
               },
@@ -536,35 +596,43 @@
               "size" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 7
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "numPingPorts"
+                        }
+                      },
+                      "id" : 7
+                    }
                   }
                 }
               },
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Svc"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Svc"
+                                }
+                              },
+                              "id" : 8
                             }
                           },
-                          "id" : 8
-                        },
-                        "name" : {
-                          "data" : "Ping",
-                          "id" : 9
+                          "name" : {
+                            "astNode" : {
+                              "data" : "Ping",
+                              "id" : 9
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 10
+                      },
+                      "id" : 10
+                    }
                   }
                 }
               },
@@ -605,17 +673,23 @@
             "Corresponding port numbers of pingOut and pingIn must match"
           ],
           {
-            "data" : {
-              "port1" : {
-                "data" : "pingOut",
-                "id" : 18
+            "astNode" : {
+              "data" : {
+                "port1" : {
+                  "astNode" : {
+                    "data" : "pingOut",
+                    "id" : 18
+                  }
+                },
+                "port2" : {
+                  "astNode" : {
+                    "data" : "pingIn",
+                    "id" : 19
+                  }
+                }
               },
-              "port2" : {
-                "data" : "pingIn",
-                "id" : 19
-              }
-            },
-            "id" : 20
+              "id" : 20
+            }
           },
           [
           ]
@@ -628,17 +702,23 @@
               "Corresponding port numbers of pingOut and pingIn must match"
             ],
             {
-              "data" : {
-                "port1" : {
-                  "data" : "pingOut",
-                  "id" : 18
+              "astNode" : {
+                "data" : {
+                  "port1" : {
+                    "astNode" : {
+                      "data" : "pingOut",
+                      "id" : 18
+                    }
+                  },
+                  "port2" : {
+                    "astNode" : {
+                      "data" : "pingIn",
+                      "id" : 19
+                    }
+                  }
                 },
-                "port2" : {
-                  "data" : "pingIn",
-                  "id" : 19
-                }
-              },
-              "id" : 20
+                "id" : 20
+              }
             },
             [
             ]
@@ -651,35 +731,43 @@
               "size" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 2
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "numPingPorts"
+                        }
+                      },
+                      "id" : 2
+                    }
                   }
                 }
               },
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Svc"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Svc"
+                                }
+                              },
+                              "id" : 3
                             }
                           },
-                          "id" : 3
-                        },
-                        "name" : {
-                          "data" : "Ping",
-                          "id" : 4
+                          "name" : {
+                            "astNode" : {
+                              "data" : "Ping",
+                              "id" : 4
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 5
+                      },
+                      "id" : 5
+                    }
                   }
                 }
               },
@@ -702,35 +790,43 @@
               "size" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 7
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "numPingPorts"
+                        }
+                      },
+                      "id" : 7
+                    }
                   }
                 }
               },
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Svc"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Svc"
+                                }
+                              },
+                              "id" : 8
                             }
                           },
-                          "id" : 8
-                        },
-                        "name" : {
-                          "data" : "Ping",
-                          "id" : 9
+                          "name" : {
+                            "astNode" : {
+                              "data" : "Ping",
+                              "id" : 9
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 10
+                      },
+                      "id" : 10
+                    }
                   }
                 }
               },

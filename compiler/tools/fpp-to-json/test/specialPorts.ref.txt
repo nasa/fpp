@@ -8,100 +8,108 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "CommandPorts",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "CommandPorts",
+                  "members" : [
                     [
-                      "A port for receiving commands"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                      [
+                        "A port for receiving commands"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandRecv",
+                                  "name" : "cmdIn",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "CommandRecv",
-                              "name" : "cmdIn",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 0
                             }
-                          },
-                          "id" : 0
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "A port for sending command registration requests"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                    [
+                      [
+                        "A port for sending command registration requests"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandReg",
+                                  "name" : "cmdRegOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "CommandReg",
-                              "name" : "cmdRegOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 1
                             }
-                          },
-                          "id" : 1
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "A port for sending command responses"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandResp",
-                              "name" : "cmdResponseOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 4
-                        }
-                      }
-                    },
                     [
+                      [
+                        "A port for sending command responses"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandResp",
+                                  "name" : "cmdResponseOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 4
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 5
+                },
+                "id" : 5
+              }
             }
           }
         },
@@ -115,71 +123,77 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "EventPorts",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "EventPorts",
+                  "members" : [
                     [
-                      "A port for emitting events"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                      [
+                        "A port for emitting events"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "Event",
+                                  "name" : "eventOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "Event",
-                              "name" : "eventOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 6
                             }
-                          },
-                          "id" : 6
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "A port for emitting text events"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "TextEvent",
-                              "name" : "textEventOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 9
-                        }
-                      }
-                    },
                     [
+                      [
+                        "A port for emitting text events"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "TextEvent",
+                                  "name" : "textEventOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 9
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 10
+                },
+                "id" : 10
+              }
             }
           }
         },
@@ -193,42 +207,46 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "TelemetryPorts",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "TelemetryPorts",
+                  "members" : [
                     [
-                      "A port for emitting telemetry"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                      [
+                        "A port for emitting telemetry"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "Telemetry",
+                                  "name" : "tlmOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "Telemetry",
-                              "name" : "tlmOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 13
                             }
-                          },
-                          "id" : 13
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 14
+                },
+                "id" : 14
+              }
             }
           }
         },
@@ -242,71 +260,77 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "ParamPorts",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "ParamPorts",
+                  "members" : [
                     [
-                      "A port for getting parameter values"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                      [
+                        "A port for getting parameter values"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "ParamGet",
+                                  "name" : "prmGetOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "ParamGet",
-                              "name" : "prmGetOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 15
                             }
-                          },
-                          "id" : 15
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "A port for setting parameter values"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "ParamSet",
-                              "name" : "prmSetOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 18
-                        }
-                      }
-                    },
                     [
+                      [
+                        "A port for setting parameter values"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "ParamSet",
+                                  "name" : "prmSetOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 18
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 19
+                },
+                "id" : 19
+              }
             }
           }
         },
@@ -320,42 +344,46 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "TimeGetPorts",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "TimeGetPorts",
+                  "members" : [
                     [
-                      "A port for getting the time"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
+                      [
+                        "A port for getting the time"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "TimeGet",
+                                  "name" : "timeGetOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
                               },
-                              "kind" : "TimeGet",
-                              "name" : "timeGetOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 22
                             }
-                          },
-                          "id" : 22
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 23
+                },
+                "id" : 23
+              }
             }
           }
         },
@@ -368,201 +396,221 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Fw",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Cmd",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Cmd",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 24
                             }
-                          },
-                          "id" : 24
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdReg",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdReg",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 25
                             }
-                          },
-                          "id" : 25
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdResponse",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 26
                             }
-                          },
-                          "id" : 26
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Log",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Log",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 27
                             }
-                          },
-                          "id" : 27
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "LogText",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "LogText",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 28
                             }
-                          },
-                          "id" : 28
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Tlm",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Tlm",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 29
                             }
-                          },
-                          "id" : 29
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "PrmGet",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "PrmGet",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 30
                             }
-                          },
-                          "id" : 30
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "PrmSet",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "PrmSet",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 31
                             }
-                          },
-                          "id" : 31
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Time",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
-                            }
-                          },
-                          "id" : 34
-                        }
-                      }
-                    },
                     [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Time",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 34
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 35
+                },
+                "id" : 35
+              }
             }
           }
         },

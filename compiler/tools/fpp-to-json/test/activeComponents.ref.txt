@@ -7,351 +7,156 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Utils",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Utils",
+                  "members" : [
                     [
-                      "A component for compressing data"
-                    ],
-                    {
-                      "DefComponent" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : "Active",
-                            "name" : "DataCompressor",
-                            "members" : [
-                              [
-                                [
-                                  "Uncompressed input data"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "General" : {
-                                          "kind" : "AsyncInput",
-                                          "name" : "bufferSendIn",
-                                          "size" : {
-                                            "Option" : "None"
-                                          },
-                                          "port" : {
-                                            "Option" : {
-                                              "Some" : {
-                                                "data" : {
-                                                  "Qualified" : {
-                                                    "qualifier" : {
-                                                      "data" : {
-                                                        "Unqualified" : {
-                                                          "name" : "Fw"
-                                                        }
-                                                      },
-                                                      "id" : 34
-                                                    },
-                                                    "name" : {
-                                                      "data" : "BufferSend",
-                                                      "id" : 35
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 36
-                                              }
-                                            }
-                                          },
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
-                                          }
-                                        }
-                                      },
-                                      "id" : 37
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Compressed output data"
-                                ],
-                                {
-                                  "SpecPortInstance" : {
-                                    "node" : {
-                                      "data" : {
-                                        "General" : {
-                                          "kind" : "Output",
-                                          "name" : "bufferSendOut",
-                                          "size" : {
-                                            "Option" : "None"
-                                          },
-                                          "port" : {
-                                            "Option" : {
-                                              "Some" : {
-                                                "data" : {
-                                                  "Qualified" : {
-                                                    "qualifier" : {
-                                                      "data" : {
-                                                        "Unqualified" : {
-                                                          "name" : "Fw"
-                                                        }
-                                                      },
-                                                      "id" : 46
-                                                    },
-                                                    "name" : {
-                                                      "data" : "BufferSend",
-                                                      "id" : 47
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 48
-                                              }
-                                            }
-                                          },
-                                          "priority" : {
-                                            "Option" : "None"
-                                          },
-                                          "queueFull" : {
-                                            "Option" : "None"
-                                          }
-                                        }
-                                      },
-                                      "id" : 49
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ]
-                            ]
-                          },
-                          "id" : 50
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ]
-              },
-              "id" : 51
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefModule" : {
-            "node" : {
-              "data" : {
-                "name" : "FSW",
-                "members" : [
-                  [
-                    [
-                    ],
-                    {
-                      "DefModule" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Default",
-                            "members" : [
-                              [
-                                [
-                                  "Default queue size"
-                                ],
-                                {
-                                  "DefConstant" : {
-                                    "node" : {
-                                      "data" : {
-                                        "name" : "queueSize",
-                                        "value" : {
-                                          "data" : {
-                                            "ExprLiteralInt" : {
-                                              "value" : "10"
-                                            }
-                                          },
-                                          "id" : 52
-                                        }
-                                      },
-                                      "id" : 53
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ],
-                              [
-                                [
-                                  "Default stack size"
-                                ],
-                                {
-                                  "DefConstant" : {
-                                    "node" : {
-                                      "data" : {
-                                        "name" : "stackSize",
-                                        "value" : {
-                                          "data" : {
-                                            "ExprBinop" : {
-                                              "e1" : {
-                                                "data" : {
-                                                  "ExprLiteralInt" : {
-                                                    "value" : "10"
-                                                  }
-                                                },
-                                                "id" : 62
-                                              },
-                                              "op" : "Mul",
-                                              "e2" : {
-                                                "data" : {
-                                                  "ExprLiteralInt" : {
-                                                    "value" : "1024"
-                                                  }
-                                                },
-                                                "id" : 63
-                                              }
-                                            }
-                                          },
-                                          "id" : 64
-                                        }
-                                      },
-                                      "id" : 65
-                                    }
-                                  }
-                                },
-                                [
-                                ]
-                              ]
-                            ]
-                          },
-                          "id" : 66
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Data compressor instance"
-                    ],
-                    {
-                      "DefComponentInstance" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "dataCompressor",
-                            "component" : {
+                      [
+                        "A component for compressing data"
+                      ],
+                      {
+                        "DefComponent" : {
+                          "node" : {
+                            "astNode" : {
                               "data" : {
-                                "Qualified" : {
-                                  "qualifier" : {
-                                    "data" : {
-                                      "Unqualified" : {
-                                        "name" : "Utils"
+                                "kind" : "Active",
+                                "name" : "DataCompressor",
+                                "members" : [
+                                  [
+                                    [
+                                      "Uncompressed input data"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "General" : {
+                                                "kind" : "AsyncInput",
+                                                "name" : "bufferSendIn",
+                                                "size" : {
+                                                  "Option" : "None"
+                                                },
+                                                "port" : {
+                                                  "Option" : {
+                                                    "Some" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "Qualified" : {
+                                                            "qualifier" : {
+                                                              "astNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "Fw"
+                                                                  }
+                                                                },
+                                                                "id" : 34
+                                                              }
+                                                            },
+                                                            "name" : {
+                                                              "astNode" : {
+                                                                "data" : "BufferSend",
+                                                                "id" : 35
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "id" : 36
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 37
+                                          }
+                                        }
                                       }
                                     },
-                                    "id" : 91
-                                  },
-                                  "name" : {
-                                    "data" : "DataCompressor",
-                                    "id" : 92
-                                  }
-                                }
-                              },
-                              "id" : 93
-                            },
-                            "baseId" : {
-                              "data" : {
-                                "ExprLiteralInt" : {
-                                  "value" : "0x100"
-                                }
-                              },
-                              "id" : 94
-                            },
-                            "implType" : {
-                              "Option" : "None"
-                            },
-                            "file" : {
-                              "Option" : "None"
-                            },
-                            "queueSize" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprDot" : {
-                                      "e" : {
-                                        "data" : {
-                                          "ExprIdent" : {
-                                            "value" : "Default"
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Compressed output data"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "General" : {
+                                                "kind" : "Output",
+                                                "name" : "bufferSendOut",
+                                                "size" : {
+                                                  "Option" : "None"
+                                                },
+                                                "port" : {
+                                                  "Option" : {
+                                                    "Some" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "Qualified" : {
+                                                            "qualifier" : {
+                                                              "astNode" : {
+                                                                "data" : {
+                                                                  "Unqualified" : {
+                                                                    "name" : "Fw"
+                                                                  }
+                                                                },
+                                                                "id" : 46
+                                                              }
+                                                            },
+                                                            "name" : {
+                                                              "astNode" : {
+                                                                "data" : "BufferSend",
+                                                                "id" : 47
+                                                              }
+                                                            }
+                                                          }
+                                                        },
+                                                        "id" : 48
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "priority" : {
+                                                  "Option" : "None"
+                                                },
+                                                "queueFull" : {
+                                                  "Option" : "None"
+                                                }
+                                              }
+                                            },
+                                            "id" : 49
                                           }
-                                        },
-                                        "id" : 95
-                                      },
-                                      "id" : {
-                                        "data" : "queueSize",
-                                        "id" : 96
+                                        }
                                       }
-                                    }
-                                  },
-                                  "id" : 97
-                                }
-                              }
-                            },
-                            "stackSize" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprDot" : {
-                                      "e" : {
-                                        "data" : {
-                                          "ExprIdent" : {
-                                            "value" : "Default"
-                                          }
-                                        },
-                                        "id" : 98
-                                      },
-                                      "id" : {
-                                        "data" : "stackSize",
-                                        "id" : 99
-                                      }
-                                    }
-                                  },
-                                  "id" : 100
-                                }
-                              }
-                            },
-                            "priority" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "30"
-                                    }
-                                  },
-                                  "id" : 101
-                                }
-                              }
-                            },
-                            "cpu" : {
-                              "Option" : "None"
-                            },
-                            "initSpecs" : [
-                            ]
-                          },
-                          "id" : 102
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
+                              },
+                              "id" : 50
+                            }
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 103
+                },
+                "id" : 51
+              }
             }
           }
         },
@@ -364,33 +169,292 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Fw",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "FSW",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "BufferSend",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                      [
+                      ],
+                      {
+                        "DefModule" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Default",
+                                "members" : [
+                                  [
+                                    [
+                                      "Default queue size"
+                                    ],
+                                    {
+                                      "DefConstant" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "name" : "queueSize",
+                                              "value" : {
+                                                "astNode" : {
+                                                  "data" : {
+                                                    "ExprLiteralInt" : {
+                                                      "value" : "10"
+                                                    }
+                                                  },
+                                                  "id" : 52
+                                                }
+                                              }
+                                            },
+                                            "id" : 53
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Default stack size"
+                                    ],
+                                    {
+                                      "DefConstant" : {
+                                        "node" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "name" : "stackSize",
+                                              "value" : {
+                                                "astNode" : {
+                                                  "data" : {
+                                                    "ExprBinop" : {
+                                                      "e1" : {
+                                                        "astNode" : {
+                                                          "data" : {
+                                                            "ExprLiteralInt" : {
+                                                              "value" : "10"
+                                                            }
+                                                          },
+                                                          "id" : 62
+                                                        }
+                                                      },
+                                                      "op" : "Mul",
+                                                      "e2" : {
+                                                        "astNode" : {
+                                                          "data" : {
+                                                            "ExprLiteralInt" : {
+                                                              "value" : "1024"
+                                                            }
+                                                          },
+                                                          "id" : 63
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 64
+                                                }
+                                              }
+                                            },
+                                            "id" : 65
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
+                              },
+                              "id" : 66
                             }
-                          },
-                          "id" : 106
+                          }
                         }
-                      }
-                    },
+                      },
+                      [
+                      ]
+                    ],
                     [
+                      [
+                        "Data compressor instance"
+                      ],
+                      {
+                        "DefComponentInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "dataCompressor",
+                                "component" : {
+                                  "astNode" : {
+                                    "data" : {
+                                      "Qualified" : {
+                                        "qualifier" : {
+                                          "astNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "Utils"
+                                              }
+                                            },
+                                            "id" : 91
+                                          }
+                                        },
+                                        "name" : {
+                                          "astNode" : {
+                                            "data" : "DataCompressor",
+                                            "id" : 92
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 93
+                                  }
+                                },
+                                "baseId" : {
+                                  "astNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "0x100"
+                                      }
+                                    },
+                                    "id" : 94
+                                  }
+                                },
+                                "implType" : {
+                                  "Option" : "None"
+                                },
+                                "file" : {
+                                  "Option" : "None"
+                                },
+                                "queueSize" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprDot" : {
+                                            "e" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "ExprIdent" : {
+                                                    "value" : "Default"
+                                                  }
+                                                },
+                                                "id" : 95
+                                              }
+                                            },
+                                            "id" : {
+                                              "astNode" : {
+                                                "data" : "queueSize",
+                                                "id" : 96
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 97
+                                      }
+                                    }
+                                  }
+                                },
+                                "stackSize" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprDot" : {
+                                            "e" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "ExprIdent" : {
+                                                    "value" : "Default"
+                                                  }
+                                                },
+                                                "id" : 98
+                                              }
+                                            },
+                                            "id" : {
+                                              "astNode" : {
+                                                "data" : "stackSize",
+                                                "id" : 99
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 100
+                                      }
+                                    }
+                                  }
+                                },
+                                "priority" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "30"
+                                          }
+                                        },
+                                        "id" : 101
+                                      }
+                                    }
+                                  }
+                                },
+                                "cpu" : {
+                                  "Option" : "None"
+                                },
+                                "initSpecs" : [
+                                ]
+                              },
+                              "id" : 102
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 107
+                },
+                "id" : 103
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "BufferSend",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 106
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 107
+              }
             }
           }
         },
@@ -1311,16 +1375,56 @@
     "97" : "Integer"
   },
   "valueMap" : {
-    "94" : "256",
-    "65" : "10240",
-    "63" : "1024",
-    "52" : "10",
-    "100" : "10240",
-    "62" : "10",
-    "64" : "10240",
-    "53" : "10",
-    "101" : "30",
-    "97" : "10"
+    "94" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "65" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "63" : {
+      "Integer" : {
+        "value" : 1024
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "100" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "62" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "64" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "101" : {
+      "Integer" : {
+        "value" : 30
+      }
+    },
+    "97" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   },
   "componentMap" : {
     "50" : {
@@ -1338,23 +1442,29 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Fw"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Fw"
+                                }
+                              },
+                              "id" : 34
                             }
                           },
-                          "id" : 34
-                        },
-                        "name" : {
-                          "data" : "BufferSend",
-                          "id" : 35
+                          "name" : {
+                            "astNode" : {
+                              "data" : "BufferSend",
+                              "id" : 35
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 36
+                      },
+                      "id" : 36
+                    }
                   }
                 }
               },
@@ -1382,23 +1492,29 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "data" : {
-                            "Unqualified" : {
-                              "name" : "Fw"
+                    "astNode" : {
+                      "data" : {
+                        "Qualified" : {
+                          "qualifier" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "Fw"
+                                }
+                              },
+                              "id" : 46
                             }
                           },
-                          "id" : 46
-                        },
-                        "name" : {
-                          "data" : "BufferSend",
-                          "id" : 47
+                          "name" : {
+                            "astNode" : {
+                              "data" : "BufferSend",
+                              "id" : 47
+                            }
+                          }
                         }
-                      }
-                    },
-                    "id" : 48
+                      },
+                      "id" : 48
+                    }
                   }
                 }
               },

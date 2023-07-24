@@ -7,172 +7,196 @@
         {
           "DefPort" : {
             "node" : {
-              "data" : {
-                "name" : "P",
-                "params" : [
-                ],
-                "returnType" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 0
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefPort" : {
-            "node" : {
-              "data" : {
-                "name" : "P1",
-                "params" : [
-                ],
-                "returnType" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 1
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefPort" : {
-            "node" : {
-              "data" : {
-                "name" : "P2",
-                "params" : [
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "a",
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameInt" : {
-                                "name" : "U32"
-                              }
-                            },
-                            "id" : 6
-                          }
-                        },
-                        "id" : 7
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "returnType" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 8
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefPort" : {
-            "node" : {
-              "data" : {
-                "name" : "P3",
-                "params" : [
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "a",
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameInt" : {
-                                "name" : "I32"
-                              }
-                            },
-                            "id" : 9
-                          }
-                        },
-                        "id" : 10
-                      }
-                    },
-                    [
-                    ]
+              "astNode" : {
+                "data" : {
+                  "name" : "P",
+                  "params" : [
                   ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "b",
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameFloat" : {
-                                "name" : "F32"
-                              }
-                            },
-                            "id" : 11
-                          }
-                        },
-                        "id" : 12
-                      }
-                    },
-                    [
-                    ]
+                  "returnType" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 0
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "P1",
+                  "params" : [
                   ],
-                  [
+                  "returnType" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 1
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "P2",
+                  "params" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "c",
-                          "typeName" : {
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameString" : {
-                                "size" : {
-                                  "Option" : "None"
+                              "kind" : "Value",
+                              "name" : "a",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U32"
+                                    }
+                                  },
+                                  "id" : 6
                                 }
                               }
                             },
-                            "id" : 17
+                            "id" : 7
                           }
-                        },
-                        "id" : 18
-                      }
-                    },
-                    [
+                        }
+                      },
+                      [
+                      ]
                     ]
-                  ]
-                ],
-                "returnType" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 19
+                  ],
+                  "returnType" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 8
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "P3",
+                  "params" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "kind" : "Value",
+                              "name" : "a",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "I32"
+                                    }
+                                  },
+                                  "id" : 9
+                                }
+                              }
+                            },
+                            "id" : 10
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "kind" : "Value",
+                              "name" : "b",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameFloat" : {
+                                      "name" : "F32"
+                                    }
+                                  },
+                                  "id" : 11
+                                }
+                              }
+                            },
+                            "id" : 12
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "kind" : "Value",
+                              "name" : "c",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameString" : {
+                                      "size" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  },
+                                  "id" : 17
+                                }
+                              }
+                            },
+                            "id" : 18
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 19
+              }
             }
           }
         },
@@ -185,52 +209,58 @@
         {
           "DefEnum" : {
             "node" : {
-              "data" : {
-                "name" : "E",
-                "typeName" : {
-                  "Option" : "None"
-                },
-                "constants" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "E",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "A",
-                          "value" : {
-                            "Option" : "None"
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "A",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 20
                           }
-                        },
-                        "id" : 20
-                      }
-                    },
+                        }
+                      },
+                      [
+                      ]
+                    ],
                     [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "B",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 23
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "B",
-                          "value" : {
-                            "Option" : "None"
-                          }
-                        },
-                        "id" : 23
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "default" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 24
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 24
+              }
             }
           }
         },
@@ -243,10 +273,12 @@
         {
           "DefAbsType" : {
             "node" : {
-              "data" : {
-                "name" : "T"
-              },
-              "id" : 25
+              "astNode" : {
+                "data" : {
+                  "name" : "T"
+                },
+                "id" : 25
+              }
             }
           }
         },
@@ -259,121 +291,145 @@
         {
           "DefPort" : {
             "node" : {
-              "data" : {
-                "name" : "P4",
-                "params" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "P4",
+                  "params" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "e",
-                          "typeName" : {
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameQualIdent" : {
-                                "name" : {
+                              "kind" : "Value",
+                              "name" : "e",
+                              "typeName" : {
+                                "astNode" : {
                                   "data" : {
-                                    "Unqualified" : {
-                                      "name" : "E"
+                                    "TypeNameQualIdent" : {
+                                      "name" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "E"
+                                            }
+                                          },
+                                          "id" : 27
+                                        }
+                                      }
                                     }
                                   },
-                                  "id" : 27
+                                  "id" : 28
                                 }
                               }
                             },
-                            "id" : 28
-                          }
-                        },
-                        "id" : 29
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Value",
-                          "name" : "t",
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameQualIdent" : {
-                                "name" : {
-                                  "data" : {
-                                    "Unqualified" : {
-                                      "name" : "T"
-                                    }
-                                  },
-                                  "id" : 31
-                                }
-                              }
-                            },
-                            "id" : 32
-                          }
-                        },
-                        "id" : 33
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Ref",
-                          "name" : "c",
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameQualIdent" : {
-                                "name" : {
-                                  "data" : {
-                                    "Unqualified" : {
-                                      "name" : "T"
-                                    }
-                                  },
-                                  "id" : 43
-                                }
-                              }
-                            },
-                            "id" : 44
-                          }
-                        },
-                        "id" : 45
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "returnType" : {
-                  "Option" : {
-                    "Some" : {
-                      "data" : {
-                        "TypeNameQualIdent" : {
-                          "name" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "T"
-                              }
-                            },
-                            "id" : 47
+                            "id" : 29
                           }
                         }
                       },
-                      "id" : 48
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "kind" : "Value",
+                              "name" : "t",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameQualIdent" : {
+                                      "name" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "T"
+                                            }
+                                          },
+                                          "id" : 31
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 32
+                                }
+                              }
+                            },
+                            "id" : 33
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "kind" : "Ref",
+                              "name" : "c",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameQualIdent" : {
+                                      "name" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "T"
+                                            }
+                                          },
+                                          "id" : 43
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "id" : 44
+                                }
+                              }
+                            },
+                            "id" : 45
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "TypeNameQualIdent" : {
+                              "name" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "Unqualified" : {
+                                      "name" : "T"
+                                    }
+                                  },
+                                  "id" : 47
+                                }
+                              }
+                            }
+                          },
+                          "id" : 48
+                        }
+                      }
                     }
                   }
-                }
-              },
-              "id" : 49
+                },
+                "id" : 49
+              }
             }
           }
         },
@@ -386,52 +442,58 @@
         {
           "DefEnum" : {
             "node" : {
-              "data" : {
-                "name" : "Status",
-                "typeName" : {
-                  "Option" : "None"
-                },
-                "constants" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Status",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "SUCCEED",
-                          "value" : {
-                            "Option" : "None"
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "SUCCEED",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 50
                           }
-                        },
-                        "id" : 50
-                      }
-                    },
+                        }
+                      },
+                      [
+                      ]
+                    ],
                     [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "FAIL",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 53
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "FAIL",
-                          "value" : {
-                            "Option" : "None"
-                          }
-                        },
-                        "id" : 53
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "default" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 54
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 54
+              }
             }
           }
         },
@@ -445,54 +507,64 @@
         {
           "DefPort" : {
             "node" : {
-              "data" : {
-                "name" : "P5",
-                "params" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "P5",
+                  "params" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "kind" : "Ref",
-                          "name" : "result",
-                          "typeName" : {
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameInt" : {
-                                "name" : "U32"
+                              "kind" : "Ref",
+                              "name" : "result",
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U32"
+                                    }
+                                  },
+                                  "id" : 59
+                                }
                               }
                             },
-                            "id" : 59
-                          }
-                        },
-                        "id" : 60
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "returnType" : {
-                  "Option" : {
-                    "Some" : {
-                      "data" : {
-                        "TypeNameQualIdent" : {
-                          "name" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Status"
-                              }
-                            },
-                            "id" : 62
+                            "id" : 60
                           }
                         }
                       },
-                      "id" : 63
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "TypeNameQualIdent" : {
+                              "name" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "Unqualified" : {
+                                      "name" : "Status"
+                                    }
+                                  },
+                                  "id" : 62
+                                }
+                              }
+                            }
+                          },
+                          "id" : 63
+                        }
+                      }
                     }
                   }
-                }
-              },
-              "id" : 64
+                },
+                "id" : 64
+              }
             }
           }
         },
@@ -1016,29 +1088,919 @@
     "62" : "Status"
   },
   "typeMap" : {
-    "23" : "enum E",
-    "44" : "T",
-    "50" : "enum Status",
-    "24" : "enum E",
-    "59" : "U32",
-    "48" : "T",
-    "54" : "enum Status",
-    "32" : "T",
-    "6" : "U32",
-    "53" : "enum Status",
-    "20" : "enum E",
-    "63" : "enum Status",
-    "28" : "enum E",
-    "11" : "F32",
-    "9" : "I32",
-    "17" : "string",
-    "25" : "T"
+    "23" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 24,
+        "name" : "E"
+      }
+    },
+    "44" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 25
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 25
+          }
+        },
+        "name" : "T"
+      }
+    },
+    "50" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 54,
+        "name" : "Status"
+      }
+    },
+    "24" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "A",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "E",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "A",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 20
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "B",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 23
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 24
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 24,
+        "name" : "E"
+      }
+    },
+    "59" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "48" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 25
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 25
+          }
+        },
+        "name" : "T"
+      }
+    },
+    "54" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "SUCCEED",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "Status",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "SUCCEED",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 50
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "FAIL",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 53
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 54
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 54,
+        "name" : "Status"
+      }
+    },
+    "32" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 25
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 25
+          }
+        },
+        "name" : "T"
+      }
+    },
+    "6" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "53" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 54,
+        "name" : "Status"
+      }
+    },
+    "20" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 24,
+        "name" : "E"
+      }
+    },
+    "63" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "SUCCEED",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "Status",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "SUCCEED",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 50
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "FAIL",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 53
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 54
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 54,
+        "name" : "Status"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "A",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "E",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "A",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 20
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "B",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 23
+                                }
+                              }
+                            },
+                            [
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 24
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 24,
+        "name" : "E"
+      }
+    },
+    "11" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
+    "9" : {
+      "PrimitiveInt" : {
+        "kind" : "I32"
+      }
+    },
+    "17" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "25" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 25
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 25
+          }
+        },
+        "name" : "T"
+      }
+    }
   },
   "valueMap" : {
-    "20" : "(A,0): E",
-    "23" : "(B,1): E",
-    "50" : "(SUCCEED,0): Status",
-    "53" : "(FAIL,1): Status"
+    "20" : {
+      "EnumConstant" : {
+        "name" : "A",
+        "value" : 0,
+        "type" : {
+          "node" : [
+            [
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "E",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "A",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 20
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "B",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 23
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 24
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    },
+    "23" : {
+      "EnumConstant" : {
+        "name" : "B",
+        "value" : 1,
+        "type" : {
+          "node" : [
+            [
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "E",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "A",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 20
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "B",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 23
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 24
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    },
+    "50" : {
+      "EnumConstant" : {
+        "name" : "SUCCEED",
+        "value" : 0,
+        "type" : {
+          "node" : [
+            [
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "Status",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "SUCCEED",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 50
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "FAIL",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 53
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 54
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    },
+    "53" : {
+      "EnumConstant" : {
+        "name" : "FAIL",
+        "value" : 1,
+        "type" : {
+          "node" : [
+            [
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "Status",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "SUCCEED",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 50
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "FAIL",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 53
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 54
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    }
   },
   "componentMap" : {
     

@@ -9,311 +9,347 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Active",
-                "name" : "PriorityQueueFull",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Active",
+                  "name" : "PriorityQueueFull",
+                  "members" : [
                     [
-                      "Command registration"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandReg",
-                              "name" : "cmdRegOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 0
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command input"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandRecv",
-                              "name" : "cmdIn",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 1
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command response"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandResp",
-                              "name" : "cmdResponseOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 2
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command with priority"
-                    ],
-                    {
-                      "SpecCommand" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : {
-                              "Async" : {
-                                
-                              }
-                            },
-                            "name" : "COMMAND_1",
-                            "params" : [
-                            ],
-                            "opcode" : {
-                              "Option" : "None"
-                            },
-                            "priority" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "10"
-                                    }
+                      [
+                        "Command registration"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
                                   },
-                                  "id" : 3
+                                  "kind" : "CommandReg",
+                                  "name" : "cmdRegOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
                                 }
-                              }
-                            },
-                            "queueFull" : {
-                              "Option" : "None"
+                              },
+                              "id" : 0
                             }
-                          },
-                          "id" : 4
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command with formal parameters and priority"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecCommand" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : {
-                              "Async" : {
-                                
-                              }
-                            },
-                            "name" : "COMMAND_2",
-                            "params" : [
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "kind" : "Value",
-                                      "name" : "a",
-                                      "typeName" : {
-                                        "data" : {
-                                          "TypeNameInt" : {
-                                            "name" : "U32"
-                                          }
-                                        },
-                                        "id" : 5
-                                      }
-                                    },
-                                    "id" : 6
+                    [
+                      [
+                        "Command input"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandRecv",
+                                  "name" : "cmdIn",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 1
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command response"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandResp",
+                                  "name" : "cmdResponseOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command with priority"
+                      ],
+                      {
+                        "SpecCommand" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Async" : {
+                                    
                                   }
                                 },
-                                [
-                                ]
-                              ],
-                              [
-                                [
+                                "name" : "COMMAND_1",
+                                "params" : [
                                 ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "kind" : "Value",
-                                      "name" : "b",
-                                      "typeName" : {
+                                "opcode" : {
+                                  "Option" : "None"
+                                },
+                                "priority" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
                                         "data" : {
-                                          "TypeNameFloat" : {
-                                            "name" : "F32"
+                                          "ExprLiteralInt" : {
+                                            "value" : "10"
                                           }
                                         },
-                                        "id" : 11
+                                        "id" : 3
                                       }
-                                    },
-                                    "id" : 12
+                                    }
                                   }
                                 },
-                                [
-                                ]
-                              ]
-                            ],
-                            "opcode" : {
-                              "Option" : "None"
-                            },
-                            "priority" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "20"
-                                    }
-                                  },
-                                  "id" : 13
+                                "queueFull" : {
+                                  "Option" : "None"
                                 }
-                              }
-                            },
-                            "queueFull" : {
-                              "Option" : "None"
+                              },
+                              "id" : 4
                             }
-                          },
-                          "id" : 14
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command with formal parameters, opcode, priority, and queue full behavior"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecCommand" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : {
-                              "Async" : {
-                                
-                              }
-                            },
-                            "name" : "COMMAND_3",
-                            "params" : [
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "kind" : "Value",
-                                      "name" : "a",
-                                      "typeName" : {
-                                        "data" : {
-                                          "TypeNameString" : {
-                                            "size" : {
-                                              "Option" : "None"
+                    [
+                      [
+                        "Command with formal parameters and priority"
+                      ],
+                      {
+                        "SpecCommand" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Async" : {
+                                    
+                                  }
+                                },
+                                "name" : "COMMAND_2",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "kind" : "Value",
+                                            "name" : "a",
+                                            "typeName" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "TypeNameInt" : {
+                                                    "name" : "U32"
+                                                  }
+                                                },
+                                                "id" : 5
+                                              }
                                             }
-                                          }
-                                        },
-                                        "id" : 39
+                                          },
+                                          "id" : 6
+                                        }
                                       }
                                     },
-                                    "id" : 40
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "kind" : "Value",
+                                            "name" : "b",
+                                            "typeName" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "TypeNameFloat" : {
+                                                    "name" : "F32"
+                                                  }
+                                                },
+                                                "id" : 11
+                                              }
+                                            }
+                                          },
+                                          "id" : 12
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "opcode" : {
+                                  "Option" : "None"
+                                },
+                                "priority" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "20"
+                                          }
+                                        },
+                                        "id" : 13
+                                      }
+                                    }
                                   }
                                 },
-                                [
-                                ]
-                              ]
-                            ],
-                            "opcode" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "0x10"
-                                    }
-                                  },
-                                  "id" : 41
+                                "queueFull" : {
+                                  "Option" : "None"
                                 }
-                              }
-                            },
-                            "priority" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "30"
-                                    }
-                                  },
-                                  "id" : 42
-                                }
-                              }
-                            },
-                            "queueFull" : {
-                              "Option" : {
-                                "Some" : {
-                                  "data" : "Drop",
-                                  "id" : 43
-                                }
-                              }
+                              },
+                              "id" : 14
                             }
-                          },
-                          "id" : 44
+                          }
                         }
-                      }
-                    },
+                      },
+                      [
+                      ]
+                    ],
                     [
+                      [
+                        "Command with formal parameters, opcode, priority, and queue full behavior"
+                      ],
+                      {
+                        "SpecCommand" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Async" : {
+                                    
+                                  }
+                                },
+                                "name" : "COMMAND_3",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "kind" : "Value",
+                                            "name" : "a",
+                                            "typeName" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "TypeNameString" : {
+                                                    "size" : {
+                                                      "Option" : "None"
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 39
+                                              }
+                                            }
+                                          },
+                                          "id" : 40
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "opcode" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "0x10"
+                                          }
+                                        },
+                                        "id" : 41
+                                      }
+                                    }
+                                  }
+                                },
+                                "priority" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : {
+                                          "ExprLiteralInt" : {
+                                            "value" : "30"
+                                          }
+                                        },
+                                        "id" : 42
+                                      }
+                                    }
+                                  }
+                                },
+                                "queueFull" : {
+                                  "Option" : {
+                                    "Some" : {
+                                      "astNode" : {
+                                        "data" : "Drop",
+                                        "id" : 43
+                                      }
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 44
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 45
+                },
+                "id" : 45
+              }
             }
           }
         },
@@ -326,75 +362,83 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Fw",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Cmd",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Cmd",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 46
                             }
-                          },
-                          "id" : 46
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdReg",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdReg",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 47
                             }
-                          },
-                          "id" : 47
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdResponse",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
-                            }
-                          },
-                          "id" : 50
-                        }
-                      }
-                    },
                     [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 50
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 51
+                },
+                "id" : 51
+              }
             }
           }
         },
@@ -813,19 +857,49 @@
     "2" : "CmdResponse"
   },
   "typeMap" : {
-    "11" : "F32",
+    "11" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
     "13" : "Integer",
-    "5" : "U32",
-    "39" : "string",
+    "5" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "39" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
     "42" : "Integer",
     "41" : "Integer",
     "3" : "Integer"
   },
   "valueMap" : {
-    "3" : "10",
-    "13" : "20",
-    "41" : "16",
-    "42" : "30"
+    "3" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "13" : {
+      "Integer" : {
+        "value" : 20
+      }
+    },
+    "41" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 30
+      }
+    }
   },
   "componentMap" : {
     "45" : {

@@ -7,115 +7,22 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "a",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "1234"
-                    }
-                  },
-                  "id" : 0
-                }
-              },
-              "id" : 1
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "b",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "0xABCD"
-                    }
-                  },
-                  "id" : 2
-                }
-              },
-              "id" : 3
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "c",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralString" : {
-                      "value" : "This is a string."
-                    }
-                  },
-                  "id" : 4
-                }
-              },
-              "id" : 5
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "d",
-                "value" : {
-                  "data" : {
-                    "ExprArray" : {
-                      "elts" : [
-                        {
-                          "data" : {
-                            "ExprLiteralInt" : {
-                              "value" : "1"
-                            }
-                          },
-                          "id" : 6
-                        },
-                        {
-                          "data" : {
-                            "ExprLiteralInt" : {
-                              "value" : "2"
-                            }
-                          },
-                          "id" : 7
-                        },
-                        {
-                          "data" : {
-                            "ExprLiteralInt" : {
-                              "value" : "3"
-                            }
-                          },
-                          "id" : 8
+              "astNode" : {
+                "data" : {
+                  "name" : "a",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1234"
                         }
-                      ]
+                      },
+                      "id" : 0
                     }
-                  },
-                  "id" : 9
-                }
-              },
-              "id" : 10
+                  }
+                },
+                "id" : 1
+              }
             }
           }
         },
@@ -128,35 +35,22 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "e",
-                "value" : {
-                  "data" : {
-                    "ExprArray" : {
-                      "elts" : [
-                        {
-                          "data" : {
-                            "ExprLiteralInt" : {
-                              "value" : "1"
-                            }
-                          },
-                          "id" : 11
-                        },
-                        {
-                          "data" : {
-                            "ExprLiteralFloat" : {
-                              "value" : "2.0"
-                            }
-                          },
-                          "id" : 12
+              "astNode" : {
+                "data" : {
+                  "name" : "b",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0xABCD"
                         }
-                      ]
+                      },
+                      "id" : 2
                     }
-                  },
-                  "id" : 13
-                }
-              },
-              "id" : 14
+                  }
+                },
+                "id" : 3
+              }
             }
           }
         },
@@ -169,69 +63,81 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "f",
-                "value" : {
-                  "data" : {
-                    "ExprArray" : {
-                      "elts" : [
-                        {
-                          "data" : {
-                            "ExprArray" : {
-                              "elts" : [
-                                {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "1"
-                                    }
-                                  },
-                                  "id" : 15
+              "astNode" : {
+                "data" : {
+                  "name" : "c",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralString" : {
+                          "value" : "This is a string."
+                        }
+                      },
+                      "id" : 4
+                    }
+                  }
+                },
+                "id" : 5
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "d",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
                                 },
-                                {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "2"
-                                    }
-                                  },
-                                  "id" : 16
-                                }
-                              ]
-                            }
-                          },
-                          "id" : 17
-                        },
-                        {
-                          "data" : {
-                            "ExprArray" : {
-                              "elts" : [
-                                {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "3"
-                                    }
-                                  },
-                                  "id" : 18
+                                "id" : 6
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
                                 },
-                                {
-                                  "data" : {
-                                    "ExprLiteralInt" : {
-                                      "value" : "4"
-                                    }
-                                  },
-                                  "id" : 19
-                                }
-                              ]
+                                "id" : 7
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "3"
+                                  }
+                                },
+                                "id" : 8
+                              }
                             }
-                          },
-                          "id" : 20
+                          ]
                         }
-                      ]
+                      },
+                      "id" : 9
                     }
-                  },
-                  "id" : 21
-                }
-              },
-              "id" : 22
+                  }
+                },
+                "id" : 10
+              }
             }
           }
         },
@@ -244,47 +150,43 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "g",
-                "value" : {
-                  "data" : {
-                    "ExprStruct" : {
-                      "members" : [
-                        {
-                          "data" : {
-                            "name" : "x",
-                            "value" : {
-                              "data" : {
-                                "ExprLiteralInt" : {
-                                  "value" : "1"
-                                }
-                              },
-                              "id" : 23
+              "astNode" : {
+                "data" : {
+                  "name" : "e",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprLiteralFloat" : {
+                                    "value" : "2.0"
+                                  }
+                                },
+                                "id" : 12
+                              }
                             }
-                          },
-                          "id" : 24
-                        },
-                        {
-                          "data" : {
-                            "name" : "y",
-                            "value" : {
-                              "data" : {
-                                "ExprLiteralString" : {
-                                  "value" : "abc"
-                                }
-                              },
-                              "id" : 25
-                            }
-                          },
-                          "id" : 26
+                          ]
                         }
-                      ]
+                      },
+                      "id" : 13
                     }
-                  },
-                  "id" : 27
-                }
-              },
-              "id" : 28
+                  }
+                },
+                "id" : 14
+              }
             }
           }
         },
@@ -297,19 +199,85 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "h",
-                "value" : {
-                  "data" : {
-                    "ExprStruct" : {
-                      "members" : [
-                      ]
+              "astNode" : {
+                "data" : {
+                  "name" : "f",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "1"
+                                            }
+                                          },
+                                          "id" : 15
+                                        }
+                                      },
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "2"
+                                            }
+                                          },
+                                          "id" : 16
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 17
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 18
+                                        }
+                                      },
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "4"
+                                            }
+                                          },
+                                          "id" : 19
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 20
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 21
                     }
-                  },
-                  "id" : 29
-                }
-              },
-              "id" : 30
+                  }
+                },
+                "id" : 22
+              }
             }
           }
         },
@@ -322,199 +290,59 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "i",
-                "value" : {
-                  "data" : {
-                    "ExprArray" : {
-                      "elts" : [
-                        {
-                          "data" : {
-                            "ExprStruct" : {
-                              "members" : [
-                                {
-                                  "data" : {
-                                    "name" : "x",
-                                    "value" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "g",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "name" : "x",
+                                  "value" : {
+                                    "astNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
                                         }
                                       },
-                                      "id" : 31
+                                      "id" : 23
                                     }
-                                  },
-                                  "id" : 32
+                                  }
                                 },
-                                {
-                                  "data" : {
-                                    "name" : "y",
-                                    "value" : {
+                                "id" : 24
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "name" : "y",
+                                  "value" : {
+                                    "astNode" : {
                                       "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
+                                        "ExprLiteralString" : {
+                                          "value" : "abc"
                                         }
                                       },
-                                      "id" : 33
+                                      "id" : 25
                                     }
-                                  },
-                                  "id" : 34
-                                }
-                              ]
+                                  }
+                                },
+                                "id" : 26
+                              }
                             }
-                          },
-                          "id" : 35
-                        },
-                        {
-                          "data" : {
-                            "ExprStruct" : {
-                              "members" : [
-                                {
-                                  "data" : {
-                                    "name" : "x",
-                                    "value" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 36
-                                    }
-                                  },
-                                  "id" : 37
-                                }
-                              ]
-                            }
-                          },
-                          "id" : 38
+                          ]
                         }
-                      ]
-                    }
-                  },
-                  "id" : 39
-                }
-              },
-              "id" : 40
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "j",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "1"
-                    }
-                  },
-                  "id" : 41
-                }
-              },
-              "id" : 42
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "k",
-                "value" : {
-                  "data" : {
-                    "ExprIdent" : {
-                      "value" : "j"
-                    }
-                  },
-                  "id" : 43
-                }
-              },
-              "id" : 44
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "l",
-                "value" : {
-                  "data" : {
-                    "ExprUnop" : {
-                      "op" : "Minus",
-                      "e" : {
-                        "data" : {
-                          "ExprLiteralInt" : {
-                            "value" : "1"
-                          }
-                        },
-                        "id" : 45
-                      }
-                    }
-                  },
-                  "id" : 46
-                }
-              },
-              "id" : 47
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefConstant" : {
-            "node" : {
-              "data" : {
-                "name" : "m",
-                "value" : {
-                  "data" : {
-                    "ExprBinop" : {
-                      "e1" : {
-                        "data" : {
-                          "ExprLiteralInt" : {
-                            "value" : "1"
-                          }
-                        },
-                        "id" : 48
                       },
-                      "op" : "Add",
-                      "e2" : {
-                        "data" : {
-                          "ExprLiteralInt" : {
-                            "value" : "2"
-                          }
-                        },
-                        "id" : 49
-                      }
+                      "id" : 27
                     }
-                  },
-                  "id" : 50
-                }
-              },
-              "id" : 51
+                  }
+                },
+                "id" : 28
+              }
             }
           }
         },
@@ -527,25 +355,307 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "n",
-                "value" : {
-                  "data" : {
-                    "ExprParen" : {
-                      "e" : {
-                        "data" : {
-                          "ExprLiteralInt" : {
-                            "value" : "1"
-                          }
-                        },
-                        "id" : 52
-                      }
+              "astNode" : {
+                "data" : {
+                  "name" : "h",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                          ]
+                        }
+                      },
+                      "id" : 29
                     }
-                  },
-                  "id" : 53
-                }
-              },
-              "id" : 54
+                  }
+                },
+                "id" : 30
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "i",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 31
+                                              }
+                                            }
+                                          },
+                                          "id" : 32
+                                        }
+                                      },
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "name" : "y",
+                                            "value" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 33
+                                              }
+                                            }
+                                          },
+                                          "id" : 34
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 35
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "astNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 36
+                                              }
+                                            }
+                                          },
+                                          "id" : 37
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 38
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 39
+                    }
+                  }
+                },
+                "id" : 40
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "j",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1"
+                        }
+                      },
+                      "id" : 41
+                    }
+                  }
+                },
+                "id" : 42
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "k",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "j"
+                        }
+                      },
+                      "id" : 43
+                    }
+                  }
+                },
+                "id" : 44
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "l",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprUnop" : {
+                          "op" : "Minus",
+                          "e" : {
+                            "astNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 45
+                            }
+                          }
+                        }
+                      },
+                      "id" : 46
+                    }
+                  }
+                },
+                "id" : 47
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "m",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprBinop" : {
+                          "e1" : {
+                            "astNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 48
+                            }
+                          },
+                          "op" : "Add",
+                          "e2" : {
+                            "astNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "2"
+                                }
+                              },
+                              "id" : 49
+                            }
+                          }
+                        }
+                      },
+                      "id" : 50
+                    }
+                  }
+                },
+                "id" : 51
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "n",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprParen" : {
+                          "e" : {
+                            "astNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 52
+                            }
+                          }
+                        }
+                      },
+                      "id" : 53
+                    }
+                  }
+                },
+                "id" : 54
+              }
             }
           }
         },
@@ -560,18 +670,22 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "o",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "0"
+              "astNode" : {
+                "data" : {
+                  "name" : "o",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0"
+                        }
+                      },
+                      "id" : 57
                     }
-                  },
-                  "id" : 57
-                }
-              },
-              "id" : 58
+                  }
+                },
+                "id" : 58
+              }
             }
           }
         },
@@ -1018,110 +1132,797 @@
   "typeMap" : {
     "45" : "Integer",
     "8" : "Integer",
-    "22" : "[2] [2] Integer",
+    "22" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Option" : {
+                "Some" : 2
+              }
+            },
+            "eltType" : "Integer"
+          }
+        }
+      }
+    },
     "50" : "Integer",
-    "5" : "string",
-    "10" : "[3] Integer",
+    "5" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "eltType" : "Integer"
+      }
+    },
     "57" : "Integer",
     "42" : "Integer",
     "18" : "Integer",
     "3" : "Integer",
     "52" : "Integer",
-    "28" : "{ x: Integer, y: string }",
-    "12" : "F64",
+    "28" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    },
+    "12" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
     "51" : "Integer",
     "19" : "Integer",
     "23" : "Integer",
-    "4" : "string",
-    "40" : "[2] { x: Integer, y: Integer }",
+    "4" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "40" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : "Integer",
+              "y" : "Integer"
+            }
+          }
+        }
+      }
+    },
     "15" : "Integer",
     "11" : "Integer",
-    "9" : "[3] Integer",
+    "9" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "eltType" : "Integer"
+      }
+    },
     "44" : "Integer",
     "33" : "Integer",
-    "13" : "[2] F64",
+    "13" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "Float" : {
+            "kind" : "F64"
+          }
+        }
+      }
+    },
     "46" : "Integer",
-    "35" : "{ x: Integer, y: Integer }",
+    "35" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : "Integer"
+        }
+      }
+    },
     "16" : "Integer",
     "48" : "Integer",
-    "21" : "[2] [2] Integer",
+    "21" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Option" : {
+                "Some" : 2
+              }
+            },
+            "eltType" : "Integer"
+          }
+        }
+      }
+    },
     "54" : "Integer",
     "43" : "Integer",
     "49" : "Integer",
     "6" : "Integer",
     "36" : "Integer",
     "1" : "Integer",
-    "39" : "[2] { x: Integer, y: Integer }",
-    "17" : "[2] Integer",
-    "25" : "string",
-    "14" : "[2] F64",
+    "39" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : "Integer",
+              "y" : "Integer"
+            }
+          }
+        }
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : "Integer"
+      }
+    },
+    "25" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : {
+          "Float" : {
+            "kind" : "F64"
+          }
+        }
+      }
+    },
     "47" : "Integer",
     "31" : "Integer",
     "58" : "Integer",
     "53" : "Integer",
     "0" : "Integer",
-    "20" : "[2] Integer",
-    "27" : "{ x: Integer, y: string }",
+    "20" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 2
+          }
+        },
+        "eltType" : "Integer"
+      }
+    },
+    "27" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    },
     "2" : "Integer",
-    "38" : "{ x: Integer }",
-    "30" : "{ }",
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer"
+        }
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
     "7" : "Integer",
-    "29" : "{ }",
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
     "41" : "Integer"
   },
   "valueMap" : {
-    "45" : "1",
-    "8" : "3",
-    "22" : "[ [ 1, 2 ], [ 3, 4 ] ]",
-    "50" : "3",
-    "5" : "\"This is a string.\"",
-    "10" : "[ 1, 2, 3 ]",
-    "57" : "0",
-    "42" : "1",
-    "18" : "3",
-    "3" : "43981",
-    "52" : "1",
-    "28" : "{ x = 1, y = \"abc\" }",
-    "12" : "2.0: F64",
-    "51" : "3",
-    "19" : "4",
-    "23" : "1",
-    "4" : "\"This is a string.\"",
-    "40" : "[ { x = 1, y = 2 }, { x = 3, y = 0 } ]",
-    "15" : "1",
-    "11" : "1",
-    "9" : "[ 1, 2, 3 ]",
-    "44" : "1",
-    "33" : "2",
-    "13" : "[ 1.0: F64, 2.0: F64 ]",
-    "46" : "-1",
-    "35" : "{ x = 1, y = 2 }",
-    "16" : "2",
-    "48" : "1",
-    "21" : "[ [ 1, 2 ], [ 3, 4 ] ]",
-    "54" : "1",
-    "43" : "1",
-    "49" : "2",
-    "6" : "1",
-    "36" : "3",
-    "1" : "1234",
-    "39" : "[ { x = 1, y = 2 }, { x = 3, y = 0 } ]",
-    "17" : "[ 1, 2 ]",
-    "25" : "\"abc\"",
-    "14" : "[ 1.0: F64, 2.0: F64 ]",
-    "47" : "-1",
-    "31" : "1",
-    "58" : "0",
-    "53" : "1",
-    "0" : "1234",
-    "20" : "[ 3, 4 ]",
-    "27" : "{ x = 1, y = \"abc\" }",
-    "2" : "43981",
-    "38" : "{ x = 3 }",
-    "30" : "{ }",
-    "7" : "2",
-    "29" : "{ }",
-    "41" : "1"
+    "45" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "8" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "50" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "5" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "57" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "18" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "28" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "51" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "19" : {
+      "Integer" : {
+        "value" : 4
+      }
+    },
+    "23" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "4" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "40" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "9" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "44" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "33" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "13" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "46" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "35" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        }
+      }
+    },
+    "16" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "48" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "21" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "54" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "43" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "49" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "6" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "36" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "39" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        ]
+      }
+    },
+    "25" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "47" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "31" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "58" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 4
+            }
+          }
+        ]
+      }
+    },
+    "27" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        }
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "Integer" : {
+        "value" : 1
+      }
+    }
   },
   "componentMap" : {
     

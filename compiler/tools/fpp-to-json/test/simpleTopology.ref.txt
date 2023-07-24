@@ -7,15 +7,17 @@
         {
           "DefPort" : {
             "node" : {
-              "data" : {
-                "name" : "P",
-                "params" : [
-                ],
-                "returnType" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 0
+              "astNode" : {
+                "data" : {
+                  "name" : "P",
+                  "params" : [
+                  ],
+                  "returnType" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 0
+              }
             }
           }
         },
@@ -28,93 +30,103 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Passive",
-                "name" : "C",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Passive",
+                  "name" : "C",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "General" : {
-                              "kind" : "SyncInput",
-                              "name" : "pIn",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "port" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "Unqualified" : {
-                                        "name" : "P"
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : "SyncInput",
+                                  "name" : "pIn",
+                                  "size" : {
+                                    "Option" : "None"
+                                  },
+                                  "port" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "P"
+                                            }
+                                          },
+                                          "id" : 2
+                                        }
                                       }
-                                    },
-                                    "id" : 2
+                                    }
+                                  },
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
                                   }
                                 }
                               },
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 3
                             }
-                          },
-                          "id" : 3
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "General" : {
-                              "kind" : "Output",
-                              "name" : "pOut",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "port" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "data" : {
-                                      "Unqualified" : {
-                                        "name" : "P"
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : "Output",
+                                  "name" : "pOut",
+                                  "size" : {
+                                    "Option" : "None"
+                                  },
+                                  "port" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "Unqualified" : {
+                                              "name" : "P"
+                                            }
+                                          },
+                                          "id" : 11
+                                        }
                                       }
-                                    },
-                                    "id" : 11
+                                    }
+                                  },
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
                                   }
                                 }
                               },
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
+                              "id" : 12
                             }
-                          },
-                          "id" : 12
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 13
+                },
+                "id" : 13
+              }
             }
           }
         },
@@ -127,46 +139,52 @@
         {
           "DefComponentInstance" : {
             "node" : {
-              "data" : {
-                "name" : "c1",
-                "component" : {
-                  "data" : {
-                    "Unqualified" : {
-                      "name" : "C"
+              "astNode" : {
+                "data" : {
+                  "name" : "c1",
+                  "component" : {
+                    "astNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "C"
+                        }
+                      },
+                      "id" : 15
                     }
                   },
-                  "id" : 15
-                },
-                "baseId" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "0x100"
+                  "baseId" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x100"
+                        }
+                      },
+                      "id" : 16
                     }
                   },
-                  "id" : 16
+                  "implType" : {
+                    "Option" : "None"
+                  },
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecs" : [
+                  ]
                 },
-                "implType" : {
-                  "Option" : "None"
-                },
-                "file" : {
-                  "Option" : "None"
-                },
-                "queueSize" : {
-                  "Option" : "None"
-                },
-                "stackSize" : {
-                  "Option" : "None"
-                },
-                "priority" : {
-                  "Option" : "None"
-                },
-                "cpu" : {
-                  "Option" : "None"
-                },
-                "initSpecs" : [
-                ]
-              },
-              "id" : 17
+                "id" : 17
+              }
             }
           }
         },
@@ -179,46 +197,52 @@
         {
           "DefComponentInstance" : {
             "node" : {
-              "data" : {
-                "name" : "c2",
-                "component" : {
-                  "data" : {
-                    "Unqualified" : {
-                      "name" : "C"
+              "astNode" : {
+                "data" : {
+                  "name" : "c2",
+                  "component" : {
+                    "astNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "C"
+                        }
+                      },
+                      "id" : 19
                     }
                   },
-                  "id" : 19
-                },
-                "baseId" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "0x200"
+                  "baseId" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x200"
+                        }
+                      },
+                      "id" : 20
                     }
                   },
-                  "id" : 20
+                  "implType" : {
+                    "Option" : "None"
+                  },
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecs" : [
+                  ]
                 },
-                "implType" : {
-                  "Option" : "None"
-                },
-                "file" : {
-                  "Option" : "None"
-                },
-                "queueSize" : {
-                  "Option" : "None"
-                },
-                "stackSize" : {
-                  "Option" : "None"
-                },
-                "priority" : {
-                  "Option" : "None"
-                },
-                "cpu" : {
-                  "Option" : "None"
-                },
-                "initSpecs" : [
-                ]
-              },
-              "id" : 21
+                "id" : 21
+              }
             }
           }
         },
@@ -232,188 +256,226 @@
         {
           "DefTopology" : {
             "node" : {
-              "data" : {
-                "name" : "Simple",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Simple",
+                  "members" : [
                     [
-                      "This specifier says that instance c1 is part of the topology"
-                    ],
-                    {
-                      "SpecCompInstance" : {
-                        "node" : {
-                          "data" : {
-                            "visibility" : "Public",
-                            "instance" : {
+                      [
+                        "This specifier says that instance c1 is part of the topology"
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "astNode" : {
                               "data" : {
-                                "Unqualified" : {
-                                  "name" : "c1"
-                                }
-                              },
-                              "id" : 23
-                            }
-                          },
-                          "id" : 24
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "This specifier says that instance c2 is part of the topology"
-                    ],
-                    {
-                      "SpecCompInstance" : {
-                        "node" : {
-                          "data" : {
-                            "visibility" : "Public",
-                            "instance" : {
-                              "data" : {
-                                "Unqualified" : {
-                                  "name" : "c2"
-                                }
-                              },
-                              "id" : 26
-                            }
-                          },
-                          "id" : 27
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "This code specifies a connection graph C1"
-                    ],
-                    {
-                      "SpecConnectionGraph" : {
-                        "node" : {
-                          "data" : {
-                            "Direct" : {
-                              "name" : "C1",
-                              "connections" : [
-                                {
-                                  "fromPort" : {
+                                "visibility" : "Public",
+                                "instance" : {
+                                  "astNode" : {
                                     "data" : {
-                                      "componentInstance" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "c1"
-                                          }
-                                        },
-                                        "id" : 30
-                                      },
-                                      "portName" : {
-                                        "data" : "pOut",
-                                        "id" : 29
+                                      "Unqualified" : {
+                                        "name" : "c1"
                                       }
                                     },
-                                    "id" : 31
-                                  },
-                                  "fromIndex" : {
-                                    "Option" : "None"
-                                  },
-                                  "toPort" : {
-                                    "data" : {
-                                      "componentInstance" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "c2"
-                                          }
-                                        },
-                                        "id" : 34
-                                      },
-                                      "portName" : {
-                                        "data" : "pIn",
-                                        "id" : 33
-                                      }
-                                    },
-                                    "id" : 35
-                                  },
-                                  "toIndex" : {
-                                    "Option" : "None"
+                                    "id" : 23
                                   }
                                 }
-                              ]
+                              },
+                              "id" : 24
                             }
-                          },
-                          "id" : 36
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "This code specifies a connection graph C2"
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "SpecConnectionGraph" : {
-                        "node" : {
-                          "data" : {
-                            "Direct" : {
-                              "name" : "C2",
-                              "connections" : [
-                                {
-                                  "fromPort" : {
+                    [
+                      [
+                        "This specifier says that instance c2 is part of the topology"
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "visibility" : "Public",
+                                "instance" : {
+                                  "astNode" : {
                                     "data" : {
-                                      "componentInstance" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "c2"
-                                          }
-                                        },
-                                        "id" : 57
-                                      },
-                                      "portName" : {
-                                        "data" : "pOut",
-                                        "id" : 56
+                                      "Unqualified" : {
+                                        "name" : "c2"
                                       }
                                     },
-                                    "id" : 58
-                                  },
-                                  "fromIndex" : {
-                                    "Option" : "None"
-                                  },
-                                  "toPort" : {
-                                    "data" : {
-                                      "componentInstance" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "c1"
-                                          }
-                                        },
-                                        "id" : 61
-                                      },
-                                      "portName" : {
-                                        "data" : "pIn",
-                                        "id" : 60
-                                      }
-                                    },
-                                    "id" : 62
-                                  },
-                                  "toIndex" : {
-                                    "Option" : "None"
+                                    "id" : 26
                                   }
                                 }
-                              ]
+                              },
+                              "id" : 27
                             }
-                          },
-                          "id" : 63
+                          }
                         }
-                      }
-                    },
+                      },
+                      [
+                      ]
+                    ],
                     [
+                      [
+                        "This code specifies a connection graph C1"
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Direct" : {
+                                  "name" : "C1",
+                                  "connections" : [
+                                    {
+                                      "fromPort" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "componentInstance" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "c1"
+                                                  }
+                                                },
+                                                "id" : 30
+                                              }
+                                            },
+                                            "portName" : {
+                                              "astNode" : {
+                                                "data" : "pOut",
+                                                "id" : 29
+                                              }
+                                            }
+                                          },
+                                          "id" : 31
+                                        }
+                                      },
+                                      "fromIndex" : {
+                                        "Option" : "None"
+                                      },
+                                      "toPort" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "componentInstance" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "c2"
+                                                  }
+                                                },
+                                                "id" : 34
+                                              }
+                                            },
+                                            "portName" : {
+                                              "astNode" : {
+                                                "data" : "pIn",
+                                                "id" : 33
+                                              }
+                                            }
+                                          },
+                                          "id" : 35
+                                        }
+                                      },
+                                      "toIndex" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "id" : 36
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "This code specifies a connection graph C2"
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Direct" : {
+                                  "name" : "C2",
+                                  "connections" : [
+                                    {
+                                      "fromPort" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "componentInstance" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "c2"
+                                                  }
+                                                },
+                                                "id" : 57
+                                              }
+                                            },
+                                            "portName" : {
+                                              "astNode" : {
+                                                "data" : "pOut",
+                                                "id" : 56
+                                              }
+                                            }
+                                          },
+                                          "id" : 58
+                                        }
+                                      },
+                                      "fromIndex" : {
+                                        "Option" : "None"
+                                      },
+                                      "toPort" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "componentInstance" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "c1"
+                                                  }
+                                                },
+                                                "id" : 61
+                                              }
+                                            },
+                                            "portName" : {
+                                              "astNode" : {
+                                                "data" : "pIn",
+                                                "id" : 60
+                                              }
+                                            }
+                                          },
+                                          "id" : 62
+                                        }
+                                      },
+                                      "toIndex" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "id" : 63
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 64
+                },
+                "id" : 64
+              }
             }
           }
         },
@@ -917,8 +979,16 @@
     "20" : "Integer"
   },
   "valueMap" : {
-    "16" : "256",
-    "20" : "512"
+    "16" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "20" : {
+      "Integer" : {
+        "value" : 512
+      }
+    }
   },
   "componentMap" : {
     "13" : {
@@ -936,12 +1006,14 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "P"
-                      }
-                    },
-                    "id" : 2
+                    "astNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "P"
+                        }
+                      },
+                      "id" : 2
+                    }
                   }
                 }
               },
@@ -969,12 +1041,14 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "P"
-                      }
-                    },
-                    "id" : 11
+                    "astNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "P"
+                        }
+                      },
+                      "id" : 11
+                    }
                   }
                 }
               },
@@ -1182,7 +1256,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pOut",
+              "port" : {
+                "name" : "c1.pOut",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1195,7 +1335,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pIn",
+              "port" : {
+                "name" : "c2.pIn",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1212,7 +1418,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pOut",
+              "port" : {
+                "name" : "c2.pOut",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1225,7 +1497,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pIn",
+              "port" : {
+                "name" : "c1.pIn",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1244,7 +1582,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pOut",
+              "port" : {
+                "name" : "c1.pOut",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1257,7 +1661,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pIn",
+              "port" : {
+                "name" : "c2.pIn",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1274,7 +1744,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pOut",
+              "port" : {
+                "name" : "c2.pOut",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1287,7 +1823,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pIn",
+              "port" : {
+                "name" : "c1.pIn",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1297,7 +1899,73 @@
       },
       "outputConnectionMap" : [
         [
-          "c1.pOut",
+          {
+            "name" : "c1.pOut",
+            "componentInstance" : {
+              "id" : 17,
+              "Qualified Name" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "Component" : 13,
+              "baseId" : 256,
+              "maxId" : 255,
+              "file" : {
+                "Option" : "None"
+              },
+              "queueSize" : {
+                "Option" : "None"
+              },
+              "stackSize" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "cpu" : {
+                "Option" : "None"
+              },
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "id" : 12,
+                "specifier" : {
+                  "kind" : "Output",
+                  "name" : "pOut",
+                  "size" : {
+                    "Option" : "None"
+                  },
+                  "port" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "P"
+                            }
+                          },
+                          "id" : 11
+                        }
+                      }
+                    }
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "queueFull" : {
+                    "Option" : "None"
+                  }
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : 1
+              }
+            }
+          },
           [
             {
               "from" : {
@@ -1308,7 +1976,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c1.pOut",
+                "port" : {
+                  "name" : "c1.pOut",
+                  "componentInstance" : {
+                    "id" : 17,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "Component" : 13,
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 12,
+                      "specifier" : {
+                        "kind" : "Output",
+                        "name" : "pOut",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1321,7 +2055,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c2.pIn",
+                "port" : {
+                  "name" : "c2.pIn",
+                  "componentInstance" : {
+                    "id" : 21,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "Component" : 13,
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 3,
+                      "specifier" : {
+                        "kind" : "SyncInput",
+                        "name" : "pIn",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 2
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1330,7 +2130,73 @@
           ]
         ],
         [
-          "c2.pOut",
+          {
+            "name" : "c2.pOut",
+            "componentInstance" : {
+              "id" : 21,
+              "Qualified Name" : {
+                "qualifier" : [
+                ],
+                "base" : "c2"
+              },
+              "Component" : 13,
+              "baseId" : 512,
+              "maxId" : 511,
+              "file" : {
+                "Option" : "None"
+              },
+              "queueSize" : {
+                "Option" : "None"
+              },
+              "stackSize" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "cpu" : {
+                "Option" : "None"
+              },
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "id" : 12,
+                "specifier" : {
+                  "kind" : "Output",
+                  "name" : "pOut",
+                  "size" : {
+                    "Option" : "None"
+                  },
+                  "port" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "P"
+                            }
+                          },
+                          "id" : 11
+                        }
+                      }
+                    }
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "queueFull" : {
+                    "Option" : "None"
+                  }
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : 1
+              }
+            }
+          },
           [
             {
               "from" : {
@@ -1341,7 +2207,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c2.pOut",
+                "port" : {
+                  "name" : "c2.pOut",
+                  "componentInstance" : {
+                    "id" : 21,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "Component" : 13,
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 12,
+                      "specifier" : {
+                        "kind" : "Output",
+                        "name" : "pOut",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1354,7 +2286,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c1.pIn",
+                "port" : {
+                  "name" : "c1.pIn",
+                  "componentInstance" : {
+                    "id" : 17,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "Component" : 13,
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 3,
+                      "specifier" : {
+                        "kind" : "SyncInput",
+                        "name" : "pIn",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 2
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1365,7 +2363,73 @@
       ],
       "inputConnectionMap" : [
         [
-          "c2.pIn",
+          {
+            "name" : "c2.pIn",
+            "componentInstance" : {
+              "id" : 21,
+              "Qualified Name" : {
+                "qualifier" : [
+                ],
+                "base" : "c2"
+              },
+              "Component" : 13,
+              "baseId" : 512,
+              "maxId" : 511,
+              "file" : {
+                "Option" : "None"
+              },
+              "queueSize" : {
+                "Option" : "None"
+              },
+              "stackSize" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "cpu" : {
+                "Option" : "None"
+              },
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "id" : 3,
+                "specifier" : {
+                  "kind" : "SyncInput",
+                  "name" : "pIn",
+                  "size" : {
+                    "Option" : "None"
+                  },
+                  "port" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "P"
+                            }
+                          },
+                          "id" : 2
+                        }
+                      }
+                    }
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "queueFull" : {
+                    "Option" : "None"
+                  }
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : 1
+              }
+            }
+          },
           [
             {
               "from" : {
@@ -1376,7 +2440,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c1.pOut",
+                "port" : {
+                  "name" : "c1.pOut",
+                  "componentInstance" : {
+                    "id" : 17,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "Component" : 13,
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 12,
+                      "specifier" : {
+                        "kind" : "Output",
+                        "name" : "pOut",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1389,7 +2519,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c2.pIn",
+                "port" : {
+                  "name" : "c2.pIn",
+                  "componentInstance" : {
+                    "id" : 21,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "Component" : 13,
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 3,
+                      "specifier" : {
+                        "kind" : "SyncInput",
+                        "name" : "pIn",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 2
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1398,7 +2594,73 @@
           ]
         ],
         [
-          "c1.pIn",
+          {
+            "name" : "c1.pIn",
+            "componentInstance" : {
+              "id" : 17,
+              "Qualified Name" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "Component" : 13,
+              "baseId" : 256,
+              "maxId" : 255,
+              "file" : {
+                "Option" : "None"
+              },
+              "queueSize" : {
+                "Option" : "None"
+              },
+              "stackSize" : {
+                "Option" : "None"
+              },
+              "priority" : {
+                "Option" : "None"
+              },
+              "cpu" : {
+                "Option" : "None"
+              },
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "id" : 3,
+                "specifier" : {
+                  "kind" : "SyncInput",
+                  "name" : "pIn",
+                  "size" : {
+                    "Option" : "None"
+                  },
+                  "port" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "Unqualified" : {
+                              "name" : "P"
+                            }
+                          },
+                          "id" : 2
+                        }
+                      }
+                    }
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "queueFull" : {
+                    "Option" : "None"
+                  }
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : 1
+              }
+            }
+          },
           [
             {
               "from" : {
@@ -1409,7 +2671,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c2.pOut",
+                "port" : {
+                  "name" : "c2.pOut",
+                  "componentInstance" : {
+                    "id" : 21,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "Component" : 13,
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 12,
+                      "specifier" : {
+                        "kind" : "Output",
+                        "name" : "pOut",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1422,7 +2750,73 @@
                     "Option" : "None"
                   }
                 },
-                "port" : "c1.pIn",
+                "port" : {
+                  "name" : "c1.pIn",
+                  "componentInstance" : {
+                    "id" : 17,
+                    "Qualified Name" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "Component" : 13,
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : {
+                      "Option" : "None"
+                    },
+                    "queueSize" : {
+                      "Option" : "None"
+                    },
+                    "stackSize" : {
+                      "Option" : "None"
+                    },
+                    "priority" : {
+                      "Option" : "None"
+                    },
+                    "cpu" : {
+                      "Option" : "None"
+                    },
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "id" : 3,
+                      "specifier" : {
+                        "kind" : "SyncInput",
+                        "name" : "pIn",
+                        "size" : {
+                          "Option" : "None"
+                        },
+                        "port" : {
+                          "Option" : {
+                            "Some" : {
+                              "astNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "P"
+                                  }
+                                },
+                                "id" : 2
+                              }
+                            }
+                          }
+                        },
+                        "priority" : {
+                          "Option" : "None"
+                        },
+                        "queueFull" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : 1
+                    }
+                  }
+                },
                 "portNumber" : {
                   "Option" : "None"
                 }
@@ -1442,7 +2836,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pOut",
+              "port" : {
+                "name" : "c1.pOut",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1455,7 +2915,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pIn",
+              "port" : {
+                "name" : "c2.pIn",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1473,7 +2999,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pOut",
+              "port" : {
+                "name" : "c2.pOut",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1486,7 +3078,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pIn",
+              "port" : {
+                "name" : "c1.pIn",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1506,7 +3164,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pOut",
+              "port" : {
+                "name" : "c2.pOut",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1519,7 +3243,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pIn",
+              "port" : {
+                "name" : "c1.pIn",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1537,7 +3327,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c1.pOut",
+              "port" : {
+                "name" : "c1.pOut",
+                "componentInstance" : {
+                  "id" : 17,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "Component" : 13,
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 12,
+                    "specifier" : {
+                      "kind" : "Output",
+                      "name" : "pOut",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }
@@ -1550,7 +3406,73 @@
                   "Option" : "None"
                 }
               },
-              "port" : "c2.pIn",
+              "port" : {
+                "name" : "c2.pIn",
+                "componentInstance" : {
+                  "id" : 21,
+                  "Qualified Name" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "Component" : 13,
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : {
+                    "Option" : "None"
+                  },
+                  "queueSize" : {
+                    "Option" : "None"
+                  },
+                  "stackSize" : {
+                    "Option" : "None"
+                  },
+                  "priority" : {
+                    "Option" : "None"
+                  },
+                  "cpu" : {
+                    "Option" : "None"
+                  },
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "id" : 3,
+                    "specifier" : {
+                      "kind" : "SyncInput",
+                      "name" : "pIn",
+                      "size" : {
+                        "Option" : "None"
+                      },
+                      "port" : {
+                        "Option" : {
+                          "Some" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "P"
+                                }
+                              },
+                              "id" : 2
+                            }
+                          }
+                        }
+                      },
+                      "priority" : {
+                        "Option" : "None"
+                      },
+                      "queueFull" : {
+                        "Option" : "None"
+                      }
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : 1
+                  }
+                }
+              },
               "portNumber" : {
                 "Option" : "None"
               }

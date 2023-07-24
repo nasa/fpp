@@ -8,225 +8,247 @@
         {
           "DefComponent" : {
             "node" : {
-              "data" : {
-                "kind" : "Active",
-                "name" : "Switch",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "kind" : "Active",
+                  "name" : "Switch",
+                  "members" : [
                     [
-                      "The state enumeration"
-                    ],
-                    {
-                      "DefEnum" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "State",
-                            "typeName" : {
-                              "Option" : "None"
-                            },
-                            "constants" : [
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "name" : "OFF",
-                                      "value" : {
-                                        "Option" : "None"
-                                      }
-                                    },
-                                    "id" : 1
-                                  }
+                      [
+                        "The state enumeration"
+                      ],
+                      {
+                        "DefEnum" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "State",
+                                "typeName" : {
+                                  "Option" : "None"
                                 },
-                                [
-                                  "The off state"
-                                ]
-                              ],
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "name" : "ON",
-                                      "value" : {
-                                        "Option" : "None"
-                                      }
-                                    },
-                                    "id" : 3
-                                  }
-                                },
-                                [
-                                  "The on state"
-                                ]
-                              ]
-                            ],
-                            "default" : {
-                              "Option" : "None"
-                            }
-                          },
-                          "id" : 4
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command registration"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandReg",
-                              "name" : "cmdRegOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 5
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command input"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandRecv",
-                              "name" : "cmdIn",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 6
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Command response"
-                    ],
-                    {
-                      "SpecPortInstance" : {
-                        "node" : {
-                          "data" : {
-                            "Special" : {
-                              "inputKind" : {
-                                "Option" : "None"
-                              },
-                              "kind" : "CommandResp",
-                              "name" : "cmdResponseOut",
-                              "priority" : {
-                                "Option" : "None"
-                              },
-                              "queueFull" : {
-                                "Option" : "None"
-                              }
-                            }
-                          },
-                          "id" : 7
-                        }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                      "Set the state"
-                    ],
-                    {
-                      "SpecCommand" : {
-                        "node" : {
-                          "data" : {
-                            "kind" : {
-                              "Async" : {
-                                
-                              }
-                            },
-                            "name" : "SET_STATE",
-                            "params" : [
-                              [
-                                [
-                                ],
-                                {
-                                  "AstNode" : {
-                                    "data" : {
-                                      "kind" : "Value",
-                                      "name" : "state",
-                                      "typeName" : {
-                                        "data" : {
-                                          "TypeNameQualIdent" : {
-                                            "name" : {
-                                              "data" : {
-                                                "Unqualified" : {
-                                                  "name" : "State"
-                                                }
-                                              },
-                                              "id" : 31
+                                "constants" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "name" : "OFF",
+                                            "value" : {
+                                              "Option" : "None"
                                             }
-                                          }
-                                        },
-                                        "id" : 32
+                                          },
+                                          "id" : 1
+                                        }
                                       }
                                     },
-                                    "id" : 33
+                                    [
+                                      "The off state"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "name" : "ON",
+                                            "value" : {
+                                              "Option" : "None"
+                                            }
+                                          },
+                                          "id" : 3
+                                        }
+                                      }
+                                    },
+                                    [
+                                      "The on state"
+                                    ]
+                                  ]
+                                ],
+                                "default" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 4
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command registration"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandReg",
+                                  "name" : "cmdRegOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 5
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command input"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandRecv",
+                                  "name" : "cmdIn",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 6
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command response"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : {
+                                    "Option" : "None"
+                                  },
+                                  "kind" : "CommandResp",
+                                  "name" : "cmdResponseOut",
+                                  "priority" : {
+                                    "Option" : "None"
+                                  },
+                                  "queueFull" : {
+                                    "Option" : "None"
+                                  }
+                                }
+                              },
+                              "id" : 7
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Set the state"
+                      ],
+                      {
+                        "SpecCommand" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Async" : {
+                                    
                                   }
                                 },
-                                [
-                                  "The new state"
-                                ]
-                              ]
-                            ],
-                            "opcode" : {
-                              "Option" : "None"
-                            },
-                            "priority" : {
-                              "Option" : "None"
-                            },
-                            "queueFull" : {
-                              "Option" : "None"
+                                "name" : "SET_STATE",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "astNode" : {
+                                          "data" : {
+                                            "kind" : "Value",
+                                            "name" : "state",
+                                            "typeName" : {
+                                              "astNode" : {
+                                                "data" : {
+                                                  "TypeNameQualIdent" : {
+                                                    "name" : {
+                                                      "astNode" : {
+                                                        "data" : {
+                                                          "Unqualified" : {
+                                                            "name" : "State"
+                                                          }
+                                                        },
+                                                        "id" : 31
+                                                      }
+                                                    }
+                                                  }
+                                                },
+                                                "id" : 32
+                                              }
+                                            }
+                                          },
+                                          "id" : 33
+                                        }
+                                      }
+                                    },
+                                    [
+                                      "The new state"
+                                    ]
+                                  ]
+                                ],
+                                "opcode" : {
+                                  "Option" : "None"
+                                },
+                                "priority" : {
+                                  "Option" : "None"
+                                },
+                                "queueFull" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 34
                             }
-                          },
-                          "id" : 34
+                          }
                         }
-                      }
-                    },
-                    [
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 35
+                },
+                "id" : 35
+              }
             }
           }
         },
@@ -239,75 +261,83 @@
         {
           "DefModule" : {
             "node" : {
-              "data" : {
-                "name" : "Fw",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "Cmd",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "Cmd",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 36
                             }
-                          },
-                          "id" : 36
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdReg",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdReg",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 37
                             }
-                          },
-                          "id" : 37
+                          }
                         }
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
+                      },
+                      [
+                      ]
                     ],
-                    {
-                      "DefPort" : {
-                        "node" : {
-                          "data" : {
-                            "name" : "CmdResponse",
-                            "params" : [
-                            ],
-                            "returnType" : {
-                              "Option" : "None"
-                            }
-                          },
-                          "id" : 40
-                        }
-                      }
-                    },
                     [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "params" : [
+                                ],
+                                "returnType" : {
+                                  "Option" : "None"
+                                }
+                              },
+                              "id" : 40
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
                     ]
                   ]
-                ]
-              },
-              "id" : 41
+                },
+                "id" : 41
+              }
             }
           }
         },
@@ -688,14 +718,394 @@
     "31" : "State"
   },
   "typeMap" : {
-    "4" : "enum State",
-    "1" : "enum State",
-    "3" : "enum State",
-    "32" : "enum State"
+    "4" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "OFF",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                    "The state enumeration"
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "State",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "OFF",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 1
+                                }
+                              }
+                            },
+                            [
+                              "The off state"
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "ON",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 3
+                                }
+                              }
+                            },
+                            [
+                              "The on state"
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 4
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "1" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "3" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "32" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "name" : "OFF",
+              "value" : 0,
+              "type" : {
+                "node" : [
+                  [
+                    "The state enumeration"
+                  ],
+                  {
+                    "astNode" : {
+                      "data" : {
+                        "name" : "State",
+                        "typeName" : {
+                          "Option" : "None"
+                        },
+                        "constants" : [
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "OFF",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 1
+                                }
+                              }
+                            },
+                            [
+                              "The off state"
+                            ]
+                          ],
+                          [
+                            [
+                            ],
+                            {
+                              "AstNode" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "name" : "ON",
+                                    "value" : {
+                                      "Option" : "None"
+                                    }
+                                  },
+                                  "id" : 3
+                                }
+                              }
+                            },
+                            [
+                              "The on state"
+                            ]
+                          ]
+                        ],
+                        "default" : {
+                          "Option" : "None"
+                        }
+                      },
+                      "id" : 4
+                    }
+                  },
+                  [
+                  ]
+                ],
+                "repType" : {
+                  "kind" : {
+                    "I32" : {
+                      
+                    }
+                  }
+                },
+                "default" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    }
   },
   "valueMap" : {
-    "1" : "(OFF,0): State",
-    "3" : "(ON,1): State"
+    "1" : {
+      "EnumConstant" : {
+        "name" : "OFF",
+        "value" : 0,
+        "type" : {
+          "node" : [
+            [
+              "The state enumeration"
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "State",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "OFF",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 1
+                          }
+                        }
+                      },
+                      [
+                        "The off state"
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "ON",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 3
+                          }
+                        }
+                      },
+                      [
+                        "The on state"
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 4
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    },
+    "3" : {
+      "EnumConstant" : {
+        "name" : "ON",
+        "value" : 1,
+        "type" : {
+          "node" : [
+            [
+              "The state enumeration"
+            ],
+            {
+              "astNode" : {
+                "data" : {
+                  "name" : "State",
+                  "typeName" : {
+                    "Option" : "None"
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "OFF",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 1
+                          }
+                        }
+                      },
+                      [
+                        "The off state"
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "ON",
+                              "value" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 3
+                          }
+                        }
+                      },
+                      [
+                        "The on state"
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 4
+              }
+            },
+            [
+            ]
+          ],
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : {
+            "Option" : "None"
+          }
+        }
+      }
+    }
   },
   "componentMap" : {
     "35" : {

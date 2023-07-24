@@ -7,106 +7,22 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "numElements",
-                "value" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "3"
-                    }
-                  },
-                  "id" : 0
-                }
-              },
-              "id" : 1
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefArray" : {
-            "node" : {
-              "data" : {
-                "name" : "A",
-                "size" : {
-                  "data" : {
-                    "ExprIdent" : {
-                      "value" : "numElements"
-                    }
-                  },
-                  "id" : 2
-                },
-                "eltType" : {
-                  "data" : {
-                    "TypeNameString" : {
-                      "size" : {
-                        "Option" : {
-                          "Some" : {
-                            "data" : {
-                              "ExprLiteralInt" : {
-                                "value" : "40"
-                              }
-                            },
-                            "id" : 3
-                          }
-                        }
-                      }
-                    }
-                  },
-                  "id" : 4
-                },
-                "default" : {
-                  "Option" : {
-                    "Some" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "numElements",
+                  "value" : {
+                    "astNode" : {
                       "data" : {
-                        "ExprArray" : {
-                          "elts" : [
-                            {
-                              "data" : {
-                                "ExprLiteralString" : {
-                                  "value" : "1"
-                                }
-                              },
-                              "id" : 5
-                            },
-                            {
-                              "data" : {
-                                "ExprLiteralString" : {
-                                  "value" : "2"
-                                }
-                              },
-                              "id" : 6
-                            },
-                            {
-                              "data" : {
-                                "ExprLiteralString" : {
-                                  "value" : "3"
-                                }
-                              },
-                              "id" : 7
-                            }
-                          ]
+                        "ExprLiteralInt" : {
+                          "value" : "3"
                         }
                       },
-                      "id" : 8
+                      "id" : 0
                     }
                   }
                 },
-                "format" : {
-                  "Option" : {
-                    "Some" : {
-                      "data" : "{} RPM",
-                      "id" : 9
-                    }
-                  }
-                }
-              },
-              "id" : 10
+                "id" : 1
+              }
             }
           }
         },
@@ -119,39 +35,153 @@
         {
           "DefArray" : {
             "node" : {
-              "data" : {
-                "name" : "B",
-                "size" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "3"
+              "astNode" : {
+                "data" : {
+                  "name" : "A",
+                  "size" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "numElements"
+                        }
+                      },
+                      "id" : 2
                     }
                   },
-                  "id" : 11
-                },
-                "eltType" : {
-                  "data" : {
-                    "TypeNameQualIdent" : {
-                      "name" : {
-                        "data" : {
-                          "Unqualified" : {
-                            "name" : "A"
+                  "eltType" : {
+                    "astNode" : {
+                      "data" : {
+                        "TypeNameString" : {
+                          "size" : {
+                            "Option" : {
+                              "Some" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "40"
+                                    }
+                                  },
+                                  "id" : 3
+                                }
+                              }
+                            }
                           }
-                        },
-                        "id" : 13
+                        }
+                      },
+                      "id" : 4
+                    }
+                  },
+                  "default" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "ExprArray" : {
+                              "elts" : [
+                                {
+                                  "astNode" : {
+                                    "data" : {
+                                      "ExprLiteralString" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 5
+                                  }
+                                },
+                                {
+                                  "astNode" : {
+                                    "data" : {
+                                      "ExprLiteralString" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 6
+                                  }
+                                },
+                                {
+                                  "astNode" : {
+                                    "data" : {
+                                      "ExprLiteralString" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 7
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          "id" : 8
+                        }
                       }
                     }
                   },
-                  "id" : 14
+                  "format" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : "{} RPM",
+                          "id" : 9
+                        }
+                      }
+                    }
+                  }
                 },
-                "default" : {
-                  "Option" : "None"
+                "id" : 10
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefArray" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "B",
+                  "size" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "3"
+                        }
+                      },
+                      "id" : 11
+                    }
+                  },
+                  "eltType" : {
+                    "astNode" : {
+                      "data" : {
+                        "TypeNameQualIdent" : {
+                          "name" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "A"
+                                }
+                              },
+                              "id" : 13
+                            }
+                          }
+                        }
+                      },
+                      "id" : 14
+                    }
+                  },
+                  "default" : {
+                    "Option" : "None"
+                  },
+                  "format" : {
+                    "Option" : "None"
+                  }
                 },
-                "format" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 15
+                "id" : 15
+              }
             }
           }
         },
@@ -165,77 +195,87 @@
         {
           "DefStruct" : {
             "node" : {
-              "data" : {
-                "name" : "S",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "S",
+                  "members" : [
                     [
-                      "This is a pre annotation for member x"
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "x",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
+                      [
+                        "This is a pre annotation for member x"
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameInt" : {
-                                "name" : "U32"
+                              "name" : "x",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U32"
+                                    }
+                                  },
+                                  "id" : 27
+                                }
+                              },
+                              "format" : {
+                                "Option" : "None"
                               }
                             },
-                            "id" : 27
-                          },
-                          "format" : {
-                            "Option" : "None"
+                            "id" : 28
                           }
-                        },
-                        "id" : 28
-                      }
-                    },
+                        }
+                      },
+                      [
+                        "This is a post annotation for member x"
+                      ]
+                    ],
                     [
-                      "This is a post annotation for member x"
+                      [
+                        "This is a pre annotation for member y"
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "y",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameString" : {
+                                      "size" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  },
+                                  "id" : 31
+                                }
+                              },
+                              "format" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 32
+                          }
+                        }
+                      },
+                      [
+                        "This is a post annotation for member y"
+                      ]
                     ]
                   ],
-                  [
-                    [
-                      "This is a pre annotation for member y"
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "y",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameString" : {
-                                "size" : {
-                                  "Option" : "None"
-                                }
-                              }
-                            },
-                            "id" : 31
-                          },
-                          "format" : {
-                            "Option" : "None"
-                          }
-                        },
-                        "id" : 32
-                      }
-                    },
-                    [
-                      "This is a post annotation for member y"
-                    ]
-                  ]
-                ],
-                "default" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 33
+                  "default" : {
+                    "Option" : "None"
+                  }
+                },
+                "id" : 33
+              }
             }
           }
         },
@@ -249,47 +289,159 @@
         {
           "DefConstant" : {
             "node" : {
-              "data" : {
-                "name" : "s",
-                "value" : {
-                  "data" : {
-                    "ExprStruct" : {
-                      "members" : [
-                        {
-                          "data" : {
-                            "name" : "x",
-                            "value" : {
-                              "data" : {
-                                "ExprLiteralInt" : {
-                                  "value" : "1"
-                                }
-                              },
-                              "id" : 34
+              "astNode" : {
+                "data" : {
+                  "name" : "s",
+                  "value" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "name" : "x",
+                                  "value" : {
+                                    "astNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 34
+                                    }
+                                  }
+                                },
+                                "id" : 35
+                              }
+                            },
+                            {
+                              "astNode" : {
+                                "data" : {
+                                  "name" : "y",
+                                  "value" : {
+                                    "astNode" : {
+                                      "data" : {
+                                        "ExprLiteralString" : {
+                                          "value" : "abc"
+                                        }
+                                      },
+                                      "id" : 36
+                                    }
+                                  }
+                                },
+                                "id" : 37
+                              }
                             }
-                          },
-                          "id" : 35
-                        },
-                        {
-                          "data" : {
-                            "name" : "y",
-                            "value" : {
-                              "data" : {
-                                "ExprLiteralString" : {
-                                  "value" : "abc"
-                                }
-                              },
-                              "id" : 36
-                            }
-                          },
-                          "id" : 37
+                          ]
                         }
+                      },
+                      "id" : 38
+                    }
+                  }
+                },
+                "id" : 39
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefStruct" : {
+            "node" : {
+              "astNode" : {
+                "data" : {
+                  "name" : "S1",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "x",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U8"
+                                    }
+                                  },
+                                  "id" : 40
+                                }
+                              },
+                              "format" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 41
+                          }
+                        }
+                      },
+                      [
                       ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
+                            "data" : {
+                              "name" : "y",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameString" : {
+                                      "size" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  },
+                                  "id" : 46
+                                }
+                              },
+                              "format" : {
+                                "Option" : "None"
+                              }
+                            },
+                            "id" : 47
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "ExprIdent" : {
+                              "value" : "s"
+                            }
+                          },
+                          "id" : 48
+                        }
+                      }
                     }
-                  },
-                  "id" : 38
-                }
-              },
-              "id" : 39
+                  }
+                },
+                "id" : 49
+              }
             }
           }
         },
@@ -302,170 +454,94 @@
         {
           "DefStruct" : {
             "node" : {
-              "data" : {
-                "name" : "S1",
-                "members" : [
-                  [
+              "astNode" : {
+                "data" : {
+                  "name" : "S2",
+                  "members" : [
                     [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "x",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameInt" : {
-                                "name" : "U8"
-                              }
-                            },
-                            "id" : 40
-                          },
-                          "format" : {
-                            "Option" : "None"
-                          }
-                        },
-                        "id" : 41
-                      }
-                    },
-                    [
-                    ]
-                  ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "y",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameString" : {
-                                "size" : {
-                                  "Option" : "None"
+                              "name" : "x",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameInt" : {
+                                      "name" : "U32"
+                                    }
+                                  },
+                                  "id" : 50
                                 }
+                              },
+                              "format" : {
+                                "Option" : "None"
                               }
                             },
-                            "id" : 46
-                          },
-                          "format" : {
-                            "Option" : "None"
+                            "id" : 51
                           }
-                        },
-                        "id" : 47
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "default" : {
-                  "Option" : {
-                    "Some" : {
-                      "data" : {
-                        "ExprIdent" : {
-                          "value" : "s"
                         }
                       },
-                      "id" : 48
-                    }
-                  }
-                }
-              },
-              "id" : 49
-            }
-          }
-        },
-        [
-        ]
-      ],
-      [
-        [
-        ],
-        {
-          "DefStruct" : {
-            "node" : {
-              "data" : {
-                "name" : "S2",
-                "members" : [
-                  [
-                    [
+                      [
+                      ]
                     ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "x",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
-                            "data" : {
-                              "TypeNameInt" : {
-                                "name" : "U32"
-                              }
-                            },
-                            "id" : 50
-                          },
-                          "format" : {
-                            "Option" : "None"
-                          }
-                        },
-                        "id" : 51
-                      }
-                    },
                     [
-                    ]
-                  ],
-                  [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "y",
-                          "size" : {
-                            "Option" : "None"
-                          },
-                          "typeName" : {
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "astNode" : {
                             "data" : {
-                              "TypeNameString" : {
-                                "size" : {
-                                  "Option" : "None"
+                              "name" : "y",
+                              "size" : {
+                                "Option" : "None"
+                              },
+                              "typeName" : {
+                                "astNode" : {
+                                  "data" : {
+                                    "TypeNameString" : {
+                                      "size" : {
+                                        "Option" : "None"
+                                      }
+                                    }
+                                  },
+                                  "id" : 56
                                 }
+                              },
+                              "format" : {
+                                "Option" : "None"
                               }
                             },
-                            "id" : 56
-                          },
-                          "format" : {
-                            "Option" : "None"
+                            "id" : 57
                           }
-                        },
-                        "id" : 57
-                      }
-                    },
-                    [
-                    ]
-                  ]
-                ],
-                "default" : {
-                  "Option" : {
-                    "Some" : {
-                      "data" : {
-                        "ExprIdent" : {
-                          "value" : "s"
                         }
                       },
-                      "id" : 58
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Option" : {
+                      "Some" : {
+                        "astNode" : {
+                          "data" : {
+                            "ExprIdent" : {
+                              "value" : "s"
+                            }
+                          },
+                          "id" : 58
+                        }
+                      }
                     }
                   }
-                }
-              },
-              "id" : 59
+                },
+                "id" : 59
+              }
             }
           }
         },
@@ -478,10 +554,12 @@
         {
           "DefAbsType" : {
             "node" : {
-              "data" : {
-                "name" : "T"
-              },
-              "id" : 60
+              "astNode" : {
+                "data" : {
+                  "name" : "T"
+                },
+                "id" : 60
+              }
             }
           }
         },
@@ -494,39 +572,47 @@
         {
           "DefArray" : {
             "node" : {
-              "data" : {
-                "name" : "arr",
-                "size" : {
-                  "data" : {
-                    "ExprLiteralInt" : {
-                      "value" : "3"
+              "astNode" : {
+                "data" : {
+                  "name" : "arr",
+                  "size" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "3"
+                        }
+                      },
+                      "id" : 61
                     }
                   },
-                  "id" : 61
-                },
-                "eltType" : {
-                  "data" : {
-                    "TypeNameQualIdent" : {
-                      "name" : {
-                        "data" : {
-                          "Unqualified" : {
-                            "name" : "T"
+                  "eltType" : {
+                    "astNode" : {
+                      "data" : {
+                        "TypeNameQualIdent" : {
+                          "name" : {
+                            "astNode" : {
+                              "data" : {
+                                "Unqualified" : {
+                                  "name" : "T"
+                                }
+                              },
+                              "id" : 63
+                            }
                           }
-                        },
-                        "id" : 63
-                      }
+                        }
+                      },
+                      "id" : 64
                     }
                   },
-                  "id" : 64
+                  "default" : {
+                    "Option" : "None"
+                  },
+                  "format" : {
+                    "Option" : "None"
+                  }
                 },
-                "default" : {
-                  "Option" : "None"
-                },
-                "format" : {
-                  "Option" : "None"
-                }
-              },
-              "id" : 65
+                "id" : 65
+              }
             }
           }
         },
@@ -1025,55 +1111,954 @@
   },
   "typeMap" : {
     "34" : "Integer",
-    "8" : "[3] string",
-    "33" : "struct S",
-    "56" : "string",
-    "50" : "U32",
-    "5" : "string",
-    "48" : "{ x: Integer, y: string }",
-    "65" : "array arr",
-    "31" : "string",
-    "7" : "string",
+    "8" : {
+      "AnonArray" : {
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "eltType" : {
+          "String" : {
+            "size" : {
+              "Option" : "None"
+            }
+          }
+        }
+      }
+    },
+    "33" : {
+      "Struct" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "PrimitiveInt" : {
+                      "value" : 0,
+                      "kind" : {
+                        "U32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "value" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "PrimitiveInt" : {
+                "kind" : "U32"
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        },
+        "nodeId" : 33,
+        "name" : "S"
+      }
+    },
+    "56" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "50" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "5" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "48" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    },
+    "65" : {
+      "Array" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : [
+                          [
+                          ],
+                          {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "T"
+                              },
+                              "id" : 60
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : [
+                          [
+                          ],
+                          {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "T"
+                              },
+                              "id" : 60
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : [
+                          [
+                          ],
+                          {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "T"
+                              },
+                              "id" : 60
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "format" : {
+          "Option" : "None"
+        },
+        "anonArray" : {
+          "size" : {
+            "Option" : {
+              "Some" : 3
+            }
+          },
+          "eltType" : {
+            "AbsType" : {
+              "defaultValue" : {
+                "Option" : {
+                  "Some" : {
+                    "AbsType" : {
+                      "t" : {
+                        "node" : [
+                          [
+                          ],
+                          {
+                            "astNode" : {
+                              "data" : {
+                                "name" : "T"
+                              },
+                              "id" : 60
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "nodeId" : {
+                "Option" : {
+                  "Some" : 60
+                }
+              },
+              "name" : "T"
+            }
+          }
+        },
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "nodeId" : 65,
+        "name" : "arr"
+      }
+    },
+    "31" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "7" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
     "3" : "Integer",
-    "4" : "string",
-    "40" : "U8",
-    "15" : "array B",
+    "4" : {
+      "String" : {
+        "size" : {
+          "Option" : {
+            "Some" : {
+              "astNode" : {
+                "data" : {
+                  "ExprLiteralInt" : {
+                    "value" : "40"
+                  }
+                },
+                "id" : 3
+              }
+            }
+          }
+        }
+      }
+    },
+    "40" : {
+      "PrimitiveInt" : {
+        "kind" : "U8"
+      }
+    },
+    "15" : {
+      "Array" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "Array" : {
+                      "anonArray" : {
+                        "elements" : [
+                          {
+                            "String" : {
+                              "value" : "1"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "2"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Array" : {
+                      "anonArray" : {
+                        "elements" : [
+                          {
+                            "String" : {
+                              "value" : "1"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "2"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  },
+                  {
+                    "Array" : {
+                      "anonArray" : {
+                        "elements" : [
+                          {
+                            "String" : {
+                              "value" : "1"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "2"
+                            }
+                          },
+                          {
+                            "String" : {
+                              "value" : "3"
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "format" : {
+          "Option" : "None"
+        },
+        "anonArray" : {
+          "size" : {
+            "Option" : {
+              "Some" : 3
+            }
+          },
+          "eltType" : {
+            "Array" : {
+              "defaultValue" : {
+                "Option" : {
+                  "Some" : {
+                    "anonArray" : {
+                      "elements" : [
+                        {
+                          "String" : {
+                            "value" : "1"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "2"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "3"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "format" : {
+                "Option" : {
+                  "Some" : {
+                    "prefix" : "",
+                    "fields" : [
+                      [
+                        {
+                          "Default" : {
+                            
+                          }
+                        },
+                        " RPM"
+                      ]
+                    ]
+                  }
+                }
+              },
+              "anonArray" : {
+                "size" : {
+                  "Option" : {
+                    "Some" : 3
+                  }
+                },
+                "eltType" : {
+                  "String" : {
+                    "size" : {
+                      "Option" : {
+                        "Some" : {
+                          "astNode" : {
+                            "data" : {
+                              "ExprLiteralInt" : {
+                                "value" : "40"
+                              }
+                            },
+                            "id" : 3
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "size" : {
+                "Option" : {
+                  "Some" : 3
+                }
+              },
+              "nodeId" : 10,
+              "name" : "A"
+            }
+          }
+        },
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "nodeId" : 15,
+        "name" : "B"
+      }
+    },
     "11" : "Integer",
     "61" : "Integer",
-    "46" : "string",
-    "10" : "array A",
-    "59" : "struct S2",
-    "49" : "struct S1",
-    "6" : "string",
-    "36" : "string",
+    "46" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "10" : {
+      "Array" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonArray" : {
+                "elements" : [
+                  {
+                    "String" : {
+                      "value" : "1"
+                    }
+                  },
+                  {
+                    "String" : {
+                      "value" : "2"
+                    }
+                  },
+                  {
+                    "String" : {
+                      "value" : "3"
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "format" : {
+          "Option" : {
+            "Some" : {
+              "prefix" : "",
+              "fields" : [
+                [
+                  {
+                    "Default" : {
+                      
+                    }
+                  },
+                  " RPM"
+                ]
+              ]
+            }
+          }
+        },
+        "anonArray" : {
+          "size" : {
+            "Option" : {
+              "Some" : 3
+            }
+          },
+          "eltType" : {
+            "String" : {
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "40"
+                        }
+                      },
+                      "id" : 3
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "size" : {
+          "Option" : {
+            "Some" : 3
+          }
+        },
+        "nodeId" : 10,
+        "name" : "A"
+      }
+    },
+    "59" : {
+      "Struct" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "PrimitiveInt" : {
+                      "value" : 1,
+                      "kind" : {
+                        "U32" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "value" : "abc"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "PrimitiveInt" : {
+                "kind" : "U32"
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        },
+        "nodeId" : 59,
+        "name" : "S2"
+      }
+    },
+    "49" : {
+      "Struct" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "PrimitiveInt" : {
+                      "value" : 1,
+                      "kind" : {
+                        "U8" : {
+                          
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "value" : "abc"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "PrimitiveInt" : {
+                "kind" : "U8"
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : {
+                  "Option" : "None"
+                }
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        },
+        "nodeId" : 49,
+        "name" : "S1"
+      }
+    },
+    "6" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
+    "36" : {
+      "String" : {
+        "size" : {
+          "Option" : "None"
+        }
+      }
+    },
     "1" : "Integer",
-    "39" : "{ x: Integer, y: string }",
-    "60" : "T",
-    "14" : "array A",
-    "58" : "{ x: Integer, y: string }",
-    "64" : "T",
+    "39" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    },
+    "60" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 60
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 60
+          }
+        },
+        "name" : "T"
+      }
+    },
+    "14" : {
+      "Array" : {
+        "defaultValue" : {
+          "Option" : "None"
+        },
+        "format" : {
+          "Option" : "None"
+        },
+        "anonArray" : {
+          "size" : {
+            "Option" : "None"
+          },
+          "eltType" : {
+            "String" : {
+              "size" : {
+                "Option" : {
+                  "Some" : {
+                    "astNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "40"
+                        }
+                      },
+                      "id" : 3
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "size" : {
+          "Option" : "None"
+        },
+        "nodeId" : 10,
+        "name" : "A"
+      }
+    },
+    "58" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    },
+    "64" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Option" : {
+            "Some" : {
+              "AbsType" : {
+                "t" : {
+                  "node" : [
+                    [
+                    ],
+                    {
+                      "astNode" : {
+                        "data" : {
+                          "name" : "T"
+                        },
+                        "id" : 60
+                      }
+                    },
+                    [
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Option" : {
+            "Some" : 60
+          }
+        },
+        "name" : "T"
+      }
+    },
     "0" : "Integer",
-    "27" : "U32",
+    "27" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
     "2" : "Integer",
-    "38" : "{ x: Integer, y: string }"
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : "Integer",
+          "y" : {
+            "String" : {
+              "size" : {
+                "Option" : "None"
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "valueMap" : {
-    "34" : "1",
-    "8" : "[ \"1\", \"2\", \"3\" ]",
-    "11" : "3",
-    "61" : "3",
-    "5" : "\"1\"",
-    "48" : "{ x = 1, y = \"abc\" }",
-    "58" : "{ x = 1, y = \"abc\" }",
-    "0" : "3",
-    "7" : "\"3\"",
-    "3" : "40",
-    "6" : "\"2\"",
-    "36" : "\"abc\"",
-    "1" : "3",
-    "39" : "{ x = 1, y = \"abc\" }",
-    "2" : "3",
-    "38" : "{ x = 1, y = \"abc\" }"
+    "34" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "8" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "String" : {
+              "value" : "1"
+            }
+          },
+          {
+            "String" : {
+              "value" : "2"
+            }
+          },
+          {
+            "String" : {
+              "value" : "3"
+            }
+          }
+        ]
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "61" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "5" : {
+      "String" : {
+        "value" : "1"
+      }
+    },
+    "48" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "58" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "7" : {
+      "String" : {
+        "value" : "3"
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 40
+      }
+    },
+    "6" : {
+      "String" : {
+        "value" : "2"
+      }
+    },
+    "36" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "39" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    }
   },
   "componentMap" : {
     
