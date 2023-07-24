@@ -3,6 +3,8 @@ import sys
 import re
 import sys
 
+# Recursively collects the values of the "id" key from a nested JSON structure
+# and returns the list of the collected values
 def collect_ids(json_data):
     ids = []
 
@@ -21,9 +23,8 @@ def collect_ids(json_data):
     return ids
 
 
+# Xhecks if a given list of id numbers exists as keys in a provided data dictionary
 def check_if_ids_in_loc_map(numbers, data):
-    
-    
     for number in numbers:
         if str(number) not in data:
             return f"ID in ast not found in location map: {number}"
