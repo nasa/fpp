@@ -6,6 +6,7 @@ import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
+import fpp.compiler.JsonEncoder._
 import scopt.OParser
 
 object FPPtoJson {
@@ -63,10 +64,10 @@ object FPPtoJson {
 
   def writeAst (options: Options) (tul: List[Ast.TransUnit]):
     Result.Result[Unit] =
-      writeJson(options, "fpp-ast.json", JsonEncoder.astToJson(tul))
+      writeJson(options, "fpp-ast.json", AstJsonEncoder.astToJson(tul))
 
   def writeLocMap (options: Options): Result.Result[Unit] =
-    writeJson(options, "fpp-loc-map.json", JsonEncoder.locMapToJson)
+    writeJson(options, "fpp-loc-map.json", LocMapJsonEncoder.locMapToJson)
 
   def writeAnalysis (options: Options) (tul: List[Ast.TransUnit]):
     Result.Result[Unit] =
@@ -79,7 +80,7 @@ object FPPtoJson {
         val a = Analysis(inputFileSet = options.files.toSet)
         for {
           a <- CheckSemantics.tuList(a, tul)
-          _ <- writeJson(options, "fpp-analysis.json", JsonEncoder.analysisToJson(a))
+          _ <- writeJson(options, "fpp-analysis.json", AnalysisJsonEncoder.analysisToJson(a))
         } yield ()
       case true => Right(())
     }

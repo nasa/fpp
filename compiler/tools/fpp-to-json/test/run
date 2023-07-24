@@ -23,7 +23,7 @@ run_test()
   remove_path_prefix < fpp-ast.json >> $outfile.out.txt
   remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
   
-  ocationMapValidator "$outfile"
+  locationMapValidator "$outfile"
   exit_status=$?
   if [ $exit_status -eq 1 ]; then
     return 1
