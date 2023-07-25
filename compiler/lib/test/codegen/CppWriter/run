@@ -6,7 +6,8 @@ cpp_doc_ok()
 {
   ./hpp > C.hpp && \
   ./cpp > C.cpp && \
-  gcc -c C.cpp
+  ./otherCpp > Other.cpp && \
+  gcc -c C.cpp Other.cpp
 }
 
 tests="

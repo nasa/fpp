@@ -2,6 +2,10 @@ import fpp.compiler.codegen._
 import CppDoc._
 
 object Program extends LineUtils {
+  val includeHeader = List(
+    Line.blank,
+    line("#include \"C.hpp\"")
+  )
 
   val cppDoc = CppDoc(
     description = "CppDoc test",
@@ -10,11 +14,15 @@ object Program extends LineUtils {
     members = List(
       Member.Lines(
         lines = Lines(
-          content = List(
-            Line.blank,
-            line("#include \"C.hpp\"")
-          ),
+          content = includeHeader,
           output = Lines.Cpp
+        )
+      ),
+      Member.Lines(
+        lines = Lines(
+          content = includeHeader,
+          output = Lines.Cpp,
+          cppFile = Some("Other")
         )
       ),
       Member.Namespace(
@@ -80,7 +88,10 @@ object Program extends LineUtils {
                               )
                             ),
                             retType = Type("void"),
-                            body = Nil
+                            body = Nil,
+                            CppDoc.Function.NonSV,
+                            CppDoc.Function.NonConst,
+                            Some("Other")
                           )
                         ),
                       )
@@ -178,6 +189,44 @@ object Program extends LineUtils {
             )
           )
         )
+      ),
+      Member.Namespace(
+        namespace = Namespace(
+          name = "M",
+          members = List(
+            Member.Class(
+              CppDoc.Class(
+                comment = None,
+                name = "M",
+                superclassDecls = None,
+                members = List(
+                  Class.Member.Lines(
+                    lines = Lines(
+                      content = CppDocHppWriter.writeAccessTag("public")
+                    )
+                  ),
+                  Class.Member.Constructor(
+                    constructor = Class.Constructor(
+                      comment = Some("This is line 1.\n\nThis is line 3."),
+                      params = Nil,
+                      initializers = Nil,
+                      body = lines("// line1\n// line2"),
+                      Some("Other")
+                    )
+                  ),
+                  Class.Member.Destructor(
+                    Class.Destructor(
+                      comment = Some("This is line 1.\nThis is line 2."),
+                      body = lines("// Body line 1\n// Body line 2"),
+                      Class.Destructor.Virtual,
+                      Some("Other")
+                    )
+                  ),
+                )
+              )
+            )
+          )
+        )
       )
     )
   )
@@ -198,6 +247,16 @@ object cpp {
 
   def main(args: Array[String]): Unit = {
     val output = CppDocCppWriter.visitCppDoc(Program.cppDoc)
+    output.map(Line.write(Line.stdout) _)
+    ()
+  }
+
+}
+
+object otherCpp {
+
+  def main(args: Array[String]): Unit = {
+    val output = CppDocCppWriter.visitCppDoc(Program.cppDoc, Some("Other"))
     output.map(Line.write(Line.stdout) _)
     ()
   }
