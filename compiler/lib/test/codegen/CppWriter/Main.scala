@@ -89,9 +89,7 @@ object Program extends LineUtils {
                             ),
                             retType = Type("void"),
                             body = Nil,
-                            CppDoc.Function.NonSV,
-                            CppDoc.Function.NonConst,
-                            Some("Other")
+                            cppFile = Some("Other")
                           )
                         ),
                       )
