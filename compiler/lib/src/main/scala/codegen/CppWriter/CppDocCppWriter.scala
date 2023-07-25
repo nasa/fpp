@@ -24,6 +24,18 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
+  /** Write member lines to the selected C++ file */
+  def writeToCppFile(in: Input, selectedCppFileOpt: Option[String], lines: => List[Line]):
+    List[Line] =
+  {
+    // Resolve the member cpp file
+    val selectedCppFile = selectedCppFileOpt.getOrElse(in.defaultCppFileName)
+    // Resolve the output cpp file
+    val outputCppFile = in.getOutputCppFileName
+    // Write the lines if the two cpp files match
+    if (selectedCppFile == outputCppFile) lines else Nil
+  }
+
   override def visitClass(in: Input, c: CppDoc.Class) = {
     val name = c.name
     val newClassNameList = name :: in.classNameList
@@ -31,9 +43,9 @@ object CppDocCppWriter extends CppDocWriter {
     c.members.map(visitClassMember(in1, _)).flatten
   }
 
-  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) = {
-    constructor.cppFile match {
-      case in.outputCppFileName => {
+  override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) =
+    writeToCppFile(in, constructor.cppFile,
+      {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
         val outputLines = {
@@ -63,15 +75,13 @@ object CppDocCppWriter extends CppDocWriter {
         }
         outputLines
       }
-      case _ => Nil
-    }
-  }
+    )
 
   override def visitCppDoc(cppDoc: CppDoc, cppFile: Option[String] = None) = {
     val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFile)
     List(
       CppDocWriter.writeBanner(
-        in.getCppFileName,
+        in.getOutputCppFileName,
         cppDoc.toolName,
         s"cpp file for ${cppDoc.description}"
       ),
@@ -79,9 +89,9 @@ object CppDocCppWriter extends CppDocWriter {
     ).flatten.map(CppDocWriter.leftAlignDirective)
   }
 
-  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) = {
-    destructor.cppFile match {
-      case in.outputCppFileName => {
+  override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) =
+    writeToCppFile(in, destructor.cppFile,
+      {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
         val outputLines = {
@@ -92,76 +102,66 @@ object CppDocCppWriter extends CppDocWriter {
         }
         outputLines
       }
-      case _ => Nil
-    }
-  }
+    )
 
   override def visitFunction(in: Input, function: CppDoc.Function) =
-    function.cppFile match {
-      case in.outputCppFileName => {
-        (function.svQualifier, function.body) match {
-          // If the function is pure virtual, and the function body is empty,
-          // then there is no implementation, so don't write one out.
-          case (CppDoc.Function.PureVirtual, Nil) => Nil
-          // Otherwise write out the implementation.
-          // For a pure virtual function, this is a default implementation.
-          case _ => {
-            val contentLines = {
-              val startLines = {
-                val prototypeLines = {
-                  import CppDoc.Function._
-                  val lines1 = writeParams(function.name, function.params)
-                  function.constQualifier match {
-                    case Const => Line.addSuffix(lines1, " const")
-                    case NonConst => lines1
-                  }
-                }
-                val retType = function.retType.getCppType match {
-                  case "" => ""
-                  case t => s"$t "
-                }
-                in.classNameList match {
-                  case _ :: _ => {
-                    val line1 = line(s"${retType}${in.getEnclosingClassQualified} ::")
-                    line1 :: prototypeLines.map(indentIn(_))
-                  }
-                  case Nil =>
-                    Line.addPrefix(retType, prototypeLines)
+    writeToCppFile(in, function.cppFile,
+      (function.svQualifier, function.body) match {
+        // If the function is pure virtual, and the function body is empty,
+        // then there is no implementation, so don't write one out.
+        case (CppDoc.Function.PureVirtual, Nil) => Nil
+        // Otherwise write out the implementation.
+        // For a pure virtual function, this is a default implementation.
+        case _ => {
+          val contentLines = {
+            val startLines = {
+              val prototypeLines = {
+                import CppDoc.Function._
+                val lines1 = writeParams(function.name, function.params)
+                function.constQualifier match {
+                  case Const => Line.addSuffix(lines1, " const")
+                  case NonConst => lines1
                 }
               }
-              val bodyLines = CppDocWriter.writeFunctionBody(function.body)
+              val retType = function.retType.getCppType match {
+                case "" => ""
+                case t => s"$t "
+              }
               in.classNameList match {
-                case _ :: _ => startLines ++ bodyLines
-                case Nil => Line.joinLists(Line.NoIndent)(startLines)(" ")(bodyLines)
+                case _ :: _ => {
+                  val line1 = line(s"${retType}${in.getEnclosingClassQualified} ::")
+                  line1 :: prototypeLines.map(indentIn(_))
+                }
+                case Nil =>
+                  Line.addPrefix(retType, prototypeLines)
               }
             }
-            Line.blank :: contentLines
+            val bodyLines = CppDocWriter.writeFunctionBody(function.body)
+            in.classNameList match {
+              case _ :: _ => startLines ++ bodyLines
+              case Nil => Line.joinLists(Line.NoIndent)(startLines)(" ")(bodyLines)
+            }
           }
+          Line.blank :: contentLines
         }
       }
+    )
+
+  override def visitLines(in: Input, lines: CppDoc.Lines) =
+    lines.output match {
+      case CppDoc.Lines.Cpp => writeToCppFile(in, lines.cppFile, lines.content)
+      case CppDoc.Lines.Both => writeToCppFile(in, lines.cppFile, lines.content)
       case _ => Nil
     }
 
-  override def visitLines(in: Input, lines: CppDoc.Lines) = {
-    val content = lines.content
-    (lines.output, lines.cppFile) match {
-      case (CppDoc.Lines.Cpp, in.outputCppFileName) => content
-      case (CppDoc.Lines.Both, in.outputCppFileName)  => content
-      case _ => Nil
-    }
-  }
-
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
-    val name = namespace.name
-    val startLines = List(Line.blank, line(s"namespace $name {"))
-    val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten
-    val endLines = List(Line.blank, line("}"))
-
-    // Write lines if the output cpp file of any of its members matches
-    outputLines match {
+  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) =
+    namespace.members.flatMap(visitNamespaceMember(in, _)) match {
       case Nil => Nil
-      case _ => startLines ++ outputLines.map(indentIn(_)) ++ endLines
+      case outputLines =>
+        val name = namespace.name
+        List(Line.blank, line(s"namespace $name {")) ++
+        outputLines.map(indentIn(_)) ++
+        List(Line.blank, line("}"))
     }
-  }
 
 }
