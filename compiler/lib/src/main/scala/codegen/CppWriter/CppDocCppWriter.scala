@@ -156,6 +156,8 @@ object CppDocCppWriter extends CppDocWriter {
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.map(visitNamespaceMember(in, _)).flatten
     val endLines = List(Line.blank, line("}"))
+
+    // Write lines if the output cpp file of any of its members matches
     outputLines match {
       case Nil => Nil
       case _ => startLines ++ outputLines.map(indentIn(_)) ++ endLines
