@@ -44,19 +44,27 @@ object CppWriter extends LineUtils{
 
   def headerLine(s: String): Line = line(headerString(s))
 
-  def writeCppDoc(s: CppWriterState, cppDoc: CppDoc): Result.Result[CppWriterState] =
+  def writeCppDoc(
+    s: CppWriterState,
+    cppDoc: CppDoc,
+    cppFile: Option[String] = None
+  ): Result.Result[CppWriterState] =
     for {
       _ <- writeHppFile(s, cppDoc)
-      _ <- writeCppFile(s, cppDoc)
+      _ <- writeCppFile(s, cppDoc, cppFile)
     }
     yield s
 
-  private def writeCppFile(s: CppWriterState, cppDoc: CppDoc) = {
-    val lines = CppDocCppWriter.visitCppDoc(cppDoc)
+  def writeCppFile(
+    s: CppWriterState,
+    cppDoc: CppDoc,
+    cppFile: Option[String] = None
+  ) = {
+    val lines = CppDocCppWriter.visitCppDoc(cppDoc, cppFile)
     writeLinesToFile(s, cppDoc.cppFileName, lines)
   }
 
-  private def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
+  def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
     writeLinesToFile(s, cppDoc.hppFile.name, lines)
   }
