@@ -24,11 +24,13 @@ object CppDocCppWriter extends CppDocWriter {
     }
   }
 
-  /** Write member lines to the selected C++ file */
-  def writeToCppFile(in: Input, selectedCppFileOpt: Option[String], lines: => List[Line]):
-    List[Line] =
-  {
-    // Resolve the member cpp file
+  /** Write lines for the selected C++ file */
+  def writeSelectedLines(
+    in: Input,
+    selectedCppFileOpt: Option[String],
+    lines: => List[Line]
+  ): List[Line] = {
+    // Resolve the selected cpp file for the lines
     val selectedCppFile = selectedCppFileOpt.getOrElse(in.defaultCppFileName)
     // Resolve the output cpp file
     val outputCppFile = in.getOutputCppFileName
@@ -44,7 +46,7 @@ object CppDocCppWriter extends CppDocWriter {
   }
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) =
-    writeToCppFile(in, constructor.cppFile,
+    writeSelectedLines(in, constructor.cppFile,
       {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
@@ -90,7 +92,7 @@ object CppDocCppWriter extends CppDocWriter {
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) =
-    writeToCppFile(in, destructor.cppFile,
+    writeSelectedLines(in, destructor.cppFile,
       {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
@@ -105,7 +107,7 @@ object CppDocCppWriter extends CppDocWriter {
     )
 
   override def visitFunction(in: Input, function: CppDoc.Function) =
-    writeToCppFile(in, function.cppFile,
+    writeSelectedLines(in, function.cppFile,
       (function.svQualifier, function.body) match {
         // If the function is pure virtual, and the function body is empty,
         // then there is no implementation, so don't write one out.
@@ -149,8 +151,8 @@ object CppDocCppWriter extends CppDocWriter {
 
   override def visitLines(in: Input, lines: CppDoc.Lines) =
     lines.output match {
-      case CppDoc.Lines.Cpp => writeToCppFile(in, lines.cppFile, lines.content)
-      case CppDoc.Lines.Both => writeToCppFile(in, lines.cppFile, lines.content)
+      case CppDoc.Lines.Cpp => writeSelectedLines(in, lines.cppFile, lines.content)
+      case CppDoc.Lines.Both => writeSelectedLines(in, lines.cppFile, lines.content)
       case _ => Nil
     }
 
