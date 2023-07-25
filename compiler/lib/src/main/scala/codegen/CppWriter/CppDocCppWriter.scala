@@ -151,9 +151,8 @@ object CppDocCppWriter extends CppDocWriter {
 
   override def visitLines(in: Input, lines: CppDoc.Lines) =
     lines.output match {
-      case CppDoc.Lines.Cpp => writeSelectedLines(in, lines.cppFile, lines.content)
-      case CppDoc.Lines.Both => writeSelectedLines(in, lines.cppFile, lines.content)
-      case _ => Nil
+      case CppDoc.Lines.Hpp => Nil
+      case _ => writeSelectedLines(in, lines.cppFile, lines.content)
     }
 
   override def visitNamespace(in: Input, namespace: CppDoc.Namespace) =
