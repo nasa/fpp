@@ -58,6 +58,11 @@ object FPPToCpp {
           tulFiles,
           ComputeTestCppFiles.transUnit
         )
+        case CppWriter.UnitTestTemplate => ComputeTestImplCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeTestImplCppFiles.transUnit
+        )
       }
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(
@@ -82,6 +87,7 @@ object FPPToCpp {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
           case CppWriter.UnitTest => TestCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
         }
       }
     } yield ()

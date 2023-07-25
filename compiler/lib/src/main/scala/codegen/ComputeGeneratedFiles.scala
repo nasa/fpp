@@ -29,6 +29,13 @@ object ComputeGeneratedFiles {
     }
     yield cppFiles
 
+  def getTestImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+    for {
+      a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
+      cppFiles <- getTestImplCppFiles(a, tul)
+    }
+    yield cppFiles
+
   def getAutocodeCppFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
       s <- ComputeAutocodeCppFiles.visitList(
@@ -55,6 +62,16 @@ object ComputeGeneratedFiles {
         CppWriterState(a),
         tul,
         ComputeTestCppFiles.transUnit
+      )
+    }
+    yield s.locationMap.toList.map(_._1)
+
+  def getTestImplCppFiles(a: Analysis, tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+    for {
+      s <- ComputeTestImplCppFiles.visitList(
+        CppWriterState(a),
+        tul,
+        ComputeTestImplCppFiles.transUnit
       )
     }
     yield s.locationMap.toList.map(_._1)

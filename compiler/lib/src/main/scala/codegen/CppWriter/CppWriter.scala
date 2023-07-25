@@ -139,5 +139,6 @@ object CppWriter extends LineUtils{
   case object Autocode extends Mode
   case object ImplTemplate extends Mode
   case object UnitTest extends Mode
+  case object UnitTestTemplate extends Mode
 
 }
