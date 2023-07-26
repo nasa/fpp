@@ -238,6 +238,7 @@ trait CppWriterUtils extends LineUtils {
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
     constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+    cppFile: Option[String] = None
   ): CppDoc.Member.Function =
     CppDoc.Member.Function(
       CppDoc.Function(
@@ -247,45 +248,51 @@ trait CppWriterUtils extends LineUtils {
         retType,
         body,
         svQualifier,
-        constQualifier
+        constQualifier,
+        cppFile
       )
     )
 
   def linesMember(
     content: List[Line],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
-  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp,
+    cppFile: Option[String] = None
+  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output, cppFile))
 
   def namespaceMember(
     name: String,
-    members: List[CppDoc.Member]
+    members: List[CppDoc.Member],
   ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   def constructorClassMember(
     comment: Option[String],
     params: List[CppDoc.Function.Param],
     initializers: List[String],
-    body: List[Line]
+    body: List[Line],
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Constructor =
     CppDoc.Class.Member.Constructor(
       CppDoc.Class.Constructor(
         comment,
         params,
         initializers,
-        body
+        body,
+        cppFile
       )
     )
 
   def destructorClassMember(
     comment: Option[String],
     body: List[Line],
-    virtualQualifier: CppDoc.Class.Destructor.VirtualQualifier = CppDoc.Class.Destructor.NonVirtual
+    virtualQualifier: CppDoc.Class.Destructor.VirtualQualifier = CppDoc.Class.Destructor.NonVirtual,
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Destructor =
     CppDoc.Class.Member.Destructor(
       CppDoc.Class.Destructor(
         comment,
         body,
-        virtualQualifier
+        virtualQualifier,
+        cppFile
       )
     )
 
@@ -296,7 +303,8 @@ trait CppWriterUtils extends LineUtils {
     retType: CppDoc.Type,
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
-    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Function =
     CppDoc.Class.Member.Function(
       CppDoc.Function(
@@ -306,18 +314,21 @@ trait CppWriterUtils extends LineUtils {
         retType,
         body,
         svQualifier,
-        constQualifier
+        constQualifier,
+        cppFile
       )
     )
 
   def linesClassMember(
     content: List[Line],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp,
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Lines =
     CppDoc.Class.Member.Lines(
       CppDoc.Lines(
         content,
-        output
+        output,
+        cppFile
       )
     )
 
