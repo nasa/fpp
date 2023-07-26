@@ -52,6 +52,7 @@ move_template()
   for suffix in hpp cpp
   do
     cp $file'.template.'$suffix $file$target_suffix'.template.ref.'$suffix
+    cp $file'.template.'$suffix $file$target_suffix'.'$suffix
   done
 }
 
@@ -61,9 +62,18 @@ move_test()
   target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
     cp $file'TesterBase.'$suffix $file'TesterBase'$target_suffix'.ref.'$suffix
     cp $file'GTestBase.'$suffix $file'GTestBase'$target_suffix'.ref.'$suffix
+  done
+}
+
+move_test_template()
+{
+  file=$1
+  target_suffix=$2
+  for suffix in hpp cpp
+  do
+    cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
   done
 }
 

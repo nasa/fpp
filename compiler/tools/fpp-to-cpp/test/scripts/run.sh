@@ -57,6 +57,24 @@ diff_template()
   diff -u $file$target_suffix.out.template.cpp $file$target_suffix.template.ref.cpp
 }
 
+diff_test()
+{
+  file=$1
+  target_suffix=$2
+  cp $file'TesterBase'.hpp $file'TesterBase'$target_suffix.out.hpp && \
+  diff -u $file'TesterBase'$target_suffix.out.hpp $file'TesterBase'$target_suffix.ref.hpp && \
+  cp $file'GTestBase'.hpp $file'GTestBase'$target_suffix.out.hpp && \
+  diff -u $file'GTestBase'$target_suffix.out.hpp $file'GTestBase'$target_suffix.ref.hpp
+}
+
+diff_test_template()
+{
+  file=$1
+  target_suffix=$2
+  cp $file'Tester'.hpp $file'Tester'$target_suffix.out.hpp && \
+  diff -u $file'Tester'$target_suffix.out.hpp $file'Tester'$target_suffix.ref.hpp
+}
+
 . ./run.sh
 
 run_suite $tests
