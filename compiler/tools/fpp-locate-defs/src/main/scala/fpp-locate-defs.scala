@@ -42,20 +42,8 @@ object FPPLocateDefs {
     }
   }
 
-  def main(args: Array[String]) = {
-    Error.setTool(Tool(name))
-    for (options <- OParser.parse(oparser, args, Options()))
-    yield {
-      command(options) match {
-        case Left(error) => {
-          error.print
-          System.exit(1)
-        }
-        case _ => ()
-      }
-    }
-    ()
-  }
+  def main(args: Array[String]) =
+    Tool(name).mainMethod(args, oparser, Options(), command)
 
   val builder = OParser.builder[Options]
 
