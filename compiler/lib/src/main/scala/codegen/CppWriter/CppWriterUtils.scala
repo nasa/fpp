@@ -261,7 +261,7 @@ trait CppWriterUtils extends LineUtils {
 
   def namespaceMember(
     name: String,
-    members: List[CppDoc.Member],
+    members: List[CppDoc.Member]
   ): CppDoc.Member.Namespace = CppDoc.Member.Namespace(CppDoc.Namespace(name, members))
 
   def constructorClassMember(
