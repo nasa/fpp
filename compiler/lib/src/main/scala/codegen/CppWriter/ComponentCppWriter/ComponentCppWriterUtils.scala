@@ -631,6 +631,10 @@ abstract class ComponentCppWriterUtils(
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
 
+  /** Get the name for an event ID constant */
+  def eventIdConstantName(name: String) =
+    s"EVENTID_${name.toUpperCase}"
+
   /** Get the name for a telemetry channel update flag variable */
   def channelUpdateFlagName(name: String) =
     s"m_first_update_$name"

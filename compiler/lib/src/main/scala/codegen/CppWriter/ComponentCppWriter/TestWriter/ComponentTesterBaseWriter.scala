@@ -562,8 +562,123 @@ case class ComponentTesterBaseWriter(
               )
             ),
             CppDoc.Type("void"),
-            // Todo!
-            Nil
+            List.concat(
+              lines(
+                """|args.resetDeser();
+                   |
+                   |const U32 idBase = this->getIdBase();
+                   |FW_ASSERT(id >= idBase, id, idBase);
+                   |"""
+              ),
+              Line.blank :: wrapInSwitch(
+                "(id - idBase)",
+                intersperseBlankLines(
+                  sortedEvents.map((id, event) => {
+                    val params = eventParamTypeMap(id)
+
+                    wrapInScope(
+                      s"case $className::${eventIdConstantName(event.getName)}: {",
+                      List.concat(
+                        params match {
+                          case Nil => lines(
+                            """|#if FW_AMPCS_COMPATIBLE
+                               |// For AMPCS, decode zero arguments
+                               |Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+                               |U8 _noArgs;
+                               |_zero_status = args.deserialize(_noArgs);
+                               |FW_ASSERT(
+                               |  _zero_status == Fw::FW_SERIALIZE_OK,
+                               |  static_cast<FwAssertArgType>(_zero_status)
+                               |);
+                               |#endif
+                               |"""
+                          )
+                          case _ => List.concat(
+                            lines(
+                              """|Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                                 |
+                                 |#if FW_AMPCS_COMPATIBLE
+                                 |// Deserialize the number of arguments.
+                                 |U8 _numArgs;
+                                 |_status = args.deserialize(_numArgs);
+                                 |FW_ASSERT(
+                                 |  _status == Fw::FW_SERIALIZE_OK,
+                                 |  static_cast<FwAssertArgType>(_status)
+                                 |);
+                                 |// Verify they match expected.
+                                 |"""
+                            ),
+                            event.aNode._2.data.severity match {
+                              case Ast.SpecEvent.Fatal => lines(
+                                s"""|FW_ASSERT(_numArgs == ${params.length} + 1, _numArgs, ${params.length} + 1);
+                                    |
+                                    |// For FATAL, there is a stack size of 4 and a dummy entry
+                                    |U8 stackArgLen;
+                                    |_status = args.deserialize(stackArgLen);
+                                    |FW_ASSERT(
+                                    |    _status == Fw::FW_SERIALIZE_OK,
+                                    |    static_cast<FwAssertArgType>(_status)
+                                    |);
+                                    |FW_ASSERT(stackArgLen == 4, stackArgLen);
+                                    |
+                                    |U32 dummyStackArg;
+                                    |_status = args.deserialize(dummyStackArg);
+                                    |FW_ASSERT(
+                                    |    _status == Fw::FW_SERIALIZE_OK,
+                                    |    static_cast<FwAssertArgType>(_status)
+                                    |);
+                                    |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
+                                    |"""
+                              )
+                              case _ => lines(s"FW_ASSERT(_numArgs == ${params.length}, _numArgs, ${params.length});")
+                            },
+                            lines("#endif")
+                          )
+                        },
+                        eventParamTypeMap(id).flatMap((name, tn) =>
+                          lines(
+                            s"""|
+                                |$tn $name;
+                                |#if FW_AMPCS_COMPATIBLE
+                                |{
+                                |  // Deserialize the argument size
+                                |  U8 _argSize;
+                                |  _status = args.deserialize(_argSize);
+                                |  FW_ASSERT(
+                                |    _status == Fw::FW_SERIALIZE_OK,
+                                |    static_cast<FwAssertArgType>(_status)
+                                |  );
+                                |  FW_ASSERT(_argSize == sizeof($tn), _argSize, sizeof($tn));
+                                |}
+                                |#endif
+                                |_status = args.deserialize($name);
+                                |FW_ASSERT(
+                                |  _status == Fw::FW_SERIALIZE_OK,
+                                |  static_cast<FwAssertArgType>(_status)
+                                |);
+                                |"""
+                          )
+                        ),
+                        lines(
+                          s"""|this->${eventHandlerName(event)}(${params.map(_._1).mkString(", ")});
+                              |break;
+                              |"""
+                        )
+                      ),
+                      "}"
+                    )
+                  }) ++ List(
+                    lines(
+                    """|default: {
+                       |  FW_ASSERT(0, id);
+                       |  break;
+                       |}
+                       |"""
+                    )
+                  )
+                )
+              )
+            )
           )
         )
         else Nil,

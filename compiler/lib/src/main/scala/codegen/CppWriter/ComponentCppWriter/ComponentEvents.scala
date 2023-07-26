@@ -325,10 +325,6 @@ case class ComponentEvents (
     )
   }
 
-  // Get the name for an event ID constant
-  private def eventIdConstantName(name: String) =
-    s"EVENTID_${name.toUpperCase}"
-
   // Get the name for an event throttle constant
   private def eventThrottleConstantName(name: String) =
     s"${eventIdConstantName(name)}_THROTTLE"
