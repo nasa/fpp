@@ -36,21 +36,8 @@ object FPPFilenames {
     yield files.sorted.map(System.out.println)
   }
 
-  def errorExit = System.exit(1)
-
-  def main(args: Array[String]) = {
-    Error.setTool(Tool(name))
-    OParser.parse(oparser, args, Options()) match {
-      case Some(options) => command(options) match {
-        case Left(error) => {
-          error.print
-          errorExit
-        }
-        case _ => ()
-      }
-      case None => errorExit
-    }
-  }
+  def main(args: Array[String]) =
+    Tool(name).mainMethod(args, oparser, Options(), command)
 
   val builder = OParser.builder[Options]
 

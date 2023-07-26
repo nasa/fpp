@@ -50,7 +50,8 @@ object FPPCheck {
       }
   }
 
-  def main(args: Array[String]) = Tool(name).mainMethod(args, oparser, Options(), command)
+  def main(args: Array[String]) =
+    Tool(name).mainMethod(args, oparser, Options(), command)
 
   val builder = OParser.builder[Options]
 
