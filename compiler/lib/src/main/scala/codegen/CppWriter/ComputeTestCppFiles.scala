@@ -18,8 +18,6 @@ object ComputeTestCppFiles extends ComputeCppFiles {
       s <- visitList (s, data.members, matchComponentMember)
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTesterBase(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
-      s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestImpl(name), Some(loc))
-      s <- visitList (s, data.members, matchComponentMember)
     }
     yield s
   }

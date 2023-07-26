@@ -14,7 +14,7 @@ case class ComponentHistory(
     addAccessTagAndComment(
       "protected",
       "History class",
-      List(
+      if hasHistories then List(
         linesClassMember(
           lines(
             """|
@@ -95,7 +95,8 @@ case class ComponentHistory(
           ),
           CppDoc.Lines.Hpp
         )
-      ),
+      )
+      else Nil,
       CppDoc.Lines.Hpp
     )
   }
@@ -141,7 +142,7 @@ case class ComponentHistory(
     addAccessTagAndComment(
       "protected",
       "History functions",
-      List(
+      if hasHistories then List(
         functionClassMember(
           Some("Clear all history"),
           "clearHistory",
@@ -163,6 +164,7 @@ case class ComponentHistory(
           )
         )
       )
+      else Nil
     )
   }
 
@@ -185,7 +187,7 @@ case class ComponentHistory(
   }
 
   private def getPortHistoryFunctions: List[CppDoc.Class.Member] = {
-    functionClassMember(
+    if typedOutputPorts.nonEmpty then functionClassMember(
       Some("Clear from port history"),
       "clearFromPortHistory",
       Nil,
@@ -221,10 +223,11 @@ case class ComponentHistory(
           )
         )
       )
+    else Nil
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
-    List(
+    if typedOutputPorts.nonEmpty then List(
       linesClassMember(
         List.concat(
           Line.blank :: lines(
@@ -250,10 +253,11 @@ case class ComponentHistory(
         CppDoc.Lines.Hpp
       )
     )
+    else Nil
   }
 
   private def getCmdHistoryTypes: List[CppDoc.Class.Member] = {
-    List(
+    if cmdRespPort.isDefined then List(
       linesClassMember(
         Line.blank :: line("//! A type representing a command response") ::
           wrapInScope(
@@ -269,10 +273,11 @@ case class ComponentHistory(
         CppDoc.Lines.Hpp
       )
     )
+    else Nil
   }
 
   private def getCmdHistoryVariables: List[CppDoc.Class.Member] = {
-    List(
+    if cmdRespPort.isDefined then List(
       linesClassMember(
         Line.blank :: lines(
           """|//! The command response history
@@ -282,11 +287,12 @@ case class ComponentHistory(
         CppDoc.Lines.Hpp
       )
     )
+    else Nil
   }
 
   private def getEventHistoryTypes: List[CppDoc.Class.Member] = {
     List.concat(
-      wrapClassMemberInTextLogGuard(
+      if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
         linesClassMember(
           Line.blank :: line("//! A history entry for text log events") :: wrapInScope(
             "struct TextLogEntry {",
@@ -302,7 +308,8 @@ case class ComponentHistory(
           CppDoc.Lines.Hpp
         ),
         CppDoc.Lines.Hpp
-      ),
+      )
+      else Nil,
       List(
         linesClassMember(
           sortedEvents.flatMap((id, event) =>
@@ -323,7 +330,7 @@ case class ComponentHistory(
   }
 
   private def getEventHistoryFunctions: List[CppDoc.Class.Member] = {
-    List.concat(
+    if hasEvents then List.concat(
       List(
         functionClassMember(
           Some("Clear event history"),
@@ -424,11 +431,12 @@ case class ComponentHistory(
         )
       )
     )
+    else Nil
   }
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
     List.concat(
-      List(
+      if eventPort.isDefined then List(
         linesClassMember(
           Line.blank :: lines(
             """|//! The total number of events seen
@@ -436,8 +444,9 @@ case class ComponentHistory(
                |"""
           )
         )
-      ),
-      wrapClassMemberInTextLogGuard(
+      )
+      else Nil,
+      if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
         linesClassMember(
           Line.blank :: lines(
             """|//! The history of text log events
@@ -447,7 +456,8 @@ case class ComponentHistory(
           CppDoc.Lines.Hpp
         ),
         CppDoc.Lines.Hpp
-      ),
+      )
+      else Nil,
       List(
         linesClassMember(
           sortedEvents.flatMap((id, event) =>
@@ -490,7 +500,7 @@ case class ComponentHistory(
   }
 
   private def getTlmHistoryFunctions: List[CppDoc.Class.Member] = {
-    List(
+    if hasChannels then List(
       functionClassMember(
         Some("Clear telemetry history"),
         "clearTlm",
@@ -504,10 +514,11 @@ case class ComponentHistory(
         )
       )
     )
+    else Nil
   }
 
   private def getTlmHistoryVariables: List[CppDoc.Class.Member] = {
-    List(
+    if hasChannels then List(
       linesClassMember(
         List.concat(
           Line.blank :: lines(
@@ -526,6 +537,7 @@ case class ComponentHistory(
         CppDoc.Lines.Hpp
       )
     )
+    else Nil
   }
 
 }

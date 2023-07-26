@@ -90,8 +90,7 @@ object CppWriter extends LineUtils{
       case (false, false) => Autocode
       case (true, false) => ImplTemplate
       case (false, true) => UnitTest
-      // TODO: raise error
-      case (true, true) => Autocode
+      case (true, true) => UnitTestTemplate
     }
 
   /** The phases of code generation */

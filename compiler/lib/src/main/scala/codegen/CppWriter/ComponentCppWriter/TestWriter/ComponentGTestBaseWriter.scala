@@ -184,14 +184,14 @@ case class ComponentGTestBaseWriter(
             s"""#define ASSERT_EVENTS_${event.getName}_SIZE(size) \\
                |  this->${eventSizeAssertionFuncName(event.getName)}(__FILE__, __LINE__, size)
                |"""
-          ) ++ eventParamTypeMap(id) match {
+          ) ++ (eventParamTypeMap(id) match {
             case Nil => Nil
-            case _ => lines(
+            case _ => Line.blank :: lines(
               s"""#define ASSERT_EVENTS_${event.getName}(size$params) \\
                  |  this->${eventAssertionFuncName(event.getName)}(__FILE__, __LINE__, size$params)
                  |"""
             )
-          }
+          })
         })
       )
     )
@@ -388,17 +388,17 @@ case class ComponentGTestBaseWriter(
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(
-              s"""ASSERT_EQ(size, this->eventsSize_EventActivityHigh)
+              s"""ASSERT_EQ(size, this->$eventsSize)
                  |  << "\\n"
                  |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Size of history for event EventActivityHigh\\n"
+                 |  << "  Value:    Size of history for event ${event.getName}\\n"
                  |  << "  Expected: " << size << "\\n"
                  |  << "  Actual:   " << this->$eventsSize << "\\n";
                  |"""
             ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
-          ) :: eventParamTypeMap(id) match {
+          ) :: (eventParamTypeMap(id) match {
             case Nil => Nil
             case _ => List(
               functionClassMember(
@@ -436,7 +436,7 @@ case class ComponentGTestBaseWriter(
                          |  << __index
                          |  << " in history of event ${event.getName}\\n"
                          |  << "  Expected: " << $name << "\\n"
-                         |  << "  Actual:   " << _e.$name << "\\n";
+                         |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
                          |"""
                     )
                   )
@@ -445,7 +445,7 @@ case class ComponentGTestBaseWriter(
                 CppDoc.Function.Const
               )
             )
-          }
+          })
         })
       )
     )

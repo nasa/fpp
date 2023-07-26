@@ -14,8 +14,6 @@ object TestCppWriter extends CppWriter {
     val node = aNode._2
     val data = node.data
     for {
-      s <- CppWriter.writeCppDoc(s, ComponentTestImplWriter(s, aNode).write)
-      s <- visitList(s, data.members, matchComponentMember)
       s <- CppWriter.writeCppDoc(s, ComponentTesterBaseWriter(s, aNode).write)
       s <- visitList(s, data.members, matchComponentMember)
       s <- CppWriter.writeCppDoc(s, ComponentGTestBaseWriter(s, aNode).write)

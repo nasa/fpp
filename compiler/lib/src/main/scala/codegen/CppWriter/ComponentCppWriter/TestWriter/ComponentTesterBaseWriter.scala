@@ -349,8 +349,12 @@ case class ComponentTesterBaseWriter(
           case Some(_) => "return "
           case None => ""
         }
+        val invokeFunction = p.getType.get match {
+          case PortInstance.Type.DefPort(_) => "invoke"
+          case PortInstance.Type.Serial => "invokeSerial"
+        }
         val invokeCall = writeFunctionCall(
-          s"${returnKeyword}this->${portVariableName(p)}[portNum].invoke",
+          s"${returnKeyword}this->${portVariableName(p)}[portNum].$invokeFunction",
           Nil,
           getPortParams(p).map(_._1)
         )
@@ -426,7 +430,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Functions for testing commands",
       List.concat(
-        List(
+        if cmdRespPort.isDefined then List(
           functionClassMember(
             Some("Handle a command response"),
             "cmdResponseIn",
@@ -446,7 +450,10 @@ case class ComponentTesterBaseWriter(
                  |"""
             ),
             CppDoc.Function.Virtual
-          ),
+          )
+        )
+        else Nil,
+        if hasCommands then List(
           functionClassMember(
             Some("Send command buffers directly (used for intentional command encoding errors)"),
             "sendRawCmd",
@@ -470,7 +477,8 @@ case class ComponentTesterBaseWriter(
               cmdPortInvocation
             )
           )
-        ),
+        )
+        else Nil,
         nonParamCmds.map((opcode, cmd) =>
           functionClassMember(
             Some(s"Send a ${cmd.getName} command"),
@@ -531,7 +539,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Functions for testing events",
       List.concat(
-        List(
+        if eventPort.isDefined then List(
           functionClassMember(
             Some("Dispatch an event"),
             "dispatchEvents",
@@ -554,10 +562,12 @@ case class ComponentTesterBaseWriter(
               )
             ),
             CppDoc.Type("void"),
+            // Todo!
             Nil
           )
-        ),
-        wrapClassMemberInTextLogGuard(
+        )
+        else Nil,
+        if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
           functionClassMember(
             Some("Handle a text event"),
             "textLogIn",
@@ -586,7 +596,8 @@ case class ComponentTesterBaseWriter(
                   |"""
             )
           )
-        ),
+        )
+        else Nil,
         sortedEvents.map((id, event) =>
           functionClassMember(
             Some(s"Handle event ${event.getName}"),
@@ -626,7 +637,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Functions for testing telemetry",
       List.concat(
-        List(
+        if tlmPort.isDefined then List(
           functionClassMember(
             Some("Dispatch telemetry"),
             "dispatchTlm",
@@ -688,7 +699,8 @@ case class ComponentTesterBaseWriter(
               )
             )
           )
-        ),
+        )
+        else Nil,
         sortedChannels.map((_, channel) =>
           functionClassMember(
             Some(s"Handle channel ${channel.getName}"),
@@ -718,7 +730,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions to test time",
-      List(
+      if hasTimeGetPort then List(
         functionClassMember(
           Some("Set the test time for events and telemetry"),
           "setTestTime",
@@ -727,6 +739,7 @@ case class ComponentTesterBaseWriter(
           lines("this->m_testTime = timeTag;")
         )
       )
+      else Nil
     )
   }
 
@@ -921,18 +934,18 @@ case class ComponentTesterBaseWriter(
     val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
     val paramGetBody = intersperseBlankLines(
       List(
+        lines(testerBaseDecl),
+        if hasParameters then lines("Fw::SerializeStatus _status;")
+        else Nil,
         lines(
-          s"""|$testerBaseDecl
-              |
-              |Fw::SerializeStatus _status;
-              |Fw::ParamValid _ret = Fw::ParamValid::VALID;
+          s"""|Fw::ParamValid _ret = Fw::ParamValid::VALID;
               |val.resetSer();
               |
               |const U32 idBase = _testerBase->getIdBase();
               |FW_ASSERT(id >= idBase, id, idBase);
               |"""
         ),
-        Line.blank :: wrapInSwitch(
+        wrapInSwitch(
           "id - idBase",
           intersperseBlankLines(
             sortedParams.map((_, prm) =>
@@ -964,11 +977,11 @@ case class ComponentTesterBaseWriter(
       )
     )
     val paramSetBody = List.concat(
+      lines(s"$testerBaseDecl\n"),
+      if hasParameters then lines("Fw::SerializeStatus _status;")
+      else Nil,
       lines(
-        s"""|$testerBaseDecl
-            |
-            |Fw::SerializeStatus _status;
-            |val.resetSer();
+        s"""|val.resetSer();
             |
             |const U32 idBase = _testerBase->getIdBase();
             |FW_ASSERT(id >= idBase, id, idBase);
@@ -1012,11 +1025,7 @@ case class ComponentTesterBaseWriter(
       "private",
       "Static functions for output ports",
       mapPorts(
-        List.concat(
-          typedOutputPorts,
-          serialOutputPorts,
-          specialOutputPorts,
-        ),
+        outputPorts,
         p => List(
           functionClassMember(
             Some(s"Static function for port ${portName(p)}"),
@@ -1094,18 +1103,12 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "To ports",
-        List(
+        inputPorts.map(p =>
           linesClassMember(
-            List.concat(
-              typedInputPorts,
-              serialInputPorts,
-              specialInputPorts,
-            ).flatMap(p =>
-              Line.blank :: lines(
-                s"""|//! To port connected to ${p.getUnqualifiedName}
-                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
-                    |"""
-              )
+            Line.blank :: lines(
+              s"""|//! To port connected to ${p.getUnqualifiedName}
+                  |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
+                  |"""
             ),
             CppDoc.Lines.Hpp
           )
@@ -1116,11 +1119,7 @@ case class ComponentTesterBaseWriter(
         "private",
         "From ports",
         mapPorts(
-          List.concat(
-            typedOutputPorts,
-            serialOutputPorts,
-            specialOutputPorts,
-          ),
+          outputPorts,
           p => List(
             linesClassMember(
               Line.blank :: lines(
@@ -1168,7 +1167,7 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Time variables",
-        List(
+        if hasTimeGetPort then List(
           linesClassMember(
             Line.blank :: lines(
               s"""|//! Test time stamp
@@ -1177,7 +1176,8 @@ case class ComponentTesterBaseWriter(
             ),
             CppDoc.Lines.Hpp
           )
-        ),
+        )
+        else Nil,
         CppDoc.Lines.Hpp
       ),
     )
