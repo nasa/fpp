@@ -75,6 +75,8 @@ move_test_template()
   do
     cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
   done
+  cp $file'TesterHelpers.cpp' $file'TesterHelpers'$target_suffix'.ref.cpp'
+  cp $file'TestMain.cpp' $file'TestMain'$target_suffix'.ref.cpp'
 }
 
 . ./update-ref.sh
