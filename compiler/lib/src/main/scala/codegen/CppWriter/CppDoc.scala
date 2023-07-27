@@ -50,13 +50,13 @@ object CppDoc {
       params: List[Function.Param],
       initializers: List[String],
       body: List[Line],
-      cppFile: Option[String] = None,
+      cppFileNameBaseOpt: Option[String] = None,
     )
     case class Destructor(
       comment: Option[String],
       body: List[Line],
       virtualQualifier: Destructor.VirtualQualifier = Destructor.NonVirtual,
-      cppFile: Option[String] = None,
+      cppFileNameBaseOpt: Option[String] = None,
     )
     object Destructor {
       sealed trait VirtualQualifier
@@ -82,7 +82,7 @@ object CppDoc {
     /** The const qualifier */
     constQualifier: Function.ConstQualifier = Function.NonConst,
     /** The cpp file to write to */
-    cppFile: Option[String] = None,
+    cppFileNameBaseOpt: Option[String] = None,
   )
   case object Function {
     case class Param(
@@ -133,7 +133,7 @@ object CppDoc {
   case class Lines(
     content: List[Line],
     output: Lines.Output = Lines.Hpp,
-    cppFile: Option[String] = None,
+    cppFileNameBaseOpt: Option[String] = None,
   )
   object Lines {
     sealed trait Output
