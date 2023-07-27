@@ -139,10 +139,13 @@ even though `c.Out` has two ports and only one of them is connected.
 
 === Generating XML
 
-Our current strategy is to generate
-F Prime XML, and then to run the generated XML through the F Prime
-Python autocoders to generate {cpp}.
-In a future version of FPP, we will simplify this process.
+There are two reasons for generating XML from FPP:
+
+. It is needed to support the F Prime GDS.
+
+. It is needed to support {cpp} code generation, until we fully
+replace the XML-to-{cpp} code generation with FPP-to-{cpp}
+code generation (see the next section).
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are 
 translated to F Prime XML files.
@@ -347,33 +350,8 @@ in this manual.
 
 === Generating C Plus Plus
 
-As discussed in the previous section, our general strategy is to generate XML 
-and to use the F Prime autocoders to generate
-{cpp}.
-As of the current version of FPP, we make the following exceptions to this rule:
-
-. For
-<<Defining-Constants,constant definitions>>,
-we generate {cpp} directly from FPP.
-The reason is that the F Prime XML representation has no way to specify 
-symbolic constants.
-
-. For
-<<Defining-Topologies,topology definitions>>,
-we generate both XML and {cpp} from FPP.
-The reason is that FPP
-<<Defining-Component-Instances_Component-Instance-Definitions,
-instance definitions>>
-and
-<<Defining-Component-Instances_Init-Specifiers,
-init specifiers>>
-provide more complete {cpp} code generation than is available
-via F Prime XML.
-However, we still use the F Prime XML to generate dictionaries
-for the F Prime ground data system.
-
-. We are phasing in direct {cpp} code generation for types, ports,
-and components.
+To date we have implemented all of the FPP to {cpp} translation
+except for the generation of component unit test harnesses.
 
 *Tool name:* The tool for translating FPP to {cpp} is called
 `fpp-to-cpp`.
@@ -562,12 +540,24 @@ translating constant definitions>>.
 The `-g` option is ignored, because
 the include guard prefix comes from the name of the topology.
 
-==== Other Definitions
+==== Types, Ports, and Components
 
-We are phasing in direct {cpp} code generation for types, ports, and
-components.
-Currently we have implemented direct {cpp} code generation for types
-(arrays, structs, and enums) and ports.
+{cpp} code generation for types, ports, and components works similarly
+to the corresponding code generation from XML.
+This code generation is described
+in the https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F 
+Prime User's Guide].
+
+==== Component Implementation Templates
+
+`fpp-to-cpp` has an option `-t`.
+When you run `fpp-to-cpp` with this option, it does not
+generate any autocoded {cpp} for constants, ports, types, components, or
+topologies.
+Instead, for each component definition _C_ in the input,
+ it generates files _C_ `.template.hpp` and _C_ `.template.cpp`.
+These files provide a "template" or partial implementation that you
+can fill in to provide the concrete implementation of _C_.
 
 === Identifying Generated Files
 
@@ -646,7 +636,7 @@ XML model into FPP.
 As discussed below, some manual effort will still be required,
 because the FPP and XML representations are not identical.
 The good news is that this is a one-time effort: you can do it once
-and then use the FPP version thereafter.
+and use the FPP version thereafter.
 
 *Tool name:* The tool for translating XML to FPP is called
 `fpp-from-xml`.
@@ -1012,7 +1002,7 @@ it adds special comments that can be read by a companion tool called
 `fprime-layout`.
 `fprime-layout` reads a topology XML file and produces a
 *topology visualization*, i.e., a graphical rendering of the topology
-in which the components are shapes, the ports are smaller shapes,
+in which the component instances are shapes, the ports are smaller shapes,
 and the connections are arrows between the ports.
 `fprime-layout` produces one visualization for each
 <<Defining-Topologies_Connection-Graphs,connection graph>> in the 

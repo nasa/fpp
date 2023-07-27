@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v1.2.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, v1.3.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v1.2.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, v1.3.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -668,7 +668,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Other-Definitions">13.3.3. Other Definitions</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">13.3.3. Types, Ports, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
@@ -4018,15 +4019,33 @@ commands, events, telemetry, parameters, and time.</p>
 <h4 id="Defining-Components_Special-Port-Instances_Command-Ports">9.3.1. Command Ports</h4>
 <div class="paragraph">
 <p>A <strong>command</strong> is an instruction to the spacecraft to perform an action.
-The special command behaviors, and their keywords, are as follows:</p>
+Each component instance <em>C</em> that specifies commands has the following
+high-level behaviors:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>At FSW startup time, <em>C</em> registers its commands with a component
+instance called the <strong>command dispatcher</strong>.</p>
+</li>
+<li>
+<p>During FSW execution, <em>C</em> receives commands from the command
+dispatcher.
+For each command received, <em>C</em> executes the command and
+sends a response back to the command dispatcher.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In FPP, the keywords for the special command behaviors are as follows:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>command</code> <code>recv</code>: A port for receiving commands.</p>
+<p><code>command</code> <code>reg</code>: A port for sending command registration requests.</p>
 </li>
 <li>
-<p><code>command</code> <code>reg</code>: A port for sending command registration requests.</p>
+<p><code>command</code> <code>recv</code>: A port for receiving commands.</p>
 </li>
 <li>
 <p><code>command</code> <code>resp</code>: A port for sending command responses.</p>
@@ -9496,10 +9515,19 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-XML">13.2. Generating XML</h3>
 <div class="paragraph">
-<p>Our current strategy is to generate
-F Prime XML, and then to run the generated XML through the F Prime
-Python autocoders to generate C&#43;&#43;.
-In a future version of FPP, we will simplify this process.</p>
+<p>There are two reasons for generating XML from FPP:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It is needed to support the F Prime GDS.</p>
+</li>
+<li>
+<p>It is needed to support C&#43;&#43; code generation, until we fully
+replace the XML-to-C&#43;&#43; code generation with FPP-to-C&#43;&#43;
+code generation (see the next section).</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
@@ -9797,38 +9825,8 @@ in this manual.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</h3>
 <div class="paragraph">
-<p>As discussed in the previous section, our general strategy is to generate XML
-and to use the F Prime autocoders to generate
-C&#43;&#43;.
-As of the current version of FPP, we make the following exceptions to this rule:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>For
-<a href="#Defining-Constants">constant definitions</a>,
-we generate C&#43;&#43; directly from FPP.
-The reason is that the F Prime XML representation has no way to specify
-symbolic constants.</p>
-</li>
-<li>
-<p>For
-<a href="#Defining-Topologies">topology definitions</a>,
-we generate both XML and C&#43;&#43; from FPP.
-The reason is that FPP
-<a href="#Defining-Component-Instances_Component-Instance-Definitions">instance definitions</a>
-and
-<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
-provide more complete C&#43;&#43; code generation than is available
-via F Prime XML.
-However, we still use the F Prime XML to generate dictionaries
-for the F Prime ground data system.</p>
-</li>
-<li>
-<p>We are phasing in direct C&#43;&#43; code generation for types, ports,
-and components.</p>
-</li>
-</ol>
+<p>To date we have implemented all of the FPP to C&#43;&#43; translation
+except for the generation of component unit test harnesses.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
@@ -10074,12 +10072,26 @@ the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Other-Definitions">13.3.3. Other Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">13.3.3. Types, Ports, and Components</h4>
 <div class="paragraph">
-<p>We are phasing in direct C&#43;&#43; code generation for types, ports, and
-components.
-Currently we have implemented direct C&#43;&#43; code generation for types
-(arrays, structs, and enums) and ports.</p>
+<p>C&#43;&#43; code generation for types, ports, and components works similarly
+to the corresponding code generation from XML.
+This code generation is described
+in the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
+Prime User&#8217;s Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</h4>
+<div class="paragraph">
+<p><code>fpp-to-cpp</code> has an option <code>-t</code>.
+When you run <code>fpp-to-cpp</code> with this option, it does not
+generate any autocoded C&#43;&#43; for constants, ports, types, components, or
+topologies.
+Instead, for each component definition <em>C</em> in the input,
+ it generates files <em>C</em> <code>.template.hpp</code> and <em>C</em> <code>.template.cpp</code>.
+These files provide a "template" or partial implementation that you
+can fill in to provide the concrete implementation of <em>C</em>.</p>
 </div>
 </div>
 </div>
@@ -10178,7 +10190,7 @@ XML model into FPP.
 As discussed below, some manual effort will still be required,
 because the FPP and XML representations are not identical.
 The good news is that this is a one-time effort: you can do it once
-and then use the FPP version thereafter.</p>
+and use the FPP version thereafter.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating XML to FPP is called
@@ -10620,7 +10632,7 @@ it adds special comments that can be read by a companion tool called
 <code>fprime-layout</code>.
 <code>fprime-layout</code> reads a topology XML file and produces a
 <strong>topology visualization</strong>, i.e., a graphical rendering of the topology
-in which the components are shapes, the ports are smaller shapes,
+in which the component instances are shapes, the ports are smaller shapes,
 and the connections are arrows between the ports.
 <code>fprime-layout</code> produces one visualization for each
 <a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
@@ -10716,16 +10728,15 @@ and implementing deployments.</p>
 represents a C&#43;&#43; class that you write directly in C&#43;&#43;.
 When you use an abstract type <em>T</em> in an FPP definition <em>D</em> (for example, as the
 member type of an array definition)
-and you translate <em>D</em> to XML, then the generated XML node for <em>D</em> contains an
-<code>include_header</code> node that
-includes a header file for <em>T</em>.</p>
+and you translate <em>D</em> to C&#43;&#43;, then the generated C&#43;&#43; for <em>D</em> contains an
+<code>include</code> directive that includes a header file for <em>T</em>.</p>
 </div>
 <div class="paragraph">
 <p>As an example, try this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-to-xml -p $PWD
+<pre>% fpp-to-cpp -p $PWD
 type T
 array A = [3] T
 ^D</pre>
@@ -10740,22 +10751,21 @@ This is to make the generated include path relative to the current directory.</p
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% cat AArrayAi.xml</pre>
+<pre>% cat AArrayAc.hpp</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You should see the following line in the generated XML:</p>
+<p>You should see the following line in the generated C&#43;&#43;:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="xml">&lt;include_header&gt;T.hpp&lt;/include_header&gt;</code></pre>
+<pre class="prettyprint highlight"><code data-lang="cpp">#include "T.hpp"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This line says that when the F Prime autocoder translates this XML file
-to a C&#43;&#43; class, in order to compile that class, a header file <code>T.hpp</code>
-must exist in the current directory. It is up to you to provide that header
-file.</p>
+<p>This line says that in order to compile <code>AArrayAc.cpp</code>,
+a header file <code>T.hpp</code> must exist in the current directory.
+It is up to you to provide that header file.</p>
 </div>
 <div class="paragraph">
 <p>When implementing an abstract type <code>T</code> in C&#43;&#43;, you must define
@@ -10880,10 +10890,11 @@ POINTER_CAST</pre>
 has default value zero.</p>
 </div>
 <div class="paragraph">
-<p>The F Prime framework automatically provides the C&#43;&#43; definitions
+<p>The F Prime framework provides the C&#43;&#43; definitions
 for these types.
-You have to declare them as abstract types in the FPP model, but
-once you do that you can use them.
+It also provides the corresponding abstract type definitions
+in the FPP model; for a typical F Prime project, these
+definitions are located at <code>config/FpConfig.fpp</code>.
 You don&#8217;t have to define header files for these types.</p>
 </div>
 </div>
@@ -11242,7 +11253,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-17 11:07:26 -0700
+Last updated 2023-07-19 08:45:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
