@@ -91,7 +91,7 @@ object CppDocHppWriter extends CppDocWriter {
     outputLines
   }
 
-  override def visitCppDoc(cppDoc: CppDoc, cppFile: Option[String] = None) = {
+  override def visitCppDoc(cppDoc: CppDoc, cppFileNameBaseOpt: Option[String] = None) = {
     val hppFile = cppDoc.hppFile
     val cppFileName = cppDoc.cppFileName
     val in = Input(hppFile, cppFileName)

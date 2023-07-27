@@ -22,7 +22,7 @@ object Program extends LineUtils {
         lines = Lines(
           content = includeHeader,
           output = Lines.Cpp,
-          cppFile = Some("Other")
+          cppFileNameBaseOpt = Some("Other")
         )
       ),
       Member.Namespace(
@@ -89,7 +89,7 @@ object Program extends LineUtils {
                             ),
                             retType = Type("void"),
                             body = Nil,
-                            cppFile = Some("Other")
+                            cppFileNameBaseOpt = Some("Other")
                           )
                         ),
                       )
