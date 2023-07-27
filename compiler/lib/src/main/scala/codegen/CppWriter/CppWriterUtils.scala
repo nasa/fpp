@@ -8,12 +8,13 @@ trait CppWriterUtils extends LineUtils {
     accessTag: String,
     comment: String,
     members: List[CppDoc.Class.Member],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Both
+    output: CppDoc.Lines.Output = CppDoc.Lines.Both,
+    cppFile: Option[String] = None
   ): List[CppDoc.Class.Member] = members match {
     case Nil => Nil
     case _ =>
       linesClassMember(CppDocHppWriter.writeAccessTag(accessTag)) ::
-      linesClassMember(CppDocWriter.writeBannerComment(comment), output) ::
+      linesClassMember(CppDocWriter.writeBannerComment(comment), output, cppFile) ::
       members
   }
 
@@ -253,8 +254,9 @@ trait CppWriterUtils extends LineUtils {
 
   def linesMember(
     content: List[Line],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
-  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output))
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp,
+    cppFile: Option[String] = None
+  ): CppDoc.Member.Lines = CppDoc.Member.Lines(CppDoc.Lines(content, output, cppFile))
 
   def namespaceMember(
     name: String,
@@ -296,7 +298,8 @@ trait CppWriterUtils extends LineUtils {
     retType: CppDoc.Type,
     body: List[Line],
     svQualifier: CppDoc.Function.SVQualifier = CppDoc.Function.NonSV,
-    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst
+    constQualifier: CppDoc.Function.ConstQualifier = CppDoc.Function.NonConst,
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Function =
     CppDoc.Class.Member.Function(
       CppDoc.Function(
@@ -306,18 +309,21 @@ trait CppWriterUtils extends LineUtils {
         retType,
         body,
         svQualifier,
-        constQualifier
+        constQualifier,
+        cppFile
       )
     )
 
   def linesClassMember(
     content: List[Line],
-    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp
+    output: CppDoc.Lines.Output = CppDoc.Lines.Hpp,
+    cppFile: Option[String] = None
   ): CppDoc.Class.Member.Lines =
     CppDoc.Class.Member.Lines(
       CppDoc.Lines(
         content,
-        output
+        output,
+        cppFile
       )
     )
 

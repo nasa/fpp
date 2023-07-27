@@ -61,7 +61,7 @@ object CppWriter extends LineUtils{
     cppFile: Option[String] = None
   ) = {
     val lines = CppDocCppWriter.visitCppDoc(cppDoc, cppFile)
-    writeLinesToFile(s, cppDoc.cppFileName, lines)
+    writeLinesToFile(s, cppFile.getOrElse(cppDoc.cppFileName), lines)
   }
 
   def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {

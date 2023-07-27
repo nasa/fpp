@@ -31,7 +31,7 @@ case class ComponentTestImplWriter(
       getClassMembers
     )
     List.concat(
-      List(getHppIncludes, getCppIncludes),
+      getHppIncludes :: getCppIncludes,
       wrapInNamespaces(namespaceIdentList, List(cls))
     )
   }
@@ -46,11 +46,19 @@ case class ComponentTestImplWriter(
     )
   }
 
-  private def getCppIncludes: CppDoc.Member = {
+  private def getCppIncludes: List[CppDoc.Member] = {
     val header = s"${s.getRelativePath(fileName).toString}.hpp"
-    linesMember(
-      addBlankPrefix(lines(CppWriter.headerString(header))),
-      CppDoc.Lines.Cpp
+    val headerLines = addBlankPrefix(lines(CppWriter.headerString(header)))
+    List(
+      linesMember(
+        headerLines,
+        CppDoc.Lines.Cpp
+      ),
+      linesMember(
+        headerLines,
+        CppDoc.Lines.Cpp,
+        Some(testHelperFileName)
+      )
     )
   }
 
@@ -58,6 +66,7 @@ case class ComponentTestImplWriter(
     List.concat(
       getConstantMembers,
       getConstructorMembers,
+      getTestMembers,
       getPortHandlers(typedOutputPorts),
       getPortHandlers(serialOutputPorts),
       getHelpers,
@@ -115,6 +124,22 @@ case class ComponentTestImplWriter(
         destructorClassMember(
           Some(s"Destroy object $testImplClassName"),
           Nil
+        )
+      )
+    )
+  }
+
+  private def getTestMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "public",
+      "Tests",
+      List(
+        functionClassMember(
+          Some("To do"),
+          "toDo",
+          Nil,
+          CppDoc.Type("void"),
+          lines("// TODO")
         )
       )
     )
@@ -202,7 +227,8 @@ case class ComponentTestImplWriter(
               writeConnections(serialInputPorts),
               writeConnections(serialOutputPorts)
             )
-          )
+          ),
+          cppFile = Some(testHelperFileName)
         ),
         functionClassMember(
           Some("Initialize components"),
@@ -213,9 +239,11 @@ case class ComponentTestImplWriter(
             s"""|this->init();
                 |this->component.init($initArgs);
                 |"""
-          )
+          ),
+          cppFile = Some(testHelperFileName)
         )
-      )
+      ),
+      cppFile = Some(testHelperFileName)
     )
   }
 

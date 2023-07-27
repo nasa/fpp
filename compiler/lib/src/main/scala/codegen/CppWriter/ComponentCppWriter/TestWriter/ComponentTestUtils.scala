@@ -16,6 +16,8 @@ abstract class ComponentTestUtils(
 
   val testImplClassName: String = s"${name}Tester"
 
+  val testHelperFileName: String = s"${name}TesterHelpers.cpp"
+
   val historySizeConstantName: String = "MAX_HISTORY_SIZE"
 
   val queueDepthConstantName: String = "TEST_INSTANCE_QUEUE_DEPTH"

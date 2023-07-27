@@ -13,8 +13,13 @@ object TestImplCppWriter extends CppWriter {
   ) = {
     val node = aNode._2
     val data = node.data
+    val implWriter = ComponentTestImplWriter(s, aNode)
     for {
-      s <- CppWriter.writeCppDoc(s, ComponentTestImplWriter(s, aNode).write)
+      s <- CppWriter.writeCppDoc(s, implWriter.write)
+      s <- visitList(s, data.members, matchComponentMember)
+      s <- CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.testHelperFileName))
+      s <- visitList(s, data.members, matchComponentMember)
+      _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
       s <- visitList(s, data.members, matchComponentMember)
     }
     yield s
