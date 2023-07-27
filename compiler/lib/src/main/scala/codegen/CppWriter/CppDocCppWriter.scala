@@ -46,7 +46,7 @@ object CppDocCppWriter extends CppDocWriter {
   }
 
   override def visitConstructor(in: Input, constructor: CppDoc.Class.Constructor) =
-    writeSelectedLines(in, constructor.cppFile,
+    writeSelectedLines(in, constructor.cppFileNameBaseOpt,
       {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
@@ -79,8 +79,8 @@ object CppDocCppWriter extends CppDocWriter {
       }
     )
 
-  override def visitCppDoc(cppDoc: CppDoc, cppFile: Option[String] = None) = {
-    val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFile)
+  override def visitCppDoc(cppDoc: CppDoc, cppFileNameBaseOpt: Option[String] = None) = {
+    val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFileNameBaseOpt)
     List(
       CppDocWriter.writeBanner(
         in.getOutputCppFileName,
@@ -92,7 +92,7 @@ object CppDocCppWriter extends CppDocWriter {
   }
 
   override def visitDestructor(in: Input, destructor: CppDoc.Class.Destructor) =
-    writeSelectedLines(in, destructor.cppFile,
+    writeSelectedLines(in, destructor.cppFileNameBaseOpt,
       {
         val unqualifiedClassName = in.getEnclosingClassUnqualified
         val qualifiedClassName = in.getEnclosingClassQualified
@@ -107,7 +107,7 @@ object CppDocCppWriter extends CppDocWriter {
     )
 
   override def visitFunction(in: Input, function: CppDoc.Function) =
-    writeSelectedLines(in, function.cppFile,
+    writeSelectedLines(in, function.cppFileNameBaseOpt,
       (function.svQualifier, function.body) match {
         // If the function is pure virtual, and the function body is empty,
         // then there is no implementation, so don't write one out.
@@ -152,7 +152,7 @@ object CppDocCppWriter extends CppDocWriter {
   override def visitLines(in: Input, lines: CppDoc.Lines) =
     lines.output match {
       case CppDoc.Lines.Hpp => Nil
-      case _ => writeSelectedLines(in, lines.cppFile, lines.content)
+      case _ => writeSelectedLines(in, lines.cppFileNameBaseOpt, lines.content)
     }
 
   override def visitNamespace(in: Input, namespace: CppDoc.Namespace) =
