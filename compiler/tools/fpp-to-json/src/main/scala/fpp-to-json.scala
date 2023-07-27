@@ -21,31 +21,17 @@ object FPPtoJson {
       case Nil  => List(File.StdIn)
       case list => list
     }
-    val result: Result.Result[Unit] = for {
+    for {
       tul <- Result.map(files, Parser.parseFile(Parser.transUnit)(None) _)
       tul <- resolveIncludes(tul)
       _ <- writeAst (options) (tul)
       _ <- writeLocMap (options)
       _ <- writeAnalysis (options) (tul)
     } yield ()
-    result match {
-      case Left(error) => {
-        error.print
-        errorExit
-      }
-      case _ => ()
-    }
   }
 
-  def errorExit = System.exit(1)
-
-  def main(args: Array[String]) = {
-    val options = OParser.parse(oparser, args, Options())
-    options match {
-      case Some(options) => command(options)
-      case None          => errorExit
-    }
-  }
+  def main(args: Array[String]) =
+    Tool(name).mainMethod(args, oparser, Options(), command)
 
   def writeJson (
     options: Options,
