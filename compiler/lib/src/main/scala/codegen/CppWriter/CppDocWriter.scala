@@ -30,7 +30,7 @@ trait CppDocWriter extends CppDocVisitor with LineUtils {
   def default(in: Input) = Nil
 
   /** Visit a CppDoc */
-  def visitCppDoc(cppDoc: CppDoc, cppFile: Option[String]): Output
+  def visitCppDoc(cppDoc: CppDoc, cppFileNameBaseOpt: Option[String]): Output
 
   type Output = List[Line]
 

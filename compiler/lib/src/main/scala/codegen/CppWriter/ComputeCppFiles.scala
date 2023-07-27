@@ -97,6 +97,9 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated component test harness implementation classes */
     def getComponentTestImpl(baseName: String) = s"${baseName}Tester"
 
+    /** Gets the C++ file name for generated component test harness helpers */
+    def getComponentTestHelper(baseName: String) = s"${baseName}TesterHelpers"
+
     /** Gets the C++ file name for generated component main test harness classes */
     def getComponentTestMain(baseName: String) = s"${baseName}TestMain"
 

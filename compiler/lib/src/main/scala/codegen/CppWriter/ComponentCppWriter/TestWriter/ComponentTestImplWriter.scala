@@ -12,6 +12,8 @@ case class ComponentTestImplWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTestImpl(name)
 
+  val helperFileName: String = ComputeCppFiles.FileNames.getComponentTestHelper(name)
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -57,7 +59,7 @@ case class ComponentTestImplWriter(
       linesMember(
         headerLines,
         CppDoc.Lines.Cpp,
-        Some(testHelperFileName)
+        Some(helperFileName)
       )
     )
   }
@@ -228,7 +230,7 @@ case class ComponentTestImplWriter(
               writeConnections(serialOutputPorts)
             )
           ),
-          cppFile = Some(testHelperFileName)
+          cppFileNameBaseOpt = Some(helperFileName)
         ),
         functionClassMember(
           Some("Initialize components"),
@@ -240,10 +242,10 @@ case class ComponentTestImplWriter(
                 |this->component.init($initArgs);
                 |"""
           ),
-          cppFile = Some(testHelperFileName)
+          cppFileNameBaseOpt = Some(helperFileName)
         )
       ),
-      cppFile = Some(testHelperFileName)
+      cppFileNameBaseOpt = Some(helperFileName)
     )
   }
 

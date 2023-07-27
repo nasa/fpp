@@ -17,7 +17,7 @@ object TestImplCppWriter extends CppWriter {
     for {
       s <- CppWriter.writeCppDoc(s, implWriter.write)
       s <- visitList(s, data.members, matchComponentMember)
-      s <- CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.testHelperFileName))
+      s <- CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
       s <- visitList(s, data.members, matchComponentMember)
       _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
       s <- visitList(s, data.members, matchComponentMember)

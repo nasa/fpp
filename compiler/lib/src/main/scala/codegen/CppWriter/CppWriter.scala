@@ -24,15 +24,15 @@ object CppWriter extends LineUtils{
 
   def createCppDoc(
     description: String,
-    fileName: String,
+    fileNameBase: String,
     includeGuard: String,
     members: List[CppDoc.Member],
     toolName: Option[String],
     hppFileExtension: String = "hpp",
     cppFileExtension: String = "cpp",
   ): CppDoc = {
-    val hppFile = CppDoc.HppFile(s"$fileName.$hppFileExtension", includeGuard)
-    CppDoc(description, hppFile, s"$fileName.$cppFileExtension", members, toolName)
+    val hppFile = CppDoc.HppFile(s"$fileNameBase.$hppFileExtension", includeGuard)
+    CppDoc(description, hppFile, s"$fileNameBase.$cppFileExtension", members, toolName)
   }
 
   def headerString(s: String): String = {
@@ -47,21 +47,25 @@ object CppWriter extends LineUtils{
   def writeCppDoc(
     s: CppWriterState,
     cppDoc: CppDoc,
-    cppFile: Option[String] = None
+    cppFileNameBaseOpt: Option[String] = None
   ): Result.Result[CppWriterState] =
     for {
       _ <- writeHppFile(s, cppDoc)
-      _ <- writeCppFile(s, cppDoc, cppFile)
+      _ <- writeCppFile(s, cppDoc, cppFileNameBaseOpt)
     }
     yield s
 
   def writeCppFile(
     s: CppWriterState,
     cppDoc: CppDoc,
-    cppFile: Option[String] = None
+    cppFileNameBaseOpt: Option[String] = None
   ) = {
-    val lines = CppDocCppWriter.visitCppDoc(cppDoc, cppFile)
-    writeLinesToFile(s, cppFile.getOrElse(cppDoc.cppFileName), lines)
+    val lines = CppDocCppWriter.visitCppDoc(cppDoc, cppFileNameBaseOpt)
+    val cppFileName = cppFileNameBaseOpt match {
+      case Some(base) => s"$base.cpp"
+      case None => cppDoc.cppFileName
+    }
+    writeLinesToFile(s, cppFileName, lines)
   }
 
   def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {

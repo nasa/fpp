@@ -21,28 +21,18 @@ object FPPFormat {
       case Nil => List(File.StdIn)
       case list => list
     }
-    val result = Result.seq(
+    Result.seq(
       Result.map(files, Parser.parseFile (Parser.transUnit) (None) _),
       List(resolveIncludes (options) _, writeFpp (options) _)
     )
-    result match {
-      case Left(error) => {
-        error.print
-        System.exit(1)
-      }
-      case Right(_) => ()
-    }
   }
 
-  def main(args: Array[String]) = {
-    val options = OParser.parse(oparser, args, Options())
-    options match {
-      case Some(options) => command(options)
-      case None => ()
-    }
-  }
+  def main(args: Array[String]) =
+    Tool(name).mainMethod(args, oparser, Options(), command)
 
-  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+  def resolveIncludes(options: Options)(tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  {
     options.include match {
       case true => for { 
         result <- ResolveSpecInclude.transformList(
@@ -55,7 +45,9 @@ object FPPFormat {
     }
   }
 
-  def writeFpp(options: Options)(tul: List[Ast.TransUnit]): Result.Result[List[Ast.TransUnit]] = {
+  def writeFpp(options: Options)(tul: List[Ast.TransUnit]):
+    Result.Result[List[Ast.TransUnit]] =
+  {
     val lines = tul.map(FppWriter.transUnit).flatten
     lines.map(Line.write(Line.stdout) _)
     Right(tul)
