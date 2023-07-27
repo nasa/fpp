@@ -118,9 +118,6 @@ case class ComponentTesterBaseWriter(
 
     val body = intersperseBlankLines(
       List(
-        sortedParams.map((_, param) => line(
-          s"this->${paramValidityFlagName(param.getName)} = Fw::ParamValid::UNINIT;"
-        )),
         lines(
           """|// Initialize base class
              |Fw::PassiveComponentBase::init(instance);
@@ -166,8 +163,8 @@ case class ComponentTesterBaseWriter(
         constructorClassMember(
           Some(s"Construct object $testerBaseClassName"),
           constructorParams,
-          List(
-            "Fw::PassiveComponentBase(compName)"
+          "Fw::PassiveComponentBase(compName)" :: sortedParams.map((_, param) =>
+            s"${paramValidityFlagName(param.getName)}(Fw::ParamValid::UNINIT)"
           ),
           intersperseBlankLines(
             List(
