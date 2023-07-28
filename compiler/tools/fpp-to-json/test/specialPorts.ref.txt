@@ -8,7 +8,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "CommandPorts",
@@ -20,7 +20,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -51,7 +51,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -82,7 +82,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -123,7 +123,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "EventPorts",
@@ -135,7 +135,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -166,7 +166,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -207,7 +207,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "TelemetryPorts",
@@ -219,7 +219,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -260,7 +260,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "ParamPorts",
@@ -272,7 +272,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -303,7 +303,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -344,7 +344,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "TimeGetPorts",
@@ -356,7 +356,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -396,7 +396,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -406,7 +406,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Cmd",
                                 "params" : [
@@ -429,7 +429,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdReg",
                                 "params" : [
@@ -452,7 +452,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdResponse",
                                 "params" : [
@@ -475,7 +475,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Log",
                                 "params" : [
@@ -498,7 +498,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "LogText",
                                 "params" : [
@@ -521,7 +521,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Tlm",
                                 "params" : [
@@ -544,7 +544,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "PrmGet",
                                 "params" : [
@@ -567,7 +567,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "PrmSet",
                                 "params" : [
@@ -590,7 +590,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Time",
                                 "params" : [

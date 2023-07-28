@@ -7,11 +7,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "a",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "1234"
@@ -35,11 +35,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "b",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "0xABCD"
@@ -63,11 +63,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "c",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralString" : {
                           "value" : "This is a string."
@@ -91,16 +91,16 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "d",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprArray" : {
                           "elts" : [
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprLiteralInt" : {
                                     "value" : "1"
@@ -110,7 +110,7 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprLiteralInt" : {
                                     "value" : "2"
@@ -120,7 +120,7 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprLiteralInt" : {
                                     "value" : "3"
@@ -150,16 +150,16 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "e",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprArray" : {
                           "elts" : [
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprLiteralInt" : {
                                     "value" : "1"
@@ -169,7 +169,7 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprLiteralFloat" : {
                                     "value" : "2.0"
@@ -199,21 +199,21 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "f",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprArray" : {
                           "elts" : [
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprArray" : {
                                     "elts" : [
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "1"
@@ -223,7 +223,7 @@
                                         }
                                       },
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "2"
@@ -239,12 +239,12 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprArray" : {
                                     "elts" : [
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "3"
@@ -254,7 +254,7 @@
                                         }
                                       },
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "4"
@@ -290,20 +290,20 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "g",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprStruct" : {
                           "members" : [
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "name" : "x",
                                   "value" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -317,11 +317,11 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "name" : "y",
                                   "value" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralString" : {
                                           "value" : "abc"
@@ -355,11 +355,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "h",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprStruct" : {
                           "members" : [
@@ -384,25 +384,25 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "i",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprArray" : {
                           "elts" : [
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprStruct" : {
                                     "members" : [
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "name" : "x",
                                             "value" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "1"
@@ -416,11 +416,11 @@
                                         }
                                       },
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "name" : "y",
                                             "value" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "2"
@@ -440,16 +440,16 @@
                               }
                             },
                             {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprStruct" : {
                                     "members" : [
                                       {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "name" : "x",
                                             "value" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "3"
@@ -489,11 +489,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "j",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "1"
@@ -517,11 +517,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "k",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprIdent" : {
                           "value" : "j"
@@ -545,16 +545,16 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "l",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprUnop" : {
                           "op" : "Minus",
                           "e" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
                                   "value" : "1"
@@ -583,15 +583,15 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "m",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprBinop" : {
                           "e1" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
                                   "value" : "1"
@@ -602,7 +602,7 @@
                           },
                           "op" : "Add",
                           "e2" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
                                   "value" : "2"
@@ -631,15 +631,15 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "n",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprParen" : {
                           "e" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
                                   "value" : "1"
@@ -670,11 +670,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "o",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "0"

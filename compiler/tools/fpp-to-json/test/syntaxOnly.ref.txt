@@ -7,7 +7,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Components",
                   "members" : [
@@ -18,7 +18,7 @@
                       {
                         "DefComponent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "kind" : "Active",
                                 "name" : "HelloWorld",
@@ -30,7 +30,7 @@
                                     {
                                       "SpecCommand" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "kind" : {
                                                 "Async" : {
@@ -44,18 +44,18 @@
                                                   ],
                                                   {
                                                     "AstNode" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "kind" : "Value",
                                                           "name" : "greeting",
                                                           "typeName" : {
-                                                            "astNode" : {
+                                                            "AstNode" : {
                                                               "data" : {
                                                                 "TypeNameString" : {
                                                                   "size" : {
                                                                     "Option" : {
                                                                       "Some" : {
-                                                                        "astNode" : {
+                                                                        "AstNode" : {
                                                                           "data" : {
                                                                             "ExprLiteralInt" : {
                                                                               "value" : "20"
@@ -106,7 +106,7 @@
                                     {
                                       "SpecEvent" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "Hello",
                                               "params" : [
@@ -115,18 +115,18 @@
                                                   ],
                                                   {
                                                     "AstNode" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "kind" : "Value",
                                                           "name" : "greeting",
                                                           "typeName" : {
-                                                            "astNode" : {
+                                                            "AstNode" : {
                                                               "data" : {
                                                                 "TypeNameString" : {
                                                                   "size" : {
                                                                     "Option" : {
                                                                       "Some" : {
-                                                                        "astNode" : {
+                                                                        "AstNode" : {
                                                                           "data" : {
                                                                             "ExprLiteralInt" : {
                                                                               "value" : "20"
@@ -157,7 +157,7 @@
                                                 "Option" : "None"
                                               },
                                               "format" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : "I say: {}",
                                                   "id" : 71
                                                 }
@@ -181,11 +181,11 @@
                                     {
                                       "SpecTlmChannel" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "GreetingCount",
                                               "typeName" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "TypeNameInt" : {
                                                       "name" : "U32"
@@ -223,7 +223,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -254,7 +254,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -285,7 +285,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -316,7 +316,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -347,7 +347,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -378,7 +378,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -409,7 +409,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -440,7 +440,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -471,7 +471,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {

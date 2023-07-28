@@ -8,11 +8,11 @@
         {
           "DefArray" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "F64x3",
                   "size" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "3"
@@ -22,7 +22,7 @@
                     }
                   },
                   "eltType" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "TypeNameFloat" : {
                           "name" : "F64"
@@ -53,7 +53,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "ParamOpcodes",
@@ -65,7 +65,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -96,7 +96,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -127,7 +127,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -158,7 +158,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -189,7 +189,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -222,11 +222,11 @@
                       {
                         "SpecParam" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Param1",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameInt" : {
                                         "name" : "U32"
@@ -238,7 +238,7 @@
                                 "default" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "1"
@@ -276,11 +276,11 @@
                       {
                         "SpecParam" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Param2",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
                                         "name" : "F64"
@@ -292,7 +292,7 @@
                                 "default" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralFloat" : {
                                             "value" : "2.0"
@@ -306,7 +306,7 @@
                                 "id" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x10"
@@ -320,7 +320,7 @@
                                 "setOpcode" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x10"
@@ -334,7 +334,7 @@
                                 "saveOpcode" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x11"
@@ -363,15 +363,15 @@
                       {
                         "SpecParam" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Param3",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameQualIdent" : {
                                         "name" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
                                                 "name" : "F64x3"
@@ -388,12 +388,12 @@
                                 "default" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprArray" : {
                                             "elts" : [
                                               {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprLiteralFloat" : {
                                                       "value" : "1.0"
@@ -403,7 +403,7 @@
                                                 }
                                               },
                                               {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprLiteralFloat" : {
                                                       "value" : "2.0"
@@ -413,7 +413,7 @@
                                                 }
                                               },
                                               {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprLiteralFloat" : {
                                                       "value" : "3.0"
@@ -439,7 +439,7 @@
                                 "saveOpcode" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x20"
@@ -475,7 +475,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -485,7 +485,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "PrmGet",
                                 "params" : [
@@ -508,7 +508,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "PrmSet",
                                 "params" : [
@@ -531,7 +531,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Cmd",
                                 "params" : [
@@ -554,7 +554,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdReg",
                                 "params" : [
@@ -577,7 +577,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdResponse",
                                 "params" : [

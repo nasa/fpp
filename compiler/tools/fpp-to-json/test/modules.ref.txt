@@ -8,7 +8,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "M1",
                   "members" : [
@@ -18,11 +18,11 @@
                       {
                         "DefConstant" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "a",
                                 "value" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprLiteralInt" : {
                                         "value" : "1"
@@ -46,11 +46,11 @@
                       {
                         "DefConstant" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "b",
                                 "value" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprIdent" : {
                                         "value" : "a"
@@ -74,15 +74,15 @@
                       {
                         "DefConstant" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "c",
                                 "value" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprDot" : {
                                         "e" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "ExprIdent" : {
                                                 "value" : "M1"
@@ -92,7 +92,7 @@
                                           }
                                         },
                                         "id" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : "b",
                                             "id" : 13
                                           }
@@ -127,15 +127,15 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "a",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprDot" : {
                           "e" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprIdent" : {
                                   "value" : "M1"
@@ -145,7 +145,7 @@
                             }
                           },
                           "id" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "a",
                               "id" : 18
                             }
@@ -170,7 +170,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "M2",
                   "members" : [
@@ -180,11 +180,11 @@
                       {
                         "DefConstant" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "a",
                                 "value" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprLiteralInt" : {
                                         "value" : "0"
@@ -218,7 +218,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "M2",
                   "members" : [
@@ -228,11 +228,11 @@
                       {
                         "DefConstant" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "b",
                                 "value" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprLiteralInt" : {
                                         "value" : "1"
@@ -266,7 +266,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "A",
                   "members" : [
@@ -276,7 +276,7 @@
                       {
                         "DefModule" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "B",
                                 "members" : [
@@ -286,11 +286,11 @@
                                     {
                                       "DefConstant" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "c",
                                               "value" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprLiteralInt" : {
                                                       "value" : "0"
@@ -334,19 +334,19 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "c",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprDot" : {
                           "e" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprDot" : {
                                   "e" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprIdent" : {
                                           "value" : "A"
@@ -356,7 +356,7 @@
                                     }
                                   },
                                   "id" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : "B",
                                       "id" : 58
                                     }
@@ -367,7 +367,7 @@
                             }
                           },
                           "id" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "c",
                               "id" : 59
                             }

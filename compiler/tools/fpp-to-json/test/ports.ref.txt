@@ -7,7 +7,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P",
                   "params" : [
@@ -30,7 +30,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P1",
                   "params" : [
@@ -53,7 +53,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P2",
                   "params" : [
@@ -62,12 +62,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "a",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameInt" : {
                                       "name" : "U32"
@@ -103,7 +103,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P3",
                   "params" : [
@@ -112,12 +112,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "a",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameInt" : {
                                       "name" : "I32"
@@ -139,12 +139,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "b",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameFloat" : {
                                       "name" : "F32"
@@ -166,12 +166,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "c",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameString" : {
                                       "size" : {
@@ -209,7 +209,7 @@
         {
           "DefEnum" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -221,7 +221,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -240,7 +240,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -273,7 +273,7 @@
         {
           "DefAbsType" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "T"
                 },
@@ -291,7 +291,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P4",
                   "params" : [
@@ -300,16 +300,16 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "e",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameQualIdent" : {
                                       "name" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "E"
@@ -336,16 +336,16 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "t",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameQualIdent" : {
                                       "name" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "T"
@@ -372,16 +372,16 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Ref",
                               "name" : "c",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameQualIdent" : {
                                       "name" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "T"
@@ -407,11 +407,11 @@
                   "returnType" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameQualIdent" : {
                               "name" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "Unqualified" : {
                                       "name" : "T"
@@ -442,7 +442,7 @@
         {
           "DefEnum" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Status",
                   "typeName" : {
@@ -454,7 +454,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "SUCCEED",
                               "value" : {
@@ -473,7 +473,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "FAIL",
                               "value" : {
@@ -507,7 +507,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "P5",
                   "params" : [
@@ -516,12 +516,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Ref",
                               "name" : "result",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameInt" : {
                                       "name" : "U32"
@@ -542,11 +542,11 @@
                   "returnType" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameQualIdent" : {
                               "name" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "Unqualified" : {
                                       "name" : "Status"
@@ -1115,7 +1115,7 @@
                     [
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },
@@ -1166,7 +1166,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "E",
                         "typeName" : {
@@ -1178,7 +1178,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "A",
                                     "value" : {
@@ -1197,7 +1197,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "B",
                                     "value" : {
@@ -1263,7 +1263,7 @@
                     [
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },
@@ -1298,7 +1298,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "Status",
                         "typeName" : {
@@ -1310,7 +1310,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "SUCCEED",
                                     "value" : {
@@ -1329,7 +1329,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "FAIL",
                                     "value" : {
@@ -1390,7 +1390,7 @@
                     [
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },
@@ -1462,7 +1462,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "Status",
                         "typeName" : {
@@ -1474,7 +1474,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "SUCCEED",
                                     "value" : {
@@ -1493,7 +1493,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "FAIL",
                                     "value" : {
@@ -1555,7 +1555,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "E",
                         "typeName" : {
@@ -1567,7 +1567,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "A",
                                     "value" : {
@@ -1586,7 +1586,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "B",
                                     "value" : {
@@ -1664,7 +1664,7 @@
                     [
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },
@@ -1698,7 +1698,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -1710,7 +1710,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -1729,7 +1729,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -1776,7 +1776,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -1788,7 +1788,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -1807,7 +1807,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -1854,7 +1854,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Status",
                   "typeName" : {
@@ -1866,7 +1866,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "SUCCEED",
                               "value" : {
@@ -1885,7 +1885,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "FAIL",
                               "value" : {
@@ -1932,7 +1932,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Status",
                   "typeName" : {
@@ -1944,7 +1944,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "SUCCEED",
                               "value" : {
@@ -1963,7 +1963,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "FAIL",
                               "value" : {

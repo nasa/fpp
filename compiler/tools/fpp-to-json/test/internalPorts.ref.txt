@@ -8,7 +8,7 @@
         {
           "DefAbsType" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "T"
                 },
@@ -28,7 +28,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Active",
                   "name" : "InternalSelfMessage",
@@ -40,7 +40,7 @@
                       {
                         "SpecInternalPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "pInternal",
                                 "params" : [
@@ -49,16 +49,16 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "kind" : "Value",
                                             "name" : "t",
                                             "typeName" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "TypeNameQualIdent" : {
                                                     "name" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "Unqualified" : {
                                                             "name" : "T"
@@ -84,7 +84,7 @@
                                 "priority" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "10"
@@ -469,7 +469,7 @@
                       "A data type T"
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },
@@ -504,7 +504,7 @@
                       "A data type T"
                     ],
                     {
-                      "astNode" : {
+                      "AstNode" : {
                         "data" : {
                           "name" : "T"
                         },

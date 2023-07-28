@@ -7,7 +7,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Sensors",
                   "members" : [
@@ -18,7 +18,7 @@
                       {
                         "DefComponent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "kind" : "Passive",
                                 "name" : "EngineTemp",
@@ -30,7 +30,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "General" : {
                                                 "kind" : "SyncInput",
@@ -41,11 +41,11 @@
                                                 "port" : {
                                                   "Option" : {
                                                     "Some" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "Qualified" : {
                                                             "qualifier" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
                                                                     "name" : "Svc"
@@ -55,7 +55,7 @@
                                                               }
                                                             },
                                                             "name" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : "Sched",
                                                                 "id" : 31
                                                               }
@@ -90,7 +90,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -121,7 +121,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : {
@@ -152,11 +152,11 @@
                                     {
                                       "SpecTlmChannel" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "ImpulseTemp",
                                               "typeName" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "TypeNameFloat" : {
                                                       "name" : "F32"
@@ -194,11 +194,11 @@
                                     {
                                       "SpecTlmChannel" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "WarpTemp",
                                               "typeName" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "TypeNameFloat" : {
                                                       "name" : "F32"
@@ -255,7 +255,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "FSW",
                   "members" : [
@@ -266,15 +266,15 @@
                       {
                         "DefComponentInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "engineTemp",
                                 "component" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "Qualified" : {
                                         "qualifier" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
                                                 "name" : "Sensors"
@@ -284,7 +284,7 @@
                                           }
                                         },
                                         "name" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : "EngineTemp",
                                             "id" : 57
                                           }
@@ -295,7 +295,7 @@
                                   }
                                 },
                                 "baseId" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprLiteralInt" : {
                                         "value" : "0x100"
@@ -349,7 +349,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Svc",
                   "members" : [
@@ -359,7 +359,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Sched",
                                 "params" : [
@@ -392,7 +392,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -402,7 +402,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Tlm",
                                 "params" : [
@@ -425,7 +425,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Time",
                                 "params" : [
@@ -1089,11 +1089,11 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Qualified" : {
                           "qualifier" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Unqualified" : {
                                   "name" : "Svc"
@@ -1103,7 +1103,7 @@
                             }
                           },
                           "name" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "Sched",
                               "id" : 31
                             }

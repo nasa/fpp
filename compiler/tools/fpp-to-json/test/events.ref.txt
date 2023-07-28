@@ -8,7 +8,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "EventIdentifiers",
@@ -20,7 +20,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -51,7 +51,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -82,7 +82,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -114,7 +114,7 @@
                       {
                         "SpecEvent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Event1",
                                 "params" : [
@@ -123,7 +123,7 @@
                                 "id" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x10"
@@ -135,7 +135,7 @@
                                   }
                                 },
                                 "format" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : "Event 1 occurred",
                                     "id" : 4
                                   }
@@ -160,7 +160,7 @@
                       {
                         "SpecEvent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Event2",
                                 "params" : [
@@ -169,12 +169,12 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "kind" : "Value",
                                             "name" : "count",
                                             "typeName" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "TypeNameInt" : {
                                                     "name" : "U32"
@@ -197,7 +197,7 @@
                                 "id" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x11"
@@ -209,7 +209,7 @@
                                   }
                                 },
                                 "format" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : "The count is {}",
                                     "id" : 11
                                   }
@@ -234,7 +234,7 @@
                       {
                         "SpecEvent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Event3",
                                 "params" : [
@@ -244,7 +244,7 @@
                                   "Option" : "None"
                                 },
                                 "format" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : "Event 3 occurred",
                                     "id" : 17
                                   }
@@ -278,7 +278,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "EventThrottling",
@@ -290,7 +290,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -321,7 +321,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -352,7 +352,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -383,7 +383,7 @@
                       {
                         "SpecEvent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Event1",
                                 "params" : [
@@ -393,7 +393,7 @@
                                   "Option" : "None"
                                 },
                                 "format" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : "Event 1 occurred",
                                     "id" : 29
                                   }
@@ -401,7 +401,7 @@
                                 "throttle" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "10"
@@ -437,7 +437,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -447,7 +447,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Log",
                                 "params" : [
@@ -470,7 +470,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "LogText",
                                 "params" : [
@@ -493,7 +493,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Time",
                                 "params" : [

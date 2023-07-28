@@ -7,7 +7,7 @@
         {
           "DefEnum" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -19,7 +19,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -38,7 +38,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -57,7 +57,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {
@@ -90,15 +90,15 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "initialState",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprDot" : {
                           "e" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprIdent" : {
                                   "value" : "Decision"
@@ -108,7 +108,7 @@
                             }
                           },
                           "id" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "MAYBE",
                               "id" : 7
                             }
@@ -133,7 +133,7 @@
         {
           "DefEnum" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -145,13 +145,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -175,13 +175,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "2"
@@ -205,13 +205,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "3"
@@ -249,19 +249,19 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "c",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprBinop" : {
                           "e1" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprDot" : {
                                   "e" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprIdent" : {
                                           "value" : "E"
@@ -271,7 +271,7 @@
                                     }
                                   },
                                   "id" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : "A",
                                       "id" : 22
                                     }
@@ -283,7 +283,7 @@
                           },
                           "op" : "Add",
                           "e2" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "ExprLiteralInt" : {
                                   "value" : "1"
@@ -312,13 +312,13 @@
         {
           "DefEnum" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Small",
                   "typeName" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameInt" : {
                               "name" : "U8"
@@ -335,7 +335,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -354,7 +354,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -373,7 +373,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
@@ -391,7 +391,7 @@
                   "default" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
                               "value" : "B"
@@ -747,13 +747,13 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "Small",
                         "typeName" : {
                           "Option" : {
                             "Some" : {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
                                     "name" : "U8"
@@ -770,7 +770,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "A",
                                     "value" : {
@@ -789,7 +789,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "B",
                                     "value" : {
@@ -808,7 +808,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "C",
                                     "value" : {
@@ -826,7 +826,7 @@
                         "default" : {
                           "Option" : {
                             "Some" : {
-                              "astNode" : {
+                              "AstNode" : {
                                 "data" : {
                                   "ExprIdent" : {
                                     "value" : "B"
@@ -948,7 +948,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "Decision",
                         "typeName" : {
@@ -960,7 +960,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "YES",
                                     "value" : {
@@ -979,7 +979,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "NO",
                                     "value" : {
@@ -998,7 +998,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "MAYBE",
                                     "value" : {
@@ -1207,7 +1207,7 @@
                   [
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "E",
                         "typeName" : {
@@ -1219,13 +1219,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "A",
                                     "value" : {
                                       "Option" : {
                                         "Some" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "ExprLiteralInt" : {
                                                 "value" : "1"
@@ -1249,13 +1249,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "B",
                                     "value" : {
                                       "Option" : {
                                         "Some" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "ExprLiteralInt" : {
                                                 "value" : "2"
@@ -1279,13 +1279,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "C",
                                     "value" : {
                                       "Option" : {
                                         "Some" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "ExprLiteralInt" : {
                                                 "value" : "3"
@@ -1361,7 +1361,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -1373,7 +1373,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -1392,7 +1392,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -1411,7 +1411,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {
@@ -1458,7 +1458,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -1470,7 +1470,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -1489,7 +1489,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -1508,7 +1508,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {
@@ -1555,13 +1555,13 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Small",
                   "typeName" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameInt" : {
                               "name" : "U8"
@@ -1578,7 +1578,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -1597,7 +1597,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -1616,7 +1616,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
@@ -1634,7 +1634,7 @@
                   "default" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
                               "value" : "B"
@@ -1679,7 +1679,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -1691,13 +1691,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -1721,13 +1721,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "2"
@@ -1751,13 +1751,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "3"
@@ -1819,13 +1819,13 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Small",
                   "typeName" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameInt" : {
                               "name" : "U8"
@@ -1842,7 +1842,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -1861,7 +1861,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -1880,7 +1880,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
@@ -1898,7 +1898,7 @@
                   "default" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
                               "value" : "B"
@@ -1938,7 +1938,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -1950,7 +1950,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -1969,7 +1969,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -1988,7 +1988,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {
@@ -2040,7 +2040,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -2052,7 +2052,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -2071,7 +2071,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -2090,7 +2090,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {
@@ -2142,13 +2142,13 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Small",
                   "typeName" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameInt" : {
                               "name" : "U8"
@@ -2165,7 +2165,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -2184,7 +2184,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -2203,7 +2203,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
@@ -2221,7 +2221,7 @@
                   "default" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
                               "value" : "B"
@@ -2261,13 +2261,13 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Small",
                   "typeName" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "TypeNameInt" : {
                               "name" : "U8"
@@ -2284,7 +2284,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
@@ -2303,7 +2303,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
@@ -2322,7 +2322,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
@@ -2340,7 +2340,7 @@
                   "default" : {
                     "Option" : {
                       "Some" : {
-                        "astNode" : {
+                        "AstNode" : {
                           "data" : {
                             "ExprIdent" : {
                               "value" : "B"
@@ -2380,7 +2380,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -2392,13 +2392,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -2422,13 +2422,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "2"
@@ -2452,13 +2452,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "3"
@@ -2510,7 +2510,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -2522,13 +2522,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -2552,13 +2552,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "2"
@@ -2582,13 +2582,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "3"
@@ -2640,7 +2640,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "E",
                   "typeName" : {
@@ -2652,13 +2652,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "A",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "1"
@@ -2682,13 +2682,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "B",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "2"
@@ -2712,13 +2712,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "C",
                               "value" : {
                                 "Option" : {
                                   "Some" : {
-                                    "astNode" : {
+                                    "AstNode" : {
                                       "data" : {
                                         "ExprLiteralInt" : {
                                           "value" : "3"
@@ -2770,7 +2770,7 @@
             [
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Decision",
                   "typeName" : {
@@ -2782,7 +2782,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "YES",
                               "value" : {
@@ -2801,7 +2801,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "NO",
                               "value" : {
@@ -2820,7 +2820,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "MAYBE",
                               "value" : {

@@ -7,7 +7,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Utils",
                   "members" : [
@@ -18,7 +18,7 @@
                       {
                         "DefComponent" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "kind" : "Active",
                                 "name" : "DataCompressor",
@@ -30,7 +30,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "General" : {
                                                 "kind" : "AsyncInput",
@@ -41,11 +41,11 @@
                                                 "port" : {
                                                   "Option" : {
                                                     "Some" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "Qualified" : {
                                                             "qualifier" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
                                                                     "name" : "Fw"
@@ -55,7 +55,7 @@
                                                               }
                                                             },
                                                             "name" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : "BufferSend",
                                                                 "id" : 35
                                                               }
@@ -90,7 +90,7 @@
                                     {
                                       "SpecPortInstance" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "General" : {
                                                 "kind" : "Output",
@@ -101,11 +101,11 @@
                                                 "port" : {
                                                   "Option" : {
                                                     "Some" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "Qualified" : {
                                                             "qualifier" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : {
                                                                   "Unqualified" : {
                                                                     "name" : "Fw"
@@ -115,7 +115,7 @@
                                                               }
                                                             },
                                                             "name" : {
-                                                              "astNode" : {
+                                                              "AstNode" : {
                                                                 "data" : "BufferSend",
                                                                 "id" : 47
                                                               }
@@ -169,7 +169,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "FSW",
                   "members" : [
@@ -179,7 +179,7 @@
                       {
                         "DefModule" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Default",
                                 "members" : [
@@ -190,11 +190,11 @@
                                     {
                                       "DefConstant" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "queueSize",
                                               "value" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprLiteralInt" : {
                                                       "value" : "10"
@@ -219,15 +219,15 @@
                                     {
                                       "DefConstant" : {
                                         "node" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "name" : "stackSize",
                                               "value" : {
-                                                "astNode" : {
+                                                "AstNode" : {
                                                   "data" : {
                                                     "ExprBinop" : {
                                                       "e1" : {
-                                                        "astNode" : {
+                                                        "AstNode" : {
                                                           "data" : {
                                                             "ExprLiteralInt" : {
                                                               "value" : "10"
@@ -238,7 +238,7 @@
                                                       },
                                                       "op" : "Mul",
                                                       "e2" : {
-                                                        "astNode" : {
+                                                        "AstNode" : {
                                                           "data" : {
                                                             "ExprLiteralInt" : {
                                                               "value" : "1024"
@@ -278,15 +278,15 @@
                       {
                         "DefComponentInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "dataCompressor",
                                 "component" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "Qualified" : {
                                         "qualifier" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
                                                 "name" : "Utils"
@@ -296,7 +296,7 @@
                                           }
                                         },
                                         "name" : {
-                                          "astNode" : {
+                                          "AstNode" : {
                                             "data" : "DataCompressor",
                                             "id" : 92
                                           }
@@ -307,7 +307,7 @@
                                   }
                                 },
                                 "baseId" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "ExprLiteralInt" : {
                                         "value" : "0x100"
@@ -325,11 +325,11 @@
                                 "queueSize" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprDot" : {
                                             "e" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprIdent" : {
                                                     "value" : "Default"
@@ -339,7 +339,7 @@
                                               }
                                             },
                                             "id" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : "queueSize",
                                                 "id" : 96
                                               }
@@ -354,11 +354,11 @@
                                 "stackSize" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprDot" : {
                                             "e" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprIdent" : {
                                                     "value" : "Default"
@@ -368,7 +368,7 @@
                                               }
                                             },
                                             "id" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : "stackSize",
                                                 "id" : 99
                                               }
@@ -383,7 +383,7 @@
                                 "priority" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "30"
@@ -424,7 +424,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -434,7 +434,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "BufferSend",
                                 "params" : [
@@ -1442,11 +1442,11 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Qualified" : {
                           "qualifier" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Unqualified" : {
                                   "name" : "Fw"
@@ -1456,7 +1456,7 @@
                             }
                           },
                           "name" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "BufferSend",
                               "id" : 35
                             }
@@ -1492,11 +1492,11 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Qualified" : {
                           "qualifier" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Unqualified" : {
                                   "name" : "Fw"
@@ -1506,7 +1506,7 @@
                             }
                           },
                           "name" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : "BufferSend",
                               "id" : 47
                             }

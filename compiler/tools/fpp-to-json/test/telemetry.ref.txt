@@ -8,7 +8,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "TlmLimits",
@@ -20,7 +20,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -51,7 +51,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -82,11 +82,11 @@
                       {
                         "SpecTlmChannel" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Channel1",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameInt" : {
                                         "name" : "U32"
@@ -107,13 +107,13 @@
                                 "low" : [
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Red",
                                         "id" : 3
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0"
@@ -125,13 +125,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Orange",
                                         "id" : 5
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "1"
@@ -143,13 +143,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Yellow",
                                         "id" : 7
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "2"
@@ -178,11 +178,11 @@
                       {
                         "SpecTlmChannel" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Channel2",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
                                         "name" : "F64"
@@ -194,7 +194,7 @@
                                 "id" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "0x10"
@@ -213,7 +213,7 @@
                                 "format" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "{.3f}",
                                         "id" : 12
                                       }
@@ -223,18 +223,18 @@
                                 "low" : [
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Red",
                                         "id" : 13
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
                                             "op" : "Minus",
                                             "e" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "3"
@@ -251,18 +251,18 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Orange",
                                         "id" : 16
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
                                             "op" : "Minus",
                                             "e" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "2"
@@ -279,18 +279,18 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Yellow",
                                         "id" : 19
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
                                             "op" : "Minus",
                                             "e" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "ExprLiteralInt" : {
                                                     "value" : "1"
@@ -309,13 +309,13 @@
                                 "high" : [
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Red",
                                         "id" : 22
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "3"
@@ -327,13 +327,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Orange",
                                         "id" : 24
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "2"
@@ -345,13 +345,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Yellow",
                                         "id" : 26
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "1"
@@ -378,11 +378,11 @@
                       {
                         "SpecTlmChannel" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Channel3",
                                 "typeName" : {
-                                  "astNode" : {
+                                  "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
                                         "name" : "F64"
@@ -402,7 +402,7 @@
                                 "format" : {
                                   "Option" : {
                                     "Some" : {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "{e}",
                                         "id" : 48
                                       }
@@ -414,13 +414,13 @@
                                 "high" : [
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Red",
                                         "id" : 49
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "3"
@@ -432,13 +432,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Orange",
                                         "id" : 51
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "2"
@@ -450,13 +450,13 @@
                                   ],
                                   [
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : "Yellow",
                                         "id" : 53
                                       }
                                     },
                                     {
-                                      "astNode" : {
+                                      "AstNode" : {
                                         "data" : {
                                           "ExprLiteralInt" : {
                                             "value" : "1"
@@ -492,7 +492,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -502,7 +502,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Tlm",
                                 "params" : [
@@ -525,7 +525,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Time",
                                 "params" : [

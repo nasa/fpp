@@ -8,7 +8,7 @@
         {
           "DefPort" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "F32Value",
                   "params" : [
@@ -17,12 +17,12 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "kind" : "Value",
                               "name" : "value",
                               "typeName" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "TypeNameFloat" : {
                                       "name" : "F32"
@@ -59,7 +59,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "PassiveF32Adder",
@@ -71,7 +71,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "SyncInput",
@@ -82,7 +82,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -116,7 +116,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "SyncInput",
@@ -127,7 +127,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -161,7 +161,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "Output",
@@ -172,7 +172,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -216,7 +216,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Active",
                   "name" : "ActiveF32Adder",
@@ -228,7 +228,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "AsyncInput",
@@ -239,7 +239,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -273,7 +273,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "AsyncInput",
@@ -284,7 +284,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -318,7 +318,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "Output",
@@ -329,7 +329,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -374,7 +374,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Active",
                   "name" : "PriorityActiveF32Adder",
@@ -386,7 +386,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "AsyncInput",
@@ -397,7 +397,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -411,7 +411,7 @@
                                   "priority" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "10"
@@ -425,7 +425,7 @@
                                   "queueFull" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : "Block",
                                           "id" : 42
                                         }
@@ -449,7 +449,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "AsyncInput",
@@ -460,7 +460,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -474,7 +474,7 @@
                                   "priority" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprLiteralInt" : {
                                               "value" : "20"
@@ -488,7 +488,7 @@
                                   "queueFull" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : "Drop",
                                           "id" : 47
                                         }
@@ -512,7 +512,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "Output",
@@ -523,7 +523,7 @@
                                   "port" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "Unqualified" : {
                                               "name" : "F32Value"
@@ -567,11 +567,11 @@
         {
           "DefConstant" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "splitFactor",
                   "value" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "10"
@@ -596,7 +596,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Passive",
                   "name" : "SerialSplitter",
@@ -608,7 +608,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "SyncInput",
@@ -642,7 +642,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "General" : {
                                   "kind" : "Output",
@@ -650,7 +650,7 @@
                                   "size" : {
                                     "Option" : {
                                       "Some" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "ExprIdent" : {
                                               "value" : "splitFactor"
@@ -1286,7 +1286,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1321,7 +1321,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1356,7 +1356,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1419,7 +1419,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1454,7 +1454,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1489,7 +1489,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1552,7 +1552,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1566,7 +1566,7 @@
               "priority" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "10"
@@ -1580,7 +1580,7 @@
               "queueFull" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : "Block",
                       "id" : 42
                     }
@@ -1605,7 +1605,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1619,7 +1619,7 @@
               "priority" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprLiteralInt" : {
                           "value" : "20"
@@ -1633,7 +1633,7 @@
               "queueFull" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : "Drop",
                       "id" : 47
                     }
@@ -1658,7 +1658,7 @@
               "port" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "Unqualified" : {
                           "name" : "F32Value"
@@ -1742,7 +1742,7 @@
               "size" : {
                 "Option" : {
                   "Some" : {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "ExprIdent" : {
                           "value" : "splitFactor"

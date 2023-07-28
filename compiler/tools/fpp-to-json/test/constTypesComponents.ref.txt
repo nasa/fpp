@@ -8,7 +8,7 @@
         {
           "DefComponent" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "kind" : "Active",
                   "name" : "Switch",
@@ -20,7 +20,7 @@
                       {
                         "DefEnum" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "State",
                                 "typeName" : {
@@ -32,7 +32,7 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "name" : "OFF",
                                             "value" : {
@@ -52,7 +52,7 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "name" : "ON",
                                             "value" : {
@@ -87,7 +87,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -118,7 +118,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -149,7 +149,7 @@
                       {
                         "SpecPortInstance" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "Special" : {
                                   "inputKind" : {
@@ -180,7 +180,7 @@
                       {
                         "SpecCommand" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "kind" : {
                                   "Async" : {
@@ -194,16 +194,16 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "astNode" : {
+                                        "AstNode" : {
                                           "data" : {
                                             "kind" : "Value",
                                             "name" : "state",
                                             "typeName" : {
-                                              "astNode" : {
+                                              "AstNode" : {
                                                 "data" : {
                                                   "TypeNameQualIdent" : {
                                                     "name" : {
-                                                      "astNode" : {
+                                                      "AstNode" : {
                                                         "data" : {
                                                           "Unqualified" : {
                                                             "name" : "State"
@@ -261,7 +261,7 @@
         {
           "DefModule" : {
             "node" : {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "Fw",
                   "members" : [
@@ -271,7 +271,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "Cmd",
                                 "params" : [
@@ -294,7 +294,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdReg",
                                 "params" : [
@@ -317,7 +317,7 @@
                       {
                         "DefPort" : {
                           "node" : {
-                            "astNode" : {
+                            "AstNode" : {
                               "data" : {
                                 "name" : "CmdResponse",
                                 "params" : [
@@ -731,7 +731,7 @@
                     "The state enumeration"
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "State",
                         "typeName" : {
@@ -743,7 +743,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "OFF",
                                     "value" : {
@@ -763,7 +763,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "ON",
                                     "value" : {
@@ -859,7 +859,7 @@
                     "The state enumeration"
                   ],
                   {
-                    "astNode" : {
+                    "AstNode" : {
                       "data" : {
                         "name" : "State",
                         "typeName" : {
@@ -871,7 +871,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "OFF",
                                     "value" : {
@@ -891,7 +891,7 @@
                             ],
                             {
                               "AstNode" : {
-                                "astNode" : {
+                                "AstNode" : {
                                   "data" : {
                                     "name" : "ON",
                                     "value" : {
@@ -954,7 +954,7 @@
               "The state enumeration"
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "State",
                   "typeName" : {
@@ -966,7 +966,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "OFF",
                               "value" : {
@@ -986,7 +986,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "ON",
                               "value" : {
@@ -1035,7 +1035,7 @@
               "The state enumeration"
             ],
             {
-              "astNode" : {
+              "AstNode" : {
                 "data" : {
                   "name" : "State",
                   "typeName" : {
@@ -1047,7 +1047,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "OFF",
                               "value" : {
@@ -1067,7 +1067,7 @@
                       ],
                       {
                         "AstNode" : {
-                          "astNode" : {
+                          "AstNode" : {
                             "data" : {
                               "name" : "ON",
                               "value" : {
