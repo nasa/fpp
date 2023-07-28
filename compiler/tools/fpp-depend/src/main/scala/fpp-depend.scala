@@ -154,7 +154,7 @@ object FPPDepend {
         .valueName("<file>")
         .action((m, c) => c.copy(generatedImplFile = Some(m)))
         .text("write names of generated template files to file"),
-      opt[String]('u', "unit-test")
+      opt[Unit]('u', "unit-test")
         .action((_, c) => c.copy(unitTest = true))
         .text("write names of generated unit test files to file"),
       arg[String]("file ...")
