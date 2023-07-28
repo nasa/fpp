@@ -25,9 +25,10 @@ object ComputeGeneratedFiles {
   def getTestFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {
       a <- EnterSymbols.visitList(Analysis(), tul, EnterSymbols.transUnit)
-      cppFiles <- getTestCppFiles(a, tul)
+      autocodeFiles <- getAutocodeFiles(tul)
+      testFiles <- getTestCppFiles(a, tul)
     }
-    yield cppFiles
+    yield autocodeFiles ++ testFiles
 
   def getTestImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
     for {

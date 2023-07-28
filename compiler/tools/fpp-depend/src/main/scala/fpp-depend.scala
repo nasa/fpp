@@ -25,7 +25,7 @@ object FPPDepend {
     includedFile: Option[String] = None,
     missingFile: Option[String] = None,
     generatedImplFile: Option[String] = None,
-    generatedTestFile: Option[String] = None,
+    unitTest: Boolean = false,
   )
 
   def mapIterable[T](
@@ -77,7 +77,10 @@ object FPPDepend {
       }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tul))
+          for {
+            files <- if options.unitTest then ComputeGeneratedFiles.getTestFiles(tul)
+              else ComputeGeneratedFiles.getAutocodeFiles(tul)
+          }
             yield writeIterable(files, file)
         case None => Right(())
       }
@@ -91,13 +94,10 @@ object FPPDepend {
       }
       _ <- options.generatedImplFile match {
         case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getImplFiles(tul))
-            yield writeIterable(files, file)
-        case None => Right(())
-      }
-      _ <- options.generatedTestFile match {
-        case Some(file) =>
-          for (files <- ComputeGeneratedFiles.getTestFiles(tul))
+          for {
+            files <- if options.unitTest then ComputeGeneratedFiles.getTestImplFiles(tul)
+              else ComputeGeneratedFiles.getImplFiles(tul)
+          }
             yield writeIterable(files, file)
         case None => Right(())
       }
@@ -155,8 +155,7 @@ object FPPDepend {
         .action((m, c) => c.copy(generatedImplFile = Some(m)))
         .text("write names of generated template files to file"),
       opt[String]('u', "unit-test")
-        .valueName("<file>")
-        .action((m, c) => c.copy(generatedTestFile = Some(m)))
+        .action((_, c) => c.copy(unitTest = true))
         .text("write names of generated unit test files to file"),
       arg[String]("file ...")
         .unbounded()

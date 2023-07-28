@@ -44,7 +44,7 @@ object FPPToCpp {
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       s <- mode match {
         case CppWriter.Autocode => ComputeAutocodeCppFiles.visitList (
-          CppWriterState (a),
+          CppWriterState(a),
           tulFiles,
           ComputeAutocodeCppFiles.transUnit
         )
@@ -53,11 +53,18 @@ object FPPToCpp {
           tulFiles,
           ComputeImplCppFiles.transUnit
         )
-        case CppWriter.UnitTest => ComputeTestCppFiles.visitList(
-          CppWriterState(a),
-          tulFiles,
-          ComputeTestCppFiles.transUnit
-        )
+        case CppWriter.UnitTest => for {
+          s <- ComputeAutocodeCppFiles.visitList(
+            CppWriterState(a),
+            tulFiles,
+            ComputeAutocodeCppFiles.transUnit
+          )
+          s <- ComputeTestCppFiles.visitList(
+            s,
+            tulFiles,
+            ComputeTestCppFiles.transUnit
+          )
+        } yield s
         case CppWriter.UnitTestTemplate => ComputeTestImplCppFiles.visitList(
           CppWriterState(a),
           tulFiles,
@@ -86,7 +93,10 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
-          case CppWriter.UnitTest => TestCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest => for {
+            _ <- AutocodeCppWriter.tuList(state, tulFiles)
+            _ <- TestCppWriter.tuList(state, tulFiles)
+          } yield ()
           case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
         }
       }
