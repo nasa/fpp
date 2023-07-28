@@ -1,4 +1,4 @@
-package fpp.compiler
+package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
@@ -12,7 +12,7 @@ import io.circe.generic.semiauto._
 import io.circe.generic.auto._
 import scala.util.parsing.input.Position
 
-object LocMapJsonEncoder {
+object LocMapJsonEncoder extends JsonEncoder {
   
   /*
     Encoders for serializing location map
@@ -34,13 +34,9 @@ object LocMapJsonEncoder {
       "includingLoc" -> location.includingLoc.asJson
     )
   }
-  
-  implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
-    case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
-    case None        => Json.obj("Option" -> Json.fromString("None"))
-  }
 
   /** Converts location map to JSON */
+  
   def locMapToJson: Json = {
     val locationsList =
       Locations.getMap.toList.sortWith(_._1 < _._1).map { 

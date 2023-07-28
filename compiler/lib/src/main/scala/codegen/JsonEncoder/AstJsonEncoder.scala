@@ -1,4 +1,4 @@
-package fpp.compiler
+package fpp.compiler.codegen
 
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
@@ -12,7 +12,7 @@ import io.circe.generic.semiauto._
 import io.circe.generic.auto._
 import scala.util.parsing.input.Position
 
-object AstJsonEncoder {
+object AstJsonEncoder extends JsonEncoder {
     /*
     Defines implicit Encoder instances for various types in the Ast and PortInstance classes.
     Each encoder returns a Unqualified Class Name Json.
@@ -49,7 +49,7 @@ object AstJsonEncoder {
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
   implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
-    override def apply(astNode: AstNode[T]): Json = Json.obj( "astNode" -> Json.obj(
+    override def apply(astNode: AstNode[T]): Json = Json.obj( "AstNode" -> Json.obj(
       "data" -> astNode.data.asJson,
       "id" -> astNode.id.asJson
     ))
@@ -58,11 +58,6 @@ object AstJsonEncoder {
   /*
     Encoders for serializing Ast
   */
-
-  implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
-    case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
-    case None        => Json.obj("Option" -> Json.fromString("None"))
-  }
 
   implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
     Encoder.instance { aNode =>
@@ -83,14 +78,6 @@ object AstJsonEncoder {
     aNode => (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
   }
 
-  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
-    Encoder.instance((q: Ast.QualIdent) =>
-      q match {
-        case ident: Ast.QualIdent.Unqualified =>
-          addTypeName(ident, ident.asJson)
-        case ident: Ast.QualIdent.Qualified => addTypeName(ident, ident.asJson)
-      }
-    )
 
     /*
     Encoder for Module Members: Encodes different subtypes of Ast.ModuleMember 
@@ -216,28 +203,16 @@ object AstJsonEncoder {
       }
     )
 
-    /*
-    Helper methods
-  */
 
-  def addTypeName[T](x: T, json: Json): Json =
-    Json.obj(getUnqualifiedClassName(x) -> json)
-
-  def getUnqualifiedClassName[T](x: T): String =
-    x.getClass.getName
-      .replaceAll("\\A.*\\.", "")
-      .replaceAll("\\$$", "")
-      .replaceAll("\\A.*\\$", "")
-
-  def addAnnotationJson(
-      pre: List[String],
-      data: Json,
-      post: List[String]
-    ): Json = Json.obj(
-      "preAnnotation" -> pre.asJson,
-      "data" -> data,
-      "postAnnotation" -> post.asJson
+  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
+    Encoder.instance((q: Ast.QualIdent) =>
+        q match {
+            case ident: Ast.QualIdent.Unqualified =>
+            addTypeName(ident, ident.asJson)
+            case ident: Ast.QualIdent.Qualified => addTypeName(ident, ident.asJson)
+        }
     )
+
 
   /** Converts Ast to JSON */
   def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
