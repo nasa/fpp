@@ -68,7 +68,8 @@ diff_test()
   cp $file'GTestBase'.hpp $file'GTestBase'$target_suffix.out.hpp && \
   diff -u $file'GTestBase'$target_suffix.out.hpp $file'GTestBase'$target_suffix.ref.hpp && \
   cp $file'GTestBase'.cpp $file'GTestBase'$target_suffix.out.cpp && \
-  diff -u $file'GTestBase'$target_suffix.out.cpp $file'GTestBase'$target_suffix.ref.cpp
+  diff -u $file'GTestBase'$target_suffix.out.cpp $file'GTestBase'$target_suffix.ref.cpp && \
+  diff_cpp $file'Component'
 }
 
 diff_test_template()

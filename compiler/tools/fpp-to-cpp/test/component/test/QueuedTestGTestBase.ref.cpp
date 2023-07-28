@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedTest component Google Test harness base class
 // ======================================================================
 
-#include "QueuedTestGTestBase.hpp"
+#include "test/QueuedTestGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

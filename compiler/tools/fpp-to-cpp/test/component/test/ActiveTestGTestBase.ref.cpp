@@ -4,7 +4,7 @@
 // \brief  cpp file for ActiveTest component Google Test harness base class
 // ======================================================================
 
-#include "ActiveTestGTestBase.hpp"
+#include "test/ActiveTestGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

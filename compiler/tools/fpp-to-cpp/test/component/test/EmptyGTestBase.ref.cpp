@@ -4,7 +4,7 @@
 // \brief  cpp file for Empty component Google Test harness base class
 // ======================================================================
 
-#include "EmptyGTestBase.hpp"
+#include "test/EmptyGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

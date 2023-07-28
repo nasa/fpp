@@ -4,7 +4,7 @@
 // \brief  cpp file for QueuedTelemetry component Google Test harness base class
 // ======================================================================
 
-#include "QueuedTelemetryGTestBase.hpp"
+#include "test/QueuedTelemetryGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

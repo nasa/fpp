@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "PassiveEventsTesterBase.hpp"
+#include "test/PassiveEventsTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -993,85 +993,85 @@ void PassiveEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_cmdIn() const
+  getNum_to_cmdIn()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_noArgsGuarded() const
+  getNum_to_noArgsGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
+  getNum_to_noArgsReturnGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_noArgsReturnSync() const
+  getNum_to_noArgsReturnSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_noArgsSync() const
+  getNum_to_noArgsSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_typedGuarded() const
+  getNum_to_typedGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_typedReturnGuarded() const
+  getNum_to_typedReturnGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_typedReturnSync() const
+  getNum_to_typedReturnSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_to_typedSync() const
+  getNum_to_typedSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_cmdRegOut() const
+  getNum_from_cmdRegOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_cmdResponseOut() const
+  getNum_from_cmdResponseOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_eventOut() const
+  getNum_from_eventOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_prmGetOut() const
+  getNum_from_prmGetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_prmSetOut() const
+  getNum_from_prmSetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
@@ -1079,7 +1079,7 @@ NATIVE_INT_TYPE PassiveEventsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_textEventOut() const
+  getNum_from_textEventOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
@@ -1087,25 +1087,25 @@ NATIVE_INT_TYPE PassiveEventsTesterBase ::
 #endif
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_timeGetOut() const
+  getNum_from_timeGetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_tlmOut() const
+  getNum_from_tlmOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_typedOut() const
+  getNum_from_typedOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE PassiveEventsTesterBase ::
-  getNum_from_typedReturnOut() const
+  getNum_from_typedReturnOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
@@ -1324,7 +1324,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(bool), _argSize, sizeof(bool));
+        FW_ASSERT(_argSize == sizeof(U8), _argSize, sizeof(U8));
       }
 #endif
       _status = args.deserialize(b);
@@ -1361,7 +1361,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(Fw::LogStringArg), _argSize, sizeof(Fw::LogStringArg));
+        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(str1);
@@ -1380,7 +1380,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(Fw::LogStringArg), _argSize, sizeof(Fw::LogStringArg));
+        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(str2);
@@ -1417,7 +1417,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(E), _argSize, sizeof(E));
+        FW_ASSERT(_argSize == E::SERIALIZED_SIZE, _argSize, E::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(e);
@@ -1471,7 +1471,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(A), _argSize, sizeof(A));
+        FW_ASSERT(_argSize == A::SERIALIZED_SIZE, _argSize, A::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(a);
@@ -1508,7 +1508,7 @@ void PassiveEventsTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(S), _argSize, sizeof(S));
+        FW_ASSERT(_argSize == S::SERIALIZED_SIZE, _argSize, S::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(s);

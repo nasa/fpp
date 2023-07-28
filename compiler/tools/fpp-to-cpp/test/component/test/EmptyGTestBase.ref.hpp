@@ -7,8 +7,8 @@
 #ifndef EmptyGTestBase_HPP
 #define EmptyGTestBase_HPP
 
-#include "EmptyTesterBase.hpp"
 #include "gtest/gtest.h"
+#include "test/EmptyTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

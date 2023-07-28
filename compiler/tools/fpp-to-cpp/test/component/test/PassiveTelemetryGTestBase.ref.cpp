@@ -4,7 +4,7 @@
 // \brief  cpp file for PassiveTelemetry component Google Test harness base class
 // ======================================================================
 
-#include "PassiveTelemetryGTestBase.hpp"
+#include "test/PassiveTelemetryGTestBase.hpp"
 
 // ----------------------------------------------------------------------
 // Construction and destruction

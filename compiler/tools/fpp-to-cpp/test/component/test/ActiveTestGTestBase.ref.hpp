@@ -7,8 +7,8 @@
 #ifndef ActiveTestGTestBase_HPP
 #define ActiveTestGTestBase_HPP
 
-#include "ActiveTestTesterBase.hpp"
 #include "gtest/gtest.h"
+#include "test/ActiveTestTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

@@ -7,7 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "PassiveSerialTesterBase.hpp"
+#include "test/PassiveSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Component initialization
@@ -16,13 +16,6 @@
 void PassiveSerialTesterBase ::
   init(NATIVE_INT_TYPE instance)
 {
-  this->m_param_ParamU32_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamF64_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamString_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamEnum_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamArray_valid = Fw::ParamValid::UNINIT;
-  this->m_param_ParamStruct_valid = Fw::ParamValid::UNINIT;
-
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
@@ -842,7 +835,13 @@ PassiveSerialTesterBase ::
       const char* const compName,
       const U32 maxHistorySize
   ) :
-    Fw::PassiveComponentBase(compName)
+    Fw::PassiveComponentBase(compName),
+    m_param_ParamU32_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamF64_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamString_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamEnum_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamArray_valid(Fw::ParamValid::UNINIT),
+    m_param_ParamStruct_valid(Fw::ParamValid::UNINIT)
 {
   // Initialize port histories
   this->fromPortHistory_typedOut = new History<FromPortEntry_typedOut>(maxHistorySize);
@@ -1188,97 +1187,97 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_cmdIn() const
+  getNum_to_cmdIn()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsGuarded() const
+  getNum_to_noArgsGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsReturnGuarded() const
+  getNum_to_noArgsReturnGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsReturnSync() const
+  getNum_to_noArgsReturnSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsSync() const
+  getNum_to_noArgsSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedGuarded() const
+  getNum_to_typedGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedReturnGuarded() const
+  getNum_to_typedReturnGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedReturnSync() const
+  getNum_to_typedReturnSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedSync() const
+  getNum_to_typedSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_serialGuarded() const
+  getNum_to_serialGuarded()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_serialSync() const
+  getNum_to_serialSync()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_cmdRegOut() const
+  getNum_from_cmdRegOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_cmdResponseOut() const
+  getNum_from_cmdResponseOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_eventOut() const
+  getNum_from_eventOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_prmGetOut() const
+  getNum_from_prmGetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_prmSetOut() const
+  getNum_from_prmSetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
@@ -1286,7 +1285,7 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_textEventOut() const
+  getNum_from_textEventOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
@@ -1294,31 +1293,31 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
 #endif
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_timeGetOut() const
+  getNum_from_timeGetOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_tlmOut() const
+  getNum_from_tlmOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedOut() const
+  getNum_from_typedOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedReturnOut() const
+  getNum_from_typedReturnOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_serialOut() const
+  getNum_from_serialOut()
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
 }
@@ -2012,7 +2011,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(bool), _argSize, sizeof(bool));
+        FW_ASSERT(_argSize == sizeof(U8), _argSize, sizeof(U8));
       }
 #endif
       _status = args.deserialize(b);
@@ -2049,7 +2048,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(Fw::LogStringArg), _argSize, sizeof(Fw::LogStringArg));
+        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(str1);
@@ -2068,7 +2067,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(Fw::LogStringArg), _argSize, sizeof(Fw::LogStringArg));
+        FW_ASSERT(_argSize == Fw::LogStringArg::SERIALIZED_SIZE, _argSize, Fw::LogStringArg::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(str2);
@@ -2105,7 +2104,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(E), _argSize, sizeof(E));
+        FW_ASSERT(_argSize == E::SERIALIZED_SIZE, _argSize, E::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(e);
@@ -2159,7 +2158,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(A), _argSize, sizeof(A));
+        FW_ASSERT(_argSize == A::SERIALIZED_SIZE, _argSize, A::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(a);
@@ -2196,7 +2195,7 @@ void PassiveSerialTesterBase ::
           _status == Fw::FW_SERIALIZE_OK,
           static_cast<FwAssertArgType>(_status)
         );
-        FW_ASSERT(_argSize == sizeof(S), _argSize, sizeof(S));
+        FW_ASSERT(_argSize == S::SERIALIZED_SIZE, _argSize, S::SERIALIZED_SIZE);
       }
 #endif
       _status = args.deserialize(s);

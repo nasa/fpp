@@ -7,8 +7,8 @@
 #ifndef QueuedSerialGTestBase_HPP
 #define QueuedSerialGTestBase_HPP
 
-#include "QueuedSerialTesterBase.hpp"
 #include "gtest/gtest.h"
+#include "test/QueuedSerialTesterBase.hpp"
 
 // ----------------------------------------------------------------------
 // Macros for typed user from port history assertions

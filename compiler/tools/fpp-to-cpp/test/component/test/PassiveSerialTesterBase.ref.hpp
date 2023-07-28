@@ -12,7 +12,7 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "PassiveSerialComponentAc.hpp"
+#include "test/PassiveSerialComponentAc.hpp"
 
 //! \class PassiveSerialTesterBase
 //! \brief Auto-generated base for PassiveSerial component test harness
@@ -593,116 +593,116 @@ class PassiveSerialTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn() const;
+    NATIVE_INT_TYPE getNum_to_cmdIn();
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
+    NATIVE_INT_TYPE getNum_to_noArgsGuarded();
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
+    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded();
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
+    NATIVE_INT_TYPE getNum_to_noArgsReturnSync();
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsSync() const;
+    NATIVE_INT_TYPE getNum_to_noArgsSync();
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedGuarded() const;
+    NATIVE_INT_TYPE getNum_to_typedGuarded();
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedReturnGuarded() const;
+    NATIVE_INT_TYPE getNum_to_typedReturnGuarded();
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    NATIVE_INT_TYPE getNum_to_typedReturnSync() const;
+    NATIVE_INT_TYPE getNum_to_typedReturnSync();
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    NATIVE_INT_TYPE getNum_to_typedSync() const;
+    NATIVE_INT_TYPE getNum_to_typedSync();
 
     //! Get the number of to_serialGuarded ports
     //!
     //! \return The number of to_serialGuarded ports
-    NATIVE_INT_TYPE getNum_to_serialGuarded() const;
+    NATIVE_INT_TYPE getNum_to_serialGuarded();
 
     //! Get the number of to_serialSync ports
     //!
     //! \return The number of to_serialSync ports
-    NATIVE_INT_TYPE getNum_to_serialSync() const;
+    NATIVE_INT_TYPE getNum_to_serialSync();
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    NATIVE_INT_TYPE getNum_from_cmdRegOut() const;
+    NATIVE_INT_TYPE getNum_from_cmdRegOut();
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    NATIVE_INT_TYPE getNum_from_cmdResponseOut() const;
+    NATIVE_INT_TYPE getNum_from_cmdResponseOut();
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    NATIVE_INT_TYPE getNum_from_eventOut() const;
+    NATIVE_INT_TYPE getNum_from_eventOut();
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    NATIVE_INT_TYPE getNum_from_prmGetOut() const;
+    NATIVE_INT_TYPE getNum_from_prmGetOut();
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    NATIVE_INT_TYPE getNum_from_prmSetOut() const;
+    NATIVE_INT_TYPE getNum_from_prmSetOut();
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    NATIVE_INT_TYPE getNum_from_textEventOut() const;
+    NATIVE_INT_TYPE getNum_from_textEventOut();
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    NATIVE_INT_TYPE getNum_from_timeGetOut() const;
+    NATIVE_INT_TYPE getNum_from_timeGetOut();
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    NATIVE_INT_TYPE getNum_from_tlmOut() const;
+    NATIVE_INT_TYPE getNum_from_tlmOut();
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut() const;
+    NATIVE_INT_TYPE getNum_from_typedOut();
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+    NATIVE_INT_TYPE getNum_from_typedReturnOut();
 
     //! Get the number of from_serialOut ports
     //!
     //! \return The number of from_serialOut ports
-    NATIVE_INT_TYPE getNum_from_serialOut() const;
+    NATIVE_INT_TYPE getNum_from_serialOut();
 
   protected:
 
