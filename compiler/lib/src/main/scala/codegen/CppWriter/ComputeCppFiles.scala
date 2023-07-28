@@ -30,7 +30,7 @@ trait ComputeCppFiles extends AstStateVisitor {
   }
 
   /** Adds a mapping for an hpp file  */
-  private def addHppMapping(
+  def addHppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location]
@@ -38,7 +38,7 @@ trait ComputeCppFiles extends AstStateVisitor {
     addMapping(s, (s"$fileName.hpp" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
-  private def addCppMapping(
+  def addCppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location]
