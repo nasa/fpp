@@ -16,10 +16,10 @@ object ComputeTestImplCppFiles extends ComputeCppFiles {
     for {
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestImpl(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
-      s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
-      s <- visitList(s, data.members, matchComponentMember)
-      s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
-      s <- visitList(s, data.members, matchComponentMember)
+      m <- addCppMapping(s.locationMap, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
+      s <- visitList(s.copy(locationMap = m), data.members, matchComponentMember)
+      m <- addCppMapping(s.locationMap, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
+      s <- visitList(s.copy(locationMap = m), data.members, matchComponentMember)
     }
     yield s
   }
