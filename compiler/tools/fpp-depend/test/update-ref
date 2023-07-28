@@ -93,6 +93,22 @@ template_filenames_include() {
   update '-t template_filenames_include_output.ref.txt' filenames_include
 }
 
+test_filenames() {
+  update '-u -g test_filenames_output.ref.txt' filenames
+}
+
+test_filenames_include() {
+  update '-u -g test_filenames_include_output.ref.txt' filenames_include
+}
+
+test_template_filenames() {
+  update '-u -t test_template_filenames_output.ref.txt' filenames
+}
+
+test_template_filenames_include() {
+  update '-u -t test_template_filenames_include_output.ref.txt' filenames_include
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"

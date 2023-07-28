@@ -119,4 +119,28 @@ template_filenames_include()
   compare template_filenames_include_output
 }
 
+test_filenames()
+{
+  run_test '-u test_filenames_output.out.txt' filenames
+  compare test_filenames_output
+}
+
+test_filenames_include()
+{
+  run_test '-u test_filenames_include_output.out.txt' filenames
+  compare test_filenames_include_output
+}
+
+test_template_filenames()
+{
+  run_test '-u -t test_template_filenames_output.out.txt' filenames
+  compare test_template_filenames_output
+}
+
+test_template_filenames_include()
+{
+  run_test '-u -t test_template_filenames_include_output.out.txt' filenames
+  compare test_template_filenames_include_output
+}
+
 run_suite $tests
