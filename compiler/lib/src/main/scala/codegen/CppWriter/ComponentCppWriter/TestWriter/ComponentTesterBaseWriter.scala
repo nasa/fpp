@@ -423,6 +423,56 @@ case class ComponentTesterBaseWriter(
       )
     }
 
+    def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command) = functionClassMember(
+      Some(s"Send a ${cmd.getName} command"),
+      commandSendName(cmd.getName),
+      List.concat(
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const NATIVE_INT_TYPE"),
+            "instance",
+            Some("The instance number")
+          ),
+          cmdSeqParam
+        ),
+        cmdParamMap(opcode)
+      ),
+      CppDoc.Type("void"),
+      intersperseBlankLines(
+        List(
+          if cmdParamMap(opcode).isEmpty then lines("Fw::CmdArgBuffer buf;")
+          else List.concat(
+            lines(
+              """|// Serialize arguments
+                 |Fw::CmdArgBuffer buf;
+                 |Fw::SerializeStatus _status;
+                 |"""
+            ),
+            Line.blank :: intersperseBlankLines(
+              cmdParamTypeMap(opcode).map((name, _) =>
+                lines(
+                  s"""|_status = buf.serialize($name);
+                      |FW_ASSERT(
+                      |  _status == Fw::FW_SERIALIZE_OK,
+                      |  static_cast<FwAssertArgType>(_status)
+                      |);
+                      |"""
+                )
+              )
+            )
+          ),
+          lines(
+            s"""|// Call output command port
+                |FwOpcodeType _opcode;
+                |const U32 idBase = this->getIdBase();
+                |_opcode = $className::${commandConstantName(cmd)} + idBase;
+                |"""
+          ),
+          cmdPortInvocation
+        )
+      )
+    )
+
     addAccessTagAndComment(
       "protected",
       "Functions for testing commands",
@@ -476,62 +526,129 @@ case class ComponentTesterBaseWriter(
           )
         )
         else Nil,
-        nonParamCmds.map((opcode, cmd) =>
-          functionClassMember(
-            Some(s"Send a ${cmd.getName} command"),
-            commandSendName(cmd.getName),
-            List.concat(
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("const NATIVE_INT_TYPE"),
-                  "instance",
-                  Some("The instance number")
-                ),
-                cmdSeqParam
-              ),
-              cmdParamMap(opcode)
-            ),
-            CppDoc.Type("void"),
-            intersperseBlankLines(
-              List(
-                if cmdParamMap(opcode).isEmpty then lines("Fw::CmdArgBuffer buf;")
-                else List.concat(
-                  lines(
-                    """|// Serialize arguments
-                       |Fw::CmdArgBuffer buf;
-                       |Fw::SerializeStatus _status;
-                       |"""
-                  ),
-                  Line.blank :: intersperseBlankLines(
-                    cmdParamTypeMap(opcode).map((name, _) =>
-                      lines(
-                        s"""|_status = buf.serialize($name);
-                            |FW_ASSERT(
-                            |  _status == Fw::FW_SERIALIZE_OK,
-                            |  static_cast<FwAssertArgType>(_status)
-                            |);
-                            |"""
-                      )
-                    )
-                  )
-                ),
-                lines(
-                  s"""|// Call output command port
-                      |FwOpcodeType _opcode;
-                      |const U32 idBase = this->getIdBase();
-                      |_opcode = $className::${commandConstantName(cmd)} + idBase;
-                      |"""
-                ),
-                cmdPortInvocation
-              )
-            )
-          )
-        )
+        nonParamCmds.map((opcode, cmd) => writeCmdSendFunc(opcode, cmd))
       )
     )
   }
 
   private def getEventFunctions: List[CppDoc.Class.Member] = {
+    def writeSwitchCase(id: Event.Id, event: Event) = {
+      val params = eventParamTypeMap(id)
+
+      wrapInScope(
+        s"case $className::${eventIdConstantName(event.getName)}: {",
+        List.concat(
+          params match {
+            case Nil => lines(
+              """|#if FW_AMPCS_COMPATIBLE
+                 |// For AMPCS, decode zero arguments
+                 |Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
+                 |U8 _noArgs;
+                 |_zero_status = args.deserialize(_noArgs);
+                 |FW_ASSERT(
+                 |  _zero_status == Fw::FW_SERIALIZE_OK,
+                 |  static_cast<FwAssertArgType>(_zero_status)
+                 |);
+                 |#endif
+                 |"""
+            )
+            case _ => List.concat(
+              lines(
+                """|Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                   |
+                   |#if FW_AMPCS_COMPATIBLE
+                   |// Deserialize the number of arguments.
+                   |U8 _numArgs;
+                   |_status = args.deserialize(_numArgs);
+                   |FW_ASSERT(
+                   |  _status == Fw::FW_SERIALIZE_OK,
+                   |  static_cast<FwAssertArgType>(_status)
+                   |);
+                   |// Verify they match expected.
+                   |"""
+              ),
+              event.aNode._2.data.severity match {
+                case Ast.SpecEvent.Fatal => lines(
+                  s"""|FW_ASSERT(_numArgs == ${params.length} + 1, _numArgs, ${params.length} + 1);
+                      |
+                      |// For FATAL, there is a stack size of 4 and a dummy entry
+                      |U8 stackArgLen;
+                      |_status = args.deserialize(stackArgLen);
+                      |FW_ASSERT(
+                      |    _status == Fw::FW_SERIALIZE_OK,
+                      |    static_cast<FwAssertArgType>(_status)
+                      |);
+                      |FW_ASSERT(stackArgLen == 4, stackArgLen);
+                      |
+                      |U32 dummyStackArg;
+                      |_status = args.deserialize(dummyStackArg);
+                      |FW_ASSERT(
+                      |    _status == Fw::FW_SERIALIZE_OK,
+                      |    static_cast<FwAssertArgType>(_status)
+                      |);
+                      |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
+                      |"""
+                )
+                case _ => lines(s"FW_ASSERT(_numArgs == ${params.length}, _numArgs, ${params.length});")
+              },
+              lines("#endif")
+            )
+          },
+          event.aNode._2.data.params.flatMap(aNode => {
+            val data = aNode._2.data
+            val name = data.name
+            val tn = getEventParam(data)
+            val paramType = s.a.typeMap(data.typeName.id)
+            val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
+
+            lines(
+              s"""|
+                                |$tn $name;
+                  |#if FW_AMPCS_COMPATIBLE
+                  |{
+                  |  // Deserialize the argument size
+                  |  U8 _argSize;
+                  |  _status = args.deserialize(_argSize);
+                  |  FW_ASSERT(
+                  |    _status == Fw::FW_SERIALIZE_OK,
+                  |    static_cast<FwAssertArgType>(_status)
+                  |  );
+                  |  FW_ASSERT(_argSize == $serializedSizeExpr, _argSize, $serializedSizeExpr);
+                  |}
+                  |#endif
+                  |_status = args.deserialize($name);
+                  |FW_ASSERT(
+                  |  _status == Fw::FW_SERIALIZE_OK,
+                  |  static_cast<FwAssertArgType>(_status)
+                  |);
+                  |"""
+            )
+          }),
+          lines(
+            s"""|this->${eventHandlerName(event)}(${params.map(_._1).mkString(", ")});
+                |break;
+                |"""
+          )
+        ),
+        "}"
+      )
+    }
+
+    val switchStatement = Line.blank :: wrapInSwitch(
+      "(id - idBase)",
+      intersperseBlankLines(
+        sortedEvents.map((id, event) => writeSwitchCase(id, event)) ++ List(
+          lines(
+            """|default: {
+               |  FW_ASSERT(0, id);
+               |  break;
+               |}
+               |"""
+          )
+        )
+      )
+    )
+
     addAccessTagAndComment(
       "protected",
       "Functions for testing events",
@@ -567,114 +684,7 @@ case class ComponentTesterBaseWriter(
                    |FW_ASSERT(id >= idBase, id, idBase);
                    |"""
               ),
-              Line.blank :: wrapInSwitch(
-                "(id - idBase)",
-                intersperseBlankLines(
-                  sortedEvents.map((id, event) => {
-                    val params = eventParamTypeMap(id)
-
-                    wrapInScope(
-                      s"case $className::${eventIdConstantName(event.getName)}: {",
-                      List.concat(
-                        params match {
-                          case Nil => lines(
-                            """|#if FW_AMPCS_COMPATIBLE
-                               |// For AMPCS, decode zero arguments
-                               |Fw::SerializeStatus _zero_status = Fw::FW_SERIALIZE_OK;
-                               |U8 _noArgs;
-                               |_zero_status = args.deserialize(_noArgs);
-                               |FW_ASSERT(
-                               |  _zero_status == Fw::FW_SERIALIZE_OK,
-                               |  static_cast<FwAssertArgType>(_zero_status)
-                               |);
-                               |#endif
-                               |"""
-                          )
-                          case _ => List.concat(
-                            lines(
-                              """|Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                                 |
-                                 |#if FW_AMPCS_COMPATIBLE
-                                 |// Deserialize the number of arguments.
-                                 |U8 _numArgs;
-                                 |_status = args.deserialize(_numArgs);
-                                 |FW_ASSERT(
-                                 |  _status == Fw::FW_SERIALIZE_OK,
-                                 |  static_cast<FwAssertArgType>(_status)
-                                 |);
-                                 |// Verify they match expected.
-                                 |"""
-                            ),
-                            event.aNode._2.data.severity match {
-                              case Ast.SpecEvent.Fatal => lines(
-                                s"""|FW_ASSERT(_numArgs == ${params.length} + 1, _numArgs, ${params.length} + 1);
-                                    |
-                                    |// For FATAL, there is a stack size of 4 and a dummy entry
-                                    |U8 stackArgLen;
-                                    |_status = args.deserialize(stackArgLen);
-                                    |FW_ASSERT(
-                                    |    _status == Fw::FW_SERIALIZE_OK,
-                                    |    static_cast<FwAssertArgType>(_status)
-                                    |);
-                                    |FW_ASSERT(stackArgLen == 4, stackArgLen);
-                                    |
-                                    |U32 dummyStackArg;
-                                    |_status = args.deserialize(dummyStackArg);
-                                    |FW_ASSERT(
-                                    |    _status == Fw::FW_SERIALIZE_OK,
-                                    |    static_cast<FwAssertArgType>(_status)
-                                    |);
-                                    |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
-                                    |"""
-                              )
-                              case _ => lines(s"FW_ASSERT(_numArgs == ${params.length}, _numArgs, ${params.length});")
-                            },
-                            lines("#endif")
-                          )
-                        },
-                        eventParamTypeMap(id).flatMap((name, tn) =>
-                          lines(
-                            s"""|
-                                |$tn $name;
-                                |#if FW_AMPCS_COMPATIBLE
-                                |{
-                                |  // Deserialize the argument size
-                                |  U8 _argSize;
-                                |  _status = args.deserialize(_argSize);
-                                |  FW_ASSERT(
-                                |    _status == Fw::FW_SERIALIZE_OK,
-                                |    static_cast<FwAssertArgType>(_status)
-                                |  );
-                                |  FW_ASSERT(_argSize == sizeof($tn), _argSize, sizeof($tn));
-                                |}
-                                |#endif
-                                |_status = args.deserialize($name);
-                                |FW_ASSERT(
-                                |  _status == Fw::FW_SERIALIZE_OK,
-                                |  static_cast<FwAssertArgType>(_status)
-                                |);
-                                |"""
-                          )
-                        ),
-                        lines(
-                          s"""|this->${eventHandlerName(event)}(${params.map(_._1).mkString(", ")});
-                              |break;
-                              |"""
-                        )
-                      ),
-                      "}"
-                    )
-                  }) ++ List(
-                    lines(
-                    """|default: {
-                       |  FW_ASSERT(0, id);
-                       |  break;
-                       |}
-                       |"""
-                    )
-                  )
-                )
-              )
+              switchStatement
             )
           )
         )
@@ -745,6 +755,41 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getTlmFunctions: List[CppDoc.Class.Member] = {
+    val switchStatement = wrapInSwitch(
+      "id - idBase",
+      intersperseBlankLines(
+        sortedChannels.map((_, channel) =>
+          wrapInScope(
+            s"case $className::${channelIdConstantName(channel.getName)}: {",
+            lines(
+              s"""|${getChannelType(channel.channelType)} arg;
+                  |const Fw::SerializeStatus _status = val.deserialize(arg);
+                  |
+                  |if (_status != Fw::FW_SERIALIZE_OK) {
+                  |  printf("Error deserializing ${channel.getName}: %d\\n", _status);
+                  |  return;
+                  |}
+                  |
+                  |this->${tlmHandlerName(channel.getName)}(timeTag, arg);
+                  |break;
+                  |"""
+            ),
+            "}"
+          )
+        ) ++ List(
+          wrapInScope(
+            "default: {",
+            lines(
+              """|FW_ASSERT(0, id);
+                 |break;
+                 |"""
+            ),
+            "}"
+          )
+        )
+      )
+    )
+
     addAccessTagAndComment(
       "protected",
       "Functions for testing telemetry",
@@ -775,40 +820,7 @@ case class ComponentTesterBaseWriter(
                    |FW_ASSERT(id >= idBase, id, idBase);
                    |"""
               ),
-              Line.blank :: wrapInSwitch(
-                "id - idBase",
-                intersperseBlankLines(
-                  sortedChannels.map((_, channel) =>
-                    wrapInScope(
-                      s"case $className::${channelIdConstantName(channel.getName)}: {",
-                      lines(
-                        s"""|${getChannelType(channel.channelType)} arg;
-                            |const Fw::SerializeStatus _status = val.deserialize(arg);
-                            |
-                            |if (_status != Fw::FW_SERIALIZE_OK) {
-                            |  printf("Error deserializing ${channel.getName}: %d\\n", _status);
-                            |  return;
-                            |}
-                            |
-                            |this->${tlmHandlerName(channel.getName)}(timeTag, arg);
-                            |break;
-                            |"""
-                      ),
-                      "}"
-                    )
-                  ) ++ List(
-                    wrapInScope(
-                      "default: {",
-                      lines(
-                        """|FW_ASSERT(0, id);
-                           |break;
-                           |"""
-                      ),
-                      "}"
-                    )
-                  )
-                )
-              )
+              Line.blank :: switchStatement
             )
           )
         )

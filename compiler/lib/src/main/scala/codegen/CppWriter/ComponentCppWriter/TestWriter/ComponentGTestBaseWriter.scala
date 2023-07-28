@@ -352,6 +352,78 @@ case class ComponentGTestBaseWriter(
   }
 
   private def getEventAssertFunctions = {
+    def writeAssertFuncs(id: Event.Id, event: Event) = {
+      val eventsSize = eventParamTypeMap(id) match {
+        case Nil => eventSizeName(event.getName)
+        case _ => s"${eventHistoryName(event.getName)}->size()"
+      }
+
+      functionClassMember(
+        Some(s"Event: ${event.getName}"),
+        eventSizeAssertionFuncName(event.getName),
+        sizeAssertionFunctionParams,
+        CppDoc.Type("void"),
+        lines(
+          s"""ASSERT_EQ(size, this->$eventsSize)
+             |  << "\\n"
+             |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+             |  << "  Value:    Size of history for event ${event.getName}\\n"
+             |  << "  Expected: " << size << "\\n"
+             |  << "  Actual:   " << this->$eventsSize << "\\n";
+             |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      ) :: (eventParamTypeMap(id) match {
+        case Nil => Nil
+        case _ => List(
+          functionClassMember(
+            Some(s"Event: ${event.getName}"),
+            eventAssertionFuncName(event.getName),
+            assertionFunctionParams ++
+              event.aNode._2.data.params.map(aNode => {
+                val data = aNode._2.data
+                CppDoc.Function.Param(
+                  CppDoc.Type(writeCppType(s.a.typeMap(data.typeName.id))),
+                  data.name,
+                  AnnotationCppWriter.asStringOpt(aNode)
+                )
+              }),
+            CppDoc.Type("void"),
+            List.concat(
+              lines(
+                s"""ASSERT_GT(this->$eventsSize, __index)
+                   |  << "\\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+                   |  << "  Value:    Index into history of event ${event.getName}\\n"
+                   |  << "  Expected: Less than size of history ("
+                   |  << this->$eventsSize << ")\\n"
+                   |  << "  Actual:   " << __index << "\\n";
+                   |const ${eventEntryName(event.getName)}& _e =
+                   |  this->${eventHistoryName(event.getName)}->at(__index);
+                   |"""
+              ),
+              eventParamTypeMap(id).flatMap((name, tn) =>
+                lines(
+                  s"""ASSERT_EQ($name, ${writeEventValue(s"_e.$name", tn)})
+                     |  << "\\n"
+                     |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+                     |  << "  Value:    Value of argument $name at index "
+                     |  << __index
+                     |  << " in history of event ${event.getName}\\n"
+                     |  << "  Expected: " << $name << "\\n"
+                     |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
+                     |"""
+                )
+              )
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
+        )
+      })
+    }
+
     addAccessTagAndComment(
       "protected",
       "Events",
@@ -376,77 +448,7 @@ case class ComponentGTestBaseWriter(
           )
         )
         else Nil,
-        sortedEvents.flatMap((id, event) => {
-          val eventsSize = eventParamTypeMap(id) match {
-            case Nil => eventSizeName(event.getName)
-            case _ => s"${eventHistoryName(event.getName)}->size()"
-          }
-
-          functionClassMember(
-            Some(s"Event: ${event.getName}"),
-            eventSizeAssertionFuncName(event.getName),
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              s"""ASSERT_EQ(size, this->$eventsSize)
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Size of history for event ${event.getName}\\n"
-                 |  << "  Expected: " << size << "\\n"
-                 |  << "  Actual:   " << this->$eventsSize << "\\n";
-                 |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          ) :: (eventParamTypeMap(id) match {
-            case Nil => Nil
-            case _ => List(
-              functionClassMember(
-                Some(s"Event: ${event.getName}"),
-                eventAssertionFuncName(event.getName),
-                assertionFunctionParams ++
-                  event.aNode._2.data.params.map(aNode => {
-                    val data = aNode._2.data
-                    CppDoc.Function.Param(
-                      CppDoc.Type(writeCppType(s.a.typeMap(data.typeName.id))),
-                      data.name,
-                      AnnotationCppWriter.asStringOpt(aNode)
-                    )
-                  }),
-                CppDoc.Type("void"),
-                List.concat(
-                  lines(
-                    s"""ASSERT_GT(this->$eventsSize, __index)
-                       |  << "\\n"
-                       |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                       |  << "  Value:    Index into history of event ${event.getName}\\n"
-                       |  << "  Expected: Less than size of history ("
-                       |  << this->$eventsSize << ")\\n"
-                       |  << "  Actual:   " << __index << "\\n";
-                       |const ${eventEntryName(event.getName)}& _e =
-                       |  this->${eventHistoryName(event.getName)}->at(__index);
-                       |"""
-                  ),
-                  eventParamTypeMap(id).flatMap((name, tn) =>
-                    lines(
-                      s"""ASSERT_EQ($name, ${writeEventValue(s"_e.$name", tn)})
-                         |  << "\\n"
-                         |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                         |  << "  Value:    Value of argument $name at index "
-                         |  << __index
-                         |  << " in history of event ${event.getName}\\n"
-                         |  << "  Expected: " << $name << "\\n"
-                         |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
-                         |"""
-                    )
-                  )
-                ),
-                CppDoc.Function.NonSV,
-                CppDoc.Function.Const
-              )
-            )
-          })
-        })
+        sortedEvents.flatMap((id, event) => writeAssertFuncs(id, event))
       )
     )
   }
