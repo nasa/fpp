@@ -19,15 +19,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -38,15 +36,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -57,15 +53,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [
@@ -145,26 +139,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "1"
-                                        }
-                                      },
-                                      "id" : 10
-                                    }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 10
                                   }
                                 }
                               }
-                            },
-                            "id" : 11
-                          }
+                            }
+                          },
+                          "id" : 11
                         }
                       },
                       [
@@ -175,26 +167,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
-                                        }
-                                      },
-                                      "id" : 12
-                                    }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 12
                                   }
                                 }
                               }
-                            },
-                            "id" : 13
-                          }
+                            }
+                          },
+                          "id" : 13
                         }
                       },
                       [
@@ -205,26 +195,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 18
-                                    }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 18
                                   }
                                 }
                               }
-                            },
-                            "id" : 19
-                          }
+                            }
+                          },
+                          "id" : 19
                         }
                       },
                       [
@@ -335,15 +323,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 28
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -354,15 +340,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 29
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -373,15 +357,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 32
-                          }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -770,15 +752,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "A",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 28
-                                }
+                                "data" : {
+                                  "name" : "A",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 28
                               }
                             },
                             [
@@ -789,15 +769,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "B",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 29
-                                }
+                                "data" : {
+                                  "name" : "B",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 29
                               }
                             },
                             [
@@ -808,15 +786,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "C",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 32
-                                }
+                                "data" : {
+                                  "name" : "C",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 32
                               }
                             },
                             [
@@ -960,15 +936,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "YES",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 0
-                                }
+                                "data" : {
+                                  "name" : "YES",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 0
                               }
                             },
                             [
@@ -979,15 +953,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "NO",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 1
-                                }
+                                "data" : {
+                                  "name" : "NO",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 1
                               }
                             },
                             [
@@ -998,15 +970,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "MAYBE",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 4
-                                }
+                                "data" : {
+                                  "name" : "MAYBE",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 4
                               }
                             },
                             [
@@ -1219,26 +1189,24 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "A",
-                                    "value" : {
-                                      "Option" : {
-                                        "Some" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "ExprLiteralInt" : {
-                                                "value" : "1"
-                                              }
-                                            },
-                                            "id" : 10
-                                          }
+                                "data" : {
+                                  "name" : "A",
+                                  "value" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "1"
+                                            }
+                                          },
+                                          "id" : 10
                                         }
                                       }
                                     }
-                                  },
-                                  "id" : 11
-                                }
+                                  }
+                                },
+                                "id" : 11
                               }
                             },
                             [
@@ -1249,26 +1217,24 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "B",
-                                    "value" : {
-                                      "Option" : {
-                                        "Some" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "ExprLiteralInt" : {
-                                                "value" : "2"
-                                              }
-                                            },
-                                            "id" : 12
-                                          }
+                                "data" : {
+                                  "name" : "B",
+                                  "value" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "2"
+                                            }
+                                          },
+                                          "id" : 12
                                         }
                                       }
                                     }
-                                  },
-                                  "id" : 13
-                                }
+                                  }
+                                },
+                                "id" : 13
                               }
                             },
                             [
@@ -1279,26 +1245,24 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "C",
-                                    "value" : {
-                                      "Option" : {
-                                        "Some" : {
-                                          "AstNode" : {
-                                            "data" : {
-                                              "ExprLiteralInt" : {
-                                                "value" : "3"
-                                              }
-                                            },
-                                            "id" : 18
-                                          }
+                                "data" : {
+                                  "name" : "C",
+                                  "value" : {
+                                    "Option" : {
+                                      "Some" : {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 18
                                         }
                                       }
                                     }
-                                  },
-                                  "id" : 19
-                                }
+                                  }
+                                },
+                                "id" : 19
                               }
                             },
                             [
@@ -1373,15 +1337,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -1392,15 +1354,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -1411,15 +1371,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [
@@ -1470,15 +1428,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -1489,15 +1445,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -1508,15 +1462,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [
@@ -1578,15 +1530,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 28
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -1597,15 +1547,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 29
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -1616,15 +1564,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 32
-                          }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -1691,26 +1637,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "1"
-                                        }
-                                      },
-                                      "id" : 10
-                                    }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 10
                                   }
                                 }
                               }
-                            },
-                            "id" : 11
-                          }
+                            }
+                          },
+                          "id" : 11
                         }
                       },
                       [
@@ -1721,26 +1665,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
-                                        }
-                                      },
-                                      "id" : 12
-                                    }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 12
                                   }
                                 }
                               }
-                            },
-                            "id" : 13
-                          }
+                            }
+                          },
+                          "id" : 13
                         }
                       },
                       [
@@ -1751,26 +1693,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 18
-                                    }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 18
                                   }
                                 }
                               }
-                            },
-                            "id" : 19
-                          }
+                            }
+                          },
+                          "id" : 19
                         }
                       },
                       [
@@ -1842,15 +1782,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 28
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -1861,15 +1799,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 29
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -1880,15 +1816,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 32
-                          }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -1950,15 +1884,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -1969,15 +1901,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -1988,15 +1918,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [
@@ -2052,15 +1980,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -2071,15 +1997,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -2090,15 +2014,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [
@@ -2165,15 +2087,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 28
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -2184,15 +2104,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 29
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -2203,15 +2121,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 32
-                          }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -2284,15 +2200,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 28
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -2303,15 +2217,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 29
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -2322,15 +2234,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 32
-                          }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -2392,26 +2302,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "1"
-                                        }
-                                      },
-                                      "id" : 10
-                                    }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 10
                                   }
                                 }
                               }
-                            },
-                            "id" : 11
-                          }
+                            }
+                          },
+                          "id" : 11
                         }
                       },
                       [
@@ -2422,26 +2330,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
-                                        }
-                                      },
-                                      "id" : 12
-                                    }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 12
                                   }
                                 }
                               }
-                            },
-                            "id" : 13
-                          }
+                            }
+                          },
+                          "id" : 13
                         }
                       },
                       [
@@ -2452,26 +2358,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 18
-                                    }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 18
                                   }
                                 }
                               }
-                            },
-                            "id" : 19
-                          }
+                            }
+                          },
+                          "id" : 19
                         }
                       },
                       [
@@ -2522,26 +2426,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "1"
-                                        }
-                                      },
-                                      "id" : 10
-                                    }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 10
                                   }
                                 }
                               }
-                            },
-                            "id" : 11
-                          }
+                            }
+                          },
+                          "id" : 11
                         }
                       },
                       [
@@ -2552,26 +2454,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
-                                        }
-                                      },
-                                      "id" : 12
-                                    }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 12
                                   }
                                 }
                               }
-                            },
-                            "id" : 13
-                          }
+                            }
+                          },
+                          "id" : 13
                         }
                       },
                       [
@@ -2582,26 +2482,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 18
-                                    }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 18
                                   }
                                 }
                               }
-                            },
-                            "id" : 19
-                          }
+                            }
+                          },
+                          "id" : 19
                         }
                       },
                       [
@@ -2652,26 +2550,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "1"
-                                        }
-                                      },
-                                      "id" : 10
-                                    }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 10
                                   }
                                 }
                               }
-                            },
-                            "id" : 11
-                          }
+                            }
+                          },
+                          "id" : 11
                         }
                       },
                       [
@@ -2682,26 +2578,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "2"
-                                        }
-                                      },
-                                      "id" : 12
-                                    }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "2"
+                                      }
+                                    },
+                                    "id" : 12
                                   }
                                 }
                               }
-                            },
-                            "id" : 13
-                          }
+                            }
+                          },
+                          "id" : 13
                         }
                       },
                       [
@@ -2712,26 +2606,24 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "C",
-                              "value" : {
-                                "Option" : {
-                                  "Some" : {
-                                    "AstNode" : {
-                                      "data" : {
-                                        "ExprLiteralInt" : {
-                                          "value" : "3"
-                                        }
-                                      },
-                                      "id" : 18
-                                    }
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Option" : {
+                                "Some" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "3"
+                                      }
+                                    },
+                                    "id" : 18
                                   }
                                 }
                               }
-                            },
-                            "id" : 19
-                          }
+                            }
+                          },
+                          "id" : 19
                         }
                       },
                       [
@@ -2782,15 +2674,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "YES",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 0
-                          }
+                          "data" : {
+                            "name" : "YES",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 0
                         }
                       },
                       [
@@ -2801,15 +2691,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "NO",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 1
-                          }
+                          "data" : {
+                            "name" : "NO",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 1
                         }
                       },
                       [
@@ -2820,15 +2708,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "MAYBE",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 4
-                          }
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 4
                         }
                       },
                       [

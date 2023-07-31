@@ -22,14 +22,4 @@ trait JsonEncoder {
         .replaceAll("\\$$", "")
         .replaceAll("\\A.*\\$", "")
 
-    def addAnnotationJson(
-        pre: List[String],
-        data: Json,
-        post: List[String]
-        ): Json = Json.obj(
-        "preAnnotation" -> pre.asJson,
-        "data" -> data,
-        "postAnnotation" -> post.asJson
-        )
-
 }

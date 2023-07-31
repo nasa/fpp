@@ -221,15 +221,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 20
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 20
                         }
                       },
                       [
@@ -240,15 +238,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 23
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 23
                         }
                       },
                       [
@@ -454,15 +450,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "SUCCEED",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 50
-                          }
+                          "data" : {
+                            "name" : "SUCCEED",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 50
                         }
                       },
                       [
@@ -473,15 +467,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "FAIL",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 53
-                          }
+                          "data" : {
+                            "name" : "FAIL",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 53
                         }
                       },
                       [
@@ -1178,15 +1170,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "A",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 20
-                                }
+                                "data" : {
+                                  "name" : "A",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 20
                               }
                             },
                             [
@@ -1197,15 +1187,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "B",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 23
-                                }
+                                "data" : {
+                                  "name" : "B",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 23
                               }
                             },
                             [
@@ -1310,15 +1298,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "SUCCEED",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 50
-                                }
+                                "data" : {
+                                  "name" : "SUCCEED",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 50
                               }
                             },
                             [
@@ -1329,15 +1315,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "FAIL",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 53
-                                }
+                                "data" : {
+                                  "name" : "FAIL",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 53
                               }
                             },
                             [
@@ -1474,15 +1458,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "SUCCEED",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 50
-                                }
+                                "data" : {
+                                  "name" : "SUCCEED",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 50
                               }
                             },
                             [
@@ -1493,15 +1475,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "FAIL",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 53
-                                }
+                                "data" : {
+                                  "name" : "FAIL",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 53
                               }
                             },
                             [
@@ -1567,15 +1547,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "A",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 20
-                                }
+                                "data" : {
+                                  "name" : "A",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 20
                               }
                             },
                             [
@@ -1586,15 +1564,13 @@
                             ],
                             {
                               "AstNode" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "name" : "B",
-                                    "value" : {
-                                      "Option" : "None"
-                                    }
-                                  },
-                                  "id" : 23
-                                }
+                                "data" : {
+                                  "name" : "B",
+                                  "value" : {
+                                    "Option" : "None"
+                                  }
+                                },
+                                "id" : 23
                               }
                             },
                             [
@@ -1710,15 +1686,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 20
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 20
                         }
                       },
                       [
@@ -1729,15 +1703,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 23
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 23
                         }
                       },
                       [
@@ -1788,15 +1760,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "A",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 20
-                          }
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 20
                         }
                       },
                       [
@@ -1807,15 +1777,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "B",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 23
-                          }
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 23
                         }
                       },
                       [
@@ -1866,15 +1834,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "SUCCEED",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 50
-                          }
+                          "data" : {
+                            "name" : "SUCCEED",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 50
                         }
                       },
                       [
@@ -1885,15 +1851,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "FAIL",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 53
-                          }
+                          "data" : {
+                            "name" : "FAIL",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 53
                         }
                       },
                       [
@@ -1944,15 +1908,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "SUCCEED",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 50
-                          }
+                          "data" : {
+                            "name" : "SUCCEED",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 50
                         }
                       },
                       [
@@ -1963,15 +1925,13 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "FAIL",
-                              "value" : {
-                                "Option" : "None"
-                              }
-                            },
-                            "id" : 53
-                          }
+                          "data" : {
+                            "name" : "FAIL",
+                            "value" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 53
                         }
                       },
                       [

@@ -6,48 +6,15 @@ import fpp.compiler.codegen._
 import fpp.compiler.syntax._
 import fpp.compiler.transform._
 import fpp.compiler.util._
-import io.circe.syntax._
 import io.circe._
-import io.circe.generic.semiauto._
 import io.circe.generic.auto._
+import io.circe.generic.semiauto._
+import io.circe.syntax._
 import scala.util.parsing.input.Position
 
 object AstJsonEncoder extends JsonEncoder {
-    /*
-    Defines implicit Encoder instances for various types in the Ast and PortInstance classes.
-    Each encoder returns a Unqualified Class Name Json.
-  */
-  implicit val binopEncoder: Encoder[Ast.Binop] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val unopEncoder: Encoder[Ast.Unop] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val componentKindEncoder: Encoder[Ast.ComponentKind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val typeIntEncoder: Encoder[Ast.TypeInt] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val typeFloatEncoder: Encoder[Ast.TypeFloat] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val queueFullEncoder: Encoder[Ast.QueueFull] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val updateEncoder: Encoder[Ast.SpecTlmChannel.Update] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val limitKindEncoder: Encoder[Ast.SpecTlmChannel.LimitKind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val generalKindEncoder: Encoder[Ast.SpecPortInstance.GeneralKind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val specialInputKindEncoder: Encoder[Ast.SpecPortInstance.SpecialInputKind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val specialKindEncoder: Encoder[Ast.SpecPortInstance.SpecialKind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val visibilityEncoder: Encoder[Ast.Visibility] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val formalParamKindEncoder: Encoder[Ast.FormalParam.Kind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern.Kind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
-  implicit val severityEncoder: Encoder[Ast.SpecEvent.Severity] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
+  // JSON encoder for AST nodes
   implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
     override def apply(astNode: AstNode[T]): Json = Json.obj( "AstNode" -> Json.obj(
       "data" -> astNode.data.asJson,
@@ -55,68 +22,55 @@ object AstJsonEncoder extends JsonEncoder {
     ))
   }
 
-  /*
-    Encoders for serializing Ast
-  */
-
-  implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-
-  implicit val defEnumConstantEncoder: Encoder[Ast.Annotated[AstNode[Ast.DefEnumConstant]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-
-  implicit val specInitEncoder: Encoder[Ast.Annotated[AstNode[Ast.SpecInit]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-
-  implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.instance {
-    aNode => (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-  }
-
-
-    /*
-    Encoder for Module Members: Encodes different subtypes of Ast.ModuleMember 
-    by adding their type name and converting them to JSON.
-  */
-  implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
-    Encoder.instance((m: Ast.ModuleMember) =>
-      m.node._2 match {
-        case aNode: Ast.ModuleMember.DefAbsType =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefArray =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefComponent =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefComponentInstance =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefConstant =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefEnum =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefModule =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefPort =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefStruct =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.DefTopology =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.SpecInclude =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-        case aNode: Ast.ModuleMember.SpecLoc =>
-          (m.node._1, addTypeName(aNode, aNode.asJson), m.node._3).asJson
-      }
+  // JSON encoder for qualified identifiers
+  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
+    Encoder.instance((q: Ast.QualIdent) =>
+        q match {
+            case ident: Ast.QualIdent.Unqualified =>
+            addTypeName(ident, ident.asJson)
+            case ident: Ast.QualIdent.Qualified => addTypeName(ident, ident.asJson)
+        }
     )
-  
-  /*
-    Encoder for Expressions: Encodes different subtypes of Ast.Expr by adding 
-    their type name and converting them to JSON.
-  */
+
+  // JSON encoders for Scala type variants, each of which has one value
+  // with no arguments. We use the unqualified class name of the
+  // type to represent the value.
+  implicit val binopEncoder: Encoder[Ast.Binop] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val componentKindEncoder: Encoder[Ast.ComponentKind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val formalParamKindEncoder: Encoder[Ast.FormalParam.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val generalKindEncoder: Encoder[Ast.SpecPortInstance.GeneralKind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val limitKindEncoder: Encoder[Ast.SpecTlmChannel.LimitKind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val patternEncoder: Encoder[Ast.SpecConnectionGraph.Pattern.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val queueFullEncoder: Encoder[Ast.QueueFull] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val severityEncoder: Encoder[Ast.SpecEvent.Severity] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val specialInputKindEncoder: Encoder[Ast.SpecPortInstance.SpecialInputKind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val specialKindEncoder: Encoder[Ast.SpecPortInstance.SpecialKind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val typeFloatEncoder: Encoder[Ast.TypeFloat] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val typeIntEncoder: Encoder[Ast.TypeInt] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val unopEncoder: Encoder[Ast.Unop] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val updateEncoder: Encoder[Ast.SpecTlmChannel.Update] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  implicit val visibilityEncoder: Encoder[Ast.Visibility] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
+
+  // JSON encoder for expressions
+  // We explicitly handle each case to avoid an infinite recursion.
+  // This appears to be a weakness in Circe when dealing with
+  // recursive variant types.
   implicit val exprEncoder: Encoder[Ast.Expr] =
     Encoder.instance((e: Ast.Expr) =>
       e match {
@@ -134,10 +88,44 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
 
-  /*
-    Encoder for Component Members: Encodes different subtypes of Ast.ComponentMember 
-    by adding their type name and converting them to JSON.
-  */
+  // JSON encoder for type names
+  // We explicitly handle each case to avoid an infinite recursion.
+  // See above.
+  implicit val typeNameEncoder: Encoder[Ast.TypeName] =
+    Encoder.instance((t: Ast.TypeName) =>
+      t match {
+        case t: Ast.TypeNameFloat     => addTypeName(t, t.asJson)
+        case t: Ast.TypeNameInt       => addTypeName(t, t.asJson)
+        case t: Ast.TypeNameQualIdent => addTypeName(t, t.asJson)
+        case t: Ast.TypeNameString    => addTypeName(t, t.asJson)
+        case Ast.TypeNameBool         => addTypeName(t, Json.fromString("TypeNameBool"))
+      }
+    )
+  
+  // JSON encoder for module member nodes
+  implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
+    Encoder.instance(
+      (node: Ast.ModuleMember.Node) => node match {
+        case node: Ast.ModuleMember.DefAbsType => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefArray => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefComponent => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefComponentInstance => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefConstant => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefEnum => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefModule => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefPort => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefStruct => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.DefTopology => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.SpecInclude => addTypeName(node, node.asJson)
+        case node: Ast.ModuleMember.SpecLoc => addTypeName(node, node.asJson)
+      }
+    )
+
+  // JSON encoder for module members
+  implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
+    Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
+  
+  // JSON encoder for component members
   implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((c: Ast.ComponentMember) =>
       c.node._2 match {
@@ -170,25 +158,7 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
 
-  /*
-    Encoder for Type Names: Encodes different subtypes of Ast.TypeName by 
-    adding their type name and converting them to JSON.
-  */
-  implicit val typeNameEncoder: Encoder[Ast.TypeName] =
-    Encoder.instance((t: Ast.TypeName) =>
-      t match {
-        case t: Ast.TypeNameFloat     => addTypeName(t, t.asJson)
-        case t: Ast.TypeNameInt       => addTypeName(t, t.asJson)
-        case t: Ast.TypeNameQualIdent => addTypeName(t, t.asJson)
-        case t: Ast.TypeNameString    => addTypeName(t, t.asJson)
-        case Ast.TypeNameBool => addTypeName(t, Json.fromString("TypeNameBool"))
-      }
-    )
-  
-  /*
-     Encoder for Topology Members: Encodes different subtypes of Ast.TopologyMember 
-     by adding their type name and converting them to JSON.
-  */
+  // JSON encoder for topology members
   implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
     Encoder.instance((t: Ast.TopologyMember) =>
       t.node._2 match {
@@ -203,16 +173,29 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
 
+  // JSON encoders for annontatable elements that are not members of
+  // translation units,  modules, or components
 
-  implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
-    Encoder.instance((q: Ast.QualIdent) =>
-        q match {
-            case ident: Ast.QualIdent.Unqualified =>
-            addTypeName(ident, ident.asJson)
-            case ident: Ast.QualIdent.Qualified => addTypeName(ident, ident.asJson)
-        }
-    )
+  /*
+  implicit val defEnumConstantEncoder: Encoder[Ast.Annotated[AstNode[Ast.DefEnumConstant]]] =
+    Encoder.instance { aNode =>
+      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
+    }
+    */
 
+  implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.instance {
+    aNode => (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
+  }
+
+  implicit val specInitEncoder: Encoder[Ast.Annotated[AstNode[Ast.SpecInit]]] =
+    Encoder.instance { aNode =>
+      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
+    }
+
+  implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
+    Encoder.instance { aNode =>
+      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
+    }
 
   /** Converts Ast to JSON */
   def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
