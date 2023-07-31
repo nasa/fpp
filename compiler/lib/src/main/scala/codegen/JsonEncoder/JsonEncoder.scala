@@ -8,18 +8,22 @@ import fpp.compiler.ast._
 
 trait JsonEncoder {
     
-    implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
-        case Some(value) => Json.obj("Option" -> Json.obj("Some" -> encoder(value)))
-        case None        => Json.obj("Option" -> Json.fromString("None"))
-    }
+  /** Encodes a value of Option type */
+  implicit def optionEncoder[A](implicit encoder: Encoder[A]): Encoder[Option[A]] = {
+    case Some(value) => Json.obj("Some" -> encoder(value))
+    case None => Json.fromString("None")
+  }
 
-    def addTypeName[T](x: T, json: Json): Json =
-    Json.obj(getUnqualifiedClassName(x) -> json)
+  /** Adds the type name as an object key */
+  def addTypeName[T](obj: T, json: Json): Json =
+    Json.obj(getUnqualifiedClassName(obj) -> json)
 
-    def getUnqualifiedClassName[T](x: T): String =
-        x.getClass.getName
-        .replaceAll("\\A.*\\.", "")
-        .replaceAll("\\$$", "")
-        .replaceAll("\\A.*\\$", "")
+  /** Gets the unqualified class name corresponding to the class name of a
+   *  Scala object */
+  def getUnqualifiedClassName[T](obj: T): String =
+    obj.getClass.getName
+    .replaceAll("\\A.*\\.", "")
+    .replaceAll("\\$$", "")
+    .replaceAll("\\A.*\\$", "")
 
 }

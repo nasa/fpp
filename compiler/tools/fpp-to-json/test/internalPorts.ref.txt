@@ -80,23 +80,19 @@
                                   ]
                                 ],
                                 "priority" : {
-                                  "Option" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprLiteralInt" : {
-                                            "value" : "10"
-                                          }
-                                        },
-                                        "id" : 41
-                                      }
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "10"
+                                        }
+                                      },
+                                      "id" : 41
                                     }
                                   }
                                 },
                                 "queueFull" : {
-                                  "Option" : {
-                                    "Some" : "Drop"
-                                  }
+                                  "Some" : "Drop"
                                 }
                               },
                               "id" : 42
@@ -124,310 +120,222 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "2.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.42",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.42",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.42",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "9.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
     "pos" : "6.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   }
 }
 {
@@ -458,34 +366,30 @@
     "0" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                      "A data type T"
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 0
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                    "A data type T"
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 0
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 0
-          }
+          "Some" : 0
         },
         "name" : "T"
       }
@@ -493,34 +397,30 @@
     "39" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                      "A data type T"
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 0
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                    "A data type T"
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 0
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 0
-          }
+          "Some" : 0
         },
         "name" : "T"
       }
@@ -542,9 +442,7 @@
           "Internal" : {
             "id" : 42,
             "priority" : {
-              "Option" : {
-                "Some" : 10
-              }
+              "Some" : 10
             },
             "queueFull" : "Drop"
           }

@@ -12,9 +12,7 @@
                   "name" : "P",
                   "params" : [
                   ],
-                  "returnType" : {
-                    "Option" : "None"
-                  }
+                  "returnType" : "None"
                 },
                 "id" : 0
               }
@@ -35,9 +33,7 @@
                   "name" : "P1",
                   "params" : [
                   ],
-                  "returnType" : {
-                    "Option" : "None"
-                  }
+                  "returnType" : "None"
                 },
                 "id" : 1
               }
@@ -83,9 +79,7 @@
                       ]
                     ]
                   ],
-                  "returnType" : {
-                    "Option" : "None"
-                  }
+                  "returnType" : "None"
                 },
                 "id" : 8
               }
@@ -167,9 +161,7 @@
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameString" : {
-                                    "size" : {
-                                      "Option" : "None"
-                                    }
+                                    "size" : "None"
                                   }
                                 },
                                 "id" : 17
@@ -183,9 +175,7 @@
                       ]
                     ]
                   ],
-                  "returnType" : {
-                    "Option" : "None"
-                  }
+                  "returnType" : "None"
                 },
                 "id" : 19
               }
@@ -204,9 +194,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "E",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -215,9 +203,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "A",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 20
                         }
@@ -232,9 +218,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "B",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 23
                         }
@@ -243,9 +227,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 24
               }
@@ -387,25 +369,23 @@
                     ]
                   ],
                   "returnType" : {
-                    "Option" : {
-                      "Some" : {
-                        "AstNode" : {
-                          "data" : {
-                            "TypeNameQualIdent" : {
-                              "name" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "Unqualified" : {
-                                      "name" : "T"
-                                    }
-                                  },
-                                  "id" : 47
-                                }
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameQualIdent" : {
+                            "name" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "T"
+                                  }
+                                },
+                                "id" : 47
                               }
                             }
-                          },
-                          "id" : 48
-                        }
+                          }
+                        },
+                        "id" : 48
                       }
                     }
                   }
@@ -427,9 +407,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "Status",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -438,9 +416,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "SUCCEED",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 50
                         }
@@ -455,9 +431,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "FAIL",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 53
                         }
@@ -466,9 +440,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 54
               }
@@ -516,25 +488,23 @@
                     ]
                   ],
                   "returnType" : {
-                    "Option" : {
-                      "Some" : {
-                        "AstNode" : {
-                          "data" : {
-                            "TypeNameQualIdent" : {
-                              "name" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "Unqualified" : {
-                                      "name" : "Status"
-                                    }
-                                  },
-                                  "id" : 62
-                                }
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameQualIdent" : {
+                            "name" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "Status"
+                                  }
+                                },
+                                "id" : 62
                               }
                             }
-                          },
-                          "id" : 63
-                        }
+                          }
+                        },
+                        "id" : 63
                       }
                     }
                   }
@@ -554,457 +524,327 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "3.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "4.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.20",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.17",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "5.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "7.10",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "7.13",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "7.13",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "7.13",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "7.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "8.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.15",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "9.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "11.15",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "11.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "11.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "11.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "11.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.9",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp",
     "pos" : "13.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   }
 }
 {
@@ -1066,9 +906,7 @@
   "typeMap" : {
     "23" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1083,42 +921,36 @@
     "44" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 25
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 25
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 25
-          }
+          "Some" : 25
         },
         "name" : "T"
       }
     },
     "50" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1133,78 +965,66 @@
     "24" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "A",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "E",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "A",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "E",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "A",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 20
-                              }
-                            },
-                            [
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "A",
+                                "value" : "None"
+                              },
+                              "id" : 20
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "B",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 23
-                              }
-                            },
-                            [
-                            ]
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 24
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "B",
+                                "value" : "None"
+                              },
+                              "id" : 23
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 24
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -1227,33 +1047,29 @@
     "48" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 25
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 25
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 25
-          }
+          "Some" : 25
         },
         "name" : "T"
       }
@@ -1261,78 +1077,66 @@
     "54" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "SUCCEED",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "Status",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "SUCCEED",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "Status",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "SUCCEED",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 50
-                              }
-                            },
-                            [
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "SUCCEED",
+                                "value" : "None"
+                              },
+                              "id" : 50
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "FAIL",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 53
-                              }
-                            },
-                            [
-                            ]
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 54
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FAIL",
+                                "value" : "None"
+                              },
+                              "id" : 53
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 54
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -1350,33 +1154,29 @@
     "32" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 25
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 25
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 25
-          }
+          "Some" : 25
         },
         "name" : "T"
       }
@@ -1388,9 +1188,7 @@
     },
     "53" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1404,9 +1202,7 @@
     },
     "20" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1421,78 +1217,66 @@
     "63" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "SUCCEED",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "Status",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "SUCCEED",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "Status",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "SUCCEED",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 50
-                              }
-                            },
-                            [
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "SUCCEED",
+                                "value" : "None"
+                              },
+                              "id" : 50
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "FAIL",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 53
-                              }
-                            },
-                            [
-                            ]
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 54
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FAIL",
+                                "value" : "None"
+                              },
+                              "id" : 53
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 54
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -1510,78 +1294,66 @@
     "28" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "A",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "E",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "A",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "E",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "A",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 20
-                              }
-                            },
-                            [
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "A",
+                                "value" : "None"
+                              },
+                              "id" : 20
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "B",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 23
-                              }
-                            },
-                            [
-                            ]
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 24
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "B",
+                                "value" : "None"
+                              },
+                              "id" : 23
+                            }
+                          },
+                          [
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 24
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -1608,41 +1380,35 @@
     },
     "17" : {
       "String" : {
-        "size" : {
-          "Option" : "None"
-        }
+        "size" : "None"
       }
     },
     "25" : {
       "AbsType" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "AbsType" : {
-                "t" : {
-                  "node" : [
-                    [
-                    ],
-                    {
-                      "AstNode" : {
-                        "data" : {
-                          "name" : "T"
-                        },
-                        "id" : 25
-                      }
-                    },
-                    [
-                    ]
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : [
+                  [
+                  ],
+                  {
+                    "AstNode" : {
+                      "data" : {
+                        "name" : "T"
+                      },
+                      "id" : 25
+                    }
+                  },
+                  [
                   ]
-                }
+                ]
               }
             }
           }
         },
         "nodeId" : {
-          "Option" : {
-            "Some" : 25
-          }
+          "Some" : 25
         },
         "name" : "T"
       }
@@ -1661,9 +1427,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "E",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -1672,9 +1436,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "A",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 20
                         }
@@ -1689,9 +1451,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "B",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 23
                         }
@@ -1700,9 +1460,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 24
               }
@@ -1717,9 +1475,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     },
@@ -1735,9 +1491,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "E",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -1746,9 +1500,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "A",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 20
                         }
@@ -1763,9 +1515,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "B",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 23
                         }
@@ -1774,9 +1524,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 24
               }
@@ -1791,9 +1539,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     },
@@ -1809,9 +1555,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "Status",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -1820,9 +1564,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "SUCCEED",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 50
                         }
@@ -1837,9 +1579,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "FAIL",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 53
                         }
@@ -1848,9 +1588,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 54
               }
@@ -1865,9 +1603,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     },
@@ -1883,9 +1619,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "Status",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -1894,9 +1628,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "SUCCEED",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 50
                         }
@@ -1911,9 +1643,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "FAIL",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 53
                         }
@@ -1922,9 +1652,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 54
               }
@@ -1939,9 +1667,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     }

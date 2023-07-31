@@ -48,9 +48,7 @@
                                     ]
                                   ]
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 6
                             }
@@ -84,44 +82,36 @@
                                               "General" : {
                                                 "kind" : "SyncInput",
                                                 "name" : "schedIn",
-                                                "size" : {
-                                                  "Option" : "None"
-                                                },
+                                                "size" : "None",
                                                 "port" : {
-                                                  "Option" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "Qualified" : {
-                                                            "qualifier" : {
-                                                              "AstNode" : {
-                                                                "data" : {
-                                                                  "Unqualified" : {
-                                                                    "name" : "Svc"
-                                                                  }
-                                                                },
-                                                                "id" : 43
-                                                              }
-                                                            },
-                                                            "name" : {
-                                                              "AstNode" : {
-                                                                "data" : "Sched",
-                                                                "id" : 44
-                                                              }
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Svc"
+                                                                }
+                                                              },
+                                                              "id" : 43
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Sched",
+                                                              "id" : 44
                                                             }
                                                           }
-                                                        },
-                                                        "id" : 45
-                                                      }
+                                                        }
+                                                      },
+                                                      "id" : 45
                                                     }
                                                   }
                                                 },
-                                                "priority" : {
-                                                  "Option" : "None"
-                                                },
-                                                "queueFull" : {
-                                                  "Option" : "None"
-                                                }
+                                                "priority" : "None",
+                                                "queueFull" : "None"
                                               }
                                             },
                                             "id" : 46
@@ -144,29 +134,21 @@
                                               "General" : {
                                                 "kind" : "AsyncInput",
                                                 "name" : "calibrationIn",
-                                                "size" : {
-                                                  "Option" : "None"
-                                                },
+                                                "size" : "None",
                                                 "port" : {
-                                                  "Option" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "Unqualified" : {
-                                                            "name" : "Calibration"
-                                                          }
-                                                        },
-                                                        "id" : 48
-                                                      }
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "Calibration"
+                                                        }
+                                                      },
+                                                      "id" : 48
                                                     }
                                                   }
                                                 },
-                                                "priority" : {
-                                                  "Option" : "None"
-                                                },
-                                                "queueFull" : {
-                                                  "Option" : "None"
-                                                }
+                                                "priority" : "None",
+                                                "queueFull" : "None"
                                               }
                                             },
                                             "id" : 49
@@ -187,17 +169,11 @@
                                           "AstNode" : {
                                             "data" : {
                                               "Special" : {
-                                                "inputKind" : {
-                                                  "Option" : "None"
-                                                },
+                                                "inputKind" : "None",
                                                 "kind" : "Telemetry",
                                                 "name" : "tlmOut",
-                                                "priority" : {
-                                                  "Option" : "None"
-                                                },
-                                                "queueFull" : {
-                                                  "Option" : "None"
-                                                }
+                                                "priority" : "None",
+                                                "queueFull" : "None"
                                               }
                                             },
                                             "id" : 50
@@ -218,17 +194,11 @@
                                           "AstNode" : {
                                             "data" : {
                                               "Special" : {
-                                                "inputKind" : {
-                                                  "Option" : "None"
-                                                },
+                                                "inputKind" : "None",
                                                 "kind" : "TimeGet",
                                                 "name" : "timeGetOut",
-                                                "priority" : {
-                                                  "Option" : "None"
-                                                },
-                                                "queueFull" : {
-                                                  "Option" : "None"
-                                                }
+                                                "priority" : "None",
+                                                "queueFull" : "None"
                                               }
                                             },
                                             "id" : 51
@@ -259,15 +229,9 @@
                                                   "id" : 52
                                                 }
                                               },
-                                              "id" : {
-                                                "Option" : "None"
-                                              },
-                                              "update" : {
-                                                "Option" : "None"
-                                              },
-                                              "format" : {
-                                                "Option" : "None"
-                                              },
+                                              "id" : "None",
+                                              "update" : "None",
+                                              "format" : "None",
                                               "low" : [
                                               ],
                                               "high" : [
@@ -301,15 +265,9 @@
                                                   "id" : 58
                                                 }
                                               },
-                                              "id" : {
-                                                "Option" : "None"
-                                              },
-                                              "update" : {
-                                                "Option" : "None"
-                                              },
-                                              "format" : {
-                                                "Option" : "None"
-                                              },
+                                              "id" : "None",
+                                              "update" : "None",
+                                              "format" : "None",
                                               "low" : [
                                               ],
                                               "high" : [
@@ -398,35 +356,23 @@
                                     "id" : 77
                                   }
                                 },
-                                "implType" : {
-                                  "Option" : "None"
-                                },
-                                "file" : {
-                                  "Option" : "None"
-                                },
+                                "implType" : "None",
+                                "file" : "None",
                                 "queueSize" : {
-                                  "Option" : {
-                                    "Some" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "ExprLiteralInt" : {
-                                            "value" : "10"
-                                          }
-                                        },
-                                        "id" : 78
-                                      }
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "10"
+                                        }
+                                      },
+                                      "id" : 78
                                     }
                                   }
                                 },
-                                "stackSize" : {
-                                  "Option" : "None"
-                                },
-                                "priority" : {
-                                  "Option" : "None"
-                                },
-                                "cpu" : {
-                                  "Option" : "None"
-                                },
+                                "stackSize" : "None",
+                                "priority" : "None",
+                                "cpu" : "None",
                                 "initSpecs" : [
                                 ]
                               },
@@ -469,9 +415,7 @@
                                 "name" : "Sched",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 83
                             }
@@ -512,9 +456,7 @@
                                 "name" : "Tlm",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 85
                             }
@@ -535,9 +477,7 @@
                                 "name" : "Time",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 88
                             }
@@ -564,632 +504,452 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.20",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "4.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.30",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.37",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "13.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "16.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "19.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "22.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "25.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "7.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "70" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "71" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "72" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "75" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.32",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.24",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "77" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.51",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "78" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "35.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "34.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "31.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "82" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "40.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "84" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "39.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "85" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "44.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "86" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "87" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "45.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "89" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponets.fpp",
     "pos" : "43.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   }
 }
 {
@@ -1341,44 +1101,36 @@
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "schedIn",
-              "size" : {
-                "Option" : "None"
-              },
+              "size" : "None",
               "port" : {
-                "Option" : {
-                  "Some" : {
-                    "AstNode" : {
-                      "data" : {
-                        "Qualified" : {
-                          "qualifier" : {
-                            "AstNode" : {
-                              "data" : {
-                                "Unqualified" : {
-                                  "name" : "Svc"
-                                }
-                              },
-                              "id" : 43
-                            }
-                          },
-                          "name" : {
-                            "AstNode" : {
-                              "data" : "Sched",
-                              "id" : 44
-                            }
+                "Some" : {
+                  "AstNode" : {
+                    "data" : {
+                      "Qualified" : {
+                        "qualifier" : {
+                          "AstNode" : {
+                            "data" : {
+                              "Unqualified" : {
+                                "name" : "Svc"
+                              }
+                            },
+                            "id" : 43
+                          }
+                        },
+                        "name" : {
+                          "AstNode" : {
+                            "data" : "Sched",
+                            "id" : 44
                           }
                         }
-                      },
-                      "id" : 45
-                    }
+                      }
+                    },
+                    "id" : 45
                   }
                 }
               },
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "kind" : "SyncInput",
             "size" : 1,
@@ -1391,29 +1143,21 @@
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "calibrationIn",
-              "size" : {
-                "Option" : "None"
-              },
+              "size" : "None",
               "port" : {
-                "Option" : {
-                  "Some" : {
-                    "AstNode" : {
-                      "data" : {
-                        "Unqualified" : {
-                          "name" : "Calibration"
-                        }
-                      },
-                      "id" : 48
-                    }
+                "Some" : {
+                  "AstNode" : {
+                    "data" : {
+                      "Unqualified" : {
+                        "name" : "Calibration"
+                      }
+                    },
+                    "id" : 48
                   }
                 }
               },
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "kind" : "AsyncInput",
             "size" : 1,
@@ -1424,52 +1168,32 @@
           "Special" : {
             "id" : 50,
             "specifier" : {
-              "inputKind" : {
-                "Option" : "None"
-              },
+              "inputKind" : "None",
               "kind" : "Telemetry",
               "name" : "tlmOut",
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "name" : "Tlm",
             "symbolId" : 85,
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           }
         },
         "timeGetOut" : {
           "Special" : {
             "id" : 51,
             "specifier" : {
-              "inputKind" : {
-                "Option" : "None"
-              },
+              "inputKind" : "None",
               "kind" : "TimeGet",
               "name" : "timeGetOut",
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "name" : "Time",
             "symbolId" : 88,
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           }
         }
       },
@@ -1477,50 +1201,30 @@
         "telemetry" : {
           "id" : 50,
           "specifier" : {
-            "inputKind" : {
-              "Option" : "None"
-            },
+            "inputKind" : "None",
             "kind" : "Telemetry",
             "name" : "tlmOut",
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           },
           "name" : "Tlm",
           "symbolId" : 85,
-          "priority" : {
-            "Option" : "None"
-          },
-          "queueFull" : {
-            "Option" : "None"
-          }
+          "priority" : "None",
+          "queueFull" : "None"
         },
         "time get" : {
           "id" : 51,
           "specifier" : {
-            "inputKind" : {
-              "Option" : "None"
-            },
+            "inputKind" : "None",
             "kind" : "TimeGet",
             "name" : "timeGetOut",
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           },
           "name" : "Time",
           "symbolId" : 88,
-          "priority" : {
-            "Option" : "None"
-          },
-          "queueFull" : {
-            "Option" : "None"
-          }
+          "priority" : "None",
+          "queueFull" : "None"
         }
       },
       "commandMap" : {
@@ -1536,9 +1240,7 @@
             }
           },
           "update" : "Always",
-          "format" : {
-            "Option" : "None"
-          },
+          "format" : "None",
           "lowLimits" : {
             
           },
@@ -1554,9 +1256,7 @@
             }
           },
           "update" : "Always",
-          "format" : {
-            "Option" : "None"
-          },
+          "format" : "None",
           "lowLimits" : {
             
           },
@@ -1592,23 +1292,13 @@
       "Component" : 60,
       "baseId" : 256,
       "maxId" : 257,
-      "file" : {
-        "Option" : "None"
-      },
+      "file" : "None",
       "queueSize" : {
-        "Option" : {
-          "Some" : 10
-        }
+        "Some" : 10
       },
-      "stackSize" : {
-        "Option" : "None"
-      },
-      "priority" : {
-        "Option" : "None"
-      },
-      "cpu" : {
-        "Option" : "None"
-      },
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
       "initSpecifierMap" : {
         
       }

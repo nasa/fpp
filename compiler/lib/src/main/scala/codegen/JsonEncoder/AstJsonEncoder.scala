@@ -150,20 +150,22 @@ object AstJsonEncoder extends JsonEncoder {
   implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((m: Ast.ComponentMember) => m.node.asJson)
 
-  // JSON encoder for topology members
-  implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
-    Encoder.instance((t: Ast.TopologyMember) =>
-      t.node._2 match {
-        case aNode: Ast.TopologyMember.SpecCompInstance =>
-          (t.node._1, addTypeName(aNode, aNode.asJson), t.node._3).asJson
-        case aNode: Ast.TopologyMember.SpecConnectionGraph =>
-          (t.node._1, addTypeName(aNode, aNode.asJson), t.node._3).asJson
-        case aNode: Ast.TopologyMember.SpecInclude =>
-          (t.node._1, addTypeName(aNode, aNode.asJson), t.node._3).asJson
-        case aNode: Ast.TopologyMember.SpecTopImport =>
-          (t.node._1, addTypeName(aNode, aNode.asJson), t.node._3).asJson
+  // JSON encoder for topology member nodes
+  // We explicitly handle each case to avoid infinite recursion. See note above.
+  implicit val topologyMemberNodeEncoder: Encoder[Ast.TopologyMember.Node] =
+    Encoder.instance(
+      (node: Ast.TopologyMember.Node) => node match {
+        case node: Ast.TopologyMember.SpecCompInstance => addTypeName(node, node.asJson)
+        case node: Ast.TopologyMember.SpecConnectionGraph => addTypeName(node, node.asJson)
+        case node: Ast.TopologyMember.SpecInclude => addTypeName(node, node.asJson)
+        case node: Ast.TopologyMember.SpecTopImport => addTypeName(node, node.asJson)
       }
     )
+  
+  // JSON encoder for topology members
+  // Skip the "node" key to reduce clutter
+  implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
+    Encoder.instance((m: Ast.TopologyMember) => m.node.asJson)
 
   /** Converts Ast to JSON */
   def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson

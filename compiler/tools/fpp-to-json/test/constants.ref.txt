@@ -701,415 +701,297 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "1.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "1.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "2.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "2.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "4.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "4.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "6.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "6.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "6.22",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "6.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "6.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "7.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "7.19",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "7.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "7.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.21",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.28",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.31",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.26",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "8.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.20",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.27",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.23",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "10.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "11.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "11.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.22",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.29",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.25",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.40",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.36",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.34",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "13.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "15.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "15.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "16.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "16.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "18.15",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "18.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "18.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "19.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "19.18",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "19.16",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "19.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "20.15",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "20.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "20.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "24.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "24.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "24.14",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
     "pos" : "24.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   }
 }
 {
@@ -1135,16 +1017,12 @@
     "22" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "AnonArray" : {
             "size" : {
-              "Option" : {
-                "Some" : 2
-              }
+              "Some" : 2
             },
             "eltType" : "Integer"
           }
@@ -1154,17 +1032,13 @@
     "50" : "Integer",
     "5" : {
       "String" : {
-        "size" : {
-          "Option" : "None"
-        }
+        "size" : "None"
       }
     },
     "10" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 3
-          }
+          "Some" : 3
         },
         "eltType" : "Integer"
       }
@@ -1180,9 +1054,7 @@
           "x" : "Integer",
           "y" : {
             "String" : {
-              "size" : {
-                "Option" : "None"
-              }
+              "size" : "None"
             }
           }
         }
@@ -1198,17 +1070,13 @@
     "23" : "Integer",
     "4" : {
       "String" : {
-        "size" : {
-          "Option" : "None"
-        }
+        "size" : "None"
       }
     },
     "40" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "AnonStruct" : {
@@ -1225,9 +1093,7 @@
     "9" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 3
-          }
+          "Some" : 3
         },
         "eltType" : "Integer"
       }
@@ -1237,9 +1103,7 @@
     "13" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "Float" : {
@@ -1262,16 +1126,12 @@
     "21" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "AnonArray" : {
             "size" : {
-              "Option" : {
-                "Some" : 2
-              }
+              "Some" : 2
             },
             "eltType" : "Integer"
           }
@@ -1287,9 +1147,7 @@
     "39" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "AnonStruct" : {
@@ -1304,26 +1162,20 @@
     "17" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : "Integer"
       }
     },
     "25" : {
       "String" : {
-        "size" : {
-          "Option" : "None"
-        }
+        "size" : "None"
       }
     },
     "14" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : {
           "Float" : {
@@ -1340,9 +1192,7 @@
     "20" : {
       "AnonArray" : {
         "size" : {
-          "Option" : {
-            "Some" : 2
-          }
+          "Some" : 2
         },
         "eltType" : "Integer"
       }
@@ -1353,9 +1203,7 @@
           "x" : "Integer",
           "y" : {
             "String" : {
-              "size" : {
-                "Option" : "None"
-              }
+              "size" : "None"
             }
           }
         }

@@ -23,9 +23,7 @@
                             "AstNode" : {
                               "data" : {
                                 "name" : "State",
-                                "typeName" : {
-                                  "Option" : "None"
-                                },
+                                "typeName" : "None",
                                 "constants" : [
                                   [
                                     [
@@ -34,9 +32,7 @@
                                       "AstNode" : {
                                         "data" : {
                                           "name" : "OFF",
-                                          "value" : {
-                                            "Option" : "None"
-                                          }
+                                          "value" : "None"
                                         },
                                         "id" : 1
                                       }
@@ -52,9 +48,7 @@
                                       "AstNode" : {
                                         "data" : {
                                           "name" : "ON",
-                                          "value" : {
-                                            "Option" : "None"
-                                          }
+                                          "value" : "None"
                                         },
                                         "id" : 3
                                       }
@@ -64,9 +58,7 @@
                                     ]
                                   ]
                                 ],
-                                "default" : {
-                                  "Option" : "None"
-                                }
+                                "default" : "None"
                               },
                               "id" : 4
                             }
@@ -86,17 +78,11 @@
                             "AstNode" : {
                               "data" : {
                                 "Special" : {
-                                  "inputKind" : {
-                                    "Option" : "None"
-                                  },
+                                  "inputKind" : "None",
                                   "kind" : "CommandReg",
                                   "name" : "cmdRegOut",
-                                  "priority" : {
-                                    "Option" : "None"
-                                  },
-                                  "queueFull" : {
-                                    "Option" : "None"
-                                  }
+                                  "priority" : "None",
+                                  "queueFull" : "None"
                                 }
                               },
                               "id" : 5
@@ -117,17 +103,11 @@
                             "AstNode" : {
                               "data" : {
                                 "Special" : {
-                                  "inputKind" : {
-                                    "Option" : "None"
-                                  },
+                                  "inputKind" : "None",
                                   "kind" : "CommandRecv",
                                   "name" : "cmdIn",
-                                  "priority" : {
-                                    "Option" : "None"
-                                  },
-                                  "queueFull" : {
-                                    "Option" : "None"
-                                  }
+                                  "priority" : "None",
+                                  "queueFull" : "None"
                                 }
                               },
                               "id" : 6
@@ -148,17 +128,11 @@
                             "AstNode" : {
                               "data" : {
                                 "Special" : {
-                                  "inputKind" : {
-                                    "Option" : "None"
-                                  },
+                                  "inputKind" : "None",
                                   "kind" : "CommandResp",
                                   "name" : "cmdResponseOut",
-                                  "priority" : {
-                                    "Option" : "None"
-                                  },
-                                  "queueFull" : {
-                                    "Option" : "None"
-                                  }
+                                  "priority" : "None",
+                                  "queueFull" : "None"
                                 }
                               },
                               "id" : 7
@@ -221,15 +195,9 @@
                                     ]
                                   ]
                                 ],
-                                "opcode" : {
-                                  "Option" : "None"
-                                },
-                                "priority" : {
-                                  "Option" : "None"
-                                },
-                                "queueFull" : {
-                                  "Option" : "None"
-                                }
+                                "opcode" : "None",
+                                "priority" : "None",
+                                "queueFull" : "None"
                               },
                               "id" : 34
                             }
@@ -270,9 +238,7 @@
                                 "name" : "Cmd",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 36
                             }
@@ -293,9 +259,7 @@
                                 "name" : "CmdReg",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 37
                             }
@@ -316,9 +280,7 @@
                                 "name" : "CmdResponse",
                                 "params" : [
                                 ],
-                                "returnType" : {
-                                  "Option" : "None"
-                                }
+                                "returnType" : "None"
                               },
                               "id" : 40
                             }
@@ -345,296 +307,212 @@
   "0" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "1" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "10.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "2" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "11.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "3" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "11.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "4" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "9.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "5" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "19.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "6" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "22.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "7" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "25.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "11" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.12",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "33.5",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "32.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "2.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "39.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "40.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "41.3",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
     "pos" : "38.1",
-    "includingLoc" : {
-      "Option" : "None"
-    }
+    "includingLoc" : "None"
   }
 }
 {
@@ -715,81 +593,69 @@
     "4" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "OFF",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                    "The state enumeration"
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "State",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "OFF",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                  "The state enumeration"
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "State",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "OFF",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 1
-                              }
-                            },
-                            [
-                              "The off state"
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "OFF",
+                                "value" : "None"
+                              },
+                              "id" : 1
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "ON",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 3
-                              }
-                            },
-                            [
-                              "The on state"
-                            ]
+                            "The off state"
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 4
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "ON",
+                                "value" : "None"
+                              },
+                              "id" : 3
+                            }
+                          },
+                          [
+                            "The on state"
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 4
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -806,9 +672,7 @@
     },
     "1" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -822,9 +686,7 @@
     },
     "3" : {
       "Enum" : {
-        "defaultValue" : {
-          "Option" : "None"
-        },
+        "defaultValue" : "None",
         "repType" : {
           "kind" : {
             "I32" : {
@@ -839,81 +701,69 @@
     "32" : {
       "Enum" : {
         "defaultValue" : {
-          "Option" : {
-            "Some" : {
-              "name" : "OFF",
-              "value" : 0,
-              "type" : {
-                "node" : [
-                  [
-                    "The state enumeration"
-                  ],
-                  {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "State",
-                        "typeName" : {
-                          "Option" : "None"
-                        },
-                        "constants" : [
+          "Some" : {
+            "name" : "OFF",
+            "value" : 0,
+            "type" : {
+              "node" : [
+                [
+                  "The state enumeration"
+                ],
+                {
+                  "AstNode" : {
+                    "data" : {
+                      "name" : "State",
+                      "typeName" : "None",
+                      "constants" : [
+                        [
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "OFF",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 1
-                              }
-                            },
-                            [
-                              "The off state"
-                            ]
                           ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "OFF",
+                                "value" : "None"
+                              },
+                              "id" : 1
+                            }
+                          },
                           [
-                            [
-                            ],
-                            {
-                              "AstNode" : {
-                                "data" : {
-                                  "name" : "ON",
-                                  "value" : {
-                                    "Option" : "None"
-                                  }
-                                },
-                                "id" : 3
-                              }
-                            },
-                            [
-                              "The on state"
-                            ]
+                            "The off state"
                           ]
                         ],
-                        "default" : {
-                          "Option" : "None"
-                        }
-                      },
-                      "id" : 4
-                    }
-                  },
-                  [
-                  ]
-                ],
-                "repType" : {
-                  "kind" : {
-                    "I32" : {
-                      
-                    }
+                        [
+                          [
+                          ],
+                          {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "ON",
+                                "value" : "None"
+                              },
+                              "id" : 3
+                            }
+                          },
+                          [
+                            "The on state"
+                          ]
+                        ]
+                      ],
+                      "default" : "None"
+                    },
+                    "id" : 4
                   }
                 },
-                "default" : {
-                  "Option" : "None"
+                [
+                ]
+              ],
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
                 }
-              }
+              },
+              "default" : "None"
             }
           }
         },
@@ -943,9 +793,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "State",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -954,9 +802,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "OFF",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 1
                         }
@@ -972,9 +818,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "ON",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 3
                         }
@@ -984,9 +828,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 4
               }
@@ -1001,9 +843,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     },
@@ -1020,9 +860,7 @@
               "AstNode" : {
                 "data" : {
                   "name" : "State",
-                  "typeName" : {
-                    "Option" : "None"
-                  },
+                  "typeName" : "None",
                   "constants" : [
                     [
                       [
@@ -1031,9 +869,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "OFF",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 1
                         }
@@ -1049,9 +885,7 @@
                         "AstNode" : {
                           "data" : {
                             "name" : "ON",
-                            "value" : {
-                              "Option" : "None"
-                            }
+                            "value" : "None"
                           },
                           "id" : 3
                         }
@@ -1061,9 +895,7 @@
                       ]
                     ]
                   ],
-                  "default" : {
-                    "Option" : "None"
-                  }
+                  "default" : "None"
                 },
                 "id" : 4
               }
@@ -1078,9 +910,7 @@
               }
             }
           },
-          "default" : {
-            "Option" : "None"
-          }
+          "default" : "None"
         }
       }
     }
@@ -1093,78 +923,48 @@
           "Special" : {
             "id" : 5,
             "specifier" : {
-              "inputKind" : {
-                "Option" : "None"
-              },
+              "inputKind" : "None",
               "kind" : "CommandReg",
               "name" : "cmdRegOut",
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "name" : "CmdReg",
             "symbolId" : 37,
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           }
         },
         "cmdIn" : {
           "Special" : {
             "id" : 6,
             "specifier" : {
-              "inputKind" : {
-                "Option" : "None"
-              },
+              "inputKind" : "None",
               "kind" : "CommandRecv",
               "name" : "cmdIn",
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "name" : "Cmd",
             "symbolId" : 36,
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           }
         },
         "cmdResponseOut" : {
           "Special" : {
             "id" : 7,
             "specifier" : {
-              "inputKind" : {
-                "Option" : "None"
-              },
+              "inputKind" : "None",
               "kind" : "CommandResp",
               "name" : "cmdResponseOut",
-              "priority" : {
-                "Option" : "None"
-              },
-              "queueFull" : {
-                "Option" : "None"
-              }
+              "priority" : "None",
+              "queueFull" : "None"
             },
             "name" : "CmdResponse",
             "symbolId" : 40,
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           }
         }
       },
@@ -1172,74 +972,44 @@
         "command reg" : {
           "id" : 5,
           "specifier" : {
-            "inputKind" : {
-              "Option" : "None"
-            },
+            "inputKind" : "None",
             "kind" : "CommandReg",
             "name" : "cmdRegOut",
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           },
           "name" : "CmdReg",
           "symbolId" : 37,
-          "priority" : {
-            "Option" : "None"
-          },
-          "queueFull" : {
-            "Option" : "None"
-          }
+          "priority" : "None",
+          "queueFull" : "None"
         },
         "command recv" : {
           "id" : 6,
           "specifier" : {
-            "inputKind" : {
-              "Option" : "None"
-            },
+            "inputKind" : "None",
             "kind" : "CommandRecv",
             "name" : "cmdIn",
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           },
           "name" : "Cmd",
           "symbolId" : 36,
-          "priority" : {
-            "Option" : "None"
-          },
-          "queueFull" : {
-            "Option" : "None"
-          }
+          "priority" : "None",
+          "queueFull" : "None"
         },
         "command resp" : {
           "id" : 7,
           "specifier" : {
-            "inputKind" : {
-              "Option" : "None"
-            },
+            "inputKind" : "None",
             "kind" : "CommandResp",
             "name" : "cmdResponseOut",
-            "priority" : {
-              "Option" : "None"
-            },
-            "queueFull" : {
-              "Option" : "None"
-            }
+            "priority" : "None",
+            "queueFull" : "None"
           },
           "name" : "CmdResponse",
           "symbolId" : 40,
-          "priority" : {
-            "Option" : "None"
-          },
-          "queueFull" : {
-            "Option" : "None"
-          }
+          "priority" : "None",
+          "queueFull" : "None"
         }
       },
       "commandMap" : {
@@ -1248,9 +1018,7 @@
             "id" : 34,
             "kind" : {
               "Async" : {
-                "priority" : {
-                  "Option" : "None"
-                },
+                "priority" : "None",
                 "queueFull" : "Assert"
               }
             }
