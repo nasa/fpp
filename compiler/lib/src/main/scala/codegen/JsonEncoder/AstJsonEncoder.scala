@@ -176,18 +176,6 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
 
-  /*
-  implicit val specInitEncoder: Encoder[Ast.Annotated[AstNode[Ast.SpecInit]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-    */
-
-  implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-
   /** Converts Ast to JSON */
   def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
 

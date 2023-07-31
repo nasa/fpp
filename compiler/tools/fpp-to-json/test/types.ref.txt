@@ -205,28 +205,26 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "x",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "U32"
-                                    }
-                                  },
-                                  "id" : 27
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                          "data" : {
+                            "name" : "x",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "U32"
+                                  }
+                                },
+                                "id" : 27
                               }
                             },
-                            "id" : 28
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 28
                         }
                       },
                       [
@@ -239,30 +237,28 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "y",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameString" : {
-                                      "size" : {
-                                        "Option" : "None"
-                                      }
+                          "data" : {
+                            "name" : "y",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameString" : {
+                                    "size" : {
+                                      "Option" : "None"
                                     }
-                                  },
-                                  "id" : 31
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                                  }
+                                },
+                                "id" : 31
                               }
                             },
-                            "id" : 32
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 32
                         }
                       },
                       [
@@ -363,28 +359,26 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "x",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "U8"
-                                    }
-                                  },
-                                  "id" : 40
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                          "data" : {
+                            "name" : "x",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "U8"
+                                  }
+                                },
+                                "id" : 40
                               }
                             },
-                            "id" : 41
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 41
                         }
                       },
                       [
@@ -395,30 +389,28 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "y",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameString" : {
-                                      "size" : {
-                                        "Option" : "None"
-                                      }
+                          "data" : {
+                            "name" : "y",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameString" : {
+                                    "size" : {
+                                      "Option" : "None"
                                     }
-                                  },
-                                  "id" : 46
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                                  }
+                                },
+                                "id" : 46
                               }
                             },
-                            "id" : 47
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 47
                         }
                       },
                       [
@@ -463,28 +455,26 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "x",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "U32"
-                                    }
-                                  },
-                                  "id" : 50
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                          "data" : {
+                            "name" : "x",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "U32"
+                                  }
+                                },
+                                "id" : 50
                               }
                             },
-                            "id" : 51
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 51
                         }
                       },
                       [
@@ -495,30 +485,28 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "y",
-                              "size" : {
-                                "Option" : "None"
-                              },
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameString" : {
-                                      "size" : {
-                                        "Option" : "None"
-                                      }
+                          "data" : {
+                            "name" : "y",
+                            "size" : {
+                              "Option" : "None"
+                            },
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameString" : {
+                                    "size" : {
+                                      "Option" : "None"
                                     }
-                                  },
-                                  "id" : 56
-                                }
-                              },
-                              "format" : {
-                                "Option" : "None"
+                                  }
+                                },
+                                "id" : 56
                               }
                             },
-                            "id" : 57
-                          }
+                            "format" : {
+                              "Option" : "None"
+                            }
+                          },
+                          "id" : 57
                         }
                       },
                       [
