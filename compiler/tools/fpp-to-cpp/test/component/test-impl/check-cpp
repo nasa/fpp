@@ -12,14 +12,16 @@ define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
 . ../generate_cpp.sh
 
-for file in `find . -name '*.ref.cpp'`
+for file in `find . -name '*Tester.ref.cpp'`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.ref.cpp;;'`
-  if [[ "$file" =~ .*Tester.ref.cpp ]]
-  then
-    cp ${base}.ref.hpp ${base}.hpp
-  fi
-  cp ${base}.ref.cpp ${base}.cpp
-  $fprime_gcc $include_flags -c ${base}.cpp $define_flags $warning_flags
+  base=`echo $file | sed 's;\Tester.ref.cpp;;'`
+  cp ${base}Tester.ref.cpp ${base}Tester.cpp
+  cp ${base}Tester.ref.hpp ${base}Tester.hpp
+  cp ${base}TesterHelpers.ref.cpp ${base}TesterHelpers.cpp
+  cp ${base}TestMain.ref.cpp ${base}TestMain.cpp
+
+  files="${base}Tester.cpp ${base}TesterHelpers.cpp ${base}TestMain.cpp"
+  echo "compiling $files"
+
+  $fprime_gcc $include_flags -c $files $define_flags $warning_flags
 done

@@ -2,9 +2,8 @@
 
 . ../../../../scripts/utils.sh
 
-for target in `find . -mindepth 2 -name check-cpp`
+for dir in base impl test test-impl
 do
-  dir=`dirname $target`
   echo "[ $dir ]"
   (cd $dir; ./check-cpp "$@")
 done
