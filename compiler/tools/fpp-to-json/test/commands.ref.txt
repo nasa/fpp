@@ -845,7 +845,9 @@
       "commandMap" : {
         "0" : {
           "NonParam" : {
-            "id" : 4,
+            "aNode" : {
+              "astNodeId" : 4
+            },
             "kind" : {
               "Async" : {
                 "priority" : {
@@ -858,7 +860,9 @@
         },
         "1" : {
           "NonParam" : {
-            "id" : 14,
+            "aNode" : {
+              "astNodeId" : 14
+            },
             "kind" : {
               "Async" : {
                 "priority" : {
@@ -871,7 +875,9 @@
         },
         "16" : {
           "NonParam" : {
-            "id" : 44,
+            "aNode" : {
+              "astNodeId" : 44
+            },
             "kind" : {
               "Async" : {
                 "priority" : {

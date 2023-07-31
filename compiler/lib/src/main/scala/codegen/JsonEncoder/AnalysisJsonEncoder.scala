@@ -413,21 +413,21 @@ object AnalysisJsonEncoder extends JsonEncoder{
       )
     }
 
-  implicit val nonParamCommandEncoder: Encoder[Command.NonParam] =
-    Encoder.instance { command =>
-      Json.obj(
-        "id" -> command.aNode._2.id.asJson,
-        "kind" -> command.kind.asJson
-      )
-    }
-
-  implicit val paramCommandEncoder: Encoder[Command.Param] = Encoder.instance {
-    param =>
-      Json.obj(
-        "id" -> param.aNode._2.id.asJson,
-        "kind" -> param.kind.asJson
-      )
-  }
+//  implicit val nonParamCommandEncoder: Encoder[Command.NonParam] =
+//    Encoder.instance { command =>
+//      Json.obj(
+//        "id" -> command.aNode._2.id.asJson,
+//        "kind" -> command.kind.asJson
+//      )
+//    }
+//
+//  implicit val paramCommandEncoder: Encoder[Command.Param] = Encoder.instance {
+//    param =>
+//      Json.obj(
+//        "id" -> param.aNode._2.id.asJson,
+//        "kind" -> param.kind.asJson
+//      )
+//  }
 
   implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
     Encoder.instance {

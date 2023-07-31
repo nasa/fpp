@@ -823,7 +823,9 @@
       "commandMap" : {
         "0" : {
           "NonParam" : {
-            "id" : 34,
+            "aNode" : {
+              "astNodeId" : 34
+            },
             "kind" : {
               "Async" : {
                 "priority" : "None",

@@ -1295,7 +1295,9 @@
       "commandMap" : {
         "16" : {
           "Param" : {
-            "id" : 16,
+            "aNode" : {
+              "astNodeId" : 16
+            },
             "kind" : {
               "Set" : {
                 
@@ -1305,7 +1307,9 @@
         },
         "32" : {
           "Param" : {
-            "id" : 43,
+            "aNode" : {
+              "astNodeId" : 43
+            },
             "kind" : {
               "Save" : {
                 
@@ -1315,7 +1319,9 @@
         },
         "1" : {
           "Param" : {
-            "id" : 10,
+            "aNode" : {
+              "astNodeId" : 10
+            },
             "kind" : {
               "Save" : {
                 
@@ -1325,7 +1331,9 @@
         },
         "17" : {
           "Param" : {
-            "id" : 16,
+            "aNode" : {
+              "astNodeId" : 16
+            },
             "kind" : {
               "Save" : {
                 
@@ -1335,7 +1343,9 @@
         },
         "0" : {
           "Param" : {
-            "id" : 10,
+            "aNode" : {
+              "astNodeId" : 10
+            },
             "kind" : {
               "Set" : {
                 
@@ -1345,7 +1355,9 @@
         },
         "18" : {
           "Param" : {
-            "id" : 43,
+            "aNode" : {
+              "astNodeId" : 43
+            },
             "kind" : {
               "Set" : {
                 
