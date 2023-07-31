@@ -9,6 +9,7 @@ jobs:
     strategy:
       matrix:
         os: ["rhel-8.7", "macos-11", "odroid"]
+    if: (${{ github.event_name == 'pull_request' }} && ${{ matrix.os != 'odroid' }}) || ${{ github.event_name == 'release' }}
     runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout FPP Repository"
