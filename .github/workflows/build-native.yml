@@ -9,10 +9,13 @@ jobs:
     strategy:
       matrix:
         os: ["rhel-8.7", "macos-11", "odroid"]
+        is_pull_request: ${{ github.event_name == 'pull_request' }}
+      exclude:
+        - is_pull_request: true
+          os: odroid
     runs-on: ${{ matrix.os }}
     steps:
     - name: "Checkout FPP Repository"
-      if: (${{ github.event_name == 'pull_request' }} && ${{ matrix.os != 'odroid' }}) || ${{ github.event_name == 'release' }}
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
@@ -23,7 +26,6 @@ jobs:
       if: ${{ matrix.os != 'odroid' }}
       run: echo "architecture=amd64" >> "$GITHUB_ENV"
     - name: Image Build Step
-      if: (${{ github.event_name == 'pull_request' }} && ${{ matrix.os != 'odroid' }}) || ${{ github.event_name == 'release' }}
       working-directory: ./compiler
       run: |
         . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
