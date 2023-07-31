@@ -174,23 +174,21 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "a",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameInt" : {
-                                                    "name" : "U32"
-                                                  }
-                                                },
-                                                "id" : 5
-                                              }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "a",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameInt" : {
+                                                  "name" : "U32"
+                                                }
+                                              },
+                                              "id" : 5
                                             }
-                                          },
-                                          "id" : 6
-                                        }
+                                          }
+                                        },
+                                        "id" : 6
                                       }
                                     },
                                     [
@@ -201,23 +199,21 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "b",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameFloat" : {
-                                                    "name" : "F32"
-                                                  }
-                                                },
-                                                "id" : 11
-                                              }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "b",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameFloat" : {
+                                                  "name" : "F32"
+                                                }
+                                              },
+                                              "id" : 11
                                             }
-                                          },
-                                          "id" : 12
-                                        }
+                                          }
+                                        },
+                                        "id" : 12
                                       }
                                     },
                                     [
@@ -274,25 +270,23 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "a",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameString" : {
-                                                    "size" : {
-                                                      "Option" : "None"
-                                                    }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "a",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameString" : {
+                                                  "size" : {
+                                                    "Option" : "None"
                                                   }
-                                                },
-                                                "id" : 39
-                                              }
+                                                }
+                                              },
+                                              "id" : 39
                                             }
-                                          },
-                                          "id" : 40
-                                        }
+                                          }
+                                        },
+                                        "id" : 40
                                       }
                                     },
                                     [

@@ -27,23 +27,21 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "cal",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameFloat" : {
-                                                    "name" : "F32"
-                                                  }
-                                                },
-                                                "id" : 4
-                                              }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "cal",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameFloat" : {
+                                                  "name" : "F32"
+                                                }
+                                              },
+                                              "id" : 4
                                             }
-                                          },
-                                          "id" : 5
-                                        }
+                                          }
+                                        },
+                                        "id" : 5
                                       }
                                     },
                                     [

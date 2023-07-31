@@ -62,23 +62,21 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "a",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "U32"
-                                    }
-                                  },
-                                  "id" : 6
-                                }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "a",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "U32"
+                                  }
+                                },
+                                "id" : 6
                               }
-                            },
-                            "id" : 7
-                          }
+                            }
+                          },
+                          "id" : 7
                         }
                       },
                       [
@@ -112,23 +110,21 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "a",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "I32"
-                                    }
-                                  },
-                                  "id" : 9
-                                }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "a",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "I32"
+                                  }
+                                },
+                                "id" : 9
                               }
-                            },
-                            "id" : 10
-                          }
+                            }
+                          },
+                          "id" : 10
                         }
                       },
                       [
@@ -139,23 +135,21 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "b",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameFloat" : {
-                                      "name" : "F32"
-                                    }
-                                  },
-                                  "id" : 11
-                                }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "b",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameFloat" : {
+                                    "name" : "F32"
+                                  }
+                                },
+                                "id" : 11
                               }
-                            },
-                            "id" : 12
-                          }
+                            }
+                          },
+                          "id" : 12
                         }
                       },
                       [
@@ -166,25 +160,23 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "c",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameString" : {
-                                      "size" : {
-                                        "Option" : "None"
-                                      }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "c",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameString" : {
+                                    "size" : {
+                                      "Option" : "None"
                                     }
-                                  },
-                                  "id" : 17
-                                }
+                                  }
+                                },
+                                "id" : 17
                               }
-                            },
-                            "id" : 18
-                          }
+                            }
+                          },
+                          "id" : 18
                         }
                       },
                       [
@@ -296,32 +288,30 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "e",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameQualIdent" : {
-                                      "name" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "Unqualified" : {
-                                              "name" : "E"
-                                            }
-                                          },
-                                          "id" : 27
-                                        }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "e",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "E"
+                                          }
+                                        },
+                                        "id" : 27
                                       }
                                     }
-                                  },
-                                  "id" : 28
-                                }
+                                  }
+                                },
+                                "id" : 28
                               }
-                            },
-                            "id" : 29
-                          }
+                            }
+                          },
+                          "id" : 29
                         }
                       },
                       [
@@ -332,32 +322,30 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Value",
-                              "name" : "t",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameQualIdent" : {
-                                      "name" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "Unqualified" : {
-                                              "name" : "T"
-                                            }
-                                          },
-                                          "id" : 31
-                                        }
+                          "data" : {
+                            "kind" : "Value",
+                            "name" : "t",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "T"
+                                          }
+                                        },
+                                        "id" : 31
                                       }
                                     }
-                                  },
-                                  "id" : 32
-                                }
+                                  }
+                                },
+                                "id" : 32
                               }
-                            },
-                            "id" : 33
-                          }
+                            }
+                          },
+                          "id" : 33
                         }
                       },
                       [
@@ -368,32 +356,30 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Ref",
-                              "name" : "c",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameQualIdent" : {
-                                      "name" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "Unqualified" : {
-                                              "name" : "T"
-                                            }
-                                          },
-                                          "id" : 43
-                                        }
+                          "data" : {
+                            "kind" : "Ref",
+                            "name" : "c",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "T"
+                                          }
+                                        },
+                                        "id" : 43
                                       }
                                     }
-                                  },
-                                  "id" : 44
-                                }
+                                  }
+                                },
+                                "id" : 44
                               }
-                            },
-                            "id" : 45
-                          }
+                            }
+                          },
+                          "id" : 45
                         }
                       },
                       [
@@ -508,23 +494,21 @@
                       ],
                       {
                         "AstNode" : {
-                          "AstNode" : {
-                            "data" : {
-                              "kind" : "Ref",
-                              "name" : "result",
-                              "typeName" : {
-                                "AstNode" : {
-                                  "data" : {
-                                    "TypeNameInt" : {
-                                      "name" : "U32"
-                                    }
-                                  },
-                                  "id" : 59
-                                }
+                          "data" : {
+                            "kind" : "Ref",
+                            "name" : "result",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : "U32"
+                                  }
+                                },
+                                "id" : 59
                               }
-                            },
-                            "id" : 60
-                          }
+                            }
+                          },
+                          "id" : 60
                         }
                       },
                       [

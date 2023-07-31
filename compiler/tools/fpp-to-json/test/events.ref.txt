@@ -169,23 +169,21 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "count",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameInt" : {
-                                                    "name" : "U32"
-                                                  }
-                                                },
-                                                "id" : 8
-                                              }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "count",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameInt" : {
+                                                  "name" : "U32"
+                                                }
+                                              },
+                                              "id" : 8
                                             }
-                                          },
-                                          "id" : 9
-                                        }
+                                          }
+                                        },
+                                        "id" : 9
                                       }
                                     },
                                     [

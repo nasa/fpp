@@ -44,36 +44,34 @@
                                                   ],
                                                   {
                                                     "AstNode" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "kind" : "Value",
-                                                          "name" : "greeting",
-                                                          "typeName" : {
-                                                            "AstNode" : {
-                                                              "data" : {
-                                                                "TypeNameString" : {
-                                                                  "size" : {
-                                                                    "Option" : {
-                                                                      "Some" : {
-                                                                        "AstNode" : {
-                                                                          "data" : {
-                                                                            "ExprLiteralInt" : {
-                                                                              "value" : "20"
-                                                                            }
-                                                                          },
-                                                                          "id" : 61
-                                                                        }
+                                                      "data" : {
+                                                        "kind" : "Value",
+                                                        "name" : "greeting",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameString" : {
+                                                                "size" : {
+                                                                  "Option" : {
+                                                                    "Some" : {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "ExprLiteralInt" : {
+                                                                            "value" : "20"
+                                                                          }
+                                                                        },
+                                                                        "id" : 61
                                                                       }
                                                                     }
                                                                   }
                                                                 }
-                                                              },
-                                                              "id" : 62
-                                                            }
+                                                              }
+                                                            },
+                                                            "id" : 62
                                                           }
-                                                        },
-                                                        "id" : 63
-                                                      }
+                                                        }
+                                                      },
+                                                      "id" : 63
                                                     }
                                                   },
                                                   [
@@ -115,36 +113,34 @@
                                                   ],
                                                   {
                                                     "AstNode" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "kind" : "Value",
-                                                          "name" : "greeting",
-                                                          "typeName" : {
-                                                            "AstNode" : {
-                                                              "data" : {
-                                                                "TypeNameString" : {
-                                                                  "size" : {
-                                                                    "Option" : {
-                                                                      "Some" : {
-                                                                        "AstNode" : {
-                                                                          "data" : {
-                                                                            "ExprLiteralInt" : {
-                                                                              "value" : "20"
-                                                                            }
-                                                                          },
-                                                                          "id" : 68
-                                                                        }
+                                                      "data" : {
+                                                        "kind" : "Value",
+                                                        "name" : "greeting",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameString" : {
+                                                                "size" : {
+                                                                  "Option" : {
+                                                                    "Some" : {
+                                                                      "AstNode" : {
+                                                                        "data" : {
+                                                                          "ExprLiteralInt" : {
+                                                                            "value" : "20"
+                                                                          }
+                                                                        },
+                                                                        "id" : 68
                                                                       }
                                                                     }
                                                                   }
                                                                 }
-                                                              },
-                                                              "id" : 69
-                                                            }
+                                                              }
+                                                            },
+                                                            "id" : 69
                                                           }
-                                                        },
-                                                        "id" : 70
-                                                      }
+                                                        }
+                                                      },
+                                                      "id" : 70
                                                     }
                                                   },
                                                   [

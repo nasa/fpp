@@ -12,6 +12,10 @@ import io.circe.generic.semiauto._
 import io.circe.syntax._
 import scala.util.parsing.input.Position
 
+/** Encoder for Ast case classes
+ *  Note: For recursive type variants, we explicitly handle each case
+ *  to avoid an infinite recursion. This appears to be a weakness in Circe when
+ *  dealing with recursive types. */
 object AstJsonEncoder extends JsonEncoder {
 
   // JSON encoder for AST nodes
@@ -23,11 +27,11 @@ object AstJsonEncoder extends JsonEncoder {
   }
 
   // JSON encoder for qualified identifiers
+  // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
     Encoder.instance((q: Ast.QualIdent) =>
         q match {
-            case ident: Ast.QualIdent.Unqualified =>
-            addTypeName(ident, ident.asJson)
+            case ident: Ast.QualIdent.Unqualified => addTypeName(ident, ident.asJson)
             case ident: Ast.QualIdent.Qualified => addTypeName(ident, ident.asJson)
         }
     )
@@ -68,9 +72,7 @@ object AstJsonEncoder extends JsonEncoder {
 
 
   // JSON encoder for expressions
-  // We explicitly handle each case to avoid an infinite recursion.
-  // This appears to be a weakness in Circe when dealing with
-  // recursive variant types.
+  // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val exprEncoder: Encoder[Ast.Expr] =
     Encoder.instance((e: Ast.Expr) =>
       e match {
@@ -89,8 +91,7 @@ object AstJsonEncoder extends JsonEncoder {
     )
 
   // JSON encoder for type names
-  // We explicitly handle each case to avoid an infinite recursion.
-  // See above.
+  // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val typeNameEncoder: Encoder[Ast.TypeName] =
     Encoder.instance((t: Ast.TypeName) =>
       t match {
@@ -103,6 +104,7 @@ object AstJsonEncoder extends JsonEncoder {
     )
   
   // JSON encoder for module member nodes
+  // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
     Encoder.instance(
       (node: Ast.ModuleMember.Node) => node match {
@@ -126,6 +128,7 @@ object AstJsonEncoder extends JsonEncoder {
     Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
   
   // JSON encoder for component members
+  // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((c: Ast.ComponentMember) =>
       c.node._2 match {
@@ -173,24 +176,12 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
 
-  // JSON encoders for annontatable elements that are not members of
-  // translation units,  modules, or components
-
   /*
-  implicit val defEnumConstantEncoder: Encoder[Ast.Annotated[AstNode[Ast.DefEnumConstant]]] =
-    Encoder.instance { aNode =>
-      (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-    }
-    */
-
-  implicit val formalParamEncoder: Encoder[Ast.Annotated[AstNode[Ast.FormalParam]]] = Encoder.instance {
-    aNode => (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
-  }
-
   implicit val specInitEncoder: Encoder[Ast.Annotated[AstNode[Ast.SpecInit]]] =
     Encoder.instance { aNode =>
       (aNode._1, addTypeName(aNode._2, aNode._2.asJson), aNode._3).asJson
     }
+    */
 
   implicit val structTypeMemberEncoder: Encoder[Ast.Annotated[AstNode[Ast.StructTypeMember]]] =
     Encoder.instance { aNode =>

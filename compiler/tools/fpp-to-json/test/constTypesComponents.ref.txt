@@ -190,32 +190,30 @@
                                     ],
                                     {
                                       "AstNode" : {
-                                        "AstNode" : {
-                                          "data" : {
-                                            "kind" : "Value",
-                                            "name" : "state",
-                                            "typeName" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "TypeNameQualIdent" : {
-                                                    "name" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "Unqualified" : {
-                                                            "name" : "State"
-                                                          }
-                                                        },
-                                                        "id" : 31
-                                                      }
+                                        "data" : {
+                                          "kind" : "Value",
+                                          "name" : "state",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "State"
+                                                        }
+                                                      },
+                                                      "id" : 31
                                                     }
                                                   }
-                                                },
-                                                "id" : 32
-                                              }
+                                                }
+                                              },
+                                              "id" : 32
                                             }
-                                          },
-                                          "id" : 33
-                                        }
+                                          }
+                                        },
+                                        "id" : 33
                                       }
                                     },
                                     [
