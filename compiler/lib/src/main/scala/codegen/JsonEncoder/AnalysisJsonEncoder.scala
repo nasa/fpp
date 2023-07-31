@@ -25,6 +25,15 @@ object AnalysisJsonEncoder extends JsonEncoder{
       override def apply(aNode: Ast.Annotated[AstNode[T]]): Json = aNode._2.asJson
     }
 
+  // JSON encoder for symbols
+  private implicit def symbolEncoder[T: Encoder]: Encoder[Symbol] =
+    new Encoder[Symbol] {
+      override def apply(symbol: Symbol): Json = Json.obj(
+        "nodeId" -> symbol.getNodeId.asJson,
+        "unqualifiedName" -> symbol.getUnqualifiedName.asJson
+      )
+    }
+
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
@@ -220,14 +229,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   implicit val locationSpecifierMapEncoder
       : Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case ((key1, key2), value) =>
-          (getUnqualifiedClassName(key1), key2.asJson).asJson -> value.asJson
-        }
-        .asJson
-    }
-
+    Encoder.instance { map => map.toList.asJson }
  
   implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance { symbols =>
@@ -237,7 +239,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
         }
         .asJson
     }
-
 
   implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] =
     Encoder.instance { symbols =>
@@ -429,37 +430,11 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
-    Encoder.instance { compInstance =>
-      Json.obj(
-        "id" -> compInstance.aNode._2.id.asJson,
-        "Qualified Name" -> compInstance.qualifiedName.asJson,
-        "Component" -> compInstance.component.aNode._2.id.asJson,
-        "baseId" -> compInstance.baseId.asJson,
-        "maxId" -> compInstance.maxId.asJson,
-        "file" -> compInstance.file.asJson,
-        "queueSize" -> compInstance.queueSize.asJson,
-        "stackSize" -> compInstance.stackSize.asJson,
-        "priority" -> compInstance.priority.asJson,
-        "cpu" -> compInstance.cpu.asJson,
-        "initSpecifierMap" -> compInstance.initSpecifierMap.asJson
-      )
+    Encoder.instance {
+      compInstance => io.circe.generic.semiauto.deriveEncoder[ComponentInstance].
+        apply(compInstance).asObject.get.
+        add("component", compInstance.component.aNode.asJson).asJson
     }
-
-  implicit val InitSpecifierEncoder: Encoder[InitSpecifier] = Encoder.instance {
-    initSpec =>
-      Json.obj(
-        "id" -> initSpec.aNode._2.id.asJson,
-        "phase" -> initSpec.phase.asJson
-      )
-  }
-
-//  implicit val eventEncoder: Encoder[Event] = Encoder.instance { event =>
-//    Json.obj(
-//      "id" -> event.aNode._2.id.asJson,
-//      "format" -> event.format.asJson,
-//      "throttle" -> event.throttle.asJson
-//    )
-//  }
 
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = Json.obj(

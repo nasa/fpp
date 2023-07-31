@@ -1253,14 +1253,18 @@
   },
   "componentInstanceMap" : {
     "79" : {
-      "id" : 79,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 79
+      },
+      "qualifiedName" : {
         "qualifier" : [
           "FSW"
         ],
         "base" : "engineTemp"
       },
-      "Component" : 60,
+      "component" : {
+        "astNodeId" : 60
+      },
       "baseId" : 256,
       "maxId" : 257,
       "file" : "None",

@@ -1252,14 +1252,18 @@
   },
   "componentInstanceMap" : {
     "102" : {
-      "id" : 102,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 102
+      },
+      "qualifiedName" : {
         "qualifier" : [
           "FSW"
         ],
         "base" : "dataCompressor"
       },
-      "Component" : 50,
+      "component" : {
+        "astNodeId" : 50
+      },
       "baseId" : 256,
       "maxId" : 255,
       "file" : "None",

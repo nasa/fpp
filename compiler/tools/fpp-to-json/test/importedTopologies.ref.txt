@@ -1616,13 +1616,17 @@
   },
   "componentInstanceMap" : {
     "17" : {
-      "id" : 17,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 17
+      },
+      "qualifiedName" : {
         "qualifier" : [
         ],
         "base" : "c1"
       },
-      "Component" : 13,
+      "component" : {
+        "astNodeId" : 13
+      },
       "baseId" : 256,
       "maxId" : 255,
       "file" : "None",
@@ -1635,13 +1639,17 @@
       }
     },
     "21" : {
-      "id" : 21,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 21
+      },
+      "qualifiedName" : {
         "qualifier" : [
         ],
         "base" : "c2"
       },
-      "Component" : 13,
+      "component" : {
+        "astNodeId" : 13
+      },
       "baseId" : 512,
       "maxId" : 511,
       "file" : "None",
@@ -1654,13 +1662,17 @@
       }
     },
     "25" : {
-      "id" : 25,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 25
+      },
+      "qualifiedName" : {
         "qualifier" : [
         ],
         "base" : "c3"
       },
-      "Component" : 13,
+      "component" : {
+        "astNodeId" : 13
+      },
       "baseId" : 768,
       "maxId" : 767,
       "file" : "None",
@@ -1673,13 +1685,17 @@
       }
     },
     "29" : {
-      "id" : 29,
-      "Qualified Name" : {
+      "aNode" : {
+        "astNodeId" : 29
+      },
+      "qualifiedName" : {
         "qualifier" : [
         ],
         "base" : "c4"
       },
-      "Component" : 13,
+      "component" : {
+        "astNodeId" : 13
+      },
       "baseId" : 1024,
       "maxId" : 1023,
       "file" : "None",
@@ -1705,13 +1721,17 @@
       "instanceMap" : [
         [
           {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -1734,13 +1754,17 @@
         ],
         [
           {
-            "id" : 21,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 21
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c2"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 512,
             "maxId" : 511,
             "file" : "None",
@@ -1777,13 +1801,17 @@
               "port" : {
                 "name" : "c1.pOut",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -1827,13 +1855,17 @@
               "port" : {
                 "name" : "c2.pIn",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -1881,13 +1913,17 @@
               "port" : {
                 "name" : "c2.pOut",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -1931,13 +1967,17 @@
               "port" : {
                 "name" : "c1.pIn",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -1987,13 +2027,17 @@
               "port" : {
                 "name" : "c1.pOut",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -2037,13 +2081,17 @@
               "port" : {
                 "name" : "c2.pIn",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -2091,13 +2139,17 @@
               "port" : {
                 "name" : "c2.pOut",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -2141,13 +2193,17 @@
               "port" : {
                 "name" : "c1.pIn",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -2190,13 +2246,17 @@
           {
             "name" : "c1.pOut",
             "componentInstance" : {
-              "id" : 17,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 17
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c1"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 256,
               "maxId" : 255,
               "file" : "None",
@@ -2240,13 +2300,17 @@
                 "port" : {
                   "name" : "c1.pOut",
                   "componentInstance" : {
-                    "id" : 17,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c1"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 256,
                     "maxId" : 255,
                     "file" : "None",
@@ -2290,13 +2354,17 @@
                 "port" : {
                   "name" : "c2.pIn",
                   "componentInstance" : {
-                    "id" : 21,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c2"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 512,
                     "maxId" : 511,
                     "file" : "None",
@@ -2338,13 +2406,17 @@
           {
             "name" : "c2.pOut",
             "componentInstance" : {
-              "id" : 21,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 21
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c2"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 512,
               "maxId" : 511,
               "file" : "None",
@@ -2388,13 +2460,17 @@
                 "port" : {
                   "name" : "c2.pOut",
                   "componentInstance" : {
-                    "id" : 21,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c2"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 512,
                     "maxId" : 511,
                     "file" : "None",
@@ -2438,13 +2514,17 @@
                 "port" : {
                   "name" : "c1.pIn",
                   "componentInstance" : {
-                    "id" : 17,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c1"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 256,
                     "maxId" : 255,
                     "file" : "None",
@@ -2488,13 +2568,17 @@
           {
             "name" : "c2.pIn",
             "componentInstance" : {
-              "id" : 21,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 21
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c2"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 512,
               "maxId" : 511,
               "file" : "None",
@@ -2538,13 +2622,17 @@
                 "port" : {
                   "name" : "c1.pOut",
                   "componentInstance" : {
-                    "id" : 17,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c1"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 256,
                     "maxId" : 255,
                     "file" : "None",
@@ -2588,13 +2676,17 @@
                 "port" : {
                   "name" : "c2.pIn",
                   "componentInstance" : {
-                    "id" : 21,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c2"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 512,
                     "maxId" : 511,
                     "file" : "None",
@@ -2636,13 +2728,17 @@
           {
             "name" : "c1.pIn",
             "componentInstance" : {
-              "id" : 17,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 17
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c1"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 256,
               "maxId" : 255,
               "file" : "None",
@@ -2686,13 +2782,17 @@
                 "port" : {
                   "name" : "c2.pOut",
                   "componentInstance" : {
-                    "id" : 21,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c2"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 512,
                     "maxId" : 511,
                     "file" : "None",
@@ -2736,13 +2836,17 @@
                 "port" : {
                   "name" : "c1.pIn",
                   "componentInstance" : {
-                    "id" : 17,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c1"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 256,
                     "maxId" : 255,
                     "file" : "None",
@@ -2793,13 +2897,17 @@
               "port" : {
                 "name" : "c1.pOut",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -2843,13 +2951,17 @@
               "port" : {
                 "name" : "c2.pIn",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -2898,13 +3010,17 @@
               "port" : {
                 "name" : "c2.pOut",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -2948,13 +3064,17 @@
               "port" : {
                 "name" : "c1.pIn",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -3005,13 +3125,17 @@
               "port" : {
                 "name" : "c2.pOut",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -3055,13 +3179,17 @@
               "port" : {
                 "name" : "c1.pIn",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -3110,13 +3238,17 @@
               "port" : {
                 "name" : "c1.pOut",
                 "componentInstance" : {
-                  "id" : 17,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c1"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 256,
                   "maxId" : 255,
                   "file" : "None",
@@ -3160,13 +3292,17 @@
               "port" : {
                 "name" : "c2.pIn",
                 "componentInstance" : {
-                  "id" : 21,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c2"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 512,
                   "maxId" : 511,
                   "file" : "None",
@@ -3229,13 +3365,17 @@
       "instanceMap" : [
         [
           {
-            "id" : 25,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 25
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c3"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 768,
             "maxId" : 767,
             "file" : "None",
@@ -3258,13 +3398,17 @@
         ],
         [
           {
-            "id" : 29,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 29
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c4"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 1024,
             "maxId" : 1023,
             "file" : "None",
@@ -3287,13 +3431,17 @@
         ],
         [
           {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -3330,13 +3478,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -3380,13 +3532,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -3434,13 +3590,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -3484,13 +3644,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -3540,13 +3704,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -3590,13 +3758,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -3644,13 +3816,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -3694,13 +3870,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -3743,13 +3923,17 @@
           {
             "name" : "c3.pOut",
             "componentInstance" : {
-              "id" : 25,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 25
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c3"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 768,
               "maxId" : 767,
               "file" : "None",
@@ -3793,13 +3977,17 @@
                 "port" : {
                   "name" : "c3.pOut",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -3843,13 +4031,17 @@
                 "port" : {
                   "name" : "c4.pIn",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -3891,13 +4083,17 @@
           {
             "name" : "c4.pOut",
             "componentInstance" : {
-              "id" : 29,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 29
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c4"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 1024,
               "maxId" : 1023,
               "file" : "None",
@@ -3941,13 +4137,17 @@
                 "port" : {
                   "name" : "c4.pOut",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -3991,13 +4191,17 @@
                 "port" : {
                   "name" : "c3.pIn",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -4041,13 +4245,17 @@
           {
             "name" : "c4.pIn",
             "componentInstance" : {
-              "id" : 29,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 29
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c4"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 1024,
               "maxId" : 1023,
               "file" : "None",
@@ -4091,13 +4299,17 @@
                 "port" : {
                   "name" : "c3.pOut",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -4141,13 +4353,17 @@
                 "port" : {
                   "name" : "c4.pIn",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -4189,13 +4405,17 @@
           {
             "name" : "c3.pIn",
             "componentInstance" : {
-              "id" : 25,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 25
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c3"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 768,
               "maxId" : 767,
               "file" : "None",
@@ -4239,13 +4459,17 @@
                 "port" : {
                   "name" : "c4.pOut",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -4289,13 +4513,17 @@
                 "port" : {
                   "name" : "c3.pIn",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -4346,13 +4574,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -4396,13 +4628,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -4451,13 +4687,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -4501,13 +4741,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -4558,13 +4802,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -4608,13 +4856,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -4663,13 +4915,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -4713,13 +4969,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -4762,13 +5022,17 @@
         {
           "name" : "c1.pIn",
           "componentInstance" : {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -4804,13 +5068,17 @@
         {
           "name" : "c1.pOut",
           "componentInstance" : {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -4871,13 +5139,17 @@
       "instanceMap" : [
         [
           {
-            "id" : 25,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 25
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c3"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 768,
             "maxId" : 767,
             "file" : "None",
@@ -4900,13 +5172,17 @@
         ],
         [
           {
-            "id" : 29,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 29
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c4"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 1024,
             "maxId" : 1023,
             "file" : "None",
@@ -4929,13 +5205,17 @@
         ],
         [
           {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -4972,13 +5252,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -5022,13 +5306,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -5076,13 +5364,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -5126,13 +5418,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -5178,13 +5474,17 @@
           {
             "name" : "c3.pOut",
             "componentInstance" : {
-              "id" : 25,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 25
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c3"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 768,
               "maxId" : 767,
               "file" : "None",
@@ -5228,13 +5528,17 @@
                 "port" : {
                   "name" : "c3.pOut",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -5278,13 +5582,17 @@
                 "port" : {
                   "name" : "c4.pIn",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -5326,13 +5634,17 @@
           {
             "name" : "c4.pOut",
             "componentInstance" : {
-              "id" : 29,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 29
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c4"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 1024,
               "maxId" : 1023,
               "file" : "None",
@@ -5376,13 +5688,17 @@
                 "port" : {
                   "name" : "c4.pOut",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -5426,13 +5742,17 @@
                 "port" : {
                   "name" : "c3.pIn",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -5476,13 +5796,17 @@
           {
             "name" : "c4.pIn",
             "componentInstance" : {
-              "id" : 29,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 29
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c4"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 1024,
               "maxId" : 1023,
               "file" : "None",
@@ -5526,13 +5850,17 @@
                 "port" : {
                   "name" : "c3.pOut",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -5576,13 +5904,17 @@
                 "port" : {
                   "name" : "c4.pIn",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -5624,13 +5956,17 @@
           {
             "name" : "c3.pIn",
             "componentInstance" : {
-              "id" : 25,
-              "Qualified Name" : {
+              "aNode" : {
+                "astNodeId" : 25
+              },
+              "qualifiedName" : {
                 "qualifier" : [
                 ],
                 "base" : "c3"
               },
-              "Component" : 13,
+              "component" : {
+                "astNodeId" : 13
+              },
               "baseId" : 768,
               "maxId" : 767,
               "file" : "None",
@@ -5674,13 +6010,17 @@
                 "port" : {
                   "name" : "c4.pOut",
                   "componentInstance" : {
-                    "id" : 29,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 29
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c4"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 1024,
                     "maxId" : 1023,
                     "file" : "None",
@@ -5724,13 +6064,17 @@
                 "port" : {
                   "name" : "c3.pIn",
                   "componentInstance" : {
-                    "id" : 25,
-                    "Qualified Name" : {
+                    "aNode" : {
+                      "astNodeId" : 25
+                    },
+                    "qualifiedName" : {
                       "qualifier" : [
                       ],
                       "base" : "c3"
                     },
-                    "Component" : 13,
+                    "component" : {
+                      "astNodeId" : 13
+                    },
                     "baseId" : 768,
                     "maxId" : 767,
                     "file" : "None",
@@ -5781,13 +6125,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -5831,13 +6179,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -5886,13 +6238,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -5936,13 +6292,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -5993,13 +6353,17 @@
               "port" : {
                 "name" : "c4.pOut",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -6043,13 +6407,17 @@
               "port" : {
                 "name" : "c3.pIn",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -6098,13 +6466,17 @@
               "port" : {
                 "name" : "c3.pOut",
                 "componentInstance" : {
-                  "id" : 25,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 25
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c3"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 768,
                   "maxId" : 767,
                   "file" : "None",
@@ -6148,13 +6520,17 @@
               "port" : {
                 "name" : "c4.pIn",
                 "componentInstance" : {
-                  "id" : 29,
-                  "Qualified Name" : {
+                  "aNode" : {
+                    "astNodeId" : 29
+                  },
+                  "qualifiedName" : {
                     "qualifier" : [
                     ],
                     "base" : "c4"
                   },
-                  "Component" : 13,
+                  "component" : {
+                    "astNodeId" : 13
+                  },
                   "baseId" : 1024,
                   "maxId" : 1023,
                   "file" : "None",
@@ -6197,13 +6573,17 @@
         {
           "name" : "c1.pIn",
           "componentInstance" : {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
@@ -6239,13 +6619,17 @@
         {
           "name" : "c1.pOut",
           "componentInstance" : {
-            "id" : 17,
-            "Qualified Name" : {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
               "qualifier" : [
               ],
               "base" : "c1"
             },
-            "Component" : 13,
+            "component" : {
+              "astNodeId" : 13
+            },
             "baseId" : 256,
             "maxId" : 255,
             "file" : "None",
