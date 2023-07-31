@@ -1182,7 +1182,9 @@
   },
   "componentMap" : {
     "50" : {
-      "id" : 50,
+      "aNode" : {
+        "astNodeId" : 50
+      },
       "portMap" : {
         "bufferSendIn" : {
           "General" : {

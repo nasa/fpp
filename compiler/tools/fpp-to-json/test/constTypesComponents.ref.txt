@@ -725,7 +725,9 @@
   },
   "componentMap" : {
     "35" : {
-      "id" : 35,
+      "aNode" : {
+        "astNodeId" : 35
+      },
       "portMap" : {
         "cmdRegOut" : {
           "Special" : {

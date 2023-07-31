@@ -741,7 +741,9 @@
   },
   "componentMap" : {
     "19" : {
-      "id" : 19,
+      "aNode" : {
+        "astNodeId" : 19
+      },
       "portMap" : {
         "eventOut" : {
           "Special" : {
@@ -934,7 +936,9 @@
       "defaultParamId" : 0
     },
     "32" : {
-      "id" : 32,
+      "aNode" : {
+        "astNodeId" : 32
+      },
       "portMap" : {
         "eventOut" : {
           "Special" : {

@@ -412,7 +412,9 @@
   },
   "componentMap" : {
     "43" : {
-      "id" : 43,
+      "aNode" : {
+        "astNodeId" : 43
+      },
       "portMap" : {
         "pInternal" : {
           "Internal" : {

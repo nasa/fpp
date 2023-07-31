@@ -883,7 +883,9 @@
   },
   "componentMap" : {
     "44" : {
-      "id" : 44,
+      "aNode" : {
+        "astNodeId" : 44
+      },
       "portMap" : {
         "schedIn" : {
           "General" : {

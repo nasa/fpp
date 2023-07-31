@@ -355,8 +355,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
       )
   }
 
-  
-
   implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
     limits =>
       limits.map { case (kind, (id, value)) =>
@@ -367,66 +365,24 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }.asJson
   }
 
-  implicit val componentEncoder: Encoder[Component] = Encoder.instance {
-    component =>
-      Json.obj(
-        "id" -> component.aNode._2.id.asJson,
-        "portMap" -> component.portMap.asJson,
-        "specialPortMap" -> component.specialPortMap.asJson,
-        "commandMap" -> component.commandMap.asJson,
-        "defaultOpcode" -> component.defaultOpcode.asJson,
-        "tlmChannelMap" -> component.tlmChannelMap.asJson,
-        "defaultTlmChannelId" -> component.defaultTlmChannelId.asJson,
-        "eventMap" -> component.eventMap.asJson,
-        "defaultEventId" -> component.defaultEventId.asJson,
-        "paramMap" -> component.paramMap.asJson,
-        "specPortMatchingList" -> component.specPortMatchingList.asJson,
-        "portMatchingList" -> component.portMatchingList.asJson,
-        "defaultParamId" -> component.defaultParamId.asJson
-      )
-  }
-
-//  // JSON encoder for port instances
-//  implicit val portInstanceEncoder: Encoder[PortInstance] =
-//    Encoder.instance(
-//      (pi: PortInstance) => pi match {
-//        case pi: PortInstance.General => addTypeName(pi, pi.asJson)
-//        case pi: PortInstance.Internal => addTypeName(pi, pi.asJson)
-//        case pi: PortInstance.Special => addTypeName(pi, pi.asJson)
-//      }
-//    )
-
-//  implicit val generalPortInstancetEncoder: Encoder[PortInstance.General] =
-//    Encoder.instance { genPort =>
+//  implicit val componentEncoder: Encoder[Component] = Encoder.instance {
+//    component =>
 //      Json.obj(
-//        "id" -> genPort.aNode._2.id.asJson,
-//        "specifier" -> genPort.specifier.asJson,
-//        "kind" -> genPort.kind.asJson,
-//        "size" -> genPort.size.asJson,
-//        "ty" -> genPort.size.asJson
+//        "id" -> component.aNode._2.id.asJson,
+//        "portMap" -> component.portMap.asJson,
+//        "specialPortMap" -> component.specialPortMap.asJson,
+//        "commandMap" -> component.commandMap.asJson,
+//        "defaultOpcode" -> component.defaultOpcode.asJson,
+//        "tlmChannelMap" -> component.tlmChannelMap.asJson,
+//        "defaultTlmChannelId" -> component.defaultTlmChannelId.asJson,
+//        "eventMap" -> component.eventMap.asJson,
+//        "defaultEventId" -> component.defaultEventId.asJson,
+//        "paramMap" -> component.paramMap.asJson,
+//        "specPortMatchingList" -> component.specPortMatchingList.asJson,
+//        "portMatchingList" -> component.portMatchingList.asJson,
+//        "defaultParamId" -> component.defaultParamId.asJson
 //      )
-//    }
-//
-//  implicit val specialPortInstanceEncoder: Encoder[PortInstance.Special] =
-//    Encoder.instance { specPort =>
-//      Json.obj(
-//        "id" -> specPort.aNode._2.id.asJson,
-//        "specifier" -> specPort.specifier.asJson,
-//        "name" -> specPort.symbol.getUnqualifiedName.asJson,
-//        "symbolId" -> specPort.symbol.getNodeId.asJson,
-//        "priority" -> specPort.priority.asJson,
-//        "queueFull" -> specPort.queueFull.asJson
-//      )
-//    }
-
-//  implicit val internallPortInstancetEncoder: Encoder[PortInstance.Internal] =
-//    Encoder.instance { intPort =>
-//      Json.obj(
-//        "id" -> intPort.aNode._2.id.asJson,
-//        "priority" -> intPort.priority.asJson,
-//        "queueFull" -> intPort.queueFull.asJson
-//      )
-//    }
+//  }
 
   implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
     Encoder.instance {

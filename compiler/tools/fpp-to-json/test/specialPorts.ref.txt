@@ -826,7 +826,9 @@
   },
   "componentMap" : {
     "5" : {
-      "id" : 5,
+      "aNode" : {
+        "astNodeId" : 5
+      },
       "portMap" : {
         "cmdIn" : {
           "Special" : {
@@ -979,7 +981,9 @@
       "defaultParamId" : 0
     },
     "10" : {
-      "id" : 10,
+      "aNode" : {
+        "astNodeId" : 10
+      },
       "portMap" : {
         "eventOut" : {
           "Special" : {
@@ -1090,7 +1094,9 @@
       "defaultParamId" : 0
     },
     "14" : {
-      "id" : 14,
+      "aNode" : {
+        "astNodeId" : 14
+      },
       "portMap" : {
         "tlmOut" : {
           "Special" : {
@@ -1159,7 +1165,9 @@
       "defaultParamId" : 0
     },
     "23" : {
-      "id" : 23,
+      "aNode" : {
+        "astNodeId" : 23
+      },
       "portMap" : {
         "timeGetOut" : {
           "Special" : {
@@ -1228,7 +1236,9 @@
       "defaultParamId" : 0
     },
     "19" : {
-      "id" : 19,
+      "aNode" : {
+        "astNodeId" : 19
+      },
       "portMap" : {
         "prmGetOut" : {
           "Special" : {

@@ -989,7 +989,9 @@
   },
   "componentMap" : {
     "56" : {
-      "id" : 56,
+      "aNode" : {
+        "astNodeId" : 56
+      },
       "portMap" : {
         "tlmOut" : {
           "Special" : {

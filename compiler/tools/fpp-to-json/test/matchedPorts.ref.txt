@@ -454,7 +454,9 @@
   },
   "componentMap" : {
     "21" : {
-      "id" : 21,
+      "aNode" : {
+        "astNodeId" : 21
+      },
       "portMap" : {
         "pingOut" : {
           "General" : {

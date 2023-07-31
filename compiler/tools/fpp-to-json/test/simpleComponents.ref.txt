@@ -1042,7 +1042,9 @@
   },
   "componentMap" : {
     "22" : {
-      "id" : 22,
+      "aNode" : {
+        "astNodeId" : 22
+      },
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
@@ -1163,7 +1165,9 @@
       "defaultParamId" : 0
     },
     "38" : {
-      "id" : 38,
+      "aNode" : {
+        "astNodeId" : 38
+      },
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
@@ -1284,7 +1288,9 @@
       "defaultParamId" : 0
     },
     "58" : {
-      "id" : 58,
+      "aNode" : {
+        "astNodeId" : 58
+      },
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
@@ -1421,7 +1427,9 @@
       "defaultParamId" : 0
     },
     "68" : {
-      "id" : 68,
+      "aNode" : {
+        "astNodeId" : 68
+      },
       "portMap" : {
         "serialIn" : {
           "General" : {

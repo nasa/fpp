@@ -812,7 +812,9 @@
   },
   "componentMap" : {
     "13" : {
-      "id" : 13,
+      "aNode" : {
+        "astNodeId" : 13
+      },
       "portMap" : {
         "pIn" : {
           "General" : {
