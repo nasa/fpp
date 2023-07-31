@@ -1,16 +1,10 @@
 package fpp.compiler.codegen
 
-import fpp.compiler.analysis._
 import fpp.compiler.ast._
-import fpp.compiler.codegen._
-import fpp.compiler.syntax._
-import fpp.compiler.transform._
-import fpp.compiler.util._
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.generic.semiauto._
 import io.circe.syntax._
-import scala.util.parsing.input.Position
 
 /** Encoder for Ast case classes
  *  Note: For recursive type variants, we explicitly handle each case
@@ -20,10 +14,12 @@ object AstJsonEncoder extends JsonEncoder {
 
   // JSON encoder for AST nodes
   implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
-    override def apply(astNode: AstNode[T]): Json = Json.obj( "AstNode" -> Json.obj(
-      "data" -> astNode.data.asJson,
-      "id" -> astNode.id.asJson
-    ))
+    override def apply(astNode: AstNode[T]): Json = Json.obj(
+      "AstNode" -> Json.obj(
+        "data" -> astNode.data.asJson,
+        "id" -> astNode.id.asJson
+      )
+    )
   }
 
   // JSON encoder for qualified identifiers
@@ -74,8 +70,8 @@ object AstJsonEncoder extends JsonEncoder {
   // JSON encoder for expressions
   // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val exprEncoder: Encoder[Ast.Expr] =
-    Encoder.instance((e: Ast.Expr) =>
-      e match {
+    Encoder.instance(
+      (e: Ast.Expr) => e match {
         case expr: Ast.ExprArray         => addTypeName(expr, expr.asJson)
         case expr: Ast.ExprBinop         => addTypeName(expr, expr.asJson)
         case expr: Ast.ExprDot           => addTypeName(expr, expr.asJson)
@@ -93,8 +89,8 @@ object AstJsonEncoder extends JsonEncoder {
   // JSON encoder for type names
   // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val typeNameEncoder: Encoder[Ast.TypeName] =
-    Encoder.instance((t: Ast.TypeName) =>
-      t match {
+    Encoder.instance(
+      (t: Ast.TypeName) => t match {
         case t: Ast.TypeNameFloat     => addTypeName(t, t.asJson)
         case t: Ast.TypeNameInt       => addTypeName(t, t.asJson)
         case t: Ast.TypeNameQualIdent => addTypeName(t, t.asJson)
@@ -124,42 +120,35 @@ object AstJsonEncoder extends JsonEncoder {
     )
 
   // JSON encoder for module members
+  // Skip the "node" key to reduce clutter
   implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
     Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
   
-  // JSON encoder for component members
+  // JSON encoder for component member nodes
   // We explicitly handle each case to avoid infinite recursion. See note above.
-  implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
-    Encoder.instance((c: Ast.ComponentMember) =>
-      c.node._2 match {
-        case aNode: Ast.ComponentMember.DefAbsType =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.DefArray =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.DefConstant =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.DefEnum =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.DefStruct =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecCommand =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecEvent =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecInclude =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecInternalPort =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecParam =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecPortInstance =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecPortMatching =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
-        case aNode: Ast.ComponentMember.SpecTlmChannel =>
-          (c.node._1, addTypeName(aNode, aNode.asJson), c.node._3).asJson
+  implicit val componentMemberNodeEncoder: Encoder[Ast.ComponentMember.Node] =
+    Encoder.instance(
+      (node: Ast.ComponentMember.Node) => node match {
+        case node: Ast.ComponentMember.DefAbsType => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.DefArray => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.DefConstant => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.DefEnum => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.DefStruct => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecCommand => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecEvent => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecInclude => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecInternalPort => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecParam => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecPortInstance => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecPortMatching => addTypeName(node, node.asJson)
+        case node: Ast.ComponentMember.SpecTlmChannel => addTypeName(node, node.asJson)
       }
     )
+
+  // JSON encoder for component members
+  // Skip the "node" key to reduce clutter
+  implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
+    Encoder.instance((m: Ast.ComponentMember) => m.node.asJson)
 
   // JSON encoder for topology members
   implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
