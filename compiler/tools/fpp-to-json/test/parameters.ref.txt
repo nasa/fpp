@@ -1365,7 +1365,18 @@
       "defaultEventId" : 0,
       "paramMap" : {
         "0" : {
-          "id" : 10,
+          "aNode" : [
+            [
+              "Parameter 1",
+              "Its implied set opcode is 0x00",
+              "Its implied save opcode is 0x01"
+            ],
+            {
+              "astNodeId" : 10
+            },
+            [
+            ]
+          ],
           "paramType" : {
             "PrimitiveInt" : {
               "kind" : "U32"
@@ -1387,7 +1398,18 @@
           "saveOpcode" : 1
         },
         "16" : {
-          "id" : 16,
+          "aNode" : [
+            [
+              "Parameter 2",
+              "Its set opcode is 0x10",
+              "Its save opcode is 0x11"
+            ],
+            {
+              "astNodeId" : 16
+            },
+            [
+            ]
+          ],
           "paramType" : {
             "Float" : {
               "kind" : "F64"
@@ -1409,7 +1431,18 @@
           "saveOpcode" : 17
         },
         "17" : {
-          "id" : 43,
+          "aNode" : [
+            [
+              "Parameter 3",
+              "Its set opcode is 0x12",
+              "Its save opcode is 0x20"
+            ],
+            {
+              "astNodeId" : 43
+            },
+            [
+            ]
+          ],
           "paramType" : {
             "Array" : {
               "defaultValue" : {

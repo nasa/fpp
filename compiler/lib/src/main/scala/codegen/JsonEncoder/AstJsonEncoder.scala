@@ -12,16 +12,6 @@ import io.circe.syntax._
  *  dealing with recursive types. */
 object AstJsonEncoder extends JsonEncoder {
 
-  // JSON encoder for AST nodes
-  implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
-    override def apply(astNode: AstNode[T]): Json = Json.obj(
-      "AstNode" -> Json.obj(
-        "data" -> astNode.data.asJson,
-        "id" -> astNode.id.asJson
-      )
-    )
-  }
-
   // JSON encoder for qualified identifiers
   // We explicitly handle each case to avoid infinite recursion. See note above.
   implicit val qualIdentEncoder: Encoder[Ast.QualIdent] =
@@ -99,9 +89,19 @@ object AstJsonEncoder extends JsonEncoder {
       }
     )
   
+  // JSON encoder for AST nodes
+  private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
+    override def apply(astNode: AstNode[T]): Json = Json.obj(
+      "AstNode" -> Json.obj(
+        "data" -> astNode.data.asJson,
+        "id" -> astNode.id.asJson
+      )
+    )
+  }
+
   // JSON encoder for module member nodes
   // We explicitly handle each case to avoid infinite recursion. See note above.
-  implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
+  private implicit val moduleMemberNodeEncoder: Encoder[Ast.ModuleMember.Node] =
     Encoder.instance(
       (node: Ast.ModuleMember.Node) => node match {
         case node: Ast.ModuleMember.DefAbsType => addTypeName(node, node.asJson)
@@ -121,12 +121,12 @@ object AstJsonEncoder extends JsonEncoder {
 
   // JSON encoder for module members
   // Skip the "node" key to reduce clutter
-  implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
+  private implicit val moduleMemberEncoder: Encoder[Ast.ModuleMember] =
     Encoder.instance((m: Ast.ModuleMember) => m.node.asJson)
   
   // JSON encoder for component member nodes
   // We explicitly handle each case to avoid infinite recursion. See note above.
-  implicit val componentMemberNodeEncoder: Encoder[Ast.ComponentMember.Node] =
+  private implicit val componentMemberNodeEncoder: Encoder[Ast.ComponentMember.Node] =
     Encoder.instance(
       (node: Ast.ComponentMember.Node) => node match {
         case node: Ast.ComponentMember.DefAbsType => addTypeName(node, node.asJson)
@@ -147,12 +147,12 @@ object AstJsonEncoder extends JsonEncoder {
 
   // JSON encoder for component members
   // Skip the "node" key to reduce clutter
-  implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
+  private implicit val componentMemberEncoder: Encoder[Ast.ComponentMember] =
     Encoder.instance((m: Ast.ComponentMember) => m.node.asJson)
 
   // JSON encoder for topology member nodes
   // We explicitly handle each case to avoid infinite recursion. See note above.
-  implicit val topologyMemberNodeEncoder: Encoder[Ast.TopologyMember.Node] =
+  private implicit val topologyMemberNodeEncoder: Encoder[Ast.TopologyMember.Node] =
     Encoder.instance(
       (node: Ast.TopologyMember.Node) => node match {
         case node: Ast.TopologyMember.SpecCompInstance => addTypeName(node, node.asJson)
@@ -164,7 +164,7 @@ object AstJsonEncoder extends JsonEncoder {
   
   // JSON encoder for topology members
   // Skip the "node" key to reduce clutter
-  implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
+  private implicit val topologyMemberEncoder: Encoder[Ast.TopologyMember] =
     Encoder.instance((m: Ast.TopologyMember) => m.node.asJson)
 
   /** Converts Ast to JSON */

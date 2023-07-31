@@ -1018,12 +1018,7 @@
                         [
                         ],
                         {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "T"
-                            },
-                            "id" : 60
-                          }
+                          "astNodeId" : 60
                         },
                         [
                         ]
@@ -1038,12 +1033,7 @@
                         [
                         ],
                         {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "T"
-                            },
-                            "id" : 60
-                          }
+                          "astNodeId" : 60
                         },
                         [
                         ]
@@ -1058,12 +1048,7 @@
                         [
                         ],
                         {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "T"
-                            },
-                            "id" : 60
-                          }
+                          "astNodeId" : 60
                         },
                         [
                         ]
@@ -1090,12 +1075,7 @@
                         [
                         ],
                         {
-                          "AstNode" : {
-                            "data" : {
-                              "name" : "T"
-                            },
-                            "id" : 60
-                          }
+                          "astNodeId" : 60
                         },
                         [
                         ]
@@ -1133,14 +1113,7 @@
       "String" : {
         "size" : {
           "Some" : {
-            "AstNode" : {
-              "data" : {
-                "ExprLiteralInt" : {
-                  "value" : "40"
-                }
-              },
-              "id" : 3
-            }
+            "astNodeId" : 3
           }
         }
       }
@@ -1282,14 +1255,7 @@
                   "String" : {
                     "size" : {
                       "Some" : {
-                        "AstNode" : {
-                          "data" : {
-                            "ExprLiteralInt" : {
-                              "value" : "40"
-                            }
-                          },
-                          "id" : 3
-                        }
+                        "astNodeId" : 3
                       }
                     }
                   }
@@ -1365,14 +1331,7 @@
             "String" : {
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprLiteralInt" : {
-                        "value" : "40"
-                      }
-                    },
-                    "id" : 3
-                  }
+                  "astNodeId" : 3
                 }
               }
             }
@@ -1516,12 +1475,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 60
-                    }
+                    "astNodeId" : 60
                   },
                   [
                   ]
@@ -1546,14 +1500,7 @@
             "String" : {
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprLiteralInt" : {
-                        "value" : "40"
-                      }
-                    },
-                    "id" : 3
-                  }
+                  "astNodeId" : 3
                 }
               }
             }
@@ -1586,12 +1533,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 60
-                    }
+                    "astNodeId" : 60
                   },
                   [
                   ]

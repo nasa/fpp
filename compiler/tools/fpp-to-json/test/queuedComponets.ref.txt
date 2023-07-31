@@ -1104,29 +1104,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Svc"
-                              }
-                            },
-                            "id" : 43
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "Sched",
-                            "id" : 44
-                          }
-                        }
-                      }
-                    },
-                    "id" : 45
-                  }
+                  "astNodeId" : 45
                 }
               },
               "priority" : "None",
@@ -1146,14 +1124,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "Calibration"
-                      }
-                    },
-                    "id" : 48
-                  }
+                  "astNodeId" : 48
                 }
               },
               "priority" : "None",

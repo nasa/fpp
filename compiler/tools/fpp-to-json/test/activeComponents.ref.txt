@@ -1193,29 +1193,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Fw"
-                              }
-                            },
-                            "id" : 34
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "BufferSend",
-                            "id" : 35
-                          }
-                        }
-                      }
-                    },
-                    "id" : 36
-                  }
+                  "astNodeId" : 36
                 }
               },
               "priority" : "None",
@@ -1235,29 +1213,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Fw"
-                              }
-                            },
-                            "id" : 46
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "BufferSend",
-                            "id" : 47
-                          }
-                        }
-                      }
-                    },
-                    "id" : 48
-                  }
+                  "astNodeId" : 48
                 }
               },
               "priority" : "None",

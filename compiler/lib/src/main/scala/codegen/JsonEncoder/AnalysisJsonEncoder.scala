@@ -14,10 +14,11 @@ import LocMapJsonEncoder._
 
 object AnalysisJsonEncoder extends JsonEncoder{
   
-  /*
-    Encoders for serializing analysis
-  */
-  
+  // JSON encoder for AST nodes
+  private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
+    override def apply(astNode: AstNode[T]): Json = Json.obj("astNodeId" -> astNode.id.asJson)
+  }
+
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
@@ -353,6 +354,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }.asJson
   }
 
+  /*
   implicit val paramEncoder: Encoder[Param] = Encoder.instance { param =>
     Json.obj(
       "id" -> param.aNode._2.id.asJson,
@@ -362,6 +364,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "saveOpcode" -> param.saveOpcode.asJson
     )
   }
+  */
 
   implicit val componentEncoder: Encoder[Component] = Encoder.instance {
     component =>

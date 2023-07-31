@@ -1053,14 +1053,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 8
-                  }
+                  "astNodeId" : 8
                 }
               },
               "priority" : "None",
@@ -1080,14 +1073,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 11
-                  }
+                  "astNodeId" : 11
                 }
               },
               "priority" : "None",
@@ -1107,14 +1093,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 20
-                  }
+                  "astNodeId" : 20
                 }
               },
               "priority" : "None",
@@ -1162,14 +1141,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 24
-                  }
+                  "astNodeId" : 24
                 }
               },
               "priority" : "None",
@@ -1189,14 +1161,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 27
-                  }
+                  "astNodeId" : 27
                 }
               },
               "priority" : "None",
@@ -1216,14 +1181,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 36
-                  }
+                  "astNodeId" : 36
                 }
               },
               "priority" : "None",
@@ -1271,34 +1229,17 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 40
-                  }
+                  "astNodeId" : 40
                 }
               },
               "priority" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprLiteralInt" : {
-                        "value" : "10"
-                      }
-                    },
-                    "id" : 41
-                  }
+                  "astNodeId" : 41
                 }
               },
               "queueFull" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : "Block",
-                    "id" : 42
-                  }
+                  "astNodeId" : 42
                 }
               }
             },
@@ -1316,34 +1257,17 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 45
-                  }
+                  "astNodeId" : 45
                 }
               },
               "priority" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprLiteralInt" : {
-                        "value" : "20"
-                      }
-                    },
-                    "id" : 46
-                  }
+                  "astNodeId" : 46
                 }
               },
               "queueFull" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : "Drop",
-                    "id" : 47
-                  }
+                  "astNodeId" : 47
                 }
               }
             },
@@ -1361,14 +1285,7 @@
               "size" : "None",
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Unqualified" : {
-                        "name" : "F32Value"
-                      }
-                    },
-                    "id" : 56
-                  }
+                  "astNodeId" : 56
                 }
               },
               "priority" : "None",
@@ -1431,14 +1348,7 @@
               "name" : "serialOut",
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "splitFactor"
-                      }
-                    },
-                    "id" : 66
-                  }
+                  "astNodeId" : 66
                 }
               },
               "port" : "None",

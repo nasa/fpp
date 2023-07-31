@@ -928,12 +928,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 25
-                    }
+                    "astNodeId" : 25
                   },
                   [
                   ]
@@ -973,46 +968,7 @@
                 [
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "E",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "A",
-                                "value" : "None"
-                              },
-                              "id" : 20
-                            }
-                          },
-                          [
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "B",
-                                "value" : "None"
-                              },
-                              "id" : 23
-                            }
-                          },
-                          [
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 24
-                  }
+                  "astNodeId" : 24
                 },
                 [
                 ]
@@ -1054,12 +1010,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 25
-                    }
+                    "astNodeId" : 25
                   },
                   [
                   ]
@@ -1085,46 +1036,7 @@
                 [
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "Status",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "SUCCEED",
-                                "value" : "None"
-                              },
-                              "id" : 50
-                            }
-                          },
-                          [
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "FAIL",
-                                "value" : "None"
-                              },
-                              "id" : 53
-                            }
-                          },
-                          [
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 54
-                  }
+                  "astNodeId" : 54
                 },
                 [
                 ]
@@ -1161,12 +1073,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 25
-                    }
+                    "astNodeId" : 25
                   },
                   [
                   ]
@@ -1225,46 +1132,7 @@
                 [
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "Status",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "SUCCEED",
-                                "value" : "None"
-                              },
-                              "id" : 50
-                            }
-                          },
-                          [
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "FAIL",
-                                "value" : "None"
-                              },
-                              "id" : 53
-                            }
-                          },
-                          [
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 54
-                  }
+                  "astNodeId" : 54
                 },
                 [
                 ]
@@ -1302,46 +1170,7 @@
                 [
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "E",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "A",
-                                "value" : "None"
-                              },
-                              "id" : 20
-                            }
-                          },
-                          [
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "B",
-                                "value" : "None"
-                              },
-                              "id" : 23
-                            }
-                          },
-                          [
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 24
-                  }
+                  "astNodeId" : 24
                 },
                 [
                 ]
@@ -1393,12 +1222,7 @@
                   [
                   ],
                   {
-                    "AstNode" : {
-                      "data" : {
-                        "name" : "T"
-                      },
-                      "id" : 25
-                    }
+                    "astNodeId" : 25
                   },
                   [
                   ]
@@ -1424,46 +1248,7 @@
             [
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "E",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "A",
-                            "value" : "None"
-                          },
-                          "id" : 20
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "B",
-                            "value" : "None"
-                          },
-                          "id" : 23
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 24
-              }
+              "astNodeId" : 24
             },
             [
             ]
@@ -1488,46 +1273,7 @@
             [
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "E",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "A",
-                            "value" : "None"
-                          },
-                          "id" : 20
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "B",
-                            "value" : "None"
-                          },
-                          "id" : 23
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 24
-              }
+              "astNodeId" : 24
             },
             [
             ]
@@ -1552,46 +1298,7 @@
             [
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Status",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "SUCCEED",
-                            "value" : "None"
-                          },
-                          "id" : 50
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "FAIL",
-                            "value" : "None"
-                          },
-                          "id" : 53
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 54
-              }
+              "astNodeId" : 54
             },
             [
             ]
@@ -1616,46 +1323,7 @@
             [
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "Status",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "SUCCEED",
-                            "value" : "None"
-                          },
-                          "id" : 50
-                        }
-                      },
-                      [
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "FAIL",
-                            "value" : "None"
-                          },
-                          "id" : 53
-                        }
-                      },
-                      [
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 54
-              }
+              "astNodeId" : 54
             },
             [
             ]

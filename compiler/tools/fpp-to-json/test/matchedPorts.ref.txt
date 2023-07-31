@@ -464,41 +464,12 @@
               "name" : "pingOut",
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 2
-                  }
+                  "astNodeId" : 2
                 }
               },
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Svc"
-                              }
-                            },
-                            "id" : 3
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "Ping",
-                            "id" : 4
-                          }
-                        }
-                      }
-                    },
-                    "id" : 5
-                  }
+                  "astNodeId" : 5
                 }
               },
               "priority" : "None",
@@ -517,41 +488,12 @@
               "name" : "pingIn",
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 7
-                  }
+                  "astNodeId" : 7
                 }
               },
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Svc"
-                              }
-                            },
-                            "id" : 8
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "Ping",
-                            "id" : 9
-                          }
-                        }
-                      }
-                    },
-                    "id" : 10
-                  }
+                  "astNodeId" : 10
                 }
               },
               "priority" : "None",
@@ -587,23 +529,7 @@
             "Corresponding port numbers of pingOut and pingIn must match"
           ],
           {
-            "AstNode" : {
-              "data" : {
-                "port1" : {
-                  "AstNode" : {
-                    "data" : "pingOut",
-                    "id" : 18
-                  }
-                },
-                "port2" : {
-                  "AstNode" : {
-                    "data" : "pingIn",
-                    "id" : 19
-                  }
-                }
-              },
-              "id" : 20
-            }
+            "astNodeId" : 20
           },
           [
           ]
@@ -616,23 +542,7 @@
               "Corresponding port numbers of pingOut and pingIn must match"
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "port1" : {
-                    "AstNode" : {
-                      "data" : "pingOut",
-                      "id" : 18
-                    }
-                  },
-                  "port2" : {
-                    "AstNode" : {
-                      "data" : "pingIn",
-                      "id" : 19
-                    }
-                  }
-                },
-                "id" : 20
-              }
+              "astNodeId" : 20
             },
             [
             ]
@@ -644,41 +554,12 @@
               "name" : "pingOut",
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 2
-                  }
+                  "astNodeId" : 2
                 }
               },
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Svc"
-                              }
-                            },
-                            "id" : 3
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "Ping",
-                            "id" : 4
-                          }
-                        }
-                      }
-                    },
-                    "id" : 5
-                  }
+                  "astNodeId" : 5
                 }
               },
               "priority" : "None",
@@ -695,41 +576,12 @@
               "name" : "pingIn",
               "size" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "ExprIdent" : {
-                        "value" : "numPingPorts"
-                      }
-                    },
-                    "id" : 7
-                  }
+                  "astNodeId" : 7
                 }
               },
               "port" : {
                 "Some" : {
-                  "AstNode" : {
-                    "data" : {
-                      "Qualified" : {
-                        "qualifier" : {
-                          "AstNode" : {
-                            "data" : {
-                              "Unqualified" : {
-                                "name" : "Svc"
-                              }
-                            },
-                            "id" : 8
-                          }
-                        },
-                        "name" : {
-                          "AstNode" : {
-                            "data" : "Ping",
-                            "id" : 9
-                          }
-                        }
-                      }
-                    },
-                    "id" : 10
-                  }
+                  "astNodeId" : 10
                 }
               },
               "priority" : "None",

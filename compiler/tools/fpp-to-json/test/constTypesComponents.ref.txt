@@ -602,48 +602,7 @@
                   "The state enumeration"
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "State",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "OFF",
-                                "value" : "None"
-                              },
-                              "id" : 1
-                            }
-                          },
-                          [
-                            "The off state"
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "ON",
-                                "value" : "None"
-                              },
-                              "id" : 3
-                            }
-                          },
-                          [
-                            "The on state"
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 4
-                  }
+                  "astNodeId" : 4
                 },
                 [
                 ]
@@ -710,48 +669,7 @@
                   "The state enumeration"
                 ],
                 {
-                  "AstNode" : {
-                    "data" : {
-                      "name" : "State",
-                      "typeName" : "None",
-                      "constants" : [
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "OFF",
-                                "value" : "None"
-                              },
-                              "id" : 1
-                            }
-                          },
-                          [
-                            "The off state"
-                          ]
-                        ],
-                        [
-                          [
-                          ],
-                          {
-                            "AstNode" : {
-                              "data" : {
-                                "name" : "ON",
-                                "value" : "None"
-                              },
-                              "id" : 3
-                            }
-                          },
-                          [
-                            "The on state"
-                          ]
-                        ]
-                      ],
-                      "default" : "None"
-                    },
-                    "id" : 4
-                  }
+                  "astNodeId" : 4
                 },
                 [
                 ]
@@ -790,48 +708,7 @@
               "The state enumeration"
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "State",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "OFF",
-                            "value" : "None"
-                          },
-                          "id" : 1
-                        }
-                      },
-                      [
-                        "The off state"
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "ON",
-                            "value" : "None"
-                          },
-                          "id" : 3
-                        }
-                      },
-                      [
-                        "The on state"
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 4
-              }
+              "astNodeId" : 4
             },
             [
             ]
@@ -857,48 +734,7 @@
               "The state enumeration"
             ],
             {
-              "AstNode" : {
-                "data" : {
-                  "name" : "State",
-                  "typeName" : "None",
-                  "constants" : [
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "OFF",
-                            "value" : "None"
-                          },
-                          "id" : 1
-                        }
-                      },
-                      [
-                        "The off state"
-                      ]
-                    ],
-                    [
-                      [
-                      ],
-                      {
-                        "AstNode" : {
-                          "data" : {
-                            "name" : "ON",
-                            "value" : "None"
-                          },
-                          "id" : 3
-                        }
-                      },
-                      [
-                        "The on state"
-                      ]
-                    ]
-                  ],
-                  "default" : "None"
-                },
-                "id" : 4
-              }
+              "astNodeId" : 4
             },
             [
             ]
