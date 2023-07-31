@@ -624,15 +624,9 @@
             "name" : "B",
             "value" : 1,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 34
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 34
+              },
               "repType" : {
                 "kind" : {
                   "U8" : {
@@ -721,15 +715,9 @@
             "name" : "YES",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 5
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 5
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -888,15 +876,9 @@
             "name" : "A",
             "value" : 1,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 20
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 20
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -936,15 +918,9 @@
         "name" : "MAYBE",
         "value" : 2,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 5
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 5
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -961,15 +937,9 @@
         "name" : "MAYBE",
         "value" : 2,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 5
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 5
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -986,15 +956,9 @@
         "name" : "B",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 34
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 34
+          },
           "repType" : {
             "kind" : {
               "U8" : {
@@ -1016,15 +980,9 @@
         "name" : "B",
         "value" : 2,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 20
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 20
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1051,15 +1009,9 @@
         "name" : "C",
         "value" : 2,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 34
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 34
+          },
           "repType" : {
             "kind" : {
               "U8" : {
@@ -1076,15 +1028,9 @@
         "name" : "NO",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 5
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 5
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1106,15 +1052,9 @@
         "name" : "YES",
         "value" : 0,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 5
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 5
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1136,15 +1076,9 @@
         "name" : "B",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 34
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 34
+          },
           "repType" : {
             "kind" : {
               "U8" : {
@@ -1161,15 +1095,9 @@
         "name" : "A",
         "value" : 0,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 34
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 34
+          },
           "repType" : {
             "kind" : {
               "U8" : {
@@ -1186,15 +1114,9 @@
         "name" : "C",
         "value" : 3,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 20
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 20
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1211,15 +1133,9 @@
         "name" : "A",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 20
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 20
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1236,15 +1152,9 @@
         "name" : "A",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 20
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 20
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1261,15 +1171,9 @@
         "name" : "MAYBE",
         "value" : 2,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 5
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 5
+          },
           "repType" : {
             "kind" : {
               "I32" : {

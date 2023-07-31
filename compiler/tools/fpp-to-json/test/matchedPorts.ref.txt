@@ -524,29 +524,15 @@
         
       },
       "specPortMatchingList" : [
-        [
-          [
-            "Corresponding port numbers of pingOut and pingIn must match"
-          ],
-          {
-            "astNodeId" : 20
-          },
-          [
-          ]
-        ]
+        {
+          "astNodeId" : 20
+        }
       ],
       "portMatchingList" : [
         {
-          "aNode" : [
-            [
-              "Corresponding port numbers of pingOut and pingIn must match"
-            ],
-            {
-              "astNodeId" : 20
-            },
-            [
-            ]
-          ],
+          "aNode" : {
+            "astNodeId" : 20
+          },
           "instance1" : {
             "id" : 6,
             "specifier" : {

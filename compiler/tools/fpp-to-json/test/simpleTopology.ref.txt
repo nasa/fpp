@@ -922,7 +922,9 @@
   },
   "topologyMap" : {
     "64" : {
-      "id" : 64,
+      "aNode" : {
+        "astNodeId" : 64
+      },
       "directImportMap" : {
         
       },

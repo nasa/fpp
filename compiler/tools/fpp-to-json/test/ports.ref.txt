@@ -924,15 +924,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 25
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 25
+                }
               }
             }
           }
@@ -964,15 +958,9 @@
             "name" : "A",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 24
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 24
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -1006,15 +994,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 25
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 25
+                }
               }
             }
           }
@@ -1032,15 +1014,9 @@
             "name" : "SUCCEED",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 54
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 54
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -1069,15 +1045,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 25
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 25
+                }
               }
             }
           }
@@ -1128,15 +1098,9 @@
             "name" : "SUCCEED",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 54
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 54
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -1166,15 +1130,9 @@
             "name" : "A",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                ],
-                {
-                  "astNodeId" : 24
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 24
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -1218,15 +1176,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 25
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 25
+                }
               }
             }
           }
@@ -1244,15 +1196,9 @@
         "name" : "A",
         "value" : 0,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 24
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 24
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1269,15 +1215,9 @@
         "name" : "B",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 24
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 24
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1294,15 +1234,9 @@
         "name" : "SUCCEED",
         "value" : 0,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 54
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 54
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -1319,15 +1253,9 @@
         "name" : "FAIL",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-            ],
-            {
-              "astNodeId" : 54
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 54
+          },
           "repType" : {
             "kind" : {
               "I32" : {

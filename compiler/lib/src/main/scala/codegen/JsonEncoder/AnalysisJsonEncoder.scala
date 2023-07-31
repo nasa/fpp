@@ -19,6 +19,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
     override def apply(astNode: AstNode[T]): Json = Json.obj("astNodeId" -> astNode.id.asJson)
   }
 
+  // JSON encoder for annotated AST nodes
+  private implicit def astNodeAnnotatedEncoder[T: Encoder]: Encoder[Ast.Annotated[AstNode[T]]] =
+    new Encoder[Ast.Annotated[AstNode[T]]] {
+      override def apply(aNode: Ast.Annotated[AstNode[T]]): Json = aNode._2.asJson
+    }
+
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
@@ -354,18 +360,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }.asJson
   }
 
-  /*
-  implicit val paramEncoder: Encoder[Param] = Encoder.instance { param =>
-    Json.obj(
-      "id" -> param.aNode._2.id.asJson,
-      "paramType" -> param.paramType.asJson,
-      "default" -> param.default.asJson,
-      "setOpcode" -> param.setOpcode.asJson,
-      "saveOpcode" -> param.saveOpcode.asJson
-    )
-  }
-  */
-
   implicit val componentEncoder: Encoder[Component] = Encoder.instance {
     component =>
       Json.obj(
@@ -466,41 +460,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "throttle" -> event.throttle.asJson
     )
   }
-
-  implicit val topologyEncoder: Encoder[Topology] = Encoder.instance {
-    topology =>
-      Json.obj(
-        "id" -> topology.aNode._2.id.asJson,
-        "directImportMap" -> topology.directImportMap.asJson,
-        "transitiveImportSet" -> Json.arr(
-          topology.transitiveImportSet.map(_.getNodeId).map(_.asJson).toSeq: _*
-        ),
-        "instanceMap" -> topology.instanceMap.asJson,
-        "patternMap" -> topology.patternMap.asJson,
-        "connectionMap" -> topology.connectionMap.asJson,
-        "localConnectionMap" -> topology.localConnectionMap.asJson,
-        "outputConnectionMap" -> topology.outputConnectionMap.asJson,
-        "inputConnectionMap" -> topology.inputConnectionMap.asJson,
-        "fromPortNumberMap" -> topology.fromPortNumberMap.asJson,
-        "toPortNumberMap" -> topology.toPortNumberMap.asJson,
-        "unconnectedPortSet" -> topology.unconnectedPortSet.asJson
-      )
-  }
-
-  implicit val connectionPatternEncoder: Encoder[ConnectionPattern] =
-    Encoder.instance { connectionPattern =>
-      Json.obj(
-        "id" -> connectionPattern.aNode._2.id.asJson,
-        "pattern" -> connectionPattern.ast.asJson,
-        "source" -> connectionPattern.source.asJson,
-        "targets" -> connectionPattern.targets.asJson
-      )
-    }
-
-  implicit val setCompInstanceLocationEncoder: Encoder[(ComponentInstance, Location)] = Encoder.instance { tuple =>
-    (tuple._1.aNode._2.id.asJson, tuple._2.asJson).asJson
-  }
-
 
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = Json.obj(

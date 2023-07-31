@@ -597,16 +597,9 @@
             "name" : "OFF",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                  "The state enumeration"
-                ],
-                {
-                  "astNodeId" : 4
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 4
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -664,16 +657,9 @@
             "name" : "OFF",
             "value" : 0,
             "type" : {
-              "node" : [
-                [
-                  "The state enumeration"
-                ],
-                {
-                  "astNodeId" : 4
-                },
-                [
-                ]
-              ],
+              "node" : {
+                "astNodeId" : 4
+              },
               "repType" : {
                 "kind" : {
                   "I32" : {
@@ -703,16 +689,9 @@
         "name" : "OFF",
         "value" : 0,
         "type" : {
-          "node" : [
-            [
-              "The state enumeration"
-            ],
-            {
-              "astNodeId" : 4
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 4
+          },
           "repType" : {
             "kind" : {
               "I32" : {
@@ -729,16 +708,9 @@
         "name" : "ON",
         "value" : 1,
         "type" : {
-          "node" : [
-            [
-              "The state enumeration"
-            ],
-            {
-              "astNodeId" : 4
-            },
-            [
-            ]
-          ],
+          "node" : {
+            "astNodeId" : 4
+          },
           "repType" : {
             "kind" : {
               "I32" : {

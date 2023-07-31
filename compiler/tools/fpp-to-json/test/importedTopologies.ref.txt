@@ -1694,7 +1694,9 @@
   },
   "topologyMap" : {
     "72" : {
-      "id" : 72,
+      "aNode" : {
+        "astNodeId" : 72
+      },
       "directImportMap" : {
         
       },
@@ -3207,7 +3209,9 @@
       ]
     },
     "118" : {
-      "id" : 118,
+      "aNode" : {
+        "astNodeId" : 118
+      },
       "directImportMap" : {
         "72" : {
           "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
@@ -3216,7 +3220,11 @@
         }
       },
       "transitiveImportSet" : [
-        72
+        {
+          "node" : {
+            "astNodeId" : 72
+          }
+        }
       ],
       "instanceMap" : [
         [
@@ -4838,7 +4846,9 @@
       ]
     },
     "128" : {
-      "id" : 128,
+      "aNode" : {
+        "astNodeId" : 128
+      },
       "directImportMap" : {
         "118" : {
           "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
@@ -4847,8 +4857,16 @@
         }
       },
       "transitiveImportSet" : [
-        72,
-        118
+        {
+          "node" : {
+            "astNodeId" : 72
+          }
+        },
+        {
+          "node" : {
+            "astNodeId" : 118
+          }
+        }
       ],
       "instanceMap" : [
         [

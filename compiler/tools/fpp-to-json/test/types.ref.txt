@@ -1014,45 +1014,27 @@
                 {
                   "AbsType" : {
                     "t" : {
-                      "node" : [
-                        [
-                        ],
-                        {
-                          "astNodeId" : 60
-                        },
-                        [
-                        ]
-                      ]
+                      "node" : {
+                        "astNodeId" : 60
+                      }
                     }
                   }
                 },
                 {
                   "AbsType" : {
                     "t" : {
-                      "node" : [
-                        [
-                        ],
-                        {
-                          "astNodeId" : 60
-                        },
-                        [
-                        ]
-                      ]
+                      "node" : {
+                        "astNodeId" : 60
+                      }
                     }
                   }
                 },
                 {
                   "AbsType" : {
                     "t" : {
-                      "node" : [
-                        [
-                        ],
-                        {
-                          "astNodeId" : 60
-                        },
-                        [
-                        ]
-                      ]
+                      "node" : {
+                        "astNodeId" : 60
+                      }
                     }
                   }
                 }
@@ -1071,15 +1053,9 @@
                 "Some" : {
                   "AbsType" : {
                     "t" : {
-                      "node" : [
-                        [
-                        ],
-                        {
-                          "astNodeId" : 60
-                        },
-                        [
-                        ]
-                      ]
+                      "node" : {
+                        "astNodeId" : 60
+                      }
                     }
                   }
                 }
@@ -1471,15 +1447,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 60
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 60
+                }
               }
             }
           }
@@ -1529,15 +1499,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                  ],
-                  {
-                    "astNodeId" : 60
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 60
+                }
               }
             }
           }

@@ -369,16 +369,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                    "A data type T"
-                  ],
-                  {
-                    "astNodeId" : 0
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 0
+                }
               }
             }
           }
@@ -395,16 +388,9 @@
           "Some" : {
             "AbsType" : {
               "t" : {
-                "node" : [
-                  [
-                    "A data type T"
-                  ],
-                  {
-                    "astNodeId" : 0
-                  },
-                  [
-                  ]
-                ]
+                "node" : {
+                  "astNodeId" : 0
+                }
               }
             }
           }
