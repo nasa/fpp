@@ -365,25 +365,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }.asJson
   }
 
-//  implicit val componentEncoder: Encoder[Component] = Encoder.instance {
-//    component =>
-//      Json.obj(
-//        "id" -> component.aNode._2.id.asJson,
-//        "portMap" -> component.portMap.asJson,
-//        "specialPortMap" -> component.specialPortMap.asJson,
-//        "commandMap" -> component.commandMap.asJson,
-//        "defaultOpcode" -> component.defaultOpcode.asJson,
-//        "tlmChannelMap" -> component.tlmChannelMap.asJson,
-//        "defaultTlmChannelId" -> component.defaultTlmChannelId.asJson,
-//        "eventMap" -> component.eventMap.asJson,
-//        "defaultEventId" -> component.defaultEventId.asJson,
-//        "paramMap" -> component.paramMap.asJson,
-//        "specPortMatchingList" -> component.specPortMatchingList.asJson,
-//        "portMatchingList" -> component.portMatchingList.asJson,
-//        "defaultParamId" -> component.defaultParamId.asJson
-//      )
-//  }
-
   implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
     Encoder.instance {
       compInstance => io.circe.generic.semiauto.deriveEncoder[ComponentInstance].

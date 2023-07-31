@@ -110,8 +110,8 @@ passiveComponent(){
   run_test "" passiveComponent
 }
 
-queuedComponets(){
-  run_test "" queuedComponets
+queuedComponents(){
+  run_test "" queuedComponents
 }
 
 activeComponents(){
@@ -145,26 +145,26 @@ locationMapValidator(){
 
 
 tests="
-constants
-modules
-types
-enums
-ports
-simpleComponents
-specialPorts
-internalPorts
-commands
-events
-telemetry
-parameters
-constTypesComponents
-matchedPorts
-passiveComponent
-queuedComponets
 activeComponents
-simpleTopology
+commands
+constTypesComponents
+constants
+enums
+events
 importedTopologies
+internalPorts
+matchedPorts
+modules
+parameters
+passiveComponent
+ports
+queuedComponents
+simpleComponents
+simpleTopology
+specialPorts
 syntaxOnly
+telemetry
+types
 "
 
 run_suite $tests

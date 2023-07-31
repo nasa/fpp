@@ -35,24 +35,24 @@ do
   rm $file
 done
 
-update "" constants
-update "" modules
-update "" types
-update "" enums
-update "" ports
-update "" simpleComponents
-update "" specialPorts
-update "" internalPorts
-update "" commands
-update "" events
-update "" telemetry
-update "" parameters
-update "" constTypesComponents
-update "" matchedPorts
-update "" passiveComponent
-update "" queuedComponets
 update "" activeComponents
-update "" simpleTopology
+update "" commands
+update "" constTypesComponents
+update "" constants
+update "" enums
+update "" events
 update "" importedTopologies
+update "" internalPorts
+update "" matchedPorts
+update "" modules
+update "" parameters
+update "" passiveComponent
+update "" ports
+update "" queuedComponents
+update "" simpleComponents
+update "" simpleTopology
+update "" specialPorts
+update "" telemetry
+update "" types
 update "-s" syntaxOnly
 
