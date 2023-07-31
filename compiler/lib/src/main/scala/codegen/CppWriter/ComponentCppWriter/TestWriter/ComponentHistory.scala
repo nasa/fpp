@@ -154,7 +154,9 @@ case class ComponentHistory(
             if hasCommands || hasParameters then lines("this->cmdResponseHistory->clear();")
             else Nil,
             if hasEvents then lines(
-              """|this->textLogHistory->clear();
+              """|#if FW_ENABLE_TEXT_LOGGING
+                 |this->textLogHistory->clear();
+                 |#endif
                  |this->clearEvents();
                  |"""
             )
