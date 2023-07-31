@@ -12,8 +12,6 @@
 #
 # If this script is run with the --all flag, each file is compiled with all
 # possible combinations of values of F Prime guards with these exceptions:
-# - FW_AMPCS_COMPATIBLE and FW_CMD_CHECK_RESIDUAL remain set to the default
-#   values found in fprime/config/FpConfig.h
 # - FW_SERIALIZABLE_TO_STRING and FW_ARRAY_TO_STRING always have the same value
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
@@ -43,7 +41,7 @@ do
 
   if [ "$1" = "--all" ]
   then
-    for g in `python3 gen_guards.py $guards`
+    for g in `python3 ../gen_guards.py $guards`
     do
       g=`echo $g | sed 's/,/ /g'`
 
