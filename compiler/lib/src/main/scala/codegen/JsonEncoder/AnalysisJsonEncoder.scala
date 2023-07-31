@@ -26,13 +26,19 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   // JSON encoder for symbols
-  private implicit def symbolEncoder[T: Encoder]: Encoder[Symbol] =
-    new Encoder[Symbol] {
-      override def apply(symbol: Symbol): Json = Json.obj(
-        "nodeId" -> symbol.getNodeId.asJson,
-        "unqualifiedName" -> symbol.getUnqualifiedName.asJson
-      )
-    }
+  private def symbolAsJson(symbol: Symbol) = addTypeName(
+    symbol,
+    Json.obj(
+      "nodeId" -> symbol.getNodeId.asJson,
+      "unqualifiedName" -> symbol.getUnqualifiedName.asJson
+    )
+  )
+
+  private implicit val symbolEncoder: Encoder[Symbol] =
+    Encoder.instance(symbolAsJson(_))
+
+  private implicit val portSymbolEncoder: Encoder[Symbol.Port] =
+    Encoder.instance(symbolAsJson(_))
 
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
@@ -380,54 +386,47 @@ object AnalysisJsonEncoder extends JsonEncoder{
       )
   }
 
+//  // JSON encoder for port instances
+//  implicit val portInstanceEncoder: Encoder[PortInstance] =
+//    Encoder.instance(
+//      (pi: PortInstance) => pi match {
+//        case pi: PortInstance.General => addTypeName(pi, pi.asJson)
+//        case pi: PortInstance.Internal => addTypeName(pi, pi.asJson)
+//        case pi: PortInstance.Special => addTypeName(pi, pi.asJson)
+//      }
+//    )
 
-  implicit val generalPortInstancetEncoder: Encoder[PortInstance.General] =
-    Encoder.instance { genPort =>
-      Json.obj(
-        "id" -> genPort.aNode._2.id.asJson,
-        "specifier" -> genPort.specifier.asJson,
-        "kind" -> genPort.kind.asJson,
-        "size" -> genPort.size.asJson,
-        "ty" -> genPort.size.asJson
-      )
-    }
-
-  implicit val specialPortInstanceEncoder: Encoder[PortInstance.Special] =
-    Encoder.instance { specPort =>
-      Json.obj(
-        "id" -> specPort.aNode._2.id.asJson,
-        "specifier" -> specPort.specifier.asJson,
-        "name" -> specPort.symbol.getUnqualifiedName.asJson,
-        "symbolId" -> specPort.symbol.getNodeId.asJson,
-        "priority" -> specPort.priority.asJson,
-        "queueFull" -> specPort.queueFull.asJson
-      )
-    }
-
-  implicit val internallPortInstancetEncoder: Encoder[PortInstance.Internal] =
-    Encoder.instance { intPort =>
-      Json.obj(
-        "id" -> intPort.aNode._2.id.asJson,
-        "priority" -> intPort.priority.asJson,
-        "queueFull" -> intPort.queueFull.asJson
-      )
-    }
-
-//  implicit val nonParamCommandEncoder: Encoder[Command.NonParam] =
-//    Encoder.instance { command =>
+//  implicit val generalPortInstancetEncoder: Encoder[PortInstance.General] =
+//    Encoder.instance { genPort =>
 //      Json.obj(
-//        "id" -> command.aNode._2.id.asJson,
-//        "kind" -> command.kind.asJson
+//        "id" -> genPort.aNode._2.id.asJson,
+//        "specifier" -> genPort.specifier.asJson,
+//        "kind" -> genPort.kind.asJson,
+//        "size" -> genPort.size.asJson,
+//        "ty" -> genPort.size.asJson
 //      )
 //    }
 //
-//  implicit val paramCommandEncoder: Encoder[Command.Param] = Encoder.instance {
-//    param =>
+//  implicit val specialPortInstanceEncoder: Encoder[PortInstance.Special] =
+//    Encoder.instance { specPort =>
 //      Json.obj(
-//        "id" -> param.aNode._2.id.asJson,
-//        "kind" -> param.kind.asJson
+//        "id" -> specPort.aNode._2.id.asJson,
+//        "specifier" -> specPort.specifier.asJson,
+//        "name" -> specPort.symbol.getUnqualifiedName.asJson,
+//        "symbolId" -> specPort.symbol.getNodeId.asJson,
+//        "priority" -> specPort.priority.asJson,
+//        "queueFull" -> specPort.queueFull.asJson
 //      )
-//  }
+//    }
+
+//  implicit val internallPortInstancetEncoder: Encoder[PortInstance.Internal] =
+//    Encoder.instance { intPort =>
+//      Json.obj(
+//        "id" -> intPort.aNode._2.id.asJson,
+//        "priority" -> intPort.priority.asJson,
+//        "queueFull" -> intPort.queueFull.asJson
+//      )
+//    }
 
   implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
     Encoder.instance {

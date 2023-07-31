@@ -1186,7 +1186,9 @@
       "portMap" : {
         "bufferSendIn" : {
           "General" : {
-            "id" : 37,
+            "aNode" : {
+              "astNodeId" : 37
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "bufferSendIn",
@@ -1201,12 +1203,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
           }
         },
         "bufferSendOut" : {
           "General" : {
-            "id" : 49,
+            "aNode" : {
+              "astNodeId" : 49
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "bufferSendOut",
@@ -1221,7 +1234,16 @@
             },
             "kind" : "Output",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
           }
         }
       },

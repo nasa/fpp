@@ -1141,7 +1141,9 @@
       "portMap" : {
         "cmdIn" : {
           "Special" : {
-            "id" : 3,
+            "aNode" : {
+              "astNodeId" : 3
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandRecv",
@@ -1149,15 +1151,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Cmd",
-            "symbolId" : 47,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 47,
+                "unqualifiedName" : "Cmd"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "prmGetOut" : {
           "Special" : {
-            "id" : 6,
+            "aNode" : {
+              "astNodeId" : 6
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "ParamGet",
@@ -1165,15 +1173,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "PrmGet",
-            "symbolId" : 45,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 45,
+                "unqualifiedName" : "PrmGet"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "cmdResponseOut" : {
           "Special" : {
-            "id" : 5,
+            "aNode" : {
+              "astNodeId" : 5
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandResp",
@@ -1181,15 +1195,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "CmdResponse",
-            "symbolId" : 51,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 51,
+                "unqualifiedName" : "CmdResponse"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "prmSetOut" : {
           "Special" : {
-            "id" : 7,
+            "aNode" : {
+              "astNodeId" : 7
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "ParamSet",
@@ -1197,15 +1217,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "PrmSet",
-            "symbolId" : 46,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 46,
+                "unqualifiedName" : "PrmSet"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "cmdRegOut" : {
           "Special" : {
-            "id" : 4,
+            "aNode" : {
+              "astNodeId" : 4
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandReg",
@@ -1213,8 +1239,12 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "CmdReg",
-            "symbolId" : 48,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 48,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
@@ -1222,7 +1252,9 @@
       },
       "specialPortMap" : {
         "param set" : {
-          "id" : 7,
+          "aNode" : {
+            "astNodeId" : 7
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "ParamSet",
@@ -1230,13 +1262,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "PrmSet",
-          "symbolId" : 46,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 46,
+              "unqualifiedName" : "PrmSet"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "command recv" : {
-          "id" : 3,
+          "aNode" : {
+            "astNodeId" : 3
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandRecv",
@@ -1244,13 +1282,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Cmd",
-          "symbolId" : 47,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 47,
+              "unqualifiedName" : "Cmd"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "command reg" : {
-          "id" : 4,
+          "aNode" : {
+            "astNodeId" : 4
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandReg",
@@ -1258,13 +1302,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "CmdReg",
-          "symbolId" : 48,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 48,
+              "unqualifiedName" : "CmdReg"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "command resp" : {
-          "id" : 5,
+          "aNode" : {
+            "astNodeId" : 5
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandResp",
@@ -1272,13 +1322,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "CmdResponse",
-          "symbolId" : 51,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 51,
+              "unqualifiedName" : "CmdResponse"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "param get" : {
-          "id" : 6,
+          "aNode" : {
+            "astNodeId" : 6
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "ParamGet",
@@ -1286,8 +1342,12 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "PrmGet",
-          "symbolId" : 45,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 45,
+              "unqualifiedName" : "PrmGet"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         }

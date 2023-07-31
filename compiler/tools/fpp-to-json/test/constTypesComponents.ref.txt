@@ -729,7 +729,9 @@
       "portMap" : {
         "cmdRegOut" : {
           "Special" : {
-            "id" : 5,
+            "aNode" : {
+              "astNodeId" : 5
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandReg",
@@ -737,15 +739,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "CmdReg",
-            "symbolId" : 37,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "cmdIn" : {
           "Special" : {
-            "id" : 6,
+            "aNode" : {
+              "astNodeId" : 6
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandRecv",
@@ -753,15 +761,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Cmd",
-            "symbolId" : 36,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "Cmd"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "cmdResponseOut" : {
           "Special" : {
-            "id" : 7,
+            "aNode" : {
+              "astNodeId" : 7
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "CommandResp",
@@ -769,8 +783,12 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "CmdResponse",
-            "symbolId" : 40,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 40,
+                "unqualifiedName" : "CmdResponse"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
@@ -778,7 +796,9 @@
       },
       "specialPortMap" : {
         "command reg" : {
-          "id" : 5,
+          "aNode" : {
+            "astNodeId" : 5
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandReg",
@@ -786,13 +806,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "CmdReg",
-          "symbolId" : 37,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 37,
+              "unqualifiedName" : "CmdReg"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "command recv" : {
-          "id" : 6,
+          "aNode" : {
+            "astNodeId" : 6
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandRecv",
@@ -800,13 +826,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Cmd",
-          "symbolId" : 36,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 36,
+              "unqualifiedName" : "Cmd"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "command resp" : {
-          "id" : 7,
+          "aNode" : {
+            "astNodeId" : 7
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "CommandResp",
@@ -814,8 +846,12 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "CmdResponse",
-          "symbolId" : 40,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 40,
+              "unqualifiedName" : "CmdResponse"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         }

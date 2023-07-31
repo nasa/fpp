@@ -458,7 +458,9 @@
       "portMap" : {
         "pingOut" : {
           "General" : {
-            "id" : 6,
+            "aNode" : {
+              "astNodeId" : 6
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "pingOut",
@@ -477,12 +479,23 @@
             },
             "kind" : "Output",
             "size" : 10,
-            "ty" : 10
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
+              }
+            }
           }
         },
         "pingIn" : {
           "General" : {
-            "id" : 11,
+            "aNode" : {
+              "astNodeId" : 11
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "pingIn",
@@ -501,7 +514,16 @@
             },
             "kind" : "AsyncInput",
             "size" : 10,
-            "ty" : 10
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -534,7 +556,9 @@
             "astNodeId" : 20
           },
           "instance1" : {
-            "id" : 6,
+            "aNode" : {
+              "astNodeId" : 6
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "pingOut",
@@ -553,10 +577,21 @@
             },
             "kind" : "Output",
             "size" : 10,
-            "ty" : 10
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
+              }
+            }
           },
           "instance2" : {
-            "id" : 11,
+            "aNode" : {
+              "astNodeId" : 11
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "pingIn",
@@ -575,7 +610,16 @@
             },
             "kind" : "AsyncInput",
             "size" : 10,
-            "ty" : 10
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
+              }
+            }
           }
         }
       ],

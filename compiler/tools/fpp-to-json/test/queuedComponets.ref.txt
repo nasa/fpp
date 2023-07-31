@@ -1097,7 +1097,9 @@
       "portMap" : {
         "schedIn" : {
           "General" : {
-            "id" : 46,
+            "aNode" : {
+              "astNodeId" : 46
+            },
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "schedIn",
@@ -1112,12 +1114,23 @@
             },
             "kind" : "SyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 83,
+                    "unqualifiedName" : "Sched"
+                  }
+                }
+              }
+            }
           }
         },
         "calibrationIn" : {
           "General" : {
-            "id" : 49,
+            "aNode" : {
+              "astNodeId" : 49
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "calibrationIn",
@@ -1132,12 +1145,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "Calibration"
+                  }
+                }
+              }
+            }
           }
         },
         "tlmOut" : {
           "Special" : {
-            "id" : 50,
+            "aNode" : {
+              "astNodeId" : 50
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "Telemetry",
@@ -1145,15 +1169,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Tlm",
-            "symbolId" : 85,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 85,
+                "unqualifiedName" : "Tlm"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "timeGetOut" : {
           "Special" : {
-            "id" : 51,
+            "aNode" : {
+              "astNodeId" : 51
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "TimeGet",
@@ -1161,8 +1191,12 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Time",
-            "symbolId" : 88,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 88,
+                "unqualifiedName" : "Time"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
@@ -1170,7 +1204,9 @@
       },
       "specialPortMap" : {
         "telemetry" : {
-          "id" : 50,
+          "aNode" : {
+            "astNodeId" : 50
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "Telemetry",
@@ -1178,13 +1214,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Tlm",
-          "symbolId" : 85,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 85,
+              "unqualifiedName" : "Tlm"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "time get" : {
-          "id" : 51,
+          "aNode" : {
+            "astNodeId" : 51
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "TimeGet",
@@ -1192,8 +1234,12 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Time",
-          "symbolId" : 88,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 88,
+              "unqualifiedName" : "Time"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         }

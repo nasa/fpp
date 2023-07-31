@@ -416,7 +416,9 @@
       "portMap" : {
         "pInternal" : {
           "Internal" : {
-            "id" : 42,
+            "aNode" : {
+              "astNodeId" : 42
+            },
             "priority" : {
               "Some" : 10
             },

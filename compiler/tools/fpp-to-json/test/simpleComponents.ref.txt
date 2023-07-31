@@ -1046,7 +1046,9 @@
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
-            "id" : 9,
+            "aNode" : {
+              "astNodeId" : 9
+            },
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "f32ValueIn1",
@@ -1061,12 +1063,23 @@
             },
             "kind" : "SyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueIn2" : {
           "General" : {
-            "id" : 12,
+            "aNode" : {
+              "astNodeId" : 12
+            },
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "f32ValueIn2",
@@ -1081,12 +1094,23 @@
             },
             "kind" : "SyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueOut" : {
           "General" : {
-            "id" : 21,
+            "aNode" : {
+              "astNodeId" : 21
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "f32ValueOut",
@@ -1101,7 +1125,16 @@
             },
             "kind" : "Output",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1134,7 +1167,9 @@
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
-            "id" : 25,
+            "aNode" : {
+              "astNodeId" : 25
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "f32ValueIn1",
@@ -1149,12 +1184,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueIn2" : {
           "General" : {
-            "id" : 28,
+            "aNode" : {
+              "astNodeId" : 28
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "f32ValueIn2",
@@ -1169,12 +1215,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueOut" : {
           "General" : {
-            "id" : 37,
+            "aNode" : {
+              "astNodeId" : 37
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "f32ValueOut",
@@ -1189,7 +1246,16 @@
             },
             "kind" : "Output",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1222,7 +1288,9 @@
       "portMap" : {
         "f32ValueIn1" : {
           "General" : {
-            "id" : 43,
+            "aNode" : {
+              "astNodeId" : 43
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "f32ValueIn1",
@@ -1245,12 +1313,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueIn2" : {
           "General" : {
-            "id" : 48,
+            "aNode" : {
+              "astNodeId" : 48
+            },
             "specifier" : {
               "kind" : "AsyncInput",
               "name" : "f32ValueIn2",
@@ -1273,12 +1352,23 @@
             },
             "kind" : "AsyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         },
         "f32ValueOut" : {
           "General" : {
-            "id" : 57,
+            "aNode" : {
+              "astNodeId" : 57
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "f32ValueOut",
@@ -1293,7 +1383,16 @@
             },
             "kind" : "Output",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "F32Value"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1326,7 +1425,9 @@
       "portMap" : {
         "serialIn" : {
           "General" : {
-            "id" : 61,
+            "aNode" : {
+              "astNodeId" : 61
+            },
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "serialIn",
@@ -1337,12 +1438,18 @@
             },
             "kind" : "SyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "Serial" : {
+                
+              }
+            }
           }
         },
         "serialOut" : {
           "General" : {
-            "id" : 67,
+            "aNode" : {
+              "astNodeId" : 67
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "serialOut",
@@ -1357,7 +1464,11 @@
             },
             "kind" : "Output",
             "size" : 10,
-            "ty" : 10
+            "ty" : {
+              "Serial" : {
+                
+              }
+            }
           }
         }
       },

@@ -816,7 +816,9 @@
       "portMap" : {
         "pIn" : {
           "General" : {
-            "id" : 3,
+            "aNode" : {
+              "astNodeId" : 3
+            },
             "specifier" : {
               "kind" : "SyncInput",
               "name" : "pIn",
@@ -831,12 +833,23 @@
             },
             "kind" : "SyncInput",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            }
           }
         },
         "pOut" : {
           "General" : {
-            "id" : 12,
+            "aNode" : {
+              "astNodeId" : 12
+            },
             "specifier" : {
               "kind" : "Output",
               "name" : "pOut",
@@ -851,7 +864,16 @@
             },
             "kind" : "Output",
             "size" : 1,
-            "ty" : 1
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            }
           }
         }
       },
@@ -1045,7 +1067,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -1060,7 +1084,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1099,7 +1132,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -1114,7 +1149,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1157,7 +1201,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -1172,7 +1218,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1211,7 +1266,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -1226,7 +1283,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1271,7 +1337,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -1286,7 +1354,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1325,7 +1402,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -1340,7 +1419,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1383,7 +1471,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -1398,7 +1488,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1437,7 +1536,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -1452,7 +1553,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1490,7 +1600,9 @@
             },
             "portInstance" : {
               "General" : {
-                "id" : 12,
+                "aNode" : {
+                  "astNodeId" : 12
+                },
                 "specifier" : {
                   "kind" : "Output",
                   "name" : "pOut",
@@ -1505,7 +1617,16 @@
                 },
                 "kind" : "Output",
                 "size" : 1,
-                "ty" : 1
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -1544,7 +1665,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 12,
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
                       "specifier" : {
                         "kind" : "Output",
                         "name" : "pOut",
@@ -1559,7 +1682,16 @@
                       },
                       "kind" : "Output",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1598,7 +1730,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 3,
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
                       "specifier" : {
                         "kind" : "SyncInput",
                         "name" : "pIn",
@@ -1613,7 +1747,16 @@
                       },
                       "kind" : "SyncInput",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1650,7 +1793,9 @@
             },
             "portInstance" : {
               "General" : {
-                "id" : 12,
+                "aNode" : {
+                  "astNodeId" : 12
+                },
                 "specifier" : {
                   "kind" : "Output",
                   "name" : "pOut",
@@ -1665,7 +1810,16 @@
                 },
                 "kind" : "Output",
                 "size" : 1,
-                "ty" : 1
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -1704,7 +1858,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 12,
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
                       "specifier" : {
                         "kind" : "Output",
                         "name" : "pOut",
@@ -1719,7 +1875,16 @@
                       },
                       "kind" : "Output",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1758,7 +1923,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 3,
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
                       "specifier" : {
                         "kind" : "SyncInput",
                         "name" : "pIn",
@@ -1773,7 +1940,16 @@
                       },
                       "kind" : "SyncInput",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1812,7 +1988,9 @@
             },
             "portInstance" : {
               "General" : {
-                "id" : 3,
+                "aNode" : {
+                  "astNodeId" : 3
+                },
                 "specifier" : {
                   "kind" : "SyncInput",
                   "name" : "pIn",
@@ -1827,7 +2005,16 @@
                 },
                 "kind" : "SyncInput",
                 "size" : 1,
-                "ty" : 1
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -1866,7 +2053,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 12,
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
                       "specifier" : {
                         "kind" : "Output",
                         "name" : "pOut",
@@ -1881,7 +2070,16 @@
                       },
                       "kind" : "Output",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1920,7 +2118,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 3,
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
                       "specifier" : {
                         "kind" : "SyncInput",
                         "name" : "pIn",
@@ -1935,7 +2135,16 @@
                       },
                       "kind" : "SyncInput",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -1972,7 +2181,9 @@
             },
             "portInstance" : {
               "General" : {
-                "id" : 3,
+                "aNode" : {
+                  "astNodeId" : 3
+                },
                 "specifier" : {
                   "kind" : "SyncInput",
                   "name" : "pIn",
@@ -1987,7 +2198,16 @@
                 },
                 "kind" : "SyncInput",
                 "size" : 1,
-                "ty" : 1
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
               }
             }
           },
@@ -2026,7 +2246,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 12,
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
                       "specifier" : {
                         "kind" : "Output",
                         "name" : "pOut",
@@ -2041,7 +2263,16 @@
                       },
                       "kind" : "Output",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -2080,7 +2311,9 @@
                   },
                   "portInstance" : {
                     "General" : {
-                      "id" : 3,
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
                       "specifier" : {
                         "kind" : "SyncInput",
                         "name" : "pIn",
@@ -2095,7 +2328,16 @@
                       },
                       "kind" : "SyncInput",
                       "size" : 1,
-                      "ty" : 1
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
                     }
                   }
                 },
@@ -2141,7 +2383,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -2156,7 +2400,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2195,7 +2448,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -2210,7 +2465,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2254,7 +2518,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -2269,7 +2535,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2308,7 +2583,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -2323,7 +2600,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2369,7 +2655,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -2384,7 +2672,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2423,7 +2720,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -2438,7 +2737,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2482,7 +2790,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 12,
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
                     "specifier" : {
                       "kind" : "Output",
                       "name" : "pOut",
@@ -2497,7 +2807,16 @@
                     },
                     "kind" : "Output",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -2536,7 +2855,9 @@
                 },
                 "portInstance" : {
                   "General" : {
-                    "id" : 3,
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
                     "specifier" : {
                       "kind" : "SyncInput",
                       "name" : "pIn",
@@ -2551,7 +2872,16 @@
                     },
                     "kind" : "SyncInput",
                     "size" : 1,
-                    "ty" : 1
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
                   }
                 }
               },

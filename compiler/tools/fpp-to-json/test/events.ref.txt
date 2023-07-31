@@ -745,7 +745,9 @@
       "portMap" : {
         "eventOut" : {
           "Special" : {
-            "id" : 0,
+            "aNode" : {
+              "astNodeId" : 0
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "Event",
@@ -753,15 +755,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Log",
-            "symbolId" : 33,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "Log"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "textEventOut" : {
           "Special" : {
-            "id" : 1,
+            "aNode" : {
+              "astNodeId" : 1
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "TextEvent",
@@ -769,15 +777,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "LogText",
-            "symbolId" : 34,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "LogText"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "timeGetOut" : {
           "Special" : {
-            "id" : 2,
+            "aNode" : {
+              "astNodeId" : 2
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "TimeGet",
@@ -785,8 +799,12 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Time",
-            "symbolId" : 37,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "Time"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
@@ -794,7 +812,9 @@
       },
       "specialPortMap" : {
         "event" : {
-          "id" : 0,
+          "aNode" : {
+            "astNodeId" : 0
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "Event",
@@ -802,13 +822,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Log",
-          "symbolId" : 33,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 33,
+              "unqualifiedName" : "Log"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "text event" : {
-          "id" : 1,
+          "aNode" : {
+            "astNodeId" : 1
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "TextEvent",
@@ -816,13 +842,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "LogText",
-          "symbolId" : 34,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 34,
+              "unqualifiedName" : "LogText"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "time get" : {
-          "id" : 2,
+          "aNode" : {
+            "astNodeId" : 2
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "TimeGet",
@@ -830,8 +862,12 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Time",
-          "symbolId" : 37,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 37,
+              "unqualifiedName" : "Time"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         }
@@ -902,7 +938,9 @@
       "portMap" : {
         "eventOut" : {
           "Special" : {
-            "id" : 20,
+            "aNode" : {
+              "astNodeId" : 20
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "Event",
@@ -910,15 +948,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Log",
-            "symbolId" : 33,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "Log"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "textEventOut" : {
           "Special" : {
-            "id" : 21,
+            "aNode" : {
+              "astNodeId" : 21
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "TextEvent",
@@ -926,15 +970,21 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "LogText",
-            "symbolId" : 34,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "LogText"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
         },
         "timeGetOut" : {
           "Special" : {
-            "id" : 22,
+            "aNode" : {
+              "astNodeId" : 22
+            },
             "specifier" : {
               "inputKind" : "None",
               "kind" : "TimeGet",
@@ -942,8 +992,12 @@
               "priority" : "None",
               "queueFull" : "None"
             },
-            "name" : "Time",
-            "symbolId" : 37,
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "Time"
+              }
+            },
             "priority" : "None",
             "queueFull" : "None"
           }
@@ -951,7 +1005,9 @@
       },
       "specialPortMap" : {
         "event" : {
-          "id" : 20,
+          "aNode" : {
+            "astNodeId" : 20
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "Event",
@@ -959,13 +1015,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Log",
-          "symbolId" : 33,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 33,
+              "unqualifiedName" : "Log"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "text event" : {
-          "id" : 21,
+          "aNode" : {
+            "astNodeId" : 21
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "TextEvent",
@@ -973,13 +1035,19 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "LogText",
-          "symbolId" : 34,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 34,
+              "unqualifiedName" : "LogText"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         },
         "time get" : {
-          "id" : 22,
+          "aNode" : {
+            "astNodeId" : 22
+          },
           "specifier" : {
             "inputKind" : "None",
             "kind" : "TimeGet",
@@ -987,8 +1055,12 @@
             "priority" : "None",
             "queueFull" : "None"
           },
-          "name" : "Time",
-          "symbolId" : 37,
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 37,
+              "unqualifiedName" : "Time"
+            }
+          },
           "priority" : "None",
           "queueFull" : "None"
         }
