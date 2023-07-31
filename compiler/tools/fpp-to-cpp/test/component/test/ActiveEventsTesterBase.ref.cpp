@@ -2057,7 +2057,9 @@ void ActiveEventsTesterBase ::
   clearHistory()
 {
   this->clearFromPortHistory();
+#if FW_ENABLE_TEXT_LOGGING
   this->textLogHistory->clear();
+#endif
   this->clearEvents();
 }
 

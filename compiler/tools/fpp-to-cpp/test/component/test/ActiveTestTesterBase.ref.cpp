@@ -3314,7 +3314,9 @@ void ActiveTestTesterBase ::
 {
   this->clearFromPortHistory();
   this->cmdResponseHistory->clear();
+#if FW_ENABLE_TEXT_LOGGING
   this->textLogHistory->clear();
+#endif
   this->clearEvents();
   this->clearTlm();
 }
