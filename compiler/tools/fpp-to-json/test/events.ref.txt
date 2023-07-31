@@ -846,7 +846,9 @@
       "defaultTlmChannelId" : 0,
       "eventMap" : {
         "16" : {
-          "id" : 5,
+          "aNode" : {
+            "astNodeId" : 5
+          },
           "format" : {
             "prefix" : "Event 1 occurred",
             "fields" : [
@@ -855,7 +857,9 @@
           "throttle" : "None"
         },
         "17" : {
-          "id" : 12,
+          "aNode" : {
+            "astNodeId" : 12
+          },
           "format" : {
             "prefix" : "The count is ",
             "fields" : [
@@ -872,7 +876,9 @@
           "throttle" : "None"
         },
         "18" : {
-          "id" : 18,
+          "aNode" : {
+            "astNodeId" : 18
+          },
           "format" : {
             "prefix" : "Event 3 occurred",
             "fields" : [
@@ -997,7 +1003,9 @@
       "defaultTlmChannelId" : 0,
       "eventMap" : {
         "0" : {
-          "id" : 31,
+          "aNode" : {
+            "astNodeId" : 31
+          },
           "format" : {
             "prefix" : "Event 1 occurred",
             "fields" : [

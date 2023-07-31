@@ -453,13 +453,13 @@ object AnalysisJsonEncoder extends JsonEncoder{
       )
   }
 
-  implicit val eventEncoder: Encoder[Event] = Encoder.instance { event =>
-    Json.obj(
-      "id" -> event.aNode._2.id.asJson,
-      "format" -> event.format.asJson,
-      "throttle" -> event.throttle.asJson
-    )
-  }
+//  implicit val eventEncoder: Encoder[Event] = Encoder.instance { event =>
+//    Json.obj(
+//      "id" -> event.aNode._2.id.asJson,
+//      "format" -> event.format.asJson,
+//      "throttle" -> event.throttle.asJson
+//    )
+//  }
 
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = Json.obj(
