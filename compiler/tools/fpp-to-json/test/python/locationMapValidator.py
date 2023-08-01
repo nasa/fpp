@@ -23,17 +23,18 @@ def collect_ids(json_data):
     return ids
 
 
-# Xhecks if a given list of id numbers exists as keys in a provided data dictionary
+# Checks that each key in numbers is represented in the dictionary data
 def check_if_ids_in_loc_map(numbers, data):
     for number in numbers:
         if str(number) not in data:
-            return f"ID in ast not found in location map: {number}"
+            sys.stderr.write(f"ID in ast not found in location map: {number}")
+            return False
     
     return True
 
 
 if len(sys.argv) != 3: 
-    print("Invalid Number of arguments")
+    sys.stderr.write("Invalid Number of arguments")
     sys.exit(1)
 
 
@@ -42,7 +43,6 @@ with open(str(sys.argv[1])) as ast_json, open(str(sys.argv[2])) as loc_json:
     location = json.load(loc_json)
     loc_map_check_result = check_if_ids_in_loc_map(collect_ids(ast), location)
     if loc_map_check_result is not True:
-        print(loc_map_check_result)
         sys.exit(1)
     else:
         sys.exit(0)
