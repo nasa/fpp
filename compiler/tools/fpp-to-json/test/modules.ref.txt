@@ -715,7 +715,7 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "1" : {
+    "15" : {
       "Module" : {
         "nodeId" : 16,
         "unqualifiedName" : "M1"
@@ -727,22 +727,10 @@
         "unqualifiedName" : "M2"
       }
     },
-    "54" : {
+    "55" : {
       "Module" : {
-        "nodeId" : 55,
-        "unqualifiedName" : "B"
-      }
-    },
-    "3" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
-      }
-    },
-    "15" : {
-      "Module" : {
-        "nodeId" : 16,
-        "unqualifiedName" : "M1"
+        "nodeId" : 56,
+        "unqualifiedName" : "A"
       }
     },
     "26" : {
@@ -751,10 +739,22 @@
         "unqualifiedName" : "M2"
       }
     },
-    "55" : {
+    "54" : {
       "Module" : {
-        "nodeId" : 56,
-        "unqualifiedName" : "A"
+        "nodeId" : 55,
+        "unqualifiedName" : "B"
+      }
+    },
+    "1" : {
+      "Module" : {
+        "nodeId" : 16,
+        "unqualifiedName" : "M1"
+      }
+    },
+    "3" : {
+      "Module" : {
+        "nodeId" : 16,
+        "unqualifiedName" : "M1"
       }
     }
   },

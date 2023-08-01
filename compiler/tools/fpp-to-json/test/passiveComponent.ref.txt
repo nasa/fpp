@@ -771,22 +771,10 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "69" : {
+    "66" : {
       "Module" : {
         "nodeId" : 70,
         "unqualifiedName" : "Fw"
-      }
-    },
-    "60" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "FSW"
-      }
-    },
-    "64" : {
-      "Module" : {
-        "nodeId" : 65,
-        "unqualifiedName" : "Svc"
       }
     },
     "44" : {
@@ -795,54 +783,26 @@
         "unqualifiedName" : "Sensors"
       }
     },
-    "66" : {
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "69" : {
       "Module" : {
         "nodeId" : 70,
         "unqualifiedName" : "Fw"
       }
+    },
+    "64" : {
+      "Module" : {
+        "nodeId" : 65,
+        "unqualifiedName" : "Svc"
+      }
     }
   },
   "symbolScopeMap" : {
-    "61" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "engineTemp" : 60
-              }
-            }
-          }
-        }
-      }
-    },
-    "70" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Tlm" : 66,
-                "Time" : 69
-              }
-            }
-          }
-        }
-      }
-    },
-    "65" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Sched" : 64
-              }
-            }
-          }
-        }
-      }
-    },
     "45" : {
       "ScopeImpl" : {
         "map" : {
@@ -874,6 +834,46 @@
       "ScopeImpl" : {
         "map" : {
           
+        }
+      }
+    },
+    "61" : {
+      "ScopeImpl" : {
+        "map" : {
+          "ComponentInstance" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "engineTemp" : 60
+              }
+            }
+          }
+        }
+      }
+    },
+    "65" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Sched" : 64
+              }
+            }
+          }
+        }
+      }
+    },
+    "70" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : 66,
+                "Time" : 69
+              }
+            }
+          }
         }
       }
     }

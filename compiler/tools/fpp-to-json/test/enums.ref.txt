@@ -552,28 +552,22 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "0" : {
+    "19" : {
+      "Enum" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
+      }
+    },
+    "4" : {
       "Enum" : {
         "nodeId" : 5,
         "unqualifiedName" : "Decision"
       }
     },
-    "29" : {
+    "11" : {
       "Enum" : {
-        "nodeId" : 34,
-        "unqualifiedName" : "Small"
-      }
-    },
-    "1" : {
-      "Enum" : {
-        "nodeId" : 5,
-        "unqualifiedName" : "Decision"
-      }
-    },
-    "28" : {
-      "Enum" : {
-        "nodeId" : 34,
-        "unqualifiedName" : "Small"
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
       }
     },
     "13" : {
@@ -588,22 +582,28 @@
         "unqualifiedName" : "Small"
       }
     },
-    "11" : {
-      "Enum" : {
-        "nodeId" : 20,
-        "unqualifiedName" : "E"
-      }
-    },
-    "19" : {
-      "Enum" : {
-        "nodeId" : 20,
-        "unqualifiedName" : "E"
-      }
-    },
-    "4" : {
+    "1" : {
       "Enum" : {
         "nodeId" : 5,
         "unqualifiedName" : "Decision"
+      }
+    },
+    "0" : {
+      "Enum" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Decision"
+      }
+    },
+    "29" : {
+      "Enum" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Small"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Small"
       }
     }
   },

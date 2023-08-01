@@ -530,16 +530,16 @@
         "unqualifiedName" : "Fw"
       }
     },
-    "1" : {
+    "3" : {
       "Enum" : {
         "nodeId" : 4,
         "unqualifiedName" : "State"
       }
     },
-    "3" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
+    "4" : {
+      "Component" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Switch"
       }
     },
     "40" : {
@@ -554,10 +554,10 @@
         "unqualifiedName" : "Fw"
       }
     },
-    "4" : {
-      "Component" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Switch"
+    "1" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
       }
     }
   },

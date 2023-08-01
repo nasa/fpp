@@ -967,16 +967,16 @@
         "unqualifiedName" : "Fw"
       }
     },
-    "79" : {
-      "Module" : {
-        "nodeId" : 80,
-        "unqualifiedName" : "FSW"
-      }
-    },
     "83" : {
       "Module" : {
         "nodeId" : 84,
         "unqualifiedName" : "Svc"
+      }
+    },
+    "79" : {
+      "Module" : {
+        "nodeId" : 80,
+        "unqualifiedName" : "FSW"
       }
     },
     "6" : {
@@ -999,6 +999,20 @@
     }
   },
   "symbolScopeMap" : {
+    "89" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : 85,
+                "Time" : 88
+              }
+            }
+          }
+        }
+      }
+    },
     "84" : {
       "ScopeImpl" : {
         "map" : {
@@ -1006,26 +1020,6 @@
             "NameSymbolMapImpl" : {
               "map" : {
                 "Sched" : 83
-              }
-            }
-          }
-        }
-      }
-    },
-    "60" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "80" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "engineTemp" : 79
               }
             }
           }
@@ -1066,17 +1060,23 @@
         }
       }
     },
-    "89" : {
+    "80" : {
       "ScopeImpl" : {
         "map" : {
-          "Port" : {
+          "ComponentInstance" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Tlm" : 85,
-                "Time" : 88
+                "engineTemp" : 79
               }
             }
           }
+        }
+      }
+    },
+    "60" : {
+      "ScopeImpl" : {
+        "map" : {
+          
         }
       }
     }

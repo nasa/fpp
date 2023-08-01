@@ -985,6 +985,24 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
+    "66" : {
+      "Module" : {
+        "nodeId" : 103,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "50" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Utils"
+      }
+    },
+    "65" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
     "106" : {
       "Module" : {
         "nodeId" : 107,
@@ -997,28 +1015,10 @@
         "unqualifiedName" : "FSW"
       }
     },
-    "65" : {
-      "Module" : {
-        "nodeId" : 66,
-        "unqualifiedName" : "Default"
-      }
-    },
     "53" : {
       "Module" : {
         "nodeId" : 66,
         "unqualifiedName" : "Default"
-      }
-    },
-    "66" : {
-      "Module" : {
-        "nodeId" : 103,
-        "unqualifiedName" : "FSW"
-      }
-    },
-    "50" : {
-      "Module" : {
-        "nodeId" : 51,
-        "unqualifiedName" : "Utils"
       }
     }
   },
@@ -1027,33 +1027,6 @@
       "ScopeImpl" : {
         "map" : {
           
-        }
-      }
-    },
-    "51" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : 50
-              }
-            }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : 50
-              }
-            }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : 50
-              }
-            }
-          }
         }
       }
     },
@@ -1127,6 +1100,33 @@
               "map" : {
                 "queueSize" : 53,
                 "stackSize" : 65
+              }
+            }
+          }
+        }
+      }
+    },
+    "51" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : 50
+              }
+            }
+          },
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : 50
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : 50
               }
             }
           }
