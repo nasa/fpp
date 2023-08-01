@@ -889,8 +889,18 @@
     }
   },
   "useDefMap" : {
-    "0" : "Tlm",
-    "1" : "Time"
+    "0" : {
+      "Port" : {
+        "nodeId" : 57,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "Time"
+      }
+    }
   },
   "typeMap" : {
     "8" : "Integer",

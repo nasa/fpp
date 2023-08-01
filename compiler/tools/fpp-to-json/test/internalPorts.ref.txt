@@ -359,8 +359,18 @@
     }
   },
   "useDefMap" : {
-    "38" : "T",
-    "39" : "T"
+    "38" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    }
   },
   "typeMap" : {
     "0" : {

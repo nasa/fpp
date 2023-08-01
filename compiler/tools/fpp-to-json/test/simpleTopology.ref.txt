@@ -783,16 +783,66 @@
     }
   },
   "useDefMap" : {
-    "57" : "c2",
-    "61" : "c1",
-    "2" : "P",
-    "34" : "c2",
-    "11" : "P",
-    "15" : "C",
-    "26" : "c2",
-    "23" : "c1",
-    "30" : "c1",
-    "19" : "C"
+    "34" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "26" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "61" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "57" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    },
+    "30" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "19" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "23" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "15" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "11" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    }
   },
   "typeMap" : {
     "16" : "Integer",

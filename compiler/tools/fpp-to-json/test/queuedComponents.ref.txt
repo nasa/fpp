@@ -1122,13 +1122,48 @@
     }
   },
   "useDefMap" : {
-    "74" : "Sensors",
-    "45" : "Sched",
-    "76" : "EngineTemp",
-    "48" : "Calibration",
-    "50" : "Tlm",
-    "43" : "Svc",
-    "51" : "Time"
+    "45" : {
+      "Port" : {
+        "nodeId" : 83,
+        "unqualifiedName" : "Sched"
+      }
+    },
+    "51" : {
+      "Port" : {
+        "nodeId" : 88,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "50" : {
+      "Port" : {
+        "nodeId" : 85,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "43" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "74" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "48" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Calibration"
+      }
+    },
+    "76" : {
+      "Component" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "EngineTemp"
+      }
+    }
   },
   "typeMap" : {
     "78" : "Integer",

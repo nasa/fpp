@@ -914,12 +914,42 @@
     }
   },
   "useDefMap" : {
-    "56" : "Sensors",
-    "35" : "Time",
-    "58" : "EngineTemp",
-    "30" : "Svc",
-    "32" : "Sched",
-    "34" : "Tlm"
+    "34" : {
+      "Port" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "56" : {
+      "Module" : {
+        "nodeId" : 45,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "35" : {
+      "Port" : {
+        "nodeId" : 69,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "32" : {
+      "Port" : {
+        "nodeId" : 64,
+        "unqualifiedName" : "Sched"
+      }
+    },
+    "58" : {
+      "Component" : {
+        "nodeId" : 44,
+        "unqualifiedName" : "EngineTemp"
+      }
+    },
+    "30" : {
+      "Module" : {
+        "nodeId" : 65,
+        "unqualifiedName" : "Svc"
+      }
+    }
   },
   "typeMap" : {
     "36" : {

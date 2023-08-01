@@ -1495,26 +1495,126 @@
     }
   },
   "useDefMap" : {
-    "115" : "c3",
-    "42" : "c2",
-    "84" : "c3",
-    "74" : "Simple1",
-    "38" : "c1",
-    "65" : "c2",
-    "77" : "c3",
-    "2" : "P",
-    "34" : "c2",
-    "27" : "C",
-    "80" : "c4",
-    "31" : "c1",
-    "11" : "P",
-    "23" : "C",
-    "19" : "C",
-    "126" : "Simple2",
-    "15" : "C",
-    "111" : "c4",
-    "69" : "c1",
-    "88" : "c4"
+    "34" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "84" : {
+      "ComponentInstance" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "c3"
+      }
+    },
+    "65" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "80" : {
+      "ComponentInstance" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "c4"
+      }
+    },
+    "126" : {
+      "Topology" : {
+        "nodeId" : 118,
+        "unqualifiedName" : "Simple2"
+      }
+    },
+    "27" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "74" : {
+      "Topology" : {
+        "nodeId" : 72,
+        "unqualifiedName" : "Simple1"
+      }
+    },
+    "19" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "23" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "88" : {
+      "ComponentInstance" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "c4"
+      }
+    },
+    "77" : {
+      "ComponentInstance" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "c3"
+      }
+    },
+    "15" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "11" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    },
+    "111" : {
+      "ComponentInstance" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "c4"
+      }
+    },
+    "31" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "69" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "42" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "115" : {
+      "ComponentInstance" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "c3"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    },
+    "38" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    }
   },
   "typeMap" : {
     "16" : "Integer",

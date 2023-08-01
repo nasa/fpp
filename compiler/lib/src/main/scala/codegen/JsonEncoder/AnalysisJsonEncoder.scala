@@ -214,38 +214,27 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
-  implicit val directImportMapEncoder: Encoder[Map[Symbol.Topology, Location]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.getNodeId -> value.asJson
-        }
-        .toMap
-        .asJson
-    }
+  private implicit val directImportMapEncoder:
+    Encoder[Map[Symbol.Topology, Location]] =
+  {
+    def f2(loc: Location) = loc.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
 
-
-  implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key -> value.getUnqualifiedName
-        }
-        .toMap
-        .asJson
-    }
-
+  private implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] = {
+    def f1(id: AstNode.Id) = id.toString
+    def f2(s: Symbol) = s.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
   
-  implicit val patternMapEncoder
-      : Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          getUnqualifiedClassName(key) -> value.asJson
-        }
-        .toMap
-        .asJson
-    }
+  private implicit val patternMapEncoder:
+    Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
+  {
+    def f1(kind: Ast.SpecConnectionGraph.Pattern.Kind) =
+      getUnqualifiedClassName(kind)
+    def f2(pattern: ConnectionPattern) = pattern.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
 
   implicit val ConnectionMapEncoder
       : Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =

@@ -932,16 +932,66 @@
     }
   },
   "useDefMap" : {
-    "28" : "E",
-    "32" : "T",
-    "31" : "T",
-    "43" : "T",
-    "44" : "T",
-    "27" : "E",
-    "48" : "T",
-    "63" : "Status",
-    "47" : "T",
-    "62" : "Status"
+    "62" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "44" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "48" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "43" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "32" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "27" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "63" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "47" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "31" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    }
   },
   "typeMap" : {
     "23" : {

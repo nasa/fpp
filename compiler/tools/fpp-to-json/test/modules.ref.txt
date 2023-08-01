@@ -911,14 +911,54 @@
     }
   },
   "useDefMap" : {
-    "14" : "b",
-    "57" : "A",
-    "61" : "c",
-    "60" : "B",
-    "2" : "a",
-    "17" : "M1",
-    "12" : "M1",
-    "19" : "a"
+    "12" : {
+      "Module" : {
+        "nodeId" : 16,
+        "unqualifiedName" : "M1"
+      }
+    },
+    "19" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "a"
+      }
+    },
+    "61" : {
+      "Constant" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "c"
+      }
+    },
+    "57" : {
+      "Module" : {
+        "nodeId" : 56,
+        "unqualifiedName" : "A"
+      }
+    },
+    "2" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "a"
+      }
+    },
+    "17" : {
+      "Module" : {
+        "nodeId" : 16,
+        "unqualifiedName" : "M1"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 55,
+        "unqualifiedName" : "B"
+      }
+    },
+    "14" : {
+      "Constant" : {
+        "nodeId" : 3,
+        "unqualifiedName" : "b"
+      }
+    }
   },
   "typeMap" : {
     "15" : "Integer",

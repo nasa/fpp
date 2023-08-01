@@ -427,12 +427,42 @@
     }
   },
   "useDefMap" : {
-    "5" : "Ping",
-    "10" : "Ping",
-    "2" : "numPingPorts",
-    "7" : "numPingPorts",
-    "3" : "Svc",
-    "8" : "Svc"
+    "8" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "5" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Ping"
+      }
+    },
+    "10" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Ping"
+      }
+    },
+    "2" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numPingPorts"
+      }
+    },
+    "7" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numPingPorts"
+      }
+    },
+    "3" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    }
   },
   "typeMap" : {
     "0" : "Integer",

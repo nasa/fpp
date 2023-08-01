@@ -990,16 +990,66 @@
     }
   },
   "useDefMap" : {
-    "56" : "F32Value",
-    "24" : "F32Value",
-    "20" : "F32Value",
-    "45" : "F32Value",
-    "27" : "F32Value",
-    "66" : "splitFactor",
-    "11" : "F32Value",
-    "40" : "F32Value",
-    "8" : "F32Value",
-    "36" : "F32Value"
+    "45" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "66" : {
+      "Constant" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "splitFactor"
+      }
+    },
+    "8" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "40" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "11" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "56" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "24" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "36" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "20" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    },
+    "27" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "F32Value"
+      }
+    }
   },
   "typeMap" : {
     "66" : "Integer",

@@ -907,13 +907,48 @@
     
   },
   "useDefMap" : {
-    "14" : "A",
-    "13" : "A",
-    "2" : "numElements",
-    "64" : "T",
-    "58" : "s",
-    "48" : "s",
-    "63" : "T"
+    "13" : {
+      "Array" : {
+        "nodeId" : 10,
+        "unqualifiedName" : "A"
+      }
+    },
+    "48" : {
+      "Constant" : {
+        "nodeId" : 39,
+        "unqualifiedName" : "s"
+      }
+    },
+    "14" : {
+      "Array" : {
+        "nodeId" : 10,
+        "unqualifiedName" : "A"
+      }
+    },
+    "2" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numElements"
+      }
+    },
+    "63" : {
+      "AbsType" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "T"
+      }
+    },
+    "58" : {
+      "Constant" : {
+        "nodeId" : 39,
+        "unqualifiedName" : "s"
+      }
+    },
+    "64" : {
+      "AbsType" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "T"
+      }
+    }
   },
   "typeMap" : {
     "34" : "Integer",

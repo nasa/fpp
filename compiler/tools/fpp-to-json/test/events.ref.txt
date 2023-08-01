@@ -735,12 +735,42 @@
     }
   },
   "useDefMap" : {
-    "0" : "Log",
-    "20" : "Log",
-    "1" : "LogText",
-    "21" : "LogText",
-    "2" : "Time",
-    "22" : "Time"
+    "22" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "21" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "0" : {
+      "Port" : {
+        "nodeId" : 33,
+        "unqualifiedName" : "Log"
+      }
+    },
+    "20" : {
+      "Port" : {
+        "nodeId" : 33,
+        "unqualifiedName" : "Log"
+      }
+    }
   },
   "typeMap" : {
     "8" : {

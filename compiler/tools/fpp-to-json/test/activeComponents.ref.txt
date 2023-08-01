@@ -1200,16 +1200,66 @@
     }
   },
   "useDefMap" : {
-    "97" : "queueSize",
-    "34" : "Fw",
-    "98" : "Default",
-    "91" : "Utils",
-    "36" : "BufferSend",
-    "100" : "stackSize",
-    "46" : "Fw",
-    "93" : "DataCompressor",
-    "48" : "BufferSend",
-    "95" : "Default"
+    "100" : {
+      "Constant" : {
+        "nodeId" : 65,
+        "unqualifiedName" : "stackSize"
+      }
+    },
+    "46" : {
+      "Module" : {
+        "nodeId" : 107,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "48" : {
+      "Port" : {
+        "nodeId" : 106,
+        "unqualifiedName" : "BufferSend"
+      }
+    },
+    "36" : {
+      "Port" : {
+        "nodeId" : 106,
+        "unqualifiedName" : "BufferSend"
+      }
+    },
+    "95" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
+    "97" : {
+      "Constant" : {
+        "nodeId" : 53,
+        "unqualifiedName" : "queueSize"
+      }
+    },
+    "91" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Utils"
+      }
+    },
+    "98" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
+    "34" : {
+      "Module" : {
+        "nodeId" : 107,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "93" : {
+      "Component" : {
+        "nodeId" : 50,
+        "unqualifiedName" : "DataCompressor"
+      }
+    }
   },
   "typeMap" : {
     "94" : "Integer",

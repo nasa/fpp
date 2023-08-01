@@ -648,11 +648,36 @@
     }
   },
   "useDefMap" : {
-    "5" : "CmdReg",
-    "6" : "Cmd",
-    "32" : "State",
-    "7" : "CmdResponse",
-    "31" : "State"
+    "5" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "32" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 36,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "31" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "7" : {
+      "Port" : {
+        "nodeId" : 40,
+        "unqualifiedName" : "CmdResponse"
+      }
+    }
   },
   "typeMap" : {
     "4" : {

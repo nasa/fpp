@@ -728,9 +728,24 @@
     }
   },
   "useDefMap" : {
-    "0" : "CmdReg",
-    "1" : "Cmd",
-    "2" : "CmdResponse"
+    "0" : {
+      "Port" : {
+        "nodeId" : 47,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 46,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 50,
+        "unqualifiedName" : "CmdResponse"
+      }
+    }
   },
   "typeMap" : {
     "11" : {

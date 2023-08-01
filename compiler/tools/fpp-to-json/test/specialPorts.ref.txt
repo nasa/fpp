@@ -898,15 +898,60 @@
     }
   },
   "useDefMap" : {
-    "0" : "Cmd",
-    "1" : "CmdReg",
-    "6" : "Log",
-    "9" : "LogText",
-    "13" : "Tlm",
-    "22" : "Time",
-    "18" : "PrmSet",
-    "4" : "CmdResponse",
-    "15" : "PrmGet"
+    "4" : {
+      "Port" : {
+        "nodeId" : 26,
+        "unqualifiedName" : "CmdResponse"
+      }
+    },
+    "22" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "13" : {
+      "Port" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "0" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "18" : {
+      "Port" : {
+        "nodeId" : 31,
+        "unqualifiedName" : "PrmSet"
+      }
+    },
+    "15" : {
+      "Port" : {
+        "nodeId" : 30,
+        "unqualifiedName" : "PrmGet"
+      }
+    },
+    "9" : {
+      "Port" : {
+        "nodeId" : 28,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 27,
+        "unqualifiedName" : "Log"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "CmdReg"
+      }
+    }
   },
   "typeMap" : {
     
