@@ -122,8 +122,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
     )
   }
 
-
-
   implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -233,19 +231,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
         .asJson
     }
 
-  implicit val locationSpecifierMapEncoder
-      : Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
-    Encoder.instance { map => map.toList.asJson }
- 
-  implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.asJson -> value.asJson
-        }
-        .asJson
-    }
-
   implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] =
     Encoder.instance { symbols =>
       symbols.toList
@@ -343,17 +328,18 @@ object AnalysisJsonEncoder extends JsonEncoder{
         .asJson
     }
 
-//  implicit val tlmChannelEncoder: Encoder[TlmChannel] = Encoder.instance {
-//    tlmChannel =>
-//      Json.obj(
-//        "id" -> tlmChannel.aNode._2.id.asJson,
-//        "channelType" -> tlmChannel.channelType.asJson,
-//        "update" -> tlmChannel.update.asJson,
-//        "format" -> tlmChannel.format.asJson,
-//        "lowLimits" -> tlmChannel.lowLimits.asJson,
-//        "highLimits" -> tlmChannel.highLimits.asJson
-//      )
-//  }
+  implicit val locationSpecifierMapEncoder
+      : Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
+    Encoder.instance { map => map.toList.asJson }
+ 
+  implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
+    Encoder.instance { symbols =>
+      symbols.toList
+        .map { case (key, value) =>
+          key.asJson -> value.asJson
+        }
+        .asJson
+    }
 
   implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
     limits =>
