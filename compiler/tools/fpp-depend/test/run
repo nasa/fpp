@@ -121,13 +121,13 @@ template_filenames_include()
 
 test_filenames()
 {
-  run_test '-u test_filenames_output.out.txt' filenames
+  run_test '-u -g test_filenames_output.out.txt' filenames
   compare test_filenames_output
 }
 
 test_filenames_include()
 {
-  run_test '-u test_filenames_include_output.out.txt' filenames
+  run_test '-u -g test_filenames_include_output.out.txt' filenames
   compare test_filenames_include_output
 }
 
