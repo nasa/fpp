@@ -1252,7 +1252,9 @@
       "defaultOpcode" : 0,
       "tlmChannelMap" : {
         "0" : {
-          "id" : 53,
+          "aNode" : {
+            "astNodeId" : 53
+          },
           "channelType" : {
             "Float" : {
               "kind" : "F32"
@@ -1268,7 +1270,9 @@
           }
         },
         "1" : {
-          "id" : 59,
+          "aNode" : {
+            "astNodeId" : 59
+          },
           "channelType" : {
             "Float" : {
               "kind" : "F32"

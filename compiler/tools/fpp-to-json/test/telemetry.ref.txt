@@ -1086,7 +1086,9 @@
       "defaultOpcode" : 0,
       "tlmChannelMap" : {
         "0" : {
-          "id" : 9,
+          "aNode" : {
+            "astNodeId" : 9
+          },
           "channelType" : {
             "PrimitiveInt" : {
               "kind" : "U32"
@@ -1113,7 +1115,9 @@
           }
         },
         "16" : {
-          "id" : 28,
+          "aNode" : {
+            "astNodeId" : 28
+          },
           "channelType" : {
             "Float" : {
               "kind" : "F64"
@@ -1172,7 +1176,9 @@
           }
         },
         "17" : {
-          "id" : 55,
+          "aNode" : {
+            "astNodeId" : 55
+          },
           "channelType" : {
             "Float" : {
               "kind" : "F64"

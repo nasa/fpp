@@ -343,17 +343,17 @@ object AnalysisJsonEncoder extends JsonEncoder{
         .asJson
     }
 
-  implicit val tlmChannelEncoder: Encoder[TlmChannel] = Encoder.instance {
-    tlmChannel =>
-      Json.obj(
-        "id" -> tlmChannel.aNode._2.id.asJson,
-        "channelType" -> tlmChannel.channelType.asJson,
-        "update" -> tlmChannel.update.asJson,
-        "format" -> tlmChannel.format.asJson,
-        "lowLimits" -> tlmChannel.lowLimits.asJson,
-        "highLimits" -> tlmChannel.highLimits.asJson
-      )
-  }
+//  implicit val tlmChannelEncoder: Encoder[TlmChannel] = Encoder.instance {
+//    tlmChannel =>
+//      Json.obj(
+//        "id" -> tlmChannel.aNode._2.id.asJson,
+//        "channelType" -> tlmChannel.channelType.asJson,
+//        "update" -> tlmChannel.update.asJson,
+//        "format" -> tlmChannel.format.asJson,
+//        "lowLimits" -> tlmChannel.lowLimits.asJson,
+//        "highLimits" -> tlmChannel.highLimits.asJson
+//      )
+//  }
 
   implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
     limits =>
