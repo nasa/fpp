@@ -131,11 +131,37 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
+  private implicit val componentInstanceMapEncoder:
+    Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] =
+  {
+    def f2(ci: ComponentInstance) = ci.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val componentMapEncoder:
+    Encoder[Map[Symbol.Component, Component]] =
+  {
+    def f2(c: Component) = c.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
   private implicit val directImportMapEncoder:
     Encoder[Map[Symbol.Topology, Location]] =
   {
     def f2(loc: Location) = loc.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
+  private implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = {
+    def f1(id: Event.Id) = id.toString
+    def f2(event: Event) = event.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
+  private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
+    def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
+    def f2(tlmPoint: (AstNode.Id, Value)) = tlmPoint.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
   private implicit val nameGroupSymbolMapEncoder:
@@ -154,6 +180,26 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
+  private implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] = {
+    def f1(id: Param.Id) = id.toString
+    def f2(param: Param) = param.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
+  private implicit val patternMapEncoder:
+    Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
+  {
+    def f1(kind: Ast.SpecConnectionGraph.Pattern.Kind) =
+      getUnqualifiedClassName(kind)
+    def f2(pattern: ConnectionPattern) = pattern.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
+  private implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = {
+    def f2(s: Scope) = s.asJson
+    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
+  }
+
   private implicit val specialKindMapEncoder:
     Encoder[Map[Ast.SpecPortInstance.SpecialKind, PortInstance.Special]] =
   {
@@ -167,43 +213,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
-  private implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = {
-    def f2(s: Scope) = s.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
-  private implicit val componentMapEncoder:
-    Encoder[Map[Symbol.Component, Component]] =
-  {
-    def f2(c: Component) = c.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
-  }
-
   private implicit val tlmChannelMapEncoder:
     Encoder[Map[TlmChannel.Id, TlmChannel]] =
   {
     def f1(id: TlmChannel.Id) = id.toString
     def f2(channel: TlmChannel) = channel.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
-  }
-
-  private implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = {
-    def f1(id: Event.Id) = id.toString
-    def f2(event: Event) = event.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
-  }
-
-  private implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] = {
-    def f1(id: Param.Id) = id.toString
-    def f2(param: Param) = param.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
-  }
-
-  private implicit val componentInstanceMapEncoder:
-    Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] =
-  {
-    def f2(ci: ComponentInstance) = ci.asJson
-    Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
   private implicit val topologyMapEncoder:
@@ -223,24 +238,9 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
 
-  private implicit val patternMapEncoder:
-    Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
-  {
-    def f1(kind: Ast.SpecConnectionGraph.Pattern.Kind) =
-      getUnqualifiedClassName(kind)
-    def f2(pattern: ConnectionPattern) = pattern.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
-  }
-
   private implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] = {
     def f2(value: Value) = value.asJson
     Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
-  }
-
-  private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
-    def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
-    def f2(tlmPoint: (AstNode.Id, Value)) = tlmPoint.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
   // ----------------------------------------------------------------------
@@ -248,19 +248,19 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
-  private implicit val connectionMapEncoder:
-    Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
+  private implicit val componentInstanceLocationMapEncoder:
+    Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance(_.toList.asJson)
 
-  private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
+  private implicit val connectionMapEncoder:
+    Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
     Encoder.instance(_.toList.asJson)
 
   private implicit val locationSpecifierMapEncoder:
     Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
     Encoder.instance(_.toList.asJson)
 
-  private implicit val componentInstanceLocationMapEncoder:
-    Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
+  private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
     Encoder.instance(_.toList.asJson)
 
   // ----------------------------------------------------------------------
