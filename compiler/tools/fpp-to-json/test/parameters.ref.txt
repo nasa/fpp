@@ -1194,8 +1194,14 @@
             "astNodeId" : 10
           },
           "paramType" : {
-            "PrimitiveInt" : {
-              "kind" : "U32"
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
             }
           },
           "default" : {
@@ -1218,8 +1224,14 @@
             "astNodeId" : 16
           },
           "paramType" : {
-            "Float" : {
-              "kind" : "F64"
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
             }
           },
           "default" : {
@@ -1243,7 +1255,26 @@
           },
           "paramType" : {
             "Array" : {
-              "defaultValue" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : {
                 "Some" : {
                   "anonArray" : {
                     "elements" : [
@@ -1288,8 +1319,14 @@
                         "Some" : 3
                       },
                       "eltType" : {
-                        "Float" : {
-                          "kind" : "F64"
+                        "Primitive" : {
+                          "Float" : {
+                            "kind" : {
+                              "F64" : {
+                                
+                              }
+                            }
+                          }
                         }
                       }
                     },
@@ -1298,22 +1335,7 @@
                   }
                 }
               },
-              "format" : "None",
-              "anonArray" : {
-                "size" : {
-                  "Some" : 3
-                },
-                "eltType" : {
-                  "Float" : {
-                    "kind" : "F64"
-                  }
-                }
-              },
-              "size" : {
-                "Some" : 3
-              },
-              "nodeId" : 2,
-              "name" : "F64x3"
+              "format" : "None"
             }
           },
           "default" : {
@@ -1362,8 +1384,14 @@
                       "Some" : 3
                     },
                     "eltType" : {
-                      "Float" : {
-                        "kind" : "F64"
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F64" : {
+                              
+                            }
+                          }
+                        }
                       }
                     }
                   },
@@ -1412,8 +1440,14 @@
                             "Some" : 3
                           },
                           "eltType" : {
-                            "Float" : {
-                              "kind" : "F64"
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F64" : {
+                                    
+                                  }
+                                }
+                              }
                             }
                           }
                         },
@@ -1533,23 +1567,60 @@
   },
   "typeMap" : {
     "12" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
     "8" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
     "40" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
     "37" : {
       "Array" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 2
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonArray" : {
               "elements" : [
@@ -1594,8 +1665,14 @@
                   "Some" : 3
                 },
                 "eltType" : {
-                  "Float" : {
-                    "kind" : "F64"
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1604,60 +1681,124 @@
             }
           }
         },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Float" : {
-              "kind" : "F64"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 2,
-        "name" : "F64x3"
+        "format" : "None"
       }
     },
-    "13" : "Integer",
-    "14" : "Integer",
-    "42" : "Integer",
-    "0" : "Integer",
+    "13" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "42" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "41" : {
       "AnonArray" : {
         "size" : {
           "Some" : 3
         },
         "eltType" : {
-          "Float" : {
-            "kind" : "F64"
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
           }
         }
       }
     },
-    "15" : "Integer",
-    "11" : {
-      "Float" : {
-        "kind" : "F64"
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
       }
     },
-    "9" : "Integer",
+    "11" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "9" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "1" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
     "39" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
     "2" : {
       "Array" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 2
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonArray" : {
               "elements" : [
@@ -1702,8 +1843,14 @@
                   "Some" : 3
                 },
                 "eltType" : {
-                  "Float" : {
-                    "kind" : "F64"
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
                   }
                 }
               },
@@ -1712,27 +1859,18 @@
             }
           }
         },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Float" : {
-              "kind" : "F64"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 2,
-        "name" : "F64x3"
+        "format" : "None"
       }
     },
     "38" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     }
   },

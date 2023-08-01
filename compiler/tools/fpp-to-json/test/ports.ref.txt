@@ -991,7 +991,9 @@
   "typeMap" : {
     "23" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 24
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -999,32 +1001,21 @@
             }
           }
         },
-        "nodeId" : 24,
-        "name" : "E"
+        "default" : "None"
       }
     },
     "44" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 25
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 25
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 25
+        }
       }
     },
     "50" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 54
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1032,13 +1023,22 @@
             }
           }
         },
-        "nodeId" : 54,
-        "name" : "Status"
+        "default" : "None"
       }
     },
     "24" : {
       "Enum" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 24
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "value" : [
               "A",
@@ -1058,45 +1058,40 @@
               "default" : "None"
             }
           }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 24,
-        "name" : "E"
+        }
       }
     },
     "59" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
     "48" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 25
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 25
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 25
+        }
       }
     },
     "54" : {
       "Enum" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "value" : [
               "SUCCEED",
@@ -1116,45 +1111,32 @@
               "default" : "None"
             }
           }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 54,
-        "name" : "Status"
+        }
       }
     },
     "32" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 25
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 25
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 25
+        }
       }
     },
     "6" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
     "53" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 54
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1162,13 +1144,14 @@
             }
           }
         },
-        "nodeId" : 54,
-        "name" : "Status"
+        "default" : "None"
       }
     },
     "20" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 24
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -1176,13 +1159,22 @@
             }
           }
         },
-        "nodeId" : 24,
-        "name" : "E"
+        "default" : "None"
       }
     },
     "63" : {
       "Enum" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "value" : [
               "SUCCEED",
@@ -1202,6 +1194,13 @@
               "default" : "None"
             }
           }
+        }
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 24
         },
         "repType" : {
           "kind" : {
@@ -1210,13 +1209,7 @@
             }
           }
         },
-        "nodeId" : 54,
-        "name" : "Status"
-      }
-    },
-    "28" : {
-      "Enum" : {
-        "defaultValue" : {
+        "default" : {
           "Some" : {
             "value" : [
               "A",
@@ -1236,26 +1229,29 @@
               "default" : "None"
             }
           }
-        },
-        "repType" : {
+        }
+      }
+    },
+    "11" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "9" : {
+      "Int" : {
+        "PrimitiveInt" : {
           "kind" : {
             "I32" : {
               
             }
           }
-        },
-        "nodeId" : 24,
-        "name" : "E"
-      }
-    },
-    "11" : {
-      "Float" : {
-        "kind" : "F32"
-      }
-    },
-    "9" : {
-      "PrimitiveInt" : {
-        "kind" : "I32"
+        }
       }
     },
     "17" : {
@@ -1265,21 +1261,9 @@
     },
     "25" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 25
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 25
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 25
+        }
       }
     }
   },

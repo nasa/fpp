@@ -637,10 +637,34 @@
     
   },
   "typeMap" : {
-    "0" : "Integer",
-    "1" : "Integer",
-    "2" : "Integer",
-    "7" : "Integer"
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "7" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "8" : {

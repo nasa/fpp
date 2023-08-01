@@ -1012,14 +1012,32 @@
   },
   "typeMap" : {
     "11" : {
-      "Float" : {
-        "kind" : "F32"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
       }
     },
-    "13" : "Integer",
+    "13" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "5" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
     "39" : {
@@ -1027,9 +1045,27 @@
         "size" : "None"
       }
     },
-    "42" : "Integer",
-    "41" : "Integer",
-    "3" : "Integer"
+    "42" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "0" : {

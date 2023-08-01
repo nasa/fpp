@@ -1353,16 +1353,76 @@
     
   },
   "typeMap" : {
-    "94" : "Integer",
-    "65" : "Integer",
-    "63" : "Integer",
-    "52" : "Integer",
-    "100" : "Integer",
-    "62" : "Integer",
-    "64" : "Integer",
-    "53" : "Integer",
-    "101" : "Integer",
-    "97" : "Integer"
+    "94" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "65" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "63" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "100" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "62" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "64" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "101" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "97" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "100" : {

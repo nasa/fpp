@@ -426,43 +426,25 @@
   "typeMap" : {
     "0" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 0
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 0
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 0
+        }
       }
     },
     "39" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 0
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 0
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 0
+        }
       }
     },
-    "41" : "Integer"
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "38" : {

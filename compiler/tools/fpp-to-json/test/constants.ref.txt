@@ -1026,8 +1026,20 @@
     
   },
   "typeMap" : {
-    "45" : "Integer",
-    "8" : "Integer",
+    "45" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "8" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "22" : {
       "AnonArray" : {
         "size" : {
@@ -1038,12 +1050,24 @@
             "size" : {
               "Some" : 2
             },
-            "eltType" : "Integer"
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
           }
         }
       }
     },
-    "50" : "Integer",
+    "50" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "5" : {
       "String" : {
         "size" : "None"
@@ -1054,18 +1078,60 @@
         "size" : {
           "Some" : 3
         },
-        "eltType" : "Integer"
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
       }
     },
-    "57" : "Integer",
-    "42" : "Integer",
-    "18" : "Integer",
-    "3" : "Integer",
-    "52" : "Integer",
+    "57" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "42" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "18" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "28" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"
@@ -1075,13 +1141,37 @@
       }
     },
     "12" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
-    "51" : "Integer",
-    "19" : "Integer",
-    "23" : "Integer",
+    "51" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "19" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "23" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "4" : {
       "String" : {
         "size" : "None"
@@ -1095,48 +1185,126 @@
         "eltType" : {
           "AnonStruct" : {
             "members" : {
-              "x" : "Integer",
-              "y" : "Integer"
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
             }
           }
         }
       }
     },
-    "15" : "Integer",
-    "11" : "Integer",
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "9" : {
       "AnonArray" : {
         "size" : {
           "Some" : 3
         },
-        "eltType" : "Integer"
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
       }
     },
-    "44" : "Integer",
-    "33" : "Integer",
+    "44" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "33" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "13" : {
       "AnonArray" : {
         "size" : {
           "Some" : 2
         },
         "eltType" : {
-          "Float" : {
-            "kind" : "F64"
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
           }
         }
       }
     },
-    "46" : "Integer",
-    "35" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : "Integer",
-          "y" : "Integer"
+    "46" : {
+      "Int" : {
+        "Integer" : {
+          
         }
       }
     },
-    "16" : "Integer",
-    "48" : "Integer",
+    "35" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "16" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "48" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "21" : {
       "AnonArray" : {
         "size" : {
@@ -1147,17 +1315,59 @@
             "size" : {
               "Some" : 2
             },
-            "eltType" : "Integer"
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
           }
         }
       }
     },
-    "54" : "Integer",
-    "43" : "Integer",
-    "49" : "Integer",
-    "6" : "Integer",
-    "36" : "Integer",
-    "1" : "Integer",
+    "54" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "43" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "6" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "36" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "39" : {
       "AnonArray" : {
         "size" : {
@@ -1166,8 +1376,20 @@
         "eltType" : {
           "AnonStruct" : {
             "members" : {
-              "x" : "Integer",
-              "y" : "Integer"
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
             }
           }
         }
@@ -1178,7 +1400,13 @@
         "size" : {
           "Some" : 2
         },
-        "eltType" : "Integer"
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
       }
     },
     "25" : {
@@ -1192,29 +1420,77 @@
           "Some" : 2
         },
         "eltType" : {
-          "Float" : {
-            "kind" : "F64"
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
           }
         }
       }
     },
-    "47" : "Integer",
-    "31" : "Integer",
-    "58" : "Integer",
-    "53" : "Integer",
-    "0" : "Integer",
+    "47" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "31" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "20" : {
       "AnonArray" : {
         "size" : {
           "Some" : 2
         },
-        "eltType" : "Integer"
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
       }
     },
     "27" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"
@@ -1223,11 +1499,23 @@
         }
       }
     },
-    "2" : "Integer",
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "38" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer"
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
         }
       }
     },
@@ -1238,7 +1526,13 @@
         }
       }
     },
-    "7" : "Integer",
+    "7" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "29" : {
       "AnonStruct" : {
         "members" : {
@@ -1246,7 +1540,13 @@
         }
       }
     },
-    "41" : "Integer"
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "43" : {

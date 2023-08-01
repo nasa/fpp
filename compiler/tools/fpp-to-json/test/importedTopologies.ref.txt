@@ -7884,10 +7884,34 @@
     }
   },
   "typeMap" : {
-    "16" : "Integer",
-    "20" : "Integer",
-    "24" : "Integer",
-    "28" : "Integer"
+    "16" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "24" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "28" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "34" : {

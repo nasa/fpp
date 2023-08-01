@@ -920,22 +920,118 @@
     
   },
   "typeMap" : {
-    "15" : "Integer",
-    "33" : "Integer",
-    "26" : "Integer",
-    "61" : "Integer",
-    "54" : "Integer",
-    "32" : "Integer",
-    "1" : "Integer",
-    "53" : "Integer",
-    "2" : "Integer",
-    "3" : "Integer",
-    "19" : "Integer",
-    "62" : "Integer",
-    "25" : "Integer",
-    "14" : "Integer",
-    "0" : "Integer",
-    "20" : "Integer"
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "33" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "26" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "61" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "54" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "32" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "19" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "62" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "25" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "12" : {

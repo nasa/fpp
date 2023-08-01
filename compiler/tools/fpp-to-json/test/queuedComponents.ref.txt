@@ -1206,8 +1206,14 @@
             "astNodeId" : 53
           },
           "channelType" : {
-            "Float" : {
-              "kind" : "F32"
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
             }
           },
           "update" : {
@@ -1228,8 +1234,14 @@
             "astNodeId" : 59
           },
           "channelType" : {
-            "Float" : {
-              "kind" : "F32"
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
             }
           },
           "update" : {
@@ -1433,23 +1445,53 @@
     
   },
   "typeMap" : {
-    "78" : "Integer",
+    "78" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "58" : {
-      "Float" : {
-        "kind" : "F32"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
       }
     },
     "52" : {
-      "Float" : {
-        "kind" : "F32"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
       }
     },
     "4" : {
-      "Float" : {
-        "kind" : "F32"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
       }
     },
-    "77" : "Integer"
+    "77" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "45" : {

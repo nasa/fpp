@@ -928,7 +928,13 @@
     
   },
   "typeMap" : {
-    "34" : "Integer",
+    "34" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "8" : {
       "AnonArray" : {
         "size" : {
@@ -943,7 +949,30 @@
     },
     "33" : {
       "Struct" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 33
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonStruct" : {
               "members" : {
@@ -971,8 +1000,14 @@
               "anonStruct" : {
                 "members" : {
                   "x" : {
-                    "PrimitiveInt" : {
-                      "kind" : "U32"
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
                     }
                   },
                   "y" : {
@@ -992,28 +1027,12 @@
             }
           }
         },
-        "anonStruct" : {
-          "members" : {
-            "x" : {
-              "PrimitiveInt" : {
-                "kind" : "U32"
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            }
-          }
-        },
         "sizes" : {
           
         },
         "formats" : {
           
-        },
-        "nodeId" : 33,
-        "name" : "S"
+        }
       }
     },
     "56" : {
@@ -1022,8 +1041,14 @@
       }
     },
     "50" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
     "5" : {
@@ -1034,7 +1059,13 @@
     "48" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"
@@ -1045,7 +1076,22 @@
     },
     "65" : {
       "Array" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 65
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "AbsType" : {
+              "node" : {
+                "astNodeId" : 60
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonArray" : {
               "elements" : [
@@ -1088,21 +1134,9 @@
                 },
                 "eltType" : {
                   "AbsType" : {
-                    "defaultValue" : {
-                      "Some" : {
-                        "AbsType" : {
-                          "t" : {
-                            "node" : {
-                              "astNodeId" : 60
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "nodeId" : {
-                      "Some" : 60
-                    },
-                    "name" : "T"
+                    "node" : {
+                      "astNodeId" : 60
+                    }
                   }
                 }
               },
@@ -1111,36 +1145,7 @@
             }
           }
         },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "AbsType" : {
-              "defaultValue" : {
-                "Some" : {
-                  "AbsType" : {
-                    "t" : {
-                      "node" : {
-                        "astNodeId" : 60
-                      }
-                    }
-                  }
-                }
-              },
-              "nodeId" : {
-                "Some" : 60
-              },
-              "name" : "T"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 65,
-        "name" : "arr"
+        "format" : "None"
       }
     },
     "31" : {
@@ -1153,7 +1158,13 @@
         "size" : "None"
       }
     },
-    "3" : "Integer",
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "4" : {
       "String" : {
         "size" : {
@@ -1164,13 +1175,107 @@
       }
     },
     "40" : {
-      "PrimitiveInt" : {
-        "kind" : "U8"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U8" : {
+              
+            }
+          }
+        }
       }
     },
     "15" : {
       "Array" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 15
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Array" : {
+              "node" : {
+                "astNodeId" : 10
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "String" : {
+                    "size" : {
+                      "Some" : {
+                        "astNodeId" : 3
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : {
+                "Some" : {
+                  "anonArray" : {
+                    "elements" : [
+                      {
+                        "String" : {
+                          "value" : "1"
+                        }
+                      },
+                      {
+                        "String" : {
+                          "value" : "2"
+                        }
+                      },
+                      {
+                        "String" : {
+                          "value" : "3"
+                        }
+                      }
+                    ]
+                  },
+                  "t" : {
+                    "node" : {
+                      "astNodeId" : 10
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "String" : {
+                          "size" : {
+                            "Some" : {
+                              "astNodeId" : 3
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None"
+                  }
+                }
+              },
+              "format" : {
+                "Some" : {
+                  "prefix" : "",
+                  "fields" : [
+                    [
+                      {
+                        "Default" : {
+                          
+                        }
+                      },
+                      " RPM"
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonArray" : {
               "elements" : [
@@ -1318,7 +1423,24 @@
                 },
                 "eltType" : {
                   "Array" : {
-                    "defaultValue" : {
+                    "node" : {
+                      "astNodeId" : 10
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "String" : {
+                          "size" : {
+                            "Some" : {
+                              "astNodeId" : 3
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "default" : {
                       "Some" : {
                         "anonArray" : {
                           "elements" : [
@@ -1376,26 +1498,7 @@
                           ]
                         ]
                       }
-                    },
-                    "anonArray" : {
-                      "size" : {
-                        "Some" : 3
-                      },
-                      "eltType" : {
-                        "String" : {
-                          "size" : {
-                            "Some" : {
-                              "astNodeId" : 3
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "size" : {
-                      "Some" : 3
-                    },
-                    "nodeId" : 10,
-                    "name" : "A"
+                    }
                   }
                 }
               },
@@ -1404,103 +1507,23 @@
             }
           }
         },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Array" : {
-              "defaultValue" : {
-                "Some" : {
-                  "anonArray" : {
-                    "elements" : [
-                      {
-                        "String" : {
-                          "value" : "1"
-                        }
-                      },
-                      {
-                        "String" : {
-                          "value" : "2"
-                        }
-                      },
-                      {
-                        "String" : {
-                          "value" : "3"
-                        }
-                      }
-                    ]
-                  },
-                  "t" : {
-                    "node" : {
-                      "astNodeId" : 10
-                    },
-                    "anonArray" : {
-                      "size" : {
-                        "Some" : 3
-                      },
-                      "eltType" : {
-                        "String" : {
-                          "size" : {
-                            "Some" : {
-                              "astNodeId" : 3
-                            }
-                          }
-                        }
-                      }
-                    },
-                    "default" : "None",
-                    "format" : "None"
-                  }
-                }
-              },
-              "format" : {
-                "Some" : {
-                  "prefix" : "",
-                  "fields" : [
-                    [
-                      {
-                        "Default" : {
-                          
-                        }
-                      },
-                      " RPM"
-                    ]
-                  ]
-                }
-              },
-              "anonArray" : {
-                "size" : {
-                  "Some" : 3
-                },
-                "eltType" : {
-                  "String" : {
-                    "size" : {
-                      "Some" : {
-                        "astNodeId" : 3
-                      }
-                    }
-                  }
-                }
-              },
-              "size" : {
-                "Some" : 3
-              },
-              "nodeId" : 10,
-              "name" : "A"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 15,
-        "name" : "B"
+        "format" : "None"
       }
     },
-    "11" : "Integer",
-    "61" : "Integer",
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "61" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "46" : {
       "String" : {
         "size" : "None"
@@ -1508,7 +1531,24 @@
     },
     "10" : {
       "Array" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 10
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "String" : {
+              "size" : {
+                "Some" : {
+                  "astNodeId" : 3
+                }
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonArray" : {
               "elements" : [
@@ -1566,31 +1606,35 @@
               ]
             ]
           }
-        },
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "String" : {
-              "size" : {
-                "Some" : {
-                  "astNodeId" : 3
-                }
-              }
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 10,
-        "name" : "A"
+        }
       }
     },
     "59" : {
       "Struct" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 59
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "anonStruct" : {
               "members" : {
@@ -1618,8 +1662,14 @@
               "anonStruct" : {
                 "members" : {
                   "x" : {
-                    "PrimitiveInt" : {
-                      "kind" : "U32"
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
                     }
                   },
                   "y" : {
@@ -1639,11 +1689,30 @@
             }
           }
         },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Struct" : {
+        "node" : {
+          "astNodeId" : 49
+        },
         "anonStruct" : {
           "members" : {
             "x" : {
-              "PrimitiveInt" : {
-                "kind" : "U32"
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                }
               }
             },
             "y" : {
@@ -1653,19 +1722,7 @@
             }
           }
         },
-        "sizes" : {
-          
-        },
-        "formats" : {
-          
-        },
-        "nodeId" : 59,
-        "name" : "S2"
-      }
-    },
-    "49" : {
-      "Struct" : {
-        "defaultValue" : {
+        "default" : {
           "Some" : {
             "anonStruct" : {
               "members" : {
@@ -1693,8 +1750,14 @@
               "anonStruct" : {
                 "members" : {
                   "x" : {
-                    "PrimitiveInt" : {
-                      "kind" : "U8"
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U8" : {
+                            
+                          }
+                        }
+                      }
                     }
                   },
                   "y" : {
@@ -1714,28 +1777,12 @@
             }
           }
         },
-        "anonStruct" : {
-          "members" : {
-            "x" : {
-              "PrimitiveInt" : {
-                "kind" : "U8"
-              }
-            },
-            "y" : {
-              "String" : {
-                "size" : "None"
-              }
-            }
-          }
-        },
         "sizes" : {
           
         },
         "formats" : {
           
-        },
-        "nodeId" : 49,
-        "name" : "S1"
+        }
       }
     },
     "6" : {
@@ -1748,11 +1795,23 @@
         "size" : "None"
       }
     },
-    "1" : "Integer",
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "39" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"
@@ -1763,27 +1822,16 @@
     },
     "60" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 60
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 60
-        },
-        "name" : "T"
+        "node" : {
+          "astNodeId" : 60
+        }
       }
     },
     "14" : {
       "Array" : {
-        "defaultValue" : "None",
-        "format" : "None",
+        "node" : {
+          "astNodeId" : 10
+        },
         "anonArray" : {
           "size" : "None",
           "eltType" : {
@@ -1796,15 +1844,20 @@
             }
           }
         },
-        "size" : "None",
-        "nodeId" : 10,
-        "name" : "A"
+        "default" : "None",
+        "format" : "None"
       }
     },
     "58" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"
@@ -1815,34 +1868,46 @@
     },
     "64" : {
       "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 60
-                }
-              }
+        "node" : {
+          "astNodeId" : 60
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "27" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
             }
           }
-        },
-        "nodeId" : {
-          "Some" : 60
-        },
-        "name" : "T"
+        }
       }
     },
-    "0" : "Integer",
-    "27" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
       }
     },
-    "2" : "Integer",
     "38" : {
       "AnonStruct" : {
         "members" : {
-          "x" : "Integer",
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
           "y" : {
             "String" : {
               "size" : "None"

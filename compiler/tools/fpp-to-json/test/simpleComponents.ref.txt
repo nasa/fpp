@@ -1581,16 +1581,52 @@
     
   },
   "typeMap" : {
-    "66" : "Integer",
-    "4" : {
-      "Float" : {
-        "kind" : "F32"
+    "66" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
       }
     },
-    "46" : "Integer",
-    "59" : "Integer",
-    "60" : "Integer",
-    "41" : "Integer"
+    "4" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "46" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "59" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "60" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "45" : {

@@ -14,18 +14,30 @@ import LocMapJsonEncoder._
 
 object AnalysisJsonEncoder extends JsonEncoder{
 
-  // JSON encoder for AST nodes
-  private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
-    override def apply(astNode: AstNode[T]): Json = Json.obj("astNodeId" -> astNode.id.asJson)
-  }
+  // ----------------------------------------------------------------------
+  // Special cases
+  // ----------------------------------------------------------------------
 
-  // JSON encoder for annotated AST nodes
-  private implicit def astNodeAnnotatedEncoder[T: Encoder]: Encoder[Ast.Annotated[AstNode[T]]] =
-    new Encoder[Ast.Annotated[AstNode[T]]] {
-      override def apply(aNode: Ast.Annotated[AstNode[T]]): Json = aNode._2.asJson
+  // JSON encoder for AST nodes
+  // Summarize the entire node with the ID, to avoid repeating info.
+  // We can look up the node in the AST JSON.
+  private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] =
+    new Encoder[AstNode[T]] {
+      override def apply(astNode: AstNode[T]): Json =
+        Json.obj("astNodeId" -> astNode.id.asJson)
     }
 
+  // JSON encoder for annotated AST nodes
+  // Omit the annotations when translating analysis.
+  // We can look them up in the AST JSON.
+  private implicit def astNodeAnnotatedEncoder[T: Encoder]:
+    Encoder[Ast.Annotated[AstNode[T]]] =
+      new Encoder[Ast.Annotated[AstNode[T]]] {
+        override def apply(aNode: Ast.Annotated[AstNode[T]]): Json = aNode._2.asJson
+      }
+
   // JSON encoder for symbols
+  // Report the symbol kind and the info in the Symbol trait
   private def symbolAsJson(symbol: Symbol) = addTypeNameKey(
     symbol,
     Json.obj(
@@ -33,6 +45,17 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "unqualifiedName" -> symbol.getUnqualifiedName.asJson
     )
   )
+
+  // JSON encoder for component instances
+  // Use the default Circe encoding, but replace the component instance
+  // with its AST node. We can use the ID to look up the component
+  // in the component map.
+  private implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
+    Encoder.instance {
+      compInstance => io.circe.generic.semiauto.deriveEncoder[ComponentInstance].
+        apply(compInstance).asObject.get.
+        add("component", compInstance.component.aNode.asJson).asJson
+    }
 
   // ----------------------------------------------------------------------
   // Encoders for helping Circe with recursive types
@@ -47,46 +70,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
   implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
-  implicit val typeEncoder: Encoder[Type] =
-    Encoder.instance((t: Type) =>
-      t match {
-        case t : Type.PrimitiveInt => Json.obj(getUnqualifiedClassName(t) -> Json.obj("kind" -> t.toString().asJson))
-        case t : Type.Float => Json.obj(getUnqualifiedClassName(t) -> Json.obj("kind" -> t.toString().asJson))
-        case t : Type.Boolean.type => getUnqualifiedClassName(t).asJson
-        case t : Type.String => Json.obj(getUnqualifiedClassName(t) -> Json.obj("size" -> t.size.asJson))
-        case t : Type.Integer.type => getUnqualifiedClassName(t).asJson
-        case t : Type.AbsType => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "defaultValue" -> t.getDefaultValue.asJson,
-          "nodeId" -> t.getDefNodeId.asJson,
-          "name" -> t.toString.asJson))
-        case t : Type.Array => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "defaultValue" -> t.default.asJson,
-          "format" -> t.format.asJson,
-          "anonArray" -> t.anonArray.asJson,
-          "size" -> t.getArraySize.asJson,
-          "nodeId" -> t.node._2.id.asJson,
-          "name" -> t.node._2.data.name.asJson))
-        case t : Type.Enum => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "defaultValue" -> t.default.asJson,
-          "repType" -> t.repType.asJson,
-          "nodeId" -> t.node._2.id.asJson,
-          "name" -> t.node._2.data.name.asJson))
-        case t : Type.Struct => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "defaultValue" -> t.default.asJson,
-          "anonStruct" -> t.anonStruct.asJson,
-          "sizes" -> t.sizes.asJson,
-          "formats" -> t.formats.asJson,
-          "nodeId" -> t.node._2.id.asJson,
-          "name" -> t.node._2.data.name.asJson))
-        case t : Type.AnonArray => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "size" -> t.size.asJson,
-          "eltType" -> t.eltType.asJson
-          ))
-        case t : Type.AnonStruct => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "members" -> t.members.asJson
-          ))
-      }
-    )
+  private implicit val typeEncoder: Encoder[Type] =
+    io.circe.generic.semiauto.deriveEncoder[Type]
 
   private implicit val enumConstantEncoder: Encoder[Value.EnumConstant] =
     io.circe.generic.semiauto.deriveEncoder[Value.EnumConstant]
@@ -105,13 +90,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
     io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
-
-  private implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
-    Encoder.instance {
-      compInstance => io.circe.generic.semiauto.deriveEncoder[ComponentInstance].
-        apply(compInstance).asObject.get.
-        add("component", compInstance.component.aNode.asJson).asJson
-    }
 
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON maps

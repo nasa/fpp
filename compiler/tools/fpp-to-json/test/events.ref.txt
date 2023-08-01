@@ -1210,13 +1210,37 @@
   },
   "typeMap" : {
     "8" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
-    "3" : "Integer",
-    "10" : "Integer",
-    "30" : "Integer"
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "30" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "22" : {

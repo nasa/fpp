@@ -873,7 +873,17 @@
   "typeMap" : {
     "4" : {
       "Enum" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 4
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "value" : [
               "OFF",
@@ -893,21 +903,14 @@
               "default" : "None"
             }
           }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
+        }
       }
     },
     "1" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 4
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -915,13 +918,14 @@
             }
           }
         },
-        "nodeId" : 4,
-        "name" : "State"
+        "default" : "None"
       }
     },
     "3" : {
       "Enum" : {
-        "defaultValue" : "None",
+        "node" : {
+          "astNodeId" : 4
+        },
         "repType" : {
           "kind" : {
             "I32" : {
@@ -929,13 +933,22 @@
             }
           }
         },
-        "nodeId" : 4,
-        "name" : "State"
+        "default" : "None"
       }
     },
     "32" : {
       "Enum" : {
-        "defaultValue" : {
+        "node" : {
+          "astNodeId" : 4
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
           "Some" : {
             "value" : [
               "OFF",
@@ -955,16 +968,7 @@
               "default" : "None"
             }
           }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
+        }
       }
     }
   },

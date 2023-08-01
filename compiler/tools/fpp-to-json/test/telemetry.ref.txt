@@ -1048,8 +1048,14 @@
             "astNodeId" : 9
           },
           "channelType" : {
-            "PrimitiveInt" : {
-              "kind" : "U32"
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
             }
           },
           "update" : {
@@ -1093,8 +1099,14 @@
             "astNodeId" : 28
           },
           "channelType" : {
-            "Float" : {
-              "kind" : "F64"
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
             }
           },
           "update" : {
@@ -1182,8 +1194,14 @@
             "astNodeId" : 55
           },
           "channelType" : {
-            "Float" : {
-              "kind" : "F64"
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
             }
           },
           "update" : {
@@ -1315,37 +1333,151 @@
     
   },
   "typeMap" : {
-    "8" : "Integer",
-    "23" : "Integer",
-    "4" : "Integer",
-    "50" : "Integer",
-    "10" : {
-      "Float" : {
-        "kind" : "F64"
+    "8" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
       }
     },
-    "21" : "Integer",
-    "54" : "Integer",
-    "6" : "Integer",
+    "23" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "4" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "50" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "21" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "54" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "6" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
     "47" : {
-      "Float" : {
-        "kind" : "F64"
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
       }
     },
     "2" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
       }
     },
-    "18" : "Integer",
-    "52" : "Integer",
-    "15" : "Integer",
-    "11" : "Integer",
-    "17" : "Integer",
-    "25" : "Integer",
-    "14" : "Integer",
-    "20" : "Integer",
-    "27" : "Integer"
+    "18" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "17" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "25" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "27" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
   },
   "useDefMap" : {
     "0" : {
