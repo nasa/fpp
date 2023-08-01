@@ -32,7 +32,11 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "kind" : "Async",
+                                              "kind" : {
+                                                "Async" : {
+                                                  
+                                                }
+                                              },
                                               "name" : "SAY_HELLO",
                                               "params" : [
                                                 [

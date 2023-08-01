@@ -945,7 +945,11 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 24,
         "name" : "E"
@@ -974,7 +978,11 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 54,
         "name" : "Status"
@@ -991,14 +999,22 @@
                 "astNodeId" : 24
               },
               "repType" : {
-                "kind" : "I32"
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 24,
         "name" : "E"
@@ -1039,14 +1055,22 @@
                 "astNodeId" : 54
               },
               "repType" : {
-                "kind" : "I32"
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 54,
         "name" : "Status"
@@ -1080,7 +1104,11 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 54,
         "name" : "Status"
@@ -1090,7 +1118,11 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 24,
         "name" : "E"
@@ -1107,14 +1139,22 @@
                 "astNodeId" : 54
               },
               "repType" : {
-                "kind" : "I32"
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 54,
         "name" : "Status"
@@ -1131,14 +1171,22 @@
                 "astNodeId" : 24
               },
               "repType" : {
-                "kind" : "I32"
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : "I32"
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
         },
         "nodeId" : 24,
         "name" : "E"
@@ -1251,7 +1299,11 @@
             "astNodeId" : 24
           },
           "repType" : {
-            "kind" : "I32"
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
           },
           "default" : "None"
         }
@@ -1266,7 +1318,11 @@
             "astNodeId" : 24
           },
           "repType" : {
-            "kind" : "I32"
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
           },
           "default" : "None"
         }
@@ -1281,7 +1337,11 @@
             "astNodeId" : 54
           },
           "repType" : {
-            "kind" : "I32"
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
           },
           "default" : "None"
         }
@@ -1296,7 +1356,11 @@
             "astNodeId" : 54
           },
           "repType" : {
-            "kind" : "I32"
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
           },
           "default" : "None"
         }

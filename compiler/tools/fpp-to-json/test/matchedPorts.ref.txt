@@ -580,7 +580,11 @@
   },
   "symbolScopeMap" : {
     "21" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     },
     "25" : {
       "ScopeImpl" : {

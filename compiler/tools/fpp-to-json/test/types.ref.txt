@@ -938,7 +938,11 @@
                 "x" : {
                   "PrimitiveInt" : {
                     "value" : 0,
-                    "kind" : "U32"
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
                   }
                 },
                 "y" : {
@@ -1209,7 +1213,11 @@
                   "prefix" : "",
                   "fields" : [
                     [
-                      "Default",
+                      {
+                        "Default" : {
+                          
+                        }
+                      },
                       " RPM"
                     ]
                   ]
@@ -1281,7 +1289,11 @@
             "prefix" : "",
             "fields" : [
               [
-                "Default",
+                {
+                  "Default" : {
+                    
+                  }
+                },
                 " RPM"
               ]
             ]
@@ -1317,7 +1329,11 @@
                 "x" : {
                   "PrimitiveInt" : {
                     "value" : 1,
-                    "kind" : "U32"
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
                   }
                 },
                 "y" : {
@@ -1362,7 +1378,11 @@
                 "x" : {
                   "PrimitiveInt" : {
                     "value" : 1,
-                    "kind" : "U8"
+                    "kind" : {
+                      "U8" : {
+                        
+                      }
+                    }
                   }
                 },
                 "y" : {

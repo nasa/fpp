@@ -397,7 +397,11 @@
   },
   "symbolScopeMap" : {
     "43" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     }
   },
   "topologyMap" : {

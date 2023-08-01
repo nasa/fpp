@@ -827,7 +827,11 @@
             "prefix" : "The count is ",
             "fields" : [
               [
-                "Default",
+                {
+                  "Default" : {
+                    
+                  }
+                },
                 ""
               ]
             ]
@@ -1053,10 +1057,18 @@
   },
   "symbolScopeMap" : {
     "19" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     },
     "32" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     },
     "38" : {
       "ScopeImpl" : {

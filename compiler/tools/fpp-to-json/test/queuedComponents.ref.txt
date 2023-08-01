@@ -1354,7 +1354,11 @@
       }
     },
     "60" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     }
   },
   "topologyMap" : {

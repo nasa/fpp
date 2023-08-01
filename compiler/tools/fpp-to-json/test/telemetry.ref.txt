@@ -996,7 +996,11 @@
                       "precision" : {
                         "Some" : 3
                       },
-                      "t" : "Fixed"
+                      "t" : {
+                        "Fixed" : {
+                          
+                        }
+                      }
                     }
                   },
                   ""
@@ -1075,7 +1079,11 @@
                   {
                     "Rational" : {
                       "precision" : "None",
-                      "t" : "Exponent"
+                      "t" : {
+                        "Exponent" : {
+                          
+                        }
+                      }
                     }
                   },
                   ""
@@ -1152,7 +1160,11 @@
   },
   "symbolScopeMap" : {
     "56" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     },
     "61" : {
       "ScopeImpl" : {

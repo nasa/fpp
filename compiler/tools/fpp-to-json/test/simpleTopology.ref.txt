@@ -917,7 +917,11 @@
   },
   "symbolScopeMap" : {
     "13" : {
-      "ScopeImpl" : "map"
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
     }
   },
   "topologyMap" : {

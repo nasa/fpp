@@ -1,7 +1,6 @@
 package fpp.compiler.codegen
 
 import io.circe._
-import io.circe.syntax._
 
 /** Generic methods for JSON encoding */
 trait JsonEncoder {
@@ -23,24 +22,5 @@ trait JsonEncoder {
     .replaceAll("\\A.*\\.", "")
     .replaceAll("\\$$", "")
     .replaceAll("\\A.*\\$", "")
-
-  /** Transform { "foo" : { } } to "foo" */
-  def collapseEmptyObjects(json: Json): Json = {
-    def collapseVector(v: Vector[Json]): Vector[Json] =
-      v.map(collapseEmptyObjects(_))
-    def collapseObject(o: JsonObject): JsonObject =
-      o.mapValues(collapseEmptyObjects(_))
-    val labelOpt = for {
-      list <- json.asObject.map(_.toList)
-      pair <- list match { 
-        case p :: Nil => Some(p)
-        case _ => None
-      }
-      innerObj <- pair._2.asObject
-      string <- if (innerObj.isEmpty) Some(pair._1) else None
-    }
-    yield string.asJson
-    labelOpt.getOrElse(json.mapArray(collapseVector).mapObject(collapseObject))
-  }
 
 }
