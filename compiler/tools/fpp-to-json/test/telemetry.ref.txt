@@ -1127,18 +1127,30 @@
           "update" : "Always",
           "format" : "None",
           "lowLimits" : {
-            "red" : {
-              "id" : 3,
-              "value" : "0"
-            },
-            "orange" : {
-              "id" : 5,
-              "value" : "1"
-            },
-            "yellow" : {
-              "id" : 7,
-              "value" : "2"
-            }
+            "red" : [
+              3,
+              {
+                "Integer" : {
+                  "value" : 0
+                }
+              }
+            ],
+            "orange" : [
+              5,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ],
+            "yellow" : [
+              7,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ]
           },
           "highLimits" : {
             
@@ -1177,32 +1189,56 @@
             }
           },
           "lowLimits" : {
-            "red" : {
-              "id" : 13,
-              "value" : "-3"
-            },
-            "orange" : {
-              "id" : 16,
-              "value" : "-2"
-            },
-            "yellow" : {
-              "id" : 19,
-              "value" : "-1"
-            }
+            "red" : [
+              13,
+              {
+                "Integer" : {
+                  "value" : -3
+                }
+              }
+            ],
+            "orange" : [
+              16,
+              {
+                "Integer" : {
+                  "value" : -2
+                }
+              }
+            ],
+            "yellow" : [
+              19,
+              {
+                "Integer" : {
+                  "value" : -1
+                }
+              }
+            ]
           },
           "highLimits" : {
-            "red" : {
-              "id" : 22,
-              "value" : "3"
-            },
-            "orange" : {
-              "id" : 24,
-              "value" : "2"
-            },
-            "yellow" : {
-              "id" : 26,
-              "value" : "1"
-            }
+            "red" : [
+              22,
+              {
+                "Integer" : {
+                  "value" : 3
+                }
+              }
+            ],
+            "orange" : [
+              24,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ],
+            "yellow" : [
+              26,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ]
           }
         },
         "17" : {
@@ -1239,18 +1275,30 @@
             
           },
           "highLimits" : {
-            "red" : {
-              "id" : 49,
-              "value" : "3"
-            },
-            "orange" : {
-              "id" : 51,
-              "value" : "2"
-            },
-            "yellow" : {
-              "id" : 53,
-              "value" : "1"
-            }
+            "red" : [
+              49,
+              {
+                "Integer" : {
+                  "value" : 3
+                }
+              }
+            ],
+            "orange" : [
+              51,
+              {
+                "Integer" : {
+                  "value" : 2
+                }
+              }
+            ],
+            "yellow" : [
+              53,
+              {
+                "Integer" : {
+                  "value" : 1
+                }
+              }
+            ]
           }
         }
       },

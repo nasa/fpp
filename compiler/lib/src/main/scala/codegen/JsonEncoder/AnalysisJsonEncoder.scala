@@ -137,7 +137,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private def astNodeIdToString(id: AstNode.Id) = id.toString
 
   private def mapAsJsonMap[A,B] (f1: A => String) (f2: B => Json) (map: Map[A,B]): Json =
-    map.map { case (key, value) => (f1(key), f2(value)) }.asJson
+    (map.map { case (key, value) => (f1(key), f2(value)) }).asJson
 
   private def symbolToIdString(s: Symbol) = s.getNodeId.toString
 
@@ -188,12 +188,16 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
   
-  private implicit val componentMapEncoder: Encoder[Map[Symbol.Component, Component]] = {
+  private implicit val componentMapEncoder:
+    Encoder[Map[Symbol.Component, Component]] =
+  {
     def f2(c: Component) = c.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
-  private implicit val tlmChannelMapEncoder: Encoder[Map[TlmChannel.Id, TlmChannel]] = {
+  private implicit val tlmChannelMapEncoder:
+    Encoder[Map[TlmChannel.Id, TlmChannel]] =
+  {
     def f1(id: TlmChannel.Id) = id.toString
     def f2(channel: TlmChannel) = channel.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
@@ -218,7 +222,9 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
  
-  private implicit val topologyMapEncoder: Encoder[Map[Symbol.Topology, Topology]] = {
+  private implicit val topologyMapEncoder:
+    Encoder[Map[Symbol.Topology, Topology]] =
+  {
     def f2(t: Topology) = t.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
@@ -247,6 +253,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
 
+  private implicit val limitsEncoder: Encoder[TlmChannel.Limits] = {
+    def f1(kind: Ast.SpecTlmChannel.LimitKind) = kind.toString
+    def f2(tlmPoint: (AstNode.Id, Value)) = tlmPoint.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON lists
   // We use this conversion when the keys cannot be converted to strings
@@ -266,16 +278,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val componentInstanceLocationMapEncoder:
     Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance(_.toList.asJson)
-
-  implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
-    limits =>
-      limits.map { case (kind, (id, value)) =>
-        kind.toString -> Json.obj(
-          "id" -> id.asJson,
-          "value" -> value.toString.asJson
-        )
-      }.asJson
-  }
 
   // ----------------------------------------------------------------------
   // The public encoder interface
