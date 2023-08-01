@@ -413,7 +413,12 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Ping" : 24
+                "Ping" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
               }
             }
           }

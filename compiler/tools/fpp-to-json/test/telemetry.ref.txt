@@ -869,8 +869,18 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Tlm" : 57,
-                "Time" : 60
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 57,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "Time"
+                  }
+                }
               }
             }
           }

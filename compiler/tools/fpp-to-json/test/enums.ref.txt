@@ -614,9 +614,24 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "YES" : 0,
-                "NO" : 1,
-                "MAYBE" : 4
+                "YES" : {
+                  "EnumConstant" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "YES"
+                  }
+                },
+                "NO" : {
+                  "EnumConstant" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "NO"
+                  }
+                },
+                "MAYBE" : {
+                  "EnumConstant" : {
+                    "nodeId" : 4,
+                    "unqualifiedName" : "MAYBE"
+                  }
+                }
               }
             }
           }
@@ -629,9 +644,24 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "A" : 11,
-                "B" : 13,
-                "C" : 19
+                "A" : {
+                  "EnumConstant" : {
+                    "nodeId" : 11,
+                    "unqualifiedName" : "A"
+                  }
+                },
+                "B" : {
+                  "EnumConstant" : {
+                    "nodeId" : 13,
+                    "unqualifiedName" : "B"
+                  }
+                },
+                "C" : {
+                  "EnumConstant" : {
+                    "nodeId" : 19,
+                    "unqualifiedName" : "C"
+                  }
+                }
               }
             }
           }
@@ -644,9 +674,24 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "A" : 28,
-                "B" : 29,
-                "C" : 32
+                "A" : {
+                  "EnumConstant" : {
+                    "nodeId" : 28,
+                    "unqualifiedName" : "A"
+                  }
+                },
+                "B" : {
+                  "EnumConstant" : {
+                    "nodeId" : 29,
+                    "unqualifiedName" : "B"
+                  }
+                },
+                "C" : {
+                  "EnumConstant" : {
+                    "nodeId" : 32,
+                    "unqualifiedName" : "C"
+                  }
+                }
               }
             }
           }

@@ -186,48 +186,33 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
-  implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.toString -> value.asJson
-        }
-        .toMap
-        .asJson
-    }
-
-  implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.toString -> value.asJson
-        }
-        .toMap
-        .asJson
-    }
-
-
-  implicit val nameGroupSymbolMapEncoder
-      : Encoder[Map[NameGroup, NameSymbolMap]] = Encoder.instance { symbols =>
-    symbols.toList
-      .map { case (key, value) =>
-        getUnqualifiedClassName(key) -> value.asJson
-      }
-      .toMap
-      .asJson
+  private implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = {
+    def f1(id: AstNode.Id) = id.toString
+    def f2(t: Type) = t.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 
-  
-  implicit val nameSymbolMapEncoder: Encoder[Map[Name.Unqualified, Symbol]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.toString -> value.getNodeId
-        }
-        .toMap
-        .asJson
-    }
+  private implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] = {
+    def f1(id: AstNode.Id) = id.toString
+    def f2(value: Value) = value.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
 
+  private implicit val nameGroupSymbolMapEncoder:
+    Encoder[Map[NameGroup, NameSymbolMap]] =
+  {
+    def f1(nameGroup: NameGroup) = getUnqualifiedClassName(nameGroup)
+    def f2(map: NameSymbolMap) = map.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+  
+  private implicit val nameSymbolMapEncoder:
+    Encoder[Map[Name.Unqualified, Symbol]] =
+  {
+    def f1(name: Name.Unqualified) = name.toString
+    def f2(symbol: Symbol) = symbol.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
 
   implicit val directImportMapEncoder: Encoder[Map[Symbol.Topology, Location]] =
     Encoder.instance { symbols =>
@@ -251,16 +236,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   
-  implicit val ConnectionMapEncoder
-      : Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.asJson -> value.asJson
-        }
-        .asJson
-    }
-
   implicit val patternMapEncoder
       : Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
     Encoder.instance { symbols =>
@@ -269,6 +244,16 @@ object AnalysisJsonEncoder extends JsonEncoder{
           getUnqualifiedClassName(key) -> value.asJson
         }
         .toMap
+        .asJson
+    }
+
+  implicit val ConnectionMapEncoder
+      : Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
+    Encoder.instance { symbols =>
+      symbols.toList
+        .map { case (key, value) =>
+          key.asJson -> value.asJson
+        }
         .asJson
     }
 

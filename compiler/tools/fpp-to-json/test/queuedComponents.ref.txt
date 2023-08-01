@@ -1005,8 +1005,18 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Tlm" : 85,
-                "Time" : 88
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 85,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 88,
+                    "unqualifiedName" : "Time"
+                  }
+                }
               }
             }
           }
@@ -1019,7 +1029,12 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Sched" : 83
+                "Sched" : {
+                  "Port" : {
+                    "nodeId" : 83,
+                    "unqualifiedName" : "Sched"
+                  }
+                }
               }
             }
           }
@@ -1032,28 +1047,48 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Calibration" : 6
+                "Calibration" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "Calibration"
+                  }
+                }
               }
             }
           },
           "Component" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "EngineTemp" : 60
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
               }
             }
           },
           "Type" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "EngineTemp" : 60
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
               }
             }
           },
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "EngineTemp" : 60
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
               }
             }
           }
@@ -1066,7 +1101,12 @@
           "ComponentInstance" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "engineTemp" : 79
+                "engineTemp" : {
+                  "ComponentInstance" : {
+                    "nodeId" : 79,
+                    "unqualifiedName" : "engineTemp"
+                  }
+                }
               }
             }
           }

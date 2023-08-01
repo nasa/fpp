@@ -702,9 +702,24 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Cmd" : 46,
-                "CmdReg" : 47,
-                "CmdResponse" : 50
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 46,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 47,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
               }
             }
           }

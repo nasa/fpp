@@ -801,15 +801,60 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "CmdReg" : 25,
-                "Tlm" : 29,
-                "PrmGet" : 30,
-                "PrmSet" : 31,
-                "LogText" : 28,
-                "Cmd" : 24,
-                "Log" : 27,
-                "CmdResponse" : 26,
-                "Time" : 34
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 25,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 29,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "PrmGet" : {
+                  "Port" : {
+                    "nodeId" : 30,
+                    "unqualifiedName" : "PrmGet"
+                  }
+                },
+                "PrmSet" : {
+                  "Port" : {
+                    "nodeId" : 31,
+                    "unqualifiedName" : "PrmSet"
+                  }
+                },
+                "LogText" : {
+                  "Port" : {
+                    "nodeId" : 28,
+                    "unqualifiedName" : "LogText"
+                  }
+                },
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "Log" : {
+                  "Port" : {
+                    "nodeId" : 27,
+                    "unqualifiedName" : "Log"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 26,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 34,
+                    "unqualifiedName" : "Time"
+                  }
+                }
               }
             }
           }

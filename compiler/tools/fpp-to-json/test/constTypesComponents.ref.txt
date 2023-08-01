@@ -568,8 +568,18 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "OFF" : 1,
-                "ON" : 3
+                "OFF" : {
+                  "EnumConstant" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "OFF"
+                  }
+                },
+                "ON" : {
+                  "EnumConstant" : {
+                    "nodeId" : 3,
+                    "unqualifiedName" : "ON"
+                  }
+                }
               }
             }
           }
@@ -582,14 +592,24 @@
           "Type" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "State" : 4
+                "State" : {
+                  "Enum" : {
+                    "nodeId" : 4,
+                    "unqualifiedName" : "State"
+                  }
+                }
               }
             }
           },
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "State" : 4
+                "State" : {
+                  "Enum" : {
+                    "nodeId" : 4,
+                    "unqualifiedName" : "State"
+                  }
+                }
               }
             }
           }
@@ -602,9 +622,24 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Cmd" : 36,
-                "CmdReg" : 37,
-                "CmdResponse" : 40
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 36,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 37,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 40,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
               }
             }
           }

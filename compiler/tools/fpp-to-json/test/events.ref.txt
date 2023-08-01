@@ -709,9 +709,24 @@
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "Log" : 33,
-                "LogText" : 34,
-                "Time" : 37
+                "Log" : {
+                  "Port" : {
+                    "nodeId" : 33,
+                    "unqualifiedName" : "Log"
+                  }
+                },
+                "LogText" : {
+                  "Port" : {
+                    "nodeId" : 34,
+                    "unqualifiedName" : "LogText"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 37,
+                    "unqualifiedName" : "Time"
+                  }
+                }
               }
             }
           }

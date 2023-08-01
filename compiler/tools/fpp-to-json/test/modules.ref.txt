@@ -765,9 +765,24 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "a" : 1,
-                "b" : 3,
-                "c" : 15
+                "a" : {
+                  "Constant" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "a"
+                  }
+                },
+                "b" : {
+                  "Constant" : {
+                    "nodeId" : 3,
+                    "unqualifiedName" : "b"
+                  }
+                },
+                "c" : {
+                  "Constant" : {
+                    "nodeId" : 15,
+                    "unqualifiedName" : "c"
+                  }
+                }
               }
             }
           }
@@ -780,8 +795,18 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "a" : 26,
-                "b" : 33
+                "a" : {
+                  "Constant" : {
+                    "nodeId" : 26,
+                    "unqualifiedName" : "a"
+                  }
+                },
+                "b" : {
+                  "Constant" : {
+                    "nodeId" : 33,
+                    "unqualifiedName" : "b"
+                  }
+                }
               }
             }
           }
@@ -794,7 +819,12 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "c" : 54
+                "c" : {
+                  "Constant" : {
+                    "nodeId" : 54,
+                    "unqualifiedName" : "c"
+                  }
+                }
               }
             }
           }
@@ -807,42 +837,72 @@
           "ComponentInstance" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           },
           "Topology" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           },
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           },
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           },
           "Component" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           },
           "Type" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "B" : 55
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           }

@@ -888,8 +888,18 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "A" : 20,
-                "B" : 23
+                "A" : {
+                  "EnumConstant" : {
+                    "nodeId" : 20,
+                    "unqualifiedName" : "A"
+                  }
+                },
+                "B" : {
+                  "EnumConstant" : {
+                    "nodeId" : 23,
+                    "unqualifiedName" : "B"
+                  }
+                }
               }
             }
           }
@@ -902,8 +912,18 @@
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "SUCCEED" : 50,
-                "FAIL" : 53
+                "SUCCEED" : {
+                  "EnumConstant" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "SUCCEED"
+                  }
+                },
+                "FAIL" : {
+                  "EnumConstant" : {
+                    "nodeId" : 53,
+                    "unqualifiedName" : "FAIL"
+                  }
+                }
               }
             }
           }
