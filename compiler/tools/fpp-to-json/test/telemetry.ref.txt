@@ -10,7 +10,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "TlmLimits",
                   "members" : [
                     [
@@ -24,7 +28,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "Telemetry",
+                                  "kind" : {
+                                    "Telemetry" : {
+                                      
+                                    }
+                                  },
                                   "name" : "tlmOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -49,7 +57,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TimeGet",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "timeGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -77,7 +89,11 @@
                                   "AstNode" : {
                                     "data" : {
                                       "TypeNameInt" : {
-                                        "name" : "U32"
+                                        "name" : {
+                                          "U32" : {
+                                            
+                                          }
+                                        }
                                       }
                                     },
                                     "id" : 2
@@ -90,7 +106,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Red",
+                                        "data" : {
+                                          "Red" : {
+                                            
+                                          }
+                                        },
                                         "id" : 3
                                       }
                                     },
@@ -108,7 +128,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Orange",
+                                        "data" : {
+                                          "Orange" : {
+                                            
+                                          }
+                                        },
                                         "id" : 5
                                       }
                                     },
@@ -126,7 +150,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Yellow",
+                                        "data" : {
+                                          "Yellow" : {
+                                            
+                                          }
+                                        },
                                         "id" : 7
                                       }
                                     },
@@ -167,7 +195,11 @@
                                   "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
-                                        "name" : "F64"
+                                        "name" : {
+                                          "F64" : {
+                                            
+                                          }
+                                        }
                                       }
                                     },
                                     "id" : 10
@@ -186,7 +218,11 @@
                                   }
                                 },
                                 "update" : {
-                                  "Some" : "OnChange"
+                                  "Some" : {
+                                    "OnChange" : {
+                                      
+                                    }
+                                  }
                                 },
                                 "format" : {
                                   "Some" : {
@@ -200,7 +236,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Red",
+                                        "data" : {
+                                          "Red" : {
+                                            
+                                          }
+                                        },
                                         "id" : 13
                                       }
                                     },
@@ -208,7 +248,11 @@
                                       "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
-                                            "op" : "Minus",
+                                            "op" : {
+                                              "Minus" : {
+                                                
+                                              }
+                                            },
                                             "e" : {
                                               "AstNode" : {
                                                 "data" : {
@@ -228,7 +272,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Orange",
+                                        "data" : {
+                                          "Orange" : {
+                                            
+                                          }
+                                        },
                                         "id" : 16
                                       }
                                     },
@@ -236,7 +284,11 @@
                                       "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
-                                            "op" : "Minus",
+                                            "op" : {
+                                              "Minus" : {
+                                                
+                                              }
+                                            },
                                             "e" : {
                                               "AstNode" : {
                                                 "data" : {
@@ -256,7 +308,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Yellow",
+                                        "data" : {
+                                          "Yellow" : {
+                                            
+                                          }
+                                        },
                                         "id" : 19
                                       }
                                     },
@@ -264,7 +320,11 @@
                                       "AstNode" : {
                                         "data" : {
                                           "ExprUnop" : {
-                                            "op" : "Minus",
+                                            "op" : {
+                                              "Minus" : {
+                                                
+                                              }
+                                            },
                                             "e" : {
                                               "AstNode" : {
                                                 "data" : {
@@ -286,7 +346,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Red",
+                                        "data" : {
+                                          "Red" : {
+                                            
+                                          }
+                                        },
                                         "id" : 22
                                       }
                                     },
@@ -304,7 +368,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Orange",
+                                        "data" : {
+                                          "Orange" : {
+                                            
+                                          }
+                                        },
                                         "id" : 24
                                       }
                                     },
@@ -322,7 +390,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Yellow",
+                                        "data" : {
+                                          "Yellow" : {
+                                            
+                                          }
+                                        },
                                         "id" : 26
                                       }
                                     },
@@ -361,7 +433,11 @@
                                   "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
-                                        "name" : "F64"
+                                        "name" : {
+                                          "F64" : {
+                                            
+                                          }
+                                        }
                                       }
                                     },
                                     "id" : 47
@@ -369,7 +445,11 @@
                                 },
                                 "id" : "None",
                                 "update" : {
-                                  "Some" : "Always"
+                                  "Some" : {
+                                    "Always" : {
+                                      
+                                    }
+                                  }
                                 },
                                 "format" : {
                                   "Some" : {
@@ -385,7 +465,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Red",
+                                        "data" : {
+                                          "Red" : {
+                                            
+                                          }
+                                        },
                                         "id" : 49
                                       }
                                     },
@@ -403,7 +487,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Orange",
+                                        "data" : {
+                                          "Orange" : {
+                                            
+                                          }
+                                        },
                                         "id" : 51
                                       }
                                     },
@@ -421,7 +509,11 @@
                                   [
                                     {
                                       "AstNode" : {
-                                        "data" : "Yellow",
+                                        "data" : {
+                                          "Yellow" : {
+                                            
+                                          }
+                                        },
                                         "id" : 53
                                       }
                                     },
@@ -850,7 +942,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Telemetry",
+              "kind" : {
+                "Telemetry" : {
+                  
+                }
+              },
               "name" : "tlmOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -872,7 +968,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TimeGet",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
               "name" : "timeGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -895,7 +995,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Telemetry",
+            "kind" : {
+              "Telemetry" : {
+                
+              }
+            },
             "name" : "tlmOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -915,7 +1019,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TimeGet",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
             "name" : "timeGetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -944,7 +1052,11 @@
               "kind" : "U32"
             }
           },
-          "update" : "Always",
+          "update" : {
+            "Always" : {
+              
+            }
+          },
           "format" : "None",
           "lowLimits" : {
             "red" : [
@@ -985,7 +1097,11 @@
               "kind" : "F64"
             }
           },
-          "update" : "OnChange",
+          "update" : {
+            "OnChange" : {
+              
+            }
+          },
           "format" : {
             "Some" : {
               "prefix" : "",
@@ -1070,7 +1186,11 @@
               "kind" : "F64"
             }
           },
-          "update" : "Always",
+          "update" : {
+            "Always" : {
+              
+            }
+          },
           "format" : {
             "Some" : {
               "prefix" : "",

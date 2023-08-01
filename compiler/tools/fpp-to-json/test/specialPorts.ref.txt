@@ -10,7 +10,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "CommandPorts",
                   "members" : [
                     [
@@ -24,7 +28,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandRecv",
+                                  "kind" : {
+                                    "CommandRecv" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdIn",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -49,7 +57,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandReg",
+                                  "kind" : {
+                                    "CommandReg" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdRegOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -74,7 +86,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandResp",
+                                  "kind" : {
+                                    "CommandResp" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdResponseOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -107,7 +123,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "EventPorts",
                   "members" : [
                     [
@@ -121,7 +141,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "Event",
+                                  "kind" : {
+                                    "Event" : {
+                                      
+                                    }
+                                  },
                                   "name" : "eventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -146,7 +170,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TextEvent",
+                                  "kind" : {
+                                    "TextEvent" : {
+                                      
+                                    }
+                                  },
                                   "name" : "textEventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -179,7 +207,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "TelemetryPorts",
                   "members" : [
                     [
@@ -193,7 +225,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "Telemetry",
+                                  "kind" : {
+                                    "Telemetry" : {
+                                      
+                                    }
+                                  },
                                   "name" : "tlmOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -226,7 +262,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "ParamPorts",
                   "members" : [
                     [
@@ -240,7 +280,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "ParamGet",
+                                  "kind" : {
+                                    "ParamGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "prmGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -265,7 +309,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "ParamSet",
+                                  "kind" : {
+                                    "ParamSet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "prmSetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -298,7 +346,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "TimeGetPorts",
                   "members" : [
                     [
@@ -312,7 +364,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TimeGet",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "timeGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -747,7 +803,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandRecv",
+              "kind" : {
+                "CommandRecv" : {
+                  
+                }
+              },
               "name" : "cmdIn",
               "priority" : "None",
               "queueFull" : "None"
@@ -769,7 +829,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandReg",
+              "kind" : {
+                "CommandReg" : {
+                  
+                }
+              },
               "name" : "cmdRegOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -791,7 +855,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandResp",
+              "kind" : {
+                "CommandResp" : {
+                  
+                }
+              },
               "name" : "cmdResponseOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -814,7 +882,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandRecv",
+            "kind" : {
+              "CommandRecv" : {
+                
+              }
+            },
             "name" : "cmdIn",
             "priority" : "None",
             "queueFull" : "None"
@@ -834,7 +906,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandReg",
+            "kind" : {
+              "CommandReg" : {
+                
+              }
+            },
             "name" : "cmdRegOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -854,7 +930,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandResp",
+            "kind" : {
+              "CommandResp" : {
+                
+              }
+            },
             "name" : "cmdResponseOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -902,7 +982,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Event",
+              "kind" : {
+                "Event" : {
+                  
+                }
+              },
               "name" : "eventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -924,7 +1008,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TextEvent",
+              "kind" : {
+                "TextEvent" : {
+                  
+                }
+              },
               "name" : "textEventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -947,7 +1035,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Event",
+            "kind" : {
+              "Event" : {
+                
+              }
+            },
             "name" : "eventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -967,7 +1059,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TextEvent",
+            "kind" : {
+              "TextEvent" : {
+                
+              }
+            },
             "name" : "textEventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -1015,7 +1111,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Telemetry",
+              "kind" : {
+                "Telemetry" : {
+                  
+                }
+              },
               "name" : "tlmOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -1038,7 +1138,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Telemetry",
+            "kind" : {
+              "Telemetry" : {
+                
+              }
+            },
             "name" : "tlmOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -1086,7 +1190,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "ParamGet",
+              "kind" : {
+                "ParamGet" : {
+                  
+                }
+              },
               "name" : "prmGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -1108,7 +1216,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "ParamSet",
+              "kind" : {
+                "ParamSet" : {
+                  
+                }
+              },
               "name" : "prmSetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -1131,7 +1243,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "ParamGet",
+            "kind" : {
+              "ParamGet" : {
+                
+              }
+            },
             "name" : "prmGetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -1151,7 +1267,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "ParamSet",
+            "kind" : {
+              "ParamSet" : {
+                
+              }
+            },
             "name" : "prmSetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -1199,7 +1319,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TimeGet",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
               "name" : "timeGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -1222,7 +1346,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TimeGet",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
             "name" : "timeGetOut",
             "priority" : "None",
             "queueFull" : "None"

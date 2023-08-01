@@ -552,7 +552,11 @@
                     "AstNode" : {
                       "data" : {
                         "ExprUnop" : {
-                          "op" : "Minus",
+                          "op" : {
+                            "Minus" : {
+                              
+                            }
+                          },
                           "e" : {
                             "AstNode" : {
                               "data" : {
@@ -600,7 +604,11 @@
                               "id" : 48
                             }
                           },
-                          "op" : "Add",
+                          "op" : {
+                            "Add" : {
+                              
+                            }
+                          },
                           "e2" : {
                             "AstNode" : {
                               "data" : {

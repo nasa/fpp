@@ -59,13 +59,21 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "a",
                             "typeName" : {
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "U32"
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 6
@@ -105,13 +113,21 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "a",
                             "typeName" : {
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "I32"
+                                    "name" : {
+                                      "I32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 9
@@ -130,13 +146,21 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "b",
                             "typeName" : {
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameFloat" : {
-                                    "name" : "F32"
+                                    "name" : {
+                                      "F32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 11
@@ -155,7 +179,11 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "c",
                             "typeName" : {
                               "AstNode" : {
@@ -271,7 +299,11 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "e",
                             "typeName" : {
                               "AstNode" : {
@@ -305,7 +337,11 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "t",
                             "typeName" : {
                               "AstNode" : {
@@ -339,7 +375,11 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Ref",
+                            "kind" : {
+                              "Ref" : {
+                                
+                              }
+                            },
                             "name" : "c",
                             "typeName" : {
                               "AstNode" : {
@@ -467,13 +507,21 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Ref",
+                            "kind" : {
+                              "Ref" : {
+                                
+                              }
+                            },
                             "name" : "result",
                             "typeName" : {
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "U32"
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 59

@@ -20,7 +20,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : "Passive",
+                                "kind" : {
+                                  "Passive" : {
+                                    
+                                  }
+                                },
                                 "name" : "EngineTemp",
                                 "members" : [
                                   [
@@ -33,7 +37,11 @@
                                           "AstNode" : {
                                             "data" : {
                                               "General" : {
-                                                "kind" : "SyncInput",
+                                                "kind" : {
+                                                  "SyncInput" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "schedIn",
                                                 "size" : "None",
                                                 "port" : {
@@ -86,7 +94,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "Telemetry",
+                                                "kind" : {
+                                                  "Telemetry" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "tlmOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -111,7 +123,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "TimeGet",
+                                                "kind" : {
+                                                  "TimeGet" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "timeGetOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -139,7 +155,11 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "TypeNameFloat" : {
-                                                      "name" : "F32"
+                                                      "name" : {
+                                                        "F32" : {
+                                                          
+                                                        }
+                                                      }
                                                     }
                                                   },
                                                   "id" : 36
@@ -175,7 +195,11 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "TypeNameFloat" : {
-                                                      "name" : "F32"
+                                                      "name" : {
+                                                        "F32" : {
+                                                          
+                                                        }
+                                                      }
                                                     }
                                                   },
                                                   "id" : 42
@@ -801,7 +825,11 @@
               "astNodeId" : 33
             },
             "specifier" : {
-              "kind" : "SyncInput",
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
               "name" : "schedIn",
               "size" : "None",
               "port" : {
@@ -833,7 +861,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Telemetry",
+              "kind" : {
+                "Telemetry" : {
+                  
+                }
+              },
               "name" : "tlmOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -855,7 +887,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TimeGet",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
               "name" : "timeGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -878,7 +914,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Telemetry",
+            "kind" : {
+              "Telemetry" : {
+                
+              }
+            },
             "name" : "tlmOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -898,7 +938,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TimeGet",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
             "name" : "timeGetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -927,7 +971,11 @@
               "kind" : "F32"
             }
           },
-          "update" : "Always",
+          "update" : {
+            "Always" : {
+              
+            }
+          },
           "format" : "None",
           "lowLimits" : {
             
@@ -945,7 +993,11 @@
               "kind" : "F32"
             }
           },
-          "update" : "Always",
+          "update" : {
+            "Always" : {
+              
+            }
+          },
           "format" : "None",
           "lowLimits" : {
             

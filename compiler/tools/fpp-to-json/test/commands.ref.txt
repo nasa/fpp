@@ -11,7 +11,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Active",
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
                   "name" : "PriorityQueueFull",
                   "members" : [
                     [
@@ -25,7 +29,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandReg",
+                                  "kind" : {
+                                    "CommandReg" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdRegOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -50,7 +58,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandRecv",
+                                  "kind" : {
+                                    "CommandRecv" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdIn",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -75,7 +87,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandResp",
+                                  "kind" : {
+                                    "CommandResp" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdResponseOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -151,13 +167,21 @@
                                     {
                                       "AstNode" : {
                                         "data" : {
-                                          "kind" : "Value",
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
                                           "name" : "a",
                                           "typeName" : {
                                             "AstNode" : {
                                               "data" : {
                                                 "TypeNameInt" : {
-                                                  "name" : "U32"
+                                                  "name" : {
+                                                    "U32" : {
+                                                      
+                                                    }
+                                                  }
                                                 }
                                               },
                                               "id" : 5
@@ -176,13 +200,21 @@
                                     {
                                       "AstNode" : {
                                         "data" : {
-                                          "kind" : "Value",
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
                                           "name" : "b",
                                           "typeName" : {
                                             "AstNode" : {
                                               "data" : {
                                                 "TypeNameFloat" : {
-                                                  "name" : "F32"
+                                                  "name" : {
+                                                    "F32" : {
+                                                      
+                                                    }
+                                                  }
                                                 }
                                               },
                                               "id" : 11
@@ -241,7 +273,11 @@
                                     {
                                       "AstNode" : {
                                         "data" : {
-                                          "kind" : "Value",
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
                                           "name" : "a",
                                           "typeName" : {
                                             "AstNode" : {
@@ -288,7 +324,11 @@
                                 "queueFull" : {
                                   "Some" : {
                                     "AstNode" : {
-                                      "data" : "Drop",
+                                      "data" : {
+                                        "Drop" : {
+                                          
+                                        }
+                                      },
                                       "id" : 43
                                     }
                                   }
@@ -677,7 +717,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandReg",
+              "kind" : {
+                "CommandReg" : {
+                  
+                }
+              },
               "name" : "cmdRegOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -699,7 +743,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandRecv",
+              "kind" : {
+                "CommandRecv" : {
+                  
+                }
+              },
               "name" : "cmdIn",
               "priority" : "None",
               "queueFull" : "None"
@@ -721,7 +769,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandResp",
+              "kind" : {
+                "CommandResp" : {
+                  
+                }
+              },
               "name" : "cmdResponseOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -744,7 +796,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandReg",
+            "kind" : {
+              "CommandReg" : {
+                
+              }
+            },
             "name" : "cmdRegOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -764,7 +820,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandRecv",
+            "kind" : {
+              "CommandRecv" : {
+                
+              }
+            },
             "name" : "cmdIn",
             "priority" : "None",
             "queueFull" : "None"
@@ -784,7 +844,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandResp",
+            "kind" : {
+              "CommandResp" : {
+                
+              }
+            },
             "name" : "cmdResponseOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -810,7 +874,11 @@
                 "priority" : {
                   "Some" : 10
                 },
-                "queueFull" : "Assert"
+                "queueFull" : {
+                  "Assert" : {
+                    
+                  }
+                }
               }
             }
           }
@@ -825,7 +893,11 @@
                 "priority" : {
                   "Some" : 20
                 },
-                "queueFull" : "Assert"
+                "queueFull" : {
+                  "Assert" : {
+                    
+                  }
+                }
               }
             }
           }
@@ -840,7 +912,11 @@
                 "priority" : {
                   "Some" : 30
                 },
-                "queueFull" : "Drop"
+                "queueFull" : {
+                  "Drop" : {
+                    
+                  }
+                }
               }
             }
           }

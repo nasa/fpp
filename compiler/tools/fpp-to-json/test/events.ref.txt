@@ -10,7 +10,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "EventIdentifiers",
                   "members" : [
                     [
@@ -24,7 +28,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "Event",
+                                  "kind" : {
+                                    "Event" : {
+                                      
+                                    }
+                                  },
                                   "name" : "eventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -49,7 +57,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TextEvent",
+                                  "kind" : {
+                                    "TextEvent" : {
+                                      
+                                    }
+                                  },
                                   "name" : "textEventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -74,7 +86,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TimeGet",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "timeGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -101,7 +117,11 @@
                                 "name" : "Event1",
                                 "params" : [
                                 ],
-                                "severity" : "ActivityLow",
+                                "severity" : {
+                                  "ActivityLow" : {
+                                    
+                                  }
+                                },
                                 "id" : {
                                   "Some" : {
                                     "AstNode" : {
@@ -148,13 +168,21 @@
                                     {
                                       "AstNode" : {
                                         "data" : {
-                                          "kind" : "Value",
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
                                           "name" : "count",
                                           "typeName" : {
                                             "AstNode" : {
                                               "data" : {
                                                 "TypeNameInt" : {
-                                                  "name" : "U32"
+                                                  "name" : {
+                                                    "U32" : {
+                                                      
+                                                    }
+                                                  }
                                                 }
                                               },
                                               "id" : 8
@@ -169,7 +197,11 @@
                                     ]
                                   ]
                                 ],
-                                "severity" : "ActivityHigh",
+                                "severity" : {
+                                  "ActivityHigh" : {
+                                    
+                                  }
+                                },
                                 "id" : {
                                   "Some" : {
                                     "AstNode" : {
@@ -211,7 +243,11 @@
                                 "name" : "Event3",
                                 "params" : [
                                 ],
-                                "severity" : "ActivityHigh",
+                                "severity" : {
+                                  "ActivityHigh" : {
+                                    
+                                  }
+                                },
                                 "id" : "None",
                                 "format" : {
                                   "AstNode" : {
@@ -248,7 +284,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "EventThrottling",
                   "members" : [
                     [
@@ -262,7 +302,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "Event",
+                                  "kind" : {
+                                    "Event" : {
+                                      
+                                    }
+                                  },
                                   "name" : "eventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -287,7 +331,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TextEvent",
+                                  "kind" : {
+                                    "TextEvent" : {
+                                      
+                                    }
+                                  },
                                   "name" : "textEventOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -312,7 +360,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "TimeGet",
+                                  "kind" : {
+                                    "TimeGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "timeGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -338,7 +390,11 @@
                                 "name" : "Event1",
                                 "params" : [
                                 ],
-                                "severity" : "WarningHigh",
+                                "severity" : {
+                                  "WarningHigh" : {
+                                    
+                                  }
+                                },
                                 "id" : "None",
                                 "format" : {
                                   "AstNode" : {
@@ -677,7 +733,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Event",
+              "kind" : {
+                "Event" : {
+                  
+                }
+              },
               "name" : "eventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -699,7 +759,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TextEvent",
+              "kind" : {
+                "TextEvent" : {
+                  
+                }
+              },
               "name" : "textEventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -721,7 +785,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TimeGet",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
               "name" : "timeGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -744,7 +812,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Event",
+            "kind" : {
+              "Event" : {
+                
+              }
+            },
             "name" : "eventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -764,7 +836,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TextEvent",
+            "kind" : {
+              "TextEvent" : {
+                
+              }
+            },
             "name" : "textEventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -784,7 +860,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TimeGet",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
             "name" : "timeGetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -872,7 +952,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "Event",
+              "kind" : {
+                "Event" : {
+                  
+                }
+              },
               "name" : "eventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -894,7 +978,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TextEvent",
+              "kind" : {
+                "TextEvent" : {
+                  
+                }
+              },
               "name" : "textEventOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -916,7 +1004,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "TimeGet",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
               "name" : "timeGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -939,7 +1031,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "Event",
+            "kind" : {
+              "Event" : {
+                
+              }
+            },
             "name" : "eventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -959,7 +1055,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TextEvent",
+            "kind" : {
+              "TextEvent" : {
+                
+              }
+            },
             "name" : "textEventOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -979,7 +1079,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "TimeGet",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
             "name" : "timeGetOut",
             "priority" : "None",
             "queueFull" : "None"

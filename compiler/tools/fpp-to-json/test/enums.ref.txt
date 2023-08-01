@@ -249,7 +249,11 @@
                               "id" : 23
                             }
                           },
-                          "op" : "Add",
+                          "op" : {
+                            "Add" : {
+                              
+                            }
+                          },
                           "e2" : {
                             "AstNode" : {
                               "data" : {
@@ -288,7 +292,11 @@
                       "AstNode" : {
                         "data" : {
                           "TypeNameInt" : {
-                            "name" : "U8"
+                            "name" : {
+                              "U8" : {
+                                
+                              }
+                            }
                           }
                         },
                         "id" : 27

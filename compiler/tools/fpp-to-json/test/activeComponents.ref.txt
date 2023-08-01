@@ -20,7 +20,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : "Active",
+                                "kind" : {
+                                  "Active" : {
+                                    
+                                  }
+                                },
                                 "name" : "DataCompressor",
                                 "members" : [
                                   [
@@ -33,7 +37,11 @@
                                           "AstNode" : {
                                             "data" : {
                                               "General" : {
-                                                "kind" : "AsyncInput",
+                                                "kind" : {
+                                                  "AsyncInput" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "bufferSendIn",
                                                 "size" : "None",
                                                 "port" : {
@@ -85,7 +93,11 @@
                                           "AstNode" : {
                                             "data" : {
                                               "General" : {
-                                                "kind" : "Output",
+                                                "kind" : {
+                                                  "Output" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "bufferSendOut",
                                                 "size" : "None",
                                                 "port" : {
@@ -220,7 +232,11 @@
                                                           "id" : 62
                                                         }
                                                       },
-                                                      "op" : "Mul",
+                                                      "op" : {
+                                                        "Mul" : {
+                                                          
+                                                        }
+                                                      },
                                                       "e2" : {
                                                         "AstNode" : {
                                                           "data" : {
@@ -1021,7 +1037,11 @@
               "astNodeId" : 37
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "bufferSendIn",
               "size" : "None",
               "port" : {
@@ -1052,7 +1072,11 @@
               "astNodeId" : 49
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "bufferSendOut",
               "size" : "None",
               "port" : {

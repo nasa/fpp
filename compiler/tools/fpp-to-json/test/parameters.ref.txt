@@ -25,7 +25,11 @@
                     "AstNode" : {
                       "data" : {
                         "TypeNameFloat" : {
-                          "name" : "F64"
+                          "name" : {
+                            "F64" : {
+                              
+                            }
+                          }
                         }
                       },
                       "id" : 1
@@ -51,7 +55,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "ParamOpcodes",
                   "members" : [
                     [
@@ -65,7 +73,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandRecv",
+                                  "kind" : {
+                                    "CommandRecv" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdIn",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -90,7 +102,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandReg",
+                                  "kind" : {
+                                    "CommandReg" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdRegOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -115,7 +131,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "CommandResp",
+                                  "kind" : {
+                                    "CommandResp" : {
+                                      
+                                    }
+                                  },
                                   "name" : "cmdResponseOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -140,7 +160,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "ParamGet",
+                                  "kind" : {
+                                    "ParamGet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "prmGetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -165,7 +189,11 @@
                               "data" : {
                                 "Special" : {
                                   "inputKind" : "None",
-                                  "kind" : "ParamSet",
+                                  "kind" : {
+                                    "ParamSet" : {
+                                      
+                                    }
+                                  },
                                   "name" : "prmSetOut",
                                   "priority" : "None",
                                   "queueFull" : "None"
@@ -195,7 +223,11 @@
                                   "AstNode" : {
                                     "data" : {
                                       "TypeNameInt" : {
-                                        "name" : "U32"
+                                        "name" : {
+                                          "U32" : {
+                                            
+                                          }
+                                        }
                                       }
                                     },
                                     "id" : 8
@@ -241,7 +273,11 @@
                                   "AstNode" : {
                                     "data" : {
                                       "TypeNameFloat" : {
-                                        "name" : "F64"
+                                        "name" : {
+                                          "F64" : {
+                                            
+                                          }
+                                        }
                                       }
                                     },
                                     "id" : 11
@@ -823,7 +859,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandRecv",
+              "kind" : {
+                "CommandRecv" : {
+                  
+                }
+              },
               "name" : "cmdIn",
               "priority" : "None",
               "queueFull" : "None"
@@ -845,7 +885,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "ParamGet",
+              "kind" : {
+                "ParamGet" : {
+                  
+                }
+              },
               "name" : "prmGetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -867,7 +911,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandResp",
+              "kind" : {
+                "CommandResp" : {
+                  
+                }
+              },
               "name" : "cmdResponseOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -889,7 +937,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "ParamSet",
+              "kind" : {
+                "ParamSet" : {
+                  
+                }
+              },
               "name" : "prmSetOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -911,7 +963,11 @@
             },
             "specifier" : {
               "inputKind" : "None",
-              "kind" : "CommandReg",
+              "kind" : {
+                "CommandReg" : {
+                  
+                }
+              },
               "name" : "cmdRegOut",
               "priority" : "None",
               "queueFull" : "None"
@@ -934,7 +990,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "ParamSet",
+            "kind" : {
+              "ParamSet" : {
+                
+              }
+            },
             "name" : "prmSetOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -954,7 +1014,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandRecv",
+            "kind" : {
+              "CommandRecv" : {
+                
+              }
+            },
             "name" : "cmdIn",
             "priority" : "None",
             "queueFull" : "None"
@@ -974,7 +1038,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandReg",
+            "kind" : {
+              "CommandReg" : {
+                
+              }
+            },
             "name" : "cmdRegOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -994,7 +1062,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "CommandResp",
+            "kind" : {
+              "CommandResp" : {
+                
+              }
+            },
             "name" : "cmdResponseOut",
             "priority" : "None",
             "queueFull" : "None"
@@ -1014,7 +1086,11 @@
           },
           "specifier" : {
             "inputKind" : "None",
-            "kind" : "ParamGet",
+            "kind" : {
+              "ParamGet" : {
+                
+              }
+            },
             "name" : "prmGetOut",
             "priority" : "None",
             "queueFull" : "None"

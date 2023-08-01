@@ -202,7 +202,11 @@
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "U32"
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 27
@@ -344,7 +348,11 @@
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "U8"
+                                    "name" : {
+                                      "U8" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 40
@@ -428,7 +436,11 @@
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameInt" : {
-                                    "name" : "U32"
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 50

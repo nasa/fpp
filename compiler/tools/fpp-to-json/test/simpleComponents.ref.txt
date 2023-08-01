@@ -18,13 +18,21 @@
                       {
                         "AstNode" : {
                           "data" : {
-                            "kind" : "Value",
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
                             "name" : "value",
                             "typeName" : {
                               "AstNode" : {
                                 "data" : {
                                   "TypeNameFloat" : {
-                                    "name" : "F32"
+                                    "name" : {
+                                      "F32" : {
+                                        
+                                      }
+                                    }
                                   }
                                 },
                                 "id" : 4
@@ -57,7 +65,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "PassiveF32Adder",
                   "members" : [
                     [
@@ -70,7 +82,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "SyncInput",
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn1",
                                   "size" : "None",
                                   "port" : {
@@ -107,7 +123,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "SyncInput",
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn2",
                                   "size" : "None",
                                   "port" : {
@@ -144,7 +164,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueOut",
                                   "size" : "None",
                                   "port" : {
@@ -190,7 +214,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Active",
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
                   "name" : "ActiveF32Adder",
                   "members" : [
                     [
@@ -203,7 +231,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "AsyncInput",
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn1",
                                   "size" : "None",
                                   "port" : {
@@ -240,7 +272,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "AsyncInput",
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn2",
                                   "size" : "None",
                                   "port" : {
@@ -277,7 +313,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueOut",
                                   "size" : "None",
                                   "port" : {
@@ -324,7 +364,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Active",
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
                   "name" : "PriorityActiveF32Adder",
                   "members" : [
                     [
@@ -337,7 +381,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "AsyncInput",
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn1",
                                   "size" : "None",
                                   "port" : {
@@ -367,7 +415,11 @@
                                   "queueFull" : {
                                     "Some" : {
                                       "AstNode" : {
-                                        "data" : "Block",
+                                        "data" : {
+                                          "Block" : {
+                                            
+                                          }
+                                        },
                                         "id" : 42
                                       }
                                     }
@@ -392,7 +444,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "AsyncInput",
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueIn2",
                                   "size" : "None",
                                   "port" : {
@@ -422,7 +478,11 @@
                                   "queueFull" : {
                                     "Some" : {
                                       "AstNode" : {
-                                        "data" : "Drop",
+                                        "data" : {
+                                          "Drop" : {
+                                            
+                                          }
+                                        },
                                         "id" : 47
                                       }
                                     }
@@ -447,7 +507,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "f32ValueOut",
                                   "size" : "None",
                                   "port" : {
@@ -522,7 +586,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "SerialSplitter",
                   "members" : [
                     [
@@ -535,7 +603,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "SyncInput",
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "serialIn",
                                   "size" : "None",
                                   "port" : "None",
@@ -561,7 +633,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "serialOut",
                                   "size" : {
                                     "Some" : {
@@ -964,7 +1040,11 @@
               "astNodeId" : 9
             },
             "specifier" : {
-              "kind" : "SyncInput",
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn1",
               "size" : "None",
               "port" : {
@@ -995,7 +1075,11 @@
               "astNodeId" : 12
             },
             "specifier" : {
-              "kind" : "SyncInput",
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn2",
               "size" : "None",
               "port" : {
@@ -1026,7 +1110,11 @@
               "astNodeId" : 21
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "f32ValueOut",
               "size" : "None",
               "port" : {
@@ -1087,7 +1175,11 @@
               "astNodeId" : 25
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn1",
               "size" : "None",
               "port" : {
@@ -1118,7 +1210,11 @@
               "astNodeId" : 28
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn2",
               "size" : "None",
               "port" : {
@@ -1149,7 +1245,11 @@
               "astNodeId" : 37
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "f32ValueOut",
               "size" : "None",
               "port" : {
@@ -1210,7 +1310,11 @@
               "astNodeId" : 43
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn1",
               "size" : "None",
               "port" : {
@@ -1249,7 +1353,11 @@
               "astNodeId" : 48
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "f32ValueIn2",
               "size" : "None",
               "port" : {
@@ -1288,7 +1396,11 @@
               "astNodeId" : 57
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "f32ValueOut",
               "size" : "None",
               "port" : {
@@ -1349,7 +1461,11 @@
               "astNodeId" : 61
             },
             "specifier" : {
-              "kind" : "SyncInput",
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
               "name" : "serialIn",
               "size" : "None",
               "port" : "None",
@@ -1371,7 +1487,11 @@
               "astNodeId" : 67
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "serialOut",
               "size" : {
                 "Some" : {

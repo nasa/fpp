@@ -30,7 +30,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Active",
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
                   "name" : "InternalSelfMessage",
                   "members" : [
                     [
@@ -50,7 +54,11 @@
                                     {
                                       "AstNode" : {
                                         "data" : {
-                                          "kind" : "Value",
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
                                           "name" : "t",
                                           "typeName" : {
                                             "AstNode" : {
@@ -92,7 +100,11 @@
                                   }
                                 },
                                 "queueFull" : {
-                                  "Some" : "Drop"
+                                  "Some" : {
+                                    "Drop" : {
+                                      
+                                    }
+                                  }
                                 }
                               },
                               "id" : 42
@@ -356,7 +368,11 @@
             "priority" : {
               "Some" : 10
             },
-            "queueFull" : "Drop"
+            "queueFull" : {
+              "Drop" : {
+                
+              }
+            }
           }
         }
       },

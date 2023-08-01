@@ -30,7 +30,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Passive",
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
                   "name" : "C",
                   "members" : [
                     [
@@ -42,7 +46,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "SyncInput",
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "pIn",
                                   "size" : "None",
                                   "port" : {
@@ -78,7 +86,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "pOut",
                                   "size" : "None",
                                   "port" : {
@@ -319,7 +331,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : "Public",
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -348,7 +364,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : "Private",
+                                "visibility" : {
+                                  "Private" : {
+                                    
+                                  }
+                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -571,7 +591,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : "Public",
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -600,7 +624,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "visibility" : "Public",
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
                                 "instance" : {
                                   "AstNode" : {
                                     "data" : {
@@ -1581,7 +1609,11 @@
               "astNodeId" : 3
             },
             "specifier" : {
-              "kind" : "SyncInput",
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
               "name" : "pIn",
               "size" : "None",
               "port" : {
@@ -1612,7 +1644,11 @@
               "astNodeId" : 12
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "pOut",
               "size" : "None",
               "port" : {
@@ -1718,7 +1754,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
@@ -1751,7 +1791,11 @@
             }
           },
           [
-            "Private",
+            {
+              "Private" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "19.3",
@@ -1803,7 +1847,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -1868,7 +1916,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -1937,7 +1989,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -2002,7 +2058,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -2073,7 +2133,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -2138,7 +2202,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -2207,7 +2275,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -2272,7 +2344,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -2336,7 +2412,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -2401,7 +2481,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -2466,7 +2550,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -2529,7 +2617,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -2594,7 +2686,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -2659,7 +2755,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -2724,7 +2824,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -2789,7 +2893,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -2854,7 +2962,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -2917,7 +3029,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -2982,7 +3098,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -3047,7 +3167,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -3119,7 +3243,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3184,7 +3312,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -3254,7 +3386,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3319,7 +3455,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -3391,7 +3531,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3456,7 +3600,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -3526,7 +3674,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3591,7 +3743,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -3670,7 +3826,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
@@ -3703,7 +3863,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
@@ -3736,7 +3900,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
@@ -3788,7 +3956,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3853,7 +4025,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -3922,7 +4098,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -3987,7 +4167,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -4058,7 +4242,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -4123,7 +4311,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -4192,7 +4384,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -4257,7 +4453,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -4321,7 +4521,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -4386,7 +4590,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -4451,7 +4659,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -4514,7 +4726,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -4579,7 +4795,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -4644,7 +4864,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -4709,7 +4933,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -4774,7 +5002,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -4839,7 +5071,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -4902,7 +5138,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -4967,7 +5207,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -5032,7 +5276,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -5104,7 +5352,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -5169,7 +5421,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -5239,7 +5495,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -5304,7 +5564,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -5376,7 +5640,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -5441,7 +5709,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -5511,7 +5783,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -5576,7 +5852,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -5640,7 +5920,11 @@
                 "astNodeId" : 3
               },
               "specifier" : {
-                "kind" : "SyncInput",
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
                 "name" : "pIn",
                 "size" : "None",
                 "port" : {
@@ -5697,7 +5981,11 @@
                 "astNodeId" : 12
               },
               "specifier" : {
-                "kind" : "Output",
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
                 "name" : "pOut",
                 "size" : "None",
                 "port" : {
@@ -5774,7 +6062,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "37.3",
@@ -5807,7 +6099,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "39.3",
@@ -5840,7 +6136,11 @@
             }
           },
           [
-            "Public",
+            {
+              "Public" : {
+                
+              }
+            },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/importedTopologies.fpp",
               "pos" : "17.3",
@@ -5892,7 +6192,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -5957,7 +6261,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -6026,7 +6334,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -6091,7 +6403,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -6158,7 +6474,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -6223,7 +6543,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -6288,7 +6612,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -6351,7 +6679,11 @@
                   "astNodeId" : 12
                 },
                 "specifier" : {
-                  "kind" : "Output",
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
                   "name" : "pOut",
                   "size" : "None",
                   "port" : {
@@ -6416,7 +6748,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -6481,7 +6817,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -6546,7 +6886,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -6611,7 +6955,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -6676,7 +7024,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -6739,7 +7091,11 @@
                   "astNodeId" : 3
                 },
                 "specifier" : {
-                  "kind" : "SyncInput",
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
                   "name" : "pIn",
                   "size" : "None",
                   "port" : {
@@ -6804,7 +7160,11 @@
                         "astNodeId" : 12
                       },
                       "specifier" : {
-                        "kind" : "Output",
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
                         "name" : "pOut",
                         "size" : "None",
                         "port" : {
@@ -6869,7 +7229,11 @@
                         "astNodeId" : 3
                       },
                       "specifier" : {
-                        "kind" : "SyncInput",
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
                         "name" : "pIn",
                         "size" : "None",
                         "port" : {
@@ -6941,7 +7305,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -7006,7 +7374,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -7076,7 +7448,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -7141,7 +7517,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -7213,7 +7593,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -7278,7 +7662,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -7348,7 +7736,11 @@
                       "astNodeId" : 12
                     },
                     "specifier" : {
-                      "kind" : "Output",
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
                       "name" : "pOut",
                       "size" : "None",
                       "port" : {
@@ -7413,7 +7805,11 @@
                       "astNodeId" : 3
                     },
                     "specifier" : {
-                      "kind" : "SyncInput",
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
                       "name" : "pIn",
                       "size" : "None",
                       "port" : {
@@ -7477,7 +7873,11 @@
                 "astNodeId" : 3
               },
               "specifier" : {
-                "kind" : "SyncInput",
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
                 "name" : "pIn",
                 "size" : "None",
                 "port" : {
@@ -7534,7 +7934,11 @@
                 "astNodeId" : 12
               },
               "specifier" : {
-                "kind" : "Output",
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
                 "name" : "pOut",
                 "size" : "None",
                 "port" : {

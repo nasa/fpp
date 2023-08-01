@@ -38,7 +38,11 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "kind" : "Queued",
+                  "kind" : {
+                    "Queued" : {
+                      
+                    }
+                  },
                   "name" : "Health",
                   "members" : [
                     [
@@ -51,7 +55,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "Output",
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
                                   "name" : "pingOut",
                                   "size" : {
                                     "Some" : {
@@ -114,7 +122,11 @@
                             "AstNode" : {
                               "data" : {
                                 "General" : {
-                                  "kind" : "AsyncInput",
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
                                   "name" : "pingIn",
                                   "size" : {
                                     "Some" : {
@@ -399,7 +411,11 @@
               "astNodeId" : 6
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "pingOut",
               "size" : {
                 "Some" : {
@@ -434,7 +450,11 @@
               "astNodeId" : 11
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "pingIn",
               "size" : {
                 "Some" : {
@@ -497,7 +517,11 @@
               "astNodeId" : 6
             },
             "specifier" : {
-              "kind" : "Output",
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
               "name" : "pingOut",
               "size" : {
                 "Some" : {
@@ -530,7 +554,11 @@
               "astNodeId" : 11
             },
             "specifier" : {
-              "kind" : "AsyncInput",
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
               "name" : "pingIn",
               "size" : {
                 "Some" : {

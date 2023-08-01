@@ -20,7 +20,11 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : "Active",
+                                "kind" : {
+                                  "Active" : {
+                                    
+                                  }
+                                },
                                 "name" : "HelloWorld",
                                 "members" : [
                                   [
@@ -45,7 +49,11 @@
                                                   {
                                                     "AstNode" : {
                                                       "data" : {
-                                                        "kind" : "Value",
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
                                                         "name" : "greeting",
                                                         "typeName" : {
                                                           "AstNode" : {
@@ -106,7 +114,11 @@
                                                   {
                                                     "AstNode" : {
                                                       "data" : {
-                                                        "kind" : "Value",
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
                                                         "name" : "greeting",
                                                         "typeName" : {
                                                           "AstNode" : {
@@ -138,7 +150,11 @@
                                                   ]
                                                 ]
                                               ],
-                                              "severity" : "ActivityHigh",
+                                              "severity" : {
+                                                "ActivityHigh" : {
+                                                  
+                                                }
+                                              },
                                               "id" : "None",
                                               "format" : {
                                                 "AstNode" : {
@@ -170,7 +186,11 @@
                                                 "AstNode" : {
                                                   "data" : {
                                                     "TypeNameInt" : {
-                                                      "name" : "U32"
+                                                      "name" : {
+                                                        "U32" : {
+                                                          
+                                                        }
+                                                      }
                                                     }
                                                   },
                                                   "id" : 73
@@ -203,7 +223,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "TimeGet",
+                                                "kind" : {
+                                                  "TimeGet" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "timeCaller",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -228,7 +252,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "CommandReg",
+                                                "kind" : {
+                                                  "CommandReg" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "cmdRegOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -253,7 +281,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "CommandRecv",
+                                                "kind" : {
+                                                  "CommandRecv" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "cmdIn",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -278,7 +310,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "CommandResp",
+                                                "kind" : {
+                                                  "CommandResp" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "cmdResponseOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -303,7 +339,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "TextEvent",
+                                                "kind" : {
+                                                  "TextEvent" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "logTextOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -328,7 +368,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "Event",
+                                                "kind" : {
+                                                  "Event" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "logOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -353,7 +397,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "Telemetry",
+                                                "kind" : {
+                                                  "Telemetry" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "tlmOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -378,7 +426,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "ParamGet",
+                                                "kind" : {
+                                                  "ParamGet" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "prmGetOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
@@ -403,7 +455,11 @@
                                             "data" : {
                                               "Special" : {
                                                 "inputKind" : "None",
-                                                "kind" : "ParamSet",
+                                                "kind" : {
+                                                  "ParamSet" : {
+                                                    
+                                                  }
+                                                },
                                                 "name" : "prmSetOut",
                                                 "priority" : "None",
                                                 "queueFull" : "None"
