@@ -953,246 +953,31 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "88" : {
-      "Module" : {
-        "nodeId" : 89,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "83" : {
-      "Module" : {
-        "nodeId" : 84,
-        "unqualifiedName" : "Svc"
-      }
-    },
+  "componentInstanceMap" : {
     "79" : {
-      "Module" : {
-        "nodeId" : 80,
-        "unqualifiedName" : "FSW"
-      }
-    },
-    "6" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "Sensors"
-      }
-    },
-    "60" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "Sensors"
-      }
-    },
-    "85" : {
-      "Module" : {
-        "nodeId" : 89,
-        "unqualifiedName" : "Fw"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "89" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 85,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 88,
-                    "unqualifiedName" : "Time"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "84" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Sched" : {
-                  "Port" : {
-                    "nodeId" : 83,
-                    "unqualifiedName" : "Sched"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "61" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Calibration" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "Calibration"
-                  }
-                }
-              }
-            }
-          },
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
-              }
-            }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
-              }
-            }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "80" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "engineTemp" : {
-                  "ComponentInstance" : {
-                    "nodeId" : 79,
-                    "unqualifiedName" : "engineTemp"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "60" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "45" : {
-      "Port" : {
-        "nodeId" : 83,
-        "unqualifiedName" : "Sched"
-      }
-    },
-    "51" : {
-      "Port" : {
-        "nodeId" : 88,
-        "unqualifiedName" : "Time"
-      }
-    },
-    "50" : {
-      "Port" : {
-        "nodeId" : 85,
-        "unqualifiedName" : "Tlm"
-      }
-    },
-    "43" : {
-      "Module" : {
-        "nodeId" : 84,
-        "unqualifiedName" : "Svc"
-      }
-    },
-    "74" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "Sensors"
-      }
-    },
-    "48" : {
-      "Port" : {
-        "nodeId" : 6,
-        "unqualifiedName" : "Calibration"
-      }
-    },
-    "76" : {
-      "Component" : {
-        "nodeId" : 60,
-        "unqualifiedName" : "EngineTemp"
-      }
-    }
-  },
-  "typeMap" : {
-    "78" : "Integer",
-    "58" : {
-      "Float" : {
-        "kind" : "F32"
-      }
-    },
-    "52" : {
-      "Float" : {
-        "kind" : "F32"
-      }
-    },
-    "4" : {
-      "Float" : {
-        "kind" : "F32"
-      }
-    },
-    "77" : "Integer"
-  },
-  "valueMap" : {
-    "77" : {
-      "Integer" : {
-        "value" : 256
-      }
-    },
-    "78" : {
-      "Integer" : {
-        "value" : 10
+      "aNode" : {
+        "astNodeId" : 79
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+          "FSW"
+        ],
+        "base" : "engineTemp"
+      },
+      "component" : {
+        "astNodeId" : 60
+      },
+      "baseId" : 256,
+      "maxId" : 257,
+      "file" : "None",
+      "queueSize" : {
+        "Some" : 10
+      },
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
       }
     }
   },
@@ -1408,35 +1193,250 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "88" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "83" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
     "79" : {
-      "aNode" : {
-        "astNodeId" : 79
-      },
-      "qualifiedName" : {
-        "qualifier" : [
-          "FSW"
-        ],
-        "base" : "engineTemp"
-      },
-      "component" : {
-        "astNodeId" : 60
-      },
-      "baseId" : 256,
-      "maxId" : 257,
-      "file" : "None",
-      "queueSize" : {
-        "Some" : 10
-      },
-      "stackSize" : "None",
-      "priority" : "None",
-      "cpu" : "None",
-      "initSpecifierMap" : {
-        
+      "Module" : {
+        "nodeId" : 80,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "6" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "85" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "89" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 85,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 88,
+                    "unqualifiedName" : "Time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "84" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Sched" : {
+                  "Port" : {
+                    "nodeId" : 83,
+                    "unqualifiedName" : "Sched"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "61" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Calibration" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "Calibration"
+                  }
+                }
+              }
+            }
+          },
+          "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "80" : {
+      "ScopeImpl" : {
+        "map" : {
+          "ComponentInstance" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "engineTemp" : {
+                  "ComponentInstance" : {
+                    "nodeId" : 79,
+                    "unqualifiedName" : "engineTemp"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "60" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
       }
     }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "78" : "Integer",
+    "58" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
+    "52" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
+    "4" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
+    "77" : "Integer"
+  },
+  "useDefMap" : {
+    "45" : {
+      "Port" : {
+        "nodeId" : 83,
+        "unqualifiedName" : "Sched"
+      }
+    },
+    "51" : {
+      "Port" : {
+        "nodeId" : 88,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "50" : {
+      "Port" : {
+        "nodeId" : 85,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "43" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "74" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "48" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Calibration"
+      }
+    },
+    "76" : {
+      "Component" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "EngineTemp"
+      }
+    }
+  },
+  "valueMap" : {
+    "77" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "78" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   }
 }

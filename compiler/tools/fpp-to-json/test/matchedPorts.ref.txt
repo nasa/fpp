@@ -384,113 +384,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "24" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "21" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "25" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Ping" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Ping"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "8" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    },
-    "5" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Ping"
-      }
-    },
-    "10" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Ping"
-      }
-    },
-    "2" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "7" : {
-      "Constant" : {
-        "nodeId" : 1,
-        "unqualifiedName" : "numPingPorts"
-      }
-    },
-    "3" : {
-      "Module" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "Svc"
-      }
-    }
-  },
-  "typeMap" : {
-    "0" : "Integer",
-    "1" : "Integer",
-    "2" : "Integer",
-    "7" : "Integer"
-  },
-  "valueMap" : {
-    "0" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "1" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "2" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "7" : {
-      "Integer" : {
-        "value" : 10
-      }
-    }
+  "componentInstanceMap" : {
+    
   },
   "componentMap" : {
     "21" : {
@@ -668,10 +563,115 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/matchedPorts.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "24" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "21" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "25" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Ping" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Ping"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "0" : "Integer",
+    "1" : "Integer",
+    "2" : "Integer",
+    "7" : "Integer"
+  },
+  "useDefMap" : {
+    "8" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "5" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Ping"
+      }
+    },
+    "10" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Ping"
+      }
+    },
+    "2" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numPingPorts"
+      }
+    },
+    "7" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numPingPorts"
+      }
+    },
+    "3" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    }
+  },
+  "valueMap" : {
+    "0" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   }
 }

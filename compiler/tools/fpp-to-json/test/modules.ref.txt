@@ -707,10 +707,16 @@
   }
 }
 {
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
   "inputFileSet" : [
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/modules.fpp"
-  ],
-  "includedFileSet" : [
   ],
   "locationSpecifierMap" : [
   ],
@@ -910,6 +916,27 @@
       }
     }
   },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "15" : "Integer",
+    "33" : "Integer",
+    "26" : "Integer",
+    "61" : "Integer",
+    "54" : "Integer",
+    "32" : "Integer",
+    "1" : "Integer",
+    "53" : "Integer",
+    "2" : "Integer",
+    "3" : "Integer",
+    "19" : "Integer",
+    "62" : "Integer",
+    "25" : "Integer",
+    "14" : "Integer",
+    "0" : "Integer",
+    "20" : "Integer"
+  },
   "useDefMap" : {
     "12" : {
       "Module" : {
@@ -959,24 +986,6 @@
         "unqualifiedName" : "b"
       }
     }
-  },
-  "typeMap" : {
-    "15" : "Integer",
-    "33" : "Integer",
-    "26" : "Integer",
-    "61" : "Integer",
-    "54" : "Integer",
-    "32" : "Integer",
-    "1" : "Integer",
-    "53" : "Integer",
-    "2" : "Integer",
-    "3" : "Integer",
-    "19" : "Integer",
-    "62" : "Integer",
-    "25" : "Integer",
-    "14" : "Integer",
-    "0" : "Integer",
-    "20" : "Integer"
   },
   "valueMap" : {
     "15" : {
@@ -1059,14 +1068,5 @@
         "value" : 1
       }
     }
-  },
-  "componentMap" : {
-    
-  },
-  "componentInstanceMap" : {
-    
-  },
-  "topologyMap" : {
-    
   }
 }

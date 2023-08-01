@@ -731,232 +731,7 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "34" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "26" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "24" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "25" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "31" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "27" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "30" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "29" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "28" : {
-      "Module" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Fw"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "35" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 25,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 29,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "PrmGet" : {
-                  "Port" : {
-                    "nodeId" : 30,
-                    "unqualifiedName" : "PrmGet"
-                  }
-                },
-                "PrmSet" : {
-                  "Port" : {
-                    "nodeId" : 31,
-                    "unqualifiedName" : "PrmSet"
-                  }
-                },
-                "LogText" : {
-                  "Port" : {
-                    "nodeId" : 28,
-                    "unqualifiedName" : "LogText"
-                  }
-                },
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "Log" : {
-                  "Port" : {
-                    "nodeId" : 27,
-                    "unqualifiedName" : "Log"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 26,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 34,
-                    "unqualifiedName" : "Time"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "5" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "10" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "14" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "19" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "23" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "4" : {
-      "Port" : {
-        "nodeId" : 26,
-        "unqualifiedName" : "CmdResponse"
-      }
-    },
-    "22" : {
-      "Port" : {
-        "nodeId" : 34,
-        "unqualifiedName" : "Time"
-      }
-    },
-    "13" : {
-      "Port" : {
-        "nodeId" : 29,
-        "unqualifiedName" : "Tlm"
-      }
-    },
-    "0" : {
-      "Port" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "Cmd"
-      }
-    },
-    "18" : {
-      "Port" : {
-        "nodeId" : 31,
-        "unqualifiedName" : "PrmSet"
-      }
-    },
-    "15" : {
-      "Port" : {
-        "nodeId" : 30,
-        "unqualifiedName" : "PrmGet"
-      }
-    },
-    "9" : {
-      "Port" : {
-        "nodeId" : 28,
-        "unqualifiedName" : "LogText"
-      }
-    },
-    "6" : {
-      "Port" : {
-        "nodeId" : 27,
-        "unqualifiedName" : "Log"
-      }
-    },
-    "1" : {
-      "Port" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "CmdReg"
-      }
-    }
-  },
-  "typeMap" : {
-    
-  },
-  "valueMap" : {
+  "componentInstanceMap" : {
     
   },
   "componentMap" : {
@@ -1484,10 +1259,235 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/specialPorts.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "34" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "26" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "24" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "25" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "31" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "27" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "30" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "29" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "28" : {
+      "Module" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "35" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 25,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 29,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "PrmGet" : {
+                  "Port" : {
+                    "nodeId" : 30,
+                    "unqualifiedName" : "PrmGet"
+                  }
+                },
+                "PrmSet" : {
+                  "Port" : {
+                    "nodeId" : 31,
+                    "unqualifiedName" : "PrmSet"
+                  }
+                },
+                "LogText" : {
+                  "Port" : {
+                    "nodeId" : 28,
+                    "unqualifiedName" : "LogText"
+                  }
+                },
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 24,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "Log" : {
+                  "Port" : {
+                    "nodeId" : 27,
+                    "unqualifiedName" : "Log"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 26,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 34,
+                    "unqualifiedName" : "Time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "5" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "19" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "23" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    }
   },
   "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    
+  },
+  "useDefMap" : {
+    "4" : {
+      "Port" : {
+        "nodeId" : 26,
+        "unqualifiedName" : "CmdResponse"
+      }
+    },
+    "22" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "13" : {
+      "Port" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "0" : {
+      "Port" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "18" : {
+      "Port" : {
+        "nodeId" : 31,
+        "unqualifiedName" : "PrmSet"
+      }
+    },
+    "15" : {
+      "Port" : {
+        "nodeId" : 30,
+        "unqualifiedName" : "PrmGet"
+      }
+    },
+    "9" : {
+      "Port" : {
+        "nodeId" : 28,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 27,
+        "unqualifiedName" : "Log"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "CmdReg"
+      }
+    }
+  },
+  "valueMap" : {
     
   }
 }

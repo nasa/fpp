@@ -11,25 +11,20 @@ import scala.util.parsing.input.Position
 /** JSON encoder for the location map */
 object LocMapJsonEncoder extends JsonEncoder {
   
-  implicit val fileEncoder: Encoder[File] = new Encoder[File] {
-    override def apply(file: File): Json = Json.fromString(file.toString)
-  }
+  implicit val fileEncoder: Encoder[File] =
+    Encoder.encodeString.contramap(_.toString)
 
-  implicit val positionEncoder: Encoder[Position] = new Encoder[Position] {
-    override def apply(position: Position): Json =
-      Json.fromString(position.toString)
-  }
+//  implicit val positionEncoder: Encoder[Position] = new Encoder[Position] {
+//    override def apply(position: Position): Json =
+//      Json.fromString(position.toString)
+//  }
+  implicit val positionEncoder: Encoder[Position] =
+    Encoder.encodeString.contramap(_.toString)
 
-  // JSON Encoder for locations.
-  // In theory, Circe should be able to auto-generate this encoder.
-  // However, removing this code causes excessive inlining.
-  implicit val locationEncoder: Encoder[Location] = new Encoder[Location] {
-    override def apply(location: Location): Json = Json.obj(
-      "file" -> location.file.asJson,
-      "pos" -> location.pos.asJson,
-      "includingLoc" -> location.includingLoc.asJson
-    )
-  }
+  // JSON Encoder for locations
+  // We use semiautomatic derivation here to avoid excessive inlining.
+  implicit val locationEncoder: Encoder[Location] = 
+      io.circe.generic.semiauto.deriveEncoder[Location]
 
   /** Converts the location map to JSON */
   def locMapToJson: Json = {

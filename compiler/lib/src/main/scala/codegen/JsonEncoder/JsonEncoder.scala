@@ -1,11 +1,8 @@
 package fpp.compiler.codegen
 
-import io.circe.syntax._
 import io.circe._
-import io.circe.generic.semiauto._
-import io.circe.generic.auto._
-import fpp.compiler.ast._
 
+/** Generic methods for JSON encoding */
 trait JsonEncoder {
     
   /** Encodes a value of Option type */

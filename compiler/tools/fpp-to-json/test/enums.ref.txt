@@ -544,10 +544,16 @@
   }
 }
 {
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
   "inputFileSet" : [
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/enums.fpp"
-  ],
-  "includedFileSet" : [
   ],
   "locationSpecifierMap" : [
   ],
@@ -699,37 +705,8 @@
       }
     }
   },
-  "useDefMap" : {
-    "8" : {
-      "EnumConstant" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "MAYBE"
-      }
-    },
-    "23" : {
-      "EnumConstant" : {
-        "nodeId" : 11,
-        "unqualifiedName" : "A"
-      }
-    },
-    "33" : {
-      "EnumConstant" : {
-        "nodeId" : 29,
-        "unqualifiedName" : "B"
-      }
-    },
-    "21" : {
-      "Enum" : {
-        "nodeId" : 20,
-        "unqualifiedName" : "E"
-      }
-    },
-    "6" : {
-      "Enum" : {
-        "nodeId" : 5,
-        "unqualifiedName" : "Decision"
-      }
-    }
+  "topologyMap" : {
+    
   },
   "typeMap" : {
     "34" : {
@@ -1022,6 +999,38 @@
       }
     }
   },
+  "useDefMap" : {
+    "8" : {
+      "EnumConstant" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "MAYBE"
+      }
+    },
+    "23" : {
+      "EnumConstant" : {
+        "nodeId" : 11,
+        "unqualifiedName" : "A"
+      }
+    },
+    "33" : {
+      "EnumConstant" : {
+        "nodeId" : 29,
+        "unqualifiedName" : "B"
+      }
+    },
+    "21" : {
+      "Enum" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
+      }
+    },
+    "6" : {
+      "Enum" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Decision"
+      }
+    }
+  },
   "valueMap" : {
     "12" : {
       "Integer" : {
@@ -1300,14 +1309,5 @@
         }
       }
     }
-  },
-  "componentMap" : {
-    
-  },
-  "componentInstanceMap" : {
-    
-  },
-  "topologyMap" : {
-    
   }
 }

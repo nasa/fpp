@@ -807,418 +807,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "45" : {
-      "Module" : {
-        "nodeId" : 52,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "51" : {
-      "Module" : {
-        "nodeId" : 52,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "46" : {
-      "Module" : {
-        "nodeId" : 52,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "48" : {
-      "Module" : {
-        "nodeId" : 52,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "47" : {
-      "Module" : {
-        "nodeId" : 52,
-        "unqualifiedName" : "Fw"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "44" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "52" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 48,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "PrmGet" : {
-                  "Port" : {
-                    "nodeId" : 45,
-                    "unqualifiedName" : "PrmGet"
-                  }
-                },
-                "PrmSet" : {
-                  "Port" : {
-                    "nodeId" : 46,
-                    "unqualifiedName" : "PrmSet"
-                  }
-                },
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 47,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 51,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "4" : {
-      "Port" : {
-        "nodeId" : 48,
-        "unqualifiedName" : "CmdReg"
-      }
-    },
-    "37" : {
-      "Array" : {
-        "nodeId" : 2,
-        "unqualifiedName" : "F64x3"
-      }
-    },
-    "5" : {
-      "Port" : {
-        "nodeId" : 51,
-        "unqualifiedName" : "CmdResponse"
-      }
-    },
-    "7" : {
-      "Port" : {
-        "nodeId" : 46,
-        "unqualifiedName" : "PrmSet"
-      }
-    },
-    "3" : {
-      "Port" : {
-        "nodeId" : 47,
-        "unqualifiedName" : "Cmd"
-      }
-    },
-    "6" : {
-      "Port" : {
-        "nodeId" : 45,
-        "unqualifiedName" : "PrmGet"
-      }
-    },
-    "36" : {
-      "Array" : {
-        "nodeId" : 2,
-        "unqualifiedName" : "F64x3"
-      }
-    }
-  },
-  "typeMap" : {
-    "12" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "8" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
-      }
-    },
-    "40" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "37" : {
-      "Array" : {
-        "defaultValue" : {
-          "Some" : {
-            "anonArray" : {
-              "elements" : [
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                },
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                },
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Float" : {
-              "kind" : "F64"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 2,
-        "name" : "F64x3"
-      }
-    },
-    "13" : "Integer",
-    "14" : "Integer",
-    "42" : "Integer",
-    "0" : "Integer",
-    "41" : {
-      "AnonArray" : {
-        "size" : {
-          "Some" : 3
-        },
-        "eltType" : {
-          "Float" : {
-            "kind" : "F64"
-          }
-        }
-      }
-    },
-    "15" : "Integer",
-    "11" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "9" : "Integer",
-    "1" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "39" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "2" : {
-      "Array" : {
-        "defaultValue" : {
-          "Some" : {
-            "anonArray" : {
-              "elements" : [
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                },
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                },
-                {
-                  "Float" : {
-                    "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        },
-        "format" : "None",
-        "anonArray" : {
-          "size" : {
-            "Some" : 3
-          },
-          "eltType" : {
-            "Float" : {
-              "kind" : "F64"
-            }
-          }
-        },
-        "size" : {
-          "Some" : 3
-        },
-        "nodeId" : 2,
-        "name" : "F64x3"
-      }
-    },
-    "38" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    }
-  },
-  "valueMap" : {
-    "12" : {
-      "Float" : {
-        "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
-      }
-    },
-    "40" : {
-      "Float" : {
-        "value" : 3.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
-      }
-    },
-    "13" : {
-      "Integer" : {
-        "value" : 16
-      }
-    },
-    "39" : {
-      "Float" : {
-        "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
-      }
-    },
-    "14" : {
-      "Integer" : {
-        "value" : 16
-      }
-    },
-    "42" : {
-      "Integer" : {
-        "value" : 32
-      }
-    },
-    "0" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "38" : {
-      "Float" : {
-        "value" : 1.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
-      }
-    },
-    "41" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "Float" : {
-              "value" : 1.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
-            }
-          },
-          {
-            "Float" : {
-              "value" : 2.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
-            }
-          },
-          {
-            "Float" : {
-              "value" : 3.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "15" : {
-      "Integer" : {
-        "value" : 17
-      }
-    },
-    "9" : {
-      "Integer" : {
-        "value" : 1
-      }
-    }
+  "componentInstanceMap" : {
+    
   },
   "componentMap" : {
     "44" : {
@@ -1684,10 +1274,420 @@
       "defaultParamId" : 18
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "45" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "51" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "46" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "48" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "47" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "44" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 48,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "PrmGet" : {
+                  "Port" : {
+                    "nodeId" : 45,
+                    "unqualifiedName" : "PrmGet"
+                  }
+                },
+                "PrmSet" : {
+                  "Port" : {
+                    "nodeId" : 46,
+                    "unqualifiedName" : "PrmSet"
+                  }
+                },
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 47,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 51,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "12" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "8" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "40" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "37" : {
+      "Array" : {
+        "defaultValue" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "format" : "None",
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Float" : {
+              "kind" : "F64"
+            }
+          }
+        },
+        "size" : {
+          "Some" : 3
+        },
+        "nodeId" : 2,
+        "name" : "F64x3"
+      }
+    },
+    "13" : "Integer",
+    "14" : "Integer",
+    "42" : "Integer",
+    "0" : "Integer",
+    "41" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Float" : {
+            "kind" : "F64"
+          }
+        }
+      }
+    },
+    "15" : "Integer",
+    "11" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "9" : "Integer",
+    "1" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "39" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "2" : {
+      "Array" : {
+        "defaultValue" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "format" : "None",
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Float" : {
+              "kind" : "F64"
+            }
+          }
+        },
+        "size" : {
+          "Some" : 3
+        },
+        "nodeId" : 2,
+        "name" : "F64x3"
+      }
+    },
+    "38" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    }
+  },
+  "useDefMap" : {
+    "4" : {
+      "Port" : {
+        "nodeId" : 48,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "37" : {
+      "Array" : {
+        "nodeId" : 2,
+        "unqualifiedName" : "F64x3"
+      }
+    },
+    "5" : {
+      "Port" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "CmdResponse"
+      }
+    },
+    "7" : {
+      "Port" : {
+        "nodeId" : 46,
+        "unqualifiedName" : "PrmSet"
+      }
+    },
+    "3" : {
+      "Port" : {
+        "nodeId" : 47,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 45,
+        "unqualifiedName" : "PrmGet"
+      }
+    },
+    "36" : {
+      "Array" : {
+        "nodeId" : 2,
+        "unqualifiedName" : "F64x3"
+      }
+    }
+  },
+  "valueMap" : {
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "40" : {
+      "Float" : {
+        "value" : 3.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "13" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "39" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "14" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 32
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "38" : {
+      "Float" : {
+        "value" : 1.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "41" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 3.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 17
+      }
+    },
+    "9" : {
+      "Integer" : {
+        "value" : 1
+      }
+    }
   }
 }

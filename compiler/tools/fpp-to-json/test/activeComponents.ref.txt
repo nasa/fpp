@@ -977,10 +977,136 @@
   }
 }
 {
+  "componentInstanceMap" : {
+    "102" : {
+      "aNode" : {
+        "astNodeId" : 102
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+          "FSW"
+        ],
+        "base" : "dataCompressor"
+      },
+      "component" : {
+        "astNodeId" : 50
+      },
+      "baseId" : 256,
+      "maxId" : 255,
+      "file" : "None",
+      "queueSize" : {
+        "Some" : 10
+      },
+      "stackSize" : {
+        "Some" : 10240
+      },
+      "priority" : {
+        "Some" : 30
+      },
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    }
+  },
+  "componentMap" : {
+    "50" : {
+      "aNode" : {
+        "astNodeId" : 50
+      },
+      "portMap" : {
+        "bufferSendIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 37
+            },
+            "specifier" : {
+              "kind" : "AsyncInput",
+              "name" : "bufferSendIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 36
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "AsyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "bufferSendOut" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 49
+            },
+            "specifier" : {
+              "kind" : "Output",
+              "name" : "bufferSendOut",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 48
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "Output",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
   "inputFileSet" : [
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp"
-  ],
-  "includedFileSet" : [
   ],
   "locationSpecifierMap" : [
   ],
@@ -1199,6 +1325,21 @@
       }
     }
   },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "94" : "Integer",
+    "65" : "Integer",
+    "63" : "Integer",
+    "52" : "Integer",
+    "100" : "Integer",
+    "62" : "Integer",
+    "64" : "Integer",
+    "53" : "Integer",
+    "101" : "Integer",
+    "97" : "Integer"
+  },
   "useDefMap" : {
     "100" : {
       "Constant" : {
@@ -1261,18 +1402,6 @@
       }
     }
   },
-  "typeMap" : {
-    "94" : "Integer",
-    "65" : "Integer",
-    "63" : "Integer",
-    "52" : "Integer",
-    "100" : "Integer",
-    "62" : "Integer",
-    "64" : "Integer",
-    "53" : "Integer",
-    "101" : "Integer",
-    "97" : "Integer"
-  },
   "valueMap" : {
     "94" : {
       "Integer" : {
@@ -1324,134 +1453,5 @@
         "value" : 10
       }
     }
-  },
-  "componentMap" : {
-    "50" : {
-      "aNode" : {
-        "astNodeId" : 50
-      },
-      "portMap" : {
-        "bufferSendIn" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 37
-            },
-            "specifier" : {
-              "kind" : "AsyncInput",
-              "name" : "bufferSendIn",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 36
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "AsyncInput",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 106,
-                    "unqualifiedName" : "BufferSend"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "bufferSendOut" : {
-          "General" : {
-            "aNode" : {
-              "astNodeId" : 49
-            },
-            "specifier" : {
-              "kind" : "Output",
-              "name" : "bufferSendOut",
-              "size" : "None",
-              "port" : {
-                "Some" : {
-                  "astNodeId" : 48
-                }
-              },
-              "priority" : "None",
-              "queueFull" : "None"
-            },
-            "kind" : "Output",
-            "size" : 1,
-            "ty" : {
-              "DefPort" : {
-                "symbol" : {
-                  "Port" : {
-                    "nodeId" : 106,
-                    "unqualifiedName" : "BufferSend"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "specialPortMap" : {
-        
-      },
-      "commandMap" : {
-        
-      },
-      "defaultOpcode" : 0,
-      "tlmChannelMap" : {
-        
-      },
-      "defaultTlmChannelId" : 0,
-      "eventMap" : {
-        
-      },
-      "defaultEventId" : 0,
-      "paramMap" : {
-        
-      },
-      "specPortMatchingList" : [
-      ],
-      "portMatchingList" : [
-      ],
-      "defaultParamId" : 0
-    }
-  },
-  "componentInstanceMap" : {
-    "102" : {
-      "aNode" : {
-        "astNodeId" : 102
-      },
-      "qualifiedName" : {
-        "qualifier" : [
-          "FSW"
-        ],
-        "base" : "dataCompressor"
-      },
-      "component" : {
-        "astNodeId" : 50
-      },
-      "baseId" : 256,
-      "maxId" : 255,
-      "file" : "None",
-      "queueSize" : {
-        "Some" : 10
-      },
-      "stackSize" : {
-        "Some" : 10240
-      },
-      "priority" : {
-        "Some" : 30
-      },
-      "cpu" : "None",
-      "initSpecifierMap" : {
-        
-      }
-    }
-  },
-  "topologyMap" : {
-    
   }
 }

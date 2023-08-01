@@ -516,302 +516,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "37" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "3" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "4" : {
-      "Component" : {
-        "nodeId" : 35,
-        "unqualifiedName" : "Switch"
-      }
-    },
-    "40" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "36" : {
-      "Module" : {
-        "nodeId" : 41,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "1" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "4" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "OFF" : {
-                  "EnumConstant" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "OFF"
-                  }
-                },
-                "ON" : {
-                  "EnumConstant" : {
-                    "nodeId" : 3,
-                    "unqualifiedName" : "ON"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "35" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "State" : {
-                  "Enum" : {
-                    "nodeId" : 4,
-                    "unqualifiedName" : "State"
-                  }
-                }
-              }
-            }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "State" : {
-                  "Enum" : {
-                    "nodeId" : 4,
-                    "unqualifiedName" : "State"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "41" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 36,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 37,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 40,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "5" : {
-      "Port" : {
-        "nodeId" : 37,
-        "unqualifiedName" : "CmdReg"
-      }
-    },
-    "32" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "6" : {
-      "Port" : {
-        "nodeId" : 36,
-        "unqualifiedName" : "Cmd"
-      }
-    },
-    "31" : {
-      "Enum" : {
-        "nodeId" : 4,
-        "unqualifiedName" : "State"
-      }
-    },
-    "7" : {
-      "Port" : {
-        "nodeId" : 40,
-        "unqualifiedName" : "CmdResponse"
-      }
-    }
-  },
-  "typeMap" : {
-    "4" : {
-      "Enum" : {
-        "defaultValue" : {
-          "Some" : {
-            "name" : "OFF",
-            "value" : 0,
-            "type" : {
-              "node" : {
-                "astNodeId" : 4
-              },
-              "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
-              },
-              "default" : "None"
-            }
-          }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
-      }
-    },
-    "1" : {
-      "Enum" : {
-        "defaultValue" : "None",
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
-      }
-    },
-    "3" : {
-      "Enum" : {
-        "defaultValue" : "None",
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
-      }
-    },
-    "32" : {
-      "Enum" : {
-        "defaultValue" : {
-          "Some" : {
-            "name" : "OFF",
-            "value" : 0,
-            "type" : {
-              "node" : {
-                "astNodeId" : 4
-              },
-              "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
-              },
-              "default" : "None"
-            }
-          }
-        },
-        "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
-        },
-        "nodeId" : 4,
-        "name" : "State"
-      }
-    }
-  },
-  "valueMap" : {
-    "1" : {
-      "EnumConstant" : {
-        "name" : "OFF",
-        "value" : 0,
-        "type" : {
-          "node" : {
-            "astNodeId" : 4
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      }
-    },
-    "3" : {
-      "EnumConstant" : {
-        "name" : "ON",
-        "value" : 1,
-        "type" : {
-          "node" : {
-            "astNodeId" : 4
-          },
-          "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
-          },
-          "default" : "None"
-        }
-      }
-    }
+  "componentInstanceMap" : {
+    
   },
   "componentMap" : {
     "35" : {
@@ -982,10 +688,304 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "37" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "3" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "4" : {
+      "Component" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Switch"
+      }
+    },
+    "40" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "36" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "1" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "4" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "OFF" : {
+                  "EnumConstant" : {
+                    "nodeId" : 1,
+                    "unqualifiedName" : "OFF"
+                  }
+                },
+                "ON" : {
+                  "EnumConstant" : {
+                    "nodeId" : 3,
+                    "unqualifiedName" : "ON"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "35" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "State" : {
+                  "Enum" : {
+                    "nodeId" : 4,
+                    "unqualifiedName" : "State"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "State" : {
+                  "Enum" : {
+                    "nodeId" : 4,
+                    "unqualifiedName" : "State"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "41" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 36,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 37,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 40,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "4" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Some" : {
+            "name" : "OFF",
+            "value" : 0,
+            "type" : {
+              "node" : {
+                "astNodeId" : 4
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "1" : {
+      "Enum" : {
+        "defaultValue" : "None",
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "3" : {
+      "Enum" : {
+        "defaultValue" : "None",
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    },
+    "32" : {
+      "Enum" : {
+        "defaultValue" : {
+          "Some" : {
+            "name" : "OFF",
+            "value" : 0,
+            "type" : {
+              "node" : {
+                "astNodeId" : 4
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "nodeId" : 4,
+        "name" : "State"
+      }
+    }
+  },
+  "useDefMap" : {
+    "5" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "32" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 36,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "31" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "7" : {
+      "Port" : {
+        "nodeId" : 40,
+        "unqualifiedName" : "CmdResponse"
+      }
+    }
+  },
+  "valueMap" : {
+    "1" : {
+      "EnumConstant" : {
+        "name" : "OFF",
+        "value" : 0,
+        "type" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    },
+    "3" : {
+      "EnumConstant" : {
+        "name" : "ON",
+        "value" : 1,
+        "type" : {
+          "node" : {
+            "astNodeId" : 4
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    }
   }
 }

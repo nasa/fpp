@@ -995,10 +995,16 @@
   }
 }
 {
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
   "inputFileSet" : [
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp"
-  ],
-  "includedFileSet" : [
   ],
   "locationSpecifierMap" : [
   ],
@@ -1008,13 +1014,8 @@
   "symbolScopeMap" : {
     
   },
-  "useDefMap" : {
-    "43" : {
-      "Constant" : {
-        "nodeId" : 42,
-        "unqualifiedName" : "j"
-      }
-    }
+  "topologyMap" : {
+    
   },
   "typeMap" : {
     "45" : "Integer",
@@ -1238,6 +1239,14 @@
       }
     },
     "41" : "Integer"
+  },
+  "useDefMap" : {
+    "43" : {
+      "Constant" : {
+        "nodeId" : 42,
+        "unqualifiedName" : "j"
+      }
+    }
   },
   "valueMap" : {
     "45" : {
@@ -1776,14 +1785,5 @@
         "value" : 1
       }
     }
-  },
-  "componentMap" : {
-    
-  },
-  "componentInstanceMap" : {
-    
-  },
-  "topologyMap" : {
-    
   }
 }

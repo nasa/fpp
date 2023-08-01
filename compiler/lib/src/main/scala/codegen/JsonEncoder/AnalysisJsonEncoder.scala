@@ -13,7 +13,7 @@ import AstJsonEncoder._
 import LocMapJsonEncoder._
 
 object AnalysisJsonEncoder extends JsonEncoder{
-  
+
   // JSON encoder for AST nodes
   private implicit def astNodeEncoder[T: Encoder]: Encoder[AstNode[T]] = new Encoder[AstNode[T]] {
     override def apply(astNode: AstNode[T]): Json = Json.obj("astNodeId" -> astNode.id.asJson)
@@ -53,7 +53,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
         case t : Type.Integer.type => getUnqualifiedClassName(t).asJson
         case t : Type.AbsType => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
           "defaultValue" -> t.getDefaultValue.asJson,
-          "nodeId" -> t.getDefNodeId.asJson, 
+          "nodeId" -> t.getDefNodeId.asJson,
           "name" -> t.toString.asJson))
         case t : Type.Array => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
           "defaultValue" -> t.default.asJson,
@@ -75,8 +75,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
           "nodeId" -> t.node._2.id.asJson,
           "name" -> t.node._2.data.name.asJson))
         case t : Type.AnonArray => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
-          "size" -> t.size.asJson, 
-          "eltType" -> t.eltType.asJson 
+          "size" -> t.size.asJson,
+          "eltType" -> t.eltType.asJson
           ))
         case t : Type.AnonStruct => Json.obj(getUnqualifiedClassName(t) -> Json.obj(
           "members" -> t.members.asJson
@@ -89,7 +89,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
       "name" -> enumConstant.value._1.asJson,
       "value" -> enumConstant.value._2.asJson,
       "type" -> enumConstant.t.asJson
-    ) 
+    )
   }
 
   implicit val valueArrayEncoder: Encoder[Value.Array] = new Encoder[Value.Array] {
@@ -129,10 +129,10 @@ object AnalysisJsonEncoder extends JsonEncoder{
         add("component", compInstance.component.aNode.asJson).asJson
     }
 
-  // ---------------------------------------------------------------------- 
+  // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON maps
   // We use this conversion when the keys can be converted to strings
-  // ---------------------------------------------------------------------- 
+  // ----------------------------------------------------------------------
 
   private def astNodeIdToString(id: AstNode.Id) = id.toString
 
@@ -161,7 +161,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     def f2(map: NameSymbolMap) = map.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
-  
+
   private implicit val nameSymbolMapEncoder:
     Encoder[Map[Name.Unqualified, Symbol]] =
   {
@@ -182,12 +182,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
     def f2(s: Symbol) = symbolAsJson(s)
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
-  
+
   private implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = {
     def f2(s: Scope) = s.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
-  
+
   private implicit val componentMapEncoder:
     Encoder[Map[Symbol.Component, Component]] =
   {
@@ -202,26 +202,26 @@ object AnalysisJsonEncoder extends JsonEncoder{
     def f2(channel: TlmChannel) = channel.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
-  
+
   private implicit val eventMapEncoder: Encoder[Map[Event.Id, Event]] = {
     def f1(id: Event.Id) = id.toString
     def f2(event: Event) = event.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
-  
+
   private implicit val paramMapEncoder: Encoder[Map[Param.Id, Param]] = {
     def f1(id: Param.Id) = id.toString
     def f2(param: Param) = param.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
-  
+
   private implicit val componentInstanceMapEncoder:
     Encoder[Map[Symbol.ComponentInstance, ComponentInstance]] =
   {
     def f2(ci: ComponentInstance) = ci.asJson
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
- 
+
   private implicit val topologyMapEncoder:
     Encoder[Map[Symbol.Topology, Topology]] =
   {
@@ -238,7 +238,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     def f2(s: Symbol) = s.asJson
     Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
-  
+
   private implicit val patternMapEncoder:
     Encoder[Map[Ast.SpecConnectionGraph.Pattern.Kind, ConnectionPattern]] =
   {
@@ -274,7 +274,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   private implicit val locationSpecifierMapEncoder:
     Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
     Encoder.instance(_.toList.asJson)
- 
+
   private implicit val componentInstanceLocationMapEncoder:
     Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance(_.toList.asJson)
@@ -285,17 +285,17 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   /** Converts the Analysis data structure to JSON */
   def analysisToJson(a: Analysis): Json = Json.obj(
-    "inputFileSet" -> a.inputFileSet.asJson, 
-    "includedFileSet" -> a.includedFileSet.asJson, 
-    "locationSpecifierMap" -> a.locationSpecifierMap.asJson, 
-    "parentSymbolMap" -> a.parentSymbolMap.asJson, 
-    "symbolScopeMap" -> a.symbolScopeMap.asJson, 
+    "componentInstanceMap" -> a.componentInstanceMap.asJson,
+    "componentMap" -> a.componentMap.asJson,
+    "includedFileSet" -> a.includedFileSet.asJson,
+    "inputFileSet" -> a.inputFileSet.asJson,
+    "locationSpecifierMap" -> a.locationSpecifierMap.asJson,
+    "parentSymbolMap" -> a.parentSymbolMap.asJson,
+    "symbolScopeMap" -> a.symbolScopeMap.asJson,
+    "topologyMap" -> a.topologyMap.asJson,
+    "typeMap" -> a.typeMap.asJson,
     "useDefMap" -> a.useDefMap.asJson,
-    "typeMap" -> a.typeMap.asJson, 
-    "valueMap" -> a.valueMap.asJson, 
-    "componentMap" -> a.componentMap.asJson, 
-    "componentInstanceMap" -> a.componentInstanceMap.asJson, 
-    "topologyMap" -> a.topologyMap.asJson 
+    "valueMap" -> a.valueMap.asJson,
   )
-    
+
 }

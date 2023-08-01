@@ -339,86 +339,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
+  "componentInstanceMap" : {
     
-  },
-  "symbolScopeMap" : {
-    "43" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "38" : {
-      "AbsType" : {
-        "nodeId" : 0,
-        "unqualifiedName" : "T"
-      }
-    },
-    "39" : {
-      "AbsType" : {
-        "nodeId" : 0,
-        "unqualifiedName" : "T"
-      }
-    }
-  },
-  "typeMap" : {
-    "0" : {
-      "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 0
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 0
-        },
-        "name" : "T"
-      }
-    },
-    "39" : {
-      "AbsType" : {
-        "defaultValue" : {
-          "Some" : {
-            "AbsType" : {
-              "t" : {
-                "node" : {
-                  "astNodeId" : 0
-                }
-              }
-            }
-          }
-        },
-        "nodeId" : {
-          "Some" : 0
-        },
-        "name" : "T"
-      }
-    },
-    "41" : "Integer"
-  },
-  "valueMap" : {
-    "41" : {
-      "Integer" : {
-        "value" : 10
-      }
-    }
   },
   "componentMap" : {
     "43" : {
@@ -463,10 +385,88 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
     
+  },
+  "symbolScopeMap" : {
+    "43" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "0" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : {
+                  "astNodeId" : 0
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Some" : 0
+        },
+        "name" : "T"
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "defaultValue" : {
+          "Some" : {
+            "AbsType" : {
+              "t" : {
+                "node" : {
+                  "astNodeId" : 0
+                }
+              }
+            }
+          }
+        },
+        "nodeId" : {
+          "Some" : 0
+        },
+        "name" : "T"
+      }
+    },
+    "41" : "Integer"
+  },
+  "useDefMap" : {
+    "38" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    }
+  },
+  "valueMap" : {
+    "41" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
   }
 }

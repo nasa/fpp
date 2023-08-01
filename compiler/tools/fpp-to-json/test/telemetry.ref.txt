@@ -834,188 +834,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "57" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "60" : {
-      "Module" : {
-        "nodeId" : 61,
-        "unqualifiedName" : "Fw"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "56" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "61" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 57,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "Time"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "0" : {
-      "Port" : {
-        "nodeId" : 57,
-        "unqualifiedName" : "Tlm"
-      }
-    },
-    "1" : {
-      "Port" : {
-        "nodeId" : 60,
-        "unqualifiedName" : "Time"
-      }
-    }
-  },
-  "typeMap" : {
-    "8" : "Integer",
-    "23" : "Integer",
-    "4" : "Integer",
-    "50" : "Integer",
-    "10" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "21" : "Integer",
-    "54" : "Integer",
-    "6" : "Integer",
-    "47" : {
-      "Float" : {
-        "kind" : "F64"
-      }
-    },
-    "2" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
-      }
-    },
-    "18" : "Integer",
-    "52" : "Integer",
-    "15" : "Integer",
-    "11" : "Integer",
-    "17" : "Integer",
-    "25" : "Integer",
-    "14" : "Integer",
-    "20" : "Integer",
-    "27" : "Integer"
-  },
-  "valueMap" : {
-    "8" : {
-      "Integer" : {
-        "value" : 2
-      }
-    },
-    "23" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "4" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
-    "50" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "21" : {
-      "Integer" : {
-        "value" : -1
-      }
-    },
-    "54" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "6" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "18" : {
-      "Integer" : {
-        "value" : -2
-      }
-    },
-    "52" : {
-      "Integer" : {
-        "value" : 2
-      }
-    },
-    "15" : {
-      "Integer" : {
-        "value" : -3
-      }
-    },
-    "11" : {
-      "Integer" : {
-        "value" : 16
-      }
-    },
-    "17" : {
-      "Integer" : {
-        "value" : 2
-      }
-    },
-    "25" : {
-      "Integer" : {
-        "value" : 2
-      }
-    },
-    "14" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "20" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "27" : {
-      "Integer" : {
-        "value" : 1
-      }
-    }
+  "componentInstanceMap" : {
+    
   },
   "componentMap" : {
     "56" : {
@@ -1317,10 +1137,190 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/telemetry.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "57" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "56" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "61" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 57,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "Time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "8" : "Integer",
+    "23" : "Integer",
+    "4" : "Integer",
+    "50" : "Integer",
+    "10" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "21" : "Integer",
+    "54" : "Integer",
+    "6" : "Integer",
+    "47" : {
+      "Float" : {
+        "kind" : "F64"
+      }
+    },
+    "2" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "18" : "Integer",
+    "52" : "Integer",
+    "15" : "Integer",
+    "11" : "Integer",
+    "17" : "Integer",
+    "25" : "Integer",
+    "14" : "Integer",
+    "20" : "Integer",
+    "27" : "Integer"
+  },
+  "useDefMap" : {
+    "0" : {
+      "Port" : {
+        "nodeId" : 57,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "Time"
+      }
+    }
+  },
+  "valueMap" : {
+    "8" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "23" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "4" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "50" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "21" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "54" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "6" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "18" : {
+      "Integer" : {
+        "value" : -2
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : -3
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "17" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "25" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "14" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "20" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "27" : {
+      "Integer" : {
+        "value" : 1
+      }
+    }
   }
 }

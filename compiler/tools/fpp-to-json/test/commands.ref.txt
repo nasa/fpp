@@ -661,134 +661,8 @@
   }
 }
 {
-  "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/commands.fpp"
-  ],
-  "includedFileSet" : [
-  ],
-  "locationSpecifierMap" : [
-  ],
-  "parentSymbolMap" : {
-    "46" : {
-      "Module" : {
-        "nodeId" : 51,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "47" : {
-      "Module" : {
-        "nodeId" : 51,
-        "unqualifiedName" : "Fw"
-      }
-    },
-    "50" : {
-      "Module" : {
-        "nodeId" : 51,
-        "unqualifiedName" : "Fw"
-      }
-    }
-  },
-  "symbolScopeMap" : {
-    "45" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
-    },
-    "51" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 46,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 47,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 50,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "useDefMap" : {
-    "0" : {
-      "Port" : {
-        "nodeId" : 47,
-        "unqualifiedName" : "CmdReg"
-      }
-    },
-    "1" : {
-      "Port" : {
-        "nodeId" : 46,
-        "unqualifiedName" : "Cmd"
-      }
-    },
-    "2" : {
-      "Port" : {
-        "nodeId" : 50,
-        "unqualifiedName" : "CmdResponse"
-      }
-    }
-  },
-  "typeMap" : {
-    "11" : {
-      "Float" : {
-        "kind" : "F32"
-      }
-    },
-    "13" : "Integer",
-    "5" : {
-      "PrimitiveInt" : {
-        "kind" : "U32"
-      }
-    },
-    "39" : {
-      "String" : {
-        "size" : "None"
-      }
-    },
-    "42" : "Integer",
-    "41" : "Integer",
-    "3" : "Integer"
-  },
-  "valueMap" : {
-    "3" : {
-      "Integer" : {
-        "value" : 10
-      }
-    },
-    "13" : {
-      "Integer" : {
-        "value" : 20
-      }
-    },
-    "41" : {
-      "Integer" : {
-        "value" : 16
-      }
-    },
-    "42" : {
-      "Integer" : {
-        "value" : 30
-      }
-    }
+  "componentInstanceMap" : {
+    
   },
   "componentMap" : {
     "45" : {
@@ -991,10 +865,136 @@
       "defaultParamId" : 0
     }
   },
-  "componentInstanceMap" : {
-    
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/commands.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "46" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "47" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "50" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "45" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "51" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 46,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 47,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   },
   "topologyMap" : {
     
+  },
+  "typeMap" : {
+    "11" : {
+      "Float" : {
+        "kind" : "F32"
+      }
+    },
+    "13" : "Integer",
+    "5" : {
+      "PrimitiveInt" : {
+        "kind" : "U32"
+      }
+    },
+    "39" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "42" : "Integer",
+    "41" : "Integer",
+    "3" : "Integer"
+  },
+  "useDefMap" : {
+    "0" : {
+      "Port" : {
+        "nodeId" : 47,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 46,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 50,
+        "unqualifiedName" : "CmdResponse"
+      }
+    }
+  },
+  "valueMap" : {
+    "3" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "13" : {
+      "Integer" : {
+        "value" : 20
+      }
+    },
+    "41" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 30
+      }
+    }
   }
 }

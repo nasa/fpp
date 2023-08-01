@@ -848,10 +848,16 @@
   }
 }
 {
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
   "inputFileSet" : [
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp"
-  ],
-  "includedFileSet" : [
   ],
   "locationSpecifierMap" : [
   ],
@@ -931,67 +937,8 @@
       }
     }
   },
-  "useDefMap" : {
-    "62" : {
-      "Enum" : {
-        "nodeId" : 54,
-        "unqualifiedName" : "Status"
-      }
-    },
-    "44" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    },
-    "48" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    },
-    "43" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    },
-    "32" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    },
-    "27" : {
-      "Enum" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "E"
-      }
-    },
-    "63" : {
-      "Enum" : {
-        "nodeId" : 54,
-        "unqualifiedName" : "Status"
-      }
-    },
-    "28" : {
-      "Enum" : {
-        "nodeId" : 24,
-        "unqualifiedName" : "E"
-      }
-    },
-    "47" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    },
-    "31" : {
-      "AbsType" : {
-        "nodeId" : 25,
-        "unqualifiedName" : "T"
-      }
-    }
+  "topologyMap" : {
+    
   },
   "typeMap" : {
     "23" : {
@@ -1280,6 +1227,68 @@
       }
     }
   },
+  "useDefMap" : {
+    "62" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "44" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "48" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "43" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "32" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "27" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "63" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "47" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "31" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    }
+  },
   "valueMap" : {
     "20" : {
       "EnumConstant" : {
@@ -1357,14 +1366,5 @@
         }
       }
     }
-  },
-  "componentMap" : {
-    
-  },
-  "componentInstanceMap" : {
-    
-  },
-  "topologyMap" : {
-    
   }
 }
