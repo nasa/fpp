@@ -182,7 +182,7 @@ namespace M {
     return status;
   }
 
-#if FW_ARRAY_TO_STRING || BUILD_UT
+#if FW_ARRAY_TO_STRING && BUILD_UT
 
   void PrimitiveF64 ::
     toString(Fw::StringBase& sb) const

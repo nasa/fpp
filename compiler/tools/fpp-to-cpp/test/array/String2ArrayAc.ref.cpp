@@ -250,7 +250,7 @@ Fw::SerializeStatus String2 ::
   return status;
 }
 
-#if FW_ARRAY_TO_STRING || BUILD_UT
+#if FW_ARRAY_TO_STRING && BUILD_UT
 
 void String2 ::
   toString(Fw::StringBase& sb) const

@@ -174,7 +174,7 @@ Fw::SerializeStatus Struct3 ::
   return status;
 }
 
-#if FW_ARRAY_TO_STRING || BUILD_UT
+#if FW_ARRAY_TO_STRING && BUILD_UT
 
 void Struct3 ::
   toString(Fw::StringBase& sb) const
