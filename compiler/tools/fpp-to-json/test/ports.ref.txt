@@ -1040,9 +1040,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "A",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "A",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 24
               },
@@ -1096,9 +1098,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "SUCCEED",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "SUCCEED",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 54
               },
@@ -1180,9 +1184,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "SUCCEED",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "SUCCEED",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 54
               },
@@ -1212,9 +1218,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "A",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "A",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 24
               },
@@ -1340,9 +1348,11 @@
   "valueMap" : {
     "20" : {
       "EnumConstant" : {
-        "name" : "A",
-        "value" : 0,
-        "type" : {
+        "value" : [
+          "A",
+          0
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 24
           },
@@ -1359,9 +1369,11 @@
     },
     "23" : {
       "EnumConstant" : {
-        "name" : "B",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "B",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 24
           },
@@ -1378,9 +1390,11 @@
     },
     "50" : {
       "EnumConstant" : {
-        "name" : "SUCCEED",
-        "value" : 0,
-        "type" : {
+        "value" : [
+          "SUCCEED",
+          0
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 54
           },
@@ -1397,9 +1411,11 @@
     },
     "53" : {
       "EnumConstant" : {
-        "name" : "FAIL",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "FAIL",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 54
           },

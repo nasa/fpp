@@ -34,6 +34,10 @@ object AnalysisJsonEncoder extends JsonEncoder{
     )
   )
 
+  // ----------------------------------------------------------------------
+  // Encoders for helping Circe with recursive types
+  // ----------------------------------------------------------------------
+
   private implicit val symbolEncoder: Encoder[Symbol] =
     Encoder.instance(symbolAsJson(_))
 
@@ -84,45 +88,25 @@ object AnalysisJsonEncoder extends JsonEncoder{
       }
     )
 
-  implicit val enumConstantEncoder: Encoder[Value.EnumConstant] = new Encoder[Value.EnumConstant] {
-    override def apply(enumConstant: Value.EnumConstant): Json = Json.obj(
-      "name" -> enumConstant.value._1.asJson,
-      "value" -> enumConstant.value._2.asJson,
-      "type" -> enumConstant.t.asJson
-    )
-  }
+  private implicit val enumConstantEncoder: Encoder[Value.EnumConstant] =
+    io.circe.generic.semiauto.deriveEncoder[Value.EnumConstant]
 
-  implicit val valueArrayEncoder: Encoder[Value.Array] = new Encoder[Value.Array] {
-    override def apply(array: Value.Array): Json = Json.obj(
-      "anonArray" -> array.anonArray.asJson,
-    )
-  }
-  implicit val valueAnonArrayEncoder: Encoder[Value.AnonArray] = new Encoder[Value.AnonArray] {
-    override def apply(array: Value.AnonArray): Json = Json.obj(
-      "elements" -> array.elements.asJson,
-    )
-  }
+  private implicit val valueArrayEncoder: Encoder[Value.Array] =
+    io.circe.generic.semiauto.deriveEncoder[Value.Array]
 
-  implicit val valueStructEncoder: Encoder[Value.Struct] = new Encoder[Value.Struct] {
-    override def apply(struct: Value.Struct): Json = Json.obj(
-      "anonStruct" -> struct.anonStruct.asJson,
-    )
-  }
-  implicit val valueAnonStructEncoder: Encoder[Value.AnonStruct] = new Encoder[Value.AnonStruct] {
-    override def apply(struct: Value.AnonStruct): Json = Json.obj(
-      "members" -> struct.members.asJson
-    )
-  }
+  private implicit val valueAnonArrayEncoder: Encoder[Value.AnonArray] =
+    io.circe.generic.semiauto.deriveEncoder[Value.AnonArray]
 
-  implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] = new Encoder[PortInstanceIdentifier] {
-    override def apply(port: PortInstanceIdentifier): Json = Json.obj(
-      "name" -> port.toString.asJson,
-      "componentInstance" -> port.componentInstance.asJson,
-      "portInstance" -> port.portInstance.asJson
-    )
-  }
+  private implicit val valueStructEncoder: Encoder[Value.Struct] =
+    io.circe.generic.semiauto.deriveEncoder[Value.Struct]
 
-  implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
+  private implicit val valueAnonStructEncoder: Encoder[Value.AnonStruct] =
+    io.circe.generic.semiauto.deriveEncoder[Value.AnonStruct]
+
+  private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
+    io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
+
+  private implicit val componentInstanceEncoder: Encoder[ComponentInstance] =
     Encoder.instance {
       compInstance => io.circe.generic.semiauto.deriveEncoder[ComponentInstance].
         apply(compInstance).asObject.get.

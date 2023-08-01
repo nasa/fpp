@@ -1278,6 +1278,23 @@
                         }
                       }
                     ]
+                  },
+                  "t" : {
+                    "node" : {
+                      "astNodeId" : 2
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "Float" : {
+                          "kind" : "F64"
+                        }
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None"
                   }
                 }
               },
@@ -1335,6 +1352,77 @@
                       }
                     }
                   ]
+                },
+                "t" : {
+                  "node" : {
+                    "astNodeId" : 2
+                  },
+                  "anonArray" : {
+                    "size" : {
+                      "Some" : 3
+                    },
+                    "eltType" : {
+                      "Float" : {
+                        "kind" : "F64"
+                      }
+                    }
+                  },
+                  "default" : {
+                    "Some" : {
+                      "anonArray" : {
+                        "elements" : [
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 2
+                        },
+                        "anonArray" : {
+                          "size" : {
+                            "Some" : 3
+                          },
+                          "eltType" : {
+                            "Float" : {
+                              "kind" : "F64"
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "format" : "None"
+                      }
+                    }
+                  },
+                  "format" : "None"
                 }
               }
             }
@@ -1496,6 +1584,23 @@
                   }
                 }
               ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Float" : {
+                    "kind" : "F64"
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
             }
           }
         },
@@ -1587,6 +1692,23 @@
                   }
                 }
               ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Float" : {
+                    "kind" : "F64"
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
             }
           }
         },

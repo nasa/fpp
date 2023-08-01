@@ -721,9 +721,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "B",
-            "value" : 1,
-            "type" : {
+            "value" : [
+              "B",
+              1
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 34
               },
@@ -812,9 +814,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "YES",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "YES",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 5
               },
@@ -973,9 +977,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "A",
-            "value" : 1,
-            "type" : {
+            "value" : [
+              "A",
+              1
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 20
               },
@@ -1047,9 +1053,11 @@
     },
     "8" : {
       "EnumConstant" : {
-        "name" : "MAYBE",
-        "value" : 2,
-        "type" : {
+        "value" : [
+          "MAYBE",
+          2
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 5
           },
@@ -1066,9 +1074,11 @@
     },
     "4" : {
       "EnumConstant" : {
-        "name" : "MAYBE",
-        "value" : 2,
-        "type" : {
+        "value" : [
+          "MAYBE",
+          2
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 5
           },
@@ -1085,9 +1095,11 @@
     },
     "33" : {
       "EnumConstant" : {
-        "name" : "B",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "B",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 34
           },
@@ -1109,9 +1121,11 @@
     },
     "13" : {
       "EnumConstant" : {
-        "name" : "B",
-        "value" : 2,
-        "type" : {
+        "value" : [
+          "B",
+          2
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 20
           },
@@ -1138,9 +1152,11 @@
     },
     "32" : {
       "EnumConstant" : {
-        "name" : "C",
-        "value" : 2,
-        "type" : {
+        "value" : [
+          "C",
+          2
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 34
           },
@@ -1157,9 +1173,11 @@
     },
     "1" : {
       "EnumConstant" : {
-        "name" : "NO",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "NO",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 5
           },
@@ -1181,9 +1199,11 @@
     },
     "0" : {
       "EnumConstant" : {
-        "name" : "YES",
-        "value" : 0,
-        "type" : {
+        "value" : [
+          "YES",
+          0
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 5
           },
@@ -1205,9 +1225,11 @@
     },
     "29" : {
       "EnumConstant" : {
-        "name" : "B",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "B",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 34
           },
@@ -1224,9 +1246,11 @@
     },
     "28" : {
       "EnumConstant" : {
-        "name" : "A",
-        "value" : 0,
-        "type" : {
+        "value" : [
+          "A",
+          0
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 34
           },
@@ -1243,9 +1267,11 @@
     },
     "19" : {
       "EnumConstant" : {
-        "name" : "C",
-        "value" : 3,
-        "type" : {
+        "value" : [
+          "C",
+          3
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 20
           },
@@ -1262,9 +1288,11 @@
     },
     "23" : {
       "EnumConstant" : {
-        "name" : "A",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "A",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 20
           },
@@ -1281,9 +1309,11 @@
     },
     "11" : {
       "EnumConstant" : {
-        "name" : "A",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "A",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 20
           },
@@ -1300,9 +1330,11 @@
     },
     "9" : {
       "EnumConstant" : {
-        "name" : "MAYBE",
-        "value" : 2,
-        "type" : {
+        "value" : [
+          "MAYBE",
+          2
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 5
           },

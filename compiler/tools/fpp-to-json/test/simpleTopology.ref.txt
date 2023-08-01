@@ -1051,7 +1051,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -1120,7 +1119,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -1193,7 +1191,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -1262,7 +1259,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -1337,7 +1333,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -1406,7 +1401,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -1479,7 +1473,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -1548,7 +1541,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -1616,7 +1608,6 @@
       "outputConnectionMap" : [
         [
           {
-            "name" : "c1.pOut",
             "componentInstance" : {
               "aNode" : {
                 "astNodeId" : 17
@@ -1685,7 +1676,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c1.pOut",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 17
@@ -1754,7 +1744,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c2.pIn",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 21
@@ -1821,7 +1810,6 @@
         ],
         [
           {
-            "name" : "c2.pOut",
             "componentInstance" : {
               "aNode" : {
                 "astNodeId" : 21
@@ -1890,7 +1878,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c2.pOut",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 21
@@ -1959,7 +1946,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c1.pIn",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 17
@@ -2028,7 +2014,6 @@
       "inputConnectionMap" : [
         [
           {
-            "name" : "c2.pIn",
             "componentInstance" : {
               "aNode" : {
                 "astNodeId" : 21
@@ -2097,7 +2082,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c1.pOut",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 17
@@ -2166,7 +2150,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c2.pIn",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 21
@@ -2233,7 +2216,6 @@
         ],
         [
           {
-            "name" : "c1.pIn",
             "componentInstance" : {
               "aNode" : {
                 "astNodeId" : 17
@@ -2302,7 +2284,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c2.pOut",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 21
@@ -2371,7 +2352,6 @@
                   "includingLoc" : "None"
                 },
                 "port" : {
-                  "name" : "c1.pIn",
                   "componentInstance" : {
                     "aNode" : {
                       "astNodeId" : 17
@@ -2447,7 +2427,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -2516,7 +2495,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -2590,7 +2568,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -2659,7 +2636,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -2735,7 +2711,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21
@@ -2804,7 +2779,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -2878,7 +2852,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c1.pOut",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 17
@@ -2947,7 +2920,6 @@
                 "includingLoc" : "None"
               },
               "port" : {
-                "name" : "c2.pIn",
                 "componentInstance" : {
                   "aNode" : {
                     "astNodeId" : 21

@@ -875,9 +875,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "OFF",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "OFF",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 4
               },
@@ -935,9 +937,11 @@
       "Enum" : {
         "defaultValue" : {
           "Some" : {
-            "name" : "OFF",
-            "value" : 0,
-            "type" : {
+            "value" : [
+              "OFF",
+              0
+            ],
+            "t" : {
               "node" : {
                 "astNodeId" : 4
               },
@@ -999,9 +1003,11 @@
   "valueMap" : {
     "1" : {
       "EnumConstant" : {
-        "name" : "OFF",
-        "value" : 0,
-        "type" : {
+        "value" : [
+          "OFF",
+          0
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 4
           },
@@ -1018,9 +1024,11 @@
     },
     "3" : {
       "EnumConstant" : {
-        "name" : "ON",
-        "value" : 1,
-        "type" : {
+        "value" : [
+          "ON",
+          1
+        ],
+        "t" : {
           "node" : {
             "astNodeId" : 4
           },
