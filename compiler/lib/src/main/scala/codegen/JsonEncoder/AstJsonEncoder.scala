@@ -56,25 +56,10 @@ object AstJsonEncoder extends JsonEncoder {
   implicit val visibilityEncoder: Encoder[Ast.Visibility] =
     Encoder.encodeString.contramap(getUnqualifiedClassName(_))
 
-
   // JSON encoder for expressions
-  // We explicitly handle each case to avoid infinite recursion. See note above.
+  // This is here to help Circe with the recursion
   implicit val exprEncoder: Encoder[Ast.Expr] =
-    Encoder.instance(
-      (e: Ast.Expr) => e match {
-        case expr: Ast.ExprArray         => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprBinop         => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprDot           => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprParen         => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprIdent         => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprStruct        => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprUnop          => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprLiteralInt    => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprLiteralBool   => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprLiteralFloat  => addTypeName(expr, expr.asJson)
-        case expr: Ast.ExprLiteralString => addTypeName(expr, expr.asJson)
-      }
-    )
+    io.circe.generic.semiauto.deriveEncoder[Ast.Expr]
 
   // JSON encoder for type names
   // We explicitly handle each case to avoid infinite recursion. See note above.

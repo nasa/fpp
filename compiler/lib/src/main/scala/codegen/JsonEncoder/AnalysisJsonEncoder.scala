@@ -131,6 +131,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   // ---------------------------------------------------------------------- 
   // Methods for converting Scala maps to JSON maps
+  // We use this conversion when the keys can be converted to strings
   // ---------------------------------------------------------------------- 
 
   private def astNodeIdToString(id: AstNode.Id) = id.toString
@@ -248,10 +249,11 @@ object AnalysisJsonEncoder extends JsonEncoder{
 
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON lists
+  // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
-  implicit val ConnectionMapEncoder
-      : Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
+  implicit val ConnectionMapEncoder:
+    Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
@@ -269,11 +271,12 @@ object AnalysisJsonEncoder extends JsonEncoder{
         .asJson
     }
 
-  implicit val locationSpecifierMapEncoder
-      : Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
+  implicit val locationSpecifierMapEncoder:
+    Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
     Encoder.instance { map => map.toList.asJson }
  
-  implicit val componentInstanceLocationMapEncoder: Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
+  implicit val componentInstanceLocationMapEncoder:
+    Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
     Encoder.instance { symbols =>
       symbols.toList
         .map { case (key, value) =>
