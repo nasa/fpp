@@ -1,0 +1,940 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Components",
+                  "members" : [
+                    [
+                      [
+                        "Example Component for F Prime FSW framework."
+                      ],
+                      {
+                        "DefComponent" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Active" : {
+                                    
+                                  }
+                                },
+                                "name" : "HelloWorld",
+                                "members" : [
+                                  [
+                                    [
+                                      "Command to issue greeting with maximum length of 20 characters"
+                                    ],
+                                    {
+                                      "SpecCommand" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "kind" : {
+                                                "Async" : {
+                                                  
+                                                }
+                                              },
+                                              "name" : "SAY_HELLO",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "greeting",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameString" : {
+                                                                "size" : {
+                                                                  "Some" : {
+                                                                    "AstNode" : {
+                                                                      "data" : {
+                                                                        "ExprLiteralInt" : {
+                                                                          "value" : "20"
+                                                                        }
+                                                                      },
+                                                                      "id" : 61
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 62
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 63
+                                                    }
+                                                  },
+                                                  [
+                                                    "Greeting to repeat in the Hello event"
+                                                  ]
+                                                ]
+                                              ],
+                                              "opcode" : "None",
+                                              "priority" : "None",
+                                              "queueFull" : "None"
+                                            },
+                                            "id" : 64
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Greeting event with maximum greeting length of 20 characters"
+                                    ],
+                                    {
+                                      "SpecEvent" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "Hello",
+                                              "params" : [
+                                                [
+                                                  [
+                                                  ],
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "kind" : {
+                                                          "Value" : {
+                                                            
+                                                          }
+                                                        },
+                                                        "name" : "greeting",
+                                                        "typeName" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "TypeNameString" : {
+                                                                "size" : {
+                                                                  "Some" : {
+                                                                    "AstNode" : {
+                                                                      "data" : {
+                                                                        "ExprLiteralInt" : {
+                                                                          "value" : "20"
+                                                                        }
+                                                                      },
+                                                                      "id" : 68
+                                                                    }
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 69
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 70
+                                                    }
+                                                  },
+                                                  [
+                                                    "Greeting supplied from the SAY_HELLO command"
+                                                  ]
+                                                ]
+                                              ],
+                                              "severity" : {
+                                                "ActivityHigh" : {
+                                                  
+                                                }
+                                              },
+                                              "id" : "None",
+                                              "format" : {
+                                                "AstNode" : {
+                                                  "data" : "I say: {}",
+                                                  "id" : 71
+                                                }
+                                              },
+                                              "throttle" : "None"
+                                            },
+                                            "id" : 72
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "A count of the number of greetings issued"
+                                    ],
+                                    {
+                                      "SpecTlmChannel" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "GreetingCount",
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameInt" : {
+                                                      "name" : {
+                                                        "U32" : {
+                                                          
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 73
+                                                }
+                                              },
+                                              "id" : "None",
+                                              "update" : "None",
+                                              "format" : "None",
+                                              "low" : [
+                                              ],
+                                              "high" : [
+                                              ]
+                                            },
+                                            "id" : 74
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for requesting the current time"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "TimeGet" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "timeCaller",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 75
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending command registrations"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "CommandReg" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "cmdRegOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 76
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for receiving commands"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "CommandRecv" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "cmdIn",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 77
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending command responses"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "CommandResp" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "cmdResponseOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 78
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending textual representation of events"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "TextEvent" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "logTextOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 79
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending events to downlink"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "Event" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "logOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 80
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port for sending telemetry channels to downlink"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "Telemetry" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "tlmOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 81
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port to return the value of a parameter"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "ParamGet" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "prmGetOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 82
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Port to set the value of a parameter"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "ParamSet" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "prmSetOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 85
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
+                              },
+                              "id" : 86
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 87
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "8.9",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "15.41",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "13.9",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.34",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.9",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "43.9",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "46.9",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "49.9",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "52.9",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "55.9",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "58.9",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "61.9",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "64.9",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "3.5",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "8.9",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "15.41",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "13.9",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.34",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.9",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "43.9",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "46.9",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "49.9",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "52.9",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "55.9",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "58.9",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "61.9",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "64.9",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "3.5",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.35",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.23",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "9.13",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "8.9",
+    "includingLoc" : "None"
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.35",
+    "includingLoc" : "None"
+  },
+  "69" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.23",
+    "includingLoc" : "None"
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "14.13",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "15.41",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "13.9",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.34",
+    "includingLoc" : "None"
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "18.9",
+    "includingLoc" : "None"
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "43.9",
+    "includingLoc" : "None"
+  },
+  "76" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "46.9",
+    "includingLoc" : "None"
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "49.9",
+    "includingLoc" : "None"
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "52.9",
+    "includingLoc" : "None"
+  },
+  "79" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "55.9",
+    "includingLoc" : "None"
+  },
+  "80" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "58.9",
+    "includingLoc" : "None"
+  },
+  "81" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "61.9",
+    "includingLoc" : "None"
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "64.9",
+    "includingLoc" : "None"
+  },
+  "83" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "67.9",
+    "includingLoc" : "None"
+  },
+  "86" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "3.5",
+    "includingLoc" : "None"
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/syntaxOnly.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  }
+}
