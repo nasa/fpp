@@ -15,7 +15,7 @@ trait JsonEncoder {
   }
 
   /** Adds the type name as an object key */
-  def addTypeName[T](obj: T, json: Json): Json =
+  def addTypeNameKey[T](obj: T, json: Json): Json =
     Json.obj(getUnqualifiedClassName(obj) -> json)
 
   /** Gets the unqualified class name corresponding to the class name of a

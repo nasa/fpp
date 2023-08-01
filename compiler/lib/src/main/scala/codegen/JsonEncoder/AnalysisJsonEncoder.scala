@@ -26,7 +26,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
     }
 
   // JSON encoder for symbols
-  private def symbolAsJson(symbol: Symbol) = addTypeName(
+  private def symbolAsJson(symbol: Symbol) = addTypeNameKey(
     symbol,
     Json.obj(
       "nodeId" -> symbol.getNodeId.asJson,
