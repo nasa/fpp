@@ -24,6 +24,9 @@ object AstJsonEncoder extends JsonEncoder {
   // JSON encoders for Scala type variants, each of which has one value
   // with no arguments. We use the unqualified class name of the
   // type to represent the value.
+  //
+  // TODO: Replace all these ad-hoc transforms with a JSON-to-JSON
+  // postprocessing that replaces { "foo" : { } } with "foo" everywhere.
   // ----------------------------------------------------------------------
 
   implicit val binopEncoder: Encoder[Ast.Binop] =
@@ -70,6 +73,7 @@ object AstJsonEncoder extends JsonEncoder {
     io.circe.generic.semiauto.deriveEncoder[Ast.Expr]
 
   // JSON encoder for type names
+  // TODO: Replace the ad-hoc processing. See above.
   implicit val typeNameEncoder: Encoder[Ast.TypeName] =
     Encoder.instance(
       (t: Ast.TypeName) => t match {
