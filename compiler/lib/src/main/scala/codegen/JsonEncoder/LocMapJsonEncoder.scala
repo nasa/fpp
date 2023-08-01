@@ -14,10 +14,6 @@ object LocMapJsonEncoder extends JsonEncoder {
   implicit val fileEncoder: Encoder[File] =
     Encoder.encodeString.contramap(_.toString)
 
-//  implicit val positionEncoder: Encoder[Position] = new Encoder[Position] {
-//    override def apply(position: Position): Json =
-//      Json.fromString(position.toString)
-//  }
   implicit val positionEncoder: Encoder[Position] =
     Encoder.encodeString.contramap(_.toString)
 
