@@ -122,24 +122,19 @@ object AnalysisJsonEncoder extends JsonEncoder{
     )
   }
 
-  implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.getNodeId -> value.getNodeId
-        }
-        .toMap
-        .asJson
-    }
+  private def mapAsJsonMap[A,B] (f1: A => Int) (f2: B => Json) (map: Map[A,B]): Json =
+    map.map { case (key, value) => (f1(key), f2(value)) }.asJson
+
+  implicit val symbolMapEncoder: Encoder[Map[Symbol, Symbol]] = {
+    def f1(s: Symbol) = s.getNodeId
+    def f2(s: Symbol) = symbolAsJson(s)
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
   
-  implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = Encoder.instance {
-    symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.getNodeId -> value.asJson
-        }
-        .toMap
-        .asJson
+  implicit val scopeMapEncoder: Encoder[Map[Symbol, Scope]] = {
+    def f1(s: Symbol) = s.getNodeId
+    def f2(s: Scope) = s.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
   
   implicit val componentMapEncoder: Encoder[Map[Symbol.Component, Component]] =

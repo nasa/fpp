@@ -552,15 +552,60 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "0" : 5,
-    "29" : 34,
-    "1" : 5,
-    "28" : 34,
-    "13" : 20,
-    "32" : 34,
-    "11" : 20,
-    "19" : 20,
-    "4" : 5
+    "0" : {
+      "Enum" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Decision"
+      }
+    },
+    "29" : {
+      "Enum" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Small"
+      }
+    },
+    "1" : {
+      "Enum" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Decision"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Small"
+      }
+    },
+    "13" : {
+      "Enum" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
+      }
+    },
+    "32" : {
+      "Enum" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "Small"
+      }
+    },
+    "11" : {
+      "Enum" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
+      }
+    },
+    "19" : {
+      "Enum" : {
+        "nodeId" : 20,
+        "unqualifiedName" : "E"
+      }
+    },
+    "4" : {
+      "Enum" : {
+        "nodeId" : 5,
+        "unqualifiedName" : "Decision"
+      }
+    }
   },
   "symbolScopeMap" : {
     "5" : {

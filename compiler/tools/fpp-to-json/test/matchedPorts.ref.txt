@@ -392,7 +392,12 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "24" : 25
+    "24" : {
+      "Module" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "Svc"
+      }
+    }
   },
   "symbolScopeMap" : {
     "21" : {

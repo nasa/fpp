@@ -961,12 +961,42 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "88" : 89,
-    "79" : 80,
-    "83" : 84,
-    "6" : 61,
-    "60" : 61,
-    "85" : 89
+    "88" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "79" : {
+      "Module" : {
+        "nodeId" : 80,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "83" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "6" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "85" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    }
   },
   "symbolScopeMap" : {
     "84" : {

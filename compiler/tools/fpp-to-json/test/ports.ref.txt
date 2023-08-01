@@ -856,10 +856,30 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "20" : 24,
-    "23" : 24,
-    "50" : 54,
-    "53" : 54
+    "20" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "23" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "50" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "53" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    }
   },
   "symbolScopeMap" : {
     "24" : {

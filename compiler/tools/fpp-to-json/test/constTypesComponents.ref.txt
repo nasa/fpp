@@ -524,12 +524,42 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "37" : 41,
-    "1" : 4,
-    "3" : 4,
-    "40" : 41,
-    "36" : 41,
-    "4" : 35
+    "37" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "1" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "3" : {
+      "Enum" : {
+        "nodeId" : 4,
+        "unqualifiedName" : "State"
+      }
+    },
+    "40" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "36" : {
+      "Module" : {
+        "nodeId" : 41,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "4" : {
+      "Component" : {
+        "nodeId" : 35,
+        "unqualifiedName" : "Switch"
+      }
+    }
   },
   "symbolScopeMap" : {
     "4" : {

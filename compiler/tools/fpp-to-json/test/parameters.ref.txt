@@ -815,11 +815,36 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "46" : 52,
-    "45" : 52,
-    "48" : 52,
-    "51" : 52,
-    "47" : 52
+    "46" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "45" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "48" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "51" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "47" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    }
   },
   "symbolScopeMap" : {
     "44" : {

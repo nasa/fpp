@@ -842,8 +842,18 @@
   "locationSpecifierMap" : [
   ],
   "parentSymbolMap" : {
-    "57" : 61,
-    "60" : 61
+    "57" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Fw"
+      }
+    }
   },
   "symbolScopeMap" : {
     "56" : {
