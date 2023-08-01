@@ -1390,39 +1390,19 @@
       }
     },
     "5" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "10" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "14" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "19" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "23" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     }
   },
   "topologyMap" : {

@@ -108,6 +108,6 @@ object AstJsonEncoder extends JsonEncoder {
   // ----------------------------------------------------------------------
 
   /** Converts Ast to JSON */
-  def astToJson(tul: List[Ast.TransUnit]): Json = tul.asJson
+  def astToJson(tul: List[Ast.TransUnit]): Json = collapseEmptyObjects(tul.asJson)
 
 }

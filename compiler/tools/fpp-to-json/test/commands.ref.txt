@@ -98,11 +98,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : {
-                                  "Async" : {
-                                    
-                                  }
-                                },
+                                "kind" : "Async",
                                 "name" : "COMMAND_1",
                                 "params" : [
                                 ],
@@ -138,11 +134,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : {
-                                  "Async" : {
-                                    
-                                  }
-                                },
+                                "kind" : "Async",
                                 "name" : "COMMAND_2",
                                 "params" : [
                                   [
@@ -228,11 +220,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : {
-                                  "Async" : {
-                                    
-                                  }
-                                },
+                                "kind" : "Async",
                                 "name" : "COMMAND_3",
                                 "params" : [
                                   [
@@ -894,11 +882,7 @@
   },
   "symbolScopeMap" : {
     "45" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "51" : {
       "ScopeImpl" : {

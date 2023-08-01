@@ -1053,11 +1053,7 @@
       }
     },
     "44" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "61" : {
       "ScopeImpl" : {

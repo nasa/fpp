@@ -152,11 +152,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "kind" : {
-                                  "Async" : {
-                                    
-                                  }
-                                },
+                                "kind" : "Async",
                                 "name" : "SET_STATE",
                                 "params" : [
                                   [
@@ -834,22 +830,14 @@
                 "astNodeId" : 4
               },
               "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
+                "kind" : "I32"
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
+          "kind" : "I32"
         },
         "nodeId" : 4,
         "name" : "State"
@@ -859,11 +847,7 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
+          "kind" : "I32"
         },
         "nodeId" : 4,
         "name" : "State"
@@ -873,11 +857,7 @@
       "Enum" : {
         "defaultValue" : "None",
         "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
+          "kind" : "I32"
         },
         "nodeId" : 4,
         "name" : "State"
@@ -894,22 +874,14 @@
                 "astNodeId" : 4
               },
               "repType" : {
-                "kind" : {
-                  "I32" : {
-                    
-                  }
-                }
+                "kind" : "I32"
               },
               "default" : "None"
             }
           }
         },
         "repType" : {
-          "kind" : {
-            "I32" : {
-              
-            }
-          }
+          "kind" : "I32"
         },
         "nodeId" : 4,
         "name" : "State"
@@ -958,11 +930,7 @@
             "astNodeId" : 4
           },
           "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
+            "kind" : "I32"
           },
           "default" : "None"
         }
@@ -977,11 +945,7 @@
             "astNodeId" : 4
           },
           "repType" : {
-            "kind" : {
-              "I32" : {
-                
-              }
-            }
+            "kind" : "I32"
           },
           "default" : "None"
         }

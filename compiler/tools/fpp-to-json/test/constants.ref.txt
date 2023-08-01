@@ -1224,19 +1224,11 @@
       }
     },
     "30" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
+      "AnonStruct" : "members"
     },
     "7" : "Integer",
     "29" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
+      "AnonStruct" : "members"
     },
     "41" : "Integer"
   },
@@ -1372,11 +1364,7 @@
     "12" : {
       "Float" : {
         "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
+        "kind" : "F64"
       }
     },
     "51" : {
@@ -1484,21 +1472,13 @@
           {
             "Float" : {
               "value" : 1.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           },
           {
             "Float" : {
               "value" : 2.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           }
         ]
@@ -1668,21 +1648,13 @@
           {
             "Float" : {
               "value" : 1.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           },
           {
             "Float" : {
               "value" : 2.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           }
         ]
@@ -1762,11 +1734,7 @@
       }
     },
     "30" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
+      "AnonStruct" : "members"
     },
     "7" : {
       "Integer" : {
@@ -1774,11 +1742,7 @@
       }
     },
     "29" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
+      "AnonStruct" : "members"
     },
     "41" : {
       "Integer" : {

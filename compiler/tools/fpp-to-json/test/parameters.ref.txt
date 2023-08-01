@@ -1035,11 +1035,7 @@
             "aNode" : {
               "astNodeId" : 16
             },
-            "kind" : {
-              "Set" : {
-                
-              }
-            }
+            "kind" : "Set"
           }
         },
         "32" : {
@@ -1047,11 +1043,7 @@
             "aNode" : {
               "astNodeId" : 43
             },
-            "kind" : {
-              "Save" : {
-                
-              }
-            }
+            "kind" : "Save"
           }
         },
         "1" : {
@@ -1059,11 +1051,7 @@
             "aNode" : {
               "astNodeId" : 10
             },
-            "kind" : {
-              "Save" : {
-                
-              }
-            }
+            "kind" : "Save"
           }
         },
         "17" : {
@@ -1071,11 +1059,7 @@
             "aNode" : {
               "astNodeId" : 16
             },
-            "kind" : {
-              "Save" : {
-                
-              }
-            }
+            "kind" : "Save"
           }
         },
         "0" : {
@@ -1083,11 +1067,7 @@
             "aNode" : {
               "astNodeId" : 10
             },
-            "kind" : {
-              "Set" : {
-                
-              }
-            }
+            "kind" : "Set"
           }
         },
         "18" : {
@@ -1095,11 +1075,7 @@
             "aNode" : {
               "astNodeId" : 43
             },
-            "kind" : {
-              "Set" : {
-                
-              }
-            }
+            "kind" : "Set"
           }
         }
       },
@@ -1126,11 +1102,7 @@
             "Some" : {
               "PrimitiveInt" : {
                 "value" : 1,
-                "kind" : {
-                  "U32" : {
-                    
-                  }
-                }
+                "kind" : "U32"
               }
             }
           },
@@ -1150,11 +1122,7 @@
             "Some" : {
               "Float" : {
                 "value" : 2.0,
-                "kind" : {
-                  "F64" : {
-                    
-                  }
-                }
+                "kind" : "F64"
               }
             }
           },
@@ -1174,31 +1142,19 @@
                       {
                         "Float" : {
                           "value" : 0.0,
-                          "kind" : {
-                            "F64" : {
-                              
-                            }
-                          }
+                          "kind" : "F64"
                         }
                       },
                       {
                         "Float" : {
                           "value" : 0.0,
-                          "kind" : {
-                            "F64" : {
-                              
-                            }
-                          }
+                          "kind" : "F64"
                         }
                       },
                       {
                         "Float" : {
                           "value" : 0.0,
-                          "kind" : {
-                            "F64" : {
-                              
-                            }
-                          }
+                          "kind" : "F64"
                         }
                       }
                     ]
@@ -1231,31 +1187,19 @@
                     {
                       "Float" : {
                         "value" : 1.0,
-                        "kind" : {
-                          "F64" : {
-                            
-                          }
-                        }
+                        "kind" : "F64"
                       }
                     },
                     {
                       "Float" : {
                         "value" : 2.0,
-                        "kind" : {
-                          "F64" : {
-                            
-                          }
-                        }
+                        "kind" : "F64"
                       }
                     },
                     {
                       "Float" : {
                         "value" : 3.0,
-                        "kind" : {
-                          "F64" : {
-                            
-                          }
-                        }
+                        "kind" : "F64"
                       }
                     }
                   ]
@@ -1315,11 +1259,7 @@
   },
   "symbolScopeMap" : {
     "44" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "52" : {
       "ScopeImpl" : {
@@ -1392,31 +1332,19 @@
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 },
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 },
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 }
               ]
@@ -1483,31 +1411,19 @@
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 },
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 },
                 {
                   "Float" : {
                     "value" : 0.0,
-                    "kind" : {
-                      "F64" : {
-                        
-                      }
-                    }
+                    "kind" : "F64"
                   }
                 }
               ]
@@ -1586,21 +1502,13 @@
     "12" : {
       "Float" : {
         "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
+        "kind" : "F64"
       }
     },
     "40" : {
       "Float" : {
         "value" : 3.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
+        "kind" : "F64"
       }
     },
     "13" : {
@@ -1611,11 +1519,7 @@
     "39" : {
       "Float" : {
         "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
+        "kind" : "F64"
       }
     },
     "14" : {
@@ -1636,11 +1540,7 @@
     "38" : {
       "Float" : {
         "value" : 1.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
+        "kind" : "F64"
       }
     },
     "41" : {
@@ -1649,31 +1549,19 @@
           {
             "Float" : {
               "value" : 1.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           },
           {
             "Float" : {
               "value" : 2.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           },
           {
             "Float" : {
               "value" : 3.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
+              "kind" : "F64"
             }
           }
         ]

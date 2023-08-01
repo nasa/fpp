@@ -284,7 +284,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // ----------------------------------------------------------------------
 
   /** Converts the Analysis data structure to JSON */
-  def analysisToJson(a: Analysis): Json = Json.obj(
+  def analysisToJson(a: Analysis): Json = collapseEmptyObjects(Json.obj(
     "componentInstanceMap" -> a.componentInstanceMap.asJson,
     "componentMap" -> a.componentMap.asJson,
     "includedFileSet" -> a.includedFileSet.asJson,
@@ -296,6 +296,6 @@ object AnalysisJsonEncoder extends JsonEncoder{
     "typeMap" -> a.typeMap.asJson,
     "useDefMap" -> a.useDefMap.asJson,
     "valueMap" -> a.valueMap.asJson,
-  )
+  ))
 
 }

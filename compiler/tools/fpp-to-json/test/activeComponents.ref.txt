@@ -1150,11 +1150,7 @@
   },
   "symbolScopeMap" : {
     "50" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
-      }
+      "ScopeImpl" : "map"
     },
     "107" : {
       "ScopeImpl" : {
