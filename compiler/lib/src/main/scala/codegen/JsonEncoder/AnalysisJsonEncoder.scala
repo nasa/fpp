@@ -133,6 +133,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // Methods for converting Scala maps to JSON maps
   // ---------------------------------------------------------------------- 
 
+  private def astNodeIdToString(id: AstNode.Id) = id.toString
+
   private def mapAsJsonMap[A,B] (f1: A => String) (f2: B => Json) (map: Map[A,B]): Json =
     map.map { case (key, value) => (f1(key), f2(value)) }.asJson
 
@@ -221,15 +223,13 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   private implicit val typeMapEncoder: Encoder[Map[AstNode.Id, Type]] = {
-    def f1(id: AstNode.Id) = id.toString
     def f2(t: Type) = t.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+    Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
 
   private implicit val useDefMapEncoder: Encoder[Map[AstNode.Id, Symbol]] = {
-    def f1(id: AstNode.Id) = id.toString
     def f2(s: Symbol) = s.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+    Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
   
   private implicit val patternMapEncoder:
@@ -242,9 +242,8 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   private implicit val valueMapEncoder: Encoder[Map[AstNode.Id, Value]] = {
-    def f1(id: AstNode.Id) = id.toString
     def f2(value: Value) = value.asJson
-    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+    Encoder.instance (mapAsJsonMap (astNodeIdToString) (f2) _)
   }
 
   // ----------------------------------------------------------------------
