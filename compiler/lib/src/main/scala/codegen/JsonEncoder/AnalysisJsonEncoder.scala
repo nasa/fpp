@@ -61,35 +61,35 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // Encoders for helping Circe with recursive types
   // ----------------------------------------------------------------------
 
-  private implicit val symbolEncoder: Encoder[Symbol] =
-    Encoder.instance(symbolAsJson(_))
+  private implicit val enumConstantEncoder: Encoder[Value.EnumConstant] =
+    io.circe.generic.semiauto.deriveEncoder[Value.EnumConstant]
+
+  private implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
+    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+
+  private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
+    io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
 
   private implicit val portSymbolEncoder: Encoder[Symbol.Port] =
     Encoder.instance(symbolAsJson(_))
 
-  implicit val generalPortInstanceKindEncoder: Encoder[PortInstance.General.Kind] =
-    Encoder.encodeString.contramap(getUnqualifiedClassName(_))
+  private implicit val symbolEncoder: Encoder[Symbol] =
+    Encoder.instance(symbolAsJson(_))
 
   private implicit val typeEncoder: Encoder[Type] =
     io.circe.generic.semiauto.deriveEncoder[Type]
 
-  private implicit val enumConstantEncoder: Encoder[Value.EnumConstant] =
-    io.circe.generic.semiauto.deriveEncoder[Value.EnumConstant]
-
-  private implicit val valueArrayEncoder: Encoder[Value.Array] =
-    io.circe.generic.semiauto.deriveEncoder[Value.Array]
-
   private implicit val valueAnonArrayEncoder: Encoder[Value.AnonArray] =
     io.circe.generic.semiauto.deriveEncoder[Value.AnonArray]
-
-  private implicit val valueStructEncoder: Encoder[Value.Struct] =
-    io.circe.generic.semiauto.deriveEncoder[Value.Struct]
 
   private implicit val valueAnonStructEncoder: Encoder[Value.AnonStruct] =
     io.circe.generic.semiauto.deriveEncoder[Value.AnonStruct]
 
-  private implicit val portInstanceIdentifierEncoder: Encoder[PortInstanceIdentifier] =
-    io.circe.generic.semiauto.deriveEncoder[PortInstanceIdentifier]
+  private implicit val valueArrayEncoder: Encoder[Value.Array] =
+    io.circe.generic.semiauto.deriveEncoder[Value.Array]
+
+  private implicit val valueStructEncoder: Encoder[Value.Struct] =
+    io.circe.generic.semiauto.deriveEncoder[Value.Struct]
 
   // ----------------------------------------------------------------------
   // Methods for converting Scala maps to JSON maps
