@@ -2,6 +2,8 @@ name: Build Native Images
 on:
   release:
     types: [published]
+  pull_request:
+    branches: [main]
 jobs:
   Build-Native-Images:
     strategy:
