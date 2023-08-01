@@ -252,38 +252,20 @@ object AnalysisJsonEncoder extends JsonEncoder{
   // We use this conversion when the keys cannot be converted to strings
   // ----------------------------------------------------------------------
 
-  implicit val ConnectionMapEncoder:
+  private implicit val connectionMapEncoder:
     Encoder[Map[PortInstanceIdentifier, Set[Connection]]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.asJson -> value.asJson
-        }
-        .asJson
-    }
+    Encoder.instance(_.toList.asJson)
 
-  implicit val PortNumberMapEncoder: Encoder[Map[Connection, Int]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.asJson -> value.asJson
-        }
-        .asJson
-    }
+  private implicit val portNumberMapEncoder: Encoder[Map[Connection, Int]] =
+    Encoder.instance(_.toList.asJson)
 
-  implicit val locationSpecifierMapEncoder:
+  private implicit val locationSpecifierMapEncoder:
     Encoder[Map[(Ast.SpecLoc.Kind, Name.Qualified), Ast.SpecLoc]] =
-    Encoder.instance { map => map.toList.asJson }
+    Encoder.instance(_.toList.asJson)
  
-  implicit val componentInstanceLocationMapEncoder:
+  private implicit val componentInstanceLocationMapEncoder:
     Encoder[Map[ComponentInstance, (Ast.Visibility, Location)]] =
-    Encoder.instance { symbols =>
-      symbols.toList
-        .map { case (key, value) =>
-          key.asJson -> value.asJson
-        }
-        .asJson
-    }
+    Encoder.instance(_.toList.asJson)
 
   implicit val limitsEncoder: Encoder[TlmChannel.Limits] = Encoder.instance {
     limits =>
@@ -296,7 +278,7 @@ object AnalysisJsonEncoder extends JsonEncoder{
   }
 
   // ----------------------------------------------------------------------
-  // Public interface
+  // The public encoder interface
   // ----------------------------------------------------------------------
 
   /** Converts the Analysis data structure to JSON */
