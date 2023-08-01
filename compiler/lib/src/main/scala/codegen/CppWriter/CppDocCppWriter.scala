@@ -27,11 +27,14 @@ object CppDocCppWriter extends CppDocWriter {
   /** Write lines for the selected C++ file */
   def writeSelectedLines(
     in: Input,
-    selectedCppFileOpt: Option[String],
+    selectedCppFileNameBaseOpt: Option[String],
     lines: => List[Line]
   ): List[Line] = {
     // Resolve the selected cpp file for the lines
-    val selectedCppFile = selectedCppFileOpt.getOrElse(in.defaultCppFileName)
+    val selectedCppFile = selectedCppFileNameBaseOpt match {
+      case Some(base) => s"$base.cpp"
+      case None => in.defaultCppFileName
+    }
     // Resolve the output cpp file
     val outputCppFile = in.getOutputCppFileName
     // Write the lines if the two cpp files match
@@ -80,7 +83,8 @@ object CppDocCppWriter extends CppDocWriter {
     )
 
   override def visitCppDoc(cppDoc: CppDoc, cppFileNameBaseOpt: Option[String] = None) = {
-    val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFileNameBaseOpt)
+    val cppFileNameOpt = cppFileNameBaseOpt.map(base => s"$base.cpp")
+    val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFileNameOpt)
     List(
       CppDocWriter.writeBanner(
         in.getOutputCppFileName,
