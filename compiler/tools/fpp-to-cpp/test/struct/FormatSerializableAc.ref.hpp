@@ -125,7 +125,7 @@ class Format :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
+#if FW_SERIALIZABLE_TO_STRING
 
     //! Convert struct to string
     void toString(

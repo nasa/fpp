@@ -107,7 +107,7 @@ Fw::SerializeStatus PrimitiveStruct ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
+#if FW_SERIALIZABLE_TO_STRING
 
 void PrimitiveStruct ::
   toString(Fw::StringBase& sb) const
