@@ -20,4 +20,7 @@ object Locations {
   /** Get an optional location from the map */
   def getOpt(id: AstNode.Id): Option[Location] = map.get(id)
 
+  /** Get the location map as an immutable map */
+  def getMap: Map[AstNode.Id, Location] = map.toMap
+
 }

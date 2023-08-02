@@ -1,0 +1,58 @@
+#!/bin/sh
+
+. ../../../scripts/test-utils.sh
+
+fpp_to_json=../../../bin/fpp-to-json
+
+update()
+{
+  args=$1
+  infile=$2
+  if test -n "$3"
+  then
+    outfile=$3
+  else
+    outfile=$infile
+  fi
+  echo "updating $outfile.ref.txt"
+  $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.ref.txt
+  
+  remove_path_prefix < fpp-ast.json >> $outfile.ref.txt
+  remove_path_prefix < fpp-loc-map.json >> $outfile.ref.txt
+
+  if [ "$args" = "-s" ]; then
+    rm fpp-ast.json fpp-loc-map.json
+  
+  else
+    remove_path_prefix < fpp-analysis.json >> $outfile.ref.txt
+    # Delete the JSON files
+    rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
+  fi
+}
+
+for file in `find . -name '*.ref.txt'`
+do
+  rm $file
+done
+
+update "" activeComponents
+update "" commands
+update "" constTypesComponents
+update "" constants
+update "" enums
+update "" events
+update "" importedTopologies
+update "" internalPorts
+update "" matchedPorts
+update "" modules
+update "" parameters
+update "" passiveComponent
+update "" ports
+update "" queuedComponents
+update "" simpleComponents
+update "" simpleTopology
+update "" specialPorts
+update "" telemetry
+update "" types
+update "-s" syntaxOnly
+
