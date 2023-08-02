@@ -139,7 +139,7 @@ case class ComponentPorts(
         ports,
         (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
         portNumGetterName,
-        portVariableName,
+        portVariableName
       )
     )
   }
