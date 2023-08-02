@@ -119,7 +119,9 @@ case class ComponentPorts(
         CppDoc.Type("NATIVE_INT_TYPE"),
         lines(
           s"return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->${variableName(p)}));"
-        )
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
       )
     ))
   }
@@ -137,7 +139,7 @@ case class ComponentPorts(
         ports,
         (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
         portNumGetterName,
-        portVariableName
+        portVariableName,
       )
     )
   }

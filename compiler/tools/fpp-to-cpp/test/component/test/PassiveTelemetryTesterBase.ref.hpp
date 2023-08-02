@@ -522,101 +522,101 @@ class PassiveTelemetryTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn();
+    NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded();
+    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded();
+    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync();
+    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsSync();
+    NATIVE_INT_TYPE getNum_to_noArgsSync() const;
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedGuarded();
+    NATIVE_INT_TYPE getNum_to_typedGuarded() const;
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedReturnGuarded();
+    NATIVE_INT_TYPE getNum_to_typedReturnGuarded() const;
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    NATIVE_INT_TYPE getNum_to_typedReturnSync();
+    NATIVE_INT_TYPE getNum_to_typedReturnSync() const;
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    NATIVE_INT_TYPE getNum_to_typedSync();
+    NATIVE_INT_TYPE getNum_to_typedSync() const;
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    NATIVE_INT_TYPE getNum_from_cmdRegOut();
+    NATIVE_INT_TYPE getNum_from_cmdRegOut() const;
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    NATIVE_INT_TYPE getNum_from_cmdResponseOut();
+    NATIVE_INT_TYPE getNum_from_cmdResponseOut() const;
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    NATIVE_INT_TYPE getNum_from_eventOut();
+    NATIVE_INT_TYPE getNum_from_eventOut() const;
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    NATIVE_INT_TYPE getNum_from_prmGetOut();
+    NATIVE_INT_TYPE getNum_from_prmGetOut() const;
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    NATIVE_INT_TYPE getNum_from_prmSetOut();
+    NATIVE_INT_TYPE getNum_from_prmSetOut() const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    NATIVE_INT_TYPE getNum_from_textEventOut();
+    NATIVE_INT_TYPE getNum_from_textEventOut() const;
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    NATIVE_INT_TYPE getNum_from_timeGetOut();
+    NATIVE_INT_TYPE getNum_from_timeGetOut() const;
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    NATIVE_INT_TYPE getNum_from_tlmOut();
+    NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut();
+    NATIVE_INT_TYPE getNum_from_typedOut() const;
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut();
+    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
 
   protected:
 

@@ -1495,7 +1495,7 @@ QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_cmdIn_InputPorts()
+  getNum_cmdIn_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
@@ -1505,79 +1505,79 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_noArgsAsync_InputPorts()
+  getNum_noArgsAsync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_noArgsGuarded_InputPorts()
+  getNum_noArgsGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts()
+  getNum_noArgsReturnGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_noArgsReturnSync_InputPorts()
+  getNum_noArgsReturnSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_noArgsSync_InputPorts()
+  getNum_noArgsSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedAsync_InputPorts()
+  getNum_typedAsync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedAsyncAssert_InputPorts()
+  getNum_typedAsyncAssert_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts()
+  getNum_typedAsyncBlockPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts()
+  getNum_typedAsyncDropPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedGuarded_InputPorts()
+  getNum_typedGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedReturnGuarded_InputPorts()
+  getNum_typedReturnGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedReturnSync_InputPorts()
+  getNum_typedReturnSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedSync_InputPorts()
+  getNum_typedSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
@@ -1587,31 +1587,31 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_cmdRegOut_OutputPorts()
+  getNum_cmdRegOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_cmdResponseOut_OutputPorts()
+  getNum_cmdResponseOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_eventOut_OutputPorts()
+  getNum_eventOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_prmGetOut_OutputPorts()
+  getNum_prmGetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_prmSetOut_OutputPorts()
+  getNum_prmSetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
@@ -1619,7 +1619,7 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_textEventOut_OutputPorts()
+  getNum_textEventOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
@@ -1627,13 +1627,13 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
 #endif
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_timeGetOut_OutputPorts()
+  getNum_timeGetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_tlmOut_OutputPorts()
+  getNum_tlmOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
@@ -1643,13 +1643,13 @@ NATIVE_INT_TYPE QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedOut_OutputPorts()
+  getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
 NATIVE_INT_TYPE QueuedTestComponentBase ::
-  getNum_typedReturnOut_OutputPorts()
+  getNum_typedReturnOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }

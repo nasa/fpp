@@ -404,7 +404,7 @@ class ActiveEventsComponentBase :
     //! Get the number of cmdIn input ports
     //!
     //! \return The number of cmdIn input ports
-    NATIVE_INT_TYPE getNum_cmdIn_InputPorts();
+    NATIVE_INT_TYPE getNum_cmdIn_InputPorts() const;
 
   PROTECTED:
 
@@ -415,67 +415,67 @@ class ActiveEventsComponentBase :
     //! Get the number of noArgsAsync input ports
     //!
     //! \return The number of noArgsAsync input ports
-    NATIVE_INT_TYPE getNum_noArgsAsync_InputPorts();
+    NATIVE_INT_TYPE getNum_noArgsAsync_InputPorts() const;
 
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts();
+    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnGuarded input ports
     //!
     //! \return The number of noArgsReturnGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts();
+    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnSync input ports
     //!
     //! \return The number of noArgsReturnSync input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts();
+    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts() const;
 
     //! Get the number of noArgsSync input ports
     //!
     //! \return The number of noArgsSync input ports
-    NATIVE_INT_TYPE getNum_noArgsSync_InputPorts();
+    NATIVE_INT_TYPE getNum_noArgsSync_InputPorts() const;
 
     //! Get the number of typedAsync input ports
     //!
     //! \return The number of typedAsync input ports
-    NATIVE_INT_TYPE getNum_typedAsync_InputPorts();
+    NATIVE_INT_TYPE getNum_typedAsync_InputPorts() const;
 
     //! Get the number of typedAsyncAssert input ports
     //!
     //! \return The number of typedAsyncAssert input ports
-    NATIVE_INT_TYPE getNum_typedAsyncAssert_InputPorts();
+    NATIVE_INT_TYPE getNum_typedAsyncAssert_InputPorts() const;
 
     //! Get the number of typedAsyncBlockPriority input ports
     //!
     //! \return The number of typedAsyncBlockPriority input ports
-    NATIVE_INT_TYPE getNum_typedAsyncBlockPriority_InputPorts();
+    NATIVE_INT_TYPE getNum_typedAsyncBlockPriority_InputPorts() const;
 
     //! Get the number of typedAsyncDropPriority input ports
     //!
     //! \return The number of typedAsyncDropPriority input ports
-    NATIVE_INT_TYPE getNum_typedAsyncDropPriority_InputPorts();
+    NATIVE_INT_TYPE getNum_typedAsyncDropPriority_InputPorts() const;
 
     //! Get the number of typedGuarded input ports
     //!
     //! \return The number of typedGuarded input ports
-    NATIVE_INT_TYPE getNum_typedGuarded_InputPorts();
+    NATIVE_INT_TYPE getNum_typedGuarded_InputPorts() const;
 
     //! Get the number of typedReturnGuarded input ports
     //!
     //! \return The number of typedReturnGuarded input ports
-    NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts();
+    NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts() const;
 
     //! Get the number of typedReturnSync input ports
     //!
     //! \return The number of typedReturnSync input ports
-    NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts();
+    NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts() const;
 
     //! Get the number of typedSync input ports
     //!
     //! \return The number of typedSync input ports
-    NATIVE_INT_TYPE getNum_typedSync_InputPorts();
+    NATIVE_INT_TYPE getNum_typedSync_InputPorts() const;
 
   PROTECTED:
 
@@ -486,46 +486,46 @@ class ActiveEventsComponentBase :
     //! Get the number of cmdRegOut output ports
     //!
     //! \return The number of cmdRegOut output ports
-    NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts() const;
 
     //! Get the number of cmdResponseOut output ports
     //!
     //! \return The number of cmdResponseOut output ports
-    NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts() const;
 
     //! Get the number of eventOut output ports
     //!
     //! \return The number of eventOut output ports
-    NATIVE_INT_TYPE getNum_eventOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_eventOut_OutputPorts() const;
 
     //! Get the number of prmGetOut output ports
     //!
     //! \return The number of prmGetOut output ports
-    NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts() const;
 
     //! Get the number of prmSetOut output ports
     //!
     //! \return The number of prmSetOut output ports
-    NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts() const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
     //!
     //! \return The number of textEventOut output ports
-    NATIVE_INT_TYPE getNum_textEventOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_textEventOut_OutputPorts() const;
 
 #endif
 
     //! Get the number of timeGetOut output ports
     //!
     //! \return The number of timeGetOut output ports
-    NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts() const;
 
     //! Get the number of tlmOut output ports
     //!
     //! \return The number of tlmOut output ports
-    NATIVE_INT_TYPE getNum_tlmOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_tlmOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -536,12 +536,12 @@ class ActiveEventsComponentBase :
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
-    NATIVE_INT_TYPE getNum_typedOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_typedOut_OutputPorts() const;
 
     //! Get the number of typedReturnOut output ports
     //!
     //! \return The number of typedReturnOut output ports
-    NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts();
+    NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts() const;
 
   PROTECTED:
 

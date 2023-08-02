@@ -1277,115 +1277,115 @@ void ActiveCommandsTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_cmdIn()
+  getNum_to_cmdIn() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_noArgsAsync()
+  getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedAsync()
+  getNum_to_typedAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedAsyncAssert()
+  getNum_to_typedAsyncAssert() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedAsyncBlockPriority()
+  getNum_to_typedAsyncBlockPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedAsyncDropPriority()
+  getNum_to_typedAsyncDropPriority() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_cmdRegOut()
+  getNum_from_cmdRegOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_cmdResponseOut()
+  getNum_from_cmdResponseOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_eventOut()
+  getNum_from_eventOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_prmGetOut()
+  getNum_from_prmGetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_prmSetOut()
+  getNum_from_prmSetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
@@ -1393,7 +1393,7 @@ NATIVE_INT_TYPE ActiveCommandsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_textEventOut()
+  getNum_from_textEventOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
@@ -1401,25 +1401,25 @@ NATIVE_INT_TYPE ActiveCommandsTesterBase ::
 #endif
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_timeGetOut()
+  getNum_from_timeGetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_tlmOut()
+  getNum_from_tlmOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_typedOut()
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE ActiveCommandsTesterBase ::
-  getNum_from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }

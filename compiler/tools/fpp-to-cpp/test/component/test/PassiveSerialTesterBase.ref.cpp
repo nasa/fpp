@@ -1187,97 +1187,97 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_cmdIn()
+  getNum_to_cmdIn() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsGuarded()
+  getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsReturnGuarded()
+  getNum_to_noArgsReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsReturnSync()
+  getNum_to_noArgsReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_noArgsSync()
+  getNum_to_noArgsSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedGuarded()
+  getNum_to_typedGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedReturnGuarded()
+  getNum_to_typedReturnGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedReturnSync()
+  getNum_to_typedReturnSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_typedSync()
+  getNum_to_typedSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_serialGuarded()
+  getNum_to_serialGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialGuarded));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_to_serialSync()
+  getNum_to_serialSync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_serialSync));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_cmdRegOut()
+  getNum_from_cmdRegOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_cmdResponseOut()
+  getNum_from_cmdResponseOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_eventOut()
+  getNum_from_eventOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_prmGetOut()
+  getNum_from_prmGetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_prmSetOut()
+  getNum_from_prmSetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
@@ -1285,7 +1285,7 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_textEventOut()
+  getNum_from_textEventOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
@@ -1293,31 +1293,31 @@ NATIVE_INT_TYPE PassiveSerialTesterBase ::
 #endif
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_timeGetOut()
+  getNum_from_timeGetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_tlmOut()
+  getNum_from_tlmOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedOut()
+  getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_typedReturnOut()
+  getNum_from_typedReturnOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 NATIVE_INT_TYPE PassiveSerialTesterBase ::
-  getNum_from_serialOut()
+  getNum_from_serialOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_serialOut));
 }
