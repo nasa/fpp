@@ -176,7 +176,7 @@ namespace M {
     return status;
   }
 
-#if FW_ARRAY_TO_STRING || BUILD_UT
+#if FW_ARRAY_TO_STRING
 
   void PrimitiveI32 ::
     toString(Fw::StringBase& sb) const
