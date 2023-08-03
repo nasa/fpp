@@ -174,7 +174,7 @@ Fw::SerializeStatus HeaderPath ::
   return status;
 }
 
-#if FW_ARRAY_TO_STRING || BUILD_UT
+#if FW_ARRAY_TO_STRING
 
 void HeaderPath ::
   toString(Fw::StringBase& sb) const
