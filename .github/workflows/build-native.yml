@@ -1,63 +1,17 @@
 name: Build Native Images
+
 on:
-  release:
-    types: [published]
+  push:
+    branches: [ "main" ]
   pull_request:
-    branches: [main]
+    branches: [ "main" ]
+  release:
+    types: [ published ]
+
 jobs:
-  Build-Native-Images:
-    strategy:
-      matrix:
-        os: ["rhel-8.7", "macos-11", "odroid"]
-        is_pull_request:
-          - ${{ github.event_name == 'pull_request' }}
-        exclude:
-          - is_pull_request: true
-            os: odroid
-    runs-on: ${{ matrix.os }}
-    steps:
-    - name: "Checkout FPP Repository"
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Set architecture type (aarch64)
-      if: ${{ matrix.os == 'odroid' }}
-      run: echo "architecture=aarch64" >> "$GITHUB_ENV"
-    - name: Set architecture type (amd64)
-      if: ${{ matrix.os != 'odroid' }}
-      run: echo "architecture=amd64" >> "$GITHUB_ENV"
-    - name: Image Build Step
-      working-directory: ./compiler
-      run: |
-        . ${GITHUB_WORKSPACE}/.github/workflows/env-setup ${{ env.architecture }}
-        ./release
-        mv native-fpp-*.tar.gz "${GITHUB_WORKSPACE}" 
-    - name: Publish Release Binaries
-      if: ${{ github.event_name == 'release' }}
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: ${GITHUB_WORKSPACE}/.github/workflows/publish native-fpp-*.tar.gz
-  Build-PyPI-Package:
-    if: ${{ github.event_name == 'release' }}
-    needs: Build-Native-Images
-    runs-on: ubuntu-latest
-    steps:
-    - name: "Checkout FPP Repository"
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Test PyPI
-      uses: fprime-community/publish-pypi@main
-      env:
-        TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
-      with:
-        package: "fprime-fpp"
-        steps: "sdist"
-    - name: PyPI
-      uses: fprime-community/publish-pypi@main
-      env:
-        TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
-      with:
-        repo: "pypi"
-        package: "fprime-fpp"
-        steps: "sdist"
+  run:
+    name: "Package"
+    uses: "fprime-community/native-images-action/.github/workflows/native-build.yml@main"
+    with:
+      working-directory: $GITHUB_WORKSPACE
+    secrets: inherit
