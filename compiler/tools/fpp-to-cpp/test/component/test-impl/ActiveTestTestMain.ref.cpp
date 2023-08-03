@@ -7,7 +7,7 @@
 #include "ActiveTestTester.hpp"
 
 TEST(Nominal, toDo) {
-  ActiveTestTester tester;
+  M::ActiveTestTester tester;
   tester.toDo();
 }
 

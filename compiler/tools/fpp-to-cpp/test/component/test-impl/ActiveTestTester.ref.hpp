@@ -4,103 +4,107 @@
 // \brief  hpp file for ActiveTest component test harness implementation class
 // ======================================================================
 
-#ifndef ActiveTestTester_HPP
-#define ActiveTestTester_HPP
+#ifndef M_ActiveTestTester_HPP
+#define M_ActiveTestTester_HPP
 
 #include "ActiveTestGTestBase.hpp"
 #include "ActiveTest.hpp"
 
-class ActiveTestTester :
-  public ActiveTestGTestBase
-{
+namespace M {
 
-  public:
+  class ActiveTestTester :
+    public ActiveTestGTestBase
+  {
 
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
+    public:
 
-    // Maximum size of histories storing events, telemetry, and port outputs
-    static const NATIVE_INT_TYPE MAX_HISTORY_SIZE = 10;
+      // ----------------------------------------------------------------------
+      // Constants
+      // ----------------------------------------------------------------------
 
-    // Instance ID supplied to the component instance under test
-    static const NATIVE_INT_TYPE TEST_INSTANCE_ID = 0;
+      // Maximum size of histories storing events, telemetry, and port outputs
+      static const NATIVE_INT_TYPE MAX_HISTORY_SIZE = 10;
 
-    // Queue depth supplied to the component instance under test
-    static const NATIVE_INT_TYPE TEST_INSTANCE_QUEUE_DEPTH = 10;
+      // Instance ID supplied to the component instance under test
+      static const NATIVE_INT_TYPE TEST_INSTANCE_ID = 0;
 
-  public:
+      // Queue depth supplied to the component instance under test
+      static const NATIVE_INT_TYPE TEST_INSTANCE_QUEUE_DEPTH = 10;
 
-    // ----------------------------------------------------------------------
-    // Construction and destruction
-    // ----------------------------------------------------------------------
+    public:
 
-    //! Construct object ActiveTestTester
-    ActiveTestTester();
+      // ----------------------------------------------------------------------
+      // Construction and destruction
+      // ----------------------------------------------------------------------
 
-    //! Destroy object ActiveTestTester
-    ~ActiveTestTester();
+      //! Construct object ActiveTestTester
+      ActiveTestTester();
 
-  public:
+      //! Destroy object ActiveTestTester
+      ~ActiveTestTester();
 
-    // ----------------------------------------------------------------------
-    // Tests
-    // ----------------------------------------------------------------------
+    public:
 
-    //! To do
-    void toDo();
+      // ----------------------------------------------------------------------
+      // Tests
+      // ----------------------------------------------------------------------
 
-  private:
+      //! To do
+      void toDo();
 
-    // ----------------------------------------------------------------------
-    // Handlers for typed from ports
-    // ----------------------------------------------------------------------
+    private:
 
-    //! Handler implementation for typedOut
-    void from_typedOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        U32 u32, //!< A U32
-        F32 f32, //!< An F32
-        bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
-    );
+      // ----------------------------------------------------------------------
+      // Handlers for typed from ports
+      // ----------------------------------------------------------------------
 
-    //! Handler implementation for typedReturnOut
-    F32 from_typedReturnOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        U32 u32, //!< A U32
-        F32 f32, //!< An F32
-        bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
-    );
+      //! Handler implementation for typedOut
+      void from_typedOut_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          U32 u32, //!< A U32
+          F32 f32, //!< An F32
+          bool b, //!< A boolean
+          const TypedPortStrings::StringSize80& str1, //!< A string
+          const E& e, //!< An enum
+          const A& a, //!< An array
+          const S& s //!< A struct
+      );
 
-  private:
+      //! Handler implementation for typedReturnOut
+      F32 from_typedReturnOut_handler(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          U32 u32, //!< A U32
+          F32 f32, //!< An F32
+          bool b, //!< A boolean
+          const TypedReturnPortStrings::StringSize80& str2, //!< A string
+          const E& e, //!< An enum
+          const A& a, //!< An array
+          const S& s //!< A struct
+      );
 
-    // ----------------------------------------------------------------------
-    // Helper functions
-    // ----------------------------------------------------------------------
+    private:
 
-    //! Connect ports
-    void connectPorts();
+      // ----------------------------------------------------------------------
+      // Helper functions
+      // ----------------------------------------------------------------------
 
-    //! Initialize components
-    void initComponents();
+      //! Connect ports
+      void connectPorts();
 
-  private:
+      //! Initialize components
+      void initComponents();
 
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
+    private:
 
-    //! The component under test
-    ActiveTest component;
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
 
-};
+      //! The component under test
+      ActiveTest component;
+
+  };
+
+}
 
 #endif

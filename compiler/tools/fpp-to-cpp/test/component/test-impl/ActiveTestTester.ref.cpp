@@ -6,65 +6,69 @@
 
 #include "ActiveTestTester.hpp"
 
-// ----------------------------------------------------------------------
-// Construction and destruction
-// ----------------------------------------------------------------------
+namespace M {
 
-ActiveTestTester ::
-  ActiveTestTester() :
-    ActiveTestGTestBase("ActiveTestTester", ActiveTestTester::MAX_HISTORY_SIZE),
-    component("ActiveTest")
-{
-  this->initComponents();
-  this->connectPorts();
-}
+  // ----------------------------------------------------------------------
+  // Construction and destruction
+  // ----------------------------------------------------------------------
 
-ActiveTestTester ::
-  ~ActiveTestTester()
-{
+  ActiveTestTester ::
+    ActiveTestTester() :
+      ActiveTestGTestBase("ActiveTestTester", ActiveTestTester::MAX_HISTORY_SIZE),
+      component("ActiveTest")
+  {
+    this->initComponents();
+    this->connectPorts();
+  }
 
-}
+  ActiveTestTester ::
+    ~ActiveTestTester()
+  {
 
-// ----------------------------------------------------------------------
-// Tests
-// ----------------------------------------------------------------------
+  }
 
-void ActiveTestTester ::
-  toDo()
-{
-  // TODO
-}
+  // ----------------------------------------------------------------------
+  // Tests
+  // ----------------------------------------------------------------------
 
-// ----------------------------------------------------------------------
-// Handlers for typed from ports
-// ----------------------------------------------------------------------
+  void ActiveTestTester ::
+    toDo()
+  {
+    // TODO
+  }
 
-void ActiveTestTester ::
-  from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  // ----------------------------------------------------------------------
+  // Handlers for typed from ports
+  // ----------------------------------------------------------------------
 
-F32 ActiveTestTester ::
-  from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO return
+  void ActiveTestTester ::
+    from_typedOut_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
+
+  F32 ActiveTestTester ::
+    from_typedReturnOut_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedReturnPortStrings::StringSize80& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO return
+  }
+
 }

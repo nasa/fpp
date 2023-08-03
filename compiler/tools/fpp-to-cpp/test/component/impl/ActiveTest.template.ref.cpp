@@ -7,412 +7,416 @@
 #include "FpConfig.hpp"
 #include "impl/ActiveTest.hpp"
 
-// ----------------------------------------------------------------------
-// Component construction and destruction
-// ----------------------------------------------------------------------
+namespace M {
 
-ActiveTest ::
-  ActiveTest(const char* const compName) :
-    ActiveTestComponentBase(compName)
-{
+  // ----------------------------------------------------------------------
+  // Component construction and destruction
+  // ----------------------------------------------------------------------
 
-}
+  ActiveTest ::
+    ActiveTest(const char* const compName) :
+      ActiveTestComponentBase(compName)
+  {
 
-ActiveTest ::
-  ~ActiveTest()
-{
+  }
 
-}
+  ActiveTest ::
+    ~ActiveTest()
+  {
 
-// ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
-// ----------------------------------------------------------------------
+  }
 
-void ActiveTest ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
-{
-  // TODO
-}
+  // ----------------------------------------------------------------------
+  // Handler implementations for user-defined typed input ports
+  // ----------------------------------------------------------------------
 
-void ActiveTest ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
-{
-  // TODO
-}
+  void ActiveTest ::
+    noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO
+  }
 
-U32 ActiveTest ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
-{
-  // TODO return
-}
+  void ActiveTest ::
+    noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO
+  }
 
-U32 ActiveTest ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
-{
-  // TODO return
-}
+  U32 ActiveTest ::
+    noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO return
+  }
 
-void ActiveTest ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
-{
-  // TODO
-}
+  U32 ActiveTest ::
+    noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO return
+  }
 
-void ActiveTest ::
-  typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    typedAsync_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    typedAsyncAssert_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    typedAsyncBlockPriority_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    typedAsyncDropPriority_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-F32 ActiveTest ::
-  typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO return
-}
+  void ActiveTest ::
+    typedGuarded_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-F32 ActiveTest ::
-  typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO return
-}
+  F32 ActiveTest ::
+    typedReturnGuarded_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedReturnPortStrings::StringSize80& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO return
+  }
 
-void ActiveTest ::
-  typedSync_handler(
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-  )
-{
-  // TODO
-}
+  F32 ActiveTest ::
+    typedReturnSync_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedReturnPortStrings::StringSize80& str2,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO return
+  }
 
-// ----------------------------------------------------------------------
-// Handler implementations for commands
-// ----------------------------------------------------------------------
+  void ActiveTest ::
+    typedSync_handler(
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+    )
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  CMD_SYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  // ----------------------------------------------------------------------
+  // Handler implementations for commands
+  // ----------------------------------------------------------------------
 
-void ActiveTest ::
-  CMD_SYNC_PRIMITIVE_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_SYNC_STRING_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_PRIMITIVE_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        U32 u32,
+        F32 f32,
+        bool b
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_SYNC_ENUM_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      E e
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_STRING_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        const Fw::CmdStringArg& str1,
+        const Fw::CmdStringArg& str2
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_SYNC_ARRAY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      A a
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_ENUM_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        E e
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_SYNC_STRUCT_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      S s
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_ARRAY_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        A a
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_SYNC_STRUCT_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        S s
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_PRIMITIVE_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_STRING_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_PRIMITIVE_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        U32 u32,
+        F32 f32,
+        bool b
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_ENUM_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      E e
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_STRING_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        const Fw::CmdStringArg& str1,
+        const Fw::CmdStringArg& str2
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_ARRAY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      A a
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_ENUM_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        E e
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_GUARDED_STRUCT_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      S s
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_ARRAY_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        A a
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_ASYNC_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_GUARDED_STRUCT_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        S s
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_PRIORITY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_ASYNC_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_PARAMS_PRIORITY_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_PRIORITY_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_DROP_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_PARAMS_PRIORITY_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        U32 u32
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  CMD_PARAMS_PRIORITY_DROP_cmdHandler(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32
-  )
-{
-  // TODO
-  this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-}
+  void ActiveTest ::
+    CMD_DROP_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-// ----------------------------------------------------------------------
-// Handler implementations for user-defined internal interfaces
-// ----------------------------------------------------------------------
+  void ActiveTest ::
+    CMD_PARAMS_PRIORITY_DROP_cmdHandler(
+        FwOpcodeType opCode,
+        U32 cmdSeq,
+        U32 u32
+    )
+  {
+    // TODO
+    this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
+  }
 
-void ActiveTest ::
-  internalArray_internalInterfaceHandler(const A& a)
-{
-  // TODO
-}
+  // ----------------------------------------------------------------------
+  // Handler implementations for user-defined internal interfaces
+  // ----------------------------------------------------------------------
 
-void ActiveTest ::
-  internalEnum_internalInterfaceHandler(const E& e)
-{
-  // TODO
-}
+  void ActiveTest ::
+    internalArray_internalInterfaceHandler(const A& a)
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  internalPrimitive_internalInterfaceHandler(
-      U32 u32,
-      F32 f32,
-      bool b
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    internalEnum_internalInterfaceHandler(const E& e)
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  internalPriorityDrop_internalInterfaceHandler()
-{
-  // TODO
-}
+  void ActiveTest ::
+    internalPrimitive_internalInterfaceHandler(
+        U32 u32,
+        F32 f32,
+        bool b
+    )
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  internalString_internalInterfaceHandler(
-      const Fw::InternalInterfaceString& str1,
-      const Fw::InternalInterfaceString& str2
-  )
-{
-  // TODO
-}
+  void ActiveTest ::
+    internalPriorityDrop_internalInterfaceHandler()
+  {
+    // TODO
+  }
 
-void ActiveTest ::
-  internalStruct_internalInterfaceHandler(const S& s)
-{
-  // TODO
+  void ActiveTest ::
+    internalString_internalInterfaceHandler(
+        const Fw::InternalInterfaceString& str1,
+        const Fw::InternalInterfaceString& str2
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    internalStruct_internalInterfaceHandler(const S& s)
+  {
+    // TODO
+  }
+
 }

@@ -4,8 +4,8 @@
 // \brief  hpp file for ActiveTest component Google Test harness base class
 // ======================================================================
 
-#ifndef ActiveTestGTestBase_HPP
-#define ActiveTestGTestBase_HPP
+#ifndef M_ActiveTestGTestBase_HPP
+#define M_ActiveTestGTestBase_HPP
 
 #include "gtest/gtest.h"
 #include "test/ActiveTestTesterBase.hpp"
@@ -287,360 +287,364 @@
 #define ASSERT_TLM_ChannelEnumOnChange(index, value) \
   this->assertTlm_ChannelEnumOnChange(__FILE__, __LINE__, index, value)
 
-//! \class ActiveTestGTestBase
-//! \brief Auto-generated base for ActiveTest component Google Test harness
-class ActiveTestGTestBase :
-  public ActiveTestTesterBase
-{
+namespace M {
 
-  protected:
+  //! \class ActiveTestGTestBase
+  //! \brief Auto-generated base for ActiveTest component Google Test harness
+  class ActiveTestGTestBase :
+    public ActiveTestTesterBase
+  {
 
-    // ----------------------------------------------------------------------
-    // Construction and destruction
-    // ----------------------------------------------------------------------
+    protected:
 
-    //! Construct object ActiveTestGTestBase
-    ActiveTestGTestBase(
-        const char* const compName, //!< The component name
-        const U32 maxHistorySize //!< The maximum size of each history
-    );
+      // ----------------------------------------------------------------------
+      // Construction and destruction
+      // ----------------------------------------------------------------------
 
-    //! Destroy object ActiveTestGTestBase
-    ~ActiveTestGTestBase();
+      //! Construct object ActiveTestGTestBase
+      ActiveTestGTestBase(
+          const char* const compName, //!< The component name
+          const U32 maxHistorySize //!< The maximum size of each history
+      );
 
-  protected:
+      //! Destroy object ActiveTestGTestBase
+      ~ActiveTestGTestBase();
 
-    // ----------------------------------------------------------------------
-    // From ports
-    // ----------------------------------------------------------------------
+    protected:
 
-    //! From ports
-    void assertFromPortHistory_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      // ----------------------------------------------------------------------
+      // From ports
+      // ----------------------------------------------------------------------
 
-    //! From port: typedOut
-    void assert_from_typedOut(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! From ports
+      void assertFromPortHistory_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! From port: typedReturnOut
-    void assert_from_typedReturnOut(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! From port: typedOut
+      void assert_from_typedOut(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-  protected:
+      //! From port: typedReturnOut
+      void assert_from_typedReturnOut(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    // ----------------------------------------------------------------------
-    // Commands
-    // ----------------------------------------------------------------------
+    protected:
 
-    //! Assert size of command response history
-    void assertCmdResponse_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      // ----------------------------------------------------------------------
+      // Commands
+      // ----------------------------------------------------------------------
 
-    //! Assert the command response history at index
-    void assertCmdResponse(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        FwOpcodeType opCode, //!< The opcode
-        U32 cmdSeq, //!< The command sequence number
-        Fw::CmdResponse response //!< The command response
-    ) const;
+      //! Assert size of command response history
+      void assertCmdResponse_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-  protected:
+      //! Assert the command response history at index
+      void assertCmdResponse(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          FwOpcodeType opCode, //!< The opcode
+          U32 cmdSeq, //!< The command sequence number
+          Fw::CmdResponse response //!< The command response
+      ) const;
 
-    // ----------------------------------------------------------------------
-    // Events
-    // ----------------------------------------------------------------------
+    protected:
 
-    //! Assert the size of event history
-    void assertEvents_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      // ----------------------------------------------------------------------
+      // Events
+      // ----------------------------------------------------------------------
 
-    //! Event: EventActivityHigh
-    void assertEvents_EventActivityHigh_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Assert the size of event history
+      void assertEvents_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventActivityLowThrottled
-    void assertEvents_EventActivityLowThrottled_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventActivityHigh
+      void assertEvents_EventActivityHigh_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventActivityLowThrottled
-    void assertEvents_EventActivityLowThrottled(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const U32 u32, //!< A U32
-        const F32 f32, //!< An F32
-        const bool b //!< A boolean
-    ) const;
+      //! Event: EventActivityLowThrottled
+      void assertEvents_EventActivityLowThrottled_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventCommand
-    void assertEvents_EventCommand_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventActivityLowThrottled
+      void assertEvents_EventActivityLowThrottled(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const U32 u32, //!< A U32
+          const F32 f32, //!< An F32
+          const bool b //!< A boolean
+      ) const;
 
-    //! Event: EventCommand
-    void assertEvents_EventCommand(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const char* const str1, //!< A string
-        const char* const str2 //!< Another string
-    ) const;
+      //! Event: EventCommand
+      void assertEvents_EventCommand_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventDiagnostic
-    void assertEvents_EventDiagnostic_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventCommand
+      void assertEvents_EventCommand(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const char* const str1, //!< A string
+          const char* const str2 //!< Another string
+      ) const;
 
-    //! Event: EventDiagnostic
-    void assertEvents_EventDiagnostic(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const E& e //!< An enum
-    ) const;
+      //! Event: EventDiagnostic
+      void assertEvents_EventDiagnostic_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventFatalThrottled
-    void assertEvents_EventFatalThrottled_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventDiagnostic
+      void assertEvents_EventDiagnostic(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const E& e //!< An enum
+      ) const;
 
-    //! Event: EventFatalThrottled
-    void assertEvents_EventFatalThrottled(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const A& a //!< An array
-    ) const;
+      //! Event: EventFatalThrottled
+      void assertEvents_EventFatalThrottled_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventWarningHigh
-    void assertEvents_EventWarningHigh_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventFatalThrottled
+      void assertEvents_EventFatalThrottled(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const A& a //!< An array
+      ) const;
 
-    //! Event: EventWarningHigh
-    void assertEvents_EventWarningHigh(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const S& s //!< A struct
-    ) const;
+      //! Event: EventWarningHigh
+      void assertEvents_EventWarningHigh_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Event: EventWarningLowThrottled
-    void assertEvents_EventWarningLowThrottled_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Event: EventWarningHigh
+      void assertEvents_EventWarningHigh(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const S& s //!< A struct
+      ) const;
 
-  protected:
+      //! Event: EventWarningLowThrottled
+      void assertEvents_EventWarningLowThrottled_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    // ----------------------------------------------------------------------
-    // Telemetry
-    // ----------------------------------------------------------------------
+    protected:
 
-    //! Assert the size of telemetry history
-    void assertTlm_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      // ----------------------------------------------------------------------
+      // Telemetry
+      // ----------------------------------------------------------------------
 
-    //! Channel: ChannelU32Format
-    void assertTlm_ChannelU32Format_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Assert the size of telemetry history
+      void assertTlm_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelU32Format
-    void assertTlm_ChannelU32Format(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const U32 val //!< The channel value
-    ) const;
+      //! Channel: ChannelU32Format
+      void assertTlm_ChannelU32Format_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelF32Format
-    void assertTlm_ChannelF32Format_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelU32Format
+      void assertTlm_ChannelU32Format(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const U32 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelF32Format
-    void assertTlm_ChannelF32Format(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const F32 val //!< The channel value
-    ) const;
+      //! Channel: ChannelF32Format
+      void assertTlm_ChannelF32Format_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelStringFormat
-    void assertTlm_ChannelStringFormat_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelF32Format
+      void assertTlm_ChannelF32Format(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const F32 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelStringFormat
-    void assertTlm_ChannelStringFormat(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const char* const val //!< The channel value
-    ) const;
+      //! Channel: ChannelStringFormat
+      void assertTlm_ChannelStringFormat_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelEnum
-    void assertTlm_ChannelEnum_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelStringFormat
+      void assertTlm_ChannelStringFormat(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const char* const val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelEnum
-    void assertTlm_ChannelEnum(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const E& val //!< The channel value
-    ) const;
+      //! Channel: ChannelEnum
+      void assertTlm_ChannelEnum_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelArrayFreq
-    void assertTlm_ChannelArrayFreq_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelEnum
+      void assertTlm_ChannelEnum(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const E& val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelArrayFreq
-    void assertTlm_ChannelArrayFreq(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const A& val //!< The channel value
-    ) const;
+      //! Channel: ChannelArrayFreq
+      void assertTlm_ChannelArrayFreq_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelStructFreq
-    void assertTlm_ChannelStructFreq_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelArrayFreq
+      void assertTlm_ChannelArrayFreq(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const A& val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelStructFreq
-    void assertTlm_ChannelStructFreq(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const S& val //!< The channel value
-    ) const;
+      //! Channel: ChannelStructFreq
+      void assertTlm_ChannelStructFreq_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelU32Limits
-    void assertTlm_ChannelU32Limits_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelStructFreq
+      void assertTlm_ChannelStructFreq(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const S& val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelU32Limits
-    void assertTlm_ChannelU32Limits(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const U32 val //!< The channel value
-    ) const;
+      //! Channel: ChannelU32Limits
+      void assertTlm_ChannelU32Limits_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelF32Limits
-    void assertTlm_ChannelF32Limits_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelU32Limits
+      void assertTlm_ChannelU32Limits(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const U32 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelF32Limits
-    void assertTlm_ChannelF32Limits(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const F32 val //!< The channel value
-    ) const;
+      //! Channel: ChannelF32Limits
+      void assertTlm_ChannelF32Limits_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelF64
-    void assertTlm_ChannelF64_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelF32Limits
+      void assertTlm_ChannelF32Limits(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const F32 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelF64
-    void assertTlm_ChannelF64(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const F64 val //!< The channel value
-    ) const;
+      //! Channel: ChannelF64
+      void assertTlm_ChannelF64_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelU32OnChange
-    void assertTlm_ChannelU32OnChange_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelF64
+      void assertTlm_ChannelF64(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const F64 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelU32OnChange
-    void assertTlm_ChannelU32OnChange(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const U32 val //!< The channel value
-    ) const;
+      //! Channel: ChannelU32OnChange
+      void assertTlm_ChannelU32OnChange_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-    //! Channel: ChannelEnumOnChange
-    void assertTlm_ChannelEnumOnChange_size(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 size //!< The asserted size
-    ) const;
+      //! Channel: ChannelU32OnChange
+      void assertTlm_ChannelU32OnChange(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const U32 val //!< The channel value
+      ) const;
 
-    //! Channel: ChannelEnumOnChange
-    void assertTlm_ChannelEnumOnChange(
-        const char* const __callSiteFileName, //!< The name of the file containing the call site
-        const U32 __callSiteLineNumber, //!< The line number of the call site
-        const U32 __index, //!< The index
-        const E& val //!< The channel value
-    ) const;
+      //! Channel: ChannelEnumOnChange
+      void assertTlm_ChannelEnumOnChange_size(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 size //!< The asserted size
+      ) const;
 
-};
+      //! Channel: ChannelEnumOnChange
+      void assertTlm_ChannelEnumOnChange(
+          const char* const __callSiteFileName, //!< The name of the file containing the call site
+          const U32 __callSiteLineNumber, //!< The line number of the call site
+          const U32 __index, //!< The index
+          const E& val //!< The channel value
+      ) const;
+
+  };
+
+}
 
 #endif
