@@ -13,6 +13,7 @@ jobs:
     name: "Package"
     uses: "fprime-community/native-images-action/.github/workflows/native-build.yml@main"
     with:
-      working-directory: ./compiler
+      build: ./compiler/install
+      test: ./compiler/test
       output-directory: ./compiler/bin
     secrets: inherit
