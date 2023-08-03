@@ -467,7 +467,7 @@ case class StructCppWriter(
         )
       ),
       wrapClassMembersInIfDirective(
-        "\n#if FW_SERIALIZABLE_TO_STRING || BUILD_UT",
+        "\n#if FW_SERIALIZABLE_TO_STRING",
         List(
           functionClassMember(
             Some("Convert struct to string"),

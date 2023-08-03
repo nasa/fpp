@@ -157,7 +157,7 @@ namespace S {
     return status;
   }
 
-#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
+#if FW_SERIALIZABLE_TO_STRING
 
   void S3 ::
     toString(Fw::StringBase& sb) const

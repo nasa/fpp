@@ -1,0 +1,2097 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "a",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1234"
+                        }
+                      },
+                      "id" : 0
+                    }
+                  }
+                },
+                "id" : 1
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "b",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0xABCD"
+                        }
+                      },
+                      "id" : 2
+                    }
+                  }
+                },
+                "id" : 3
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralString" : {
+                          "value" : "This is a string."
+                        }
+                      },
+                      "id" : 4
+                    }
+                  }
+                },
+                "id" : 5
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "d",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
+                                },
+                                "id" : 6
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 7
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "3"
+                                  }
+                                },
+                                "id" : 8
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 9
+                    }
+                  }
+                },
+                "id" : 10
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "e",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralFloat" : {
+                                    "value" : "2.0"
+                                  }
+                                },
+                                "id" : 12
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 13
+                    }
+                  }
+                },
+                "id" : 14
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "f",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "1"
+                                            }
+                                          },
+                                          "id" : 15
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "2"
+                                            }
+                                          },
+                                          "id" : 16
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 17
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 18
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "4"
+                                            }
+                                          },
+                                          "id" : 19
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 20
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 21
+                    }
+                  }
+                },
+                "id" : 22
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "g",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "x",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 23
+                                    }
+                                  }
+                                },
+                                "id" : 24
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "y",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralString" : {
+                                          "value" : "abc"
+                                        }
+                                      },
+                                      "id" : 25
+                                    }
+                                  }
+                                },
+                                "id" : 26
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 27
+                    }
+                  }
+                },
+                "id" : 28
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "h",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                          ]
+                        }
+                      },
+                      "id" : 29
+                    }
+                  }
+                },
+                "id" : 30
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "i",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 31
+                                              }
+                                            }
+                                          },
+                                          "id" : 32
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "y",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 33
+                                              }
+                                            }
+                                          },
+                                          "id" : 34
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 35
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 36
+                                              }
+                                            }
+                                          },
+                                          "id" : 37
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 38
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 39
+                    }
+                  }
+                },
+                "id" : 40
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "j",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1"
+                        }
+                      },
+                      "id" : 41
+                    }
+                  }
+                },
+                "id" : 42
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "k",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "j"
+                        }
+                      },
+                      "id" : 43
+                    }
+                  }
+                },
+                "id" : 44
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "l",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprUnop" : {
+                          "op" : {
+                            "Minus" : {
+                              
+                            }
+                          },
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 45
+                            }
+                          }
+                        }
+                      },
+                      "id" : 46
+                    }
+                  }
+                },
+                "id" : 47
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "m",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprBinop" : {
+                          "e1" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 48
+                            }
+                          },
+                          "op" : {
+                            "Add" : {
+                              
+                            }
+                          },
+                          "e2" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "2"
+                                }
+                              },
+                              "id" : 49
+                            }
+                          }
+                        }
+                      },
+                      "id" : 50
+                    }
+                  }
+                },
+                "id" : 51
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "n",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprParen" : {
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 52
+                            }
+                          }
+                        }
+                      },
+                      "id" : 53
+                    }
+                  }
+                },
+                "id" : 54
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "This is a pre annotation.",
+          "It has two lines."
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "o",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0"
+                        }
+                      },
+                      "id" : 57
+                    }
+                  }
+                },
+                "id" : 58
+              }
+            }
+          }
+        },
+        [
+          "This is a post annotation.",
+          "It also has two lines."
+        ]
+      ]
+    ]
+  }
+]
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "1.14",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "2.14",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "2.1",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "4.14",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "4.1",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.16",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.19",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.22",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.14",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "6.1",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.16",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.19",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "7.1",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.18",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.21",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.16",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.28",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.31",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.26",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.14",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "8.1",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.20",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.16",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.27",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.23",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.14",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "10.1",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "11.14",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "11.1",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.22",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.18",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.29",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.25",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.16",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.40",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.36",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.14",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "13.1",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "15.14",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "15.1",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "16.14",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.15",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.14",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "18.1",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.14",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.18",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.16",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "19.1",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.15",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.14",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "20.1",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.14",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.1",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.14",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "24.1",
+    "includingLoc" : "None"
+  }
+}
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "45" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "8" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "50" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "5" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "57" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "42" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "18" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "28" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    },
+    "12" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "51" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "19" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "23" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "4" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "40" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "9" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "44" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "33" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "13" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "46" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "35" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "16" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "48" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "21" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "54" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "43" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "6" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "36" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "39" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "25" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "47" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "31" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "27" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "7" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "43" : {
+      "Constant" : {
+        "nodeId" : 42,
+        "unqualifiedName" : "j"
+      }
+    }
+  },
+  "valueMap" : {
+    "45" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "8" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "50" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "5" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "57" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "18" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "28" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "51" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "19" : {
+      "Integer" : {
+        "value" : 4
+      }
+    },
+    "23" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "4" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "40" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "9" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "44" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "33" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "13" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "46" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "35" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        }
+      }
+    },
+    "16" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "48" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "21" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "54" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "43" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "49" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "6" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "36" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "39" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        ]
+      }
+    },
+    "25" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "47" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "31" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "58" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 4
+            }
+          }
+        ]
+      }
+    },
+    "27" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        }
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "Integer" : {
+        "value" : 1
+      }
+    }
+  }
+}

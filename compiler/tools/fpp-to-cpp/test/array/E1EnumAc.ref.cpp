@@ -75,7 +75,7 @@ namespace M {
     return status;
   }
 
-#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
+#if FW_SERIALIZABLE_TO_STRING
 
   void E1 ::
     toString(Fw::StringBase& sb) const
