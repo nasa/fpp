@@ -19,12 +19,14 @@ trait ComputeCppFiles extends AstStateVisitor {
   protected def addMappings(
     s: State,
     fileName: String,
-    locOpt: Option[Location]
+    locOpt: Option[Location],
+    hppFileExtension: String = "hpp",
+    cppFileExtension: String = "cpp"
   ) = {
     val m = s.locationMap
     for {
-      m <- addHppMapping(m, fileName, locOpt)
-      m <- addCppMapping(m, fileName, locOpt)
+      m <- addHppMapping(m, fileName, locOpt, hppFileExtension)
+      m <- addCppMapping(m, fileName, locOpt, cppFileExtension)
     }
     yield s.copy(locationMap = m)
   }
@@ -33,16 +35,18 @@ trait ComputeCppFiles extends AstStateVisitor {
   def addHppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
-    locOpt: Option[Location]
+    locOpt: Option[Location],
+    hppFileExtension: String = "hpp"
   ) =
-    addMapping(s, (s"$fileName.hpp" -> locOpt))
+    addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
   def addCppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
-    locOpt: Option[Location]
-  ) = addMapping(s, (s"$fileName.cpp" -> locOpt))
+    locOpt: Option[Location],
+    cppFileExtension: String = "cpp"
+  ) = addMapping(s, (s"$fileName.$cppFileExtension" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
