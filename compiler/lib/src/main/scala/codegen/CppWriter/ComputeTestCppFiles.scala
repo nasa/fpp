@@ -22,4 +22,9 @@ object ComputeTestCppFiles extends ComputeCppFiles {
     yield s
   }
 
+  override def defModuleAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = visitList(s, aNode._2.data.members, matchModuleMember)
+
 }
