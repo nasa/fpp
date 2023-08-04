@@ -18,7 +18,12 @@
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
-warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-zero-length-array -Wno-sign-conversion -Wno-vla-extension"
+warning_flags="
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-sign-conversion -Wno-vla-extension
+-Wno-unused-parameter
+-Wno-zero-length-array
+"
 
 # Parse command line arguments
 all_flag=false

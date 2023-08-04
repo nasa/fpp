@@ -6,8 +6,20 @@
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
-warning_flags="-Wno-gnu-zero-variadic-macro-arguments -Wno-unused-parameter -Wno-return-type"
-include_flags="-I../../../.. -I../base -I../impl -I../test -I.. -I$FPRIME/gtest/googletest-src/googletest/include"
+warning_flags="
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-return-type
+-Wno-sign-conversion
+-Wno-unused-parameter
+"
+include_flags="
+-I$FPRIME/gtest/googletest-src/googletest/include
+-I..
+-I../../../..
+-I../base
+-I../impl
+-I../test
+"
 define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
 . ../generate_cpp.sh
