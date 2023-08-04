@@ -1,2 +1,2 @@
-C.cpp
-C.hpp
+C.template.cpp
+C.template.hpp
