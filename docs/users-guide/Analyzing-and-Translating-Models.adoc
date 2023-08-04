@@ -702,8 +702,8 @@ C.template.cpp
 C.template.hpp
 ----
 
-If the `-u` option is specified, then the `-g` _file_ and `-t` _file_ will
-write the generated autocode template implementation file names or the
+If the `-u` option is specified, then the options `-g` _file_ and `-t` _file_
+will write the generated autocode template implementation file names or the
 generated unit test template implementation file names, respectively, to the
 file _file_ as part of the dependency analysis.
 
