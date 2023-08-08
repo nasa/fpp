@@ -579,7 +579,8 @@ following files:
 
 * _C_ `Tester.hpp` and _C_ `Tester.cpp`: Provides a "template" that you
 can fill in to provide concrete unit tests for _C_, similar to the
-<<Component-Implementation-Templates, implementation templates>>.
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates,
+implementation templates>>.
 * _C_ `TesterHelpers.cpp`: Provides helper functions for the above files.
 * _C_ `TestMain.cpp`: Provides a sample GoogleTest test function and a
 main function for running any tests.
@@ -672,7 +673,7 @@ CTesterHelpers.cpp
 
 Alternatively, you can use the options `-g` _file_ or `-t` _file_ to
 <<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>.
-These options write the generated autocode file names or the generated
+These options write the generated autocoded file names or the generated
 template file names, respectively, to the file _file_
 as part of the dependency analysis.
 
