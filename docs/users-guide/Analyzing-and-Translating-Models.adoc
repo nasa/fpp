@@ -548,42 +548,68 @@ This code generation is described
 in the https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F 
 Prime User's Guide].
 
-==== Component Implementation Templates
+==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has an option `-t`.
-When you run `fpp-to-cpp` with this option, it does not
-generate any autocoded {cpp} for constants, ports, types, components, or
-topologies.
-Instead, for each component definition _C_ in the input,
- it generates files _C_ `.template.hpp` and _C_ `.template.cpp`.
-These files provide a "template" or partial implementation that you
-can fill in to provide the concrete implementation of _C_.
+`fpp-to-cpp` has two more options `-t` and `-u`.
+These options are for generating component "templates" or
+partial implementations and for generating unit test code.
+Here we cover the mechanics of using these options.
+For more information on implementing and testing components in F Prime, see
+the https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F 
+Prime User's Guide].
 
-==== Component Unit Test Code
+*Generating implementation templates:*
+When you run `fpp-to-cpp` with option `-t` and without option `-u`,
+it generates a partial implementation for 
+each component definition _C_ in the input.
+The generated files are called _C_ `.template.hpp` and _C_ `.template.cpp`.
+You can fill in the blanks in these files to provide the concrete
+implementation of _C_.
 
-`fpp-to-cpp` has another option `-u`.
-When you run `fpp-to-cpp` with this option, it generates all of the
-autocoded {cpp} for constants, ports, types, components, and
-topologies in addition to the unit test {cpp} by default.
-For each component definition _C_ in the input, the generated unit
-test {cpp} includes the following files:
+*Generating unit test harness code:* 
+When you run `fpp-to-cpp` with option `-u` and without option `-t`,
+it generates all the code necessary for building and running unit tests.
+This code consists of (1) the autocoded {cpp} for constants, ports,
+types, components, and
+topologies described in the previous sections; and (2)
+support code for testing each component definition _C_ in the input.
+The unit test support code resides in the following files:
 
-* _C_ `TesterBase.hpp` and _C_ `TesterBase.cpp`: A test
-harness that can be used for unit testing _C_.
-* _C_ `GTestBase.hpp` and _C_ `GTestBase.cpp`: Provides custom
-Google Test assertion macros.
+* _C_ `TesterBase.hpp` and _C_ `TesterBase.cpp`.
+These files define a class _C_ `TesterBase` for unit testing _C_.
+This class contains helper code, for example an input port and history corresponding
+to each output port of _C_.
 
+* _C_ `GTestBase.hpp` and _C_ `GTestBase.cpp`.
+These files define a class _C_ `GTestBase` derived
+from _C_.
+This class uses the Google Test framework to provide additional helper
+code.
+It is factored into a separate class so that you can use _C_ `TesterBase`
+without _C_ `GTestBase` if you wish.
+
+*Generating unit test templates:*
 When you run `fpp-to-cpp` with both the `-u` and the `-t` options,
-for each component definition _C_ in the input, it generates only the
-following files:
+it generates a template or partial implementation of the unit tests
+for each component _C_ in the input.
+The generated code consists of the following files:
 
-* _C_ `Tester.hpp` and _C_ `Tester.cpp`: Provides a "template" that you
-can fill in to provide concrete unit tests for _C_, similar to the
-<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates,
-implementation templates>>.
-* _C_ `TesterHelpers.cpp`: Provides helper functions for the above files.
-* _C_ `TestMain.cpp`: Provides a sample GoogleTest test function and a
-main function for running any tests.
+* _C_ `Tester.hpp` and _C_ `Tester.cpp`.
+These files partially define a class _C_ `Tester` that is derived from `GTestBase`.
+You can fill in the partial implementation to provide unit tests for _C_.
+If you are not using _C_ `GTestBase`, then you can modify
+_C_ `Tester` so that it is derived from _C_ `TesterBase`.
+
+* _C_ `TesterHelpers.cpp`. This file provides helper functions called by
+the functions defined in `Tester.cpp`.
+These functions are factored into a separate file so that you
+can redefine them if you wish.
+To redefine them, omit _C_ `TesterHelpers.cpp` from your F Prime
+unit test build.
+
+* _C_ `TestMain.cpp`. This file provides a minimal main function for unit
+testing, including a sample test.
+You can add your top-level test code to this file.
 
 === Identifying Generated Files
 
