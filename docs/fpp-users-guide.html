@@ -669,8 +669,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">13.3.3. Types, Ports, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Unit-Test-Code">13.3.5. Component Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
@@ -10083,58 +10082,82 @@ Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has an option <code>-t</code>.
-When you run <code>fpp-to-cpp</code> with this option, it does not
-generate any autocoded C&#43;&#43; for constants, ports, types, components, or
-topologies.
-Instead, for each component definition <em>C</em> in the input,
- it generates files <em>C</em> <code>.template.hpp</code> and <em>C</em> <code>.template.cpp</code>.
-These files provide a "template" or partial implementation that you
-can fill in to provide the concrete implementation of <em>C</em>.</p>
+<p><code>fpp-to-cpp</code> has two more options <code>-t</code> and <code>-u</code>.
+These options are for generating component "templates" or
+partial implementations and for generating unit test code.
+Here we cover the mechanics of using these options.
+For more information on implementing and testing components in F Prime, see
+the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
+Prime User&#8217;s Guide</a>.</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Unit-Test-Code">13.3.5. Component Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has another option <code>-u</code>.
-When you run <code>fpp-to-cpp</code> with this option, it generates all of the
-autocoded C&#43;&#43; for constants, ports, types, components, and
-topologies in addition to the unit test C&#43;&#43; by default.
-For each component definition <em>C</em> in the input, the generated unit
-test C&#43;&#43; includes the following files:</p>
+<p><strong>Generating implementation templates:</strong>
+When you run <code>fpp-to-cpp</code> with option <code>-t</code> and without option <code>-u</code>,
+it generates a partial implementation for
+each component definition <em>C</em> in the input.
+The generated files are called <em>C</em> <code>.template.hpp</code> and <em>C</em> <code>.template.cpp</code>.
+You can fill in the blanks in these files to provide the concrete
+implementation of <em>C</em>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Generating unit test harness code:</strong>
+When you run <code>fpp-to-cpp</code> with option <code>-u</code> and without option <code>-t</code>,
+it generates all the code necessary for building and running unit tests.
+This code consists of (1) the autocoded C&#43;&#43; for constants, ports,
+types, components, and
+topologies described in the previous sections; and (2)
+support code for testing each component definition <em>C</em> in the input.
+The unit test support code resides in the following files:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>C</em> <code>TesterBase.hpp</code> and <em>C</em> <code>TesterBase.cpp</code>: A test
-harness that can be used for unit testing <em>C</em>.</p>
+<p><em>C</em> <code>TesterBase.hpp</code> and <em>C</em> <code>TesterBase.cpp</code>.
+These files define a class <em>C</em> <code>TesterBase</code>.
+This class contains helper code for unit testing <em>C</em>,
+for example an input port and history corresponding to each output port of <em>C</em>.</p>
 </li>
 <li>
-<p><em>C</em> <code>GTestBase.hpp</code> and <em>C</em> <code>GTestBase.cpp</code>: Provides custom
-Google Test assertion macros.</p>
+<p><em>C</em> <code>GTestBase.hpp</code> and <em>C</em> <code>GTestBase.cpp</code>.
+These files define a class <em>C</em> <code>GTestBase</code> derived
+from <em>C</em>.
+This class uses the Google Test framework to provide additional helper
+code.
+It is factored into a separate class so that you can use <em>C</em> <code>TesterBase</code>
+without <em>C</em> <code>GTestBase</code> if you wish.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>When you run <code>fpp-to-cpp</code> with both the <code>-u</code> and the <code>-t</code> options,
-for each component definition <em>C</em> in the input, it generates only the
-following files:</p>
+<p><strong>Generating unit test templates:</strong>
+When you run <code>fpp-to-cpp</code> with both the <code>-u</code> and the <code>-t</code> options,
+it generates a template or partial implementation of the unit tests
+for each component <em>C</em> in the input.
+The generated code consists of the following files:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>C</em> <code>Tester.hpp</code> and <em>C</em> <code>Tester.cpp</code>: Provides a "template" that you
-can fill in to provide concrete unit tests for <em>C</em>, similar to the
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">implementation templates</a>.</p>
+<p><em>C</em> <code>Tester.hpp</code> and <em>C</em> <code>Tester.cpp</code>.
+These files partially define a class <em>C</em> <code>Tester</code> that is derived from <em>C</em> <code>GTestBase</code>.
+You can fill in the partial definition to provide unit tests for <em>C</em>.
+If you are not using <em>C</em> <code>GTestBase</code>, then you can modify
+<em>C</em> <code>Tester</code> so that it is derived from <em>C</em> <code>TesterBase</code>.</p>
 </li>
 <li>
-<p><em>C</em> <code>TesterHelpers.cpp</code>: Provides helper functions for the above files.</p>
+<p><em>C</em> <code>TesterHelpers.cpp</code>. This file provides helper functions called by
+the functions defined in <code>Tester.cpp</code>.
+These functions are factored into a separate file so that you
+can redefine them if you wish.
+To redefine them, omit <em>C</em> <code>TesterHelpers.cpp</code> from your F Prime
+unit test build.</p>
 </li>
 <li>
-<p><em>C</em> <code>TestMain.cpp</code>: Provides a sample GoogleTest test function and a
-main function for running any tests.</p>
+<p><em>C</em> <code>TestMain.cpp</code>. This file provides a minimal main function for unit
+testing, including a sample test.
+You can add your top-level test code to this file.</p>
 </li>
 </ul>
 </div>
@@ -11409,7 +11432,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-08 09:57:32 -0600
+Last updated 2023-08-09 09:25:16 -0600
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
