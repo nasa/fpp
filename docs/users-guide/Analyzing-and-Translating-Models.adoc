@@ -597,7 +597,7 @@ The generated code consists of the following files:
 * _C_ `Tester.hpp` and _C_ `Tester.cpp`.
 These files partially define a class _C_ `Tester` that is derived from _C_ `GTestBase`.
 You can fill in the partial definition to provide unit tests for _C_.
-If you are not using _C_ `GTestBase`, then you can modify
+If you are not using Google Test, then you can modify
 _C_ `Tester` so that it is derived from _C_ `TesterBase`.
 
 * _C_ `TesterHelpers.cpp`. This file provides helper functions called by
