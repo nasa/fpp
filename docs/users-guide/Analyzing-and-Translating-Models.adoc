@@ -745,7 +745,7 @@ C.template.cpp
 C.template.hpp
 ----
 
-You can also run these options together with the `-u` option.
+You can also specify these options together with the `-u` option.
 In this case `fpp-depend` writes the names of autocoded
 or template unit test files.
 For example:
