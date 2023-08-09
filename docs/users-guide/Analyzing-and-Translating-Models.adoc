@@ -576,9 +576,9 @@ support code for testing each component definition _C_ in the input.
 The unit test support code resides in the following files:
 
 * _C_ `TesterBase.hpp` and _C_ `TesterBase.cpp`.
-These files define a class _C_ `TesterBase` for unit testing _C_.
-This class contains helper code, for example an input port and history corresponding
-to each output port of _C_.
+These files define a class _C_ `TesterBase`.
+This class contains helper code for unit testing _C_,
+for example an input port and history corresponding to each output port of _C_.
 
 * _C_ `GTestBase.hpp` and _C_ `GTestBase.cpp`.
 These files define a class _C_ `GTestBase` derived
@@ -595,8 +595,8 @@ for each component _C_ in the input.
 The generated code consists of the following files:
 
 * _C_ `Tester.hpp` and _C_ `Tester.cpp`.
-These files partially define a class _C_ `Tester` that is derived from `GTestBase`.
-You can fill in the partial implementation to provide unit tests for _C_.
+These files partially define a class _C_ `Tester` that is derived from _C_ `GTestBase`.
+You can fill in the partial definition to provide unit tests for _C_.
 If you are not using _C_ `GTestBase`, then you can modify
 _C_ `Tester` so that it is derived from _C_ `TesterBase`.
 
