@@ -1775,7 +1775,7 @@ ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_cmdIn_InputPorts()
+  getNum_cmdIn_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
@@ -1785,79 +1785,79 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_noArgsAsync_InputPorts()
+  getNum_noArgsAsync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_noArgsGuarded_InputPorts()
+  getNum_noArgsGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_noArgsReturnGuarded_InputPorts()
+  getNum_noArgsReturnGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_noArgsReturnSync_InputPorts()
+  getNum_noArgsReturnSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_noArgsSync_InputPorts()
+  getNum_noArgsSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedAsync_InputPorts()
+  getNum_typedAsync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedAsyncAssert_InputPorts()
+  getNum_typedAsyncAssert_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedAsyncBlockPriority_InputPorts()
+  getNum_typedAsyncBlockPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedAsyncDropPriority_InputPorts()
+  getNum_typedAsyncDropPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedGuarded_InputPorts()
+  getNum_typedGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedReturnGuarded_InputPorts()
+  getNum_typedReturnGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedReturnSync_InputPorts()
+  getNum_typedReturnSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedSync_InputPorts()
+  getNum_typedSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
@@ -1867,37 +1867,37 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialAsync_InputPorts()
+  getNum_serialAsync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsync_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialAsyncAssert_InputPorts()
+  getNum_serialAsyncAssert_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncAssert_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialAsyncBlockPriority_InputPorts()
+  getNum_serialAsyncBlockPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncBlockPriority_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialAsyncDropPriority_InputPorts()
+  getNum_serialAsyncDropPriority_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialAsyncDropPriority_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialGuarded_InputPorts()
+  getNum_serialGuarded_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialGuarded_InputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialSync_InputPorts()
+  getNum_serialSync_InputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialSync_InputPort));
 }
@@ -1907,31 +1907,31 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_cmdRegOut_OutputPorts()
+  getNum_cmdRegOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_cmdResponseOut_OutputPorts()
+  getNum_cmdResponseOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_eventOut_OutputPorts()
+  getNum_eventOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_prmGetOut_OutputPorts()
+  getNum_prmGetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_prmSetOut_OutputPorts()
+  getNum_prmSetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
@@ -1939,7 +1939,7 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_textEventOut_OutputPorts()
+  getNum_textEventOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
@@ -1947,13 +1947,13 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 #endif
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_timeGetOut_OutputPorts()
+  getNum_timeGetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_tlmOut_OutputPorts()
+  getNum_tlmOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
@@ -1963,13 +1963,13 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedOut_OutputPorts()
+  getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_typedReturnOut_OutputPorts()
+  getNum_typedReturnOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
@@ -1979,7 +1979,7 @@ NATIVE_INT_TYPE ActiveSerialComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveSerialComponentBase ::
-  getNum_serialOut_OutputPorts()
+  getNum_serialOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_serialOut_OutputPort));
 }

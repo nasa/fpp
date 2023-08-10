@@ -19,30 +19,34 @@ trait ComputeCppFiles extends AstStateVisitor {
   protected def addMappings(
     s: State,
     fileName: String,
-    locOpt: Option[Location]
+    locOpt: Option[Location],
+    hppFileExtension: String = "hpp",
+    cppFileExtension: String = "cpp"
   ) = {
     val m = s.locationMap
     for {
-      m <- addHppMapping(m, fileName, locOpt)
-      m <- addCppMapping(m, fileName, locOpt)
+      m <- addHppMapping(m, fileName, locOpt, hppFileExtension)
+      m <- addCppMapping(m, fileName, locOpt, cppFileExtension)
     }
     yield s.copy(locationMap = m)
   }
 
   /** Adds a mapping for an hpp file  */
-  private def addHppMapping(
+  def addHppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
-    locOpt: Option[Location]
+    locOpt: Option[Location],
+    hppFileExtension: String = "hpp"
   ) =
-    addMapping(s, (s"$fileName.hpp" -> locOpt))
+    addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
-  private def addCppMapping(
+  def addCppMapping(
     s: Map[String, Option[Location]],
     fileName: String,
-    locOpt: Option[Location]
-  ) = addMapping(s, (s"$fileName.cpp" -> locOpt))
+    locOpt: Option[Location],
+    cppFileExtension: String = "cpp"
+  ) = addMapping(s, (s"$fileName.$cppFileExtension" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
@@ -87,6 +91,21 @@ object ComputeCppFiles {
 
     /** Gets the C++ file name for generated topologies */
     def getTopology(baseName: String): String = s"${baseName}TopologyAc"
+
+    /** Gets the C++ file name for generated component Google Test harness base classes */
+    def getComponentGTestBase(baseName: String) = s"${baseName}GTestBase"
+
+    /** Gets the C++ file name for generated component test harness base classes */
+    def getComponentTesterBase(baseName: String) = s"${baseName}TesterBase"
+
+    /** Gets the C++ file name for generated component test harness implementation classes */
+    def getComponentTestImpl(baseName: String) = s"${baseName}Tester"
+
+    /** Gets the C++ file name for generated component test harness helpers */
+    def getComponentTestHelper(baseName: String) = s"${baseName}TesterHelpers"
+
+    /** Gets the C++ file name for generated component main test harness classes */
+    def getComponentTestMain(baseName: String) = s"${baseName}TestMain"
 
   }
 

@@ -46,5 +46,9 @@ spec_top_import
 special_ports
 template_filenames
 template_filenames_include
+test_filenames
+test_filenames_include
+test_template_filenames
+test_template_filenames_include
 transitive_instance
 "

@@ -1,0 +1,39 @@
+#!/bin/sh
+
+# ----------------------------------------------------------------------
+# Compile ref C++ files, to check them for validity
+# ----------------------------------------------------------------------
+
+fprime_gcc=../../../../../scripts/fprime-gcc
+export FPRIME_GCC_FLAGS="-I../../fprime"
+warning_flags="
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-return-type
+-Wno-sign-conversion
+-Wno-unused-parameter
+"
+include_flags="
+-I$FPRIME/gtest/googletest-src/googletest/include
+-I..
+-I../../../..
+-I../base
+-I../impl
+-I../test
+"
+define_flags="-DPROTECTED="public" -DBUILD_UT=1"
+
+. ../generate_cpp.sh
+
+for file in `find . -name '*Tester.ref.cpp'`
+do
+  base=`echo $file | sed 's;\Tester.ref.cpp;;'`
+  cp ${base}Tester.ref.cpp ${base}Tester.cpp
+  cp ${base}Tester.ref.hpp ${base}Tester.hpp
+  cp ${base}TesterHelpers.ref.cpp ${base}TesterHelpers.cpp
+  cp ${base}TestMain.ref.cpp ${base}TestMain.cpp
+
+  files="${base}Tester.cpp ${base}TesterHelpers.cpp ${base}TestMain.cpp"
+  echo "compiling $files"
+
+  $fprime_gcc $include_flags -c $files $define_flags $warning_flags
+done

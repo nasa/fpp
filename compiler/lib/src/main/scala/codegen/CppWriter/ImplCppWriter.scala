@@ -21,4 +21,13 @@ object ImplCppWriter extends CppWriter {
     yield s
   }
 
+  override def defModuleAnnotatedNode(
+    s: State,
+    aNode: Ast.Annotated[AstNode[Ast.DefModule]]
+  ) = {
+    val node = aNode._2
+    val data = node.data
+    visitList(s, data.members, matchModuleMember)
+  }
+
 }

@@ -19,6 +19,7 @@ object FPPToCpp {
     pathPrefixes: List[String] = Nil,
     defaultStringSize: Int = CppWriterState.defaultDefaultStringSize,
     template: Boolean = false,
+    unitTest: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -27,7 +28,7 @@ object FPPToCpp {
       case list => list
     }
     val a = Analysis(inputFileSet = options.files.toSet)
-    val mode = CppWriter.getMode(options.template)
+    val mode = CppWriter.getMode(options.template, options.unitTest)
     for {
       tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
       aTulFiles <- ResolveSpecInclude.transformList(
@@ -43,7 +44,7 @@ object FPPToCpp {
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
       s <- mode match {
         case CppWriter.Autocode => ComputeAutocodeCppFiles.visitList (
-          CppWriterState (a),
+          CppWriterState(a),
           tulFiles,
           ComputeAutocodeCppFiles.transUnit
         )
@@ -51,6 +52,23 @@ object FPPToCpp {
           CppWriterState(a),
           tulFiles,
           ComputeImplCppFiles.transUnit
+        )
+        case CppWriter.UnitTest => for {
+          s <- ComputeAutocodeCppFiles.visitList(
+            CppWriterState(a),
+            tulFiles,
+            ComputeAutocodeCppFiles.transUnit
+          )
+          s <- ComputeTestCppFiles.visitList(
+            s,
+            tulFiles,
+            ComputeTestCppFiles.transUnit
+          )
+        } yield s
+        case CppWriter.UnitTestTemplate => ComputeTestImplCppFiles.visitList(
+          CppWriterState(a),
+          tulFiles,
+          ComputeTestImplCppFiles.transUnit
         )
       }
       _ <- options.names match {
@@ -75,6 +93,11 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest => for {
+            _ <- AutocodeCppWriter.tuList(state, tulFiles)
+            _ <- TestCppWriter.tuList(state, tulFiles)
+          } yield ()
+          case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
         }
       }
     } yield ()
@@ -130,6 +153,9 @@ object FPPToCpp {
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("emit template code"),
+      opt[Unit]('u', "unit-test")
+        .action((_, c) => c.copy(unitTest = true))
+        .text("emit unit test code"),
       arg[String]("file ...")
         .unbounded()
         .optional()

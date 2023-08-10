@@ -25,14 +25,24 @@ include()
   run_test "" include
 }
 
-ok()
-{
-  run_test "" ok
-}
-
 include_template()
 {
   run_test "-t" "include" include_template
+}
+
+include_test()
+{
+  run_test "-u" "include" include_test
+}
+
+include_test_template()
+{
+  run_test "-u -t" "include" include_test_template
+}
+
+ok()
+{
+  run_test "" ok
 }
 
 ok_template()
@@ -40,11 +50,25 @@ ok_template()
   run_test "-t" "ok" ok_template
 }
 
+ok_test()
+{
+  run_test "-u" "ok" ok_test
+}
+
+ok_test_template()
+{
+  run_test "-u -t" "ok" ok_test_template
+}
+
 tests="
 include
 include_template
+include_test
+include_test_template
 ok
 ok_template
+ok_test
+ok_test_template
 "
 
 run_suite $tests

@@ -10,14 +10,13 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeStr = getPortListTypeString(ports)
-    val comment =
-      if (typeStr == "special")
-        s"Connect input ports to $typeStr output ports"
-      else
-        s"Connect $typeStr input ports to $typeStr output ports"
-
+  def generateTypedConnectors(
+    ports: List[PortInstance],
+    comment: String,
+    connectorName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String,
+  ): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "public",
       comment,
@@ -30,7 +29,7 @@ case class ComponentOutputPorts(
         List(
           functionClassMember(
             Some(s"Connect port to ${p.getUnqualifiedName}[portNum]"),
-            outputPortConnectorName(p.getUnqualifiedName),
+            connectorName(p.getUnqualifiedName),
             List(
               portNumParam,
               CppDoc.Function.Param(
@@ -47,16 +46,32 @@ case class ComponentOutputPorts(
             CppDoc.Type("void"),
             lines(
               s"""|FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  portNum < this->${numGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
-                  |this->${portVariableName(p)}[portNum].$connectionFunction(port);
+                  |this->${variableName(p)}[portNum].$connectionFunction(port);
                   |"""
             )
           )
         )
       })
+    )
+  }
+
+  def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeStr = getPortListTypeString(ports)
+    val comment =
+      if (typeStr == "special")
+        s"Connect input ports to $typeStr output ports"
+      else
+        s"Connect $typeStr input ports to $typeStr output ports"
+    generateTypedConnectors(
+      ports,
+      comment,
+      outputPortConnectorName,
+      portNumGetterName,
+      portVariableName
     )
   }
 
@@ -144,32 +159,48 @@ case class ComponentOutputPorts(
     )
   }
 
+  def generateConnectionStatusQueries(
+    ports: List[PortInstance],
+    portName: String => String,
+    isConnectedName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String
+  ): List[CppDoc.Class.Member] = {
+    mapPorts(ports, p => List(
+      functionClassMember(
+        Some(
+          s"""|Check whether port ${portName(p.getUnqualifiedName)} is connected
+              |
+              |\\return Whether port ${portName(p.getUnqualifiedName)} is connected
+              |"""
+        ),
+        isConnectedName(p.getUnqualifiedName),
+        List(portNumParam),
+        CppDoc.Type("bool"),
+        lines(
+          s"""|FW_ASSERT(
+              |  portNum < this->${numGetterName(p)}(),
+              |  static_cast<FwAssertArgType>(portNum)
+              |);
+              |
+              |return this->${variableName(p)}[portNum].isConnected();
+              |"""
+        )
+      )
+    ))
+  }
+
   def getConnectionStatusQueries(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       s"Connection status queries for ${getPortListTypeString(ports)} output ports",
-      mapPorts(ports, p => List(
-        functionClassMember(
-          Some(
-            s"""|Check whether port ${p.getUnqualifiedName} is connected
-                |
-                |\\return Whether port ${p.getUnqualifiedName} is connected
-                |"""
-          ),
-          outputPortIsConnectedName(p.getUnqualifiedName),
-          List(portNumParam),
-          CppDoc.Type("bool"),
-          lines(
-            s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p)}(),
-                |  static_cast<FwAssertArgType>(portNum)
-                |);
-                |
-                |return this->${portVariableName(p)}[portNum].isConnected();
-                |"""
-          )
-        )
-      ))
+      generateConnectionStatusQueries(
+        ports,
+        (s: String) => s,
+        outputPortIsConnectedName,
+        portNumGetterName,
+        portVariableName
+      )
     )
   }
 
@@ -181,10 +212,6 @@ case class ComponentOutputPorts(
         "Fw::SerializeStatus"
       )
     }
-
-  // Get the name for an output port connector function
-  private def outputPortConnectorName(name: String) =
-    s"set_${name}_OutputPort"
 
   // Get the name for an output port connection status function
   private def outputPortIsConnectedName(name: String) =

@@ -20,7 +20,11 @@ abstract class ComponentCppWriterUtils(
 
   val name: String = s.getName(symbol)
 
+  val namespaceIdentList: List[String] = s.getNamespaceIdentList(symbol)
+
   val className: String = s"${name}ComponentBase"
+
+  val implClassName: String = name
 
   val members: List[Ast.ComponentMember] = data.members
 
@@ -163,6 +167,10 @@ abstract class ComponentCppWriterUtils(
 
   /** List of parameters sorted by ID */
   val sortedParams: List[(Param.Id, Param)] = component.paramMap.toList.sortBy(_._1)
+
+  /** Command receive port */
+  val cmdRecvPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.CommandRecv)
 
   /** Command response port */
   val cmdRespPort: Option[PortInstance.Special] =
@@ -451,6 +459,12 @@ abstract class ComponentCppWriterUtils(
       case _ => getPortTypeString(ports.head)
     }
 
+  def getPortListDirectionString(ports: List[PortInstance]): String =
+    ports match {
+      case Nil => ""
+      case _ => ports.head.getDirection.get.toString
+    }
+
   /** Get the command param type as a string */
   def getCommandParamString(kind: Command.Param.Kind): String =
     kind match {
@@ -536,6 +550,20 @@ abstract class ComponentCppWriterUtils(
     )
   }
 
+  /** Write event severity as a string */
+  def writeSeverity(event: Event) =
+    event.aNode._2.data.severity match {
+      case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
+      case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
+      case Ast.SpecEvent.WarningHigh => "WARNING_HI"
+      case Ast.SpecEvent.WarningLow => "WARNING_LO"
+      case s => s.toString.toUpperCase.replace(' ', '_')
+    }
+
+  /** Write a parameter type as a C++ type */
+  def writeParamType(t: Type) =
+    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
+
   /** Get the name for a general port enumerated constant in cpp file */
   def portCppConstantName(p: PortInstance) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
@@ -556,9 +584,17 @@ abstract class ComponentCppWriterUtils(
   def portVariableName(p: PortInstance) =
     s"m_${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
 
+  // Get the name for an input port getter function
+  def inputPortGetterName(name: String) =
+    s"get_${name}_InputPort"
+
   /** Get the name for an input port handler function */
   def inputPortHandlerName(name: String) =
     s"${name}_handler"
+
+  // Get the name for an input port handler base-class function
+  def inputPortHandlerBaseName(name: String) =
+    s"${name}_handlerBase"
 
   /** Get the name for an input port callback function */
   def inputPortCallbackName(name: String) =
@@ -567,6 +603,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
+
+  // Get the name for an output port connector function
+  def outputPortConnectorName(name: String) =
+    s"set_${name}_OutputPort"
 
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
@@ -596,9 +636,18 @@ abstract class ComponentCppWriterUtils(
     s"OPCODE_${name.toUpperCase}"
   }
 
+  /** Get the name for a param command opcode constant */
+  def paramCommandConstantName(name: String, kind: Command.Param.Kind) = {
+    s"OPCODE_${name.toUpperCase}_${getCommandParamString(kind).toUpperCase}"
+  }
+
   /** Get the name for an event throttle counter variable */
   def eventThrottleCounterName(name: String) =
     s"m_${name}Throttle"
+
+  /** Get the name for an event ID constant */
+  def eventIdConstantName(name: String) =
+    s"EVENTID_${name.toUpperCase}"
 
   /** Get the name for a telemetry channel update flag variable */
   def channelUpdateFlagName(name: String) =
@@ -608,6 +657,10 @@ abstract class ComponentCppWriterUtils(
   def channelStorageName(name: String) =
     s"m_last_$name"
 
+  /** Get the name for a telemetry channel constant */
+  def channelIdConstantName(name: String) =
+    s"CHANNELID_${name.toUpperCase}"
+
   /** Get the name for a parameter handler (set/save) function */
   def paramHandlerName(name: String, kind: Command.Param.Kind) =
     s"param${getCommandParamString(kind).capitalize}_$name"
@@ -615,6 +668,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a parameter validity flag variable */
   def paramValidityFlagName(name: String) =
     s"m_param_${name}_valid"
+
+  /** Get the name for a parameter id constant */
+  def paramIdConstantName(name: String) =
+    s"PARAMID_${name.toUpperCase}"
 
   private def getPortTypeBaseName(
     p: PortInstance,
