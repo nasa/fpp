@@ -1222,42 +1222,42 @@ class PassiveSerialTesterBase :
     static void from_cmdRegOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode //!< The opcode
+        FwOpcodeType opCode //!< Command Op Code
     );
 
     //! Static function for port from_cmdResponseOut
     static void from_cmdResponseOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode, //!< The opcode
-        U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdResponse& cmdResponse //!< The command response argument
+        FwOpcodeType opCode, //!< Command Op Code
+        U32 cmdSeq, //!< Command Sequence
+        const Fw::CmdResponse& response //!< The command response argument
     );
 
     //! Static function for port from_eventOut
     static void from_eventOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
         const Fw::LogSeverity& severity, //!< The severity argument
-        Fw::LogBuffer& args //!< The buffer containing the serialized log entry
+        Fw::LogBuffer& args //!< Buffer containing serialized log entry
     );
 
     //! Static function for port from_prmGetOut
     static Fw::ParamValid from_prmGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwPrmIdType id, //!< The parameter ID
-        Fw::ParamBuffer& val //!< The buffer containing the serialized parameter value
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
 
     //! Static function for port from_prmSetOut
     static void from_prmSetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwPrmIdType id, //!< The parameter ID
-        Fw::ParamBuffer& val //!< The buffer containing the serialized parameter value
+        FwPrmIdType id, //!< Parameter ID
+        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1266,10 +1266,10 @@ class PassiveSerialTesterBase :
     static void from_textEventOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwEventIdType id, //!< The log ID
-        Fw::Time& timeTag, //!< The time
+        FwEventIdType id, //!< Log ID
+        Fw::Time& timeTag, //!< Time Tag
         const Fw::LogSeverity& severity, //!< The severity argument
-        Fw::TextLogString& text //!< The text of the log message
+        Fw::TextLogString& text //!< Text of log message
     );
 
 #endif
@@ -1278,16 +1278,16 @@ class PassiveSerialTesterBase :
     static void from_timeGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::Time& time //!< The time
+        Fw::Time& time //!< The time tag
     );
 
     //! Static function for port from_tlmOut
     static void from_tlmOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwChanIdType id, //!< The telemetry channel ID
-        Fw::Time& timeTag, //!< The time
-        Fw::TlmBuffer& val //!< The buffer containing the serialized telemetry value
+        FwChanIdType id, //!< Telemetry Channel ID
+        Fw::Time& timeTag, //!< Time Tag
+        Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
     );
 
     //! Static function for port from_typedOut
