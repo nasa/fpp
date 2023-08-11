@@ -969,10 +969,12 @@ case class ComponentTesterBaseWriter(
     def getParams(p: PortInstance) = p match {
       case i: PortInstance.General => getPortFunctionParams(i)
       case PortInstance.Special(aNode, _, _, _, _) =>
-        val spec @ Ast.SpecPortInstance.Special(_, kind, _, _, _) = aNode._2.data
+        import Ast.SpecPortInstance._
+        val spec @ Special(_, kind, _, _, _) = aNode._2.data
         kind match {
-          case Ast.SpecPortInstance.CommandReg => List(opcodeParam)
-          case Ast.SpecPortInstance.CommandResp => List(
+          case CommandRecv => Nil
+          case CommandReg => List(opcodeParam)
+          case CommandResp => List(
             opcodeParam,
             cmdSeqParam,
             CppDoc.Function.Param(
@@ -981,7 +983,7 @@ case class ComponentTesterBaseWriter(
               Some("The command response argument")
             )
           )
-          case Ast.SpecPortInstance.Event => List(
+          case Event => List(
             CppDoc.Function.Param(
               CppDoc.Type("FwEventIdType"),
               "id",
@@ -999,7 +1001,7 @@ case class ComponentTesterBaseWriter(
               Some("The buffer containing the serialized log entry")
             )
           )
-          case Ast.SpecPortInstance.ParamGet | Ast.SpecPortInstance.ParamSet => List(
+          case ParamGet | ParamSet => List(
             CppDoc.Function.Param(
               CppDoc.Type("FwPrmIdType"),
               "id",
@@ -1011,7 +1013,7 @@ case class ComponentTesterBaseWriter(
               Some("The buffer containing the serialized parameter value")
             )
           )
-          case Ast.SpecPortInstance.Telemetry => List(
+          case Telemetry => List(
             CppDoc.Function.Param(
               CppDoc.Type("FwChanIdType"),
               "id",
@@ -1024,7 +1026,7 @@ case class ComponentTesterBaseWriter(
               Some("The buffer containing the serialized telemetry value")
             )
           )
-          case Ast.SpecPortInstance.TextEvent => List(
+          case TextEvent => List(
             CppDoc.Function.Param(
               CppDoc.Type("FwEventIdType"),
               "id",
@@ -1042,14 +1044,13 @@ case class ComponentTesterBaseWriter(
               Some("The text of the log message")
             )
           )
-          case Ast.SpecPortInstance.TimeGet => List(
+          case TimeGet => List(
             CppDoc.Function.Param(
               CppDoc.Type("Fw::Time&"),
               "time",
               Some("The time")
             )
           )
-          case Ast.SpecPortInstance.CommandRecv => Nil
       }
       case _: PortInstance.Internal => Nil
     }
@@ -1179,37 +1180,38 @@ case class ComponentTesterBaseWriter(
                 )
               )
               case PortInstance.Special(aNode, _, _, _, _) =>
-                val spec @ Ast.SpecPortInstance.Special(_, kind, _, _, _) = aNode._2.data
+                import Ast.SpecPortInstance._
+                val spec @ Special(_, kind, _, _, _) = aNode._2.data
                 kind match {
-                  case Ast.SpecPortInstance.CommandReg => Nil
-                  case Ast.SpecPortInstance.CommandResp => lines(
+                  case CommandRecv => Nil
+                  case CommandReg => Nil
+                  case CommandResp => lines(
                     s"""|$testerBaseDecl
                         |_testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
                         |"""
                   )
-                  case Ast.SpecPortInstance.Event => lines(
+                  case Event => lines(
                     s"""|$testerBaseDecl
                         |_testerBase->dispatchEvents(id, timeTag, severity, args);
                         |"""
                   )
-                  case Ast.SpecPortInstance.ParamGet => paramGetBody
-                  case Ast.SpecPortInstance.ParamSet => paramSetBody
-                  case Ast.SpecPortInstance.Telemetry => lines(
+                  case ParamGet => paramGetBody
+                  case ParamSet => paramSetBody
+                  case Telemetry => lines(
                     s"""|$testerBaseDecl
                         |_testerBase->dispatchTlm(id, timeTag, val);
                         |"""
                   )
-                  case Ast.SpecPortInstance.TextEvent => lines(
+                  case TextEvent => lines(
                     s"""|$testerBaseDecl
                         |_testerBase->textLogIn(id, timeTag, severity, text);
                         |"""
                   )
-                  case Ast.SpecPortInstance.TimeGet => lines(
+                  case TimeGet => lines(
                     s"""|$testerBaseDecl
                         |time = _testerBase->m_testTime;
                         |"""
                   )
-                  case Ast.SpecPortInstance.CommandRecv => Nil
                 }
               case _: PortInstance.Internal => Nil
             },
