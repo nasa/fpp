@@ -3323,7 +3323,7 @@ void PassiveTestTesterBase ::
       FwSizeType size
   )
 {
-
+  // TODO
 }
 
 void PassiveTestTesterBase ::
@@ -3334,7 +3334,7 @@ void PassiveTestTesterBase ::
       const Fw::Buffer& buffer
   )
 {
-
+  // TODO
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

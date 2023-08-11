@@ -3851,7 +3851,7 @@ namespace M {
         FwSizeType size
     )
   {
-
+    // TODO
   }
 
   void ActiveTestTesterBase ::
@@ -3862,7 +3862,7 @@ namespace M {
         const Fw::Buffer& buffer
     )
   {
-
+    // TODO
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

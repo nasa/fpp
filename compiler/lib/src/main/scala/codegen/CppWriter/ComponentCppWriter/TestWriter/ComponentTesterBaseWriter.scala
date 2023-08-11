@@ -1128,12 +1128,8 @@ case class ComponentTesterBaseWriter(
                       |"""
                 )
                 case ProductRecv => Nil
-                case ProductRequest =>
-                  // TODO
-                  Nil
-                case ProductSend =>
-                  // TODO
-                  Nil
+                case ProductRequest => lines("// TODO")
+                case ProductSend => lines("// TODO")
               }
             case _: PortInstance.Internal => Nil
           },
