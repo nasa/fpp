@@ -669,10 +669,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">13.3.1. Constant Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">13.3.2. Topology Definitions</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">13.3.3. Types, Ports, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</a></li>
 </ul>
 </li>
-<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">13.4. Identifying Generated Files</a>
+<ul class="sectlevel3">
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">13.4.1. Using fpp-filenames</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">13.4.2. Using fpp-depend</a></li>
+</ul>
+</li>
 <li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">13.7. Visualizing Topologies</a></li>
@@ -10082,16 +10087,84 @@ Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-Templates">13.3.4. Component Implementation Templates</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has an option <code>-t</code>.
-When you run <code>fpp-to-cpp</code> with this option, it does not
-generate any autocoded C&#43;&#43; for constants, ports, types, components, or
-topologies.
-Instead, for each component definition <em>C</em> in the input,
- it generates files <em>C</em> <code>.template.hpp</code> and <em>C</em> <code>.template.cpp</code>.
-These files provide a "template" or partial implementation that you
-can fill in to provide the concrete implementation of <em>C</em>.</p>
+<p><code>fpp-to-cpp</code> has two more options <code>-t</code> and <code>-u</code>.
+These options are for generating component "templates" or
+partial implementations and for generating unit test code.
+Here we cover the mechanics of using these options.
+For more information on implementing and testing components in F Prime, see
+the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
+Prime User&#8217;s Guide</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Generating implementation templates:</strong>
+When you run <code>fpp-to-cpp</code> with option <code>-t</code> and without option <code>-u</code>,
+it generates a partial implementation for
+each component definition <em>C</em> in the input.
+The generated files are called <em>C</em> <code>.template.hpp</code> and <em>C</em> <code>.template.cpp</code>.
+You can fill in the blanks in these files to provide the concrete
+implementation of <em>C</em>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Generating unit test harness code:</strong>
+When you run <code>fpp-to-cpp</code> with option <code>-u</code> and without option <code>-t</code>,
+it generates all the code necessary for building and running unit tests.
+This code consists of (1) the autocoded C&#43;&#43; for constants, ports,
+types, components, and
+topologies described in the previous sections; and (2)
+support code for testing each component definition <em>C</em> in the input.
+The unit test support code resides in the following files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>C</em> <code>TesterBase.hpp</code> and <em>C</em> <code>TesterBase.cpp</code>.
+These files define a class <em>C</em> <code>TesterBase</code>.
+This class contains helper code for unit testing <em>C</em>,
+for example an input port and history corresponding to each output port of <em>C</em>.</p>
+</li>
+<li>
+<p><em>C</em> <code>GTestBase.hpp</code> and <em>C</em> <code>GTestBase.cpp</code>.
+These files define a class <em>C</em> <code>GTestBase</code> derived
+from <em>C</em>.
+This class uses the Google Test framework to provide additional helper
+code.
+It is factored into a separate class so that you can use <em>C</em> <code>TesterBase</code>
+without <em>C</em> <code>GTestBase</code> if you wish.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Generating unit test templates:</strong>
+When you run <code>fpp-to-cpp</code> with both the <code>-u</code> and the <code>-t</code> options,
+it generates a template or partial implementation of the unit tests
+for each component <em>C</em> in the input.
+The generated code consists of the following files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>C</em> <code>Tester.hpp</code> and <em>C</em> <code>Tester.cpp</code>.
+These files partially define a class <em>C</em> <code>Tester</code> that is derived from <em>C</em> <code>GTestBase</code>.
+You can fill in the partial definition to provide unit tests for <em>C</em>.
+If you are not using Google Test, then you can modify
+<em>C</em> <code>Tester</code> so that it is derived from <em>C</em> <code>TesterBase</code>.</p>
+</li>
+<li>
+<p><em>C</em> <code>TesterHelpers.cpp</code>. This file provides helper functions called by
+the functions defined in <code>Tester.cpp</code>.
+These functions are factored into a separate file so that you
+can redefine them if you wish.
+To redefine them, omit <em>C</em> <code>TesterHelpers.cpp</code> from your F Prime
+unit test build.</p>
+</li>
+<li>
+<p><em>C</em> <code>TestMain.cpp</code>. This file provides a minimal main function for unit
+testing, including a sample test.
+You can add your top-level test code to this file.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -10105,16 +10178,19 @@ However, sometimes you need to know the names of the generated
 files up front.
 For example, the CMake build tool writes out a Makefile rule
 for every generated file, and it does this as an initial step
-before generating any files.</p>
+before generating any files.
+There are two ways to collect the names of generated files:
+using <code>fpp-filenames</code> and using <code>fpp-depend</code>.</p>
 </div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-filenames">13.4.1. Using fpp-filenames</h4>
 <div class="paragraph">
-<p>In this case, you can use the tool <code>fpp-filenames</code>.
-Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
+<p>Like <code>fpp-check</code>, <code>fpp-filenames</code> reads the files
 provided as command-line arguments if there are any;
 otherwise it reads from standard input.
 The FPP source presented to <code>fpp-filenames</code> need not be a complete
 model (i.e., it may contain undefined symbols).
-The tool parses the FPP source that you give it.
+When run with no options, tool parses the FPP source that you give it.
 It identifies all definitions in the source that would cause
 XML files to be generated when running <code>fpp-to-xml</code>
 or would cause C&#43;&#43; files to be generated when running
@@ -10142,28 +10218,145 @@ FppConstantsAc.hpp</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Alternatively, you can use the option <code>-g</code> <em>file</em> to
-<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>.
-This option writes the generated file names to the file <em>file</em>
-as part of the dependency analysis.
+<p>You can run <code>fpp-filenames</code> with the <code>-u</code> option, with the <code>-t</code> option,
+or with both options.
+In these cases <code>fpp-filenames</code> writes out the names of
+the files that would be generated by running <code>fpp-to-cpp</code> with the
+corresponding options.
 For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -t
+array A = [3] U32
+passive component C {}
+^D
+C.template.cpp
+C.template.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u
+array A = [3] U32
+passive component C {}
+^D
+array A = [3] U32
+passive component C {}
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">13.4.2. Using fpp-depend</h4>
+<div class="paragraph">
+<p>Alternatively, you can use
+<a href="#Specifying-Models-as-Files_Computing-Dependencies"><code>fpp-depend</code></a>
+to write out the names of generated files during dependency analysis.
+The output is the same as for <code>fpp-filenames</code>, but this way you can
+run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
+<code>fpp-filenames</code>).
+Running one tool may help your build go faster.</p>
+</div>
+<div class="paragraph">
+<p><code>fpp-depend</code> provides the following options:</p>
+</div>
+<div class="paragraph">
+<p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
+ to the file <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p><code>-t</code> <em>file</em>: Write the names of the generated component implementation
+template files to <em>file</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>% fpp-depend -g generated.txt
 array A = [3] U32
+passive component C {}
 ^D
 % cat generated.txt
-AArrayAi.xml</pre>
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -t template.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat template.txt
+C.template.cpp
+C.template.hpp</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output is the same as for <code>fpp-filenames</code>, but this way you can
-run one tool (<code>fpp-depend</code>) instead of two (<code>fpp-depend</code> and
-<code>fpp-filenames</code>).
-Since FPP is implemented in Scala, and there is some overhead
-associated with starting up a tool, running <code>fpp-depend -g</code> <em>file</em>
-may help your build go faster.</p>
+<p>You can also specify these options together with the <code>-u</code> option.
+In this case <code>fpp-depend</code> writes the names of autocoded
+or template unit test files.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -u -g generated.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-depend -u -t template.txt
+array A = [3] U32
+passive component C {}
+^D
+% cat template.txt
+CTestMain.cpp
+CTester.cpp
+CTester.hpp
+CTesterHelpers.cpp</pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -11253,7 +11446,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-07-19 08:45:35 -0700
+Last updated 2023-08-09 15:06:59 -0600
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
