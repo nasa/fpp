@@ -1056,27 +1056,27 @@ case class ComponentTesterBaseWriter(
     }
 
     val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
-    val paramGetBody = intersperseBlankLines(
+    def paramGetBody(id: String, value: String) = intersperseBlankLines(
       List(
         lines(testerBaseDecl),
         if hasParameters then lines("Fw::SerializeStatus _status;")
         else Nil,
         lines(
           s"""|Fw::ParamValid _ret = Fw::ParamValid::VALID;
-              |val.resetSer();
+              |$value.resetSer();
               |
               |const U32 idBase = _testerBase->getIdBase();
-              |FW_ASSERT(id >= idBase, id, idBase);
+              |FW_ASSERT($id >= idBase, $id, idBase);
               |"""
         ),
         wrapInSwitch(
-          "id - idBase",
+          s"$id - idBase",
           intersperseBlankLines(
             sortedParams.map((_, prm) =>
               wrapInScope(
                 s"case $className::${paramIdConstantName(prm.getName)}: {",
                 lines(
-                  s"""|_status = val.serialize(_testerBase->${paramVariableName(prm.getName)});
+                  s"""|_status = $value.serialize(_testerBase->${paramVariableName(prm.getName)});
                       |_ret = _testerBase->${paramValidityFlagName(prm.getName)};
                       |FW_ASSERT(
                       |  _status == Fw::FW_SERIALIZE_OK,
@@ -1100,26 +1100,27 @@ case class ComponentTesterBaseWriter(
         lines("return _ret;")
       )
     )
-    val paramSetBody = List.concat(
+
+    def paramSetBody(id: String, value: String) = List.concat(
       lines(s"$testerBaseDecl\n"),
       if hasParameters then lines("Fw::SerializeStatus _status;")
       else Nil,
       lines(
-        s"""|val.resetSer();
+        s"""|$value.resetSer();
             |
             |const U32 idBase = _testerBase->getIdBase();
-            |FW_ASSERT(id >= idBase, id, idBase);
+            |FW_ASSERT($id >= idBase, $id, idBase);
             |"""
       ),
       Line.blank :: wrapInSwitch(
-        "id - idBase",
+        s"$id - idBase",
         intersperseBlankLines(
           sortedParams.map((_, prm) =>
             wrapInScope(
               s"case $className::${paramIdConstantName(prm.getName)}: {",
               lines(
                 s"""|${writeParamType(prm.paramType)} ${prm.getName}Val;
-                    |_status = val.deserialize(${prm.getName}Val);
+                    |_status = $value.deserialize(${prm.getName}Val);
                     |FW_ASSERT(
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -1135,90 +1136,94 @@ case class ComponentTesterBaseWriter(
             )
           ) ++ List(
             lines(
-              """|default:
-                 |  FW_ASSERT(id);
-                 |  break;
-                 |"""
+              s"""|default:
+                  |  FW_ASSERT($id);
+                  |  break;
+                  |"""
             )
           )
         )
       )
     )
 
+    def getPortFunction(p: PortInstance) = {
+      val params = getParams(p)
+      lazy val paramNames = params.map(_.name).toVector
+      lazy val paramNamesString = paramNames.mkString(", ")
+      List(
+        functionClassMember(
+          Some(s"Static function for port ${portName(p)}"),
+          fromPortCallbackName(p.getUnqualifiedName),
+          List.concat(
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::PassiveComponentBase* const"),
+                "callComp",
+                Some("The component instance")
+              ),
+              portNumParam
+            ),
+            params
+          ),
+          getPortReturnTypeAsCppDocType(p),
+          p match {
+            case i: PortInstance.General => List.concat(
+              lines(
+                s"""|FW_ASSERT(callComp);
+                    |$testerBaseDecl
+                    |"""
+              ),
+              writeFunctionCall(
+                addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
+                List("portNum"),
+                getPortParams(i).map(_._1)
+              )
+            )
+            case PortInstance.Special(aNode, _, _, _, _) =>
+              import Ast.SpecPortInstance._
+              val spec @ Special(_, kind, _, _, _) = aNode._2.data
+              kind match {
+                case CommandRecv => Nil
+                case CommandReg => Nil
+                case CommandResp => lines(
+                  s"""|$testerBaseDecl
+                      |_testerBase->cmdResponseIn($paramNamesString);
+                      |"""
+                )
+                case Event => lines(
+                  s"""|$testerBaseDecl
+                      |_testerBase->dispatchEvents($paramNamesString);
+                      |"""
+                )
+                case ParamGet => paramGetBody(paramNames(0), paramNames(1))
+                case ParamSet => paramSetBody(paramNames(0), paramNames(1))
+                case Telemetry => lines(
+                  s"""|$testerBaseDecl
+                      |_testerBase->dispatchTlm($paramNamesString);
+                      |"""
+                )
+                case TextEvent => lines(
+                  s"""|$testerBaseDecl
+                      |_testerBase->textLogIn($paramNamesString);
+                      |"""
+                )
+                case TimeGet => lines(
+                  s"""|$testerBaseDecl
+                      |${paramNames(0)} = _testerBase->m_testTime;
+                      |"""
+                )
+              }
+            case _: PortInstance.Internal => Nil
+          },
+          CppDoc.Function.Static
+        )
+      )
+    }
+
     addAccessTagAndComment(
       "private",
       "Static functions for output ports",
-      mapPorts(
-        outputPorts,
-        p => List(
-          functionClassMember(
-            Some(s"Static function for port ${portName(p)}"),
-            fromPortCallbackName(p.getUnqualifiedName),
-            List.concat(
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::PassiveComponentBase* const"),
-                  "callComp",
-                  Some("The component instance")
-                ),
-                portNumParam
-              ),
-              getParams(p)
-            ),
-            getPortReturnTypeAsCppDocType(p),
-            p match {
-              case i: PortInstance.General => List.concat(
-                lines(
-                  s"""|FW_ASSERT(callComp);
-                      |$testerBaseDecl
-                      |"""
-                ),
-                writeFunctionCall(
-                  addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
-                  List("portNum"),
-                  getPortParams(i).map(_._1)
-                )
-              )
-              case PortInstance.Special(aNode, _, _, _, _) =>
-                import Ast.SpecPortInstance._
-                val spec @ Special(_, kind, _, _, _) = aNode._2.data
-                kind match {
-                  case CommandRecv => Nil
-                  case CommandReg => Nil
-                  case CommandResp => lines(
-                    s"""|$testerBaseDecl
-                        |_testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
-                        |"""
-                  )
-                  case Event => lines(
-                    s"""|$testerBaseDecl
-                        |_testerBase->dispatchEvents(id, timeTag, severity, args);
-                        |"""
-                  )
-                  case ParamGet => paramGetBody
-                  case ParamSet => paramSetBody
-                  case Telemetry => lines(
-                    s"""|$testerBaseDecl
-                        |_testerBase->dispatchTlm(id, timeTag, val);
-                        |"""
-                  )
-                  case TextEvent => lines(
-                    s"""|$testerBaseDecl
-                        |_testerBase->textLogIn(id, timeTag, severity, text);
-                        |"""
-                  )
-                  case TimeGet => lines(
-                    s"""|$testerBaseDecl
-                        |time = _testerBase->m_testTime;
-                        |"""
-                  )
-                }
-              case _: PortInstance.Internal => Nil
-            },
-            CppDoc.Function.Static
-          )
-        )
-      )
+      mapPorts(outputPorts, getPortFunction)
     )
   }
 
