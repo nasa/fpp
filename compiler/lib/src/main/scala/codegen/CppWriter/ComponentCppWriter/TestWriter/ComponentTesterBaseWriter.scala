@@ -1052,12 +1052,8 @@ case class ComponentTesterBaseWriter(
             )
           )
           case ProductRecv => Nil
-          case ProductRequest =>
-            // TODO
-            Nil
-          case ProductSend =>
-            // TODO
-            Nil
+          case ProductRequest => getPortFunctionParams(p)
+          case ProductSend => getPortFunctionParams(p)
       }
       case _: PortInstance.Internal => Nil
     }

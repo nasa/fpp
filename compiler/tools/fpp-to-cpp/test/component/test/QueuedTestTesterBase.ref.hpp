@@ -1408,13 +1408,17 @@ class QueuedTestTesterBase :
     //! Static function for port from_productRequestOut
     static void from_productRequestOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
     );
 
     //! Static function for port from_productSendOut
     static void from_productSendOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1

@@ -3318,7 +3318,9 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   from_productRequestOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType size
   )
 {
 
@@ -3327,7 +3329,9 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   from_productSendOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
   )
 {
 
