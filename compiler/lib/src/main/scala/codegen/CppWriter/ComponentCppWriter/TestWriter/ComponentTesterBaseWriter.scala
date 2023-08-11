@@ -968,8 +968,9 @@ case class ComponentTesterBaseWriter(
   private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
     def getParams(p: PortInstance) = p match {
       case i: PortInstance.General => getPortFunctionParams(i)
-      case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
-        case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+      case PortInstance.Special(aNode, _, _, _, _) =>
+        val spec @ Ast.SpecPortInstance.Special(_, kind, _, _, _) = aNode._2.data
+        kind match {
           case Ast.SpecPortInstance.CommandReg => List(opcodeParam)
           case Ast.SpecPortInstance.CommandResp => List(
             opcodeParam,
@@ -1048,11 +1049,9 @@ case class ComponentTesterBaseWriter(
               Some("The time")
             )
           )
-          case _ => Nil
-        }
-        case _ => Nil
+          case Ast.SpecPortInstance.CommandRecv => Nil
       }
-      case _ => Nil
+      case _: PortInstance.Internal => Nil
     }
 
     val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
@@ -1179,8 +1178,9 @@ case class ComponentTesterBaseWriter(
                   getPortParams(i).map(_._1)
                 )
               )
-              case PortInstance.Special(aNode, _, _, _, _) => aNode._2.data match {
-                case Ast.SpecPortInstance.Special(_, kind, _, _, _) => kind match {
+              case PortInstance.Special(aNode, _, _, _, _) =>
+                val spec @ Ast.SpecPortInstance.Special(_, kind, _, _, _) = aNode._2.data
+                kind match {
                   case Ast.SpecPortInstance.CommandReg => Nil
                   case Ast.SpecPortInstance.CommandResp => lines(
                     s"""|$testerBaseDecl
@@ -1209,11 +1209,9 @@ case class ComponentTesterBaseWriter(
                         |time = _testerBase->m_testTime;
                         |"""
                   )
-                  case _ => Nil
+                  case Ast.SpecPortInstance.CommandRecv => Nil
                 }
-                case _ => Nil
-              }
-              case _ => Nil
+              case _: PortInstance.Internal => Nil
             },
             CppDoc.Function.Static
           )
