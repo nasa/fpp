@@ -972,6 +972,7 @@ case class ComponentTesterBaseWriter(
         import Ast.SpecPortInstance._
         val spec @ Special(_, kind, _, _, _) = aNode._2.data
         kind match {
+          case CommandRecv => Nil
           case CommandReg => List(opcodeParam)
           case CommandResp => List(
             opcodeParam,
@@ -1050,13 +1051,13 @@ case class ComponentTesterBaseWriter(
               Some("The time")
             )
           )
+          case ProductRecv => Nil
           case ProductRequest =>
             // TODO
             Nil
           case ProductSend =>
             // TODO
             Nil
-          case CommandRecv | ProductRecv => Nil
       }
       case _: PortInstance.Internal => Nil
     }
@@ -1189,6 +1190,7 @@ case class ComponentTesterBaseWriter(
                 import Ast.SpecPortInstance._
                 val spec @ Special(_, kind, _, _, _) = aNode._2.data
                 kind match {
+                  case CommandRecv => Nil
                   case CommandReg => Nil
                   case CommandResp => lines(
                     s"""|$testerBaseDecl
@@ -1217,13 +1219,13 @@ case class ComponentTesterBaseWriter(
                         |time = _testerBase->m_testTime;
                         |"""
                   )
+                  case ProductRecv => Nil
                   case ProductRequest =>
                     // TODO
                     Nil
                   case ProductSend =>
                     // TODO
                     Nil
-                  case CommandRecv | ProductRecv => Nil
                 }
               case _: PortInstance.Internal => Nil
             },
