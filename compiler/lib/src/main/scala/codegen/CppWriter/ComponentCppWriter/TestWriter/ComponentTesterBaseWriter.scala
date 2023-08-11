@@ -966,96 +966,9 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
-    def getParams(p: PortInstance) = p match {
-      case i: PortInstance.General => getPortFunctionParams(i)
-      case PortInstance.Special(aNode, _, _, _, _) =>
-        import Ast.SpecPortInstance._
-        val spec @ Special(_, kind, _, _, _) = aNode._2.data
-        kind match {
-          case CommandRecv => Nil
-          case CommandReg => List(opcodeParam)
-          case CommandResp => List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::CmdResponse&"),
-              "cmdResponse",
-              Some("The command response argument")
-            )
-          )
-          case Event => List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwEventIdType"),
-              "id",
-              Some("The log ID")
-            ),
-            timeTagParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::LogSeverity&"),
-              "severity",
-              Some("The severity argument")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::LogBuffer&"),
-              "args",
-              Some("The buffer containing the serialized log entry")
-            )
-          )
-          case ParamGet | ParamSet => List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwPrmIdType"),
-              "id",
-              Some("The parameter ID")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::ParamBuffer&"),
-              "val",
-              Some("The buffer containing the serialized parameter value")
-            )
-          )
-          case Telemetry => List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwChanIdType"),
-              "id",
-              Some("The telemetry channel ID")
-            ),
-            timeTagParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::TlmBuffer&"),
-              "val",
-              Some("The buffer containing the serialized telemetry value")
-            )
-          )
-          case TextEvent => List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwEventIdType"),
-              "id",
-              Some("The log ID")
-            ),
-            timeTagParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::LogSeverity&"),
-              "severity",
-              Some("The severity argument")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::TextLogString&"),
-              "text",
-              Some("The text of the log message")
-            )
-          )
-          case TimeGet => List(
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Time&"),
-              "time",
-              Some("The time")
-            )
-          )
-      }
-      case _: PortInstance.Internal => Nil
-    }
 
     val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
+
     def paramGetBody(id: String, value: String) = intersperseBlankLines(
       List(
         lines(testerBaseDecl),
@@ -1147,9 +1060,11 @@ case class ComponentTesterBaseWriter(
     )
 
     def getPortFunction(p: PortInstance) = {
-      val params = getParams(p)
+      val params = getPortFunctionParams(p)
       lazy val paramNames = params.map(_.name).toVector
       lazy val paramNamesString = paramNames.mkString(", ")
+      def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
+        paramNames(i) else s"missingParam$i"
       List(
         functionClassMember(
           Some(s"Static function for port ${portName(p)}"),
@@ -1195,8 +1110,8 @@ case class ComponentTesterBaseWriter(
                       |_testerBase->dispatchEvents($paramNamesString);
                       |"""
                 )
-                case ParamGet => paramGetBody(paramNames(0), paramNames(1))
-                case ParamSet => paramSetBody(paramNames(0), paramNames(1))
+                case ParamGet => paramGetBody(getParamName(0), getParamName(1))
+                case ParamSet => paramSetBody(getParamName(0), getParamName(1))
                 case Telemetry => lines(
                   s"""|$testerBaseDecl
                       |_testerBase->dispatchTlm($paramNamesString);
@@ -1209,7 +1124,7 @@ case class ComponentTesterBaseWriter(
                 )
                 case TimeGet => lines(
                   s"""|$testerBaseDecl
-                      |${paramNames(0)} = _testerBase->m_testTime;
+                      |${getParamName(0)} = _testerBase->m_testTime;
                       |"""
                 )
               }
@@ -1225,6 +1140,7 @@ case class ComponentTesterBaseWriter(
       "Static functions for output ports",
       mapPorts(outputPorts, getPortFunction)
     )
+
   }
 
   private def getVariableMembers: List[CppDoc.Class.Member] = {

@@ -3491,11 +3491,11 @@ namespace M {
         NATIVE_INT_TYPE portNum,
         FwOpcodeType opCode,
         U32 cmdSeq,
-        const Fw::CmdResponse& cmdResponse
+        const Fw::CmdResponse& response
     )
   {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
-    _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+    _testerBase->cmdResponseIn(opCode, cmdSeq, response);
   }
 
   void ActiveTestTesterBase ::

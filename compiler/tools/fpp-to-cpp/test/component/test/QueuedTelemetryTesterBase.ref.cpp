@@ -2060,11 +2060,11 @@ void QueuedTelemetryTesterBase ::
       NATIVE_INT_TYPE portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
-      const Fw::CmdResponse& cmdResponse
+      const Fw::CmdResponse& response
   )
 {
   QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
-  _testerBase->cmdResponseIn(opCode, cmdSeq, cmdResponse);
+  _testerBase->cmdResponseIn(opCode, cmdSeq, response);
 }
 
 void QueuedTelemetryTesterBase ::
