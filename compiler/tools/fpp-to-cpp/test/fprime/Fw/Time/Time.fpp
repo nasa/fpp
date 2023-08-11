@@ -4,7 +4,7 @@ module Fw {
 
   @ Time port
   port Time(
-             ref $time: Fw.Time @< The U32 cmd argument
+             ref $time: Fw.Time @< The time tag
            )
 
 }

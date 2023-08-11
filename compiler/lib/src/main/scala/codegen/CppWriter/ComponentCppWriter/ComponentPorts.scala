@@ -100,6 +100,32 @@ case class ComponentPorts(
     )
   }
 
+  def generateNumGetters(
+    ports: List[PortInstance],
+    portName: PortInstance => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String
+  ) = {
+    mapPorts(ports, p => List(
+      functionClassMember(
+        Some(
+          s"""|Get the number of ${portName(p)} ports
+              |
+              |\\return The number of ${portName(p)} ports
+              |"""
+        ),
+        numGetterName(p),
+        Nil,
+        CppDoc.Type("NATIVE_INT_TYPE"),
+        lines(
+          s"return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->${variableName(p)}));"
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    ))
+  }
+
   private def getNumGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val dirStr = ports match {
       case Nil => ""
@@ -109,22 +135,12 @@ case class ComponentPorts(
     addAccessTagAndComment(
       "PROTECTED",
       s"Getters for numbers of ${getPortListTypeString(ports)} $dirStr ports",
-      mapPorts(ports, p => List(
-        functionClassMember(
-          Some(
-            s"""|Get the number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
-                |
-                |\\return The number of ${p.getUnqualifiedName} ${p.getDirection.get.toString} ports
-                |"""
-          ),
-          portNumGetterName(p),
-          Nil,
-          CppDoc.Type("NATIVE_INT_TYPE"),
-          lines(
-            s"return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->${portVariableName(p)}));"
-          )
-        )
-      ))
+      generateNumGetters(
+        ports,
+        (p: PortInstance) => s"${p.getUnqualifiedName} ${p.getDirection.get.toString}",
+        portNumGetterName,
+        portVariableName
+      )
     )
   }
 

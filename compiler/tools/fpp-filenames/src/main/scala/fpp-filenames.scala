@@ -13,6 +13,7 @@ object FPPFilenames {
   case class Options(
     files: List[File] = List(),
     template: Boolean = false,
+    unitTest: Boolean = false,
   )
 
   def command(options: Options) = {
@@ -28,9 +29,11 @@ object FPPFilenames {
         ResolveSpecInclude.transUnit
       )
       files <-
-        CppWriter.getMode(options.template) match {
+        CppWriter.getMode(options.template, options.unitTest) match {
           case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
           case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
+          case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(aTul._2)
+          case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(aTul._2)
         }
     }
     yield files.sorted.map(System.out.println)
@@ -52,6 +55,9 @@ object FPPFilenames {
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("write names of generated template files"),
+      opt[Unit]('u', "unit-test")
+        .action((_, c) => c.copy(unitTest = true))
+        .text("write names of generated unit test files"),
       arg[String]("file ...")
         .unbounded()
         .optional()

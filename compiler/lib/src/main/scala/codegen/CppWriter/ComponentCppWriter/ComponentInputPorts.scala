@@ -10,32 +10,54 @@ case class ComponentInputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    val typeStr = getPortListTypeString(ports)
+  def generateHandlers(
+    ports: List[PortInstance],
+    portName: String => String,
+    handlerName: String => String
+  ): List[CppDoc.Class.Member] = {
+    ports.map(p =>
+      functionClassMember(
+        Some(s"Handler for input port ${portName(p.getUnqualifiedName)}"),
+        handlerName(p.getUnqualifiedName),
+        portNumParam :: getPortFunctionParams(p),
+        getPortReturnTypeAsCppDocType(p),
+        Nil,
+        CppDoc.Function.PureVirtual
+      )
+    )
+  }
 
+  def generateGetters(
+    ports: List[PortInstance],
+    portType: String,
+    portName: String => String,
+    getterName: String => String,
+    numGetterName: PortInstance => String,
+    variableName: PortInstance => String
+  ): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "public",
-      s"Getters for $typeStr input ports",
+      s"Getters for $portType ports",
       mapPorts(ports, p => List(
         functionClassMember(
           Some(
-            s"""|Get $typeStr input port at index
+            s"""|Get $portType port at index
                 |
-                |\\return ${p.getUnqualifiedName}[portNum]
+                |\\return ${portName(p.getUnqualifiedName)}[portNum]
                 |"""
           ),
-          inputPortGetterName(p.getUnqualifiedName),
+          getterName(p.getUnqualifiedName),
           List(
             portNumParam
           ),
           CppDoc.Type(s"${getQualifiedPortTypeName(p, PortInstance.Direction.Input)}*"),
           lines(
             s"""|FW_ASSERT(
-                |  portNum < this->${portNumGetterName(p)}(),
+                |  portNum < this->${numGetterName(p)}(),
                 |  static_cast<FwAssertArgType>(portNum)
                 |);
                 |
-                |return &this->${portVariableName(p)}[portNum];
+                |return &this->${variableName(p)}[portNum];
                 |"""
           )
         )
@@ -43,19 +65,27 @@ case class ComponentInputPorts(
     )
   }
 
+  def getGetters(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    val typeStr = getPortListTypeString(ports)
+
+    generateGetters(
+      ports,
+      s"$typeStr input",
+      (s: String) => s,
+      inputPortGetterName,
+      portNumGetterName,
+      portVariableName
+    )
+  }
+
   def getHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       s"Handlers to implement for ${getPortListTypeString(ports)} input ports",
-      ports.map(p =>
-        functionClassMember(
-          Some(s"Handler for input port ${p.getUnqualifiedName}"),
-          inputPortHandlerName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          getPortReturnTypeAsCppDocType(p),
-          Nil,
-          CppDoc.Function.PureVirtual
-        )
+      generateHandlers(
+        ports,
+        (s: String) => s,
+        inputPortHandlerName
       ),
       CppDoc.Lines.Hpp
     )
@@ -351,14 +381,6 @@ case class ComponentInputPorts(
       )
     )
   }
-
-  // Get the name for an input port getter function
-  private def inputPortGetterName(name: String) =
-    s"get_${name}_InputPort"
-
-  // Get the name for an input port handler base-class function
-  private def inputPortHandlerBaseName(name: String) =
-    s"${name}_handlerBase"
 
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =

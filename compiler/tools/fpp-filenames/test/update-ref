@@ -27,5 +27,9 @@ done
 
 update "" include
 update "-t" "include" include_template
+update "-u" "include" include_test
+update "-u -t" "include" include_test_template
 update "" ok
 update "-t" "ok" ok_template
+update "-u" "ok" ok_test
+update "-u -t" "ok" ok_test_template

@@ -352,12 +352,6 @@ case class ComponentParameters (
     )
   }
 
-  private def writeParamType(t: Type) =
-    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
-
-  private def paramIdConstantName(name: String) =
-    s"PARAMID_${name.toUpperCase}"
-
   private def paramGetterName(name: String) =
     s"paramGet_$name"
 

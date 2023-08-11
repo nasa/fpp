@@ -178,9 +178,6 @@ case class ComponentTelemetry (
     }
   }
 
-  private def channelIdConstantName(name: String) =
-    s"CHANNELID_${name.toUpperCase}"
-
   private def channelWriteFunctionName(name: String) =
     s"tlmWrite_$name"
 
