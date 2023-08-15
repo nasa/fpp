@@ -14,7 +14,7 @@ def collect_ids(json_data):
 
     elif isinstance(json_data, dict):
         for key, value in json_data.items():
-            if key == 'astNode':
+            if key == 'AstNode':
                 ids.append(value["id"])
 
             if isinstance(value, (dict, list)):
@@ -27,7 +27,7 @@ def collect_ids(json_data):
 def check_if_ids_in_loc_map(numbers, data):
     for number in numbers:
         if str(number) not in data:
-            sys.stderr.write(f"ID in ast not found in location map: {number}")
+            sys.stderr.write(f"ID {number} found AST in but not in location map")
             return False
     
     return True
