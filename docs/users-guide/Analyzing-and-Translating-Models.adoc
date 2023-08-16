@@ -703,7 +703,7 @@ CTesterHelpers.cpp
 
 ==== Using fpp-depend
 
-Alternatively, you can use 
+Alternatively, you can use
 <<Specifying-Models-as-Files_Computing-Dependencies,`fpp-depend`>>
 to write out the names of generated files during dependency analysis.
 The output is the same as for `fpp-filenames`, but this way you can
@@ -1191,4 +1191,137 @@ and view the layouts in a browser.
 See the https://github.com/fprime-community/fprime-layout[`fprime-layout`
 repository] for more details.
 
+=== Generating JSON
+
+FPP provides a tool called `fpp-to-json` for converting FPP models to
+JavaScript Object Notation (JSON) format.
+Using this tool, you can import FPP models into programs written
+in any language that has a library for reading JSON, e.g., JavaScript,
+TypeScript, or Python.
+Generating and importing JSON may be convenient if you need to develop
+a simple analysis or translation tool for FPP models, and you don't
+want to develop the tool in Scala.
+For more complex tools, we recommend that you develop in Scala
+against the FPP compiler data structures.
+
+*Procedure:*
+The usual procedure for running `fpp-to-json` is as follows:
+
+. Identify one or more files _F_ that you want to analyze.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. Run `fpp-to-json` _D_ _F_. Note that _D_ may be empty.
+
+If you are using `fpp-to-json` with the `-s` option (see below),
+then you can run `fpp-to-json` _F_, without computing dependencies.
+
+*Tool behavior:* When you run `fpp-to-json`, the tool checks the
+syntax and semantics of the source model, reporting any errors that occur.
+If everything checks out, it generates three files:
+
+* `fpp-ast.json`: The abstract syntax tree (AST).
+This is a tree data structure that represents the source syntax.
+It contains AST nodes, each of which has a unique identifier.
+
+* `fpp-loc-map.json`: The location map.
+This object is a map from AST node IDs to the source
+locations (file, line number, and column number)
+of the corresponding AST nodes.
+
+* `fpp-analysis.json`: The Analysis data structure.
+This object contains semantic information
+inferred from the source model, e.g., the types of all the
+expressions and the constant values of all the numeric
+expressions.
+Only output data is included in the JSON; temporary
+data structures used during the analysis algorithm are
+omitted.
+For more information on the Analysis data structure,
+see the
+https://github.com/fprime-community/fpp/wiki/Analysis-Data-Structure[FPP wiki].
+
+*JSON format:*
+To understand this subsection, you need to know a little
+bit about case classes in Scala.
+For a primer, see 
+https://github.com/fprime-community/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching[this wiki page].
+
+The JSON translation uses a Scala library called
+https://circe.github.io/circe/[Circe].
+In general the translation follows a set of standard rules, so the
+output format can be easily inferred from the types of the data structures
+in the FPP source code:
+
+. A Scala case class `C` is translated as follows, unless
+it extends a sealed trait (see below).
+A value `v` of type `C` becomes
+a JSON dictionary with the field names as keys and the field
+values as their values.
+For example a value `C(1,"hello")` of type `case class C(n: Int, s: String)`
+becomes a JSON value `{ "n": 1, "s": "String" }`.
+
+. A Scala case class `C` that extends a sealed trait `T` represents a
+named variant of type `T`.
+In this case a value `v` of type `C` is wrapped in a dictionary with one
+key (the variant name `C`) and one value (the value `v`).
+For example, a value `C(1)` of type `case class C(n: Int) extends T`
+becomes a JSON value `{ "C" : { "n" : 1 } }`, while a value
+`D("hello")` of type `case class D(s: String) extends T`
+becomes a JSON value `{ "D" : { "s" : "hello" } }`.
+In this way each variant is labeled with the variant name.
+
+. A Scala list becomes a JSON array, and a Scala map becomes
+a JSON dictionary.
+
+There are a few exceptions, either because the standard translation
+does not work, or because we need special behavior for important
+cases:
+
+* We streamline the translation of the Scala Option type, translating 
+`Some(v)` as `{ "Some" : v }` and `None` as `"None"`.
+
+* In the AST, we translate
+the type AstNode as if it were a variant type, i.e., we translate
+`AstNode([data], [id])` to `"AstNode" : { "data" : [data], "id" : [id] } }`.
+The `AstNode` keys identify the AstNode objects.
+
+* In the AST, to reduce clutter we skip over the `node`
+field of module, component, and topology member lists.
+This field is an artifact of the way the Scala code is written;
+deleting it does not lose information.
+
+* In the Analysis data structure, to avoid repetition,
+we translate AstNode values as `{ "astNodeId" : [node id] }`,
+eliminating the data field of the node.
+We also omit annotations from annotated AST nodes.
+The data fields and the annotations can be looked up in the AST,
+by searching for the node ID.
+
+* When translating an FPP symbol (i.e., a reference to a definition),
+we provide the information in the
+Symbol trait (the node ID and the unqualified name).
+All symbols extend this trait.
+We omit the AST node information stored in the concrete symbol.
+This information can be looked up with the AST node ID.
+
+* When translating a component instance value, we replace
+the component stored in the value with the corresponding
+AST node ID.
+
+* When the keys of a Scala map cannot easily be
+converted to strings, we convert the map to a list
+of pairs, represented as an array of JSON arrays.
+For example, this is how we translate the PortNumberMap
+in the Analysis data structure, which maps Connection objects to integers.
+
+*Options:* The following options are available
+when running `fpp-to-xml`:
+
+* `-d` _dir_ : Similar to the corresponding option of
+<<Analyzing-and-Translating-Models_Generating-XML,`fpp-to-xml`>>.
+
+* `-s`: Analyze syntax only:
+With this option, `fpp-to-json` generates the AST and the
+location map only; it doesn't generate the Analysis data structure.
+Because semantic analysis is not run, you don't have to present
+a complete or syntactically correct FPP model to the tool.
 
