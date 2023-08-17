@@ -652,19 +652,6 @@ class PassiveEventsTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Functions for testing commands
-    // ----------------------------------------------------------------------
-
-    //! Handle a command response
-    virtual void cmdResponseIn(
-        FwOpcodeType opCode, //!< The opcode
-        U32 cmdSeq, //!< The command sequence number
-        Fw::CmdResponse response //!< The command response
-    );
-
-  protected:
-
-    // ----------------------------------------------------------------------
     // Functions for testing events
     // ----------------------------------------------------------------------
 
@@ -721,19 +708,6 @@ class PassiveEventsTesterBase :
 
     //! Handle event EventWarningLowThrottled
     virtual void logIn_WARNING_LO_EventWarningLowThrottled();
-
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Functions for testing telemetry
-    // ----------------------------------------------------------------------
-
-    //! Dispatch telemetry
-    void dispatchTlm(
-        FwChanIdType id, //!< The channel id
-        Fw::Time& timeTag, //!< The time
-        Fw::TlmBuffer& val //!< The channel value
-    );
 
   protected:
 
@@ -802,22 +776,6 @@ class PassiveEventsTesterBase :
     // Static functions for output ports
     // ----------------------------------------------------------------------
 
-    //! Static function for port from_cmdRegOut
-    static void from_cmdRegOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode //!< Command Op Code
-    );
-
-    //! Static function for port from_cmdResponseOut
-    static void from_cmdResponseOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode, //!< Command Op Code
-        U32 cmdSeq, //!< Command Sequence
-        const Fw::CmdResponse& response //!< The command response argument
-    );
-
     //! Static function for port from_eventOut
     static void from_eventOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -826,22 +784,6 @@ class PassiveEventsTesterBase :
         Fw::Time& timeTag, //!< Time Tag
         const Fw::LogSeverity& severity, //!< The severity argument
         Fw::LogBuffer& args //!< Buffer containing serialized log entry
-    );
-
-    //! Static function for port from_prmGetOut
-    static Fw::ParamValid from_prmGetOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwPrmIdType id, //!< Parameter ID
-        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
-    );
-
-    //! Static function for port from_prmSetOut
-    static void from_prmSetOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwPrmIdType id, //!< Parameter ID
-        Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -863,15 +805,6 @@ class PassiveEventsTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::Time& time //!< The time tag
-    );
-
-    //! Static function for port from_tlmOut
-    static void from_tlmOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwChanIdType id, //!< Telemetry Channel ID
-        Fw::Time& timeTag, //!< Time Tag
-        Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
     );
 
     //! Static function for port from_typedOut

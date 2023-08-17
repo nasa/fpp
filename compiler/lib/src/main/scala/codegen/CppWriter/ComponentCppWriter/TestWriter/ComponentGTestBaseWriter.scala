@@ -58,21 +58,21 @@ case class ComponentGTestBaseWriter(
   }
 
   private def getMacros = {
-    List(
-      getPortMacros,
-      getCmdMacros,
-      getEventMacros,
-      getTlmMacros,
+    List.concat(
+      if hasTypedOutputPorts then List(getPortMacros) else Nil,
+      if hasCommands then List(getCmdMacros) else Nil,
+      if hasEvents then List(getEventMacros) else Nil,
+      if hasTelemetry then List(getTlmMacros) else Nil
     )
   }
 
   private def getClassMembers = {
     List.concat(
       getConstructors,
-      getPortAssertFunctions,
-      getCmdAssertFunctions,
-      getEventAssertFunctions,
-      getTlmAssertFunctions,
+      if hasTypedOutputPorts then getPortAssertFunctions else Nil,
+      if hasCommands then getCmdAssertFunctions else Nil,
+      if hasEvents then getEventAssertFunctions else Nil,
+      if hasTelemetry then getTlmAssertFunctions else Nil
     )
   }
 
@@ -152,7 +152,7 @@ case class ComponentGTestBaseWriter(
     )
   }
 
-  private def getCmdMacros = {
+  private def getCmdMacros: CppDoc.Member = {
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for command history assertions"),

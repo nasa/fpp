@@ -22,8 +22,10 @@ abstract class ComponentTestUtils(
 
   val idConstantName: String = "TEST_INSTANCE_ID"
 
+  val hasTypedOutputPorts = typedOutputPorts.nonEmpty
+
   val hasHistories: Boolean =
-    typedOutputPorts.nonEmpty ||
+    hasTypedOutputPorts ||
     hasCommands ||
     hasParameters ||
     hasEvents ||

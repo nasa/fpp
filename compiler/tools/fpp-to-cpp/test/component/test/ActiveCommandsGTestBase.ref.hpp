@@ -171,20 +171,6 @@
 #define ASSERT_CMD_RESPONSE(index, opCode, cmdSeq, response) \
   this->assertCmdResponse(__FILE__, __LINE__, index, opCode, cmdSeq, response)
 
-// ----------------------------------------------------------------------
-// Macros for event history assertions
-// ----------------------------------------------------------------------
-
-#define ASSERT_EVENTS_SIZE(size) \
-  this->assertEvents_size(__FILE__, __LINE__, size)
-
-// ----------------------------------------------------------------------
-// Macros for telemetry history assertions
-// ----------------------------------------------------------------------
-
-#define ASSERT_TLM_SIZE(size) \
-  this->assertTlm_size(__FILE__, __LINE__, size)
-
 //! \class ActiveCommandsGTestBase
 //! \brief Auto-generated base for ActiveCommands component Google Test harness
 class ActiveCommandsGTestBase :

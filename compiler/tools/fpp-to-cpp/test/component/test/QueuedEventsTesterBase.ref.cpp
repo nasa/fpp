@@ -1597,21 +1597,6 @@ bool QueuedEventsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Functions for testing commands
-// ----------------------------------------------------------------------
-
-void QueuedEventsTesterBase ::
-  cmdResponseIn(
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      Fw::CmdResponse response
-  )
-{
-  CmdResponse e = { opCode, cmdSeq, response };
-  this->cmdResponseHistory->push_back(e);
-}
-
-// ----------------------------------------------------------------------
 // Functions for testing events
 // ----------------------------------------------------------------------
 
@@ -2016,30 +2001,6 @@ void QueuedEventsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Functions for testing telemetry
-// ----------------------------------------------------------------------
-
-void QueuedEventsTesterBase ::
-  dispatchTlm(
-      FwChanIdType id,
-      Fw::Time& timeTag,
-      Fw::TlmBuffer& val
-  )
-{
-  val.resetDeser();
-
-  const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-
-  switch (id - idBase) {
-    default: {
-      FW_ASSERT(0, id);
-      break;
-    }
-  }
-}
-
-// ----------------------------------------------------------------------
 // Functions to test time
 // ----------------------------------------------------------------------
 
@@ -2199,29 +2160,6 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsTesterBase ::
-  from_cmdRegOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwOpcodeType opCode
-  )
-{
-
-}
-
-void QueuedEventsTesterBase ::
-  from_cmdResponseOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwOpcodeType opCode,
-      U32 cmdSeq,
-      const Fw::CmdResponse& response
-  )
-{
-  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
-  _testerBase->cmdResponseIn(opCode, cmdSeq, response);
-}
-
-void QueuedEventsTesterBase ::
   from_eventOut_static(
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
@@ -2233,52 +2171,6 @@ void QueuedEventsTesterBase ::
 {
   QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
   _testerBase->dispatchEvents(id, timeTag, severity, args);
-}
-
-Fw::ParamValid QueuedEventsTesterBase ::
-  from_prmGetOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwPrmIdType id,
-      Fw::ParamBuffer& val
-  )
-{
-  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
-
-  Fw::ParamValid _ret = Fw::ParamValid::VALID;
-  val.resetSer();
-
-  const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-
-  switch (id - idBase) {
-    default:
-      FW_ASSERT(id);
-      break;
-  }
-
-  return _ret;
-}
-
-void QueuedEventsTesterBase ::
-  from_prmSetOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwPrmIdType id,
-      Fw::ParamBuffer& val
-  )
-{
-  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
-  val.resetSer();
-
-  const U32 idBase = _testerBase->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-
-  switch (id - idBase) {
-    default:
-      FW_ASSERT(id);
-      break;
-  }
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -2308,19 +2200,6 @@ void QueuedEventsTesterBase ::
 {
   QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
   time = _testerBase->m_testTime;
-}
-
-void QueuedEventsTesterBase ::
-  from_tlmOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwChanIdType id,
-      Fw::Time& timeTag,
-      Fw::TlmBuffer& val
-  )
-{
-  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
-  _testerBase->dispatchTlm(id, timeTag, val);
 }
 
 void QueuedEventsTesterBase ::

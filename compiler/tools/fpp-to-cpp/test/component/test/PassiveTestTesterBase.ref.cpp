@@ -2948,16 +2948,6 @@ void PassiveTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestTesterBase ::
-  from_cmdRegOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwOpcodeType opCode
-  )
-{
-
-}
-
-void PassiveTestTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,

@@ -1146,13 +1146,6 @@ class PassiveTestTesterBase :
     // Static functions for output ports
     // ----------------------------------------------------------------------
 
-    //! Static function for port from_cmdRegOut
-    static void from_cmdRegOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode //!< Command Op Code
-    );
-
     //! Static function for port from_cmdResponseOut
     static void from_cmdResponseOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance

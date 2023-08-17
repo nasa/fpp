@@ -211,6 +211,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
 
+  val hasTelemetry: Boolean = component.tlmChannelMap.nonEmpty
+
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
   /** Parameters for the init function */

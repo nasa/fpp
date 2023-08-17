@@ -89,11 +89,11 @@ case class ComponentTesterBaseWriter(
       getPortInvocationFunctions,
       getPortNumGetters,
       getPortConnectionStatusQueries,
-      getCmdFunctions,
-      getEventFunctions,
-      getTlmFunctions,
-      getPrmFunctions,
-      getTimeFunctions,
+      if hasCommands then getCmdFunctions else Nil,
+      if hasEvents then getEventFunctions else Nil,
+      if hasTelemetry then getTlmFunctions else Nil,
+      if hasParameters then getPrmFunctions else Nil,
+      if hasEvents || hasTelemetry || hasTimeGetPort then getTimeFunctions else Nil,
       historyWriter.getFunctionMembers,
 
       // Private function members
@@ -173,7 +173,7 @@ case class ComponentTesterBaseWriter(
                   s"this->${fromPortHistoryName(p.getUnqualifiedName)} = new History<${fromPortEntryName(p.getUnqualifiedName)}>(maxHistorySize);"
                 ))
               else Nil,
-              if hasCommands || hasParameters then lines(
+              if hasCommands then lines(
                 """|// Initialize command history
                    |this->cmdResponseHistory = new History<CmdResponse>(maxHistorySize);
                    |"""
@@ -1016,8 +1016,7 @@ case class ComponentTesterBaseWriter(
 
     def paramSetBody(id: String, value: String) = List.concat(
       lines(s"$testerBaseDecl\n"),
-      if hasParameters then lines("Fw::SerializeStatus _status;")
-      else Nil,
+      if hasParameters then lines("Fw::SerializeStatus _status;") else Nil,
       lines(
         s"""|$value.resetSer();
             |
@@ -1059,80 +1058,104 @@ case class ComponentTesterBaseWriter(
       )
     )
 
+    def portIsActive(p: PortInstance): Boolean =
+      p match {
+        case PortInstance.Special(aNode, _, _, _, _) =>
+          import Ast.SpecPortInstance._
+          val spec @ Special(_, kind, _, _, _) = aNode._2.data
+          kind match {
+            case CommandRecv => hasCommands
+            case CommandReg => hasCommands
+            case CommandResp => hasCommands
+            case Event => hasEvents
+            case ParamGet => hasParameters
+            case ParamSet => hasParameters
+            case Telemetry => hasTelemetry
+            case TextEvent => hasEvents
+            case TimeGet => true
+          }
+        case _ => true
+      }
+
     def getPortFunction(p: PortInstance) = {
       val params = getPortFunctionParams(p)
       lazy val paramNames = params.map(_.name).toVector
       lazy val paramNamesString = paramNames.mkString(", ")
       def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
         paramNames(i) else s"missingParam$i"
-      List(
-        functionClassMember(
-          Some(s"Static function for port ${portName(p)}"),
-          fromPortCallbackName(p.getUnqualifiedName),
-          List.concat(
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::PassiveComponentBase* const"),
-                "callComp",
-                Some("The component instance")
-              ),
-              portNumParam
-            ),
-            params
+      val body = p match {
+        case i: PortInstance.General => List.concat(
+          lines(
+            s"""|FW_ASSERT(callComp);
+                |$testerBaseDecl
+                |"""
           ),
-          getPortReturnTypeAsCppDocType(p),
-          p match {
-            case i: PortInstance.General => List.concat(
-              lines(
-                s"""|FW_ASSERT(callComp);
-                    |$testerBaseDecl
-                    |"""
-              ),
-              writeFunctionCall(
-                addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
-                List("portNum"),
-                getPortParams(i).map(_._1)
-              )
-            )
-            case PortInstance.Special(aNode, _, _, _, _) =>
-              import Ast.SpecPortInstance._
-              val spec @ Special(_, kind, _, _, _) = aNode._2.data
-              kind match {
-                case CommandRecv => Nil
-                case CommandReg => Nil
-                case CommandResp => lines(
-                  s"""|$testerBaseDecl
-                      |_testerBase->cmdResponseIn($paramNamesString);
-                      |"""
-                )
-                case Event => lines(
-                  s"""|$testerBaseDecl
-                      |_testerBase->dispatchEvents($paramNamesString);
-                      |"""
-                )
-                case ParamGet => paramGetBody(getParamName(0), getParamName(1))
-                case ParamSet => paramSetBody(getParamName(0), getParamName(1))
-                case Telemetry => lines(
-                  s"""|$testerBaseDecl
-                      |_testerBase->dispatchTlm($paramNamesString);
-                      |"""
-                )
-                case TextEvent => lines(
-                  s"""|$testerBaseDecl
-                      |_testerBase->textLogIn($paramNamesString);
-                      |"""
-                )
-                case TimeGet => lines(
-                  s"""|$testerBaseDecl
-                      |${getParamName(0)} = _testerBase->m_testTime;
-                      |"""
-                )
-              }
-            case _: PortInstance.Internal => Nil
-          },
-          CppDoc.Function.Static
+          writeFunctionCall(
+            addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
+            List("portNum"),
+            getPortParams(i).map(_._1)
+          )
         )
-      )
+        case PortInstance.Special(aNode, _, _, _, _) =>
+          import Ast.SpecPortInstance._
+          val spec @ Special(_, kind, _, _, _) = aNode._2.data
+          kind match {
+            case CommandRecv => Nil
+            case CommandReg => Nil
+            case CommandResp => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->cmdResponseIn($paramNamesString);
+                  |"""
+            )
+            case Event => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->dispatchEvents($paramNamesString);
+                  |"""
+            )
+            case ParamGet => paramGetBody(getParamName(0), getParamName(1))
+            case ParamSet => paramSetBody(getParamName(0), getParamName(1))
+            case Telemetry => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->dispatchTlm($paramNamesString);
+                  |"""
+            )
+            case TextEvent => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->textLogIn($paramNamesString);
+                  |"""
+            )
+            case TimeGet => lines(
+              s"""|$testerBaseDecl
+                  |${getParamName(0)} = _testerBase->m_testTime;
+                  |"""
+            )
+          }
+        case _: PortInstance.Internal => Nil
+      }
+      val filteredBody = if portIsActive(p) then body else Nil
+      filteredBody match {
+        case Nil => Nil
+        case _ => List(
+          functionClassMember(
+            Some(s"Static function for port ${portName(p)}"),
+            fromPortCallbackName(p.getUnqualifiedName),
+            List.concat(
+              List(
+                CppDoc.Function.Param(
+                  CppDoc.Type("Fw::PassiveComponentBase* const"),
+                  "callComp",
+                  Some("The component instance")
+                ),
+                portNumParam
+              ),
+              params
+            ),
+            getPortReturnTypeAsCppDocType(p),
+            body,
+            CppDoc.Function.Static
+          )
+        )
+      }
     }
 
     addAccessTagAndComment(

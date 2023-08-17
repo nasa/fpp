@@ -1625,71 +1625,6 @@ void QueuedParamsTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Functions for testing events
-// ----------------------------------------------------------------------
-
-void QueuedParamsTesterBase ::
-  dispatchEvents(
-      FwEventIdType id,
-      Fw::Time& timeTag,
-      const Fw::LogSeverity severity,
-      Fw::LogBuffer& args
-  )
-{
-  args.resetDeser();
-
-  const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-
-  switch ((id - idBase)) {
-    default: {
-      FW_ASSERT(0, id);
-      break;
-    }
-  }
-}
-
-#if FW_ENABLE_TEXT_LOGGING
-
-void QueuedParamsTesterBase ::
-  textLogIn(
-      FwEventIdType id,
-      Fw::Time& timeTag,
-      const Fw::LogSeverity severity,
-      const Fw::TextLogString& text
-  )
-{
-  TextLogEntry e = { id, timeTag, severity, text };
-  textLogHistory->push_back(e);
-}
-
-#endif
-
-// ----------------------------------------------------------------------
-// Functions for testing telemetry
-// ----------------------------------------------------------------------
-
-void QueuedParamsTesterBase ::
-  dispatchTlm(
-      FwChanIdType id,
-      Fw::Time& timeTag,
-      Fw::TlmBuffer& val
-  )
-{
-  val.resetDeser();
-
-  const U32 idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-
-  switch (id - idBase) {
-    default: {
-      FW_ASSERT(0, id);
-      break;
-    }
-  }
-}
-
-// ----------------------------------------------------------------------
 // Functions to test parameters
 // ----------------------------------------------------------------------
 
@@ -2129,16 +2064,6 @@ void QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsTesterBase ::
-  from_cmdRegOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwOpcodeType opCode
-  )
-{
-
-}
-
-void QueuedParamsTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
@@ -2149,20 +2074,6 @@ void QueuedParamsTesterBase ::
 {
   QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
   _testerBase->cmdResponseIn(opCode, cmdSeq, response);
-}
-
-void QueuedParamsTesterBase ::
-  from_eventOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwEventIdType id,
-      Fw::Time& timeTag,
-      const Fw::LogSeverity& severity,
-      Fw::LogBuffer& args
-  )
-{
-  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
-  _testerBase->dispatchEvents(id, timeTag, severity, args);
 }
 
 Fw::ParamValid QueuedParamsTesterBase ::
@@ -2358,24 +2269,6 @@ void QueuedParamsTesterBase ::
   }
 }
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-void QueuedParamsTesterBase ::
-  from_textEventOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwEventIdType id,
-      Fw::Time& timeTag,
-      const Fw::LogSeverity& severity,
-      Fw::TextLogString& text
-  )
-{
-  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
-  _testerBase->textLogIn(id, timeTag, severity, text);
-}
-
-#endif
-
 void QueuedParamsTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
@@ -2385,19 +2278,6 @@ void QueuedParamsTesterBase ::
 {
   QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
   time = _testerBase->m_testTime;
-}
-
-void QueuedParamsTesterBase ::
-  from_tlmOut_static(
-      Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
-      FwChanIdType id,
-      Fw::Time& timeTag,
-      Fw::TlmBuffer& val
-  )
-{
-  QueuedParamsTesterBase* _testerBase = static_cast<QueuedParamsTesterBase*>(callComp);
-  _testerBase->dispatchTlm(id, timeTag, val);
 }
 
 void QueuedParamsTesterBase ::

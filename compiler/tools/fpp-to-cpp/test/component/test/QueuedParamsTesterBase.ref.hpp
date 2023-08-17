@@ -787,45 +787,6 @@ class QueuedParamsTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Functions for testing events
-    // ----------------------------------------------------------------------
-
-    //! Dispatch an event
-    void dispatchEvents(
-        FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
-        const Fw::LogSeverity severity, //!< The severity
-        Fw::LogBuffer& args //!< The serialized arguments
-    );
-
-#if FW_ENABLE_TEXT_LOGGING
-
-    //! Handle a text event
-    void textLogIn(
-        FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
-        const Fw::LogSeverity severity, //!< The severity
-        const Fw::TextLogString& text //!< The event string
-    );
-
-#endif
-
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Functions for testing telemetry
-    // ----------------------------------------------------------------------
-
-    //! Dispatch telemetry
-    void dispatchTlm(
-        FwChanIdType id, //!< The channel id
-        Fw::Time& timeTag, //!< The time
-        Fw::TlmBuffer& val //!< The channel value
-    );
-
-  protected:
-
-    // ----------------------------------------------------------------------
     // Functions to test parameters
     // ----------------------------------------------------------------------
 
@@ -988,13 +949,6 @@ class QueuedParamsTesterBase :
     // Static functions for output ports
     // ----------------------------------------------------------------------
 
-    //! Static function for port from_cmdRegOut
-    static void from_cmdRegOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwOpcodeType opCode //!< Command Op Code
-    );
-
     //! Static function for port from_cmdResponseOut
     static void from_cmdResponseOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -1002,16 +956,6 @@ class QueuedParamsTesterBase :
         FwOpcodeType opCode, //!< Command Op Code
         U32 cmdSeq, //!< Command Sequence
         const Fw::CmdResponse& response //!< The command response argument
-    );
-
-    //! Static function for port from_eventOut
-    static void from_eventOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwEventIdType id, //!< Log ID
-        Fw::Time& timeTag, //!< Time Tag
-        const Fw::LogSeverity& severity, //!< The severity argument
-        Fw::LogBuffer& args //!< Buffer containing serialized log entry
     );
 
     //! Static function for port from_prmGetOut
@@ -1030,34 +974,11 @@ class QueuedParamsTesterBase :
         Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
 
-#if FW_ENABLE_TEXT_LOGGING == 1
-
-    //! Static function for port from_textEventOut
-    static void from_textEventOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwEventIdType id, //!< Log ID
-        Fw::Time& timeTag, //!< Time Tag
-        const Fw::LogSeverity& severity, //!< The severity argument
-        Fw::TextLogString& text //!< Text of log message
-    );
-
-#endif
-
     //! Static function for port from_timeGetOut
     static void from_timeGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::Time& time //!< The time tag
-    );
-
-    //! Static function for port from_tlmOut
-    static void from_tlmOut_static(
-        Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwChanIdType id, //!< Telemetry Channel ID
-        Fw::Time& timeTag, //!< Time Tag
-        Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
     );
 
     //! Static function for port from_typedOut
