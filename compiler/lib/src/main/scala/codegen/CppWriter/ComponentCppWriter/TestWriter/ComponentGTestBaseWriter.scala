@@ -47,7 +47,7 @@ case class ComponentGTestBaseWriter(
 
   private def getHppIncludes = {
     val userHeaders = List(
-      s"${testerRelativeFileName}.hpp",
+      s"$testerRelativeFileName.hpp",
       "gtest/gtest.h"
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
@@ -56,7 +56,7 @@ case class ComponentGTestBaseWriter(
   }
 
   private def getCppIncludes = {
-    val userHeader = lines(CppWriter.headerString(s"${relativeFileName}.hpp"))
+    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
     linesMember(
       addBlankPrefix(userHeader),
       CppDoc.Lines.Cpp
@@ -178,7 +178,7 @@ case class ComponentGTestBaseWriter(
     )
   }
 
-  private def getEventMacros = {
+  private def getEventMacros =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for event history assertions"),
@@ -189,25 +189,27 @@ case class ComponentGTestBaseWriter(
         ),
         sortedEvents.flatMap((id, event) => {
           val params = eventParamTypeMap(id).map((name, _) => s", _$name").mkString("")
+          val eventName = event.getName
+          val sizeAssertFn = eventSizeAssertionFuncName(eventName)
+          val eventAssertFn = eventAssertionFuncName(eventName)
 
           Line.blank :: lines(
-            s"""#define ASSERT_EVENTS_${event.getName}_SIZE(size) \\
-               |  this->${eventSizeAssertionFuncName(event.getName)}(__FILE__, __LINE__, size)
+            s"""#define ASSERT_EVENTS_${eventName}_SIZE(size) \\
+               |  this->$sizeAssertFn(__FILE__, __LINE__, size)
                |"""
           ) ++ (eventParamTypeMap(id) match {
             case Nil => Nil
             case _ => Line.blank :: lines(
-              s"""#define ASSERT_EVENTS_${event.getName}(size$params) \\
-                 |  this->${eventAssertionFuncName(event.getName)}(__FILE__, __LINE__, size$params)
+              s"""#define ASSERT_EVENTS_$eventName(size$params) \\
+                 |  this->$eventAssertFn(__FILE__, __LINE__, size$params)
                  |"""
             )
           })
         })
       )
     )
-  }
 
-  private def getTlmMacros = {
+  private def getTlmMacros =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for telemetry history assertions"),
@@ -228,7 +230,6 @@ case class ComponentGTestBaseWriter(
         )
       )
     )
-  }
 
   private def getPortAssertFunctions = {
     addAccessTagAndComment(
