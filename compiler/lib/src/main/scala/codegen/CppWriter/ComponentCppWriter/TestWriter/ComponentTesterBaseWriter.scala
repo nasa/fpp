@@ -31,6 +31,9 @@ case class ComponentTesterBaseWriter(
     )
   }
 
+  private  def returnOrEmptyString(pi: PortInstance) =
+    getPortReturnType(pi).map(_ => "return ").getOrElse("")
+
   private def getMembers: List[CppDoc.Member] = {
     val cls = classMember(
       Some(
@@ -171,9 +174,11 @@ case class ComponentTesterBaseWriter(
         constructorClassMember(
           Some(s"Construct object $testerBaseClassName"),
           constructorParams,
-          "Fw::PassiveComponentBase(compName)" :: sortedParams.map((_, param) =>
-            s"${paramValidityFlagName(param.getName)}(Fw::ParamValid::UNINIT)"
-          ),
+          "Fw::PassiveComponentBase(compName)" :: sortedParams.map(
+            (_, param) => {
+              val flagName = paramValidityFlagName(param.getName)
+              s"$flagName(Fw::ParamValid::UNINIT)"
+            }),
           {
             lazy val portHistories = line("// Initialize port histories") ::
               typedOutputPorts.map(p => {
@@ -325,13 +330,9 @@ case class ComponentTesterBaseWriter(
         typedOutputPorts,
         serialOutputPorts,
       ).map(p => {
-        val returnKeyword = getPortReturnType(p) match {
-          case Some(_) => "return "
-          case None => ""
-        }
         val handlerName = fromPortHandlerName(p.getUnqualifiedName)
         val handlerCall = writeFunctionCall(
-          s"${returnKeyword}this->$handlerName",
+          s"${returnOrEmptyString(p)}this->$handlerName",
           List("portNum"),
           getPortParams(p).map(_._1)
         )
@@ -369,16 +370,18 @@ case class ComponentTesterBaseWriter(
         typedInputPorts,
         serialInputPorts,
       ).map(p => {
-        val returnKeywordOpt = getPortReturnType(p).map(_ => "return ").getOrElse("")
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
           case PortInstance.Type.Serial => "invokeSerial"
         }
-        val invokeCall = writeFunctionCall(
-          s"${returnKeywordOpt}this->${portVariableName(p)}[portNum].$invokeFunction",
-          Nil,
-          getPortParams(p).map(_._1)
-        )
+        val invokeCall = {
+          val variableName = portVariableName(p)
+          writeFunctionCall(
+            s"${returnOrEmptyString(p)}this->$variableName[portNum].$invokeFunction",
+            Nil,
+            getPortParams(p).map(_._1)
+          )
+        }
 
         functionClassMember(
           Some(s"Invoke the to port connected to ${p.getUnqualifiedName}"),
