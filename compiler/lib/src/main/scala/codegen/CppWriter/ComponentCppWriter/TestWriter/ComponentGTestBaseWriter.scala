@@ -520,10 +520,14 @@ case class ComponentGTestBaseWriter(
           CppDoc.Function.Const
         )
       }
-      def channelIndex(channel: TlmChannel) =
+      def channelIndex(channel: TlmChannel) = {
+        val channelName = channel.getName
+        val historyName = tlmHistoryName(channelName)
+        val entryName = tlmEntryName(channelName)
+        val value = writeValue("_e.arg", channel.channelType)
         functionClassMember(
-          Some(s"Channel: ${channel.getName}"),
-          tlmAssertionFuncName(channel.getName),
+          Some(s"Channel: $channelName"),
+          tlmAssertionFuncName(channelName),
           assertionFunctionParams ++ List(
             CppDoc.Function.Param(
               CppDoc.Type(writeCppType(channel.channelType)),
@@ -533,21 +537,21 @@ case class ComponentGTestBaseWriter(
           ),
           CppDoc.Type("void"),
           lines(
-            s"""ASSERT_LT(__index, this->${tlmHistoryName(channel.getName)}->size())
+            s"""ASSERT_LT(__index, this->$historyName->size())
                |  << "\\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-               |  << "  Value:    Index into history of telemetry channel ${channel.getName}\\n"
+               |  << "  Value:    Index into history of telemetry channel $channelName\\n"
                |  << "  Expected: Less than size of history ("
-               |  << this->${tlmHistoryName(channel.getName)}->size() << ")\\n"
+               |  << this->$historyName->size() << ")\\n"
                |  << "  Actual:   " << __index << "\\n";
-               |const ${tlmEntryName(channel.getName)}& _e =
-               |  this->${tlmHistoryName(channel.getName)}->at(__index);
-               |ASSERT_EQ(val, ${writeValue("_e.arg", channel.channelType)})
+               |const $entryName& _e =
+               |  this->$historyName->at(__index);
+               |ASSERT_EQ(val, $value)
                |  << "\\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                |  << "  Value:    Value at index "
                |  << __index
-               |  << " on telemetry channel ${channel.getName}\\n"
+               |  << " on telemetry channel $channelName\\n"
                |  << "  Expected: " << val << "\\n"
                |  << "  Actual:   " << _e.arg << "\\n";
                |"""
@@ -555,6 +559,7 @@ case class ComponentGTestBaseWriter(
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
+      }
 
       List.concat(
         guardedList (hasChannels) (List(historySize)),
