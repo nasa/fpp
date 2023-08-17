@@ -372,21 +372,22 @@ case class ComponentGTestBaseWriter(
 
   private def getEventAssertFunctions = {
     def writeAssertFuncs(id: Event.Id, event: Event) = {
+      val eventName = event.getName
       val eventsSize = eventParamTypeMap(id) match {
-        case Nil => eventSizeName(event.getName)
-        case _ => s"${eventHistoryName(event.getName)}->size()"
+        case Nil => eventSizeName(eventName)
+        case _ => s"${eventHistoryName(eventName)}->size()"
       }
 
       functionClassMember(
-        Some(s"Event: ${event.getName}"),
-        eventSizeAssertionFuncName(event.getName),
+        Some(s"Event: $eventName"),
+        eventSizeAssertionFuncName(eventName),
         sizeAssertionFunctionParams,
         CppDoc.Type("void"),
         lines(
           s"""ASSERT_EQ(size, this->$eventsSize)
              |  << "\\n"
              |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-             |  << "  Value:    Size of history for event ${event.getName}\\n"
+             |  << "  Value:    Size of history for event ${eventName}\\n"
              |  << "  Expected: " << size << "\\n"
              |  << "  Actual:   " << this->$eventsSize << "\\n";
              |"""
@@ -397,8 +398,8 @@ case class ComponentGTestBaseWriter(
         case Nil => Nil
         case _ => List(
           functionClassMember(
-            Some(s"Event: ${event.getName}"),
-            eventAssertionFuncName(event.getName),
+            Some(s"Event: $eventName"),
+            eventAssertionFuncName(eventName),
             assertionFunctionParams ++
               event.aNode._2.data.params.map(aNode => {
                 val data = aNode._2.data
@@ -414,12 +415,12 @@ case class ComponentGTestBaseWriter(
                 s"""ASSERT_GT(this->$eventsSize, __index)
                    |  << "\\n"
                    |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                   |  << "  Value:    Index into history of event ${event.getName}\\n"
+                   |  << "  Value:    Index into history of event $eventName\\n"
                    |  << "  Expected: Less than size of history ("
                    |  << this->$eventsSize << ")\\n"
                    |  << "  Actual:   " << __index << "\\n";
-                   |const ${eventEntryName(event.getName)}& _e =
-                   |  this->${eventHistoryName(event.getName)}->at(__index);
+                   |const ${eventEntryName(eventName)}& _e =
+                   |  this->${eventHistoryName(eventName)}->at(__index);
                    |"""
               ),
               eventParamTypeMap(id).flatMap((name, tn) =>
@@ -429,7 +430,7 @@ case class ComponentGTestBaseWriter(
                      |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                      |  << "  Value:    Value of argument $name at index "
                      |  << __index
-                     |  << " in history of event ${event.getName}\\n"
+                     |  << " in history of event $eventName\\n"
                      |  << "  Expected: " << $name << "\\n"
                      |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
                      |"""
