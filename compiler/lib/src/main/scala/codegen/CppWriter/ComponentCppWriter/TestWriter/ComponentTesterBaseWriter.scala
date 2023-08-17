@@ -907,7 +907,7 @@ case class ComponentTesterBaseWriter(
       }
     )
 
-  private def getPrmFunctions: List[CppDoc.Class.Member] = {
+  private def getPrmFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
       "Functions to test parameters",
@@ -987,16 +987,19 @@ case class ComponentTesterBaseWriter(
               cmdSeqParam
             ),
             CppDoc.Type("void"),
+            {
+              val constantName = paramCommandConstantName(prm.getName, Command.Param.Save)
+              val varName = portVariableName(cmdRecvPort.get)
             lines(
               s"""|Fw::CmdArgBuffer args;
                   |const U32 idBase = this->getIdBase();
-                  |FwOpcodeType _prmOpcode = $className::${paramCommandConstantName(prm.getName, Command.Param.Save)} + idBase;
+                  |FwOpcodeType _prmOpcode = $className::$constantName + idBase;
                   |
-                  |if (not this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
+                  |if (not this->$varName[0].isConnected()) {
                   |  printf("Test Command Output port not connected!\\n");
                   |}
                   |else {
-                  |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
+                  |  this->$varName[0].invoke(
                   |    _prmOpcode,
                   |    cmdSeq,
                   |    args
@@ -1004,11 +1007,11 @@ case class ComponentTesterBaseWriter(
                   |}
                   |"""
             )
+            }
           )
         )
       )
     )
-  }
 
   private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
 
