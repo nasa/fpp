@@ -202,7 +202,7 @@ case class ComponentTesterBaseWriter(
               sortedEvents.flatMap((id, event) =>
                 eventParamTypeMap(id) match {
                   case Nil => Nil
-                  case _ => 
+                  case _ =>
                     val historyName = eventHistoryName(event.getName)
                     val entryName = eventEntryName(event.getName)
                     lines(
@@ -259,7 +259,7 @@ case class ComponentTesterBaseWriter(
               sortedEvents.flatMap(
                 (id, event) => eventParamTypeMap(id) match {
                   case Nil => Nil
-                  case _ => 
+                  case _ =>
                     val historyName = eventHistoryName(event.getName)
                     lines( s"delete this->$historyName;")
                 }
