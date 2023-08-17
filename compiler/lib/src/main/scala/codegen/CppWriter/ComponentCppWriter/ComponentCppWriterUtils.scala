@@ -668,6 +668,9 @@ abstract class ComponentCppWriterUtils(
   /** Guards a list with a Boolean condition */
   def guardedList[T] = guardedValue (Nil: List[T]) _
 
+  /** Guards an option type with a Boolean condition */
+  def guardedOption[T] = guardedValue (None: Option[T]) _
+
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {

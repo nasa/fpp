@@ -423,22 +423,24 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
-    val cmdPortInvocation = cmdRecvPort match {
-      case None => Nil
-      case Some(p) => lines(
-        s"""|if (this->${portVariableName(p)}[0].isConnected()) {
-            |  this->${portVariableName(p)}[0].invoke(
-            |    _opcode,
-            |    cmdSeq,
-            |    buf
-            |  );
-            |}
-            |else {
-            |  printf("Test Command Output port not connected!\\n");
-            |}
-            |"""
-      )
-    }
+    val cmdPortInvocation = cmdRecvPort.map(
+      p => {
+        val varName = portVariableName(p)
+        lines(
+          s"""|if (this->$varName[0].isConnected()) {
+              |  this->$varName[0].invoke(
+              |    _opcode,
+              |    cmdSeq,
+              |    buf
+              |  );
+              |}
+              |else {
+              |  printf("Test Command Output port not connected!\\n");
+              |}
+              |"""
+        )
+      }
+    ).getOrElse(Nil)
 
     def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command) = functionClassMember(
       Some(s"Send a ${cmd.getName} command"),
@@ -485,7 +487,7 @@ case class ComponentTesterBaseWriter(
                 |_opcode = $className::${commandConstantName(cmd)} + idBase;
                 |"""
           ),
-          cmdPortInvocation
+          guardedList (hasCommands) (cmdPortInvocation)
         )
       )
     )
