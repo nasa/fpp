@@ -168,61 +168,72 @@ case class ComponentTesterBaseWriter(
           "Fw::PassiveComponentBase(compName)" :: sortedParams.map((_, param) =>
             s"${paramValidityFlagName(param.getName)}(Fw::ParamValid::UNINIT)"
           ),
-          intersperseBlankLines(
-            List(
-              if typedOutputPorts.nonEmpty then line("// Initialize port histories") ::
-                typedOutputPorts.map(p => line(
-                  s"this->${fromPortHistoryName(p.getUnqualifiedName)} = new History<${fromPortEntryName(p.getUnqualifiedName)}>(maxHistorySize);"
-                ))
-              else Nil,
-              if hasCommands then lines(
-                """|// Initialize command history
-                   |this->cmdResponseHistory = new History<CmdResponse>(maxHistorySize);
-                   |"""
-              )
-              else Nil,
-              if hasEvents then List.concat(
-                lines(
-                  """|// Initialize event histories
-                     |#if FW_ENABLE_TEXT_LOGGING
-                     |this->textLogHistory = new History<TextLogEntry>(maxHistorySize);
-                     |#endif
-                     |"""
-                ),
-                sortedEvents.flatMap((id, event) =>
-                  eventParamTypeMap(id) match {
-                    case Nil => Nil
-                    case _ => lines(
-                      s"this->${eventHistoryName(event.getName)} = new History<${eventEntryName(event.getName)}>(maxHistorySize);"
-                    )
-                  }
-               )
-              )
-              else Nil,
-              if hasChannels then line("// Initialize telemetry histories") ::
-                sortedChannels.map((_, channel) => line(
-                  s"this->${tlmHistoryName(channel.getName)} = new History<${tlmEntryName(channel.getName)}>(maxHistorySize);"
-                ))
-              else Nil,
-              if hasHistories then lines(
-                """|// Clear history
-                   |this->clearHistory();
-                   |"""
-              )
-              else Nil,
+          {
+            lazy val portHistories = line("// Initialize port histories") ::
+              typedOutputPorts.map(p => {
+                val historyName = fromPortHistoryName(p.getUnqualifiedName)
+                val entryName = fromPortEntryName(p.getUnqualifiedName)
+                line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
+              })
+            lazy val commandHistory = lines(
+              """|// Initialize command history
+                 |this->cmdResponseHistory = new History<CmdResponse>(maxHistorySize);
+                 |"""
             )
-          )
+            lazy val eventHistories = List.concat(
+              lines(
+                """|// Initialize event histories
+                   |#if FW_ENABLE_TEXT_LOGGING
+                   |this->textLogHistory = new History<TextLogEntry>(maxHistorySize);
+                   |#endif
+                   |"""
+              ),
+              sortedEvents.flatMap((id, event) =>
+                eventParamTypeMap(id) match {
+                  case Nil => Nil
+                  case _ => 
+                    val historyName = eventHistoryName(event.getName)
+                    val entryName = eventEntryName(event.getName)
+                    lines(
+                      s"this->$historyName = new History<$entryName>(maxHistorySize);"
+                    )
+                }
+              )
+            )
+            lazy val tlmHistories = {
+              line("// Initialize telemetry histories") ::
+              sortedChannels.map((_, channel) => {
+                val historyName = tlmHistoryName(channel.getName)
+                val entryName = tlmEntryName(channel.getName)
+                line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
+              })
+            }
+            lazy val clearHistory = lines(
+              """|// Clear history
+                 |this->clearHistory();
+                 |"""
+            )
+            intersperseBlankLines(
+              List(
+                guardedList (hasTypedOutputPorts) (portHistories),
+                guardedList (hasCommands) (commandHistory),
+                guardedList (hasEvents) (eventHistories),
+                guardedList (hasTelemetry) (tlmHistories),
+                guardedList (hasHistories) (clearHistory)
+              )
+            )
+          }
         ),
         destructorClassMember(
           Some(s"Destroy object $testerBaseClassName"),
           intersperseBlankLines(
             List(
-              if typedOutputPorts.nonEmpty then line("// Destroy port histories") ::
+              if hasTypedOutputPorts then line("// Destroy port histories") ::
                 typedOutputPorts.map(p => line(
                   s"delete this->${fromPortHistoryName(p.getUnqualifiedName)};"
                 ))
               else Nil,
-              if hasCommands || hasParameters then lines(
+              if hasCommands then lines(
                 """|// Destroy command history
                    |delete this->cmdResponseHistory;
                    |"""
