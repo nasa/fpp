@@ -119,7 +119,7 @@ case class ComponentTesterBaseWriter(
         portVariableName,
         fromPortCallbackName,
         portName,
-        true
+        ComponentCppWriter.ConnectionSense.Reversed
       )
       guardedList (portInstanceIsActive(port)) (code)
     }
