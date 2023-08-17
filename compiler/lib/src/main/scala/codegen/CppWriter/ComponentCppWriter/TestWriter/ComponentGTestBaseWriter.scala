@@ -456,86 +456,89 @@ case class ComponentGTestBaseWriter(
     )
   }
 
-  private def getTlmAssertFunctions = {
-    addAccessTagAndComment(
-      "protected",
-      "Telemetry",
-      List.concat(
-        if hasChannels then List(
-          functionClassMember(
-            Some("Assert the size of telemetry history"),
-            "assertTlm_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->tlmSize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all telemetry histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->tlmSize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        )
-        else Nil,
-        sortedChannels.flatMap((_, channel) => List(
-          functionClassMember(
-            Some(s"Channel: ${channel.getName}"),
-            tlmSizeAssertionFuncName(channel.getName),
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              s"""ASSERT_EQ(this->${tlmHistoryName(channel.getName)}->size(), size)
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Size of history for telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: " << size << "\\n"
-                 |  << "  Actual:   " << this->${tlmHistoryName(channel.getName)}->size() << "\\n";
-                 |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+  private def getTlmAssertFunctions = addAccessTagAndComment(
+    "protected",
+    "Telemetry",
+    {
+      val historySize = functionClassMember(
+        Some("Assert the size of telemetry history"),
+        "assertTlm_size",
+        sizeAssertionFunctionParams,
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_EQ(size, this->tlmSize)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Total size of all telemetry histories\n"
+               |  << "  Expected: " << size << "\n"
+               |  << "  Actual:   " << this->tlmSize << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+      def channelHistorySize(channel: TlmChannel) =
+        functionClassMember(
+          Some(s"Channel: ${channel.getName}"),
+          tlmSizeAssertionFuncName(channel.getName),
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            s"""ASSERT_EQ(this->${tlmHistoryName(channel.getName)}->size(), size)
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Size of history for telemetry channel ${channel.getName}\\n"
+               |  << "  Expected: " << size << "\\n"
+               |  << "  Actual:   " << this->${tlmHistoryName(channel.getName)}->size() << "\\n";
+               |"""
           ),
-          functionClassMember(
-            Some(s"Channel: ${channel.getName}"),
-            tlmAssertionFuncName(channel.getName),
-            assertionFunctionParams ++ List(
-              CppDoc.Function.Param(
-                CppDoc.Type(writeCppType(channel.channelType)),
-                "val",
-                Some("The channel value")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""ASSERT_LT(__index, this->${tlmHistoryName(channel.getName)}->size())
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Index into history of telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: Less than size of history ("
-                 |  << this->${tlmHistoryName(channel.getName)}->size() << ")\\n"
-                 |  << "  Actual:   " << __index << "\\n";
-                 |const ${tlmEntryName(channel.getName)}& _e =
-                 |  this->${tlmHistoryName(channel.getName)}->at(__index);
-                 |ASSERT_EQ(val, ${writeValue("_e.arg", channel.channelType)})
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Value at index "
-                 |  << __index
-                 |  << " on telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: " << val << "\\n"
-                 |  << "  Actual:   " << _e.arg << "\\n";
-                 |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      def channelIndex(channel: TlmChannel) =
+        functionClassMember(
+          Some(s"Channel: ${channel.getName}"),
+          tlmAssertionFuncName(channel.getName),
+          assertionFunctionParams ++ List(
+            CppDoc.Function.Param(
+              CppDoc.Type(writeCppType(channel.channelType)),
+              "val",
+              Some("The channel value")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            s"""ASSERT_LT(__index, this->${tlmHistoryName(channel.getName)}->size())
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Index into history of telemetry channel ${channel.getName}\\n"
+               |  << "  Expected: Less than size of history ("
+               |  << this->${tlmHistoryName(channel.getName)}->size() << ")\\n"
+               |  << "  Actual:   " << __index << "\\n";
+               |const ${tlmEntryName(channel.getName)}& _e =
+               |  this->${tlmHistoryName(channel.getName)}->at(__index);
+               |ASSERT_EQ(val, ${writeValue("_e.arg", channel.channelType)})
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Value at index "
+               |  << __index
+               |  << " on telemetry channel ${channel.getName}\\n"
+               |  << "  Expected: " << val << "\\n"
+               |  << "  Actual:   " << _e.arg << "\\n";
+               |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+
+      List.concat(
+        guardedList (hasChannels) (List(historySize)),
+        sortedChannels.flatMap((_, channel) => List(
+          channelHistorySize(channel),
+          channelIndex(channel)
         ))
       )
-    )
-  }
+    }
+  )
 
 }
