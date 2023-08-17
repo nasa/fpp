@@ -662,7 +662,7 @@ abstract class ComponentCppWriterUtils(
     s"PARAMID_${name.toUpperCase}"
 
   /** Guards a value with a Boolean condition */
-  def guardedValue[T] (default: T) (cond: Boolean) (value: T) =
+  def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
     if cond then value else default
 
   /** Guards a list with a Boolean condition */

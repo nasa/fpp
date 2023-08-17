@@ -89,11 +89,11 @@ case class ComponentTesterBaseWriter(
       getPortInvocationFunctions,
       getPortNumGetters,
       getPortConnectionStatusQueries,
-      if hasCommands then getCmdFunctions else Nil,
-      if hasEvents then getEventFunctions else Nil,
-      if hasTelemetry then getTlmFunctions else Nil,
-      if hasParameters then getPrmFunctions else Nil,
-      if hasTimeGetPort then getTimeFunctions else Nil,
+      guardedList (hasCommands) (getCmdFunctions),
+      guardedList (hasEvents) (getEventFunctions),
+      guardedList (hasTelemetry) (getTlmFunctions),
+      guardedList (hasParameters) (getPrmFunctions),
+      guardedList (hasTimeGetPort) (getTimeFunctions),
       historyWriter.getFunctionMembers,
 
       // Private function members
@@ -115,7 +115,7 @@ case class ComponentTesterBaseWriter(
         portName,
         true
       )
-      if portInstanceIsActive(port) then code else Nil
+      guardedList (portInstanceIsActive(port)) (code)
     }
 
     val body = intersperseBlankLines(
@@ -226,44 +226,48 @@ case class ComponentTesterBaseWriter(
         ),
         destructorClassMember(
           Some(s"Destroy object $testerBaseClassName"),
-          intersperseBlankLines(
-            List(
-              if hasTypedOutputPorts then line("// Destroy port histories") ::
-                typedOutputPorts.map(p => line(
-                  s"delete this->${fromPortHistoryName(p.getUnqualifiedName)};"
-                ))
-              else Nil,
-              if hasCommands then lines(
-                """|// Destroy command history
-                   |delete this->cmdResponseHistory;
-                   |"""
-              )
-              else Nil,
-              if hasEvents then List.concat(
-                lines(
-                  """|// Destroy event histories
-                     |#if FW_ENABLE_TEXT_LOGGING
-                     |delete this->textLogHistory;
-                     |#endif
-                     |"""
-                ),
-                sortedEvents.flatMap((id, event) =>
-                  eventParamTypeMap(id) match {
-                    case Nil => Nil
-                    case _ => lines(
-                      s"delete this->${eventHistoryName(event.getName)};"
-                    )
-                  }
-                )
-              )
-              else Nil,
-              if hasChannels then line("// Destroy telemetry histories") ::
-                sortedChannels.map((_, channel) => line(
-                  s"delete this->${tlmHistoryName(channel.getName)};"
-                ))
-              else Nil,
+          {
+            lazy val destroyPortHistories = line("// Destroy port histories") ::
+              typedOutputPorts.map(p => {
+                val portHistoryName = fromPortHistoryName(p.getUnqualifiedName)
+                line(s"delete this->$portHistoryName;")
+              })
+            lazy val destroyCommandHistory = lines(
+              """|// Destroy command history
+                 |delete this->cmdResponseHistory;
+                 |"""
             )
-          ),
+            lazy val destroyEventHistories = List.concat(
+              lines(
+                """|// Destroy event histories
+                   |#if FW_ENABLE_TEXT_LOGGING
+                   |delete this->textLogHistory;
+                   |#endif
+                   |"""
+              ),
+              sortedEvents.flatMap(
+                (id, event) => eventParamTypeMap(id) match {
+                  case Nil => Nil
+                  case _ => 
+                    val historyName = eventHistoryName(event.getName)
+                    lines( s"delete this->$historyName;")
+                }
+              )
+            )
+            lazy val destroyTlmHistories = line("// Destroy telemetry histories") ::
+              sortedChannels.map((_, channel) => {
+                val historyName = tlmHistoryName(channel.getName)
+                line(s"delete this->$historyName;")
+              })
+            intersperseBlankLines(
+              List(
+                guardedList (hasTypedOutputPorts) (destroyPortHistories),
+                guardedList (hasCommands) (destroyCommandHistory),
+                guardedList (hasEvents) (destroyEventHistories),
+                guardedList (hasChannels) (destroyTlmHistories)
+              )
+            )
+          },
           CppDoc.Class.Destructor.Virtual
         )
       )
