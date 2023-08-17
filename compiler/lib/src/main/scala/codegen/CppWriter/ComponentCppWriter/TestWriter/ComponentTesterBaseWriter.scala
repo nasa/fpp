@@ -1019,7 +1019,8 @@ case class ComponentTesterBaseWriter(
 
   private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
 
-    val testerBaseDecl = s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
+    val testerBaseDecl =
+      s"$testerBaseClassName* _testerBase = static_cast<$testerBaseClassName*>(callComp);"
 
     def paramGetBody(id: String, value: String) = intersperseBlankLines(
       List(
@@ -1209,16 +1210,22 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "To ports",
-        inputPorts.map(p =>
+        inputPorts.map(p => {
+          val unqualifiedName = p.getUnqualifiedName
+          val qualifiedName = getQualifiedPortTypeName(
+            p, PortInstance.Direction.Output
+          )
+          val varName = portVariableName(p)
+          val arraySize = p.getArraySize
           linesClassMember(
             Line.blank :: lines(
               s"""|//! To port connected to ${p.getUnqualifiedName}
-                  |${getQualifiedPortTypeName(p, PortInstance.Direction.Output)} ${portVariableName(p)}[${p.getArraySize}];
+                  |$qualifiedName $varName[$arraySize];
                   |"""
             ),
             CppDoc.Lines.Hpp
           )
-        ),
+        }),
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
@@ -1226,16 +1233,25 @@ case class ComponentTesterBaseWriter(
         "From ports",
         mapPorts(
           outputPorts,
-          p => List(
-            linesClassMember(
-              Line.blank :: lines(
-                s"""|//! From port connected to ${p.getUnqualifiedName}
-                    |${getQualifiedPortTypeName(p, PortInstance.Direction.Input)} ${portVariableName(p)}[${p.getArraySize}];
-                    |"""
-              ),
-              CppDoc.Lines.Hpp
+          p => {
+            val unqualifiedName = p.getUnqualifiedName
+            val qualifiedName = getQualifiedPortTypeName(
+              p,
+              PortInstance.Direction.Input
             )
-          ),
+            val varName = portVariableName(p)
+            val arraySize = p.getArraySize
+            List(
+              linesClassMember(
+                Line.blank :: lines(
+                  s"""|//! From port connected to $unqualifiedName
+                      |$qualifiedName $varName[$arraySize];
+                      |"""
+                ),
+                CppDoc.Lines.Hpp
+              )
+            )
+          },
           CppDoc.Lines.Hpp
         ),
         CppDoc.Lines.Hpp
@@ -1258,16 +1274,19 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Parameter variables",
-        sortedParams.map((_, prm) =>
+        sortedParams.map((_, prm) => {
+          val paramName = prm.getName
+          val paramType = writeParamType(prm.paramType)
+          val varName = paramVariableName(paramName)
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! Parameter ${prm.getName}
-                  |${writeParamType(prm.paramType)} ${paramVariableName(prm.getName)};
+              s"""|//! Parameter $paramName
+                  |$paramType $varName;
                   |"""
             ),
             CppDoc.Lines.Hpp
           )
-        ),
+        }),
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
