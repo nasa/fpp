@@ -257,14 +257,16 @@ case class ComponentGTestBaseWriter(
           CppDoc.Function.Const
         )
         val fromPorts = typedOutputPorts.map(p => {
-          val portSize = portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => fromPortHistorySizeName(p.getUnqualifiedName)
-            case _ => s"${fromPortHistoryName(p.getUnqualifiedName)}->size()"
+          val portName = p.getUnqualifiedName
+          val portHistory = fromPortHistoryName(portName)
+          val portSize = portParamTypeMap(portName) match {
+            case Nil => fromPortHistorySizeName(portName)
+            case _ => s"$portHistory->size()"
           }
 
           functionClassMember(
-            Some(s"From port: ${p.getUnqualifiedName}"),
-            fromPortAssertionFuncName(p.getUnqualifiedName),
+            Some(s"From port: $portName"),
+            fromPortAssertionFuncName(portName),
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(
