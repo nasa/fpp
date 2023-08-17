@@ -59,20 +59,20 @@ case class ComponentGTestBaseWriter(
 
   private def getMacros = {
     List.concat(
-      if hasTypedOutputPorts then List(getPortMacros) else Nil,
-      if hasCommands then List(getCmdMacros) else Nil,
-      if hasEvents then List(getEventMacros) else Nil,
-      if hasTelemetry then List(getTlmMacros) else Nil
+      guardedList (hasTypedOutputPorts) (List(getPortMacros)),
+      guardedList (hasCommands) (List(getCmdMacros)),
+      guardedList (hasEvents) (List(getEventMacros)),
+      guardedList (hasTelemetry) (List(getTlmMacros))
     )
   }
 
   private def getClassMembers = {
     List.concat(
       getConstructors,
-      if hasTypedOutputPorts then getPortAssertFunctions else Nil,
-      if hasCommands then getCmdAssertFunctions else Nil,
-      if hasEvents then getEventAssertFunctions else Nil,
-      if hasTelemetry then getTlmAssertFunctions else Nil
+      guardedList (hasTypedOutputPorts) (getPortAssertFunctions),
+      guardedList (hasCommands) (getCmdAssertFunctions),
+      guardedList (hasEvents) (getEventAssertFunctions),
+      guardedList (hasTelemetry) (getTlmAssertFunctions)
     )
   }
 
@@ -224,28 +224,25 @@ case class ComponentGTestBaseWriter(
     addAccessTagAndComment(
       "protected",
       "From ports",
-      List.concat(
-        if typedOutputPorts.nonEmpty then List(
-          functionClassMember(
-            Some("From ports"),
-            "assertFromPortHistory_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->fromPortHistorySize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all from port histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->fromPortHistorySize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+      {
+        val fromPortHistorySize = functionClassMember(
+          Some("From ports"),
+          "assertFromPortHistory_size",
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            raw"""ASSERT_EQ(size, this->fromPortHistorySize)
+                 |  << "\n"
+                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                 |  << "  Value:    Total size of all from port histories\n"
+                 |  << "  Expected: " << size << "\n"
+                 |  << "  Actual:   " << this->fromPortHistorySize << "\n";
+                 |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
-        else Nil,
-        typedOutputPorts.map(p => {
+        val fromPorts = typedOutputPorts.map(p => {
           val portSize = portParamTypeMap(p.getUnqualifiedName) match {
             case Nil => fromPortHistorySizeName(p.getUnqualifiedName)
             case _ => s"${fromPortHistoryName(p.getUnqualifiedName)}->size()"
@@ -269,7 +266,11 @@ case class ComponentGTestBaseWriter(
             CppDoc.Function.Const
           )
         })
-      )
+        List.concat(
+          guardedList (hasTypedOutputPorts) (List(fromPortHistorySize)),
+          fromPorts
+        )
+      }
     )
   }
 
