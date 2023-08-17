@@ -499,24 +499,27 @@ case class ComponentGTestBaseWriter(
         CppDoc.Function.NonSV,
         CppDoc.Function.Const
       )
-      def channelHistorySize(channel: TlmChannel) =
+      def channelHistorySize(channel: TlmChannel) = {
+        val channelName = channel.getName
+        val historyName = tlmHistoryName(channelName)
         functionClassMember(
-          Some(s"Channel: ${channel.getName}"),
-          tlmSizeAssertionFuncName(channel.getName),
+          Some(s"Channel: $channelName"),
+          tlmSizeAssertionFuncName(channelName),
           sizeAssertionFunctionParams,
           CppDoc.Type("void"),
           lines(
-            s"""ASSERT_EQ(this->${tlmHistoryName(channel.getName)}->size(), size)
+            s"""ASSERT_EQ(this->$historyName->size(), size)
                |  << "\\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-               |  << "  Value:    Size of history for telemetry channel ${channel.getName}\\n"
+               |  << "  Value:    Size of history for telemetry channel $channelName\\n"
                |  << "  Expected: " << size << "\\n"
-               |  << "  Actual:   " << this->${tlmHistoryName(channel.getName)}->size() << "\\n";
+               |  << "  Actual:   " << this->$historyName->size() << "\\n";
                |"""
           ),
           CppDoc.Function.NonSV,
           CppDoc.Function.Const
         )
+      }
       def channelIndex(channel: TlmChannel) =
         functionClassMember(
           Some(s"Channel: ${channel.getName}"),
