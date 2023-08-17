@@ -1259,16 +1259,18 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Parameter validity flags",
-        sortedParams.map((_, prm) =>
+        sortedParams.map((_, prm) => {
+          val paramName = prm.getName
+          val validityFlagName = paramValidityFlagName(paramName)
           linesClassMember(
             Line.blank :: lines(
               s"""|//! True if parameter ${prm.getName} was successfully received
-                  |Fw::ParamValid ${paramValidityFlagName(prm.getName)};
+                  |Fw::ParamValid $validityFlagName;
                   |"""
             ),
             CppDoc.Lines.Hpp
           )
-        ),
+        }),
         CppDoc.Lines.Hpp
       ),
       addAccessTagAndComment(
