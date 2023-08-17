@@ -1294,17 +1294,18 @@ case class ComponentTesterBaseWriter(
       addAccessTagAndComment(
         "private",
         "Time variables",
-        if hasTimeGetPort then List(
-          linesClassMember(
-            Line.blank :: lines(
-              s"""|//! Test time stamp
-                  |Fw::Time m_testTime;
-                  |"""
-            ),
-            CppDoc.Lines.Hpp
+        guardedList (hasTimeGetPort) (
+          List(
+            linesClassMember(
+              Line.blank :: lines(
+                s"""|//! Test time stamp
+                    |Fw::Time m_testTime;
+                    |"""
+              ),
+              CppDoc.Lines.Hpp
+            )
           )
-        )
-        else Nil,
+        ),
         CppDoc.Lines.Hpp
       ),
     )
