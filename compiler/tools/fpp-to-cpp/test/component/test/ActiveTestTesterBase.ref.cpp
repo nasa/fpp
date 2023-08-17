@@ -3476,6 +3476,16 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestTesterBase ::
+    from_cmdRegOut_static(
+        Fw::PassiveComponentBase* const callComp,
+        NATIVE_INT_TYPE portNum,
+        FwOpcodeType opCode
+    )
+  {
+
+  }
+
+  void ActiveTestTesterBase ::
     from_cmdResponseOut_static(
         Fw::PassiveComponentBase* const callComp,
         NATIVE_INT_TYPE portNum,

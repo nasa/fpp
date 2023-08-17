@@ -93,7 +93,7 @@ case class ComponentTesterBaseWriter(
       if hasEvents then getEventFunctions else Nil,
       if hasTelemetry then getTlmFunctions else Nil,
       if hasParameters then getPrmFunctions else Nil,
-      if hasEvents || hasTelemetry || hasTimeGetPort then getTimeFunctions else Nil,
+      if hasTimeGetPort then getTimeFunctions else Nil,
       historyWriter.getFunctionMembers,
 
       // Private function members
@@ -106,8 +106,8 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getInitFunction: List[CppDoc.Class.Member] = {
-    def writePortConnections(port: PortInstance) =
-      ComponentCppWriter.writePortConnections(
+    def writePortConnections(port: PortInstance) = {
+      lazy val code = ComponentCppWriter.writePortConnections(
         port,
         portNumGetterName,
         portVariableName,
@@ -115,6 +115,8 @@ case class ComponentTesterBaseWriter(
         portName,
         true
       )
+      if portInstanceIsActive(port) then code else Nil
+    }
 
     val body = intersperseBlankLines(
       List(
@@ -1058,32 +1060,13 @@ case class ComponentTesterBaseWriter(
       )
     )
 
-    def portIsActive(p: PortInstance): Boolean =
-      p match {
-        case PortInstance.Special(aNode, _, _, _, _) =>
-          import Ast.SpecPortInstance._
-          val spec @ Special(_, kind, _, _, _) = aNode._2.data
-          kind match {
-            case CommandRecv => hasCommands
-            case CommandReg => hasCommands
-            case CommandResp => hasCommands
-            case Event => hasEvents
-            case ParamGet => hasParameters
-            case ParamSet => hasParameters
-            case Telemetry => hasTelemetry
-            case TextEvent => hasEvents
-            case TimeGet => true
-          }
-        case _ => true
-      }
-
     def getPortFunction(p: PortInstance) = {
       val params = getPortFunctionParams(p)
       lazy val paramNames = params.map(_.name).toVector
       lazy val paramNamesString = paramNames.mkString(", ")
       def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
         paramNames(i) else s"missingParam$i"
-      val body = p match {
+      lazy val body = p match {
         case i: PortInstance.General => List.concat(
           lines(
             s"""|FW_ASSERT(callComp);
@@ -1132,30 +1115,25 @@ case class ComponentTesterBaseWriter(
           }
         case _: PortInstance.Internal => Nil
       }
-      val filteredBody = if portIsActive(p) then body else Nil
-      filteredBody match {
-        case Nil => Nil
-        case _ => List(
-          functionClassMember(
-            Some(s"Static function for port ${portName(p)}"),
-            fromPortCallbackName(p.getUnqualifiedName),
-            List.concat(
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("Fw::PassiveComponentBase* const"),
-                  "callComp",
-                  Some("The component instance")
-                ),
-                portNumParam
-              ),
-              params
+      lazy val member = functionClassMember(
+        Some(s"Static function for port ${portName(p)}"),
+        fromPortCallbackName(p.getUnqualifiedName),
+        List.concat(
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::PassiveComponentBase* const"),
+              "callComp",
+              Some("The component instance")
             ),
-            getPortReturnTypeAsCppDocType(p),
-            body,
-            CppDoc.Function.Static
-          )
-        )
-      }
+            portNumParam
+          ),
+          params
+        ),
+        getPortReturnTypeAsCppDocType(p),
+        body,
+        CppDoc.Function.Static
+      )
+      if portInstanceIsActive(p) then List(member) else Nil
     }
 
     addAccessTagAndComment(

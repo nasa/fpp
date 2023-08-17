@@ -71,112 +71,6 @@ void PassiveCommandsTesterBase ::
 #endif
   }
 
-  // Connect input port eventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_eventOut());
-    port++
-  ) {
-    this->m_from_eventOut[port].init();
-    this->m_from_eventOut[port].addCallComp(
-      this,
-      from_eventOut_static
-    );
-    this->m_from_eventOut[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_from_eventOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_from_eventOut[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port prmGetOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmGetOut());
-    port++
-  ) {
-    this->m_from_prmGetOut[port].init();
-    this->m_from_prmGetOut[port].addCallComp(
-      this,
-      from_prmGetOut_static
-    );
-    this->m_from_prmGetOut[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_from_prmGetOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_from_prmGetOut[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port prmSetOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmSetOut());
-    port++
-  ) {
-    this->m_from_prmSetOut[port].init();
-    this->m_from_prmSetOut[port].addCallComp(
-      this,
-      from_prmSetOut_static
-    );
-    this->m_from_prmSetOut[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_from_prmSetOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_from_prmSetOut[port].setObjName(portName);
-#endif
-  }
-
-#if FW_ENABLE_TEXT_LOGGING == 1
-  // Connect input port textEventOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_textEventOut());
-    port++
-  ) {
-    this->m_from_textEventOut[port].init();
-    this->m_from_textEventOut[port].addCallComp(
-      this,
-      from_textEventOut_static
-    );
-    this->m_from_textEventOut[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_from_textEventOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_from_textEventOut[port].setObjName(portName);
-#endif
-  }
-#endif
-
   // Connect input port timeGetOut
   for (
     PlatformIntType port = 0;
@@ -200,32 +94,6 @@ void PassiveCommandsTesterBase ::
       port
     );
     this->m_from_timeGetOut[port].setObjName(portName);
-#endif
-  }
-
-  // Connect input port tlmOut
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_tlmOut());
-    port++
-  ) {
-    this->m_from_tlmOut[port].init();
-    this->m_from_tlmOut[port].addCallComp(
-      this,
-      from_tlmOut_static
-    );
-    this->m_from_tlmOut[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_from_tlmOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_from_tlmOut[port].setObjName(portName);
 #endif
   }
 
@@ -1747,6 +1615,16 @@ void PassiveCommandsTesterBase ::
 // ----------------------------------------------------------------------
 // Static functions for output ports
 // ----------------------------------------------------------------------
+
+void PassiveCommandsTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
 
 void PassiveCommandsTesterBase ::
   from_cmdResponseOut_static(

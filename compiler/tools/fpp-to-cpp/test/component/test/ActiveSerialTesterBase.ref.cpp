@@ -3942,6 +3942,16 @@ void ActiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void ActiveSerialTesterBase ::
+  from_cmdRegOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwOpcodeType opCode
+  )
+{
+
+}
+
+void ActiveSerialTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,

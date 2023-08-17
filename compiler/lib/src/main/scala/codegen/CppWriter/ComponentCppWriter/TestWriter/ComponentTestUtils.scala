@@ -281,4 +281,24 @@ abstract class ComponentTestUtils(
   def paramSaveName(name: String) =
     s"paramSave_$name"
 
+  /** Queries whether a port instance is active for testing */
+  def portInstanceIsActive(p: PortInstance): Boolean =
+    p match {
+      case PortInstance.Special(aNode, _, _, _, _) =>
+        import Ast.SpecPortInstance._
+        val spec @ Special(_, kind, _, _, _) = aNode._2.data
+        kind match {
+          case CommandRecv => hasCommands
+          case CommandReg => hasCommands
+          case CommandResp => hasCommands
+          case Event => hasEvents
+          case ParamGet => hasParameters
+          case ParamSet => hasParameters
+          case Telemetry => hasTelemetry
+          case TextEvent => hasEvents
+          case TimeGet => true
+        }
+      case _ => true
+    }
+
 }
