@@ -115,27 +115,31 @@ case class ComponentGTestBaseWriter(
         typedOutputPorts.flatMap(p => {
           val params = portParamTypeMap(p.getUnqualifiedName)
           val paramList = params.map((name, _) => s", _$name").mkString("")
+          val portName = p.getUnqualifiedName
+          val historyName = fromPortHistoryName(portName)
+          val sizeAssertFnName = fromPortSizeAssertionFuncName(portName)
+          val entryName = fromPortEntryName(portName)
 
           List.concat(
             Line.blank :: lines(
-              s"""#define ASSERT_from_${p.getUnqualifiedName}_SIZE(size) \\
-                 |  this->${fromPortSizeAssertionFuncName(p.getUnqualifiedName)}(__FILE__, __LINE__, size)
+              s"""#define ASSERT_from_${portName}_SIZE(size) \\
+                 |  this->$sizeAssertFnName(__FILE__, __LINE__, size)
                  |"""
             ),
             params match {
               case Nil => Nil
               case _ => Line.blank :: lines(
-                s"""#define ASSERT_from_${p.getUnqualifiedName}(index$paramList) \\
+                s"""#define ASSERT_from_$portName(index$paramList) \\
                    |  { \\
-                   |    ASSERT_GT(this->${fromPortHistoryName(p.getUnqualifiedName)}->size(), static_cast<U32>(index)) \\
+                   |    ASSERT_GT(this->$historyName->size(), static_cast<U32>(index)) \\
                    |      << "\\n" \\
                    |      << __FILE__ << ":" << __LINE__ << "\\n" \\
-                   |      << "  Value:    Index into history of ${p.getUnqualifiedName}\\n" \\
+                   |      << "  Value:    Index into history of $portName\\n" \\
                    |      << "  Expected: Less than size of history (" \\
-                   |      << this->${fromPortHistoryName(p.getUnqualifiedName)}->size() << ")\\n" \\
+                   |      << this->$historyName->size() << ")\\n" \\
                    |      << "  Actual:   " << index << "\\n"; \\
-                   |      const ${fromPortEntryName(p.getUnqualifiedName)}& _e = \\
-                   |        this->${fromPortHistoryName(p.getUnqualifiedName)}->at(index); \\
+                   |      const $entryName& _e = \\
+                   |        this->$historyName->at(index); \\
                    |"""
               ) ++ params.flatMap((name, _) =>
                 lines(
@@ -144,7 +148,7 @@ case class ComponentGTestBaseWriter(
                      |      << __FILE__ << ":" << __LINE__ << "\\n" \\
                      |      << "  Value:    Value of argument $name at index " \\
                      |      << index \\
-                     |      << " in history of ${p.getUnqualifiedName}\\n" \\
+                     |      << " in history of $portName\\n" \\
                      |      << "  Expected: " << _$name << "\\n" \\
                      |      << "  Actual:   " << _e.$name << "\\n"; \\
                      |"""
