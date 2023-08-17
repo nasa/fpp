@@ -387,7 +387,7 @@ case class ComponentGTestBaseWriter(
           s"""ASSERT_EQ(size, this->$eventsSize)
              |  << "\\n"
              |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-             |  << "  Value:    Size of history for event ${eventName}\\n"
+             |  << "  Value:    Size of history for event $eventName\\n"
              |  << "  Expected: " << size << "\\n"
              |  << "  Actual:   " << this->$eventsSize << "\\n";
              |"""
@@ -410,33 +410,38 @@ case class ComponentGTestBaseWriter(
                 )
               }),
             CppDoc.Type("void"),
-            List.concat(
-              lines(
-                s"""ASSERT_GT(this->$eventsSize, __index)
-                   |  << "\\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                   |  << "  Value:    Index into history of event $eventName\\n"
-                   |  << "  Expected: Less than size of history ("
-                   |  << this->$eventsSize << ")\\n"
-                   |  << "  Actual:   " << __index << "\\n";
-                   |const ${eventEntryName(eventName)}& _e =
-                   |  this->${eventHistoryName(eventName)}->at(__index);
-                   |"""
-              ),
-              eventParamTypeMap(id).flatMap((name, tn) =>
+            {
+              val entryName = eventEntryName(eventName)
+              val historyName = eventHistoryName(eventName)
+              List.concat(
                 lines(
-                  s"""ASSERT_EQ($name, ${writeEventValue(s"_e.$name", tn)})
+                  s"""ASSERT_GT(this->$eventsSize, __index)
                      |  << "\\n"
                      |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                     |  << "  Value:    Value of argument $name at index "
-                     |  << __index
-                     |  << " in history of event $eventName\\n"
-                     |  << "  Expected: " << $name << "\\n"
-                     |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
+                     |  << "  Value:    Index into history of event $eventName\\n"
+                     |  << "  Expected: Less than size of history ("
+                     |  << this->$eventsSize << ")\\n"
+                     |  << "  Actual:   " << __index << "\\n";
+                     |const $entryName& _e =
+                     |  this->$historyName->at(__index);
                      |"""
-                )
+                ),
+                eventParamTypeMap(id).flatMap((name, tn) => {
+                  val eventValue = writeEventValue(s"_e.$name", tn)
+                  lines(
+                    s"""ASSERT_EQ($name, $eventValue)
+                       |  << "\\n"
+                       |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+                       |  << "  Value:    Value of argument $name at index "
+                       |  << __index
+                       |  << " in history of event $eventName\\n"
+                       |  << "  Expected: " << $name << "\\n"
+                       |  << "  Actual:   " << $eventValue << "\\n";
+                       |"""
+                  )
+                })
               )
-            ),
+            },
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )
