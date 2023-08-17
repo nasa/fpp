@@ -792,24 +792,27 @@ case class ComponentTesterBaseWriter(
     val switchStatement = wrapInSwitch(
       "id - idBase",
       intersperseBlankLines(
-        sortedChannels.map((_, channel) =>
+        sortedChannels.map((_, channel) => {
+          val channelName = channel.getName
+          val constantName = channelIdConstantName(channelName)
+          val handlerName = tlmHandlerName(channelName)
           wrapInScope(
-            s"case $className::${channelIdConstantName(channel.getName)}: {",
+            s"case $className::$constantName: {",
             lines(
               s"""|${getChannelType(channel.channelType)} arg;
                   |const Fw::SerializeStatus _status = val.deserialize(arg);
                   |
                   |if (_status != Fw::FW_SERIALIZE_OK) {
-                  |  printf("Error deserializing ${channel.getName}: %d\\n", _status);
+                  |  printf("Error deserializing $channelName: %d\\n", _status);
                   |  return;
                   |}
                   |
-                  |this->${tlmHandlerName(channel.getName)}(timeTag, arg);
+                  |this->$handlerName(timeTag, arg);
                   |break;
                   |"""
             ),
             "}"
-          )
+          )}
         ) ++ List(
           wrapInScope(
             "default: {",
@@ -859,12 +862,13 @@ case class ComponentTesterBaseWriter(
         List.concat(
           guardedList (hasTelemetry) (List(dispatchTlm)),
           sortedChannels.map((_, channel) => {
+            val channelName = channel.getName
             val channelType = getChannelType(channel.channelType)
-            val entryName = tlmEntryName(channel.getName)
-            val historyName = tlmHistoryName(channel.getName)
+            val entryName = tlmEntryName(channelName)
+            val historyName = tlmHistoryName(channelName)
             functionClassMember(
-              Some(s"Handle channel ${channel.getName}"),
-              tlmHandlerName(channel.getName),
+              Some(s"Handle channel $channelName"),
+              tlmHandlerName(channelName),
               List(
                 timeTagParam,
                 CppDoc.Function.Param(
@@ -943,28 +947,33 @@ case class ComponentTesterBaseWriter(
               cmdSeqParam
             ),
             CppDoc.Type("void"),
-            lines(
-              s"""|// Build command for parameter set
-                  |Fw::CmdArgBuffer args;
-                  |FW_ASSERT(
-                  |  args.serialize(this->${paramVariableName(prm.getName)}) == Fw::FW_SERIALIZE_OK
-                  |);
-                  |
-                  |const U32 idBase = this->getIdBase();
-                  |FwOpcodeType _prmOpcode =  $className::${paramCommandConstantName(prm.getName, Command.Param.Set)} + idBase;
-                  |
-                  |if (not this->${portVariableName(cmdRecvPort.get)}[0].isConnected()) {
-                  |  printf("Test Command Output port not connected!\\n");
-                  |}
-                  |else {
-                  |  this->${portVariableName(cmdRecvPort.get)}[0].invoke(
-                  |    _prmOpcode,
-                  |    cmdSeq,
-                  |    args
-                  |  );
-                  |}
-                  |"""
+            {
+              val paramVar = paramVariableName(prm.getName)
+              val constantName = paramCommandConstantName(prm.getName, Command.Param.Set)
+              val portVar = portVariableName(cmdRecvPort.get)
+              lines(
+                s"""|// Build command for parameter set
+                    |Fw::CmdArgBuffer args;
+                    |FW_ASSERT(
+                    |  args.serialize(this->$paramVar) == Fw::FW_SERIALIZE_OK
+                    |);
+                    |
+                    |const U32 idBase = this->getIdBase();
+                    |FwOpcodeType _prmOpcode =  $className::$constantName + idBase;
+                    |
+                    |if (not this->$portVar[0].isConnected()) {
+                    |  printf("Test Command Output port not connected!\\n");
+                    |}
+                    |else {
+                    |  this->$portVar[0].invoke(
+                    |    _prmOpcode,
+                    |    cmdSeq,
+                    |    args
+                    |  );
+                    |}
+                    |"""
             )
+            }
           ),
           functionClassMember(
             Some(s"Save parameter ${prm.getName}"),
