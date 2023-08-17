@@ -389,8 +389,7 @@ case class ComponentCppWriter (
         portNumGetterName,
         portVariableName,
         inputPortCallbackName,
-        (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port",
-        false
+        (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
       )
 
     val body = intersperseBlankLines(
@@ -916,19 +915,35 @@ case class ComponentCppWriter (
 
 object ComponentCppWriter extends CppWriterUtils {
 
+  sealed trait ConnectionSense
+  object ConnectionSense {
+    case object Forward extends ConnectionSense
+    case object Reversed extends ConnectionSense
+  }
+
+  def reverseDirection(direction: PortInstance.Direction) = {
+    import PortInstance.Direction._
+    direction match {
+      case Input => Output
+      case Output => Input
+    }
+  }
+
   def writePortConnections(
     port: PortInstance,
     numGetterName: PortInstance => String,
     variableName: PortInstance => String,
     callbackName: String => String,
     printName: PortInstance => String,
-    reverseDirection: Boolean,
+    connectionSense: ConnectionSense = ConnectionSense.Forward
   ): List[Line] = {
-    val d = if reverseDirection then port.getDirection.get match {
-      case PortInstance.Direction.Input => PortInstance.Direction.Output
-      case PortInstance.Direction.Output => PortInstance.Direction.Input
+    val d = {
+      val trueDirection = port.getDirection.get
+      connectionSense match {
+        case ConnectionSense.Forward => trueDirection
+        case ConnectionSense.Reversed => reverseDirection(trueDirection)
+      }
     }
-    else port.getDirection.get
 
     val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
       wrapInForLoopStaggered(

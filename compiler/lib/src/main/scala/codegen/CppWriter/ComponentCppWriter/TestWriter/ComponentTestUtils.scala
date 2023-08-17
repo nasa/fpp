@@ -22,8 +22,10 @@ abstract class ComponentTestUtils(
 
   val idConstantName: String = "TEST_INSTANCE_ID"
 
+  val hasTypedOutputPorts = typedOutputPorts.nonEmpty
+
   val hasHistories: Boolean =
-    typedOutputPorts.nonEmpty ||
+    hasTypedOutputPorts ||
     hasCommands ||
     hasParameters ||
     hasEvents ||
@@ -278,5 +280,28 @@ abstract class ComponentTestUtils(
   /** Get the name for a parameter save function */
   def paramSaveName(name: String) =
     s"paramSave_$name"
+
+  /** Queries whether a port instance is active for testing */
+  def portInstanceIsActive(p: PortInstance): Boolean =
+    p match {
+      case PortInstance.Special(aNode, _, _, _, _) =>
+        import Ast.SpecPortInstance._
+        val spec @ Special(_, kind, _, _, _) = aNode._2.data
+        kind match {
+          case CommandRecv => hasCommands
+          case CommandReg => hasCommands
+          case CommandResp => hasCommands
+          case Event => hasEvents
+          case ParamGet => hasParameters
+          case ParamSet => hasParameters
+          case ProductRecv => component.hasDataProducts
+          case ProductRequest => component.hasDataProducts
+          case ProductSend => component.hasDataProducts
+          case Telemetry => hasTelemetry
+          case TextEvent => hasEvents
+          case TimeGet => true
+        }
+      case _ => true
+    }
 
 }

@@ -10,7 +10,9 @@ case class ComponentOutputPorts(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def generateTypedConnectors(
+  /** Generates connectors for a list of ports.
+   *  Ports may be typed or serial. */
+  def generateConnectors(
     ports: List[PortInstance],
     comment: String,
     connectorName: String => String,
@@ -59,6 +61,7 @@ case class ComponentOutputPorts(
     )
   }
 
+  /** Get connectors for a list of typed ports */
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
     val comment =
@@ -66,7 +69,7 @@ case class ComponentOutputPorts(
         s"Connect input ports to $typeStr output ports"
       else
         s"Connect $typeStr input ports to $typeStr output ports"
-    generateTypedConnectors(
+    generateConnectors(
       ports,
       comment,
       outputPortConnectorName,
@@ -75,6 +78,7 @@ case class ComponentOutputPorts(
     )
   }
 
+  /** Get connectors for a list of serial (untyped) ports */
   def getSerialConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
 

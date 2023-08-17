@@ -225,6 +225,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasChannels: Boolean = component.tlmChannelMap.nonEmpty
 
+  val hasTelemetry: Boolean = component.tlmChannelMap.nonEmpty
+
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
   /** Parameters for the init function */
@@ -672,6 +674,16 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a parameter id constant */
   def paramIdConstantName(name: String) =
     s"PARAMID_${name.toUpperCase}"
+
+  /** Guards a value with a Boolean condition */
+  def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
+    if cond then value else default
+
+  /** Guards a list with a Boolean condition */
+  def guardedList[T] = guardedValue (Nil: List[T]) _
+
+  /** Guards an option type with a Boolean condition */
+  def guardedOption[T] = guardedValue (None: Option[T]) _
 
   private def getPortTypeBaseName(
     p: PortInstance,
