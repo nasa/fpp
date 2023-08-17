@@ -279,7 +279,7 @@ case class ComponentGTestBaseWriter(
       "protected",
       "Commands",
       {
-        lazy val cmdResponseHistorySize =
+        lazy val historySize =
           functionClassMember(
             Some("Assert size of command response history"),
             "assertCmdResponse_size",
@@ -297,8 +297,7 @@ case class ComponentGTestBaseWriter(
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )
-        if hasCommands then List(
-          cmdResponseHistorySize,
+        lazy val historyIndex =
           functionClassMember(
             Some("Assert the command response history at index"),
             "assertCmdResponse",
@@ -350,8 +349,7 @@ case class ComponentGTestBaseWriter(
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )
-        )
-        else Nil
+        guardedList (hasCommands) (List(historySize, historyIndex))
       }
     )
   }
