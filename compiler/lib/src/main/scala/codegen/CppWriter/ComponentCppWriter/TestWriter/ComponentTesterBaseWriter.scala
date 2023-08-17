@@ -275,7 +275,7 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getPortConnectors: List[CppDoc.Class.Member] = {
-    ComponentOutputPorts(s, aNode).generateTypedConnectors(
+    ComponentOutputPorts(s, aNode).generateConnectors(
       inputPorts,
       "Connectors for to ports",
       toPortConnectorName,
