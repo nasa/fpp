@@ -218,16 +218,19 @@ case class ComponentGTestBaseWriter(
             |  this->assertTlm_size(__FILE__, __LINE__, size)
             |"""
         ),
-        sortedChannels.flatMap((_, channel) =>
+        sortedChannels.flatMap((_, channel) => {
+          val channelName = channel.getName
+          val sizeAssertFunc = tlmSizeAssertionFuncName(channelName)
+          val assertFunc = tlmAssertionFuncName(channelName)
           Line.blank :: lines(
-            s"""#define ASSERT_TLM_${channel.getName}_SIZE(size) \\
-               |  this->${tlmSizeAssertionFuncName(channel.getName)}(__FILE__, __LINE__, size)
+            s"""#define ASSERT_TLM_${channelName}_SIZE(size) \\
+               |  this->$sizeAssertFunc(__FILE__, __LINE__, size)
                |
-               |#define ASSERT_TLM_${channel.getName}(index, value) \\
-               |  this->${tlmAssertionFuncName(channel.getName)}(__FILE__, __LINE__, index, value)
+               |#define ASSERT_TLM_$channelName(index, value) \\
+               |  this->$assertFunc(__FILE__, __LINE__, index, value)
                |"""
           )
-        )
+        })
       )
     )
 
