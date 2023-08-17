@@ -733,39 +733,41 @@ case class ComponentTesterBaseWriter(
             )
           )
         )
-      List.concat(
-        guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
-        sortedEvents.map((id, event) =>
-          functionClassMember(
-            Some(s"Handle event ${event.getName}"),
-            eventHandlerName(event),
-            formalParamsCppWriter.write(
-              event.aNode._2.data.params,
-              Nil,
-              Some("Fw::LogStringArg"),
-              FormalParamsCppWriter.Value
-            ),
-            CppDoc.Type("void"),
-            List.concat(
-              eventParamTypeMap(id) match {
-                case Nil => lines(
-                  s"this->${eventSizeName(event.getName)}++;"
-                )
-                case params => List.concat(
-                  wrapInScope(
-                    s"${eventEntryName(event.getName)} _e = {",
-                    lines(params.map(_._1).mkString(",\n")),
-                    "};"
-                  ),
-                  lines(s"${eventHistoryName(event.getName)}->push_back(_e);")
-                )
-              },
-              lines("this->eventsSize++;")
-            ),
-            CppDoc.Function.Virtual
-          )
+        List.concat(
+          guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
+          sortedEvents.map((id, event) => {
+            val name= event.getName
+            val sizeName = eventSizeName(name)
+            val entryName = eventEntryName(name)
+            val historyName = eventHistoryName(name)
+            functionClassMember(
+              Some(s"Handle event $name"),
+              eventHandlerName(event),
+              formalParamsCppWriter.write(
+                event.aNode._2.data.params,
+                Nil,
+                Some("Fw::LogStringArg"),
+                FormalParamsCppWriter.Value
+              ),
+              CppDoc.Type("void"),
+              List.concat(
+                eventParamTypeMap(id) match {
+                  case Nil => lines(s"this->$sizeName++;")
+                  case params => List.concat(
+                    wrapInScope(
+                      s"$entryName _e = {",
+                      lines(params.map(_._1).mkString(",\n")),
+                      "};"
+                    ),
+                    lines(s"$historyName->push_back(_e);")
+                  )
+                },
+                lines("this->eventsSize++;")
+              ),
+              CppDoc.Function.Virtual
+            )
+          })
         )
-      )
       }
     )
   }
@@ -809,79 +811,81 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions for testing telemetry",
-      List.concat(
-        if hasTelemetry then List(
-          functionClassMember(
-            Some("Dispatch telemetry"),
-            "dispatchTlm",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("FwChanIdType"),
-                "id",
-                Some("The channel id")
-              ),
-              timeTagParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::TlmBuffer&"),
-                "val",
-                Some("The channel value")
-              )
+      {
+        lazy val dispatchTlm = functionClassMember(
+          Some("Dispatch telemetry"),
+          "dispatchTlm",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwChanIdType"),
+              "id",
+              Some("The channel id")
             ),
-            CppDoc.Type("void"),
-            List.concat(
-              lines(
-                """|val.resetDeser();
-                   |
-                   |const U32 idBase = this->getIdBase();
-                   |FW_ASSERT(id >= idBase, id, idBase);
-                   |"""
-              ),
-              Line.blank :: switchStatement
+            timeTagParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::TlmBuffer&"),
+              "val",
+              Some("The channel value")
             )
-          )
-        )
-        else Nil,
-        sortedChannels.map((_, channel) =>
-          functionClassMember(
-            Some(s"Handle channel ${channel.getName}"),
-            tlmHandlerName(channel.getName),
-            List(
-              timeTagParam,
-              CppDoc.Function.Param(
-                CppDoc.Type(s"const ${getChannelType(channel.channelType)}&"),
-                "val",
-                Some("The channel value")
-              )
-            ),
-            CppDoc.Type("void"),
+          ),
+          CppDoc.Type("void"),
+          List.concat(
             lines(
-              s"""|${tlmEntryName(channel.getName)} e = { timeTag, val };
-                  |this->${tlmHistoryName(channel.getName)}->push_back(e);
-                  |this->tlmSize++;
-                  |"""
-            )
+              """|val.resetDeser();
+                 |
+                 |const U32 idBase = this->getIdBase();
+                 |FW_ASSERT(id >= idBase, id, idBase);
+                 |"""
+            ),
+            Line.blank :: switchStatement
           )
         )
-      )
+        List.concat(
+          guardedList (hasTelemetry) (List(dispatchTlm)),
+          sortedChannels.map((_, channel) => {
+            val channelType = getChannelType(channel.channelType)
+            val entryName = tlmEntryName(channel.getName)
+            val historyName = tlmHistoryName(channel.getName)
+            functionClassMember(
+              Some(s"Handle channel ${channel.getName}"),
+              tlmHandlerName(channel.getName),
+              List(
+                timeTagParam,
+                CppDoc.Function.Param(
+                  CppDoc.Type(s"const $channelType&"),
+                  "val",
+                  Some("The channel value")
+                )
+              ),
+              CppDoc.Type("void"),
+              lines(
+                s"""|$entryName e = { timeTag, val };
+                    |this->$historyName->push_back(e);
+                    |this->tlmSize++;
+                    |"""
+              )
+            )
+          })
+        )
+      }
     )
   }
 
-  private def getTimeFunctions: List[CppDoc.Class.Member] = {
+  private def getTimeFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
       "Functions to test time",
-      if hasTimeGetPort then List(
-        functionClassMember(
+      {
+        lazy val setTestTime = functionClassMember(
           Some("Set the test time for events and telemetry"),
           "setTestTime",
           List(timeTagParam),
           CppDoc.Type("void"),
           lines("this->m_testTime = timeTag;")
         )
-      )
-      else Nil
+        guardedList (hasTimeGetPort) (List(setTestTime))
+      }
     )
-  }
 
   private def getPrmFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
@@ -988,8 +992,7 @@ case class ComponentTesterBaseWriter(
     def paramGetBody(id: String, value: String) = intersperseBlankLines(
       List(
         lines(testerBaseDecl),
-        if hasParameters then lines("Fw::SerializeStatus _status;")
-        else Nil,
+        if hasParameters then lines("Fw::SerializeStatus _status;") else Nil,
         lines(
           s"""|Fw::ParamValid _ret = Fw::ParamValid::VALID;
               |$value.resetSer();
