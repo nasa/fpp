@@ -581,29 +581,32 @@ case class ComponentTesterBaseWriter(
                    |// Verify they match expected.
                    |"""
               ),
-              event.aNode._2.data.severity match {
-                case Ast.SpecEvent.Fatal => lines(
-                  s"""|FW_ASSERT(_numArgs == ${params.length} + 1, _numArgs, ${params.length} + 1);
-                      |
-                      |// For FATAL, there is a stack size of 4 and a dummy entry
-                      |U8 stackArgLen;
-                      |_status = args.deserialize(stackArgLen);
-                      |FW_ASSERT(
-                      |    _status == Fw::FW_SERIALIZE_OK,
-                      |    static_cast<FwAssertArgType>(_status)
-                      |);
-                      |FW_ASSERT(stackArgLen == 4, stackArgLen);
-                      |
-                      |U32 dummyStackArg;
-                      |_status = args.deserialize(dummyStackArg);
-                      |FW_ASSERT(
-                      |    _status == Fw::FW_SERIALIZE_OK,
-                      |    static_cast<FwAssertArgType>(_status)
-                      |);
-                      |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
-                      |"""
-                )
-                case _ => lines(s"FW_ASSERT(_numArgs == ${params.length}, _numArgs, ${params.length});")
+              {
+                val length = params.length
+                event.aNode._2.data.severity match {
+                  case Ast.SpecEvent.Fatal => lines(
+                    s"""|FW_ASSERT(_numArgs == $length + 1, _numArgs, $length + 1);
+                        |
+                        |// For FATAL, there is a stack size of 4 and a dummy entry
+                        |U8 stackArgLen;
+                        |_status = args.deserialize(stackArgLen);
+                        |FW_ASSERT(
+                        |    _status == Fw::FW_SERIALIZE_OK,
+                        |    static_cast<FwAssertArgType>(_status)
+                        |);
+                        |FW_ASSERT(stackArgLen == 4, stackArgLen);
+                        |
+                        |U32 dummyStackArg;
+                        |_status = args.deserialize(dummyStackArg);
+                        |FW_ASSERT(
+                        |    _status == Fw::FW_SERIALIZE_OK,
+                        |    static_cast<FwAssertArgType>(_status)
+                        |);
+                        |FW_ASSERT(dummyStackArg == 0, dummyStackArg);
+                        |"""
+                  )
+                  case _ => lines(s"FW_ASSERT(_numArgs == $length, _numArgs, $length);")
+                }
               },
               lines("#endif")
             )
@@ -648,7 +651,7 @@ case class ComponentTesterBaseWriter(
       )
     }
 
-    val switchStatement = Line.blank :: wrapInSwitch(
+    lazy val switchStatement = Line.blank :: wrapInSwitch(
       "(id - idBase)",
       intersperseBlankLines(
         sortedEvents.map((id, event) => writeSwitchCase(id, event)) ++ List(
@@ -666,44 +669,41 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions for testing events",
-      List.concat(
-        if eventPort.isDefined then List(
-          functionClassMember(
-            Some("Dispatch an event"),
-            "dispatchEvents",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("FwEventIdType"),
-                "id",
-                Some("The event ID")
-              ),
-              timeTagParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::LogSeverity"),
-                "severity",
-                Some("The severity")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::LogBuffer&"),
-                "args",
-                Some("The serialized arguments")
-              )
+      {
+        lazy val dispatchEvent = functionClassMember(
+          Some("Dispatch an event"),
+          "dispatchEvents",
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("FwEventIdType"),
+              "id",
+              Some("The event ID")
             ),
-            CppDoc.Type("void"),
-            List.concat(
-              lines(
-                """|args.resetDeser();
-                   |
-                   |const U32 idBase = this->getIdBase();
-                   |FW_ASSERT(id >= idBase, id, idBase);
-                   |"""
-              ),
-              switchStatement
+            timeTagParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("const Fw::LogSeverity"),
+              "severity",
+              Some("The severity")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::LogBuffer&"),
+              "args",
+              Some("The serialized arguments")
             )
+          ),
+          CppDoc.Type("void"),
+          List.concat(
+            lines(
+              """|args.resetDeser();
+                 |
+                 |const U32 idBase = this->getIdBase();
+                 |FW_ASSERT(id >= idBase, id, idBase);
+                 |"""
+            ),
+            switchStatement
           )
         )
-        else Nil,
-        if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
+        lazy val handleTextEvent = wrapClassMemberInTextLogGuard(
           functionClassMember(
             Some("Handle a text event"),
             "textLogIn",
@@ -733,7 +733,8 @@ case class ComponentTesterBaseWriter(
             )
           )
         )
-        else Nil,
+      List.concat(
+        guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
         sortedEvents.map((id, event) =>
           functionClassMember(
             Some(s"Handle event ${event.getName}"),
@@ -765,6 +766,7 @@ case class ComponentTesterBaseWriter(
           )
         )
       )
+      }
     )
   }
 
@@ -808,7 +810,7 @@ case class ComponentTesterBaseWriter(
       "protected",
       "Functions for testing telemetry",
       List.concat(
-        if tlmPort.isDefined then List(
+        if hasTelemetry then List(
           functionClassMember(
             Some("Dispatch telemetry"),
             "dispatchTlm",
