@@ -430,29 +430,29 @@ case class ComponentGTestBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Events",
-      List.concat(
-        if hasEvents then List(
-          functionClassMember(
-            Some("Assert the size of event history"),
-            "assertEvents_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->eventsSize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all event histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->eventsSize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+      {
+        lazy val historySize = functionClassMember(
+          Some("Assert the size of event history"),
+          "assertEvents_size",
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            raw"""ASSERT_EQ(size, this->eventsSize)
+                 |  << "\n"
+                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                 |  << "  Value:    Total size of all event histories\n"
+                 |  << "  Expected: " << size << "\n"
+                 |  << "  Actual:   " << this->eventsSize << "\n";
+                 |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
-        else Nil,
-        sortedEvents.flatMap((id, event) => writeAssertFuncs(id, event))
-      )
+        List.concat(
+          guardedList (hasEvents) (List(historySize)),
+          sortedEvents.flatMap((id, event) => writeAssertFuncs(id, event))
+        )
+      }
     )
   }
 
