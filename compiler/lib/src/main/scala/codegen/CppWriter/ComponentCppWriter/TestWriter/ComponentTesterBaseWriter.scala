@@ -493,58 +493,55 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions for testing commands",
-      List.concat(
-        if cmdRespPort.isDefined then List(
-          functionClassMember(
-            Some("Handle a command response"),
-            "cmdResponseIn",
-            List(
-              opcodeParam,
-              cmdSeqParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdResponse"),
-                "response",
-                Some("The command response")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|CmdResponse e = { opCode, cmdSeq, response };
-                 |this->cmdResponseHistory->push_back(e);
-                 |"""
-            ),
-            CppDoc.Function.Virtual
-          )
-        )
-        else Nil,
-        if hasCommands then List(
-          functionClassMember(
-            Some("Send command buffers directly (used for intentional command encoding errors)"),
-            "sendRawCmd",
-            List(
-              opcodeParam,
-              cmdSeqParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::CmdArgBuffer&"),
-                "buf",
-                Some("The command argument buffer")
-              )
-            ),
-            CppDoc.Type("void"),
-            List.concat(
-              lines(
-                s"""|const U32 idBase = this->getIdBase();
-                    |FwOpcodeType _opcode = opCode + idBase;
-                    |
-                    |"""
-              ),
-              cmdPortInvocation
+      {
+        lazy val handleCmdResponse = functionClassMember(
+          Some("Handle a command response"),
+          "cmdResponseIn",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdResponse"),
+              "response",
+              Some("The command response")
             )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            """|CmdResponse e = { opCode, cmdSeq, response };
+               |this->cmdResponseHistory->push_back(e);
+               |"""
+          ),
+          CppDoc.Function.Virtual
+        )
+        lazy val sendCmdBuffers = functionClassMember(
+          Some("Send command buffers directly (used for intentional command encoding errors)"),
+          "sendRawCmd",
+          List(
+            opcodeParam,
+            cmdSeqParam,
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::CmdArgBuffer&"),
+              "buf",
+              Some("The command argument buffer")
+            )
+          ),
+          CppDoc.Type("void"),
+          List.concat(
+            lines(
+              s"""|const U32 idBase = this->getIdBase();
+                  |FwOpcodeType _opcode = opCode + idBase;
+                  |
+                  |"""
+            ),
+            cmdPortInvocation
           )
         )
-        else Nil,
-        nonParamCmds.map((opcode, cmd) => writeCmdSendFunc(opcode, cmd))
-      )
+        List.concat(
+          guardedList (hasCommands) (List(handleCmdResponse, sendCmdBuffers)),
+          nonParamCmds.map((opcode, cmd) => writeCmdSendFunc(opcode, cmd))
+        )
+      }
     )
   }
 
