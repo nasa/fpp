@@ -911,14 +911,18 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Functions to test parameters",
-      sortedParams.flatMap((_, prm) =>
+      sortedParams.flatMap((_, prm) => {
+        val paramName = prm.getName
+        val paramType = writeParamType(prm.paramType)
+        val paramVarName = paramVariableName(paramName)
+        val paramValidityFlag = paramValidityFlagName(paramName)
         List(
           functionClassMember(
-            Some(s"Set parameter ${prm.getName}"),
+            Some(s"Set parameter $paramName"),
             paramSetName(prm.getName),
             List(
               CppDoc.Function.Param(
-                CppDoc.Type(s"const ${writeParamType(prm.paramType)}&"),
+                CppDoc.Type(s"const $paramType&"),
                 "val",
                 Some("The parameter value")
               ),
@@ -930,13 +934,13 @@ case class ComponentTesterBaseWriter(
             ),
             CppDoc.Type("void"),
             lines(
-              s"""|this->${paramVariableName(prm.getName)} = val;
-                  |this->${paramValidityFlagName(prm.getName)} = valid;
+              s"""|this->$paramVarName = val;
+                  |this->$paramValidityFlag = valid;
                   |"""
             )
           ),
           functionClassMember(
-            Some(s"Send parameter ${prm.getName}"),
+            Some(s"Send parameter $paramName"),
             paramSendName(prm.getName),
             List(
               CppDoc.Function.Param(
@@ -972,7 +976,7 @@ case class ComponentTesterBaseWriter(
                     |  );
                     |}
                     |"""
-            )
+              )
             }
           ),
           functionClassMember(
@@ -1010,7 +1014,7 @@ case class ComponentTesterBaseWriter(
             }
           )
         )
-      )
+      })
     )
 
   private def getPortStaticFunctions: List[CppDoc.Class.Member] = {
@@ -1032,12 +1036,16 @@ case class ComponentTesterBaseWriter(
         wrapInSwitch(
           s"$id - idBase",
           intersperseBlankLines(
-            sortedParams.map((_, prm) =>
+            sortedParams.map((_, prm) => {
+              val prmName = prm.getName
+              val idConstantName = paramIdConstantName(prmName)
+              val varName = paramVariableName(prmName)
+              val validityFlagName = paramValidityFlagName(prmName)
               wrapInScope(
-                s"case $className::${paramIdConstantName(prm.getName)}: {",
+                s"case $className::$idConstantName: {",
                 lines(
-                  s"""|_status = $value.serialize(_testerBase->${paramVariableName(prm.getName)});
-                      |_ret = _testerBase->${paramValidityFlagName(prm.getName)};
+                  s"""|_status = $value.serialize(_testerBase->$varName);
+                      |_ret = _testerBase->$validityFlagName;
                       |FW_ASSERT(
                       |  _status == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_status)
@@ -1046,7 +1054,7 @@ case class ComponentTesterBaseWriter(
                       |"""
                 ),
                 "};"
-              )
+              )}
             ) ++ List(
               lines(
                 """|default:
@@ -1074,26 +1082,31 @@ case class ComponentTesterBaseWriter(
       Line.blank :: wrapInSwitch(
         s"$id - idBase",
         intersperseBlankLines(
-          sortedParams.map((_, prm) =>
+          sortedParams.map((_, prm) => {
+            val paramName = prm.getName
+            val idConstantName = paramIdConstantName(paramName)
+            val paramNameVal = s"${paramName}Val"
+            val paramVarName = paramVariableName(paramName)
+            val paramType = writeParamType(prm.paramType)
             wrapInScope(
-              s"case $className::${paramIdConstantName(prm.getName)}: {",
+              s"case $className::$idConstantName: {",
               lines(
-                s"""|${writeParamType(prm.paramType)} ${prm.getName}Val;
-                    |_status = $value.deserialize(${prm.getName}Val);
+                s"""|$paramType $paramNameVal;
+                    |_status = $value.deserialize($paramNameVal);
                     |FW_ASSERT(
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
                     |);
                     |FW_ASSERT(
-                    |  ${prm.getName}Val ==
-                    |  _testerBase->${paramVariableName(prm.getName)}
+                    |  $paramNameVal ==
+                    |  _testerBase->$paramVarName
                     |);
                     |break;
                     |"""
               ),
               "};"
             )
-          ) ++ List(
+          }) ++ List(
             lines(
               s"""|default:
                   |  FW_ASSERT($id);
@@ -1112,18 +1125,20 @@ case class ComponentTesterBaseWriter(
       def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
         paramNames(i) else s"missingParam$i"
       lazy val body = p match {
-        case i: PortInstance.General => List.concat(
-          lines(
-            s"""|FW_ASSERT(callComp);
-                |$testerBaseDecl
-                |"""
-          ),
-          writeFunctionCall(
-            addReturnKeyword(s"_testerBase->${fromPortHandlerBaseName(p.getUnqualifiedName)}", i),
-            List("portNum"),
-            getPortParams(i).map(_._1)
+        case i: PortInstance.General => 
+          val baseName = fromPortHandlerBaseName(p.getUnqualifiedName)
+          List.concat(
+            lines(
+              s"""|FW_ASSERT(callComp);
+                  |$testerBaseDecl
+                  |"""
+            ),
+            writeFunctionCall(
+              addReturnKeyword(s"_testerBase->$baseName", i),
+              List("portNum"),
+              getPortParams(i).map(_._1)
+            )
           )
-        )
         case PortInstance.Special(aNode, _, _, _, _) =>
           import Ast.SpecPortInstance._
           val spec @ Special(_, kind, _, _, _) = aNode._2.data
