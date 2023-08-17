@@ -12,6 +12,12 @@ case class ComponentTesterBaseWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
 
+  private val relativeFileName = s.getRelativePath(fileName).toString
+
+  private val componentFileName = ComputeCppFiles.FileNames.getComponent(name)
+
+  private val componentRelativeFileName = s.getRelativePath(componentFileName).toString
+
   private val historyWriter = ComponentHistory(s, aNode)
 
   def write: CppDoc = {
@@ -42,7 +48,7 @@ case class ComponentTesterBaseWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val userHeaders = List(
-      s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponent(name)).toString}.hpp",
+      s"$componentRelativeFileName.hpp",
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp"
@@ -57,7 +63,7 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeader = lines(CppWriter.headerString(s"${s.getRelativePath(fileName).toString}.hpp"))
+    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
     val systemHeaders = List(
       "cstdlib",
       "cstring"
@@ -323,14 +329,18 @@ case class ComponentTesterBaseWriter(
           case Some(_) => "return "
           case None => ""
         }
+        val handlerName = fromPortHandlerName(p.getUnqualifiedName)
         val handlerCall = writeFunctionCall(
-          s"${returnKeyword}this->${fromPortHandlerName(p.getUnqualifiedName)}",
+          s"${returnKeyword}this->$handlerName",
           List("portNum"),
           getPortParams(p).map(_._1)
         )
 
         functionClassMember(
-          Some(s"Handler base-class function for ${inputPortName(p.getUnqualifiedName)}"),
+          {
+            val portName = inputPortName(p.getUnqualifiedName)
+            Some(s"Handler base-class function for $portName")
+          },
           fromPortHandlerBaseName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
           getPortReturnTypeAsCppDocType(p),
@@ -359,16 +369,13 @@ case class ComponentTesterBaseWriter(
         typedInputPorts,
         serialInputPorts,
       ).map(p => {
-        val returnKeyword = getPortReturnType(p) match {
-          case Some(_) => "return "
-          case None => ""
-        }
+        val returnKeywordOpt = getPortReturnType(p).map(_ => "return ").getOrElse("")
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
           case PortInstance.Type.Serial => "invokeSerial"
         }
         val invokeCall = writeFunctionCall(
-          s"${returnKeyword}this->${portVariableName(p)}[portNum].$invokeFunction",
+          s"${returnKeywordOpt}this->${portVariableName(p)}[portNum].$invokeFunction",
           Nil,
           getPortParams(p).map(_._1)
         )
@@ -643,11 +650,15 @@ case class ComponentTesterBaseWriter(
                   |"""
             )
           }),
-          lines(
-            s"""|this->${eventHandlerName(event)}(${params.map(_._1).mkString(", ")});
-                |break;
-                |"""
-          )
+          {
+            val handlerName = eventHandlerName(event)
+            val paramString = params.map(_._1).mkString(", ")
+            lines(
+              s"""|this->$handlerName($paramString);
+                  |break;
+                  |"""
+            )
+          }
         ),
         "}"
       )
