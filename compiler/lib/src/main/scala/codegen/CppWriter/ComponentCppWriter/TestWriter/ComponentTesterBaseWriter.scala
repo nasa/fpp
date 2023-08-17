@@ -994,7 +994,7 @@ case class ComponentTesterBaseWriter(
     def paramGetBody(id: String, value: String) = intersperseBlankLines(
       List(
         lines(testerBaseDecl),
-        if hasParameters then lines("Fw::SerializeStatus _status;") else Nil,
+        guardedList (hasParameters) (lines("Fw::SerializeStatus _status;")),
         lines(
           s"""|Fw::ParamValid _ret = Fw::ParamValid::VALID;
               |$value.resetSer();
@@ -1037,7 +1037,7 @@ case class ComponentTesterBaseWriter(
 
     def paramSetBody(id: String, value: String) = List.concat(
       lines(s"$testerBaseDecl\n"),
-      if hasParameters then lines("Fw::SerializeStatus _status;") else Nil,
+      guardedList (hasParameters) (lines("Fw::SerializeStatus _status;")),
       lines(
         s"""|$value.resetSer();
             |
@@ -1152,7 +1152,7 @@ case class ComponentTesterBaseWriter(
         body,
         CppDoc.Function.Static
       )
-      if portInstanceIsActive(p) then List(member) else Nil
+      guardedList (portInstanceIsActive(p)) (List(member))
     }
 
     addAccessTagAndComment(
