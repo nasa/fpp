@@ -1264,7 +1264,7 @@ case class ComponentTesterBaseWriter(
           val validityFlagName = paramValidityFlagName(paramName)
           linesClassMember(
             Line.blank :: lines(
-              s"""|//! True if parameter ${prm.getName} was successfully received
+              s"""|//! True if parameter $paramName was successfully received
                   |Fw::ParamValid $validityFlagName;
                   |"""
             ),
