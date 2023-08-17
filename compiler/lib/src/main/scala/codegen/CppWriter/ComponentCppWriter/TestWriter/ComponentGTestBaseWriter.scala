@@ -278,77 +278,81 @@ case class ComponentGTestBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Commands",
-      if hasCommands then List(
-        functionClassMember(
-          Some("Assert size of command response history"),
-          "assertCmdResponse_size",
-          sizeAssertionFunctionParams,
-          CppDoc.Type("void"),
-          lines(
-            raw"""ASSERT_EQ(size, this->cmdResponseHistory->size())
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Size of command response history\n"
-                 |  << "  Expected: " << size << "\n"
-                 |  << "  Actual:   " << this->cmdResponseHistory->size() << "\n";
-                 |"""
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        ),
-        functionClassMember(
-          Some("Assert the command response history at index"),
-          "assertCmdResponse",
-          assertionFunctionParams ++ List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::CmdResponse"),
-              "response",
-              Some("The command response")
-            )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            raw"""ASSERT_LT(__index, this->cmdResponseHistory->size())
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Index into command response history\n"
-                 |  << "  Expected: Less than size of command response history ("
-                 |  << this->cmdResponseHistory->size() << ")\n"
-                 |  << "  Actual:   " << __index << "\n";
-                 |const CmdResponse& e = this->cmdResponseHistory->at(__index);
-                 |ASSERT_EQ(opCode, e.opCode)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Opcode at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << opCode << "\n"
-                 |  << "  Actual:   " << e.opCode << "\n";
-                 |ASSERT_EQ(cmdSeq, e.cmdSeq)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Command sequence number at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << cmdSeq << "\n"
-                 |  << "  Actual:   " << e.cmdSeq << "\n";
-                 |ASSERT_EQ(response, e.response)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Command response at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << response << "\n"
-                 |  << "  Actual:   " << e.response << "\n";
-                 |"""
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
+      {
+        lazy val cmdResponseHistorySize =
+          functionClassMember(
+            Some("Assert size of command response history"),
+            "assertCmdResponse_size",
+            sizeAssertionFunctionParams,
+            CppDoc.Type("void"),
+            lines(
+              raw"""ASSERT_EQ(size, this->cmdResponseHistory->size())
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Size of command response history\n"
+                   |  << "  Expected: " << size << "\n"
+                   |  << "  Actual:   " << this->cmdResponseHistory->size() << "\n";
+                   |"""
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
+        if hasCommands then List(
+          cmdResponseHistorySize,
+          functionClassMember(
+            Some("Assert the command response history at index"),
+            "assertCmdResponse",
+            assertionFunctionParams ++ List(
+              opcodeParam,
+              cmdSeqParam,
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::CmdResponse"),
+                "response",
+                Some("The command response")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              raw"""ASSERT_LT(__index, this->cmdResponseHistory->size())
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Index into command response history\n"
+                   |  << "  Expected: Less than size of command response history ("
+                   |  << this->cmdResponseHistory->size() << ")\n"
+                   |  << "  Actual:   " << __index << "\n";
+                   |const CmdResponse& e = this->cmdResponseHistory->at(__index);
+                   |ASSERT_EQ(opCode, e.opCode)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Opcode at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << opCode << "\n"
+                   |  << "  Actual:   " << e.opCode << "\n";
+                   |ASSERT_EQ(cmdSeq, e.cmdSeq)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Command sequence number at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << cmdSeq << "\n"
+                   |  << "  Actual:   " << e.cmdSeq << "\n";
+                   |ASSERT_EQ(response, e.response)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Command response at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << response << "\n"
+                   |  << "  Actual:   " << e.response << "\n";
+                   |"""
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
         )
-      )
-      else Nil
+        else Nil
+      }
     )
   }
 
