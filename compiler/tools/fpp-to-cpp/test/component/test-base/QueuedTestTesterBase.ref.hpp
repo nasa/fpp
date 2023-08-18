@@ -1427,8 +1427,10 @@ class QueuedTestTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
+
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
+
     //! The history for from_typedReturnOut
     History<FromPortEntry_typedReturnOut>* fromPortHistory_typedReturnOut;
 
