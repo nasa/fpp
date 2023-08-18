@@ -131,32 +131,30 @@ case class ComponentHistory(
   )
 
   private def getClearHistoryFunction: List[CppDoc.Class.Member] = {
+    lazy val clearHistory = functionClassMember(
+      Some("Clear all history"),
+      "clearHistory",
+      Nil,
+      CppDoc.Type("void"),
+      List.concat(
+        guardedList (hasTypedOutputPorts) (lines("this->clearFromPortHistory();")),
+        guardedList (hasCommands) (lines("this->cmdResponseHistory->clear();")),
+        guardedList (hasEvents) (
+          lines(
+            """|#if FW_ENABLE_TEXT_LOGGING
+               |this->textLogHistory->clear();
+               |#endif
+               |this->clearEvents();
+               |"""
+          )
+        ),
+        guardedList (hasChannels) (lines("this->clearTlm();"))
+      )
+    )
     addAccessTagAndComment(
       "protected",
       "History functions",
-      if hasHistories then List(
-        functionClassMember(
-          Some("Clear all history"),
-          "clearHistory",
-          Nil,
-          CppDoc.Type("void"),
-          List.concat(
-            guardedList (hasTypedOutputPorts) (lines("this->clearFromPortHistory();")),
-            guardedList (hasCommands) (lines("this->cmdResponseHistory->clear();")),
-            guardedList (hasEvents) (
-              lines(
-                """|#if FW_ENABLE_TEXT_LOGGING
-                   |this->textLogHistory->clear();
-                   |#endif
-                   |this->clearEvents();
-                   |"""
-              )
-            ),
-            guardedList (hasChannels) (lines("this->clearTlm();"))
-          )
-        )
-      )
-      else Nil
+      guardedList (hasHistories) (List(clearHistory))
     )
   }
 
@@ -179,7 +177,7 @@ case class ComponentHistory(
   }
 
   private def getPortHistoryFunctions: List[CppDoc.Class.Member] = {
-    if typedOutputPorts.nonEmpty then functionClassMember(
+    lazy val clearHistory = functionClassMember(
       Some("Clear from port history"),
       "clearFromPortHistory",
       Nil,
@@ -193,29 +191,36 @@ case class ComponentHistory(
           }
         )
       )
-    ) ::
-      typedOutputPorts.map(p =>
-        functionClassMember(
-          Some(s"Push an entry on the history for ${inputPortName(p.getUnqualifiedName)}"),
-          fromPortPushEntryName(p.getUnqualifiedName),
-          getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          List.concat(
-            portParamTypeMap(p.getUnqualifiedName) match {
-              case Nil => lines(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)}++;")
-              case _ => wrapInScope(
-                s"${fromPortEntryName(p.getUnqualifiedName)} _e = {",
-                lines(getPortParams(p).map(_._1).mkString(",\n")),
-                "};"
-              ) ++ lines(
-                s"|this->${fromPortHistoryName (p.getUnqualifiedName)}->push_back(_e);"
-              )
-            },
-            lines("this->fromPortHistorySize++;")
-          )
+    )
+
+    def pushEntry(p: PortInstance) = {
+      val portName = p.getUnqualifiedName
+      val inputName = inputPortName(portName)
+      functionClassMember(
+        Some(s"Push an entry on the history for $inputName"),
+        fromPortPushEntryName(p.getUnqualifiedName),
+        getPortFunctionParams(p),
+        CppDoc.Type("void"),
+        List.concat(
+          portParamTypeMap(p.getUnqualifiedName) match {
+            case Nil => lines(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)}++;")
+            case _ => wrapInScope(
+              s"${fromPortEntryName(p.getUnqualifiedName)} _e = {",
+              lines(getPortParams(p).map(_._1).mkString(",\n")),
+              "};"
+            ) ++ lines(
+              s"|this->${fromPortHistoryName (p.getUnqualifiedName)}->push_back(_e);"
+            )
+          },
+          lines("this->fromPortHistorySize++;")
         )
       )
-    else Nil
+    }
+
+    guardedList (hasTypedOutputPorts) (
+      clearHistory ::
+      typedOutputPorts.map(pushEntry)
+    )
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
