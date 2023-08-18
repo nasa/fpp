@@ -118,10 +118,10 @@ case class ComponentTesterBaseWriter(
     def writePortConnections(port: PortInstance) = {
       lazy val code = ComponentCppWriter.writePortConnections(
         port,
-        portNumGetterName,
-        portVariableName,
+        testerPortNumGetterName,
+        testerPortVariableName,
         fromPortCallbackName,
-        portName,
+        testerPortName,
         ComponentCppWriter.ConnectionSense.Reversed
       )
       guardedList (portInstanceIsActive(port)) (code)
@@ -290,8 +290,8 @@ case class ComponentTesterBaseWriter(
       inputPorts,
       "Connectors for to ports",
       toPortConnectorName,
-      portNumGetterName,
-      portVariableName
+      testerPortNumGetterName,
+      testerPortVariableName
     )
   }
 
@@ -301,8 +301,8 @@ case class ComponentTesterBaseWriter(
       "from",
       inputPortName,
       fromPortGetterName,
-      portNumGetterName,
-      portVariableName
+      testerPortNumGetterName,
+      testerPortVariableName
     )
   }
 
@@ -349,7 +349,7 @@ case class ComponentTesterBaseWriter(
             lines(
               s"""|// Make sure port number is valid
                   |FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  portNum < this->${testerPortNumGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
@@ -375,7 +375,7 @@ case class ComponentTesterBaseWriter(
           case PortInstance.Type.Serial => "invokeSerial"
         }
         val invokeCall = {
-          val variableName = portVariableName(p)
+          val variableName = testerPortVariableName(p)
           writeFunctionCall(
             s"${returnOrEmptyString(p)}this->$variableName[portNum].$invokeFunction",
             Nil,
@@ -392,7 +392,7 @@ case class ComponentTesterBaseWriter(
             lines(
               s"""|// Make sure port number is valid
                   |FW_ASSERT(
-                  |  portNum < this->${portNumGetterName(p)}(),
+                  |  portNum < this->${testerPortNumGetterName(p)}(),
                   |  static_cast<FwAssertArgType>(portNum)
                   |);
                   |
@@ -411,9 +411,9 @@ case class ComponentTesterBaseWriter(
       "Getters for port counts",
       ComponentPorts(s, aNode).generateNumGetters(
         inputPorts ++ outputPorts,
-        portName,
-        portNumGetterName,
-        portVariableName
+        testerPortName,
+        testerPortNumGetterName,
+        testerPortVariableName
       )
     )
   }
@@ -426,8 +426,8 @@ case class ComponentTesterBaseWriter(
         inputPorts,
         outputPortName,
         toPortIsConnectedName,
-        portNumGetterName,
-        portVariableName
+        testerPortNumGetterName,
+        testerPortVariableName
       )
     )
   }
@@ -435,7 +435,7 @@ case class ComponentTesterBaseWriter(
   private def getCmdFunctions: List[CppDoc.Class.Member] = {
     val cmdPortInvocation = cmdRecvPort.map(
       p => {
-        val varName = portVariableName(p)
+        val varName = testerPortVariableName(p)
         lines(
           s"""|if (this->$varName[0].isConnected()) {
               |  this->$varName[0].invoke(
@@ -954,7 +954,7 @@ case class ComponentTesterBaseWriter(
             {
               val paramVar = paramVariableName(prm.getName)
               val constantName = paramCommandConstantName(prm.getName, Command.Param.Set)
-              val portVar = portVariableName(cmdRecvPort.get)
+              val portVar = testerPortVariableName(cmdRecvPort.get)
               lines(
                 s"""|// Build command for parameter set
                     |Fw::CmdArgBuffer args;
@@ -993,7 +993,7 @@ case class ComponentTesterBaseWriter(
             CppDoc.Type("void"),
             {
               val constantName = paramCommandConstantName(prm.getName, Command.Param.Save)
-              val varName = portVariableName(cmdRecvPort.get)
+              val varName = testerPortVariableName(cmdRecvPort.get)
             lines(
               s"""|Fw::CmdArgBuffer args;
                   |const U32 idBase = this->getIdBase();
@@ -1177,7 +1177,7 @@ case class ComponentTesterBaseWriter(
         case _: PortInstance.Internal => Nil
       }
       lazy val member = functionClassMember(
-        Some(s"Static function for port ${portName(p)}"),
+        Some(s"Static function for port ${testerPortName(p)}"),
         fromPortCallbackName(p.getUnqualifiedName),
         List.concat(
           List(
@@ -1215,7 +1215,7 @@ case class ComponentTesterBaseWriter(
           val qualifiedName = getQualifiedPortTypeName(
             p, PortInstance.Direction.Output
           )
-          val varName = portVariableName(p)
+          val varName = testerPortVariableName(p)
           val arraySize = p.getArraySize
           linesClassMember(
             Line.blank :: lines(
@@ -1239,7 +1239,7 @@ case class ComponentTesterBaseWriter(
               p,
               PortInstance.Direction.Input
             )
-            val varName = portVariableName(p)
+            val varName = testerPortVariableName(p)
             val arraySize = p.getArraySize
             List(
               linesClassMember(

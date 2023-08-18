@@ -166,7 +166,7 @@ case class ComponentHistory(
             case Nil => Nil
             case params =>
               Line.blank ::
-              line(s"//! A history entry for port ${portName(p)}") ::
+              line(s"//! A history entry for port ${testerPortName(p)}") ::
               wrapInScope(
                 s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
                 params.map((name, tn) => line(s"$tn $name;")),
