@@ -60,7 +60,7 @@ case class ComponentTelemetry (
             lines(
               s"""|
                   |//! Records the last emitted value for channel ${channel.getName}
-                  |${getChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
+                  |${writeChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
                   |"""
             )
           )
@@ -170,7 +170,7 @@ case class ComponentTelemetry (
   }
 
   private def writeChannelParam(t: Type) = {
-    val typeName = getChannelType(t)
+    val typeName = writeChannelType(t)
 
     t match {
       case t if s.isPrimitive(t, typeName) => typeName

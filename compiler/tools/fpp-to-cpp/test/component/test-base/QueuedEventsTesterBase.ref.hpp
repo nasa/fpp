@@ -128,13 +128,6 @@ class QueuedEventsTesterBase :
       S s;
     };
 
-    //! A type representing a command response
-    struct CmdResponse {
-      FwOpcodeType opCode;
-      U32 cmdSeq;
-      Fw::CmdResponse response;
-    };
-
 #if FW_ENABLE_TEXT_LOGGING
 
     //! A history entry for text log events
@@ -988,9 +981,6 @@ class QueuedEventsTesterBase :
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
     //! The history for from_typedReturnOut
     History<FromPortEntry_typedReturnOut>* fromPortHistory_typedReturnOut;
-
-    //! The command response history
-    History<CmdResponse>* cmdResponseHistory;
 
     //! The total number of events seen
     U32 eventsSize;

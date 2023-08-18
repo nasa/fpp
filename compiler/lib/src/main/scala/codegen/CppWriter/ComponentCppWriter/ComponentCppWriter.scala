@@ -330,7 +330,7 @@ case class ComponentCppWriter (
                     p.aNode._2.data.params.map(param =>
                       s.getSerializedSizeExpr(
                         s.a.typeMap(param._2.data.typeName.id),
-                        getInternalPortParam(param._2.data)
+                        writeInternalPortParamType(param._2.data)
                       )
                     ).mkString(" +\n")
                   ),
@@ -464,7 +464,7 @@ case class ComponentCppWriter (
               |"""
         ),
         channel.channelType match {
-          case t if s.isPrimitive(t, getChannelType(t)) => lines(
+          case t if s.isPrimitive(t, writeChannelType(t)) => lines(
             s"this->${channelStorageName(channel.getName)} = 0;"
           )
           case _ => Nil

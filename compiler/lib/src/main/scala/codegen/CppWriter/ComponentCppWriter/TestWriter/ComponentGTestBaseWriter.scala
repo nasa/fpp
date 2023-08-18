@@ -12,6 +12,12 @@ case class ComponentGTestBaseWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentGTestBase(name)
 
+  private val relativeFileName = s.getRelativePath(fileName).toString
+
+  private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
+
+  private val testerRelativeFileName = s.getRelativePath(testerFileName).toString
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -41,7 +47,7 @@ case class ComponentGTestBaseWriter(
 
   private def getHppIncludes = {
     val userHeaders = List(
-      s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponentTesterBase(name)).toString}.hpp",
+      s"$testerRelativeFileName.hpp",
       "gtest/gtest.h"
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
@@ -50,7 +56,7 @@ case class ComponentGTestBaseWriter(
   }
 
   private def getCppIncludes = {
-    val userHeader = lines(CppWriter.headerString(s"${s.getRelativePath(fileName).toString}.hpp"))
+    val userHeader = lines(CppWriter.headerString(s"$relativeFileName.hpp"))
     linesMember(
       addBlankPrefix(userHeader),
       CppDoc.Lines.Cpp
@@ -59,20 +65,20 @@ case class ComponentGTestBaseWriter(
 
   private def getMacros = {
     List.concat(
-      if hasTypedOutputPorts then List(getPortMacros) else Nil,
-      if hasCommands then List(getCmdMacros) else Nil,
-      if hasEvents then List(getEventMacros) else Nil,
-      if hasTelemetry then List(getTlmMacros) else Nil
+      guardedList (hasTypedOutputPorts) (List(getPortMacros)),
+      guardedList (hasCommands) (List(getCmdMacros)),
+      guardedList (hasEvents) (List(getEventMacros)),
+      guardedList (hasTelemetry) (List(getTlmMacros))
     )
   }
 
   private def getClassMembers = {
     List.concat(
       getConstructors,
-      if hasTypedOutputPorts then getPortAssertFunctions else Nil,
-      if hasCommands then getCmdAssertFunctions else Nil,
-      if hasEvents then getEventAssertFunctions else Nil,
-      if hasTelemetry then getTlmAssertFunctions else Nil
+      guardedList (hasTypedOutputPorts) (getPortAssertFunctions),
+      guardedList (hasCommands) (getCmdAssertFunctions),
+      guardedList (hasEvents) (getEventAssertFunctions),
+      guardedList (hasTelemetry) (getTlmAssertFunctions)
     )
   }
 
@@ -109,27 +115,31 @@ case class ComponentGTestBaseWriter(
         typedOutputPorts.flatMap(p => {
           val params = portParamTypeMap(p.getUnqualifiedName)
           val paramList = params.map((name, _) => s", _$name").mkString("")
+          val portName = p.getUnqualifiedName
+          val historyName = fromPortHistoryName(portName)
+          val sizeAssertFnName = fromPortSizeAssertionFuncName(portName)
+          val entryName = fromPortEntryName(portName)
 
           List.concat(
             Line.blank :: lines(
-              s"""#define ASSERT_from_${p.getUnqualifiedName}_SIZE(size) \\
-                 |  this->${fromPortSizeAssertionFuncName(p.getUnqualifiedName)}(__FILE__, __LINE__, size)
+              s"""#define ASSERT_from_${portName}_SIZE(size) \\
+                 |  this->$sizeAssertFnName(__FILE__, __LINE__, size)
                  |"""
             ),
             params match {
               case Nil => Nil
               case _ => Line.blank :: lines(
-                s"""#define ASSERT_from_${p.getUnqualifiedName}(index$paramList) \\
+                s"""#define ASSERT_from_$portName(index$paramList) \\
                    |  { \\
-                   |    ASSERT_GT(this->${fromPortHistoryName(p.getUnqualifiedName)}->size(), static_cast<U32>(index)) \\
+                   |    ASSERT_GT(this->$historyName->size(), static_cast<U32>(index)) \\
                    |      << "\\n" \\
                    |      << __FILE__ << ":" << __LINE__ << "\\n" \\
-                   |      << "  Value:    Index into history of ${p.getUnqualifiedName}\\n" \\
+                   |      << "  Value:    Index into history of $portName\\n" \\
                    |      << "  Expected: Less than size of history (" \\
-                   |      << this->${fromPortHistoryName(p.getUnqualifiedName)}->size() << ")\\n" \\
+                   |      << this->$historyName->size() << ")\\n" \\
                    |      << "  Actual:   " << index << "\\n"; \\
-                   |      const ${fromPortEntryName(p.getUnqualifiedName)}& _e = \\
-                   |        this->${fromPortHistoryName(p.getUnqualifiedName)}->at(index); \\
+                   |      const $entryName& _e = \\
+                   |        this->$historyName->at(index); \\
                    |"""
               ) ++ params.flatMap((name, _) =>
                 lines(
@@ -138,7 +148,7 @@ case class ComponentGTestBaseWriter(
                      |      << __FILE__ << ":" << __LINE__ << "\\n" \\
                      |      << "  Value:    Value of argument $name at index " \\
                      |      << index \\
-                     |      << " in history of ${p.getUnqualifiedName}\\n" \\
+                     |      << " in history of $portName\\n" \\
                      |      << "  Expected: " << _$name << "\\n" \\
                      |      << "  Actual:   " << _e.$name << "\\n"; \\
                      |"""
@@ -168,7 +178,7 @@ case class ComponentGTestBaseWriter(
     )
   }
 
-  private def getEventMacros = {
+  private def getEventMacros =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for event history assertions"),
@@ -179,25 +189,27 @@ case class ComponentGTestBaseWriter(
         ),
         sortedEvents.flatMap((id, event) => {
           val params = eventParamTypeMap(id).map((name, _) => s", _$name").mkString("")
+          val eventName = event.getName
+          val sizeAssertFn = eventSizeAssertionFuncName(eventName)
+          val eventAssertFn = eventAssertionFuncName(eventName)
 
           Line.blank :: lines(
-            s"""#define ASSERT_EVENTS_${event.getName}_SIZE(size) \\
-               |  this->${eventSizeAssertionFuncName(event.getName)}(__FILE__, __LINE__, size)
+            s"""#define ASSERT_EVENTS_${eventName}_SIZE(size) \\
+               |  this->$sizeAssertFn(__FILE__, __LINE__, size)
                |"""
           ) ++ (eventParamTypeMap(id) match {
             case Nil => Nil
             case _ => Line.blank :: lines(
-              s"""#define ASSERT_EVENTS_${event.getName}(size$params) \\
-                 |  this->${eventAssertionFuncName(event.getName)}(__FILE__, __LINE__, size$params)
+              s"""#define ASSERT_EVENTS_$eventName(size$params) \\
+                 |  this->$eventAssertFn(__FILE__, __LINE__, size$params)
                  |"""
             )
           })
         })
       )
     )
-  }
 
-  private def getTlmMacros = {
+  private def getTlmMacros =
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for telemetry history assertions"),
@@ -206,54 +218,55 @@ case class ComponentGTestBaseWriter(
             |  this->assertTlm_size(__FILE__, __LINE__, size)
             |"""
         ),
-        sortedChannels.flatMap((_, channel) =>
+        sortedChannels.flatMap((_, channel) => {
+          val channelName = channel.getName
+          val sizeAssertFunc = tlmSizeAssertionFuncName(channelName)
+          val assertFunc = tlmAssertionFuncName(channelName)
           Line.blank :: lines(
-            s"""#define ASSERT_TLM_${channel.getName}_SIZE(size) \\
-               |  this->${tlmSizeAssertionFuncName(channel.getName)}(__FILE__, __LINE__, size)
+            s"""#define ASSERT_TLM_${channelName}_SIZE(size) \\
+               |  this->$sizeAssertFunc(__FILE__, __LINE__, size)
                |
-               |#define ASSERT_TLM_${channel.getName}(index, value) \\
-               |  this->${tlmAssertionFuncName(channel.getName)}(__FILE__, __LINE__, index, value)
+               |#define ASSERT_TLM_$channelName(index, value) \\
+               |  this->$assertFunc(__FILE__, __LINE__, index, value)
                |"""
           )
-        )
+        })
       )
     )
-  }
 
   private def getPortAssertFunctions = {
     addAccessTagAndComment(
       "protected",
       "From ports",
-      List.concat(
-        if typedOutputPorts.nonEmpty then List(
-          functionClassMember(
-            Some("From ports"),
-            "assertFromPortHistory_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->fromPortHistorySize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all from port histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->fromPortHistorySize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+      {
+        val fromPortHistorySize = functionClassMember(
+          Some("From ports"),
+          "assertFromPortHistory_size",
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            raw"""ASSERT_EQ(size, this->fromPortHistorySize)
+                 |  << "\n"
+                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                 |  << "  Value:    Total size of all from port histories\n"
+                 |  << "  Expected: " << size << "\n"
+                 |  << "  Actual:   " << this->fromPortHistorySize << "\n";
+                 |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
-        else Nil,
-        typedOutputPorts.map(p => {
-          val portSize = portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => fromPortHistorySizeName(p.getUnqualifiedName)
-            case _ => s"${fromPortHistoryName(p.getUnqualifiedName)}->size()"
+        val fromPorts = typedOutputPorts.map(p => {
+          val portName = p.getUnqualifiedName
+          val portHistory = fromPortHistoryName(portName)
+          val portSize = portParamTypeMap(portName) match {
+            case Nil => fromPortHistorySizeName(portName)
+            case _ => s"$portHistory->size()"
           }
 
           functionClassMember(
-            Some(s"From port: ${p.getUnqualifiedName}"),
-            fromPortAssertionFuncName(p.getUnqualifiedName),
+            Some(s"From port: $portName"),
+            fromPortAssertionFuncName(portName),
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(
@@ -269,7 +282,11 @@ case class ComponentGTestBaseWriter(
             CppDoc.Function.Const
           )
         })
-      )
+        List.concat(
+          guardedList (hasTypedOutputPorts) (List(fromPortHistorySize)),
+          fromPorts
+        )
+      }
     )
   }
 
@@ -277,97 +294,100 @@ case class ComponentGTestBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Commands",
-      if hasCommands then List(
-        functionClassMember(
-          Some("Assert size of command response history"),
-          "assertCmdResponse_size",
-          sizeAssertionFunctionParams,
-          CppDoc.Type("void"),
-          lines(
-            raw"""ASSERT_EQ(size, this->cmdResponseHistory->size())
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Size of command response history\n"
-                 |  << "  Expected: " << size << "\n"
-                 |  << "  Actual:   " << this->cmdResponseHistory->size() << "\n";
-                 |"""
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        ),
-        functionClassMember(
-          Some("Assert the command response history at index"),
-          "assertCmdResponse",
-          assertionFunctionParams ++ List(
-            opcodeParam,
-            cmdSeqParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::CmdResponse"),
-              "response",
-              Some("The command response")
-            )
-          ),
-          CppDoc.Type("void"),
-          lines(
-            raw"""ASSERT_LT(__index, this->cmdResponseHistory->size())
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Index into command response history\n"
-                 |  << "  Expected: Less than size of command response history ("
-                 |  << this->cmdResponseHistory->size() << ")\n"
-                 |  << "  Actual:   " << __index << "\n";
-                 |const CmdResponse& e = this->cmdResponseHistory->at(__index);
-                 |ASSERT_EQ(opCode, e.opCode)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Opcode at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << opCode << "\n"
-                 |  << "  Actual:   " << e.opCode << "\n";
-                 |ASSERT_EQ(cmdSeq, e.cmdSeq)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Command sequence number at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << cmdSeq << "\n"
-                 |  << "  Actual:   " << e.cmdSeq << "\n";
-                 |ASSERT_EQ(response, e.response)
-                 |  << "\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                 |  << "  Value:    Command response at index "
-                 |  << __index
-                 |  << " in command response history\n"
-                 |  << "  Expected: " << response << "\n"
-                 |  << "  Actual:   " << e.response << "\n";
-                 |"""
-          ),
-          CppDoc.Function.NonSV,
-          CppDoc.Function.Const
-        )
-      )
-      else Nil
+      {
+        lazy val historySize =
+          functionClassMember(
+            Some("Assert size of command response history"),
+            "assertCmdResponse_size",
+            sizeAssertionFunctionParams,
+            CppDoc.Type("void"),
+            lines(
+              raw"""ASSERT_EQ(size, this->cmdResponseHistory->size())
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Size of command response history\n"
+                   |  << "  Expected: " << size << "\n"
+                   |  << "  Actual:   " << this->cmdResponseHistory->size() << "\n";
+                   |"""
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
+        lazy val historyIndex =
+          functionClassMember(
+            Some("Assert the command response history at index"),
+            "assertCmdResponse",
+            assertionFunctionParams ++ List(
+              opcodeParam,
+              cmdSeqParam,
+              CppDoc.Function.Param(
+                CppDoc.Type("Fw::CmdResponse"),
+                "response",
+                Some("The command response")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines(
+              raw"""ASSERT_LT(__index, this->cmdResponseHistory->size())
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Index into command response history\n"
+                   |  << "  Expected: Less than size of command response history ("
+                   |  << this->cmdResponseHistory->size() << ")\n"
+                   |  << "  Actual:   " << __index << "\n";
+                   |const CmdResponse& e = this->cmdResponseHistory->at(__index);
+                   |ASSERT_EQ(opCode, e.opCode)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Opcode at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << opCode << "\n"
+                   |  << "  Actual:   " << e.opCode << "\n";
+                   |ASSERT_EQ(cmdSeq, e.cmdSeq)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Command sequence number at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << cmdSeq << "\n"
+                   |  << "  Actual:   " << e.cmdSeq << "\n";
+                   |ASSERT_EQ(response, e.response)
+                   |  << "\n"
+                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                   |  << "  Value:    Command response at index "
+                   |  << __index
+                   |  << " in command response history\n"
+                   |  << "  Expected: " << response << "\n"
+                   |  << "  Actual:   " << e.response << "\n";
+                   |"""
+            ),
+            CppDoc.Function.NonSV,
+            CppDoc.Function.Const
+          )
+        guardedList (hasCommands) (List(historySize, historyIndex))
+      }
     )
   }
 
   private def getEventAssertFunctions = {
     def writeAssertFuncs(id: Event.Id, event: Event) = {
+      val eventName = event.getName
       val eventsSize = eventParamTypeMap(id) match {
-        case Nil => eventSizeName(event.getName)
-        case _ => s"${eventHistoryName(event.getName)}->size()"
+        case Nil => eventSizeName(eventName)
+        case _ => s"${eventHistoryName(eventName)}->size()"
       }
 
       functionClassMember(
-        Some(s"Event: ${event.getName}"),
-        eventSizeAssertionFuncName(event.getName),
+        Some(s"Event: $eventName"),
+        eventSizeAssertionFuncName(eventName),
         sizeAssertionFunctionParams,
         CppDoc.Type("void"),
         lines(
           s"""ASSERT_EQ(size, this->$eventsSize)
              |  << "\\n"
              |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-             |  << "  Value:    Size of history for event ${event.getName}\\n"
+             |  << "  Value:    Size of history for event $eventName\\n"
              |  << "  Expected: " << size << "\\n"
              |  << "  Actual:   " << this->$eventsSize << "\\n";
              |"""
@@ -378,8 +398,8 @@ case class ComponentGTestBaseWriter(
         case Nil => Nil
         case _ => List(
           functionClassMember(
-            Some(s"Event: ${event.getName}"),
-            eventAssertionFuncName(event.getName),
+            Some(s"Event: $eventName"),
+            eventAssertionFuncName(eventName),
             assertionFunctionParams ++
               event.aNode._2.data.params.map(aNode => {
                 val data = aNode._2.data
@@ -390,33 +410,38 @@ case class ComponentGTestBaseWriter(
                 )
               }),
             CppDoc.Type("void"),
-            List.concat(
-              lines(
-                s"""ASSERT_GT(this->$eventsSize, __index)
-                   |  << "\\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                   |  << "  Value:    Index into history of event ${event.getName}\\n"
-                   |  << "  Expected: Less than size of history ("
-                   |  << this->$eventsSize << ")\\n"
-                   |  << "  Actual:   " << __index << "\\n";
-                   |const ${eventEntryName(event.getName)}& _e =
-                   |  this->${eventHistoryName(event.getName)}->at(__index);
-                   |"""
-              ),
-              eventParamTypeMap(id).flatMap((name, tn) =>
+            {
+              val entryName = eventEntryName(eventName)
+              val historyName = eventHistoryName(eventName)
+              List.concat(
                 lines(
-                  s"""ASSERT_EQ($name, ${writeEventValue(s"_e.$name", tn)})
+                  s"""ASSERT_GT(this->$eventsSize, __index)
                      |  << "\\n"
                      |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                     |  << "  Value:    Value of argument $name at index "
-                     |  << __index
-                     |  << " in history of event ${event.getName}\\n"
-                     |  << "  Expected: " << $name << "\\n"
-                     |  << "  Actual:   " << ${writeEventValue(s"_e.$name", tn)} << "\\n";
+                     |  << "  Value:    Index into history of event $eventName\\n"
+                     |  << "  Expected: Less than size of history ("
+                     |  << this->$eventsSize << ")\\n"
+                     |  << "  Actual:   " << __index << "\\n";
+                     |const $entryName& _e =
+                     |  this->$historyName->at(__index);
                      |"""
-                )
+                ),
+                eventParamTypeMap(id).flatMap((name, tn) => {
+                  val eventValue = writeEventValue(s"_e.$name", tn)
+                  lines(
+                    s"""ASSERT_EQ($name, $eventValue)
+                       |  << "\\n"
+                       |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+                       |  << "  Value:    Value of argument $name at index "
+                       |  << __index
+                       |  << " in history of event $eventName\\n"
+                       |  << "  Expected: " << $name << "\\n"
+                       |  << "  Actual:   " << $eventValue << "\\n";
+                       |"""
+                  )
+                })
               )
-            ),
+            },
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )
@@ -427,112 +452,123 @@ case class ComponentGTestBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Events",
-      List.concat(
-        if hasEvents then List(
-          functionClassMember(
-            Some("Assert the size of event history"),
-            "assertEvents_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->eventsSize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all event histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->eventsSize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+      {
+        lazy val historySize = functionClassMember(
+          Some("Assert the size of event history"),
+          "assertEvents_size",
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            raw"""ASSERT_EQ(size, this->eventsSize)
+                 |  << "\n"
+                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+                 |  << "  Value:    Total size of all event histories\n"
+                 |  << "  Expected: " << size << "\n"
+                 |  << "  Actual:   " << this->eventsSize << "\n";
+                 |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
         )
-        else Nil,
-        sortedEvents.flatMap((id, event) => writeAssertFuncs(id, event))
-      )
+        List.concat(
+          guardedList (hasEvents) (List(historySize)),
+          sortedEvents.flatMap((id, event) => writeAssertFuncs(id, event))
+        )
+      }
     )
   }
 
-  private def getTlmAssertFunctions = {
-    addAccessTagAndComment(
-      "protected",
-      "Telemetry",
-      List.concat(
-        if hasChannels then List(
-          functionClassMember(
-            Some("Assert the size of telemetry history"),
-            "assertTlm_size",
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              raw"""ASSERT_EQ(size, this->tlmSize)
-                   |  << "\n"
-                   |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-                   |  << "  Value:    Total size of all telemetry histories\n"
-                   |  << "  Expected: " << size << "\n"
-                   |  << "  Actual:   " << this->tlmSize << "\n";
-                   |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
-        )
-        else Nil,
-        sortedChannels.flatMap((_, channel) => List(
-          functionClassMember(
-            Some(s"Channel: ${channel.getName}"),
-            tlmSizeAssertionFuncName(channel.getName),
-            sizeAssertionFunctionParams,
-            CppDoc.Type("void"),
-            lines(
-              s"""ASSERT_EQ(this->${tlmHistoryName(channel.getName)}->size(), size)
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Size of history for telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: " << size << "\\n"
-                 |  << "  Actual:   " << this->${tlmHistoryName(channel.getName)}->size() << "\\n";
-                 |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
+  private def getTlmAssertFunctions = addAccessTagAndComment(
+    "protected",
+    "Telemetry",
+    {
+      val historySize = functionClassMember(
+        Some("Assert the size of telemetry history"),
+        "assertTlm_size",
+        sizeAssertionFunctionParams,
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_EQ(size, this->tlmSize)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Total size of all telemetry histories\n"
+               |  << "  Expected: " << size << "\n"
+               |  << "  Actual:   " << this->tlmSize << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+      def channelHistorySize(channel: TlmChannel) = {
+        val channelName = channel.getName
+        val historyName = tlmHistoryName(channelName)
+        functionClassMember(
+          Some(s"Channel: $channelName"),
+          tlmSizeAssertionFuncName(channelName),
+          sizeAssertionFunctionParams,
+          CppDoc.Type("void"),
+          lines(
+            s"""ASSERT_EQ(this->$historyName->size(), size)
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Size of history for telemetry channel $channelName\\n"
+               |  << "  Expected: " << size << "\\n"
+               |  << "  Actual:   " << this->$historyName->size() << "\\n";
+               |"""
           ),
-          functionClassMember(
-            Some(s"Channel: ${channel.getName}"),
-            tlmAssertionFuncName(channel.getName),
-            assertionFunctionParams ++ List(
-              CppDoc.Function.Param(
-                CppDoc.Type(writeCppType(channel.channelType)),
-                "val",
-                Some("The channel value")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""ASSERT_LT(__index, this->${tlmHistoryName(channel.getName)}->size())
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Index into history of telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: Less than size of history ("
-                 |  << this->${tlmHistoryName(channel.getName)}->size() << ")\\n"
-                 |  << "  Actual:   " << __index << "\\n";
-                 |const ${tlmEntryName(channel.getName)}& _e =
-                 |  this->${tlmHistoryName(channel.getName)}->at(__index);
-                 |ASSERT_EQ(val, ${writeValue("_e.arg", channel.channelType)})
-                 |  << "\\n"
-                 |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Value at index "
-                 |  << __index
-                 |  << " on telemetry channel ${channel.getName}\\n"
-                 |  << "  Expected: " << val << "\\n"
-                 |  << "  Actual:   " << _e.arg << "\\n";
-                 |"""
-            ),
-            CppDoc.Function.NonSV,
-            CppDoc.Function.Const
-          )
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      }
+      def channelIndex(channel: TlmChannel) = {
+        val channelName = channel.getName
+        val historyName = tlmHistoryName(channelName)
+        val entryName = tlmEntryName(channelName)
+        val value = writeValue("_e.arg", channel.channelType)
+        functionClassMember(
+          Some(s"Channel: $channelName"),
+          tlmAssertionFuncName(channelName),
+          assertionFunctionParams ++ List(
+            CppDoc.Function.Param(
+              CppDoc.Type(writeCppType(channel.channelType)),
+              "val",
+              Some("The channel value")
+            )
+          ),
+          CppDoc.Type("void"),
+          lines(
+            s"""ASSERT_LT(__index, this->$historyName->size())
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Index into history of telemetry channel $channelName\\n"
+               |  << "  Expected: Less than size of history ("
+               |  << this->$historyName->size() << ")\\n"
+               |  << "  Actual:   " << __index << "\\n";
+               |const $entryName& _e =
+               |  this->$historyName->at(__index);
+               |ASSERT_EQ(val, $value)
+               |  << "\\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
+               |  << "  Value:    Value at index "
+               |  << __index
+               |  << " on telemetry channel $channelName\\n"
+               |  << "  Expected: " << val << "\\n"
+               |  << "  Actual:   " << _e.arg << "\\n";
+               |"""
+          ),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      }
+
+      List.concat(
+        guardedList (hasChannels) (List(historySize)),
+        sortedChannels.flatMap((_, channel) => List(
+          channelHistorySize(channel),
+          channelIndex(channel)
         ))
       )
-    )
-  }
+    }
+  )
 
 }
