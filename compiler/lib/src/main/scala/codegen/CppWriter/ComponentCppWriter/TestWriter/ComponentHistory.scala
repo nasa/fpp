@@ -229,33 +229,36 @@ case class ComponentHistory(
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
-    if typedOutputPorts.nonEmpty then List(
-      linesClassMember(
-        List.concat(
-          Line.blank :: lines(
-            s"""|//! The total number of port entries
-                |U32 fromPortHistorySize;
-                |"""
-          ),
-          typedOutputPorts.flatMap(p =>
-            Line.blank :: getPortParams(p) match {
-              case Nil => lines(
-                s"""|//! The size of history for ${inputPortName(p.getUnqualifiedName)}
-                    |U32 ${fromPortHistorySizeName(p.getUnqualifiedName)};
-                    |""".stripMargin
-              )
-              case _ => lines(
-                s"""|//! The history for ${inputPortName(p.getUnqualifiedName)}
-                    |History<${fromPortEntryName(p.getUnqualifiedName)}>* ${fromPortHistoryName(p.getUnqualifiedName)};
-                    |"""
-              )
-            }
-          )
+    lazy val variables = linesClassMember(
+      List.concat(
+        Line.blank :: lines(
+          s"""|//! The total number of port entries
+              |U32 fromPortHistorySize;
+              |"""
         ),
-        CppDoc.Lines.Hpp
-      )
+        typedOutputPorts.flatMap(p => {
+          val portName = p.getUnqualifiedName
+          val inputName = inputPortName(portName)
+          val historySizeName = fromPortHistorySizeName(portName)
+          val entryName = fromPortEntryName(portName)
+          val historyName = fromPortHistoryName(portName)
+          Line.blank :: getPortParams(p) match {
+            case Nil => lines(
+              s"""|//! The size of history for $inputName
+                  |U32 $historySizeName;
+                  |""".stripMargin
+            )
+            case _ => lines(
+              s"""|//! The history for $inputName
+                  |History<$entryName>* $historyName;
+                  |"""
+            )
+          }
+        })
+      ),
+      CppDoc.Lines.Hpp
     )
-    else Nil
+    guardedList (hasTypedOutputPorts) (List(variables))
   }
 
   private def getCmdHistoryTypes: List[CppDoc.Class.Member] = {
