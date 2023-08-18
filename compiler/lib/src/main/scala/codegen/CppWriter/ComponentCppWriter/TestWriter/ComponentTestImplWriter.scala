@@ -190,15 +190,17 @@ case class ComponentTestImplWriter(
     def writeConnections(ports: List[PortInstance]) = {
       val connections = addBlankPrefix(
         intersperseBlankLines(
-          ports.map(p => p.getArraySize match {
-            case 1 => writeConnection(p, "0")
-            case size => wrapInForLoop(
-              "NATIVE_UINT_TYPE i = 0",
-              s"i < $size",
-              "i++",
-              writeConnection(p, "i")
-            )
-          })
+          ports.filter(portInstanceIsUsed).map(
+            p => p.getArraySize match {
+              case 1 => writeConnection(p, "0")
+              case size => wrapInForLoop(
+                "NATIVE_UINT_TYPE i = 0",
+                s"i < $size",
+                "i++",
+                writeConnection(p, "i")
+              )
+            }
+          )
         )
       )
       val typeString = getPortListTypeString(ports)
@@ -225,6 +227,8 @@ case class ComponentTestImplWriter(
           CppDoc.Type("void"),
           intersperseBlankLines(
             List(
+              writeConnections(specialInputPorts),
+              writeConnections(specialOutputPorts),
               writeConnections(typedInputPorts),
               writeConnections(typedOutputPorts),
               writeConnections(serialInputPorts),

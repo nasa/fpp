@@ -279,8 +279,8 @@ abstract class ComponentTestUtils(
   def paramSaveName(name: String) =
     s"paramSave_$name"
 
-  /** Queries whether a port instance is active for testing */
-  def portInstanceIsActive(p: PortInstance): Boolean =
+  /** Queries whether a port instance is used for testing */
+  def portInstanceIsUsed(p: PortInstance): Boolean =
     p match {
       case PortInstance.Special(aNode, _, _, _, _) =>
         import Ast.SpecPortInstance._

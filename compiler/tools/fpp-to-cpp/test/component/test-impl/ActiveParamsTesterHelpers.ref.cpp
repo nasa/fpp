@@ -13,6 +13,40 @@
 void ActiveParamsTester ::
   connectPorts()
 {
+  // Connect special input ports
+
+  this->connect_to_cmdIn(
+    0,
+    this->component.get_cmdIn_InputPort(0)
+  );
+
+  // Connect special output ports
+
+  this->component.set_cmdRegOut_OutputPort(
+    0,
+    this->get_from_cmdRegOut(0)
+  );
+
+  this->component.set_cmdResponseOut_OutputPort(
+    0,
+    this->get_from_cmdResponseOut(0)
+  );
+
+  this->component.set_prmGetOut_OutputPort(
+    0,
+    this->get_from_prmGetOut(0)
+  );
+
+  this->component.set_prmSetOut_OutputPort(
+    0,
+    this->get_from_prmSetOut(0)
+  );
+
+  this->component.set_timeGetOut_OutputPort(
+    0,
+    this->get_from_timeGetOut(0)
+  );
+
   // Connect typed input ports
 
   this->connect_to_noArgsAsync(

@@ -124,7 +124,7 @@ case class ComponentTesterBaseWriter(
         testerPortName,
         ComponentCppWriter.ConnectionSense.Reversed
       )
-      guardedList (portInstanceIsActive(port)) (code)
+      guardedList (portInstanceIsUsed(port)) (code)
     }
 
     val body = intersperseBlankLines(
@@ -1194,7 +1194,7 @@ case class ComponentTesterBaseWriter(
         body,
         CppDoc.Function.Static
       )
-      guardedList (portInstanceIsActive(p)) (List(member))
+      guardedList (portInstanceIsUsed(p)) (List(member))
     }
 
     addAccessTagAndComment(

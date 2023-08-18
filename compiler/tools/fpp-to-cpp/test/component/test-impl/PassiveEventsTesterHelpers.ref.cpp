@@ -13,6 +13,23 @@
 void PassiveEventsTester ::
   connectPorts()
 {
+  // Connect special output ports
+
+  this->component.set_eventOut_OutputPort(
+    0,
+    this->get_from_eventOut(0)
+  );
+
+  this->component.set_textEventOut_OutputPort(
+    0,
+    this->get_from_textEventOut(0)
+  );
+
+  this->component.set_timeGetOut_OutputPort(
+    0,
+    this->get_from_timeGetOut(0)
+  );
+
   // Connect typed input ports
 
   this->connect_to_noArgsGuarded(
