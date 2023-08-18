@@ -50,7 +50,8 @@ case class ComponentTestMainWriter(
   }
 
   private def getIncludes: CppDoc.Member = {
-    val header = s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponentTestImpl(name)).toString}.hpp"
+    val fileName = ComputeCppFiles.FileNames.getComponentTestImpl(name)
+    val header = s"${s.getRelativePath(fileName).toString}.hpp"
     linesMember(
       addBlankPrefix(lines(CppWriter.headerString(header))),
       CppDoc.Lines.Cpp

@@ -147,19 +147,17 @@ abstract class ComponentTestUtils(
     s"to_$name"
 
     /** Get the corresponding tester port name for a port in the component under test */
-  def portName(p: PortInstance) =
+  def testerPortName(p: PortInstance) =
     p.getDirection.get match {
       case PortInstance.Direction.Input => outputPortName(p.getUnqualifiedName)
       case PortInstance.Direction.Output => inputPortName(p.getUnqualifiedName)
     }
 
-  /** Get the name for a port number getter function */
-  override def portNumGetterName(p: PortInstance) =
-    s"getNum_${portName(p)}"
+  /** Get the name for a tester port number getter function */
+  def testerPortNumGetterName(p: PortInstance) = s"getNum_${testerPortName(p)}"
 
-  /** Get the name for a port variable */
-  override def portVariableName(p: PortInstance) =
-    s"m_${portName(p)}"
+  /** Get the name for a tester variable */
+  def testerPortVariableName(p: PortInstance) = s"m_${testerPortName(p)}"
 
   /** Get the name for a to port connection status query function */
   def toPortIsConnectedName(name: String) =
@@ -281,8 +279,8 @@ abstract class ComponentTestUtils(
   def paramSaveName(name: String) =
     s"paramSave_$name"
 
-  /** Queries whether a port instance is active for testing */
-  def portInstanceIsActive(p: PortInstance): Boolean =
+  /** Queries whether a port instance is used for testing */
+  def portInstanceIsUsed(p: PortInstance): Boolean =
     p match {
       case PortInstance.Special(aNode, _, _, _, _) =>
         import Ast.SpecPortInstance._

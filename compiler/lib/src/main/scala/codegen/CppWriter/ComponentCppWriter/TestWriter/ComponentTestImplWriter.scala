@@ -91,13 +91,14 @@ case class ComponentTestImplWriter(
                   |static const NATIVE_INT_TYPE $idConstantName = 0;
                   |"""
             ),
-            if data.kind != Ast.ComponentKind.Passive then lines(
-              s"""|
-                  |// Queue depth supplied to the component instance under test
-                  |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
-                  |"""
+            guardedList (data.kind != Ast.ComponentKind.Passive) (
+              lines(
+                s"""|
+                    |// Queue depth supplied to the component instance under test
+                    |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
+                    |"""
+              )
             )
-            else Nil
           )
         )
       ),
@@ -186,15 +187,11 @@ case class ComponentTestImplWriter(
               |"""
         )
       }
-    def writeConnections(ports: List[PortInstance]) =
-      ports match {
-        case Nil => Nil
-        case _ => List.concat(
-          lines(
-            s"// Connect ${getPortListTypeString(ports)} ${getPortListDirectionString(ports)} ports"
-          ),
-          Line.blank :: intersperseBlankLines(
-            ports.map(p => p.getArraySize match {
+    def writeConnections(ports: List[PortInstance]) = {
+      val connections = addBlankPrefix(
+        intersperseBlankLines(
+          ports.filter(portInstanceIsUsed).map(
+            p => p.getArraySize match {
               case 1 => writeConnection(p, "0")
               case size => wrapInForLoop(
                 "NATIVE_UINT_TYPE i = 0",
@@ -202,14 +199,20 @@ case class ComponentTestImplWriter(
                 "i++",
                 writeConnection(p, "i")
               )
-            })
+            }
           )
         )
-      }
+      )
+      val typeString = getPortListTypeString(ports)
+      val dirString = getPortListDirectionString(ports)
+      val comment = line(s"// Connect $typeString $dirString ports")
+      Line.addPrefixLine (comment) (connections)
+    }
 
     val initArgs = List.concat(
-      if data.kind != Ast.ComponentKind.Passive then List(s"$testImplClassName::$queueDepthConstantName")
-      else Nil,
+      guardedList (data.kind != Ast.ComponentKind.Passive) (
+        List(s"$testImplClassName::$queueDepthConstantName")
+      ),
       List(s"$testImplClassName::$idConstantName"),
     ).mkString(", ")
 
@@ -224,6 +227,8 @@ case class ComponentTestImplWriter(
           CppDoc.Type("void"),
           intersperseBlankLines(
             List(
+              writeConnections(specialInputPorts),
+              writeConnections(specialOutputPorts),
               writeConnections(typedInputPorts),
               writeConnections(typedOutputPorts),
               writeConnections(serialInputPorts),

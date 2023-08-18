@@ -161,19 +161,21 @@ case class ComponentHistory(
   private def getPortHistoryTypes: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        typedOutputPorts.flatMap(p =>
+        typedOutputPorts.flatMap(p => {
+          val portName = testerPortName(p)
+          val entryName = fromPortEntryName(p.getUnqualifiedName)
           portParamTypeMap(p.getUnqualifiedName) match {
             case Nil => Nil
             case params =>
               Line.blank ::
-              line(s"//! A history entry for port ${portName(p)}") ::
+              line(s"//! A history entry for port $portName") ::
               wrapInScope(
-                s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
+                s"struct $entryName {",
                 params.map((name, tn) => line(s"$tn $name;")),
                 "};"
               )
           }
-        )
+        })
       )
     )
   }
@@ -186,12 +188,15 @@ case class ComponentHistory(
       CppDoc.Type("void"),
       List.concat(
         lines("this->fromPortHistorySize = 0;"),
-        typedOutputPorts.map(p =>
+        typedOutputPorts.map(p => {
+          val portName = p.getUnqualifiedName
+          val historySizeName = fromPortHistorySizeName(portName)
+          val historyName = fromPortHistoryName(portName)
           portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => line(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)} = 0;")
-            case _ => line(s"this->${fromPortHistoryName(p.getUnqualifiedName)}->clear();")
+            case Nil => line(s"this->$historySizeName = 0;")
+            case _ => line(s"this->$historyName->clear();")
           }
-        )
+        })
       )
     )
 
@@ -226,33 +231,35 @@ case class ComponentHistory(
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
-    lazy val variables = linesClassMember(
-      List.concat(
-        Line.blank :: lines(
-          s"""|//! The total number of port entries
-              |U32 fromPortHistorySize;
-              |"""
-        ),
-        typedOutputPorts.flatMap(p => {
-          val portName = p.getUnqualifiedName
-          val inputName = inputPortName(portName)
-          val historySizeName = fromPortHistorySizeName(portName)
-          val entryName = fromPortEntryName(portName)
-          val historyName = fromPortHistoryName(portName)
-          Line.blank :: getPortParams(p) match {
-            case Nil => lines(
-              s"""|//! The size of history for $inputName
-                  |U32 $historySizeName;
-                  |""".stripMargin
-            )
-            case _ => lines(
-              s"""|//! The history for $inputName
-                  |History<$entryName>* $historyName;
-                  |"""
-            )
-          }
-        })
-      ),
+    val portHistorySize = lines(
+      s"""|//! The total number of port entries
+          |U32 fromPortHistorySize;
+          |"""
+    )
+    val histories = typedOutputPorts.map(
+      p => {
+        val portName = p.getUnqualifiedName
+        val inputName = inputPortName(portName)
+        val historySizeName = fromPortHistorySizeName(portName)
+        val entryName = fromPortEntryName(portName)
+        val historyName = fromPortHistoryName(portName)
+        getPortParams(p) match {
+          case Nil => lines(
+            s"""|//! The size of history for $inputName
+                |U32 $historySizeName;
+                |""".stripMargin
+          )
+          case _ => lines(
+            s"""|//! The history for $inputName
+                |History<$entryName>* $historyName;
+                |"""
+          )
+        }
+      }
+    )
+    val variables = linesClassMember(
+      Line.blank ::
+      intersperseBlankLines(portHistorySize :: histories),
       CppDoc.Lines.Hpp
     )
     List(variables)
@@ -292,7 +299,9 @@ case class ComponentHistory(
   private def getEventHistoryTypes: List[CppDoc.Class.Member] = {
     val textLogHistory = wrapClassMemberInTextLogGuard(
         linesClassMember(
-          Line.blank :: line("//! A history entry for text log events") :: wrapInScope(
+          Line.blank ::
+          line("//! A history entry for text log events") ::
+          wrapInScope(
             "struct TextLogEntry {",
             lines(
               """|U32 id;
@@ -312,10 +321,12 @@ case class ComponentHistory(
         eventParamTypeMap(id) match {
           case Nil => Nil
           case params =>
+            val eventName = event.getName
+            val entryName = eventEntryName(eventName)
             Line.blank ::
-            line(s"//! A history entry for event ${event.getName}") ::
+            line(s"//! A history entry for event $eventName") ::
             wrapInScope(
-              s"struct ${eventEntryName(event.getName)} {",
+              s"struct $entryName {",
               params.map((name, tn) => line(s"$tn $name;")),
               "};"
             )
@@ -337,12 +348,15 @@ case class ComponentHistory(
       CppDoc.Type("void"),
       List.concat(
         lines("this->eventsSize = 0;"),
-        sortedEvents.map((id, event) =>
+        sortedEvents.map((id, event) => {
+          val eventName = event.getName
+          val sizeName = eventSizeName(eventName)
+          val historyName = eventHistoryName(eventName)
           eventParamTypeMap(id) match {
-            case Nil => line(s"this->${eventSizeName(event.getName)} = 0;")
-            case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
+            case Nil => line(s"this->$sizeName = 0;")
+            case _ => line(s"this->$historyName->clear();")
           }
-        )
+        })
       )
     )
     lazy val printEntry = functionClassMember(
@@ -456,7 +470,7 @@ case class ComponentHistory(
         val historyName = eventHistoryName(eventName)
         eventParamTypeMap(id) match {
           case Nil => Line.blank :: lines(
-            s"""|//! Size of history for event ${event.getName}
+            s"""|//! Size of history for event $eventName
                 |U32 $sizeName;
                 |"""
           )
@@ -521,13 +535,16 @@ case class ComponentHistory(
              |U32 tlmSize;
              |"""
         ),
-        sortedChannels.flatMap((_, channel) =>
+        sortedChannels.flatMap((_, channel) => {
+          val channelName = channel.getName
+          val entryName = tlmEntryName(channelName)
+          val historyName = tlmHistoryName(channelName)
           Line.blank :: lines(
-            s"""|//! The history of ${channel.getName} values
-                |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
+            s"""|//! The history of $channelName values
+                |History<$entryName>* $historyName;
                 |"""
           )
-        )
+        })
       ),
       CppDoc.Lines.Hpp
     )
