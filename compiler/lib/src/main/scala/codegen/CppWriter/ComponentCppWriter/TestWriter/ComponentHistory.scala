@@ -321,10 +321,12 @@ case class ComponentHistory(
         eventParamTypeMap(id) match {
           case Nil => Nil
           case params =>
+            val eventName = event.getName
+            val entryName = eventEntryName(eventName)
             Line.blank ::
-            line(s"//! A history entry for event ${event.getName}") ::
+            line(s"//! A history entry for event $eventName") ::
             wrapInScope(
-              s"struct ${eventEntryName(event.getName)} {",
+              s"struct $entryName {",
               params.map((name, tn) => line(s"$tn $name;")),
               "};"
             )
@@ -346,12 +348,15 @@ case class ComponentHistory(
       CppDoc.Type("void"),
       List.concat(
         lines("this->eventsSize = 0;"),
-        sortedEvents.map((id, event) =>
+        sortedEvents.map((id, event) => {
+          val eventName = event.getName
+          val sizeName = eventSizeName(eventName)
+          val historyName = eventHistoryName(eventName)
           eventParamTypeMap(id) match {
-            case Nil => line(s"this->${eventSizeName(event.getName)} = 0;")
-            case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
+            case Nil => line(s"this->$sizeName = 0;")
+            case _ => line(s"this->$historyName->clear();")
           }
-        )
+        })
       )
     )
     lazy val printEntry = functionClassMember(
@@ -465,7 +470,7 @@ case class ComponentHistory(
         val historyName = eventHistoryName(eventName)
         eventParamTypeMap(id) match {
           case Nil => Line.blank :: lines(
-            s"""|//! Size of history for event ${event.getName}
+            s"""|//! Size of history for event $eventName
                 |U32 $sizeName;
                 |"""
           )
@@ -530,13 +535,16 @@ case class ComponentHistory(
              |U32 tlmSize;
              |"""
         ),
-        sortedChannels.flatMap((_, channel) =>
+        sortedChannels.flatMap((_, channel) => {
+          val channelName = channel.getName
+          val entryName = tlmEntryName(channelName)
+          val historyName = tlmHistoryName(channelName)
           Line.blank :: lines(
-            s"""|//! The history of ${channel.getName} values
-                |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
+            s"""|//! The history of $channelName values
+                |History<$entryName>* $historyName;
                 |"""
           )
-        )
+        })
       ),
       CppDoc.Lines.Hpp
     )
