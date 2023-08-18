@@ -22,6 +22,11 @@ namespace M {
       this->component.get_cmdIn_InputPort(0)
     );
 
+    this->connect_to_productRecvIn(
+      0,
+      this->component.get_productRecvIn_InputPort(0)
+    );
+
     // Connect special output ports
 
     this->component.set_cmdRegOut_OutputPort(
@@ -47,6 +52,16 @@ namespace M {
     this->component.set_prmSetOut_OutputPort(
       0,
       this->get_from_prmSetOut(0)
+    );
+
+    this->component.set_productRequestOut_OutputPort(
+      0,
+      this->get_from_productRequestOut(0)
+    );
+
+    this->component.set_productSendOut_OutputPort(
+      0,
+      this->get_from_productSendOut(0)
     );
 
     this->component.set_textEventOut_OutputPort(
