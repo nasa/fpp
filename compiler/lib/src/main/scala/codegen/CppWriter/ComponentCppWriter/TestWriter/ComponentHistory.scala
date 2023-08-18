@@ -337,108 +337,104 @@ case class ComponentHistory(
   }
 
   private def getEventHistoryFunctions: List[CppDoc.Class.Member] = {
-    if hasEvents then List.concat(
-      List(
-        functionClassMember(
-          Some("Clear event history"),
-          "clearEvents",
-          Nil,
-          CppDoc.Type("void"),
-          List.concat(
-            lines("this->eventsSize = 0;"),
-            sortedEvents.map((id, event) =>
-              eventParamTypeMap(id) match {
-                case Nil => line(s"this->${eventSizeName(event.getName)} = 0;")
-                case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
-              }
-            )
-          )
-        )
-      ),
-      wrapClassMembersInTextLogGuard(
-        List(
-          functionClassMember(
-            Some("Print a text log history entry"),
-            "printTextLogHistoryEntry",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const TextLogEntry&"),
-                "e"
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("FILE*"),
-                "file"
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|const char* severityString = "UNKNOWN";
-                 |
-                 |switch (e.severity.e) {
-                 |  case Fw::LogSeverity::FATAL:
-                 |    severityString = "FATAL";
-                 |    break;
-                 |  case Fw::LogSeverity::WARNING_HI:
-                 |    severityString = "WARNING_HI";
-                 |    break;
-                 |  case Fw::LogSeverity::WARNING_LO:
-                 |    severityString = "WARNING_LO";
-                 |    break;
-                 |  case Fw::LogSeverity::COMMAND:
-                 |    severityString = "COMMAND";
-                 |    break;
-                 |  case Fw::LogSeverity::ACTIVITY_HI:
-                 |    severityString = "ACTIVITY_HI";
-                 |    break;
-                 |  case Fw::LogSeverity::ACTIVITY_LO:
-                 |    severityString = "ACTIVITY_LO";
-                 |    break;
-                 |  case Fw::LogSeverity::DIAGNOSTIC:
-                 |   severityString = "DIAGNOSTIC";
-                 |    break;
-                 |  default:
-                 |    severityString = "SEVERITY ERROR";
-                 |    break;
-                 |}
-                 |
-                 |fprintf(
-                 |  file,
-                 |  "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
-                 |  e.id,
-                 |  static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
-                 |  e.timeTag.getSeconds(),
-                 |  e.timeTag.getUSeconds(),
-                 |  severityString,
-                 |  e.text.toChar()
-                 |);
-                 |"""
-            ),
-            CppDoc.Function.Static
-          ),
-          functionClassMember(
-            Some("Print the text log history"),
-            "printTextLogHistory",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("FILE* const"),
-                "file"
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|for (U32 i = 0; i < this->textLogHistory->size(); i++) {
-                 |  this->printTextLogHistoryEntry(
-                 |    this->textLogHistory->at(i),
-                 |    file
-                 |  );
-                 |}
-                 |"""
-            )
-          )
+    lazy val clearHistory = functionClassMember(
+      Some("Clear event history"),
+      "clearEvents",
+      Nil,
+      CppDoc.Type("void"),
+      List.concat(
+        lines("this->eventsSize = 0;"),
+        sortedEvents.map((id, event) =>
+          eventParamTypeMap(id) match {
+            case Nil => line(s"this->${eventSizeName(event.getName)} = 0;")
+            case _ => line(s"this->${eventHistoryName(event.getName)}->clear();")
+          }
         )
       )
     )
-    else Nil
+    lazy val printEntry = functionClassMember(
+      Some("Print a text log history entry"),
+      "printTextLogHistoryEntry",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const TextLogEntry&"),
+          "e"
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FILE*"),
+          "file"
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|const char* severityString = "UNKNOWN";
+           |
+           |switch (e.severity.e) {
+           |  case Fw::LogSeverity::FATAL:
+           |    severityString = "FATAL";
+           |    break;
+           |  case Fw::LogSeverity::WARNING_HI:
+           |    severityString = "WARNING_HI";
+           |    break;
+           |  case Fw::LogSeverity::WARNING_LO:
+           |    severityString = "WARNING_LO";
+           |    break;
+           |  case Fw::LogSeverity::COMMAND:
+           |    severityString = "COMMAND";
+           |    break;
+           |  case Fw::LogSeverity::ACTIVITY_HI:
+           |    severityString = "ACTIVITY_HI";
+           |    break;
+           |  case Fw::LogSeverity::ACTIVITY_LO:
+           |    severityString = "ACTIVITY_LO";
+           |    break;
+           |  case Fw::LogSeverity::DIAGNOSTIC:
+           |   severityString = "DIAGNOSTIC";
+           |    break;
+           |  default:
+           |    severityString = "SEVERITY ERROR";
+           |    break;
+           |}
+           |
+           |fprintf(
+           |  file,
+           |  "EVENT: (%" PRI_FwEventIdType ") (%" PRI_FwTimeBaseStoreType ":%" PRIu32 ",%" PRIu32 ") %s: %s\n",
+           |  e.id,
+           |  static_cast<FwTimeBaseStoreType>(e.timeTag.getTimeBase()),
+           |  e.timeTag.getSeconds(),
+           |  e.timeTag.getUSeconds(),
+           |  severityString,
+           |  e.text.toChar()
+           |);
+           |"""
+      ),
+      CppDoc.Function.Static
+    )
+    lazy val printHistory = functionClassMember(
+      Some("Print the text log history"),
+      "printTextLogHistory",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FILE* const"),
+          "file"
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|for (U32 i = 0; i < this->textLogHistory->size(); i++) {
+           |  this->printTextLogHistoryEntry(
+           |    this->textLogHistory->at(i),
+           |    file
+           |  );
+           |}
+           |"""
+      )
+    )
+    lazy val members = List.concat(
+      List(clearHistory),
+      wrapClassMembersInTextLogGuard(List(printEntry, printHistory))
+    )
+    guardedList (hasEvents) (members)
   }
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
