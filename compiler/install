@@ -43,6 +43,7 @@ then
 else
   dest=bin
 fi
+mkdir -p $dest
 
 dir=`dirname $dest`
 dir=`cd $dir; pwd`
