@@ -128,25 +128,6 @@ class PassiveTelemetryTesterBase :
       S s;
     };
 
-    //! A type representing a command response
-    struct CmdResponse {
-      FwOpcodeType opCode;
-      U32 cmdSeq;
-      Fw::CmdResponse response;
-    };
-
-#if FW_ENABLE_TEXT_LOGGING
-
-    //! A history entry for text log events
-    struct TextLogEntry {
-      U32 id;
-      Fw::Time timeTag;
-      Fw::LogSeverity severity;
-      Fw::TextLogString text;
-    };
-
-#endif
-
     //! A history entry for telemetry channel ChannelU32Format
     struct TlmEntry_ChannelU32Format {
       Fw::Time timeTag;
@@ -874,19 +855,6 @@ class PassiveTelemetryTesterBase :
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
     //! The history for from_typedReturnOut
     History<FromPortEntry_typedReturnOut>* fromPortHistory_typedReturnOut;
-
-    //! The command response history
-    History<CmdResponse>* cmdResponseHistory;
-
-    //! The total number of events seen
-    U32 eventsSize;
-
-#if FW_ENABLE_TEXT_LOGGING
-
-    //! The history of text log events
-    History<TextLogEntry>* textLogHistory;
-
-#endif
 
     //! The total number of telemetry inputs seen
     U32 tlmSize;

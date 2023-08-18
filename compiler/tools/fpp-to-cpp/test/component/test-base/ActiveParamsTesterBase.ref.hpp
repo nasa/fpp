@@ -135,18 +135,6 @@ class ActiveParamsTesterBase :
       Fw::CmdResponse response;
     };
 
-#if FW_ENABLE_TEXT_LOGGING
-
-    //! A history entry for text log events
-    struct TextLogEntry {
-      U32 id;
-      Fw::Time timeTag;
-      Fw::LogSeverity severity;
-      Fw::TextLogString text;
-    };
-
-#endif
-
   public:
 
     // ----------------------------------------------------------------------
@@ -1029,16 +1017,6 @@ class ActiveParamsTesterBase :
 
     //! The command response history
     History<CmdResponse>* cmdResponseHistory;
-
-    //! The total number of events seen
-    U32 eventsSize;
-
-#if FW_ENABLE_TEXT_LOGGING
-
-    //! The history of text log events
-    History<TextLogEntry>* textLogHistory;
-
-#endif
 
   private:
 

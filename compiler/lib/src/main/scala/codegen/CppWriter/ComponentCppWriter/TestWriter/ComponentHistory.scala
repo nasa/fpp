@@ -261,43 +261,43 @@ case class ComponentHistory(
     guardedList (hasTypedOutputPorts) (List(variables))
   }
 
-  private def getCmdHistoryTypes: List[CppDoc.Class.Member] = {
-    if cmdRespPort.isDefined then List(
-      linesClassMember(
-        Line.blank :: line("//! A type representing a command response") ::
-          wrapInScope(
-            "struct CmdResponse {",
-            lines(
-              """|FwOpcodeType opCode;
-                 |U32 cmdSeq;
-                 |Fw::CmdResponse response;
-                 |"""
+  private def getCmdHistoryTypes: List[CppDoc.Class.Member] =
+    guardedList (hasCommands) (
+      List(
+        linesClassMember(
+          Line.blank ::
+          line("//! A type representing a command response") ::
+            wrapInScope(
+              "struct CmdResponse {",
+              lines(
+                """|FwOpcodeType opCode;
+                   |U32 cmdSeq;
+                   |Fw::CmdResponse response;
+                   |"""
+              ),
+              "};"
             ),
-            "};"
-          ),
-        CppDoc.Lines.Hpp
+          CppDoc.Lines.Hpp
+        )
       )
     )
-    else Nil
-  }
 
-  private def getCmdHistoryVariables: List[CppDoc.Class.Member] = {
-    if cmdRespPort.isDefined then List(
-      linesClassMember(
-        Line.blank :: lines(
-          """|//! The command response history
-             |History<CmdResponse>* cmdResponseHistory;
-             |"""
-        ),
-        CppDoc.Lines.Hpp
+  private def getCmdHistoryVariables: List[CppDoc.Class.Member] =
+    guardedList (hasCommands) (
+      List(
+        linesClassMember(
+          Line.blank :: lines(
+            """|//! The command response history
+               |History<CmdResponse>* cmdResponseHistory;
+               |"""
+          ),
+          CppDoc.Lines.Hpp
+        )
       )
     )
-    else Nil
-  }
 
   private def getEventHistoryTypes: List[CppDoc.Class.Member] = {
-    List.concat(
-      if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
+    lazy val textLogHistory = wrapClassMemberInTextLogGuard(
         linesClassMember(
           Line.blank :: line("//! A history entry for text log events") :: wrapInScope(
             "struct TextLogEntry {",
@@ -314,23 +314,25 @@ case class ComponentHistory(
         ),
         CppDoc.Lines.Hpp
       )
-      else Nil,
-      List(
-        linesClassMember(
-          sortedEvents.flatMap((id, event) =>
-            eventParamTypeMap(id) match {
-              case Nil => Nil
-              case params => Line.blank :: line(s"//! A history entry for event ${event.getName}") ::
-                wrapInScope(
-                  s"struct ${eventEntryName(event.getName)} {",
-                  params.map((name, tn) => line(s"$tn $name;")),
-                  "};"
-                )
-            }
-          ),
-          CppDoc.Lines.Hpp
-        )
-      )
+    val eventHistories = linesClassMember(
+      sortedEvents.flatMap((id, event) =>
+        eventParamTypeMap(id) match {
+          case Nil => Nil
+          case params =>
+            Line.blank ::
+            line(s"//! A history entry for event ${event.getName}") ::
+            wrapInScope(
+              s"struct ${eventEntryName(event.getName)} {",
+              params.map((name, tn) => line(s"$tn $name;")),
+              "};"
+            )
+        }
+      ),
+      CppDoc.Lines.Hpp
+    )
+    List.concat(
+      guardedList (hasEvents) (textLogHistory),
+      List(eventHistories)
     )
   }
 
@@ -441,7 +443,7 @@ case class ComponentHistory(
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
     List.concat(
-      if eventPort.isDefined then List(
+      if hasEvents then List(
         linesClassMember(
           Line.blank :: lines(
             """|//! The total number of events seen
@@ -451,7 +453,7 @@ case class ComponentHistory(
         )
       )
       else Nil,
-      if textEventPort.isDefined then wrapClassMemberInTextLogGuard(
+      if hasEvents then wrapClassMemberInTextLogGuard(
         linesClassMember(
           Line.blank :: lines(
             """|//! The history of text log events
