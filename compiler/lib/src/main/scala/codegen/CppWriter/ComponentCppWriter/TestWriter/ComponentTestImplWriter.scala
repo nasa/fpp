@@ -187,26 +187,25 @@ case class ComponentTestImplWriter(
               |"""
         )
       }
-    def writeConnections(ports: List[PortInstance]) =
-      ports match {
-        case Nil => Nil
-        case _ => List.concat(
-          lines(
-            s"// Connect ${getPortListTypeString(ports)} ${getPortListDirectionString(ports)} ports"
-          ),
-          Line.blank :: intersperseBlankLines(
-            ports.map(p => p.getArraySize match {
-              case 1 => writeConnection(p, "0")
-              case size => wrapInForLoop(
-                "NATIVE_UINT_TYPE i = 0",
-                s"i < $size",
-                "i++",
-                writeConnection(p, "i")
-              )
-            })
-          )
+    def writeConnections(ports: List[PortInstance]) = {
+      val connections = addBlankPrefix(
+        intersperseBlankLines(
+          ports.map(p => p.getArraySize match {
+            case 1 => writeConnection(p, "0")
+            case size => wrapInForLoop(
+              "NATIVE_UINT_TYPE i = 0",
+              s"i < $size",
+              "i++",
+              writeConnection(p, "i")
+            )
+          })
         )
-      }
+      )
+      val typeString = getPortListTypeString(ports)
+      val dirString = getPortListDirectionString(ports)
+      val comment = line(s"// Connect $typeString $dirString ports")
+      Line.addPrefixLine (comment) (connections)
+    }
 
     val initArgs = List.concat(
       guardedList (data.kind != Ast.ComponentKind.Passive) (
