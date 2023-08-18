@@ -1462,7 +1462,7 @@ void ActiveEventsTesterBase ::
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
-  switch ((id - idBase)) {
+  switch (id - idBase) {
     case ActiveEventsComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
       // For AMPCS, decode zero arguments
@@ -2064,7 +2064,7 @@ void ActiveEventsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsTesterBase* _testerBase = static_cast<ActiveEventsTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -2091,7 +2091,7 @@ F32 ActiveEventsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveEventsTesterBase* _testerBase = static_cast<ActiveEventsTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

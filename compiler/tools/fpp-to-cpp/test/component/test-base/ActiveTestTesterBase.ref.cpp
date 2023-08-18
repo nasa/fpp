@@ -2264,7 +2264,7 @@ namespace M {
     const U32 idBase = this->getIdBase();
     FW_ASSERT(id >= idBase, id, idBase);
 
-    switch ((id - idBase)) {
+    switch (id - idBase) {
       case ActiveTestComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
         // For AMPCS, decode zero arguments
@@ -3592,7 +3592,7 @@ namespace M {
       };
 
       default:
-        FW_ASSERT(id);
+        FW_ASSERT(0, id);
         break;
     }
 
@@ -3700,7 +3700,7 @@ namespace M {
       };
 
       default:
-        FW_ASSERT(id);
+        FW_ASSERT(0, id);
         break;
     }
   }
@@ -3760,7 +3760,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
     _testerBase->from_typedOut_handlerBase(
       portNum,
@@ -3787,7 +3787,7 @@ namespace M {
         const S& s
     )
   {
-    FW_ASSERT(callComp);
+    FW_ASSERT(callComp != nullptr);
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
     return _testerBase->from_typedReturnOut_handlerBase(
       portNum,

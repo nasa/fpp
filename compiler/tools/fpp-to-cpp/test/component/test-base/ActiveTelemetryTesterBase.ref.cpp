@@ -1846,7 +1846,7 @@ void ActiveTelemetryTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryTesterBase* _testerBase = static_cast<ActiveTelemetryTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -1873,7 +1873,7 @@ F32 ActiveTelemetryTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveTelemetryTesterBase* _testerBase = static_cast<ActiveTelemetryTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

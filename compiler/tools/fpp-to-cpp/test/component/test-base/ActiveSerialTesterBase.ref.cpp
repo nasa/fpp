@@ -2730,7 +2730,7 @@ void ActiveSerialTesterBase ::
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
-  switch ((id - idBase)) {
+  switch (id - idBase) {
     case ActiveSerialComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
       // For AMPCS, decode zero arguments
@@ -4058,7 +4058,7 @@ Fw::ParamValid ActiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 
@@ -4166,7 +4166,7 @@ void ActiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 }
@@ -4226,7 +4226,7 @@ void ActiveSerialTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialTesterBase* _testerBase = static_cast<ActiveSerialTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -4253,7 +4253,7 @@ F32 ActiveSerialTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialTesterBase* _testerBase = static_cast<ActiveSerialTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,
@@ -4274,7 +4274,7 @@ void ActiveSerialTesterBase ::
       Fw::SerializeBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveSerialTesterBase* _testerBase = static_cast<ActiveSerialTesterBase*>(callComp);
   return _testerBase->from_serialOut_handlerBase(
     portNum,
