@@ -11,132 +11,124 @@ case class ComponentHistory(
 ) extends ComponentTestUtils(s, aNode) {
 
   def getClassMember: List[CppDoc.Class.Member] = {
+    lazy val history = linesClassMember(
+      lines(
+        """|
+           |//! \class History
+           |//! \brief A history of port inputs
+           |//!
+           |template<typename T>
+           |class History
+           |{
+           |
+           |  public:
+           |
+           |    //! Create a History
+           |    History(
+           |       const U32 maxSize //!< The maximum history size
+           |    ) :
+           |      numEntries(0),
+           |      maxSize(maxSize)
+           |    {
+           |      this->entries = new T[maxSize];
+           |    }
+           |
+           |    //! Destroy a History
+           |    ~History()
+           |    {
+           |      delete[] this->entries;
+           |    }
+           |
+           |    //! Clear the history
+           |    //!
+           |    void clear()
+           |    {
+           |      this->numEntries = 0;
+           |    }
+           |
+           |    //! Push an item onto the history
+           |    //!
+           |    void push_back(
+           |        T entry //!< The item
+           |    )
+           |    {
+           |      FW_ASSERT(this->numEntries < this->maxSize);
+           |      entries[this->numEntries++] = entry;
+           |    }
+           |
+           |    //! Get an item at an index
+           |    //!
+           |    //! \return The item at index i
+           |    T at(
+           |        const U32 i //!< The index
+           |    ) const
+           |    {
+           |      FW_ASSERT(i < this->numEntries);
+           |      return entries[i];
+           |    }
+           |
+           |    //! Get the number of entries in the history
+           |    //!
+           |    //! \return The number of entries in the history
+           |    U32 size() const
+           |    {
+           |      return this->numEntries;
+           |    }
+           |
+           |  private:
+           |
+           |    //! The number of entries in the history
+           |    U32 numEntries;
+           |
+           |    //! The maximum history size
+           |    const U32 maxSize;
+           |
+           |    //! The entries
+           |    T* entries;
+           |
+           |};
+           |"""
+      ),
+      CppDoc.Lines.Hpp
+    )
     addAccessTagAndComment(
       "protected",
       "History class",
-      if hasHistories then List(
-        linesClassMember(
-          lines(
-            """|
-               |//! \class History
-               |//! \brief A history of port inputs
-               |//!
-               |template<typename T>
-               |class History
-               |{
-               |
-               |  public:
-               |
-               |    //! Create a History
-               |    History(
-               |       const U32 maxSize //!< The maximum history size
-               |    ) :
-               |      numEntries(0),
-               |      maxSize(maxSize)
-               |    {
-               |      this->entries = new T[maxSize];
-               |    }
-               |
-               |    //! Destroy a History
-               |    ~History()
-               |    {
-               |      delete[] this->entries;
-               |    }
-               |
-               |    //! Clear the history
-               |    //!
-               |    void clear()
-               |    {
-               |      this->numEntries = 0;
-               |    }
-               |
-               |    //! Push an item onto the history
-               |    //!
-               |    void push_back(
-               |        T entry //!< The item
-               |    )
-               |    {
-               |      FW_ASSERT(this->numEntries < this->maxSize);
-               |      entries[this->numEntries++] = entry;
-               |    }
-               |
-               |    //! Get an item at an index
-               |    //!
-               |    //! \return The item at index i
-               |    T at(
-               |        const U32 i //!< The index
-               |    ) const
-               |    {
-               |      FW_ASSERT(i < this->numEntries);
-               |      return entries[i];
-               |    }
-               |
-               |    //! Get the number of entries in the history
-               |    //!
-               |    //! \return The number of entries in the history
-               |    U32 size() const
-               |    {
-               |      return this->numEntries;
-               |    }
-               |
-               |  private:
-               |
-               |    //! The number of entries in the history
-               |    U32 numEntries;
-               |
-               |    //! The maximum history size
-               |    const U32 maxSize;
-               |
-               |    //! The entries
-               |    T* entries;
-               |
-               |};
-               |"""
-          ),
-          CppDoc.Lines.Hpp
-        )
-      )
-      else Nil,
+      guardedList (hasHistories) (List(history)),
       CppDoc.Lines.Hpp
     )
   }
 
-  def getTypeMembers: List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      "History types",
-      List.concat(
-        getPortHistoryTypes,
-        getCmdHistoryTypes,
-        getEventHistoryTypes,
-        getTlmHistoryTypes,
-      ),
-      CppDoc.Lines.Hpp
-    )
-  }
-
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
+  def getTypeMembers: List[CppDoc.Class.Member] = addAccessTagAndComment(
+    "protected",
+    "History types",
     List.concat(
-      getClearHistoryFunction,
-      getPortHistoryFunctions,
-      getEventHistoryFunctions,
-      getTlmHistoryFunctions,
-    )
-  }
+      getPortHistoryTypes,
+      getCmdHistoryTypes,
+      getEventHistoryTypes,
+      getTlmHistoryTypes,
+    ),
+    CppDoc.Lines.Hpp
+  )
 
-  def getVariableMembers: List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "protected",
-      "History member variables",
-      List.concat(
-        getPortHistoryVariables,
-        getCmdHistoryVariables,
-        getEventHistoryVariables,
-        getTlmHistoryVariables,
-      ),
-      CppDoc.Lines.Hpp
-    )
-  }
+  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getClearHistoryFunction,
+    getPortHistoryFunctions,
+    getEventHistoryFunctions,
+    getTlmHistoryFunctions,
+  )
+
+  def getVariableMembers: List[CppDoc.Class.Member] = addAccessTagAndComment(
+    "protected",
+    "History member variables",
+    List.concat(
+      getPortHistoryVariables,
+      getCmdHistoryVariables,
+      getEventHistoryVariables,
+      getTlmHistoryVariables,
+    ),
+    CppDoc.Lines.Hpp
+  )
 
   private def getClearHistoryFunction: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
@@ -149,20 +141,18 @@ case class ComponentHistory(
           Nil,
           CppDoc.Type("void"),
           List.concat(
-            if typedOutputPorts.nonEmpty then lines("this->clearFromPortHistory();")
-            else Nil,
-            if hasCommands || hasParameters then lines("this->cmdResponseHistory->clear();")
-            else Nil,
-            if hasEvents then lines(
-              """|#if FW_ENABLE_TEXT_LOGGING
-                 |this->textLogHistory->clear();
-                 |#endif
-                 |this->clearEvents();
-                 |"""
-            )
-            else Nil,
-            if hasChannels then lines("this->clearTlm();")
-            else Nil,
+            guardedList (hasTypedOutputPorts) (lines("this->clearFromPortHistory();")),
+            guardedList (hasCommands) (lines("this->cmdResponseHistory->clear();")),
+            guardedList (hasEvents) (
+              lines(
+                """|#if FW_ENABLE_TEXT_LOGGING
+                   |this->textLogHistory->clear();
+                   |#endif
+                   |this->clearEvents();
+                   |"""
+              )
+            ),
+            guardedList (hasChannels) (lines("this->clearTlm();"))
           )
         )
       )
