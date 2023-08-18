@@ -1663,7 +1663,7 @@ void PassiveCommandsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -1690,7 +1690,7 @@ F32 PassiveCommandsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

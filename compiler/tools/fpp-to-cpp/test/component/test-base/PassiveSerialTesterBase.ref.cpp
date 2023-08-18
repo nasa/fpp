@@ -1932,7 +1932,7 @@ void PassiveSerialTesterBase ::
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
-  switch ((id - idBase)) {
+  switch (id - idBase) {
     case PassiveSerialComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
       // For AMPCS, decode zero arguments
@@ -3260,7 +3260,7 @@ Fw::ParamValid PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 
@@ -3368,7 +3368,7 @@ void PassiveSerialTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 }
@@ -3428,7 +3428,7 @@ void PassiveSerialTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -3455,7 +3455,7 @@ F32 PassiveSerialTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,
@@ -3476,7 +3476,7 @@ void PassiveSerialTesterBase ::
       Fw::SerializeBufferBase& buffer
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveSerialTesterBase* _testerBase = static_cast<PassiveSerialTesterBase*>(callComp);
   return _testerBase->from_serialOut_handlerBase(
     portNum,

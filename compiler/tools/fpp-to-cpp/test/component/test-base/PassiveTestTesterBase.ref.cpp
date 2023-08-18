@@ -1874,7 +1874,7 @@ void PassiveTestTesterBase ::
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
-  switch ((id - idBase)) {
+  switch (id - idBase) {
     case PassiveTestComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
       // For AMPCS, decode zero arguments
@@ -3202,7 +3202,7 @@ Fw::ParamValid PassiveTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 
@@ -3310,7 +3310,7 @@ void PassiveTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 }
@@ -3392,7 +3392,7 @@ void PassiveTestTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestTesterBase* _testerBase = static_cast<PassiveTestTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -3419,7 +3419,7 @@ F32 PassiveTestTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveTestTesterBase* _testerBase = static_cast<PassiveTestTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

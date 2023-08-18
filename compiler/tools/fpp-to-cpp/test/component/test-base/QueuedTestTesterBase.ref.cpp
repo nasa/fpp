@@ -2400,7 +2400,7 @@ void QueuedTestTesterBase ::
   const U32 idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
 
-  switch ((id - idBase)) {
+  switch (id - idBase) {
     case QueuedTestComponentBase::EVENTID_EVENTACTIVITYHIGH: {
 #if FW_AMPCS_COMPATIBLE
       // For AMPCS, decode zero arguments
@@ -3728,7 +3728,7 @@ Fw::ParamValid QueuedTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 
@@ -3836,7 +3836,7 @@ void QueuedTestTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 }
@@ -3918,7 +3918,7 @@ void QueuedTestTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -3945,7 +3945,7 @@ F32 QueuedTestTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

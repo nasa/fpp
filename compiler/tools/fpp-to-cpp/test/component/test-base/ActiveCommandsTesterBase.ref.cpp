@@ -2189,7 +2189,7 @@ void ActiveCommandsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveCommandsTesterBase* _testerBase = static_cast<ActiveCommandsTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -2216,7 +2216,7 @@ F32 ActiveCommandsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   ActiveCommandsTesterBase* _testerBase = static_cast<ActiveCommandsTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

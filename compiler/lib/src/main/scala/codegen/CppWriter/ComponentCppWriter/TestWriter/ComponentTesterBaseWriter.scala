@@ -668,7 +668,7 @@ case class ComponentTesterBaseWriter(
     }
 
     lazy val switchStatement = Line.blank :: wrapInSwitch(
-      "(id - idBase)",
+      "id - idBase",
       intersperseBlankLines(
         sortedEvents.map((id, event) => writeSwitchCase(id, event)) ++ List(
           lines(
@@ -1059,7 +1059,7 @@ case class ComponentTesterBaseWriter(
             ) ++ List(
               lines(
                 """|default:
-                   |  FW_ASSERT(id);
+                   |  FW_ASSERT(0, id);
                    |  break;
                    |"""
               )
@@ -1110,7 +1110,7 @@ case class ComponentTesterBaseWriter(
           }) ++ List(
             lines(
               s"""|default:
-                  |  FW_ASSERT($id);
+                  |  FW_ASSERT(0, $id);
                   |  break;
                   |"""
             )
@@ -1130,7 +1130,7 @@ case class ComponentTesterBaseWriter(
           val baseName = fromPortHandlerBaseName(p.getUnqualifiedName)
           List.concat(
             lines(
-              s"""|FW_ASSERT(callComp);
+              s"""|FW_ASSERT(callComp != nullptr);
                   |$testerBaseDecl
                   |"""
             ),

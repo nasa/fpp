@@ -467,14 +467,14 @@ abstract class ComponentCppWriterUtils(
       case _ => ports.head.getDirection.get.toString
     }
 
-  /** Get the command param type as a string */
-  def getCommandParamString(kind: Command.Param.Kind): String =
+  /** Get the command param kind as a string */
+  def getCmdParamKindString(kind: Command.Param.Kind): String =
     kind match {
       case Command.Param.Save => "save"
       case Command.Param.Set => "set"
     }
 
-  /** Write an internal port param as a C++ type */
+  /** Write the type of an internal port param as a C++ type */
   def writeInternalPortParamType(param: Ast.FormalParam): String =
     TypeCppWriter.getName(
       s,
@@ -482,7 +482,7 @@ abstract class ComponentCppWriterUtils(
       Some("Fw::InternalInterfaceString")
     )
 
-  /** Write an event param as a C++ type */
+  /** Write an the type of an event param as a C++ type */
   def writeEventParamType(param: Ast.FormalParam) =
     TypeCppWriter.getName(
       s,
@@ -632,7 +632,7 @@ abstract class ComponentCppWriterUtils(
       case Command.NonParam(_, _) =>
         cmd.getName
       case Command.Param(aNode, kind) =>
-        s"${aNode._2.data.name}_${getCommandParamString(kind).toUpperCase}"
+        s"${aNode._2.data.name}_${getCmdParamKindString(kind).toUpperCase}"
     }
 
     s"OPCODE_${name.toUpperCase}"
@@ -640,7 +640,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Get the name for a param command opcode constant */
   def paramCommandConstantName(name: String, kind: Command.Param.Kind) = {
-    s"OPCODE_${name.toUpperCase}_${getCommandParamString(kind).toUpperCase}"
+    s"OPCODE_${name.toUpperCase}_${getCmdParamKindString(kind).toUpperCase}"
   }
 
   /** Get the name for an event throttle counter variable */
@@ -665,7 +665,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Get the name for a parameter handler (set/save) function */
   def paramHandlerName(name: String, kind: Command.Param.Kind) =
-    s"param${getCommandParamString(kind).capitalize}_$name"
+    s"param${getCmdParamKindString(kind).capitalize}_$name"
 
   /** Get the name for a parameter validity flag variable */
   def paramValidityFlagName(name: String) =

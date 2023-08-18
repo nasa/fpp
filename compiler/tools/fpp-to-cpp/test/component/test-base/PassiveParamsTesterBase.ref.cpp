@@ -1703,7 +1703,7 @@ Fw::ParamValid PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 
@@ -1811,7 +1811,7 @@ void PassiveParamsTesterBase ::
     };
 
     default:
-      FW_ASSERT(id);
+      FW_ASSERT(0, id);
       break;
   }
 }
@@ -1840,7 +1840,7 @@ void PassiveParamsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveParamsTesterBase* _testerBase = static_cast<PassiveParamsTesterBase*>(callComp);
   _testerBase->from_typedOut_handlerBase(
     portNum,
@@ -1867,7 +1867,7 @@ F32 PassiveParamsTesterBase ::
       const S& s
   )
 {
-  FW_ASSERT(callComp);
+  FW_ASSERT(callComp != nullptr);
   PassiveParamsTesterBase* _testerBase = static_cast<PassiveParamsTesterBase*>(callComp);
   return _testerBase->from_typedReturnOut_handlerBase(
     portNum,

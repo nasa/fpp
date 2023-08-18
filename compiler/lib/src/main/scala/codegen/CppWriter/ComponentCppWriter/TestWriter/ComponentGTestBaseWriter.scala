@@ -126,9 +126,8 @@ case class ComponentGTestBaseWriter(
                  |  this->$sizeAssertFnName(__FILE__, __LINE__, size)
                  |"""
             ),
-            params match {
-              case Nil => Nil
-              case _ => Line.blank :: lines(
+            addBlankPrefix(
+              lines(
                 s"""#define ASSERT_from_$portName(index$paramList) \\
                    |  { \\
                    |    ASSERT_GT(this->$historyName->size(), static_cast<U32>(index)) \\
@@ -154,7 +153,7 @@ case class ComponentGTestBaseWriter(
                      |"""
                 )
               )
-            },
+            ),
             lines("  }")
           )
         })
