@@ -164,7 +164,9 @@ case class ComponentHistory(
         typedOutputPorts.flatMap(p =>
           portParamTypeMap(p.getUnqualifiedName) match {
             case Nil => Nil
-            case params => Line.blank :: line(s"//! A history entry for port ${portName(p)}") ::
+            case params =>
+              Line.blank ::
+              line(s"//! A history entry for port ${portName(p)}") ::
               wrapInScope(
                 s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
                 params.map((name, tn) => line(s"$tn $name;")),
@@ -196,20 +198,23 @@ case class ComponentHistory(
     def pushEntry(p: PortInstance) = {
       val portName = p.getUnqualifiedName
       val inputName = inputPortName(portName)
+      val historySizeName = fromPortHistorySizeName(portName)
+      val entryName = fromPortEntryName(portName)
+      val historyName = fromPortHistoryName(portName)
       functionClassMember(
         Some(s"Push an entry on the history for $inputName"),
         fromPortPushEntryName(p.getUnqualifiedName),
         getPortFunctionParams(p),
         CppDoc.Type("void"),
         List.concat(
-          portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => lines(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)}++;")
+          portParamTypeMap(portName) match {
+            case Nil => lines(s"this->$historySizeName++;")
             case _ => wrapInScope(
-              s"${fromPortEntryName(p.getUnqualifiedName)} _e = {",
+              s"$entryName _e = {",
               lines(getPortParams(p).map(_._1).mkString(",\n")),
               "};"
             ) ++ lines(
-              s"|this->${fromPortHistoryName (p.getUnqualifiedName)}->push_back(_e);"
+              s"|this->$historyName->push_back(_e);"
             )
           },
           lines("this->fromPortHistorySize++;")
