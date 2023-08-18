@@ -122,10 +122,10 @@ case class ComponentHistory(
     "protected",
     "History member variables",
     List.concat(
-      getPortHistoryVariables,
-      getCmdHistoryVariables,
-      getEventHistoryVariables,
-      getTlmHistoryVariables,
+      guardedList (hasTypedOutputPorts) (getPortHistoryVariables),
+      guardedList (hasCommands) (getCmdHistoryVariables),
+      guardedList (hasEvents) (getEventHistoryVariables),
+      guardedList (hasTelemetry) (getTlmHistoryVariables),
     ),
     CppDoc.Lines.Hpp
   )
@@ -283,16 +283,14 @@ case class ComponentHistory(
     )
 
   private def getCmdHistoryVariables: List[CppDoc.Class.Member] =
-    guardedList (hasCommands) (
-      List(
-        linesClassMember(
-          Line.blank :: lines(
-            """|//! The command response history
-               |History<CmdResponse>* cmdResponseHistory;
-               |"""
-          ),
-          CppDoc.Lines.Hpp
-        )
+    List(
+      linesClassMember(
+        Line.blank :: lines(
+          """|//! The command response history
+             |History<CmdResponse>* cmdResponseHistory;
+             |"""
+        ),
+        CppDoc.Lines.Hpp
       )
     )
 
@@ -438,14 +436,14 @@ case class ComponentHistory(
   }
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
-    lazy val eventsSize = linesClassMember(
+    val eventsSize = linesClassMember(
       Line.blank :: lines(
         """|//! The total number of events seen
            |U32 eventsSize;
            |"""
       )
     )
-    lazy val textLogHistory = wrapClassMemberInTextLogGuard(
+    val textLogHistory = wrapClassMemberInTextLogGuard(
       linesClassMember(
         Line.blank :: lines(
           """|//! The history of text log events
@@ -456,7 +454,7 @@ case class ComponentHistory(
       ),
       CppDoc.Lines.Hpp
     )
-    lazy val eventHistories = linesClassMember(
+    val eventHistories = linesClassMember(
       sortedEvents.flatMap((id, event) => {
         val eventName = event.getName
         val sizeName = eventSizeName(eventName)
@@ -477,12 +475,10 @@ case class ComponentHistory(
       }),
       CppDoc.Lines.Hpp
     )
-    guardedList (hasEvents) (
-      List.concat(
-        List(eventsSize),
-        textLogHistory,
-        List(eventHistories)
-      )
+    List.concat(
+      List(eventsSize),
+      textLogHistory,
+      List(eventHistories)
     )
   }
 
