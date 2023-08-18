@@ -438,47 +438,50 @@ case class ComponentHistory(
   }
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
-    List.concat(
-      if hasEvents then List(
-        linesClassMember(
-          Line.blank :: lines(
-            """|//! The total number of events seen
-               |U32 eventsSize;
-               |"""
-          )
-        )
+    lazy val eventsSize = linesClassMember(
+      Line.blank :: lines(
+        """|//! The total number of events seen
+           |U32 eventsSize;
+           |"""
       )
-      else Nil,
-      if hasEvents then wrapClassMemberInTextLogGuard(
-        linesClassMember(
-          Line.blank :: lines(
-            """|//! The history of text log events
-               |History<TextLogEntry>* textLogHistory;
-               |"""
-          ),
-          CppDoc.Lines.Hpp
+    )
+    lazy val textLogHistory = wrapClassMemberInTextLogGuard(
+      linesClassMember(
+        Line.blank :: lines(
+          """|//! The history of text log events
+             |History<TextLogEntry>* textLogHistory;
+             |"""
         ),
         CppDoc.Lines.Hpp
-      )
-      else Nil,
-      List(
-        linesClassMember(
-          sortedEvents.flatMap((id, event) =>
-            eventParamTypeMap(id) match {
-              case Nil => Line.blank :: lines(
-                s"""|//! Size of history for event ${event.getName}
-                    |U32 ${eventSizeName(event.getName)};
-                    |"""
-              )
-              case _ => Line.blank :: lines(
-                s"""|//! The history of ${event.getName} events
-                    |History<${eventEntryName(event.getName)}>* ${eventHistoryName(event.getName)};
-                    |"""
-              )
-            }
-          ),
-          CppDoc.Lines.Hpp
-        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+    lazy val eventHistories = linesClassMember(
+      sortedEvents.flatMap((id, event) => {
+        val eventName = event.getName
+        val sizeName = eventSizeName(eventName)
+        val entryName = eventEntryName(eventName)
+        val historyName = eventHistoryName(eventName)
+        eventParamTypeMap(id) match {
+          case Nil => Line.blank :: lines(
+            s"""|//! Size of history for event ${event.getName}
+                |U32 $sizeName;
+                |"""
+          )
+          case _ => Line.blank :: lines(
+            s"""|//! The history of $eventName events
+                |History<$entryName>* $historyName;
+                |"""
+          )
+        }
+      }),
+      CppDoc.Lines.Hpp
+    )
+    guardedList (hasEvents) (
+      List.concat(
+        List(eventsSize),
+        textLogHistory,
+        List(eventHistories)
       )
     )
   }

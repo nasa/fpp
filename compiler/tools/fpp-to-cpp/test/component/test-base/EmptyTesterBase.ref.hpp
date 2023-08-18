@@ -52,12 +52,6 @@ class EmptyTesterBase :
     //! Destroy object EmptyTesterBase
     virtual ~EmptyTesterBase();
 
-  protected:
-
-    // ----------------------------------------------------------------------
-    // History member variables
-    // ----------------------------------------------------------------------
-
 };
 
 #endif
