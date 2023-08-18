@@ -423,11 +423,10 @@ case class ComponentHistory(
            |"""
       )
     )
-    lazy val members = List.concat(
+    List.concat(
       List(clearHistory),
       wrapClassMembersInTextLogGuard(List(printEntry, printHistory))
     )
-    guardedList (hasEvents) (members)
   }
 
   private def getEventHistoryVariables: List[CppDoc.Class.Member] = {
