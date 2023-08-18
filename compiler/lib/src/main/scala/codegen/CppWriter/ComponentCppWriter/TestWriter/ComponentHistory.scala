@@ -161,19 +161,21 @@ case class ComponentHistory(
   private def getPortHistoryTypes: List[CppDoc.Class.Member] = {
     List(
       linesClassMember(
-        typedOutputPorts.flatMap(p =>
+        typedOutputPorts.flatMap(p => {
+          val portName = testerPortName(p)
+          val entryName = fromPortEntryName(p.getUnqualifiedName)
           portParamTypeMap(p.getUnqualifiedName) match {
             case Nil => Nil
             case params =>
               Line.blank ::
-              line(s"//! A history entry for port ${testerPortName(p)}") ::
+              line(s"//! A history entry for port $portName") ::
               wrapInScope(
-                s"struct ${fromPortEntryName(p.getUnqualifiedName)} {",
+                s"struct $entryName {",
                 params.map((name, tn) => line(s"$tn $name;")),
                 "};"
               )
           }
-        )
+        })
       )
     )
   }
@@ -186,12 +188,15 @@ case class ComponentHistory(
       CppDoc.Type("void"),
       List.concat(
         lines("this->fromPortHistorySize = 0;"),
-        typedOutputPorts.map(p =>
+        typedOutputPorts.map(p => {
+          val portName = p.getUnqualifiedName
+          val historySizeName = fromPortHistorySizeName(portName)
+          val historyName = fromPortHistoryName(portName)
           portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => line(s"this->${fromPortHistorySizeName(p.getUnqualifiedName)} = 0;")
-            case _ => line(s"this->${fromPortHistoryName(p.getUnqualifiedName)}->clear();")
+            case Nil => line(s"this->$historySizeName = 0;")
+            case _ => line(s"this->$historyName->clear();")
           }
-        )
+        })
       )
     )
 
