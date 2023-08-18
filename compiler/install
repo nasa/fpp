@@ -10,9 +10,11 @@
 # environment variable
 # FPP_INSTALL_JAVA
 # ----------------------------------------------------------------------
-
+ls -l 
 # Go to the working directory, so that relative paths work as expected
 wd=`dirname $0`
+echo $wd
+ls -l $wd
 cd $wd
 
 # Pull in the version info
