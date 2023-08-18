@@ -25,7 +25,7 @@ case class ComponentCommands (
                   case Command.NonParam(aNode, _) =>
                     AnnotationCppWriter.asStringOpt(aNode)
                   case Command.Param(aNode, kind) =>
-                    Some(s"Opcode to ${getCommandParamString(kind)} parameter ${aNode._2.data.name}")
+                    Some(s"Opcode to ${getCmdParamKindString(kind)} parameter ${aNode._2.data.name}")
                 },
                 CppWriterUtils.Hex
               )

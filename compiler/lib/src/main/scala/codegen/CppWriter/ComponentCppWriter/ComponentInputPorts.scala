@@ -384,6 +384,6 @@ case class ComponentInputPorts(
 
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =
-    s"param${getCommandParamString(cmd.kind).capitalize}_${cmd.getName}"
+    s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"
 
 }
