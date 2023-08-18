@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, v1.3.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v1.3.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,7 +439,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, v1.3.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v1.3.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -681,6 +681,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">13.7. Visualizing Topologies</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON">13.8. Generating JSON</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</a>
@@ -10872,6 +10873,189 @@ and view the layouts in a browser.</p>
 repository</a> for more details.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON">13.8. Generating JSON</h3>
+<div class="paragraph">
+<p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
+JavaScript Object Notation (JSON) format.
+Using this tool, you can import FPP models into programs written
+in any language that has a library for reading JSON, e.g., JavaScript,
+TypeScript, or Python.
+Generating and importing JSON may be convenient if you need to develop
+a simple analysis or translation tool for FPP models, and you don&#8217;t
+want to develop the tool in Scala.
+For more complex tools, we recommend that you develop in Scala
+against the FPP compiler data structures.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-json</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to analyze.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>Run <code>fpp-to-json</code> <em>D</em> <em>F</em>. Note that <em>D</em> may be empty.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If you are using <code>fpp-to-json</code> with the <code>-s</code> option (see below),
+then you can run <code>fpp-to-json</code> <em>F</em>, without computing dependencies.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong> When you run <code>fpp-to-json</code>, the tool checks the
+syntax and semantics of the source model, reporting any errors that occur.
+If everything checks out, it generates three files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>fpp-ast.json</code>: The abstract syntax tree (AST).
+This is a tree data structure that represents the source syntax.
+It contains AST nodes, each of which has a unique identifier.</p>
+</li>
+<li>
+<p><code>fpp-loc-map.json</code>: The location map.
+This object is a map from AST node IDs to the source
+locations (file, line number, and column number)
+of the corresponding AST nodes.</p>
+</li>
+<li>
+<p><code>fpp-analysis.json</code>: The Analysis data structure.
+This object contains semantic information
+inferred from the source model, e.g., the types of all the
+expressions and the constant values of all the numeric
+expressions.
+Only output data is included in the JSON; temporary
+data structures used during the analysis algorithm are
+omitted.
+For more information on the Analysis data structure,
+see the
+<a href="https://github.com/fprime-community/fpp/wiki/Analysis-Data-Structure">FPP wiki</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>JSON format:</strong>
+To understand this subsection, you need to know a little
+bit about case classes in Scala.
+For a primer, see
+<a href="https://github.com/fprime-community/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching">this wiki page</a>.</p>
+</div>
+<div class="paragraph">
+<p>The JSON translation uses a Scala library called
+<a href="https://circe.github.io/circe/">Circe</a>.
+In general the translation follows a set of standard rules, so the
+output format can be easily inferred from the types of the data structures
+in the FPP source code:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A Scala case class <code>C</code> is translated as follows, unless
+it extends a sealed trait (see below).
+A value <code>v</code> of type <code>C</code> becomes
+a JSON dictionary with the field names as keys and the field
+values as their values.
+For example a value <code>C(1,"hello")</code> of type <code>case class C(n: Int, s: String)</code>
+becomes a JSON value <code>{ "n": 1, "s": "String" }</code>.</p>
+</li>
+<li>
+<p>A Scala case class <code>C</code> that extends a sealed trait <code>T</code> represents a
+named variant of type <code>T</code>.
+In this case a value <code>v</code> of type <code>C</code> is wrapped in a dictionary with one
+key (the variant name <code>C</code>) and one value (the value <code>v</code>).
+For example, a value <code>C(1)</code> of type <code>case class C(n: Int) extends T</code>
+becomes a JSON value <code>{ "C" : { "n" : 1 } }</code>, while a value
+<code>D("hello")</code> of type <code>case class D(s: String) extends T</code>
+becomes a JSON value <code>{ "D" : { "s" : "hello" } }</code>.
+In this way each variant is labeled with the variant name.</p>
+</li>
+<li>
+<p>A Scala list becomes a JSON array, and a Scala map becomes
+a JSON dictionary.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>There are a few exceptions, either because the standard translation
+does not work, or because we need special behavior for important
+cases:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>We streamline the translation of the Scala Option type, translating
+<code>Some(v)</code> as <code>{ "Some" : v }</code> and <code>None</code> as <code>"None"</code>.</p>
+</li>
+<li>
+<p>In the AST, we translate
+the type AstNode as if it were a variant type, i.e., we translate
+<code>AstNode([data], [id])</code> to <code>"AstNode" : { "data" : [data], "id" : [id] } }</code>.
+The <code>AstNode</code> keys identify the AstNode objects.</p>
+</li>
+<li>
+<p>In the AST, to reduce clutter we skip over the <code>node</code>
+field of module, component, and topology member lists.
+This field is an artifact of the way the Scala code is written;
+deleting it does not lose information.</p>
+</li>
+<li>
+<p>In the Analysis data structure, to avoid repetition,
+we translate AstNode values as <code>{ "astNodeId" : [node id] }</code>,
+eliminating the data field of the node.
+We also omit annotations from annotated AST nodes.
+The data fields and the annotations can be looked up in the AST,
+by searching for the node ID.</p>
+</li>
+<li>
+<p>When translating an FPP symbol (i.e., a reference to a definition),
+we provide the information in the
+Symbol trait (the node ID and the unqualified name).
+All symbols extend this trait.
+We omit the AST node information stored in the concrete symbol.
+This information can be looked up with the AST node ID.</p>
+</li>
+<li>
+<p>When translating a component instance value, we replace
+the component stored in the value with the corresponding
+AST node ID.</p>
+</li>
+<li>
+<p>When the keys of a Scala map cannot easily be
+converted to strings, we convert the map to a list
+of pairs, represented as an array of JSON arrays.
+For example, this is how we translate the PortNumberMap
+in the Analysis data structure, which maps Connection objects to integers.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong> The following options are available
+when running <code>fpp-to-xml</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-d</code> <em>dir</em> : Similar to the corresponding option of
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+</li>
+<li>
+<p><code>-s</code>: Analyze syntax only:
+With this option, <code>fpp-to-json</code> generates the AST and the
+location map only; it doesn&#8217;t generate the Analysis data structure.
+Because semantic analysis is not run, you don&#8217;t have to present
+a complete or syntactically correct FPP model to the tool.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -11446,7 +11630,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-08-09 15:06:59 -0600
+Last updated 2023-08-16 15:40:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
