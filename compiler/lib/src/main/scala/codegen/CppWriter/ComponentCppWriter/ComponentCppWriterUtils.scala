@@ -262,7 +262,7 @@ abstract class ComponentCppWriterUtils(
           case PortInstance.Internal(node, _, _) => Some((
             p.getUnqualifiedName,
             node._2.data.params.map(param => {
-              (param._2.data.name, getInternalPortParam(param._2.data))
+              (param._2.data.name, writeInternalPortParamType(param._2.data))
             })
           ))
           case _ => None
@@ -283,7 +283,7 @@ abstract class ComponentCppWriterUtils(
     sortedEvents.map((id, event) => (
       id,
       event.aNode._2.data.params.map(param =>
-        (param._2.data.name, getEventParam(param._2.data))
+        (param._2.data.name, writeEventParamType(param._2.data))
       )
     )).toMap
 
@@ -461,7 +461,7 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Write an internal port param as a C++ type */
-  def getInternalPortParam(param: Ast.FormalParam): String =
+  def writeInternalPortParamType(param: Ast.FormalParam): String =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
@@ -469,7 +469,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   /** Write an event param as a C++ type */
-  def getEventParam(param: Ast.FormalParam) =
+  def writeEventParamType(param: Ast.FormalParam) =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
@@ -477,7 +477,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   /** Write a channel type as a C++ type */
-  def getChannelType(t: Type): String =
+  def writeChannelType(t: Type): String =
     TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
 
   def writeSendMessageLogic(

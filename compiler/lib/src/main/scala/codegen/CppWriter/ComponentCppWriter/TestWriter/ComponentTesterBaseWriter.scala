@@ -626,7 +626,7 @@ case class ComponentTesterBaseWriter(
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
             val name = data.name
-            val tn = getEventParam(data)
+            val tn = writeEventParamType(data)
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
 
@@ -799,7 +799,7 @@ case class ComponentTesterBaseWriter(
           wrapInScope(
             s"case $className::$constantName: {",
             lines(
-              s"""|${getChannelType(channel.channelType)} arg;
+              s"""|${writeChannelType(channel.channelType)} arg;
                   |const Fw::SerializeStatus _status = val.deserialize(arg);
                   |
                   |if (_status != Fw::FW_SERIALIZE_OK) {
@@ -863,7 +863,7 @@ case class ComponentTesterBaseWriter(
           guardedList (hasTelemetry) (List(dispatchTlm)),
           sortedChannels.map((_, channel) => {
             val channelName = channel.getName
-            val channelType = getChannelType(channel.channelType)
+            val channelType = writeChannelType(channel.channelType)
             val entryName = tlmEntryName(channelName)
             val historyName = tlmHistoryName(channelName)
             functionClassMember(

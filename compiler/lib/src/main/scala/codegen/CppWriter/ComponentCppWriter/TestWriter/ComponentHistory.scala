@@ -103,19 +103,19 @@ case class ComponentHistory(
     "protected",
     "History types",
     List.concat(
-      getPortHistoryTypes,
-      getCmdHistoryTypes,
-      getEventHistoryTypes,
-      getTlmHistoryTypes,
+      guardedList (hasTypedOutputPorts) (getPortHistoryTypes),
+      guardedList (hasCommands) (getCmdHistoryTypes),
+      guardedList (hasEvents) (getEventHistoryTypes),
+      guardedList (hasTelemetry) (getTlmHistoryTypes),
     ),
     CppDoc.Lines.Hpp
   )
 
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getClearHistoryFunction,
-    getPortHistoryFunctions,
-    getEventHistoryFunctions,
-    getTlmHistoryFunctions,
+    guardedList (hasTypedOutputPorts) (getPortHistoryFunctions),
+    guardedList (hasEvents) (getEventHistoryFunctions),
+    guardedList (hasTelemetry) (getTlmHistoryFunctions),
   )
 
   def getVariableMembers: List[CppDoc.Class.Member] = addAccessTagAndComment(
@@ -179,7 +179,7 @@ case class ComponentHistory(
   }
 
   private def getPortHistoryFunctions: List[CppDoc.Class.Member] = {
-    lazy val clearHistory = functionClassMember(
+    val clearHistory = functionClassMember(
       Some("Clear from port history"),
       "clearFromPortHistory",
       Nil,
@@ -222,10 +222,7 @@ case class ComponentHistory(
       )
     }
 
-    guardedList (hasTypedOutputPorts) (
-      clearHistory ::
-      typedOutputPorts.map(pushEntry)
-    )
+    clearHistory :: typedOutputPorts.map(pushEntry)
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
@@ -262,23 +259,21 @@ case class ComponentHistory(
   }
 
   private def getCmdHistoryTypes: List[CppDoc.Class.Member] =
-    guardedList (hasCommands) (
-      List(
-        linesClassMember(
-          Line.blank ::
-          line("//! A type representing a command response") ::
-            wrapInScope(
-              "struct CmdResponse {",
-              lines(
-                """|FwOpcodeType opCode;
-                   |U32 cmdSeq;
-                   |Fw::CmdResponse response;
-                   |"""
-              ),
-              "};"
+    List(
+      linesClassMember(
+        Line.blank ::
+        line("//! A type representing a command response") ::
+          wrapInScope(
+            "struct CmdResponse {",
+            lines(
+              """|FwOpcodeType opCode;
+                 |U32 cmdSeq;
+                 |Fw::CmdResponse response;
+                 |"""
             ),
-          CppDoc.Lines.Hpp
-        )
+            "};"
+          ),
+        CppDoc.Lines.Hpp
       )
     )
 
@@ -295,7 +290,7 @@ case class ComponentHistory(
     )
 
   private def getEventHistoryTypes: List[CppDoc.Class.Member] = {
-    lazy val textLogHistory = wrapClassMemberInTextLogGuard(
+    val textLogHistory = wrapClassMemberInTextLogGuard(
         linesClassMember(
           Line.blank :: line("//! A history entry for text log events") :: wrapInScope(
             "struct TextLogEntry {",
@@ -329,7 +324,7 @@ case class ComponentHistory(
       CppDoc.Lines.Hpp
     )
     List.concat(
-      guardedList (hasEvents) (textLogHistory),
+      textLogHistory,
       List(eventHistories)
     )
   }
@@ -482,64 +477,61 @@ case class ComponentHistory(
     )
   }
 
-  private def getTlmHistoryTypes: List[CppDoc.Class.Member] = {
-    List(
-      linesClassMember(
-        sortedChannels.flatMap((_, channel) =>
-          Line.blank :: line(s"//! A history entry for telemetry channel ${channel.getName}") :: wrapInScope(
-            s"struct ${tlmEntryName(channel.getName)} {",
-            lines(
-              s"""|Fw::Time timeTag;
-                  |${getChannelType(channel.channelType)} arg;
-                  |"""
-            ),
-            "};"
-          )
-        ),
-        CppDoc.Lines.Hpp
-      )
+  private def getTlmHistoryTypes: List[CppDoc.Class.Member] = List(
+    linesClassMember(
+      sortedChannels.flatMap((_, channel) => {
+        val channelName = channel.getName
+        val entryName = tlmEntryName(channelName)
+        val channelType = writeChannelType(channel.channelType)
+        Line.blank ::
+        line(s"//! A history entry for telemetry channel $channelName") ::
+        wrapInScope(
+          s"struct $entryName {",
+          lines(
+            s"""|Fw::Time timeTag;
+                |$channelType arg;
+                |"""
+          ),
+          "};"
+        )
+      }),
+      CppDoc.Lines.Hpp
     )
-  }
+  )
 
-  private def getTlmHistoryFunctions: List[CppDoc.Class.Member] = {
-    if hasChannels then List(
-      functionClassMember(
-        Some("Clear telemetry history"),
-        "clearTlm",
-        Nil,
-        CppDoc.Type("void"),
-        List.concat(
-          lines("this->tlmSize = 0;"),
-          sortedChannels.map((_, channel) =>
-            line(s"this->${tlmHistoryName(channel.getName)}->clear();")
-          )
+  private def getTlmHistoryFunctions: List[CppDoc.Class.Member] = List(
+    functionClassMember(
+      Some("Clear telemetry history"),
+      "clearTlm",
+      Nil,
+      CppDoc.Type("void"),
+      List.concat(
+        lines("this->tlmSize = 0;"),
+        sortedChannels.map((_, channel) =>
+          line(s"this->${tlmHistoryName(channel.getName)}->clear();")
         )
       )
     )
-    else Nil
-  }
+  )
 
-  private def getTlmHistoryVariables: List[CppDoc.Class.Member] = {
-    if hasChannels then List(
-      linesClassMember(
-        List.concat(
-          Line.blank :: lines(
-            """|//! The total number of telemetry inputs seen
-               |U32 tlmSize;
-               |"""
-          ),
-          sortedChannels.flatMap((_, channel) =>
-            Line.blank :: lines(
-              s"""|//! The history of ${channel.getName} values
-                  |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
-                  |"""
-            )
-          )
+  private def getTlmHistoryVariables: List[CppDoc.Class.Member] = List(
+    linesClassMember(
+      List.concat(
+        Line.blank :: lines(
+          """|//! The total number of telemetry inputs seen
+             |U32 tlmSize;
+             |"""
         ),
-        CppDoc.Lines.Hpp
-      )
+        sortedChannels.flatMap((_, channel) =>
+          Line.blank :: lines(
+            s"""|//! The history of ${channel.getName} values
+                |History<${tlmEntryName(channel.getName)}>* ${tlmHistoryName(channel.getName)};
+                |"""
+          )
+        )
+      ),
+      CppDoc.Lines.Hpp
     )
-    else Nil
-  }
+  )
 
 }
