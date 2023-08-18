@@ -91,13 +91,14 @@ case class ComponentTestImplWriter(
                   |static const NATIVE_INT_TYPE $idConstantName = 0;
                   |"""
             ),
-            if data.kind != Ast.ComponentKind.Passive then lines(
-              s"""|
-                  |// Queue depth supplied to the component instance under test
-                  |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
-                  |"""
+            guardedList (data.kind != Ast.ComponentKind.Passive) (
+              lines(
+                s"""|
+                    |// Queue depth supplied to the component instance under test
+                    |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
+                    |"""
+              )
             )
-            else Nil
           )
         )
       ),
@@ -208,8 +209,9 @@ case class ComponentTestImplWriter(
       }
 
     val initArgs = List.concat(
-      if data.kind != Ast.ComponentKind.Passive then List(s"$testImplClassName::$queueDepthConstantName")
-      else Nil,
+      guardedList (data.kind != Ast.ComponentKind.Passive) (
+        List(s"$testImplClassName::$queueDepthConstantName")
+      ),
       List(s"$testImplClassName::$idConstantName"),
     ).mkString(", ")
 
