@@ -112,7 +112,7 @@ case class ComponentHistory(
   )
 
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
-    getClearHistoryFunction,
+    guardedList (hasHistories) (getClearHistoryFunction),
     guardedList (hasTypedOutputPorts) (getPortHistoryFunctions),
     guardedList (hasEvents) (getEventHistoryFunctions),
     guardedList (hasTelemetry) (getTlmHistoryFunctions),
@@ -154,7 +154,7 @@ case class ComponentHistory(
     addAccessTagAndComment(
       "protected",
       "History functions",
-      guardedList (hasHistories) (List(clearHistory))
+      List(clearHistory)
     )
   }
 
@@ -255,7 +255,7 @@ case class ComponentHistory(
       ),
       CppDoc.Lines.Hpp
     )
-    guardedList (hasTypedOutputPorts) (List(variables))
+    List(variables)
   }
 
   private def getCmdHistoryTypes: List[CppDoc.Class.Member] =
