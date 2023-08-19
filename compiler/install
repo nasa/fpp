@@ -10,11 +10,27 @@
 # environment variable
 # FPP_INSTALL_JAVA
 # ----------------------------------------------------------------------
-ls -l 
+
+# Check arguments
+if test $# -gt 1
+then
+  echo 'usage: install dest-dir' 1>&2
+  echo '       install' 1>&2
+  exit 1
+fi
+
+# Check for output directory
+if test -n "$1" 
+then
+  # Convert to absolute path as the `cd` to 'compiler' will break relative paths passed in
+  mkdir -p "$1"
+  dest=`cd $1; pwd`
+else
+  dest=bin
+fi
+
 # Go to the working directory, so that relative paths work as expected
 wd=`dirname $0`
-echo $wd
-ls -l $wd
 cd $wd
 
 # Pull in the version info
@@ -29,21 +45,6 @@ else
   java=java
 fi
 echo "java command: $java"
-
-if test $# -gt 1
-then
-  echo 'usage: install dest-dir' 1>&2
-  echo '       install' 1>&2
-  exit 1
-fi
-
-if test -n "$1" 
-then
-  dest=$1
-else
-  dest=bin
-fi
-mkdir -p $dest
 
 dir=`dirname $dest`
 dir=`cd $dir; pwd`
