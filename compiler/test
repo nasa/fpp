@@ -4,5 +4,5 @@
 wd=`dirname $0`
 cd $wd
 
-export COMPILER_ROOT=$wd
+export COMPILER_ROOT=`cd $wd; pwd`
 scripts/test
