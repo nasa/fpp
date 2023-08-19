@@ -1,4 +1,8 @@
 #!/bin/sh
 
-export COMPILER_ROOT=$PWD
+# Fix when run from a differen directory
+wd=`dirname $0`
+cd $wd
+
+export COMPILER_ROOT=$wd
 scripts/test
