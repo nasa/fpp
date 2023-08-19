@@ -75,7 +75,7 @@ case class ComponentCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
     val mutexHeader =
-      if hasGuardedInputPorts || hasParameters then List("Os/Mutex.hpp")
+      if hasGuardedInputPorts || hasGuardedCommands || hasParameters then List("Os/Mutex.hpp")
       else Nil
     val cmdStrHeader =
       if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
@@ -496,7 +496,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexOperationMembers: List[CppDoc.Class.Member] = {
-    if !hasGuardedInputPorts then Nil
+    if !(hasGuardedInputPorts || hasGuardedCommands) then Nil
     else addAccessTagAndComment(
       "PROTECTED",
       """|Mutex operations for guarded ports
@@ -866,7 +866,7 @@ case class ComponentCppWriter (
   }
 
   private def getMutexVariableMembers: List[CppDoc.Class.Member] = {
-    if !(hasGuardedInputPorts || hasParameters) then Nil
+    if !(hasGuardedInputPorts || hasGuardedCommands || hasParameters) then Nil
     else List(
       linesClassMember(
         List(
@@ -874,7 +874,7 @@ case class ComponentCppWriter (
           CppDocWriter.writeBannerComment(
             "Mutexes"
           ),
-          if !hasGuardedInputPorts then Nil
+          if !(hasGuardedInputPorts || hasGuardedCommands) then Nil
           else lines(
             """|
                |//! Mutex for guarded ports
