@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Fix when run from a differen directory
+# Ensure the script can be run from any directory
 wd=`dirname $0`
 cd $wd
 
