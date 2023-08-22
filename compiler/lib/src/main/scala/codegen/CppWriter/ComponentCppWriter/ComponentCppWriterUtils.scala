@@ -132,6 +132,12 @@ abstract class ComponentCppWriterUtils(
     case _ => false
   })
 
+  /** List of guarded commands */
+  val guardedCmds: List[(Command.Opcode, Command.NonParam)] = nonParamCmds.filter((_, cmd) => cmd.kind match {
+    case Command.NonParam.Guarded => true
+    case _ => false
+  })
+
   /** Map from command opcodes to command parameters */
   val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
     opcode,
@@ -212,6 +218,8 @@ abstract class ComponentCppWriterUtils(
       case _ => false
     }
   )
+
+  val hasGuardedCommands: Boolean = guardedCmds.nonEmpty
 
   val hasSerialAsyncInputPorts: Boolean = serialAsyncInputPorts.nonEmpty
 
