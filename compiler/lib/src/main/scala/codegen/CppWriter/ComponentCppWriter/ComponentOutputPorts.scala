@@ -64,10 +64,14 @@ case class ComponentOutputPorts(
   /** Get connectors for a list of typed ports */
   def getTypedConnectors(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     val typeStr = getPortListTypeString(ports)
-
+    val comment =
+      if (typeStr == "special")
+        s"Connect input ports to $typeStr output ports"
+      else
+        s"Connect $typeStr input ports to $typeStr output ports"
     generateConnectors(
       ports,
-      s"Connect $typeStr input ports to $typeStr output ports",
+      comment,
       outputPortConnectorName,
       portNumGetterName,
       portVariableName
