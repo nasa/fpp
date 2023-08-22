@@ -93,7 +93,7 @@ case class ComponentCppWriter (
       if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
       else Nil
 
-    val standardHeaders = List(
+    val standardHeaders = List.concat(
       List(
         "FpConfig.hpp",
         "Fw/Port/InputSerializePort.hpp",
@@ -106,7 +106,7 @@ case class ComponentCppWriter (
       prmStrHeader,
       logStrHeader,
       internalStrHeader
-    ).flatten.map(CppWriter.headerString)
+    ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
     linesMember(addBlankPrefix(headers.sorted.flatMap({
@@ -277,8 +277,8 @@ case class ComponentCppWriter (
         )
         else Nil,
         List(
-          typedAsyncInputPorts.map(generalPortCppConstantName),
-          serialAsyncInputPorts.map(generalPortCppConstantName),
+          typedAsyncInputPorts.map(portCppConstantName),
+          serialAsyncInputPorts.map(portCppConstantName),
           asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
           internalPorts.map(internalPortCppConstantName),
         ).flatten.map(s => line(s"$s,"))
@@ -530,7 +530,7 @@ case class ComponentCppWriter (
   }
 
   private def getDispatchFunctionMember: List[CppDoc.Class.Member] = {
-    def writeGeneralAsyncPortDispatch(p: PortInstance.General) = {
+    def writeAsyncPortDispatch(p: PortInstance) = {
       val body = p.getType.get match {
         case PortInstance.Type.DefPort(_) =>
           List(
@@ -574,7 +574,7 @@ case class ComponentCppWriter (
 
       line(s"// Handle async input port ${p.getUnqualifiedName}") ::
         wrapInScope(
-          s"case ${generalPortCppConstantName(p)}: {",
+          s"case ${portCppConstantName(p)}: {",
           body,
           "}"
         )
@@ -791,8 +791,8 @@ case class ComponentCppWriter (
                 "msgType",
                 intersperseBlankLines(
                   List(
-                    intersperseBlankLines(typedAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
-                    intersperseBlankLines(serialAsyncInputPorts.map(writeGeneralAsyncPortDispatch)),
+                    intersperseBlankLines(typedAsyncInputPorts.map(writeAsyncPortDispatch)),
+                    intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
                     lines(
