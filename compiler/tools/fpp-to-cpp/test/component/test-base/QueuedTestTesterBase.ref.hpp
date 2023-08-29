@@ -111,7 +111,7 @@ class QueuedTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      TypedPortStrings::StringSize80 str1;
+      Ports::TypedPortStrings::StringSize80 str1;
       E e;
       A a;
       S s;
@@ -122,7 +122,7 @@ class QueuedTestTesterBase :
       U32 u32;
       F32 f32;
       bool b;
-      TypedReturnPortStrings::StringSize80 str2;
+      Ports::TypedReturnPortStrings::StringSize80 str2;
       E e;
       A a;
       S s;
@@ -297,49 +297,49 @@ class QueuedTestTesterBase :
     //! Connect port to typedAsync[portNum]
     void connect_to_typedAsync(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncAssert[portNum]
     void connect_to_typedAsyncAssert(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncBlockPriority[portNum]
     void connect_to_typedAsyncBlockPriority(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncDropPriority[portNum]
     void connect_to_typedAsyncDropPriority(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedGuarded[portNum]
     void connect_to_typedGuarded(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedReturnGuarded[portNum]
     void connect_to_typedReturnGuarded(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
+        Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedReturnSync[portNum]
     void connect_to_typedReturnSync(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
+        Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedSync[portNum]
     void connect_to_typedSync(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
   public:
@@ -411,14 +411,14 @@ class QueuedTestTesterBase :
     //! Get from port at index
     //!
     //! \return from_typedOut[portNum]
-    InputTypedPort* get_from_typedOut(
+    Ports::InputTypedPort* get_from_typedOut(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_typedReturnOut[portNum]
-    InputTypedReturnPort* get_from_typedReturnOut(
+    Ports::InputTypedReturnPort* get_from_typedReturnOut(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -449,7 +449,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -461,7 +461,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -479,7 +479,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -491,7 +491,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -534,7 +534,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -546,7 +546,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -558,7 +558,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -570,7 +570,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -582,7 +582,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -594,7 +594,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -606,7 +606,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -618,7 +618,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1279,7 +1279,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1290,7 +1290,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1400,7 +1400,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1413,7 +1413,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1529,28 +1529,28 @@ class QueuedTestTesterBase :
     Ports::OutputNoArgsPort m_to_noArgsSync[3];
 
     //! To port connected to typedAsync
-    OutputTypedPort m_to_typedAsync[1];
+    Ports::OutputTypedPort m_to_typedAsync[1];
 
     //! To port connected to typedAsyncAssert
-    OutputTypedPort m_to_typedAsyncAssert[1];
+    Ports::OutputTypedPort m_to_typedAsyncAssert[1];
 
     //! To port connected to typedAsyncBlockPriority
-    OutputTypedPort m_to_typedAsyncBlockPriority[1];
+    Ports::OutputTypedPort m_to_typedAsyncBlockPriority[1];
 
     //! To port connected to typedAsyncDropPriority
-    OutputTypedPort m_to_typedAsyncDropPriority[1];
+    Ports::OutputTypedPort m_to_typedAsyncDropPriority[1];
 
     //! To port connected to typedGuarded
-    OutputTypedPort m_to_typedGuarded[1];
+    Ports::OutputTypedPort m_to_typedGuarded[1];
 
     //! To port connected to typedReturnGuarded
-    OutputTypedReturnPort m_to_typedReturnGuarded[1];
+    Ports::OutputTypedReturnPort m_to_typedReturnGuarded[1];
 
     //! To port connected to typedReturnSync
-    OutputTypedReturnPort m_to_typedReturnSync[3];
+    Ports::OutputTypedReturnPort m_to_typedReturnSync[3];
 
     //! To port connected to typedSync
-    OutputTypedPort m_to_typedSync[3];
+    Ports::OutputTypedPort m_to_typedSync[3];
 
   private:
 
@@ -1587,10 +1587,10 @@ class QueuedTestTesterBase :
     Fw::InputTlmPort m_from_tlmOut[1];
 
     //! From port connected to typedOut
-    InputTypedPort m_from_typedOut[1];
+    Ports::InputTypedPort m_from_typedOut[1];
 
     //! From port connected to typedReturnOut
-    InputTypedReturnPort m_from_typedReturnOut[1];
+    Ports::InputTypedReturnPort m_from_typedReturnOut[1];
 
   private:
 

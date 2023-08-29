@@ -416,7 +416,7 @@ void PassiveCommandsTesterBase ::
 void PassiveCommandsTesterBase ::
   connect_to_typedGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -430,7 +430,7 @@ void PassiveCommandsTesterBase ::
 void PassiveCommandsTesterBase ::
   connect_to_typedReturnGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -444,7 +444,7 @@ void PassiveCommandsTesterBase ::
 void PassiveCommandsTesterBase ::
   connect_to_typedReturnSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -458,7 +458,7 @@ void PassiveCommandsTesterBase ::
 void PassiveCommandsTesterBase ::
   connect_to_typedSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -565,7 +565,7 @@ Fw::InputTlmPort* PassiveCommandsTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
-InputTypedPort* PassiveCommandsTesterBase ::
+Ports::InputTypedPort* PassiveCommandsTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -576,7 +576,7 @@ InputTypedPort* PassiveCommandsTesterBase ::
   return &this->m_from_typedOut[portNum];
 }
 
-InputTypedReturnPort* PassiveCommandsTesterBase ::
+Ports::InputTypedReturnPort* PassiveCommandsTesterBase ::
   get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -630,7 +630,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -659,7 +659,7 @@ F32 PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -736,7 +736,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -764,7 +764,7 @@ F32 PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -792,7 +792,7 @@ F32 PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -820,7 +820,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1569,7 +1569,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1593,7 +1593,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1657,7 +1657,7 @@ void PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1684,7 +1684,7 @@ F32 PassiveCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s

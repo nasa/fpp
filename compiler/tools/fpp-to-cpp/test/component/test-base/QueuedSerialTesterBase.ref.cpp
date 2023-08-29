@@ -819,7 +819,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedAsync(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -833,7 +833,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedAsyncAssert(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -847,7 +847,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedAsyncBlockPriority(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -861,7 +861,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedAsyncDropPriority(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -875,7 +875,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -889,7 +889,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedReturnGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -903,7 +903,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedReturnSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -917,7 +917,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   connect_to_typedSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -1108,7 +1108,7 @@ Fw::InputTlmPort* QueuedSerialTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
-InputTypedPort* QueuedSerialTesterBase ::
+Ports::InputTypedPort* QueuedSerialTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1119,7 +1119,7 @@ InputTypedPort* QueuedSerialTesterBase ::
   return &this->m_from_typedOut[portNum];
 }
 
-InputTypedReturnPort* QueuedSerialTesterBase ::
+Ports::InputTypedReturnPort* QueuedSerialTesterBase ::
   get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1236,7 +1236,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1265,7 +1265,7 @@ F32 QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1370,7 +1370,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1398,7 +1398,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1426,7 +1426,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1454,7 +1454,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1482,7 +1482,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1510,7 +1510,7 @@ F32 QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1538,7 +1538,7 @@ F32 QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1566,7 +1566,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3802,7 +3802,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3826,7 +3826,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -4220,7 +4220,7 @@ void QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -4247,7 +4247,7 @@ F32 QueuedSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s

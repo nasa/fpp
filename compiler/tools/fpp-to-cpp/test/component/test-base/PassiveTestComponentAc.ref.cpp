@@ -19,10 +19,10 @@ namespace {
     BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
     BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
     BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
@@ -581,7 +581,7 @@ Ports::InputNoArgsPort* PassiveTestComponentBase ::
   return &this->m_noArgsSync_InputPort[portNum];
 }
 
-InputTypedPort* PassiveTestComponentBase ::
+Ports::InputTypedPort* PassiveTestComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -592,7 +592,7 @@ InputTypedPort* PassiveTestComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* PassiveTestComponentBase ::
+Ports::InputTypedReturnPort* PassiveTestComponentBase ::
   get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -603,7 +603,7 @@ InputTypedReturnPort* PassiveTestComponentBase ::
   return &this->m_typedReturnGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* PassiveTestComponentBase ::
+Ports::InputTypedReturnPort* PassiveTestComponentBase ::
   get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -614,7 +614,7 @@ InputTypedReturnPort* PassiveTestComponentBase ::
   return &this->m_typedReturnSync_InputPort[portNum];
 }
 
-InputTypedPort* PassiveTestComponentBase ::
+Ports::InputTypedPort* PassiveTestComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -752,7 +752,7 @@ void PassiveTestComponentBase ::
 void PassiveTestComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -766,7 +766,7 @@ void PassiveTestComponentBase ::
 void PassiveTestComponentBase ::
   set_typedReturnOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -1563,7 +1563,7 @@ void PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1600,7 +1600,7 @@ F32 PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1641,7 +1641,7 @@ F32 PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1676,7 +1676,7 @@ void PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1711,7 +1711,7 @@ void PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1738,7 +1738,7 @@ F32 PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3928,7 +3928,7 @@ void PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3955,7 +3955,7 @@ F32 PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3982,7 +3982,7 @@ F32 PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -4009,7 +4009,7 @@ void PassiveTestComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s

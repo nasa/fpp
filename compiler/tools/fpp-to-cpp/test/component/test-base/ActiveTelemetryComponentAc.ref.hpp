@@ -177,56 +177,56 @@ class ActiveTelemetryComponentBase :
     //! Get typed input port at index
     //!
     //! \return typedAsync[portNum]
-    InputTypedPort* get_typedAsync_InputPort(
+    Ports::InputTypedPort* get_typedAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncAssert[portNum]
-    InputTypedPort* get_typedAsyncAssert_InputPort(
+    Ports::InputTypedPort* get_typedAsyncAssert_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncBlockPriority[portNum]
-    InputTypedPort* get_typedAsyncBlockPriority_InputPort(
+    Ports::InputTypedPort* get_typedAsyncBlockPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncDropPriority[portNum]
-    InputTypedPort* get_typedAsyncDropPriority_InputPort(
+    Ports::InputTypedPort* get_typedAsyncDropPriority_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedGuarded[portNum]
-    InputTypedPort* get_typedGuarded_InputPort(
+    Ports::InputTypedPort* get_typedGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedReturnGuarded[portNum]
-    InputTypedReturnPort* get_typedReturnGuarded_InputPort(
+    Ports::InputTypedReturnPort* get_typedReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedReturnSync[portNum]
-    InputTypedReturnPort* get_typedReturnSync_InputPort(
+    Ports::InputTypedReturnPort* get_typedReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedSync[portNum]
-    InputTypedPort* get_typedSync_InputPort(
+    Ports::InputTypedPort* get_typedSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -297,13 +297,13 @@ class ActiveTelemetryComponentBase :
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedPort* port //!< The input port
+        Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedReturnOut[portNum]
     void set_typedReturnOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputTypedReturnPort* port //!< The input port
+        Ports::InputTypedReturnPort* port //!< The input port
     );
 
 #if FW_PORT_SERIALIZATION
@@ -663,7 +663,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -675,7 +675,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -687,7 +687,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -699,7 +699,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -711,7 +711,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -723,7 +723,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -735,7 +735,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -747,7 +747,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -792,7 +792,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -804,7 +804,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -816,7 +816,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -828,7 +828,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -840,7 +840,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -852,7 +852,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -864,7 +864,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -876,7 +876,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -903,7 +903,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -915,7 +915,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -927,7 +927,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -939,7 +939,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -957,7 +957,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -969,7 +969,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1162,7 +1162,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1175,7 +1175,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1188,7 +1188,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1201,7 +1201,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1214,7 +1214,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1227,7 +1227,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1240,7 +1240,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1253,7 +1253,7 @@ class ActiveTelemetryComponentBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
+        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1290,28 +1290,28 @@ class ActiveTelemetryComponentBase :
     Ports::InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
 
     //! Input port typedAsync
-    InputTypedPort m_typedAsync_InputPort[NUM_TYPEDASYNC_INPUT_PORTS];
+    Ports::InputTypedPort m_typedAsync_InputPort[NUM_TYPEDASYNC_INPUT_PORTS];
 
     //! Input port typedAsyncAssert
-    InputTypedPort m_typedAsyncAssert_InputPort[NUM_TYPEDASYNCASSERT_INPUT_PORTS];
+    Ports::InputTypedPort m_typedAsyncAssert_InputPort[NUM_TYPEDASYNCASSERT_INPUT_PORTS];
 
     //! Input port typedAsyncBlockPriority
-    InputTypedPort m_typedAsyncBlockPriority_InputPort[NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS];
+    Ports::InputTypedPort m_typedAsyncBlockPriority_InputPort[NUM_TYPEDASYNCBLOCKPRIORITY_INPUT_PORTS];
 
     //! Input port typedAsyncDropPriority
-    InputTypedPort m_typedAsyncDropPriority_InputPort[NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS];
+    Ports::InputTypedPort m_typedAsyncDropPriority_InputPort[NUM_TYPEDASYNCDROPPRIORITY_INPUT_PORTS];
 
     //! Input port typedGuarded
-    InputTypedPort m_typedGuarded_InputPort[NUM_TYPEDGUARDED_INPUT_PORTS];
+    Ports::InputTypedPort m_typedGuarded_InputPort[NUM_TYPEDGUARDED_INPUT_PORTS];
 
     //! Input port typedReturnGuarded
-    InputTypedReturnPort m_typedReturnGuarded_InputPort[NUM_TYPEDRETURNGUARDED_INPUT_PORTS];
+    Ports::InputTypedReturnPort m_typedReturnGuarded_InputPort[NUM_TYPEDRETURNGUARDED_INPUT_PORTS];
 
     //! Input port typedReturnSync
-    InputTypedReturnPort m_typedReturnSync_InputPort[NUM_TYPEDRETURNSYNC_INPUT_PORTS];
+    Ports::InputTypedReturnPort m_typedReturnSync_InputPort[NUM_TYPEDRETURNSYNC_INPUT_PORTS];
 
     //! Input port typedSync
-    InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
+    Ports::InputTypedPort m_typedSync_InputPort[NUM_TYPEDSYNC_INPUT_PORTS];
 
   PRIVATE:
 
@@ -1354,10 +1354,10 @@ class ActiveTelemetryComponentBase :
     // ----------------------------------------------------------------------
 
     //! Output port typedOut
-    OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];
+    Ports::OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];
 
     //! Output port typedReturnOut
-    OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
+    Ports::OutputTypedReturnPort m_typedReturnOut_OutputPort[NUM_TYPEDRETURNOUT_OUTPUT_PORTS];
 
   PRIVATE:
 
