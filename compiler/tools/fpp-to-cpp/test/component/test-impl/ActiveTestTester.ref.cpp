@@ -47,7 +47,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedPortStrings::StringSize80& str1,
+        const Ports::TypedPortStrings::StringSize80& str1,
         const E& e,
         const A& a,
         const S& s
@@ -62,7 +62,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Ports::TypedReturnPortStrings::StringSize80& str2,
         const E& e,
         const A& a,
         const S& s
