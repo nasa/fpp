@@ -577,9 +577,14 @@ object PortCppWriter {
     }
 
   /** Get the name of the port string class namespace */
-  def getPortStringNamespace(name: String): String = s"${name}PortStrings"
+  def getPortStringNamespace(s: CppWriterState, symbol: Symbol.Port): String = {
+    val fppName = s.a.getQualifiedName(symbol)
+    val cppName = CppWriter.writeQualifiedName(fppName)
+    s"${cppName}PortStrings"
+  }
 
   /** Get the names of port namespaces as a list */
-  def getPortNamespaces(name: String): List[String] = List(getPortStringNamespace(name))
+  def getPortNamespaces(s: CppWriterState, symbol: Symbol.Port): List[String] =
+    List(getPortStringNamespace(s, symbol))
 
 }

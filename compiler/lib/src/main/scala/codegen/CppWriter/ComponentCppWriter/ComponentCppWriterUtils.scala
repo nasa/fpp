@@ -309,7 +309,7 @@ abstract class ComponentCppWriterUtils(
           p.getUnqualifiedName,
           formalParamsCppWriter.write(
             symbol.node._2.data.params,
-            PortCppWriter.getPortNamespaces(symbol.node._2.data.name)
+            PortCppWriter.getPortNamespaces(s, symbol)
           )
         ))
         case None => p match {
@@ -412,7 +412,7 @@ abstract class ComponentCppWriterUtils(
               s,
               s.a.typeMap(typeName.id),
               None,
-              PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
+              PortCppWriter.getPortNamespaces(s, symbol)
             )
           )
           case _ => None
@@ -695,7 +695,7 @@ abstract class ComponentCppWriterUtils(
       s,
       s.a.typeMap(param.typeName.id),
       None,
-      PortCppWriter.getPortNamespaces(symbol.getUnqualifiedName)
+      PortCppWriter.getPortNamespaces(s, symbol)
     )
 
   /** Write a command param as a C++ type */
