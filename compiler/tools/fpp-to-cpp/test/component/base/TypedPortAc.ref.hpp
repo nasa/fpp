@@ -4,8 +4,8 @@
 // \brief  hpp file for Typed port
 // ======================================================================
 
-#ifndef TypedPortAc_HPP
-#define TypedPortAc_HPP
+#ifndef Ports_TypedPortAc_HPP
+#define Ports_TypedPortAc_HPP
 
 #include <cstdio>
 #include <cstring>
@@ -20,201 +20,205 @@
 #include "Fw/Types/StringType.hpp"
 #include "SSerializableAc.hpp"
 
-namespace TypedPortStrings {
+namespace Ports {
+
+  namespace TypedPortStrings {
+
+    // ----------------------------------------------------------------------
+    // StringSize80 class
+    // ----------------------------------------------------------------------
+
+    class StringSize80 :
+      public Fw::StringBase
+    {
+
+      public:
+
+        enum {
+          //! The size of the string length plus the size of the string buffer
+          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
+        };
+
+        //! Default constructor
+        StringSize80();
+
+        //! Char array constructor
+        StringSize80(const char* src);
+
+        //! String base constructor
+        StringSize80(const Fw::StringBase& src);
+
+        //! Copy constructor
+        StringSize80(const StringSize80& src);
+
+        //! Destructor
+        ~StringSize80();
+
+        //! Copy assignment operator
+        StringSize80& operator=(const StringSize80& other);
+
+        //! String base assignment operator
+        StringSize80& operator=(const Fw::StringBase& other);
+
+        //! char* assignment operator
+        StringSize80& operator=(const char* other);
+
+        //! Retrieves char buffer of string
+        const char* toChar() const;
+
+        NATIVE_UINT_TYPE getCapacity() const;
+
+      private:
+
+        char m_buf[80]; //!< Buffer for string storage
+
+    };
+
+  }
 
   // ----------------------------------------------------------------------
-  // StringSize80 class
+  // String types for backwards compatibility
   // ----------------------------------------------------------------------
 
-  class StringSize80 :
-    public Fw::StringBase
+  typedef TypedPortStrings::StringSize80 str1String;
+
+  //! Input Typed port
+  //! A typed port
+  class InputTypedPort :
+    public Fw::InputPortBase
   {
 
     public:
 
+      // ----------------------------------------------------------------------
+      // Constants
+      // ----------------------------------------------------------------------
+
       enum {
-        //! The size of the string length plus the size of the string buffer
-        SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
+        //! The size of the serial representations of the port arguments
+        SERIALIZED_SIZE =
+          sizeof(U32) +
+          sizeof(F32) +
+          sizeof(U8) +
+          TypedPortStrings::StringSize80::SERIALIZED_SIZE +
+          E::SERIALIZED_SIZE +
+          A::SERIALIZED_SIZE +
+          S::SERIALIZED_SIZE
       };
 
-      //! Default constructor
-      StringSize80();
+    public:
 
-      //! Char array constructor
-      StringSize80(const char* src);
+      // ----------------------------------------------------------------------
+      // Types
+      // ----------------------------------------------------------------------
 
-      //! String base constructor
-      StringSize80(const Fw::StringBase& src);
+      //! The port callback function type
+      typedef void (*CompFuncPtr)(
+        Fw::PassiveComponentBase* callComp,
+        NATIVE_INT_TYPE portNum,
+        U32 u32,
+        F32 f32,
+        bool b,
+        const TypedPortStrings::StringSize80& str1,
+        const E& e,
+        const A& a,
+        const S& s
+      );
 
-      //! Copy constructor
-      StringSize80(const StringSize80& src);
+    public:
 
-      //! Destructor
-      ~StringSize80();
+      // ----------------------------------------------------------------------
+      // Input Port Member functions
+      // ----------------------------------------------------------------------
 
-      //! Copy assignment operator
-      StringSize80& operator=(const StringSize80& other);
+      //! Constructor
+      InputTypedPort();
 
-      //! String base assignment operator
-      StringSize80& operator=(const Fw::StringBase& other);
+      //! Initialization function
+      void init();
 
-      //! char* assignment operator
-      StringSize80& operator=(const char* other);
+      //! Register a component
+      void addCallComp(
+          Fw::PassiveComponentBase* callComp, //!< The containing component
+          CompFuncPtr funcPtr //!< The port callback function
+      );
 
-      //! Retrieves char buffer of string
-      const char* toChar() const;
-
-      NATIVE_UINT_TYPE getCapacity() const;
+      //! Invoke a port interface
+      void invoke(
+          U32 u32, //!< A U32
+          F32 f32, //!< An F32
+          bool b, //!< A boolean
+          const TypedPortStrings::StringSize80& str1, //!< A string
+          const E& e, //!< An enum
+          const A& a, //!< An array
+          const S& s //!< A struct
+      );
 
     private:
 
-      char m_buf[80]; //!< Buffer for string storage
+#if FW_PORT_SERIALIZATION == 1
+
+      //! Invoke the port with serialized arguments
+      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+
+#endif
+
+    private:
+
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
+
+      //! The pointer to the port callback function
+      CompFuncPtr m_func;
+
+  };
+
+  //! Output Typed port
+  //! A typed port
+  class OutputTypedPort :
+    public Fw::OutputPortBase
+  {
+
+    public:
+
+      // ----------------------------------------------------------------------
+      // Output Port Member functions
+      // ----------------------------------------------------------------------
+
+      //! Constructor
+      OutputTypedPort();
+
+      //! Initialization function
+      void init();
+
+      //! Register an input port
+      void addCallPort(
+          InputTypedPort* callPort //!< The input port
+      );
+
+      //! Invoke a port interface
+      void invoke(
+          U32 u32, //!< A U32
+          F32 f32, //!< An F32
+          bool b, //!< A boolean
+          const TypedPortStrings::StringSize80& str1, //!< A string
+          const E& e, //!< An enum
+          const A& a, //!< An array
+          const S& s //!< A struct
+      );
+
+    private:
+
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
+
+      //! The pointer to the input port
+      InputTypedPort* m_port;
 
   };
 
 }
-
-// ----------------------------------------------------------------------
-// String types for backwards compatibility
-// ----------------------------------------------------------------------
-
-typedef TypedPortStrings::StringSize80 str1String;
-
-//! Input Typed port
-//! A typed port
-class InputTypedPort :
-  public Fw::InputPortBase
-{
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
-
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE =
-        sizeof(U32) +
-        sizeof(F32) +
-        sizeof(U8) +
-        TypedPortStrings::StringSize80::SERIALIZED_SIZE +
-        E::SERIALIZED_SIZE +
-        A::SERIALIZED_SIZE +
-        S::SERIALIZED_SIZE
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The port callback function type
-    typedef void (*CompFuncPtr)(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      U32 u32,
-      F32 f32,
-      bool b,
-      const TypedPortStrings::StringSize80& str1,
-      const E& e,
-      const A& a,
-      const S& s
-    );
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Input Port Member functions
-    // ----------------------------------------------------------------------
-
-    //! Constructor
-    InputTypedPort();
-
-    //! Initialization function
-    void init();
-
-    //! Register a component
-    void addCallComp(
-        Fw::PassiveComponentBase* callComp, //!< The containing component
-        CompFuncPtr funcPtr //!< The port callback function
-    );
-
-    //! Invoke a port interface
-    void invoke(
-        U32 u32, //!< A U32
-        F32 f32, //!< An F32
-        bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
-    );
-
-  private:
-
-#if FW_PORT_SERIALIZATION == 1
-
-    //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
-
-#endif
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
-
-    //! The pointer to the port callback function
-    CompFuncPtr m_func;
-
-};
-
-//! Output Typed port
-//! A typed port
-class OutputTypedPort :
-  public Fw::OutputPortBase
-{
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // Output Port Member functions
-    // ----------------------------------------------------------------------
-
-    //! Constructor
-    OutputTypedPort();
-
-    //! Initialization function
-    void init();
-
-    //! Register an input port
-    void addCallPort(
-        InputTypedPort* callPort //!< The input port
-    );
-
-    //! Invoke a port interface
-    void invoke(
-        U32 u32, //!< A U32
-        F32 f32, //!< An F32
-        bool b, //!< A boolean
-        const TypedPortStrings::StringSize80& str1, //!< A string
-        const E& e, //!< An enum
-        const A& a, //!< An array
-        const S& s //!< A struct
-    );
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
-
-    //! The pointer to the input port
-    InputTypedPort* m_port;
-
-};
 
 #endif

@@ -145,35 +145,35 @@ class QueuedEventsComponentBase :
     //! Get typed input port at index
     //!
     //! \return noArgsAsync[portNum]
-    InputNoArgsPort* get_noArgsAsync_InputPort(
+    Ports::InputNoArgsPort* get_noArgsAsync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsGuarded[portNum]
-    InputNoArgsPort* get_noArgsGuarded_InputPort(
+    Ports::InputNoArgsPort* get_noArgsGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnGuarded[portNum]
-    InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
+    Ports::InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnSync[portNum]
-    InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
+    Ports::InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsSync[portNum]
-    InputNoArgsPort* get_noArgsSync_InputPort(
+    Ports::InputNoArgsPort* get_noArgsSync_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -1253,19 +1253,19 @@ class QueuedEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Input port noArgsAsync
-    InputNoArgsPort m_noArgsAsync_InputPort[NUM_NOARGSASYNC_INPUT_PORTS];
+    Ports::InputNoArgsPort m_noArgsAsync_InputPort[NUM_NOARGSASYNC_INPUT_PORTS];
 
     //! Input port noArgsGuarded
-    InputNoArgsPort m_noArgsGuarded_InputPort[NUM_NOARGSGUARDED_INPUT_PORTS];
+    Ports::InputNoArgsPort m_noArgsGuarded_InputPort[NUM_NOARGSGUARDED_INPUT_PORTS];
 
     //! Input port noArgsReturnGuarded
-    InputNoArgsReturnPort m_noArgsReturnGuarded_InputPort[NUM_NOARGSRETURNGUARDED_INPUT_PORTS];
+    Ports::InputNoArgsReturnPort m_noArgsReturnGuarded_InputPort[NUM_NOARGSRETURNGUARDED_INPUT_PORTS];
 
     //! Input port noArgsReturnSync
-    InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
+    Ports::InputNoArgsReturnPort m_noArgsReturnSync_InputPort[NUM_NOARGSRETURNSYNC_INPUT_PORTS];
 
     //! Input port noArgsSync
-    InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
+    Ports::InputNoArgsPort m_noArgsSync_InputPort[NUM_NOARGSSYNC_INPUT_PORTS];
 
     //! Input port typedAsync
     InputTypedPort m_typedAsync_InputPort[NUM_TYPEDASYNC_INPUT_PORTS];

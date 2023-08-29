@@ -412,7 +412,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   connect_to_noArgsGuarded(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsPort* port
+      Ports::InputNoArgsPort* port
   )
 {
   FW_ASSERT(
@@ -426,7 +426,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   connect_to_noArgsReturnGuarded(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsReturnPort* port
+      Ports::InputNoArgsReturnPort* port
   )
 {
   FW_ASSERT(
@@ -440,7 +440,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   connect_to_noArgsReturnSync(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsReturnPort* port
+      Ports::InputNoArgsReturnPort* port
   )
 {
   FW_ASSERT(
@@ -454,7 +454,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   connect_to_noArgsSync(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsPort* port
+      Ports::InputNoArgsPort* port
   )
 {
   FW_ASSERT(

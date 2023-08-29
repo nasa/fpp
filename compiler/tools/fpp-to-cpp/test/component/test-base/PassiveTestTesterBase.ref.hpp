@@ -267,25 +267,25 @@ class PassiveTestTesterBase :
     //! Connect port to noArgsGuarded[portNum]
     void connect_to_noArgsGuarded(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputNoArgsPort* port //!< The input port
+        Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnGuarded[portNum]
     void connect_to_noArgsReturnGuarded(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputNoArgsReturnPort* port //!< The input port
+        Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnSync[portNum]
     void connect_to_noArgsReturnSync(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputNoArgsReturnPort* port //!< The input port
+        Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsSync[portNum]
     void connect_to_noArgsSync(
         NATIVE_INT_TYPE portNum, //!< The port number
-        InputNoArgsPort* port //!< The input port
+        Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to typedGuarded[portNum]
@@ -1339,16 +1339,16 @@ class PassiveTestTesterBase :
     Fw::OutputCmdPort m_to_cmdIn[1];
 
     //! To port connected to noArgsGuarded
-    OutputNoArgsPort m_to_noArgsGuarded[1];
+    Ports::OutputNoArgsPort m_to_noArgsGuarded[1];
 
     //! To port connected to noArgsReturnGuarded
-    OutputNoArgsReturnPort m_to_noArgsReturnGuarded[1];
+    Ports::OutputNoArgsReturnPort m_to_noArgsReturnGuarded[1];
 
     //! To port connected to noArgsReturnSync
-    OutputNoArgsReturnPort m_to_noArgsReturnSync[3];
+    Ports::OutputNoArgsReturnPort m_to_noArgsReturnSync[3];
 
     //! To port connected to noArgsSync
-    OutputNoArgsPort m_to_noArgsSync[3];
+    Ports::OutputNoArgsPort m_to_noArgsSync[3];
 
     //! To port connected to typedGuarded
     OutputTypedPort m_to_typedGuarded[1];

@@ -4,8 +4,8 @@
 // \brief  hpp file for NoArgs port
 // ======================================================================
 
-#ifndef NoArgsPortAc_HPP
-#define NoArgsPortAc_HPP
+#ifndef Ports_NoArgsPortAc_HPP
+#define Ports_NoArgsPortAc_HPP
 
 #include <cstdio>
 #include <cstring>
@@ -17,111 +17,115 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 
-//! Input NoArgs port
-//! A typed port with no arguments
-class InputNoArgsPort :
-  public Fw::InputPortBase
-{
+namespace Ports {
 
-  public:
+  //! Input NoArgs port
+  //! A typed port with no arguments
+  class InputNoArgsPort :
+    public Fw::InputPortBase
+  {
 
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
+    public:
 
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = 0
-    };
+      // ----------------------------------------------------------------------
+      // Constants
+      // ----------------------------------------------------------------------
 
-  public:
+      enum {
+        //! The size of the serial representations of the port arguments
+        SERIALIZED_SIZE = 0
+      };
 
-    // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
+    public:
 
-    //! The port callback function type
-    typedef void (*CompFuncPtr)(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
-    );
+      // ----------------------------------------------------------------------
+      // Types
+      // ----------------------------------------------------------------------
 
-  public:
+      //! The port callback function type
+      typedef void (*CompFuncPtr)(
+        Fw::PassiveComponentBase* callComp,
+        NATIVE_INT_TYPE portNum
+      );
 
-    // ----------------------------------------------------------------------
-    // Input Port Member functions
-    // ----------------------------------------------------------------------
+    public:
 
-    //! Constructor
-    InputNoArgsPort();
+      // ----------------------------------------------------------------------
+      // Input Port Member functions
+      // ----------------------------------------------------------------------
 
-    //! Initialization function
-    void init();
+      //! Constructor
+      InputNoArgsPort();
 
-    //! Register a component
-    void addCallComp(
-        Fw::PassiveComponentBase* callComp, //!< The containing component
-        CompFuncPtr funcPtr //!< The port callback function
-    );
+      //! Initialization function
+      void init();
 
-    //! Invoke a port interface
-    void invoke();
+      //! Register a component
+      void addCallComp(
+          Fw::PassiveComponentBase* callComp, //!< The containing component
+          CompFuncPtr funcPtr //!< The port callback function
+      );
 
-  private:
+      //! Invoke a port interface
+      void invoke();
+
+    private:
 
 #if FW_PORT_SERIALIZATION == 1
 
-    //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+      //! Invoke the port with serialized arguments
+      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
 
 #endif
 
-  private:
+    private:
 
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
 
-    //! The pointer to the port callback function
-    CompFuncPtr m_func;
+      //! The pointer to the port callback function
+      CompFuncPtr m_func;
 
-};
+  };
 
-//! Output NoArgs port
-//! A typed port with no arguments
-class OutputNoArgsPort :
-  public Fw::OutputPortBase
-{
+  //! Output NoArgs port
+  //! A typed port with no arguments
+  class OutputNoArgsPort :
+    public Fw::OutputPortBase
+  {
 
-  public:
+    public:
 
-    // ----------------------------------------------------------------------
-    // Output Port Member functions
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Output Port Member functions
+      // ----------------------------------------------------------------------
 
-    //! Constructor
-    OutputNoArgsPort();
+      //! Constructor
+      OutputNoArgsPort();
 
-    //! Initialization function
-    void init();
+      //! Initialization function
+      void init();
 
-    //! Register an input port
-    void addCallPort(
-        InputNoArgsPort* callPort //!< The input port
-    );
+      //! Register an input port
+      void addCallPort(
+          InputNoArgsPort* callPort //!< The input port
+      );
 
-    //! Invoke a port interface
-    void invoke();
+      //! Invoke a port interface
+      void invoke();
 
-  private:
+    private:
 
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
 
-    //! The pointer to the input port
-    InputNoArgsPort* m_port;
+      //! The pointer to the input port
+      InputNoArgsPort* m_port;
 
-};
+  };
+
+}
 
 #endif

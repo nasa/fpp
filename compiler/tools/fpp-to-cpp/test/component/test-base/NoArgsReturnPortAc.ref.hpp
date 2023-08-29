@@ -4,8 +4,8 @@
 // \brief  hpp file for NoArgsReturn port
 // ======================================================================
 
-#ifndef NoArgsReturnPortAc_HPP
-#define NoArgsReturnPortAc_HPP
+#ifndef Ports_NoArgsReturnPortAc_HPP
+#define Ports_NoArgsReturnPortAc_HPP
 
 #include <cstdio>
 #include <cstring>
@@ -16,111 +16,115 @@
 #include "Fw/Port/OutputPortBase.hpp"
 #include "Fw/Types/StringType.hpp"
 
-//! Input NoArgsReturn port
-//! A type port with no arguments and a return type
-class InputNoArgsReturnPort :
-  public Fw::InputPortBase
-{
+namespace Ports {
 
-  public:
+  //! Input NoArgsReturn port
+  //! A type port with no arguments and a return type
+  class InputNoArgsReturnPort :
+    public Fw::InputPortBase
+  {
 
-    // ----------------------------------------------------------------------
-    // Constants
-    // ----------------------------------------------------------------------
+    public:
 
-    enum {
-      //! The size of the serial representations of the port arguments
-      SERIALIZED_SIZE = 0
-    };
+      // ----------------------------------------------------------------------
+      // Constants
+      // ----------------------------------------------------------------------
 
-  public:
+      enum {
+        //! The size of the serial representations of the port arguments
+        SERIALIZED_SIZE = 0
+      };
 
-    // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
+    public:
 
-    //! The port callback function type
-    typedef U32 (*CompFuncPtr)(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
-    );
+      // ----------------------------------------------------------------------
+      // Types
+      // ----------------------------------------------------------------------
 
-  public:
+      //! The port callback function type
+      typedef U32 (*CompFuncPtr)(
+        Fw::PassiveComponentBase* callComp,
+        NATIVE_INT_TYPE portNum
+      );
 
-    // ----------------------------------------------------------------------
-    // Input Port Member functions
-    // ----------------------------------------------------------------------
+    public:
 
-    //! Constructor
-    InputNoArgsReturnPort();
+      // ----------------------------------------------------------------------
+      // Input Port Member functions
+      // ----------------------------------------------------------------------
 
-    //! Initialization function
-    void init();
+      //! Constructor
+      InputNoArgsReturnPort();
 
-    //! Register a component
-    void addCallComp(
-        Fw::PassiveComponentBase* callComp, //!< The containing component
-        CompFuncPtr funcPtr //!< The port callback function
-    );
+      //! Initialization function
+      void init();
 
-    //! Invoke a port interface
-    U32 invoke();
+      //! Register a component
+      void addCallComp(
+          Fw::PassiveComponentBase* callComp, //!< The containing component
+          CompFuncPtr funcPtr //!< The port callback function
+      );
 
-  private:
+      //! Invoke a port interface
+      U32 invoke();
+
+    private:
 
 #if FW_PORT_SERIALIZATION == 1
 
-    //! Invoke the port with serialized arguments
-    Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
+      //! Invoke the port with serialized arguments
+      Fw::SerializeStatus invokeSerial(Fw::SerializeBufferBase& _buffer);
 
 #endif
 
-  private:
+    private:
 
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
 
-    //! The pointer to the port callback function
-    CompFuncPtr m_func;
+      //! The pointer to the port callback function
+      CompFuncPtr m_func;
 
-};
+  };
 
-//! Output NoArgsReturn port
-//! A type port with no arguments and a return type
-class OutputNoArgsReturnPort :
-  public Fw::OutputPortBase
-{
+  //! Output NoArgsReturn port
+  //! A type port with no arguments and a return type
+  class OutputNoArgsReturnPort :
+    public Fw::OutputPortBase
+  {
 
-  public:
+    public:
 
-    // ----------------------------------------------------------------------
-    // Output Port Member functions
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Output Port Member functions
+      // ----------------------------------------------------------------------
 
-    //! Constructor
-    OutputNoArgsReturnPort();
+      //! Constructor
+      OutputNoArgsReturnPort();
 
-    //! Initialization function
-    void init();
+      //! Initialization function
+      void init();
 
-    //! Register an input port
-    void addCallPort(
-        InputNoArgsReturnPort* callPort //!< The input port
-    );
+      //! Register an input port
+      void addCallPort(
+          InputNoArgsReturnPort* callPort //!< The input port
+      );
 
-    //! Invoke a port interface
-    U32 invoke();
+      //! Invoke a port interface
+      U32 invoke();
 
-  private:
+    private:
 
-    // ----------------------------------------------------------------------
-    // Member variables
-    // ----------------------------------------------------------------------
+      // ----------------------------------------------------------------------
+      // Member variables
+      // ----------------------------------------------------------------------
 
-    //! The pointer to the input port
-    InputNoArgsReturnPort* m_port;
+      //! The pointer to the input port
+      InputNoArgsReturnPort* m_port;
 
-};
+  };
+
+}
 
 #endif

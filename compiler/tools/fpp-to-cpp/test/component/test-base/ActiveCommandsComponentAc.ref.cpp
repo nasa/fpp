@@ -29,11 +29,11 @@ namespace {
 
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsAsyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
@@ -698,7 +698,7 @@ Fw::InputCmdPort* ActiveCommandsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-InputNoArgsPort* ActiveCommandsComponentBase ::
+Ports::InputNoArgsPort* ActiveCommandsComponentBase ::
   get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -709,7 +709,7 @@ InputNoArgsPort* ActiveCommandsComponentBase ::
   return &this->m_noArgsAsync_InputPort[portNum];
 }
 
-InputNoArgsPort* ActiveCommandsComponentBase ::
+Ports::InputNoArgsPort* ActiveCommandsComponentBase ::
   get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -720,7 +720,7 @@ InputNoArgsPort* ActiveCommandsComponentBase ::
   return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* ActiveCommandsComponentBase ::
+Ports::InputNoArgsReturnPort* ActiveCommandsComponentBase ::
   get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -731,7 +731,7 @@ InputNoArgsReturnPort* ActiveCommandsComponentBase ::
   return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* ActiveCommandsComponentBase ::
+Ports::InputNoArgsReturnPort* ActiveCommandsComponentBase ::
   get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -742,7 +742,7 @@ InputNoArgsReturnPort* ActiveCommandsComponentBase ::
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
-InputNoArgsPort* ActiveCommandsComponentBase ::
+Ports::InputNoArgsPort* ActiveCommandsComponentBase ::
   get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(

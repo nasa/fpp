@@ -15,10 +15,10 @@
 namespace {
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
     BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
     BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
@@ -537,7 +537,7 @@ Fw::InputCmdPort* PassiveTelemetryComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-InputNoArgsPort* PassiveTelemetryComponentBase ::
+Ports::InputNoArgsPort* PassiveTelemetryComponentBase ::
   get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -548,7 +548,7 @@ InputNoArgsPort* PassiveTelemetryComponentBase ::
   return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
+Ports::InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
   get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -559,7 +559,7 @@ InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
   return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
+Ports::InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
   get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -570,7 +570,7 @@ InputNoArgsReturnPort* PassiveTelemetryComponentBase ::
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
-InputNoArgsPort* PassiveTelemetryComponentBase ::
+Ports::InputNoArgsPort* PassiveTelemetryComponentBase ::
   get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
