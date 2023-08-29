@@ -1,4 +1,8 @@
 #!/bin/sh
 
-export COMPILER_ROOT=$PWD
+# Ensure the script can be run from any directory
+wd=`dirname $0`
+cd $wd
+
+export COMPILER_ROOT=`pwd`
 scripts/test
