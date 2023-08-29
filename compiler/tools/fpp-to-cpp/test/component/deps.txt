@@ -6,5 +6,6 @@
 ../../fprime/Fw/Time/Time.fpp
 ../../fprime/Fw/Tlm/Tlm.fpp
 ../../fprime/Fw/Types/Types.fpp
+../../fprime/config/DpCfg.fpp
 ../../fprime/config/FpConfig.fpp
 ../types.fpp
