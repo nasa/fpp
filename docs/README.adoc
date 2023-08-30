@@ -2,9 +2,12 @@
 
 This directory contains documentation for the F Prime Prime (FPP)
 FSW modeling language.
-To generate the specification, you need the following tools installed on your 
+To generate the documentation, you need the following tools installed on your 
 system:
 
 * https://github.com/bocchino/redo[redo]
 
 * https://asciidoctor.org[asciidoctor]
+
+Once you have these tools installed, you can run `redo` in this directory
+to regenerate the HTML files from the AsciiDoc source files.
