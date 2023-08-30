@@ -2,7 +2,7 @@
 
 . ../../../scripts/utils.sh
 
-for target in `find . -mindepth 2 -name check-cpp`
+for target in `find . -mindepth 2 -maxdepth 2 -name check-cpp`
 do
   dir=`dirname $target`
   echo "[ $dir ]"
