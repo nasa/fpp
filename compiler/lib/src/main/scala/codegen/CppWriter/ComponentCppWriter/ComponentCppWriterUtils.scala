@@ -561,7 +561,7 @@ abstract class ComponentCppWriterUtils(
     TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
 
   /** Get the name for a general port enumerated constant in cpp file */
-  def generalPortCppConstantName(p: PortInstance.General) =
+  def portCppConstantName(p: PortInstance) =
     s"${p.getUnqualifiedName}_${getPortTypeBaseName(p)}".toUpperCase
 
   /** Get the name for an internal port enumerated constant in cpp file */

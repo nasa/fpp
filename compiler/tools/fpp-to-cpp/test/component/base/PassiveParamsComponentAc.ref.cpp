@@ -626,7 +626,7 @@ Ports::InputTypedPort* PassiveParamsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Connect special input ports to special output ports
+// Connect input ports to special output ports
 // ----------------------------------------------------------------------
 
 void PassiveParamsComponentBase ::

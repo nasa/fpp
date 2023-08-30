@@ -236,7 +236,7 @@ class QueuedEventsComponentBase :
   public:
 
     // ----------------------------------------------------------------------
-    // Connect special input ports to special output ports
+    // Connect input ports to special output ports
     // ----------------------------------------------------------------------
 
     //! Connect port to cmdRegOut[portNum]
