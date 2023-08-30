@@ -38,28 +38,28 @@ class PassiveTest :
     //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnGuarded
     //!
     //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnSync
     //!
     //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsSync
     //!
     //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for typedGuarded
     //!
@@ -73,7 +73,7 @@ class PassiveTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnGuarded
     //!
@@ -87,7 +87,7 @@ class PassiveTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnSync
     //!
@@ -101,7 +101,7 @@ class PassiveTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedSync
     //!
@@ -115,7 +115,7 @@ class PassiveTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
   PRIVATE:
 
@@ -129,7 +129,7 @@ class PassiveTest :
     void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_PRIMITIVE
     //!
@@ -140,7 +140,7 @@ class PassiveTest :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRING
     //!
@@ -150,7 +150,7 @@ class PassiveTest :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ENUM
     //!
@@ -159,7 +159,7 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ARRAY
     //!
@@ -168,7 +168,7 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRUCT
     //!
@@ -177,7 +177,7 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED
     //!
@@ -185,7 +185,7 @@ class PassiveTest :
     void CMD_GUARDED_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_PRIMITIVE
     //!
@@ -196,7 +196,7 @@ class PassiveTest :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRING
     //!
@@ -206,7 +206,7 @@ class PassiveTest :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ENUM
     //!
@@ -215,7 +215,7 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
     //!
@@ -224,7 +224,7 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
     //!
@@ -233,7 +233,31 @@ class PassiveTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Handler implementations for data products
+    // ----------------------------------------------------------------------
+
+    //! Receive a container of type Container1
+    void Dp_Recv_Container1_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container2
+    void Dp_Recv_Container2_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container3
+    void Dp_Recv_Container3_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
 
 };
 

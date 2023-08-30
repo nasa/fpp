@@ -118,7 +118,8 @@ case class ComponentImplWriter(
               s"""|// TODO
                   |this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
                   |"""
-            )
+            ),
+            CppDoc.Function.Override
           )
         )
       ),
@@ -136,8 +137,16 @@ case class ComponentImplWriter(
             internalInterfaceHandlerName(p.getUnqualifiedName),
             getPortFunctionParams(p),
             CppDoc.Type("void"),
-            lines("// TODO")
+            lines("// TODO"),
+            CppDoc.Function.Override
           )
+        )
+      ),
+      addAccessTagAndComment(
+        "PRIVATE",
+        s"Handler implementations for data products",
+        containersByName.map(
+          (id, container) => getDpRecvHandler(container.getName, lines("// TODO"))
         )
       )
     )
@@ -163,7 +172,8 @@ case class ComponentImplWriter(
           inputPortHandlerName(p.getUnqualifiedName),
           portNumParam :: getPortFunctionParams(p),
           getPortReturnTypeAsCppDocType(p),
-          lines(todoMsg)
+          lines(todoMsg),
+          CppDoc.Function.Override
         )
       })
     )

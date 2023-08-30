@@ -38,28 +38,28 @@ class PassiveParams :
     //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnGuarded
     //!
     //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnSync
     //!
     //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsSync
     //!
     //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for typedGuarded
     //!
@@ -73,7 +73,7 @@ class PassiveParams :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnGuarded
     //!
@@ -87,7 +87,7 @@ class PassiveParams :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnSync
     //!
@@ -101,7 +101,7 @@ class PassiveParams :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedSync
     //!
@@ -115,7 +115,7 @@ class PassiveParams :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
 };
 

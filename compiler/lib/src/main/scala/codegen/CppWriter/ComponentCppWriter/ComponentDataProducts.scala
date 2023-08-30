@@ -10,14 +10,6 @@ case class ComponentDataProducts (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val containersById = component.containerMap.toList.sortBy(_._1)
-
-  private val containersByName = component.containerMap.toList.sortBy(_._2.getName)
-
-  private val recordsById = component.recordMap.toList.sortBy(_._1)
-
-  private val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
-
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
@@ -34,28 +26,7 @@ case class ComponentDataProducts (
     addAccessTagAndComment(
       "PROTECTED",
       "Handlers to implement for data products",
-      containersByName.map((id, container) => {
-        val name = container.getName
-        functionClassMember(
-          Some(s"Receive a container of type $name"),
-          s"Dp_Recv_${name}_handler",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("DpContainer&"),
-              "container",
-              Some("The container")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::Success::T"),
-              "status",
-              Some("The container status")
-            )
-          ),
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.PureVirtual
-        )
-      }),
+      containersByName.map((id, container) => getDpRecvHandler(container.getName)),
       CppDoc.Lines.Hpp
     )
 

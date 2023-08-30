@@ -38,28 +38,28 @@ class PassiveSerial :
     //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnGuarded
     //!
     //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnSync
     //!
     //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsSync
     //!
     //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for typedGuarded
     //!
@@ -73,7 +73,7 @@ class PassiveSerial :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnGuarded
     //!
@@ -87,7 +87,7 @@ class PassiveSerial :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnSync
     //!
@@ -101,7 +101,7 @@ class PassiveSerial :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedSync
     //!
@@ -115,7 +115,7 @@ class PassiveSerial :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
   PRIVATE:
 
@@ -129,7 +129,7 @@ class PassiveSerial :
     void serialGuarded_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
+    ) override;
 
     //! Handler implementation for serialSync
     //!
@@ -137,7 +137,7 @@ class PassiveSerial :
     void serialSync_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    );
+    ) override;
 
   PRIVATE:
 
@@ -151,7 +151,7 @@ class PassiveSerial :
     void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_PRIMITIVE
     //!
@@ -162,7 +162,7 @@ class PassiveSerial :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRING
     //!
@@ -172,7 +172,7 @@ class PassiveSerial :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ENUM
     //!
@@ -181,7 +181,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ARRAY
     //!
@@ -190,7 +190,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRUCT
     //!
@@ -199,7 +199,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED
     //!
@@ -207,7 +207,7 @@ class PassiveSerial :
     void CMD_GUARDED_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_PRIMITIVE
     //!
@@ -218,7 +218,7 @@ class PassiveSerial :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRING
     //!
@@ -228,7 +228,7 @@ class PassiveSerial :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ENUM
     //!
@@ -237,7 +237,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
     //!
@@ -246,7 +246,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
     //!
@@ -255,7 +255,7 @@ class PassiveSerial :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
 
 };
 

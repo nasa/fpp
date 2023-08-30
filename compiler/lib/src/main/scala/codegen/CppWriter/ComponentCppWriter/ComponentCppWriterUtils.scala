@@ -210,6 +210,14 @@ abstract class ComponentCppWriterUtils(
   val prmSetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ParamSet)
 
+  val containersById = component.containerMap.toList.sortBy(_._1)
+
+  val containersByName = component.containerMap.toList.sortBy(_._2.getName)
+
+  val recordsById = component.recordMap.toList.sortBy(_._1)
+
+  val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
@@ -693,6 +701,30 @@ abstract class ComponentCppWriterUtils(
   /** Guards an option type with a Boolean condition */
   def guardedOption[T] = guardedValue (None: Option[T]) _
 
+  /** Gets a data product receive handler */
+  def getDpRecvHandler(name: String, body: List[Line] = Nil) =
+    functionClassMember(
+      Some(s"Receive a container of type $name"),
+      s"Dp_Recv_${name}_handler",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("DpContainer&"),
+          "container",
+          Some("The container")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Success::T"),
+          "status",
+          Some("The container status")
+        )
+      ),
+      CppDoc.Type("void"),
+      body,
+      body match {
+        case Nil => CppDoc.Function.PureVirtual
+        case _ => CppDoc.Function.Override
+      }
+    )
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {
@@ -759,6 +791,7 @@ abstract class ComponentCppWriterUtils(
         case _ => false
       }
     )
+
 
 }
 
