@@ -241,6 +241,18 @@ class QueuedTestTesterBase :
       E arg;
     };
 
+    //! A type representing a data product request
+    struct DpRequest {
+      FwDpIdType id;
+      FwSizeType size;
+    };
+
+    // A type representing a data product send
+    struct DpSend {
+      FwDpIdType id;
+      Fw::Buffer buffer;
+    };
+
   public:
 
     // ----------------------------------------------------------------------
@@ -1561,6 +1573,11 @@ class QueuedTestTesterBase :
 
     //! The history of ChannelEnumOnChange values
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
+
+    //! The data product request history
+    History<DpRequest>* dpRequestHistory;
+    //! The data product send history
+    History<DpSend>* dpSendHistory;
 
   private:
 

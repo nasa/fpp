@@ -245,6 +245,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
+  val hasDataProducts: Boolean = component.hasDataProducts
+
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
     if data.kind != Ast.ComponentKind.Passive then List(

@@ -107,6 +107,7 @@ case class ComponentHistory(
       guardedList (hasCommands) (getCmdHistoryTypes),
       guardedList (hasEvents) (getEventHistoryTypes),
       guardedList (hasTelemetry) (getTlmHistoryTypes),
+      guardedList (hasDataProducts) (getDpHistoryTypes),
     ),
     CppDoc.Lines.Hpp
   )
@@ -126,6 +127,7 @@ case class ComponentHistory(
       guardedList (hasCommands) (getCmdHistoryVariables),
       guardedList (hasEvents) (getEventHistoryVariables),
       guardedList (hasTelemetry) (getTlmHistoryVariables),
+      guardedList (hasDataProducts) (getDpHistoryVariables),
     ),
     CppDoc.Lines.Hpp
   )
@@ -290,6 +292,53 @@ case class ComponentHistory(
         Line.blank :: lines(
           """|//! The command response history
              |History<CmdResponse>* cmdResponseHistory;
+             |"""
+        ),
+        CppDoc.Lines.Hpp
+      )
+    )
+
+  private def getDpHistoryTypes: List[CppDoc.Class.Member] = {
+    val dpRequest =
+      Line.blank ::
+      line("//! A type representing a data product request") ::
+      wrapInScope(
+        "struct DpRequest {",
+        lines(
+          """|FwDpIdType id;
+             |FwSizeType size;
+             |"""
+        ),
+        "};"
+      )
+    val dpSend =
+      Line.blank ::
+      line("// A type representing a data product send") ::
+      wrapInScope(
+        "struct DpSend {",
+        lines(
+          """|FwDpIdType id;
+             |Fw::Buffer buffer;
+             |"""
+        ),
+        "};"
+      )
+    List(
+      linesClassMember(
+        List.concat(dpRequest, dpSend),
+        CppDoc.Lines.Hpp
+      )
+    )
+  }
+
+  private def getDpHistoryVariables: List[CppDoc.Class.Member] =
+    List(
+      linesClassMember(
+        Line.blank :: lines(
+          """|//! The data product request history
+             |History<DpRequest>* dpRequestHistory;
+             |//! The data product send history
+             |History<DpSend>* dpSendHistory;
              |"""
         ),
         CppDoc.Lines.Hpp
