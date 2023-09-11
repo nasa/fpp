@@ -150,7 +150,14 @@ case class ComponentHistory(
                |"""
           )
         ),
-        guardedList (hasChannels) (lines("this->clearTlm();"))
+        guardedList (hasChannels) (lines("this->clearTlm();")),
+        guardedList (hasDataProducts) (
+          lines(
+            """|this->dpRequestHistory->clear();
+               |this->dpSendHistory->clear();
+               |"""
+          )
+        ),
       )
     )
     addAccessTagAndComment(

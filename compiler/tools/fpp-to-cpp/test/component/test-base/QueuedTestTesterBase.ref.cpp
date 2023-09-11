@@ -3457,6 +3457,8 @@ void QueuedTestTesterBase ::
 #endif
   this->clearEvents();
   this->clearTlm();
+  this->dpRequestHistory->clear();
+  this->dpSendHistory->clear();
 }
 
 void QueuedTestTesterBase ::

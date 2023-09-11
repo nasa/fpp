@@ -3459,6 +3459,8 @@ namespace M {
 #endif
     this->clearEvents();
     this->clearTlm();
+    this->dpRequestHistory->clear();
+    this->dpSendHistory->clear();
   }
 
   void ActiveTestTesterBase ::

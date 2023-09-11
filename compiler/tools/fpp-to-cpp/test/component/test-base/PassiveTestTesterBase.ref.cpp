@@ -2931,6 +2931,8 @@ void PassiveTestTesterBase ::
 #endif
   this->clearEvents();
   this->clearTlm();
+  this->dpRequestHistory->clear();
+  this->dpSendHistory->clear();
 }
 
 void PassiveTestTesterBase ::
