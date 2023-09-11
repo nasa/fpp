@@ -219,6 +219,16 @@ case class ComponentTesterBaseWriter(
                 line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
               })
             }
+            lazy val productRequestHistory = lines(
+              """|// Initialize data product request history
+                 |this->productRequestHistory = new History<DpRequest>(maxHistorySize);
+                 |"""
+            )
+            lazy val productSendHistory = lines(
+              """|// Initialize data product send history
+                 |this->productSendHistory = new History<DpSend>(maxHistorySize);
+                 |"""
+            )
             lazy val clearHistory = lines(
               """|// Clear history
                  |this->clearHistory();
@@ -230,6 +240,8 @@ case class ComponentTesterBaseWriter(
                 guardedList (hasCommands) (commandHistory),
                 guardedList (hasEvents) (eventHistories),
                 guardedList (hasTelemetry) (tlmHistories),
+                guardedList (hasProductRequestPort) (productRequestHistory),
+                guardedList (hasDataProducts) (productSendHistory),
                 guardedList (hasHistories) (clearHistory)
               )
             )
@@ -270,12 +282,24 @@ case class ComponentTesterBaseWriter(
                 val historyName = tlmHistoryName(channel.getName)
                 line(s"delete this->$historyName;")
               })
+            lazy val destroyProductRequestHistory = lines(
+              """|// Destroy product request history
+                 |delete this->productRequestHistory;
+                 |"""
+            )
+            lazy val destroyProductSendHistory = lines(
+              """|// Destroy product send history
+                 |delete this->productSendHistory;
+                 |"""
+            )
             intersperseBlankLines(
               List(
                 guardedList (hasTypedOutputPorts) (destroyPortHistories),
                 guardedList (hasCommands) (destroyCommandHistory),
                 guardedList (hasEvents) (destroyEventHistories),
-                guardedList (hasChannels) (destroyTlmHistories)
+                guardedList (hasChannels) (destroyTlmHistories),
+                guardedList (hasProductRequestPort) (destroyProductRequestHistory),
+                guardedList (hasDataProducts) (destroyProductSendHistory)
               )
             )
           },

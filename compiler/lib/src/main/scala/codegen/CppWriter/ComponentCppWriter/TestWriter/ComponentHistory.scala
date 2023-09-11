@@ -153,8 +153,8 @@ case class ComponentHistory(
         guardedList (hasChannels) (lines("this->clearTlm();")),
         guardedList (hasDataProducts) (
           lines(
-            """|this->dpRequestHistory->clear();
-               |this->dpSendHistory->clear();
+            """|this->productRequestHistory->clear();
+               |this->productSendHistory->clear();
                |"""
           )
         ),
@@ -306,7 +306,7 @@ case class ComponentHistory(
     )
 
   private def getDpHistoryTypes: List[CppDoc.Class.Member] = {
-    val dpRequest = guardedList(hasProductRequestPort) (
+    val productRequest = guardedList(hasProductRequestPort) (
       Line.blank ::
       line("//! A type representing a data product request") ::
       wrapInScope(
@@ -319,7 +319,7 @@ case class ComponentHistory(
         "};"
       )
     )
-    val dpSend =
+    val productSend =
       Line.blank ::
       line("// A type representing a data product send") ::
       wrapInScope(
@@ -333,7 +333,7 @@ case class ComponentHistory(
       )
     List(
       linesClassMember(
-        List.concat(dpRequest, dpSend),
+        List.concat(productRequest, productSend),
         CppDoc.Lines.Hpp
       )
     )
@@ -347,12 +347,12 @@ case class ComponentHistory(
           guardedList (hasProductRequestPort) (
             lines(
               """|//! The data product request history
-                 |History<DpRequest>* dpRequestHistory;"""
+                 |History<DpRequest>* productRequestHistory;"""
             )
           ),
           lines(
              """|//! The data product send history
-                |History<DpSend>* dpSendHistory;
+                |History<DpSend>* productSendHistory;
                 |"""
           )
         ),

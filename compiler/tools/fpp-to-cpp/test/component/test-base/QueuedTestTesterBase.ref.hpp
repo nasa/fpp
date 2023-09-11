@@ -1575,9 +1575,9 @@ class QueuedTestTesterBase :
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
 
     //! The data product request history
-    History<DpRequest>* dpRequestHistory;
+    History<DpRequest>* productRequestHistory;
     //! The data product send history
-    History<DpSend>* dpSendHistory;
+    History<DpSend>* productSendHistory;
 
   private:
 

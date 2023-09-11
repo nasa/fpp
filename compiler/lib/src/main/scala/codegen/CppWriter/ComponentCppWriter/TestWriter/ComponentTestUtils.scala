@@ -29,7 +29,8 @@ abstract class ComponentTestUtils(
     hasCommands ||
     hasParameters ||
     hasEvents ||
-    hasCommands
+    hasCommands ||
+    hasDataProducts
 
   val inputPorts: List[PortInstance] = List.concat(
     specialInputPorts,

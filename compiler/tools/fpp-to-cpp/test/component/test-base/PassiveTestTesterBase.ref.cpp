@@ -875,6 +875,12 @@ PassiveTestTesterBase ::
   this->tlmHistory_ChannelU32OnChange = new History<TlmEntry_ChannelU32OnChange>(maxHistorySize);
   this->tlmHistory_ChannelEnumOnChange = new History<TlmEntry_ChannelEnumOnChange>(maxHistorySize);
 
+  // Initialize data product request history
+  this->productRequestHistory = new History<DpRequest>(maxHistorySize);
+
+  // Initialize data product send history
+  this->productSendHistory = new History<DpSend>(maxHistorySize);
+
   // Clear history
   this->clearHistory();
 }
@@ -911,6 +917,12 @@ PassiveTestTesterBase ::
   delete this->tlmHistory_ChannelF64;
   delete this->tlmHistory_ChannelU32OnChange;
   delete this->tlmHistory_ChannelEnumOnChange;
+
+  // Destroy product request history
+  delete this->productRequestHistory;
+
+  // Destroy product send history
+  delete this->productSendHistory;
 }
 
 // ----------------------------------------------------------------------
@@ -2931,8 +2943,8 @@ void PassiveTestTesterBase ::
 #endif
   this->clearEvents();
   this->clearTlm();
-  this->dpRequestHistory->clear();
-  this->dpSendHistory->clear();
+  this->productRequestHistory->clear();
+  this->productSendHistory->clear();
 }
 
 void PassiveTestTesterBase ::
