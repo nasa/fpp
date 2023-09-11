@@ -418,7 +418,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_noArgsAsync(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsPort* port
+      Ports::InputNoArgsPort* port
   )
 {
   FW_ASSERT(
@@ -432,7 +432,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_noArgsGuarded(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsPort* port
+      Ports::InputNoArgsPort* port
   )
 {
   FW_ASSERT(
@@ -446,7 +446,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_noArgsReturnGuarded(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsReturnPort* port
+      Ports::InputNoArgsReturnPort* port
   )
 {
   FW_ASSERT(
@@ -460,7 +460,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_noArgsReturnSync(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsReturnPort* port
+      Ports::InputNoArgsReturnPort* port
   )
 {
   FW_ASSERT(
@@ -474,7 +474,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_noArgsSync(
       NATIVE_INT_TYPE portNum,
-      InputNoArgsPort* port
+      Ports::InputNoArgsPort* port
   )
 {
   FW_ASSERT(
@@ -488,7 +488,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedAsync(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -502,7 +502,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedAsyncAssert(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -516,7 +516,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedAsyncBlockPriority(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -530,7 +530,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedAsyncDropPriority(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -544,7 +544,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -558,7 +558,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedReturnGuarded(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -572,7 +572,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedReturnSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -586,7 +586,7 @@ void QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   connect_to_typedSync(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -693,7 +693,7 @@ Fw::InputTlmPort* QueuedTelemetryTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
-InputTypedPort* QueuedTelemetryTesterBase ::
+Ports::InputTypedPort* QueuedTelemetryTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -704,7 +704,7 @@ InputTypedPort* QueuedTelemetryTesterBase ::
   return &this->m_from_typedOut[portNum];
 }
 
-InputTypedReturnPort* QueuedTelemetryTesterBase ::
+Ports::InputTypedReturnPort* QueuedTelemetryTesterBase ::
   get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -778,7 +778,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -807,7 +807,7 @@ F32 QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -895,7 +895,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -923,7 +923,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -951,7 +951,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -979,7 +979,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1007,7 +1007,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1035,7 +1035,7 @@ F32 QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1063,7 +1063,7 @@ F32 QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1091,7 +1091,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1745,7 +1745,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1769,7 +1769,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1840,7 +1840,7 @@ void QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1867,7 +1867,7 @@ F32 QueuedTelemetryTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s

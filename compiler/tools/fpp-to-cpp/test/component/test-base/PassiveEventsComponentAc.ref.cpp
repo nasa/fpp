@@ -15,14 +15,14 @@
 namespace {
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
@@ -537,7 +537,7 @@ Fw::InputCmdPort* PassiveEventsComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-InputNoArgsPort* PassiveEventsComponentBase ::
+Ports::InputNoArgsPort* PassiveEventsComponentBase ::
   get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -548,7 +548,7 @@ InputNoArgsPort* PassiveEventsComponentBase ::
   return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* PassiveEventsComponentBase ::
+Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
   get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -559,7 +559,7 @@ InputNoArgsReturnPort* PassiveEventsComponentBase ::
   return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* PassiveEventsComponentBase ::
+Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
   get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -570,7 +570,7 @@ InputNoArgsReturnPort* PassiveEventsComponentBase ::
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
-InputNoArgsPort* PassiveEventsComponentBase ::
+Ports::InputNoArgsPort* PassiveEventsComponentBase ::
   get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -581,7 +581,7 @@ InputNoArgsPort* PassiveEventsComponentBase ::
   return &this->m_noArgsSync_InputPort[portNum];
 }
 
-InputTypedPort* PassiveEventsComponentBase ::
+Ports::InputTypedPort* PassiveEventsComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -592,7 +592,7 @@ InputTypedPort* PassiveEventsComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* PassiveEventsComponentBase ::
+Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
   get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -603,7 +603,7 @@ InputTypedReturnPort* PassiveEventsComponentBase ::
   return &this->m_typedReturnGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* PassiveEventsComponentBase ::
+Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
   get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -614,7 +614,7 @@ InputTypedReturnPort* PassiveEventsComponentBase ::
   return &this->m_typedReturnSync_InputPort[portNum];
 }
 
-InputTypedPort* PassiveEventsComponentBase ::
+Ports::InputTypedPort* PassiveEventsComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -752,7 +752,7 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -766,7 +766,7 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   set_typedReturnOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -1268,7 +1268,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1305,7 +1305,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1346,7 +1346,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1381,7 +1381,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1416,7 +1416,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1443,7 +1443,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2269,7 +2269,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2296,7 +2296,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2323,7 +2323,7 @@ F32 PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2350,7 +2350,7 @@ void PassiveEventsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s

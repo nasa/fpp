@@ -24,19 +24,19 @@ namespace {
 
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsAsyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsGuardedPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedAsyncPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncAssertPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncBlockPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedAsyncDropPriorityPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[InputTypedPort::SERIALIZED_SIZE];
+    BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
+    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
+    BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
+    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
@@ -693,7 +693,7 @@ Fw::InputCmdPort* QueuedTelemetryComponentBase ::
 // Getters for typed input ports
 // ----------------------------------------------------------------------
 
-InputNoArgsPort* QueuedTelemetryComponentBase ::
+Ports::InputNoArgsPort* QueuedTelemetryComponentBase ::
   get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -704,7 +704,7 @@ InputNoArgsPort* QueuedTelemetryComponentBase ::
   return &this->m_noArgsAsync_InputPort[portNum];
 }
 
-InputNoArgsPort* QueuedTelemetryComponentBase ::
+Ports::InputNoArgsPort* QueuedTelemetryComponentBase ::
   get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -715,7 +715,7 @@ InputNoArgsPort* QueuedTelemetryComponentBase ::
   return &this->m_noArgsGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
+Ports::InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
   get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -726,7 +726,7 @@ InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
   return &this->m_noArgsReturnGuarded_InputPort[portNum];
 }
 
-InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
+Ports::InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
   get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -737,7 +737,7 @@ InputNoArgsReturnPort* QueuedTelemetryComponentBase ::
   return &this->m_noArgsReturnSync_InputPort[portNum];
 }
 
-InputNoArgsPort* QueuedTelemetryComponentBase ::
+Ports::InputNoArgsPort* QueuedTelemetryComponentBase ::
   get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -748,7 +748,7 @@ InputNoArgsPort* QueuedTelemetryComponentBase ::
   return &this->m_noArgsSync_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -759,7 +759,7 @@ InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedAsync_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedAsyncAssert_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -770,7 +770,7 @@ InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedAsyncAssert_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedAsyncBlockPriority_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -781,7 +781,7 @@ InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedAsyncBlockPriority_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedAsyncDropPriority_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -792,7 +792,7 @@ InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedAsyncDropPriority_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -803,7 +803,7 @@ InputTypedPort* QueuedTelemetryComponentBase ::
   return &this->m_typedGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedReturnPort* QueuedTelemetryComponentBase ::
   get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -814,7 +814,7 @@ InputTypedReturnPort* QueuedTelemetryComponentBase ::
   return &this->m_typedReturnGuarded_InputPort[portNum];
 }
 
-InputTypedReturnPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedReturnPort* QueuedTelemetryComponentBase ::
   get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -825,7 +825,7 @@ InputTypedReturnPort* QueuedTelemetryComponentBase ::
   return &this->m_typedReturnSync_InputPort[portNum];
 }
 
-InputTypedPort* QueuedTelemetryComponentBase ::
+Ports::InputTypedPort* QueuedTelemetryComponentBase ::
   get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -963,7 +963,7 @@ void QueuedTelemetryComponentBase ::
 void QueuedTelemetryComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedPort* port
+      Ports::InputTypedPort* port
   )
 {
   FW_ASSERT(
@@ -977,7 +977,7 @@ void QueuedTelemetryComponentBase ::
 void QueuedTelemetryComponentBase ::
   set_typedReturnOut_OutputPort(
       NATIVE_INT_TYPE portNum,
-      InputTypedReturnPort* port
+      Ports::InputTypedReturnPort* port
   )
 {
   FW_ASSERT(
@@ -1552,7 +1552,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1659,7 +1659,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1766,7 +1766,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1873,7 +1873,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1985,7 +1985,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2022,7 +2022,7 @@ F32 QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2063,7 +2063,7 @@ F32 QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2098,7 +2098,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2143,7 +2143,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2158,7 +2158,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2173,7 +2173,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2188,7 +2188,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2207,7 +2207,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2234,7 +2234,7 @@ F32 QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2772,7 +2772,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      TypedPortStrings::StringSize80 str1;
+      Ports::TypedPortStrings::StringSize80 str1;
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2844,7 +2844,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      TypedPortStrings::StringSize80 str1;
+      Ports::TypedPortStrings::StringSize80 str1;
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2916,7 +2916,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      TypedPortStrings::StringSize80 str1;
+      Ports::TypedPortStrings::StringSize80 str1;
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2988,7 +2988,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      TypedPortStrings::StringSize80 str1;
+      Ports::TypedPortStrings::StringSize80 str1;
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3125,7 +3125,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3152,7 +3152,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3179,7 +3179,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3206,7 +3206,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3233,7 +3233,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3260,7 +3260,7 @@ F32 QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3287,7 +3287,7 @@ F32 QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedReturnPortStrings::StringSize80& str2,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3314,7 +3314,7 @@ void QueuedTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const TypedPortStrings::StringSize80& str1,
+      const Ports::TypedPortStrings::StringSize80& str1,
       const E& e,
       const A& a,
       const S& s
