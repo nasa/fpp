@@ -190,6 +190,10 @@ abstract class ComponentCppWriterUtils(
   val timeGetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.TimeGet)
 
+  /** Data product request port */
+  val productRequestPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRequest)
+
   /** Event port */
   val eventPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Event)
@@ -246,6 +250,8 @@ abstract class ComponentCppWriterUtils(
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
   val hasDataProducts: Boolean = component.hasDataProducts
+
+  val hasProductRequestPort: Boolean = productRequestPort.isDefined
 
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(

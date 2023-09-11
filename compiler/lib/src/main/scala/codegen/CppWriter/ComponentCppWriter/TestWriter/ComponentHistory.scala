@@ -306,7 +306,7 @@ case class ComponentHistory(
     )
 
   private def getDpHistoryTypes: List[CppDoc.Class.Member] = {
-    val dpRequest =
+    val dpRequest = guardedList(hasProductRequestPort) (
       Line.blank ::
       line("//! A type representing a data product request") ::
       wrapInScope(
@@ -318,6 +318,7 @@ case class ComponentHistory(
         ),
         "};"
       )
+    )
     val dpSend =
       Line.blank ::
       line("// A type representing a data product send") ::
@@ -341,12 +342,19 @@ case class ComponentHistory(
   private def getDpHistoryVariables: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
-        Line.blank :: lines(
-          """|//! The data product request history
-             |History<DpRequest>* dpRequestHistory;
-             |//! The data product send history
-             |History<DpSend>* dpSendHistory;
-             |"""
+        Line.blank ::
+        List.concat(
+          guardedList (hasProductRequestPort) (
+            lines(
+              """|//! The data product request history
+                 |History<DpRequest>* dpRequestHistory;"""
+            )
+          ),
+          lines(
+             """|//! The data product send history
+                |History<DpSend>* dpSendHistory;
+                |"""
+          )
         ),
         CppDoc.Lines.Hpp
       )
