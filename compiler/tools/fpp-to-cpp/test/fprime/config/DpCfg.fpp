@@ -10,9 +10,9 @@ module Fw {
     @ packet header
     constant CONTAINER_USER_DATA_SIZE = 32;
 
-    @ The type of the identifier for the kind of processing to perform on
+    @ The type of the identifier for the type of processing to perform on
     @ a container before writing it to disk.
-    enum ProcId : U8 {
+    enum ProcType : U8 {
       @ No processing
       NONE
     }

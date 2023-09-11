@@ -16,7 +16,7 @@ echo "generating C++"
 # Generate F Prime C++ files into $fprime_dir/Fw
 fpp-to-cpp -d $fprime_dir/Fw -p $fprime_dir `cat $component_dir/deps.txt`
 # Move data product files into place
-for base in FppConstantsAc ProcIdEnumAc
+for base in FppConstantsAc ProcTypeEnumAc
 do
   for suffix in hpp cpp
   do
