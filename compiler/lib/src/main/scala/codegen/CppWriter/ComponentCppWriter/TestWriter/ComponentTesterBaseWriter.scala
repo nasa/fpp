@@ -103,6 +103,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTelemetry) (getTlmFunctions),
       guardedList (hasParameters) (getPrmFunctions),
       guardedList (hasTimeGetPort) (getTimeFunctions),
+      guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
 
       // Private function members
@@ -453,6 +454,65 @@ case class ComponentTesterBaseWriter(
         testerPortNumGetterName,
         testerPortVariableName
       )
+    )
+  }
+
+  private def getDpFunctions: List[CppDoc.Class.Member] = {
+    lazy val handleProductRequest = functionClassMember(
+      Some("Handle a data product request"),
+      "productRequestIn",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwDpIdType"),
+          "id",
+          Some("The container ID")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwSizeType"),
+          "size",
+          Some("The size of the requested buffer")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|DpRequest e = { id, size };
+           |this->productRequestHistory->push_back(e);
+           |"""
+      ),
+      CppDoc.Function.Virtual
+    )
+    lazy val handleProductSend = functionClassMember(
+      Some("Handle a data product send"),
+      "productSendIn",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwDpIdType"),
+          "id",
+          Some("The container ID")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Buffer"),
+          "buffer",
+          Some("The buffer")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|DpSend e = { id, buffer };
+           |this->productSendHistory->push_back(e);
+           |"""
+      ),
+      CppDoc.Function.Virtual
+    )
+    addAccessTagAndComment(
+      "protected",
+      "Functions for testing data products",
+      {
+        List.concat(
+          guardedList (hasProductRequestPort) (List(handleProductRequest)),
+          List(handleProductSend)
+        )
+      }
     )
   }
 

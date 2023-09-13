@@ -1144,6 +1144,24 @@ class PassiveTestTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Functions for testing data products
+    // ----------------------------------------------------------------------
+
+    //! Handle a data product request
+    virtual void productRequestIn(
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
+    //! Handle a data product send
+    virtual void productSendIn(
+        FwDpIdType id, //!< The container ID
+        Fw::Buffer buffer //!< The buffer
+    );
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // History functions
     // ----------------------------------------------------------------------
 

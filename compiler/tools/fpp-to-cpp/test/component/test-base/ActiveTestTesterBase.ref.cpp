@@ -3458,6 +3458,30 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
+  // Functions for testing data products
+  // ----------------------------------------------------------------------
+
+  void ActiveTestTesterBase ::
+    productRequestIn(
+        FwDpIdType id,
+        FwSizeType size
+    )
+  {
+    DpRequest e = { id, size };
+    this->productRequestHistory->push_back(e);
+  }
+
+  void ActiveTestTesterBase ::
+    productSendIn(
+        FwDpIdType id,
+        Fw::Buffer buffer
+    )
+  {
+    DpSend e = { id, buffer };
+    this->productSendHistory->push_back(e);
+  }
+
+  // ----------------------------------------------------------------------
   // History functions
   // ----------------------------------------------------------------------
 

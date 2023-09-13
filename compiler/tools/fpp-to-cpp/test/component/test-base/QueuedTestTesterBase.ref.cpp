@@ -3456,6 +3456,30 @@ void QueuedTestTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Functions for testing data products
+// ----------------------------------------------------------------------
+
+void QueuedTestTesterBase ::
+  productRequestIn(
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  DpRequest e = { id, size };
+  this->productRequestHistory->push_back(e);
+}
+
+void QueuedTestTesterBase ::
+  productSendIn(
+      FwDpIdType id,
+      Fw::Buffer buffer
+  )
+{
+  DpSend e = { id, buffer };
+  this->productSendHistory->push_back(e);
+}
+
+// ----------------------------------------------------------------------
 // History functions
 // ----------------------------------------------------------------------
 
