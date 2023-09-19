@@ -904,3 +904,59 @@ void PassiveTestGTestBase ::
     << "  Expected: " << val << "\n"
     << "  Actual:   " << _e.arg << "\n";
 }
+
+// ----------------------------------------------------------------------
+// Data Product Requests
+// ----------------------------------------------------------------------
+
+void PassiveTestGTestBase ::
+  assertProductRequest_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productRequestHistory->size() << "\n";
+}
+
+void PassiveTestGTestBase ::
+  assertCmdResponse(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      FwDpIdType id,
+      FwSizeType size
+  ) const
+{
+  ASSERT_LT(__index, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product request history\n"
+    << "  Expected: Less than size of product request history ("
+    << this->productRequestHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpRequest& e = this->productRequestHistory->at(__index);
+  ASSERT_EQ(id, e.id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Id at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  ASSERT_EQ(size, e.size)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << e.size << "\n";
+}

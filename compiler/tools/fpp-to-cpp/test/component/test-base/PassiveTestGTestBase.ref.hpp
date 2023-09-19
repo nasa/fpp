@@ -661,6 +661,30 @@ class PassiveTestGTestBase :
         const E& val //!< The channel value
     ) const;
 
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Data Product Requests
+    // ----------------------------------------------------------------------
+
+    //! Assert size of product request history
+    void assertProductRequest_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! Assert the product request history at index
+    void assertCmdResponse(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 __index, //!< The index
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    ) const;
+
 };
 
 #endif

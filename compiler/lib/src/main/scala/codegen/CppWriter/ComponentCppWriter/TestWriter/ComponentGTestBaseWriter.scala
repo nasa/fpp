@@ -80,7 +80,8 @@ case class ComponentGTestBaseWriter(
       guardedList (hasTypedOutputPorts) (getPortAssertFunctions),
       guardedList (hasCommands) (getCmdAssertFunctions),
       guardedList (hasEvents) (getEventAssertFunctions),
-      guardedList (hasTelemetry) (getTlmAssertFunctions)
+      guardedList (hasTelemetry) (getTlmAssertFunctions),
+      guardedList (hasProductRequestPort) (getProductRequestAssertFunctions)
     )
   }
 
@@ -179,38 +180,6 @@ case class ComponentGTestBaseWriter(
     )
   )
 
-  private def getProductRequestMacros: List[CppDoc.Member] = List(
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Macros for product request assertions"),
-        Line.blank :: lines(
-          """#define ASSERT_PRODUCT_REQUEST_SIZE(size) \
-            |  this->assertProductRequest_size(__FILE__, __LINE__, size)
-            |
-            |#define ASSERT_PRODUCT_REQUEST(index, id, size) \
-            |  this->assertProductRequest(__FILE__, __LINE__, index, id, size)
-            |"""
-        )
-      )
-    )
-  )
-
-  private def getProductSendMacros: List[CppDoc.Member] = List(
-    linesMember(
-      List.concat(
-        CppDocWriter.writeBannerComment("Macros for product send assertions"),
-        Line.blank :: lines(
-          """#define ASSERT_PRODUCT_SEND_SIZE(size) \
-            |  this->assertProductSend_size(__FILE__, __LINE__, size)
-            |
-            |#define ASSERT_PRODUCT_SEND(index, id, buffer) \
-            |  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
-            |"""
-        )
-      )
-    )
-  )
-
   private def getEventMacros = List(
     linesMember(
       List.concat(
@@ -265,6 +234,38 @@ case class ComponentGTestBaseWriter(
                |"""
           )
         })
+      )
+    )
+  )
+
+  private def getProductRequestMacros: List[CppDoc.Member] = List(
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Macros for product request assertions"),
+        Line.blank :: lines(
+          """#define ASSERT_PRODUCT_REQUEST_SIZE(size) \
+            |  this->assertProductRequest_size(__FILE__, __LINE__, size)
+            |
+            |#define ASSERT_PRODUCT_REQUEST(index, id, size) \
+            |  this->assertProductRequest(__FILE__, __LINE__, index, id, size)
+            |"""
+        )
+      )
+    )
+  )
+
+  private def getProductSendMacros: List[CppDoc.Member] = List(
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Macros for product send assertions"),
+        Line.blank :: lines(
+          """#define ASSERT_PRODUCT_SEND_SIZE(size) \
+            |  this->assertProductSend_size(__FILE__, __LINE__, size)
+            |
+            |#define ASSERT_PRODUCT_SEND(index, id, buffer) \
+            |  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
+            |"""
+        )
       )
     )
   )
@@ -605,5 +606,81 @@ case class ComponentGTestBaseWriter(
       )
     }
   )
+
+  private def getProductRequestAssertFunctions = {
+    lazy val historySize =
+      functionClassMember(
+        Some("Assert size of product request history"),
+        "assertProductRequest_size",
+        sizeAssertionFunctionParams,
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_EQ(size, this->productRequestHistory->size())
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Size of product request history\n"
+               |  << "  Expected: " << size << "\n"
+               |  << "  Actual:   " << this->productRequestHistory->size() << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    lazy val historyIndex =
+      functionClassMember(
+        Some("Assert the product request history at index"),
+        "assertCmdResponse",
+        assertionFunctionParams ++ List(
+          opcodeParam,
+          cmdSeqParam,
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "id",
+            Some("The container ID")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwSizeType"),
+            "size",
+            Some("The size of the requested buffer")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_LT(__index, this->productRequestHistory->size())
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Index into product request history\n"
+               |  << "  Expected: Less than size of product request history ("
+               |  << this->productRequestHistory->size() << ")\n"
+               |  << "  Actual:   " << __index << "\n";
+               |const DpRequest& e = this->productRequestHistory->at(__index);
+               |ASSERT_EQ(id, e.id)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Id at index "
+               |  << __index
+               |  << " in product request history\n"
+               |  << "  Expected: " << id << "\n"
+               |  << "  Actual:   " << e.id << "\n";
+               |ASSERT_EQ(size, e.size)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Size at index "
+               |  << __index
+               |  << " in product request history\n"
+               |  << "  Expected: " << size << "\n"
+               |  << "  Actual:   " << e.size << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    addAccessTagAndComment(
+      "protected",
+      "Data Product Requests",
+      List(historySize, historyIndex)
+    )
+  }
+
 
 }
