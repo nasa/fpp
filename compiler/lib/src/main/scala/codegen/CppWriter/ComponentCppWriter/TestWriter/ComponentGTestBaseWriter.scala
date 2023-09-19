@@ -65,10 +65,12 @@ case class ComponentGTestBaseWriter(
 
   private def getMacros = {
     List.concat(
-      guardedList (hasTypedOutputPorts) (List(getPortMacros)),
-      guardedList (hasCommands) (List(getCmdMacros)),
-      guardedList (hasEvents) (List(getEventMacros)),
-      guardedList (hasTelemetry) (List(getTlmMacros))
+      guardedList (hasTypedOutputPorts) (getPortMacros),
+      guardedList (hasCommands) (getCmdMacros),
+      guardedList (hasEvents) (getEventMacros),
+      guardedList (hasTelemetry) (getTlmMacros),
+      guardedList (hasProductRequestPort) (getProductRequestMacros),
+      guardedList (hasDataProducts) (getProductSendMacros)
     )
   }
 
@@ -103,7 +105,7 @@ case class ComponentGTestBaseWriter(
     )
   }
 
-  private def getPortMacros = {
+  private def getPortMacros = List(
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for typed user from port history assertions"),
@@ -159,9 +161,9 @@ case class ComponentGTestBaseWriter(
         })
       ),
     )
-  }
+  )
 
-  private def getCmdMacros: CppDoc.Member = {
+  private def getCmdMacros: List[CppDoc.Member] = List(
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for command history assertions"),
@@ -175,9 +177,41 @@ case class ComponentGTestBaseWriter(
         )
       )
     )
-  }
+  )
 
-  private def getEventMacros =
+  private def getProductRequestMacros: List[CppDoc.Member] = List(
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Macros for product request assertions"),
+        Line.blank :: lines(
+          """#define ASSERT_PRODUCT_REQUEST_SIZE(size) \
+            |  this->assertProductRequest_size(__FILE__, __LINE__, size)
+            |
+            |#define ASSERT_PRODUCT_REQUEST(index, id, size) \
+            |  this->assertProductRequest(__FILE__, __LINE__, index, id, size)
+            |"""
+        )
+      )
+    )
+  )
+
+  private def getProductSendMacros: List[CppDoc.Member] = List(
+    linesMember(
+      List.concat(
+        CppDocWriter.writeBannerComment("Macros for product send assertions"),
+        Line.blank :: lines(
+          """#define ASSERT_PRODUCT_SEND_SIZE(size) \
+            |  this->assertProductSend_size(__FILE__, __LINE__, size)
+            |
+            |#define ASSERT_PRODUCT_SEND(index, id, buffer) \
+            |  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
+            |"""
+        )
+      )
+    )
+  )
+
+  private def getEventMacros = List(
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for event history assertions"),
@@ -207,8 +241,9 @@ case class ComponentGTestBaseWriter(
         })
       )
     )
+  )
 
-  private def getTlmMacros =
+  private def getTlmMacros = List(
     linesMember(
       List.concat(
         CppDocWriter.writeBannerComment("Macros for telemetry history assertions"),
@@ -232,6 +267,7 @@ case class ComponentGTestBaseWriter(
         })
       )
     )
+  )
 
   private def getPortAssertFunctions = {
     addAccessTagAndComment(

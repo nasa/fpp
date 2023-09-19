@@ -287,6 +287,26 @@
 #define ASSERT_TLM_ChannelEnumOnChange(index, value) \
   this->assertTlm_ChannelEnumOnChange(__FILE__, __LINE__, index, value)
 
+// ----------------------------------------------------------------------
+// Macros for product request assertions
+// ----------------------------------------------------------------------
+
+#define ASSERT_PRODUCT_REQUEST_SIZE(size) \
+  this->assertProductRequest_size(__FILE__, __LINE__, size)
+
+#define ASSERT_PRODUCT_REQUEST(index, id, size) \
+  this->assertProductRequest(__FILE__, __LINE__, index, id, size)
+
+// ----------------------------------------------------------------------
+// Macros for product send assertions
+// ----------------------------------------------------------------------
+
+#define ASSERT_PRODUCT_SEND_SIZE(size) \
+  this->assertProductSend_size(__FILE__, __LINE__, size)
+
+#define ASSERT_PRODUCT_SEND(index, id, buffer) \
+  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
+
 //! \class PassiveTestGTestBase
 //! \brief Auto-generated base for PassiveTest component Google Test harness
 class PassiveTestGTestBase :
