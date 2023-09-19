@@ -81,7 +81,8 @@ case class ComponentGTestBaseWriter(
       guardedList (hasCommands) (getCmdAssertFunctions),
       guardedList (hasEvents) (getEventAssertFunctions),
       guardedList (hasTelemetry) (getTlmAssertFunctions),
-      guardedList (hasProductRequestPort) (getProductRequestAssertFunctions)
+      guardedList (hasProductRequestPort) (getProductRequestAssertFunctions),
+      guardedList (hasDataProducts) (getProductSendAssertFunctions)
     )
   }
 
@@ -677,10 +678,84 @@ case class ComponentGTestBaseWriter(
       )
     addAccessTagAndComment(
       "protected",
-      "Data Product Requests",
+      "Data Product Request",
       List(historySize, historyIndex)
     )
   }
 
+  private def getProductSendAssertFunctions = {
+    lazy val historySize =
+      functionClassMember(
+        Some("Assert size of product send history"),
+        "assertProductSend_size",
+        sizeAssertionFunctionParams,
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_EQ(size, this->productSendHistory->size())
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Size of product send history\n"
+               |  << "  Expected: " << size << "\n"
+               |  << "  Actual:   " << this->productSendHistory->size() << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    lazy val historyIndex =
+      functionClassMember(
+        Some("Assert the product send history at index"),
+        "assertCmdResponse",
+        assertionFunctionParams ++ List(
+          opcodeParam,
+          cmdSeqParam,
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "id",
+            Some("The container ID")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Buffer"),
+            "buffer",
+            Some("The buffer")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          raw"""ASSERT_LT(__index, this->productSendHistory->size())
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Index into product send history\n"
+               |  << "  Expected: Less than size of product send history ("
+               |  << this->productSendHistory->size() << ")\n"
+               |  << "  Actual:   " << __index << "\n";
+               |const DpSend& e = this->productSendHistory->at(__index);
+               |ASSERT_EQ(id, e.id)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Id at index "
+               |  << __index
+               |  << " in product send history\n"
+               |  << "  Expected: " << id << "\n"
+               |  << "  Actual:   " << e.id << "\n";
+               |ASSERT_EQ(buffer, e.buffer)
+               |  << "\n"
+               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+               |  << "  Value:    Size at index "
+               |  << __index
+               |  << " in product send history\n"
+               |  << "  Expected: " << buffer << "\n"
+               |  << "  Actual:   " << e.buffer << "\n";
+               |"""
+        ),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
+      )
+    addAccessTagAndComment(
+      "protected",
+      "Data Product Send",
+      List(historySize, historyIndex)
+    )
+  }
 
 }

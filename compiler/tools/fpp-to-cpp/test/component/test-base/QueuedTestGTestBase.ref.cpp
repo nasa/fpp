@@ -906,7 +906,7 @@ void QueuedTestGTestBase ::
 }
 
 // ----------------------------------------------------------------------
-// Data Product Requests
+// Data Product Request
 // ----------------------------------------------------------------------
 
 void QueuedTestGTestBase ::
@@ -959,4 +959,60 @@ void QueuedTestGTestBase ::
     << " in product request history\n"
     << "  Expected: " << size << "\n"
     << "  Actual:   " << e.size << "\n";
+}
+
+// ----------------------------------------------------------------------
+// Data Product Send
+// ----------------------------------------------------------------------
+
+void QueuedTestGTestBase ::
+  assertProductSend_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product send history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productSendHistory->size() << "\n";
+}
+
+void QueuedTestGTestBase ::
+  assertCmdResponse(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      FwDpIdType id,
+      Fw::Buffer buffer
+  ) const
+{
+  ASSERT_LT(__index, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product send history\n"
+    << "  Expected: Less than size of product send history ("
+    << this->productSendHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpSend& e = this->productSendHistory->at(__index);
+  ASSERT_EQ(id, e.id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Id at index "
+    << __index
+    << " in product send history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  ASSERT_EQ(buffer, e.buffer)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size at index "
+    << __index
+    << " in product send history\n"
+    << "  Expected: " << buffer << "\n"
+    << "  Actual:   " << e.buffer << "\n";
 }
