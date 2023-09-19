@@ -1258,8 +1258,16 @@ case class ComponentTesterBaseWriter(
                   |"""
             )
             case ProductRecv => Nil
-            case ProductRequest => lines("// TODO")
-            case ProductSend => lines("// TODO")
+            case ProductRequest => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->productRequestIn($paramNamesString);
+                  |"""
+            )
+            case ProductSend => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->productSendIn($paramNamesString);
+                  |"""
+            )
           }
         case _: PortInstance.Internal => Nil
       }

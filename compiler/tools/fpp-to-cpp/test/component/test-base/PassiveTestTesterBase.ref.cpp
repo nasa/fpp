@@ -3361,7 +3361,8 @@ void PassiveTestTesterBase ::
       FwSizeType size
   )
 {
-  // TODO
+  PassiveTestTesterBase* _testerBase = static_cast<PassiveTestTesterBase*>(callComp);
+  _testerBase->productRequestIn(id, size);
 }
 
 void PassiveTestTesterBase ::
@@ -3372,7 +3373,8 @@ void PassiveTestTesterBase ::
       const Fw::Buffer& buffer
   )
 {
-  // TODO
+  PassiveTestTesterBase* _testerBase = static_cast<PassiveTestTesterBase*>(callComp);
+  _testerBase->productSendIn(id, buffer);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

@@ -3887,7 +3887,8 @@ void QueuedTestTesterBase ::
       FwSizeType size
   )
 {
-  // TODO
+  QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
+  _testerBase->productRequestIn(id, size);
 }
 
 void QueuedTestTesterBase ::
@@ -3898,7 +3899,8 @@ void QueuedTestTesterBase ::
       const Fw::Buffer& buffer
   )
 {
-  // TODO
+  QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
+  _testerBase->productSendIn(id, buffer);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

@@ -3889,7 +3889,8 @@ namespace M {
         FwSizeType size
     )
   {
-    // TODO
+    ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
+    _testerBase->productRequestIn(id, size);
   }
 
   void ActiveTestTesterBase ::
@@ -3900,7 +3901,8 @@ namespace M {
         const Fw::Buffer& buffer
     )
   {
-    // TODO
+    ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
+    _testerBase->productSendIn(id, buffer);
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
