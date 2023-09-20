@@ -506,6 +506,7 @@ object Parser extends Parsers {
       event ^^ { case _ => Ast.SpecPortInstance.Event } |
       param ~ get ^^ { case _ => Ast.SpecPortInstance.ParamGet } |
       param ~ set ^^ { case _ => Ast.SpecPortInstance.ParamSet } |
+      product ~ get ^^ { case _ => Ast.SpecPortInstance.ProductGet } |
       product ~ recv ^^ { case _ => Ast.SpecPortInstance.ProductRecv } |
       product ~ request ^^ { case _ => Ast.SpecPortInstance.ProductRequest } |
       product ~ send ^^ { case _ => Ast.SpecPortInstance.ProductSend } |
