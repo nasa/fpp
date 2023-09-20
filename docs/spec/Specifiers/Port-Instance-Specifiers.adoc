@@ -76,6 +76,8 @@ _special-port-kind_ is one of the following:
 
 . `param` `set`
 
+. `product` `get`
+
 . `product` `recv`
 
 . `product` `request`
@@ -192,6 +194,9 @@ These ports are defined by the F Prime framework.
 
 |`param` `set`
 |`Fw.PrmSet`
+
+|`product` `get`
+|`Fw.DpGet`
 
 |`product` `recv`
 |`Fw.DpResponse`

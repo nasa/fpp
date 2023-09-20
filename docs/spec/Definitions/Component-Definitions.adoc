@@ -7,7 +7,7 @@ Component instances communicate with each other across
 
 ==== Syntax
 
-_component-kind_ `component` 
+_component-kind_ `component`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _component-member-sequence_ `}`
 
@@ -20,7 +20,7 @@ _component-kind_ is one of the following:
 * `queued`
 
 _component-member-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is a *component member*,
 and the terminating punctuation is a semicolon.
 A component member is one of the following:
@@ -37,7 +37,7 @@ All containers specified in a component must have distinct names and identifier
 values.
 
 * A <<Specifiers_Parameter-Specifiers,parameter specifier>>.
-All parameters specified in a component must have distinct names and identifier 
+All parameters specified in a component must have distinct names and identifier
 values.
 
 * A <<Specifiers_Port-Instance-Specifiers,port instance specifier>>
@@ -47,7 +47,7 @@ All records specified in a component must have distinct names and identifier
 values.
 
 * A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel specifier>>.
-All telemetry channels specified in a component must have distinct names and 
+All telemetry channels specified in a component must have distinct names and
 identifier values.
 
 * An <<Definitions_Abstract-Type-Definitions,abstract type definition>>
@@ -57,7 +57,7 @@ identifier values.
 * An <<Definitions_Enum-Definitions,enum definition>>
 
 * An <<Specifiers_Event-Specifiers,event specifier>>.
-All events specified in a component must have distinct names and identifier 
+All events specified in a component must have distinct names and identifier
 values.
 
 * An <<Specifiers_Include-Specifiers,include specifier>>
@@ -73,12 +73,12 @@ as *data product specifiers*.
 
 The identifier is the name of the component.
 The definitions inside the body of the component are
-qualified with the component name, as for 
+qualified with the component name, as for
 <<Definitions_Module-Definitions,module definitions>>.
 
 The component members must satisfy the following rules:
 
-. All names appearing in any general port specifiers, special port specifiers, 
+. All names appearing in any general port specifiers, special port specifiers,
 and internal port specifiers must be distinct.
 
 . No passive component may have an `async` general or special
@@ -110,8 +110,11 @@ or special port specifier, internal port specifier, or
 |There must be specifiers for ports `telemetry` and `time get`.
 
 |If there are any data product specifiers
-|There must be specifiers for ports `product` `request`, `product` `recv`,
-`product` `send`, and `time` `get`.
+|There must be a specifier for either port `product` `get` or
+port `product` `request`.
+There must be specifiers for ports `product` `send` and `time` `get`.
+|If there is a specifier for `product` `request`
+|There must be a specifier for port `product` `recv`.
 |===
 
 The dictionary specifiers must satisfy the following rules:
@@ -137,7 +140,7 @@ The dictionary specifiers must satisfy the following rules:
 active component CommandDispatcher {
 
   # ----------------------------------------------------------------------
-  # Constants 
+  # Constants
   # ----------------------------------------------------------------------
 
   @ The number of com command input ports
@@ -147,7 +150,7 @@ active component CommandDispatcher {
   constant numCmdOutPorts = 20
 
   # ----------------------------------------------------------------------
-  # General ports 
+  # General ports
   # ----------------------------------------------------------------------
 
   @ Dispatches commands
@@ -158,7 +161,7 @@ active component CommandDispatcher {
 
   @ Receives com packets containing serialized commands
   async input port comCmdIn: [numComCmdInPorts] Fw.Com
-  
+
   @ Receives command registration requests
   guarded input port cmdRegIn: [numCmdOutPorts] Fw.CmdReg
 
@@ -166,7 +169,7 @@ active component CommandDispatcher {
   async input port cmdResponseIn: Fw.CmdResponse
 
   # ----------------------------------------------------------------------
-  # Special ports 
+  # Special ports
   # ----------------------------------------------------------------------
 
   @ Command receive port
@@ -190,6 +193,9 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
+  @ Product get port
+  product get port productGetOut
+
   @ Product request port
   product request port productRequestOut
 
@@ -200,7 +206,7 @@ active component CommandDispatcher {
   product send port productSendOut
 
   # ----------------------------------------------------------------------
-  # Commands 
+  # Commands
   # ----------------------------------------------------------------------
 
   @ No-op command
@@ -214,7 +220,7 @@ active component CommandDispatcher {
   ...
 
   # ----------------------------------------------------------------------
-  # Events 
+  # Events
   # ----------------------------------------------------------------------
 
   @ Opcode registered event
@@ -234,9 +240,9 @@ active component CommandDispatcher {
 
   ...
 
-  # ---------------------------------------------------------------------- 
+  # ----------------------------------------------------------------------
   # Telemetry
-  # ---------------------------------------------------------------------- 
+  # ----------------------------------------------------------------------
 
   @ Number of commands dispatched
   telemetry CommandsDispatched: U32 update on change
