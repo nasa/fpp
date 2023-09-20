@@ -41,6 +41,18 @@ case class Component(
   defaultRecordId: BigInt = 0
 ) {
 
+  /** Query whether the component has parameters */
+  def hasParameters = this.paramMap.size > 0
+
+  /** Query whether the component has commands */
+  def hasCommands = this.commandMap.size > 0
+
+  /** Query whether the component has events */
+  def hasEvents = this.eventMap.size > 0
+
+  /** Query whether the component has telemetry */
+  def hasTelemetry = this.tlmChannelMap.size > 0
+
   /** Query whether the component has data products */
   def hasDataProducts = (this.recordMap.size + this.containerMap.size) > 0
 
@@ -261,46 +273,63 @@ case class Component(
    *  and data product specifiers */
   private def checkRequiredPorts:
     Result.Result[Unit] = {
+      import Ast.SpecPortInstance._
       def requirePorts(
-        mapSize: Int,
-        specKind: String,
+        condition: Boolean,
+        specMsg: String,
         portKinds: List[Ast.SpecPortInstance.SpecialKind]
-      ) = if (mapSize > 0) Result.map(
+      ) = if (condition) Result.map(
         portKinds,
         (portKind: Ast.SpecPortInstance.SpecialKind) => 
           this.specialPortMap.get(portKind) match {
             case Some(_) => Right(())
             case None =>
               val loc = Locations.get(this.aNode._2.id)
-              Left(SemanticError.MissingPort(loc, specKind, portKind.toString))
+              val portMsg = s"${portKind.toString} port"
+              Left(SemanticError.MissingPort(loc, specMsg, portMsg))
           }
       ) else Right(())
-      import Ast.SpecPortInstance._
+      def requireProductGetOrRequest =
+        if (this.hasDataProducts &&
+          !this.specialPortMap.contains(ProductGet) &&
+          !this.specialPortMap.contains(ProductRecv)) {
+            val loc = Locations.get(this.aNode._2.id)
+            val specMsg = "data product specifiers"
+            val portMsg = "product get port or product request port"
+            Left(SemanticError.MissingPort(loc, specMsg, portMsg))
+          }
+         else Right(())
       for {
         _ <- requirePorts(
-          this.paramMap.size,
-          "parameter",
+          this.hasParameters,
+          "parameter specifiers",
           List(ParamGet, ParamSet, CommandRecv, CommandReg, CommandResp)
         )
         _ <- requirePorts(
-          this.commandMap.size,
-          "command",
+          this.hasCommands,
+          "command specifiers",
           List(CommandRecv, CommandReg, CommandResp)
         )
         _ <- requirePorts(
-          this.eventMap.size,
-          "event",
+          this.hasEvents,
+          "event specifiers",
           List(Event, TextEvent, TimeGet)
         )
         _ <- requirePorts(
-          this.tlmChannelMap.size,
-          "telemetry",
+          this.hasTelemetry,
+          "telemetry specifiers",
           List(Telemetry, TimeGet)
         )
+        _ <- if (this.hasDataProducts) requireProductGetOrRequest else Right(())
         _ <- requirePorts(
-          this.recordMap.size + this.containerMap.size,
-          "data product",
-          List(ProductRecv, ProductRequest, ProductSend, TimeGet)
+          this.hasDataProducts,
+          "data product specifiers",
+          List(ProductSend, TimeGet)
+        )
+        _ <- requirePorts (
+          this.specialPortMap.contains(ProductRequest),
+          "product request specifier",
+          List(ProductRecv)
         )
       }
       yield ()

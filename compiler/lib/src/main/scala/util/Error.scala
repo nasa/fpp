@@ -186,8 +186,8 @@ sealed trait Error {
       case SemanticError.MissingConnection(loc, matchingLoc) =>
         Error.print (Some(loc)) ("no match for this connection")
         printMatchingLoc(matchingLoc)
-      case SemanticError.MissingPort(loc, specKind, portKind) =>
-        Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
+      case SemanticError.MissingPort(loc, specMsg, portMsg) =>
+        Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -456,8 +456,8 @@ object SemanticError {
   /** Missing port */
   final case class MissingPort(
     loc: Location,
-    specKind: String,
-    port: String
+    specMsg: String,
+    portmsg: String
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
