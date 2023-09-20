@@ -292,7 +292,7 @@ case class Component(
       def requireProductGetOrRequest =
         if (this.hasDataProducts &&
           !this.specialPortMap.contains(ProductGet) &&
-          !this.specialPortMap.contains(ProductRecv)) {
+          !this.specialPortMap.contains(ProductRequest)) {
             val loc = Locations.get(this.aNode._2.id)
             val specMsg = "data product specifiers"
             val portMsg = "product get port or product request port"
