@@ -293,6 +293,7 @@ abstract class ComponentTestUtils(
           case Event => hasEvents
           case ParamGet => hasParameters
           case ParamSet => hasParameters
+          case ProductGet => component.hasDataProducts
           case ProductRecv => component.hasDataProducts
           case ProductRequest => component.hasDataProducts
           case ProductSend => component.hasDataProducts

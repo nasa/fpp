@@ -1257,6 +1257,7 @@ case class ComponentTesterBaseWriter(
                   |${getParamName(0)} = _testerBase->m_testTime;
                   |"""
             )
+            case ProductGet => lines("// TODO")
             case ProductRecv => Nil
             case ProductRequest => lines(
               s"""|$testerBaseDecl

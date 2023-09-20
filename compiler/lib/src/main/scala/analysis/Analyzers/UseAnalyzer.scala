@@ -102,6 +102,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
           case Ast.SpecPortInstance.Event => "Log"
           case Ast.SpecPortInstance.ParamGet => "PrmGet"
           case Ast.SpecPortInstance.ParamSet => "PrmSet"
+          case Ast.SpecPortInstance.ProductGet => "DpGet"
           case Ast.SpecPortInstance.ProductRecv => "DpResponse"
           case Ast.SpecPortInstance.ProductRequest => "DpRequest"
           case Ast.SpecPortInstance.ProductSend => "DpSend"
