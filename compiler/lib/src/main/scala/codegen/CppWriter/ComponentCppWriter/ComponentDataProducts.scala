@@ -109,69 +109,68 @@ case class ComponentDataProducts (
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
     def code(portInstance: PortInstance) = {
       val portName = portInstance.getUnqualifiedName
+      val handlerFunction = functionClassMember(
+        Some(s"Handler implementation for ${portName}"),
+        s"${portName}_handler",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("const NATIVE_INT_TYPE"),
+            "portNum",
+            Some("The port number")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "id",
+            Some("The container id")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::Buffer&"),
+            "buffer",
+            Some("The buffer")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::Success&"),
+            "status",
+            Some("The buffer status")
+          )
+        ),
+        CppDoc.Type("void"),
+        List.concat(
+          lines(
+            """|DpContainer container(id, buffer, this->getIdBase());
+               |// Convert global id to local id
+               |const auto idBase = this->getIdBase();
+               |FW_ASSERT(id >= idBase, id, idBase);
+               |const auto localId = id - idBase;
+               |// Switch on the local id"""
+          ),
+          wrapInSwitch(
+            "localId",
+            List.concat(
+              containersById.flatMap((id, container) => {
+                val name = container.getName
+                lines(
+                  s"""|case ContainerId::$name:
+                      |  // Set the priority
+                      |  container.setPriority(ContainerPriority::$name);
+                      |  // Call the handler
+                      |  this->Dp_Recv_${name}_handler(container, status.e);
+                      |  break;"""
+                )
+              }),
+              lines (
+                """|default:
+                   |  FW_ASSERT(0);
+                   |  break;"""
+              )
+            )
+          )
+        )
+      )
       addAccessTagAndComment(
         "PRIVATE",
         "Private data product handling functions",
-        List(
-          functionClassMember(
-            Some(s"Handler implementation for ${portName}"),
-            s"${portName}_handler",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("const NATIVE_INT_TYPE"),
-                "portNum",
-                Some("The port number")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("FwDpIdType"),
-                "id",
-                Some("The container id")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::Buffer&"),
-                "buffer",
-                Some("The buffer")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::Success&"),
-                "status",
-                Some("The buffer status")
-              )
-            ),
-            CppDoc.Type("void"),
-            List.concat(
-              lines(
-                """|DpContainer container(id, buffer, this->getIdBase());
-                   |// Convert global id to local id
-                   |const auto idBase = this->getIdBase();
-                   |FW_ASSERT(id >= idBase, id, idBase);
-                   |const auto localId = id - idBase;
-                   |// Switch on the local id"""
-              ),
-              wrapInSwitch(
-                "localId",
-                List.concat(
-                  containersById.flatMap((id, container) => {
-                    val name = container.getName
-                    lines(
-                      s"""|case ContainerId::$name:
-                          |  // Set the priority
-                          |  container.setPriority(ContainerPriority::$name);
-                          |  // Call the handler
-                          |  this->Dp_Recv_${name}_handler(container, status.e);
-                          |  break;"""
-                    )
-                  }),
-                  lines (
-                    """|default:
-                       |  FW_ASSERT(0);
-                       |  break;"""
-                  )
-                ),
-              ),
-            )
-          ),
-        )
+        List(handlerFunction)
       )
     }
     component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv).
