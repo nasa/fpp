@@ -1,12 +1,16 @@
-*.out.*
 *.diff.txt
 *.names.txt
+*.o
+*.out.*
+*.template.cpp
+*.template.hpp
+*Ac.cpp
+*Ac.hpp
+*GTestBase.cpp
+*GTestBase.hpp
+*TesterBase.cpp
+*TesterBase.hpp
 default-tests.sh
 default-update-ref.sh
-*.o
-*Ac.hpp
-*Ac.cpp
-*.template.hpp
-*.template.cpp
 
 !*/include/*

@@ -1596,6 +1596,7 @@ namespace M {
 
       //! The data product request history
       History<DpRequest>* productRequestHistory;
+
       //! The data product send history
       History<DpSend>* productSendHistory;
 

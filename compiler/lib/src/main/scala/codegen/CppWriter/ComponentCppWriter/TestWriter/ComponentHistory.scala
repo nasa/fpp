@@ -151,13 +151,9 @@ case class ComponentHistory(
           )
         ),
         guardedList (hasChannels) (lines("this->clearTlm();")),
-        guardedList (hasDataProducts) (
-          lines(
-            """|this->productRequestHistory->clear();
-               |this->productSendHistory->clear();
-               |"""
-          )
-        ),
+        guardedList (hasProductGetPort) (lines("this->productGetHistory->clear();")),
+        guardedList (hasProductRequestPort) (lines("this->productRequestHistory->clear();")),
+        guardedList (hasDataProducts) (lines("this->productSendHistory->clear();")),
       )
     )
     addAccessTagAndComment(
@@ -306,6 +302,20 @@ case class ComponentHistory(
     )
 
   private def getDpHistoryTypes: List[CppDoc.Class.Member] = {
+    val productGet = guardedList(hasProductGetPort) (
+      Line.blank ::
+      line("//! A type representing a data product get") ::
+      wrapInScope(
+        "struct DpGet {",
+        lines(
+          """|FwDpIdType id;
+             |FwSizeType size;
+             |Fw::Buffer& buffer;
+             |"""
+        ),
+        "};"
+      )
+    )
     val productRequest = guardedList(hasProductRequestPort) (
       Line.blank ::
       line("//! A type representing a data product request") ::
@@ -333,7 +343,7 @@ case class ComponentHistory(
       )
     List(
       linesClassMember(
-        List.concat(productRequest, productSend),
+        List.concat(productGet, productRequest, productSend),
         CppDoc.Lines.Hpp
       )
     )
@@ -342,14 +352,22 @@ case class ComponentHistory(
   private def getDpHistoryVariables: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
-        Line.blank ::
         List.concat(
+          guardedList (hasProductGetPort) (
+            Line.blank ::
+            lines(
+              """|//! The data product get history
+                 |History<DpGet>* productGetHistory;"""
+            )
+          ),
           guardedList (hasProductRequestPort) (
+            Line.blank ::
             lines(
               """|//! The data product request history
                  |History<DpRequest>* productRequestHistory;"""
             )
           ),
+          Line.blank ::
           lines(
              """|//! The data product send history
                 |History<DpSend>* productSendHistory;
