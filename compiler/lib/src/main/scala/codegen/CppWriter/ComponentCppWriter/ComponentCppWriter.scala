@@ -307,10 +307,9 @@ case class ComponentCppWriter (
     line("// Get the max size by doing a union of the input and internal port serialization sizes") ::
       wrapInScope(
         "union BuffUnion {",
-        List(
+        List.concat(
           lines(
-            // TODO: Should this name async input ports only?
-            (dataProductAsyncInputPorts ++ typedInputPorts).map(p =>
+            (dataProductAsyncInputPorts ++ typedAsyncInputPorts).map(p =>
               s"BYTE ${p.getUnqualifiedName}PortSize[${getQualifiedPortTypeName(p, p.getDirection.get)}::SERIALIZED_SIZE];"
             ).mkString("\n"),
           ),
@@ -338,7 +337,7 @@ case class ComponentCppWriter (
                 )
               })
           )
-        ).flatten,
+        ),
         "};"
       )
   }
