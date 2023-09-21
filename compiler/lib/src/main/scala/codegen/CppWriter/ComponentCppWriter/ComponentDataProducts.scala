@@ -30,72 +30,73 @@ case class ComponentDataProducts (
       CppDoc.Lines.Hpp
     )
 
-  def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] =
-    if (component.hasDataProducts) {
-      addAccessTagAndComment(
-        "PROTECTED",
-        "Functions for managing data products",
-        List(
-          functionClassMember(
-            Some("Request a data product container"),
-            "Dp_Request",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("ContainerId::T"),
-                "containerId",
-                Some("The container id")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("FwSizeType"),
-                "size",
-                Some("The buffer size")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|const FwDpIdType globalId = this->getIdBase() + containerId;
-                 |this->productRequestOut_out(0, globalId, size);"""
-            )
-          ),
-          functionClassMember(
-            Some("Send a data product"),
-            "Dp_Send",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("DpContainer&"),
-                "container",
-                Some("The data product container")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("Fw::Time"),
-                "timeTag",
-                Some("The time tag"),
-                Some("Fw::ZERO_TIME")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              """|// Update the time tag
-                 |if (timeTag == Fw::ZERO_TIME) {
-                 |  // Get the time from the time port
-                 |  timeTag = this->getTime();
-                 |}
-                 |container.setTimeTag(timeTag);
-                 |// Serialize the header into the packet
-                 |Fw::SerializeStatus status = container.serializeHeader();
-                 |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-                 |// Update the size of the buffer according to the data size
-                 |const FwSizeType packetSize = container.getPacketSize();
-                 |Fw::Buffer buffer = container.getBuffer();
-                 |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
-                 |buffer.setSize(packetSize);
-                 |// Send the buffer
-                 |this->productSendOut_out(0, container.getId(), buffer);"""
-            )
-          )
+  def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = {
+    lazy val dpRequestFunction = functionClassMember(
+      Some("Request a data product container"),
+      "Dp_Request",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("ContainerId::T"),
+          "containerId",
+          Some("The container id")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwSizeType"),
+          "size",
+          Some("The buffer size")
         )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|const FwDpIdType globalId = this->getIdBase() + containerId;
+           |this->productRequestOut_out(0, globalId, size);"""
       )
-    } else Nil
+    )
+    lazy val dpSendFunction = functionClassMember(
+      Some("Send a data product"),
+      "Dp_Send",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("DpContainer&"),
+          "container",
+          Some("The data product container")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Time"),
+          "timeTag",
+          Some("The time tag"),
+          Some("Fw::ZERO_TIME")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        """|// Update the time tag
+           |if (timeTag == Fw::ZERO_TIME) {
+           |  // Get the time from the time port
+           |  timeTag = this->getTime();
+           |}
+           |container.setTimeTag(timeTag);
+           |// Serialize the header into the packet
+           |Fw::SerializeStatus status = container.serializeHeader();
+           |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+           |// Update the size of the buffer according to the data size
+           |const FwSizeType packetSize = container.getPacketSize();
+           |Fw::Buffer buffer = container.getBuffer();
+           |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+           |buffer.setSize(packetSize);
+           |// Send the buffer
+           |this->productSendOut_out(0, container.getId(), buffer);"""
+      )
+    )
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Functions for managing data products",
+      List.concat(
+        guardedList (hasProductRequestPort) (List(dpRequestFunction)),
+        guardedList (hasDataProducts) (List(dpSendFunction))
+      )
+    )
+  }
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
     component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv) match {
