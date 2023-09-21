@@ -54,6 +54,7 @@ queued()
   diff_cpp QueuedAsyncProductsComponent && \
   diff_cpp QueuedCommandsComponent && \
   diff_cpp QueuedEventsComponent && \
+  diff_cpp QueuedGetProductsComponent && \
   diff_cpp QueuedGuardedProductsComponent && \
   diff_cpp QueuedParamsComponent && \
   diff_cpp QueuedSerialComponent && \
