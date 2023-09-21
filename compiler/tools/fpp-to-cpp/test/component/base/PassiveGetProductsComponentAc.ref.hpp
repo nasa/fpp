@@ -921,7 +921,7 @@ class PassiveGetProductsComponentBase :
     //! \return The status of the buffer request
     Fw::Success::T Dp_Get(
         FwSizeType size, //!< The buffer size (input)
-        DpContainer& container //!< The container (output)
+        DpContainer& container //!< The container (input and output)
     );
 
     //! Send a data product
