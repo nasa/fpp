@@ -86,6 +86,7 @@ abstract class ComponentCppWriterUtils(
   /** List of data product output port instances */
   val dataProductOutputPorts: List[PortInstance.Special] =
     specialOutputPorts.filter(pi => {
+      pi.specifier.kind == Ast.SpecPortInstance.ProductGet ||
       pi.specifier.kind == Ast.SpecPortInstance.ProductRequest ||
       pi.specifier.kind == Ast.SpecPortInstance.ProductSend
     })

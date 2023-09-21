@@ -1109,6 +1109,14 @@ class QueuedGetProductsComponentBase :
     // Invocation functions for special output ports
     // ----------------------------------------------------------------------
 
+    //! Invoke output port productGetOut
+    Fw::Success productGetOut_out(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size, //!< The size of the requested buffer
+        Fw::Buffer& buffer //!< The buffer
+    );
+
     //! Invoke output port productSendOut
     void productSendOut_out(
         NATIVE_INT_TYPE portNum, //!< The port number

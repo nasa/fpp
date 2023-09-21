@@ -48,8 +48,16 @@ case class ComponentDataProducts (
         )
       ),
       CppDoc.Type("Fw::Success::T"),
-      lines("""|// TODO
-               |return Fw::Success::SUCCESS;""")
+      {
+        val invokeProductGet = outputPortInvokerName(productGetPort.get)
+        lines(s"""|const FwDpIdType id = container.getId();
+                  |Fw::Buffer buffer;
+                  |const Fw::Success::T status = this->$invokeProductGet(0, id, size, buffer);
+                  |if (status == Fw::Success::SUCCESS) {
+                  |  container.setBuffer(buffer);
+                  |}
+                  |return status;""")
+      }
     )
     lazy val dpRequestFunction = functionClassMember(
       Some("Request a data product container"),

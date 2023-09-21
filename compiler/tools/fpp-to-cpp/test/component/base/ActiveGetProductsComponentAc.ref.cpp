@@ -2482,6 +2482,25 @@ void ActiveGetProductsComponentBase ::
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
 
+Fw::Success ActiveGetProductsComponentBase ::
+  productGetOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType size,
+      Fw::Buffer& buffer
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productGetOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_productGetOut_OutputPort[portNum].invoke(
+    id,
+    size,
+    buffer
+  );
+}
+
 void ActiveGetProductsComponentBase ::
   productSendOut_out(
       NATIVE_INT_TYPE portNum,
@@ -2567,8 +2586,13 @@ Fw::Success::T ActiveGetProductsComponentBase ::
       DpContainer& container
   )
 {
-  // TODO
-  return Fw::Success::SUCCESS;
+  const FwDpIdType id = container.getId();
+  Fw::Buffer buffer;
+  const Fw::Success::T status = this->productGetOut_out(0, id, size, buffer);
+  if (status == Fw::Success::SUCCESS) {
+    container.setBuffer(buffer);
+  }
+  return status;
 }
 
 void ActiveGetProductsComponentBase ::
