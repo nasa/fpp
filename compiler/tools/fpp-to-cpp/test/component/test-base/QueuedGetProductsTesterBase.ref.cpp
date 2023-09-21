@@ -1529,6 +1529,21 @@ void QueuedGetProductsTesterBase ::
 // Functions for testing data products
 // ----------------------------------------------------------------------
 
+Fw::Success::T QueuedGetProductsTesterBase ::
+  productGetIn(
+      FwDpIdType id,
+      FwSizeType size,
+      Fw::Buffer& buffer
+  )
+{
+  (void) buffer;
+  DpGet e = { id, size };
+  this->productGetHistory->push_back(e);
+  // Default behavior: do not allocate a buffer and return FAILURE
+  // Client code can override this behavior
+  return Fw::Success::FAILURE;
+}
+
 void QueuedGetProductsTesterBase ::
   productSendIn(
       FwDpIdType id,

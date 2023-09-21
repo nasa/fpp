@@ -132,7 +132,6 @@ class PassiveGetProductsTesterBase :
     struct DpGet {
       FwDpIdType id;
       FwSizeType size;
-      Fw::Buffer& buffer;
     };
 
     // A type representing a data product send
@@ -673,6 +672,13 @@ class PassiveGetProductsTesterBase :
     // ----------------------------------------------------------------------
     // Functions for testing data products
     // ----------------------------------------------------------------------
+
+    //! Handle a data product get
+    virtual Fw::Success::T productGetIn(
+        FwDpIdType id, //!< The container ID
+        FwSizeType size, //!< The size of the requested buffer
+        Fw::Buffer& buffer //!< The buffer
+    );
 
     //! Handle a data product send
     virtual void productSendIn(

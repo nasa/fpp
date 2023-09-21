@@ -310,7 +310,6 @@ case class ComponentHistory(
         lines(
           """|FwDpIdType id;
              |FwSizeType size;
-             |Fw::Buffer& buffer;
              |"""
         ),
         "};"
