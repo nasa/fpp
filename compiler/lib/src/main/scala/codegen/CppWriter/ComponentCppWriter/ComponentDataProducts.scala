@@ -72,10 +72,13 @@ case class ComponentDataProducts (
         )
       ),
       CppDoc.Type("void"),
-      lines(
-        """|const FwDpIdType globalId = this->getIdBase() + containerId;
-           |this->productRequestOut_out(0, globalId, size);"""
-      )
+      {
+        val invokeProductRequest = outputPortInvokerName(productRequestPort.get)
+        lines(
+          s"""|const FwDpIdType globalId = this->getIdBase() + containerId;
+              |this->$invokeProductRequest(0, globalId, size);"""
+        )
+      }
     )
     lazy val dpSendFunction = functionClassMember(
       Some("Send a data product"),
@@ -94,24 +97,27 @@ case class ComponentDataProducts (
         )
       ),
       CppDoc.Type("void"),
-      lines(
-        """|// Update the time tag
-           |if (timeTag == Fw::ZERO_TIME) {
-           |  // Get the time from the time port
-           |  timeTag = this->getTime();
-           |}
-           |container.setTimeTag(timeTag);
-           |// Serialize the header into the packet
-           |Fw::SerializeStatus status = container.serializeHeader();
-           |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-           |// Update the size of the buffer according to the data size
-           |const FwSizeType packetSize = container.getPacketSize();
-           |Fw::Buffer buffer = container.getBuffer();
-           |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
-           |buffer.setSize(packetSize);
-           |// Send the buffer
-           |this->productSendOut_out(0, container.getId(), buffer);"""
-      )
+      {
+        val invokeProductSend = outputPortInvokerName(productSendPort.get)
+        lines(
+          s"""|// Update the time tag
+              |if (timeTag == Fw::ZERO_TIME) {
+              |  // Get the time from the time port
+              |  timeTag = this->getTime();
+              |}
+              |container.setTimeTag(timeTag);
+              |// Serialize the header into the packet
+              |Fw::SerializeStatus status = container.serializeHeader();
+              |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+              |// Update the size of the buffer according to the data size
+              |const FwSizeType packetSize = container.getPacketSize();
+              |Fw::Buffer buffer = container.getBuffer();
+              |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+              |buffer.setSize(packetSize);
+              |// Send the buffer
+              |this->$invokeProductSend(0, container.getId(), buffer);"""
+        )
+      }
     )
     addAccessTagAndComment(
       "PROTECTED",

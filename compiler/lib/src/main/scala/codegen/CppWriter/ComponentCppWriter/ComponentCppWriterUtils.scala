@@ -198,6 +198,10 @@ abstract class ComponentCppWriterUtils(
   val productRequestPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ProductRequest)
 
+  /** Data product send port */
+  val productSendPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductSend)
+
   /** Event port */
   val eventPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Event)
@@ -643,6 +647,10 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an output port invocation function */
   def outputPortInvokerName(name: String) =
     s"${name}_out"
+
+  /** Get the name for an output port invocation function */
+  def outputPortInvokerName(pi: PortInstance): String =
+    outputPortInvokerName(pi.getUnqualifiedName)
 
   /** Get the name for an internal interface handler */
   def internalInterfaceHandlerName(name: String) =
