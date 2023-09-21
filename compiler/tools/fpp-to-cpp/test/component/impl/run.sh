@@ -24,21 +24,27 @@ passive()
 active()
 {
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active && \
-  diff_template ActiveTest && \
-  diff_template ActiveSerial && \
   diff_template ActiveCommands && \
   diff_template ActiveEvents && \
+  diff_template ActiveGetProducts && \
+  diff_template ActiveGuardedProducts && \
+  diff_template ActiveParams && \
+  diff_template ActiveSerial && \
+  diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
-  diff_template ActiveParams
+  diff_template ActiveTest
 }
 
 queued()
 {
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued && \
-  diff_template QueuedTest && \
-  diff_template QueuedSerial && \
   diff_template QueuedCommands && \
   diff_template QueuedEvents && \
+  diff_template QueuedGetProducts && \
+  diff_template QueuedGuardedProducts && \
+  diff_template QueuedParams && \
+  diff_template QueuedSerial && \
+  diff_template QueuedSyncProducts && \
   diff_template QueuedTelemetry && \
-  diff_template QueuedParams
+  diff_template QueuedTest
 }
