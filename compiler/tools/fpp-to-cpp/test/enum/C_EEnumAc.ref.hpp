@@ -60,10 +60,10 @@ class C_E :
 
     //! Constructor (user-provided value)
     C_E(
-        const T e //!< The raw enum value
+        const T e1 //!< The raw enum value
     )
     {
-      this->e = e;
+      this->e = e1;
     }
 
     //! Copy constructor
@@ -97,15 +97,15 @@ class C_E :
     }
 
     //! Equality operator
-    bool operator==(T e) const
+    bool operator==(T e1) const
     {
-      return this->e == e;
+      return this->e == e1;
     }
 
     //! Inequality operator
-    bool operator!=(T e) const
+    bool operator!=(T e1) const
     {
-      return !(*this == e);
+      return !(*this == e1);
     }
 
 #ifdef BUILD_UT

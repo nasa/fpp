@@ -24,7 +24,7 @@ E2& E2 ::
 E2& E2 ::
   operator=(T e)
 {
-  this->e = e;
+  this->e = e1;
   return *this;
 }
 

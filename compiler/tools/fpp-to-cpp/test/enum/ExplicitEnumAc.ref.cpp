@@ -26,7 +26,7 @@ namespace M {
   Explicit& Explicit ::
     operator=(T e)
   {
-    this->e = e;
+    this->e = e1;
     return *this;
   }
 
