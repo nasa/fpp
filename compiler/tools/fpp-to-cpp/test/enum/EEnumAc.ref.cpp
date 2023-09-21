@@ -22,7 +22,7 @@ E& E ::
 }
 
 E& E ::
-  operator=(T e)
+  operator=(T e1)
 {
   this->e = e1;
   return *this;

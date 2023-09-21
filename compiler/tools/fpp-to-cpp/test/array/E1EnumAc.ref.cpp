@@ -24,7 +24,7 @@ namespace M {
   }
 
   E1& E1 ::
-    operator=(T e)
+    operator=(T e1)
   {
     this->e = e1;
     return *this;

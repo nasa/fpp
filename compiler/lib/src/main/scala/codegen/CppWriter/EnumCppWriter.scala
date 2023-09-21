@@ -239,7 +239,7 @@ case class EnumCppWriter(
         List(
           CppDoc.Function.Param(
             CppDoc.Type("T"),
-            "e",
+            "e1",
             Some("The enum value"),
           ),
         ),
