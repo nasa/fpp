@@ -15,14 +15,7 @@
 namespace {
   // Get the max size by doing a union of the input and internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
+
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
@@ -72,6 +65,17 @@ PassiveTestComponentBase::DpContainer ::
       FwDpIdType baseId
   ) :
     Fw::DpContainer(id, buffer),
+    baseId(baseId)
+{
+
+}
+
+PassiveTestComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
     baseId(baseId)
 {
 

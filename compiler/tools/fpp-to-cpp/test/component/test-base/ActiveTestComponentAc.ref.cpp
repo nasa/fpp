@@ -40,18 +40,10 @@ namespace M {
     union BuffUnion {
       BYTE productRecvInPortSize[Fw::InputDpResponsePort::SERIALIZED_SIZE];
       BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-      BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-      BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-      BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-      BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
       BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
       BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
       BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
       BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-      BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-      BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-      BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
       BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
       // Size of internalArray argument list
       BYTE internalArrayIntIfSize[
@@ -126,6 +118,17 @@ namespace M {
         FwDpIdType baseId
     ) :
       Fw::DpContainer(id, buffer),
+      baseId(baseId)
+  {
+
+  }
+
+  ActiveTestComponentBase::DpContainer ::
+    DpContainer(
+        FwDpIdType id,
+        FwDpIdType baseId
+    ) :
+      Fw::DpContainer(id),
       baseId(baseId)
   {
 
