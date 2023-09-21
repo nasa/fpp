@@ -88,3 +88,14 @@ passive component PassiveGuardedProducts {
   include "include/products.fppi"
 
 }
+
+@ A passive component with data product get
+passive component PassiveGetProducts {
+
+  include "include/product_ports_get.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+
+  include "include/products.fppi"
+
+}

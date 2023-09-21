@@ -24,6 +24,7 @@ passive()
   update "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
   move_cpp PassiveCommandsComponent
   move_cpp PassiveEventsComponent
+  move_cpp PassiveGetProductsComponent
   move_cpp PassiveGuardedProductsComponent
   move_cpp PassiveParamsComponent
   move_cpp PassiveSerialComponent
