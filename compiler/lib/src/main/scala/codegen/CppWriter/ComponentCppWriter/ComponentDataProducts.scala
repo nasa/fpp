@@ -92,6 +92,7 @@ case class ComponentDataProducts (
       "PROTECTED",
       "Functions for managing data products",
       List.concat(
+        // TODO: dpGetFunction
         guardedList (hasProductRequestPort) (List(dpRequestFunction)),
         guardedList (hasDataProducts) (List(dpSendFunction))
       )
@@ -99,51 +100,50 @@ case class ComponentDataProducts (
   }
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
-    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv) match {
-      case None => Nil
-      case Some(portInstance) =>
-        val portName = portInstance.getUnqualifiedName
-        addAccessTagAndComment(
-          "PRIVATE",
-          "Private data product handling functions",
-          List(
-            functionClassMember(
-              Some(s"Handler implementation for ${portName}"),
-              s"${portName}_handler",
-              List(
-                CppDoc.Function.Param(
-                  CppDoc.Type("const NATIVE_INT_TYPE"),
-                  "portNum",
-                  Some("The port number")
-                ),
-                CppDoc.Function.Param(
-                  CppDoc.Type("FwDpIdType"),
-                  "id",
-                  Some("The container id")
-                ),
-                CppDoc.Function.Param(
-                  CppDoc.Type("const Fw::Buffer&"),
-                  "buffer",
-                  Some("The buffer")
-                ),
-                CppDoc.Function.Param(
-                  CppDoc.Type("const Fw::Success&"),
-                  "status",
-                  Some("The buffer status")
-                )
+    def code(portInstance: PortInstance) = {
+      val portName = portInstance.getUnqualifiedName
+      addAccessTagAndComment(
+        "PRIVATE",
+        "Private data product handling functions",
+        List(
+          functionClassMember(
+            Some(s"Handler implementation for ${portName}"),
+            s"${portName}_handler",
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const NATIVE_INT_TYPE"),
+                "portNum",
+                Some("The port number")
               ),
-              CppDoc.Type("void"),
-              List.concat(
-                lines(
-                  """|DpContainer container(id, buffer, this->getIdBase());
-                     |// Convert global id to local id
-                     |const auto idBase = this->getIdBase();
-                     |FW_ASSERT(id >= idBase, id, idBase);
-                     |const auto localId = id - idBase;
-                     |// Switch on the local id"""
-                ),
-                wrapInScope(
-                  "switch (localId) {",
+              CppDoc.Function.Param(
+                CppDoc.Type("FwDpIdType"),
+                "id",
+                Some("The container id")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::Buffer&"),
+                "buffer",
+                Some("The buffer")
+              ),
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::Success&"),
+                "status",
+                Some("The buffer status")
+              )
+            ),
+            CppDoc.Type("void"),
+            List.concat(
+              lines(
+                """|DpContainer container(id, buffer, this->getIdBase());
+                   |// Convert global id to local id
+                   |const auto idBase = this->getIdBase();
+                   |FW_ASSERT(id >= idBase, id, idBase);
+                   |const auto localId = id - idBase;
+                   |// Switch on the local id"""
+              ),
+              wrapInSwitch(
+                "localId",
+                List.concat(
                   containersById.flatMap((id, container) => {
                     val name = container.getName
                     lines(
@@ -154,18 +154,21 @@ case class ComponentDataProducts (
                           |  this->Dp_Recv_${name}_handler(container, status.e);
                           |  break;"""
                     )
-                  }) ++ lines (
+                  }),
+                  lines (
                     """|default:
                        |  FW_ASSERT(0);
                        |  break;"""
-                  ),
-                  "}"
+                  )
                 ),
-              )
-            ),
-          )
+              ),
+            )
+          ),
         )
+      )
     }
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv).
+      map(code).getOrElse(Nil)
   }
 
   private def getContainerIds = containersById match {
@@ -215,7 +218,7 @@ case class ComponentDataProducts (
           wrapInNamedEnum(
             "T : FwDpIdType",
             recordsById.flatMap((id, container) =>
-                writeEnumConstant(container.getName, id)
+              writeEnumConstant(container.getName, id)
             )
           )
         )
