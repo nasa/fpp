@@ -118,3 +118,15 @@ active component ActiveGuardedProducts {
   include "include/products.fppi"
 
 }
+
+@ An active component with data product get
+active component ActiveGetProducts {
+
+  include "include/product_ports_get.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
