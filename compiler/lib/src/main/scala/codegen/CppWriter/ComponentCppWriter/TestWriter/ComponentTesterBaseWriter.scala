@@ -799,110 +799,113 @@ case class ComponentTesterBaseWriter(
       )
     )
 
+    lazy val dispatchEvent = functionClassMember(
+      Some("Dispatch an event"),
+      "dispatchEvents",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwEventIdType"),
+          "id",
+          Some("The event ID")
+        ),
+        timeTagParam,
+        CppDoc.Function.Param(
+          CppDoc.Type("const Fw::LogSeverity"),
+          "severity",
+          Some("The severity")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::LogBuffer&"),
+          "args",
+          Some("The serialized arguments")
+        )
+      ),
+      CppDoc.Type("void"),
+      List.concat(
+        lines(
+          """|args.resetDeser();
+             |
+             |const U32 idBase = this->getIdBase();
+             |FW_ASSERT(id >= idBase, id, idBase);
+             |"""
+        ),
+        switchStatement
+      )
+    )
+
+    lazy val handleTextEvent = wrapClassMemberInTextLogGuard(
+      functionClassMember(
+        Some("Handle a text event"),
+        "textLogIn",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("FwEventIdType"),
+            "id",
+            Some("The event ID")
+          ),
+          timeTagParam,
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::LogSeverity"),
+            "severity",
+            Some("The severity")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::TextLogString&"),
+            "text",
+            Some("The event string")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          s"""|TextLogEntry e = { id, timeTag, severity, text };
+              |textLogHistory->push_back(e);
+              |"""
+        )
+      )
+    )
+
+    def handleEvent(id: Event.Id, event: Event) = {
+      val name= event.getName
+      val sizeName = eventSizeName(name)
+      val entryName = eventEntryName(name)
+      val historyName = eventHistoryName(name)
+      functionClassMember(
+        Some(s"Handle event $name"),
+        eventHandlerName(event),
+        formalParamsCppWriter.write(
+          event.aNode._2.data.params,
+          Nil,
+          Some("Fw::LogStringArg"),
+          FormalParamsCppWriter.Value
+        ),
+        CppDoc.Type("void"),
+        List.concat(
+          eventParamTypeMap(id) match {
+            case Nil => lines(s"this->$sizeName++;")
+            case params => List.concat(
+              wrapInScope(
+                s"$entryName _e = {",
+                lines(params.map(_._1).mkString(",\n")),
+                "};"
+              ),
+              lines(s"$historyName->push_back(_e);")
+            )
+          },
+          lines("this->eventsSize++;")
+        ),
+        CppDoc.Function.Virtual
+      )
+    }
+
     addAccessTagAndComment(
       "protected",
       "Functions for testing events",
-      {
-        lazy val dispatchEvent = functionClassMember(
-          Some("Dispatch an event"),
-          "dispatchEvents",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwEventIdType"),
-              "id",
-              Some("The event ID")
-            ),
-            timeTagParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::LogSeverity"),
-              "severity",
-              Some("The severity")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::LogBuffer&"),
-              "args",
-              Some("The serialized arguments")
-            )
-          ),
-          CppDoc.Type("void"),
-          List.concat(
-            lines(
-              """|args.resetDeser();
-                 |
-                 |const U32 idBase = this->getIdBase();
-                 |FW_ASSERT(id >= idBase, id, idBase);
-                 |"""
-            ),
-            switchStatement
-          )
-        )
-        lazy val handleTextEvent = wrapClassMemberInTextLogGuard(
-          functionClassMember(
-            Some("Handle a text event"),
-            "textLogIn",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("FwEventIdType"),
-                "id",
-                Some("The event ID")
-              ),
-              timeTagParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::LogSeverity"),
-                "severity",
-                Some("The severity")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::TextLogString&"),
-                "text",
-                Some("The event string")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""|TextLogEntry e = { id, timeTag, severity, text };
-                  |textLogHistory->push_back(e);
-                  |"""
-            )
-          )
-        )
-        List.concat(
-          guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
-          sortedEvents.map((id, event) => {
-            val name= event.getName
-            val sizeName = eventSizeName(name)
-            val entryName = eventEntryName(name)
-            val historyName = eventHistoryName(name)
-            functionClassMember(
-              Some(s"Handle event $name"),
-              eventHandlerName(event),
-              formalParamsCppWriter.write(
-                event.aNode._2.data.params,
-                Nil,
-                Some("Fw::LogStringArg"),
-                FormalParamsCppWriter.Value
-              ),
-              CppDoc.Type("void"),
-              List.concat(
-                eventParamTypeMap(id) match {
-                  case Nil => lines(s"this->$sizeName++;")
-                  case params => List.concat(
-                    wrapInScope(
-                      s"$entryName _e = {",
-                      lines(params.map(_._1).mkString(",\n")),
-                      "};"
-                    ),
-                    lines(s"$historyName->push_back(_e);")
-                  )
-                },
-                lines("this->eventsSize++;")
-              ),
-              CppDoc.Function.Virtual
-            )
-          })
-        )
-      }
+      List.concat(
+        guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
+        sortedEvents.map(handleEvent)
+      )
     )
+
   }
 
   private def getTlmFunctions: List[CppDoc.Class.Member] = {
