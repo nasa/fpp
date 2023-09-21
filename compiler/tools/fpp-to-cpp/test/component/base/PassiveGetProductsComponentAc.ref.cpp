@@ -70,6 +70,17 @@ PassiveGetProductsComponentBase::DpContainer ::
 
 }
 
+PassiveGetProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus PassiveGetProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const PassiveGetProducts_Data& elt)
 {
@@ -1765,7 +1776,6 @@ F32 PassiveGetProductsComponentBase ::
 
 Fw::Success::T PassiveGetProductsComponentBase ::
   Dp_Get(
-      FwDpIdType containerId,
       FwSizeType size,
       DpContainer& container
   )

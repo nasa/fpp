@@ -83,6 +83,17 @@ QueuedSyncProductsComponentBase::DpContainer ::
 
 }
 
+QueuedSyncProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus QueuedSyncProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const QueuedSyncProducts_Data& elt)
 {

@@ -123,6 +123,17 @@ namespace M {
 
   }
 
+  ActiveTestComponentBase::DpContainer ::
+    DpContainer(
+        FwDpIdType id,
+        FwDpIdType baseId
+    ) :
+      Fw::DpContainer(id),
+      baseId(baseId)
+  {
+
+  }
+
   Fw::SerializeStatus ActiveTestComponentBase::DpContainer ::
     serializeRecord_DataRecord(const M::ActiveTest_Data& elt)
   {

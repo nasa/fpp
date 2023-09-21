@@ -70,6 +70,17 @@ PassiveTestComponentBase::DpContainer ::
 
 }
 
+PassiveTestComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
   serializeRecord_DataRecord(const PassiveTest_Data& elt)
 {

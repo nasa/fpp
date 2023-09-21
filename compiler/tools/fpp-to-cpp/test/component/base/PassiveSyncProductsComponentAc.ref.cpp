@@ -70,6 +70,17 @@ PassiveSyncProductsComponentBase::DpContainer ::
 
 }
 
+PassiveSyncProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const PassiveSyncProducts_Data& elt)
 {

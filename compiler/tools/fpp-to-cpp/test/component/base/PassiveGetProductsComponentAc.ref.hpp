@@ -133,10 +133,16 @@ class PassiveGetProductsComponentBase :
 
       public:
 
-        //! Constructor
+        //! Constructor with buffer
         DpContainer(
             FwDpIdType id, //!< The container id
             const Fw::Buffer& buffer, //!< The packet buffer
+            FwDpIdType baseId //!< The component base id
+        );
+
+        //! Constructor without buffer
+        DpContainer(
+            FwDpIdType id, //!< The container id
             FwDpIdType baseId //!< The component base id
         );
 
@@ -914,7 +920,6 @@ class PassiveGetProductsComponentBase :
     //! Get a buffer and use it to initialize a data product container
     //! \return The status of the buffer request
     Fw::Success::T Dp_Get(
-        FwDpIdType containerId, //!< The container id (input)
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
     );

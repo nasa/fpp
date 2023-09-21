@@ -85,6 +85,17 @@ ActiveAsyncProductsComponentBase::DpContainer ::
 
 }
 
+ActiveAsyncProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const ActiveAsyncProducts_Data& elt)
 {

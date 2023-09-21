@@ -83,6 +83,17 @@ QueuedGetProductsComponentBase::DpContainer ::
 
 }
 
+QueuedGetProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const QueuedGetProducts_Data& elt)
 {
@@ -2552,7 +2563,6 @@ F32 QueuedGetProductsComponentBase ::
 
 Fw::Success::T QueuedGetProductsComponentBase ::
   Dp_Get(
-      FwDpIdType containerId,
       FwSizeType size,
       DpContainer& container
   )

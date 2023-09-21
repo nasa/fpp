@@ -83,6 +83,17 @@ ActiveSyncProductsComponentBase::DpContainer ::
 
 }
 
+ActiveSyncProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus ActiveSyncProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const ActiveSyncProducts_Data& elt)
 {

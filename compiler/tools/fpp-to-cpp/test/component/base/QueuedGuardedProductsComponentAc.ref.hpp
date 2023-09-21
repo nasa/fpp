@@ -138,10 +138,16 @@ class QueuedGuardedProductsComponentBase :
 
       public:
 
-        //! Constructor
+        //! Constructor with buffer
         DpContainer(
             FwDpIdType id, //!< The container id
             const Fw::Buffer& buffer, //!< The packet buffer
+            FwDpIdType baseId //!< The component base id
+        );
+
+        //! Constructor without buffer
+        DpContainer(
+            FwDpIdType id, //!< The container id
             FwDpIdType baseId //!< The component base id
         );
 

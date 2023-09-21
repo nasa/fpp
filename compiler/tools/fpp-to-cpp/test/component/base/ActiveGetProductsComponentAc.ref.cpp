@@ -83,6 +83,17 @@ ActiveGetProductsComponentBase::DpContainer ::
 
 }
 
+ActiveGetProductsComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id),
+    baseId(baseId)
+{
+
+}
+
 Fw::SerializeStatus ActiveGetProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const ActiveGetProducts_Data& elt)
 {
@@ -2552,7 +2563,6 @@ F32 ActiveGetProductsComponentBase ::
 
 Fw::Success::T ActiveGetProductsComponentBase ::
   Dp_Get(
-      FwDpIdType containerId,
       FwSizeType size,
       DpContainer& container
   )

@@ -37,11 +37,6 @@ case class ComponentDataProducts (
       "Dp_Get",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "containerId",
-          Some("The container id (input)")
-        ),
-        CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
           "size",
           Some("The buffer size (input)")
@@ -49,7 +44,7 @@ case class ComponentDataProducts (
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
           "container",
-          Some("The container (output)")
+          Some("The container (input and output)")
         )
       ),
       CppDoc.Type("Fw::Success::T"),
@@ -278,7 +273,7 @@ case class ComponentDataProducts (
     private def getConstructionMembers = List(
       linesClassMember(CppDocHppWriter.writeAccessTag("public")),
       constructorClassMember(
-        Some("Constructor"),
+        Some("Constructor with buffer"),
         List(
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
@@ -298,7 +293,24 @@ case class ComponentDataProducts (
         ),
         List("Fw::DpContainer(id, buffer)", "baseId(baseId)"),
         Nil
-      )
+      ),
+      constructorClassMember(
+        Some("Constructor without buffer"),
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "id",
+            Some("The container id")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwDpIdType"),
+            "baseId",
+            Some("The component base id")
+          )
+        ),
+        List("Fw::DpContainer(id)", "baseId(baseId)"),
+        Nil
+      ),
     )
 
     private def typedRecordSerializeFn(name: String, t: Type) = {
