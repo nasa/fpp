@@ -31,6 +31,13 @@ case class ComponentDataProducts (
     )
 
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = {
+    lazy val dpGetFunction = functionClassMember(
+      Some("Get a data product container"),
+      "Dp_Get",
+      Nil,
+      CppDoc.Type("Fw::Success"),
+      lines("// TODO")
+    )
     lazy val dpRequestFunction = functionClassMember(
       Some("Request a data product container"),
       "Dp_Request",
@@ -92,7 +99,7 @@ case class ComponentDataProducts (
       "PROTECTED",
       "Functions for managing data products",
       List.concat(
-        // TODO: dpGetFunction
+        guardedList (hasProductGetPort) (List(dpGetFunction)),
         guardedList (hasProductRequestPort) (List(dpRequestFunction)),
         guardedList (hasDataProducts) (List(dpSendFunction))
       )
