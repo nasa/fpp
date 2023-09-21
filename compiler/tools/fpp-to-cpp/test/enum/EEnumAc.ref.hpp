@@ -88,7 +88,7 @@ class E :
 
     //! Copy assignment operator (raw enum)
     E& operator=(
-        T e //!< The enum value
+        T e1 //!< The enum value
     );
 
     //! Conversion operator

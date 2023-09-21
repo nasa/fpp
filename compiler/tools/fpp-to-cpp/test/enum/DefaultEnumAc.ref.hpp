@@ -91,7 +91,7 @@ namespace M {
 
       //! Copy assignment operator (raw enum)
       Default& operator=(
-          T e //!< The enum value
+          T e1 //!< The enum value
       );
 
       //! Conversion operator
