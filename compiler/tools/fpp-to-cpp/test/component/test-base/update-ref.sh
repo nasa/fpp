@@ -36,21 +36,27 @@ passive()
 active()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
-  move_test ActiveTest
-  move_test ActiveSerial
   move_test ActiveCommands
   move_test ActiveEvents
-  move_test ActiveTelemetry
+  move_test ActiveGetProducts
+  move_test ActiveGuardedProducts
   move_test ActiveParams
+  move_test ActiveSerial
+  move_test ActiveSyncProducts
+  move_test ActiveTelemetry
+  move_test ActiveTest
 }
 
 queued()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
-  move_test QueuedTest
-  move_test QueuedSerial
   move_test QueuedCommands
   move_test QueuedEvents
-  move_test QueuedTelemetry
+  move_test QueuedGetProducts
+  move_test QueuedGuardedProducts
   move_test QueuedParams
+  move_test QueuedSerial
+  move_test QueuedSyncProducts
+  move_test QueuedTelemetry
+  move_test QueuedTest
 }
