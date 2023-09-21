@@ -1635,8 +1635,8 @@ Fw::Success QueuedGetProductsTesterBase ::
       Fw::Buffer& buffer
   )
 {
-  // TODO
-  return Fw::Success::SUCCESS;
+  QueuedGetProductsTesterBase* _testerBase = static_cast<QueuedGetProductsTesterBase*>(callComp);
+  return _testerBase->productGetIn(id, size, buffer);
 }
 
 void QueuedGetProductsTesterBase ::

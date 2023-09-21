@@ -1291,8 +1291,9 @@ case class ComponentTesterBaseWriter(
                   |"""
             )
             case ProductGet => lines(
-              """|// TODO
-                 |return Fw::Success::SUCCESS;"""
+              s"""|$testerBaseDecl
+                  |return _testerBase->productGetIn($paramNamesString);
+                  |"""
             )
             case ProductRecv => Nil
             case ProductRequest => lines(
