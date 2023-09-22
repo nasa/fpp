@@ -10,12 +10,15 @@ empty()
 passive()
 {
   update "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../passive" passive
-  move_test_template PassiveTest
-  move_test_template PassiveSerial
   move_test_template PassiveCommands
   move_test_template PassiveEvents
-  move_test_template PassiveTelemetry
+  move_test_template PassiveGetProducts
+  move_test_template PassiveGuardedProducts
   move_test_template PassiveParams
+  move_test_template PassiveSerial
+  move_test_template PassiveSyncProducts
+  move_test_template PassiveTelemetry
+  move_test_template PassiveTest
 }
 
 active()
