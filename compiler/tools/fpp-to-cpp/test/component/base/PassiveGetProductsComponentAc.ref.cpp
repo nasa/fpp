@@ -1799,7 +1799,7 @@ Fw::Success::T PassiveGetProductsComponentBase ::
       DpContainer& container
   )
 {
-  const FwDpIdType id = container.getId();
+  const FwDpIdType id = this->getIdBase() + container.getId();
   Fw::Buffer buffer;
   const Fw::Success::T status = this->productGetOut_out(0, id, size, buffer);
   if (status == Fw::Success::SUCCESS) {

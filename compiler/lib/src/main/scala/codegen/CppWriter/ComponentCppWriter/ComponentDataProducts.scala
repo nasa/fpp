@@ -50,7 +50,7 @@ case class ComponentDataProducts (
       CppDoc.Type("Fw::Success::T"),
       {
         val invokeProductGet = outputPortInvokerName(productGetPort.get)
-        lines(s"""|const FwDpIdType id = container.getId();
+        lines(s"""|const FwDpIdType id = this->getIdBase() + container.getId();
                   |Fw::Buffer buffer;
                   |const Fw::Success::T status = this->$invokeProductGet(0, id, size, buffer);
                   |if (status == Fw::Success::SUCCESS) {
