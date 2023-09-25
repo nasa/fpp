@@ -133,18 +133,15 @@ class PassiveGetProductsComponentBase :
 
       public:
 
-        //! Constructor with buffer
+        //! Constructor with custom initialization
         DpContainer(
             FwDpIdType id, //!< The container id
             const Fw::Buffer& buffer, //!< The packet buffer
             FwDpIdType baseId //!< The component base id
         );
 
-        //! Constructor without buffer
-        DpContainer(
-            FwDpIdType id, //!< The container id
-            FwDpIdType baseId //!< The component base id
-        );
+        //! Constructor with default initialization
+        DpContainer();
 
       public:
 
@@ -165,6 +162,10 @@ class PassiveGetProductsComponentBase :
         Fw::SerializeStatus serializeRecord_U32Record(
             U32 elt //!< The element
         );
+
+        FwDpIdType getBaseId() const { return this->baseId; }
+
+        void setBaseId(FwDpIdType baseId) { this->baseId = baseId; }
 
       PRIVATE:
 
@@ -928,8 +929,9 @@ class PassiveGetProductsComponentBase :
     //! Get a buffer and use it to initialize a data product container
     //! \return The status of the buffer request
     Fw::Success::T Dp_Get(
+        ContainerId::T containerId, //!< The container id (input)
         FwSizeType size, //!< The buffer size (input)
-        DpContainer& container //!< The container (input and output)
+        DpContainer& container //!< The container (output)
     );
 
     //! Send a data product

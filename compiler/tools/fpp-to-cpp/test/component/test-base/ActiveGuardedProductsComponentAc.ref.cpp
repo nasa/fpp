@@ -84,12 +84,9 @@ ActiveGuardedProductsComponentBase::DpContainer ::
 }
 
 ActiveGuardedProductsComponentBase::DpContainer ::
-  DpContainer(
-      FwDpIdType id,
-      FwDpIdType baseId
-  ) :
-    Fw::DpContainer(id),
-    baseId(baseId)
+  DpContainer() :
+    Fw::DpContainer(),
+    baseId(0)
 {
 
 }

@@ -84,12 +84,9 @@ QueuedGetProductsComponentBase::DpContainer ::
 }
 
 QueuedGetProductsComponentBase::DpContainer ::
-  DpContainer(
-      FwDpIdType id,
-      FwDpIdType baseId
-  ) :
-    Fw::DpContainer(id),
-    baseId(baseId)
+  DpContainer() :
+    Fw::DpContainer(),
+    baseId(0)
 {
 
 }
@@ -2582,15 +2579,19 @@ F32 QueuedGetProductsComponentBase ::
 
 Fw::Success::T QueuedGetProductsComponentBase ::
   Dp_Get(
+      ContainerId::T containerId,
       FwSizeType size,
       DpContainer& container
   )
 {
-  const FwDpIdType id = container.getId();
+  const FwDpIdType baseId = this->getIdBase();
+  const FwDpIdType id = baseId + container.getId();
   Fw::Buffer buffer;
   const Fw::Success::T status = this->productGetOut_out(0, id, size, buffer);
   if (status == Fw::Success::SUCCESS) {
+    container.setId(id);
     container.setBuffer(buffer);
+    container.setBaseId(baseId);
   }
   return status;
 }

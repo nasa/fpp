@@ -133,18 +133,15 @@ class PassiveGuardedProductsComponentBase :
 
       public:
 
-        //! Constructor with buffer
+        //! Constructor with custom initialization
         DpContainer(
             FwDpIdType id, //!< The container id
             const Fw::Buffer& buffer, //!< The packet buffer
             FwDpIdType baseId //!< The component base id
         );
 
-        //! Constructor without buffer
-        DpContainer(
-            FwDpIdType id, //!< The container id
-            FwDpIdType baseId //!< The component base id
-        );
+        //! Constructor with default initialization
+        DpContainer();
 
       public:
 
@@ -165,6 +162,10 @@ class PassiveGuardedProductsComponentBase :
         Fw::SerializeStatus serializeRecord_U32Record(
             U32 elt //!< The element
         );
+
+        FwDpIdType getBaseId() const { return this->baseId; }
+
+        void setBaseId(FwDpIdType baseId) { this->baseId = baseId; }
 
       PRIVATE:
 
