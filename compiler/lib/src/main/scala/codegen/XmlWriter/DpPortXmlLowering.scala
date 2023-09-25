@@ -35,6 +35,8 @@ case class DpPortXmlLowering(
   /** Lower the AST kind */
   private def lowerAstKind: Option[Ast.SpecPortInstance.GeneralKind] =
     (specifier.inputKind, specifier.kind) match {
+      case (_, Ast.SpecPortInstance.ProductGet) =>
+        Some(Ast.SpecPortInstance.Output)
       case (_, Ast.SpecPortInstance.ProductRequest) =>
         Some(Ast.SpecPortInstance.Output)
       case (Some(Ast.SpecPortInstance.Async), Ast.SpecPortInstance.ProductRecv) =>
@@ -62,6 +64,8 @@ case class DpPortXmlLowering(
   /** Lower the semantic kind */
   private def lowerKind: Option[PortInstance.General.Kind] =
     (specifier.inputKind, specifier.kind) match {
+      case (_, Ast.SpecPortInstance.ProductGet) =>
+        Some(PortInstance.General.Kind.Output)
       case (_, Ast.SpecPortInstance.ProductRequest) =>
         Some(PortInstance.General.Kind.Output)
       case (Some(Ast.SpecPortInstance.Async), Ast.SpecPortInstance.ProductRecv) =>
