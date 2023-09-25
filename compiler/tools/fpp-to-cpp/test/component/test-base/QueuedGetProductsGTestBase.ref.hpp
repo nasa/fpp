@@ -162,6 +162,16 @@
   }
 
 // ----------------------------------------------------------------------
+// Macros for product get assertions
+// ----------------------------------------------------------------------
+
+#define ASSERT_PRODUCT_GET_SIZE(size) \
+  this->assertProductGet_size(__FILE__, __LINE__, size)
+
+#define ASSERT_PRODUCT_GET(index, id, size) \
+  this->assertProductGet(__FILE__, __LINE__, index, id, size)
+
+// ----------------------------------------------------------------------
 // Macros for product send assertions
 // ----------------------------------------------------------------------
 
@@ -222,6 +232,30 @@ class QueuedGetProductsGTestBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Data Product Get
+    // ----------------------------------------------------------------------
+
+    //! Assert size of product get history
+    void assertProductGet_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! Assert the product get history at index
+    void assertProductGet(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 __index, //!< The index
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    ) const;
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // Data Product Send
     // ----------------------------------------------------------------------
 
@@ -233,7 +267,7 @@ class QueuedGetProductsGTestBase :
     ) const;
 
     //! Assert the product send history at index
-    void assertCmdResponse(
+    void assertProductSend(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 __index, //!< The index

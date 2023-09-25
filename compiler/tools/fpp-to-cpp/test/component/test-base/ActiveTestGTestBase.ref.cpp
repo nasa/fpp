@@ -927,7 +927,7 @@ namespace M {
   }
 
   void ActiveTestGTestBase ::
-    assertCmdResponse(
+    assertProductRequest(
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 __index,
@@ -983,7 +983,7 @@ namespace M {
   }
 
   void ActiveTestGTestBase ::
-    assertCmdResponse(
+    assertProductSend(
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 __index,

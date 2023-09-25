@@ -95,7 +95,7 @@ void PassiveGuardedProductsGTestBase ::
 }
 
 void PassiveGuardedProductsGTestBase ::
-  assertCmdResponse(
+  assertProductRequest(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 __index,
@@ -151,7 +151,7 @@ void PassiveGuardedProductsGTestBase ::
 }
 
 void PassiveGuardedProductsGTestBase ::
-  assertCmdResponse(
+  assertProductSend(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 __index,

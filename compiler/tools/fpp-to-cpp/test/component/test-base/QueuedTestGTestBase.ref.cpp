@@ -925,7 +925,7 @@ void QueuedTestGTestBase ::
 }
 
 void QueuedTestGTestBase ::
-  assertCmdResponse(
+  assertProductRequest(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 __index,
@@ -981,7 +981,7 @@ void QueuedTestGTestBase ::
 }
 
 void QueuedTestGTestBase ::
-  assertCmdResponse(
+  assertProductSend(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 __index,

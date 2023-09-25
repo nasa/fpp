@@ -76,6 +76,62 @@ void ActiveGetProductsGTestBase ::
 }
 
 // ----------------------------------------------------------------------
+// Data Product Get
+// ----------------------------------------------------------------------
+
+void ActiveGetProductsGTestBase ::
+  assertProductGet_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productGetHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product get history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productGetHistory->size() << "\n";
+}
+
+void ActiveGetProductsGTestBase ::
+  assertProductGet(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      FwDpIdType id,
+      FwSizeType size
+  ) const
+{
+  ASSERT_LT(__index, this->productGetHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product get history\n"
+    << "  Expected: Less than size of product get history ("
+    << this->productGetHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpGet& e = this->productGetHistory->at(__index);
+  ASSERT_EQ(id, e.id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Id at index "
+    << __index
+    << " in product get history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  ASSERT_EQ(size, e.size)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size at index "
+    << __index
+    << " in product get history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << e.size << "\n";
+}
+
+// ----------------------------------------------------------------------
 // Data Product Send
 // ----------------------------------------------------------------------
 
@@ -95,7 +151,7 @@ void ActiveGetProductsGTestBase ::
 }
 
 void ActiveGetProductsGTestBase ::
-  assertCmdResponse(
+  assertProductSend(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 __index,

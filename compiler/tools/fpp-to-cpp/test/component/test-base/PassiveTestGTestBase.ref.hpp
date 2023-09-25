@@ -675,7 +675,7 @@ class PassiveTestGTestBase :
     ) const;
 
     //! Assert the product request history at index
-    void assertCmdResponse(
+    void assertProductRequest(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 __index, //!< The index
@@ -699,7 +699,7 @@ class PassiveTestGTestBase :
     ) const;
 
     //! Assert the product send history at index
-    void assertCmdResponse(
+    void assertProductSend(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 __index, //!< The index
