@@ -71,12 +71,9 @@ PassiveGetProductsComponentBase::DpContainer ::
 }
 
 PassiveGetProductsComponentBase::DpContainer ::
-  DpContainer(
-      FwDpIdType id,
-      FwDpIdType baseId
-  ) :
-    Fw::DpContainer(id),
-    baseId(baseId)
+  DpContainer() :
+    Fw::DpContainer(),
+    baseId(0)
 {
 
 }
@@ -1795,15 +1792,19 @@ F32 PassiveGetProductsComponentBase ::
 
 Fw::Success::T PassiveGetProductsComponentBase ::
   Dp_Get(
+      ContainerId::T containerId,
       FwSizeType size,
       DpContainer& container
   )
 {
-  const FwDpIdType id = this->getIdBase() + container.getId();
+  const FwDpIdType baseId = this->getIdBase();
+  const FwDpIdType id = baseId + container.getId();
   Fw::Buffer buffer;
   const Fw::Success::T status = this->productGetOut_out(0, id, size, buffer);
   if (status == Fw::Success::SUCCESS) {
+    container.setId(id);
     container.setBuffer(buffer);
+    container.setBaseId(baseId);
   }
   return status;
 }

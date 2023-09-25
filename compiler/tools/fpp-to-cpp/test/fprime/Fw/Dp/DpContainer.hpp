@@ -7,9 +7,10 @@
 #ifndef Fw_DpContainer_HPP
 #define Fw_DpContainer_HPP
 
-#include "FpConfig.hpp"
 #include "Fw/Buffer/Buffer.hpp"
 #include "Fw/Time/Time.hpp"
+#include "config/FppConstantsAc.hpp"
+#include "config/ProcTypeEnumAc.hpp"
 
 namespace Fw {
 
@@ -30,8 +31,12 @@ class DpContainer {
         static constexpr FwDpPriorityType PRIORITY_OFFSET = ID_OFFSET + sizeof(FwDpIdType);
         //! The offset for the time tag field
         static constexpr FwSizeType TIME_TAG_OFFSET = PRIORITY_OFFSET + sizeof(FwDpPriorityType);
+        //! The offset for the processing ID field
+        static constexpr FwSizeType PROC_ID_OFFSET = TIME_TAG_OFFSET + Time::SERIALIZED_SIZE;
+        //! The offset for the user data field
+        static constexpr FwSizeType USER_DATA_OFFSET = PROC_ID_OFFSET + sizeof(DpCfg::ProcType::SerialType);
         //! The offset for the data size field
-        static constexpr FwSizeType DATA_SIZE_OFFSET = TIME_TAG_OFFSET + Fw::Time::SERIALIZED_SIZE;
+        static constexpr FwSizeType DATA_SIZE_OFFSET = USER_DATA_OFFSET + DpCfg::CONTAINER_USER_DATA_SIZE;
         //! The header size
         static constexpr FwSizeType SIZE = DATA_SIZE_OFFSET + sizeof(FwSizeType);
     };
@@ -41,10 +46,13 @@ class DpContainer {
     // Constructor
     // ----------------------------------------------------------------------
 
-    //! Constructor
+    //! Constructor for initialized container
     DpContainer(FwDpIdType id,            //!< The container id
                 const Fw::Buffer& buffer  //!< The buffer
-                );
+    );
+
+    //! Constructor for container with default initialization
+    DpContainer();
 
   public:
     // ----------------------------------------------------------------------
@@ -74,6 +82,10 @@ class DpContainer {
     //! \return The time tag
     Fw::Time getTimeTag() const { return this->timeTag; }
 
+    //! Get the processing type
+    //! \return The processing type
+    DpCfg::ProcType getProcType() const { return this->procType; }
+
     //! Move the packet serialization to the specified offset
     //! \return The serialize status
     Fw::SerializeStatus moveSerToOffset(FwSizeType offset  //!< The offset
@@ -82,6 +94,12 @@ class DpContainer {
     //! Serialize the header into the packet buffer
     //! \return The serialize status
     Fw::SerializeStatus serializeHeader();
+
+    //! Set the id
+    void setId(FwDpIdType id  //!< The id
+    ) {
+        this->id = id;
+    }
 
     //! Set the priority
     void setPriority(FwDpPriorityType priority  //!< The priority
@@ -95,25 +113,54 @@ class DpContainer {
         this->timeTag = timeTag;
     }
 
+    //! Set the processing type
+    void setProcType(DpCfg::ProcType procType  //!< The processing type
+    ) {
+        this->procType = procType;
+    }
+
+    //! Set the packet buffer
+    void setBuffer(const Buffer& buffer  //!< The buffer
+    );
+
+  PRIVATE:
+    // ----------------------------------------------------------------------
+    // Private member functions
+    // ----------------------------------------------------------------------
+
+    //! Initialize the user data field
+    void initUserDataField();
+
+  public:
+    // ----------------------------------------------------------------------
+    // Public member variables
+    // ----------------------------------------------------------------------
+
+    //! The user data
+    U8 userData[DpCfg::CONTAINER_USER_DATA_SIZE];
+
   PROTECTED:
     // ----------------------------------------------------------------------
     // Protected member variables
     // ----------------------------------------------------------------------
 
     //! The container id
-    const FwDpIdType id;
+    FwDpIdType id;
 
     //! The priority
     FwDpPriorityType priority;
 
     //! The time tag
-    Fw::Time timeTag;
+    Time timeTag;
+
+    //! The processing type
+    DpCfg::ProcType procType;
 
     //! The data size
     FwSizeType dataSize;
 
     //! The packet buffer
-    Fw::Buffer buffer;
+    Buffer buffer;
 };
 
 }  // end namespace Fw

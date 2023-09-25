@@ -37,6 +37,11 @@ case class ComponentDataProducts (
       "Dp_Get",
       List(
         CppDoc.Function.Param(
+          CppDoc.Type("ContainerId::T"),
+          "containerId",
+          Some("The container id (input)")
+        ),
+        CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
           "size",
           Some("The buffer size (input)")
@@ -44,17 +49,20 @@ case class ComponentDataProducts (
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
           "container",
-          Some("The container (input and output)")
+          Some("The container (output)")
         )
       ),
       CppDoc.Type("Fw::Success::T"),
       {
         val invokeProductGet = outputPortInvokerName(productGetPort.get)
-        lines(s"""|const FwDpIdType id = this->getIdBase() + container.getId();
+        lines(s"""|const FwDpIdType baseId = this->getIdBase();
+                  |const FwDpIdType id = baseId + container.getId();
                   |Fw::Buffer buffer;
                   |const Fw::Success::T status = this->$invokeProductGet(0, id, size, buffer);
                   |if (status == Fw::Success::SUCCESS) {
+                  |  container.setId(id);
                   |  container.setBuffer(buffer);
+                  |  container.setBaseId(baseId);
                   |}
                   |return status;""")
       }
@@ -281,7 +289,7 @@ case class ComponentDataProducts (
     private def getConstructionMembers = List(
       linesClassMember(CppDocHppWriter.writeAccessTag("public")),
       constructorClassMember(
-        Some("Constructor with buffer"),
+        Some("Constructor with custom initialization"),
         List(
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
@@ -303,20 +311,9 @@ case class ComponentDataProducts (
         Nil
       ),
       constructorClassMember(
-        Some("Constructor without buffer"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("FwDpIdType"),
-            "id",
-            Some("The container id")
-          ),
-          CppDoc.Function.Param(
-            CppDoc.Type("FwDpIdType"),
-            "baseId",
-            Some("The component base id")
-          )
-        ),
-        List("Fw::DpContainer(id)", "baseId(baseId)"),
+        Some("Constructor with default initialization"),
+        Nil,
+        List("Fw::DpContainer()", "baseId(0)"),
         Nil
       ),
     )
@@ -393,8 +390,7 @@ case class ComponentDataProducts (
       )
 
 
-    private def getFunctionMembers =
-      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
+    private def getSerializeFunctionMembers =
       recordsByName.map((id, record) => {
         val name = record.getName
         record.recordType match {
@@ -402,6 +398,19 @@ case class ComponentDataProducts (
           case None => rawRecordSerializeFn(name)
         }
       })
+
+    private val getAccessFunctionsMember = linesClassMember(
+      lines(
+        raw"""|
+              |FwDpIdType getBaseId() const { return this->baseId; }
+              |
+              |void setBaseId(FwDpIdType baseId) { this->baseId = baseId; }"""
+      )
+    )
+
+    private def getFunctionMembers =
+      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
+      (getSerializeFunctionMembers :+ getAccessFunctionsMember)
 
     private def getVariableMembers = List(
       linesClassMember(
