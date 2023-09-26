@@ -55,7 +55,7 @@ void PassiveGuardedProductsGTestBase ::
   ASSERT_EQ(size, this->fromPortHistory_typedOut->size())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Size of history for from_typedOut\n"
+    << "  Value:    Size of history for typedOut\n"
     << "  Expected: " << size << "\n"
     << "  Actual:   " << this->fromPortHistory_typedOut->size() << "\n";
 }
@@ -67,10 +67,10 @@ void PassiveGuardedProductsGTestBase ::
       const U32 size
   ) const
 {
-  ASSERT_EQ(size, this->fromPortHistory_typedOut->size())
+  ASSERT_EQ(size, this->fromPortHistory_typedReturnOut->size())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Size of history for from_typedOut\n"
+    << "  Value:    Size of history for typedReturnOut\n"
     << "  Expected: " << size << "\n"
     << "  Actual:   " << this->fromPortHistory_typedReturnOut->size() << "\n";
 }
