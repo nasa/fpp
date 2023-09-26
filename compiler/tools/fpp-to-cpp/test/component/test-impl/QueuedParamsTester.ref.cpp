@@ -45,6 +45,12 @@ void QueuedParamsTester ::
   // TODO
 }
 
+U32 QueuedParamsTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void QueuedParamsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

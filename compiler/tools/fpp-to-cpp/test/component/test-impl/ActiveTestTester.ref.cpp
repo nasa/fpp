@@ -47,6 +47,12 @@ namespace M {
     // TODO
   }
 
+  U32 ActiveTestTester ::
+    from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  {
+    // TODO return
+  }
+
   void ActiveTestTester ::
     from_typedOut_handler(
         NATIVE_INT_TYPE portNum,

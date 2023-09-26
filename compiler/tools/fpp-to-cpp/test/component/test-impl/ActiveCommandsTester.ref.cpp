@@ -45,6 +45,12 @@ void ActiveCommandsTester ::
   // TODO
 }
 
+U32 ActiveCommandsTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void ActiveCommandsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

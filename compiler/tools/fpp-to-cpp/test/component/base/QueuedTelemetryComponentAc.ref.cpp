@@ -643,6 +643,27 @@ void QueuedTelemetryComponentBase ::
 #endif
   }
 
+  // Connect output port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
   // Connect output port typedOut
   for (
     PlatformIntType port = 0;
@@ -993,6 +1014,20 @@ void QueuedTelemetryComponentBase ::
   );
 
   this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedTelemetryComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
 }
 
 void QueuedTelemetryComponentBase ::
@@ -1350,6 +1385,12 @@ NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
 }
 
 NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
+  getNum_noArgsReturnOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
@@ -1470,6 +1511,17 @@ bool QueuedTelemetryComponentBase ::
   );
 
   return this->m_noArgsOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedTelemetryComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
 }
 
 bool QueuedTelemetryComponentBase ::
@@ -2275,6 +2327,16 @@ void QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
   this->m_noArgsOut_OutputPort[portNum].invoke();
+}
+
+U32 QueuedTelemetryComponentBase ::
+  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
 }
 
 void QueuedTelemetryComponentBase ::

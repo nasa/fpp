@@ -29,6 +29,9 @@ guarded input port typedReturnGuarded: Ports.TypedReturn
 @ A typed output port with no arguments
 output port noArgsOut: Ports.NoArgs
 
+@ A typed output port with no arguments and a return type
+output port noArgsReturnOut: Ports.NoArgsReturn
+
 @ A typed output port
 output port typedOut: Ports.Typed
 

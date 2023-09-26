@@ -45,6 +45,12 @@ void PassiveSerialTester ::
   // TODO
 }
 
+U32 PassiveSerialTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void PassiveSerialTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

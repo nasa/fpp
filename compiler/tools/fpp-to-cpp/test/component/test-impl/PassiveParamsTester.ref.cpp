@@ -45,6 +45,12 @@ void PassiveParamsTester ::
   // TODO
 }
 
+U32 PassiveParamsTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void PassiveParamsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

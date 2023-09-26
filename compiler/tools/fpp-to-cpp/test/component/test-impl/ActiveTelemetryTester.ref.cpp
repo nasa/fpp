@@ -45,6 +45,12 @@ void ActiveTelemetryTester ::
   // TODO
 }
 
+U32 ActiveTelemetryTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void ActiveTelemetryTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

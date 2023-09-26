@@ -281,6 +281,13 @@ class PassiveCommandsTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_noArgsReturnOut[portNum]
+    Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -319,6 +326,11 @@ class PassiveCommandsTesterBase :
         NATIVE_INT_TYPE portNum //!< The port number
     ) = 0;
 
+    //! Handler for input port from_noArgsReturnOut
+    virtual U32 from_noArgsReturnOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -351,6 +363,11 @@ class PassiveCommandsTesterBase :
 
     //! Handler base-class function for from_noArgsOut
     void from_noArgsOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for from_noArgsReturnOut
+    U32 from_noArgsReturnOut_handlerBase(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -551,6 +568,11 @@ class PassiveCommandsTesterBase :
     //!
     //! \return The number of from_noArgsOut ports
     NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+
+    //! Get the number of from_noArgsReturnOut ports
+    //!
+    //! \return The number of from_noArgsReturnOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
 
     //! Get the number of from_typedOut ports
     //!
@@ -765,6 +787,9 @@ class PassiveCommandsTesterBase :
     //! Push an entry on the history for from_noArgsOut
     void pushFromPortEntry_noArgsOut();
 
+    //! Push an entry on the history for from_noArgsReturnOut
+    void pushFromPortEntry_noArgsReturnOut();
+
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
         U32 u32, //!< A U32
@@ -822,6 +847,12 @@ class PassiveCommandsTesterBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
+    //! Static function for port from_noArgsReturnOut
+    static U32 from_noArgsReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -859,6 +890,9 @@ class PassiveCommandsTesterBase :
 
     //! The size of history for from_noArgsOut
     U32 fromPortHistorySize_noArgsOut;
+
+    //! The size of history for from_noArgsReturnOut
+    U32 fromPortHistorySize_noArgsReturnOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -938,6 +972,9 @@ class PassiveCommandsTesterBase :
 
     //! From port connected to noArgsOut
     Ports::InputNoArgsPort m_from_noArgsOut[1];
+
+    //! From port connected to noArgsReturnOut
+    Ports::InputNoArgsReturnPort m_from_noArgsReturnOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

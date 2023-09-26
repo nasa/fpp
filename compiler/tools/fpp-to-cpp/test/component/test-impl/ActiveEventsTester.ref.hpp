@@ -61,6 +61,11 @@ class ActiveEventsTester :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
+    //! Handler implementation for noArgsReturnOut
+    U32 from_noArgsReturnOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Handler implementation for typedOut
     void from_typedOut_handler(
         NATIVE_INT_TYPE portNum, //!< The port number

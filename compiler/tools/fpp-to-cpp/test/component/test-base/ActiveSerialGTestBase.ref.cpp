@@ -61,6 +61,21 @@ void ActiveSerialGTestBase ::
 }
 
 void ActiveSerialGTestBase ::
+  assert_from_noArgsReturnOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistorySize_noArgsReturnOut)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for noArgsReturnOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistorySize_noArgsReturnOut << "\n";
+}
+
+void ActiveSerialGTestBase ::
   assert_from_typedOut_size(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,

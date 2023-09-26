@@ -45,6 +45,12 @@ void ActiveSerialTester ::
   // TODO
 }
 
+U32 ActiveSerialTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void ActiveSerialTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

@@ -94,6 +94,11 @@ void PassiveCommandsTester ::
     this->get_from_noArgsOut(0)
   );
 
+  this->component.set_noArgsReturnOut_OutputPort(
+    0,
+    this->get_from_noArgsReturnOut(0)
+  );
+
   this->component.set_typedOut_OutputPort(
     0,
     this->get_from_typedOut(0)

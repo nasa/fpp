@@ -45,6 +45,12 @@ void QueuedSerialTester ::
   // TODO
 }
 
+U32 QueuedSerialTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void QueuedSerialTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,

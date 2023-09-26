@@ -45,6 +45,12 @@ void ActiveEventsTester ::
   // TODO
 }
 
+U32 ActiveEventsTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
 void ActiveEventsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,
