@@ -16,7 +16,7 @@ Before running `check-cpp`, do the following:
 
 . Clone the
 https://github.com/nasa/fprime[F Prime repository]
-and check out branch release/v3.0.0.
+and check out the devel branch.
 
 . Set the shell environment variable `FPRIME` to point to
 the root of the F Prime repository.
