@@ -40,6 +40,12 @@ void ActiveParamsTester ::
 // ----------------------------------------------------------------------
 
 void ActiveParamsTester ::
+  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO
+}
+
+void ActiveParamsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,

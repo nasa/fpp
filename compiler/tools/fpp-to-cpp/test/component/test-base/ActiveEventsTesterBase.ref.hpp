@@ -337,6 +337,13 @@ class ActiveEventsTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_noArgsOut[portNum]
+    Ports::InputNoArgsPort* get_from_noArgsOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -370,6 +377,11 @@ class ActiveEventsTesterBase :
     // Handlers to implement for from ports
     // ----------------------------------------------------------------------
 
+    //! Handler for input port from_noArgsOut
+    virtual void from_noArgsOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -399,6 +411,11 @@ class ActiveEventsTesterBase :
     // ----------------------------------------------------------------------
     // Handler base-class functions for from ports
     // ----------------------------------------------------------------------
+
+    //! Handler base-class function for from_noArgsOut
+    void from_noArgsOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
@@ -671,6 +688,11 @@ class ActiveEventsTesterBase :
     //! \return The number of from_tlmOut ports
     NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
+    //! Get the number of from_noArgsOut ports
+    //!
+    //! \return The number of from_noArgsOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
@@ -868,6 +890,9 @@ class ActiveEventsTesterBase :
     //! Clear from port history
     void clearFromPortHistory();
 
+    //! Push an entry on the history for from_noArgsOut
+    void pushFromPortEntry_noArgsOut();
+
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
         U32 u32, //!< A U32
@@ -943,6 +968,12 @@ class ActiveEventsTesterBase :
         Fw::Time& time //!< The time tag
     );
 
+    //! Static function for port from_noArgsOut
+    static void from_noArgsOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -977,6 +1008,9 @@ class ActiveEventsTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
+
+    //! The size of history for from_noArgsOut
+    U32 fromPortHistorySize_noArgsOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -1096,6 +1130,9 @@ class ActiveEventsTesterBase :
 
     //! From port connected to tlmOut
     Fw::InputTlmPort m_from_tlmOut[1];
+
+    //! From port connected to noArgsOut
+    Ports::InputNoArgsPort m_from_noArgsOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

@@ -26,6 +26,9 @@ sync input port typedReturnSync: [3] Ports.TypedReturn
 @ A typed guarded input with a return type
 guarded input port typedReturnGuarded: Ports.TypedReturn
 
+@ A typed output port with no arguments
+output port noArgsOut: Ports.NoArgs
+
 @ A typed output port
 output port typedOut: Ports.Typed
 

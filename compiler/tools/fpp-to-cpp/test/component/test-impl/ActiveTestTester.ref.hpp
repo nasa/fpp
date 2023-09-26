@@ -58,6 +58,11 @@ namespace M {
       // Handlers for typed from ports
       // ----------------------------------------------------------------------
 
+      //! Handler implementation for noArgsOut
+      void from_noArgsOut_handler(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
       //! Handler implementation for typedOut
       void from_typedOut_handler(
           NATIVE_INT_TYPE portNum, //!< The port number

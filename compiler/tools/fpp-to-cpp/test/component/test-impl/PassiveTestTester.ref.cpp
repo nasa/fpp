@@ -40,6 +40,12 @@ void PassiveTestTester ::
 // ----------------------------------------------------------------------
 
 void PassiveTestTester ::
+  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO
+}
+
+void PassiveTestTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,

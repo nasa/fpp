@@ -97,6 +97,32 @@ void PassiveCommandsTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    port++
+  ) {
+    this->m_from_noArgsOut[port].init();
+    this->m_from_noArgsOut[port].addCallComp(
+      this,
+      from_noArgsOut_static
+    );
+    this->m_from_noArgsOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsOut[port].setObjName(portName);
+#endif
+  }
+
   // Connect input port typedOut
   for (
     PlatformIntType port = 0;
@@ -565,6 +591,17 @@ Fw::InputTlmPort* PassiveCommandsTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
+Ports::InputNoArgsPort* PassiveCommandsTesterBase ::
+  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsOut[portNum];
+}
+
 Ports::InputTypedPort* PassiveCommandsTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
@@ -623,6 +660,17 @@ PassiveCommandsTesterBase ::
 // ----------------------------------------------------------------------
 // Handler base-class functions for from ports
 // ----------------------------------------------------------------------
+
+void PassiveCommandsTesterBase ::
+  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->from_noArgsOut_handler(portNum);
+}
 
 void PassiveCommandsTesterBase ::
   from_typedOut_handlerBase(
@@ -950,6 +998,12 @@ NATIVE_INT_TYPE PassiveCommandsTesterBase ::
   getNum_from_tlmOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
+}
+
+NATIVE_INT_TYPE PassiveCommandsTesterBase ::
+  getNum_from_noArgsOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
 }
 
 NATIVE_INT_TYPE PassiveCommandsTesterBase ::
@@ -1560,8 +1614,16 @@ void PassiveCommandsTesterBase ::
   clearFromPortHistory()
 {
   this->fromPortHistorySize = 0;
+  this->fromPortHistorySize_noArgsOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
+}
+
+void PassiveCommandsTesterBase ::
+  pushFromPortEntry_noArgsOut()
+{
+  this->fromPortHistorySize_noArgsOut++;
+  this->fromPortHistorySize++;
 }
 
 void PassiveCommandsTesterBase ::
@@ -1648,6 +1710,17 @@ void PassiveCommandsTesterBase ::
 {
   PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
   time = _testerBase->m_testTime;
+}
+
+void PassiveCommandsTesterBase ::
+  from_noArgsOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveCommandsTesterBase* _testerBase = static_cast<PassiveCommandsTesterBase*>(callComp);
+  _testerBase->from_noArgsOut_handlerBase(portNum);
 }
 
 void PassiveCommandsTesterBase ::

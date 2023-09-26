@@ -98,6 +98,7 @@ class PassiveSerialComponentBase :
 
     //! Enumerations for numbers of typed output ports
     enum {
+      NUM_NOARGSOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDOUT_OUTPUT_PORTS = 1,
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
     };
@@ -349,6 +350,12 @@ class PassiveSerialComponentBase :
     // Connect typed input ports to typed output ports
     // ----------------------------------------------------------------------
 
+    //! Connect port to noArgsOut[portNum]
+    void set_noArgsOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Ports::InputNoArgsPort* port //!< The input port
+    );
+
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -424,6 +431,12 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
     // Connect serial input ports to typed output ports
     // ----------------------------------------------------------------------
+
+    //! Connect port to noArgsOut[portNum]
+    void set_noArgsOut_OutputPort(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputSerializePort* port //!< The port
+    );
 
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
@@ -614,6 +627,11 @@ class PassiveSerialComponentBase :
     // Getters for numbers of typed output ports
     // ----------------------------------------------------------------------
 
+    //! Get the number of noArgsOut output ports
+    //!
+    //! \return The number of noArgsOut output ports
+    NATIVE_INT_TYPE getNum_noArgsOut_OutputPorts() const;
+
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
@@ -706,6 +724,13 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
     // Connection status queries for typed output ports
     // ----------------------------------------------------------------------
+
+    //! Check whether port noArgsOut is connected
+    //!
+    //! \return Whether port noArgsOut is connected
+    bool isConnected_noArgsOut_OutputPort(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Check whether port typedOut is connected
     //!
@@ -927,6 +952,11 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
     // Invocation functions for typed output ports
     // ----------------------------------------------------------------------
+
+    //! Invoke output port noArgsOut
+    void noArgsOut_out(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Invoke output port typedOut
     void typedOut_out(
@@ -1778,6 +1808,9 @@ class PassiveSerialComponentBase :
     // ----------------------------------------------------------------------
     // Typed output ports
     // ----------------------------------------------------------------------
+
+    //! Output port noArgsOut
+    Ports::OutputNoArgsPort m_noArgsOut_OutputPort[NUM_NOARGSOUT_OUTPUT_PORTS];
 
     //! Output port typedOut
     Ports::OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];

@@ -46,6 +46,21 @@ void PassiveTestGTestBase ::
 }
 
 void PassiveTestGTestBase ::
+  assert_from_noArgsOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistorySize_noArgsOut)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for noArgsOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistorySize_noArgsOut << "\n";
+}
+
+void PassiveTestGTestBase ::
   assert_from_typedOut_size(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
