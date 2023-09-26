@@ -56,11 +56,11 @@ case class ComponentDataProducts (
       {
         val invokeProductGet = outputPortInvokerName(productGetPort.get)
         lines(s"""|const FwDpIdType baseId = this->getIdBase();
-                  |const FwDpIdType id = baseId + container.getId();
+                  |const FwDpIdType globalId = baseId + containerId;
                   |Fw::Buffer buffer;
-                  |const Fw::Success::T status = this->$invokeProductGet(0, id, size, buffer);
+                  |const Fw::Success::T status = this->$invokeProductGet(0, globalId, size, buffer);
                   |if (status == Fw::Success::SUCCESS) {
-                  |  container.setId(id);
+                  |  container.setId(globalId);
                   |  container.setBuffer(buffer);
                   |  container.setBaseId(baseId);
                   |}

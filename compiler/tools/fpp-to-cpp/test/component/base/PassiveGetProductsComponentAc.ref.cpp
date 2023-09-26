@@ -1798,11 +1798,11 @@ Fw::Success::T PassiveGetProductsComponentBase ::
   )
 {
   const FwDpIdType baseId = this->getIdBase();
-  const FwDpIdType id = baseId + container.getId();
+  const FwDpIdType globalId = baseId + containerId;
   Fw::Buffer buffer;
-  const Fw::Success::T status = this->productGetOut_out(0, id, size, buffer);
+  const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
   if (status == Fw::Success::SUCCESS) {
-    container.setId(id);
+    container.setId(globalId);
     container.setBuffer(buffer);
     container.setBaseId(baseId);
   }
