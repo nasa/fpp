@@ -119,10 +119,22 @@ abstract class ComponentTestUtils(
       case _ => value
     }
 
+  def writeAssertEq(t: Type): String =
+    t match {
+      case Type.String(_) => "ASSERT_STREQ"
+      case _ => "ASSERT_EQ"
+    }
+
   def writeEventValue(value: String, typeName: String): String =
     typeName match {
       case "Fw::LogStringArg" => s"$value.toChar()"
       case _ => value
+    }
+
+  def writeEventAssertEq(typeName: String): String =
+    typeName match {
+      case "Fw::LogStringArg" => "ASSERT_STREQ"
+      case _ => "ASSERT_EQ"
     }
 
   def writeCppType(t: Type): String = {

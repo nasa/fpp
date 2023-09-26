@@ -210,7 +210,7 @@ void QueuedTelemetryGTestBase ::
     << "  Actual:   " << __index << "\n";
   const TlmEntry_ChannelStringFormat& _e =
     this->tlmHistory_ChannelStringFormat->at(__index);
-  ASSERT_EQ(val, _e.arg.toChar())
+  ASSERT_STREQ(val, _e.arg.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value at index "

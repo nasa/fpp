@@ -265,7 +265,7 @@ void PassiveTestGTestBase ::
     << "  Actual:   " << __index << "\n";
   const EventEntry_EventCommand& _e =
     this->eventHistory_EventCommand->at(__index);
-  ASSERT_EQ(str1, _e.str1.toChar())
+  ASSERT_STREQ(str1, _e.str1.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value of argument str1 at index "
@@ -273,7 +273,7 @@ void PassiveTestGTestBase ::
     << " in history of event EventCommand\n"
     << "  Expected: " << str1 << "\n"
     << "  Actual:   " << _e.str1.toChar() << "\n";
-  ASSERT_EQ(str2, _e.str2.toChar())
+  ASSERT_STREQ(str2, _e.str2.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value of argument str2 at index "
@@ -559,7 +559,7 @@ void PassiveTestGTestBase ::
     << "  Actual:   " << __index << "\n";
   const TlmEntry_ChannelStringFormat& _e =
     this->tlmHistory_ChannelStringFormat->at(__index);
-  ASSERT_EQ(val, _e.arg.toChar())
+  ASSERT_STREQ(val, _e.arg.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value at index "
