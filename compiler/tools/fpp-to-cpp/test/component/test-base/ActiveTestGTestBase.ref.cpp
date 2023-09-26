@@ -48,7 +48,7 @@ namespace M {
   }
 
   void ActiveTestGTestBase ::
-    assert_from_typedOut(
+    assert_from_typedOut_size(
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 size
@@ -63,7 +63,7 @@ namespace M {
   }
 
   void ActiveTestGTestBase ::
-    assert_from_typedReturnOut(
+    assert_from_typedReturnOut_size(
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 size

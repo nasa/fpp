@@ -265,7 +265,7 @@ case class ComponentGTestBaseWriter(
 
           functionClassMember(
             Some(s"From port: $portName"),
-            fromPortAssertionFuncName(portName),
+            fromPortSizeAssertionFuncName(portName),
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(

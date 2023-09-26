@@ -322,14 +322,14 @@ class PassiveSerialGTestBase :
     ) const;
 
     //! From port: typedOut
-    void assert_from_typedOut(
+    void assert_from_typedOut_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size
     ) const;
 
     //! From port: typedReturnOut
-    void assert_from_typedReturnOut(
+    void assert_from_typedReturnOut_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size
