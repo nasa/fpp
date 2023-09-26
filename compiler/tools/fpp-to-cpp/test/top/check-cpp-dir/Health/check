@@ -1,18 +1,16 @@
 #!/bin/sh -e
 
+export FPRIME_GCC_FLAGS="-I../../../fprime -Wno-unused-parameter -Wno-unused-variable"
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+
 echo '  removing old files'
 ./clean
 
 dir=`cd ../..; echo $PWD`
 
-echo '  generating XML'
-fpp-to-xml -p $dir -i ../../builtin.fpp ../../health.fpp
-
 echo '  generating C++'
-for file in CComponent HealthComponent PingPort
-do
-  fprime-codegen $file'Ai.xml' > /dev/null
-done
+fpp-to-cpp -p $dir -i ../../builtin.fpp ../../health.fpp
+
 for suffix in hpp cpp
 do
   cp ../../HealthTopologyAc.ref.$suffix HealthTopologyAc.$suffix
