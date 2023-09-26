@@ -1,5 +1,9 @@
 #!/bin/sh -e
 
+# Ensure the script can be run from any directory
+wd=`dirname $0`
+cd $wd
+
 . scripts/utils.sh
 
 sbt clean
