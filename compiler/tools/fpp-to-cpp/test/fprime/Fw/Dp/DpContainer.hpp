@@ -145,6 +145,7 @@ class DpContainer {
     // ----------------------------------------------------------------------
 
     //! The container id
+    //! This is a system-global id (component-local id + component base id)
     FwDpIdType id;
 
     //! The priority
