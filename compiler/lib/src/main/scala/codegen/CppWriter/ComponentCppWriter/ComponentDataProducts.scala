@@ -39,7 +39,7 @@ case class ComponentDataProducts (
         CppDoc.Function.Param(
           CppDoc.Type("ContainerId::T"),
           "containerId",
-          Some("The container id (input)")
+          Some("The component-local container id (input)")
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
@@ -74,7 +74,7 @@ case class ComponentDataProducts (
         CppDoc.Function.Param(
           CppDoc.Type("ContainerId::T"),
           "containerId",
-          Some("The container id")
+          Some("The component-local container id")
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),

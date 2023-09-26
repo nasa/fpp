@@ -1527,7 +1527,7 @@ class PassiveTestComponentBase :
 
     //! Request a data product container
     void Dp_Request(
-        ContainerId::T containerId, //!< The container id
+        ContainerId::T containerId, //!< The component-local container id
         FwSizeType size //!< The buffer size
     );
 

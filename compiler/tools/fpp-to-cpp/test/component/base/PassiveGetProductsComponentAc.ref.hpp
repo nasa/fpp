@@ -929,7 +929,7 @@ class PassiveGetProductsComponentBase :
     //! Get a buffer and use it to initialize a data product container
     //! \return The status of the buffer request
     Fw::Success::T Dp_Get(
-        ContainerId::T containerId, //!< The container id (input)
+        ContainerId::T containerId, //!< The component-local container id (input)
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
     );
