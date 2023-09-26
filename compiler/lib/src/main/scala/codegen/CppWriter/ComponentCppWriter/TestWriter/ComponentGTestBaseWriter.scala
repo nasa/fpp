@@ -325,10 +325,10 @@ case class ComponentGTestBaseWriter(
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(
-              s"""ASSERT_EQ(size, this->fromPortHistory_typedOut->size())
+              s"""ASSERT_EQ(size, this->$portSize)
                  |  << "\\n"
                  |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
-                 |  << "  Value:    Size of history for from_typedOut\\n"
+                 |  << "  Value:    Size of history for $portName\\n"
                  |  << "  Expected: " << size << "\\n"
                  |  << "  Actual:   " << this->$portSize << "\\n";
                  |"""
