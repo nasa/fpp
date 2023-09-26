@@ -677,73 +677,73 @@ class PassiveTelemetryTesterBase :
     //! Dispatch telemetry
     void dispatchTlm(
         FwChanIdType id, //!< The channel id
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::TlmString& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
     void tlmInput_ChannelEnum(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
     //! Handle channel ChannelArrayFreq
     void tlmInput_ChannelArrayFreq(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const A& val //!< The channel value
     );
 
     //! Handle channel ChannelStructFreq
     void tlmInput_ChannelStructFreq(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const S& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F64& val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange
     void tlmInput_ChannelEnumOnChange(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
@@ -755,7 +755,7 @@ class PassiveTelemetryTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        Fw::Time& timeTag //!< The time
+        const Fw::Time& timeTag //!< The time
     );
 
   protected:

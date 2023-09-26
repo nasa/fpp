@@ -1069,7 +1069,7 @@ bool PassiveEventsTesterBase ::
 void PassiveEventsTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -1381,7 +1381,7 @@ void PassiveEventsTesterBase ::
 void PassiveEventsTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -1471,7 +1471,7 @@ void PassiveEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveEventsTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

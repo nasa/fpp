@@ -2720,7 +2720,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -3032,7 +3032,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -3124,7 +3124,7 @@ void QueuedSerialTesterBase ::
 void QueuedSerialTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -3286,7 +3286,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -3297,7 +3297,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -3308,7 +3308,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -3319,7 +3319,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -3330,7 +3330,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -3341,7 +3341,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -3352,7 +3352,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -3363,7 +3363,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -3374,7 +3374,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -3385,7 +3385,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -3396,7 +3396,7 @@ void QueuedSerialTesterBase ::
 
 void QueuedSerialTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -3768,7 +3768,7 @@ void QueuedSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedSerialTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

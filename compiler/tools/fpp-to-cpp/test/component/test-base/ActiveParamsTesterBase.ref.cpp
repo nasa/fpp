@@ -1907,7 +1907,7 @@ void ActiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void ActiveParamsTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

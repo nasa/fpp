@@ -1430,7 +1430,7 @@ bool ActiveTelemetryTesterBase ::
 void ActiveTelemetryTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1592,7 +1592,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1603,7 +1603,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1614,7 +1614,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -1625,7 +1625,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1636,7 +1636,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -1647,7 +1647,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -1658,7 +1658,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1669,7 +1669,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1680,7 +1680,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -1691,7 +1691,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1702,7 +1702,7 @@ void ActiveTelemetryTesterBase ::
 
 void ActiveTelemetryTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1716,7 +1716,7 @@ void ActiveTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 void ActiveTelemetryTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

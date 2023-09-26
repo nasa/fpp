@@ -2252,7 +2252,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -2564,7 +2564,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -2656,7 +2656,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -2818,7 +2818,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2829,7 +2829,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2840,7 +2840,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -2851,7 +2851,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2862,7 +2862,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -2873,7 +2873,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -2884,7 +2884,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2895,7 +2895,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2906,7 +2906,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -2917,7 +2917,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2928,7 +2928,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -3300,7 +3300,7 @@ void QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

@@ -2254,7 +2254,7 @@ namespace M {
   void ActiveTestTesterBase ::
     dispatchEvents(
         FwEventIdType id,
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const Fw::LogSeverity severity,
         Fw::LogBuffer& args
     )
@@ -2566,7 +2566,7 @@ namespace M {
   void ActiveTestTesterBase ::
     textLogIn(
         FwEventIdType id,
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const Fw::LogSeverity severity,
         const Fw::TextLogString& text
     )
@@ -2658,7 +2658,7 @@ namespace M {
   void ActiveTestTesterBase ::
     dispatchTlm(
         FwChanIdType id,
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         Fw::TlmBuffer& val
     )
   {
@@ -2820,7 +2820,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelU32Format(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const U32& val
     )
   {
@@ -2831,7 +2831,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelF32Format(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const F32& val
     )
   {
@@ -2842,7 +2842,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelStringFormat(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const Fw::TlmString& val
     )
   {
@@ -2853,7 +2853,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelEnum(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const E& val
     )
   {
@@ -2864,7 +2864,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelArrayFreq(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const A& val
     )
   {
@@ -2875,7 +2875,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelStructFreq(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const S& val
     )
   {
@@ -2886,7 +2886,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelU32Limits(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const U32& val
     )
   {
@@ -2897,7 +2897,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelF32Limits(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const F32& val
     )
   {
@@ -2908,7 +2908,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelF64(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const F64& val
     )
   {
@@ -2919,7 +2919,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelU32OnChange(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const U32& val
     )
   {
@@ -2930,7 +2930,7 @@ namespace M {
 
   void ActiveTestTesterBase ::
     tlmInput_ChannelEnumOnChange(
-        Fw::Time& timeTag,
+        const Fw::Time& timeTag,
         const E& val
     )
   {
@@ -3302,7 +3302,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestTesterBase ::
-    setTestTime(Fw::Time& timeTag)
+    setTestTime(const Fw::Time& timeTag)
   {
     this->m_testTime = timeTag;
   }

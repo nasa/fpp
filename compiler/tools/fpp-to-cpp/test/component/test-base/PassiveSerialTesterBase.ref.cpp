@@ -1922,7 +1922,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -2234,7 +2234,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -2326,7 +2326,7 @@ void PassiveSerialTesterBase ::
 void PassiveSerialTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -2488,7 +2488,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2499,7 +2499,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2510,7 +2510,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -2521,7 +2521,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2532,7 +2532,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -2543,7 +2543,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -2554,7 +2554,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2565,7 +2565,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -2576,7 +2576,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -2587,7 +2587,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -2598,7 +2598,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -2970,7 +2970,7 @@ void PassiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveSerialTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

@@ -1452,7 +1452,7 @@ bool QueuedEventsTesterBase ::
 void QueuedEventsTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -1764,7 +1764,7 @@ void QueuedEventsTesterBase ::
 void QueuedEventsTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -1854,7 +1854,7 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

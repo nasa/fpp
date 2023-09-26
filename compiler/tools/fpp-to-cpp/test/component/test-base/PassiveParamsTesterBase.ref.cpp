@@ -1524,7 +1524,7 @@ void PassiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveParamsTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }

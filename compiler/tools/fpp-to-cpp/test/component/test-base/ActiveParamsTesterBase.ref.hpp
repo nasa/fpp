@@ -894,7 +894,7 @@ class ActiveParamsTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        Fw::Time& timeTag //!< The time
+        const Fw::Time& timeTag //!< The time
     );
 
   protected:

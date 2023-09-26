@@ -651,7 +651,7 @@ class PassiveEventsTesterBase :
     //! Dispatch an event
     void dispatchEvents(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         Fw::LogBuffer& args //!< The serialized arguments
     );
@@ -661,7 +661,7 @@ class PassiveEventsTesterBase :
     //! Handle a text event
     void textLogIn(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         const Fw::TextLogString& text //!< The event string
     );
@@ -710,7 +710,7 @@ class PassiveEventsTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        Fw::Time& timeTag //!< The time
+        const Fw::Time& timeTag //!< The time
     );
 
   protected:

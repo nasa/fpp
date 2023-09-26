@@ -57,7 +57,7 @@ abstract class ComponentTestUtils(
   )
 
   val timeTagParam: CppDoc.Function.Param = CppDoc.Function.Param(
-    CppDoc.Type("Fw::Time&"),
+    CppDoc.Type("const Fw::Time&"),
     "timeTag",
     Some("The time")
   )
