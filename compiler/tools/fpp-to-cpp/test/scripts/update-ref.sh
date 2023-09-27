@@ -65,7 +65,6 @@ move_test()
     cp $file'TesterBase.'$suffix $file'TesterBase'$target_suffix'.ref.'$suffix
     cp $file'GTestBase.'$suffix $file'GTestBase'$target_suffix'.ref.'$suffix
   done
-  move_cpp $file'Component'
 }
 
 move_test_template()
