@@ -23,10 +23,10 @@ case class ComputeTestImplCppFiles(autoTestSetupMode: CppWriter.AutoTestSetupMod
         case CppWriter.AutoTestSetupMode.On => Right(s)
         // Otherwise they are part of the implementation
         case CppWriter.AutoTestSetupMode.Off => 
-          addCppMappingNew(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
+          addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
       }
       s <- visitList(s, data.members, matchComponentMember)
-      s <- addCppMappingNew(s, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
+      s <- addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
       s <- visitList(s, data.members, matchComponentMember)
     }
     yield s

@@ -24,59 +24,30 @@ trait ComputeCppFiles extends AstStateVisitor {
     cppFileExtension: String = "cpp"
   ) = {
     for {
-      s <- addHppMappingNew(s, fileName, locOpt, hppFileExtension)
-      s <- addCppMappingNew(s, fileName, locOpt, cppFileExtension)
+      s <- addHppMapping(s, fileName, locOpt, hppFileExtension)
+      s <- addCppMapping(s, fileName, locOpt, cppFileExtension)
     }
     yield s
   }
 
   /** Adds a mapping for an hpp file  */
   protected def addHppMapping(
-    map: Map[String, Option[Location]],
-    fileName: String,
-    locOpt: Option[Location],
-    hppFileExtension: String = "hpp"
-  ) = addMapping(map, (s"$fileName.$hppFileExtension" -> locOpt))
-
-  /** Adds a mapping for an hpp file  */
-  protected def addHppMappingNew(
     s: State,
     fileName: String,
     locOpt: Option[Location],
     hppFileExtension: String = "hpp"
-  ) = addMappingNew(s, (s"$fileName.$hppFileExtension" -> locOpt))
+  ) = addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
   protected def addCppMapping(
-    map: Map[String, Option[Location]],
-    fileName: String,
-    locOpt: Option[Location],
-    cppFileExtension: String = "cpp"
-  ) = addMapping(map, (s"$fileName.$cppFileExtension" -> locOpt))
-
-  /** Adds a mapping for a cpp file  */
-  protected def addCppMappingNew(
     s: State,
     fileName: String,
     locOpt: Option[Location],
     cppFileExtension: String = "cpp"
-  ) = addMappingNew(s, (s"$fileName.$cppFileExtension" -> locOpt))
+  ) = addMapping(s, (s"$fileName.$cppFileExtension" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
-    map: Map[String, Option[Location]],
-    mapping: (String, Option[Location])
-  ) = {
-    val (fileName, locOpt) = mapping
-    (map.get(fileName), locOpt) match {
-      case (Some(Some(prevLoc)), Some(loc)) =>
-        Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
-      case _ => Right(map + mapping)
-    }
-  }
-
-  /** Adds a mapping for one file */
-  private def addMappingNew(
     s: State,
     mapping: (String, Option[Location])
   ) = {

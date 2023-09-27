@@ -22,7 +22,7 @@ case class ComputeTestCppFiles(autoTestSetupMode: CppWriter.AutoTestSetupMode)
       s <- autoTestSetupMode match {
         // If auto test setup is on, then the test helpers are part of the autocode
         case CppWriter.AutoTestSetupMode.On =>
-          addCppMappingNew(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
+          addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
         // Otherwise they are part of the implementation
         case CppWriter.AutoTestSetupMode.Off => Right(s)
       }
