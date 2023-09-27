@@ -23,30 +23,44 @@ trait ComputeCppFiles extends AstStateVisitor {
     hppFileExtension: String = "hpp",
     cppFileExtension: String = "cpp"
   ) = {
-    val m = s.locationMap
     for {
-      m <- addHppMapping(m, fileName, locOpt, hppFileExtension)
-      m <- addCppMapping(m, fileName, locOpt, cppFileExtension)
+      s <- addHppMappingNew(s, fileName, locOpt, hppFileExtension)
+      s <- addCppMappingNew(s, fileName, locOpt, cppFileExtension)
     }
-    yield s.copy(locationMap = m)
+    yield s
   }
 
   /** Adds a mapping for an hpp file  */
-  def addHppMapping(
+  protected def addHppMapping(
     map: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location],
     hppFileExtension: String = "hpp"
-  ) =
-    addMapping(map, (s"$fileName.$hppFileExtension" -> locOpt))
+  ) = addMapping(map, (s"$fileName.$hppFileExtension" -> locOpt))
+
+  /** Adds a mapping for an hpp file  */
+  protected def addHppMappingNew(
+    s: State,
+    fileName: String,
+    locOpt: Option[Location],
+    hppFileExtension: String = "hpp"
+  ) = addMappingNew(s, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
-  def addCppMapping(
+  protected def addCppMapping(
     map: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location],
     cppFileExtension: String = "cpp"
   ) = addMapping(map, (s"$fileName.$cppFileExtension" -> locOpt))
+
+  /** Adds a mapping for a cpp file  */
+  protected def addCppMappingNew(
+    s: State,
+    fileName: String,
+    locOpt: Option[Location],
+    cppFileExtension: String = "cpp"
+  ) = addMappingNew(s, (s"$fileName.$cppFileExtension" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
@@ -59,6 +73,22 @@ trait ComputeCppFiles extends AstStateVisitor {
         Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
       case _ => Right(map + mapping)
     }
+  }
+
+  /** Adds a mapping for one file */
+  private def addMappingNew(
+    s: State,
+    mapping: (String, Option[Location])
+  ) = {
+    val m = s.locationMap
+    val (fileName, locOpt) = mapping
+    for {
+      m1 <- (m.get(fileName), locOpt) match {
+        case (Some(Some(prevLoc)), Some(loc)) =>
+          Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
+        case _ => Right(m + mapping)
+      }
+    } yield s.copy(locationMap = m1)
   }
 
 }

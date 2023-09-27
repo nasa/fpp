@@ -19,14 +19,14 @@ case class ComputeTestCppFiles(autoTestSetupMode: CppWriter.AutoTestSetupMode)
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentGTestBase(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTesterBase(name), Some(loc))
-      m <- autoTestSetupMode match {
+      s <- autoTestSetupMode match {
         // If auto test setup is on, then the test helpers are part of the autocode
         case CppWriter.AutoTestSetupMode.On =>
-          addCppMapping(s.locationMap, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
+          addCppMappingNew(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
         // Otherwise they are part of the implementation
-        case CppWriter.AutoTestSetupMode.Off => Right(s.locationMap)
+        case CppWriter.AutoTestSetupMode.Off => Right(s)
       }
-      s <- visitList (s.copy(locationMap = m), data.members, matchComponentMember)
+      s <- visitList (s, data.members, matchComponentMember)
     }
     yield s
   }
