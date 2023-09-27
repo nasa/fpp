@@ -746,7 +746,8 @@ case class ComponentTesterBaseWriter(
               s"""|TextLogEntry e = { id, timeTag, severity, text };
                   |textLogHistory->push_back(e);
                   |"""
-            )
+            ),
+            CppDoc.Function.Virtual
           )
         )
         List.concat(

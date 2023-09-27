@@ -1227,7 +1227,7 @@ class QueuedSerialTesterBase :
 #if FW_ENABLE_TEXT_LOGGING
 
     //! Handle a text event
-    void textLogIn(
+    virtual void textLogIn(
         FwEventIdType id, //!< The event ID
         const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
