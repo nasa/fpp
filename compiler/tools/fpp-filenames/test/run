@@ -55,9 +55,19 @@ ok_test()
   run_test "-u" "ok" ok_test
 }
 
+ok_test_auto_setup()
+{
+  run_test "-u -a" "ok" ok_test_auto_setup
+}
+
 ok_test_template()
 {
   run_test "-u -t" "ok" ok_test_template
+}
+
+ok_test_template_auto_setup()
+{
+  run_test "-u -t -a" "ok" ok_test_template_auto_setup
 }
 
 tests="
@@ -68,7 +78,9 @@ include_test_template
 ok
 ok_template
 ok_test
+ok_test_auto_setup
 ok_test_template
+ok_test_template_auto_setup
 "
 
 run_suite $tests
