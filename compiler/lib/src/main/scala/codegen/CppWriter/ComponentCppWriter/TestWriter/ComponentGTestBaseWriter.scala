@@ -321,7 +321,7 @@ case class ComponentGTestBaseWriter(
 
           functionClassMember(
             Some(s"From port: $portName"),
-            fromPortAssertionFuncName(portName),
+            fromPortSizeAssertionFuncName(portName),
             sizeAssertionFunctionParams,
             CppDoc.Type("void"),
             lines(
@@ -482,9 +482,10 @@ case class ComponentGTestBaseWriter(
                      |"""
                 ),
                 eventParamTypeMap(id).flatMap((name, tn) => {
+                  val assertEq = writeEventAssertEq(tn)
                   val eventValue = writeEventValue(s"_e.$name", tn)
                   lines(
-                    s"""ASSERT_EQ($name, $eventValue)
+                    s"""$assertEq($name, $eventValue)
                        |  << "\\n"
                        |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                        |  << "  Value:    Value of argument $name at index "
@@ -579,6 +580,7 @@ case class ComponentGTestBaseWriter(
         val channelName = channel.getName
         val historyName = tlmHistoryName(channelName)
         val entryName = tlmEntryName(channelName)
+        val assertEq = writeAssertEq(channel.channelType)
         val value = writeValue("_e.arg", channel.channelType)
         functionClassMember(
           Some(s"Channel: $channelName"),
@@ -601,7 +603,7 @@ case class ComponentGTestBaseWriter(
                |  << "  Actual:   " << __index << "\\n";
                |const $entryName& _e =
                |  this->$historyName->at(__index);
-               |ASSERT_EQ(val, $value)
+               |$assertEq(val, $value)
                |  << "\\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\\n"
                |  << "  Value:    Value at index "

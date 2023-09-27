@@ -182,7 +182,7 @@ case class ComponentTesterBaseWriter(
             }),
           {
             lazy val portHistories = line("// Initialize port histories") ::
-              typedOutputPorts.map(p => {
+              typedOutputPorts.filter(hasPortParams).map(p => {
                 val historyName = fromPortHistoryName(p.getUnqualifiedName)
                 val entryName = fromPortEntryName(p.getUnqualifiedName)
                 line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
@@ -252,7 +252,7 @@ case class ComponentTesterBaseWriter(
           Some(s"Destroy object $testerBaseClassName"),
           {
             lazy val destroyPortHistories = line("// Destroy port histories") ::
-              typedOutputPorts.map(p => {
+              typedOutputPorts.filter(hasPortParams).map(p => {
                 val portHistoryName = fromPortHistoryName(p.getUnqualifiedName)
                 line(s"delete this->$portHistoryName;")
               })
@@ -860,7 +860,8 @@ case class ComponentTesterBaseWriter(
           s"""|TextLogEntry e = { id, timeTag, severity, text };
               |textLogHistory->push_back(e);
               |"""
-        )
+        ),
+        CppDoc.Function.Virtual
       )
     )
 

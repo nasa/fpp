@@ -443,6 +443,9 @@ abstract class ComponentCppWriterUtils(
       case _ => portParamMap(p.getUnqualifiedName)
     }
 
+  /** Determine whether a port has params */
+  def hasPortParams(p: PortInstance): Boolean = getPortFunctionParams(p) != Nil
+
   /** Get a return type of a port instance as an optional C++ type */
   def getPortReturnType(p: PortInstance): Option[String] =
     p.getType match {
