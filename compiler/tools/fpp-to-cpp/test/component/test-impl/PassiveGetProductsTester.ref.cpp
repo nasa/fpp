@@ -40,6 +40,18 @@ void PassiveGetProductsTester ::
 // ----------------------------------------------------------------------
 
 void PassiveGetProductsTester ::
+  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO
+}
+
+U32 PassiveGetProductsTester ::
+  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
+void PassiveGetProductsTester ::
   from_typedOut_handler(
       NATIVE_INT_TYPE portNum,
       U32 u32,
