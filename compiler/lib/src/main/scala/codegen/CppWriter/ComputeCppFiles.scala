@@ -33,31 +33,31 @@ trait ComputeCppFiles extends AstStateVisitor {
 
   /** Adds a mapping for an hpp file  */
   def addHppMapping(
-    s: Map[String, Option[Location]],
+    map: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location],
     hppFileExtension: String = "hpp"
   ) =
-    addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
+    addMapping(map, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
   def addCppMapping(
-    s: Map[String, Option[Location]],
+    map: Map[String, Option[Location]],
     fileName: String,
     locOpt: Option[Location],
     cppFileExtension: String = "cpp"
-  ) = addMapping(s, (s"$fileName.$cppFileExtension" -> locOpt))
+  ) = addMapping(map, (s"$fileName.$cppFileExtension" -> locOpt))
 
   /** Adds a mapping for one file */
   private def addMapping(
-    s: Map[String, Option[Location]],
+    map: Map[String, Option[Location]],
     mapping: (String, Option[Location])
   ) = {
     val (fileName, locOpt) = mapping
-    (s.get(fileName), locOpt) match {
+    (map.get(fileName), locOpt) match {
       case (Some(Some(prevLoc)), Some(loc)) =>
         Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
-      case _ => Right(s + mapping)
+      case _ => Right(map + mapping)
     }
   }
 

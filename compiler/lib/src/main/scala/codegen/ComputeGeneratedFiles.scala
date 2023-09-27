@@ -24,21 +24,25 @@ object ComputeGeneratedFiles {
     }
     yield cppFiles
 
-  /** Computes files needed for unit test compilation
-   *  (autocode XML and C++, test autocode C++) */
-  def getTestFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  /** Computes autocoded C++ files for testing */
+  def getTestFiles(
+    tul: List[Ast.TransUnit],
+    autoTestSetupMode: CppWriter.AutoTestSetupMode
+  ): Result.Result[List[String]] =
     for {
       a <- enterSymbols(tul)
-      autocodeFiles <- getAutocodeFiles(tul)
-      testFiles <- getTestCppFiles(a, tul)
+      testFiles <- getTestCppFiles(a, tul, autoTestSetupMode)
     }
-    yield autocodeFiles ++ testFiles
+    yield testFiles
 
   /** Computes unit test implementation files */
-  def getTestImplFiles(tul: List[Ast.TransUnit]): Result.Result[List[String]] =
+  def getTestImplFiles(
+    tul: List[Ast.TransUnit],
+    autoTestSetupMode: CppWriter.AutoTestSetupMode
+  ): Result.Result[List[String]] =
     for {
       a <- enterSymbols(tul)
-      cppFiles <- getTestImplCppFiles(a, tul)
+      cppFiles <- getTestImplCppFiles(a, tul, autoTestSetupMode)
     }
     yield cppFiles
 
@@ -67,27 +71,37 @@ object ComputeGeneratedFiles {
     }
     yield s.locationMap.toList.map(_._1)
 
-  private def getTestCppFiles(a: Analysis, tul: List[Ast.TransUnit]):
-  Result.Result[List[String]] =
+  private def getTestCppFiles(
+    a: Analysis,
+    tul: List[Ast.TransUnit],
+    autoTestSetupMode: CppWriter.AutoTestSetupMode
+  ): Result.Result[List[String]] = {
+    val computeTestCppFiles = ComputeTestCppFiles(autoTestSetupMode)
     for {
-      s <- ComputeTestCppFiles.visitList(
+      s <- computeTestCppFiles.visitList(
         CppWriterState(a),
         tul,
-        ComputeTestCppFiles.transUnit
+        computeTestCppFiles.transUnit
       )
     }
     yield s.locationMap.toList.map(_._1)
+  }
 
-  private def getTestImplCppFiles(a: Analysis, tul: List[Ast.TransUnit]):
-  Result.Result[List[String]] =
+  private def getTestImplCppFiles(
+    a: Analysis,
+    tul: List[Ast.TransUnit],
+    autoTestSetupMode: CppWriter.AutoTestSetupMode
+  ): Result.Result[List[String]] = {
+    val computeTestImplCppFiles = ComputeTestImplCppFiles(autoTestSetupMode)
     for {
-      s <- ComputeTestImplCppFiles.visitList(
+      s <- computeTestImplCppFiles.visitList(
         CppWriterState(a),
         tul,
-        ComputeTestImplCppFiles.transUnit
+        computeTestImplCppFiles.transUnit
       )
     }
     yield s.locationMap.toList.map(_._1)
+  }
 
   private def getXmlFiles(a: Analysis, tul: List[Ast.TransUnit]):
   Result.Result[List[String]] =

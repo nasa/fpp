@@ -59,17 +59,25 @@ object FPPToCpp {
             tulFiles,
             ComputeAutocodeCppFiles.transUnit
           )
-          s <- ComputeTestCppFiles.visitList(
-            s,
-            tulFiles,
-            ComputeTestCppFiles.transUnit
-          )
+          s <- {
+            // TODO
+            val computeTestCppFiles = ComputeTestCppFiles(CppWriter.AutoTestSetupMode.On)
+            computeTestCppFiles.visitList(
+              s,
+              tulFiles,
+              computeTestCppFiles.transUnit
+            )
+          }
         } yield s
-        case CppWriter.UnitTestTemplate => ComputeTestImplCppFiles.visitList(
-          CppWriterState(a),
-          tulFiles,
-          ComputeTestImplCppFiles.transUnit
-        )
+        case CppWriter.UnitTestTemplate => 
+          // TODO
+          val computeTestImplCppFiles =
+            ComputeTestImplCppFiles(CppWriter.AutoTestSetupMode.On)
+          computeTestImplCppFiles.visitList(
+            CppWriterState(a),
+            tulFiles,
+            computeTestImplCppFiles.transUnit
+          )
       }
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(

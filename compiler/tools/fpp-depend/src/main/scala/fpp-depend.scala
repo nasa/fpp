@@ -78,7 +78,12 @@ object FPPDepend {
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
           for {
-            files <- if options.unitTest then ComputeGeneratedFiles.getTestFiles(tul)
+            files <-
+              if options.unitTest then ComputeGeneratedFiles.getTestFiles(
+                tul,
+                // TODO
+                CppWriter.AutoTestSetupMode.On
+              )
               else ComputeGeneratedFiles.getAutocodeFiles(tul)
           }
             yield writeIterable(files, file)
@@ -95,7 +100,12 @@ object FPPDepend {
       _ <- options.generatedImplFile match {
         case Some(file) =>
           for {
-            files <- if options.unitTest then ComputeGeneratedFiles.getTestImplFiles(tul)
+            files <-
+              if options.unitTest then ComputeGeneratedFiles.getTestImplFiles(
+                tul,
+                // TODO
+                CppWriter.AutoTestSetupMode.On
+              )
               else ComputeGeneratedFiles.getImplFiles(tul)
           }
             yield writeIterable(files, file)
