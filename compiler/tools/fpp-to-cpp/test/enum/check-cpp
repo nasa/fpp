@@ -8,12 +8,11 @@ cd `dirname $0`
 
 fprime_gcc=../../../../scripts/fprime-gcc
 
-for file in `find . -name '*Ac.ref.cpp'`
+for file in `find . -name '*.ref.cpp'`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.cpp;;'`
-  dest_base=`echo $base | sed 's;\(.*Ac\).*;\1;'`
-  cp $base.hpp $dest_base.hpp
-  cp $base.cpp $dest_base.cpp
-  $fprime_gcc -I../../.. -c $dest_base.cpp
+  base=`basename $file .ref.cpp`
+  cp $base.ref.hpp $base.hpp
+  cp $base.ref.cpp $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc -I../../.. -c $base.cpp
 done
