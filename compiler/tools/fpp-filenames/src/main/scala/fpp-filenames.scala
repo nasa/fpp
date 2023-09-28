@@ -35,11 +35,11 @@ object FPPFilenames {
           case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
           case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
             aTul._2,
-            CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+            CppWriter.getTestSetupMode(options.autoTestSetup)
           )
           case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
             aTul._2,
-            CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+            CppWriter.getTestSetupMode(options.autoTestSetup)
           )
         }
     }

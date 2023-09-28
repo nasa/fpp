@@ -105,10 +105,10 @@ object CppWriter extends LineUtils{
       case (true, true) => UnitTestTemplate
     }
 
-  def getAutoTestSetupMode(booleanMode: Boolean): AutoTestSetupMode =
-    booleanMode match {
-      case true => AutoTestSetupMode.On
-      case false => AutoTestSetupMode.Off
+  def getTestSetupMode(auto: Boolean): TestSetupMode =
+    auto match {
+      case true => TestSetupMode.Auto
+      case false => TestSetupMode.Manual
     }
 
   /** The phases of code generation */
@@ -158,10 +158,10 @@ object CppWriter extends LineUtils{
   case object UnitTest extends Mode
   case object UnitTestTemplate extends Mode
 
-  sealed trait AutoTestSetupMode
-  object AutoTestSetupMode {
-    case object On extends AutoTestSetupMode
-    case object Off extends AutoTestSetupMode
+  sealed trait TestSetupMode
+  object TestSetupMode {
+    case object Auto extends TestSetupMode
+    case object Manual extends TestSetupMode
   }
 
 }

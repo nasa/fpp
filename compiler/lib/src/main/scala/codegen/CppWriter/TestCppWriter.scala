@@ -5,7 +5,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ for component implementation templates */
-case class TestCppWriter(autoTestSetupMode: CppWriter.AutoTestSetupMode)
+case class TestCppWriter(testSetupMode: CppWriter.TestSetupMode)
   extends CppWriter
 {
 
@@ -18,13 +18,13 @@ case class TestCppWriter(autoTestSetupMode: CppWriter.AutoTestSetupMode)
     for {
       s <- CppWriter.writeCppDoc(s, ComponentTesterBaseWriter(s, aNode).write)
       s <- CppWriter.writeCppDoc(s, ComponentGTestBaseWriter(s, aNode).write)
-      s <- autoTestSetupMode match {
-        // If auto test setup is on, then the test helpers are part of the autocode
-        case CppWriter.AutoTestSetupMode.On =>
+      s <- testSetupMode match {
+        // If test setup mode is auto, then the test helpers are part of the autocode
+        case CppWriter.TestSetupMode.Auto =>
           val implWriter = ComponentTestImplWriter(s, aNode)
           CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
         // Otherwise they are part of the implementation
-        case CppWriter.AutoTestSetupMode.Off => Right(s)
+        case CppWriter.TestSetupMode.Manual => Right(s)
       }
     }
     yield s

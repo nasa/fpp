@@ -86,7 +86,7 @@ object FPPDepend {
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
               tul,
-              CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+              CppWriter.getTestSetupMode(options.autoTestSetup)
             )
           }
           yield writeIterable(files, file)
