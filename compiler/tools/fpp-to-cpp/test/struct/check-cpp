@@ -4,8 +4,15 @@
 # Compile ref C++ files, to check them for validity
 # ----------------------------------------------------------------------
 
+cd `dirname $0`
+
 fprime_gcc=../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-Iinclude"
+
+../fprime/generate_cpp
+
+echo "running tests to generate the headers"
+./run
 
 for file in `find . -name '*Ac.ref.cpp'`
 do
