@@ -72,15 +72,14 @@ diff_test()
 diff_test_template()
 {
   file=$1
-  target_suffix=$2
-  cp $file'Tester'.hpp $file'Tester'$target_suffix.out.hpp && \
-  diff -u $file'Tester'$target_suffix.ref.hpp $file'Tester'$target_suffix.out.hpp && \
-  cp $file'Tester'.cpp $file'Tester'$target_suffix.out.cpp && \
-  diff -u $file'Tester'$target_suffix.ref.cpp $file'Tester'$target_suffix.out.cpp && \
-  cp $file'TesterHelpers'.cpp $file'TesterHelpers'$target_suffix.out.cpp && \
-  diff -u $file'TesterHelpers'$target_suffix.ref.cpp $file'TesterHelpers'$target_suffix.out.cpp && \
-  cp $file'TestMain'.cpp $file'TestMain'$target_suffix.out.cpp && \
-  diff -u $file'TestMain'$target_suffix.ref.cpp $file'TestMain'$target_suffix.out.cpp
+  cp $file'Tester.hpp' $file'Tester.out.hpp' && \
+  diff -u $file'Tester.ref.hpp' $file'Tester.out.hpp' && \
+  cp $file'Tester.cpp' $file'Tester.out.cpp' && \
+  diff -u $file'Tester.ref.cpp' $file'Tester.out.cpp' && \
+  cp $file'TesterHelpers.cpp' $file'TesterHelpers.out.cpp' && \
+  diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.out.cpp' && \
+  cp $file'TestMain.cpp' $file'TestMain.out.cpp' && \
+  diff -u $file'TestMain.ref.cpp' $file'TestMain.out.cpp'
 }
 
 . ./run.sh
