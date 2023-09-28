@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd `dirname $0`
+
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="

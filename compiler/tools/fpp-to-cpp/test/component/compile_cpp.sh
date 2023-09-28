@@ -127,7 +127,7 @@ compile_test_code()
 }
 
 # Generate framework C++ files
-. ../generate_cpp.sh
+../../fprime/generate_cpp
 
 # Compile files
 if [[ "$test_flag" = false ]]
