@@ -37,6 +37,25 @@ done > default-update-ref.sh
 
 move_cpp()
 {
+  if test $# -ne 1
+  then
+    echo 'usage: move_cpp file' 1>&2
+    exit 1
+  fi
+  file=$1
+  for suffix in hpp cpp
+  do
+    cp $file'Ac.'$suffix $file'Ac.ref.'$suffix
+  done
+}
+
+move_cpp_suffix()
+{
+  if test $# -lt 1 || test $# -gt 2
+  then
+    echo 'usage: move_cpp_suffix file [suffix]' 1>&2
+    exit 1
+  fi
   file=$1
   target_suffix=$2
   for suffix in hpp cpp
