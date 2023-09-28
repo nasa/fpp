@@ -10,8 +10,8 @@ fprime_gcc=../../../../scripts/fprime-gcc
 
 for file in `find . -name 'FppConstantsAc_*.ref.cpp'`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.cpp;;'`
+  base=`basename $file .ref.cpp`
+  echo "compiling $base"
   dest_base=`echo $base | sed 's;\(.*FppConstantsAc\).*;\1;'`
   cp $base.hpp $dest_base.hpp
   cp $base.cpp $dest_base.cpp
