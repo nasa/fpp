@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# ----------------------------------------------------------------------
-# Compile ref C++ files, to check them for validity
-# ----------------------------------------------------------------------
-
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="
@@ -12,14 +8,11 @@ warning_flags="
 -Wno-unused-parameter
 "
 
-. ../generate_cpp.sh
+echo "running the tests in ../base to generate the header files"
+(cd ../base; ./run)
+cp ../base/*Ac.hpp .
 
-echo "generating base class headers"
-for file in `ls ../base/*Ac.ref.hpp`
-do
-  base=`basename $file .ref.hpp`
-  cp $file $base.hpp
-done
+../../fprime/generate_cpp
 
 for file in `ls *.template.ref.cpp`
 do
