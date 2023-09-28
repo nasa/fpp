@@ -38,9 +38,10 @@ done > default-update-ref.sh
 move_cpp()
 {
   file=$1
+  target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'Ac.'$suffix $file'Ac.ref.'$suffix
+    cp $file'Ac.'$suffix $file'Ac'$target_suffix'.ref.'$suffix
   done
 }
 
