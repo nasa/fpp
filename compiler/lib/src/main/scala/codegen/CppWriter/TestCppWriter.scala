@@ -5,7 +5,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ for component implementation templates */
-object TestCppWriter extends CppWriter {
+case class TestCppWriter(testSetupMode: CppWriter.TestSetupMode)
+  extends CppWriter
+{
 
   override def defComponentAnnotatedNode(
     s: State,
@@ -15,9 +17,15 @@ object TestCppWriter extends CppWriter {
     val data = node.data
     for {
       s <- CppWriter.writeCppDoc(s, ComponentTesterBaseWriter(s, aNode).write)
-      s <- visitList(s, data.members, matchComponentMember)
       s <- CppWriter.writeCppDoc(s, ComponentGTestBaseWriter(s, aNode).write)
-      s <- visitList(s, data.members, matchComponentMember)
+      s <- testSetupMode match {
+        // If test setup mode is auto, then the test helpers are part of the autocode
+        case CppWriter.TestSetupMode.Auto =>
+          val implWriter = ComponentTestImplWriter(s, aNode)
+          CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
+        // Otherwise they are part of the implementation
+        case CppWriter.TestSetupMode.Manual => Right(s)
+      }
     }
     yield s
   }

@@ -24,7 +24,7 @@ object FPPToCpp {
   )
 
   def command(options: Options) = {
-    val autoTestSetupMode = CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+    val testSetupMode = CppWriter.getTestSetupMode(options.autoTestSetup)
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
       case list => list
@@ -64,7 +64,7 @@ object FPPToCpp {
             ComputeAutocodeCppFiles.transUnit
           )
           s <- {
-            val computeTestCppFiles = ComputeTestCppFiles(autoTestSetupMode)
+            val computeTestCppFiles = ComputeTestCppFiles(testSetupMode)
             computeTestCppFiles.visitList(
               s,
               tulFiles,
@@ -73,7 +73,7 @@ object FPPToCpp {
           }
         } yield s
         case CppWriter.UnitTestTemplate => 
-          val computeTestImplCppFiles = ComputeTestImplCppFiles(autoTestSetupMode)
+          val computeTestImplCppFiles = ComputeTestImplCppFiles(testSetupMode)
           computeTestImplCppFiles.visitList(
             CppWriterState(a),
             tulFiles,
@@ -103,10 +103,10 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
-          // TODO: Handle -a option
-          case CppWriter.UnitTest => TestCppWriter.tuList(state, tulFiles)
-          // TODO: Handle -a option
-          case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest =>
+            TestCppWriter(testSetupMode).tuList(state, tulFiles)
+          case CppWriter.UnitTestTemplate =>
+            TestImplCppWriter(testSetupMode).tuList(state, tulFiles)
         }
       }
     } yield ()
