@@ -8,9 +8,7 @@ for file in `find . -name '*out.*' \
   -or -name '*.names.txt' \
   -or -name '*o' \
   -or \( -name '*.cpp' -and -not -name '*.ref.cpp' \) \
-  -or \( -name '*.hpp' -and -not -name '*.ref.hpp' \) \
-  -or -name '*Ac.ref.hpp' \
-  -or -name '*Ac.ref.cpp'`
+  -or \( -name '*.hpp' -and -not -name '*.ref.hpp' \)`
 do
   rm $file
 done

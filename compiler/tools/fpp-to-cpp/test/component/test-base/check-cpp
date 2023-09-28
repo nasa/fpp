@@ -16,10 +16,10 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
-echo 'copying component base reference files'
-for suffix in hpp cpp
+for file in `ls ../base/*Ac.ref.hpp`
 do
-  cp ../base/*Ac.ref.$suffix .
+  base=`basename $file .ref.hpp`
+  cp $file $base.hpp
 done
 
 if [[ "$1" = "--all" ]]

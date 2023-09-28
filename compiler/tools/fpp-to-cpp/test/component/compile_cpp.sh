@@ -97,35 +97,45 @@ compile_cpp() {
 . ../generate_cpp.sh
 
 # Compile type files
-for fpp_type in Enum Array Serializable Port
-do
-  for file in `find . -name "*${fpp_type}Ac.ref.cpp"`
+if [[ "$test_flag" = false ]]
+then
+  for fpp_type in Enum Array Serializable Port
   do
-    base=`echo $file | sed 's;.ref.cpp;;'`
-    cp $base.ref.hpp $base.hpp
-    cp $base.ref.cpp $base.cpp
+    for file in `find . -name "*${fpp_type}Ac.ref.cpp"`
+    do
+      base=`echo $file | sed 's;.ref.cpp;;'`
+      cp $base.ref.hpp $base.hpp
+      cp $base.ref.cpp $base.cpp
+    done
+    files="$base.cpp"
+    
+    compile_cpp $files
   done
-  files="$base.cpp"
-  
-  compile_cpp $files
-done
+fi
 
 # Compile component files
-for file in `find . -name '*ComponentAc.ref.cpp'`
-do
-  base=`echo $file | sed 's;ComponentAc.ref.cpp;;'`
-  cp ${base}ComponentAc.ref.hpp ${base}ComponentAc.hpp
-  cp ${base}ComponentAc.ref.cpp ${base}ComponentAc.cpp
-  files="${base}ComponentAc.cpp"
+if [[ "$test_flag" = false ]]
+then
+  for file in `find . -name '*ComponentAc.ref.cpp'`
+  do
+    base=`basename $file .ref.cpp`
 
-  if [[ "$test_flag" = true ]]
-  then
+    cp ${base}.ref.hpp ${base}.hpp
+    cp ${base}.ref.cpp ${base}.cpp
+
+    compile_cpp "${base}.cpp"
+  done
+else
+  for file in `find . -name '*TesterBase.ref.cpp'`
+  do
+    base=`basename $file TesterBase.ref.cpp`
+
     cp ${base}TesterBase.ref.hpp ${base}TesterBase.hpp
     cp ${base}TesterBase.ref.cpp ${base}TesterBase.cpp
     cp ${base}GTestBase.ref.hpp ${base}GTestBase.hpp
     cp ${base}GTestBase.ref.cpp ${base}GTestBase.cpp
-    files="${base}ComponentAc.cpp ${base}TesterBase.cpp ${base}GTestBase.cpp"
-  fi
+    files="${base}TesterBase.cpp ${base}GTestBase.cpp"
 
-  compile_cpp $files
-done
+    compile_cpp $files
+  done
+fi
