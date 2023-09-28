@@ -36,6 +36,7 @@ done > default-update-ref.sh
 . ./default-update-ref.sh
 
 # Custom update ref
+
 direct() {
   update '-d tmp.out.txt' direct_a direct
   remove_path_prefix < tmp.out.txt > direct_output.ref.txt
@@ -46,8 +47,18 @@ filenames() {
     filenames
 }
 
+filenames_auto() {
+  update '-a -g filenames_auto_generated_output.ref.txt -u filenames_auto_ut_output.ref.txt' \
+    filenames
+}
+
 filenames_include() {
   update '-g filenames_include_generated_output.ref.txt -u filenames_include_ut_output.ref.txt' \
+    filenames_include
+}
+
+filenames_include_auto() {
+  update '-a -g filenames_include_auto_generated_output.ref.txt -u filenames_include_auto_ut_output.ref.txt' \
     filenames_include
 }
 

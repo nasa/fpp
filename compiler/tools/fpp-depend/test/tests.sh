@@ -15,7 +15,9 @@ expr_paren
 expr_struct
 expr_unop
 filenames
+filenames_auto
 filenames_include
+filenames_include_auto
 framework
 framework_include
 include

@@ -45,18 +45,36 @@ direct()
   compare direct_output
 }
 
-# TODO: Add -u option
 filenames()
 {
-  run_test '-g filenames_generated_output.out.txt' filenames
+  run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
+    filenames
   compare filenames_generated_output
+  compare filenames_ut_output
 }
 
-# TODO: Add -u option
+filenames_auto()
+{
+  run_test '-a -g filenames_auto_generated_output.out.txt -u filenames_auto_ut_output.out.txt' \
+    filenames
+  compare filenames_auto_generated_output
+  compare filenames_auto_ut_output
+}
+
 filenames_include()
 {
-  run_test '-g filenames_include_generated_output.out.txt' filenames_include
+  run_test '-g filenames_include_generated_output.out.txt -u filenames_include_ut_output.out.txt' \
+    filenames_include
   compare filenames_include_generated_output
+  compare filenames_include_ut_output
+}
+
+filenames_include_auto()
+{
+  run_test '-a -g filenames_include_auto_generated_output.out.txt -u filenames_include_auto_ut_output.out.txt' \
+    filenames_include
+  compare filenames_include_auto_generated_output
+  compare filenames_include_auto_ut_output
 }
 
 framework()
