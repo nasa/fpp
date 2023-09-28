@@ -14,17 +14,18 @@ warning_flags="
 
 . ../generate_cpp.sh
 
+echo "generating base class headers"
 for file in `ls ../base/*Ac.ref.hpp`
 do
   base=`basename $file .ref.hpp`
   cp $file $base.hpp
 done
 
-for file in `find . -name '*.template.ref.cpp'`
+for file in `ls *.template.ref.cpp`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.template.ref.cpp;;'`
+  base=`basename $file .template.ref.cpp`
   cp $base.template.ref.hpp $base.hpp
   cp $base.template.ref.cpp $base.cpp
+  echo "compiling $base.cpp"
   $fprime_gcc -I../../../.. -I.. -c $base.cpp $warning_flags
 done
