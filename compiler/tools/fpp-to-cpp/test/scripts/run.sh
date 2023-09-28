@@ -50,11 +50,10 @@ diff_cpp()
 diff_template()
 {
   file=$1
-  target_suffix=$2
-  cp $file.template.hpp $file$target_suffix.out.template.hpp && \
-  diff -u $file$target_suffix.template.ref.hpp $file$target_suffix.out.template.hpp && \
-  cp $file.template.cpp $file$target_suffix.out.template.cpp && \
-  diff -u $file$target_suffix.template.ref.cpp $file$target_suffix.out.template.cpp
+  cp $file.template.hpp $file.out.template.hpp && \
+  diff -u $file.template.ref.hpp $file.out.template.hpp && \
+  cp $file.template.cpp $file.out.template.cpp && \
+  diff -u $file.template.ref.cpp $file.out.template.cpp
 }
 
 diff_test()
