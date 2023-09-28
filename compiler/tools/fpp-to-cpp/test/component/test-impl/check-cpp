@@ -25,7 +25,7 @@ define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 . ../generate_cpp.sh
 
 # Generate base and test base headers in test-base
-echo "generating headers in test-base"
+echo "generating base class headers in test-base"
 for dir in ../base ../test-base
 do
   for file in `ls $dir/*.ref.hpp`
@@ -36,7 +36,7 @@ do
 done
 
 # Generate impl headers in impl
-echo "generating headers in impl"
+echo "generating impl headers in impl"
 for file in `ls ../impl/*.ref.hpp`
 do
   base=`basename $file .ref.hpp | sed 's/\.template//'`
