@@ -16,13 +16,19 @@ include_flags="
 -I$FPRIME/gtest/googletest-src/googletest/include
 -I..
 -I../../../..
--I../base
--I../impl
--I../test-base
 "
 define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
 . ../generate_cpp.sh
+
+for dir in ../base ../impl ../test-base
+do
+  for file in `ls $dir/*.ref.hpp`
+  do
+    base=`basename $file .ref.hpp | sed 's/\.template//'`
+    cp $file $base.hpp
+  done
+done
 
 for file in `find . -name '*Tester.ref.cpp'`
 do
