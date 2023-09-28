@@ -60,15 +60,14 @@ diff_template()
 diff_test()
 {
   file=$1
-  target_suffix=$2
-  cp $file'TesterBase'.hpp $file'TesterBase'$target_suffix.out.hpp && \
-  diff -u $file'TesterBase'$target_suffix.ref.hpp $file'TesterBase'$target_suffix.out.hpp && \
-  cp $file'TesterBase'.cpp $file'TesterBase'$target_suffix.out.cpp && \
-  diff -u $file'TesterBase'$target_suffix.ref.cpp $file'TesterBase'$target_suffix.out.cpp && \
-  cp $file'GTestBase'.hpp $file'GTestBase'$target_suffix.out.hpp && \
-  diff -u $file'GTestBase'$target_suffix.ref.hpp $file'GTestBase'$target_suffix.out.hpp && \
-  cp $file'GTestBase'.cpp $file'GTestBase'$target_suffix.out.cpp && \
-  diff -u $file'GTestBase'$target_suffix.ref.cpp $file'GTestBase'$target_suffix.out.cpp
+  cp $file'TesterBase.hpp' $file'TesterBase.out.hpp' && \
+  diff -u $file'TesterBase.ref.hpp' $file'TesterBase.out.hpp' && \
+  cp $file'TesterBase.cpp' $file'TesterBase.out.cpp' && \
+  diff -u $file'TesterBase.ref.cpp' $file'TesterBase.out.cpp' && \
+  cp $file'GTestBase.hpp' $file'GTestBase.out.hpp' && \
+  diff -u $file'GTestBase.ref.hpp' $file'GTestBase.out.hpp' && \
+  cp $file'GTestBase.cpp' $file'GTestBase.out.cpp' && \
+  diff -u $file'GTestBase.ref.cpp' $file'GTestBase.out.cpp'
 }
 
 diff_test_template()

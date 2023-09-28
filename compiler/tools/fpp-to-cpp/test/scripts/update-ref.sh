@@ -59,12 +59,15 @@ move_template()
 move_test()
 {
   file=$1
-  target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'TesterBase.'$suffix $file'TesterBase'$target_suffix'.ref.'$suffix
-    cp $file'GTestBase.'$suffix $file'GTestBase'$target_suffix'.ref.'$suffix
+    cp $file'TesterBase.'$suffix $file'TesterBase.ref.'$suffix
+    cp $file'GTestBase.'$suffix $file'GTestBase.ref.'$suffix
   done
+  if test -f $file'TesterHelpers.cpp'
+  then
+    cp $file'TesterHelpers.cpp' $file'TesterHelpers.ref.cpp'
+  fi
 }
 
 move_test_template()
