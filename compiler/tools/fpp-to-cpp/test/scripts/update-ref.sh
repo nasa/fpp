@@ -38,21 +38,18 @@ done > default-update-ref.sh
 move_cpp()
 {
   file=$1
-  target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'Ac.'$suffix $file'Ac'$target_suffix'.ref.'$suffix
+    cp $file'Ac.'$suffix $file'Ac.ref.'$suffix
   done
 }
 
 move_template()
 {
   file=$1
-  target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'.template.'$suffix $file$target_suffix'.template.ref.'$suffix
-    cp $file'.template.'$suffix $file$target_suffix'.'$suffix
+    cp $file'.template.'$suffix $file'.template.ref.'$suffix
   done
 }
 
@@ -73,13 +70,12 @@ move_test()
 move_test_template()
 {
   file=$1
-  target_suffix=$2
   for suffix in hpp cpp
   do
-    cp $file'Tester.'$suffix $file'Tester'$target_suffix'.ref.'$suffix
+    cp $file'Tester.'$suffix $file'Tester.ref.'$suffix
   done
-  cp $file'TesterHelpers.cpp' $file'TesterHelpers'$target_suffix'.ref.cpp'
-  cp $file'TestMain.cpp' $file'TestMain'$target_suffix'.ref.cpp'
+  cp $file'TesterHelpers.cpp' $file'TesterHelpers.ref.cpp'
+  cp $file'TestMain.cpp' $file'TestMain.ref.cpp'
 }
 
 . ./update-ref.sh
