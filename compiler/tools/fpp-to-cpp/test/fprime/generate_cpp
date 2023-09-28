@@ -11,7 +11,7 @@ echo "generating framework C++"
 fpp_files=`find . -name '*.fpp'`
 fpp-to-cpp -p $PWD $fpp_files
 
-# Move data product files into place
+# Move config files into place
 for base in FppConstantsAc ProcTypeEnumAc
 do
   for suffix in hpp cpp
@@ -19,6 +19,7 @@ do
     mv $base.$suffix config
   done
 done
+
 # Move files into place by name prefix
 for dir in Buffer Cmd Dp Log Prm Time Tlm
 do

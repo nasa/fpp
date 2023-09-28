@@ -4,6 +4,8 @@
 # Compile ref C++ files, to check them for validity
 # ----------------------------------------------------------------------
 
+cd `dirname $0`
+
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="
@@ -22,7 +24,7 @@ include_flags="
 "
 define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
-. ../generate_cpp.sh
+../../fprime/generate_cpp
 
 # Generate headers in base and test-base
 for dir in base test-base
