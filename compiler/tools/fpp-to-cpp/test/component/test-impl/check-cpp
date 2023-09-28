@@ -24,16 +24,15 @@ define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
 . ../generate_cpp.sh
 
-# Generate base and test base headers in test-base
-echo "generating base class headers in test-base"
-for dir in ../base ../test-base
+# Generate headers in base and test-base
+for dir in base test-base
 do
-  for file in `ls $dir/*.ref.hpp`
-  do
-    base=`basename $file .ref.hpp`
-    cp $file ../test-base/$base.hpp
-  done
+  echo "running the tests in ../$dir to generate the header files"
+  (cd ../$dir; ./run)
 done
+
+echo "copying base headers to test-base"
+cp ../base/*Ac.hpp ../test-base
 
 # Generate impl headers in impl
 echo "generating impl headers in impl"
