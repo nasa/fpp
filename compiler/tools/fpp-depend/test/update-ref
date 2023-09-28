@@ -41,10 +41,12 @@ direct() {
   remove_path_prefix < tmp.out.txt > direct_output.ref.txt
 }
 
+# TODO: Add -u option
 filenames() {
   update '-g filenames_output.ref.txt' filenames
 }
 
+# TODO: Add -u option
 filenames_include() {
   update '-g filenames_include_output.ref.txt' filenames_include
 }
@@ -83,30 +85,6 @@ locate_constant_include_no_i()
 
 missing() {
   update '-m tmp.out.txt' missing; remove_path_prefix < tmp.out.txt > missing_output.ref.txt
-}
-
-template_filenames() {
-  update '-t template_filenames_output.ref.txt' filenames
-}
-
-template_filenames_include() {
-  update '-t template_filenames_include_output.ref.txt' filenames_include
-}
-
-test_filenames() {
-  update '-u -g test_filenames_output.ref.txt' filenames
-}
-
-test_filenames_include() {
-  update '-u -g test_filenames_include_output.ref.txt' filenames_include
-}
-
-test_template_filenames() {
-  update '-u -t test_template_filenames_output.ref.txt' filenames
-}
-
-test_template_filenames_include() {
-  update '-u -t test_template_filenames_include_output.ref.txt' filenames_include
 }
 
 for t in $tests

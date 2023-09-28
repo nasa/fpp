@@ -18,14 +18,14 @@ object FPPDepend {
   }
 
   case class Options(
+    autoTestSetup: Boolean = false,
     directFile: Option[String] = None,
     files: List[File] = List(),
     frameworkFile: Option[String] = None,
     generatedAutocodeFile: Option[String] = None,
     includedFile: Option[String] = None,
     missingFile: Option[String] = None,
-    generatedImplFile: Option[String] = None,
-    unitTest: Boolean = false,
+    unitTestFile: Option[String] = None,
   )
 
   def mapIterable[T](
@@ -77,16 +77,19 @@ object FPPDepend {
       }
       _ <- options.generatedAutocodeFile match {
         case Some(file) =>
+          for (files <- ComputeGeneratedFiles.getAutocodeFiles(tul))
+          yield writeIterable(files, file)
+        case None => Right(())
+      }
+      _ <- options.unitTestFile match {
+        case Some(file) =>
           for {
-            files <-
-              if options.unitTest then ComputeGeneratedFiles.getTestFiles(
-                tul,
-                // TODO
-                CppWriter.AutoTestSetupMode.On
-              )
-              else ComputeGeneratedFiles.getAutocodeFiles(tul)
+            files <- ComputeGeneratedFiles.getTestFiles(
+              tul,
+              CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+            )
           }
-            yield writeIterable(files, file)
+          yield writeIterable(files, file)
         case None => Right(())
       }
       _ <- options.includedFile match {
@@ -95,20 +98,6 @@ object FPPDepend {
       }
       _ <- options.missingFile match {
         case Some(file) => writeIterable(a.missingDependencyFileSet, file)
-        case None => Right(())
-      }
-      _ <- options.generatedImplFile match {
-        case Some(file) =>
-          for {
-            files <-
-              if options.unitTest then ComputeGeneratedFiles.getTestImplFiles(
-                tul,
-                // TODO
-                CppWriter.AutoTestSetupMode.On
-              )
-              else ComputeGeneratedFiles.getImplFiles(tul)
-          }
-            yield writeIterable(files, file)
         case None => Right(())
       }
     } yield mapIterable(a.dependencyFileSet, System.out.println(_))
@@ -139,6 +128,10 @@ object FPPDepend {
     OParser.sequence(
       programName(name),
       head(name, Version.v),
+      help('h', "help").text("print this message and exit"),
+      opt[Unit]('a', "auto-test-setup")
+        .action((_, c) => c.copy(autoTestSetup = true))
+        .text("enable automatic generation of test setup code"),
       opt[String]('d', "direct")
         .valueName("<file>")
         .action((m, c) => c.copy(directFile = Some(m)))
@@ -159,13 +152,9 @@ object FPPDepend {
         .valueName("<file>")
         .action((m, c) => c.copy(missingFile = Some(m)))
         .text("write missing dependencies to file"),
-      help('h', "help").text("print this message and exit"),
-      opt[String]('t', "template")
+      opt[String]('u', "unit-test")
         .valueName("<file>")
-        .action((m, c) => c.copy(generatedImplFile = Some(m)))
-        .text("write names of generated template files to file"),
-      opt[Unit]('u', "unit-test")
-        .action((_, c) => c.copy(unitTest = true))
+        .action((m, c) => c.copy(unitTestFile = Some(m)))
         .text("write names of generated unit test files to file"),
       arg[String]("file ...")
         .unbounded()

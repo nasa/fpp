@@ -45,12 +45,14 @@ direct()
   compare direct_output
 }
 
+# TODO: Add -u option
 filenames()
 {
   run_test '-g filenames_output.out.txt' filenames
   compare filenames_output
 }
 
+# TODO: Add -u option
 filenames_include()
 {
   run_test '-g filenames_include_output.out.txt' filenames_include
@@ -105,42 +107,6 @@ missing()
   run_test '-m tmp.out.txt' missing
   remove_path_prefix < tmp.out.txt > missing_output.out.txt
   compare missing_output
-}
-
-template_filenames()
-{
-  run_test '-t template_filenames_output.out.txt' filenames
-  compare template_filenames_output
-}
-
-template_filenames_include()
-{
-  run_test '-t template_filenames_include_output.out.txt' filenames_include
-  compare template_filenames_include_output
-}
-
-test_filenames()
-{
-  run_test '-u -g test_filenames_output.out.txt' filenames
-  compare test_filenames_output
-}
-
-test_filenames_include()
-{
-  run_test '-u -g test_filenames_include_output.out.txt' filenames
-  compare test_filenames_include_output
-}
-
-test_template_filenames()
-{
-  run_test '-u -t test_template_filenames_output.out.txt' filenames
-  compare test_template_filenames_output
-}
-
-test_template_filenames_include()
-{
-  run_test '-u -t test_template_filenames_include_output.out.txt' filenames
-  compare test_template_filenames_include_output
 }
 
 run_suite $tests
