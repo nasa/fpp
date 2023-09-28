@@ -43,7 +43,7 @@ done
 # Generate and compile tester base files
 for file in `find . -name '*Tester.ref.cpp'`
 do
-  base=`echo $file | sed 's;\Tester.ref.cpp;;'`
+  base=`basename $file Tester.ref.cpp`
   cp ${base}Tester.ref.cpp ${base}Tester.cpp
   cp ${base}Tester.ref.hpp ${base}Tester.hpp
   cp ${base}TesterHelpers.ref.cpp ${base}TesterHelpers.cpp
