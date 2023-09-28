@@ -1,7 +1,7 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
 
-echo "generating C++"
+echo "generating framework C++"
 fpp-to-cpp -d $fprime_dir/Fw -p $fprime_dir `cat ../deps.txt`
 for dir in Cmd Log Prm Time Tlm
 do
