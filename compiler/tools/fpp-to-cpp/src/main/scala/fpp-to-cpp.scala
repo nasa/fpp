@@ -103,10 +103,10 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
-          // TODO: Handle -a option
-          case CppWriter.UnitTest => TestCppWriter.tuList(state, tulFiles)
-          // TODO: Handle -a option
-          case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest =>
+            TestCppWriter(autoTestSetupMode).tuList(state, tulFiles)
+          case CppWriter.UnitTestTemplate =>
+            TestImplCppWriter(autoTestSetupMode).tuList(state, tulFiles)
         }
       }
     } yield ()
