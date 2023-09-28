@@ -16,6 +16,13 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
+echo "generating base class headers"
+for file in `ls ../base/*Ac.ref.hpp`
+do
+  base=`basename $file .ref.hpp`
+  cp $file $base.hpp
+done
+
 if [[ "$1" = "--all" ]]
 then
   . ../compile_cpp.sh --test --all

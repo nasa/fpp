@@ -3,7 +3,9 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 
-object ComputeTestImplCppFiles extends ComputeCppFiles {
+case class ComputeTestImplCppFiles(autoTestSetupMode: CppWriter.AutoTestSetupMode)
+  extends ComputeCppFiles
+{
 
   override def defComponentAnnotatedNode(
     s: State,
@@ -16,10 +18,16 @@ object ComputeTestImplCppFiles extends ComputeCppFiles {
     for {
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestImpl(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
-      m <- addCppMapping(s.locationMap, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
-      s <- visitList(s.copy(locationMap = m), data.members, matchComponentMember)
-      m <- addCppMapping(s.locationMap, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
-      s <- visitList(s.copy(locationMap = m), data.members, matchComponentMember)
+      s <- autoTestSetupMode match {
+        // If auto test setup is on, then the test helpers are part of the autocode
+        case CppWriter.AutoTestSetupMode.On => Right(s)
+        // Otherwise they are part of the implementation
+        case CppWriter.AutoTestSetupMode.Off => 
+          addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
+      }
+      s <- visitList(s, data.members, matchComponentMember)
+      s <- addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestMain(name), Some(loc))
+      s <- visitList(s, data.members, matchComponentMember)
     }
     yield s
   }

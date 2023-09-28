@@ -11,7 +11,7 @@ then
 fi
 fprime_dir=`dirname $component_dir`/fprime
 
-echo "generating C++"
+echo "generating framework C++"
 
 # Generate F Prime C++ files into $fprime_dir/Fw
 fpp-to-cpp -d $fprime_dir/Fw -p $fprime_dir `cat $component_dir/deps.txt`

@@ -47,14 +47,34 @@ direct()
 
 filenames()
 {
-  run_test '-g filenames_output.out.txt' filenames
-  compare filenames_output
+  run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
+    filenames
+  compare filenames_generated_output
+  compare filenames_ut_output
+}
+
+filenames_auto()
+{
+  run_test '-a -g filenames_auto_generated_output.out.txt -u filenames_auto_ut_output.out.txt' \
+    filenames
+  compare filenames_auto_generated_output
+  compare filenames_auto_ut_output
 }
 
 filenames_include()
 {
-  run_test '-g filenames_include_output.out.txt' filenames_include
-  compare filenames_include_output
+  run_test '-g filenames_include_generated_output.out.txt -u filenames_include_ut_output.out.txt' \
+    filenames_include
+  compare filenames_include_generated_output
+  compare filenames_include_ut_output
+}
+
+filenames_include_auto()
+{
+  run_test '-a -g filenames_include_auto_generated_output.out.txt -u filenames_include_auto_ut_output.out.txt' \
+    filenames_include
+  compare filenames_include_auto_generated_output
+  compare filenames_include_auto_ut_output
 }
 
 framework()
@@ -105,42 +125,6 @@ missing()
   run_test '-m tmp.out.txt' missing
   remove_path_prefix < tmp.out.txt > missing_output.out.txt
   compare missing_output
-}
-
-template_filenames()
-{
-  run_test '-t template_filenames_output.out.txt' filenames
-  compare template_filenames_output
-}
-
-template_filenames_include()
-{
-  run_test '-t template_filenames_include_output.out.txt' filenames_include
-  compare template_filenames_include_output
-}
-
-test_filenames()
-{
-  run_test '-u -g test_filenames_output.out.txt' filenames
-  compare test_filenames_output
-}
-
-test_filenames_include()
-{
-  run_test '-u -g test_filenames_include_output.out.txt' filenames
-  compare test_filenames_include_output
-}
-
-test_template_filenames()
-{
-  run_test '-u -t test_template_filenames_output.out.txt' filenames
-  compare test_template_filenames_output
-}
-
-test_template_filenames_include()
-{
-  run_test '-u -t test_template_filenames_include_output.out.txt' filenames
-  compare test_template_filenames_include_output
 }
 
 run_suite $tests

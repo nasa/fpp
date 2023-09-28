@@ -4,10 +4,6 @@ AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
 CComponentAi.xml
-CGTestBase.cpp
-CGTestBase.hpp
-CTesterBase.cpp
-CTesterBase.hpp
 C_AArrayAc.cpp
 C_AArrayAc.hpp
 C_AArrayAi.xml

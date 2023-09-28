@@ -1,18 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
 
-types()
-{
-  update "-u -p $component_dir" "../types" types
-  move_cpp NoArgsPort
-  move_cpp NoArgsReturnPort
-  move_cpp TypedPort 
-  move_cpp TypedReturnPort
-  move_cpp EEnum
-  move_cpp AArray
-  move_cpp SSerializable
-}
-
 empty()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty

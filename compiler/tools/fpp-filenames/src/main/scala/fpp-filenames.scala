@@ -11,6 +11,7 @@ import scopt.OParser
 object FPPFilenames {
 
   case class Options(
+    autoTestSetup: Boolean = false,
     files: List[File] = List(),
     template: Boolean = false,
     unitTest: Boolean = false,
@@ -32,8 +33,14 @@ object FPPFilenames {
         CppWriter.getMode(options.template, options.unitTest) match {
           case CppWriter.Autocode => ComputeGeneratedFiles.getAutocodeFiles(aTul._2)
           case CppWriter.ImplTemplate => ComputeGeneratedFiles.getImplFiles(aTul._2)
-          case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(aTul._2)
-          case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(aTul._2)
+          case CppWriter.UnitTest => ComputeGeneratedFiles.getTestFiles(
+            aTul._2,
+            CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+          )
+          case CppWriter.UnitTestTemplate => ComputeGeneratedFiles.getTestImplFiles(
+            aTul._2,
+            CppWriter.getAutoTestSetupMode(options.autoTestSetup)
+          )
         }
     }
     yield files.sorted.map(System.out.println)
@@ -52,6 +59,9 @@ object FPPFilenames {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
+      opt[Unit]('a', "auto-test-setup")
+        .action((_, c) => c.copy(autoTestSetup = true))
+        .text("enable automatic generation of test setup code"),
       opt[Unit]('t', "template")
         .action((_, c) => c.copy(template = true))
         .text("write names of generated template files"),

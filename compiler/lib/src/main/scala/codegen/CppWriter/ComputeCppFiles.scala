@@ -23,26 +23,24 @@ trait ComputeCppFiles extends AstStateVisitor {
     hppFileExtension: String = "hpp",
     cppFileExtension: String = "cpp"
   ) = {
-    val m = s.locationMap
     for {
-      m <- addHppMapping(m, fileName, locOpt, hppFileExtension)
-      m <- addCppMapping(m, fileName, locOpt, cppFileExtension)
+      s <- addHppMapping(s, fileName, locOpt, hppFileExtension)
+      s <- addCppMapping(s, fileName, locOpt, cppFileExtension)
     }
-    yield s.copy(locationMap = m)
+    yield s
   }
 
   /** Adds a mapping for an hpp file  */
-  def addHppMapping(
-    s: Map[String, Option[Location]],
+  protected def addHppMapping(
+    s: State,
     fileName: String,
     locOpt: Option[Location],
     hppFileExtension: String = "hpp"
-  ) =
-    addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
+  ) = addMapping(s, (s"$fileName.$hppFileExtension" -> locOpt))
 
   /** Adds a mapping for a cpp file  */
-  def addCppMapping(
-    s: Map[String, Option[Location]],
+  protected def addCppMapping(
+    s: State,
     fileName: String,
     locOpt: Option[Location],
     cppFileExtension: String = "cpp"
@@ -50,15 +48,18 @@ trait ComputeCppFiles extends AstStateVisitor {
 
   /** Adds a mapping for one file */
   private def addMapping(
-    s: Map[String, Option[Location]],
+    s: State,
     mapping: (String, Option[Location])
   ) = {
+    val m = s.locationMap
     val (fileName, locOpt) = mapping
-    (s.get(fileName), locOpt) match {
-      case (Some(Some(prevLoc)), Some(loc)) =>
-        Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
-      case _ => Right(s + mapping)
-    }
+    for {
+      m1 <- (m.get(fileName), locOpt) match {
+        case (Some(Some(prevLoc)), Some(loc)) =>
+          Left(CodeGenError.DuplicateCppFile(fileName, loc, prevLoc))
+        case _ => Right(m + mapping)
+      }
+    } yield s.copy(locationMap = m1)
   }
 
 }

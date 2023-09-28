@@ -28,8 +28,12 @@ done
 update "" include
 update "-t" "include" include_template
 update "-u" "include" include_test
+update "-u -a" "include" include_test_auto_setup
 update "-u -t" "include" include_test_template
+update "-u -t -a" "include" include_test_template_auto_setup
 update "" ok
 update "-t" "ok" ok_template
 update "-u" "ok" ok_test
+update "-u -a" "ok" ok_test_auto_setup
 update "-u -t" "ok" ok_test_template
+update "-u -t -a" "ok" ok_test_template_auto_setup

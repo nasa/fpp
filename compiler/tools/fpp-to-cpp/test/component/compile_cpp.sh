@@ -60,6 +60,7 @@ guards_off_serial_on=`echo $guards_off | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_
 
 compile_cpp() {
   files=$*
+  hpp_files=`echo $files | sed 's/\.cpp/.hpp/g'`
   echo "compiling $files"
 
   if [ "$all_flag" = true ]
@@ -68,7 +69,7 @@ compile_cpp() {
     do
       g=`echo $g | sed 's/,/ /g'`
 
-      if grep -q -s static_assert ${base}ComponentAc.hpp
+      if grep -q -s static_assert $hpp_files
       then
         g=`echo $g | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_SERIALIZATION=1/g'`
       fi
@@ -84,7 +85,7 @@ compile_cpp() {
     $fprime_gcc -c $files $gcc_flags $g
 
     g=`echo $guards_off`
-    if grep -q -s static_assert ${base}ComponentAc.hpp
+    if grep -q -s static_assert $hpp_files
     then
       g=$guards_off_serial_on
     fi
@@ -93,39 +94,45 @@ compile_cpp() {
   fi
 }
 
-# Generate framework C++ files
-. ../generate_cpp.sh
-
-# Compile type files
-for fpp_type in Enum Array Serializable Port
-do
-  for file in `find . -name "*${fpp_type}Ac.ref.cpp"`
+compile_autocode()
+{
+  cpp_files=""
+  for file in `find . -name "*Ac.ref.cpp"`
   do
-    base=`echo $file | sed 's;.ref.cpp;;'`
+    base=`basename $file .ref.cpp`
     cp $base.ref.hpp $base.hpp
     cp $base.ref.cpp $base.cpp
+    cpp_files="$cpp_files $base.cpp"
   done
-  files="$base.cpp"
-  
-  compile_cpp $files
-done
+  for file in $cpp_files
+  do
+    compile_cpp $file
+  done
+}
 
-# Compile component files
-for file in `find . -name '*ComponentAc.ref.cpp'`
-do
-  base=`echo $file | sed 's;ComponentAc.ref.cpp;;'`
-  cp ${base}ComponentAc.ref.hpp ${base}ComponentAc.hpp
-  cp ${base}ComponentAc.ref.cpp ${base}ComponentAc.cpp
-  files="${base}ComponentAc.cpp"
+compile_test_code()
+{
+  for file in `find . -name '*TesterBase.ref.cpp'`
+  do
+    base=`basename $file TesterBase.ref.cpp`
 
-  if [[ "$test_flag" = true ]]
-  then
     cp ${base}TesterBase.ref.hpp ${base}TesterBase.hpp
     cp ${base}TesterBase.ref.cpp ${base}TesterBase.cpp
     cp ${base}GTestBase.ref.hpp ${base}GTestBase.hpp
     cp ${base}GTestBase.ref.cpp ${base}GTestBase.cpp
-    files="${base}ComponentAc.cpp ${base}TesterBase.cpp ${base}GTestBase.cpp"
-  fi
+    files="${base}TesterBase.cpp ${base}GTestBase.cpp"
 
-  compile_cpp $files
-done
+    compile_cpp $files
+  done
+}
+
+# Generate framework C++ files
+. ../generate_cpp.sh
+
+# Compile files
+if [[ "$test_flag" = false ]]
+then
+  compile_autocode
+else
+  compile_test_code
+fi
