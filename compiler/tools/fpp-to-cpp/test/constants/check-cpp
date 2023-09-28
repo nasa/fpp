@@ -4,6 +4,8 @@
 # Compile ref C++ files, to check them for validity
 # ----------------------------------------------------------------------
 
+cd `dirname $0`
+
 fprime_gcc=../../../../scripts/fprime-gcc
 
 for file in `find . -name 'FppConstantsAc_*.ref.cpp'`
