@@ -39,6 +39,23 @@ done > default-tests.sh
 
 diff_cpp()
 {
+  if test $# -ne 1
+  then
+    echo 'usage: diff_cpp file' 1>&2
+    exit 1
+  fi
+  file=$1
+  diff -u $file'Ac.ref.hpp' $file'Ac.hpp' && \
+  diff -u $file'Ac.ref.cpp' $file'Ac.cpp'
+}
+
+diff_cpp_suffix()
+{
+  if test $# -lt 1 || test $# -gt 2
+  then
+    echo 'usage: diff_cpp_suffix file [suffix]' 1>&2
+    exit 1
+  fi
   file=$1
   target_suffix=$2
   cp $file'Ac'.hpp $file'Ac'$target_suffix.out.hpp && \
@@ -50,10 +67,8 @@ diff_cpp()
 diff_template()
 {
   file=$1
-  cp $file.template.hpp $file.out.template.hpp && \
-  diff -u $file.template.ref.hpp $file.out.template.hpp && \
-  cp $file.template.cpp $file.out.template.cpp && \
-  diff -u $file.template.ref.cpp $file.out.template.cpp
+  diff -u $file.template.ref.hpp $file.template.hpp && \
+  diff -u $file.template.ref.cpp $file.template.cpp
 }
 
 diff_test()
