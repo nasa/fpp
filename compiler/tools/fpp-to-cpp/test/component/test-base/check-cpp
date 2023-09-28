@@ -16,6 +16,12 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
+echo 'copying component base reference files'
+for suffix in hpp cpp
+do
+  cp ../base/*Ac.ref.$suffix .
+done
+
 if [[ "$1" = "--all" ]]
 then
   . ../compile_cpp.sh --test --all
