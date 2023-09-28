@@ -48,15 +48,15 @@ direct()
 # TODO: Add -u option
 filenames()
 {
-  run_test '-g filenames_output.out.txt' filenames
-  compare filenames_output
+  run_test '-g filenames_generated_output.out.txt' filenames
+  compare filenames_generated_output
 }
 
 # TODO: Add -u option
 filenames_include()
 {
-  run_test '-g filenames_include_output.out.txt' filenames_include
-  compare filenames_include_output
+  run_test '-g filenames_include_generated_output.out.txt' filenames_include
+  compare filenames_include_generated_output
 }
 
 framework()

@@ -43,12 +43,12 @@ direct() {
 
 # TODO: Add -u option
 filenames() {
-  update '-g filenames_output.ref.txt' filenames
+  update '-g filenames_generated_output.ref.txt' filenames
 }
 
 # TODO: Add -u option
 filenames_include() {
-  update '-g filenames_include_output.ref.txt' filenames_include
+  update '-g filenames_include_generated_output.ref.txt' filenames_include
 }
 
 framework() {
