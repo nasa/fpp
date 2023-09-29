@@ -43,4 +43,4 @@ echo "running the tests in ../test-impl to generate the header files"
 cp ../test-impl/*Tester.hpp .
 
 # Compile cpp files
-sh ../compile_cpp.sh --test "$@"
+../compile_base_cpp --test "$@"
