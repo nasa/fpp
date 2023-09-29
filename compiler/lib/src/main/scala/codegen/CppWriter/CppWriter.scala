@@ -50,8 +50,8 @@ object CppWriter extends LineUtils{
     cppFileNameBaseOpt: Option[String] = None
   ): Result.Result[CppWriterState] =
     for {
-      _ <- writeHppFile(s, cppDoc)
-      _ <- writeCppFile(s, cppDoc, cppFileNameBaseOpt)
+      s <- writeHppFile(s, cppDoc)
+      s <- writeCppFile(s, cppDoc, cppFileNameBaseOpt)
     }
     yield s
 
@@ -65,12 +65,12 @@ object CppWriter extends LineUtils{
       case Some(base) => s"$base.cpp"
       case None => cppDoc.cppFileName
     }
-    writeLinesToFile(s, cppFileName, lines)
+    for (_ <- writeLinesToFile(s, cppFileName, lines)) yield s
   }
 
   def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
-    writeLinesToFile(s, cppDoc.hppFile.name, lines)
+    for (_ <- writeLinesToFile(s, cppDoc.hppFile.name, lines)) yield s
   }
 
   private def writeLinesToFile(

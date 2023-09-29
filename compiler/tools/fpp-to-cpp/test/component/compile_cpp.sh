@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ----------------------------------------------------------------------
-# Compile ref C++ files, to check them for validity
+# Compile ref C++ files with guards for conditional compilation
 #
 # By default, each file is compiled with three different sets of values of F
 # Prime guards: 
@@ -16,38 +16,29 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
-fprime_gcc=../../../../../scripts/fprime-gcc
-export FPRIME_GCC_FLAGS="-I../../fprime"
-warning_flags="
--Wno-gnu-zero-variadic-macro-arguments
--Wno-sign-conversion -Wno-vla-extension
--Wno-unused-parameter
--Wno-zero-length-array
-"
-
 # Parse command line arguments
 all_flag=false
-test_flag=false
 for i in "$@"
 do
   if [[ "$i" = "--all" ]]
   then
     all_flag=true
-  elif [[ "$i" = "--test" ]]
-  then
-    test_flag=true
   fi
 done
 
-# Set compiler flags
+fprime_gcc=../../../../../scripts/fprime-gcc
+export FPRIME_GCC_FLAGS="-I../../fprime"
+
+## Set compiler flags
 include_flags="-I../../../.. -I.."
-define_flags=""
-if [[ "$test_flag" = true ]]
-then
-  include_flags="-I../../../.. -I.. -I../impl -I$FPRIME/gtest/googletest-src/googletest/include"
-  define_flags="-DPROTECTED="public" -DPRIVATE="public" -DBUILD_UT=1"
-fi
-gcc_flags="$include_flags $define_flags $warning_flags"
+warning_flags="
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-sign-conversion
+-Wno-unused-parameter
+-Wno-vla-extension
+-Wno-zero-length-array
+"
+gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 
 # Find all guards used in generated component base class files
 guards=`grep '#if FW_' *.ref.hpp *.ref.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
@@ -61,7 +52,6 @@ guards_off_serial_on=`echo $guards_off | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_
 compile_cpp() {
   files=$*
   hpp_files=`echo $files | sed 's/\.cpp/.hpp/g'`
-  echo "compiling $files"
 
   if [ "$all_flag" = true ]
   then
@@ -94,45 +84,10 @@ compile_cpp() {
   fi
 }
 
-compile_autocode()
-{
-  cpp_files=""
-  for file in `find . -name "*Ac.ref.cpp"`
-  do
-    base=`basename $file .ref.cpp`
-    cp $base.ref.hpp $base.hpp
-    cp $base.ref.cpp $base.cpp
-    cpp_files="$cpp_files $base.cpp"
-  done
-  for file in $cpp_files
-  do
-    compile_cpp $file
-  done
-}
-
-compile_test_code()
-{
-  for file in `find . -name '*TesterBase.ref.cpp'`
-  do
-    base=`basename $file TesterBase.ref.cpp`
-
-    cp ${base}TesterBase.ref.hpp ${base}TesterBase.hpp
-    cp ${base}TesterBase.ref.cpp ${base}TesterBase.cpp
-    cp ${base}GTestBase.ref.hpp ${base}GTestBase.hpp
-    cp ${base}GTestBase.ref.cpp ${base}GTestBase.cpp
-    files="${base}TesterBase.cpp ${base}GTestBase.cpp"
-
-    compile_cpp $files
-  done
-}
-
-# Generate framework C++ files
-../../fprime/generate_cpp
-
-# Compile files
-if [[ "$test_flag" = false ]]
-then
-  compile_autocode
-else
-  compile_test_code
-fi
+# Compile cpp files
+for file in `find . -name '*.ref.cpp' | sort`
+do
+  base=`basename $file .ref.cpp`
+  cp $file $base.cpp
+  compile_cpp $file
+done

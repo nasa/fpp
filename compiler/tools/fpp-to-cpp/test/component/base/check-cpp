@@ -2,12 +2,12 @@
 
 cd `dirname $0`
 
+# Generate framework cpp files
+../../fprime/generate_cpp
+
+# Generate header files
 echo "running the tests to generate the header files"
 ./run
 
-if [[ "$1" = "--all" ]]
-then
-  . ../compile_cpp.sh --all
-else
-  . ../compile_cpp.sh
-fi
+# Compile cpp files
+sh ../compile_cpp.sh "$@"

@@ -4,7 +4,7 @@
 // \brief  cpp file for Empty component test harness implementation class
 // ======================================================================
 
-#include "EmptyTester.hpp"
+#include "test-base/EmptyTester.hpp"
 
 // ----------------------------------------------------------------------
 // Helper functions

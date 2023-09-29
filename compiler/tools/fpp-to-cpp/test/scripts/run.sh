@@ -74,27 +74,26 @@ diff_template()
 diff_test()
 {
   file=$1
-  cp $file'TesterBase.hpp' $file'TesterBase.out.hpp' && \
-  diff -u $file'TesterBase.ref.hpp' $file'TesterBase.out.hpp' && \
-  cp $file'TesterBase.cpp' $file'TesterBase.out.cpp' && \
-  diff -u $file'TesterBase.ref.cpp' $file'TesterBase.out.cpp' && \
-  cp $file'GTestBase.hpp' $file'GTestBase.out.hpp' && \
-  diff -u $file'GTestBase.ref.hpp' $file'GTestBase.out.hpp' && \
-  cp $file'GTestBase.cpp' $file'GTestBase.out.cpp' && \
-  diff -u $file'GTestBase.ref.cpp' $file'GTestBase.out.cpp'
+  diff -u $file'TesterBase.ref.hpp' $file'TesterBase.hpp' && \
+  diff -u $file'TesterBase.ref.cpp' $file'TesterBase.cpp' && \
+  diff -u $file'GTestBase.ref.hpp' $file'GTestBase.hpp' && \
+  diff -u $file'GTestBase.ref.cpp' $file'GTestBase.cpp' && \
+  if test -f $file'TesterHelpers.ref.cpp'
+  then
+    diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.cpp'
+  fi
 }
 
 diff_test_template()
 {
   file=$1
-  cp $file'Tester.hpp' $file'Tester.out.hpp' && \
-  diff -u $file'Tester.ref.hpp' $file'Tester.out.hpp' && \
-  cp $file'Tester.cpp' $file'Tester.out.cpp' && \
-  diff -u $file'Tester.ref.cpp' $file'Tester.out.cpp' && \
-  cp $file'TesterHelpers.cpp' $file'TesterHelpers.out.cpp' && \
-  diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.out.cpp' && \
-  cp $file'TestMain.cpp' $file'TestMain.out.cpp' && \
-  diff -u $file'TestMain.ref.cpp' $file'TestMain.out.cpp'
+  diff -u $file'Tester.ref.hpp' $file'Tester.hpp' && \
+  diff -u $file'Tester.ref.cpp' $file'Tester.cpp' && \
+  if test -f $file'TesterHelpers.ref.cpp'
+  then
+    diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.cpp'
+  fi & \
+  diff -u $file'TestMain.ref.cpp' $file'TestMain.cpp'
 }
 
 . ./run.sh

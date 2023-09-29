@@ -3,7 +3,9 @@ fprime_dir=`dirname $component_dir`/fprime
 
 empty()
 {
-  run_test "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty && \
+  # Run the empty test in auto setup mode
+  # This tests auto setup
+  run_test "-a -u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty && \
   diff_test Empty
 }
 

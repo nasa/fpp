@@ -23,7 +23,7 @@ case class TestImplCppWriter(testSetupMode: CppWriter.TestSetupMode)
         case CppWriter.TestSetupMode.Auto => Right(s)
         // Otherwise they are part of the implementation
         case CppWriter.TestSetupMode.Manual =>
-          CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
+          CppWriter.writeCppFile(s, implWriter.write, Some(implWriter.helperFileName))
       }
       _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
     }

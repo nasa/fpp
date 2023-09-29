@@ -10,12 +10,15 @@ warning_flags="
 -Wno-unused-parameter
 "
 
+# Generate framework cpp files
+../../fprime/generate_cpp
+
+# Generate header files
 echo "running the tests in ../base to generate the header files"
 (cd ../base; ./run)
 cp ../base/*Ac.hpp .
 
-../../fprime/generate_cpp
-
+# Compile cpp files
 for file in `ls *.template.ref.cpp`
 do
   base=`basename $file .template.ref.cpp`
