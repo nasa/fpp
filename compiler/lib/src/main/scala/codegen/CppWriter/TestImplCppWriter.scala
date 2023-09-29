@@ -18,12 +18,12 @@ case class TestImplCppWriter(testSetupMode: CppWriter.TestSetupMode)
     val implWriter = ComponentTestImplWriter(s, aNode)
     for {
       s <- CppWriter.writeCppDoc(s, implWriter.write)
-      s <- testSetupMode match {
+      _ <- testSetupMode match {
         // If test setup mode is auto, then the test helpers are part of the autocode
-        case CppWriter.TestSetupMode.Auto => Right(s)
+        case CppWriter.TestSetupMode.Auto => Right(())
         // Otherwise they are part of the implementation
         case CppWriter.TestSetupMode.Manual =>
-          CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
+          CppWriter.writeCppFile(s, implWriter.write, Some(implWriter.helperFileName))
       }
       _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
     }

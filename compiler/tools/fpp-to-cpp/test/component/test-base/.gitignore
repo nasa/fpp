@@ -1,6 +1,4 @@
-*Ac.ref.hpp
-*Ac.ref.cpp
-*GTestBase.hpp
-*GTestBase.cpp
-*TesterBase.hpp
-*TesterBase.cpp
+*.hpp
+*.cpp
+!*.ref.hpp
+!*.ref.cpp
