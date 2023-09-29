@@ -3,7 +3,7 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 
-case class ComputeTestImplCppFiles(testSetupMode: CppWriter.TestSetupMode)
+case class ComputeTestImplCppFiles(testHelperMode: CppWriter.TestHelperMode)
   extends ComputeCppFiles
 {
 
@@ -18,11 +18,11 @@ case class ComputeTestImplCppFiles(testSetupMode: CppWriter.TestSetupMode)
     for {
       s <- addMappings(s, ComputeCppFiles.FileNames.getComponentTestImpl(name), Some(loc))
       s <- visitList (s, data.members, matchComponentMember)
-      s <- testSetupMode match {
-        // If test setup mode is auto, then the test helpers are part of the autocode
-        case CppWriter.TestSetupMode.Auto => Right(s)
+      s <- testHelperMode match {
+        // If test helper mode is auto, then the test helpers are part of the autocode
+        case CppWriter.TestHelperMode.Auto => Right(s)
         // Otherwise they are part of the implementation
-        case CppWriter.TestSetupMode.Manual => 
+        case CppWriter.TestHelperMode.Manual => 
           addCppMapping(s, ComputeCppFiles.FileNames.getComponentTestHelper(name), Some(loc))
       }
       s <- visitList(s, data.members, matchComponentMember)

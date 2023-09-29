@@ -18,7 +18,7 @@ object FPPDepend {
   }
 
   case class Options(
-    autoTestSetup: Boolean = false,
+    autoTestHelpers: Boolean = false,
     directFile: Option[String] = None,
     files: List[File] = List(),
     frameworkFile: Option[String] = None,
@@ -86,7 +86,7 @@ object FPPDepend {
           for {
             files <- ComputeGeneratedFiles.getTestFiles(
               tul,
-              CppWriter.getTestSetupMode(options.autoTestSetup)
+              CppWriter.getTestHelperMode(options.autoTestHelpers)
             )
           }
           yield writeIterable(files, file)
@@ -129,9 +129,9 @@ object FPPDepend {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
-      opt[Unit]('a', "auto-test-setup")
-        .action((_, c) => c.copy(autoTestSetup = true))
-        .text("enable automatic generation of test setup code"),
+      opt[Unit]('a', "auto-test-helpers")
+        .action((_, c) => c.copy(autoTestHelpers = true))
+        .text("enable automatic generation of test helper code"),
       opt[String]('d', "direct")
         .valueName("<file>")
         .action((m, c) => c.copy(directFile = Some(m)))

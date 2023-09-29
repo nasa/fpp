@@ -27,22 +27,22 @@ object ComputeGeneratedFiles {
   /** Computes autocoded C++ files for testing */
   def getTestFiles(
     tul: List[Ast.TransUnit],
-    testSetupMode: CppWriter.TestSetupMode
+    testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
       a <- enterSymbols(tul)
-      testFiles <- getTestCppFiles(a, tul, testSetupMode)
+      testFiles <- getTestCppFiles(a, tul, testHelperMode)
     }
     yield testFiles
 
   /** Computes unit test implementation files */
   def getTestImplFiles(
     tul: List[Ast.TransUnit],
-    testSetupMode: CppWriter.TestSetupMode
+    testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] =
     for {
       a <- enterSymbols(tul)
-      cppFiles <- getTestImplCppFiles(a, tul, testSetupMode)
+      cppFiles <- getTestImplCppFiles(a, tul, testHelperMode)
     }
     yield cppFiles
 
@@ -74,9 +74,9 @@ object ComputeGeneratedFiles {
   private def getTestCppFiles(
     a: Analysis,
     tul: List[Ast.TransUnit],
-    testSetupMode: CppWriter.TestSetupMode
+    testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] = {
-    val computeTestCppFiles = ComputeTestCppFiles(testSetupMode)
+    val computeTestCppFiles = ComputeTestCppFiles(testHelperMode)
     for {
       s <- computeTestCppFiles.visitList(
         CppWriterState(a),
@@ -90,9 +90,9 @@ object ComputeGeneratedFiles {
   private def getTestImplCppFiles(
     a: Analysis,
     tul: List[Ast.TransUnit],
-    testSetupMode: CppWriter.TestSetupMode
+    testHelperMode: CppWriter.TestHelperMode
   ): Result.Result[List[String]] = {
-    val computeTestImplCppFiles = ComputeTestImplCppFiles(testSetupMode)
+    val computeTestImplCppFiles = ComputeTestImplCppFiles(testHelperMode)
     for {
       s <- computeTestImplCppFiles.visitList(
         CppWriterState(a),
