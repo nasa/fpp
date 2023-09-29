@@ -622,6 +622,48 @@ void ActiveParamsComponentBase ::
 #endif
   }
 
+  // Connect output port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
   // Connect output port typedOut
   for (
     PlatformIntType port = 0;
@@ -961,6 +1003,34 @@ void ActiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveParamsComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+}
+
+void ActiveParamsComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void ActiveParamsComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Ports::InputTypedPort* port
@@ -1103,6 +1173,20 @@ void ActiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
+
+void ActiveParamsComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+}
 
 void ActiveParamsComponentBase ::
   set_typedOut_OutputPort(
@@ -1528,6 +1612,18 @@ NATIVE_INT_TYPE ActiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE ActiveParamsComponentBase ::
+  getNum_noArgsOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+}
+
+NATIVE_INT_TYPE ActiveParamsComponentBase ::
+  getNum_noArgsReturnOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
+
+NATIVE_INT_TYPE ActiveParamsComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
@@ -1638,6 +1734,28 @@ bool ActiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
+
+bool ActiveParamsComponentBase ::
+  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsOut_OutputPort[portNum].isConnected();
+}
+
+bool ActiveParamsComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+}
 
 bool ActiveParamsComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -2433,6 +2551,26 @@ void ActiveParamsComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
+
+void ActiveParamsComponentBase ::
+  noArgsOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_noArgsOut_OutputPort[portNum].invoke();
+}
+
+U32 ActiveParamsComponentBase ::
+  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
 
 void ActiveParamsComponentBase ::
   typedOut_out(

@@ -95,6 +95,8 @@ namespace M {
 
       //! Enumerations for numbers of typed output ports
       enum {
+        NUM_NOARGSOUT_OUTPUT_PORTS = 1,
+        NUM_NOARGSRETURNOUT_OUTPUT_PORTS = 1,
         NUM_TYPEDOUT_OUTPUT_PORTS = 1,
         NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
       };
@@ -362,6 +364,18 @@ namespace M {
       // Connect typed input ports to typed output ports
       // ----------------------------------------------------------------------
 
+      //! Connect port to noArgsOut[portNum]
+      void set_noArgsOut_OutputPort(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Ports::InputNoArgsPort* port //!< The input port
+      );
+
+      //! Connect port to noArgsReturnOut[portNum]
+      void set_noArgsReturnOut_OutputPort(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Ports::InputNoArgsReturnPort* port //!< The input port
+      );
+
       //! Connect port to typedOut[portNum]
       void set_typedOut_OutputPort(
           NATIVE_INT_TYPE portNum, //!< The port number
@@ -437,6 +451,12 @@ namespace M {
       // ----------------------------------------------------------------------
       // Connect serial input ports to typed output ports
       // ----------------------------------------------------------------------
+
+      //! Connect port to noArgsOut[portNum]
+      void set_noArgsOut_OutputPort(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Fw::InputSerializePort* port //!< The port
+      );
 
       //! Connect port to typedOut[portNum]
       void set_typedOut_OutputPort(
@@ -620,6 +640,16 @@ namespace M {
       // Getters for numbers of typed output ports
       // ----------------------------------------------------------------------
 
+      //! Get the number of noArgsOut output ports
+      //!
+      //! \return The number of noArgsOut output ports
+      NATIVE_INT_TYPE getNum_noArgsOut_OutputPorts() const;
+
+      //! Get the number of noArgsReturnOut output ports
+      //!
+      //! \return The number of noArgsReturnOut output ports
+      NATIVE_INT_TYPE getNum_noArgsReturnOut_OutputPorts() const;
+
       //! Get the number of typedOut output ports
       //!
       //! \return The number of typedOut output ports
@@ -701,6 +731,20 @@ namespace M {
       // ----------------------------------------------------------------------
       // Connection status queries for typed output ports
       // ----------------------------------------------------------------------
+
+      //! Check whether port noArgsOut is connected
+      //!
+      //! \return Whether port noArgsOut is connected
+      bool isConnected_noArgsOut_OutputPort(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Check whether port noArgsReturnOut is connected
+      //!
+      //! \return Whether port noArgsReturnOut is connected
+      bool isConnected_noArgsReturnOut_OutputPort(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
 
       //! Check whether port typedOut is connected
       //!
@@ -1040,6 +1084,16 @@ namespace M {
       // ----------------------------------------------------------------------
       // Invocation functions for typed output ports
       // ----------------------------------------------------------------------
+
+      //! Invoke output port noArgsOut
+      void noArgsOut_out(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Invoke output port noArgsReturnOut
+      U32 noArgsReturnOut_out(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
 
       //! Invoke output port typedOut
       void typedOut_out(
@@ -2126,6 +2180,12 @@ namespace M {
       // ----------------------------------------------------------------------
       // Typed output ports
       // ----------------------------------------------------------------------
+
+      //! Output port noArgsOut
+      Ports::OutputNoArgsPort m_noArgsOut_OutputPort[NUM_NOARGSOUT_OUTPUT_PORTS];
+
+      //! Output port noArgsReturnOut
+      Ports::OutputNoArgsReturnPort m_noArgsReturnOut_OutputPort[NUM_NOARGSRETURNOUT_OUTPUT_PORTS];
 
       //! Output port typedOut
       Ports::OutputTypedPort m_typedOut_OutputPort[NUM_TYPEDOUT_OUTPUT_PORTS];

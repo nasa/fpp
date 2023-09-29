@@ -410,6 +410,20 @@ class QueuedTestTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_noArgsOut[portNum]
+    Ports::InputNoArgsPort* get_from_noArgsOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_noArgsReturnOut[portNum]
+    Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -443,6 +457,16 @@ class QueuedTestTesterBase :
     // Handlers to implement for from ports
     // ----------------------------------------------------------------------
 
+    //! Handler for input port from_noArgsOut
+    virtual void from_noArgsOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port from_noArgsReturnOut
+    virtual U32 from_noArgsReturnOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -472,6 +496,16 @@ class QueuedTestTesterBase :
     // ----------------------------------------------------------------------
     // Handler base-class functions for from ports
     // ----------------------------------------------------------------------
+
+    //! Handler base-class function for from_noArgsOut
+    void from_noArgsOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for from_noArgsReturnOut
+    U32 from_noArgsReturnOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
@@ -744,6 +778,16 @@ class QueuedTestTesterBase :
     //! \return The number of from_tlmOut ports
     NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
+    //! Get the number of from_noArgsOut ports
+    //!
+    //! \return The number of from_noArgsOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+
+    //! Get the number of from_noArgsReturnOut ports
+    //!
+    //! \return The number of from_noArgsReturnOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
@@ -1007,7 +1051,7 @@ class QueuedTestTesterBase :
     //! Dispatch an event
     void dispatchEvents(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         Fw::LogBuffer& args //!< The serialized arguments
     );
@@ -1015,9 +1059,9 @@ class QueuedTestTesterBase :
 #if FW_ENABLE_TEXT_LOGGING
 
     //! Handle a text event
-    void textLogIn(
+    virtual void textLogIn(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         const Fw::TextLogString& text //!< The event string
     );
@@ -1067,73 +1111,73 @@ class QueuedTestTesterBase :
     //! Dispatch telemetry
     void dispatchTlm(
         FwChanIdType id, //!< The channel id
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         Fw::TlmBuffer& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::TlmString& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
     void tlmInput_ChannelEnum(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
     //! Handle channel ChannelArrayFreq
     void tlmInput_ChannelArrayFreq(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const A& val //!< The channel value
     );
 
     //! Handle channel ChannelStructFreq
     void tlmInput_ChannelStructFreq(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const S& val //!< The channel value
     );
 
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F32& val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const F64& val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const U32& val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange
     void tlmInput_ChannelEnumOnChange(
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const E& val //!< The channel value
     );
 
@@ -1259,7 +1303,7 @@ class QueuedTestTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        Fw::Time& timeTag //!< The time
+        const Fw::Time& timeTag //!< The time
     );
 
   protected:
@@ -1273,6 +1317,12 @@ class QueuedTestTesterBase :
 
     //! Clear from port history
     void clearFromPortHistory();
+
+    //! Push an entry on the history for from_noArgsOut
+    void pushFromPortEntry_noArgsOut();
+
+    //! Push an entry on the history for from_noArgsReturnOut
+    void pushFromPortEntry_noArgsReturnOut();
 
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
@@ -1393,6 +1443,18 @@ class QueuedTestTesterBase :
         Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
     );
 
+    //! Static function for port from_noArgsOut
+    static void from_noArgsOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Static function for port from_noArgsReturnOut
+    static U32 from_noArgsReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -1427,6 +1489,12 @@ class QueuedTestTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
+
+    //! The size of history for from_noArgsOut
+    U32 fromPortHistorySize_noArgsOut;
+
+    //! The size of history for from_noArgsReturnOut
+    U32 fromPortHistorySize_noArgsReturnOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -1585,6 +1653,12 @@ class QueuedTestTesterBase :
 
     //! From port connected to tlmOut
     Fw::InputTlmPort m_from_tlmOut[1];
+
+    //! From port connected to noArgsOut
+    Ports::InputNoArgsPort m_from_noArgsOut[1];
+
+    //! From port connected to noArgsReturnOut
+    Ports::InputNoArgsReturnPort m_from_noArgsReturnOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

@@ -475,6 +475,48 @@ void PassiveTestComponentBase ::
 #endif
   }
 
+  // Connect output port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
   // Connect output port typedOut
   for (
     PlatformIntType port = 0;
@@ -750,6 +792,34 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTestComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Ports::InputTypedPort* port
@@ -892,6 +962,20 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+}
 
 void PassiveTestComponentBase ::
   set_typedOut_OutputPort(
@@ -1346,6 +1430,18 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_noArgsOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_noArgsReturnOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
@@ -1456,6 +1552,28 @@ bool PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Connection status queries for typed output ports
 // ----------------------------------------------------------------------
+
+bool PassiveTestComponentBase ::
+  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveTestComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+}
 
 bool PassiveTestComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
@@ -1704,6 +1822,26 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  noArgsOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_noArgsOut_OutputPort[portNum].invoke();
+}
+
+U32 PassiveTestComponentBase ::
+  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
 
 void PassiveTestComponentBase ::
   typedOut_out(

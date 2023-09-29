@@ -307,6 +307,20 @@ class PassiveEventsTesterBase :
 
     //! Get from port at index
     //!
+    //! \return from_noArgsOut[portNum]
+    Ports::InputNoArgsPort* get_from_noArgsOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_noArgsReturnOut[portNum]
+    Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
         NATIVE_INT_TYPE portNum //!< The port number
@@ -340,6 +354,16 @@ class PassiveEventsTesterBase :
     // Handlers to implement for from ports
     // ----------------------------------------------------------------------
 
+    //! Handler for input port from_noArgsOut
+    virtual void from_noArgsOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
+    //! Handler for input port from_noArgsReturnOut
+    virtual U32 from_noArgsReturnOut_handler(
+        NATIVE_INT_TYPE portNum //!< The port number
+    ) = 0;
+
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -369,6 +393,16 @@ class PassiveEventsTesterBase :
     // ----------------------------------------------------------------------
     // Handler base-class functions for from ports
     // ----------------------------------------------------------------------
+
+    //! Handler base-class function for from_noArgsOut
+    void from_noArgsOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Handler base-class function for from_noArgsReturnOut
+    U32 from_noArgsReturnOut_handlerBase(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
 
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
@@ -563,6 +597,16 @@ class PassiveEventsTesterBase :
     //! \return The number of from_tlmOut ports
     NATIVE_INT_TYPE getNum_from_tlmOut() const;
 
+    //! Get the number of from_noArgsOut ports
+    //!
+    //! \return The number of from_noArgsOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+
+    //! Get the number of from_noArgsReturnOut ports
+    //!
+    //! \return The number of from_noArgsReturnOut ports
+    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
@@ -651,7 +695,7 @@ class PassiveEventsTesterBase :
     //! Dispatch an event
     void dispatchEvents(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         Fw::LogBuffer& args //!< The serialized arguments
     );
@@ -659,9 +703,9 @@ class PassiveEventsTesterBase :
 #if FW_ENABLE_TEXT_LOGGING
 
     //! Handle a text event
-    void textLogIn(
+    virtual void textLogIn(
         FwEventIdType id, //!< The event ID
-        Fw::Time& timeTag, //!< The time
+        const Fw::Time& timeTag, //!< The time
         const Fw::LogSeverity severity, //!< The severity
         const Fw::TextLogString& text //!< The event string
     );
@@ -710,7 +754,7 @@ class PassiveEventsTesterBase :
 
     //! Set the test time for events and telemetry
     void setTestTime(
-        Fw::Time& timeTag //!< The time
+        const Fw::Time& timeTag //!< The time
     );
 
   protected:
@@ -724,6 +768,12 @@ class PassiveEventsTesterBase :
 
     //! Clear from port history
     void clearFromPortHistory();
+
+    //! Push an entry on the history for from_noArgsOut
+    void pushFromPortEntry_noArgsOut();
+
+    //! Push an entry on the history for from_noArgsReturnOut
+    void pushFromPortEntry_noArgsReturnOut();
 
     //! Push an entry on the history for from_typedOut
     void pushFromPortEntry_typedOut(
@@ -800,6 +850,18 @@ class PassiveEventsTesterBase :
         Fw::Time& time //!< The time tag
     );
 
+    //! Static function for port from_noArgsOut
+    static void from_noArgsOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Static function for port from_noArgsReturnOut
+    static U32 from_noArgsReturnOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
@@ -834,6 +896,12 @@ class PassiveEventsTesterBase :
 
     //! The total number of port entries
     U32 fromPortHistorySize;
+
+    //! The size of history for from_noArgsOut
+    U32 fromPortHistorySize_noArgsOut;
+
+    //! The size of history for from_noArgsReturnOut
+    U32 fromPortHistorySize_noArgsReturnOut;
 
     //! The history for from_typedOut
     History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -938,6 +1006,12 @@ class PassiveEventsTesterBase :
 
     //! From port connected to tlmOut
     Fw::InputTlmPort m_from_tlmOut[1];
+
+    //! From port connected to noArgsOut
+    Ports::InputNoArgsPort m_from_noArgsOut[1];
+
+    //! From port connected to noArgsReturnOut
+    Ports::InputNoArgsReturnPort m_from_noArgsReturnOut[1];
 
     //! From port connected to typedOut
     Ports::InputTypedPort m_from_typedOut[1];

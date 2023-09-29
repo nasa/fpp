@@ -99,6 +99,58 @@ void QueuedEventsTesterBase ::
 #endif
   }
 
+  // Connect input port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    port++
+  ) {
+    this->m_from_noArgsOut[port].init();
+    this->m_from_noArgsOut[port].addCallComp(
+      this,
+      from_noArgsOut_static
+    );
+    this->m_from_noArgsOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsReturnOut[port].init();
+    this->m_from_noArgsReturnOut[port].addCallComp(
+      this,
+      from_noArgsReturnOut_static
+    );
+    this->m_from_noArgsReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsReturnOut[port].setObjName(portName);
+#endif
+  }
+
   // Connect input port typedOut
   for (
     PlatformIntType port = 0;
@@ -721,6 +773,28 @@ Fw::InputTlmPort* QueuedEventsTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
+Ports::InputNoArgsPort* QueuedEventsTesterBase ::
+  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsOut[portNum];
+}
+
+Ports::InputNoArgsReturnPort* QueuedEventsTesterBase ::
+  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsReturnOut[portNum];
+}
+
 Ports::InputTypedPort* QueuedEventsTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
@@ -793,6 +867,28 @@ QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 // Handler base-class functions for from ports
 // ----------------------------------------------------------------------
+
+void QueuedEventsTesterBase ::
+  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->from_noArgsOut_handler(portNum);
+}
+
+U32 QueuedEventsTesterBase ::
+  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsReturnOut_handler(portNum);
+}
 
 void QueuedEventsTesterBase ::
   from_typedOut_handlerBase(
@@ -1276,6 +1372,18 @@ NATIVE_INT_TYPE QueuedEventsTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_noArgsOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
+  getNum_from_noArgsReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedEventsTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1452,7 +1560,7 @@ bool QueuedEventsTesterBase ::
 void QueuedEventsTesterBase ::
   dispatchEvents(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       Fw::LogBuffer& args
   )
@@ -1764,7 +1872,7 @@ void QueuedEventsTesterBase ::
 void QueuedEventsTesterBase ::
   textLogIn(
       FwEventIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::LogSeverity severity,
       const Fw::TextLogString& text
   )
@@ -1854,7 +1962,7 @@ void QueuedEventsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedEventsTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }
@@ -1877,8 +1985,24 @@ void QueuedEventsTesterBase ::
   clearFromPortHistory()
 {
   this->fromPortHistorySize = 0;
+  this->fromPortHistorySize_noArgsOut = 0;
+  this->fromPortHistorySize_noArgsReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
+}
+
+void QueuedEventsTesterBase ::
+  pushFromPortEntry_noArgsOut()
+{
+  this->fromPortHistorySize_noArgsOut++;
+  this->fromPortHistorySize++;
+}
+
+void QueuedEventsTesterBase ::
+  pushFromPortEntry_noArgsReturnOut()
+{
+  this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
 }
 
 void QueuedEventsTesterBase ::
@@ -2049,6 +2173,28 @@ void QueuedEventsTesterBase ::
 {
   QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
   time = _testerBase->m_testTime;
+}
+
+void QueuedEventsTesterBase ::
+  from_noArgsOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  _testerBase->from_noArgsOut_handlerBase(portNum);
+}
+
+U32 QueuedEventsTesterBase ::
+  from_noArgsReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedEventsTesterBase* _testerBase = static_cast<QueuedEventsTesterBase*>(callComp);
+  return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
 }
 
 void QueuedEventsTesterBase ::
