@@ -10,4 +10,4 @@ echo "running the tests to generate the header files"
 ./run
 
 # Compile cpp files
-sh ../compile_cpp.sh "$@"
+../compile_base_cpp "$@"
