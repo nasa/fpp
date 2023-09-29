@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # ----------------------------------------------------------------------
-# Compile ref C++ files, to check them for validity
+# Compile ref C++ files with guards for conditional compilation
 #
 # By default, each file is compiled with three different sets of values of F
 # Prime guards: 
@@ -28,15 +28,16 @@ done
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
-warning_flags="
--Wno-gnu-zero-variadic-macro-arguments
--Wno-sign-conversion -Wno-vla-extension
--Wno-unused-parameter
--Wno-zero-length-array
-"
 
 ## Set compiler flags
 include_flags="-I../../../.. -I.."
+warning_flags="
+-Wno-gnu-zero-variadic-macro-arguments
+-Wno-sign-conversion
+-Wno-unused-parameter
+-Wno-vla-extension
+-Wno-zero-length-array
+"
 gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 
 # Find all guards used in generated component base class files
@@ -83,7 +84,7 @@ compile_cpp() {
   fi
 }
 
-# Comile cpp files
+# Compile cpp files
 for file in `find . -name '*.ref.cpp' | sort`
 do
   base=`basename $file .ref.cpp`

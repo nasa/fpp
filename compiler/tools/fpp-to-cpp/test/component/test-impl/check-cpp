@@ -48,7 +48,7 @@ do
   cp $file $base.hpp
 done
 
-# Comile cpp files
+# Compile cpp files
 for file in `find . -name '*.ref.cpp' | sort`
 do
   base=`basename $file .ref.cpp`
