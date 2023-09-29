@@ -10166,7 +10166,7 @@ to write flight software implementations.</p>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has two options for generating component "templates" or
+<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component "templates" or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -10260,7 +10260,8 @@ is not generated.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>With the <code>-a</code> option enabled, you don&#8217;t have to manage the
+<p>The <code>-a</code> option supports a feature of the F Prime CMake build system called
+<code>UT_AUTO_HELPERS</code>. With this feature enabled, you don&#8217;t have to manage the
 file <em>C</em> <code>TesterHelpers.cpp</code> as part of your unit test source files; the
 build system does it for you.</p>
 </div>
@@ -10367,6 +10368,7 @@ CTesterHelpers.cpp</pre>
 </div>
 <div class="paragraph">
 <p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
+Again the results correspond to running <code>fpp-to-cpp</code> with this option.
 For example:</p>
 </div>
 <div class="listingblock">
@@ -11727,7 +11729,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-29 16:46:13 -0700
+Last updated 2023-09-29 16:55:33 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

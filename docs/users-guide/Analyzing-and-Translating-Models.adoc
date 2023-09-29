@@ -590,7 +590,7 @@ to write flight software implementations.
 
 ==== Component Implementation and Unit Test Code
 
-`fpp-to-cpp` has two options for generating component "templates" or
+`fpp-to-cpp` has options `-t` and `-u` for generating component "templates" or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -660,7 +660,8 @@ is generated.
 * When you run `fpp-to-cpp -a -t -u`, the file _C_ `TesterHelpers.cpp`
 is not generated.
 
-With the `-a` option enabled, you don't have to manage the
+The `-a` option supports a feature of the F Prime CMake build system called
+`UT_AUTO_HELPERS`. With this feature enabled, you don't have to manage the
 file _C_ `TesterHelpers.cpp` as part of your unit test source files; the 
 build system does it for you.
 
@@ -755,6 +756,7 @@ CTesterHelpers.cpp
 ----
 
 You can also also run `fpp-filenames` with the `-a` option.
+Again the results correspond to running `fpp-to-cpp` with this option.
 For example:
 
 ----
