@@ -16,6 +16,16 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
+# Parse command line arguments
+all_flag=false
+for i in "$@"
+do
+  if [[ "$i" = "--all" ]]
+  then
+    all_flag=true
+  fi
+done
+
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
 warning_flags="
@@ -25,29 +35,9 @@ warning_flags="
 -Wno-zero-length-array
 "
 
-# Parse command line arguments
-all_flag=false
-test_flag=false
-for i in "$@"
-do
-  if [[ "$i" = "--all" ]]
-  then
-    all_flag=true
-  elif [[ "$i" = "--test" ]]
-  then
-    test_flag=true
-  fi
-done
-
-# Set compiler flags
+## Set compiler flags
 include_flags="-I../../../.. -I.."
-define_flags=""
-if [[ "$test_flag" = true ]]
-then
-  include_flags="-I../../../.. -I.. -I../impl -I$FPRIME/gtest/googletest-src/googletest/include"
-  define_flags="-DPROTECTED="public" -DPRIVATE="public" -DBUILD_UT=1"
-fi
-gcc_flags="$include_flags $define_flags $warning_flags"
+gcc_flags="$include_flags $warning_flags $LOCAL_CPP_FLAGS"
 
 # Find all guards used in generated component base class files
 guards=`grep '#if FW_' *.ref.hpp *.ref.cpp | cut -f 2 -d ' ' | sort -u | sed 's/^/-D/g'`
