@@ -94,7 +94,10 @@ move_test_template()
   do
     cp $file'Tester.'$suffix $file'Tester.ref.'$suffix
   done
-  cp $file'TesterHelpers.cpp' $file'TesterHelpers.ref.cpp'
+  if test -f $file'TesterHelpers.cpp'
+  then
+    cp $file'TesterHelpers.cpp' $file'TesterHelpers.ref.cpp'
+  fi
   cp $file'TestMain.cpp' $file'TestMain.ref.cpp'
 }
 
