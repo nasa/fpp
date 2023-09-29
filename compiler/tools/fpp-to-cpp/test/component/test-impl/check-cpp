@@ -40,17 +40,19 @@ do
   cp $file ../impl/$base.hpp
 done
 
-# Generate and compile tester base files
-for file in `find . -name '*Tester.ref.cpp'`
+# Generate header files
+echo "generating header files"
+for file in `ls *.ref.hpp`
 do
-  base=`basename $file Tester.ref.cpp`
-  cp ${base}Tester.ref.cpp ${base}Tester.cpp
-  cp ${base}Tester.ref.hpp ${base}Tester.hpp
-  cp ${base}TesterHelpers.ref.cpp ${base}TesterHelpers.cpp
-  cp ${base}TestMain.ref.cpp ${base}TestMain.cpp
+  base=`basename $file .ref.hpp`
+  cp $file $base.hpp
+done
 
-  files="${base}Tester.cpp ${base}TesterHelpers.cpp ${base}TestMain.cpp"
-  echo "compiling $files"
-
-  $fprime_gcc $include_flags -c $files $define_flags $warning_flags
+# Comile cpp files
+for file in `find . -name '*.ref.cpp' | sort`
+do
+  base=`basename $file .ref.cpp`
+  cp $file $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc $include_flags -c $define_flags $warning_flags $base.cpp
 done
