@@ -5,9 +5,4 @@ cd `dirname $0`
 echo "running the tests to generate the header files"
 ./run
 
-if [[ "$1" = "--all" ]]
-then
-  . ../compile_cpp.sh --all
-else
-  . ../compile_cpp.sh
-fi
+sh ../compile_cpp.sh "$@"

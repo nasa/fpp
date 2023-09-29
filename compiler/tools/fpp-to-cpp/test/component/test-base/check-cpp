@@ -20,9 +20,8 @@ echo "running the tests in ../base to generate the header files"
 (cd ../base; ./run)
 cp ../base/*Ac.hpp .
 
-if [[ "$1" = "--all" ]]
-then
-  . ../compile_cpp.sh --test --all
-else
-  . ../compile_cpp.sh --test
-fi
+echo "running the tests in ../test-impl to generate the header files"
+(cd ../test-impl; ./run)
+cp ../test-impl/*Tester.hpp .
+
+sh ../compile_cpp.sh --test "$@"

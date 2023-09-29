@@ -61,7 +61,6 @@ guards_off_serial_on=`echo $guards_off | sed 's/FW_PORT_SERIALIZATION=0/FW_PORT_
 compile_cpp() {
   files=$*
   hpp_files=`echo $files | sed 's/\.cpp/.hpp/g'`
-  echo "compiling $files"
 
   if [ "$all_flag" = true ]
   then
@@ -94,45 +93,21 @@ compile_cpp() {
   fi
 }
 
-compile_autocode()
-{
-  cpp_files=""
-  for file in `find . -name "*Ac.ref.cpp"`
-  do
-    base=`basename $file .ref.cpp`
-    cp $base.ref.hpp $base.hpp
-    cp $base.ref.cpp $base.cpp
-    cpp_files="$cpp_files $base.cpp"
-  done
-  for file in $cpp_files
-  do
-    compile_cpp $file
-  done
-}
-
-compile_test_code()
-{
-  for file in `find . -name '*TesterBase.ref.cpp'`
-  do
-    base=`basename $file TesterBase.ref.cpp`
-
-    cp ${base}TesterBase.ref.hpp ${base}TesterBase.hpp
-    cp ${base}TesterBase.ref.cpp ${base}TesterBase.cpp
-    cp ${base}GTestBase.ref.hpp ${base}GTestBase.hpp
-    cp ${base}GTestBase.ref.cpp ${base}GTestBase.cpp
-    files="${base}TesterBase.cpp ${base}GTestBase.cpp"
-
-    compile_cpp $files
-  done
-}
-
 # Generate framework C++ files
 ../../fprime/generate_cpp
 
-# Compile files
-if [[ "$test_flag" = false ]]
-then
-  compile_autocode
-else
-  compile_test_code
-fi
+# Generate header files
+echo "generating header files"
+for file in `ls *.ref.hpp`
+do
+  base=`basename $file .ref.hpp`
+  cp $file $base.hpp
+done
+
+# Comile cpp files
+for file in `find . -name '*.ref.cpp' | sort`
+do
+  base=`basename $file .ref.cpp`
+  cp $file $base.cpp
+  compile_cpp $file
+done
