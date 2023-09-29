@@ -779,16 +779,18 @@ Running one tool may help your build go faster.
 
 `fpp-depend` provides the following options:
 
+`-a`: Enable unit test auto helpers.
+
 `-g` _file_: Write the names of the generated autocode files
  to the file _file_.
 
-`-t` _file_: Write the names of the generated component implementation
-template files to _file_.
+`-u` _file_: Write the names of the unit test support code
+files to _file_.
 
 For example:
 
 ----
-% fpp-depend -g generated.txt
+% fpp-depend -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
@@ -799,35 +801,7 @@ AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
 CComponentAi.xml
-----
-
-----
-% fpp-depend -t template.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat template.txt
-C.template.cpp
-C.template.hpp
-----
-
-You can also specify these options together with the `-u` option.
-In this case `fpp-depend` writes the names of autocoded
-or template unit test files.
-For example:
-
-----
-% fpp-depend -u -g generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml
+% cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
 CTesterBase.cpp
@@ -835,16 +809,28 @@ CTesterBase.hpp
 ----
 
 ----
-% fpp-depend -u -t template.txt
+% fpp-depend -a -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
-% cat template.txt
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
 CTesterHelpers.cpp
 ----
+
+`fpp-depend` does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.
 
 === Translating XML to FPP
 

@@ -10396,51 +10396,22 @@ Running one tool may help your build go faster.</p>
 <p><code>fpp-depend</code> provides the following options:</p>
 </div>
 <div class="paragraph">
+<p><code>-a</code>: Enable unit test auto helpers.</p>
+</div>
+<div class="paragraph">
 <p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
  to the file <em>file</em>.</p>
 </div>
 <div class="paragraph">
-<p><code>-t</code> <em>file</em>: Write the names of the generated component implementation
-template files to <em>file</em>.</p>
+<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
+files to <em>file</em>.</p>
 </div>
 <div class="paragraph">
 <p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-depend -g generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -t template.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat template.txt
-C.template.cpp
-C.template.hpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also specify these options together with the <code>-u</code> option.
-In this case <code>fpp-depend</code> writes the names of autocoded
-or template unit test files.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -u -g generated.txt
+<pre>% fpp-depend -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
@@ -10451,6 +10422,7 @@ AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
 CComponentAi.xml
+% cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
 CTesterBase.cpp
@@ -10459,16 +10431,29 @@ CTesterBase.hpp</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-depend -u -t template.txt
+<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
-% cat template.txt
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
 CTesterHelpers.cpp</pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>fpp-depend</code> does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.</p>
 </div>
 </div>
 </div>
@@ -11742,7 +11727,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-29 16:23:42 -0700
+Last updated 2023-09-29 16:46:13 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
