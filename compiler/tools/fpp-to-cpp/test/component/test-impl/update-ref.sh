@@ -3,7 +3,9 @@ fprime_dir=`dirname $component_dir`/fprime
 
 empty()
 {
-  update "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../empty" empty
+  # Run the empty test in auto setup mode
+  # This tests auto setup
+  update "-a -u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../empty" empty
   move_test_template Empty
 }
 
