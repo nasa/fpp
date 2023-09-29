@@ -21,7 +21,7 @@ well-tailored to its purpose.
 In this document, we will call these languages the *target languages*.
 
 Developers may combine code generated from FPP with code written by hand to
-create, e.g., deployable FSW programs and ground data environments.
+create, e.g., deployable flight software (FSW) programs and ground data environments.
 
 The name "F Double Prime" (or F'') deliberately suggests the idea of a
 "derivative"
@@ -39,11 +39,12 @@ Specification_].
 We recommend that you read this document before consulting that one.
 
 *XML limitations:*
-Currently we translate FPP to F Prime XML and then to {cpp}.
+As of this writing, F Prime still uses an older XML format, e.g.,
+to support the Ground Data System (GDS).
 Some features of FPP are not supported in the XML representation.
 Where a feature is not supported in XML, we will call out this fact in a
 note marked *XML limitation*.
-As we continue to develop FPP, we will phase in support
+As we phase out the XML code generation, we will phase in support
 for all the features described here.
 
 *GDS limitations:*
