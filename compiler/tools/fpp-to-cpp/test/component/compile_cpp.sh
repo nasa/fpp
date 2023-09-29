@@ -93,17 +93,6 @@ compile_cpp() {
   fi
 }
 
-# Generate framework C++ files
-../../fprime/generate_cpp
-
-# Generate header files
-echo "generating header files"
-for file in `ls *.ref.hpp`
-do
-  base=`basename $file .ref.hpp`
-  cp $file $base.hpp
-done
-
 # Comile cpp files
 for file in `find . -name '*.ref.cpp' | sort`
 do

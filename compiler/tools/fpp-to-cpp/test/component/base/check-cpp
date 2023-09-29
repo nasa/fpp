@@ -2,6 +2,9 @@
 
 cd `dirname $0`
 
+# Generate framework C++ files
+../../fprime/generate_cpp
+
 echo "running the tests to generate the header files"
 ./run
 

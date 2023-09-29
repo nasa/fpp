@@ -16,6 +16,12 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
+# Generate framework C++ files
+../../fprime/generate_cpp
+
+echo "running the tests to generate the header files"
+./run
+
 echo "running the tests in ../base to generate the header files"
 (cd ../base; ./run)
 cp ../base/*Ac.hpp .
