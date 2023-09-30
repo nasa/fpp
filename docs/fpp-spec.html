@@ -1733,8 +1733,13 @@ or special port specifier, internal port specifier, or
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If there are any data product specifiers</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>product</code> <code>request</code>, <code>product</code> <code>recv</code>,
-<code>product</code> <code>send</code>, and <code>time</code> <code>get</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be a specifier for either port <code>product</code> <code>get</code> or
+port <code>product</code> <code>request</code>.
+There must be specifiers for ports <code>product</code> <code>send</code> and <code>time</code> <code>get</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there is a specifier for <code>product</code> <code>request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be a specifier for port <code>product</code> <code>recv</code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -1825,6 +1830,9 @@ active component CommandDispatcher {
 
   @ Time get port
   time get port timeGetOut
+
+  @ Product get port
+  product get port productGetOut
 
   @ Product request port
   product request port productRequestOut
@@ -4569,6 +4577,9 @@ of a
 <p><code>param</code> <code>set</code></p>
 </li>
 <li>
+<p><code>product</code> <code>get</code></p>
+</li>
+<li>
 <p><code>product</code> <code>recv</code></p>
 </li>
 <li>
@@ -4749,6 +4760,10 @@ These ports are defined by the F Prime framework.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>param</code> <code>set</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.PrmSet</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>get</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpGet</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>recv</code></p></td>
@@ -8486,7 +8501,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-20 09:18:56 -0700
+Last updated 2023-09-29 17:16:42 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

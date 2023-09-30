@@ -11,7 +11,7 @@ import scopt.OParser
 object FPPToCpp {
 
   case class Options(
-    autoTestSetup: Boolean = false,
+    autoTestHelpers: Boolean = false,
     dir: Option[String] = None,
     files: List[File] = Nil,
     imports: List[File] = Nil,
@@ -24,7 +24,7 @@ object FPPToCpp {
   )
 
   def command(options: Options) = {
-    val testSetupMode = CppWriter.getTestSetupMode(options.autoTestSetup)
+    val testHelperMode = CppWriter.getTestHelperMode(options.autoTestHelpers)
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
       case list => list
@@ -64,7 +64,7 @@ object FPPToCpp {
             ComputeAutocodeCppFiles.transUnit
           )
           s <- {
-            val computeTestCppFiles = ComputeTestCppFiles(testSetupMode)
+            val computeTestCppFiles = ComputeTestCppFiles(testHelperMode)
             computeTestCppFiles.visitList(
               s,
               tulFiles,
@@ -73,7 +73,7 @@ object FPPToCpp {
           }
         } yield s
         case CppWriter.UnitTestTemplate => 
-          val computeTestImplCppFiles = ComputeTestImplCppFiles(testSetupMode)
+          val computeTestImplCppFiles = ComputeTestImplCppFiles(testHelperMode)
           computeTestImplCppFiles.visitList(
             CppWriterState(a),
             tulFiles,
@@ -104,9 +104,9 @@ object FPPToCpp {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
           case CppWriter.UnitTest =>
-            TestCppWriter(testSetupMode).tuList(state, tulFiles)
+            TestCppWriter(testHelperMode).tuList(state, tulFiles)
           case CppWriter.UnitTestTemplate =>
-            TestImplCppWriter(testSetupMode).tuList(state, tulFiles)
+            TestImplCppWriter(testHelperMode).tuList(state, tulFiles)
         }
       }
     } yield ()
@@ -134,9 +134,9 @@ object FPPToCpp {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
-      opt[Unit]('a', "auto-test-setup")
-        .action((_, c) => c.copy(autoTestSetup = true))
-        .text("enable automatic generation of test setup code"),
+      opt[Unit]('a', "auto-test-helpers")
+        .action((_, c) => c.copy(autoTestHelpers = true))
+        .text("enable automatic generation of test helper code"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))

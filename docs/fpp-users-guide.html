@@ -731,7 +731,7 @@ In this document, we will call these languages the <strong>target languages</str
 </div>
 <div class="paragraph">
 <p>Developers may combine code generated from FPP with code written by hand to
-create, e.g., deployable FSW programs and ground data environments.</p>
+create, e.g., deployable flight software (FSW) programs and ground data environments.</p>
 </div>
 <div class="paragraph">
 <p>The name "F Double Prime" (or F'') deliberately suggests the idea of a
@@ -752,11 +752,12 @@ We recommend that you read this document before consulting that one.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML limitations:</strong>
-Currently we translate FPP to F Prime XML and then to C&#43;&#43;.
+As of this writing, F Prime still uses an older XML format, e.g.,
+to support the Ground Data System (GDS).
 Some features of FPP are not supported in the XML representation.
 Where a feature is not supported in XML, we will call out this fact in a
 note marked <strong>XML limitation</strong>.
-As we continue to develop FPP, we will phase in support
+As we phase out the XML code generation, we will phase in support
 for all the features described here.</p>
 </div>
 <div class="paragraph">
@@ -9518,19 +9519,7 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-XML">13.2. Generating XML</h3>
 <div class="paragraph">
-<p>There are two reasons for generating XML from FPP:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>It is needed to support the F Prime GDS.</p>
-</li>
-<li>
-<p>It is needed to support C&#43;&#43; code generation, until we fully
-replace the XML-to-C&#43;&#43; code generation with FPP-to-C&#43;&#43;
-code generation (see the next section).</p>
-</li>
-</ol>
+<p>This section describes how to generate XML from FPP.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
@@ -9828,8 +9817,98 @@ in this manual.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</h3>
 <div class="paragraph">
-<p>To date we have implemented all of the FPP to C&#43;&#43; translation
-except for the generation of component unit test harnesses.</p>
+<p>This section describes how to generate C&#43;&#43; from FPP.</p>
+</div>
+<div class="paragraph">
+<p><strong>C&#43;&#43; file names:</strong> The table <a href="#cpp-file-names">C&#43;&#43; File Names</a> shows how FPP definitions are
+translated to C&#43;&#43; files.</p>
+</div>
+<table id="cpp-file-names" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. C&#43;&#43; File Names</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">FPP Definition</th>
+<th class="tableblock halign-left valign-top">C&#43;&#43; Files</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Constants</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>FppConstantsAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A</em> <code>ArrayAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Array <em>A</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _A</em> <code>ArrayAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enum <em>E</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Port <em>P</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>P</em> <code>PortAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code>ComponentAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Topology <em>T</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>T</em> <code>TopologyAc.{hpp,cpp}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>For example, consider the FPP array definition</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">array A = [3] U32</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Outside of any component definition, this definition is translated to
+a C&#43;&#43; class with name <code>A</code> defined in a files <code>AArrayAc.hpp</code>
+and <code>AArray.cpp</code>.
+Inside the definition of component <code>C</code>, it is translated to
+a class with name <code>C_A</code> defined in the files <code>C_AArrayAc.hpp</code>
+and <code>C_AArray.cpp</code>.
+In either case the C&#43;&#43; namespace is given by the enclosing
+FPP modules, if any.
+For example, the following code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module M {
+
+  array A = [3] U32
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>generates an array class <code>M::A</code> in files <code>AArrayAc.hpp</code>
+and <code>AArrayAc.cpp</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool name:</strong> The tool for translating FPP to C&#43;&#43; is called
@@ -10079,16 +10158,15 @@ the include guard prefix comes from the name of the topology.</p>
 <div class="paragraph">
 <p>C&#43;&#43; code generation for types, ports, and components works similarly
 to the corresponding code generation from XML.
-This code generation is described
-in the <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
-Prime User&#8217;s Guide</a>.</p>
+The <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
+Prime User&#8217;s Guide</a> describes how to use this generated code
+to write flight software implementations.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">13.3.4. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has two more options <code>-t</code> and <code>-u</code>.
-These options are for generating component "templates" or
+<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component "templates" or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -10107,11 +10185,8 @@ implementation of <em>C</em>.</p>
 <div class="paragraph">
 <p><strong>Generating unit test harness code:</strong>
 When you run <code>fpp-to-cpp</code> with option <code>-u</code> and without option <code>-t</code>,
-it generates all the code necessary for building and running unit tests.
-This code consists of (1) the autocoded C&#43;&#43; for constants, ports,
-types, components, and
-topologies described in the previous sections; and (2)
-support code for testing each component definition <em>C</em> in the input.
+it generates support code for testing each component definition <em>C</em>
+in the input.
 The unit test support code resides in the following files:</p>
 </div>
 <div class="ulist">
@@ -10163,6 +10238,32 @@ testing, including a sample test.
 You can add your top-level test code to this file.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>Unit test auto helpers:</strong>
+When running <code>fpp-to-cpp</code> with the <code>-u</code> option, you can also specify the <code>-a</code>
+or <strong>unit test auto helpers</strong> option.
+This option moves the generation of the file <em>C</em> <code>TesterHelpers.cpp</code>
+from the unit test template code to the unit test harness code.
+Specifically:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you run <code>fpp-to-cpp -a -u</code>, the file <em>C</em> <code>TesterHelpers.cpp</code>
+is generated.</p>
+</li>
+<li>
+<p>When you run <code>fpp-to-cpp -a -t -u</code>, the file <em>C</em> <code>TesterHelpers.cpp</code>
+is not generated.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>-a</code> option supports a feature of the F Prime CMake build system called
+<code>UT_AUTO_HELPERS</code>. With this feature enabled, you don&#8217;t have to manage the
+file <em>C</em> <code>TesterHelpers.cpp</code> as part of your unit test source files; the
+build system does it for you.</p>
 </div>
 </div>
 </div>
@@ -10265,6 +10366,22 @@ CTester.hpp
 CTesterHelpers.cpp</pre>
 </div>
 </div>
+<div class="paragraph">
+<p>You can also also run <code>fpp-filenames</code> with the <code>-a</code> option.
+Again the results correspond to running <code>fpp-to-cpp</code> with this option.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-filenames -a -u -t
+array A = [3] U32
+passive component C {}
+^D
+CTestMain.cpp
+CTester.cpp
+CTester.hpp</pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Analyzing-and-Translating-Models_Identifying-Generated-Files_Using-fpp-depend">13.4.2. Using fpp-depend</h4>
@@ -10281,51 +10398,22 @@ Running one tool may help your build go faster.</p>
 <p><code>fpp-depend</code> provides the following options:</p>
 </div>
 <div class="paragraph">
+<p><code>-a</code>: Enable unit test auto helpers.</p>
+</div>
+<div class="paragraph">
 <p><code>-g</code> <em>file</em>: Write the names of the generated autocode files
  to the file <em>file</em>.</p>
 </div>
 <div class="paragraph">
-<p><code>-t</code> <em>file</em>: Write the names of the generated component implementation
-template files to <em>file</em>.</p>
+<p><code>-u</code> <em>file</em>: Write the names of the unit test support code
+files to <em>file</em>.</p>
 </div>
 <div class="paragraph">
 <p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-depend -g generated.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat generated.txt
-AArrayAc.cpp
-AArrayAc.hpp
-AArrayAi.xml
-CComponentAc.cpp
-CComponentAc.hpp
-CComponentAi.xml</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -t template.txt
-array A = [3] U32
-passive component C {}
-^D
-% cat template.txt
-C.template.cpp
-C.template.hpp</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You can also specify these options together with the <code>-u</code> option.
-In this case <code>fpp-depend</code> writes the names of autocoded
-or template unit test files.
-For example:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-depend -u -g generated.txt
+<pre>% fpp-depend -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
@@ -10336,6 +10424,7 @@ AArrayAi.xml
 CComponentAc.cpp
 CComponentAc.hpp
 CComponentAi.xml
+% cat ut-generated.txt
 CGTestBase.cpp
 CGTestBase.hpp
 CTesterBase.cpp
@@ -10344,16 +10433,29 @@ CTesterBase.hpp</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>% fpp-depend -u -t template.txt
+<pre>% fpp-depend -a -g generated.txt -u ut-generated.txt
 array A = [3] U32
 passive component C {}
 ^D
-% cat template.txt
-CTestMain.cpp
-CTester.cpp
-CTester.hpp
+% cat generated.txt
+AArrayAc.cpp
+AArrayAc.hpp
+AArrayAi.xml
+CComponentAc.cpp
+CComponentAc.hpp
+CComponentAi.xml
+% cat ut-generated.txt
+CGTestBase.cpp
+CGTestBase.hpp
+CTesterBase.cpp
+CTesterBase.hpp
 CTesterHelpers.cpp</pre>
 </div>
+</div>
+<div class="paragraph">
+<p><code>fpp-depend</code> does not have an option for writing out the names of
+implementation template files, since those file names are not
+needed during dependency analysis.</p>
 </div>
 </div>
 </div>
@@ -11629,7 +11731,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-09-20 09:20:08 -0700
+Last updated 2023-09-29 17:17:53 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
