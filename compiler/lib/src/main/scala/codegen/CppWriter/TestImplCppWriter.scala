@@ -16,16 +16,15 @@ case class TestImplCppWriter(testHelperMode: CppWriter.TestHelperMode)
     val node = aNode._2
     val data = node.data
     val implWriter = ComponentTestImplWriter(s, aNode)
+    val cppFileNameBases = testHelperMode match {
+      // If test helper mode is auto, then the test helpers are part of the autocode
+      case CppWriter.TestHelperMode.Auto => Nil
+      // Otherwise they are part of the implementation
+      case CppWriter.TestHelperMode.Manual => List(implWriter.helperFileName)
+    }
     for {
-      s <- CppWriter.writeCppDoc(s, implWriter.write)
-      s <- testHelperMode match {
-        // If test helper mode is auto, then the test helpers are part of the autocode
-        case CppWriter.TestHelperMode.Auto => Right(s)
-        // Otherwise they are part of the implementation
-        case CppWriter.TestHelperMode.Manual =>
-          CppWriter.writeCppFile(s, implWriter.write, Some(implWriter.helperFileName))
-      }
-      _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
+      s <- CppWriter.writeCppDoc(s, implWriter.write, cppFileNameBases)
+      s <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
     }
     yield s
   }
