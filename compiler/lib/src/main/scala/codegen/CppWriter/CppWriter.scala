@@ -44,17 +44,31 @@ object CppWriter extends LineUtils{
 
   def headerLine(s: String): Line = line(headerString(s))
 
+  /** Write the CppDoc.
+   *  Always write the hpp file and cppDoc.cppFileName.
+   *  If cppFileNameBases is non-Nil, then write those files as well. */
   def writeCppDoc(
     s: CppWriterState,
     cppDoc: CppDoc,
-    cppFileNameBaseOpt: Option[String] = None
-  ): Result.Result[CppWriterState] =
+    cppFileNameBases: List[String] = Nil
+  ): Result.Result[CppWriterState] = {
     for {
+      // Write the hpp file
       s <- writeHppFile(s, cppDoc)
-      s <- writeCppFile(s, cppDoc, cppFileNameBaseOpt)
+      // Write the default cpp file
+      s <- writeCppFile(s, cppDoc)
+      // Write the supplemental cpp files
+      s <- Result.foldLeft (cppFileNameBases) (s) (
+        { case (s, fileName) => writeCppFile(s, cppDoc, Some(fileName)) }
+      )
     }
     yield s
+  }
 
+  /** Writes a cpp file for the CppDoc. By default, the cpp file written is
+   *  cppDoc.cppFileName.
+   *  You can specify a different cpp file by setting cppFileNameBaseOpt to
+   *  a value other than None. */
   def writeCppFile(
     s: CppWriterState,
     cppDoc: CppDoc,
@@ -68,6 +82,7 @@ object CppWriter extends LineUtils{
     for (_ <- writeLinesToFile(s, cppFileName, lines)) yield s
   }
 
+  /** Writes the hpp file for the CppDoc. */
   def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
     for (_ <- writeLinesToFile(s, cppDoc.hppFile.name, lines)) yield s
@@ -80,7 +95,7 @@ object CppWriter extends LineUtils{
   ) = {
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
-    for (writer <- file.openWrite()) yield { 
+    for (writer <- file.openWrite()) yield {
       lines.map(Line.write(writer) _)
       writer.close()
     }
