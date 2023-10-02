@@ -2029,6 +2029,27 @@ namespace M {
           FwSizeType size //!< The buffer size
       );
 
+      //! Request a Container1 container
+      void dpRequest_Container1(
+          FwSizeType size //!< The buffer size (input)
+      ) {
+        return this->dpRequest(ContainerId::Container1, size);
+      }
+
+      //! Request a Container2 container
+      void dpRequest_Container2(
+          FwSizeType size //!< The buffer size (input)
+      ) {
+        return this->dpRequest(ContainerId::Container2, size);
+      }
+
+      //! Request a Container3 container
+      void dpRequest_Container3(
+          FwSizeType size //!< The buffer size (input)
+      ) {
+        return this->dpRequest(ContainerId::Container3, size);
+      }
+
       //! Send a data product
       void dpSend(
           DpContainer& container, //!< The data product container

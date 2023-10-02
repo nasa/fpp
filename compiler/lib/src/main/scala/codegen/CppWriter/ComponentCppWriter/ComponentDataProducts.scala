@@ -47,6 +47,7 @@ case class ComponentDataProducts (
         )
       )
     })
+    // TODO: Make this function private
     lazy val dpRequestById = functionClassMember(
       Some("Request a data product container"),
       "dpRequest",
@@ -71,6 +72,20 @@ case class ComponentDataProducts (
         )
       }
     )
+    lazy val dpRequestByName = containersByName.map((_, c) => {
+      val name = c.getName
+      linesClassMember(
+        lines(
+          s"""|
+              |//! Request a $name container
+              |void dpRequest_$name(
+              |    FwSizeType size //!< The buffer size (input)
+              |) {
+              |  return this->dpRequest(ContainerId::$name, size);
+              |}"""
+        )
+      )
+    })
     lazy val dpSendFunction = functionClassMember(
       Some("Send a data product"),
       "dpSend",
@@ -116,6 +131,7 @@ case class ComponentDataProducts (
       List.concat(
         guardedList (hasProductGetPort) (dpGetByName),
         guardedList (hasProductRequestPort) (List(dpRequestById)),
+        guardedList (hasProductRequestPort) (dpRequestByName),
         guardedList (hasDataProducts) (List(dpSendFunction))
       )
     )
