@@ -18,6 +18,8 @@
 
 export LOCAL_CPP_FLAGS="
 -I../impl
+-I../test-base
+-I../test-impl
 -I$FPRIME/gtest/googletest-src/googletest/include
 -DPROTECTED=public
 -DPRIVATE=public
@@ -36,11 +38,12 @@ echo "running the tests in ../base to generate the header files"
 (cd ../base; ./run)
 cp ../base/*Ac.hpp .
 
-# Generate the test impl header files
+# Generate impl and test impl headers
 # This step is needed to support auto test setup
-echo "running the tests in ../test-impl to generate the header files"
-(cd ../test-impl; ./run)
-cp ../test-impl/*Tester.hpp .
+for dir in impl test-impl
+do
+  (cd ../$dir; ../gen_ref_headers)
+done
 
 # Compile cpp files
 ../compile_base_cpp --test "$@"

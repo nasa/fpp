@@ -1,0 +1,9 @@
+#!/bin/sh -e
+
+echo "generating ref headers in `basename $PWD`"
+
+for file in `ls *.ref.hpp`
+do
+  base=`basename $file .ref.hpp | sed 's/\.template//'`
+  cp $file $base.hpp
+done
