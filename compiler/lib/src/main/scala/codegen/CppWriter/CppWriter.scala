@@ -59,7 +59,7 @@ object CppWriter extends LineUtils{
       s <- writeCppFile(s, cppDoc)
       // Write the supplemental cpp files
       s <- Result.foldLeft (cppFileNameBases) (s) (
-        { case (s, fileName) => writeCppFile(s, cppDoc, Some(fileName)) }
+        (s, fileName) => writeCppFile(s, cppDoc, Some(fileName))
       )
     }
     yield s
