@@ -2734,6 +2734,33 @@ Fw::Success::T QueuedGetProductsComponentBase ::
   return status;
 }
 
+Fw::Success::T QueuedGetProductsComponentBase ::
+  dpGet_Container1(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container1, size, container);
+}
+
+Fw::Success::T QueuedGetProductsComponentBase ::
+  dpGet_Container2(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container2, size, container);
+}
+
+Fw::Success::T QueuedGetProductsComponentBase ::
+  dpGet_Container3(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container3, size, container);
+}
+
 void QueuedGetProductsComponentBase ::
   dpSend(
       DpContainer& container,

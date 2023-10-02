@@ -1223,6 +1223,27 @@ class QueuedGetProductsComponentBase :
         DpContainer& container //!< The container (output)
     );
 
+    //! Get a buffer and use it to initialize container Container1
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_Container1(
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    );
+
+    //! Get a buffer and use it to initialize container Container2
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_Container2(
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    );
+
+    //! Get a buffer and use it to initialize container Container3
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_Container3(
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    );
+
     //! Send a data product
     void dpSend(
         DpContainer& container, //!< The data product container

@@ -31,7 +31,7 @@ case class ComponentDataProducts (
     )
 
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = {
-    lazy val dpGetFunction = functionClassMember(
+    lazy val dpGetById = functionClassMember(
       Some(raw"""|Get a buffer and use it to initialize a data product container
                  |\return The status of the buffer request"""),
       "dpGet",
@@ -67,7 +67,29 @@ case class ComponentDataProducts (
                   |return status;""")
       }
     )
-    lazy val dpRequestFunction = functionClassMember(
+    lazy val dpGetByName = containersByName.map((_, c) => {
+      val name = c.getName
+      functionClassMember(
+        Some(s"""|Get a buffer and use it to initialize container $name
+                 |\\return The status of the buffer request"""),
+        s"dpGet_$name",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("FwSizeType"),
+            "size",
+            Some("The buffer size (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("DpContainer&"),
+            "container",
+            Some("The container (output)")
+          )
+        ),
+        CppDoc.Type("Fw::Success::T"),
+        lines(s"return this->dpGet(ContainerId::$name, size, container);")
+      )
+    })
+    lazy val dpRequestById = functionClassMember(
       Some("Request a data product container"),
       "dpRequest",
       List(
@@ -134,8 +156,8 @@ case class ComponentDataProducts (
       "PROTECTED",
       "Functions for managing data products",
       List.concat(
-        guardedList (hasProductGetPort) (List(dpGetFunction)),
-        guardedList (hasProductRequestPort) (List(dpRequestFunction)),
+        guardedList (hasProductGetPort) (dpGetById :: dpGetByName),
+        guardedList (hasProductRequestPort) (List(dpRequestById)),
         guardedList (hasDataProducts) (List(dpSendFunction))
       )
     )

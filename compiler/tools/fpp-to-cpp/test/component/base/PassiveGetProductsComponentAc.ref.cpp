@@ -1947,6 +1947,33 @@ Fw::Success::T PassiveGetProductsComponentBase ::
   return status;
 }
 
+Fw::Success::T PassiveGetProductsComponentBase ::
+  dpGet_Container1(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container1, size, container);
+}
+
+Fw::Success::T PassiveGetProductsComponentBase ::
+  dpGet_Container2(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container2, size, container);
+}
+
+Fw::Success::T PassiveGetProductsComponentBase ::
+  dpGet_Container3(
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  return this->dpGet(ContainerId::Container3, size, container);
+}
+
 void PassiveGetProductsComponentBase ::
   dpSend(
       DpContainer& container,
