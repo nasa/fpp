@@ -1929,25 +1929,6 @@ F32 PassiveGetProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Success::T PassiveGetProductsComponentBase ::
-  dpGet(
-      ContainerId::T containerId,
-      FwSizeType size,
-      DpContainer& container
-  )
-{
-  const FwDpIdType baseId = this->getIdBase();
-  const FwDpIdType globalId = baseId + containerId;
-  Fw::Buffer buffer;
-  const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
-  if (status == Fw::Success::SUCCESS) {
-    container.setId(globalId);
-    container.setBuffer(buffer);
-    container.setBaseId(baseId);
-  }
-  return status;
-}
-
-Fw::Success::T PassiveGetProductsComponentBase ::
   dpGet_Container1(
       FwSizeType size,
       DpContainer& container
@@ -2231,6 +2212,25 @@ void PassiveGetProductsComponentBase ::
 // ----------------------------------------------------------------------
 // Private data product handling functions
 // ----------------------------------------------------------------------
+
+Fw::Success::T PassiveGetProductsComponentBase ::
+  dpGet(
+      ContainerId::T containerId,
+      FwSizeType size,
+      DpContainer& container
+  )
+{
+  const FwDpIdType baseId = this->getIdBase();
+  const FwDpIdType globalId = baseId + containerId;
+  Fw::Buffer buffer;
+  const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
+  if (status == Fw::Success::SUCCESS) {
+    container.setId(globalId);
+    container.setBuffer(buffer);
+    container.setBaseId(baseId);
+  }
+  return status;
+}
 
 void PassiveGetProductsComponentBase ::
   productRecvIn_handler(

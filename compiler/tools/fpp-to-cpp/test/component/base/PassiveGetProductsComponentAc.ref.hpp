@@ -980,14 +980,6 @@ class PassiveGetProductsComponentBase :
     // Functions for managing data products
     // ----------------------------------------------------------------------
 
-    //! Get a buffer and use it to initialize a data product container
-    //! \return The status of the buffer request
-    Fw::Success::T dpGet(
-        ContainerId::T containerId, //!< The component-local container id (input)
-        FwSizeType size, //!< The buffer size (input)
-        DpContainer& container //!< The container (output)
-    );
-
     //! Get a buffer and use it to initialize container Container1
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container1(
@@ -1176,6 +1168,14 @@ class PassiveGetProductsComponentBase :
     // ----------------------------------------------------------------------
     // Private data product handling functions
     // ----------------------------------------------------------------------
+
+    //! Get a buffer and use it to initialize a data product container
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet(
+        ContainerId::T containerId, //!< The component-local container id (input)
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    );
 
     //! Handler implementation for productRecvIn
     void productRecvIn_handler(
