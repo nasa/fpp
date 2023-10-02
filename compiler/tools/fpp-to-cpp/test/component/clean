@@ -1,5 +1,7 @@
 #!/bin/sh -e
 
+cd `dirname $0`
+
 . ../../../../scripts/utils.sh
 
 for target in `find . -mindepth 2 -maxdepth 2 -name clean`
