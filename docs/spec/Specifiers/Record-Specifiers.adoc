@@ -8,30 +8,27 @@ A record is a unit of data that is stored in a
 ==== Syntax
 
 `product` `record` <<Lexical-Elements_Identifiers,_identifier_>>
-`:` _record-type_
+`:` <<Type-Names,_type-name_>>
+_[_
+`array`
+_]_
 _[_
 `id` <<Expressions,_expression_>>
 _]_
-
-_record-type_ is one of the following:
-
-. <<Type-Names,_type-name_>>
-
-. `raw`
 
 ==== Semantics
 
 . The identifier names the record.
 
-. _record-type_ name specifies the type of the data stored in the record.
+. The type name _T_ following the identifier specifies the type of the data stored
+in the record.
 
-.. If the type is a type name _T_, then the record stores one
-element of type _T_.
+.. If the keyword `array` appears after the type name, then the record stores
+a variable number of elements of type _T_.
+In this case the record consists of a size _s_ followed by a data payload
+consisting of _s_ elements of type _T_.
 
-.. If the type is `raw`, then the record is a raw or uninterpreted
-record.
-A raw record consists of a size _s_ and a data payload
-consisting of _s_ bytes.
+.. Otherwise the record stores a single value of type _T_.
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the record.
@@ -50,14 +47,14 @@ component) or the previous record identifier plus one.
 @ An array of 3 F64 values
 array F64x3 = [3] F64
 
-@ Record 0
+@ Record 0: A variable number of F32 values
 @ Implied id is 0x00
-product record Record0: raw
+product record Record0: F32 array
 
-@ Record 1
+@ Record 1: A single U32 value
 product record Record1: U32 id 0x02
 
-@ Record 2
+@ Record 2: A single F64x3 value
 @ Implied id is 0x03
 product record Record2: F64x3
 ----
