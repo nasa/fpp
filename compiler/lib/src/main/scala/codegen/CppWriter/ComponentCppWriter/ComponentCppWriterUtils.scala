@@ -203,6 +203,10 @@ abstract class ComponentCppWriterUtils(
   val productSendPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ProductSend)
 
+  /** Data product receive port */
+  val productRecvPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv)
+
   /** Event port */
   val eventPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Event)

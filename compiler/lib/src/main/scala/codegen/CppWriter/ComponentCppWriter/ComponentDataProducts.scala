@@ -164,9 +164,9 @@ case class ComponentDataProducts (
   }
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
-    def code(portInstance: PortInstance) = {
+    def getDpRecvHandler(portInstance: PortInstance) = {
       val portName = portInstance.getUnqualifiedName
-      val handlerFunction = functionClassMember(
+      functionClassMember(
         Some(s"Handler implementation for ${portName}"),
         s"${portName}_handler",
         List(
@@ -224,14 +224,12 @@ case class ComponentDataProducts (
           )
         )
       )
-      addAccessTagAndComment(
-        "PRIVATE",
-        "Private data product handling functions",
-        List(handlerFunction)
-      )
     }
-    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv).
-      map(code).getOrElse(Nil)
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Private data product handling functions",
+      productRecvPort.map(getDpRecvHandler).map(List(_)).getOrElse(Nil)
+    )
   }
 
   private def getContainerIds = containersById match {
