@@ -49,7 +49,7 @@ case class ComponentTestImplWriter(
   }
 
   private def getCppIncludes: List[CppDoc.Member] = {
-    val header = s"${s.getRelativePath(fileName).toString}.hpp"
+    val header = s"${fileName}.hpp"
     val headerLines = addBlankPrefix(lines(CppWriter.headerString(header)))
     List(
       linesMember(
