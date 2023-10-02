@@ -1947,16 +1947,6 @@ F32 PassiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveGuardedProductsComponentBase ::
-  dpRequest(
-      ContainerId::T containerId,
-      FwSizeType size
-  )
-{
-  const FwDpIdType globalId = this->getIdBase() + containerId;
-  this->productRequestOut_out(0, globalId, size);
-}
-
-void PassiveGuardedProductsComponentBase ::
   dpSend(
       DpContainer& container,
       Fw::Time timeTag
@@ -2213,6 +2203,16 @@ void PassiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 // Private data product handling functions
 // ----------------------------------------------------------------------
+
+void PassiveGuardedProductsComponentBase ::
+  dpRequest(
+      ContainerId::T containerId,
+      FwSizeType size
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  this->productRequestOut_out(0, globalId, size);
+}
 
 void PassiveGuardedProductsComponentBase ::
   productRecvIn_handler(

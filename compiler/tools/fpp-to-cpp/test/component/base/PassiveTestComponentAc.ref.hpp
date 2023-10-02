@@ -1579,12 +1579,6 @@ class PassiveTestComponentBase :
     // Functions for managing data products
     // ----------------------------------------------------------------------
 
-    //! Request a data product container
-    void dpRequest(
-        ContainerId::T containerId, //!< The component-local container id
-        FwSizeType size //!< The buffer size
-    );
-
     //! Request a Container1 container
     void dpRequest_Container1(
         FwSizeType size //!< The buffer size (input)
@@ -1857,6 +1851,12 @@ class PassiveTestComponentBase :
     // ----------------------------------------------------------------------
     // Private data product handling functions
     // ----------------------------------------------------------------------
+
+    //! Request a data product container
+    void dpRequest(
+        ContainerId::T containerId, //!< The component-local container id
+        FwSizeType size //!< The buffer size
+    );
 
     //! Handler implementation for productRecvIn
     void productRecvIn_handler(

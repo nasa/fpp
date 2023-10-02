@@ -5567,16 +5567,6 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
-    dpRequest(
-        ContainerId::T containerId,
-        FwSizeType size
-    )
-  {
-    const FwDpIdType globalId = this->getIdBase() + containerId;
-    this->productRequestOut_out(0, globalId, size);
-  }
-
-  void ActiveTestComponentBase ::
     dpSend(
         DpContainer& container,
         Fw::Time timeTag
@@ -7360,6 +7350,16 @@ namespace M {
   // ----------------------------------------------------------------------
   // Private data product handling functions
   // ----------------------------------------------------------------------
+
+  void ActiveTestComponentBase ::
+    dpRequest(
+        ContainerId::T containerId,
+        FwSizeType size
+    )
+  {
+    const FwDpIdType globalId = this->getIdBase() + containerId;
+    this->productRequestOut_out(0, globalId, size);
+  }
 
   void ActiveTestComponentBase ::
     productRecvIn_handler(

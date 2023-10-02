@@ -5565,16 +5565,6 @@ S QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestComponentBase ::
-  dpRequest(
-      ContainerId::T containerId,
-      FwSizeType size
-  )
-{
-  const FwDpIdType globalId = this->getIdBase() + containerId;
-  this->productRequestOut_out(0, globalId, size);
-}
-
-void QueuedTestComponentBase ::
   dpSend(
       DpContainer& container,
       Fw::Time timeTag
@@ -7363,6 +7353,16 @@ Fw::CmdResponse QueuedTestComponentBase ::
 // ----------------------------------------------------------------------
 // Private data product handling functions
 // ----------------------------------------------------------------------
+
+void QueuedTestComponentBase ::
+  dpRequest(
+      ContainerId::T containerId,
+      FwSizeType size
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  this->productRequestOut_out(0, globalId, size);
+}
 
 void QueuedTestComponentBase ::
   productRecvIn_handler(

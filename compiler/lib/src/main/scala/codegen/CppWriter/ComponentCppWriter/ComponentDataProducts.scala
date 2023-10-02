@@ -47,31 +47,6 @@ case class ComponentDataProducts (
         )
       )
     })
-    // TODO: Make this function private
-    lazy val dpRequestById = functionClassMember(
-      Some("Request a data product container"),
-      "dpRequest",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("ContainerId::T"),
-          "containerId",
-          Some("The component-local container id")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The buffer size")
-        )
-      ),
-      CppDoc.Type("void"),
-      {
-        val invokeProductRequest = outputPortInvokerName(productRequestPort.get)
-        lines(
-          s"""|const FwDpIdType globalId = this->getIdBase() + containerId;
-              |this->$invokeProductRequest(0, globalId, size);"""
-        )
-      }
-    )
     lazy val dpRequestByName = containersByName.map((_, c) => {
       val name = c.getName
       linesClassMember(
@@ -130,7 +105,6 @@ case class ComponentDataProducts (
       "Functions for managing data products",
       List.concat(
         guardedList (hasProductGetPort) (dpGetByName),
-        guardedList (hasProductRequestPort) (List(dpRequestById)),
         guardedList (hasProductRequestPort) (dpRequestByName),
         guardedList (hasDataProducts) (List(dpSendFunction))
       )
@@ -138,7 +112,7 @@ case class ComponentDataProducts (
   }
 
   def getPrivateDpFunctionMembers: List[CppDoc.Class.Member] = {
-    lazy val dpGetById = functionClassMember(
+    lazy val dpGet = functionClassMember(
       Some(raw"""|Get a buffer and use it to initialize a data product container
                  |\return The status of the buffer request"""),
       "dpGet",
@@ -172,6 +146,30 @@ case class ComponentDataProducts (
                   |  container.setBaseId(baseId);
                   |}
                   |return status;""")
+      }
+    )
+    lazy val dpRequest = functionClassMember(
+      Some("Request a data product container"),
+      "dpRequest",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("ContainerId::T"),
+          "containerId",
+          Some("The component-local container id")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwSizeType"),
+          "size",
+          Some("The buffer size")
+        )
+      ),
+      CppDoc.Type("void"),
+      {
+        val invokeProductRequest = outputPortInvokerName(productRequestPort.get)
+        lines(
+          s"""|const FwDpIdType globalId = this->getIdBase() + containerId;
+              |this->$invokeProductRequest(0, globalId, size);"""
+        )
       }
     )
     def getDpRecvHandler(portInstance: PortInstance) = {
@@ -239,7 +237,8 @@ case class ComponentDataProducts (
       "PRIVATE",
       "Private data product handling functions",
       List.concat(
-        guardedList (hasProductGetPort) (List(dpGetById)),
+        guardedList (hasProductGetPort) (List(dpGet)),
+        guardedList (hasProductRequestPort) (List(dpRequest)),
         productRecvPort.map(getDpRecvHandler).map(List(_)).getOrElse(Nil)
       )
     )

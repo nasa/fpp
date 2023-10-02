@@ -4065,16 +4065,6 @@ S PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
-  dpRequest(
-      ContainerId::T containerId,
-      FwSizeType size
-  )
-{
-  const FwDpIdType globalId = this->getIdBase() + containerId;
-  this->productRequestOut_out(0, globalId, size);
-}
-
-void PassiveTestComponentBase ::
   dpSend(
       DpContainer& container,
       Fw::Time timeTag
@@ -4865,6 +4855,16 @@ Fw::CmdResponse PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Private data product handling functions
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  dpRequest(
+      ContainerId::T containerId,
+      FwSizeType size
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  this->productRequestOut_out(0, globalId, size);
+}
 
 void PassiveTestComponentBase ::
   productRecvIn_handler(
