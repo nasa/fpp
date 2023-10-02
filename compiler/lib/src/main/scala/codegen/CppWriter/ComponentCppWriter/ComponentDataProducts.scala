@@ -34,7 +34,7 @@ case class ComponentDataProducts (
     lazy val dpGetFunction = functionClassMember(
       Some(raw"""|Get a buffer and use it to initialize a data product container
                  |\return The status of the buffer request"""),
-      "Dp_Get",
+      "dpGet",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("ContainerId::T"),
@@ -69,7 +69,7 @@ case class ComponentDataProducts (
     )
     lazy val dpRequestFunction = functionClassMember(
       Some("Request a data product container"),
-      "Dp_Request",
+      "dpRequest",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("ContainerId::T"),
@@ -93,7 +93,7 @@ case class ComponentDataProducts (
     )
     lazy val dpSendFunction = functionClassMember(
       Some("Send a data product"),
-      "Dp_Send",
+      "dpSend",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
@@ -189,7 +189,7 @@ case class ComponentDataProducts (
                       |  // Set the priority
                       |  container.setPriority(ContainerPriority::$name);
                       |  // Call the handler
-                      |  this->Dp_Recv_${name}_handler(container, status.e);
+                      |  this->dpRecv_${name}_handler(container, status.e);
                       |  break;"""
                 )
               }),

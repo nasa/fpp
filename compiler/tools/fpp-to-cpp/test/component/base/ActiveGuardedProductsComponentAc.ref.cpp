@@ -2734,7 +2734,7 @@ F32 ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveGuardedProductsComponentBase ::
-  Dp_Request(
+  dpRequest(
       ContainerId::T containerId,
       FwSizeType size
   )
@@ -2744,7 +2744,7 @@ void ActiveGuardedProductsComponentBase ::
 }
 
 void ActiveGuardedProductsComponentBase ::
-  Dp_Send(
+  dpSend(
       DpContainer& container,
       Fw::Time timeTag
   )
@@ -3486,19 +3486,19 @@ void ActiveGuardedProductsComponentBase ::
       // Set the priority
       container.setPriority(ContainerPriority::Container1);
       // Call the handler
-      this->Dp_Recv_Container1_handler(container, status.e);
+      this->dpRecv_Container1_handler(container, status.e);
       break;
     case ContainerId::Container2:
       // Set the priority
       container.setPriority(ContainerPriority::Container2);
       // Call the handler
-      this->Dp_Recv_Container2_handler(container, status.e);
+      this->dpRecv_Container2_handler(container, status.e);
       break;
     case ContainerId::Container3:
       // Set the priority
       container.setPriority(ContainerPriority::Container3);
       // Call the handler
-      this->Dp_Recv_Container3_handler(container, status.e);
+      this->dpRecv_Container3_handler(container, status.e);
       break;
     default:
       FW_ASSERT(0);

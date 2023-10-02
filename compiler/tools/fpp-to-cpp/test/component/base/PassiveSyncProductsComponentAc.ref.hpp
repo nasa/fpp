@@ -986,13 +986,13 @@ class PassiveSyncProductsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Request a data product container
-    void Dp_Request(
+    void dpRequest(
         ContainerId::T containerId, //!< The component-local container id
         FwSizeType size //!< The buffer size
     );
 
     //! Send a data product
-    void Dp_Send(
+    void dpSend(
         DpContainer& container, //!< The data product container
         Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
     );
@@ -1004,19 +1004,19 @@ class PassiveSyncProductsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Receive a container of type Container1
-    virtual void Dp_Recv_Container1_handler(
+    virtual void dpRecv_Container1_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;
 
     //! Receive a container of type Container2
-    virtual void Dp_Recv_Container2_handler(
+    virtual void dpRecv_Container2_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;
 
     //! Receive a container of type Container3
-    virtual void Dp_Recv_Container3_handler(
+    virtual void dpRecv_Container3_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;

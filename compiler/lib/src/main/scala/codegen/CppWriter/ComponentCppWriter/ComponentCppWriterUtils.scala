@@ -731,7 +731,7 @@ abstract class ComponentCppWriterUtils(
   def getDpRecvHandler(name: String, body: List[Line] = Nil) =
     functionClassMember(
       Some(s"Receive a container of type $name"),
-      s"Dp_Recv_${name}_handler",
+      s"dpRecv_${name}_handler",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),

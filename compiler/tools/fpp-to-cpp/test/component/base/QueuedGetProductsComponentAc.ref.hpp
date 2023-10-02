@@ -1217,14 +1217,14 @@ class QueuedGetProductsComponentBase :
 
     //! Get a buffer and use it to initialize a data product container
     //! \return The status of the buffer request
-    Fw::Success::T Dp_Get(
+    Fw::Success::T dpGet(
         ContainerId::T containerId, //!< The component-local container id (input)
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
     );
 
     //! Send a data product
-    void Dp_Send(
+    void dpSend(
         DpContainer& container, //!< The data product container
         Fw::Time timeTag = Fw::ZERO_TIME //!< The time tag
     );
@@ -1236,19 +1236,19 @@ class QueuedGetProductsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Receive a container of type Container1
-    virtual void Dp_Recv_Container1_handler(
+    virtual void dpRecv_Container1_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;
 
     //! Receive a container of type Container2
-    virtual void Dp_Recv_Container2_handler(
+    virtual void dpRecv_Container2_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;
 
     //! Receive a container of type Container3
-    virtual void Dp_Recv_Container3_handler(
+    virtual void dpRecv_Container3_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;

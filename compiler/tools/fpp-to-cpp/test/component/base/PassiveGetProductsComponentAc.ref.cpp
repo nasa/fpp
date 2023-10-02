@@ -1929,7 +1929,7 @@ F32 PassiveGetProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::Success::T PassiveGetProductsComponentBase ::
-  Dp_Get(
+  dpGet(
       ContainerId::T containerId,
       FwSizeType size,
       DpContainer& container
@@ -1948,7 +1948,7 @@ Fw::Success::T PassiveGetProductsComponentBase ::
 }
 
 void PassiveGetProductsComponentBase ::
-  Dp_Send(
+  dpSend(
       DpContainer& container,
       Fw::Time timeTag
   )
@@ -2224,19 +2224,19 @@ void PassiveGetProductsComponentBase ::
       // Set the priority
       container.setPriority(ContainerPriority::Container1);
       // Call the handler
-      this->Dp_Recv_Container1_handler(container, status.e);
+      this->dpRecv_Container1_handler(container, status.e);
       break;
     case ContainerId::Container2:
       // Set the priority
       container.setPriority(ContainerPriority::Container2);
       // Call the handler
-      this->Dp_Recv_Container2_handler(container, status.e);
+      this->dpRecv_Container2_handler(container, status.e);
       break;
     case ContainerId::Container3:
       // Set the priority
       container.setPriority(ContainerPriority::Container3);
       // Call the handler
-      this->Dp_Recv_Container3_handler(container, status.e);
+      this->dpRecv_Container3_handler(container, status.e);
       break;
     default:
       FW_ASSERT(0);

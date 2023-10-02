@@ -187,19 +187,19 @@ class ActiveGetProducts :
     // ----------------------------------------------------------------------
 
     //! Receive a container of type Container1
-    void Dp_Recv_Container1_handler(
+    void dpRecv_Container1_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) override;
 
     //! Receive a container of type Container2
-    void Dp_Recv_Container2_handler(
+    void dpRecv_Container2_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) override;
 
     //! Receive a container of type Container3
-    void Dp_Recv_Container3_handler(
+    void dpRecv_Container3_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) override;

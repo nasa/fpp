@@ -424,7 +424,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTest ::
-    Dp_Recv_Container1_handler(
+    dpRecv_Container1_handler(
         DpContainer& container,
         Fw::Success::T status
     )
@@ -433,7 +433,7 @@ namespace M {
   }
 
   void ActiveTest ::
-    Dp_Recv_Container2_handler(
+    dpRecv_Container2_handler(
         DpContainer& container,
         Fw::Success::T status
     )
@@ -442,7 +442,7 @@ namespace M {
   }
 
   void ActiveTest ::
-    Dp_Recv_Container3_handler(
+    dpRecv_Container3_handler(
         DpContainer& container,
         Fw::Success::T status
     )
