@@ -2715,33 +2715,6 @@ F32 ActiveGetProductsComponentBase ::
 // Functions for managing data products
 // ----------------------------------------------------------------------
 
-Fw::Success::T ActiveGetProductsComponentBase ::
-  dpGet_Container1(
-      FwSizeType size,
-      DpContainer& container
-  )
-{
-  return this->dpGet(ContainerId::Container1, size, container);
-}
-
-Fw::Success::T ActiveGetProductsComponentBase ::
-  dpGet_Container2(
-      FwSizeType size,
-      DpContainer& container
-  )
-{
-  return this->dpGet(ContainerId::Container2, size, container);
-}
-
-Fw::Success::T ActiveGetProductsComponentBase ::
-  dpGet_Container3(
-      FwSizeType size,
-      DpContainer& container
-  )
-{
-  return this->dpGet(ContainerId::Container3, size, container);
-}
-
 void ActiveGetProductsComponentBase ::
   dpSend(
       DpContainer& container,

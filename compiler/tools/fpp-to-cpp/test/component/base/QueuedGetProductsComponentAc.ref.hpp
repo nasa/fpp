@@ -1220,21 +1220,27 @@ class QueuedGetProductsComponentBase :
     Fw::Success::T dpGet_Container1(
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
-    );
+    ) {
+      return this->dpGet(ContainerId::Container1, size, container);
+    }
 
     //! Get a buffer and use it to initialize container Container2
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container2(
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
-    );
+    ) {
+      return this->dpGet(ContainerId::Container2, size, container);
+    }
 
     //! Get a buffer and use it to initialize container Container3
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container3(
         FwSizeType size, //!< The buffer size (input)
         DpContainer& container //!< The container (output)
-    );
+    ) {
+      return this->dpGet(ContainerId::Container3, size, container);
+    }
 
     //! Send a data product
     void dpSend(

@@ -33,24 +33,18 @@ case class ComponentDataProducts (
   def getProtectedDpFunctionMembers: List[CppDoc.Class.Member] = {
     lazy val dpGetByName = containersByName.map((_, c) => {
       val name = c.getName
-      functionClassMember(
-        Some(s"""|Get a buffer and use it to initialize container $name
-                 |\\return The status of the buffer request"""),
-        s"dpGet_$name",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("FwSizeType"),
-            "size",
-            Some("The buffer size (input)")
-          ),
-          CppDoc.Function.Param(
-            CppDoc.Type("DpContainer&"),
-            "container",
-            Some("The container (output)")
-          )
-        ),
-        CppDoc.Type("Fw::Success::T"),
-        lines(s"return this->dpGet(ContainerId::$name, size, container);")
+      linesClassMember(
+        lines(
+          s"""|
+              |//! Get a buffer and use it to initialize container $name
+              |//! \\return The status of the buffer request
+              |Fw::Success::T dpGet_$name(
+              |    FwSizeType size, //!< The buffer size (input)
+              |    DpContainer& container //!< The container (output)
+              |) {
+              |  return this->dpGet(ContainerId::$name, size, container);
+              |}"""
+        )
       )
     })
     lazy val dpRequestById = functionClassMember(
