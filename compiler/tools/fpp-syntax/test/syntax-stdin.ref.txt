@@ -52,7 +52,7 @@ def module
     @ Record specifier
     spec record
       ident R
-      type name U32
+      type name U32 array
       id literal int 0x00
     @< Record specifier
     @ Command specifier
