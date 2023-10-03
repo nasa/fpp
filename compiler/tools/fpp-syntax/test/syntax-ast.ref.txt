@@ -50,7 +50,7 @@ def module
       default priority literal int 10
     @< Container specifier
     @ Record specifier
-    spec container
+    spec record
       ident R
       type name U32
       id literal int 0x00
