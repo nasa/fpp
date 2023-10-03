@@ -455,7 +455,6 @@ var IN_GLOBAL_SCOPE = false;
           "product," +
           "queued," +
           "queue," +
-          "raw," +
           "record," +
           "recv," +
           "red," +
