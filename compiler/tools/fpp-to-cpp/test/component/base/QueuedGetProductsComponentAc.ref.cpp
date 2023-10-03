@@ -22,7 +22,8 @@ namespace {
     TYPEDASYNCDROPPRIORITY_TYPED,
   };
 
-  // Get the max size by doing a union of the input and internal port serialization sizes
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
   union BuffUnion {
     BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
