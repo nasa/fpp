@@ -22,7 +22,7 @@ module DefinitionsAndSpecifiers {
     @< Container specifier
 
     @ Record specifier
-    product record R: U32 id 0x00
+    product record R: U32 array id 0x00
     @< Record specifier
 
     @ Command specifier
