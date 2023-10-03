@@ -13,9 +13,10 @@
 #include "base/EmptyComponentAc.hpp"
 
 namespace {
-  // Get the max size by doing a union of the input and internal port serialization sizes
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
   union BuffUnion {
-
+    // No async input ports
   };
 
   // Define a message buffer class large enough to handle all the

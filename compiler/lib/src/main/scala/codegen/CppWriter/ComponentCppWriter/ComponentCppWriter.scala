@@ -288,42 +288,48 @@ case class ComponentCppWriter (
   }
 
   private def getBuffUnion: List[Line] = {
-    line("// Get the max size by doing a union of the input and internal port serialization sizes") ::
+    // Collect the serialized sizes of all the async port arguments
+    val portMembers = List.concat(
+      // Typed async input ports
+      typedAsyncInputPorts.flatMap(p => {
+        val portName = p.getUnqualifiedName
+        val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
+        lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
+      }),
+      // Command input port
+      guardedList (cmdRecvPort.isDefined) (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
+      // Internal ports
+      internalPorts.flatMap(p =>
+        line(s"// Size of ${p.getUnqualifiedName} argument list") ::
+          (p.aNode._2.data.params match {
+            case Nil => lines(s"BYTE ${p.getUnqualifiedName}IntIfSize[0];")
+            case _ => wrapInScope(
+              s"BYTE ${p.getUnqualifiedName}IntIfSize[",
+              lines(
+                p.aNode._2.data.params.map(param =>
+                  s.getSerializedSizeExpr(
+                    s.a.typeMap(param._2.data.typeName.id),
+                    writeInternalPortParamType(param._2.data)
+                  )
+                ).mkString(" +\n")
+              ),
+              "];"
+            )
+          })
+      )
+    )
+    List.concat(
+      lines("""|// Get the max size by constructing a union of the async input, command, and
+               |// internal port serialization sizes"""),
       wrapInScope(
         "union BuffUnion {",
-        List(
-          lines(
-            typedAsyncInputPorts.map(p =>
-              s"BYTE ${p.getUnqualifiedName}PortSize[${getQualifiedPortTypeName(p, p.getDirection.get)}::SERIALIZED_SIZE];"
-            ).mkString("\n"),
-          ),
-          cmdRespPort match {
-            case Some(p) => lines(
-              s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];"
-            )
-            case None => Nil
-          },
-          internalPorts.flatMap(p =>
-            line(s"// Size of ${p.getUnqualifiedName} argument list") ::
-              (p.aNode._2.data.params match {
-                case Nil => lines(s"BYTE ${p.getUnqualifiedName}IntIfSize[0];")
-                case _ => wrapInScope(
-                  s"BYTE ${p.getUnqualifiedName}IntIfSize[",
-                  lines(
-                    p.aNode._2.data.params.map(param =>
-                      s.getSerializedSizeExpr(
-                        s.a.typeMap(param._2.data.typeName.id),
-                        writeInternalPortParamType(param._2.data)
-                      )
-                    ).mkString(" +\n")
-                  ),
-                  "];"
-                )
-              })
-          )
-        ).flatten,
+        portMembers match {
+          case Nil => lines("// No async input ports")
+          case _ => portMembers
+        },
         "};"
       )
+    )
   }
 
   private def getComponentIpcSerializableBufferClass: List[Line] = {
