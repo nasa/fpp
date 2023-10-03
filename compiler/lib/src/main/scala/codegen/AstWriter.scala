@@ -446,7 +446,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec record") ++
     List(
       ident(data.name),
-      linesOpt(writeRecordType, data.recordType),
+      writeRecordType(data.recordType),
       linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }

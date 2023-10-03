@@ -550,16 +550,12 @@ object Parser extends Parsers {
   }
 
   def specRecord: Parser[Ast.SpecRecord] = {
-    def recordType = {
-      node(typeName) ^^ { case tn => Some(tn) } |
-      failure("record type expected")
-    }
     def arrayOpt = opt(array) ^^ {
       case Some(_) => true
       case None => false
     }
     ((product ~ record) ~>! ident) ~!
-    (colon ~>! recordType) ~!
+    (colon ~>! node(typeName)) ~!
     arrayOpt ~!
     opt(id ~>! exprNode) ^^ {
       case name ~ recordType ~ arrayOpt ~ id => Ast.SpecRecord(

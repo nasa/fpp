@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP data product containter */
 final case class Record(
   aNode: Ast.Annotated[AstNode[Ast.SpecRecord]],
-  recordType: Option[Type],
+  recordType: Type,
   isArray: Boolean
 ) {
 
@@ -27,7 +27,7 @@ object Record {
     Record = {
       val node = aNode._2
       val data = node.data
-      val recordType = data.recordType.map(typeNameNode => a.typeMap(typeNameNode.id))
+      val recordType = a.typeMap(data.recordType.id)
       Record(aNode, recordType, data.isArray)
     }
 
