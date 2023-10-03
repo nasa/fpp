@@ -301,11 +301,11 @@ case class ComponentCppWriter (
       guardedList (cmdRecvPort.isDefined)
         (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
       // Internal ports
-      // Sum the sizes of the port parameters
+      // Sum the sizes of the port arguments
       internalPorts.flatMap(p =>
         line(s"// Size of ${p.getUnqualifiedName} argument list") ::
           (p.aNode._2.data.params match {
-            case Nil => lines("// [ no formal parameters ]")
+            case Nil => lines("// [ no port arguments ]")
             case _ => wrapInScope(
               s"BYTE ${p.getUnqualifiedName}IntIfSize[",
               lines(
