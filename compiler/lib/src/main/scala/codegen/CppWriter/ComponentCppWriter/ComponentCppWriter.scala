@@ -164,7 +164,7 @@ case class ComponentCppWriter (
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] = {
-    List(
+    List.concat(
       // Friend classes
       getFriendClassMembers,
 
@@ -205,7 +205,7 @@ case class ComponentCppWriter (
       paramWriter.getVariableMembers,
       getMsgSizeVariableMember,
       getMutexVariableMembers,
-    ).flatten
+    )
   }
 
   private def getConstantMembers: List[CppDoc.Class.Member] = {
@@ -251,45 +251,46 @@ case class ComponentCppWriter (
     )
   }
 
-  private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] = {
-    List(
-      linesClassMember(
-        Line.blank :: wrapInAnonymousNamespace(
-          intersperseBlankLines(
-            List(
-              getMsgTypeEnum,
-              getBuffUnion,
-              getComponentIpcSerializableBufferClass
+  private def getAnonymousNamespaceMembers: List[CppDoc.Class.Member] =
+    data.kind match {
+      case Ast.ComponentKind.Passive => Nil
+      case _ => List(
+        linesClassMember(
+          Line.blank :: wrapInAnonymousNamespace(
+            intersperseBlankLines(
+              List(
+                getMsgTypeEnum,
+                getBuffUnion,
+                getComponentIpcSerializableBufferClass
+              )
             )
-          )
-        ),
-        CppDoc.Lines.Cpp
+          ),
+          CppDoc.Lines.Cpp
+        )
       )
-    )
-  }
+    }
 
   private def getMsgTypeEnum: List[Line] = {
     wrapInScope(
       "enum MsgTypeEnum {",
-      List(
-        if data.kind != Ast.ComponentKind.Passive then lines(
-          s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,"
-        )
-        else Nil,
-        List(
-          typedAsyncInputPorts.map(portCppConstantName),
-          serialAsyncInputPorts.map(portCppConstantName),
-          asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
-          internalPorts.map(internalPortCppConstantName),
-        ).flatten.map(s => line(s"$s,"))
-      ).flatten,
+      List.concat(
+        lines(s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT"),
+        typedAsyncInputPorts.map(portCppConstantName),
+        serialAsyncInputPorts.map(portCppConstantName),
+        asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
+        internalPorts.map(internalPortCppConstantName),
+      ).map(s => line(s"$s,")),
       "};"
     )
   }
 
+  /** Generates a union type that lets the compiler calculate
+   *  the max serialized size of any list of arguments that goes
+   *  on the queue */
   private def getBuffUnion: List[Line] = {
     // Collect the serialized sizes of all the async port arguments
-    val portMembers = List.concat(
+    // For each one, add a byte array of that size as a member
+    val members = List.concat(
       // Typed async input ports
       typedAsyncInputPorts.flatMap(p => {
         val portName = p.getUnqualifiedName
@@ -297,12 +298,14 @@ case class ComponentCppWriter (
         lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
       }),
       // Command input port
-      guardedList (cmdRecvPort.isDefined) (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
+      guardedList (cmdRecvPort.isDefined)
+        (lines(s"BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];")),
       // Internal ports
+      // Sum the sizes of the port parameters
       internalPorts.flatMap(p =>
         line(s"// Size of ${p.getUnqualifiedName} argument list") ::
           (p.aNode._2.data.params match {
-            case Nil => lines(s"BYTE ${p.getUnqualifiedName}IntIfSize[0];")
+            case Nil => lines("// [ no formal parameters ]")
             case _ => wrapInScope(
               s"BYTE ${p.getUnqualifiedName}IntIfSize[",
               lines(
@@ -323,10 +326,7 @@ case class ComponentCppWriter (
                |// internal port serialization sizes"""),
       wrapInScope(
         "union BuffUnion {",
-        portMembers match {
-          case Nil => lines("// No async input ports")
-          case _ => portMembers
-        },
+        members,
         "};"
       )
     )

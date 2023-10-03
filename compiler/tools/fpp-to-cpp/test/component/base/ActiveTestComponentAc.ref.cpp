@@ -59,7 +59,7 @@ namespace M {
         sizeof(U8)
       ];
       // Size of internalPriorityDrop argument list
-      BYTE internalPriorityDropIntIfSize[0];
+      // [ no formal parameters ]
       // Size of internalString argument list
       BYTE internalStringIntIfSize[
         Fw::InternalInterfaceString::SERIALIZED_SIZE +
