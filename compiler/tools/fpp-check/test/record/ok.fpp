@@ -20,7 +20,7 @@ passive component C {
   @ A record with ID
   product record Id: U32 id 0x100
 
-  @ A raw record
-  product record Raw: raw
+  @ An array record
+  product record U32Array: U32 array
 
 }
