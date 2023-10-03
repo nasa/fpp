@@ -95,10 +95,26 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
 }
 
 Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
-  serializeRecord_RawRecord(Fw::ByteArray byteArray)
+  serializeRecord_U32Record(U32 elt)
 {
   Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
-  const FwDpIdType id = this->baseId + RecordId::RawRecord;
+  const FwDpIdType id = this->baseId + RecordId::U32Record;
+  Fw::SerializeStatus status = serializeRepr.serialize(id);
+  if (status == Fw::FW_SERIALIZE_OK) {
+    status = serializeRepr.serialize(elt);
+  }
+  if (status == Fw::FW_SERIALIZE_OK) {
+    this->dataSize += sizeof(FwDpIdType);
+    this->dataSize += sizeof(U32);
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
+  serializeRecord_U8ArrayRecord(Fw::ByteArray byteArray)
+{
+  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
   const FwSizeType size = byteArray.size;
   Fw::SerializeStatus status = serializeRepr.serialize(id);
   if (status == Fw::FW_SERIALIZE_OK) {
@@ -116,22 +132,6 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
     this->dataSize += sizeof(FwDpIdType);
     this->dataSize += sizeof(FwSizeType);
     this->dataSize += size;
-  }
-  return status;
-}
-
-Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
-  serializeRecord_U32Record(U32 elt)
-{
-  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
-  const FwDpIdType id = this->baseId + RecordId::U32Record;
-  Fw::SerializeStatus status = serializeRepr.serialize(id);
-  if (status == Fw::FW_SERIALIZE_OK) {
-    status = serializeRepr.serialize(elt);
-  }
-  if (status == Fw::FW_SERIALIZE_OK) {
-    this->dataSize += sizeof(FwDpIdType);
-    this->dataSize += sizeof(U32);
   }
   return status;
 }

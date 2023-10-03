@@ -425,10 +425,9 @@ case class ComponentDataProducts (
     private def getSerializeFunctionMembers =
       recordsByName.map((id, record) => {
         val name = record.getName
-        record.recordType match {
-          case Some(t) => typedRecordSerializeFn(name, t)
-          case None => rawRecordSerializeFn(name)
-        }
+        // FIXME
+        if record.isArray then rawRecordSerializeFn(name)
+        else typedRecordSerializeFn(name, record.recordType.get)
       })
 
     private val getAccessFunctionsMember = linesClassMember(

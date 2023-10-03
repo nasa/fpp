@@ -19,7 +19,7 @@ product record U32Record: U32 id 100
 product record DataRecord: Data id 200
 
 @ Record 3
-product record RawRecord: raw id 300
+product record U8ArrayRecord: U8 array id 300
 
 # ----------------------------------------------------------------------
 # Containers

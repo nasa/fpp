@@ -216,7 +216,7 @@ namespace M {
         enum T : FwDpIdType {
           U32Record = 100,
           DataRecord = 200,
-          RawRecord = 300,
+          U8ArrayRecord = 300,
         };
       };
 
@@ -245,16 +245,16 @@ namespace M {
               const M::ActiveTest_Data& elt //!< The element
           );
 
-          //! Serialize a RawRecord record into the packet buffer
-          //! \return The serialize status
-          Fw::SerializeStatus serializeRecord_RawRecord(
-              Fw::ByteArray byteArray //!< The raw byte array
-          );
-
           //! Serialize a U32Record record into the packet buffer
           //! \return The serialize status
           Fw::SerializeStatus serializeRecord_U32Record(
               U32 elt //!< The element
+          );
+
+          //! Serialize a U8ArrayRecord record into the packet buffer
+          //! \return The serialize status
+          Fw::SerializeStatus serializeRecord_U8ArrayRecord(
+              Fw::ByteArray byteArray //!< The raw byte array
           );
 
           FwDpIdType getBaseId() const { return this->baseId; }
