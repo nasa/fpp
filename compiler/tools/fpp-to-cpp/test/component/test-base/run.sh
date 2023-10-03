@@ -1,21 +1,11 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
 
-types()
-{
-  run_test "-p $component_dir" "../types" types && \
-  diff_cpp NoArgsPort && \
-  diff_cpp NoArgsReturnPort && \
-  diff_cpp TypedPort && \
-  diff_cpp TypedReturnPort && \
-  diff_cpp EEnum && \
-  diff_cpp AArray && \
-  diff_cpp SSerializable
-}
-
 empty()
 {
-  run_test "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty && \
+  # Run the empty test in auto setup mode
+  # This tests auto setup
+  run_test "-a -u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty && \
   diff_test Empty
 }
 

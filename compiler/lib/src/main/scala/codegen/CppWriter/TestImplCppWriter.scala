@@ -5,7 +5,9 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Writes out C++ for component unit test templates */
-object TestImplCppWriter extends CppWriter {
+case class TestImplCppWriter(testHelperMode: CppWriter.TestHelperMode)
+  extends CppWriter
+{
 
   override def defComponentAnnotatedNode(
     s: State,
@@ -14,13 +16,15 @@ object TestImplCppWriter extends CppWriter {
     val node = aNode._2
     val data = node.data
     val implWriter = ComponentTestImplWriter(s, aNode)
+    val cppFileNameBases = testHelperMode match {
+      // If test helper mode is auto, then the test helpers are part of the autocode
+      case CppWriter.TestHelperMode.Auto => Nil
+      // Otherwise they are part of the implementation
+      case CppWriter.TestHelperMode.Manual => List(implWriter.helperFileName)
+    }
     for {
-      s <- CppWriter.writeCppDoc(s, implWriter.write)
-      s <- visitList(s, data.members, matchComponentMember)
-      s <- CppWriter.writeCppDoc(s, implWriter.write, Some(implWriter.helperFileName))
-      s <- visitList(s, data.members, matchComponentMember)
-      _ <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
-      s <- visitList(s, data.members, matchComponentMember)
+      s <- CppWriter.writeCppDoc(s, implWriter.write, cppFileNameBases)
+      s <- CppWriter.writeCppFile(s, ComponentTestMainWriter(s, aNode).write)
     }
     yield s
   }

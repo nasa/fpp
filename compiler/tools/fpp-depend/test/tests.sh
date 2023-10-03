@@ -15,7 +15,9 @@ expr_paren
 expr_struct
 expr_unop
 filenames
+filenames_auto
 filenames_include
+filenames_include_auto
 framework
 framework_include
 include
@@ -40,11 +42,5 @@ spec_param
 spec_port_instance
 spec_tlm_channel
 spec_top_import
-template_filenames
-template_filenames_include
-test_filenames
-test_filenames_include
-test_template_filenames
-test_template_filenames_include
 transitive_instance
 "

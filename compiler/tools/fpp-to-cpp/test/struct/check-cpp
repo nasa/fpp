@@ -1,18 +1,20 @@
 #!/bin/sh
 
-# ----------------------------------------------------------------------
-# Compile ref C++ files, to check them for validity
-# ----------------------------------------------------------------------
+cd `dirname $0`
 
 fprime_gcc=../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-Iinclude"
 
-for file in `find . -name '*Ac.ref.cpp'`
+../fprime/generate_cpp
+
+echo "running tests to generate the headers"
+./run
+
+for file in `find . -name '*.ref.cpp'`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.cpp;;'`
-  dest_base=`echo $base | sed 's;\(.*Ac\).*;\1;'`
-  cp $base.hpp $dest_base.hpp
-  cp $base.cpp $dest_base.cpp
-  $fprime_gcc -I../../.. -c $dest_base.cpp -Wno-gnu-zero-variadic-macro-arguments
+  base=`basename $file .ref.cpp`
+  cp $base.ref.hpp $base.hpp
+  cp $base.ref.cpp $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc -I../../.. -c $base.cpp -Wno-gnu-zero-variadic-macro-arguments
 done

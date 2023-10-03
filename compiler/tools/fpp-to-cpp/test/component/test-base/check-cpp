@@ -16,9 +16,34 @@
 # - FW_PORT_SERIALIZATION is always on for components containing serial ports
 # ----------------------------------------------------------------------
 
-if [[ "$1" = "--all" ]]
-then
-  . ../compile_cpp.sh --test --all
-else
-  . ../compile_cpp.sh --test
-fi
+export LOCAL_CPP_FLAGS="
+-I../impl
+-I../test-base
+-I../test-impl
+-I$FPRIME/gtest/googletest-src/googletest/include
+-DPROTECTED=public
+-DPRIVATE=public
+-DBUILD_UT=1
+"
+
+# Generate framework C++ files
+../../fprime/generate_cpp
+
+# Generate header files
+echo "running the tests to generate the header files"
+./run
+
+# Generate the base class header files
+echo "running the tests in ../base to generate the header files"
+(cd ../base; ./run)
+cp ../base/*Ac.hpp .
+
+# Generate impl and test impl headers
+# This step is needed to support auto test setup
+for dir in impl test-impl
+do
+  (cd ../$dir; ../gen_ref_headers)
+done
+
+# Compile cpp files
+../compile_base_cpp --test "$@"

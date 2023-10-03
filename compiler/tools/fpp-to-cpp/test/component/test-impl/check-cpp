@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# ----------------------------------------------------------------------
-# Compile ref C++ files, to check them for validity
-# ----------------------------------------------------------------------
+cd `dirname $0`
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 export FPRIME_GCC_FLAGS="-I../../fprime"
@@ -22,18 +20,29 @@ include_flags="
 "
 define_flags="-DPROTECTED="public" -DBUILD_UT=1"
 
-. ../generate_cpp.sh
+../../fprime/generate_cpp
 
-for file in `find . -name '*Tester.ref.cpp'`
+# Generate headers in base and test-base
+for dir in base test-base
 do
-  base=`echo $file | sed 's;\Tester.ref.cpp;;'`
-  cp ${base}Tester.ref.cpp ${base}Tester.cpp
-  cp ${base}Tester.ref.hpp ${base}Tester.hpp
-  cp ${base}TesterHelpers.ref.cpp ${base}TesterHelpers.cpp
-  cp ${base}TestMain.ref.cpp ${base}TestMain.cpp
+  echo "running the tests in ../$dir to generate the header files"
+  (cd ../$dir; ./run)
+done
 
-  files="${base}Tester.cpp ${base}TesterHelpers.cpp ${base}TestMain.cpp"
-  echo "compiling $files"
+echo "copying base headers to test-base"
+cp ../base/*Ac.hpp ../test-base
 
-  $fprime_gcc $include_flags -c $files $define_flags $warning_flags
+# Generate impl headers in impl
+(cd ../impl; ../gen_ref_headers)
+
+# Generate header files
+../gen_ref_headers
+
+# Compile cpp files
+for file in `find . -name '*.ref.cpp' | sort`
+do
+  base=`basename $file .ref.cpp`
+  cp $file $base.cpp
+  echo "compiling $base.cpp"
+  $fprime_gcc $include_flags -c $define_flags $warning_flags $base.cpp
 done
