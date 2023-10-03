@@ -437,13 +437,18 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    def recordType(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
-      typeNameOpt match {
+    def recordType(
+      typeNameOpt: Option[AstNode[Ast.TypeName]],
+      isArray: Boolean
+    ) = {
+      val tn = typeNameOpt match {
         case Some(typeName) => typeNameNode(typeName)
         case None => lines("raw")
       }
+      if isArray then Line.addSuffix(tn, " array") else tn
+    }
     lines(s"product record ${ident(data.name)}").
-      join (": ") (recordType(data.recordType)).
+      join (": ") (recordType(data.recordType, data.isArray)).
       joinOpt (data.id) (" id ") (exprNode)
   }
 

@@ -580,6 +580,7 @@ object Ast {
   final case class SpecRecord(
     name: Ident,
     recordType: Option[AstNode[TypeName]],
+    isArray: Boolean,
     id: Option[AstNode[Expr]]
   )
 

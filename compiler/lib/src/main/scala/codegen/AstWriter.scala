@@ -440,10 +440,13 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("spec container") ++
+    val writeRecordType = if data.isArray
+      then addSuffix(typeNameNode, "array")
+      else typeNameNode
+    lines("spec record") ++
     List(
       ident(data.name),
-      linesOpt(typeNameNode, data.recordType),
+      linesOpt(writeRecordType, data.recordType),
       linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }
@@ -532,6 +535,12 @@ object AstWriter extends AstVisitor with LineUtils {
     f: T => Out
   ): T => Out =
     (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
+
+  private def addSuffix[T](
+    f: T => Out,
+    s: String
+  ): T => Out =
+    (t: T) => Line.joinLists (Line.Indent) (f(t)) (" ") (lines(s))
 
   private def annotate(
     pre: List[String],

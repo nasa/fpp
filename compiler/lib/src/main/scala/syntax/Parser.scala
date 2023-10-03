@@ -561,6 +561,7 @@ object Parser extends Parsers {
       case name ~ recordType ~ id => Ast.SpecRecord(
         name,
         recordType,
+        false,
         id
       )
     }
