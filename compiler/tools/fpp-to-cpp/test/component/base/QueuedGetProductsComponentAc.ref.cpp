@@ -95,7 +95,7 @@ QueuedGetProductsComponentBase::DpContainer ::
 Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const QueuedGetProducts_Data& elt)
 {
-  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
   const FwDpIdType id = this->baseId + RecordId::DataRecord;
   Fw::SerializeStatus status = serializeRepr.serialize(id);
   if (status == Fw::FW_SERIALIZE_OK) {
@@ -111,7 +111,7 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
 Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
   serializeRecord_U32Record(U32 elt)
 {
-  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
   const FwDpIdType id = this->baseId + RecordId::U32Record;
   Fw::SerializeStatus status = serializeRepr.serialize(id);
   if (status == Fw::FW_SERIALIZE_OK) {
@@ -125,27 +125,28 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
 }
 
 Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
-  serializeRecord_U8ArrayRecord(Fw::ByteArray byteArray)
+  serializeRecord_U8ArrayRecord(
+      const U8* array,
+      FwSizeType size
+  )
 {
-  Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
   const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
-  const FwSizeType size = byteArray.size;
   Fw::SerializeStatus status = serializeRepr.serialize(id);
   if (status == Fw::FW_SERIALIZE_OK) {
+    this->dataSize += sizeof(FwDpIdType);
     status = serializeRepr.serialize(size);
   }
   if (status == Fw::FW_SERIALIZE_OK) {
-    const bool omitSerializedLength = true;
-    status = serializeRepr.serialize(
-        byteArray.bytes,
-        size,
-        omitSerializedLength
-    );
-  }
-  if (status == Fw::FW_SERIALIZE_OK) {
-    this->dataSize += sizeof(FwDpIdType);
     this->dataSize += sizeof(FwSizeType);
-    this->dataSize += size;
+    for (FwSizeType i = 0; i < size; i++) {
+      status = serializeRepr.serialize(array[i]);
+      if (status != Fw::FW_SERIALIZE_OK) {
+        break;
+      }
+      dataSize += sizeof(U8);
+    }
   }
   return status;
 }

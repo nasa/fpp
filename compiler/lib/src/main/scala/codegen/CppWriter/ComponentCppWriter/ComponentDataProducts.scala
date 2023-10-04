@@ -350,7 +350,7 @@ case class ComponentDataProducts (
       ),
     )
 
-    private def typedRecordSerializeFn(name: String, t: Type) = {
+    private def singleRecordSerializeFn(name: String, t: Type) = {
       val typeName = TypeCppWriter.getName(s, t)
       val paramType = if (s.isPrimitive(t, typeName))
         typeName else s"const ${typeName}&"
@@ -368,7 +368,7 @@ case class ComponentDataProducts (
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+          s"""|Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
               |const FwDpIdType id = this->baseId + RecordId::${name};
               |Fw::SerializeStatus status = serializeRepr.serialize(id);
               |if (status == Fw::FW_SERIALIZE_OK) {
@@ -383,51 +383,58 @@ case class ComponentDataProducts (
       )
     }
 
-    private def rawRecordSerializeFn(name: String) =
+    private def arrayRecordSerializeFn(name: String, t: Type) = {
+      val typeName = TypeCppWriter.getName(s, t)
+      val paramType = s"const ${typeName}*"
+      val eltSize = if (s.isPrimitive(t, typeName))
+        s"sizeof($typeName)" else s"${typeName}::SERIALIZED_SIZE"
       functionClassMember(
         Some(s"""|Serialize a $name record into the packet buffer
                  |\\return The serialize status"""),
         s"serializeRecord_${name}",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::ByteArray"),
-            "byteArray",
-            Some("The raw byte array")
+            CppDoc.Type(paramType),
+            "array",
+            Some(s"An array of ${typeName} elements")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwSizeType"),
+            "size",
+            Some("The array size")
           )
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|Fw::SerializeBufferBase& serializeRepr = buffer.getSerializeRepr();
+          s"""|FW_ASSERT(array != nullptr);
+              |Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
               |const FwDpIdType id = this->baseId + RecordId::${name};
-              |const FwSizeType size = byteArray.size;
               |Fw::SerializeStatus status = serializeRepr.serialize(id);
               |if (status == Fw::FW_SERIALIZE_OK) {
+              |  this->dataSize += sizeof(FwDpIdType);
               |  status = serializeRepr.serialize(size);
               |}
               |if (status == Fw::FW_SERIALIZE_OK) {
-              |  const bool omitSerializedLength = true;
-              |  status = serializeRepr.serialize(
-              |      byteArray.bytes,
-              |      size,
-              |      omitSerializedLength
-              |  );
-              |}
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->dataSize += sizeof(FwDpIdType);
               |  this->dataSize += sizeof(FwSizeType);
-              |  this->dataSize += size;
+              |  for (FwSizeType i = 0; i < size; i++) {
+              |    status = serializeRepr.serialize(array[i]);
+              |    if (status != Fw::FW_SERIALIZE_OK) {
+              |      break;
+              |    }
+              |    dataSize += $eltSize;
+              |  }
               |}
               |return status;"""
         )
       )
-
+    }
 
     private def getSerializeFunctionMembers =
       recordsByName.map((id, record) => {
         val name = record.getName
-        // FIXME: Handle the array case properly
-        if record.isArray then rawRecordSerializeFn(name)
-        else typedRecordSerializeFn(name, record.recordType)
+        val t = record.recordType
+        if record.isArray then arrayRecordSerializeFn(name, t)
+        else singleRecordSerializeFn(name, t)
       })
 
     private val getAccessFunctionsMember = linesClassMember(

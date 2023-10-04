@@ -27,7 +27,6 @@
 #include "Fw/Prm/PrmSetPortAc.hpp"
 #include "Fw/Time/TimePortAc.hpp"
 #include "Fw/Tlm/TlmPortAc.hpp"
-#include "Fw/Types/ByteArray.hpp"
 #include "NoArgsPortAc.hpp"
 #include "NoArgsReturnPortAc.hpp"
 #include "Os/Mutex.hpp"
@@ -167,7 +166,8 @@ class ActiveGetProductsComponentBase :
         //! Serialize a U8ArrayRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_U8ArrayRecord(
-            Fw::ByteArray byteArray //!< The raw byte array
+            const U8* array, //!< An array of U8 elements
+            FwSizeType size //!< The array size
         );
 
         FwDpIdType getBaseId() const { return this->baseId; }

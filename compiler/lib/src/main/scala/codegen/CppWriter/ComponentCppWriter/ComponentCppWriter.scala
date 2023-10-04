@@ -78,8 +78,7 @@ case class ComponentCppWriter (
     // Conditional headers
     val dpHeader =
       if component.hasDataProducts then List(
-        "Fw/Dp/DpContainer.hpp",
-        "Fw/Types/ByteArray.hpp"
+        "Fw/Dp/DpContainer.hpp"
       )
       else Nil
     val mutexHeader =
