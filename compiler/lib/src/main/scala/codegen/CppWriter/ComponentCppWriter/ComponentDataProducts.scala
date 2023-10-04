@@ -369,14 +369,20 @@ case class ComponentDataProducts (
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
           s"""|Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
-              |const FwDpIdType id = this->baseId + RecordId::${name};
-              |Fw::SerializeStatus status = serializeRepr.serialize(id);
-              |if (status == Fw::FW_SERIALIZE_OK) {
+              |const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  $typeSize;
+              |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+              |if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+              |  const FwDpIdType id = this->baseId + RecordId::$name;
+              |  status = serializeRepr.serialize(id);
+              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  status = serializeRepr.serialize(elt);
+              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+              |  this->dataSize += sizeDelta;
               |}
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->dataSize += sizeof(FwDpIdType);
-              |  this->dataSize += $typeSize;
+              |else {
+              |  status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
               |}
               |return status;"""
         )
@@ -408,21 +414,22 @@ case class ComponentDataProducts (
         lines(
           s"""|FW_ASSERT(array != nullptr);
               |Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
-              |const FwDpIdType id = this->baseId + RecordId::${name};
-              |Fw::SerializeStatus status = serializeRepr.serialize(id);
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->dataSize += sizeof(FwDpIdType);
+              |const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  sizeof(FwSizeType) +
+              |  size * $eltSize;
+              |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+              |if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+              |  const FwDpIdType id = this->baseId + RecordId::$name;
+              |  status = serializeRepr.serialize(id);
+              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  status = serializeRepr.serialize(size);
-              |}
-              |if (status == Fw::FW_SERIALIZE_OK) {
-              |  this->dataSize += sizeof(FwSizeType);
+              |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  for (FwSizeType i = 0; i < size; i++) {
               |    status = serializeRepr.serialize(array[i]);
-              |    if (status != Fw::FW_SERIALIZE_OK) {
-              |      break;
-              |    }
-              |    dataSize += $eltSize;
+              |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  }
+              |  this->dataSize += sizeDelta;
               |}
               |return status;"""
         )
