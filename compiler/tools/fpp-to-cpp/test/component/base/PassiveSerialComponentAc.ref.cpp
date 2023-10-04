@@ -12,55 +12,6 @@
 #endif
 #include "base/PassiveSerialComponentAc.hpp"
 
-namespace {
-  // Get the max size by doing a union of the input and internal port serialization sizes
-  union BuffUnion {
-    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
-  };
-
-  // Define a message buffer class large enough to handle all the
-  // asynchronous inputs to the component
-  class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
-  {
-
-    public:
-
-      enum {
-        // Max. message size = size of data + message id + port
-        SERIALIZATION_SIZE =
-          sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
-      };
-
-      NATIVE_UINT_TYPE getBuffCapacity() const {
-        return sizeof(m_buff);
-      }
-
-      U8* getBuffAddr() {
-        return m_buff;
-      }
-
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
-
-    private:
-      // Should be the max of all the input ports serialized sizes...
-      U8 m_buff[SERIALIZATION_SIZE];
-
-  };
-}
-
 // ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------

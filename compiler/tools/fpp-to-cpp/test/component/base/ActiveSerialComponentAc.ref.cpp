@@ -37,21 +37,14 @@ namespace {
     INT_IF_INTERNALSTRUCT,
   };
 
-  // Get the max size by doing a union of the input and internal port serialization sizes
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
   union BuffUnion {
     BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
     // Size of internalArray argument list
     BYTE internalArrayIntIfSize[
@@ -68,7 +61,7 @@ namespace {
       sizeof(U8)
     ];
     // Size of internalPriorityDrop argument list
-    BYTE internalPriorityDropIntIfSize[0];
+    // [ no port arguments ]
     // Size of internalString argument list
     BYTE internalStringIntIfSize[
       Fw::InternalInterfaceString::SERIALIZED_SIZE +
