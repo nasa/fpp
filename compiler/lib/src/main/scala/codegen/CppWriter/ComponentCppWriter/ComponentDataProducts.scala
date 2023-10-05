@@ -416,11 +416,7 @@ case class ComponentDataProducts (
             // Optimize the U8 case
             case Type.U8 =>
               """|  const bool omitSerializedLength = true;
-                 |  status = serializeRepr.serialize(
-                 |      array,
-                 |      size,
-                 |      omitSerializedLength
-                 |  );
+                 |  status = serializeRepr.serialize(array, size, omitSerializedLength);
                  |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);"""
             case _ =>
               """|  for (FwSizeType i = 0; i < size; i++) {

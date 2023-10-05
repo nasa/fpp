@@ -218,11 +218,7 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
     status = serializeRepr.serialize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     const bool omitSerializedLength = true;
-    status = serializeRepr.serialize(
-        array,
-        size,
-        omitSerializedLength
-    );
+    status = serializeRepr.serialize(array, size, omitSerializedLength);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     this->dataSize += sizeDelta;
   }
