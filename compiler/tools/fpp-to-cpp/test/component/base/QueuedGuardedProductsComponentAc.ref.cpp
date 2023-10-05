@@ -161,6 +161,9 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
     }
     this->dataSize += sizeDelta;
   }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
   return status;
 }
 
