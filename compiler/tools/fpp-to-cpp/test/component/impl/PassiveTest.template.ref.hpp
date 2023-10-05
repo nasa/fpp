@@ -259,6 +259,18 @@ class PassiveTest :
         Fw::Success::T status //!< The container status
     ) override;
 
+    //! Receive a container of type Container4
+    void dpRecv_Container4_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container5
+    void dpRecv_Container5_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
 };
 
 #endif

@@ -208,3 +208,21 @@ void ActiveGuardedProducts ::
 {
   // TODO
 }
+
+void ActiveGuardedProducts ::
+  dpRecv_Container4_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void ActiveGuardedProducts ::
+  dpRecv_Container5_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}

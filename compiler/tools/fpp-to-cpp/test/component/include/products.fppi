@@ -21,6 +21,12 @@ product record DataRecord: Data id 200
 @ Record 3
 product record U8ArrayRecord: U8 array id 300
 
+@ Record 4
+product record U32ArrayRecord: U32 array id 400
+
+@ Record 5
+product record DataArrayRecord: Data array id 500
+
 # ----------------------------------------------------------------------
 # Containers
 # ----------------------------------------------------------------------
@@ -33,3 +39,9 @@ product container Container2 id 200 default priority 20
 
 @ Container 3
 product container Container3 id 300
+
+@ Container 4
+product container Container4 id 400
+
+@ Container 5
+product container Container5 id 500

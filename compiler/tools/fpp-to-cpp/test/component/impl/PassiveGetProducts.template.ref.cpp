@@ -142,3 +142,21 @@ void PassiveGetProducts ::
 {
   // TODO
 }
+
+void PassiveGetProducts ::
+  dpRecv_Container4_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  dpRecv_Container5_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}

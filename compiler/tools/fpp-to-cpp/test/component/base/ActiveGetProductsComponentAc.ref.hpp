@@ -111,6 +111,8 @@ class ActiveGetProductsComponentBase :
         Container1 = 100,
         Container2 = 200,
         Container3 = 300,
+        Container4 = 400,
+        Container5 = 500,
       };
     };
 
@@ -120,6 +122,8 @@ class ActiveGetProductsComponentBase :
         Container1 = 10,
         Container2 = 20,
         Container3 = 0,
+        Container4 = 0,
+        Container5 = 0,
       };
     };
 
@@ -129,6 +133,8 @@ class ActiveGetProductsComponentBase :
         U32Record = 100,
         DataRecord = 200,
         U8ArrayRecord = 300,
+        U32ArrayRecord = 400,
+        DataArrayRecord = 500,
       };
     };
 
@@ -151,10 +157,24 @@ class ActiveGetProductsComponentBase :
 
       public:
 
+        //! Serialize a DataArrayRecord record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_DataArrayRecord(
+            const ActiveGetProducts_Data* array, //!< An array of ActiveGetProducts_Data elements
+            FwSizeType size //!< The array size
+        );
+
         //! Serialize a DataRecord record into the packet buffer
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataRecord(
             const ActiveGetProducts_Data& elt //!< The element
+        );
+
+        //! Serialize a U32ArrayRecord record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_U32ArrayRecord(
+            const U32* array, //!< An array of U32 elements
+            FwSizeType size //!< The array size
         );
 
         //! Serialize a U32Record record into the packet buffer
@@ -1242,6 +1262,24 @@ class ActiveGetProductsComponentBase :
       return this->dpGet(ContainerId::Container3, size, container);
     }
 
+    //! Get a buffer and use it to initialize container Container4
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_Container4(
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    ) {
+      return this->dpGet(ContainerId::Container4, size, container);
+    }
+
+    //! Get a buffer and use it to initialize container Container5
+    //! \return The status of the buffer request
+    Fw::Success::T dpGet_Container5(
+        FwSizeType size, //!< The buffer size (input)
+        DpContainer& container //!< The container (output)
+    ) {
+      return this->dpGet(ContainerId::Container5, size, container);
+    }
+
     //! Send a data product
     void dpSend(
         DpContainer& container, //!< The data product container
@@ -1268,6 +1306,18 @@ class ActiveGetProductsComponentBase :
 
     //! Receive a container of type Container3
     virtual void dpRecv_Container3_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) = 0;
+
+    //! Receive a container of type Container4
+    virtual void dpRecv_Container4_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) = 0;
+
+    //! Receive a container of type Container5
+    virtual void dpRecv_Container5_handler(
         DpContainer& container, //!< The container
         Fw::Success::T status //!< The container status
     ) = 0;

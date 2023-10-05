@@ -208,3 +208,21 @@ void QueuedGetProducts ::
 {
   // TODO
 }
+
+void QueuedGetProducts ::
+  dpRecv_Container4_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void QueuedGetProducts ::
+  dpRecv_Container5_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}

@@ -450,4 +450,22 @@ namespace M {
     // TODO
   }
 
+  void ActiveTest ::
+    dpRecv_Container4_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    dpRecv_Container5_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
 }

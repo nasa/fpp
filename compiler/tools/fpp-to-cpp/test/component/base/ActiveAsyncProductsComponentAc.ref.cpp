@@ -95,6 +95,37 @@ ActiveAsyncProductsComponentBase::DpContainer ::
 }
 
 Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
+  serializeRecord_DataArrayRecord(
+      const ActiveAsyncProducts_Data* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * ActiveAsyncProducts_Data::SERIALIZED_SIZE;
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = serializeRepr.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   serializeRecord_DataRecord(const ActiveAsyncProducts_Data& elt)
 {
   Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
@@ -108,6 +139,37 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = serializeRepr.serialize(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
+  serializeRecord_U32ArrayRecord(
+      const U32* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * sizeof(U32);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = serializeRepr.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
     this->dataSize += sizeDelta;
   }
   else {
@@ -3597,6 +3659,18 @@ void ActiveAsyncProductsComponentBase ::
       container.setPriority(ContainerPriority::Container3);
       // Call the handler
       this->dpRecv_Container3_handler(container, status.e);
+      break;
+    case ContainerId::Container4:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container4);
+      // Call the handler
+      this->dpRecv_Container4_handler(container, status.e);
+      break;
+    case ContainerId::Container5:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container5);
+      // Call the handler
+      this->dpRecv_Container5_handler(container, status.e);
       break;
     default:
       FW_ASSERT(0);
