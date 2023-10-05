@@ -217,10 +217,13 @@ Fw::SerializeStatus ActiveSyncProductsComponentBase::DpContainer ::
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = serializeRepr.serialize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    for (FwSizeType i = 0; i < size; i++) {
-      status = serializeRepr.serialize(array[i]);
-      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    }
+    const bool omitSerializedLength = true;
+    status = serializeRepr.serialize(
+        array,
+        size,
+        omitSerializedLength
+    );
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     this->dataSize += sizeDelta;
   }
   else {
