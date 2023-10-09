@@ -727,8 +727,6 @@ namespace M {
           const char* const __callSiteFileName, //!< The name of the file containing the call site
           const U32 __callSiteLineNumber, //!< The line number of the call site
           const U32 __index, //!< The index
-          FwOpcodeType opCode, //!< The opcode
-          U32 cmdSeq, //!< The command sequence number
           FwDpIdType id, //!< The container ID
           FwSizeType size //!< The size of the requested buffer
       ) const;
@@ -751,8 +749,6 @@ namespace M {
           const char* const __callSiteFileName, //!< The name of the file containing the call site
           const U32 __callSiteLineNumber, //!< The line number of the call site
           const U32 __index, //!< The index
-          FwOpcodeType opCode, //!< The opcode
-          U32 cmdSeq, //!< The command sequence number
           FwDpIdType id, //!< The container ID
           Fw::Buffer buffer //!< The buffer
       ) const;

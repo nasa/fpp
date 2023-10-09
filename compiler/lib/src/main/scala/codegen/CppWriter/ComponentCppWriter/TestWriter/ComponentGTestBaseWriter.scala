@@ -652,8 +652,6 @@ case class ComponentGTestBaseWriter(
         Some("Assert the product get history at index"),
         "assertProductGet",
         assertionFunctionParams ++ List(
-          opcodeParam,
-          cmdSeqParam,
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
             "id",
@@ -727,8 +725,6 @@ case class ComponentGTestBaseWriter(
         Some("Assert the product request history at index"),
         "assertProductRequest",
         assertionFunctionParams ++ List(
-          opcodeParam,
-          cmdSeqParam,
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
             "id",
@@ -802,8 +798,6 @@ case class ComponentGTestBaseWriter(
         Some("Assert the product send history at index"),
         "assertProductSend",
         assertionFunctionParams ++ List(
-          opcodeParam,
-          cmdSeqParam,
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
             "id",

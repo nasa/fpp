@@ -961,8 +961,6 @@ namespace M {
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 __index,
-        FwOpcodeType opCode,
-        U32 cmdSeq,
         FwDpIdType id,
         FwSizeType size
     ) const
@@ -1017,8 +1015,6 @@ namespace M {
         const char* const __callSiteFileName,
         const U32 __callSiteLineNumber,
         const U32 __index,
-        FwOpcodeType opCode,
-        U32 cmdSeq,
         FwDpIdType id,
         Fw::Buffer buffer
     ) const
