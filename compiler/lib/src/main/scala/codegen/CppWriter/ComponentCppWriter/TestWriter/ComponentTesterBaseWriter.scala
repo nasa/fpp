@@ -220,6 +220,11 @@ case class ComponentTesterBaseWriter(
                 line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
               })
             }
+            lazy val productGetHistory = lines(
+              """|// Initialize data product get history
+                 |this->productGetHistory = new History<DpGet>(maxHistorySize);
+                 |"""
+            )
             lazy val productRequestHistory = lines(
               """|// Initialize data product request history
                  |this->productRequestHistory = new History<DpRequest>(maxHistorySize);
@@ -241,6 +246,7 @@ case class ComponentTesterBaseWriter(
                 guardedList (hasCommands) (commandHistory),
                 guardedList (hasEvents) (eventHistories),
                 guardedList (hasTelemetry) (tlmHistories),
+                guardedList (hasProductGetPort) (productGetHistory),
                 guardedList (hasProductRequestPort) (productRequestHistory),
                 guardedList (hasDataProducts) (productSendHistory),
                 guardedList (hasHistories) (clearHistory)
@@ -394,6 +400,7 @@ case class ComponentTesterBaseWriter(
       List.concat(
         typedInputPorts,
         serialInputPorts,
+        dataProductInputPorts
       ).map(p => {
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
@@ -460,7 +467,7 @@ case class ComponentTesterBaseWriter(
   private def getDpFunctions: List[CppDoc.Class.Member] = {
     lazy val handleProductGet = functionClassMember(
       Some("Handle a data product get"),
-      "productGetIn",
+      "productGet_handler",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("FwDpIdType"),
@@ -492,7 +499,7 @@ case class ComponentTesterBaseWriter(
     )
     lazy val handleProductRequest = functionClassMember(
       Some("Handle a data product request"),
-      "productRequestIn",
+      "productRequest_handler",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("FwDpIdType"),
@@ -515,7 +522,7 @@ case class ComponentTesterBaseWriter(
     )
     lazy val handleProductSend = functionClassMember(
       Some("Handle a data product send"),
-      "productSendIn",
+      "productSend_handler",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("FwDpIdType"),
@@ -1296,18 +1303,18 @@ case class ComponentTesterBaseWriter(
             )
             case ProductGet => lines(
               s"""|$testerBaseDecl
-                  |return _testerBase->productGetIn($paramNamesString);
+                  |return _testerBase->productGet_handler($paramNamesString);
                   |"""
             )
             case ProductRecv => Nil
             case ProductRequest => lines(
               s"""|$testerBaseDecl
-                  |_testerBase->productRequestIn($paramNamesString);
+                  |_testerBase->productRequest_handler($paramNamesString);
                   |"""
             )
             case ProductSend => lines(
               s"""|$testerBaseDecl
-                  |_testerBase->productSendIn($paramNamesString);
+                  |_testerBase->productSend_handler($paramNamesString);
                   |"""
             )
           }

@@ -887,6 +887,9 @@ ActiveGetProductsTesterBase ::
   this->fromPortHistory_typedOut = new History<FromPortEntry_typedOut>(maxHistorySize);
   this->fromPortHistory_typedReturnOut = new History<FromPortEntry_typedReturnOut>(maxHistorySize);
 
+  // Initialize data product get history
+  this->productGetHistory = new History<DpGet>(maxHistorySize);
+
   // Initialize data product send history
   this->productSendHistory = new History<DpSend>(maxHistorySize);
 
@@ -1272,6 +1275,26 @@ void ActiveGetProductsTesterBase ::
   );
 }
 
+void ActiveGetProductsTesterBase ::
+  invoke_to_productRecvIn(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_productRecvIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_to_productRecvIn[portNum].invoke(
+    id,
+    buffer,
+    status
+  );
+}
+
 // ----------------------------------------------------------------------
 // Getters for port counts
 // ----------------------------------------------------------------------
@@ -1638,7 +1661,7 @@ void ActiveGetProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::Success::T ActiveGetProductsTesterBase ::
-  productGetIn(
+  productGet_handler(
       FwDpIdType id,
       FwSizeType size,
       Fw::Buffer& buffer
@@ -1653,7 +1676,7 @@ Fw::Success::T ActiveGetProductsTesterBase ::
 }
 
 void ActiveGetProductsTesterBase ::
-  productSendIn(
+  productSend_handler(
       FwDpIdType id,
       Fw::Buffer buffer
   )
@@ -1760,7 +1783,7 @@ Fw::Success ActiveGetProductsTesterBase ::
   )
 {
   ActiveGetProductsTesterBase* _testerBase = static_cast<ActiveGetProductsTesterBase*>(callComp);
-  return _testerBase->productGetIn(id, size, buffer);
+  return _testerBase->productGet_handler(id, size, buffer);
 }
 
 void ActiveGetProductsTesterBase ::
@@ -1772,7 +1795,7 @@ void ActiveGetProductsTesterBase ::
   )
 {
   ActiveGetProductsTesterBase* _testerBase = static_cast<ActiveGetProductsTesterBase*>(callComp);
-  _testerBase->productSendIn(id, buffer);
+  _testerBase->productSend_handler(id, buffer);
 }
 
 void ActiveGetProductsTesterBase ::

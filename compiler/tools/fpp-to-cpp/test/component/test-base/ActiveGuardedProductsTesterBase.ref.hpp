@@ -577,6 +577,14 @@ class ActiveGuardedProductsTesterBase :
         const S& s //!< A struct
     );
 
+    //! Invoke the to port connected to productRecvIn
+    void invoke_to_productRecvIn(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -861,13 +869,13 @@ class ActiveGuardedProductsTesterBase :
     // ----------------------------------------------------------------------
 
     //! Handle a data product request
-    virtual void productRequestIn(
+    virtual void productRequest_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size //!< The size of the requested buffer
     );
 
     //! Handle a data product send
-    virtual void productSendIn(
+    virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
         Fw::Buffer buffer //!< The buffer
     );

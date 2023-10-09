@@ -1543,6 +1543,26 @@ namespace M {
     );
   }
 
+  void ActiveTestTesterBase ::
+    invoke_to_productRecvIn(
+        NATIVE_INT_TYPE portNum,
+        FwDpIdType id,
+        const Fw::Buffer& buffer,
+        const Fw::Success& status
+    )
+  {
+    // Make sure port number is valid
+    FW_ASSERT(
+      portNum < this->getNum_to_productRecvIn(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+    this->m_to_productRecvIn[portNum].invoke(
+      id,
+      buffer,
+      status
+    );
+  }
+
   // ----------------------------------------------------------------------
   // Getters for port counts
   // ----------------------------------------------------------------------
@@ -3570,7 +3590,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestTesterBase ::
-    productRequestIn(
+    productRequest_handler(
         FwDpIdType id,
         FwSizeType size
     )
@@ -3580,7 +3600,7 @@ namespace M {
   }
 
   void ActiveTestTesterBase ::
-    productSendIn(
+    productSend_handler(
         FwDpIdType id,
         Fw::Buffer buffer
     )
@@ -4014,7 +4034,7 @@ namespace M {
     )
   {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
-    _testerBase->productRequestIn(id, size);
+    _testerBase->productRequest_handler(id, size);
   }
 
   void ActiveTestTesterBase ::
@@ -4026,7 +4046,7 @@ namespace M {
     )
   {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
-    _testerBase->productSendIn(id, buffer);
+    _testerBase->productSend_handler(id, buffer);
   }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

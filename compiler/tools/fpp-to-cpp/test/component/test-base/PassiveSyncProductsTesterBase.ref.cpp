@@ -980,6 +980,26 @@ void PassiveSyncProductsTesterBase ::
   );
 }
 
+void PassiveSyncProductsTesterBase ::
+  invoke_to_productRecvIn(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_to_productRecvIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_to_productRecvIn[portNum].invoke(
+    id,
+    buffer,
+    status
+  );
+}
+
 // ----------------------------------------------------------------------
 // Getters for port counts
 // ----------------------------------------------------------------------
@@ -1261,7 +1281,7 @@ void PassiveSyncProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveSyncProductsTesterBase ::
-  productRequestIn(
+  productRequest_handler(
       FwDpIdType id,
       FwSizeType size
   )
@@ -1271,7 +1291,7 @@ void PassiveSyncProductsTesterBase ::
 }
 
 void PassiveSyncProductsTesterBase ::
-  productSendIn(
+  productSend_handler(
       FwDpIdType id,
       Fw::Buffer buffer
   )
@@ -1377,7 +1397,7 @@ void PassiveSyncProductsTesterBase ::
   )
 {
   PassiveSyncProductsTesterBase* _testerBase = static_cast<PassiveSyncProductsTesterBase*>(callComp);
-  _testerBase->productRequestIn(id, size);
+  _testerBase->productRequest_handler(id, size);
 }
 
 void PassiveSyncProductsTesterBase ::
@@ -1389,7 +1409,7 @@ void PassiveSyncProductsTesterBase ::
   )
 {
   PassiveSyncProductsTesterBase* _testerBase = static_cast<PassiveSyncProductsTesterBase*>(callComp);
-  _testerBase->productSendIn(id, buffer);
+  _testerBase->productSend_handler(id, buffer);
 }
 
 void PassiveSyncProductsTesterBase ::

@@ -577,6 +577,14 @@ class QueuedGetProductsTesterBase :
         const S& s //!< A struct
     );
 
+    //! Invoke the to port connected to productRecvIn
+    void invoke_to_productRecvIn(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    );
+
   protected:
 
     // ----------------------------------------------------------------------
@@ -861,14 +869,14 @@ class QueuedGetProductsTesterBase :
     // ----------------------------------------------------------------------
 
     //! Handle a data product get
-    virtual Fw::Success::T productGetIn(
+    virtual Fw::Success::T productGet_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size, //!< The size of the requested buffer
         Fw::Buffer& buffer //!< The buffer
     );
 
     //! Handle a data product send
-    virtual void productSendIn(
+    virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
         Fw::Buffer buffer //!< The buffer
     );
