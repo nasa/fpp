@@ -474,9 +474,10 @@ case class ComponentTesterBaseWriter(
     lazy val handleProductGet = functionClassMember(
       Some(
         """|Handle a data product get from the component under test
-           |By default, (1) call pushProductGetEntry; (2) do not allocate a buffer and return FAILURE.
-           |You can override this behavior, e.g., to call pushProductGetEntry, allocate a buffer,
-           |and return SUCCESS.""".stripMargin
+           |
+           |By default, (1) call pushProductGetEntry; (2) do not allocate a buffer
+           |and return FAILURE. You can override this behavior, e.g., to call
+           |pushProductGetEntry, allocate a buffer and return SUCCESS.""".stripMargin
       ),
       "productGet_handler",
       getPortFunctionParams(productGetPort.get),
@@ -502,8 +503,9 @@ case class ComponentTesterBaseWriter(
     lazy val handleProductRequest = functionClassMember(
       Some(
         """|Handle a data product request from the component under test
-           |By default, call pushProductRequestEntry
-           |You can override this behavior""".stripMargin
+           |
+           |By default, call pushProductRequestEntry. You can override
+           |this behavior.""".stripMargin
       ),
       "productRequest_handler",
       getPortFunctionParams(productRequestPort.get),
@@ -540,8 +542,9 @@ case class ComponentTesterBaseWriter(
     lazy val handleProductSend = functionClassMember(
       Some(
         """|Handle a data product send from the component under test
-           |By default, call pushProductRequestEntry
-           |You can override this behavior""".stripMargin
+           |
+           |By default, call pushProductRequestEntry. You can override
+           |this behavior.""".stripMargin
       ),
       "productSend_handler",
       getPortFunctionParams(productSendPort.get),

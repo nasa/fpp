@@ -724,9 +724,10 @@ class PassiveGetProductsTesterBase :
     );
 
     //! Handle a data product get from the component under test
-    //! By default, (1) call pushProductGetEntry; (2) do not allocate a buffer and return FAILURE.
-    //! You can override this behavior, e.g., to call pushProductGetEntry, allocate a buffer,
-    //! and return SUCCESS.
+    //!
+    //! By default, (1) call pushProductGetEntry; (2) do not allocate a buffer
+    //! and return FAILURE. You can override this behavior, e.g., to call
+    //! pushProductGetEntry, allocate a buffer and return SUCCESS.
     virtual Fw::Success::T productGet_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size, //!< The size of the requested buffer
@@ -747,8 +748,9 @@ class PassiveGetProductsTesterBase :
     );
 
     //! Handle a data product send from the component under test
-    //! By default, call pushProductRequestEntry
-    //! You can override this behavior
+    //!
+    //! By default, call pushProductRequestEntry. You can override
+    //! this behavior.
     virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer

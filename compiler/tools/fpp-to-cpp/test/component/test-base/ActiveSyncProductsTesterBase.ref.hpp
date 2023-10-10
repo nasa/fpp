@@ -867,8 +867,9 @@ class ActiveSyncProductsTesterBase :
     );
 
     //! Handle a data product request from the component under test
-    //! By default, call pushProductRequestEntry
-    //! You can override this behavior
+    //!
+    //! By default, call pushProductRequestEntry. You can override
+    //! this behavior.
     virtual void productRequest_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size //!< The size of the requested buffer
@@ -888,8 +889,9 @@ class ActiveSyncProductsTesterBase :
     );
 
     //! Handle a data product send from the component under test
-    //! By default, call pushProductRequestEntry
-    //! You can override this behavior
+    //!
+    //! By default, call pushProductRequestEntry. You can override
+    //! this behavior.
     virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
