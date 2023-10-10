@@ -266,6 +266,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
+  val hasProductRecvPort: Boolean = productRecvPort.isDefined
+
   val hasProductRequestPort: Boolean = productRequestPort.isDefined
 
   /** Parameters for the init function */

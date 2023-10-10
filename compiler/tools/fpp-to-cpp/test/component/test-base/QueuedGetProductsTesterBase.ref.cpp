@@ -1683,6 +1683,18 @@ Fw::Success::T QueuedGetProductsTesterBase ::
 }
 
 void QueuedGetProductsTesterBase ::
+  sendProductResponse(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(this->getNum_to_productRecvIn() > 0);
+  FW_ASSERT(this->m_to_productRecvIn[0].isConnected());
+  this->m_to_productRecvIn[0].invoke(id, buffer, status);
+}
+
+void QueuedGetProductsTesterBase ::
   pushProductSendEntry(
       FwDpIdType id,
       const Fw::Buffer& buffer

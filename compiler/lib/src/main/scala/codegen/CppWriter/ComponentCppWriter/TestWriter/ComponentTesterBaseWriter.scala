@@ -515,7 +515,16 @@ case class ComponentTesterBaseWriter(
       "sendProductResponse",
       getPortFunctionParams(productRecvPort.get),
       CppDoc.Type("void"),
-      lines("// TODO")
+      {
+        val pi = productRecvPort.get
+        val portNumGetter = testerPortNumGetterName(pi)
+        val varName = testerPortVariableName(pi)
+        lines(
+          s"""|FW_ASSERT(this->$portNumGetter() > 0);
+              |FW_ASSERT(this->$varName[0].isConnected());
+              |this->$varName[0].invoke(id, buffer, status);"""
+        )
+      }
     )
     lazy val pushProductSend = functionClassMember(
       Some("Push an entry on the product request history"),
@@ -546,6 +555,7 @@ case class ComponentTesterBaseWriter(
           guardedList (hasProductRequestPort) (
             List(pushProductRequest, handleProductRequest)
           ),
+          guardedList (hasProductRecvPort) (List(sendProductResponse)),
           List(pushProductSend, handleProductSend)
         )
       }

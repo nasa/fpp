@@ -880,6 +880,13 @@ class ActiveSyncProductsTesterBase :
         FwSizeType size //!< The size of the requested buffer
     );
 
+    //! Send a data product response
+    void sendProductResponse(
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    );
+
     //! Push an entry on the product request history
     void pushProductSendEntry(
         FwDpIdType id, //!< The container ID
