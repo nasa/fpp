@@ -397,11 +397,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Invocation functions for to ports",
-      List.concat(
-        typedInputPorts,
-        serialInputPorts,
-        dataProductInputPorts
-      ).map(p => {
+      List.concat(typedInputPorts, serialInputPorts).map(p => {
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
           case PortInstance.Type.Serial => "invokeSerial"

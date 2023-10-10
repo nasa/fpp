@@ -1275,26 +1275,6 @@ void QueuedGetProductsTesterBase ::
   );
 }
 
-void QueuedGetProductsTesterBase ::
-  invoke_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-  this->m_to_productRecvIn[portNum].invoke(
-    id,
-    buffer,
-    status
-  );
-}
-
 // ----------------------------------------------------------------------
 // Getters for port counts
 // ----------------------------------------------------------------------

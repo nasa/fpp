@@ -494,14 +494,6 @@ class PassiveSyncProductsTesterBase :
         const S& s //!< A struct
     );
 
-    //! Invoke the to port connected to productRecvIn
-    void invoke_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
-    );
-
   protected:
 
     // ----------------------------------------------------------------------
