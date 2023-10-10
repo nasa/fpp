@@ -734,7 +734,7 @@ class PassiveGuardedProductsTesterBase :
     //! Handle a data product send
     virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
-        Fw::Buffer buffer //!< The buffer
+        const Fw::Buffer& buffer //!< The buffer
     );
 
   protected:

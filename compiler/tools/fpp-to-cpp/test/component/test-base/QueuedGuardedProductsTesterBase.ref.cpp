@@ -1676,7 +1676,7 @@ void QueuedGuardedProductsTesterBase ::
 void QueuedGuardedProductsTesterBase ::
   productSend_handler(
       FwDpIdType id,
-      Fw::Buffer buffer
+      const Fw::Buffer& buffer
   )
 {
   DpSend e = { id, buffer };

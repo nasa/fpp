@@ -132,6 +132,20 @@ case class ComponentHistory(
     CppDoc.Lines.Hpp
   )
 
+  def pushHistoryEntry(p: PortInstance) = {
+    val portName = p.getUnqualifiedName
+    val entryName = fromPortEntryName(portName)
+    val historyName = fromPortHistoryName(portName)
+    List.concat(
+      wrapInScope(
+        s"$entryName _e = {",
+        lines(getPortParams(p).map(_._1).mkString(",\n")),
+        "};"
+      ),
+      lines(s"|this->$historyName->push_back(_e);")
+    )
+  }
+
   private def getClearHistoryFunction: List[CppDoc.Class.Member] = {
     lazy val clearHistory = functionClassMember(
       Some("Clear all history"),
@@ -205,12 +219,10 @@ case class ComponentHistory(
       )
     )
 
-    def pushEntry(p: PortInstance) = {
+    def pushEntryAndUpdateSize(p: PortInstance) = {
       val portName = p.getUnqualifiedName
       val inputName = inputPortName(portName)
       val historySizeName = fromPortHistorySizeName(portName)
-      val entryName = fromPortEntryName(portName)
-      val historyName = fromPortHistoryName(portName)
       functionClassMember(
         Some(s"Push an entry on the history for $inputName"),
         fromPortPushEntryName(p.getUnqualifiedName),
@@ -219,20 +231,14 @@ case class ComponentHistory(
         List.concat(
           portParamTypeMap(portName) match {
             case Nil => lines(s"this->$historySizeName++;")
-            case _ => wrapInScope(
-              s"$entryName _e = {",
-              lines(getPortParams(p).map(_._1).mkString(",\n")),
-              "};"
-            ) ++ lines(
-              s"|this->$historyName->push_back(_e);"
-            )
+            case _ => pushHistoryEntry(p) 
           },
           lines("this->fromPortHistorySize++;")
         )
       )
     }
 
-    clearHistory :: typedOutputPorts.map(pushEntry)
+    clearHistory :: typedOutputPorts.map(pushEntryAndUpdateSize)
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {

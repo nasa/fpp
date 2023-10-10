@@ -468,23 +468,7 @@ case class ComponentTesterBaseWriter(
     lazy val handleProductGet = functionClassMember(
       Some("Handle a data product get"),
       "productGet_handler",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "id",
-          Some("The container ID")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The size of the requested buffer")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::Buffer&"),
-          "buffer",
-          Some("The buffer")
-        )
-      ),
+      getPortFunctionParams(productGetPort.get),
       CppDoc.Type("Fw::Success::T"),
       lines(
         """|(void) buffer;
@@ -500,18 +484,7 @@ case class ComponentTesterBaseWriter(
     lazy val handleProductRequest = functionClassMember(
       Some("Handle a data product request"),
       "productRequest_handler",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "id",
-          Some("The container ID")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The size of the requested buffer")
-        )
-      ),
+      getPortFunctionParams(productRequestPort.get),
       CppDoc.Type("void"),
       lines(
         """|DpRequest e = { id, size };
@@ -520,21 +493,17 @@ case class ComponentTesterBaseWriter(
       ),
       CppDoc.Function.Virtual
     )
+    lazy val sendProductResponse = functionClassMember(
+      Some(s"Send a data product response"),
+      "sendProductResponse",
+      getPortFunctionParams(productRecvPort.get),
+      CppDoc.Type("void"),
+      lines("// TODO")
+    )
     lazy val handleProductSend = functionClassMember(
       Some("Handle a data product send"),
       "productSend_handler",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("FwDpIdType"),
-          "id",
-          Some("The container ID")
-        ),
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::Buffer"),
-          "buffer",
-          Some("The buffer")
-        )
-      ),
+      getPortFunctionParams(productSendPort.get),
       CppDoc.Type("void"),
       lines(
         """|DpSend e = { id, buffer };
