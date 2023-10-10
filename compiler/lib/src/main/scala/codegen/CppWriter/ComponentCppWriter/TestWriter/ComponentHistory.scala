@@ -132,20 +132,6 @@ case class ComponentHistory(
     CppDoc.Lines.Hpp
   )
 
-  def pushHistoryEntry(p: PortInstance) = {
-    val portName = p.getUnqualifiedName
-    val entryName = fromPortEntryName(portName)
-    val historyName = fromPortHistoryName(portName)
-    List.concat(
-      wrapInScope(
-        s"$entryName _e = {",
-        lines(getPortParams(p).map(_._1).mkString(",\n")),
-        "};"
-      ),
-      lines(s"|this->$historyName->push_back(_e);")
-    )
-  }
-
   private def getClearHistoryFunction: List[CppDoc.Class.Member] = {
     lazy val clearHistory = functionClassMember(
       Some("Clear all history"),
@@ -218,6 +204,20 @@ case class ComponentHistory(
         })
       )
     )
+
+    def pushHistoryEntry(p: PortInstance) = {
+      val portName = p.getUnqualifiedName
+      val entryName = fromPortEntryName(portName)
+      val historyName = fromPortHistoryName(portName)
+      List.concat(
+        wrapInScope(
+          s"$entryName _e = {",
+          lines(getPortParams(p).map(_._1).mkString(",\n")),
+          "};"
+        ),
+        lines(s"|this->$historyName->push_back(_e);")
+      )
+    }
 
     def pushEntryAndUpdateSize(p: PortInstance) = {
       val portName = p.getUnqualifiedName

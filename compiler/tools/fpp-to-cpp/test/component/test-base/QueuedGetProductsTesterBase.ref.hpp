@@ -868,6 +868,12 @@ class QueuedGetProductsTesterBase :
     // Functions for testing data products
     // ----------------------------------------------------------------------
 
+    //! Push an entry on the product get history
+    void pushProductGetEntry(
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
     //! Handle a data product get
     virtual Fw::Success::T productGet_handler(
         FwDpIdType id, //!< The container ID

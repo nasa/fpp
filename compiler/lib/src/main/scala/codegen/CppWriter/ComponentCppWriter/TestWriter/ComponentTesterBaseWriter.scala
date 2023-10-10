@@ -465,6 +465,16 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getDpFunctions: List[CppDoc.Class.Member] = {
+    lazy val pushProductGet = functionClassMember(
+      Some("Push an entry on the product get history"),
+      "pushProductGetEntry",
+      getPortFunctionParams(productGetPort.get).take(2),
+      CppDoc.Type("void"),
+      lines(
+        """|DpGet e = { id, size };
+           |this->productGetHistory->push_back(e);"""
+      )
+    )
     lazy val handleProductGet = functionClassMember(
       Some("Handle a data product get"),
       "productGet_handler",
@@ -472,8 +482,7 @@ case class ComponentTesterBaseWriter(
       CppDoc.Type("Fw::Success::T"),
       lines(
         """|(void) buffer;
-           |DpGet e = { id, size };
-           |this->productGetHistory->push_back(e);
+           |this->pushProductGetEntry(id, size);
            |// Default behavior: do not allocate a buffer and return FAILURE
            |// Client code can override this behavior
            |return Fw::Success::FAILURE;
@@ -517,7 +526,7 @@ case class ComponentTesterBaseWriter(
       "Functions for testing data products",
       {
         List.concat(
-          guardedList (hasProductGetPort) (List(handleProductGet)),
+          guardedList (hasProductGetPort) (List(pushProductGet, handleProductGet)),
           guardedList (hasProductRequestPort) (List(handleProductRequest)),
           List(handleProductSend)
         )

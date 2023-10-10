@@ -1660,6 +1660,16 @@ void ActiveGetProductsTesterBase ::
 // Functions for testing data products
 // ----------------------------------------------------------------------
 
+void ActiveGetProductsTesterBase ::
+  pushProductGetEntry(
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  DpGet e = { id, size };
+  this->productGetHistory->push_back(e);
+}
+
 Fw::Success::T ActiveGetProductsTesterBase ::
   productGet_handler(
       FwDpIdType id,
@@ -1668,8 +1678,7 @@ Fw::Success::T ActiveGetProductsTesterBase ::
   )
 {
   (void) buffer;
-  DpGet e = { id, size };
-  this->productGetHistory->push_back(e);
+  this->pushProductGetEntry(id, size);
   // Default behavior: do not allocate a buffer and return FAILURE
   // Client code can override this behavior
   return Fw::Success::FAILURE;
