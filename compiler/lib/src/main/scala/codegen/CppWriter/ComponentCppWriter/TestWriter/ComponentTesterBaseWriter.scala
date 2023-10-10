@@ -477,9 +477,9 @@ case class ComponentTesterBaseWriter(
     )
     lazy val handleProductGet = functionClassMember(
       Some(
-        "Handle a data product get" ++
-        "\nBy default, do not allocate a buffer and return FAILURE" ++
-        "\nYou can override this behavior"
+        """|Handle a data product get
+           |By default, do not allocate a buffer and return FAILURE
+           |You can override this behavior""".stripMargin
       ),
       "productGet_handler",
       getPortFunctionParams(productGetPort.get),
@@ -517,16 +517,22 @@ case class ComponentTesterBaseWriter(
       CppDoc.Type("void"),
       lines("// TODO")
     )
+    lazy val pushProductSend = functionClassMember(
+      Some("Push an entry on the product request history"),
+      "pushProductSendEntry",
+      getPortFunctionParams(productSendPort.get),
+      CppDoc.Type("void"),
+      lines(
+        """|DpSend e = { id, buffer };
+           |this->productSendHistory->push_back(e);"""
+      )
+    )
     lazy val handleProductSend = functionClassMember(
       Some("Handle a data product send"),
       "productSend_handler",
       getPortFunctionParams(productSendPort.get),
       CppDoc.Type("void"),
-      lines(
-        """|DpSend e = { id, buffer };
-           |this->productSendHistory->push_back(e);
-           |"""
-      ),
+      lines("this->pushProductSendEntry(id, buffer);"),
       CppDoc.Function.Virtual
     )
     addAccessTagAndComment(
@@ -540,7 +546,7 @@ case class ComponentTesterBaseWriter(
           guardedList (hasProductRequestPort) (
             List(pushProductRequest, handleProductRequest)
           ),
-          List(handleProductSend)
+          List(pushProductSend, handleProductSend)
         )
       }
     )

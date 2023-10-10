@@ -3609,13 +3609,22 @@ namespace M {
   }
 
   void ActiveTestTesterBase ::
-    productSend_handler(
+    pushProductSendEntry(
         FwDpIdType id,
         const Fw::Buffer& buffer
     )
   {
     DpSend e = { id, buffer };
     this->productSendHistory->push_back(e);
+  }
+
+  void ActiveTestTesterBase ::
+    productSend_handler(
+        FwDpIdType id,
+        const Fw::Buffer& buffer
+    )
+  {
+    this->pushProductSendEntry(id, buffer);
   }
 
   // ----------------------------------------------------------------------

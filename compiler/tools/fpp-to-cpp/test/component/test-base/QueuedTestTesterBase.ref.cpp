@@ -3607,13 +3607,22 @@ void QueuedTestTesterBase ::
 }
 
 void QueuedTestTesterBase ::
-  productSend_handler(
+  pushProductSendEntry(
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
 {
   DpSend e = { id, buffer };
   this->productSendHistory->push_back(e);
+}
+
+void QueuedTestTesterBase ::
+  productSend_handler(
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  this->pushProductSendEntry(id, buffer);
 }
 
 // ----------------------------------------------------------------------
