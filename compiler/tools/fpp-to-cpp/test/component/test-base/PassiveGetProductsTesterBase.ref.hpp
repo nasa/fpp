@@ -732,6 +732,8 @@ class PassiveGetProductsTesterBase :
     );
 
     //! Handle a data product get
+    //! By default, do not allocate a buffer and return FAILURE
+    //! You can override this behavior
     virtual Fw::Success::T productGet_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size, //!< The size of the requested buffer

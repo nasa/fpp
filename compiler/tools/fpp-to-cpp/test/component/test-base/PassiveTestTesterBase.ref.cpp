@@ -3062,13 +3062,22 @@ void PassiveTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTestTesterBase ::
-  productRequest_handler(
+  pushProductRequestEntry(
       FwDpIdType id,
       FwSizeType size
   )
 {
   DpRequest e = { id, size };
   this->productRequestHistory->push_back(e);
+}
+
+void PassiveTestTesterBase ::
+  productRequest_handler(
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  this->pushProductRequestEntry(id, size);
 }
 
 void PassiveTestTesterBase ::

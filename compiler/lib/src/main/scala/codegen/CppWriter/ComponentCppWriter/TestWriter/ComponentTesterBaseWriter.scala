@@ -476,30 +476,38 @@ case class ComponentTesterBaseWriter(
       )
     )
     lazy val handleProductGet = functionClassMember(
-      Some("Handle a data product get"),
+      Some(
+        "Handle a data product get" ++
+        "\nBy default, do not allocate a buffer and return FAILURE" ++
+        "\nYou can override this behavior"
+      ),
       "productGet_handler",
       getPortFunctionParams(productGetPort.get),
       CppDoc.Type("Fw::Success::T"),
       lines(
         """|(void) buffer;
            |this->pushProductGetEntry(id, size);
-           |// Default behavior: do not allocate a buffer and return FAILURE
-           |// Client code can override this behavior
            |return Fw::Success::FAILURE;
            |"""
       ),
       CppDoc.Function.Virtual
+    )
+    lazy val pushProductRequest = functionClassMember(
+      Some("Push an entry on the product request history"),
+      "pushProductRequestEntry",
+      getPortFunctionParams(productRequestPort.get),
+      CppDoc.Type("void"),
+      lines(
+        """|DpRequest e = { id, size };
+           |this->productRequestHistory->push_back(e);"""
+      )
     )
     lazy val handleProductRequest = functionClassMember(
       Some("Handle a data product request"),
       "productRequest_handler",
       getPortFunctionParams(productRequestPort.get),
       CppDoc.Type("void"),
-      lines(
-        """|DpRequest e = { id, size };
-           |this->productRequestHistory->push_back(e);
-           |"""
-      ),
+      lines("this->pushProductRequestEntry(id, size);"),
       CppDoc.Function.Virtual
     )
     lazy val sendProductResponse = functionClassMember(
@@ -526,8 +534,12 @@ case class ComponentTesterBaseWriter(
       "Functions for testing data products",
       {
         List.concat(
-          guardedList (hasProductGetPort) (List(pushProductGet, handleProductGet)),
-          guardedList (hasProductRequestPort) (List(handleProductRequest)),
+          guardedList (hasProductGetPort) (
+            List(pushProductGet, handleProductGet)
+          ),
+          guardedList (hasProductRequestPort) (
+            List(pushProductRequest, handleProductRequest)
+          ),
           List(handleProductSend)
         )
       }

@@ -1679,8 +1679,6 @@ Fw::Success::T ActiveGetProductsTesterBase ::
 {
   (void) buffer;
   this->pushProductGetEntry(id, size);
-  // Default behavior: do not allocate a buffer and return FAILURE
-  // Client code can override this behavior
   return Fw::Success::FAILURE;
 }
 
