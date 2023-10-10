@@ -754,7 +754,7 @@ case class ComponentTesterBaseWriter(
 
             lines(
               s"""|
-                                |$tn $name;
+                  |$tn $name;
                   |#if FW_AMPCS_COMPATIBLE
                   |{
                   |  // Deserialize the argument size
