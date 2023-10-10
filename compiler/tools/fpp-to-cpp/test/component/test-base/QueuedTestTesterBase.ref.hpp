@@ -1372,13 +1372,15 @@ class QueuedTestTesterBase :
         FwSizeType size //!< The size of the requested buffer
     );
 
-    //! Handle a data product request
+    //! Handle a data product request from the component under test
+    //! By default, call pushProductRequestEntry
+    //! You can override this behavior
     virtual void productRequest_handler(
         FwDpIdType id, //!< The container ID
         FwSizeType size //!< The size of the requested buffer
     );
 
-    //! Send a data product response
+    //! Send a data product response to the component under test
     void sendProductResponse(
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer, //!< The buffer
@@ -1391,7 +1393,9 @@ class QueuedTestTesterBase :
         const Fw::Buffer& buffer //!< The buffer
     );
 
-    //! Handle a data product send
+    //! Handle a data product send from the component under test
+    //! By default, call pushProductRequestEntry
+    //! You can override this behavior
     virtual void productSend_handler(
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
