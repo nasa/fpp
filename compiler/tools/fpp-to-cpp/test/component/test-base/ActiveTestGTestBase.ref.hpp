@@ -336,8 +336,8 @@
 #define ASSERT_PRODUCT_SEND_SIZE(size) \
   this->assertProductSend_size(__FILE__, __LINE__, size)
 
-#define ASSERT_PRODUCT_SEND(index, id, buffer) \
-  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
+#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dataSize, buffer) \
+    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dataSize, buffer)
 
 namespace M {
 
@@ -745,12 +745,21 @@ namespace M {
       ) const;
 
       //! Assert the product send history at index
+      //!
+      //! This function sets the output buffer, deserializes and checks the
+      //! data product header, and sets the deserialization pointer to the start
+      //! of the data payload. User-written code can then check the data payload.
       void assertProductSend(
           const char* const __callSiteFileName, //!< The name of the file containing the call site
           const U32 __callSiteLineNumber, //!< The line number of the call site
           const U32 __index, //!< The index
-          FwDpIdType id, //!< The container ID
-          Fw::Buffer buffer //!< The buffer
+          FwDpIdType id, //!< The expected container ID (input)
+          FwDpPriorityType priority, //!< The expected priority (input)
+          const Fw::Time& timeTag, //!< The expected time tag (input)
+          Fw::DpCfg::ProcType procType, //!< The expected processing type (input)
+          const Fw::DpContainer::Header::UserData& userData, //!< The expected user data (input)
+          FwSizeType dataSize, //!< The expected data size (input)
+          Fw::Buffer& historyBuffer //!< The buffer from the history (output)
       ) const;
 
   };

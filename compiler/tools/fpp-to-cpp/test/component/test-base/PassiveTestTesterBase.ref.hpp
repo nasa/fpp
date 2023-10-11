@@ -10,6 +10,7 @@
 #include <cstdio>
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
+#include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "test-base/PassiveTestComponentAc.hpp"

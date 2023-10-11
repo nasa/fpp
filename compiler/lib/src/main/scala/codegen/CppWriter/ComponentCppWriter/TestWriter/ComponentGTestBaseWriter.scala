@@ -281,8 +281,8 @@ case class ComponentGTestBaseWriter(
           """#define ASSERT_PRODUCT_SEND_SIZE(size) \
             |  this->assertProductSend_size(__FILE__, __LINE__, size)
             |
-            |#define ASSERT_PRODUCT_SEND(index, id, buffer) \
-            |  this->assertProductSend(__FILE__, __LINE__, index, id, buffer)
+            |#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dataSize, buffer) \
+            |    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dataSize, buffer)
             |"""
         )
       )
@@ -795,18 +795,50 @@ case class ComponentGTestBaseWriter(
       )
     lazy val historyIndex =
       functionClassMember(
-        Some("Assert the product send history at index"),
+        Some(
+          """|Assert the product send history at index
+             |
+             |This function sets the output buffer, deserializes and checks the
+             |data product header, and sets the deserialization pointer to the start
+             |of the data payload. User-written code can then check the data payload.
+             |""".stripMargin
+        ),
         "assertProductSend",
         assertionFunctionParams ++ List(
           CppDoc.Function.Param(
             CppDoc.Type("FwDpIdType"),
             "id",
-            Some("The container ID")
+            Some("The expected container ID (input)")
           ),
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::Buffer"),
-            "buffer",
-            Some("The buffer")
+            CppDoc.Type("FwDpPriorityType"),
+            "priority",
+            Some("The expected priority (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::Time&"),
+            "timeTag",
+            Some("The expected time tag (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::DpCfg::ProcType"),
+            "procType",
+            Some("The expected processing type (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::DpContainer::Header::UserData&"),
+            "userData",
+            Some("The expected user data (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("FwSizeType"),
+            "dataSize",
+            Some("The expected data size (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::Buffer&"),
+            "historyBuffer",
+            Some("The buffer from the history (output)")
           )
         ),
         CppDoc.Type("void"),
@@ -819,22 +851,29 @@ case class ComponentGTestBaseWriter(
                |  << this->productSendHistory->size() << ")\n"
                |  << "  Actual:   " << __index << "\n";
                |const DpSend& e = this->productSendHistory->at(__index);
-               |ASSERT_EQ(id, e.id)
+               |// Set the history buffer output
+               |historyBuffer = e.buffer;
+               |// Check the container id
+               |ASSERT_EQ(e.id, id)
                |  << "\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-               |  << "  Value:    Id at index "
-               |  << __index
-               |  << " in product send history\n"
+               |  << "  Value:    Container ID at index " << index << " in product send history\n"
                |  << "  Expected: " << id << "\n"
                |  << "  Actual:   " << e.id << "\n";
-               |ASSERT_EQ(buffer, e.buffer)
-               |  << "\n"
-               |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-               |  << "  Value:    Size at index "
-               |  << __index
-               |  << " in product send history\n"
-               |  << "  Expected: " << buffer << "\n"
-               |  << "  Actual:   " << e.buffer << "\n";
+               |// Check the header
+               |Fw::TestUtil::DpContainerHeader header;
+               |header.deserialize(__callSiteFileName, __callSiteLineNumber, historyBuffer);
+               |header.check(
+               |    __callSiteFileName,
+               |    __callSiteLineNumber,
+               |    historyBuffer,
+               |    id,
+               |    priority,
+               |    timeTag,
+               |    procType,
+               |    userData,
+               |    dataSize
+               |);
                |"""
         ),
         CppDoc.Function.NonSV,

@@ -184,7 +184,12 @@ void PassiveGetProductsGTestBase ::
       const U32 __callSiteLineNumber,
       const U32 __index,
       FwDpIdType id,
-      Fw::Buffer buffer
+      FwDpPriorityType priority,
+      const Fw::Time& timeTag,
+      Fw::DpCfg::ProcType procType,
+      const Fw::DpContainer::Header::UserData& userData,
+      FwSizeType dataSize,
+      Fw::Buffer& historyBuffer
   ) const
 {
   ASSERT_LT(__index, this->productSendHistory->size())
@@ -195,20 +200,27 @@ void PassiveGetProductsGTestBase ::
     << this->productSendHistory->size() << ")\n"
     << "  Actual:   " << __index << "\n";
   const DpSend& e = this->productSendHistory->at(__index);
-  ASSERT_EQ(id, e.id)
+  // Set the history buffer output
+  historyBuffer = e.buffer;
+  // Check the container id
+  ASSERT_EQ(e.id, id)
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Id at index "
-    << __index
-    << " in product send history\n"
+    << "  Value:    Container ID at index " << index << " in product send history\n"
     << "  Expected: " << id << "\n"
-    << "  Actual:   " << e.id << "\n";
-  ASSERT_EQ(buffer, e.buffer)
-    << "\n"
-    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Size at index "
-    << __index
-    << " in product send history\n"
-    << "  Expected: " << buffer << "\n"
-    << "  Actual:   " << e.buffer << "\n";
+    << "  Actual: " << e.id << "\n";
+  // Check the header
+  Fw::TestUtil::DpContainerHeader header;
+  header.deserialize(__callSiteFileName, __callSiteLineNumber, historyBuffer);
+  header.check(
+      __callSiteFileName,
+      __callSiteLineNumber,
+      historyBuffer,
+      id,
+      priority,
+      timeTag,
+      procType,
+      userData,
+      dataSize
+  );
 }

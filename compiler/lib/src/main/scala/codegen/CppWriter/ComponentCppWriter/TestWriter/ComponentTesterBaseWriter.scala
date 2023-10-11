@@ -50,16 +50,23 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val userHeaders = List(
+    val standardHeaders = List(
       s"$componentRelativeFileName.hpp",
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp"
+    )
+    val dpHeaders = guardedList (hasDataProducts) (
+      List("Fw/Dp/test/util/DpContainerHeader.hpp")
+    )
+    val userHeaders = List.concat(
+      standardHeaders,
+      dpHeaders
     ).sorted.map(CppWriter.headerString).map(line)
-    val systemHeader = lines(CppWriter.systemHeaderString("cstdio"))
+    val systemHeaders = lines(CppWriter.systemHeaderString("cstdio"))
     linesMember(
       List.concat(
-        Line.blank :: systemHeader,
+        Line.blank :: systemHeaders,
         Line.blank :: userHeaders
       )
     )
