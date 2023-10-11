@@ -857,7 +857,7 @@ case class ComponentGTestBaseWriter(
                |ASSERT_EQ(e.id, id)
                |  << "\n"
                |  << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-               |  << "  Value:    Container ID at index " << index << " in product send history\n"
+               |  << "  Value:    Container ID at index " << __index << " in product send history\n"
                |  << "  Expected: " << id << "\n"
                |  << "  Actual:   " << e.id << "\n";
                |// Check the header

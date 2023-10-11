@@ -206,9 +206,9 @@ void ActiveSyncProductsGTestBase ::
   ASSERT_EQ(e.id, id)
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Container ID at index " << index << " in product send history\n"
+    << "  Value:    Container ID at index " << __index << " in product send history\n"
     << "  Expected: " << id << "\n"
-    << "  Actual: " << e.id << "\n";
+    << "  Actual:   " << e.id << "\n";
   // Check the header
   Fw::TestUtil::DpContainerHeader header;
   header.deserialize(__callSiteFileName, __callSiteLineNumber, historyBuffer);
