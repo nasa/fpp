@@ -151,9 +151,13 @@ case class ComponentHistory(
           )
         ),
         guardedList (hasChannels) (lines("this->clearTlm();")),
-        guardedList (hasProductGetPort) (lines("this->productGetHistory->clear();")),
-        guardedList (hasProductRequestPort) (lines("this->productRequestHistory->clear();")),
-        guardedList (hasDataProducts) (lines("this->productSendHistory->clear();")),
+        guardedList (hasDataProducts) (
+          List.concat(
+            guardedList (hasProductGetPort) (lines("this->productGetHistory->clear();")),
+            guardedList (hasProductRequestPort) (lines("this->productRequestHistory->clear();")),
+            lines("this->productSendHistory->clear();")
+          )
+        )
       )
     )
     addAccessTagAndComment(

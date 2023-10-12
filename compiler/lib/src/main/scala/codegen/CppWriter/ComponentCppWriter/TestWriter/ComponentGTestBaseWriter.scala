@@ -69,9 +69,13 @@ case class ComponentGTestBaseWriter(
       guardedList (hasCommands) (getCmdMacros),
       guardedList (hasEvents) (getEventMacros),
       guardedList (hasTelemetry) (getTlmMacros),
-      guardedList (hasProductGetPort) (getProductGetMacros),
-      guardedList (hasProductRequestPort) (getProductRequestMacros),
-      guardedList (hasDataProducts) (getProductSendMacros)
+      guardedList (hasDataProducts) (
+        List.concat(
+          guardedList (hasProductGetPort) (getProductGetMacros),
+          guardedList (hasProductRequestPort) (getProductRequestMacros),
+          getProductSendMacros
+        )
+      )
     )
   }
 
@@ -82,9 +86,13 @@ case class ComponentGTestBaseWriter(
       guardedList (hasCommands) (getCmdAssertFunctions),
       guardedList (hasEvents) (getEventAssertFunctions),
       guardedList (hasTelemetry) (getTlmAssertFunctions),
-      guardedList (hasProductGetPort) (getProductGetAssertFunctions),
-      guardedList (hasProductRequestPort) (getProductRequestAssertFunctions),
-      guardedList (hasDataProducts) (getProductSendAssertFunctions)
+      guardedList (hasDataProducts) (
+        List.concat(
+          guardedList (hasProductGetPort) (getProductGetAssertFunctions),
+          guardedList (hasProductRequestPort) (getProductRequestAssertFunctions),
+          getProductSendAssertFunctions
+        )
+      )
     )
   }
 

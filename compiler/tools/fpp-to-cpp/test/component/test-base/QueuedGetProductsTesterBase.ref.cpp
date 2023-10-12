@@ -887,10 +887,8 @@ QueuedGetProductsTesterBase ::
   this->fromPortHistory_typedOut = new History<FromPortEntry_typedOut>(maxHistorySize);
   this->fromPortHistory_typedReturnOut = new History<FromPortEntry_typedReturnOut>(maxHistorySize);
 
-  // Initialize data product get history
+  // Initialize data product histories
   this->productGetHistory = new History<DpGet>(maxHistorySize);
-
-  // Initialize data product send history
   this->productSendHistory = new History<DpSend>(maxHistorySize);
 
   // Clear history

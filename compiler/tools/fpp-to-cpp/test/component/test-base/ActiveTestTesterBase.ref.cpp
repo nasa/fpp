@@ -1126,10 +1126,8 @@ namespace M {
     this->tlmHistory_ChannelU32OnChange = new History<TlmEntry_ChannelU32OnChange>(maxHistorySize);
     this->tlmHistory_ChannelEnumOnChange = new History<TlmEntry_ChannelEnumOnChange>(maxHistorySize);
 
-    // Initialize data product request history
+    // Initialize data product histories
     this->productRequestHistory = new History<DpRequest>(maxHistorySize);
-
-    // Initialize data product send history
     this->productSendHistory = new History<DpSend>(maxHistorySize);
 
     // Clear history
@@ -1171,7 +1169,6 @@ namespace M {
 
     // Destroy product request history
     delete this->productRequestHistory;
-
     // Destroy product send history
     delete this->productSendHistory;
   }
