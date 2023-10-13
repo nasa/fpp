@@ -15,14 +15,14 @@ passive()
   move_test PassiveCommands
   move_test PassiveEvents
   move_test PassiveGetContainersOnly
-  move_test PassiveGetPortsOnly
+  move_test PassiveGetProductPortsOnly
   move_test PassiveGetProducts
   move_test PassiveGetRecordsOnly
   move_test PassiveGuardedProducts
   move_test PassiveParams
   move_test PassiveSerial
   move_test PassiveSyncContainersOnly
-  move_test PassiveSyncPortsOnly
+  move_test PassiveSyncProductPortsOnly
   move_test PassiveSyncProducts
   move_test PassiveSyncRecordsOnly
   move_test PassiveTelemetry

@@ -12,12 +12,12 @@ passive()
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive && \
   diff_template PassiveCommands && \
   diff_template PassiveEvents && \
-  diff_template PassiveGetPortsOnly && \
+  diff_template PassiveGetProductPortsOnly && \
   diff_template PassiveGetProducts && \
   diff_template PassiveGuardedProducts && \
   diff_template PassiveParams && \
   diff_template PassiveSerial && \
-  diff_template PassiveSyncPortsOnly && \
+  diff_template PassiveSyncProductPortsOnly && \
   diff_template PassiveSyncProducts && \
   diff_template PassiveTelemetry && \
   diff_template PassiveTest
