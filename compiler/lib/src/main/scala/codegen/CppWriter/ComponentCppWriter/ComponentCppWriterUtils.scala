@@ -263,7 +263,7 @@ abstract class ComponentCppWriterUtils(
   val hasParameters: Boolean = component.paramMap.nonEmpty
 
   val hasDataProducts: Boolean = component.hasDataProducts
- 
+
   val hasContainers: Boolean = containersByName != Nil
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
