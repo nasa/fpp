@@ -29,6 +29,7 @@ passive()
   diff_cpp PassiveGuardedProductsComponent && \
   diff_cpp PassiveParamsComponent &&\
   diff_cpp PassiveSerialComponent && \
+  diff_cpp PassiveSyncContainersOnlyComponent && \
   diff_cpp PassiveSyncPortsOnlyComponent && \
   diff_cpp PassiveSyncProductsComponent && \
   diff_cpp PassiveSyncRecordsOnlyComponent && \

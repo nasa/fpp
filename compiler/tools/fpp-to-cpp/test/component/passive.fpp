@@ -104,16 +104,12 @@ passive component PassiveGetProducts {
 passive component PassiveSyncPortsOnly {
 
   include "include/product_ports_sync.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
 
 }
 @ A passive component with product get and ports only
 passive component PassiveGetPortsOnly {
 
   include "include/product_ports_get.fppi"
-  include "include/special_ports.fppi"
-  include "include/typed_ports.fppi"
 
 }
 
@@ -121,8 +117,18 @@ passive component PassiveGetPortsOnly {
 passive component PassiveSyncRecordsOnly {
 
   include "include/product_ports_sync.fppi"
-  include "include/special_ports.fppi"
+  include "include/time_ports.fppi"
 
   include "include/product_records.fppi"
+
+}
+
+@ A passive component with sync product request and containers only
+passive component PassiveSyncContainersOnly {
+
+  include "include/product_ports_sync.fppi"
+  include "include/time_ports.fppi"
+
+  include "include/product_containers.fppi"
 
 }
