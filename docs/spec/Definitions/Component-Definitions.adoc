@@ -131,6 +131,9 @@ The dictionary specifiers must satisfy the following rules:
 
 . All containers must have distinct names and identifier values.
 
+. If there are any container specifiers, then there must be at least one
+record specifier, and vice versa.
+
 ==== Examples
 
 [source,fpp]
