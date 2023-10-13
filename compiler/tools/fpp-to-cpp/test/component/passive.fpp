@@ -113,4 +113,3 @@ passive component PassiveSyncProductPortsOnly {
   include "include/product_ports_sync.fppi"
 
 }
-

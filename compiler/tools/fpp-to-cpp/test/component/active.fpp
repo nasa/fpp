@@ -137,4 +137,3 @@ active component ActiveAsyncProductPortsOnly {
   include "include/product_ports_async.fppi"
 
 }
-
