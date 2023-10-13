@@ -99,3 +99,12 @@ passive component PassiveGetProducts {
   include "include/products.fppi"
 
 }
+
+@ A passive component with product get and ports only
+passive component PassiveGetPortsOnly {
+
+  include "include/product_ports_get.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+
+}

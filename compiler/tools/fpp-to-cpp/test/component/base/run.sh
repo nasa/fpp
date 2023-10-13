@@ -24,6 +24,7 @@ passive()
   run_test "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive && \
   diff_cpp PassiveCommandsComponent && \
   diff_cpp PassiveEventsComponent && \
+  diff_cpp PassiveGetPortsOnlyComponent && \
   diff_cpp PassiveGetProductsComponent && \
   diff_cpp PassiveGuardedProductsComponent && \
   diff_cpp PassiveParamsComponent &&\

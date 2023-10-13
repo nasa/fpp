@@ -202,45 +202,51 @@ case class ComponentDataProducts (
           )
         ),
         CppDoc.Type("void"),
-        List.concat(
-          lines(
-            """|DpContainer container(id, buffer, this->getIdBase());
-               |// Convert global id to local id
-               |const auto idBase = this->getIdBase();
-               |FW_ASSERT(id >= idBase, id, idBase);
-               |const auto localId = id - idBase;
-               |// Switch on the local id"""
-          ),
-          wrapInSwitch(
-            "localId",
-            List.concat(
-              containersById.flatMap((id, container) => {
-                val name = container.getName
-                lines(
-                  s"""|case ContainerId::$name:
-                      |  // Set the priority
-                      |  container.setPriority(ContainerPriority::$name);
-                      |  // Call the handler
-                      |  this->dpRecv_${name}_handler(container, status.e);
-                      |  break;"""
+        if hasDataProducts then
+          List.concat(
+            lines(
+              """|DpContainer container(id, buffer, this->getIdBase());
+                 |// Convert global id to local id
+                 |const auto idBase = this->getIdBase();
+                 |FW_ASSERT(id >= idBase, id, idBase);
+                 |const auto localId = id - idBase;
+                 |// Switch on the local id"""
+            ),
+            wrapInSwitch(
+              "localId",
+              List.concat(
+                containersById.flatMap((id, container) => {
+                  val name = container.getName
+                  lines(
+                    s"""|case ContainerId::$name:
+                        |  // Set the priority
+                        |  container.setPriority(ContainerPriority::$name);
+                        |  // Call the handler
+                        |  this->dpRecv_${name}_handler(container, status.e);
+                        |  break;"""
+                  )
+                }),
+                lines (
+                  """|default:
+                     |  FW_ASSERT(0);
+                     |  break;"""
                 )
-              }),
-              lines (
-                """|default:
-                   |  FW_ASSERT(0);
-                   |  break;"""
               )
             )
           )
-        )
+        else lines("""|(void) portNum;
+                      |(void) id;
+                      |(void) buffer;
+                      |(void) status;
+                      |// No data products defined""")
       )
     }
     addAccessTagAndComment(
       "PRIVATE",
       "Private data product handling functions",
       List.concat(
-        guardedList (hasProductGetPort) (List(dpGet)),
-        guardedList (hasProductRequestPort) (List(dpRequest)),
+        guardedList (hasDataProducts && hasProductGetPort) (List(dpGet)),
+        guardedList (hasDataProducts && hasProductRequestPort) (List(dpRequest)),
         productRecvPort.map(getDpRecvHandler).map(List(_)).getOrElse(Nil)
       )
     )

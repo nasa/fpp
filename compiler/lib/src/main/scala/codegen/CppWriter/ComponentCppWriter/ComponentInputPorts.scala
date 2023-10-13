@@ -174,10 +174,12 @@ case class ComponentInputPorts(
           case Some(_) => s"retVal = "
           case None => ""
         }
+        val portName = p.getUnqualifiedName
+        val handlerName = inputPortHandlerName(portName)
         def handlerCall =
-          line("// Down call to pure virtual handler method implemented in Impl class") ::
+          line("// Call handler function") ::
             writeFunctionCall(
-              s"${retValAssignment}this->${inputPortHandlerName(p.getUnqualifiedName)}",
+              s"${retValAssignment}this->$handlerName",
               List("portNum"),
               params.map(_._1)
             )
