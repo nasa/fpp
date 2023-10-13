@@ -125,6 +125,8 @@ sealed trait Error {
             System.err.println(loc)
           case _ => ()
         }
+      case SemanticError.InvalidDataProducts(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidDefComponentInstance(name, loc, msg) =>
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -367,6 +369,11 @@ object SemanticError {
     toLoc: Location,
     fromPortDefLoc: Option[Location] = None,
     toPortDefLoc: Option[Location] = None
+  ) extends Error
+  /** Invalid data products */
+  final case class InvalidDataProducts(
+    loc: Location,
+    msg: String
   ) extends Error
   /** Invalid component instance definition */
   final case class InvalidDefComponentInstance(

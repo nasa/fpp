@@ -335,6 +335,32 @@ case class Component(
       yield ()
     }
 
+  /** Check that if there are any data products, then there are both containers
+   *  and records */
+  private def checkDataProducts: Result.Result[Unit] =
+    (recordMap.size, containerMap.size) match {
+      case (0, 0) => Right(())
+      case (_, 0) =>
+        val (_, record) = recordMap.head
+        val loc = Locations.get(record.aNode._2.id)
+        Left(
+          SemanticError.InvalidDataProducts(
+            loc,
+            "component that specifies records must specify at least one container"
+          )
+        )
+      case (0, _) =>
+        val (_, container) = containerMap.head
+        val loc = Locations.get(container.aNode._2.id)
+        Left(
+          SemanticError.InvalidDataProducts(
+            loc,
+            "component that specifies containers must specify at least one record"
+          )
+        )
+      case _ => Right(())
+    }
+
   /** Checks that component has at least one async input port or async command */
   private def checkAsyncInput:
     Result.Result[Unit] = checkNoAsyncInput match {
@@ -459,6 +485,7 @@ case class Component(
         case _ => checkAsyncInput
       }
       _ <- checkRequiredPorts
+      _ <- checkDataProducts
     }
     yield ()
   }

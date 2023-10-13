@@ -14,6 +14,9 @@ passive component C {
   product send port productSendOut
   time get port timeGetOut
 
+  @ A container
+  product container Container
+
   @ A record with no ID
   product record NoId: U32
 
