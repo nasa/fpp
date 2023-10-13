@@ -29,6 +29,7 @@ passive()
   move_cpp PassiveGuardedProductsComponent
   move_cpp PassiveParamsComponent
   move_cpp PassiveSerialComponent
+  move_cpp PassiveSyncPortsOnlyComponent
   move_cpp PassiveSyncProductsComponent
   move_cpp PassiveTelemetryComponent
   move_cpp PassiveTestComponent

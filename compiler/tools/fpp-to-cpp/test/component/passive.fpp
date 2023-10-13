@@ -100,6 +100,14 @@ passive component PassiveGetProducts {
 
 }
 
+@ A passive component with sync product request and ports only
+passive component PassiveSyncPortsOnly {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+
+}
 @ A passive component with product get and ports only
 passive component PassiveGetPortsOnly {
 
