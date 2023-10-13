@@ -7,6 +7,7 @@ id_not_numeric
 missing_ports
 missing_product_recv_port
 missing_product_send_port
+missing_record
 ok
 priority_negative
 priority_not_numeric

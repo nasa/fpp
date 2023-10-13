@@ -4,6 +4,7 @@ duplicate_id_implicit
 duplicate_name
 id_negative
 id_not_numeric
+missing_container
 missing_ports
 missing_product_recv_port
 missing_product_send_port
