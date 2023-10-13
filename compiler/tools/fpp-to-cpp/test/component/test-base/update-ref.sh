@@ -14,10 +14,12 @@ passive()
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
   move_test PassiveCommands
   move_test PassiveEvents
+  move_test PassiveGetPortsOnly
   move_test PassiveGetProducts
   move_test PassiveGuardedProducts
   move_test PassiveParams
   move_test PassiveSerial
+  move_test PassiveSyncPortsOnly
   move_test PassiveSyncProducts
   move_test PassiveTelemetry
   move_test PassiveTest
