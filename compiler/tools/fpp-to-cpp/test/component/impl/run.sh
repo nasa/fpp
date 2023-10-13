@@ -26,6 +26,8 @@ passive()
 active()
 {
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active && \
+  diff_template ActiveAsyncProducts && \
+  diff_template ActiveAsyncProductPortsOnly && \
   diff_template ActiveCommands && \
   diff_template ActiveEvents && \
   diff_template ActiveGetProducts && \

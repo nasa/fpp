@@ -26,6 +26,8 @@ passive()
 active()
 {
   update "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
+  move_template ActiveAsyncProducts
+  move_template ActiveAsyncProductPortsOnly
   move_template ActiveCommands
   move_template ActiveEvents
   move_template ActiveGetProducts

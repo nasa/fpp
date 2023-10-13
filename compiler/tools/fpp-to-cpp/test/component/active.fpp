@@ -130,3 +130,11 @@ active component ActiveGetProducts {
   include "include/products.fppi"
 
 }
+
+@ An active component with async product request and ports only
+active component ActiveAsyncProductPortsOnly {
+
+  include "include/product_ports_async.fppi"
+
+}
+
