@@ -54,6 +54,7 @@ active()
 queued()
 {
   run_test "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued && \
+  diff_cpp QueuedAsyncProductPortsOnlyComponent && \
   diff_cpp QueuedAsyncProductsComponent && \
   diff_cpp QueuedCommandsComponent && \
   diff_cpp QueuedEventsComponent && \

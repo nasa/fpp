@@ -26,8 +26,8 @@ passive()
 active()
 {
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active && \
-  diff_template ActiveAsyncProducts && \
   diff_template ActiveAsyncProductPortsOnly && \
+  diff_template ActiveAsyncProducts && \
   diff_template ActiveCommands && \
   diff_template ActiveEvents && \
   diff_template ActiveGetProducts && \
@@ -42,6 +42,8 @@ active()
 queued()
 {
   run_test "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued && \
+  diff_template QueuedAsyncProductPortsOnly && \
+  diff_template QueuedAsyncProducts && \
   diff_template QueuedCommands && \
   diff_template QueuedEvents && \
   diff_template QueuedGetProducts && \

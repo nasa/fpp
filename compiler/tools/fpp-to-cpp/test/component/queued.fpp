@@ -126,3 +126,11 @@ active component QueuedGetProducts {
   include "include/products.fppi"
 
 }
+
+@ An queued component with async product request and ports only
+queued component QueuedAsyncProductPortsOnly {
+
+  include "include/product_ports_async.fppi"
+
+}
+

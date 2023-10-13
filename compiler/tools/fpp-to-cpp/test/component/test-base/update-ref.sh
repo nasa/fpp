@@ -44,6 +44,8 @@ active()
 queued()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
+  move_test QueuedAsyncProducts
+  move_test QueuedAsyncProductPortsOnly
   move_test QueuedCommands
   move_test QueuedEvents
   move_test QueuedGetProducts

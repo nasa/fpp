@@ -26,8 +26,8 @@ passive()
 active()
 {
   update "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
-  move_template ActiveAsyncProducts
   move_template ActiveAsyncProductPortsOnly
+  move_template ActiveAsyncProducts
   move_template ActiveCommands
   move_template ActiveEvents
   move_template ActiveGetProducts
@@ -42,6 +42,8 @@ active()
 queued()
 {
   update "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
+  move_template QueuedAsyncProductPortsOnly
+  move_template QueuedAsyncProducts
   move_template QueuedCommands
   move_template QueuedEvents
   move_template QueuedGetProducts
