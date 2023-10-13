@@ -76,21 +76,21 @@ case class ComponentCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
-    val dpHeader =
+    val dpHeaders =
       guardedList (hasDataProducts) (List("Fw/Dp/DpContainer.hpp"))
-    val mutexHeader =
+    val mutexHeaders =
       guardedList (hasGuardedInputPorts || hasGuardedCommands || hasParameters) (
         List("Os/Mutex.hpp")
       )
-    val cmdStrHeader =
+    val cmdStrHeaders =
       guardedList (hasCommands || hasParameters) (List("Fw/Cmd/CmdString.hpp"))
-    val tlmStrHeader =
+    val tlmStrHeaders =
       guardedList (hasChannels) (List("Fw/Tlm/TlmString.hpp"))
-    val prmStrHeader =
+    val prmStrHeaders =
       guardedList (hasParameters) (List("Fw/Prm/PrmString.hpp"))
-    val logStrHeader =
+    val logStrHeaders =
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
-    val internalStrHeader =
+    val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
 
     val standardHeaders = List.concat(
@@ -100,13 +100,13 @@ case class ComponentCppWriter (
         "Fw/Port/OutputSerializePort.hpp",
         "Fw/Comp/ActiveComponentBase.hpp"
       ),
-      dpHeader,
-      mutexHeader,
-      cmdStrHeader,
-      tlmStrHeader,
-      prmStrHeader,
-      logStrHeader,
-      internalStrHeader
+      dpHeaders,
+      mutexHeaders,
+      cmdStrHeaders,
+      tlmStrHeaders,
+      prmStrHeaders,
+      logStrHeaders,
+      internalStrHeaders
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders

@@ -245,8 +245,8 @@ case class ComponentDataProducts (
       "PRIVATE",
       "Private data product handling functions",
       List.concat(
-        guardedList (hasDataProducts && hasProductGetPort) (List(dpGet)),
-        guardedList (hasDataProducts && hasProductRequestPort) (List(dpRequest)),
+        guardedList (hasContainers && hasProductGetPort) (List(dpGet)),
+        guardedList (hasContainers && hasProductRequestPort) (List(dpRequest)),
         productRecvPort.map(getDpRecvHandler).map(List(_)).getOrElse(Nil)
       )
     )

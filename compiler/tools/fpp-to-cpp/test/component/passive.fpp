@@ -116,3 +116,13 @@ passive component PassiveGetPortsOnly {
   include "include/typed_ports.fppi"
 
 }
+
+@ A passive component with sync product request and records only
+passive component PassiveSyncRecordsOnly {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+
+  include "include/product_records.fppi"
+
+}
