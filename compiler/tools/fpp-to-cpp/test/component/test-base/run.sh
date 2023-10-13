@@ -14,13 +14,17 @@ passive()
   run_test "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive && \
   diff_test PassiveCommands && \
   diff_test PassiveEvents && \
+  diff_test PassiveGetContainersOnly && \
   diff_test PassiveGetPortsOnly && \
   diff_test PassiveGetProducts && \
+  diff_test PassiveGetRecordsOnly && \
   diff_test PassiveGuardedProducts && \
   diff_test PassiveParams && \
   diff_test PassiveSerial && \
+  diff_test PassiveSyncContainersOnly && \
   diff_test PassiveSyncPortsOnly && \
   diff_test PassiveSyncProducts && \
+  diff_test PassiveSyncRecordsOnly && \
   diff_test PassiveTelemetry && \
   diff_test PassiveTest
 }
