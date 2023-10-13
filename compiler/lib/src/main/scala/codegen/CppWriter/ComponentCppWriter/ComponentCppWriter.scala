@@ -77,28 +77,21 @@ case class ComponentCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
     val dpHeader =
-      if component.hasDataProducts then List(
-        "Fw/Dp/DpContainer.hpp"
-      )
-      else Nil
+      guardedList (hasDataProducts) (List("Fw/Dp/DpContainer.hpp"))
     val mutexHeader =
-      if hasGuardedInputPorts || hasGuardedCommands || hasParameters then List("Os/Mutex.hpp")
-      else Nil
+      guardedList (hasGuardedInputPorts || hasGuardedCommands || hasParameters) (
+        List("Os/Mutex.hpp")
+      )
     val cmdStrHeader =
-      if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
-      else Nil
+      guardedList (hasCommands || hasParameters) (List("Fw/Cmd/CmdString.hpp"))
     val tlmStrHeader =
-      if hasChannels then List("Fw/Tlm/TlmString.hpp")
-      else Nil
+      guardedList (hasChannels) (List("Fw/Tlm/TlmString.hpp"))
     val prmStrHeader =
-      if hasParameters then List("Fw/Prm/PrmString.hpp")
-      else Nil
+      guardedList (hasParameters) (List("Fw/Prm/PrmString.hpp"))
     val logStrHeader =
-      if hasEvents then List("Fw/Log/LogString.hpp")
-      else Nil
+      guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeader =
-      if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
-      else Nil
+      guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
 
     val standardHeaders = List.concat(
       List(

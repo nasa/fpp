@@ -103,10 +103,12 @@ case class ComponentDataProducts (
     addAccessTagAndComment(
       "PROTECTED",
       "Functions for managing data products",
-      List.concat(
-        guardedList (hasProductGetPort) (dpGetByName),
-        guardedList (hasProductRequestPort) (dpRequestByName),
-        guardedList (hasDataProducts) (List(dpSendFunction))
+      guardedList (hasDataProducts) (
+        List.concat(
+          guardedList (hasProductGetPort) (dpGetByName),
+          guardedList (hasProductRequestPort) (dpRequestByName),
+          List(dpSendFunction)
+        )
       )
     )
   }
@@ -302,9 +304,8 @@ case class ComponentDataProducts (
   /** Generates the Container inner class */
   private object Container extends ComponentCppWriterUtils(s, aNode) {
 
-    def getContainer = component.hasDataProducts match {
-      case false => Nil
-      case true => List(
+    def getContainer = guardedList (hasDataProducts) (
+      List(
         classClassMember(
           Some("A data product container"),
           "DpContainer",
@@ -316,7 +317,7 @@ case class ComponentDataProducts (
           )
         )
       )
-    }
+    )
 
     private def getConstructionMembers = List(
       linesClassMember(CppDocHppWriter.writeAccessTag("public")),
