@@ -201,27 +201,6 @@ void QueuedGetProductsTesterBase ::
 #endif
   }
 
-  // Connect output port productRecvIn
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_productRecvIn());
-    port++
-  ) {
-    this->m_to_productRecvIn[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_to_productRecvIn[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_to_productRecvIn[port].setObjName(portName);
-#endif
-  }
-
   // Connect output port noArgsAsync
   for (
     PlatformIntType port = 0;
@@ -512,20 +491,6 @@ void QueuedGetProductsTesterBase ::
   );
 
   this->m_to_cmdIn[portNum].addCallPort(port);
-}
-
-void QueuedGetProductsTesterBase ::
-  connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputDpResponsePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_to_productRecvIn[portNum].addCallPort(port);
 }
 
 void QueuedGetProductsTesterBase ::
@@ -1284,12 +1249,6 @@ NATIVE_INT_TYPE QueuedGetProductsTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedGetProductsTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
-}
-
-NATIVE_INT_TYPE QueuedGetProductsTesterBase ::
   getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
@@ -1471,17 +1430,6 @@ bool QueuedGetProductsTesterBase ::
 }
 
 bool QueuedGetProductsTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_productRecvIn[portNum].isConnected();
-}
-
-bool QueuedGetProductsTesterBase ::
   isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1658,18 +1606,6 @@ Fw::Success::T QueuedGetProductsTesterBase ::
   (void) buffer;
   this->pushProductGetEntry(id, size);
   return Fw::Success::FAILURE;
-}
-
-void QueuedGetProductsTesterBase ::
-  sendProductResponse(
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  FW_ASSERT(this->getNum_to_productRecvIn() > 0);
-  FW_ASSERT(this->m_to_productRecvIn[0].isConnected());
-  this->m_to_productRecvIn[0].invoke(id, buffer, status);
 }
 
 void QueuedGetProductsTesterBase ::

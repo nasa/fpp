@@ -164,12 +164,6 @@ class QueuedGetProductsTesterBase :
         Fw::InputCmdPort* port //!< The input port
     );
 
-    //! Connect port to productRecvIn[portNum]
-    void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputDpResponsePort* port //!< The input port
-    );
-
     //! Connect port to noArgsAsync[portNum]
     void connect_to_noArgsAsync(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -589,11 +583,6 @@ class QueuedGetProductsTesterBase :
     //! \return The number of to_cmdIn ports
     NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
-    //! Get the number of to_productRecvIn ports
-    //!
-    //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
-
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
@@ -746,13 +735,6 @@ class QueuedGetProductsTesterBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
-    //! Check whether port to_productRecvIn is connected
-    //!
-    //! \return Whether port to_productRecvIn is connected
-    bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
     //! Check whether port to_noArgsAsync is connected
     //!
     //! \return Whether port to_noArgsAsync is connected
@@ -876,13 +858,6 @@ class QueuedGetProductsTesterBase :
         FwDpIdType id, //!< The container ID
         FwSizeType size, //!< The size of the requested buffer
         Fw::Buffer& buffer //!< The buffer
-    );
-
-    //! Send a data product response to the component under test
-    void sendProductResponse(
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
     );
 
     //! Push an entry on the product request history
@@ -1043,9 +1018,6 @@ class QueuedGetProductsTesterBase :
 
     //! To port connected to cmdIn
     Fw::OutputCmdPort m_to_cmdIn[1];
-
-    //! To port connected to productRecvIn
-    Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
     //! To port connected to noArgsAsync
     Ports::OutputNoArgsPort m_to_noArgsAsync[1];

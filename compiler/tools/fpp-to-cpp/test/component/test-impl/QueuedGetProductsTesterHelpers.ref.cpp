@@ -13,13 +13,6 @@
 void QueuedGetProductsTester ::
   connectPorts()
 {
-  // Connect special input ports
-
-  this->connect_to_productRecvIn(
-    0,
-    this->component.get_productRecvIn_InputPort(0)
-  );
-
   // Connect special output ports
 
   this->component.set_productGetOut_OutputPort(

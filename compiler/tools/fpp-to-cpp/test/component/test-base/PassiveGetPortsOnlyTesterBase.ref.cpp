@@ -21,24 +21,6 @@ void PassiveGetPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
-// Connectors for to ports
-// ----------------------------------------------------------------------
-
-void PassiveGetPortsOnlyTesterBase ::
-  connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputDpResponsePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_to_productRecvIn[portNum].addCallPort(port);
-}
-
-// ----------------------------------------------------------------------
 // Getters for from ports
 // ----------------------------------------------------------------------
 
@@ -89,12 +71,6 @@ PassiveGetPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE PassiveGetPortsOnlyTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
-}
-
-NATIVE_INT_TYPE PassiveGetPortsOnlyTesterBase ::
   getNum_from_productGetOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
@@ -104,19 +80,4 @@ NATIVE_INT_TYPE PassiveGetPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
-}
-
-// ----------------------------------------------------------------------
-// Connection status queries for to ports
-// ----------------------------------------------------------------------
-
-bool PassiveGetPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_productRecvIn[portNum].isConnected();
 }

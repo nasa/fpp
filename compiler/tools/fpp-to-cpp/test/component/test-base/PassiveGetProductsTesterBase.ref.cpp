@@ -201,27 +201,6 @@ void PassiveGetProductsTesterBase ::
 #endif
   }
 
-  // Connect output port productRecvIn
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_productRecvIn());
-    port++
-  ) {
-    this->m_to_productRecvIn[port].init();
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_to_productRecvIn[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_to_productRecvIn[port].setObjName(portName);
-#endif
-  }
-
   // Connect output port noArgsGuarded
   for (
     PlatformIntType port = 0;
@@ -407,20 +386,6 @@ void PassiveGetProductsTesterBase ::
   );
 
   this->m_to_cmdIn[portNum].addCallPort(port);
-}
-
-void PassiveGetProductsTesterBase ::
-  connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
-      Fw::InputDpResponsePort* port
-  )
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  this->m_to_productRecvIn[portNum].addCallPort(port);
 }
 
 void PassiveGetProductsTesterBase ::
@@ -986,12 +951,6 @@ NATIVE_INT_TYPE PassiveGetProductsTesterBase ::
 }
 
 NATIVE_INT_TYPE PassiveGetProductsTesterBase ::
-  getNum_to_productRecvIn() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
-}
-
-NATIVE_INT_TYPE PassiveGetProductsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
@@ -1143,17 +1102,6 @@ bool PassiveGetProductsTesterBase ::
 }
 
 bool PassiveGetProductsTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_to_productRecvIn(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return this->m_to_productRecvIn[portNum].isConnected();
-}
-
-bool PassiveGetProductsTesterBase ::
   isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1275,18 +1223,6 @@ Fw::Success::T PassiveGetProductsTesterBase ::
   (void) buffer;
   this->pushProductGetEntry(id, size);
   return Fw::Success::FAILURE;
-}
-
-void PassiveGetProductsTesterBase ::
-  sendProductResponse(
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  FW_ASSERT(this->getNum_to_productRecvIn() > 0);
-  FW_ASSERT(this->m_to_productRecvIn[0].isConnected());
-  this->m_to_productRecvIn[0].invoke(id, buffer, status);
 }
 
 void PassiveGetProductsTesterBase ::

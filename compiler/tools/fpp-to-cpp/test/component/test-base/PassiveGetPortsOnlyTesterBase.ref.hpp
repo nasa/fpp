@@ -34,18 +34,6 @@ class PassiveGetPortsOnlyTesterBase :
   public:
 
     // ----------------------------------------------------------------------
-    // Connectors for to ports
-    // ----------------------------------------------------------------------
-
-    //! Connect port to productRecvIn[portNum]
-    void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputDpResponsePort* port //!< The input port
-    );
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Getters for from ports
     // ----------------------------------------------------------------------
 
@@ -84,11 +72,6 @@ class PassiveGetPortsOnlyTesterBase :
     // Getters for port counts
     // ----------------------------------------------------------------------
 
-    //! Get the number of to_productRecvIn ports
-    //!
-    //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
-
     //! Get the number of from_productGetOut ports
     //!
     //! \return The number of from_productGetOut ports
@@ -98,28 +81,6 @@ class PassiveGetPortsOnlyTesterBase :
     //!
     //! \return The number of from_productSendOut ports
     NATIVE_INT_TYPE getNum_from_productSendOut() const;
-
-  protected:
-
-    // ----------------------------------------------------------------------
-    // Connection status queries for to ports
-    // ----------------------------------------------------------------------
-
-    //! Check whether port to_productRecvIn is connected
-    //!
-    //! \return Whether port to_productRecvIn is connected
-    bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-  private:
-
-    // ----------------------------------------------------------------------
-    // To ports
-    // ----------------------------------------------------------------------
-
-    //! To port connected to productRecvIn
-    Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
   private:
 

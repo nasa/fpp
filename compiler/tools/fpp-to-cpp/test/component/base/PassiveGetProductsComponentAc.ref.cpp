@@ -208,32 +208,6 @@ void PassiveGetProductsComponentBase ::
 #endif
   }
 
-  // Connect input port productRecvIn
-  for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
-    port++
-  ) {
-    this->m_productRecvIn_InputPort[port].init();
-    this->m_productRecvIn_InputPort[port].addCallComp(
-      this,
-      m_p_productRecvIn_in
-    );
-    this->m_productRecvIn_InputPort[port].setPortNum(port);
-
-#if FW_OBJECT_NAMES == 1
-    char portName[120];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
-      port
-    );
-    this->m_productRecvIn_InputPort[port].setObjName(portName);
-#endif
-  }
-
   // Connect input port noArgsGuarded
   for (
     PlatformIntType port = 0;
@@ -754,17 +728,6 @@ Fw::InputCmdPort* PassiveGetProductsComponentBase ::
   return &this->m_cmdIn_InputPort[portNum];
 }
 
-Fw::InputDpResponsePort* PassiveGetProductsComponentBase ::
-  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
-{
-  FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  return &this->m_productRecvIn_InputPort[portNum];
-}
-
 // ----------------------------------------------------------------------
 // Getters for typed input ports
 // ----------------------------------------------------------------------
@@ -1252,12 +1215,6 @@ NATIVE_INT_TYPE PassiveGetProductsComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveGetProductsComponentBase ::
-  getNum_productRecvIn_InputPorts() const
-{
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
-}
-
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
@@ -1573,35 +1530,6 @@ bool PassiveGetProductsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Port handler base-class functions for special input ports
-//
-// Call these functions directly to bypass the corresponding ports
-// ----------------------------------------------------------------------
-
-void PassiveGetProductsComponentBase ::
-  productRecvIn_handlerBase(
-      NATIVE_INT_TYPE portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Make sure port number is valid
-  FW_ASSERT(
-    portNum < this->getNum_productRecvIn_InputPorts(),
-    static_cast<FwAssertArgType>(portNum)
-  );
-
-  // Call handler function
-  this->productRecvIn_handler(
-    portNum,
-    id,
-    buffer,
-    status
-  );
-}
-
-// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
@@ -1824,25 +1752,6 @@ void PassiveGetProductsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Pre-message hooks for special async input ports
-//
-// Each of these functions is invoked just before processing a message
-// on the corresponding port. By default, they do nothing. You can
-// override them to provide specific pre-message behavior.
-// ----------------------------------------------------------------------
-
-void PassiveGetProductsComponentBase ::
-  productRecvIn_preMsgHook(
-      NATIVE_INT_TYPE portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Default: no-op
-}
-
-// ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
 
@@ -2043,25 +1952,6 @@ void PassiveGetProductsComponentBase ::
   FW_ASSERT(opCode >= idBase, opCode, idBase);
 }
 
-void PassiveGetProductsComponentBase ::
-  m_p_productRecvIn_in(
-      Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  FW_ASSERT(callComp);
-  PassiveGetProductsComponentBase* compPtr = static_cast<PassiveGetProductsComponentBase*>(callComp);
-  compPtr->productRecvIn_handlerBase(
-    portNum,
-    id,
-    buffer,
-    status
-  );
-}
-
 // ----------------------------------------------------------------------
 // Calls for messages received on typed input ports
 // ----------------------------------------------------------------------
@@ -2239,55 +2129,4 @@ Fw::Success::T PassiveGetProductsComponentBase ::
     container.setBaseId(baseId);
   }
   return status;
-}
-
-void PassiveGetProductsComponentBase ::
-  productRecvIn_handler(
-      const NATIVE_INT_TYPE portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  DpContainer container(id, buffer, this->getIdBase());
-  // Convert global id to local id
-  const auto idBase = this->getIdBase();
-  FW_ASSERT(id >= idBase, id, idBase);
-  const auto localId = id - idBase;
-  // Switch on the local id
-  switch (localId) {
-    case ContainerId::Container1:
-      // Set the priority
-      container.setPriority(ContainerPriority::Container1);
-      // Call the handler
-      this->dpRecv_Container1_handler(container, status.e);
-      break;
-    case ContainerId::Container2:
-      // Set the priority
-      container.setPriority(ContainerPriority::Container2);
-      // Call the handler
-      this->dpRecv_Container2_handler(container, status.e);
-      break;
-    case ContainerId::Container3:
-      // Set the priority
-      container.setPriority(ContainerPriority::Container3);
-      // Call the handler
-      this->dpRecv_Container3_handler(container, status.e);
-      break;
-    case ContainerId::Container4:
-      // Set the priority
-      container.setPriority(ContainerPriority::Container4);
-      // Call the handler
-      this->dpRecv_Container4_handler(container, status.e);
-      break;
-    case ContainerId::Container5:
-      // Set the priority
-      container.setPriority(ContainerPriority::Container5);
-      // Call the handler
-      this->dpRecv_Container5_handler(container, status.e);
-      break;
-    default:
-      FW_ASSERT(0);
-      break;
-  }
 }

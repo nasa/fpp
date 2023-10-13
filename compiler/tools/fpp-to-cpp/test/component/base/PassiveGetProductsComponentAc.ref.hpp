@@ -14,7 +14,6 @@
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Dp/DpContainer.hpp"
 #include "Fw/Dp/DpGetPortAc.hpp"
-#include "Fw/Dp/DpResponsePortAc.hpp"
 #include "Fw/Dp/DpSendPortAc.hpp"
 #include "Fw/Log/LogPortAc.hpp"
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -57,7 +56,6 @@ class PassiveGetProductsComponentBase :
     //! Enumerations for numbers of special input ports
     enum {
       NUM_CMDIN_INPUT_PORTS = 1,
-      NUM_PRODUCTRECVIN_INPUT_PORTS = 1,
     };
 
     //! Enumerations for numbers of typed input ports
@@ -217,13 +215,6 @@ class PassiveGetProductsComponentBase :
     //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
-    //! Get special input port at index
-    //!
-    //! \return productRecvIn[portNum]
-    Fw::InputDpResponsePort* get_productRecvIn_InputPort(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -498,11 +489,6 @@ class PassiveGetProductsComponentBase :
     //! \return The number of cmdIn input ports
     NATIVE_INT_TYPE getNum_cmdIn_InputPorts() const;
 
-    //! Get the number of productRecvIn input ports
-    //!
-    //! \return The number of productRecvIn input ports
-    NATIVE_INT_TYPE getNum_productRecvIn_InputPorts() const;
-
   PROTECTED:
 
     // ----------------------------------------------------------------------
@@ -752,22 +738,6 @@ class PassiveGetProductsComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Port handler base-class functions for special input ports
-    //
-    // Call these functions directly to bypass the corresponding ports
-    // ----------------------------------------------------------------------
-
-    //! Handler base-class function for input port productRecvIn
-    void productRecvIn_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Handlers to implement for typed input ports
     // ----------------------------------------------------------------------
 
@@ -913,24 +883,6 @@ class PassiveGetProductsComponentBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // Pre-message hooks for special async input ports
-    //
-    // Each of these functions is invoked just before processing a message
-    // on the corresponding port. By default, they do nothing. You can
-    // override them to provide specific pre-message behavior.
-    // ----------------------------------------------------------------------
-
-    //! Pre-message hook for async input port productRecvIn
-    virtual void productRecvIn_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
     );
 
   PROTECTED:
@@ -1128,15 +1080,6 @@ class PassiveGetProductsComponentBase :
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
     );
 
-    //! Callback for port productRecvIn
-    static void m_p_productRecvIn_in(
-        Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
-    );
-
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -1233,14 +1176,6 @@ class PassiveGetProductsComponentBase :
         DpContainer& container //!< The container (output)
     );
 
-    //! Handler implementation for productRecvIn
-    void productRecvIn_handler(
-        const NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container id
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The buffer status
-    );
-
   PRIVATE:
 
     // ----------------------------------------------------------------------
@@ -1249,9 +1184,6 @@ class PassiveGetProductsComponentBase :
 
     //! Input port cmdIn
     Fw::InputCmdPort m_cmdIn_InputPort[NUM_CMDIN_INPUT_PORTS];
-
-    //! Input port productRecvIn
-    Fw::InputDpResponsePort m_productRecvIn_InputPort[NUM_PRODUCTRECVIN_INPUT_PORTS];
 
   PRIVATE:
 

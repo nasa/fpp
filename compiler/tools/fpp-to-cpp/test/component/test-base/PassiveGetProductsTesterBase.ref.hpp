@@ -164,12 +164,6 @@ class PassiveGetProductsTesterBase :
         Fw::InputCmdPort* port //!< The input port
     );
 
-    //! Connect port to productRecvIn[portNum]
-    void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
-        Fw::InputDpResponsePort* port //!< The input port
-    );
-
     //! Connect port to noArgsGuarded[portNum]
     void connect_to_noArgsGuarded(
         NATIVE_INT_TYPE portNum, //!< The port number
@@ -506,11 +500,6 @@ class PassiveGetProductsTesterBase :
     //! \return The number of to_cmdIn ports
     NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
-    //! Get the number of to_productRecvIn ports
-    //!
-    //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
-
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
@@ -638,13 +627,6 @@ class PassiveGetProductsTesterBase :
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
-    //! Check whether port to_productRecvIn is connected
-    //!
-    //! \return Whether port to_productRecvIn is connected
-    bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
-    );
-
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
@@ -733,13 +715,6 @@ class PassiveGetProductsTesterBase :
         FwDpIdType id, //!< The container ID
         FwSizeType size, //!< The size of the requested buffer
         Fw::Buffer& buffer //!< The buffer
-    );
-
-    //! Send a data product response to the component under test
-    void sendProductResponse(
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
     );
 
     //! Push an entry on the product request history
@@ -900,9 +875,6 @@ class PassiveGetProductsTesterBase :
 
     //! To port connected to cmdIn
     Fw::OutputCmdPort m_to_cmdIn[1];
-
-    //! To port connected to productRecvIn
-    Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
     //! To port connected to noArgsGuarded
     Ports::OutputNoArgsPort m_to_noArgsGuarded[1];
