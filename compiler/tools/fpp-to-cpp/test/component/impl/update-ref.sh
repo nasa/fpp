@@ -12,10 +12,12 @@ passive()
   update "-t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
   move_template PassiveCommands
   move_template PassiveEvents
+  move_template PassiveGetPortsOnly
   move_template PassiveGetProducts
   move_template PassiveGuardedProducts
   move_template PassiveParams
   move_template PassiveSerial
+  move_template PassiveSyncPortsOnly
   move_template PassiveSyncProducts
   move_template PassiveTelemetry
   move_template PassiveTest
