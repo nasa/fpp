@@ -3550,9 +3550,9 @@ void QueuedSyncProductsComponentBase ::
 {
   DpContainer container(id, buffer, this->getIdBase());
   // Convert global id to local id
-  const auto idBase = this->getIdBase();
+  const FwDpIdType idBase = this->getIdBase();
   FW_ASSERT(id >= idBase, id, idBase);
-  const auto localId = id - idBase;
+  const FwDpIdType localId = id - idBase;
   // Switch on the local id
   switch (localId) {
     case ContainerId::Container1:
