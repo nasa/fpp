@@ -717,7 +717,7 @@ class PassiveGetProductsTesterBase :
         Fw::Buffer& buffer //!< The buffer
     );
 
-    //! Push an entry on the product request history
+    //! Push an entry on the product send history
     void pushProductSendEntry(
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
@@ -725,7 +725,7 @@ class PassiveGetProductsTesterBase :
 
     //! Handle a data product send from the component under test
     //!
-    //! By default, call pushProductRequestEntry. You can override
+    //! By default, call pushProductSendEntry. You can override
     //! this behavior.
     virtual void productSend_handler(
         FwDpIdType id, //!< The container ID

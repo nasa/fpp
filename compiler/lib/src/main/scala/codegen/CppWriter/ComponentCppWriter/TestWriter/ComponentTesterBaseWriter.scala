@@ -542,7 +542,7 @@ case class ComponentTesterBaseWriter(
       }
     )
     lazy val pushProductSend = functionClassMember(
-      Some("Push an entry on the product request history"),
+      Some("Push an entry on the product send history"),
       "pushProductSendEntry",
       getPortFunctionParams(productSendPort.get),
       CppDoc.Type("void"),
@@ -555,7 +555,7 @@ case class ComponentTesterBaseWriter(
       Some(
         """|Handle a data product send from the component under test
            |
-           |By default, call pushProductRequestEntry. You can override
+           |By default, call pushProductSendEntry. You can override
            |this behavior.""".stripMargin
       ),
       "productSend_handler",
