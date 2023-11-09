@@ -36,6 +36,7 @@ case class TopologyCppWriter(
     }
     val hppLines = linesMember(
       TopConstants(s, aNode).getLines ++
+      TopConfigObjects(s, aNode).getHppLines ++
       TopComponentInstances(s, aNode).getHppLines
     )
     val cppIncludes = {
@@ -50,14 +51,12 @@ case class TopologyCppWriter(
     }
     val cppLines = linesMember(
       Line.blank ::
-      List(
-        wrapInAnonymousNamespace(
-          addBlankPostfix(
-            TopConfigObjects(s, aNode).getLines,
-          )
+      List.concat(
+        addBlankPostfix(
+          TopConfigObjects(s, aNode).getCppLines,
         ),
         TopComponentInstances(s, aNode).getCppLines
-      ).flatten,
+      ),
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers
