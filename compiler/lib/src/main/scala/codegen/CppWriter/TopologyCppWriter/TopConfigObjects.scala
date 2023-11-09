@@ -111,7 +111,7 @@ case class TopConfigObjects(
       wrapInScope("{", ss.map(line), "},")
     }
     wrapInScope(
-      "Svc::Health::PingEntry pingEntries[] = {",
+      "Svc::Health::PingEntry pingEntries[NUM_PING_ENTRIES] = {",
       // Loop over all ports in the range 0..maxNum.
       // Entries are positional, so we must generate code
       // for any unconnected entries in this range.
@@ -124,9 +124,9 @@ case class TopConfigObjects(
     val numEntries = maxNum + 1
     List(
          "//!< Number of entries in the pingEntryies array",
-         s"constexpr FwSizeType numPingEntries = $numEntries;",
+         s"constexpr FwSizeType NUM_PING_ENTRIES = $numEntries;",
          "//!< Ping entry configuration for Svc::Health",
-         "extern Svc::Health::PingEntry pingEntries[];",
+         "extern Svc::Health::PingEntry pingEntries[NUM_PING_ENTRIES];",
     ).map(line)
   }
 

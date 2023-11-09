@@ -16,7 +16,7 @@ namespace M {
   namespace ConfigObjects {
 
     namespace health {
-      Svc::Health::PingEntry pingEntries[] = {
+      Svc::Health::PingEntry pingEntries[NUM_PING_ENTRIES] = {
         {
           PingEntries::c1::WARN,
           PingEntries::c1::FATAL,

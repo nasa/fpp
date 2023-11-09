@@ -41,9 +41,9 @@ namespace M {
 
     namespace health {
       //!< Number of entries in the pingEntryies array
-      constexpr FwSizeType numPingEntries = 2;
+      constexpr FwSizeType NUM_PING_ENTRIES = 2;
       //!< Ping entry configuration for Svc::Health
-      extern Svc::Health::PingEntry pingEntries[];
+      extern Svc::Health::PingEntry pingEntries[NUM_PING_ENTRIES];
     }
 
   }
