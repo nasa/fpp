@@ -26,17 +26,16 @@
 - [Commands](#commands)
 - [Telemtry Channels](#telemtry-channels)
 - [Events](#events)
-- [Ports](#ports)
 
 # Types Names
 
 ## Primitive Integer Type Names
 | Field | Description | Options |
 | ----- | ----------- | ------- |
-| name | String representing the FPP type name |  U8, U16, U32, U64, I8, I16, I32, I64 |
-| kind | String representing the kind of type | integer |
-| size | Number of bits supported by the data type  | 8, 16, 32, 64 |
-| signed | Boolean indicating whether the integer is signed or unsigned | true, false |
+| `name` | String representing the FPP type name |  U8, U16, U32, U64, I8, I16, I32, I64 |
+| `kind` | String representing the kind of type | integer |
+| `size` | Number of bits supported by the data type  | 8, 16, 32, 64 |
+| `signed` | Boolean indicating whether the integer is signed or unsigned | true, false |
 
 ### Unsigned Integer Types
 - U8
@@ -190,6 +189,27 @@ Example JSON of qualified name
 | elementType | A JSON dictionary representing the type of elements in the array |
 | default | Default value of elements in array | 
 
+Example FPP model with JSON representation:
+```
+module M {
+  array A = [3] U8
+}
+```
+
+```json
+{
+    "kind": "array",
+    "qualifiedName": "M.A",
+    "size": 3,
+    "elementType": {
+        "name": "U8",
+        "kind": "integer",
+        "signed": false,
+        "size": 8
+    },
+    "default": [0, 0, 0]
+}
+```
   
 Example JSON of array
 ```json
@@ -217,12 +237,47 @@ Example JSON of array
 | identifiers | Dictionary of identifiers (keys) and numeric values (values) |
 | default | Enum default value |
 
+Example FPP model with JSON representation:
+```
+module M {
+    enum Status {
+        YES
+        NO
+        MAYBE
+    } default MAYBE
+}
+```
+```json
+{
+    "kind": "enum",
+    "qualifiedName": "M.Status",
+    "representationType": {
+        "name": "I32",
+        "kind": "integer",
+        "signed": true,
+        "size": 32
+    },    
+    "identifiers": {
+        "YES": 0, 
+        "NO": 1,
+        "MAYBE": 2
+    },
+    "default": "MAYBE"
+}
+```
+
+
 Example JSON of enum
 ```json
 {
     "kind": "enum",
     "qualifiedName": "M.E",
-    "representationType": "U8",
+    "representationType": {
+        "name": "U8",
+        "kind": "integer",
+        "signed": false,
+        "size": 8
+    },
     "identifiers": {
         "YES": 0, 
         "NO": 1,
@@ -240,6 +295,41 @@ Example JSON of enum
 | members | JSON dictionary consisting of identifier (keys) and type (values) of each member in the struct |
 | default | JSON dictionary consising of identifier (key) and default value (value) |
 | formatSpecifiers | JSON dictionary consisting of identifier (key) and string format specifier(value)
+
+Example FPP model with JSON representation:
+
+```
+module M {
+    struct A {
+        x: U32
+        y: F32
+    }
+}
+```
+```json
+{
+    "kind": "struct",
+    "qualifiedName": "M.A",
+    "members": {
+        "x": {
+            "name": "U32",
+            "kind": "integer",
+            "signed": false,
+            "size": 32
+        },
+        "y": {
+            "name": "F32",
+            "kind": "float",
+            "size": 32,
+        }
+    },
+    "default": {
+        "x": 0,
+        "y": 0
+    },
+    "formatSpecifiers": {}
+}
+```
 
 Example JSON of a struct:
 ```json
@@ -299,28 +389,12 @@ Example JSON of a struct:
 
 Example JSON of type U8 with a value of 2:
 ```json
-{
-    "type": {
-        "name": "U8",
-        "kind": "integer",
-        "size": 8,
-        "signed": false,
-    },
-    "value": 2
-}
+2
 ```
 
 Example JSON of type I8 with a value of -2:
 ```json
-{
-    "type": {
-        "name": "U8",
-        "kind": "integer",
-        "size": 8,
-        "signed": true,
-    },
-    "value": -2
-}
+-2
 ```
 
 ## Floating-Point Values
@@ -333,14 +407,7 @@ Example JSON of type I8 with a value of -2:
 
 Example JSON of type F32 with a value of 10.0
 ```json
-{  
-    "type": {
-        "name": "F32",
-        "kind": "float",
-        "size": 32,
-    },
-    "value": 10.0
-}
+10.5
 ```
 
 ## Boolean Values
@@ -353,13 +420,7 @@ Example JSON of type F32 with a value of 10.0
 Example JSON of type bool with a value of true
 
 ```json
-{
-    "type": {
-        "name": "bool",
-        "kind": "bool",
-    },
-    "value": true
-}
+true
 ```
 
 ## String Values
@@ -371,14 +432,7 @@ Example JSON of type bool with a value of true
 
 Example JSON of type string with a value of "Hello World!"
 ```json
-{
-    "type": {
-        "name": "string",
-        "kind": "string",
-        "size": 64,
-    },
-    "value": "Hello World!"
-}
+"Hello World!"
 ```
 
 
@@ -401,20 +455,7 @@ Example JSON of an array of type U32 consisting of 10 elements
 
 Example JSON of an enum
 ```json
-{
-    "type": {
-        "kind": "enum",
-        "qualifiedName": "M.E",
-        "representationType": "U8",
-        "identifiers": {
-            "YES": 0, 
-            "NO": 1,
-            "MAYBE": 2
-        },
-        "default": "MAYBE"
-    },
-    "value": "YES"
-}
+"YES"
 ```
 
 ## Struct Values
@@ -427,55 +468,10 @@ Example JSON of an enum
 Example JSON of a struct:
 ```json
 {
-    "type": {
-        "kind": "struct",
-        "qualifiedName": "M.myStruct",
-        "members": {
-            "w": {
-                "kind": "array",
-                "qualifiedName": "M.A",
-                "size": 10,
-                "elementType": {
-                    "name": "U32",
-                    "kind": "integer",
-                    "signed": false,
-                    "size": 32
-                },
-                "default": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-            },
-            "x": {
-                "type": "U32",
-                "kind": "integer",
-                "signed": false,
-                "size": 32,
-            },
-            "y": {
-                "type": "string",
-                "kind": "string",
-                "size": 64
-            },
-            "z": {
-                "type": "F64",
-                "kind": "float",
-                "size": 64,
-            }
-        },
-        "default": {
-            "w": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            "x": 5,
-            "y": "Hello World!",
-            "z": 10.0
-        },
-        "formatSpecifiers": {
-            "x": "The count is {}"
-        }
-    },
-    "value": {
-        "w": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-        "x": 20,
-        "y": "Hello World!",
-        "z": 15.5
-    }
+    "w": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "x": 20,
+    "y": "Hello World!",
+    "z": 15.5
 }
 ```
 
@@ -491,7 +487,9 @@ Example JSON of a struct:
 {
     "identifier": "",
     "description": "",
-    "type": "",
+    "type": {
+
+    },
     "ref": false
 }
 ```
@@ -511,22 +509,52 @@ Example JSON of a struct:
 {
     "identifier": "",
     "description": "",
-    "typeName": "",
+    "typeName": {
+
+    },
     "default": "",
     "numericIdentifier": "",
     "setOpcode": "",
     "saveOpcode": ""
 }
 ```
+Example FPP model with JSON representation:
+```
+@ This is the annotation for Parameter 1
+param Parameter1: U32 \
+  id 0x00 \
+  set opcode 0x80 \
+  save opcode 0x81
+```
+
+```json
+{
+    "identifier": "Parameter1",
+    "description": "This is the annotation for Parameter 1",
+    "typeName": {
+        "name": "U32",
+        "kind": "integer",
+        "signed": false,
+        "size": 32
+    },
+    "default": "",
+    "numericIdentifier": "0x00",
+    "setOpcode": "0x80",
+    "saveOpcode": "0x81"
+}
+```
+TODO: could there be a case where the param type is string and the default value is empty string?
 
 # Commands
 | Field | Description | Options |
 | ----- | ----------- | ------- |
-| commandKind | String representing the kind of command | active, passive, queued |
+| commandKind | String representing the kind of command | async, guarded, sync |
 | opcode | String hexidecimal command opcode | String hexidecimal |
 | identifier | String identifier | string |
 | description | String annotation of command | string |
 | params | List of JSON parameter dictionaries | JSON dictionary |
+| priority | Number representing the priority for the command on the input queue | number |
+| queueFullBehavior | String representing the behavior of the command when the input full is queue | assert, block, drop |
 
 ```json
 {
@@ -538,11 +566,55 @@ Example JSON of a struct:
         {
             "identifier": "",
             "description": "",
-            "type": ""
+            "type": {
+
+            }
+        }
+    ],
+    "priority": "",
+    "queueFullBehavior": ""
+}
+```
+
+Example FPP model with JSON representation:
+```
+@ A sync command with parameters
+sync command SyncParams(
+    param1: U32 @< Param 1
+    param2: string @< Param 2
+) opcode 0x02
+```
+
+```json
+{
+    "commandKind": "sync",
+    "opcode": "0x02",
+    "identifier": "SyncParams",
+    "description": "A sync command with parameters",
+    "params": [
+        {
+            "identifier": "param1",
+            "description": "Param 1",
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "size": 32,
+                "signed": false,
+            }
+        },
+         {
+            "identifier": "param2",
+            "description": "Param 2",
+            "type": {
+                "name": "string",
+                "kind": "string",
+                "size": ""
+            }
         }
     ],
 }
 ```
+TODO: what is the default maximum string length (in the event no size is specified for a string)?
 
 # Telemtry Channels
 | Field | Description | Options |
@@ -608,6 +680,60 @@ Example JSON of a struct:
 }
 ```
 
+Example FPP model with JSON representation:
+```
+@ This is the annotation for Event 0
+event Event0 \
+  severity activity low \
+  id 0x00 \
+  format "Event 0 occurred"
+```
+
+```json
+{
+    "identifier": "Event0",
+    "description": "This is the annotation for Event 0",
+    "severity": "activity low",
+    "params": [],
+    "numericIdentifier": "0x00",
+    "formatString": "Event 0 occurred",
+    "throttle": ""
+}
+```
+
+Example FPP model with JSON representation:
+```
+@ This is the annotation for Event 1
+@ Sample output: "Event 1 occurred with argument 42"
+event Event1(
+  arg1: U32 @< Argument 1
+) \
+  severity activity high \
+  id 0x01 \
+  format "Event 1 occurred with argument {}"
+```
+```json
+{
+    "identifier": "Event1",
+    "description": "This is the annotation for Event 1",
+    "severity": "activity high",
+    "params": [
+        {
+           "identifier": "arg1",
+            "description": "Argument 1",
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "size": 32,
+                "signed": false,
+            },
+            "ref": false  
+        }
+    ],
+    "numericIdentifier": "0x01",
+    "formatString": "Event 1 occurred with argument {}",
+    "throttle": ""
+}
 
 # Ports
 | Field | Description | Options |
@@ -625,19 +751,63 @@ Example JSON of a struct:
         {
             "identifier": "",
             "description": "",
-            "type": ""
+            "type": {
+
+            }
         },
          {
             "identifier": "",
             "description": "",
-            "type": ""
+            "type": {
+
+            }
         }
     ],
     "returnType": {
-        "name": "U8",
+        
+    }
+}
+```
+
+Example FPP model with JSON representation:
+```
+@ This is the annotation for Port 1
+port Port1(
+    a: U32 @< Parameter a
+    b: F64 @< Parameter b
+) -> U32
+```
+
+```json
+{
+    "identifier": "Port1",
+    "description": "This is the annotation for Port 1",
+    "params": [
+        {
+            "identifier": "a",
+            "description": "Parameter a",
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "size": 32,
+                "signed": false,
+            }
+        },
+        {
+            "identifier": "b",
+            "description": "Parameter b",
+            "type": {
+                "name": "F64",
+                "kind": "float",
+                "size": 64,
+            }
+        }
+    ],
+    "returnType": {
+        "name": "U32",
         "kind": "integer",
-        "size": 8,
-        "signed": true,
+        "size": 32,
+        "signed": false
     }
 }
 ```
