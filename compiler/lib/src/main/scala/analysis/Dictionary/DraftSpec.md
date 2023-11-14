@@ -26,16 +26,19 @@
 - [Commands](#commands)
 - [Telemtry Channels](#telemtry-channels)
 - [Events](#events)
+- [Data Products](#data-products)
+  - [Record](#record)
+  - [Container](#container)
 
 # Types Names
 
 ## Primitive Integer Type Names
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| `name` | String representing the FPP type name |  U8, U16, U32, U64, I8, I16, I32, I64 |
-| `kind` | String representing the kind of type | integer |
-| `size` | Number of bits supported by the data type  | 8, 16, 32, 64 |
-| `signed` | Boolean indicating whether the integer is signed or unsigned | true, false |
+| Field | Description | Options | Required | 
+| ----- | ----------- | ------- | -------- |
+| `name` | **String** representing the FPP type name |  U8, U16, U32, U64, I8, I16, I32, I64 | true |
+| `kind` | **String** representing the kind of type | integer | true |
+| `size` | **Number** of bits supported by the data type  | 8, 16, 32, 64 | true |
+| `signed` | **Boolean** indicating whether the integer is signed or unsigned | true, false | true |
 
 ### Unsigned Integer Types
 - U8
@@ -94,11 +97,11 @@ Example JSON of I64
 
 ## Floating-Point Type Names
 
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| name | String representing the FPP type name |  F32, F64 |
-| kind | String representing the kind of type | float |
-| size | Number of bits supported by the data type  | 32, 64 |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `name` | **String** representing the FPP type name |  F32, F64 | true |
+| `kind` | **String** representing the kind of type | float | true |
+| `size` | **Number** of bits supported by the data type  | 32, 64 | true |
 
 ### Floating-Point Types
 - F32
@@ -125,10 +128,10 @@ Example JSON of F64
 
 ## Boolean Type Name
 
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| name | String representing the FPP type name | bool |
-| kind | String representing the kind of type | bool |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `name` | **String** representing the FPP type name | bool | true
+| `kind` | **String** representing the kind of type | bool | true |
 
 ### Boolean Types
 - true
@@ -143,11 +146,11 @@ Example JSON of bool
 ```
 
 ## String Type Names
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| name | String representing the FPP type name |  string |
-| kind | String representing the kind of type | string |
-| size | Number of bytes supported by the data type | Number in the range [0, 2<sup>31</sup>)
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `name` | **String** representing the FPP type name |  string | true |
+| `kind` | **String** representing the kind of type | string | true | 
+| `size` | **Number** of bytes supported by the data type | **Number** in the range [0, 2<sup>31</sup>) | true |
 
 ### String Types
 Any sequence of characters
@@ -161,13 +164,11 @@ Example JSON of string
 }
 ```
 
-TODO: Update "size" descriptions
-
 ## Qualified Identifier Type Names
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| name | String representing the FPP type name |  qualifiedIdentifier |
-| kind | String representing the kind of type | qualifiedIdentifier |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `name` | **String** representing the FPP type name |  qualifiedIdentifier | true |
+| `kind` | **String** representing the kind of type | qualifiedIdentifier | true |
 
 
 Example JSON of qualified name
@@ -181,13 +182,13 @@ Example JSON of qualified name
 # Type Definitions
 
 ## Array Type Definition
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| kind | String representing the kind of type | array |
-| qualifiedName | String representing unique qualified name of element in FPP model | Period seperated string |
-| size | Max number of elements that can be in the data structure |
-| elementType | A JSON dictionary representing the type of elements in the array |
-| default | Default value of elements in array | 
+| Field | Description | Options | Required | 
+| ----- | ----------- | ------- | -------- |
+| `kind` | **String** representing the kind of type | array | true |
+| `qualifiedName` | **String** representing unique qualified name of element in FPP model | Period seperated **String** | true |
+| `size` | Max **Number** of elements that can be in the data structure | Number | true |
+| `elementType` | A **JSON dictionary** representing the type of elements in the array | JSON Dictionary | true
+| `default` | Default value (of type specified in `elementType`) of elements in array | Value of type specified in `elementType` | false |
 
 Example FPP model with JSON representation:
 ```
@@ -229,13 +230,13 @@ Example JSON of array
 
 
 ## Enum Type Definition
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| kind | String representing the kind of type | enum |
-| qualifiedName | String representing unique qualified name of element in FPP model | Period seperated string |
-| representationType | The type of values in the enum |
-| identifiers | Dictionary of identifiers (keys) and numeric values (values) |
-| default | Enum default value |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `kind` | String representing the kind of type | enum | true |
+| `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
+| `representationType` | The `Type Name` of values in the enum | `Type Name` | true |
+| `identifiers` | Dictionary of identifiers (keys) and numeric values (values) | true |
+| `default` | Enum default value | Value of type indicated by `Type Name` false | false |
 
 Example FPP model with JSON representation:
 ```
@@ -288,13 +289,13 @@ Example JSON of enum
 ```
 
 ## Struct Types
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| kind | String representing the kind of type | struct |
-| qualifiedName | String representing unique qualified name of element in FPP model | Period seperated string |
-| members | JSON dictionary consisting of identifier (keys) and type (values) of each member in the struct |
-| default | JSON dictionary consising of identifier (key) and default value (value) |
-| formatSpecifiers | JSON dictionary consisting of identifier (key) and string format specifier(value)
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `kind` | String representing the kind of type | struct | true |
+| `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
+| `members` | JSON dictionary consisting of **String** identifier (keys) and `Type Names` (values) of each member in the struct | true | true |
+| `default` | JSON dictionary consising of **String** identifier (key) and default value (value) | JSON dictionary | true |
+| `formatSpecifiers` | JSON dictionary consisting of **String** identifier (key) and **String** format specifier (value) |  JSON dictionary | false |
 
 Example FPP model with JSON representation:
 
@@ -338,16 +339,8 @@ Example JSON of a struct:
     "qualifiedName": "M.myStruct",
     "members": {
         "w": {
-            "kind": "array",
-            "qualifiedName": "M.A",
-            "size": 10,
-            "elementType": {
-                "name": "U32",
-                "kind": "integer",
-                "signed": false,
-                "size": 32
-            },
-            "default": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            "kind": "qualifiedIdentifier",
+            "qualifiedName": "M.A"
         },
         "x": {
             "type": "U32",
@@ -382,10 +375,7 @@ Example JSON of a struct:
 # Values
 
 ## Primitive Integer Values
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type | JSON dictionary representing integer type properties |
-| value | Number representing integer value | Mention valid integer values (ie: signed vs. unsigned integer within range?)
+**Number** representing integer value
 
 Example JSON of type U8 with a value of 2:
 ```json
@@ -398,11 +388,7 @@ Example JSON of type I8 with a value of -2:
 ```
 
 ## Floating-Point Values
-
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type | JSON dictionary representing float type properties |
-| value | String representing float value |
+**Number** representing float value
 
 
 Example JSON of type F32 with a value of 10.0
@@ -411,11 +397,7 @@ Example JSON of type F32 with a value of 10.0
 ```
 
 ## Boolean Values
-
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type | JSON dictionary representing bool type properties |
-| value | Boolean value |
+**Boolean** value
 
 Example JSON of type bool with a value of true
 
@@ -424,11 +406,7 @@ true
 ```
 
 ## String Values
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type | JSON dictionary representing string type properties |
-| value | String containing sequence of characters |
-
+**String** containing sequence of characters
 
 Example JSON of type string with a value of "Hello World!"
 ```json
@@ -437,10 +415,7 @@ Example JSON of type string with a value of "Hello World!"
 
 
 ## Array Values
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type  | JSON dictionary representing array type properties |
-| value | Array with elements |
+**Array** with elements
 
 Example JSON of an array of type U32 consisting of 10 elements
 ```json
@@ -448,10 +423,7 @@ Example JSON of an array of type U32 consisting of 10 elements
 ```
 
 ## Enumeration Values
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type  | JSON dictionary representing enum type definition properties |
-| value | Enumeration value |
+**String** enumeration value
 
 Example JSON of an enum
 ```json
@@ -459,11 +431,7 @@ Example JSON of an enum
 ```
 
 ## Struct Values
-
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| type  | JSON dictionary representing struct type definition properties |
-| value | JSON dictionary consisting of identifier (keys) and values (values) |
+**JSON Dictionary** consisting of **String** identifier (keys) and values (values)
 
 Example JSON of a struct:
 ```json
@@ -476,40 +444,42 @@ Example JSON of a struct:
 ```
 
 # Formal Parameters
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| identifier | String identifier | string |
-| description | String annotation of parameter | string |
-| type | JSON dictionary representing the type of the parameter |
-| ref | Boolean indicating whether the format parameter is to be passed by referenced when it is used in a synchronous port invocation | true, false
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier | **String** | true |
+| `description` | **String** annotation of parameter | **String** | true |
+| `type` | `Type Name` of parameter | `Type Name` | true |
+| `ref` | **Boolean** indicating whether the formal parameter is to be passed by referenced when it is used in a synchronous port invocation | true, false | false |
 
 ```json
 {
     "identifier": "",
     "description": "",
     "type": {
-
+        // ... this parameter's type fields
     },
     "ref": false
 }
 ```
 
+TODO: get rid of json dicitonaries and just use the type name (can link back to where its defined in the docs)
 # Parameters
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| identifier | String identifier | string |
-| description | String annotation of command | string |
-| typeName | JSON dictionary representing the type of the parameter |
-| default | Default value of the parameter | |
-| numericIdentifier | String hexidecimal representing the numeric identifier of the parameter | string |
-| setOpcode | String hexidecimal representing the opcode of the command for setting the parameter | string |
-| saveOpcode | String hexidecimal representing the opcode of the command for saving the parameter | string |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier | **String** | true |
+| `description` | **String** annotation of parameter | **String** | true |
+| `type` | `Type Name` of the parameter | `Type Name` | true |
+| `default` | Default value (of type specified in `type`)  of the parameter | Value of type specified in `type` | false |
+| `numericIdentifier` | **Number** representing the numeric identifier of the parameter | **Number** | false |
+| `setOpcode` | **Number** representing the opcode of the command for setting the parameter | **Number** | false |
+| `saveOpcode` | **Number** representing the opcode of the command for saving the parameter | **Number** | false |
 
+TODO: ask michael if we want to keep opcodes and decimal or hex string
 ```json
 {
     "identifier": "",
     "description": "",
-    "typeName": {
+    "type": {
 
     },
     "default": "",
@@ -531,30 +501,34 @@ param Parameter1: U32 \
 {
     "identifier": "Parameter1",
     "description": "This is the annotation for Parameter 1",
-    "typeName": {
+    "type": {
         "name": "U32",
         "kind": "integer",
         "signed": false,
         "size": 32
     },
-    "default": "",
+    "default": 0,
     "numericIdentifier": "0x00",
     "setOpcode": "0x80",
     "saveOpcode": "0x81"
 }
 ```
 TODO: could there be a case where the param type is string and the default value is empty string?
+TODO: need to look into defaults more, look into what the generated code does
+- if invalid, then we make the default optional
+TODO: use FPP default in the event the user didn't specify a default value
+TODO: identifier should be a qualified identifier
 
 # Commands
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| commandKind | String representing the kind of command | async, guarded, sync |
-| opcode | String hexidecimal command opcode | String hexidecimal |
-| identifier | String identifier | string |
-| description | String annotation of command | string |
-| params | List of JSON parameter dictionaries | JSON dictionary |
-| priority | Number representing the priority for the command on the input queue | number |
-| queueFullBehavior | String representing the behavior of the command when the input full is queue | assert, block, drop |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `commandKind` | **String** representing the kind of command | async, guarded, sync | true |
+| `opcode` | **Number** command opcode | **Number** | true |
+| `identifier` | **String** identifier | **String** | true |
+| `description` | **String** annotation of command | string | true |
+| `params` | List of `Parameters` | `Parameter` | false |
+| `priority` | **Number** representing the priority for the command on the input queue | **Number** | false |
+| `queueFullBehavior` | **String** representing the behavior of the command when the input full is queue | assert, block, drop | false |
 
 ```json
 {
@@ -567,8 +541,9 @@ TODO: could there be a case where the param type is string and the default value
             "identifier": "",
             "description": "",
             "type": {
-
-            }
+                //... this parameters's type fields
+            },
+            "ref": false
         }
     ],
     "priority": "",
@@ -600,7 +575,8 @@ sync command SyncParams(
                 "kind": "integer",
                 "size": 32,
                 "signed": false,
-            }
+            },
+            "ref": false
         },
          {
             "identifier": "param2",
@@ -609,7 +585,8 @@ sync command SyncParams(
                 "name": "string",
                 "kind": "string",
                 "size": ""
-            }
+            },
+            "ref": false
         }
     ],
 }
@@ -617,21 +594,21 @@ sync command SyncParams(
 TODO: what is the default maximum string length (in the event no size is specified for a string)?
 
 # Telemtry Channels
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| identifier | String identifier of telemtry channel | string |
-| description | String annotation of command | string |
-| typeName | JSON dictionary representing the type of the telemtry channel |
-| numericIdentifier | Numeric identifier | string |
-| telemtryUpdate | String representing when the telemetry channel can update | always, on change |
-| formatString | String format with a single argument (the telemtry channel) | string
-| limit | JSON dictionary consisting of high and low limits | JSON dictionary |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier of telemtry channel | **String** | true |
+| `description` | **String** annotation of channel | **String** | true |
+| `type` | `Type Name` the telemtry channel | `Type Name` | true |
+| `numericIdentifier` | **Number** representing numeric identifier | **Number** | true |
+| `telemtryUpdate` | **String** representing when the telemetry channel can update | always, on change | false |
+| `formatString` | **String** format with a single argument (the telemtry channel) | **String** | false |
+| `limit` | **JSON dictionary** consisting of high and low limits | **JSON dictionary** | false |
 
 ```json
 {
     "identifier": "",
     "description": "",
-    "typeName": "",
+    "type": "",
     "numericId": "",
     "telemtryUpdate": "",
     "formatString": "",
@@ -651,15 +628,15 @@ TODO: what is the default maximum string length (in the event no size is specifi
 ```
 
 # Events
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| identifier | String identifier of the event | string |
-| description | String annotation of command | string |
-| severity | String representing severit of the event | activity high, activity low, command, diagnostic, fatal, warning high, warning low |
-| params | List of JSON parameter dictionaries | JSON dictionary |
-| numericIdentifier | String representing the numeric identifier of the event | string |
-| formatString | String format with event parameters as arguments | string
-| throttle | Number representing the maximum number of times to emit the event before throttling it | number |
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier of the event | **String** | true |
+| `description` | **String** annotation of event | **String** | true |
+| `severity` | **String** representing severit of the event | activity high, activity low, command, diagnostic, fatal, warning high, warning low | true |
+| `params` | List of `Parameters` | `Parameter` | false |
+| `numericIdentifier` | **Number** representing the numeric identifier of the event | **Number** | true |
+| `formatString` | **String** format with event parameters as arguments | **String** | false |
+| `throttle` | **Number** representing the maximum number of times to emit the event before throttling it | **Number** | false |
 
 
 ```json
@@ -671,7 +648,8 @@ TODO: what is the default maximum string length (in the event no size is specifi
         {
             "identifier": "",
             "description": "",
-            "type": ""
+            "type": "",
+            "ref": false
         }
     ],
     "numericIdentifier": "",
@@ -694,7 +672,16 @@ event Event0 \
     "identifier": "Event0",
     "description": "This is the annotation for Event 0",
     "severity": "activity low",
-    "params": [],
+    "params": [
+         {
+            "identifier": "",
+            "description": "",
+            "type": {
+                // ... this parameter's type fields
+            },
+            "ref": false
+        }
+    ],
     "numericIdentifier": "0x00",
     "formatString": "Event 0 occurred",
     "throttle": ""
@@ -734,80 +721,95 @@ event Event1(
     "formatString": "Event 1 occurred with argument {}",
     "throttle": ""
 }
-
-# Ports
-| Field | Description | Options |
-| ----- | ----------- | ------- |
-| identifier | String identifier of the port | string |
-| description | String annotation of the port | string |
-| params | List of JSON parameter dictionaries | JSON dictionary |
-| returnType | JSON dictionary representing the return type of the port | JSON dictionary |
-
-```json
-{
-    "identifier": "",
-    "description": "",
-    "params": [
-        {
-            "identifier": "",
-            "description": "",
-            "type": {
-
-            }
-        },
-         {
-            "identifier": "",
-            "description": "",
-            "type": {
-
-            }
-        }
-    ],
-    "returnType": {
-        
-    }
-}
 ```
+
+# Data Products
+## Record
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier of the record | **String** | true |
+| `description` | **String** annotation of record | **String** | true |
+| `type` | `Type Name` the record | `Type Name` | true |
+| `array` | **Boolean** specifying whether the record stores a variable number of elements | true, false | false |
+| `numericIdentifier` | **Number** representing the numeric identifier of the record | **Number** | true |
 
 Example FPP model with JSON representation:
 ```
-@ This is the annotation for Port 1
-port Port1(
-    a: U32 @< Parameter a
-    b: F64 @< Parameter b
-) -> U32
+@ Record 0: A variable number of F32 values
+@ Implied id is 0x00
+product record Record0: F32 array
+
+@ Record 1: A single U32 value
+product record Record1: U32 id 0x02
 ```
 
 ```json
-{
-    "identifier": "Port1",
-    "description": "This is the annotation for Port 1",
-    "params": [
-        {
-            "identifier": "a",
-            "description": "Parameter a",
-            "type": {
-                "name": "U32",
-                "kind": "integer",
-                "size": 32,
-                "signed": false,
-            }
+[
+    {
+        "identifier": "Record0",
+        "description": "Record 0: A variable number of F32 values",
+        "type": {
+            "name": "F32",
+            "kind": "float",
+            "size": 32
         },
-        {
-            "identifier": "b",
-            "description": "Parameter b",
-            "type": {
-                "name": "F64",
-                "kind": "float",
-                "size": 64,
-            }
-        }
-    ],
-    "returnType": {
-        "name": "U32",
-        "kind": "integer",
-        "size": 32,
-        "signed": false
+        "array": true,
+        "numericIdentifier": 0 
+    },
+    {
+        "identifier": "Record1",
+        "description": "Record 1: A single U32 value",
+        "type": {
+            "name": "U32",
+            "kind": "integer",
+            "signed": false,
+            "size": 32
+        },
+        "array": false,
+        "numericIdentifier": 2
+    }      
+]
+```
+
+## Container
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `identifier` | **String** identifier of the container | **String** | true |
+| `description` | **String** annotation of container | **String** | true |
+| `numericIdentifier` | **Number** representing the numeric identifier of the record | **Number** | true |
+| `defaultPriority` | **Number** representing the downlink priority for the container | **Number** | false |
+
+Example FPP model with JSON representation:
+```
+@ Container 0
+@ Implied id is 0x00
+product container Container0
+
+@ Container 1
+product container Container1 id 0x02
+
+@ Container 2
+@ Implied id is 0x03
+product container Container2 default priority 10
+```
+
+```json
+[
+    {
+       "identifier": "Container0",
+       "description": "Container 0\nImplied id is 0x00",
+       "numericIdentifier": 0,
+    },
+    {
+        "identifier": "Container1",
+        "description": "Container 1",
+        "numericIdentifier": 2,
+    },
+    {
+        "identifier": "Container2",
+        "description": "Container 2\nImplied id is 0x03",
+        "numericIdentifier": 3,
+        "defaultPriority": 10
     }
-}
+]
 ```
