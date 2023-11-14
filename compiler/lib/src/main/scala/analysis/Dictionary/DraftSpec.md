@@ -455,9 +455,7 @@ Example JSON of a struct:
 {
     "identifier": "",
     "description": "",
-    "type": {
-        // ... this parameter's type fields
-    },
+    "type": {},
     "ref": false
 }
 ```
@@ -540,9 +538,7 @@ TODO: identifier should be a qualified identifier
         {
             "identifier": "",
             "description": "",
-            "type": {
-                //... this parameters's type fields
-            },
+            "type": {},
             "ref": false
         }
     ],
@@ -676,9 +672,7 @@ event Event0 \
          {
             "identifier": "",
             "description": "",
-            "type": {
-                // ... this parameter's type fields
-            },
+            "type": {},
             "ref": false
         }
     ],
