@@ -93,7 +93,7 @@ definitions and uses within a
 or on the distribution of definitions and uses among translation
 units. For example, if the definition `constant c = 0` appears anywhere
 in any translation unit of a model _M_, then the use of `c` as a
-constant value of type U8 is legal anywhere in any translation unit of
+constant value of type _Integer_ is legal anywhere in any translation unit of
 _M_. In particular, this model is legal:
 
 [source,FPP]
