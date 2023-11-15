@@ -151,9 +151,21 @@ object CheckUses extends UseAnalyzer {
     ) = {
       for {
         a <- visitQualIdentNode (ng) (a, qualifier)
-        symbol <- {
+        scope <- {
           val symbol = a.useDefMap(qualifier.id)
-          val scope = a.symbolScopeMap(symbol)
+          a.symbolScopeMap.get(symbol) match {
+            case Some(symbol) => Right(symbol)
+            case None => Left(
+              SemanticError.InvalidSymbol(
+                symbol.getUnqualifiedName,
+                Locations.get(node.id),
+                "not a qualifier",
+                symbol.getLoc
+              )
+            )
+          }
+        }
+        symbol <- {
           val mapping = scope.get (ng) _
           getSymbolForName(mapping)(name, name.data)
         }
