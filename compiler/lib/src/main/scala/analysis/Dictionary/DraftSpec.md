@@ -1,4 +1,4 @@
-- [Types Names](#types-names)
+- [Type Names](#type-names)
   - [Primitive Integer Type Names](#primitive-integer-type-names)
     - [Unsigned Integer Types](#unsigned-integer-types)
     - [Signed Integer Types](#signed-integer-types)
@@ -11,8 +11,9 @@
   - [Qualified Identifier Type Names](#qualified-identifier-type-names)
 - [Type Definitions](#type-definitions)
   - [Array Type Definition](#array-type-definition)
-  - [Enum Type Definition](#enum-type-definition)
-  - [Struct Types](#struct-types)
+  - [Enumeration Type Definition](#enumeration-type-definition)
+  - [Struct Member](#struct-member)
+  - [Struct Type Definition](#struct-type-definition)
 - [Values](#values)
   - [Primitive Integer Values](#primitive-integer-values)
   - [Floating-Point Values](#floating-point-values)
@@ -21,11 +22,12 @@
   - [Array Values](#array-values)
   - [Enumeration Values](#enumeration-values)
   - [Struct Values](#struct-values)
-- [Formal Parameters](#formal-parameters)
-- [Parameters](#parameters)
-- [Commands](#commands)
-- [Telemtry Channels](#telemtry-channels)
-- [Events](#events)
+- [Parameters, Commands, Telemetry Channels, and Events](#parameters-commands-telemetry-channels-and-events)
+  - [Formal Parameters](#formal-parameters)
+  - [Parameters](#parameters)
+  - [Commands](#commands)
+  - [Telemtry Channels](#telemtry-channels)
+  - [Events](#events)
 - [Data Products](#data-products)
   - [Record](#record)
   - [Container](#container)
@@ -33,7 +35,7 @@
   - [Dictionary Metadata](#dictionary-metadata)
   - [Dictionary Content](#dictionary-content)
 
-# Types Names
+# Type Names
 
 ## Primitive Integer Type Names
 | Field | Description | Options | Required | 
@@ -82,7 +84,7 @@ Example JSON of I8
     "name": "I8",
     "kind": "integer",
     "size": 8,
-    "signed": false,
+    "signed": true,
 }
 ```
 
@@ -93,7 +95,7 @@ Example JSON of I64
     "name": "I64",
     "kind": "integer",
     "size": 64,
-    "signed": false,
+    "signed": true,
 }
 ```
 
@@ -191,8 +193,10 @@ Example JSON of qualified name
 | `qualifiedName` | **String** representing unique qualified name of element in FPP model | Period seperated **String** | true |
 | `size` | Max **Number** of elements that can be in the data structure | Number | true |
 | `elementType` | A **JSON dictionary** representing the type of elements in the array | JSON Dictionary | true
-| `default` | Default value (of type specified in `elementType`) of elements in array | Value of type specified in `elementType` | false |
+| `default` | Default array value | Value of type specified in `elementType` | false |
 
+TODO: update default field description - array value vs. type of elements in array
+- think about: is the type conversion we are doing specified enough
 Example FPP model with JSON representation:
 ```
 module M {
@@ -232,14 +236,16 @@ Example JSON of array
 ```
 
 
-## Enum Type Definition
+## Enumeration Type Definition
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `kind` | String representing the kind of type | enum | true |
 | `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
-| `representationType` | The `Type Name` of values in the enum | `Type Name` | true |
+| `representationType` | The `Type Name` of values in the enumeration | `Type Name` | true |
 | `identifiers` | Dictionary of identifiers (keys) and numeric values (values) | true |
-| `default` | Enum default value | Value of type indicated by `Type Name` false | false |
+| `default` | `Qualified Identifier` enumeration value | `Qualified Identifier` | false | false |
+
+TODO: make defaults fully qualified
 
 Example FPP model with JSON representation:
 ```
@@ -266,7 +272,7 @@ module M {
         "NO": 1,
         "MAYBE": 2
     },
-    "default": "MAYBE"
+    "default": "M.Status.MAYBE"
 }
 ```
 
@@ -287,21 +293,30 @@ Example JSON of enum
         "NO": 1,
         "MAYBE": 2
     },
-    "default": "MAYBE"
+    "default": "M.E.NO"
 }
 ```
 
-## Struct Types
+## Struct Member
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `type` | `Type Name` of member | `Type Name` | true |
+| `index` | **Number** index of the struct member | **Number** | true |
+| `size` | **Number** representing the size of the struct member | false |
+| `formatSpecifier` | **String** format specifier | **String** | false |
+
+## Struct Type Definition
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `kind` | String representing the kind of type | struct | true |
 | `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
-| `members` | JSON dictionary consisting of **String** identifier (keys) and `Type Names` (values) of each member in the struct | true | true |
-| `default` | JSON dictionary consising of **String** identifier (key) and default value (value) | JSON dictionary | true |
-| `formatSpecifiers` | JSON dictionary consisting of **String** identifier (key) and **String** format specifier (value) |  JSON dictionary | false |
+| `members` | JSON dictionary consisting of **String** identifier (key) and `Struct Member` (value) | JSON dictionary | true |
+| `default` | JSON dictionary consising of **String** identifier (key) and default value (value) | JSON dictionary | false |
 
+TODO: add order field with member ordering, since there's an ordering in FPP
+- note: fields of values are unordered
 Example FPP model with JSON representation:
-
+- need to specify the optional size of a member (ex: array member)
 ```
 module M {
     struct A {
@@ -316,22 +331,28 @@ module M {
     "qualifiedName": "M.A",
     "members": {
         "x": {
-            "name": "U32",
-            "kind": "integer",
-            "signed": false,
-            "size": 32
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "signed": false,
+                "size": 32
+            },
+            "formatSpecifier": "the count is {}",
+            "index": 0
         },
         "y": {
-            "name": "F32",
-            "kind": "float",
-            "size": 32,
+            "type": {
+                "name": "F32",
+                "kind": "float",
+                "size": 32
+            },
+            "index": 1
         }
     },
     "default": {
         "x": 0,
         "y": 0
     },
-    "formatSpecifiers": {}
 }
 ```
 
@@ -342,24 +363,37 @@ Example JSON of a struct:
     "qualifiedName": "M.myStruct",
     "members": {
         "w": {
-            "kind": "qualifiedIdentifier",
-            "qualifiedName": "M.A"
+            "type": {
+                "kind": "qualifiedIdentifier",
+                "qualifiedName": "M.A"
+            },
+            "index": 0
         },
         "x": {
-            "type": "U32",
-            "kind": "integer",
-            "signed": false,
-            "size": 32,
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "signed": false,
+                "size": 32
+            },
+            "index": 1,
+            "formatSpecifier": "The count is {}"
         },
         "y": {
-            "type": "string",
-            "kind": "string",
-            "size": 64
+            "type": {
+                "name": "string",
+                "kind": "string",
+                "size": 64
+            },
+            "index": 2
         },
         "z": {
-            "type": "F64",
-            "kind": "float",
-            "size": 64,
+            "type": {
+                "name": "F64",
+                "kind": "float",
+                "size": 64
+            },
+            "index": 3
         }
     },
     "default": {
@@ -367,9 +401,6 @@ Example JSON of a struct:
         "x": 5,
         "y": "Hello World!",
         "z": 10.0
-    },
-    "formatSpecifiers": {
-        "x": "The count is {}"
     }
 }
 ```
@@ -392,7 +423,6 @@ Example JSON of type I8 with a value of -2:
 
 ## Floating-Point Values
 **Number** representing float value
-
 
 Example JSON of type F32 with a value of 10.0
 ```json
@@ -426,27 +456,30 @@ Example JSON of an array of type U32 consisting of 10 elements
 ```
 
 ## Enumeration Values
-**String** enumeration value
+`Qualified Identifier` enumeration value
 
 Example JSON of an enum
 ```json
-"YES"
+"Status.YES"
 ```
 
 ## Struct Values
-**JSON Dictionary** consisting of **String** identifier (keys) and values (values)
+**JSON Dictionary** consisting of `Qualified Name` identifier (keys) and values (values)
 
 Example JSON of a struct:
 ```json
 {
-    "w": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
-    "x": 20,
-    "y": "Hello World!",
-    "z": 15.5
+    "S.w": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+    "S.x": 20,
+    "S.y": "Hello World!",
+    "S.z": 15.5
 }
 ```
+TODO - account for null, inf, -inf, nan
 
-# Formal Parameters
+# Parameters, Commands, Telemetry Channels, and Events
+
+## Formal Parameters
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `identifier` | **String** identifier | **String** | true |
@@ -464,7 +497,7 @@ Example JSON of a struct:
 ```
 
 TODO: get rid of json dicitonaries and just use the type name (can link back to where its defined in the docs)
-# Parameters
+## Parameters
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `identifier` | **String** identifier | **String** | true |
@@ -475,7 +508,7 @@ TODO: get rid of json dicitonaries and just use the type name (can link back to 
 | `setOpcode` | **Number** representing the opcode of the command for setting the parameter | **Number** | false |
 | `saveOpcode` | **Number** representing the opcode of the command for saving the parameter | **Number** | false |
 
-TODO: ask michael if we want to keep opcodes and decimal or hex string
+
 ```json
 {
     "identifier": "",
@@ -493,9 +526,9 @@ Example FPP model with JSON representation:
 ```
 @ This is the annotation for Parameter 1
 param Parameter1: U32 \
-  id 0x00 \
-  set opcode 0x80 \
-  save opcode 0x81
+  id 0x100 \
+  set opcode 0x101 \
+  save opcode 0x102
 ```
 
 ```json
@@ -509,9 +542,9 @@ param Parameter1: U32 \
         "size": 32
     },
     "default": 0,
-    "numericIdentifier": "0x00",
-    "setOpcode": "0x80",
-    "saveOpcode": "0x81"
+    "numericIdentifier": "256",
+    "setOpcode": "257",
+    "saveOpcode": "258"
 }
 ```
 TODO: could there be a case where the param type is string and the default value is empty string?
@@ -520,24 +553,25 @@ TODO: need to look into defaults more, look into what the generated code does
 TODO: use FPP default in the event the user didn't specify a default value
 TODO: identifier should be a qualified identifier
 
-# Commands
+## Commands
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `commandKind` | **String** representing the kind of command | async, guarded, sync | true |
 | `opcode` | **Number** command opcode | **Number** | true |
 | `identifier` | **String** identifier | **String** | true |
 | `description` | **String** annotation of command | string | true |
-| `params` | List of `Parameters` | `Parameter` | false |
+| `formalParams` | Array of `Formal Parameters` | Array of `Formal Parameters` | false |
 | `priority` | **Number** representing the priority for the command on the input queue | **Number** | false |
 | `queueFullBehavior` | **String** representing the behavior of the command when the input full is queue | assert, block, drop | false |
-
+TODO: fix parameter to formal
+TODO: default queue full is assert
 ```json
 {
     "commandKind": "",
     "opcode": "",
     "identifier": "",
     "description": "",
-    "params": [
+    "formalParams": [
         {
             "identifier": "",
             "description": "",
@@ -562,10 +596,10 @@ sync command SyncParams(
 ```json
 {
     "commandKind": "sync",
-    "opcode": "0x02",
+    "opcode": 102,
     "identifier": "SyncParams",
     "description": "A sync command with parameters",
-    "params": [
+    "formalParams": [
         {
             "identifier": "param1",
             "description": "Param 1",
@@ -591,8 +625,9 @@ sync command SyncParams(
 }
 ```
 TODO: what is the default maximum string length (in the event no size is specified for a string)?
+- check into default, maybe 80
 
-# Telemtry Channels
+## Telemtry Channels
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `identifier` | **String** identifier of telemtry channel | **String** | true |
@@ -626,31 +661,25 @@ TODO: what is the default maximum string length (in the event no size is specifi
 }
 ```
 
-# Events
+## Events
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `identifier` | **String** identifier of the event | **String** | true |
 | `description` | **String** annotation of event | **String** | true |
 | `severity` | **String** representing severit of the event | activity high, activity low, command, diagnostic, fatal, warning high, warning low | true |
-| `params` | List of `Parameters` | `Parameter` | false |
+| `formalParams` | Array of `Formal Parameters` | Array `Formal Parameters` | true |
 | `numericIdentifier` | **Number** representing the numeric identifier of the event | **Number** | true |
 | `formatString` | **String** format with event parameters as arguments | **String** | false |
 | `throttle` | **Number** representing the maximum number of times to emit the event before throttling it | **Number** | false |
-
-
+todo: change key to formalParams (everywhere they appear)
+- make formalParams a required field that is empty  (wherever applicable)
+- all identifiers should be qualified
 ```json
 {
     "identifier": "",
     "description": "",
     "severity": "",
-    "params": [
-        {
-            "identifier": "",
-            "description": "",
-            "type": "",
-            "ref": false
-        }
-    ],
+    "formalParams": [],
     "numericIdentifier": "",
     "formatString": "",
     "throttle": ""
@@ -662,7 +691,7 @@ Example FPP model with JSON representation:
 @ This is the annotation for Event 0
 event Event0 \
   severity activity low \
-  id 0x00 \
+  id 0x100 \
   format "Event 0 occurred"
 ```
 
@@ -671,7 +700,7 @@ event Event0 \
     "identifier": "Event0",
     "description": "This is the annotation for Event 0",
     "severity": "activity low",
-    "params": [
+    "formalParams": [
          {
             "identifier": "",
             "description": "",
@@ -679,7 +708,7 @@ event Event0 \
             "ref": false
         }
     ],
-    "numericIdentifier": "0x00",
+    "numericIdentifier": 256,
     "formatString": "Event 0 occurred",
     "throttle": ""
 }
@@ -693,7 +722,7 @@ event Event1(
   arg1: U32 @< Argument 1
 ) \
   severity activity high \
-  id 0x01 \
+  id 0x101 \
   format "Event 1 occurred with argument {}"
 ```
 ```json
@@ -701,7 +730,7 @@ event Event1(
     "identifier": "Event1",
     "description": "This is the annotation for Event 1",
     "severity": "activity high",
-    "params": [
+    "formalParams": [
         {
            "identifier": "arg1",
             "description": "Argument 1",
@@ -714,7 +743,7 @@ event Event1(
             "ref": false  
         }
     ],
-    "numericIdentifier": "0x01",
+    "numericIdentifier": 257,
     "formatString": "Event 1 occurred with argument {}",
     "throttle": ""
 }
@@ -733,11 +762,11 @@ event Event1(
 Example FPP model with JSON representation:
 ```
 @ Record 0: A variable number of F32 values
-@ Implied id is 0x00
+@ Implied id is 0x100
 product record Record0: F32 array
 
 @ Record 1: A single U32 value
-product record Record1: U32 id 0x02
+product record Record1: U32 id 0x102
 ```
 
 ```json
@@ -751,7 +780,7 @@ product record Record1: U32 id 0x02
             "size": 32
         },
         "array": true,
-        "numericIdentifier": 0 
+        "numericIdentifier": 256 
     },
     {
         "identifier": "Record1",
@@ -763,7 +792,7 @@ product record Record1: U32 id 0x02
             "size": 32
         },
         "array": false,
-        "numericIdentifier": 2
+        "numericIdentifier": 258
     }      
 ]
 ```
@@ -779,14 +808,14 @@ product record Record1: U32 id 0x02
 Example FPP model with JSON representation:
 ```
 @ Container 0
-@ Implied id is 0x00
+@ Implied id is 0x100
 product container Container0
 
 @ Container 1
-product container Container1 id 0x02
+product container Container1 id 0x102
 
 @ Container 2
-@ Implied id is 0x03
+@ Implied id is 0x103
 product container Container2 default priority 10
 ```
 
@@ -794,19 +823,19 @@ product container Container2 default priority 10
 [
     {
        "identifier": "Container0",
-       "description": "Container 0\nImplied id is 0x00",
-       "numericIdentifier": 0,
+       "description": "Container 0\nImplied id is 0x100",
+       "numericIdentifier": 256,
     },
     {
         "identifier": "Container1",
         "description": "Container 1",
-        "numericIdentifier": 2,
+        "numericIdentifier": 258,
     },
     {
         "identifier": "Container2",
-        "description": "Container 2\nImplied id is 0x03",
+        "description": "Container 2\nImplied id is 0x103",
         "numericIdentifier": 3,
-        "defaultPriority": 10
+        "defaultPriority": 259
     }
 ]
 ```
@@ -818,6 +847,11 @@ product container Container2 default priority 10
 | `deploymentName` | **String** representing the deployment name | **String** | true |
 | `frameworkVersion` | **String** representing the F´ framework version (semantic versioning) | **String** | true |
 | `projectVersion` | **String** representing the project version (semantic versioning) | **String** | true |
+| `libraryVersion` | **Array of Strings** corresponding to the version (semantic versioning) of libraries used by the F´ project | **Array of Strings** | true
+TODO: add libariries version, dictionary name to library version
+- list of libraries that have the version with it
+- add a dictionary spec version (fpp version of tool that generated the JSON)
+
 
 ```json
 {
@@ -831,13 +865,14 @@ product container Container2 default priority 10
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
 | `metadata` | `Dictionary Metadata` | `Dictionary Metadata` | true |
-| `enums` | List of `Enums` | List of `Enums` | true |
-| `serializables` | List of `Serializables` | List of `Serializables` | true |
-| `commands` | List of `Commands` | List of `Commands` | true |
-| `events` | List of `Events` | List of `Events` | true |
-| `telemetryChannels` | List of `Telemetry Channels` | List of `Telemetry Channels` | true |
-| `parameters` | List of `Parameters` | List of `Parameters` | true |
-
+| `arrays` | Array of `Arrays` | Array of `Arrays` | true |
+| `enums` | Array of `Enums` | Array of `Enums` | true |
+| `structs` | Array of `Structs` | Array of `Structs` | true |
+| `commands` | Array of `Commands` | Array of `Commands` | true |
+| `events` | Array of `Events` | Array of `Events` | true |
+| `telemetryChannels` | Array of `Telemetry Channels` | Array of `Telemetry Channels` | true |
+| `parameters` | Array of `Parameters` | Array of `Parameters` | true |
+TODO: keep emtpy lists instead of removing keys
 ```json
 {
     "metadata": {
@@ -848,44 +883,46 @@ product container Container2 default priority 10
     "enums": [
         "MyDeployment"
     ],
-    "serializables": [
+    "structs": [
 
     ],
     "commands": [
-        "commandKind": "sync",
-        "opcode": "0x02",
-        "identifier": "SyncParams",
-        "description": "A sync command with parameters",
-        "params": [
-            {
-                "identifier": "param1",
-                "description": "Param 1",
-                "type": {
-                    "name": "U32",
-                    "kind": "integer",
-                    "size": 32,
-                    "signed": false,
+        {
+            "commandKind": "sync",
+            "opcode": 257,
+            "identifier": "SyncParams",
+            "description": "A sync command with parameters",
+            "formalParams": [
+                {
+                    "identifier": "param1",
+                    "description": "Param 1",
+                    "type": {
+                        "name": "U32",
+                        "kind": "integer",
+                        "size": 32,
+                        "signed": false,
+                    },
+                    "ref": false
                 },
-                "ref": false
-            },
-            {
-                "identifier": "param2",
-                "description": "Param 2",
-                "type": {
-                    "name": "string",
-                    "kind": "string",
-                    "size": ""
-                },
-                "ref": false
-            }
-        ],
+                {
+                    "identifier": "param2",
+                    "description": "Param 2",
+                    "type": {
+                        "name": "string",
+                        "kind": "string",
+                        "size": ""
+                    },
+                    "ref": false
+                }
+            ],
+        }
     ],
     "events": [
         {
             "identifier": "Event0",
             "description": "This is the annotation for Event 0",
             "severity": "activity low",
-            "params": [
+            "formalParams": [
                 {
                     "identifier": "",
                     "description": "",
@@ -893,7 +930,7 @@ product container Container2 default priority 10
                     "ref": false
                 }
             ],
-            "numericIdentifier": "0x00",
+            "numericIdentifier": 256,
             "formatString": "Event 0 occurred",
             "throttle": ""
         },
@@ -901,7 +938,7 @@ product container Container2 default priority 10
             "identifier": "Event1",
             "description": "This is the annotation for Event 1",
             "severity": "activity high",
-            "params": [
+            "formalParams": [
                 {
                 "identifier": "arg1",
                     "description": "Argument 1",
@@ -914,7 +951,7 @@ product container Container2 default priority 10
                     "ref": false  
                 }
             ],
-            "numericIdentifier": "0x01",
+            "numericIdentifier": 257,
             "formatString": "Event 1 occurred with argument {}",
             "throttle": ""
         }
@@ -933,10 +970,14 @@ product container Container2 default priority 10
                 "size": 32
             },
             "default": 0,
-            "numericIdentifier": "0x00",
-            "setOpcode": "0x80",
-            "saveOpcode": "0x81"
+            "numericIdentifier": 256,
+            "setOpcode": 257,
+            "saveOpcode": 258
         }
     ]
 }
 ```
+
+
+- add to fprime-docs-design
+- future: spec for autocoder/autocoded stuff
