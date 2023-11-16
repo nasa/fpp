@@ -21,7 +21,14 @@ _[_
 _queue-full-behavior_
 _]_
 
-* _special-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>>
+* _[_ _special-port-input-kind_ _]_
+_special-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
 
 _general-port-kind_ is one of the following:
 
@@ -47,6 +54,14 @@ _queue-full-behavior_ is one of the following:
 
 . `drop`
 
+_special-port-input-kind_ is one of the following:
+
+. `async`
+
+. `guarded`
+
+. `sync`
+
 _special-port-kind_ is one of the following:
 
 . `command` `recv`
@@ -61,6 +76,14 @@ _special-port-kind_ is one of the following:
 
 . `param` `set`
 
+. `product` `get`
+
+. `product` `recv`
+
+. `product` `request`
+
+. `product` `send`
+
 . `telemetry`
 
 . `text` `event`
@@ -71,7 +94,7 @@ The following port instances are *input port instances*:
 
 * Any general port with `input` in its name.
 
-* Special port `command recv`.
+* Special ports `command recv` and `product recv`.
 
 The others are *output port instances*.
 
@@ -132,11 +155,20 @@ This specifier is valid only for `async input` ports.
 If no specifier appears, then the default behavior is `assert`.
 
 *Special port instances:*
-These port instances correspond to the "role ports" in the F Prime XML model.
-Their types and other attributes are specified by F Prime.
+The special port instance have special functions in the code generated
+from an FPP model.
+The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.
 
 There must be at most one of each kind of special port instance.
+
+. The optional input kind must be present for `product` `recv` ports
+and may not be present for other ports.
+
+. The optional expression _e_ appearing after the keyword
+`priority` and the optional _queue-full-behavior_ behavior have
+the same meaning as described above for general ports.
+These elements are valid only for `async` `product` `recv` ports.
 
 Each special port instance represents an implied use of a port
 as shown in the table below.
@@ -163,6 +195,18 @@ These ports are defined by the F Prime framework.
 |`param` `set`
 |`Fw.PrmSet`
 
+|`product` `get`
+|`Fw.DpGet`
+
+|`product` `recv`
+|`Fw.DpResponse`
+
+|`product` `request`
+|`Fw.DpRequest`
+
+|`product` `send`
+|`Fw.DpSend`
+
 |`telemetry`
 |`Fw.Tlm`
 
@@ -171,6 +215,7 @@ These ports are defined by the F Prime framework.
 
 |`time` `get`
 |`Fw.Time`
+
 |===
 
 ==== Examples
@@ -227,4 +272,14 @@ telemetry port tlmOut
 
 @ A port for getting the current time
 time get port timeGetOut
+
+@ An async port for receiving requested data product buffers
+async product recv port productRecvIn
+
+@ A port for requesting data product buffers
+product request port productRequestOut
+
+@ A port for sending data products
+product send port productSendOut
+
 ----

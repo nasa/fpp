@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/container/priority_not_numeric.fpp:3.49
+  product container C id 0x100 default priority "abc"
+                                                ^
+error: cannot convert string to a numeric type

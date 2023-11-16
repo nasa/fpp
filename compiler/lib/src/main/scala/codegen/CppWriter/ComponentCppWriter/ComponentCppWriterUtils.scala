@@ -75,15 +75,30 @@ abstract class ComponentCppWriterUtils(
   val specialInputPorts: List[PortInstance.Special] =
     filterByPortDirection(specialPorts, PortInstance.Direction.Input)
 
+  /** List of data product input port instances */
+  val dataProductInputPorts: List[PortInstance.Special] =
+    specialInputPorts.filter(pi => pi.specifier.kind == Ast.SpecPortInstance.ProductRecv)
+
   /** List of special output port instances */
   val specialOutputPorts: List[PortInstance.Special] =
     filterByPortDirection(specialPorts, PortInstance.Direction.Output)
+
+  /** List of data product output port instances */
+  val dataProductOutputPorts: List[PortInstance.Special] =
+    specialOutputPorts.filter(pi => {
+      pi.specifier.kind == Ast.SpecPortInstance.ProductGet ||
+      pi.specifier.kind == Ast.SpecPortInstance.ProductRequest ||
+      pi.specifier.kind == Ast.SpecPortInstance.ProductSend
+    })
 
   /** List of typed input ports */
   val typedInputPorts: List[PortInstance.General] = filterTypedPorts(generalInputPorts)
 
   /** List of serial input ports */
   val serialInputPorts: List[PortInstance.General] = filterSerialPorts(generalInputPorts)
+
+  /** List of data product async input ports */
+  val dataProductAsyncInputPorts: List[PortInstance.Special] = filterAsyncSpecialPorts(dataProductInputPorts)
 
   /** List of typed async input ports */
   val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
@@ -176,6 +191,22 @@ abstract class ComponentCppWriterUtils(
   val timeGetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.TimeGet)
 
+  /** Data product get port */
+  val productGetPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductGet)
+
+  /** Data product request port */
+  val productRequestPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRequest)
+
+  /** Data product send port */
+  val productSendPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductSend)
+
+  /** Data product receive port */
+  val productRecvPort: Option[PortInstance.Special] =
+    component.specialPortMap.get(Ast.SpecPortInstance.ProductRecv)
+
   /** Event port */
   val eventPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.Event)
@@ -195,6 +226,14 @@ abstract class ComponentCppWriterUtils(
   /** Parameter set port */
   val prmSetPort: Option[PortInstance.Special] =
     component.specialPortMap.get(Ast.SpecPortInstance.ParamSet)
+
+  val containersById = component.containerMap.toList.sortBy(_._1)
+
+  val containersByName = component.containerMap.toList.sortBy(_._2.getName)
+
+  val recordsById = component.recordMap.toList.sortBy(_._1)
+
+  val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
   // Component properties
 
@@ -222,6 +261,16 @@ abstract class ComponentCppWriterUtils(
   val hasTelemetry: Boolean = component.tlmChannelMap.nonEmpty
 
   val hasParameters: Boolean = component.paramMap.nonEmpty
+
+  val hasDataProducts: Boolean = component.hasDataProducts
+
+  val hasContainers: Boolean = containersByName != Nil
+
+  val hasProductGetPort: Boolean = productGetPort.isDefined
+
+  val hasProductRecvPort: Boolean = productRecvPort.isDefined
+
+  val hasProductRequestPort: Boolean = productRequestPort.isDefined
 
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
@@ -611,6 +660,10 @@ abstract class ComponentCppWriterUtils(
   def outputPortInvokerName(name: String) =
     s"${name}_out"
 
+  /** Get the name for an output port invocation function */
+  def outputPortInvokerName(pi: PortInstance): String =
+    outputPortInvokerName(pi.getUnqualifiedName)
+
   /** Get the name for an internal interface handler */
   def internalInterfaceHandlerName(name: String) =
     s"${name}_internalInterfaceHandler"
@@ -682,6 +735,30 @@ abstract class ComponentCppWriterUtils(
   /** Guards an option type with a Boolean condition */
   def guardedOption[T] = guardedValue (None: Option[T]) _
 
+  /** Gets a data product receive handler */
+  def getDpRecvHandler(name: String, body: List[Line] = Nil) =
+    functionClassMember(
+      Some(s"Receive a container of type $name"),
+      s"dpRecv_${name}_handler",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("DpContainer&"),
+          "container",
+          Some("The container")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::Success::T"),
+          "status",
+          Some("The container status")
+        )
+      ),
+      CppDoc.Type("void"),
+      body,
+      body match {
+        case Nil => CppDoc.Function.PureVirtual
+        case _ => CppDoc.Function.Override
+      }
+    )
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {
@@ -740,6 +817,15 @@ abstract class ComponentCppWriterUtils(
         case _ => false
       }
     )
+
+  private def filterAsyncSpecialPorts(ports: List[PortInstance.Special]) =
+    ports.filter(p =>
+      p.specifier.inputKind match {
+        case Some(Ast.SpecPortInstance.Async) => true
+        case _ => false
+      }
+    )
+
 
 }
 

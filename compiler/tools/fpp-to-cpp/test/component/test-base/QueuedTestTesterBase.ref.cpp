@@ -149,6 +149,58 @@ void QueuedTestTesterBase ::
 #endif
   }
 
+  // Connect input port productRequestOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_productRequestOut());
+    port++
+  ) {
+    this->m_from_productRequestOut[port].init();
+    this->m_from_productRequestOut[port].addCallComp(
+      this,
+      from_productRequestOut_static
+    );
+    this->m_from_productRequestOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_productRequestOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_productRequestOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port productSendOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_productSendOut());
+    port++
+  ) {
+    this->m_from_productSendOut[port].init();
+    this->m_from_productSendOut[port].addCallComp(
+      this,
+      from_productSendOut_static
+    );
+    this->m_from_productSendOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_productSendOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_productSendOut[port].setObjName(portName);
+#endif
+  }
+
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect input port textEventOut
   for (
@@ -351,6 +403,27 @@ void QueuedTestTesterBase ::
       port
     );
     this->m_to_cmdIn[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port productRecvIn
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_to_productRecvIn());
+    port++
+  ) {
+    this->m_to_productRecvIn[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_to_productRecvIn[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_to_productRecvIn[port].setObjName(portName);
 #endif
   }
 
@@ -647,6 +720,20 @@ void QueuedTestTesterBase ::
 }
 
 void QueuedTestTesterBase ::
+  connect_to_productRecvIn(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpResponsePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_productRecvIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_to_productRecvIn[portNum].addCallPort(port);
+}
+
+void QueuedTestTesterBase ::
   connect_to_noArgsAsync(
       NATIVE_INT_TYPE portNum,
       Ports::InputNoArgsPort* port
@@ -887,6 +974,28 @@ Fw::InputPrmSetPort* QueuedTestTesterBase ::
   return &this->m_from_prmSetOut[portNum];
 }
 
+Fw::InputDpRequestPort* QueuedTestTesterBase ::
+  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_productRequestOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_productRequestOut[portNum];
+}
+
+Fw::InputDpSendPort* QueuedTestTesterBase ::
+  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_productSendOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_productSendOut[portNum];
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* QueuedTestTesterBase ::
@@ -1015,6 +1124,10 @@ QueuedTestTesterBase ::
   this->tlmHistory_ChannelU32OnChange = new History<TlmEntry_ChannelU32OnChange>(maxHistorySize);
   this->tlmHistory_ChannelEnumOnChange = new History<TlmEntry_ChannelEnumOnChange>(maxHistorySize);
 
+  // Initialize data product histories
+  this->productRequestHistory = new History<DpRequest>(maxHistorySize);
+  this->productSendHistory = new History<DpSend>(maxHistorySize);
+
   // Clear history
   this->clearHistory();
 }
@@ -1051,6 +1164,11 @@ QueuedTestTesterBase ::
   delete this->tlmHistory_ChannelF64;
   delete this->tlmHistory_ChannelU32OnChange;
   delete this->tlmHistory_ChannelEnumOnChange;
+
+  // Destroy product request history
+  delete this->productRequestHistory;
+  // Destroy product send history
+  delete this->productSendHistory;
 }
 
 // ----------------------------------------------------------------------
@@ -1431,6 +1549,12 @@ NATIVE_INT_TYPE QueuedTestTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_to_productRecvIn() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
+}
+
+NATIVE_INT_TYPE QueuedTestTesterBase ::
   getNum_to_noArgsAsync() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
@@ -1538,6 +1662,18 @@ NATIVE_INT_TYPE QueuedTestTesterBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
 
+NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_from_productRequestOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
+}
+
+NATIVE_INT_TYPE QueuedTestTesterBase ::
+  getNum_from_productSendOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE QueuedTestTesterBase ::
@@ -1597,6 +1733,17 @@ bool QueuedTestTesterBase ::
   );
 
   return this->m_to_cmdIn[portNum].isConnected();
+}
+
+bool QueuedTestTesterBase ::
+  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_to_productRecvIn(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_to_productRecvIn[portNum].isConnected();
 }
 
 bool QueuedTestTesterBase ::
@@ -3414,6 +3561,60 @@ void QueuedTestTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Functions for testing data products
+// ----------------------------------------------------------------------
+
+void QueuedTestTesterBase ::
+  pushProductRequestEntry(
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  DpRequest e = { id, size };
+  this->productRequestHistory->push_back(e);
+}
+
+void QueuedTestTesterBase ::
+  productRequest_handler(
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  this->pushProductRequestEntry(id, size);
+}
+
+void QueuedTestTesterBase ::
+  sendProductResponse(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(this->getNum_to_productRecvIn() > 0);
+  FW_ASSERT(this->m_to_productRecvIn[0].isConnected());
+  this->m_to_productRecvIn[0].invoke(id, buffer, status);
+}
+
+void QueuedTestTesterBase ::
+  pushProductSendEntry(
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  DpSend e = { id, buffer };
+  this->productSendHistory->push_back(e);
+}
+
+void QueuedTestTesterBase ::
+  productSend_handler(
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  this->pushProductSendEntry(id, buffer);
+}
+
+// ----------------------------------------------------------------------
 // History functions
 // ----------------------------------------------------------------------
 
@@ -3427,6 +3628,8 @@ void QueuedTestTesterBase ::
 #endif
   this->clearEvents();
   this->clearTlm();
+  this->productRequestHistory->clear();
+  this->productSendHistory->clear();
 }
 
 void QueuedTestTesterBase ::
@@ -3825,6 +4028,30 @@ void QueuedTestTesterBase ::
       FW_ASSERT(0, id);
       break;
   }
+}
+
+void QueuedTestTesterBase ::
+  from_productRequestOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
+  _testerBase->productRequest_handler(id, size);
+}
+
+void QueuedTestTesterBase ::
+  from_productSendOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  QueuedTestTesterBase* _testerBase = static_cast<QueuedTestTesterBase*>(callComp);
+  _testerBase->productSend_handler(id, buffer);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1

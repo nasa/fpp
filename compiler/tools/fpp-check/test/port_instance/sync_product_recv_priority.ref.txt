@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/sync_product_recv_priority.fpp:9.49
+  sync product recv port productRecvIn priority 10
+                                                ^
+error: only async input may have a priority

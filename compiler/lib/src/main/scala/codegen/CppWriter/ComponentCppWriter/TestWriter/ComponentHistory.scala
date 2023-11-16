@@ -107,6 +107,7 @@ case class ComponentHistory(
       guardedList (hasCommands) (getCmdHistoryTypes),
       guardedList (hasEvents) (getEventHistoryTypes),
       guardedList (hasTelemetry) (getTlmHistoryTypes),
+      guardedList (hasDataProducts) (getDpHistoryTypes),
     ),
     CppDoc.Lines.Hpp
   )
@@ -126,6 +127,7 @@ case class ComponentHistory(
       guardedList (hasCommands) (getCmdHistoryVariables),
       guardedList (hasEvents) (getEventHistoryVariables),
       guardedList (hasTelemetry) (getTlmHistoryVariables),
+      guardedList (hasDataProducts) (getDpHistoryVariables),
     ),
     CppDoc.Lines.Hpp
   )
@@ -148,7 +150,14 @@ case class ComponentHistory(
                |"""
           )
         ),
-        guardedList (hasChannels) (lines("this->clearTlm();"))
+        guardedList (hasChannels) (lines("this->clearTlm();")),
+        guardedList (hasDataProducts) (
+          List.concat(
+            guardedList (hasProductGetPort) (lines("this->productGetHistory->clear();")),
+            guardedList (hasProductRequestPort) (lines("this->productRequestHistory->clear();")),
+            lines("this->productSendHistory->clear();")
+          )
+        )
       )
     )
     addAccessTagAndComment(
@@ -200,12 +209,24 @@ case class ComponentHistory(
       )
     )
 
-    def pushEntry(p: PortInstance) = {
+    def pushHistoryEntry(p: PortInstance) = {
+      val portName = p.getUnqualifiedName
+      val entryName = fromPortEntryName(portName)
+      val historyName = fromPortHistoryName(portName)
+      List.concat(
+        wrapInScope(
+          s"$entryName _e = {",
+          lines(getPortParams(p).map(_._1).mkString(",\n")),
+          "};"
+        ),
+        lines(s"|this->$historyName->push_back(_e);")
+      )
+    }
+
+    def pushEntryAndUpdateSize(p: PortInstance) = {
       val portName = p.getUnqualifiedName
       val inputName = inputPortName(portName)
       val historySizeName = fromPortHistorySizeName(portName)
-      val entryName = fromPortEntryName(portName)
-      val historyName = fromPortHistoryName(portName)
       functionClassMember(
         Some(s"Push an entry on the history for $inputName"),
         fromPortPushEntryName(p.getUnqualifiedName),
@@ -214,20 +235,14 @@ case class ComponentHistory(
         List.concat(
           portParamTypeMap(portName) match {
             case Nil => lines(s"this->$historySizeName++;")
-            case _ => wrapInScope(
-              s"$entryName _e = {",
-              lines(getPortParams(p).map(_._1).mkString(",\n")),
-              "};"
-            ) ++ lines(
-              s"|this->$historyName->push_back(_e);"
-            )
+            case _ => pushHistoryEntry(p) 
           },
           lines("this->fromPortHistorySize++;")
         )
       )
     }
 
-    clearHistory :: typedOutputPorts.map(pushEntry)
+    clearHistory :: typedOutputPorts.map(pushEntryAndUpdateSize)
   }
 
   private def getPortHistoryVariables: List[CppDoc.Class.Member] = {
@@ -291,6 +306,82 @@ case class ComponentHistory(
           """|//! The command response history
              |History<CmdResponse>* cmdResponseHistory;
              |"""
+        ),
+        CppDoc.Lines.Hpp
+      )
+    )
+
+  private def getDpHistoryTypes: List[CppDoc.Class.Member] = {
+    val productGet = guardedList(hasProductGetPort) (
+      Line.blank ::
+      line("//! A type representing a data product get") ::
+      wrapInScope(
+        "struct DpGet {",
+        lines(
+          """|FwDpIdType id;
+             |FwSizeType size;
+             |"""
+        ),
+        "};"
+      )
+    )
+    val productRequest = guardedList(hasProductRequestPort) (
+      Line.blank ::
+      line("//! A type representing a data product request") ::
+      wrapInScope(
+        "struct DpRequest {",
+        lines(
+          """|FwDpIdType id;
+             |FwSizeType size;
+             |"""
+        ),
+        "};"
+      )
+    )
+    val productSend =
+      Line.blank ::
+      line("// A type representing a data product send") ::
+      wrapInScope(
+        "struct DpSend {",
+        lines(
+          """|FwDpIdType id;
+             |Fw::Buffer buffer;
+             |"""
+        ),
+        "};"
+      )
+    List(
+      linesClassMember(
+        List.concat(productGet, productRequest, productSend),
+        CppDoc.Lines.Hpp
+      )
+    )
+  }
+
+  private def getDpHistoryVariables: List[CppDoc.Class.Member] =
+    List(
+      linesClassMember(
+        List.concat(
+          guardedList (hasProductGetPort) (
+            Line.blank ::
+            lines(
+              """|//! The data product get history
+                 |History<DpGet>* productGetHistory;"""
+            )
+          ),
+          guardedList (hasProductRequestPort) (
+            Line.blank ::
+            lines(
+              """|//! The data product request history
+                 |History<DpRequest>* productRequestHistory;"""
+            )
+          ),
+          Line.blank ::
+          lines(
+             """|//! The data product send history
+                |History<DpSend>* productSendHistory;
+                |"""
+          )
         ),
         CppDoc.Lines.Hpp
       )

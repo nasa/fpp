@@ -50,16 +50,23 @@ case class ComponentTesterBaseWriter(
   }
 
   private def getHppIncludes: CppDoc.Member = {
-    val userHeaders = List(
+    val standardHeaders = List(
       s"$componentRelativeFileName.hpp",
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
       "Fw/Types/Assert.hpp"
+    )
+    val dpHeaders = guardedList (hasDataProducts) (
+      List("Fw/Dp/test/util/DpContainerHeader.hpp")
+    )
+    val userHeaders = List.concat(
+      standardHeaders,
+      dpHeaders
     ).sorted.map(CppWriter.headerString).map(line)
-    val systemHeader = lines(CppWriter.systemHeaderString("cstdio"))
+    val systemHeaders = lines(CppWriter.systemHeaderString("cstdio"))
     linesMember(
       List.concat(
-        Line.blank :: systemHeader,
+        Line.blank :: systemHeaders,
         Line.blank :: userHeaders
       )
     )
@@ -103,6 +110,7 @@ case class ComponentTesterBaseWriter(
       guardedList (hasTelemetry) (getTlmFunctions),
       guardedList (hasParameters) (getPrmFunctions),
       guardedList (hasTimeGetPort) (getTimeFunctions),
+      guardedList (hasDataProducts) (getDpFunctions),
       historyWriter.getFunctionMembers,
 
       // Private function members
@@ -219,6 +227,23 @@ case class ComponentTesterBaseWriter(
                 line(s"this->$historyName = new History<$entryName>(maxHistorySize);")
               })
             }
+            lazy val dpHistories = {
+              lazy val productGetHistory = lines(
+                "this->productGetHistory = new History<DpGet>(maxHistorySize);"
+              )
+              lazy val productRequestHistory = lines(
+                "this->productRequestHistory = new History<DpRequest>(maxHistorySize);"
+              )
+              val productSendHistory = lines(
+                "this->productSendHistory = new History<DpSend>(maxHistorySize);"
+              )
+              line("// Initialize data product histories") ::
+              List.concat(
+                guardedList (hasProductGetPort) (productGetHistory),
+                guardedList (hasProductRequestPort) (productRequestHistory),
+                productSendHistory
+              )
+            }
             lazy val clearHistory = lines(
               """|// Clear history
                  |this->clearHistory();
@@ -230,6 +255,7 @@ case class ComponentTesterBaseWriter(
                 guardedList (hasCommands) (commandHistory),
                 guardedList (hasEvents) (eventHistories),
                 guardedList (hasTelemetry) (tlmHistories),
+                guardedList (hasDataProducts) (dpHistories),
                 guardedList (hasHistories) (clearHistory)
               )
             )
@@ -270,12 +296,29 @@ case class ComponentTesterBaseWriter(
                 val historyName = tlmHistoryName(channel.getName)
                 line(s"delete this->$historyName;")
               })
+            lazy val destroyDpHistories = {
+              lazy val destroyProductRequestHistory = lines(
+                """|// Destroy product request history
+                   |delete this->productRequestHistory;
+                   |"""
+              )
+              val destroyProductSendHistory = lines(
+                """|// Destroy product send history
+                   |delete this->productSendHistory;
+                   |"""
+              )
+              List.concat(
+                guardedList (hasProductRequestPort) (destroyProductRequestHistory),
+                destroyProductSendHistory
+              )
+            }
             intersperseBlankLines(
               List(
                 guardedList (hasTypedOutputPorts) (destroyPortHistories),
                 guardedList (hasCommands) (destroyCommandHistory),
                 guardedList (hasEvents) (destroyEventHistories),
-                guardedList (hasChannels) (destroyTlmHistories)
+                guardedList (hasChannels) (destroyTlmHistories),
+                guardedList (hasDataProducts) (destroyDpHistories)
               )
             )
           },
@@ -366,10 +409,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       "Invocation functions for to ports",
-      List.concat(
-        typedInputPorts,
-        serialInputPorts,
-      ).map(p => {
+      List.concat(typedInputPorts, serialInputPorts).map(p => {
         val invokeFunction = p.getType.get match {
           case PortInstance.Type.DefPort(_) => "invoke"
           case PortInstance.Type.Serial => "invokeSerial"
@@ -432,25 +472,133 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private def getCmdFunctions: List[CppDoc.Class.Member] = {
-    val cmdPortInvocation = cmdRecvPort.map(
-      p => {
-        val varName = testerPortVariableName(p)
+  private def getDpFunctions: List[CppDoc.Class.Member] = {
+    lazy val pushProductGet = functionClassMember(
+      Some("Push an entry on the product get history"),
+      "pushProductGetEntry",
+      getPortFunctionParams(productGetPort.get).take(2),
+      CppDoc.Type("void"),
+      lines(
+        """|DpGet e = { id, size };
+           |this->productGetHistory->push_back(e);"""
+      )
+    )
+    lazy val handleProductGet = functionClassMember(
+      Some(
+        """|Handle a data product get from the component under test
+           |
+           |By default, (1) call pushProductGetEntry; (2) do not allocate a buffer
+           |and return FAILURE. You can override this behavior, e.g., to call
+           |pushProductGetEntry, allocate a buffer and return SUCCESS.""".stripMargin
+      ),
+      "productGet_handler",
+      getPortFunctionParams(productGetPort.get),
+      CppDoc.Type("Fw::Success::T"),
+      lines(
+        """|(void) buffer;
+           |this->pushProductGetEntry(id, size);
+           |return Fw::Success::FAILURE;
+           |"""
+      ),
+      CppDoc.Function.Virtual
+    )
+    lazy val pushProductRequest = functionClassMember(
+      Some("Push an entry on the product request history"),
+      "pushProductRequestEntry",
+      getPortFunctionParams(productRequestPort.get),
+      CppDoc.Type("void"),
+      lines(
+        """|DpRequest e = { id, size };
+           |this->productRequestHistory->push_back(e);"""
+      )
+    )
+    lazy val handleProductRequest = functionClassMember(
+      Some(
+        """|Handle a data product request from the component under test
+           |
+           |By default, call pushProductRequestEntry. You can override
+           |this behavior.""".stripMargin
+      ),
+      "productRequest_handler",
+      getPortFunctionParams(productRequestPort.get),
+      CppDoc.Type("void"),
+      lines("this->pushProductRequestEntry(id, size);"),
+      CppDoc.Function.Virtual
+    )
+    lazy val sendProductResponse = functionClassMember(
+      Some(s"Send a data product response to the component under test"),
+      "sendProductResponse",
+      getPortFunctionParams(productRecvPort.get),
+      CppDoc.Type("void"),
+      {
+        val pi = productRecvPort.get
+        val portNumGetter = testerPortNumGetterName(pi)
+        val varName = testerPortVariableName(pi)
         lines(
-          s"""|if (this->$varName[0].isConnected()) {
-              |  this->$varName[0].invoke(
-              |    _opcode,
-              |    cmdSeq,
-              |    buf
-              |  );
-              |}
-              |else {
-              |  printf("Test Command Output port not connected!\\n");
-              |}
-              |"""
+          s"""|FW_ASSERT(this->$portNumGetter() > 0);
+              |FW_ASSERT(this->$varName[0].isConnected());
+              |this->$varName[0].invoke(id, buffer, status);"""
         )
       }
-    ).getOrElse(Nil)
+    )
+    lazy val pushProductSend = functionClassMember(
+      Some("Push an entry on the product send history"),
+      "pushProductSendEntry",
+      getPortFunctionParams(productSendPort.get),
+      CppDoc.Type("void"),
+      lines(
+        """|DpSend e = { id, buffer };
+           |this->productSendHistory->push_back(e);"""
+      )
+    )
+    lazy val handleProductSend = functionClassMember(
+      Some(
+        """|Handle a data product send from the component under test
+           |
+           |By default, call pushProductSendEntry. You can override
+           |this behavior.""".stripMargin
+      ),
+      "productSend_handler",
+      getPortFunctionParams(productSendPort.get),
+      CppDoc.Type("void"),
+      lines("this->pushProductSendEntry(id, buffer);"),
+      CppDoc.Function.Virtual
+    )
+    addAccessTagAndComment(
+      "protected",
+      "Functions for testing data products",
+      {
+        List.concat(
+          guardedList (hasProductGetPort) (
+            List(pushProductGet, handleProductGet)
+          ),
+          guardedList (hasProductRequestPort) (
+            List(pushProductRequest, handleProductRequest)
+          ),
+          guardedList (hasProductRecvPort) (List(sendProductResponse)),
+          List(pushProductSend, handleProductSend)
+        )
+      }
+    )
+  }
+
+  private def getCmdFunctions: List[CppDoc.Class.Member] = {
+    val cmdPortInvocation = {
+      val varName = testerPortVariableName(cmdRecvPort.get)
+      lines(
+        s"""|if (this->$varName[0].isConnected()) {
+            |  this->$varName[0].invoke(
+            |    _opcode,
+            |    cmdSeq,
+            |    buf
+            |  );
+            |}
+            |else {
+            |  printf("Test Command Output port not connected!\\n");
+            |}
+            |"""
+      )
+    }
 
     def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command) = functionClassMember(
       Some(s"Send a ${cmd.getName} command"),
@@ -497,7 +645,7 @@ case class ComponentTesterBaseWriter(
                 |_opcode = $className::${commandConstantName(cmd)} + idBase;
                 |"""
           ),
-          guardedList (hasCommands) (cmdPortInvocation)
+          cmdPortInvocation
         )
       )
     )
@@ -632,7 +780,7 @@ case class ComponentTesterBaseWriter(
 
             lines(
               s"""|
-                                |$tn $name;
+                  |$tn $name;
                   |#if FW_AMPCS_COMPATIBLE
                   |{
                   |  // Deserialize the argument size
@@ -682,111 +830,114 @@ case class ComponentTesterBaseWriter(
       )
     )
 
+    lazy val dispatchEvent = functionClassMember(
+      Some("Dispatch an event"),
+      "dispatchEvents",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("FwEventIdType"),
+          "id",
+          Some("The event ID")
+        ),
+        timeTagParam,
+        CppDoc.Function.Param(
+          CppDoc.Type("const Fw::LogSeverity"),
+          "severity",
+          Some("The severity")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::LogBuffer&"),
+          "args",
+          Some("The serialized arguments")
+        )
+      ),
+      CppDoc.Type("void"),
+      List.concat(
+        lines(
+          """|args.resetDeser();
+             |
+             |const U32 idBase = this->getIdBase();
+             |FW_ASSERT(id >= idBase, id, idBase);
+             |"""
+        ),
+        switchStatement
+      )
+    )
+
+    lazy val handleTextEvent = wrapClassMemberInTextLogGuard(
+      functionClassMember(
+        Some("Handle a text event"),
+        "textLogIn",
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type("FwEventIdType"),
+            "id",
+            Some("The event ID")
+          ),
+          timeTagParam,
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::LogSeverity"),
+            "severity",
+            Some("The severity")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("const Fw::TextLogString&"),
+            "text",
+            Some("The event string")
+          )
+        ),
+        CppDoc.Type("void"),
+        lines(
+          s"""|TextLogEntry e = { id, timeTag, severity, text };
+              |textLogHistory->push_back(e);
+              |"""
+        ),
+        CppDoc.Function.Virtual
+      )
+    )
+
+    def handleEvent(id: Event.Id, event: Event) = {
+      val name= event.getName
+      val sizeName = eventSizeName(name)
+      val entryName = eventEntryName(name)
+      val historyName = eventHistoryName(name)
+      functionClassMember(
+        Some(s"Handle event $name"),
+        eventHandlerName(event),
+        formalParamsCppWriter.write(
+          event.aNode._2.data.params,
+          Nil,
+          Some("Fw::LogStringArg"),
+          FormalParamsCppWriter.Value
+        ),
+        CppDoc.Type("void"),
+        List.concat(
+          eventParamTypeMap(id) match {
+            case Nil => lines(s"this->$sizeName++;")
+            case params => List.concat(
+              wrapInScope(
+                s"$entryName _e = {",
+                lines(params.map(_._1).mkString(",\n")),
+                "};"
+              ),
+              lines(s"$historyName->push_back(_e);")
+            )
+          },
+          lines("this->eventsSize++;")
+        ),
+        CppDoc.Function.Virtual
+      )
+    }
+
     addAccessTagAndComment(
       "protected",
       "Functions for testing events",
-      {
-        lazy val dispatchEvent = functionClassMember(
-          Some("Dispatch an event"),
-          "dispatchEvents",
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("FwEventIdType"),
-              "id",
-              Some("The event ID")
-            ),
-            timeTagParam,
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::LogSeverity"),
-              "severity",
-              Some("The severity")
-            ),
-            CppDoc.Function.Param(
-              CppDoc.Type("Fw::LogBuffer&"),
-              "args",
-              Some("The serialized arguments")
-            )
-          ),
-          CppDoc.Type("void"),
-          List.concat(
-            lines(
-              """|args.resetDeser();
-                 |
-                 |const U32 idBase = this->getIdBase();
-                 |FW_ASSERT(id >= idBase, id, idBase);
-                 |"""
-            ),
-            switchStatement
-          )
-        )
-        lazy val handleTextEvent = wrapClassMemberInTextLogGuard(
-          functionClassMember(
-            Some("Handle a text event"),
-            "textLogIn",
-            List(
-              CppDoc.Function.Param(
-                CppDoc.Type("FwEventIdType"),
-                "id",
-                Some("The event ID")
-              ),
-              timeTagParam,
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::LogSeverity"),
-                "severity",
-                Some("The severity")
-              ),
-              CppDoc.Function.Param(
-                CppDoc.Type("const Fw::TextLogString&"),
-                "text",
-                Some("The event string")
-              )
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""|TextLogEntry e = { id, timeTag, severity, text };
-                  |textLogHistory->push_back(e);
-                  |"""
-            ),
-            CppDoc.Function.Virtual
-          )
-        )
-        List.concat(
-          guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
-          sortedEvents.map((id, event) => {
-            val name= event.getName
-            val sizeName = eventSizeName(name)
-            val entryName = eventEntryName(name)
-            val historyName = eventHistoryName(name)
-            functionClassMember(
-              Some(s"Handle event $name"),
-              eventHandlerName(event),
-              formalParamsCppWriter.write(
-                event.aNode._2.data.params,
-                Nil,
-                Some("Fw::LogStringArg"),
-                FormalParamsCppWriter.Value
-              ),
-              CppDoc.Type("void"),
-              List.concat(
-                eventParamTypeMap(id) match {
-                  case Nil => lines(s"this->$sizeName++;")
-                  case params => List.concat(
-                    wrapInScope(
-                      s"$entryName _e = {",
-                      lines(params.map(_._1).mkString(",\n")),
-                      "};"
-                    ),
-                    lines(s"$historyName->push_back(_e);")
-                  )
-                },
-                lines("this->eventsSize++;")
-              ),
-              CppDoc.Function.Virtual
-            )
-          })
-        )
-      }
+      List.concat(
+        guardedList (hasEvents) (dispatchEvent :: handleTextEvent),
+        sortedEvents.map(handleEvent)
+      )
     )
+
   }
 
   private def getTlmFunctions: List[CppDoc.Class.Member] = {
@@ -1172,6 +1323,22 @@ case class ComponentTesterBaseWriter(
             case TimeGet => lines(
               s"""|$testerBaseDecl
                   |${getParamName(0)} = _testerBase->m_testTime;
+                  |"""
+            )
+            case ProductGet => lines(
+              s"""|$testerBaseDecl
+                  |return _testerBase->productGet_handler($paramNamesString);
+                  |"""
+            )
+            case ProductRecv => Nil
+            case ProductRequest => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->productRequest_handler($paramNamesString);
+                  |"""
+            )
+            case ProductSend => lines(
+              s"""|$testerBaseDecl
+                  |_testerBase->productSend_handler($paramNamesString);
                   |"""
             )
           }

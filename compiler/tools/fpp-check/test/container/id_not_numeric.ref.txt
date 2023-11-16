@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/container/id_not_numeric.fpp:3.26
+  product container C id "abc"
+                         ^
+error: cannot convert string to a numeric type

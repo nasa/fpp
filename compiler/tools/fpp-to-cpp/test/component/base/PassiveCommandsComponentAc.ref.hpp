@@ -35,7 +35,7 @@
 //! \class PassiveCommandsComponentBase
 //! \brief Auto-generated base for PassiveCommands component
 //!
-//! An passive component with commands
+//! A passive component with commands
 class PassiveCommandsComponentBase :
   public Fw::PassiveComponentBase
 {

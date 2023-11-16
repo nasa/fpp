@@ -43,6 +43,18 @@ def module
         ident Y
       def enum constant
         ident Z
+    @ Container specifier
+    spec container
+      ident C
+      id literal int 0x00
+      default priority literal int 10
+    @< Container specifier
+    @ Record specifier
+    spec record
+      ident R
+      type name U32 array
+      id literal int 0x00
+    @< Record specifier
     @ Command specifier
     spec command
       kind async
@@ -82,6 +94,14 @@ def module
       kind command recv
       ident cmdIn
     @< Special port instance specifier
+    @ Async product receive port
+    spec port instance special
+      input kind async
+      kind product recv
+      ident productRecvIn
+      priority literal int 10
+      queue full assert
+    @< Async product receive port
     spec port instance general
       kind output
       ident p2

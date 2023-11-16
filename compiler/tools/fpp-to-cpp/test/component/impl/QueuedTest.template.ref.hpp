@@ -38,35 +38,35 @@ class QueuedTest :
     //! A typed async input port
     void noArgsAsync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsGuarded
     //!
     //! A typed guarded input
     void noArgsGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnGuarded
     //!
     //! A typed guarded input
     U32 noArgsReturnGuarded_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsReturnSync
     //!
     //! A typed sync input port
     U32 noArgsReturnSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for noArgsSync
     //!
     //! A typed sync input port
     void noArgsSync_handler(
         NATIVE_INT_TYPE portNum //!< The port number
-    );
+    ) override;
 
     //! Handler implementation for typedAsync
     //!
@@ -80,7 +80,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedAsyncAssert
     //!
@@ -94,7 +94,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedAsyncBlockPriority
     //!
@@ -108,7 +108,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedAsyncDropPriority
     //!
@@ -122,7 +122,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedGuarded
     //!
@@ -136,7 +136,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnGuarded
     //!
@@ -150,7 +150,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedReturnSync
     //!
@@ -164,7 +164,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for typedSync
     //!
@@ -178,7 +178,7 @@ class QueuedTest :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    );
+    ) override;
 
   PRIVATE:
 
@@ -192,7 +192,7 @@ class QueuedTest :
     void CMD_SYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_PRIMITIVE
     //!
@@ -203,7 +203,7 @@ class QueuedTest :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRING
     //!
@@ -213,7 +213,7 @@ class QueuedTest :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ENUM
     //!
@@ -222,7 +222,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_ARRAY
     //!
@@ -231,7 +231,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_SYNC_STRUCT
     //!
@@ -240,7 +240,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED
     //!
@@ -248,7 +248,7 @@ class QueuedTest :
     void CMD_GUARDED_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_PRIMITIVE
     //!
@@ -259,7 +259,7 @@ class QueuedTest :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRING
     //!
@@ -269,7 +269,7 @@ class QueuedTest :
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ENUM
     //!
@@ -278,7 +278,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_ARRAY
     //!
@@ -287,7 +287,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for command CMD_GUARDED_STRUCT
     //!
@@ -296,7 +296,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
-    );
+    ) override;
 
     //! Handler implementation for command CMD_ASYNC
     //!
@@ -304,7 +304,7 @@ class QueuedTest :
     void CMD_ASYNC_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_PRIORITY
     //!
@@ -312,7 +312,7 @@ class QueuedTest :
     void CMD_PRIORITY_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_PARAMS_PRIORITY
     //!
@@ -321,7 +321,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         U32 u32
-    );
+    ) override;
 
     //! Handler implementation for command CMD_DROP
     //!
@@ -329,7 +329,7 @@ class QueuedTest :
     void CMD_DROP_cmdHandler(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
-    );
+    ) override;
 
     //! Handler implementation for command CMD_PARAMS_PRIORITY_DROP
     //!
@@ -338,7 +338,7 @@ class QueuedTest :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         U32 u32
-    );
+    ) override;
 
   PRIVATE:
 
@@ -351,14 +351,14 @@ class QueuedTest :
     //! An internal port with array params
     void internalArray_internalInterfaceHandler(
         const A& a //!< An array
-    );
+    ) override;
 
     //! Handler implementation for internalEnum
     //!
     //! An internal port with enum params
     void internalEnum_internalInterfaceHandler(
         const E& e //!< An enum
-    );
+    ) override;
 
     //! Handler implementation for internalPrimitive
     //!
@@ -367,12 +367,12 @@ class QueuedTest :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b //!< A boolean
-    );
+    ) override;
 
     //! Handler implementation for internalPriorityDrop
     //!
     //! An internal port with priority and queue full behavior
-    void internalPriorityDrop_internalInterfaceHandler();
+    void internalPriorityDrop_internalInterfaceHandler() override;
 
     //! Handler implementation for internalString
     //!
@@ -380,14 +380,50 @@ class QueuedTest :
     void internalString_internalInterfaceHandler(
         const Fw::InternalInterfaceString& str1, //!< A string
         const Fw::InternalInterfaceString& str2 //!< Another string
-    );
+    ) override;
 
     //! Handler implementation for internalStruct
     //!
     //! An internal port with struct params with priority and queue full behavior
     void internalStruct_internalInterfaceHandler(
         const S& s //!< A struct
-    );
+    ) override;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Handler implementations for data products
+    // ----------------------------------------------------------------------
+
+    //! Receive a container of type Container1
+    void dpRecv_Container1_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container2
+    void dpRecv_Container2_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container3
+    void dpRecv_Container3_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container4
+    void dpRecv_Container4_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
+
+    //! Receive a container of type Container5
+    void dpRecv_Container5_handler(
+        DpContainer& container, //!< The container
+        Fw::Success::T status //!< The container status
+    ) override;
 
 };
 

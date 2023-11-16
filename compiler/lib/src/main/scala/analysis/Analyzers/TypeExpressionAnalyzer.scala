@@ -148,6 +148,18 @@ trait TypeExpressionAnalyzer
     }
   }
 
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- opt(exprNode)(a, data.id)
+      a <- opt(exprNode)(a, data.defaultPriority)
+    } yield a
+  }
+
   override def specEventAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecEvent]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -193,8 +205,21 @@ trait TypeExpressionAnalyzer
           a <- opt(exprNode)(a, general.size)
           a <- opt(exprNode)(a, general.priority)
         } yield a
-      case _ => Right(a)
+      case special : Ast.SpecPortInstance.Special =>
+        opt(exprNode)(a, special.priority)
     }
+  }
+
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- typeNameNode(a, data.recordType)
+      a <- opt(exprNode)(a, data.id)
+    } yield a
   }
 
   override def specTlmChannelAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {

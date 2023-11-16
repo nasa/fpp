@@ -47,7 +47,7 @@
     "include" "input" "internal" "locate" "low"
     "match"  "on"  "opcode" "orange" "output"
     "param" "passive" "phase"  "priority" "private"
-    "queue"  "queued" "recv" "red" "ref" "reg"
+    "queue"  "queued" "raw" "recv" "red" "ref" "reg"
     "resp" "save" "serial" "set" "severity" "size"
     "stack" "sync" "telemetry" "text" "throttle"
     "time" "true"  "update" "warning" "with" "yellow")

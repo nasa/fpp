@@ -251,3 +251,52 @@ void PassiveTest ::
   // TODO
   this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
 }
+
+// ----------------------------------------------------------------------
+// Handler implementations for data products
+// ----------------------------------------------------------------------
+
+void PassiveTest ::
+  dpRecv_Container1_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveTest ::
+  dpRecv_Container2_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveTest ::
+  dpRecv_Container3_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveTest ::
+  dpRecv_Container4_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveTest ::
+  dpRecv_Container5_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}

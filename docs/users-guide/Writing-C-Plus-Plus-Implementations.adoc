@@ -147,21 +147,23 @@ The following types are abstract in the FPP model but are known to
 the {cpp} translator:
 
 ----
-FwBuffSizeType
-FwChanIdType
-FwEnumStoreType
-FwEventIdType
-FwIndexType
-FwOpcodeType
-FwPacketDescriptorType
-FwPrmIdType
-FwSizeType
-FwTimeBaseStoreType
-FwTimeContextStoreType
-FwTlmPacketizeIdType
-NATIVE_INT_TYPE
-NATIVE_UINT_TYPE
-POINTER_CAST
+type FwBuffSizeType
+type FwChanIdType
+type FwDpIdType
+type FwDpPriorityType
+type FwEnumStoreType
+type FwEventIdType
+type FwIndexType
+type FwOpcodeType
+type FwPacketDescriptorType
+type FwPrmIdType
+type FwSizeType
+type FwTimeBaseStoreType
+type FwTimeContextStoreType
+type FwTlmPacketizeIdType
+type NATIVE_INT_TYPE
+type NATIVE_UINT_TYPE
+type POINTER_CAST
 ----
 
 Each of these types is an alias for a {cpp} integer type, and each

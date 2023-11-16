@@ -419,4 +419,53 @@ namespace M {
     // TODO
   }
 
+  // ----------------------------------------------------------------------
+  // Handler implementations for data products
+  // ----------------------------------------------------------------------
+
+  void ActiveTest ::
+    dpRecv_Container1_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    dpRecv_Container2_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    dpRecv_Container3_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    dpRecv_Container4_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
+  void ActiveTest ::
+    dpRecv_Container5_handler(
+        DpContainer& container,
+        Fw::Success::T status
+    )
+  {
+    // TODO
+  }
+
 }

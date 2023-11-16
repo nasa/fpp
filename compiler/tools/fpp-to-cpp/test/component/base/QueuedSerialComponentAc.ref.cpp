@@ -2290,7 +2290,7 @@ void QueuedSerialComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -2311,7 +2311,7 @@ U32 QueuedSerialComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -2331,7 +2331,7 @@ U32 QueuedSerialComponentBase ::
 
   U32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
 
   return retVal;
@@ -2346,7 +2346,7 @@ void QueuedSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsSync_handler(portNum);
 }
 
@@ -2804,7 +2804,7 @@ void QueuedSerialComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -2843,7 +2843,7 @@ F32 QueuedSerialComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -2881,7 +2881,7 @@ F32 QueuedSerialComponentBase ::
 
   F32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -2914,7 +2914,7 @@ void QueuedSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedSync_handler(
     portNum,
     u32,
@@ -3153,7 +3153,7 @@ void QueuedSerialComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->serialGuarded_handler(
     portNum,
     buffer
@@ -3175,7 +3175,7 @@ void QueuedSerialComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->serialSync_handler(
     portNum,
     buffer

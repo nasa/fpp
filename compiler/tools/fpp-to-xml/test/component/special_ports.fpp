@@ -14,6 +14,11 @@ module M {
 
     telemetry port tlmOut
 
+    product get port productGetOut
+    product request port productRequestOut
+    sync product recv port productRecvIn
+    product send port productSendOut
+
   }
 
 }

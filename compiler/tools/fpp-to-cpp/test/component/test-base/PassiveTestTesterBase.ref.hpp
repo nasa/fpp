@@ -10,6 +10,7 @@
 #include <cstdio>
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
+#include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "test-base/PassiveTestComponentAc.hpp"
@@ -241,6 +242,18 @@ class PassiveTestTesterBase :
       E arg;
     };
 
+    //! A type representing a data product request
+    struct DpRequest {
+      FwDpIdType id;
+      FwSizeType size;
+    };
+
+    // A type representing a data product send
+    struct DpSend {
+      FwDpIdType id;
+      Fw::Buffer buffer;
+    };
+
   public:
 
     // ----------------------------------------------------------------------
@@ -262,6 +275,12 @@ class PassiveTestTesterBase :
     void connect_to_cmdIn(
         NATIVE_INT_TYPE portNum, //!< The port number
         Fw::InputCmdPort* port //!< The input port
+    );
+
+    //! Connect port to productRecvIn[portNum]
+    void connect_to_productRecvIn(
+        NATIVE_INT_TYPE portNum, //!< The port number
+        Fw::InputDpResponsePort* port //!< The input port
     );
 
     //! Connect port to noArgsGuarded[portNum]
@@ -350,6 +369,20 @@ class PassiveTestTesterBase :
     //!
     //! \return from_prmSetOut[portNum]
     Fw::InputPrmSetPort* get_from_prmSetOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_productRequestOut[portNum]
+    Fw::InputDpRequestPort* get_from_productRequestOut(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Get from port at index
+    //!
+    //! \return from_productSendOut[portNum]
+    Fw::InputDpSendPort* get_from_productSendOut(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -586,6 +619,11 @@ class PassiveTestTesterBase :
     //! \return The number of to_cmdIn ports
     NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
+    //! Get the number of to_productRecvIn ports
+    //!
+    //! \return The number of to_productRecvIn ports
+    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
+
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
@@ -651,6 +689,16 @@ class PassiveTestTesterBase :
     //! \return The number of from_prmSetOut ports
     NATIVE_INT_TYPE getNum_from_prmSetOut() const;
 
+    //! Get the number of from_productRequestOut ports
+    //!
+    //! \return The number of from_productRequestOut ports
+    NATIVE_INT_TYPE getNum_from_productRequestOut() const;
+
+    //! Get the number of from_productSendOut ports
+    //!
+    //! \return The number of from_productSendOut ports
+    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
@@ -700,6 +748,13 @@ class PassiveTestTesterBase :
     //!
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
+        NATIVE_INT_TYPE portNum //!< The port number
+    );
+
+    //! Check whether port to_productRecvIn is connected
+    //!
+    //! \return Whether port to_productRecvIn is connected
+    bool isConnected_to_productRecvIn(
         NATIVE_INT_TYPE portNum //!< The port number
     );
 
@@ -1134,6 +1189,49 @@ class PassiveTestTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
+    // Functions for testing data products
+    // ----------------------------------------------------------------------
+
+    //! Push an entry on the product request history
+    void pushProductRequestEntry(
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
+    //! Handle a data product request from the component under test
+    //!
+    //! By default, call pushProductRequestEntry. You can override
+    //! this behavior.
+    virtual void productRequest_handler(
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
+    //! Send a data product response to the component under test
+    void sendProductResponse(
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    );
+
+    //! Push an entry on the product send history
+    void pushProductSendEntry(
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
+    );
+
+    //! Handle a data product send from the component under test
+    //!
+    //! By default, call pushProductSendEntry. You can override
+    //! this behavior.
+    virtual void productSend_handler(
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
+    );
+
+  protected:
+
+    // ----------------------------------------------------------------------
     // History functions
     // ----------------------------------------------------------------------
 
@@ -1236,6 +1334,22 @@ class PassiveTestTesterBase :
         NATIVE_INT_TYPE portNum, //!< The port number
         FwPrmIdType id, //!< Parameter ID
         Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
+    );
+
+    //! Static function for port from_productRequestOut
+    static void from_productRequestOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        FwSizeType size //!< The size of the requested buffer
+    );
+
+    //! Static function for port from_productSendOut
+    static void from_productSendOut_static(
+        Fw::PassiveComponentBase* const callComp, //!< The component instance
+        NATIVE_INT_TYPE portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer //!< The buffer
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1397,6 +1511,12 @@ class PassiveTestTesterBase :
     //! The history of ChannelEnumOnChange values
     History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
 
+    //! The data product request history
+    History<DpRequest>* productRequestHistory;
+
+    //! The data product send history
+    History<DpSend>* productSendHistory;
+
   private:
 
     // ----------------------------------------------------------------------
@@ -1405,6 +1525,9 @@ class PassiveTestTesterBase :
 
     //! To port connected to cmdIn
     Fw::OutputCmdPort m_to_cmdIn[1];
+
+    //! To port connected to productRecvIn
+    Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
     //! To port connected to noArgsGuarded
     Ports::OutputNoArgsPort m_to_noArgsGuarded[1];
@@ -1450,6 +1573,12 @@ class PassiveTestTesterBase :
 
     //! From port connected to prmSetOut
     Fw::InputPrmSetPort m_from_prmSetOut[1];
+
+    //! From port connected to productRequestOut
+    Fw::InputDpRequestPort m_from_productRequestOut[1];
+
+    //! From port connected to productSendOut
+    Fw::InputDpSendPort m_from_productSendOut[1];
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 

@@ -13,6 +13,8 @@ case class ComponentCppWriter (
 
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
+  private val dpWriter = ComponentDataProducts(s, aNode)
+
   private val portWriter = ComponentPorts(s, aNode)
 
   private val cmdWriter = ComponentCommands(s, aNode)
@@ -74,24 +76,22 @@ case class ComponentCppWriter (
 
   private def getHppIncludes: CppDoc.Member = {
     // Conditional headers
-    val mutexHeader =
-      if hasGuardedInputPorts || hasGuardedCommands || hasParameters then List("Os/Mutex.hpp")
-      else Nil
-    val cmdStrHeader =
-      if hasCommands || hasParameters then List("Fw/Cmd/CmdString.hpp")
-      else Nil
-    val tlmStrHeader =
-      if hasChannels then List("Fw/Tlm/TlmString.hpp")
-      else Nil
-    val prmStrHeader =
-      if hasParameters then List("Fw/Prm/PrmString.hpp")
-      else Nil
-    val logStrHeader =
-      if hasEvents then List("Fw/Log/LogString.hpp")
-      else Nil
-    val internalStrHeader =
-      if hasInternalPorts then List("Fw/Types/InternalInterfaceString.hpp")
-      else Nil
+    val dpHeaders =
+      guardedList (hasDataProducts) (List("Fw/Dp/DpContainer.hpp"))
+    val mutexHeaders =
+      guardedList (hasGuardedInputPorts || hasGuardedCommands || hasParameters) (
+        List("Os/Mutex.hpp")
+      )
+    val cmdStrHeaders =
+      guardedList (hasCommands || hasParameters) (List("Fw/Cmd/CmdString.hpp"))
+    val tlmStrHeaders =
+      guardedList (hasChannels) (List("Fw/Tlm/TlmString.hpp"))
+    val prmStrHeaders =
+      guardedList (hasParameters) (List("Fw/Prm/PrmString.hpp"))
+    val logStrHeaders =
+      guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
+    val internalStrHeaders =
+      guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -100,12 +100,13 @@ case class ComponentCppWriter (
         "Fw/Port/OutputSerializePort.hpp",
         "Fw/Comp/ActiveComponentBase.hpp"
       ),
-      mutexHeader,
-      cmdStrHeader,
-      tlmStrHeader,
-      prmStrHeader,
-      logStrHeader,
-      internalStrHeader
+      dpHeaders,
+      mutexHeaders,
+      cmdStrHeaders,
+      tlmStrHeaders,
+      prmStrHeaders,
+      logStrHeaders,
+      internalStrHeaders
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -174,6 +175,9 @@ case class ComponentCppWriter (
       // Anonymous namespace members
       getAnonymousNamespaceMembers,
 
+      // Types
+      dpWriter.getTypeMembers,
+
       // Public function members
       getPublicComponentFunctionMembers,
       portWriter.getPublicFunctionMembers,
@@ -188,6 +192,8 @@ case class ComponentCppWriter (
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
       paramWriter.getProtectedFunctionMembers,
+      dpWriter.getProtectedDpFunctionMembers,
+      dpWriter.getVirtualFunctionMembers,
       getTimeFunctionMember,
       getMutexOperationMembers,
 
@@ -197,6 +203,7 @@ case class ComponentCppWriter (
       // Private function members
       portWriter.getPrivateFunctionMembers,
       paramWriter.getPrivateFunctionMembers,
+      dpWriter.getPrivateDpFunctionMembers,
 
       // Member variables
       portWriter.getVariableMembers,
@@ -275,6 +282,7 @@ case class ComponentCppWriter (
       "enum MsgTypeEnum {",
       List.concat(
         lines(s"$exitConstantName = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT"),
+        dataProductAsyncInputPorts.map(portCppConstantName),
         typedAsyncInputPorts.map(portCppConstantName),
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
@@ -291,8 +299,8 @@ case class ComponentCppWriter (
     // Collect the serialized sizes of all the async port arguments
     // For each one, add a byte array of that size as a member
     val members = List.concat(
-      // Typed async input ports
-      typedAsyncInputPorts.flatMap(p => {
+      // Data product and typed async input ports
+      (dataProductAsyncInputPorts ++ typedAsyncInputPorts).flatMap(p => {
         val portName = p.getUnqualifiedName
         val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
         lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
@@ -797,6 +805,7 @@ case class ComponentCppWriter (
                 "msgType",
                 intersperseBlankLines(
                   List(
+                    intersperseBlankLines(dataProductAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(typedAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),

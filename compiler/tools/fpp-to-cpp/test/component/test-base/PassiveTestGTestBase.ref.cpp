@@ -934,3 +934,123 @@ void PassiveTestGTestBase ::
     << "  Expected: " << val << "\n"
     << "  Actual:   " << _e.arg << "\n";
 }
+
+// ----------------------------------------------------------------------
+// Data Product Request
+// ----------------------------------------------------------------------
+
+void PassiveTestGTestBase ::
+  assertProductRequest_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productRequestHistory->size() << "\n";
+}
+
+void PassiveTestGTestBase ::
+  assertProductRequest(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwDpIdType id,
+      FwSizeType size
+  ) const
+{
+  ASSERT_LT(__index, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product request history\n"
+    << "  Expected: Less than size of product request history ("
+    << this->productRequestHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpRequest& e = this->productRequestHistory->at(__index);
+  ASSERT_EQ(id, e.id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Id at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  ASSERT_EQ(size, e.size)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << e.size << "\n";
+}
+
+// ----------------------------------------------------------------------
+// Data Product Send
+// ----------------------------------------------------------------------
+
+void PassiveTestGTestBase ::
+  assertProductSend_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product send history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productSendHistory->size() << "\n";
+}
+
+void PassiveTestGTestBase ::
+  assertProductSend(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwDpIdType id,
+      FwDpPriorityType priority,
+      const Fw::Time& timeTag,
+      Fw::DpCfg::ProcType procType,
+      const Fw::DpContainer::Header::UserData& userData,
+      FwSizeType dataSize,
+      Fw::Buffer& historyBuffer
+  ) const
+{
+  ASSERT_LT(__index, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product send history\n"
+    << "  Expected: Less than size of product send history ("
+    << this->productSendHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpSend& e = this->productSendHistory->at(__index);
+  // Set the history buffer output
+  historyBuffer = e.buffer;
+  // Check the container id
+  ASSERT_EQ(e.id, id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Container ID at index " << __index << " in product send history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  // Check the header
+  Fw::TestUtil::DpContainerHeader header;
+  header.deserialize(__callSiteFileName, __callSiteLineNumber, historyBuffer);
+  header.check(
+      __callSiteFileName,
+      __callSiteLineNumber,
+      historyBuffer,
+      id,
+      priority,
+      timeTag,
+      procType,
+      userData,
+      dataSize
+  );
+}

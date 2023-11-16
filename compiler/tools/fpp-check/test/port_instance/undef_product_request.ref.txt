@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/undef_product_request.fpp:3.3
+  product request port productRequestOut
+  ^
+error: undefined symbol Fw

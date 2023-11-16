@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/special_input_kind_missing_product_recv.fpp:9.3
+  product recv port productRecvIn
+  ^
+error: product recv port must specify input kind

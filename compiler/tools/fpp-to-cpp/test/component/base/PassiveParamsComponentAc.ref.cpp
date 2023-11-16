@@ -1507,7 +1507,7 @@ void PassiveParamsComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1528,7 +1528,7 @@ U32 PassiveParamsComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1548,7 +1548,7 @@ U32 PassiveParamsComponentBase ::
 
   U32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
 
   return retVal;
@@ -1563,7 +1563,7 @@ void PassiveParamsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsSync_handler(portNum);
 }
 
@@ -1588,7 +1588,7 @@ void PassiveParamsComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -1627,7 +1627,7 @@ F32 PassiveParamsComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -1665,7 +1665,7 @@ F32 PassiveParamsComponentBase ::
 
   F32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -1698,7 +1698,7 @@ void PassiveParamsComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedSync_handler(
     portNum,
     u32,

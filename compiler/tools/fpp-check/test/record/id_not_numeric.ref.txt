@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/record/id_not_numeric.fpp:3.28
+  product record R: U32 id "abc"
+                           ^
+error: cannot convert string to a numeric type

@@ -179,7 +179,8 @@ object ComponentXmlFppWriter extends LineUtils {
           }
         }
 
-        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String): Result.Result[Ast.SpecPortInstance.Special] = {
+        def special(file: XmlFppWriter.File, xmlNode: scala.xml.Node, role: String):
+        Result.Result[Ast.SpecPortInstance.Special] = {
           import Ast.SpecPortInstance._
           for {
             kind <- role match {

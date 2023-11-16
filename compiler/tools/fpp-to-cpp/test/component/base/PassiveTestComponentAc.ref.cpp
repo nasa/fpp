@@ -13,6 +13,166 @@
 #include "base/PassiveTestComponentAc.hpp"
 
 // ----------------------------------------------------------------------
+// Types for data products
+// ----------------------------------------------------------------------
+
+PassiveTestComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id, buffer),
+    baseId(baseId)
+{
+
+}
+
+PassiveTestComponentBase::DpContainer ::
+  DpContainer() :
+    Fw::DpContainer(),
+    baseId(0)
+{
+
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_DataArrayRecord(
+      const PassiveTest_Data* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * PassiveTest_Data::SERIALIZED_SIZE;
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = serializeRepr.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_DataRecord(const PassiveTest_Data& elt)
+{
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    PassiveTest_Data::SERIALIZED_SIZE;
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::DataRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(elt);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U32ArrayRecord(
+      const U32* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * sizeof(U32);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = serializeRepr.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U32Record(U32 elt)
+{
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(U32);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U32Record;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(elt);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U8ArrayRecord(
+      const U8* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * sizeof(U8);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
+    status = serializeRepr.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = serializeRepr.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    const bool omitSerializedLength = true;
+    status = serializeRepr.serialize(array, size, omitSerializedLength);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+// ----------------------------------------------------------------------
 // Component initialization
 // ----------------------------------------------------------------------
 
@@ -45,6 +205,32 @@ void PassiveTestComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port productRecvIn
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    port++
+  ) {
+    this->m_productRecvIn_InputPort[port].init();
+    this->m_productRecvIn_InputPort[port].addCallComp(
+      this,
+      m_p_productRecvIn_in
+    );
+    this->m_productRecvIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRecvIn_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -361,6 +547,48 @@ void PassiveTestComponentBase ::
 #endif
   }
 
+  // Connect output port productRequestOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    port++
+  ) {
+    this->m_productRequestOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRequestOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port productSendOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    port++
+  ) {
+    this->m_productSendOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    char portName[120];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productSendOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port textEventOut
   for (
@@ -524,6 +752,17 @@ Fw::InputCmdPort* PassiveTestComponentBase ::
   );
 
   return &this->m_cmdIn_InputPort[portNum];
+}
+
+Fw::InputDpResponsePort* PassiveTestComponentBase ::
+  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_productRecvIn_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -692,6 +931,34 @@ void PassiveTestComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
+void PassiveTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpRequestPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpSendPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].addCallPort(port);
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 void PassiveTestComponentBase ::
@@ -858,6 +1125,34 @@ void PassiveTestComponentBase ::
   );
 
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].registerSerialPort(port);
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1268,6 +1563,12 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productRecvIn_InputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+}
+
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
@@ -1352,6 +1653,18 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productRequestOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productSendOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -1463,6 +1776,28 @@ bool PassiveTestComponentBase ::
   return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
+bool PassiveTestComponentBase ::
+  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productRequestOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveTestComponentBase ::
+  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productSendOut_OutputPort[portNum].isConnected();
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveTestComponentBase ::
@@ -1549,6 +1884,35 @@ bool PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRecvIn_handlerBase(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call handler function
+  this->productRecvIn_handler(
+    portNum,
+    id,
+    buffer,
+    status
+  );
+}
+
+// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
@@ -1566,7 +1930,7 @@ void PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1587,7 +1951,7 @@ U32 PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1607,7 +1971,7 @@ U32 PassiveTestComponentBase ::
 
   U32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
 
   return retVal;
@@ -1622,7 +1986,7 @@ void PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsSync_handler(portNum);
 }
 
@@ -1647,7 +2011,7 @@ void PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -1686,7 +2050,7 @@ F32 PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -1724,7 +2088,7 @@ F32 PassiveTestComponentBase ::
 
   F32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -1757,7 +2121,7 @@ void PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedSync_handler(
     portNum,
     u32,
@@ -1767,6 +2131,63 @@ void PassiveTestComponentBase ::
     e,
     a,
     s
+  );
+}
+
+// ----------------------------------------------------------------------
+// Pre-message hooks for special async input ports
+//
+// Each of these functions is invoked just before processing a message
+// on the corresponding port. By default, they do nothing. You can
+// override them to provide specific pre-message behavior.
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRecvIn_preMsgHook(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Default: no-op
+}
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRequestOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productRequestOut_OutputPort[portNum].invoke(
+    id,
+    size
+  );
+}
+
+void PassiveTestComponentBase ::
+  productSendOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productSendOut_OutputPort[portNum].invoke(
+    id,
+    buffer
   );
 }
 
@@ -3676,6 +4097,34 @@ S PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Functions for managing data products
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  dpSend(
+      DpContainer& container,
+      Fw::Time timeTag
+  )
+{
+  // Update the time tag
+  if (timeTag == Fw::ZERO_TIME) {
+    // Get the time from the time port
+    timeTag = this->getTime();
+  }
+  container.setTimeTag(timeTag);
+  // Serialize the header into the packet
+  Fw::SerializeStatus status = container.serializeHeader();
+  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+  // Update the size of the buffer according to the data size
+  const FwSizeType packetSize = container.getPacketSize();
+  Fw::Buffer buffer = container.getBuffer();
+  FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+  buffer.setSize(packetSize);
+  // Send the buffer
+  this->productSendOut_out(0, container.getId(), buffer);
+}
+
+// ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
 
@@ -3960,6 +4409,25 @@ void PassiveTestComponentBase ::
       break;
     }
   }
+}
+
+void PassiveTestComponentBase ::
+  m_p_productRecvIn_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
+  compPtr->productRecvIn_handlerBase(
+    portNum,
+    id,
+    buffer,
+    status
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -4418,4 +4886,69 @@ Fw::CmdResponse PassiveTestComponentBase ::
   }
 
   return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+// ----------------------------------------------------------------------
+// Private data product handling functions
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  dpRequest(
+      ContainerId::T containerId,
+      FwSizeType size
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  this->productRequestOut_out(0, globalId, size);
+}
+
+void PassiveTestComponentBase ::
+  productRecvIn_handler(
+      const NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  DpContainer container(id, buffer, this->getIdBase());
+  // Convert global id to local id
+  const FwDpIdType idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+  const FwDpIdType localId = id - idBase;
+  // Switch on the local id
+  switch (localId) {
+    case ContainerId::Container1:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container1);
+      // Call the handler
+      this->dpRecv_Container1_handler(container, status.e);
+      break;
+    case ContainerId::Container2:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container2);
+      // Call the handler
+      this->dpRecv_Container2_handler(container, status.e);
+      break;
+    case ContainerId::Container3:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container3);
+      // Call the handler
+      this->dpRecv_Container3_handler(container, status.e);
+      break;
+    case ContainerId::Container4:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container4);
+      // Call the handler
+      this->dpRecv_Container4_handler(container, status.e);
+      break;
+    case ContainerId::Container5:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container5);
+      // Call the handler
+      this->dpRecv_Container5_handler(container, status.e);
+      break;
+    default:
+      FW_ASSERT(0);
+      break;
+  }
 }

@@ -22,6 +22,7 @@ syn keyword fppKeyword command
 syn keyword fppKeyword component
 syn keyword fppKeyword connections
 syn keyword fppKeyword constant
+syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
@@ -55,14 +56,18 @@ syn keyword fppKeyword phase
 syn keyword fppKeyword port
 syn keyword fppKeyword priority
 syn keyword fppKeyword private
+syn keyword fppKeyword product
 syn keyword fppKeyword queue
 syn keyword fppKeyword queued
+syn keyword fppKeyword record
 syn keyword fppKeyword recv
 syn keyword fppKeyword red
 syn keyword fppKeyword ref
 syn keyword fppKeyword reg
+syn keyword fppKeyword request
 syn keyword fppKeyword resp
 syn keyword fppKeyword save
+syn keyword fppKeyword send
 syn keyword fppKeyword serial
 syn keyword fppKeyword set
 syn keyword fppKeyword severity

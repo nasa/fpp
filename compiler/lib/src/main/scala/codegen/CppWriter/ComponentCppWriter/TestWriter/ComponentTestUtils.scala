@@ -29,7 +29,8 @@ abstract class ComponentTestUtils(
     hasCommands ||
     hasParameters ||
     hasEvents ||
-    hasCommands
+    hasCommands ||
+    hasDataProducts
 
   val inputPorts: List[PortInstance] = List.concat(
     specialInputPorts,
@@ -304,6 +305,10 @@ abstract class ComponentTestUtils(
           case Event => hasEvents
           case ParamGet => hasParameters
           case ParamSet => hasParameters
+          case ProductGet => component.hasDataProducts
+          case ProductRecv => component.hasDataProducts
+          case ProductRequest => component.hasDataProducts
+          case ProductSend => component.hasDataProducts
           case Telemetry => hasTelemetry
           case TextEvent => hasEvents
           case TimeGet => true

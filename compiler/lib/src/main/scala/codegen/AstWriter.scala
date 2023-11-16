@@ -297,6 +297,20 @@ object AstWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specContainerAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec container") ++
+    List(
+      ident(data.name),
+      linesOpt(addPrefix("id", exprNode), data.id),
+      linesOpt(addPrefix("default priority", exprNode), data.defaultPriority)
+    ).flatten.map(indentIn)
+  }
+
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -390,7 +404,16 @@ object AstWriter extends AstVisitor with LineUtils {
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = lines(s"kind ${i.kind.toString}")
       lines("spec port instance special") ++
-      (kind ++ ident(i.name)).map(indentIn)
+      List(
+        linesOpt(
+          addPrefix("input kind", string),
+          i.inputKind.map(_.toString)
+        ),
+        kind,
+        ident(i.name),
+        linesOpt(addPrefix("priority", exprNode), i.priority),
+        linesOpt(applyToData(queueFull), i.queueFull)
+      ).flatten.map(indentIn)
     }
     node.data match {
       case i : Ast.SpecPortInstance.General => general(i)
@@ -408,6 +431,23 @@ object AstWriter extends AstVisitor with LineUtils {
     List(
         ident(data.port1.data),
         ident(data.port2.data),
+    ).flatten.map(indentIn)
+  }
+
+  override def specRecordAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val writeRecordType = if data.isArray
+      then addSuffix(typeNameNode, "array")
+      else typeNameNode
+    lines("spec record") ++
+    List(
+      ident(data.name),
+      writeRecordType(data.recordType),
+      linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }
 
@@ -495,6 +535,12 @@ object AstWriter extends AstVisitor with LineUtils {
     f: T => Out
   ): T => Out =
     (t: T) => Line.joinLists (Line.Indent) (lines(s)) (" ") (f(t))
+
+  private def addSuffix[T](
+    f: T => Out,
+    s: String
+  ): T => Out =
+    (t: T) => Line.joinLists (Line.Indent) (f(t)) (" ") (lines(s))
 
   private def annotate(
     pre: List[String],

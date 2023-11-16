@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/sync_product_recv_queue_full.fpp:9.40
+  sync product recv port productRecvIn drop
+                                       ^
+error: only async input may have queue full behavior

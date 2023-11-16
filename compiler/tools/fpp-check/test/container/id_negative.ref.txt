@@ -1,0 +1,6 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/container/id_negative.fpp:3.26
+  product container C id -1
+                         ^
+error: invalid integer value -1
+value may not be negative

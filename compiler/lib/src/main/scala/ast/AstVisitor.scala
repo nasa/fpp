@@ -32,7 +32,7 @@ trait AstVisitor {
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
   def exprBinopNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprBinop): Out = default(in)
-  
+
   def exprDotNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprDot): Out = default(in)
 
   def exprIdentNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprIdent): Out = default(in)
@@ -57,6 +57,8 @@ trait AstVisitor {
 
   def specConnectionGraphAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]): Out = default(in)
 
+  def specContainerAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecContainer]]): Out = default(in)
+
   def specEventAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEvent]]): Out = default(in)
 
   def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
@@ -72,6 +74,8 @@ trait AstVisitor {
   def specPortInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortInstance]]): Out = default(in)
 
   def specPortMatchingAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]): Out = default(in)
+
+  def specRecordAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecRecord]]): Out = default(in)
 
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
@@ -98,12 +102,14 @@ trait AstVisitor {
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecCommand(node1) => specCommandAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecContainer(node1) => specContainerAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecEvent(node1) => specEventAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecInternalPort(node1) => specInternalPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecParam(node1) => specParamAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecPortInstance(node1) => specPortInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecPortMatching(node1) => specPortMatchingAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecRecord(node1) => specRecordAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecTlmChannel(node1) => specTlmChannelAnnotatedNode(in, (pre, node1, post))
     }
   }
@@ -151,7 +157,7 @@ trait AstVisitor {
     }
   }
 
-  final def matchTuMember(in: In, member: Ast.TUMember): Out = 
+  final def matchTuMember(in: In, member: Ast.TUMember): Out =
     matchModuleMember(in, member)
 
   final def matchTypeNameNode(in: In, node: AstNode[Ast.TypeName]): Out =

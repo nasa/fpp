@@ -30,8 +30,31 @@ case class Component(
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
-  defaultParamId: BigInt = 0
+  defaultParamId: BigInt = 0,
+  /** The map from container ids to containers */
+  containerMap: Map[Container.Id, Container] = Map(),
+  /** The next default container ID */
+  defaultContainerId: BigInt = 0,
+  /** The map from record ids to records */
+  recordMap: Map[Record.Id, Record] = Map(),
+  /** The next default record ID */
+  defaultRecordId: BigInt = 0
 ) {
+
+  /** Query whether the component has parameters */
+  def hasParameters = this.paramMap.size > 0
+
+  /** Query whether the component has commands */
+  def hasCommands = this.commandMap.size > 0
+
+  /** Query whether the component has events */
+  def hasEvents = this.eventMap.size > 0
+
+  /** Query whether the component has telemetry */
+  def hasTelemetry = this.tlmChannelMap.size > 0
+
+  /** Query whether the component has data products */
+  def hasDataProducts = (this.recordMap.size + this.containerMap.size) > 0
 
   /** Gets the max identifier */
   def getMaxId: BigInt = {
@@ -39,6 +62,7 @@ case class Component(
       if (map.size == 0) -1 else map.keys.max
     val maxMap = Vector(
       commandMap,
+      containerMap,
       eventMap,
       paramMap,
       tlmChannelMap
@@ -121,26 +145,43 @@ case class Component(
     }
   }
 
-  /** Add a telemetry channel */
-  def addTlmChannel(
-    idOpt: Option[TlmChannel.Id],
-    tlmChannel: TlmChannel):
-  Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultTlmChannelId)
-    tlmChannelMap.get(id) match {
-      case Some(prevTlmChannel) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = tlmChannel.getLoc
-        val prevLoc = prevTlmChannel.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
+  /** Add a dictionary element mapped by ID */
+  private def addElementToIdMap[T](
+    map: Map[BigInt, T],
+    id: BigInt,
+    element: T,
+    getLoc: T => Location
+  ): Result.Result[(Map[BigInt,T], BigInt)] = {
+    map.get(id) match {
+      case Some(prevElement) =>
+        // Element already there: report the error
+        val idValue = Analysis.displayIdValue(id)
+        val loc = getLoc(element)
+        val prevLoc = getLoc(prevElement)
+        Left(SemanticError.DuplicateIdValue(idValue, loc, prevLoc))
       case None =>
-        val tlmChannelMap = this.tlmChannelMap + (id -> tlmChannel)
-        val component = this.copy(
-          tlmChannelMap = tlmChannelMap,
-          defaultTlmChannelId = id + 1
-        )
-        Right(component)
+        // New element: compute the new map and the new default ID
+        Right(map + (id -> element), id + 1)
     }
+  }
+
+  /** Add a data product container */
+  def addContainer(
+    idOpt: Option[TlmChannel.Id],
+    container: Container
+  ): Result.Result[Component] = {
+    for {
+      result <- addElementToIdMap(
+        containerMap,
+        idOpt.getOrElse(defaultContainerId),
+        container,
+        _.getLoc
+      )
+    }
+    yield this.copy(
+      containerMap = result._1,
+      defaultContainerId = result._2
+    )
   }
 
   /** Add an event */
@@ -148,88 +189,176 @@ case class Component(
     idOpt: Option[Event.Id],
     event: Event
   ): Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultEventId)
-    eventMap.get(id) match {
-      case Some(prevEvent) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = event.getLoc
-        val prevLoc = prevEvent.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
-      case None =>
-        val eventMap = this.eventMap + (id -> event)
-        val component = this.copy(eventMap = eventMap, defaultEventId = id + 1)
-        Right(component)
+    for {
+      result <- addElementToIdMap(
+        eventMap,
+        idOpt.getOrElse(defaultEventId),
+        event,
+        _.getLoc
+      )
     }
+    yield this.copy(
+      eventMap = result._1,
+      defaultEventId = result._2
+    )
   }
   
   /** Add a parameter */
-  def addParam(idOpt: Option[Param.Id], param: Param): 
-  Result.Result[Component] = {
-    val id = idOpt.getOrElse(defaultParamId)
-    paramMap.get(id) match {
-      case Some(prevParam) =>
-        val value = Analysis.displayIdValue(id)
-        val loc = param.getLoc
-        val prevLoc = prevParam.getLoc
-        Left(SemanticError.DuplicateIdValue(value, loc, prevLoc))
-      case None =>
-        val paramMap = this.paramMap + (id -> param)
-        val component = this.copy(
-          paramMap = paramMap,
-          defaultParamId = id + 1
+  def addParam(
+    idOpt: Option[Param.Id],
+    param: Param
+  ): Result.Result[Component] = {
+    for {
+      // Update the parameter map and the default parameter ID
+      result <- addElementToIdMap(
+        paramMap,
+        idOpt.getOrElse(defaultParamId),
+        param,
+        _.getLoc
+      )
+      component <- Right(
+        this.copy(
+          paramMap = result._1,
+          defaultParamId = result._2
         )
-        val name = param.aNode._2.data.name
-        val saveCommand = Command.Param(param.aNode, Command.Param.Save)
-        val setCommand = Command.Param(param.aNode, Command.Param.Set)
-        for {
-          component <- component.addCommand(Some(param.setOpcode), setCommand)
-          component <- component.addCommand(Some(param.saveOpcode), saveCommand)
-        }
-        yield component
+      )
+      // Add the implicit set and save commands
+      setCommand <- Right(Command.Param(param.aNode, Command.Param.Set))
+      saveCommand <- Right(Command.Param(param.aNode, Command.Param.Save))
+      component <- component.addCommand(Some(param.setOpcode), setCommand)
+      component <- component.addCommand(Some(param.saveOpcode), saveCommand)
     }
+    yield component
   }
 
-  /** Check that component provides ports required by dictionaries */
+  /** Add a data product record */
+  def addRecord(
+    idOpt: Option[Record.Id],
+    record: Record
+  ): Result.Result[Component] = {
+    for {
+      result <- addElementToIdMap(
+        recordMap,
+        idOpt.getOrElse(defaultRecordId),
+        record,
+        _.getLoc
+      )
+    }
+    yield this.copy(
+      recordMap = result._1,
+      defaultRecordId = result._2
+    )
+  }
+
+  /** Add a telemetry channel */
+  def addTlmChannel(
+    idOpt: Option[TlmChannel.Id],
+    tlmChannel: TlmChannel
+  ): Result.Result[Component] = {
+    for {
+      result <- addElementToIdMap(
+        tlmChannelMap,
+        idOpt.getOrElse(defaultTlmChannelId),
+        tlmChannel,
+        _.getLoc
+      )
+    }
+    yield this.copy(
+      tlmChannelMap = result._1,
+      defaultTlmChannelId = result._2
+    )
+  }
+
+  /** Check that component provides ports required by dictionary
+   *  and data product specifiers */
   private def checkRequiredPorts:
     Result.Result[Unit] = {
+      import Ast.SpecPortInstance._
       def requirePorts(
-        mapSize: Int,
-        specKind: String,
+        condition: Boolean,
+        specMsg: String,
         portKinds: List[Ast.SpecPortInstance.SpecialKind]
-      ) = if (mapSize > 0) Result.map(
+      ) = if (condition) Result.map(
         portKinds,
         (portKind: Ast.SpecPortInstance.SpecialKind) => 
           this.specialPortMap.get(portKind) match {
             case Some(_) => Right(())
             case None =>
               val loc = Locations.get(this.aNode._2.id)
-              Left(SemanticError.MissingPort(loc, specKind, portKind.toString))
+              val portMsg = s"${portKind.toString} port"
+              Left(SemanticError.MissingPort(loc, specMsg, portMsg))
           }
       ) else Right(())
-      import Ast.SpecPortInstance._
+      def requireProductGetOrRequest =
+        if (this.hasDataProducts &&
+          !this.specialPortMap.contains(ProductGet) &&
+          !this.specialPortMap.contains(ProductRequest)) {
+            val loc = Locations.get(this.aNode._2.id)
+            val specMsg = "data product specifiers"
+            val portMsg = "product get port or product request port"
+            Left(SemanticError.MissingPort(loc, specMsg, portMsg))
+          }
+         else Right(())
       for {
         _ <- requirePorts(
-          this.paramMap.size,
-          "parameter",
+          this.hasParameters,
+          "parameter specifiers",
           List(ParamGet, ParamSet, CommandRecv, CommandReg, CommandResp)
         )
         _ <- requirePorts(
-          this.commandMap.size,
-          "command",
+          this.hasCommands,
+          "command specifiers",
           List(CommandRecv, CommandReg, CommandResp)
         )
         _ <- requirePorts(
-          this.eventMap.size,
-          "event",
+          this.hasEvents,
+          "event specifiers",
           List(Event, TextEvent, TimeGet)
         )
         _ <- requirePorts(
-          this.tlmChannelMap.size,
-          "telemetry",
+          this.hasTelemetry,
+          "telemetry specifiers",
           List(Telemetry, TimeGet)
+        )
+        _ <- if (this.hasDataProducts) requireProductGetOrRequest else Right(())
+        _ <- requirePorts(
+          this.hasDataProducts,
+          "data product specifiers",
+          List(ProductSend, TimeGet)
+        )
+        _ <- requirePorts (
+          this.specialPortMap.contains(ProductRequest),
+          "product request specifier",
+          List(ProductRecv)
         )
       }
       yield ()
+    }
+
+  /** Check that if there are any data products, then there are both containers
+   *  and records */
+  private def checkDataProducts: Result.Result[Unit] =
+    (recordMap.size, containerMap.size) match {
+      case (0, 0) => Right(())
+      case (_, 0) =>
+        val (_, record) = recordMap.head
+        val loc = Locations.get(record.aNode._2.id)
+        Left(
+          SemanticError.InvalidDataProducts(
+            loc,
+            "component that specifies records must specify at least one container"
+          )
+        )
+      case (0, _) =>
+        val (_, container) = containerMap.head
+        val loc = Locations.get(container.aNode._2.id)
+        Left(
+          SemanticError.InvalidDataProducts(
+            loc,
+            "component that specifies containers must specify at least one record"
+          )
+        )
+      case _ => Right(())
     }
 
   /** Checks that component has at least one async input port or async command */
@@ -252,10 +381,18 @@ case class Component(
           val loc = instance.getLoc
           val error = SemanticError.PassiveAsync(loc)
           instance match {
-            case PortInstance.General(_, _, PortInstance.General.Kind.AsyncInput(_, _), _, _) =>
-              Left(error)
+            case general : PortInstance.General =>
+              general.kind match {
+                case PortInstance.General.Kind.AsyncInput(_, _) =>
+                  Left(error)
+                case _ => Right(())
+              }
+            case special : PortInstance.Special =>
+              special.specifier.inputKind match {
+                case Some(Ast.SpecPortInstance.Async) => Left(error)
+                case _ => Right(())
+              }
             case internal: PortInstance.Internal => Left(error)
-            case _ => Right(())
           }
         }
       )
@@ -301,26 +438,38 @@ case class Component(
         _ <- checkDictionary(
           this.paramMap,
           "parameter",
-          (param: Param) => param.getName,
-          (param: Param) => param.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.commandMap,
           "command",
-          (command: Command) => command.getName,
-          (command: Command) => command.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.eventMap,
           "event",
-          (event: Event) => event.getName,
-          (event: Event) => event.getLoc
+          _.getName,
+          _.getLoc
         )
         _ <- checkDictionary(
           this.tlmChannelMap,
           "telemetry channel",
-          (tlmChannel: TlmChannel) => tlmChannel.getName,
-          (tlmChannel: TlmChannel) => tlmChannel.getLoc
+          _.getName,
+          _.getLoc
+        )
+        _ <- checkDictionary(
+          this.containerMap,
+          "container",
+          _.getName,
+          _.getLoc
+        )
+        _ <- checkDictionary(
+          this.recordMap,
+          "record",
+          _.getName,
+          _.getLoc
         )
       }
       yield ()
@@ -336,6 +485,7 @@ case class Component(
         case _ => checkAsyncInput
       }
       _ <- checkRequiredPorts
+      _ <- checkDataProducts
     }
     yield ()
   }

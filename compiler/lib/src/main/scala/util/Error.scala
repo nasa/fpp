@@ -125,6 +125,8 @@ sealed trait Error {
             System.err.println(loc)
           case _ => ()
         }
+      case SemanticError.InvalidDataProducts(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidDefComponentInstance(name, loc, msg) =>
         Error.print (Some(loc)) (s"invalid component instance definition $name: $msg")
       case SemanticError.InvalidEnumConstants(loc) =>
@@ -160,6 +162,8 @@ sealed trait Error {
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
         Error.print (Some(loc)) ("only async input may have queue full behavior")
+      case SemanticError.InvalidSpecialPort(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.InvalidStringSize(loc, size) =>
         Error.print (Some(loc)) (s"invalid string size $size")
       case SemanticError.InvalidSymbol(name, loc, msg, defLoc) =>
@@ -184,8 +188,8 @@ sealed trait Error {
       case SemanticError.MissingConnection(loc, matchingLoc) =>
         Error.print (Some(loc)) ("no match for this connection")
         printMatchingLoc(matchingLoc)
-      case SemanticError.MissingPort(loc, specKind, portKind) =>
-        Error.print (Some(loc)) (s"component with $specKind specifiers must have $portKind port")
+      case SemanticError.MissingPort(loc, specMsg, portMsg) =>
+        Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -366,6 +370,11 @@ object SemanticError {
     fromPortDefLoc: Option[Location] = None,
     toPortDefLoc: Option[Location] = None
   ) extends Error
+  /** Invalid data products */
+  final case class InvalidDataProducts(
+    loc: Location,
+    msg: String
+  ) extends Error
   /** Invalid component instance definition */
   final case class InvalidDefComponentInstance(
     name: String,
@@ -423,6 +432,8 @@ object SemanticError {
   final case class InvalidPriority(loc: Location) extends Error
   /** Invalid queue full specifier */
   final case class InvalidQueueFull(loc: Location) extends Error
+  /** Invalid special port */
+  final case class InvalidSpecialPort(loc: Location, msg: String) extends Error
   /** Invalid string size */
   final case class InvalidStringSize(loc: Location, size: BigInt) extends Error
   /** Invalid symbol */
@@ -452,8 +463,8 @@ object SemanticError {
   /** Missing port */
   final case class MissingPort(
     loc: Location,
-    specKind: String,
-    port: String
+    specMsg: String,
+    portmsg: String
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(

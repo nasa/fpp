@@ -12,32 +12,47 @@ empty()
 passive()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
-  move_test PassiveTest
-  move_test PassiveSerial
   move_test PassiveCommands
   move_test PassiveEvents
-  move_test PassiveTelemetry
+  move_test PassiveGetProductPortsOnly
+  move_test PassiveGetProducts
+  move_test PassiveGuardedProducts
   move_test PassiveParams
+  move_test PassiveSerial
+  move_test PassiveSyncProductPortsOnly
+  move_test PassiveSyncProducts
+  move_test PassiveTelemetry
+  move_test PassiveTest
 }
 
 active()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
-  move_test ActiveTest
-  move_test ActiveSerial
+  move_test ActiveAsyncProducts
+  move_test ActiveAsyncProductPortsOnly
   move_test ActiveCommands
   move_test ActiveEvents
-  move_test ActiveTelemetry
+  move_test ActiveGetProducts
+  move_test ActiveGuardedProducts
   move_test ActiveParams
+  move_test ActiveSerial
+  move_test ActiveSyncProducts
+  move_test ActiveTelemetry
+  move_test ActiveTest
 }
 
 queued()
 {
   update "-u -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
-  move_test QueuedTest
-  move_test QueuedSerial
+  move_test QueuedAsyncProducts
+  move_test QueuedAsyncProductPortsOnly
   move_test QueuedCommands
   move_test QueuedEvents
-  move_test QueuedTelemetry
+  move_test QueuedGetProducts
+  move_test QueuedGuardedProducts
   move_test QueuedParams
+  move_test QueuedSerial
+  move_test QueuedSyncProducts
+  move_test QueuedTelemetry
+  move_test QueuedTest
 }

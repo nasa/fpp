@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/special_input_kind_command.fpp:9.3
+  sync command recv port cmdIn
+  ^
+error: command recv port may not specify input kind

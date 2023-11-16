@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) Language Specification, v2.0.1</title>
+<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.0.1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, v2.0.1</h1>
+<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.0.1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -562,74 +562,88 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_Connection-Graph-Specifiers_Example">6.3.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Event-Specifiers">6.4. Event Specifiers</a>
+<li><a href="#Specifiers_Container-Specifiers">6.4. Container Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Event-Specifiers_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#Specifiers_Event-Specifiers_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#Specifiers_Event-Specifiers_Examples">6.4.3. Examples</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Include-Specifiers">6.5. Include Specifiers</a>
+<li><a href="#Specifiers_Event-Specifiers">6.5. Event Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Include-Specifiers_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#Specifiers_Include-Specifiers_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#Specifiers_Include-Specifiers_Examples">6.5.3. Examples</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Syntax">6.5.1. Syntax</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Semantics">6.5.2. Semantics</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Examples">6.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Init-Specifiers">6.6. Init Specifiers</a>
+<li><a href="#Specifiers_Include-Specifiers">6.6. Include Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Init-Specifiers_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#Specifiers_Init-Specifiers_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#Specifiers_Init-Specifiers_Example">6.6.3. Example</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Internal-Port-Specifiers">6.7. Internal Port Specifiers</a>
+<li><a href="#Specifiers_Init-Specifiers">6.7. Init Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">6.7.3. Examples</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Example">6.7.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Location-Specifiers">6.8. Location Specifiers</a>
+<li><a href="#Specifiers_Internal-Port-Specifiers">6.8. Internal Port Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Location-Specifiers_Syntax">6.8.1. Syntax</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Semantics">6.8.2. Semantics</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Examples">6.8.3. Examples</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">6.8.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Parameter-Specifiers">6.9. Parameter Specifiers</a>
+<li><a href="#Specifiers_Location-Specifiers">6.9. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Parameter-Specifiers_Syntax">6.9.1. Syntax</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Semantics">6.9.2. Semantics</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Examples">6.9.3. Examples</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Syntax">6.9.1. Syntax</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Semantics">6.9.2. Semantics</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Examples">6.9.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Port-Instance-Specifiers">6.10. Port Instance Specifiers</a>
+<li><a href="#Specifiers_Parameter-Specifiers">6.10. Parameter Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">6.10.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">6.10.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">6.10.3. Examples</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Syntax">6.10.1. Syntax</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Semantics">6.10.2. Semantics</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Examples">6.10.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Port-Matching-Specifiers">6.11. Port Matching Specifiers</a>
+<li><a href="#Specifiers_Port-Instance-Specifiers">6.11. Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">6.11.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">6.11.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Example">6.11.3. Example</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">6.11.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">6.11.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">6.11.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers">6.12. Telemetry Channel Specifiers</a>
+<li><a href="#Specifiers_Port-Matching-Specifiers">6.12. Port Matching Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">6.12.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">6.12.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">6.12.3. Examples</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">6.12.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">6.12.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Example">6.12.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">6.13. Topology Import Specifiers</a>
+<li><a href="#Specifiers_Record-Specifiers">6.13. Record Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">6.13.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">6.13.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.13.3. Example</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Semantics">6.13.2. Semantics</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Examples">6.13.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers">6.14. Telemetry Channel Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">6.14.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">6.14.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">6.14.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Topology-Import-Specifiers">6.15. Topology Import Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">6.15.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">6.15.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.15.3. Example</a></li>
 </ul>
 </li>
 </ul>
@@ -978,6 +992,7 @@ command
 component
 connections
 constant
+container
 cpu
 default
 diagnostic
@@ -1011,14 +1026,18 @@ phase
 port
 priority
 private
+product
 queue
 queued
+record
 recv
 red
 ref
 reg
+request
 resp
 save
+send
 serial
 set
 severity
@@ -1596,12 +1615,22 @@ A component member is one of the following:</p>
 All commands specified in a component must have distinct names and opcodes.</p>
 </li>
 <li>
+<p>A <a href="#Specifiers_Container-Specifiers">container specifier</a>.
+All containers specified in a component must have distinct names and identifier
+values.</p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Parameter-Specifiers">parameter specifier</a>.
 All parameters specified in a component must have distinct names and identifier
 values.</p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Port-Instance-Specifiers">port instance specifier</a></p>
+</li>
+<li>
+<p>A <a href="#Specifiers_Record-Specifiers">record specifier</a>.
+All records specified in a component must have distinct names and identifier
+values.</p>
 </li>
 <li>
 <p>A <a href="#Specifiers_Telemetry-Channel-Specifiers">telemetry channel specifier</a>.
@@ -1631,8 +1660,10 @@ values.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The command, event, parameter, and telemetry specifiers are collectively
-referred to as <strong>dictionary specifiers</strong>.</p>
+<p>The command, event, parameter, telemetry, record, and container
+specifiers are collectively referred to as <strong>dictionary specifiers</strong>.
+The record and container specifiers are collectively referred to
+as <strong>data product specifiers</strong>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1653,12 +1684,17 @@ qualified with the component name, as for
 and internal port specifiers must be distinct.</p>
 </li>
 <li>
-<p>No passive component may have an <code>async</code> <code>input</code> port specifier, an internal
+<p>No passive component may have an <code>async</code> general or special
+port specifier, an internal
 port specifier, or an <code>async</code> command specifier.</p>
 </li>
 <li>
-<p>Each active or queued component must have at least one <code>async</code> <code>input</code> port
-specifier, internal port specifier, or <code>async</code> command specifier.</p>
+<p>Each active or queued component must have at least one <code>async</code> general
+or special port specifier, internal port specifier, or
+<code>async</code> command specifier.</p>
+</li>
+<li>
+<p>Each component may have at most one of each special port kind.</p>
 </li>
 <li>
 <p>Each component must provide ports as shown in the table below.</p>
@@ -1694,6 +1730,16 @@ specifier, internal port specifier, or <code>async</code> command specifier.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">If there are any telemetry specifiers</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">There must be specifiers for ports <code>telemetry</code> and <code>time get</code>.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there are any data product specifiers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be a specifier for either port <code>product</code> <code>get</code> or
+port <code>product</code> <code>request</code>.
+There must be specifiers for ports <code>product</code> <code>send</code> and <code>time</code> <code>get</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">If there is a specifier for <code>product</code> <code>request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">There must be a specifier for port <code>product</code> <code>recv</code>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -1712,6 +1758,16 @@ specifier, internal port specifier, or <code>async</code> command specifier.</p>
 </li>
 <li>
 <p>All telemetry channels must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>All records must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>All containers must have distinct names and identifier values.</p>
+</li>
+<li>
+<p>If there are any container specifiers, then there must be at least one
+record specifier, and vice versa.</p>
 </li>
 </ol>
 </div>
@@ -1778,6 +1834,18 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
+  @ Product get port
+  product get port productGetOut
+
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvIn
+
+  @ Product send port
+  product send port productSendOut
+
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
@@ -1822,6 +1890,16 @@ active component CommandDispatcher {
 
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
+
+  # ----------------------------------------------------------------------
+  # Data products
+  # ----------------------------------------------------------------------
+
+  @ A container for images
+  product container Images
+
+  @ A record for holding an image
+  product record ImageRecord: Image
 
 }</code></pre>
 </div>
@@ -3635,13 +3713,81 @@ definitions</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Event-Specifiers">6.4. Event Specifiers</h3>
+<h3 id="Specifiers_Container-Specifiers">6.4. Container Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>container specifier</strong> specifies a data product container as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.
+Containers are units of data that can be downlinked and then deleted.
+They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Container-Specifiers_Syntax">6.4.1. Syntax</h4>
+<div class="paragraph">
+<p><code>product</code> <code>container</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<code>default</code> <code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Container-Specifiers_Semantics">6.4.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier names the container.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
+numeric identifier for the container.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
+If <em>e</em> is not present, then the
+default identifier is either zero (for the first container appearing in a
+component) or the previous container identifier plus one.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keywords <code>default</code> <code>priority</code>
+specifies a downlink priority for the container.
+This priority can be overridden by the command that downlinks the data.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Container-Specifiers_Examples">6.4.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Container 0
+@ Implied id is 0x00
+product container Container0
+
+@ Container 1
+product container Container1 id 0x02
+
+@ Container 2
+@ Implied id is 0x03
+product container Container2 default priority 10</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Event-Specifiers">6.5. Event Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>event specifier</strong> specifies an event report as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Syntax">6.4.1. Syntax</h4>
+<h4 id="Specifiers_Event-Specifiers_Syntax">6.5.1. Syntax</h4>
 <div class="paragraph">
 <p><code>event</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -3687,7 +3833,7 @@ definitions</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Semantics">6.4.2. Semantics</h4>
+<h4 id="Specifiers_Event-Specifiers_Semantics">6.5.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3704,7 +3850,7 @@ If there are no parameters, the list may be omitted.
 <li>
 <p>The optional expression <em>e</em> following <code>id</code> specifies the numeric
 identifier for the event.
-If <em>e</em> is present, then type of <em>e</em> must be convertible to
+If <em>e</em> is present, then the type of <em>e</em> must be convertible to
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
 to a nonnegative integer.
 If <em>e</em> is not present, then the default identifier is either zero (for the
@@ -3729,7 +3875,7 @@ in the range [0,2<sup>31</sup>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Examples">6.4.3. Examples</h4>
+<h4 id="Specifiers_Event-Specifiers_Examples">6.5.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -3768,20 +3914,20 @@ event Event2(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Include-Specifiers">6.5. Include Specifiers</h3>
+<h3 id="Specifiers_Include-Specifiers">6.6. Include Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>include specifier</strong> specifies that a file
 should be included in a
 <a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Syntax">6.5.1. Syntax</h4>
+<h4 id="Specifiers_Include-Specifiers_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
 <p><code>include</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Semantics">6.5.2. Semantics</h4>
+<h4 id="Specifiers_Include-Specifiers_Semantics">6.6.2. Semantics</h4>
 <div class="paragraph">
 <p>The string literal specifies a file path relative to the
 <a href="#Translation-Units-and-Models_Locations">location</a> of the include specifier.</p>
@@ -3810,7 +3956,7 @@ from files presented directly for analysis or translation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Examples">6.5.3. Examples</h4>
+<h4 id="Specifiers_Include-Specifiers_Examples">6.6.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -3872,7 +4018,7 @@ b = M.a</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Init-Specifiers">6.6. Init Specifiers</h3>
+<h3 id="Specifiers_Init-Specifiers">6.7. Init Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>init specifier</strong> associates some code with a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>.
@@ -3880,14 +4026,14 @@ Usually this is initialization code, hence the name.
 It may also serve another purpose (e.g., teardown).</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Syntax">6.6.1. Syntax</h4>
+<h4 id="Specifiers_Init-Specifiers_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
 <p><code>phase</code> <a href="#Expressions"><em>expression</em></a>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Semantics">6.6.2. Semantics</h4>
+<h4 id="Specifiers_Init-Specifiers_Semantics">6.7.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3911,7 +4057,7 @@ on the translation context.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Example">6.6.3. Example</h4>
+<h4 id="Specifiers_Init-Specifiers_Example">6.7.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Phases of initialization
@@ -3971,7 +4117,7 @@ phase to remove the instance ID from the arguments of the <code>init</code> meth
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Internal-Port-Specifiers">6.7. Internal Port Specifiers</h3>
+<h3 id="Specifiers_Internal-Port-Specifiers">6.8. Internal Port Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>internal port specifier</strong> specifies
 a single-use port for use in handlers of the enclosing
@@ -3980,7 +4126,7 @@ A component can use an internal port to send a message
 to itself.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">6.7.1. Syntax</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">6.8.1. Syntax</h4>
 <div class="paragraph">
 <p><code>internal</code> <code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -4002,7 +4148,7 @@ to itself.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">6.7.2. Semantics</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">6.8.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
@@ -4017,7 +4163,7 @@ No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Examples">6.7.3. Examples</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Examples">6.8.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Port 1
@@ -4036,14 +4182,14 @@ internal port Port2(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Location-Specifiers">6.8. Location Specifiers</h3>
+<h3 id="Specifiers_Location-Specifiers">6.9. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
 <a href="#Translation-Units-and-Models_Locations">location</a>
 of a <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Syntax">6.8.1. Syntax</h4>
+<h4 id="Specifiers_Location-Specifiers_Syntax">6.9.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier is one of the following:</p>
 </div>
@@ -4083,7 +4229,7 @@ of a <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Semantics">6.8.2. Semantics</h4>
+<h4 id="Specifiers_Location-Specifiers_Semantics">6.9.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4154,7 +4300,7 @@ consistent.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Examples">6.8.3. Examples</h4>
+<h4 id="Specifiers_Location-Specifiers_Examples">6.9.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1:</strong></p>
 </div>
@@ -4207,13 +4353,13 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Parameter-Specifiers">6.9. Parameter Specifiers</h3>
+<h3 id="Specifiers_Parameter-Specifiers">6.10. Parameter Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>parameter specifier</strong> specifies a parameter as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Syntax">6.9.1. Syntax</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Syntax">6.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -4232,7 +4378,7 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Semantics">6.9.2. Semantics</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Semantics">6.10.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4266,7 +4412,7 @@ component) or the previous parameter identifier plus one.</p>
 <li>
 <p>The optional expression <em>e</em> after the keywords <code>set</code> <code>opcode</code> specifies the
 opcode of the command for setting the parameter.
-If <em>e</em> is present, then type of <em>e</em> must be
+If <em>e</em> is present, then the type of <em>e</em> must be
 <a href="#Type-Checking_Type-Conversion">convertible to</a>
 <a href="#Types_Internal-Types_Integer"><em>Integer</em></a>.
 If <em>e</em> is not present, then the default value is either zero (for
@@ -4287,7 +4433,7 @@ plus one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Examples">6.9.3. Examples</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Examples">6.10.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Parameter 1
@@ -4307,7 +4453,7 @@ param Parameter2: F64 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Instance-Specifiers">6.10. Port Instance Specifiers</h3>
+<h3 id="Specifiers_Port-Instance-Specifiers">6.11. Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port instance specifier</strong> specifies an instantiated
 <a href="#Definitions_Port-Definitions">port</a> as part
@@ -4315,7 +4461,7 @@ of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">6.10.1. Syntax</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">6.11.1. Syntax</h4>
 <div class="paragraph">
 <p>A port instance specifier is one of the following:</p>
 </div>
@@ -4335,7 +4481,14 @@ of a
 <em>]</em></p>
 </li>
 <li>
-<p><em>special-port-kind</em> <code>port</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><em>[</em> <em>special-port-input-kind</em> <em>]</em>
+<em>special-port-kind</em> <code>port</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<em>queue-full-behavior</em>
+<em>]</em></p>
 </li>
 </ul>
 </div>
@@ -4388,6 +4541,22 @@ of a
 </ol>
 </div>
 <div class="paragraph">
+<p><em>special-port-input-kind</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>async</code></p>
+</li>
+<li>
+<p><code>guarded</code></p>
+</li>
+<li>
+<p><code>sync</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
 <p><em>special-port-kind</em> is one of the following:</p>
 </div>
 <div class="olist arabic">
@@ -4411,6 +4580,18 @@ of a
 <p><code>param</code> <code>set</code></p>
 </li>
 <li>
+<p><code>product</code> <code>get</code></p>
+</li>
+<li>
+<p><code>product</code> <code>recv</code></p>
+</li>
+<li>
+<p><code>product</code> <code>request</code></p>
+</li>
+<li>
+<p><code>product</code> <code>send</code></p>
+</li>
+<li>
 <p><code>telemetry</code></p>
 </li>
 <li>
@@ -4430,7 +4611,7 @@ of a
 <p>Any general port with <code>input</code> in its name.</p>
 </li>
 <li>
-<p>Special port <code>command recv</code>.</p>
+<p>Special ports <code>command recv</code> and <code>product recv</code>.</p>
 </li>
 </ul>
 </div>
@@ -4439,7 +4620,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">6.10.2. Semantics</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">6.11.2. Semantics</h4>
 <div class="paragraph">
 <p><strong>General port instances:</strong></p>
 </div>
@@ -4520,12 +4701,27 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Special port instances:</strong>
-These port instances correspond to the "role ports" in the F Prime XML model.
-Their types and other attributes are specified by F Prime.
+The special port instance have special functions in the code generated
+from an FPP model.
+The types and other attributes of the special ports are specified by F Prime.
 The identifier specifies the name of the port.</p>
 </div>
 <div class="paragraph">
 <p>There must be at most one of each kind of special port instance.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The optional input kind must be present for <code>product</code> <code>recv</code> ports
+and may not be present for other ports.</p>
+</li>
+<li>
+<p>The optional expression <em>e</em> appearing after the keyword
+<code>priority</code> and the optional <em>queue-full-behavior</em> behavior have
+the same meaning as described above for general ports.
+These elements are valid only for <code>async</code> <code>product</code> <code>recv</code> ports.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Each special port instance represents an implied use of a port
@@ -4569,6 +4765,22 @@ These ports are defined by the F Prime framework.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.PrmSet</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>get</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpGet</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>recv</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpResponse</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpRequest</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>product</code> <code>send</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.DpSend</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>telemetry</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Fw.Tlm</code></p></td>
 </tr>
@@ -4584,7 +4796,7 @@ These ports are defined by the F Prime framework.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Examples">6.10.3. Examples</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Examples">6.11.3. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -4638,13 +4850,22 @@ param set port paramSetOut
 telemetry port tlmOut
 
 @ A port for getting the current time
-time get port timeGetOut</code></pre>
+time get port timeGetOut
+
+@ An async port for receiving requested data product buffers
+async product recv port productRecvIn
+
+@ A port for requesting data product buffers
+product request port productRequestOut
+
+@ A port for sending data products
+product send port productSendOut</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Matching-Specifiers">6.11. Port Matching Specifiers</h3>
+<h3 id="Specifiers_Port-Matching-Specifiers">6.12. Port Matching Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port matching specifier</strong> is part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -4657,7 +4878,7 @@ to its ping output port at port number <em>n</em> should also be connected
 to its ping input port at the same port number <em>n</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">6.11.1. Syntax</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">6.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>match</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -4666,7 +4887,7 @@ to its ping input port at the same port number <em>n</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">6.11.2. Semantics</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">6.12.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4682,7 +4903,7 @@ array size.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Example">6.11.3. Example</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Example">6.12.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">queued component Health {
@@ -4705,13 +4926,93 @@ array size.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Channel-Specifiers">6.12. Telemetry Channel Specifiers</h3>
+<h3 id="Specifiers_Record-Specifiers">6.13. Record Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>record specifier</strong> specifies a data product record as part of a
+<a href="#Definitions_Component-Definitions">component definition</a>.
+A record is a unit of data that is stored in a
+<a href="#Specifiers_Container-Specifiers">container</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</h4>
+<div class="paragraph">
+<p><code>product</code> <code>record</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code> <a href="#Type-Names"><em>type-name</em></a>
+<em>[</em>
+<code>array</code>
+<em>]</em>
+<em>[</em>
+<code>id</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Record-Specifiers_Semantics">6.13.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier names the record.</p>
+</li>
+<li>
+<p>The type name <em>T</em> following the identifier specifies the type of the data stored
+in the record.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If the keyword <code>array</code> appears after the type name, then the record stores
+a variable number of elements of type <em>T</em>.
+In this case the record consists of a size <em>s</em> followed by a data payload
+consisting of <em>s</em> elements of type <em>T</em>.</p>
+</li>
+<li>
+<p>Otherwise the record stores a single value of type <em>T</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
+numeric identifier for the record.
+If <em>e</em> is present, then the type of <em>e</em> must be
+<a href="#Type-Checking_Type-Conversion">convertible to</a>
+<a href="#Types_Internal-Types_Integer"><em>Integer</em></a>, and <em>e</em> must evaluate
+to a nonnegative integer.
+If <em>e</em> is not present, then the
+default identifier is either zero (for the first record appearing in a
+component) or the previous record identifier plus one.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_Record-Specifiers_Examples">6.13.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Record 0: A variable number of F32 values
+@ Implied id is 0x00
+product record Record0: F32 array
+
+@ Record 1: A single U32 value
+product record Record1: U32 id 0x02
+
+@ Record 2: A single F64x3 value
+@ Implied id is 0x03
+product record Record2: F64x3</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Telemetry-Channel-Specifiers">6.14. Telemetry Channel Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry channel definition</strong> defines a telemetry channel as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">6.12.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">6.14.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -4766,7 +5067,7 @@ A telemetry limit is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">6.12.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">6.14.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4836,7 +5137,7 @@ value of <em>v</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">6.12.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">6.14.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -4865,18 +5166,18 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">6.13. Topology Import Specifiers</h3>
+<h3 id="Specifiers_Topology-Import-Specifiers">6.15. Topology Import Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">6.13.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">6.15.1. Syntax</h4>
 <div class="paragraph">
 <p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">6.13.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">6.15.2. Semantics</h4>
 <div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -4967,7 +5268,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">6.13.3. Example</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Example">6.15.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
@@ -8193,7 +8494,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-11-15 14:59:20 -0800
+Last updated 2023-11-15 15:04:21 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

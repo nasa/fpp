@@ -1,0 +1,12 @@
+[ local path prefix ]/compiler/tools/fpp-depend/test/Cmd.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/CmdReg.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/CmdResponse.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/DpRequest.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/DpResponse.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/DpSend.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/Log.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/LogText.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/PrmGet.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/PrmSet.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/Time.fpp
+[ local path prefix ]/compiler/tools/fpp-depend/test/Tlm.fpp
