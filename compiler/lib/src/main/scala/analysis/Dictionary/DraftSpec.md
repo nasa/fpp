@@ -29,6 +29,9 @@
 - [Data Products](#data-products)
   - [Record](#record)
   - [Container](#container)
+- [Dictionary](#dictionary)
+  - [Dictionary Metadata](#dictionary-metadata)
+  - [Dictionary Content](#dictionary-content)
 
 # Types Names
 
@@ -806,4 +809,134 @@ product container Container2 default priority 10
         "defaultPriority": 10
     }
 ]
+```
+
+# Dictionary
+## Dictionary Metadata
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `deploymentName` | **String** representing the deployment name | **String** | true |
+| `frameworkVersion` | **String** representing the F´ framework version (semantic versioning) | **String** | true |
+| `projectVersion` | **String** representing the project version (semantic versioning) | **String** | true |
+
+```json
+{
+    "deploymentName": "MyDeployment",
+    "frameworkVersion": "3.3.2",
+    "projectVersion": "1.0.0"
+}
+```
+
+## Dictionary Content
+| Field | Description | Options | Required |
+| ----- | ----------- | ------- | -------- |
+| `metadata` | `Dictionary Metadata` | `Dictionary Metadata` | true |
+| `enums` | List of `Enums` | List of `Enums` | true |
+| `serializables` | List of `Serializables` | List of `Serializables` | true |
+| `commands` | List of `Commands` | List of `Commands` | true |
+| `events` | List of `Events` | List of `Events` | true |
+| `telemetryChannels` | List of `Telemetry Channels` | List of `Telemetry Channels` | true |
+| `parameters` | List of `Parameters` | List of `Parameters` | true |
+
+```json
+{
+    "metadata": {
+        "deploymentName": "MyDeployment",
+        "frameworkVersion": "3.3.2",
+        "projectVersion": "1.0.0"
+    },
+    "enums": [
+        "MyDeployment"
+    ],
+    "serializables": [
+
+    ],
+    "commands": [
+        "commandKind": "sync",
+        "opcode": "0x02",
+        "identifier": "SyncParams",
+        "description": "A sync command with parameters",
+        "params": [
+            {
+                "identifier": "param1",
+                "description": "Param 1",
+                "type": {
+                    "name": "U32",
+                    "kind": "integer",
+                    "size": 32,
+                    "signed": false,
+                },
+                "ref": false
+            },
+            {
+                "identifier": "param2",
+                "description": "Param 2",
+                "type": {
+                    "name": "string",
+                    "kind": "string",
+                    "size": ""
+                },
+                "ref": false
+            }
+        ],
+    ],
+    "events": [
+        {
+            "identifier": "Event0",
+            "description": "This is the annotation for Event 0",
+            "severity": "activity low",
+            "params": [
+                {
+                    "identifier": "",
+                    "description": "",
+                    "type": {},
+                    "ref": false
+                }
+            ],
+            "numericIdentifier": "0x00",
+            "formatString": "Event 0 occurred",
+            "throttle": ""
+        },
+        {
+            "identifier": "Event1",
+            "description": "This is the annotation for Event 1",
+            "severity": "activity high",
+            "params": [
+                {
+                "identifier": "arg1",
+                    "description": "Argument 1",
+                    "type": {
+                        "name": "U32",
+                        "kind": "integer",
+                        "size": 32,
+                        "signed": false,
+                    },
+                    "ref": false  
+                }
+            ],
+            "numericIdentifier": "0x01",
+            "formatString": "Event 1 occurred with argument {}",
+            "throttle": ""
+        }
+    ],
+    "telemetryChannels": [
+
+    ],
+    "parameters": [
+        {
+            "identifier": "Parameter1",
+            "description": "This is the annotation for Parameter 1",
+            "type": {
+                "name": "U32",
+                "kind": "integer",
+                "signed": false,
+                "size": 32
+            },
+            "default": 0,
+            "numericIdentifier": "0x00",
+            "setOpcode": "0x80",
+            "saveOpcode": "0x81"
+        }
+    ]
+}
 ```
