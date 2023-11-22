@@ -379,7 +379,7 @@ Example JSON of an array of type U32 consisting of 10 elements
 ```
 
 ## Enumeration Values
-`Qualified Identifier` name representing enumeration value
+String qualified identifier name of enumeration value
 
 Example JSON of an enum
 ```json
@@ -387,7 +387,7 @@ Example JSON of an enum
 ```
 
 ## Struct Values
-**JSON Dictionary** consisting of `Qualified Identifier` names (keys) and values (values)
+**JSON Dictionary** consisting of String qualified identifier names (keys) and values (values)
 
 Example JSON of a struct:
 ```json
