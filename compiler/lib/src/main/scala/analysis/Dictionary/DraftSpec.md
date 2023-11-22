@@ -48,7 +48,7 @@
 | `name` | **String** representing the FPP type name |  U8, U16, U32, U64, I8, I16, I32, I64 | true |
 | `kind` | **String** representing the kind of type | integer | true |
 | `size` | **Number** of bits supported by the data type  | 8, 16, 32, 64 | true |
-| `signed` | **Boolean** indicating whether the integer is signed or unsigned | true, false | true |
+| `signed` | **Boolean** indicating whether the integer is signed or unsigned | **Boolean** | true |
 
 ### Unsigned Integer Types
 - U8
@@ -175,7 +175,7 @@ Example JSON of string
 ## Qualified Identifier Type Names
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `name` | **String** representing the FPP type name |  qualifiedIdentifier | true |
+| `name` | **String** representing the FPP type name |  Period separated **String** | true |
 | `kind` | **String** representing the kind of type | qualifiedIdentifier | true |
 
 
@@ -194,8 +194,8 @@ Example JSON of qualified name
 | ----- | ----------- | ------- | -------- |
 | `kind` | **String** representing the kind of type | array | true |
 | `qualifiedName` | **String** representing unique qualified name of element in FPP model | Period seperated **String** | true |
-| `size` | Max **Number** of elements that can be in the data structure | Number | true |
-| `elementType` | A **JSON dictionary** representing the type of array | JSON Dictionary | true
+| `size` | Max **Number** of elements that can be in the data structure | **Number** | true |
+| `elementType` | A **JSON dictionary** representing the type of array | **JSON Dictionary** | true
 | `default` | Default array value | Value of type specified in `elementType` | false |
 
 
@@ -228,9 +228,9 @@ module M {
 | ----- | ----------- | ------- | -------- |
 | `kind` | String representing the kind of type | enum | true |
 | `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
-| `representationType` | The `Type Name` of values in the enumeration | `Type Name` | true |
-| `identifiers` | Dictionary of identifiers (keys) and numeric values (values) | true |
-| `default` | String qualified name of the enumeration value | String qualified name | false | false |
+| `representationType` | The [Type Name](#type-names) of values in the enumeration | [Type Name](#type-names) | true |
+| `identifiers` | Dictionary of identifiers (keys) and numeric values (values) | **JSON Dictionary** | true |
+| `default` | String qualified name of the enumeration value | **String** qualified name | false |
 
 Example FPP model with JSON representation:
 ```
@@ -266,9 +266,9 @@ module M {
 ### Struct Member
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `type` | `Type Name` of member | `Type Name` | true |
+| `type` | [Type Name](#type-names) of member | [Type Name](#type-names) | true |
 | `index` | **Number** index of the struct member | **Number** | true |
-| `size` | **Number** representing the size of the struct member | false |
+| `size` | **Number** representing the size of the struct member | **Number** | false |
 | `formatSpecifier` | **String** format specifier | **String** | false |
 
 ### Struct Type Definition
@@ -276,7 +276,7 @@ module M {
 | ----- | ----------- | ------- | -------- |
 | `kind` | String representing the kind of type | struct | true |
 | `qualifiedName` | String representing unique qualified name of element in FPP model | Period seperated **String** | true |
-| `members` | JSON dictionary consisting of **String** identifier (key) and `Struct Member` (value) | JSON dictionary | true |
+| `members` | JSON dictionary consisting of **String** identifier (key) and [Struct Member](#struct-member) (value) | JSON dictionary | true |
 | `default` | JSON dictionary consising of **String** identifier (key) and default value (value) | JSON dictionary | false |
 
 Example FPP model with JSON representation:
@@ -426,8 +426,8 @@ Example JSON of a struct:
 | ----- | ----------- | ------- | -------- |
 | `identifier` | **String** identifier | **String** | true |
 | `description` | **String** annotation of parameter | **String** | true |
-| `type` | `Type Name` of parameter | `Type Name` | true |
-| `ref` | **Boolean** indicating whether the formal parameter is to be passed by referenced when it is used in a synchronous port invocation | true, false | false |
+| `type` | [Type Name](#type-names) of parameter | [Type Name](#type-names) | true |
+| `ref` | **Boolean** indicating whether the formal parameter is to be passed by referenced when it is used in a synchronous port invocation | **Boolean** | false |
 
 ```json
 {
@@ -446,9 +446,9 @@ Example JSON of a struct:
 ## Parameters
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the parameter | Period separated **String** | true |
+| `identifier` | **String** qualified name of the parameter | Period separated **String** | true |
 | `description` | **String** annotation of parameter | **String** | true |
-| `type` | `Type Name` of the parameter | `Type Name` | true |
+| `type` | [Type Name](#type-names) of the parameter | [Type Name](#type-names) | true |
 | `default` | Default value (of type specified in `type`)  of the parameter | Value of type specified in `type` | false |
 | `numericIdentifier` | **Number** representing the numeric identifier of the parameter | **Number** | false |
 | `setOpcode` | **Number** representing the opcode of the command for setting the parameter | **Number** | false |
@@ -464,6 +464,8 @@ module MyModule {
             id 0x100 \
             set opcode 0x101 \
             save opcode 0x102
+
+        ...
     }
 }
 ```
@@ -488,11 +490,11 @@ module MyModule {
 ## Commands
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the command | Period separated **String** | true |
+| `identifier` | **String** qualified name of the command | Period separated **String** | true |
 | `commandKind` | **String** representing the kind of command | async, guarded, sync | true |
 | `opcode` | **Number** command opcode | **Number** | true |
 | `description` | **String** annotation of command | string | true |
-| `formalParams` | Array of `Formal Parameters` | Array of `Formal Parameters` | true |
+| `formalParams` | Array of [Formal Parameters](#formal-parameters) | Array of [Formal Parameters](#formal-parameters) | true |
 | `priority` | **Number** representing the priority for the command on the input queue | **Number** | false |
 | `queueFullBehavior` | **String** representing the behavior of the command when the input full is queue | assert, block, drop | false |
 
@@ -505,6 +507,8 @@ module MyComponents {
             param1: U32 @< Param 1
             param2: string @< Param 2
         ) opcode 0x100
+        
+        ...
     }
 }
 ```
@@ -544,9 +548,9 @@ module MyComponents {
 ## Telemtry Channels
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the telemetry channel | Period separated **String** | true |
+| `identifier` | **String** qualified name of the telemetry channel | Period separated **String** | true |
 | `description` | **String** annotation of channel | **String** | true |
-| `type` | `Type Name` the telemtry channel | `Type Name` | true |
+| `type` | [Type Name](#type-names) the telemtry channel | [Type Name](#type-names) | true |
 | `numericIdentifier` | **Number** representing numeric identifier | **Number** | true |
 | `telemtryUpdate` | **String** representing when the telemetry channel can update | always, on change | false |
 | `formatString` | **String** format with a single argument (the telemtry channel) | **String** | false |
@@ -562,6 +566,8 @@ module MyModule {
             update on change \
             low { yellow -1, orange -2, red -3 } \
             high { yellow 1, orange 2, red 3 }
+        
+        ...
     }
 }
 ```
@@ -597,10 +603,10 @@ module MyModule {
 ## Events
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the event | Period separated **String** | true |
+| `identifier` | **String** qualified name of the event | Period separated **String** | true |
 | `description` | **String** annotation of event | **String** | true |
 | `severity` | **String** representing severit of the event | activity high, activity low, command, diagnostic, fatal, warning high, warning low | true |
-| `formalParams` | Array of `Formal Parameters` | Array `Formal Parameters` | true |
+| `formalParams` | Array of [Formal Parameters](#formal-parameters) | Array [Formal Parameters](#formal-parameters) | true |
 | `numericIdentifier` | **Number** representing the numeric identifier of the event | **Number** | true |
 | `formatString` | **String** format with event parameters as arguments | **String** | false |
 | `throttle` | **Number** representing the maximum number of times to emit the event before throttling it | **Number** | false |
@@ -615,6 +621,8 @@ module MyModule {
             severity activity low \
             id 0x100 \
             format "Event 0 occurred"
+        
+        ...
     }
 }
 ```
@@ -642,6 +650,8 @@ module MyModule {
             severity activity high \
             id 0x101 \
             format "Event 1 occurred with argument {}"
+        
+        ...
     }
 }
 ```
@@ -672,10 +682,10 @@ module MyModule {
 ## Record
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the record | Period separated **String** | true |
+| `identifier` | **String** qualified name of the record | Period separated **String** | true |
 | `description` | **String** annotation of record | **String** | true |
-| `type` | `Type Name` the record | `Type Name` | true |
-| `array` | **Boolean** specifying whether the record stores a variable number of elements | true, false | false |
+| `type` | [Type Name](#type-names) the record | [Type Name](#type-names) | true |
+| `array` | **Boolean** specifying whether the record stores a variable number of elements | **Boolean** | false |
 | `numericIdentifier` | **Number** representing the numeric identifier of the record | **Number** | true |
 
 Example FPP model with JSON representation:
@@ -688,6 +698,8 @@ module MyModule {
 
         @ Record 1: A single U32 value
         product record Record1: U32 id 0x102
+        
+        ...
     }
 }
 ```
@@ -723,7 +735,7 @@ module MyModule {
 ## Container
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `identifier` | String qualified name of the container | Period separated **String** | true |
+| `identifier` | **String** qualified name of the container | Period separated **String** | true |
 | `description` | **String** annotation of container | **String** | true |
 | `numericIdentifier` | **Number** representing the numeric identifier of the record | **Number** | true |
 | `defaultPriority` | **Number** representing the downlink priority for the container | **Number** | false |
@@ -742,6 +754,8 @@ module MyModule {
         @ Container 2
         @ Implied id is 0x103
         product container Container2 default priority 10
+
+        ...
     }
 }
 ```
@@ -788,14 +802,14 @@ module MyModule {
 ## Dictionary Content
 | Field | Description | Options | Required |
 | ----- | ----------- | ------- | -------- |
-| `metadata` | `Dictionary Metadata` | `Dictionary Metadata` | true |
-| `arrays` | Array of `Arrays` | Array of `Arrays` | true |
-| `enums` | Array of `Enums` | Array of `Enums` | true |
-| `structs` | Array of `Structs` | Array of `Structs` | true |
-| `commands` | Array of `Commands` | Array of `Commands` | true |
-| `events` | Array of `Events` | Array of `Events` | true |
-| `telemetryChannels` | Array of `Telemetry Channels` | Array of `Telemetry Channels` | true |
-| `parameters` | Array of `Parameters` | Array of `Parameters` | true |
+| `metadata` | [Dictionary Metadata](#dictionary-metadata) | [Dictionary Metadata](#dictionary-metadata) | true |
+| `arrays` | Array of [Arrays](#array-type-definition) | Array of [Arrays](#array-type-definition) | true |
+| `enums` | Array of [Enums](#enumeration-type-definition) | Array of [Enums](#enumeration-type-definition) | true |
+| `structs` | Array of [Structs](#struct-type-definition-1) | Array of [Structs](#struct-type-definition-1) | true |
+| `commands` | Array of [Commands](#commands) | Array of [Commands](#commands) | true |
+| `events` | Array of [Events](#events) | Array of [Events](#events) | true |
+| `telemetryChannels` | Array of [Telemetry Channels](#telemtry-channels) | Array of [Telemetry Channels](#telemtry-channels) | true |
+| `parameters` | Array of [Parameters](#parameters) | Array of [Parameters](#parameters) | true |
 
 ```json
 {
