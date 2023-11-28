@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/QueuedAsyncProductPortsOnly.hpp"
+#include "QueuedAsyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

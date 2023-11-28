@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/QueuedGuardedProducts.hpp"
+#include "QueuedGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveTelemetry component implementation class
 // ======================================================================
 
+#include "ActiveTelemetry.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveTelemetry.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveSerial component implementation class
 // ======================================================================
 
+#include "ActiveSerial.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveSerial.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

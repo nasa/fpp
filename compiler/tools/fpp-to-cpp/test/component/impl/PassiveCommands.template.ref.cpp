@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/PassiveCommands.hpp"
+#include "PassiveCommands.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

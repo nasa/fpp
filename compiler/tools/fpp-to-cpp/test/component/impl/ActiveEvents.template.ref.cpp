@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveEvents component implementation class
 // ======================================================================
 
+#include "ActiveEvents.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveEvents.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

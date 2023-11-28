@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveAsyncProducts component implementation class
 // ======================================================================
 
+#include "ActiveAsyncProducts.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveAsyncProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

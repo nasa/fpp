@@ -4,8 +4,8 @@
 // \brief  cpp file for Empty component implementation class
 // ======================================================================
 
+#include "Empty.hpp"
 #include "FpConfig.hpp"
-#include "impl/Empty.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

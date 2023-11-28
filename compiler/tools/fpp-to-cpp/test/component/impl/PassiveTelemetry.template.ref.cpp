@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/PassiveTelemetry.hpp"
+#include "PassiveTelemetry.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
