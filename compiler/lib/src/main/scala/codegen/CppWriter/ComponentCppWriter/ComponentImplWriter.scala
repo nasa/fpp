@@ -48,12 +48,9 @@ case class ComponentImplWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val loc = symbol.getLoc.tuLocation
-    val fullPath = loc.getNeighborPath(fileName)
-    val path = s.removeLongestPathPrefix(fullPath)
     val userHeaders = List(
       "FpConfig.hpp",
-      s"$path.hpp"
+      s.getIncludePath(symbol, fileName).toString
     )
     linesMember(
       addBlankPrefix(userHeaders.sorted.map(CppWriter.headerString).map(line)),
