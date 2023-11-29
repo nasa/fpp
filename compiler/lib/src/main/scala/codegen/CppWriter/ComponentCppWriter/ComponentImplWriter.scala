@@ -53,7 +53,7 @@ case class ComponentImplWriter(
     val path = s.removeLongestPathPrefix(fullPath)
     val userHeaders = List(
       "FpConfig.hpp",
-      s"${path}.hpp"
+      s"$path.hpp"
     )
     linesMember(
       addBlankPrefix(userHeaders.sorted.map(CppWriter.headerString).map(line)),

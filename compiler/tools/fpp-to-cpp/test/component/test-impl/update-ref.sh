@@ -5,13 +5,13 @@ empty()
 {
   # Run the empty test in auto setup mode
   # This tests auto setup
-  update "-a -u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../empty" empty
+  update "-a -u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty
   move_test_template Empty
 }
 
 passive()
 {
-  update "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../passive" passive
+  update "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
   move_test_template PassiveCommands
   move_test_template PassiveEvents
   move_test_template PassiveGetProductPortsOnly
@@ -27,7 +27,7 @@ passive()
 
 active()
 {
-  update "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../active" active
+  update "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
   move_test_template ActiveAsyncProductPortsOnly
   move_test_template ActiveAsyncProducts
   move_test_template ActiveCommands
@@ -43,7 +43,7 @@ active()
 
 queued()
 {
-  update "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../queued" queued
+  update "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
   move_test_template QueuedCommands
   move_test_template QueuedEvents
   move_test_template QueuedGetProducts
