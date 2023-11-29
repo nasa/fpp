@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveTest component implementation class
 // ======================================================================
 
+#include "ActiveTest.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveTest.hpp"
 
 namespace M {
 

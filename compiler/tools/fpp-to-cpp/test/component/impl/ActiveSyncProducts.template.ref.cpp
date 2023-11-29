@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveSyncProducts component implementation class
 // ======================================================================
 
+#include "ActiveSyncProducts.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveSyncProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

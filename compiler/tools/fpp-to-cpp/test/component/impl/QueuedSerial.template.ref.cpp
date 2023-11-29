@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/QueuedSerial.hpp"
+#include "QueuedSerial.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

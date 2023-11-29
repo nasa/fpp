@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/PassiveGetProducts.hpp"
+#include "PassiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

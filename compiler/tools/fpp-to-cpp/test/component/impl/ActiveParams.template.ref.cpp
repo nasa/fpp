@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveParams component implementation class
 // ======================================================================
 
+#include "ActiveParams.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveParams.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

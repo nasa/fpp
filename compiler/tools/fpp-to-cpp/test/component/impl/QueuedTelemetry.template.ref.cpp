@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/QueuedTelemetry.hpp"
+#include "QueuedTelemetry.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

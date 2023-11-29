@@ -5,13 +5,13 @@ empty()
 {
   # Run the empty test in auto setup mode
   # This tests auto setup
-  run_test "-a -u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../empty" empty && \
+  run_test "-a -u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../empty" empty && \
   diff_test_template Empty
 }
 
 passive()
 {
-  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../passive" passive && \
+  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive && \
   diff_test_template PassiveCommands && \
   diff_test_template PassiveEvents && \
   diff_test_template PassiveGetProductPortsOnly && \
@@ -27,7 +27,7 @@ passive()
 
 active()
 {
-  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../active" active && \
+  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active && \
   diff_test_template ActiveAsyncProductPortsOnly && \
   diff_test_template ActiveAsyncProducts && \
   diff_test_template ActiveCommands && \
@@ -43,7 +43,7 @@ active()
 
 queued()
 {
-  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $PWD,$fprime_dir ../queued" queued && \
+  run_test "-u -t -i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued && \
   diff_test_template QueuedTest && \
   diff_test_template QueuedSerial && \
   diff_test_template QueuedCommands && \

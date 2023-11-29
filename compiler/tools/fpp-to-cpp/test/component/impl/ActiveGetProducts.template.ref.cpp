@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveGetProducts component implementation class
 // ======================================================================
 
+#include "ActiveGetProducts.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveCommands component implementation class
 // ======================================================================
 
+#include "ActiveCommands.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveCommands.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

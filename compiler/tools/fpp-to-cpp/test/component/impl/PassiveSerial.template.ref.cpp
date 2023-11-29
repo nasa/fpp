@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/PassiveSerial.hpp"
+#include "PassiveSerial.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

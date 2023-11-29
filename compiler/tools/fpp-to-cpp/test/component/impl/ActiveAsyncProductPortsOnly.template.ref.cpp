@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveAsyncProductPortsOnly component implementation class
 // ======================================================================
 
+#include "ActiveAsyncProductPortsOnly.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveAsyncProductPortsOnly.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

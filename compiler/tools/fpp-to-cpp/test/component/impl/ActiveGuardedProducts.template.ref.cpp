@@ -4,8 +4,8 @@
 // \brief  cpp file for ActiveGuardedProducts component implementation class
 // ======================================================================
 
+#include "ActiveGuardedProducts.hpp"
 #include "FpConfig.hpp"
-#include "impl/ActiveGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

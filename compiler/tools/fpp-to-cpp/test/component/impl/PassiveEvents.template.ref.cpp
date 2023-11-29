@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "FpConfig.hpp"
-#include "impl/PassiveEvents.hpp"
+#include "PassiveEvents.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction
