@@ -10,6 +10,7 @@ case class FormalParam(
     identifier: String = "",
     description: String = "",
     paramType: String = "",
+    paramKind: String = "",
     ref: Option[Boolean] = None,
     size: Option[BigInt] = None 
 )
@@ -80,34 +81,23 @@ case class Container(
     defaultPriority: Option[BigInt] = None
 )
 
-
-/** Dictionary data structure */
-case class Dictionary(
-    commands: List[Command],
-    events: List[Event],
-    channels: List[TelemtryChannel],
-    parameters: List[Parameter],
-    // need array and struct
-)
-
-// input: analysis
-
-// need to do:
+// /** Dictionary data structure */
 // extract command, event, channel, parameter information from analysis data structure
-object GenerateDictionary {
-    def createDictionary(componentMap: Map[Symbol.Component, Component]): Unit = {
-        for((componentSymbol, component) <- componentMap) {
-            // call func to gather commmands
-            val commandList = component.commandMap.toList.map(extractCommand())
-            // call func to gather events
-            // call func to gather channels
-            // call func to gather params
-            // create Dictionary object with above properties
-            // add dicitionary to component to dictionary mapping
-        }
-        // return component to dictionary mapping
-    }
-
+case class Dictionary(
+    /** The commands in the dictionary */
+    commands: List[Command] = List(),
+    /** The events in the dictionary */
+    events: List[Event] = List(),
+    /** The telemetry channels in the dictionary */
+    telemChannels: List[TelemtryChannel] = List(),
+    /** The parameters in the dictionary */
+    parameters: List[Parameter] = List(),
+    /** The records in the dictionary */
+    records : List[Record] = List(),
+    /** The containers in the dictionary */
+    container: List[Container] = List()
+) {
+    //* Returns a list of formal parameters */
     def getFormalParameters(params: Ast.FormalParamList): List[FormalParam] = {
         var resultList = List.empty[FormalParam]
         params.length match {
@@ -116,41 +106,46 @@ object GenerateDictionary {
                 val (_, elem, annotation) = paramEntry
                 val description = annotation.mkString("\n")
                 val AstNode(Ast.FormalParam(kind, identifier, typeNameNode), _) = elem
-                val (typeName, size) = typeNameNode match {
+                val (typeName, typeKind, size) = typeNameNode match {
                     case AstNode(Ast.TypeNameString(value), _) => {
                         val stringSize = value match {
                             case Some(AstNode(Ast.ExprLiteralInt(sizeVal), _)) => Some(BigInt(sizeVal))
                             case None => None
                             case _ => None
                         }
-                        ("string", stringSize)
+                        ("string", "string", stringSize)
                     }
                     case AstNode(Ast.TypeNameInt(value), _) => {
                         val stringVal = value.toString
                         val intSize = if (stringVal.startsWith("I")) stringVal.split("I").tail else stringVal.split("U").tail
-                        (stringVal, Some(BigInt(intSize.mkString(""))))
+                        (stringVal, "integer", Some(BigInt(intSize.mkString(""))))
                     }
                     case AstNode(Ast.TypeNameFloat(value), _) => {
                         val stringVal = value.toString
                         val floatSize = stringVal.split("F").tail
-                        (stringVal, Some(BigInt(floatSize.mkString(""))))
+                        (stringVal, "float", Some(BigInt(floatSize.mkString(""))))
                     }
-                    case _ => ("not implemented", None)
+                    case AstNode(Ast.TypeNameBool, _) => ("bool", "bool", None)
+                    case AstNode(Ast.TypeNameQualIdent(AstNode(qualIdent, _)), _) => (qualIdent.toIdentList.mkString("."), "qualifiedIdentifier", None)
+                    case _ => {
+                        // exclude any other type names that do not match the above
+                        ("not implemented", "not implemented", None)
+                    }
                 }
-                resultList :+= FormalParam(identifier, description, typeName, None, size)
+                resultList :+= FormalParam(identifier, description, typeName, typeKind, None, size)
             }
         }
         return resultList
     }
-    // to try:
-    def extractCommand() (commandEntry: (fpp.compiler.analysis.Command.Opcode, fpp.compiler.analysis.Command)): Unit = {
+    //* Adds a command to the dictionary list of commands */
+    def addCommand(commandEntry: (fpp.compiler.analysis.Command.Opcode, fpp.compiler.analysis.Command)): Dictionary = {
         val opcode = commandEntry._1 // want to keep as decimal number
         val command = commandEntry._2
         command match {
             case fpp.compiler.analysis.Command.NonParam(aNode, kind) => {
                 val (annotation, node, _) = aNode
                 val data = node.data
-                val mnemonic = data.name // TODO: need to use qualified name (ie: module.component.commandName)
+                val identifier = data.name // TODO: need to use qualified name (ie: module.component.commandName)
                 val description = annotation.mkString("\n")
                 // kind can either be: async, guarded, or sync
                 // can I use toString?
@@ -166,10 +161,13 @@ object GenerateDictionary {
                 }
                 val queueFullBehavior = Some(fpp.compiler.analysis.Analysis.getQueueFull(data.queueFull.map(_.data)).toString)
                 val formalParams = getFormalParameters(data.params)
-                return Command(mnemonic, commandKind, opcode, description, formalParams, priority, queueFullBehavior)
+                val newCommand = Command(identifier, commandKind, opcode, description, formalParams, priority, queueFullBehavior)
+                this.copy(commands = newCommand :: this.commands)
             }
+            // case where command is param set/save command
             case fpp.compiler.analysis.Command.Param(aNode, kind) => {
                 println("TODO")
+                this.copy(commands = Command("", "", 0, "", List(), None, Some("assert")) :: this.commands)
             }
         }
     }
