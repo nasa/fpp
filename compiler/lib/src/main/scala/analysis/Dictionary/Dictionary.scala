@@ -148,7 +148,6 @@ case class Dictionary(
                 val identifier = data.name // TODO: need to use qualified name (ie: module.component.commandName)
                 val description = annotation.mkString("\n")
                 // kind can either be: async, guarded, or sync
-                // can I use toString?
                 val commandKind = kind match {
                     case _: fpp.compiler.analysis.Command.NonParam.Async => "async"
                     case fpp.compiler.analysis.Command.NonParam.Guarded => "guarded"
@@ -170,5 +169,22 @@ case class Dictionary(
                 this.copy(commands = Command("", "", 0, "", List(), None, Some("assert")) :: this.commands)
             }
         }
+    }
+
+    //* Add a parameter to the dictionary list of parameters */
+    def addParameter(paramEntry: (fpp.compiler.analysis.Param.Id, fpp.compiler.analysis.Param)): String = {
+        val identifier = paramEntry._1 // want to keep as decimal number
+        val param = paramEntry._2
+
+        val paramType = param.paramType.toString
+
+        // need to go from default value (whatever that may be) -> parameter default value
+        param.default match {
+            case Some(value) => println(value)
+            case None => None
+        }
+        val setOpcode = param.setOpcode
+        val saveOpcode = param.saveOpcode
+        ""
     }
 }
