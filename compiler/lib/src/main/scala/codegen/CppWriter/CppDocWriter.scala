@@ -84,43 +84,9 @@ object CppDocWriter extends LineUtils {
   def leftAlignDirective(line: Line): Line =
     if (line.string.startsWith("#")) Line(line.string) else line
 
-  // FIXME: Get this class out of the CppDoc layer and into the CppWriter layer
-  case class FileBanner(cppDoc: CppDoc) extends CppDoc.FileBanner {
-    // Map template patterns to final code patterns
-    val templateMap = Map(
-      "TestMain\\.cpp$" -> "TestMain.cpp",
-      "Tester\\.cpp$" -> "Tester.cpp",
-      "Tester\\.hpp$" -> "Tester.hpp",
-      "\\.template\\.cpp$" -> ".cpp",
-      "\\.template\\.hpp$" -> ".hpp",
-    )
-    // Check whether the file name matches a template pattern
-    def fileIsTemplate(fileName: String): Boolean =
-      templateMap.keys.foldLeft (false) (
-        (s, pattern) => s || fileName.matches(s".*$pattern.*")
-      )
-    // Check whether the file name is a tester helpers file
-    def fileIsTesterHelpers(fileName: String): Boolean =
-      fileName.matches(".*TesterHelpers\\.cpp")
-    override def getTitle(fileName: String): String =
-      templateMap.foldLeft (fileName) {
-        case (s, (key, value)) => s.replaceAll(key, value)
-      }
-    override def getAuthor(fileName: String): String =
-      if fileIsTemplate(fileName)
-      then System.getProperty("user.name")
-      else cppDoc.DefaultFileBanner.getAuthor(fileName)
-    override def getDescription(fileName: String, genericDescription: String): String =
-      // The description for the TesterHelpers file is specialized
-      if fileIsTesterHelpers(fileName)
-      then genericDescription.replaceAll("implementation class", "helper functions")
-      else genericDescription
-  }
-
   /** Write a header banner */
   def writeBanner(cppDoc: CppDoc, fileName: String, genericDescription: String): List[Line] = {
-    // Return the banner
-    val fileBanner = FileBanner(cppDoc)
+    val fileBanner = cppDoc.getFileBanner
     lines(
     s"""|// ======================================================================
         |// \\title  ${fileBanner.getTitle(fileName)}
