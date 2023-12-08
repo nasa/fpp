@@ -30,9 +30,9 @@ object CppWriter extends LineUtils{
       ComputeCppFiles.FileNames.convertTemplateToActual(fileName)
     override def getAuthor(fileName: String): String =
       if ComputeCppFiles.FileNames.isTemplate(fileName)
-      // If the file is a template, then write in the user name as the author
+      // If the file is a template, then write in the user name as the author.
       // Ownership of the generated code passes to the user when the
-      // template file is copied to the actual file
+      // template file is copied to the actual file.
       then System.getProperty("user.name")
       // Otherwise say that the file is auto-generated
       else defaultFileBanner.getAuthor(fileName)
