@@ -87,8 +87,8 @@ object CppDocCppWriter extends CppDocWriter {
     val in = Input(cppDoc.hppFile, cppDoc.cppFileName, cppFileNameOpt)
     List(
       CppDocWriter.writeBanner(
+        cppDoc,
         in.getOutputCppFileName,
-        cppDoc.toolName,
         s"cpp file for ${cppDoc.description}"
       ),
       cppDoc.members.map(visitMember(in, _)).flatten,
