@@ -105,14 +105,14 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated component test harness helpers */
     def getComponentTestHelper(baseName: String) = s"${baseName}TesterHelpers"
 
-    /* Checks whether the file name is a tester helpers file */
+    /** Checks whether the file name is a tester helpers file */
     def isTesterHelpers(fileName: String): Boolean =
       fileName.matches(".*TesterHelpers\\.cpp")
 
     /** Gets the C++ file name for generated component main test harness classes */
     def getComponentTestMain(baseName: String) = s"${baseName}TestMain"
 
-    /* Maps generated template patterns to handcoded file patterns */
+    /** Maps generated template patterns to handcoded file patterns */
     val templateMap = Map(
       "TestMain\\.cpp$" -> "TestMain.cpp",
       "Tester\\.cpp$" -> "Tester.cpp",
@@ -121,7 +121,7 @@ object ComputeCppFiles {
       "\\.template\\.hpp$" -> ".hpp",
     )
 
-    /* Checks whether the file name matches a template pattern */
+    /** Checks whether the file name matches a template pattern */
     def isTemplate(fileName: String): Boolean =
       templateMap.keys.foldLeft (false) (
         (s, pattern) => s || fileName.matches(s".*$pattern.*")
