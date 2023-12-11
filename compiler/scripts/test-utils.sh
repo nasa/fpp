@@ -28,7 +28,7 @@ remove_path_prefix()
 # Remove local author
 remove_author()
 {
-  sed "s;\\author $USER;\\author [user name];"
+  sed 's;^// \\author .*;// \\author [user name];'
 }
 
 # Run a test
