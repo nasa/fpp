@@ -1018,6 +1018,7 @@ void PassiveTestGTestBase ::
       const Fw::Time& timeTag,
       Fw::DpCfg::ProcType procType,
       const Fw::DpContainer::Header::UserData& userData,
+      Fw::DpState dpState,
       FwSizeType dataSize,
       Fw::Buffer& historyBuffer
   ) const
@@ -1051,6 +1052,7 @@ void PassiveTestGTestBase ::
       timeTag,
       procType,
       userData,
+      dpState,
       dataSize
   );
 }

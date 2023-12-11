@@ -210,8 +210,8 @@
 #define ASSERT_PRODUCT_SEND_SIZE(size) \
   this->assertProductSend_size(__FILE__, __LINE__, size)
 
-#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dataSize, buffer) \
-    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dataSize, buffer)
+#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dpState, dataSize, buffer) \
+    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dpState, dataSize, buffer)
 
 //! \class ActiveGetProductsGTestBase
 //! \brief Auto-generated base for ActiveGetProducts component Google Test harness
@@ -324,6 +324,7 @@ class ActiveGetProductsGTestBase :
         const Fw::Time& timeTag, //!< The expected time tag (input)
         Fw::DpCfg::ProcType procType, //!< The expected processing type (input)
         const Fw::DpContainer::Header::UserData& userData, //!< The expected user data (input)
+        Fw::DpState dpState, //!< The expected data product state (input)
         FwSizeType dataSize, //!< The expected data size (input)
         Fw::Buffer& historyBuffer //!< The buffer from the history (output)
     ) const;
