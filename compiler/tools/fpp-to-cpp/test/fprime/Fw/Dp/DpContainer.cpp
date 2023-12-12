@@ -17,15 +17,14 @@ namespace Fw {
 // ----------------------------------------------------------------------
 
 DpContainer::DpContainer(FwDpIdType id, const Fw::Buffer& buffer)
-    : id(id), priority(0), procType(DpCfg::ProcType::NONE), dataSize(0), buffer() {
+    : id(id), priority(0), procTypes(0), dpState(), dataSize(0), buffer() {
     // Initialize the user data field
     this->initUserDataField();
     // Set the buffer
     this->setBuffer(buffer);
 }
 
-DpContainer::DpContainer()
-    : id(0), priority(0), procType(DpCfg::ProcType::NONE), dataSize(0), buffer() {
+DpContainer::DpContainer() : id(0), priority(0), procTypes(0), dataSize(0), buffer() {
     // Initialize the user data field
     this->initUserDataField();
 }
@@ -44,32 +43,36 @@ Fw::SerializeStatus DpContainer::serializeHeader() {
     auto& serializeRepr = this->buffer.getSerializeRepr();
     // Reset serialization
     serializeRepr.resetSer();
-    // Serialize the packet type
-    auto status = serializeRepr.serialize(static_cast<FwPacketDescriptorType>(Fw::ComPacket::FW_PACKET_DP));
-    // Serialize the container id
-    if (status == Fw::FW_SERIALIZE_OK) {
+    // Serialize the header
+    Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+    if (Header::SIZE <= serializeRepr.getBuffCapacity()) {
+        // Serialize the packet type
+        status = serializeRepr.serialize(static_cast<FwPacketDescriptorType>(Fw::ComPacket::FW_PACKET_DP));
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the container id
         status = serializeRepr.serialize(this->id);
-    }
-    // Serialize the priority
-    if (status == Fw::FW_SERIALIZE_OK) {
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the priority
         status = serializeRepr.serialize(this->priority);
-    }
-    // Serialize the time tag
-    if (status == Fw::FW_SERIALIZE_OK) {
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the time tag
         status = serializeRepr.serialize(this->timeTag);
-    }
-    // Serialize the processing type
-    if (status == Fw::FW_SERIALIZE_OK) {
-        status = serializeRepr.serialize(this->procType);
-    }
-    // Serialize the user data
-    if (status == Fw::FW_SERIALIZE_OK) {
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the processing types
+        status = serializeRepr.serialize(this->procTypes);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the user data
         const bool omitLength = true;
         status = serializeRepr.serialize(this->userData, sizeof userData, omitLength);
-    }
-    // Serialize the data size
-    if (status == Fw::FW_SERIALIZE_OK) {
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the data product state
+        status = serializeRepr.serialize(this->dpState);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+        // Serialize the data size
         status = serializeRepr.serialize(this->dataSize);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    } else {
+        status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
     }
     return status;
 }
