@@ -97,8 +97,8 @@ object CppDocHppWriter extends CppDocWriter {
     val in = Input(hppFile, cppFileName)
     List(
       CppDocWriter.writeBanner(
+        cppDoc,
         in.hppFile.name,
-        cppDoc.toolName,
         s"hpp file for ${cppDoc.description}"
       ),
       openIncludeGuard(hppFile.includeGuard),
