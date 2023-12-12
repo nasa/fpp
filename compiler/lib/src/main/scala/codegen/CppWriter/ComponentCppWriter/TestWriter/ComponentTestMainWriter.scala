@@ -15,7 +15,7 @@ case class ComponentTestMainWriter(
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
-      s"$name component test harness implementation class",
+      s"$name component test main function",
       fileName,
       includeGuard,
       getMembers,

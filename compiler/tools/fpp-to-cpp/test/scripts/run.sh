@@ -20,7 +20,7 @@ run_test()
   else
     outfile=$infile
   fi
-  $fpp_to_cpp $args $infile.fpp 2>&1 | remove_path_prefix > $outfile.out.txt
+  $fpp_to_cpp $args $infile.fpp 2>&1 | remove_author | remove_path_prefix > $outfile.out.txt
   compare $outfile
 }
 
@@ -67,8 +67,10 @@ diff_cpp_suffix()
 diff_template()
 {
   file=$1
-  diff -u $file.template.ref.hpp $file.template.hpp && \
-  diff -u $file.template.ref.cpp $file.template.cpp
+  remove_author < $file.template.hpp > $file.template.out.hpp && \
+  diff -u $file.template.ref.hpp $file.template.out.hpp && \
+  remove_author < $file.template.cpp > $file.template.out.cpp && \
+  diff -u $file.template.ref.cpp $file.template.out.cpp
 }
 
 diff_test()
@@ -87,13 +89,16 @@ diff_test()
 diff_test_template()
 {
   file=$1
-  diff -u $file'Tester.ref.hpp' $file'Tester.hpp' && \
-  diff -u $file'Tester.ref.cpp' $file'Tester.cpp' && \
+  remove_author < $file'Tester.hpp' > $file'Tester.out.hpp' && \
+  diff -u $file'Tester.ref.hpp' $file'Tester.out.hpp' && \
+  remove_author < $file'Tester.cpp' > $file'Tester.out.cpp' && \
+  diff -u $file'Tester.ref.cpp' $file'Tester.out.cpp' && \
   if test -f $file'TesterHelpers.ref.cpp'
   then
     diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.cpp'
   fi & \
-  diff -u $file'TestMain.ref.cpp' $file'TestMain.cpp'
+  remove_author < $file'TestMain.cpp' > $file'TestMain.out.cpp' && \
+  diff -u $file'TestMain.ref.cpp' $file'TestMain.out.cpp'
 }
 
 . ./run.sh
