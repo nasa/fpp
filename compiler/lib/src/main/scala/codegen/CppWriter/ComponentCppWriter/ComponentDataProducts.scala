@@ -39,10 +39,10 @@ case class ComponentDataProducts (
               |//! Get a buffer and use it to initialize container $name
               |//! \\return The status of the buffer request
               |Fw::Success::T dpGet_$name(
-              |    FwSizeType size, //!< The buffer size (input)
+              |    FwSizeType dataSize, //!< The data size (input)
               |    DpContainer& container //!< The container (output)
               |) {
-              |  return this->dpGet(ContainerId::$name, size, container);
+              |  return this->dpGet(ContainerId::$name, dataSize, container);
               |}"""
         )
       )
@@ -126,8 +126,8 @@ case class ComponentDataProducts (
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The buffer size (input)")
+          "dataSize",
+          Some("The data size (input)")
         ),
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
@@ -140,6 +140,7 @@ case class ComponentDataProducts (
         val invokeProductGet = outputPortInvokerName(productGetPort.get)
         lines(s"""|const FwDpIdType baseId = this->getIdBase();
                   |const FwDpIdType globalId = baseId + containerId;
+                  |const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
                   |Fw::Buffer buffer;
                   |const Fw::Success::T status = this->$invokeProductGet(0, globalId, size, buffer);
                   |if (status == Fw::Success::SUCCESS) {
@@ -161,8 +162,8 @@ case class ComponentDataProducts (
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The buffer size")
+          "dataSize",
+          Some("The data size")
         )
       ),
       CppDoc.Type("void"),
@@ -170,6 +171,7 @@ case class ComponentDataProducts (
         val invokeProductRequest = outputPortInvokerName(productRequestPort.get)
         lines(
           s"""|const FwDpIdType globalId = this->getIdBase() + containerId;
+              |const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
               |this->$invokeProductRequest(0, globalId, size);"""
         )
       }

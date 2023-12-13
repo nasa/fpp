@@ -299,7 +299,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   productRequestOut_out(
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   FW_ASSERT(
@@ -308,7 +308,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
   );
   this->m_productRequestOut_OutputPort[portNum].invoke(
     id,
-    size
+    dataSize
   );
 }
 

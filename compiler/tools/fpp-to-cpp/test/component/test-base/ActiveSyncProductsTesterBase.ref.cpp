@@ -1643,20 +1643,20 @@ void ActiveSyncProductsTesterBase ::
 void ActiveSyncProductsTesterBase ::
   pushProductRequestEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpRequest e = { id, size };
+  DpRequest e = { id, dataSize };
   this->productRequestHistory->push_back(e);
 }
 
 void ActiveSyncProductsTesterBase ::
   productRequest_handler(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  this->pushProductRequestEntry(id, size);
+  this->pushProductRequestEntry(id, dataSize);
 }
 
 void ActiveSyncProductsTesterBase ::
@@ -1783,11 +1783,11 @@ void ActiveSyncProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   ActiveSyncProductsTesterBase* _testerBase = static_cast<ActiveSyncProductsTesterBase*>(callComp);
-  _testerBase->productRequest_handler(id, size);
+  _testerBase->productRequest_handler(id, dataSize);
 }
 
 void ActiveSyncProductsTesterBase ::

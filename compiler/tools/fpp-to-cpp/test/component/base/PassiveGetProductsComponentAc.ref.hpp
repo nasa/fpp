@@ -895,7 +895,7 @@ class PassiveGetProductsComponentBase :
     Fw::Success productGetOut_out(
         NATIVE_INT_TYPE portNum, //!< The port number
         FwDpIdType id, //!< The container ID (input)
-        FwSizeType size, //!< The size of the requested buffer (input)
+        FwSizeType dataSize, //!< The data size of the requested buffer (input)
         Fw::Buffer& buffer //!< The buffer (output)
     );
 
@@ -955,46 +955,46 @@ class PassiveGetProductsComponentBase :
     //! Get a buffer and use it to initialize container Container1
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container1(
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container1, size, container);
+      return this->dpGet(ContainerId::Container1, dataSize, container);
     }
 
     //! Get a buffer and use it to initialize container Container2
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container2(
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container2, size, container);
+      return this->dpGet(ContainerId::Container2, dataSize, container);
     }
 
     //! Get a buffer and use it to initialize container Container3
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container3(
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container3, size, container);
+      return this->dpGet(ContainerId::Container3, dataSize, container);
     }
 
     //! Get a buffer and use it to initialize container Container4
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container4(
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container4, size, container);
+      return this->dpGet(ContainerId::Container4, dataSize, container);
     }
 
     //! Get a buffer and use it to initialize container Container5
     //! \return The status of the buffer request
     Fw::Success::T dpGet_Container5(
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container5, size, container);
+      return this->dpGet(ContainerId::Container5, dataSize, container);
     }
 
     //! Send a data product
@@ -1172,7 +1172,7 @@ class PassiveGetProductsComponentBase :
     //! \return The status of the buffer request
     Fw::Success::T dpGet(
         ContainerId::T containerId, //!< The component-local container id (input)
-        FwSizeType size, //!< The buffer size (input)
+        FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     );
 

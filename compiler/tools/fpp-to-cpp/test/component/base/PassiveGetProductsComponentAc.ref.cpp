@@ -1759,7 +1759,7 @@ Fw::Success PassiveGetProductsComponentBase ::
   productGetOut_out(
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
@@ -1769,7 +1769,7 @@ Fw::Success PassiveGetProductsComponentBase ::
   );
   return this->m_productGetOut_OutputPort[portNum].invoke(
     id,
-    size,
+    dataSize,
     buffer
   );
 }
@@ -2115,12 +2115,13 @@ void PassiveGetProductsComponentBase ::
 Fw::Success::T PassiveGetProductsComponentBase ::
   dpGet(
       ContainerId::T containerId,
-      FwSizeType size,
+      FwSizeType dataSize,
       DpContainer& container
   )
 {
   const FwDpIdType baseId = this->getIdBase();
   const FwDpIdType globalId = baseId + containerId;
+  const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
   Fw::Buffer buffer;
   const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
   if (status == Fw::Success::SUCCESS) {

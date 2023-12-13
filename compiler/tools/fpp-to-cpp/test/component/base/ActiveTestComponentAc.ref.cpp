@@ -3099,7 +3099,7 @@ namespace M {
     productRequestOut_out(
         NATIVE_INT_TYPE portNum,
         FwDpIdType id,
-        FwSizeType size
+        FwSizeType dataSize
     )
   {
     FW_ASSERT(
@@ -3108,7 +3108,7 @@ namespace M {
     );
     this->m_productRequestOut_OutputPort[portNum].invoke(
       id,
-      size
+      dataSize
     );
   }
 
@@ -7433,10 +7433,11 @@ namespace M {
   void ActiveTestComponentBase ::
     dpRequest(
         ContainerId::T containerId,
-        FwSizeType size
+        FwSizeType dataSize
     )
   {
     const FwDpIdType globalId = this->getIdBase() + containerId;
+    const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
     this->productRequestOut_out(0, globalId, size);
   }
 

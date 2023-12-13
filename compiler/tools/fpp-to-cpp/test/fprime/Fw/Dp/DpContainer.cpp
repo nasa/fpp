@@ -80,7 +80,7 @@ Fw::SerializeStatus DpContainer::serializeHeader() {
 void DpContainer::setBuffer(const Buffer& buffer) {
     this->buffer = buffer;
     // Move the serialization index to the end of the header
-    const auto status = this->moveSerToOffset(Header::SIZE);
+    const auto status = this->moveSerToOffset(DATA_OFFSET);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
 }
 

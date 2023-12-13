@@ -146,7 +146,7 @@ class PassiveGetProductPortsOnlyComponentBase :
     Fw::Success productGetOut_out(
         NATIVE_INT_TYPE portNum, //!< The port number
         FwDpIdType id, //!< The container ID (input)
-        FwSizeType size, //!< The size of the requested buffer (input)
+        FwSizeType dataSize, //!< The data size of the requested buffer (input)
         Fw::Buffer& buffer //!< The buffer (output)
     );
 
