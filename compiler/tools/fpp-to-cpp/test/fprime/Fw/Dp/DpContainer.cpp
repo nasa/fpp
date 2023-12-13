@@ -17,14 +17,15 @@ namespace Fw {
 // ----------------------------------------------------------------------
 
 DpContainer::DpContainer(FwDpIdType id, const Fw::Buffer& buffer)
-    : id(id), priority(0), procTypes(0), dpState(), dataSize(0), buffer() {
+    : id(id), priority(0), procTypes(0), dpState(), dataSize(0), buffer(), dataBuffer() {
     // Initialize the user data field
     this->initUserDataField();
-    // Set the buffer
+    // Set the packet buffer
+    // This action also updates the data buffer
     this->setBuffer(buffer);
 }
 
-DpContainer::DpContainer() : id(0), priority(0), procTypes(0), dataSize(0), buffer() {
+DpContainer::DpContainer() : id(0), priority(0), procTypes(0), dataSize(0), buffer(), dataBuffer() {
     // Initialize the user data field
     this->initUserDataField();
 }
@@ -79,9 +80,16 @@ Fw::SerializeStatus DpContainer::serializeHeader() {
 
 void DpContainer::setBuffer(const Buffer& buffer) {
     this->buffer = buffer;
+    FW_ASSERT(buffer.getSize() >= MIN_PACKET_SIZE, buffer.getSize(), MIN_PACKET_SIZE);
     // Move the serialization index to the end of the header
-    const auto status = this->moveSerToOffset(DATA_OFFSET);
-    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    // FIXME: Use the data buffer instead
+    //const auto status = this->moveSerToOffset(DATA_OFFSET);
+    //FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    // Initialize the data buffer
+    U8 *const buffPtr = buffer.getData();
+    U8 *const dataPtr = &buffPtr[DATA_OFFSET];
+    const FwSizeType dataCapacity = buffer.getSize() - MIN_PACKET_SIZE;
+    this->dataBuffer.setExtBuffer(dataPtr, dataCapacity);
 }
 
 // ----------------------------------------------------------------------

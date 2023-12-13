@@ -139,20 +139,19 @@ namespace M {
     )
   {
     FW_ASSERT(array != nullptr);
-    Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
     const FwSizeType sizeDelta =
       sizeof(FwDpIdType) +
       sizeof(FwSizeType) +
       size * M::ActiveTest_Data::SERIALIZED_SIZE;
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
       const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
-      status = serializeRepr.serialize(id);
+      status = this->dataBuffer.serialize(id);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-      status = serializeRepr.serialize(size);
+      status = this->dataBuffer.serialize(size);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       for (FwSizeType i = 0; i < size; i++) {
-        status = serializeRepr.serialize(array[i]);
+        status = this->dataBuffer.serialize(array[i]);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       }
       this->dataSize += sizeDelta;
@@ -166,16 +165,15 @@ namespace M {
   Fw::SerializeStatus ActiveTestComponentBase::DpContainer ::
     serializeRecord_DataRecord(const M::ActiveTest_Data& elt)
   {
-    Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
     const FwSizeType sizeDelta =
       sizeof(FwDpIdType) +
       M::ActiveTest_Data::SERIALIZED_SIZE;
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
       const FwDpIdType id = this->baseId + RecordId::DataRecord;
-      status = serializeRepr.serialize(id);
+      status = this->dataBuffer.serialize(id);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-      status = serializeRepr.serialize(elt);
+      status = this->dataBuffer.serialize(elt);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       this->dataSize += sizeDelta;
     }
@@ -192,20 +190,19 @@ namespace M {
     )
   {
     FW_ASSERT(array != nullptr);
-    Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
     const FwSizeType sizeDelta =
       sizeof(FwDpIdType) +
       sizeof(FwSizeType) +
       size * sizeof(U32);
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
       const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
-      status = serializeRepr.serialize(id);
+      status = this->dataBuffer.serialize(id);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-      status = serializeRepr.serialize(size);
+      status = this->dataBuffer.serialize(size);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       for (FwSizeType i = 0; i < size; i++) {
-        status = serializeRepr.serialize(array[i]);
+        status = this->dataBuffer.serialize(array[i]);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       }
       this->dataSize += sizeDelta;
@@ -219,16 +216,15 @@ namespace M {
   Fw::SerializeStatus ActiveTestComponentBase::DpContainer ::
     serializeRecord_U32Record(U32 elt)
   {
-    Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
     const FwSizeType sizeDelta =
       sizeof(FwDpIdType) +
       sizeof(U32);
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
       const FwDpIdType id = this->baseId + RecordId::U32Record;
-      status = serializeRepr.serialize(id);
+      status = this->dataBuffer.serialize(id);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-      status = serializeRepr.serialize(elt);
+      status = this->dataBuffer.serialize(elt);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       this->dataSize += sizeDelta;
     }
@@ -245,20 +241,19 @@ namespace M {
     )
   {
     FW_ASSERT(array != nullptr);
-    Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
     const FwSizeType sizeDelta =
       sizeof(FwDpIdType) +
       sizeof(FwSizeType) +
       size * sizeof(U8);
     Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-    if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+    if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
       const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
-      status = serializeRepr.serialize(id);
+      status = this->dataBuffer.serialize(id);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-      status = serializeRepr.serialize(size);
+      status = this->dataBuffer.serialize(size);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       const bool omitSerializedLength = true;
-      status = serializeRepr.serialize(array, size, omitSerializedLength);
+      status = this->dataBuffer.serialize(array, size, omitSerializedLength);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
       this->dataSize += sizeDelta;
     }
