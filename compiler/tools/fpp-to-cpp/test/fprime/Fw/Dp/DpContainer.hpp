@@ -50,22 +50,10 @@ class DpContainer {
     //! The header hash offset
     static constexpr FwSizeType HEADER_HASH_OFFSET = Header::SIZE;
     //! The data offset
-    static constexpr FwSizeType DATA_OFFSET = HEADER_HASH_OFFSET + 2 * 
-      HASH_DIGEST_LENGTH;
-    // FIXME: The data offset should be HEADER_HASH_OFFSET + HASH_DIGEST_LENGTH
-    // The other hash digest length should go at the end.
-    //
-    // Right now, since everything is in one buffer, we have to put all the
-    // reserved space for hashes at the beginning.
-    // We will fix this by maintaining an external serialize buffer for the
-    // data. The capacity of that buffer is the max data size.
-    // The FPP code gen will need to be modified to serialize data into this 
-    // buffer.
-    //! The data hash offset
-    static constexpr FwSizeType DATA_HASH_OFFSET = HEADER_HASH_OFFSET + HASH_DIGEST_LENGTH;
-    // FIXME: See above
-
+    static constexpr FwSizeType DATA_OFFSET = HEADER_HASH_OFFSET + HASH_DIGEST_LENGTH;
     //! The minimum packet size
+    //! Reserve space for the header, the header hash, and the data hash
+    //! This is also the number of non-data bytes in the packet
     static constexpr FwSizeType MIN_PACKET_SIZE = Header::SIZE + 2 * HASH_DIGEST_LENGTH;
 
   public:
@@ -118,9 +106,8 @@ class DpContainer {
     Fw::SerializeStatus moveSerToOffset(FwSizeType offset  //!< The offset
     );
 
-    //! Serialize the header into the packet buffer
-    //! \return The serialize status
-    Fw::SerializeStatus serializeHeader();
+    //! Serialize the header into the packet buffer and update the header hash
+    void serializeHeader();
 
     //! Set the id
     void setId(FwDpIdType id  //!< The id
@@ -152,9 +139,27 @@ class DpContainer {
         this->dpState = dpState;
     }
 
+    //! Set the data size
+    void setDataSize(FwSizeType dataSize //!< The data size
+    ) {
+        this->dataSize = dataSize;
+    }
+
     //! Set the packet buffer
     void setBuffer(const Buffer& buffer  //!< The packet buffer
     );
+
+    //! Update the header hash
+    void updateHeaderHash();
+
+    //! Get the data hash offset
+    FwSizeType getDataHashOffset() const {
+        // Data hash goes after the header, the header hash, and the data
+        return Header::SIZE + HASH_DIGEST_LENGTH + this->dataSize;
+    }
+
+    //! Update the data hash
+    void updateDataHash();
 
   public:
     // ----------------------------------------------------------------------

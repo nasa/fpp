@@ -2711,8 +2711,9 @@ void ActiveGetProductsComponentBase ::
   }
   container.setTimeTag(timeTag);
   // Serialize the header into the packet
-  Fw::SerializeStatus status = container.serializeHeader();
-  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+  container.serializeHeader();
+  // Update the data hash
+  container.updateDataHash();
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();
