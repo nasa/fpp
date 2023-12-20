@@ -300,7 +300,7 @@ case class ComponentCppWriter (
     // For each one, add a byte array of that size as a member
     val members = List.concat(
       // Data product and typed async input ports
-      (dataProductAsyncInputPorts ++ typedAsyncInputPorts).flatMap(p => {
+      (dataProductAsyncInputPorts ++ typedAsyncInputPorts).filterNot(p => p.size > 0).flatMap(p => {
         val portName = p.getUnqualifiedName
         val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
         lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
