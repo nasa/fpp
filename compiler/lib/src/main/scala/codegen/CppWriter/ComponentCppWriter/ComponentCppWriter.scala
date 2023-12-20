@@ -352,7 +352,6 @@ case class ComponentCppWriter (
          |      // Max. message size = size of data + message id + port
          |      SERIALIZATION_SIZE =${if (getBuffUnion.nonEmpty) """
          |        sizeof(BuffUnion) +""" else "" }
-         |        sizeof(BuffUnion) +
          |        sizeof(NATIVE_INT_TYPE) +
          |        sizeof(NATIVE_INT_TYPE)
          |    };
