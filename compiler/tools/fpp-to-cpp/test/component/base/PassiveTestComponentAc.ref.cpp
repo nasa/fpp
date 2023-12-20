@@ -196,7 +196,7 @@ void PassiveTestComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -222,7 +222,7 @@ void PassiveTestComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -248,7 +248,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -274,7 +274,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -300,7 +300,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -326,7 +326,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -352,7 +352,7 @@ void PassiveTestComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -378,7 +378,7 @@ void PassiveTestComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -404,7 +404,7 @@ void PassiveTestComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -430,7 +430,7 @@ void PassiveTestComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -451,7 +451,7 @@ void PassiveTestComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -472,7 +472,7 @@ void PassiveTestComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -493,7 +493,7 @@ void PassiveTestComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -514,7 +514,7 @@ void PassiveTestComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -535,7 +535,7 @@ void PassiveTestComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -556,7 +556,7 @@ void PassiveTestComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -577,7 +577,7 @@ void PassiveTestComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -599,7 +599,7 @@ void PassiveTestComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -621,7 +621,7 @@ void PassiveTestComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -642,7 +642,7 @@ void PassiveTestComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -663,7 +663,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -684,7 +684,7 @@ void PassiveTestComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -705,7 +705,7 @@ void PassiveTestComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -726,7 +726,7 @@ void PassiveTestComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),

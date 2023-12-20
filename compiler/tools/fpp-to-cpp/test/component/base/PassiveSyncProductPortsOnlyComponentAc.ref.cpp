@@ -36,7 +36,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -57,7 +57,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -78,7 +78,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
     (void) snprintf(
       portName,
       sizeof(portName),
