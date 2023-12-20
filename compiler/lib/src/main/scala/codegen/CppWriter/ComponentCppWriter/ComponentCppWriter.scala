@@ -300,7 +300,7 @@ case class ComponentCppWriter (
     // For each one, add a byte array of that size as a member
     val members = List.concat(
       // Data product and typed async input ports
-      (dataProductAsyncInputPorts ++ typedAsyncInputPorts).filterNot(p => p.size > 0).flatMap(p => {
+      (dataProductAsyncInputPorts ++ typedAsyncInputPorts).filter(p => getPortParams(p).size > 0).flatMap(p => {
         val portName = p.getUnqualifiedName
         val portTypeName = getQualifiedPortTypeName(p, p.getDirection.get)
         lines(s"BYTE ${portName}PortSize[${portTypeName}::SERIALIZED_SIZE];")
@@ -329,20 +329,18 @@ case class ComponentCppWriter (
           })
       )
     )
-    List.concat(
-      lines("""|// Get the max size by constructing a union of the async input, command, and
-               |// internal port serialization sizes"""),
-      wrapInScope(
-        "union BuffUnion {",
-        members,
-        "};"
-      )
+    wrapInScope(
+      """|// Get the max size by constructing a union of the async input, command, and
+         |// internal port serialization sizes
+         |union BuffUnion {""",
+      members,
+      "};"
     )
   }
 
   private def getComponentIpcSerializableBufferClass: List[Line] = {
     lines(
-      """|// Define a message buffer class large enough to handle all the
+      s"""|// Define a message buffer class large enough to handle all the
          |// asynchronous inputs to the component
          |class ComponentIpcSerializableBuffer :
          |  public Fw::SerializeBufferBase
@@ -352,7 +350,8 @@ case class ComponentCppWriter (
          |
          |    enum {
          |      // Max. message size = size of data + message id + port
-         |      SERIALIZATION_SIZE =
+         |      SERIALIZATION_SIZE =${if (getBuffUnion.nonEmpty) """
+         |        sizeof(BuffUnion) +""" else "" }
          |        sizeof(BuffUnion) +
          |        sizeof(NATIVE_INT_TYPE) +
          |        sizeof(NATIVE_INT_TYPE)
