@@ -964,7 +964,8 @@ object ComponentCppWriter extends CppWriterUtils {
           },
           Line.blank :: lines(
             s"""|#if FW_OBJECT_NAMES == 1
-                |char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+                |// Max obj name size + Unqualified port name + Port type + fixed characters + port indices
+                |char portName[FW_OBJ_NAME_MAX_SIZE + ${port.getUnqualifiedName.length} + ${d.toString.capitalize.length} + 8 + 5];
                 |(void) snprintf(
                 |  portName,
                 |  sizeof(portName),
