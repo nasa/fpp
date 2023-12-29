@@ -3,40 +3,36 @@ package fpp.compiler.analysis.dictionary
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.analysis._
+import fpp.compiler.analysis.dictionary._
 import io.circe._
 import io.circe.syntax._
 
 case class DictionaryGeneration() {
-    case class CommandEntry(opcode: BigInt, command: Command)
-    case class ParamEntry(identifier: BigInt, param: Param)
-    case class EventEntry(identifier: BigInt, event: Event)
-    case class ChannelEntry(identifier: BigInt, channel: TlmChannel)
-
     private def mapAsJsonList[A, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
         (map.map { case (key, value) => f1(key, value) }).toList.asJson
 
-    private implicit val commandMapEncoder: Encoder[Map[BigInt, Command]] = {
-        def f1(opcode: BigInt, command: Command) = CommandEntry(opcode, command).asJson
+    private implicit val commandMapEncoder: Encoder[Map[BigInt, CommandEntry]] = {
+        def f1(opcode: BigInt, command: CommandEntry) = command.asJson
         Encoder.instance (mapAsJsonList (f1) _)
     }
 
-    private implicit val paramMapEncoder: Encoder[Map[BigInt, Param]] = {
-        def f1(identifier: BigInt, param: Param) = ParamEntry(identifier, param).asJson
+    private implicit val paramMapEncoder: Encoder[Map[BigInt, ParamEntry]] = {
+        def f1(identifier: BigInt, param: ParamEntry) = param.asJson
         Encoder.instance (mapAsJsonList (f1) _)
     }
 
-    private implicit val eventMapEncoder: Encoder[Map[BigInt, Event]] = {
-        def f1(identifier: BigInt, event: Event) = EventEntry(identifier, event).asJson
+    private implicit val eventMapEncoder: Encoder[Map[BigInt, EventEntry]] = {
+        def f1(identifier: BigInt, event: EventEntry) = event.asJson
         Encoder.instance (mapAsJsonList (f1) _)
     }
 
-    private implicit val channelMapEncoder: Encoder[Map[BigInt, TlmChannel]] = {
-        def f1(identifier: BigInt, event: TlmChannel) = ChannelEntry(identifier, event).asJson
+    private implicit val channelMapEncoder: Encoder[Map[BigInt, TlmChannelEntry]] = {
+        def f1(identifier: BigInt, channel: TlmChannelEntry) = channel.asJson
         Encoder.instance (mapAsJsonList (f1) _)
     }
 
     def extractTypeNameFromNode(typeNameNode: AstNode[Ast.TypeName]): (String, String, Option[BigInt]) = {
-        return typeNameNode match {
+        typeNameNode match {
             case AstNode(Ast.TypeNameString(value), _) => {
                 val stringSize = value match {
                     case Some(AstNode(Ast.ExprLiteralInt(sizeVal), _)) => Some(BigInt(sizeVal))
@@ -73,16 +69,15 @@ case class DictionaryGeneration() {
     private implicit def formalParamListEncoder: Encoder[Ast.FormalParamList] = new Encoder[Ast.FormalParamList] {
         override def apply(params: Ast.FormalParamList): Json = {
             val paramListJson = params.length match {
-                case 0 => return List(List("").asJson).asJson
+                case 0 => List(List.empty[String].asJson)
                 case _ => for (paramEntry <- params) yield {
                     val (_, elem, annotation) = paramEntry
-                    val description = annotation.mkString("\n")
                     val AstNode(Ast.FormalParam(kind, identifier, typeNameNode), _) = elem
                     val (typeName, typeKind, size) = extractTypeNameFromNode(typeNameNode)
                     // TODO: figure out how to encode optional fields (ie: size). Currently size is "null" if its None
                     Json.obj(
                         "identifier" -> identifier.asJson,
-                        "description" -> description.asJson, 
+                        "description" -> annotation.mkString("\n").asJson, 
                         "type" -> Json.obj(
                             "name" -> typeName.asJson,
                             "kind" -> typeKind.asJson,
@@ -98,14 +93,12 @@ case class DictionaryGeneration() {
 
     private implicit def commandEncoder: Encoder[CommandEntry] = new Encoder[CommandEntry] {
         override def apply(entry: CommandEntry): Json = {
-            val opcode = entry.opcode
+            val opcode = entry.resolvedIdentifier
             val command  = entry.command
             command match {
                 case fpp.compiler.analysis.Command.NonParam(aNode, kind) => {
                     val (annotation, node, _) = aNode
                     val data = node.data
-                    val identifier = data.name.toString // TODO: need to use qualified name (ie: module.component.commandName)
-                    val description = annotation.mkString("\n")
                     // kind can either be: async, guarded, or sync
                     val commandKind = kind match {
                         case _: fpp.compiler.analysis.Command.NonParam.Async => "async"
@@ -118,29 +111,31 @@ case class DictionaryGeneration() {
                         case _ => None
                     }
                     val queueFullBehavior = Some(fpp.compiler.analysis.Analysis.getQueueFull(data.queueFull.map(_.data)).toString)
-                    val formalParams = data.params
                     // val newCommand = Command(identifier, commandKind, opcode, description, formalParams, priority, queueFullBehavior)
                     Json.obj(
-                        "identifier" -> identifier.asJson,
+                        "identifier" -> entry.fullyQualifiedName.asJson,
                         "commandKind" -> commandKind.asJson, 
                         "opcode" -> opcode.asJson,
-                        "description" -> description.asJson, 
-                        "formalParams" -> formalParams.asJson,
+                        "description" -> annotation.mkString("\n").asJson, 
+                        "formalParams" -> data.params.asJson,
                         "priority" -> 0.asJson,
                         "queueFullBehavior" -> "".asJson
                     )
                 }
                 // case where command is param set/save command
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
-                    println("TODO")
+                    val (annotation, node, _) = aNode
+                    val data = node.data
+                    val commandKind = kind match {
+                        case fpp.compiler.analysis.Command.Param.Set => "set"
+                        case fpp.compiler.analysis.Command.Param.Save => "save"
+                    }
                     Json.obj(
-                        "identifier" -> "".asJson,
-                        "commandKind" -> "".asJson, 
-                        "opcode" -> 0.asJson,
-                        "description" -> "".asJson, 
-                        "formalParams" -> List("something").asJson,
-                        "priority" -> 0.asJson,
-                        "queueFullBehavior" -> "".asJson
+                        "identifier" -> entry.fullyQualifiedName.asJson,
+                        "commandKind" -> commandKind.asJson, 
+                        "opcode" -> opcode.asJson,
+                        "description" -> annotation.mkString("\n").asJson, 
+                        "formalParams" -> List.empty[String].asJson,
                     )
                 }
             }
@@ -149,77 +144,58 @@ case class DictionaryGeneration() {
 
     private implicit def paramEncoder: Encoder[ParamEntry] = new Encoder[ParamEntry] {
         override def apply(entry: ParamEntry): Json = {
-            val identifier = entry.identifier
             val param = entry.param
             val (annotation, node, _) = param.aNode
-            val description = annotation.mkString("\n")
             val (typeName, typeKind, size) = extractTypeNameFromNode(node.data.typeName)
-            val numId = node.data.id match {
-                case Some(AstNode(Ast.ExprLiteralInt(value), _)) => Some(BigInt(value))
-                case _ => None
-            }
             // TODO: get default values
-           
-            val setOpcode = param.setOpcode
-            val saveOpcode = param.saveOpcode
             Json.obj(
-                "identifier" -> identifier.asJson,
-                "description" -> description.asJson,
+                "identifier" -> entry.fullyQualifiedName.asJson,
+                "description" -> annotation.mkString("\n").asJson,
                 // "default" -> default.asJson,
                 "type" -> Json.obj(
                     "name" -> typeName.asJson,
                     "kind" -> typeKind.asJson,
                     "size" -> size.asJson
                 ),
-                "numericIdentifier" -> numId.asJson, 
-                "setOpcode" -> setOpcode.asJson,
-                "saveOpcode" -> saveOpcode.asJson,
+                "numericIdentifier" -> entry.resolvedIdentifier.asJson, 
+                "setOpcode" -> entry.resolvedSetIdentifier.asJson,
+                "saveOpcode" -> entry.resolvedSaveIdentifier.asJson,
             )
         }
     }
 
     private implicit def eventEncoder: Encoder[EventEntry] = new Encoder[EventEntry] {
         override def apply(entry: EventEntry): Json = {
-            val identifier = entry.identifier
             val event = entry.event
             val (annotation, node, _) = event.aNode
-            val numId = node.data.id match {
-                case Some(AstNode(Ast.ExprLiteralInt(value), _)) => Some(BigInt(value))
-                case _ => None
-            }
             // val format = event.format.prefix // need to fix format so it adheres to spec (ie: python string format convention)
             Json.obj(
-                "identifier" -> identifier.asJson,
+                "identifier" -> entry.fullyQualifiedName.asJson,
                 "description" -> annotation.mkString("\n").asJson,
                 "severity" -> node.data.severity.toString.asJson,
                 "formalParams" -> node.data.params.asJson,
-                "numericIdentifier" -> numId.asJson,
+                "numericIdentifier" -> entry.resolvedIdentifier.asJson,
                 // "formatString" -> format.asJson,
                 "throttle" -> event.throttle.asJson
             )
         }
     }
 
-    private implicit def channelEncoder: Encoder[ChannelEntry] = new Encoder[ChannelEntry] {
-        override def apply(entry: ChannelEntry): Json = {
-            val identifier = entry.identifier
+    private implicit def channelEncoder: Encoder[TlmChannelEntry] = new Encoder[TlmChannelEntry] {
+        override def apply(entry: TlmChannelEntry): Json = {
             val channel = entry.channel
             val (annotation, node, _) = channel.aNode
-            val numId = node.data.id match {
-                case Some(AstNode(Ast.ExprLiteralInt(value), _)) => Some(BigInt(value))
-                case _ => None
-            }
             val (typeName, typeKind, size) = extractTypeNameFromNode(node.data.typeName)
             // val format = channel.format.prefix // need to fix format so it adheres to spec (ie: python string format convention)
             Json.obj(
-                "identifier" -> identifier.asJson,
+                "identifier" -> entry.fullyQualifiedName.asJson,
                 "description" -> annotation.mkString("\n").asJson,
                 "type" -> Json.obj(
                     "type" -> typeName.asJson,
                     "kind" -> typeKind.asJson,
                     "size" -> size.asJson
                 ),
-                "numericIdentifier" -> numId.asJson,
+                "numericIdentifier" -> entry.resolvedIdentifier.asJson,
                 "telemtryUpdate" -> channel.update.toString.asJson,
                 "limit" -> Json.obj(
                     "low" -> channel.lowLimits.asJson,
@@ -231,10 +207,15 @@ case class DictionaryGeneration() {
     }
 
     def dictionaryToJson(d: dictionary.Dictionary): Json = {
-        // val jsonRes1 = d.resolvedIdCommandMap.asJson
-        // val jsonRes2 = d.resolvedIdParamMap.asJson
-        // val jsonRes3 = d.resolvedIdEventMap.asJson
-        val jsonRes4 = d.resolvedIdChannelMap.asJson
-        jsonRes4
+        val commandJson = d.commandEntryMap.asJson
+        val paramJson = d.paramEntryMap.asJson
+        val eventJson = d.eventEntryMap.asJson
+        val channelJson = d.channelEntryMap.asJson
+        Json.obj(
+            "commands" -> commandJson,
+            "parameters" -> paramJson,
+            "events" -> eventJson,
+            "telemtryChannels" -> channelJson
+        )
     }
 }

@@ -4,77 +4,116 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.analysis._
 
+case class ComponentInstanceEntry(baseId: BigInt, component: Component, qualifiedName: String)
+case class CommandEntry(resolvedIdentifier: BigInt, command: Command, fullyQualifiedName: String)
+case class TlmChannelEntry(resolvedIdentifier: BigInt, channel: TlmChannel, fullyQualifiedName: String)
+case class EventEntry(resolvedIdentifier: BigInt, event: Event, fullyQualifiedName: String)
+case class ParamEntry(
+    resolvedIdentifier: BigInt,
+    resolvedSetIdentifier: BigInt,
+    resolvedSaveIdentifier: BigInt,
+    param: Param, 
+    fullyQualifiedName: String
+)
+
 case class ResolvedComponentInstance(
     /** The map from resolved ID to command */
-    resolvedIdCommandMap: Map[BigInt, Command] = Map(),
+    resolvedIdCommandMap: Map[BigInt, CommandEntry] = Map(),
     /** The map from resolved ID to telemetry channel */
-    resolvedIdChannelMap: Map[BigInt, TlmChannel] = Map(),
+    resolvedIdChannelMap: Map[BigInt, TlmChannelEntry] = Map(),
     /** The map from resolved ID to event */
-    resolvedIdEventMap: Map[BigInt, Event] = Map(),
+    resolvedIdEventMap: Map[BigInt, EventEntry] = Map(),
     /** The map from resolved ID to parameter */
-    resolvedIdParamMap: Map[BigInt, Param] = Map()
+    resolvedIdParamMap: Map[BigInt, ParamEntry] = Map()
 )
-// TODO: do we need to include param set/sav opcodes?
+
 /** Dictionary data structure */
 case class Dictionary(
-    /** The map from component instance base ID to component */
-    baseIdComponentMap: Map[BigInt, Component] = Map(),
-    /** The map from resolved ID to command */
-    resolvedIdCommandMap: Map[BigInt, Command] = Map(),
-    /** The map from resolved ID to telemetry channel */
-    resolvedIdChannelMap: Map[BigInt, TlmChannel] = Map(),
-    /** The map from resolved ID to event */
-    resolvedIdEventMap: Map[BigInt, Event] = Map(),
-    /** The map from resolved ID to parameter */
-    resolvedIdParamMap: Map[BigInt, Param] = Map()
+    /** The map from resolved ID to dictionary command entry */
+    commandEntryMap: Map[BigInt, CommandEntry] = Map(),
+    /** The map from resolved ID to dictionary telemetry channel entry */
+    channelEntryMap: Map[BigInt, TlmChannelEntry] = Map(),
+    /** The map from resolved ID to dictionary event entry */
+    eventEntryMap: Map[BigInt, EventEntry] = Map(),
+    /** The map from resolved ID to dictionary parameter entry */
+    paramEntryMap: Map[BigInt, ParamEntry] = Map()
 ) {
     /** From an analysis, retrieves all component instances and creates a map
     * from component instance base ID to component, returns the map */
-    def buildBaseIdComponentMap(a: Analysis): Map[BigInt, Component] = {
-        return a.componentInstanceMap.map((componentInstanceSymbol, componentInstance) =>
-            componentInstance.baseId -> componentInstance.component).toMap
+    def buildComponentInstanceList(a: Analysis): List[ComponentInstanceEntry] = {
+        a.componentInstanceMap.map((componentInstanceSymbol, componentInstance) => 
+            ComponentInstanceEntry(componentInstance.baseId, componentInstance.component, componentInstance.qualifiedName.toString)).toList
     }
 
+    def formatQualifiedName(componentQualifiedIdentifier: String, identifier: String): String =
+        componentQualifiedIdentifier + "." + identifier
+
     def resolveIds[T](currentMap: Map[BigInt, T], baseId: BigInt): Map[BigInt, T] = {
-        return currentMap.map((id, elem) => baseId + id -> elem)
+        currentMap.map((id, elem) => baseId + id -> elem)
     }
     
     def buildResolvedCommandMap(baseIdComponentMap: Map[BigInt, Component]): Map[BigInt, Command] = {
-        return for {
+        for {
             (baseId, component) <- baseIdComponentMap
             resolved <- resolveIds(component.commandMap, baseId)
         } yield resolved
     }
 
     def mergeResolvedInstances(inputList: Iterable[ResolvedComponentInstance], outputDict: Dictionary): Dictionary = {
-        return inputList match {
+        inputList match {
             case head::tail => {
                 mergeResolvedInstances(tail, outputDict.copy(
-                    resolvedIdCommandMap=outputDict.resolvedIdCommandMap ++ head.resolvedIdCommandMap,
-                    resolvedIdParamMap=outputDict.resolvedIdParamMap ++ head.resolvedIdParamMap,
-                    resolvedIdChannelMap=outputDict.resolvedIdChannelMap ++ head.resolvedIdChannelMap,
-                    resolvedIdEventMap=outputDict.resolvedIdEventMap ++ head.resolvedIdEventMap)
+                    commandEntryMap=outputDict.commandEntryMap ++ head.resolvedIdCommandMap,
+                    paramEntryMap=outputDict.paramEntryMap ++ head.resolvedIdParamMap,
+                    channelEntryMap=outputDict.channelEntryMap ++ head.resolvedIdChannelMap,
+                    eventEntryMap=outputDict.eventEntryMap ++ head.resolvedIdEventMap)
                 )
             }
             case Nil => outputDict
         }
     }
 
-    def resolveAll(baseIdComponentMap: Map[BigInt, Component]): Iterable[ResolvedComponentInstance] = {
-        return for (baseId, component) <- baseIdComponentMap yield {
+    def resolveAll(componentInstanceList: List[ComponentInstanceEntry]): Iterable[ResolvedComponentInstance] = {
+        for (entry <- componentInstanceList) yield {
             ResolvedComponentInstance(
-                resolveIds(component.commandMap, baseId), 
-                resolveIds(component.tlmChannelMap, baseId),
-                resolveIds(component.eventMap, baseId),
-                resolveIds(component.paramMap, baseId)
+                entry.component.commandMap.map((id, elem) => entry.baseId + id -> 
+                    CommandEntry(
+                        entry.baseId + id,
+                        elem, 
+                        formatQualifiedName(entry.qualifiedName, elem.getName.toString)
+                    )
+                ),
+                entry.component.tlmChannelMap.map((id, elem) => entry.baseId + id -> 
+                    TlmChannelEntry(
+                        entry.baseId + id,
+                        elem, 
+                        formatQualifiedName(entry.qualifiedName, elem.getName.toString)
+                    )
+                ),
+                entry.component.eventMap.map((id, elem) => entry.baseId + id -> 
+                    EventEntry(
+                        entry.baseId + id,
+                        elem, 
+                        formatQualifiedName(entry.qualifiedName, elem.getName.toString)
+                    )
+                ),
+                entry.component.paramMap.map((id, elem) => entry.baseId + id -> 
+                    ParamEntry(
+                        entry.baseId + id, 
+                        entry.baseId + elem.setOpcode, 
+                        entry.baseId + elem.saveOpcode,
+                        elem,
+                        formatQualifiedName(entry.qualifiedName, elem.getName.toString)
+                    )
+                )
             )
         }
     }
 
     def buildDictionary(analysis: Analysis): Dictionary = {
-        val baseIdComponentMap = buildBaseIdComponentMap(analysis)
-        val resolved = resolveAll(baseIdComponentMap)
+        val componentInstanceEntryList = buildComponentInstanceList(analysis)
+        val resolved = resolveAll(componentInstanceEntryList)
         val d = mergeResolvedInstances(resolved, this.copy())
-        return d
+        d
     }
 }
