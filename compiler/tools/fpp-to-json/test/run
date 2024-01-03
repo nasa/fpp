@@ -25,7 +25,7 @@ run_test()
   } && \
   {
     # Validate the location map
-    if which python4 > /dev/null 2>&1
+    if which python3 > /dev/null 2>&1
     then
       python3 python/locationMapValidator.py fpp-ast.json fpp-loc-map.json
     else
