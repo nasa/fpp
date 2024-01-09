@@ -80,14 +80,14 @@ Struct1 ::
 Struct1::ElementType& Struct1 ::
   operator[](const U32 i)
 {
-  FW_ASSERT(i < SIZE);
+  FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const Struct1::ElementType& Struct1 ::
   operator[](const U32 i) const
 {
-  FW_ASSERT(i < SIZE);
+  FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
