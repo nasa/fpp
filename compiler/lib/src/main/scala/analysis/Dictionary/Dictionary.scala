@@ -28,38 +28,13 @@ case class Dictionary(
     /** The map from resolved ID to parameter */
     paramEntryMap: Map[BigInt, Param] = Map(),
     /** The map from resolved ID to record */
-    recordEntryMap: Map[BigInt, Record] = Map(),
-    arraySymbolSet: Set[Symbol.Array] = Set(),
-    enumSymbolSet: Set[Symbol.Enum] = Set(),
-    structSymbolSet: Set[Symbol.Struct] = Set()
+    recordEntryMap: Map[BigInt, Record] = Map()
     // /** The map from resolved ID to container */
     // containerEntryMap: Map[BigInt, Semantics.Container] = Map() // "Container" not found?
 ) {
-
-    def flattenListOfSets(input: Iterable[Set[Symbol]], output: Set[Symbol]): Set[Symbol] = {
-        input match {
-            case head :: tail => {
-                flattenListOfSets(tail, output ++ head)
-            }
-            case Nil => output
-        }
-    }
-
-    /** Given a set of symbols, returns subsets corresponding to arrays, enums, and struct type symbols */
-    def splitTypeSymbolSet(symbolSet: Set[Symbol], outArray: Set[Symbol.Array], outEnum: Set[Symbol.Enum], outStruct: Set[Symbol.Struct]): (Set[Symbol.Array], Set[Symbol.Enum], Set[Symbol.Struct]) = {
-        if (symbolSet.tail.isEmpty) (outArray, outEnum, outStruct) else {
-            val (tail, outA, outE, outS) = symbolSet.head match {
-                case h: Symbol.Array => (symbolSet.tail, outArray + h, outEnum, outStruct)
-                case h: Symbol.Enum => (symbolSet.tail, outArray, outEnum + h, outStruct)
-                case h: Symbol.Struct => (symbolSet.tail, outArray, outEnum, outStruct + h)
-                case _ => (symbolSet.tail, outArray, outEnum, outStruct)
-            }
-            splitTypeSymbolSet(tail, outA, outE, outS)
-        }
-    }
-
-    def populateUsedSymbols(analysis: Analysis, instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)]): Dictionary = {
-        val res  = for (componentInstance, _) <- instanceMap yield {
+    /** Given an analysis, returns all used symbols within commands, telemetry channels, parameters, and events */
+    def getUsedSymbols(analysis: Analysis, topology: Topology): Set[Symbol] = {
+        val symbolSetList  = for (componentInstance, _) <- topology.instanceMap yield {
             val component = componentInstance.component
             val commandSymbolSet = for (_, command) <- component.commandMap yield {
                 command match {
@@ -74,64 +49,35 @@ case class Dictionary(
                 val Right(a) = UsedSymbols.specEventAnnotatedNode(analysis, event.aNode)
                 a.usedSymbolSet
             }
-
             val tlmChannelSymbolSet = for (_, channel) <- component.tlmChannelMap yield {
                 val Right(a) = UsedSymbols.specTlmChannelAnnotatedNode(analysis, channel.aNode)
                 a.usedSymbolSet
             }
-
             val paramSymbolSet = for (_, param) <- component.paramMap yield {
                 val Right(a) = UsedSymbols.specParamAnnotatedNode(analysis, param.aNode)
                 a.usedSymbolSet
             }
-            // flatten list of sets to a single set
-            flattenListOfSets(commandSymbolSet ++ eventSymbolSet ++ tlmChannelSymbolSet ++ paramSymbolSet, Set())
+            val combined = commandSymbolSet ++ eventSymbolSet ++ tlmChannelSymbolSet ++ paramSymbolSet
+            combined.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
+
         }
-        // flatten list of sets to a single set
-        val symbolSet = flattenListOfSets(res, Set())
-
-        // split set into individual sets consisting of each symbol type (arrays, enums, structs)
-        val (arraySymbolSet, enumSymbolSet, structSymbolSet) = splitTypeSymbolSet(symbolSet, Set(), Set(), Set())
-
-        // return updated Dictionary data structure with type symbol set
-        this.copy(typeSymbolSet=symbolSet, arraySymbolSet=arraySymbolSet, enumSymbolSet=enumSymbolSet, structSymbolSet=structSymbolSet)
+       // merge list of sets into a single set and return
+       symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
     }
 
+    /** Given an map and base IDs, returns a mapping of resolved IDs to map values */
     def resolveIds[T](currentMap: Map[BigInt, T], baseId: BigInt): Map[BigInt, T] = {
         currentMap.map((id, elem) => baseId + id -> elem)
     }
 
-    def mergeResolvedInstances(inputList: Iterable[ResolvedComponentInstance], outputDict: Dictionary): Dictionary = {
-        inputList match {
-            case head :: tail => {
-                mergeResolvedInstances(tail, outputDict.copy(
-                    commandEntryMap=outputDict.commandEntryMap ++ head.resolvedIdCommandMap,
-                    paramEntryMap=outputDict.paramEntryMap ++ head.resolvedIdParamMap,
-                    channelEntryMap=outputDict.channelEntryMap ++ head.resolvedIdChannelMap,
-                    eventEntryMap=outputDict.eventEntryMap ++ head.resolvedIdEventMap)
-                )
-            }
-            case Nil => outputDict
-        }
-    }
-
-    def resolveAllDictionaryEntries(instanceMap: Map[ComponentInstance, (Ast.Visibility, Location)]): Iterable[ResolvedComponentInstance] = {
-        for (componentInstance, _) <- instanceMap yield {
-            val component = componentInstance.component
-            val baseId = componentInstance.baseId
-            ResolvedComponentInstance(
-                resolveIds(component.commandMap, baseId), 
-                resolveIds(component.tlmChannelMap, baseId),
-                resolveIds(component.eventMap, baseId),
-                resolveIds(component.paramMap, baseId)
-            )
-        }
-    }
-
-    def buildDictionary(analysis: Analysis): Dictionary = {
-        val dictionaryPopulatedSymbols = populateUsedSymbols(analysis, analysis.topologyMap.head._2.instanceMap)
-        val resolved = resolveAllDictionaryEntries(analysis.topologyMap.head._2.instanceMap)
-        val constructedDictionary = mergeResolvedInstances(resolved, dictionaryPopulatedSymbols)
-        constructedDictionary
+    def buildDictionary(analysis: Analysis, topology: Topology): Dictionary = {
+        val instances = topology.instanceMap.keys
+        Dictionary(
+            typeSymbolSet=getUsedSymbols(analysis, topology),
+            commandEntryMap=instances.foldLeft(Map[BigInt, Command]()) ((acc, inst) => acc ++ resolveIds(inst.component.commandMap, inst.baseId)),
+            channelEntryMap=instances.foldLeft(Map[BigInt, TlmChannel]()) ((acc, inst) => acc ++ resolveIds(inst.component.tlmChannelMap, inst.baseId)),
+            eventEntryMap=instances.foldLeft(Map[BigInt, Event]()) ((acc, inst) => acc ++ resolveIds(inst.component.eventMap, inst.baseId)),
+            paramEntryMap=instances.foldLeft(Map[BigInt, Param]()) ((acc, inst) => acc ++ resolveIds(inst.component.paramMap, inst.baseId))
+        )
     }
 }
