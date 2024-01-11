@@ -1643,20 +1643,20 @@ void QueuedSyncProductsTesterBase ::
 void QueuedSyncProductsTesterBase ::
   pushProductRequestEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpRequest e = { id, size };
+  DpRequest e = { id, dataSize };
   this->productRequestHistory->push_back(e);
 }
 
 void QueuedSyncProductsTesterBase ::
   productRequest_handler(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  this->pushProductRequestEntry(id, size);
+  this->pushProductRequestEntry(id, dataSize);
 }
 
 void QueuedSyncProductsTesterBase ::
@@ -1783,11 +1783,11 @@ void QueuedSyncProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   QueuedSyncProductsTesterBase* _testerBase = static_cast<QueuedSyncProductsTesterBase*>(callComp);
-  _testerBase->productRequest_handler(id, size);
+  _testerBase->productRequest_handler(id, dataSize);
 }
 
 void QueuedSyncProductsTesterBase ::

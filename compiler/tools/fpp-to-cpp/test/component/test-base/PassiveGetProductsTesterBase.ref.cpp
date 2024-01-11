@@ -1206,22 +1206,22 @@ void PassiveGetProductsTesterBase ::
 void PassiveGetProductsTesterBase ::
   pushProductGetEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpGet e = { id, size };
+  DpGet e = { id, dataSize };
   this->productGetHistory->push_back(e);
 }
 
 Fw::Success::T PassiveGetProductsTesterBase ::
   productGet_handler(
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
   (void) buffer;
-  this->pushProductGetEntry(id, size);
+  this->pushProductGetEntry(id, dataSize);
   return Fw::Success::FAILURE;
 }
 
@@ -1337,12 +1337,12 @@ Fw::Success PassiveGetProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
   PassiveGetProductsTesterBase* _testerBase = static_cast<PassiveGetProductsTesterBase*>(callComp);
-  return _testerBase->productGet_handler(id, size, buffer);
+  return _testerBase->productGet_handler(id, dataSize, buffer);
 }
 
 void PassiveGetProductsTesterBase ::

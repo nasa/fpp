@@ -3569,20 +3569,20 @@ namespace M {
   void ActiveTestTesterBase ::
     pushProductRequestEntry(
         FwDpIdType id,
-        FwSizeType size
+        FwSizeType dataSize
     )
   {
-    DpRequest e = { id, size };
+    DpRequest e = { id, dataSize };
     this->productRequestHistory->push_back(e);
   }
 
   void ActiveTestTesterBase ::
     productRequest_handler(
         FwDpIdType id,
-        FwSizeType size
+        FwSizeType dataSize
     )
   {
-    this->pushProductRequestEntry(id, size);
+    this->pushProductRequestEntry(id, dataSize);
   }
 
   void ActiveTestTesterBase ::
@@ -4037,11 +4037,11 @@ namespace M {
         Fw::PassiveComponentBase* const callComp,
         NATIVE_INT_TYPE portNum,
         FwDpIdType id,
-        FwSizeType size
+        FwSizeType dataSize
     )
   {
     ActiveTestTesterBase* _testerBase = static_cast<ActiveTestTesterBase*>(callComp);
-    _testerBase->productRequest_handler(id, size);
+    _testerBase->productRequest_handler(id, dataSize);
   }
 
   void ActiveTestTesterBase ::

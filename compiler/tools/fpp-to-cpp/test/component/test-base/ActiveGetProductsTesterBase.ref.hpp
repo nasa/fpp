@@ -845,8 +845,8 @@ class ActiveGetProductsTesterBase :
 
     //! Push an entry on the product get history
     void pushProductGetEntry(
-        FwDpIdType id, //!< The container ID
-        FwSizeType size //!< The size of the requested buffer
+        FwDpIdType id, //!< The container ID (input)
+        FwSizeType dataSize //!< The data size of the requested buffer (input)
     );
 
     //! Handle a data product get from the component under test
@@ -855,9 +855,9 @@ class ActiveGetProductsTesterBase :
     //! and return FAILURE. You can override this behavior, e.g., to call
     //! pushProductGetEntry, allocate a buffer and return SUCCESS.
     virtual Fw::Success::T productGet_handler(
-        FwDpIdType id, //!< The container ID
-        FwSizeType size, //!< The size of the requested buffer
-        Fw::Buffer& buffer //!< The buffer
+        FwDpIdType id, //!< The container ID (input)
+        FwSizeType dataSize, //!< The data size of the requested buffer (input)
+        Fw::Buffer& buffer //!< The buffer (output)
     );
 
     //! Push an entry on the product send history
@@ -925,9 +925,9 @@ class ActiveGetProductsTesterBase :
     static Fw::Success from_productGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        FwSizeType size, //!< The size of the requested buffer
-        Fw::Buffer& buffer //!< The buffer
+        FwDpIdType id, //!< The container ID (input)
+        FwSizeType dataSize, //!< The data size of the requested buffer (input)
+        Fw::Buffer& buffer //!< The buffer (output)
     );
 
     //! Static function for port from_productSendOut

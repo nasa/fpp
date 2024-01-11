@@ -1293,7 +1293,7 @@ namespace M {
       void productRequestOut_out(
           NATIVE_INT_TYPE portNum, //!< The port number
           FwDpIdType id, //!< The container ID
-          FwSizeType size //!< The size of the requested buffer
+          FwSizeType dataSize //!< The data size of the requested buffer
       );
 
       //! Invoke output port productSendOut
@@ -2412,7 +2412,7 @@ namespace M {
       //! Request a data product container
       void dpRequest(
           ContainerId::T containerId, //!< The component-local container id
-          FwSizeType size //!< The buffer size
+          FwSizeType dataSize //!< The data size
       );
 
       //! Handler implementation for productRecvIn

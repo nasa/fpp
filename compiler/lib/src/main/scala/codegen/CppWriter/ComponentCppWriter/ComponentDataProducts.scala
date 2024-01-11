@@ -39,10 +39,10 @@ case class ComponentDataProducts (
               |//! Get a buffer and use it to initialize container $name
               |//! \\return The status of the buffer request
               |Fw::Success::T dpGet_$name(
-              |    FwSizeType size, //!< The buffer size (input)
+              |    FwSizeType dataSize, //!< The data size (input)
               |    DpContainer& container //!< The container (output)
               |) {
-              |  return this->dpGet(ContainerId::$name, size, container);
+              |  return this->dpGet(ContainerId::$name, dataSize, container);
               |}"""
         )
       )
@@ -88,8 +88,9 @@ case class ComponentDataProducts (
               |}
               |container.setTimeTag(timeTag);
               |// Serialize the header into the packet
-              |Fw::SerializeStatus status = container.serializeHeader();
-              |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+              |container.serializeHeader();
+              |// Update the data hash
+              |container.updateDataHash();
               |// Update the size of the buffer according to the data size
               |const FwSizeType packetSize = container.getPacketSize();
               |Fw::Buffer buffer = container.getBuffer();
@@ -126,8 +127,8 @@ case class ComponentDataProducts (
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The buffer size (input)")
+          "dataSize",
+          Some("The data size (input)")
         ),
         CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
@@ -140,6 +141,7 @@ case class ComponentDataProducts (
         val invokeProductGet = outputPortInvokerName(productGetPort.get)
         lines(s"""|const FwDpIdType baseId = this->getIdBase();
                   |const FwDpIdType globalId = baseId + containerId;
+                  |const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
                   |Fw::Buffer buffer;
                   |const Fw::Success::T status = this->$invokeProductGet(0, globalId, size, buffer);
                   |if (status == Fw::Success::SUCCESS) {
@@ -161,8 +163,8 @@ case class ComponentDataProducts (
         ),
         CppDoc.Function.Param(
           CppDoc.Type("FwSizeType"),
-          "size",
-          Some("The buffer size")
+          "dataSize",
+          Some("The data size")
         )
       ),
       CppDoc.Type("void"),
@@ -170,6 +172,7 @@ case class ComponentDataProducts (
         val invokeProductRequest = outputPortInvokerName(productRequestPort.get)
         lines(
           s"""|const FwDpIdType globalId = this->getIdBase() + containerId;
+              |const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
               |this->$invokeProductRequest(0, globalId, size);"""
         )
       }
@@ -375,16 +378,15 @@ case class ComponentDataProducts (
         ),
         CppDoc.Type("Fw::SerializeStatus"),
         lines(
-          s"""|Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
-              |const FwSizeType sizeDelta =
+          s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  $typeSize;
               |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-              |if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+              |if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
               |  const FwDpIdType id = this->baseId + RecordId::$name;
-              |  status = serializeRepr.serialize(id);
+              |  status = this->dataBuffer.serialize(id);
               |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-              |  status = serializeRepr.serialize(elt);
+              |  status = this->dataBuffer.serialize(elt);
               |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  this->dataSize += sizeDelta;
               |}
@@ -423,27 +425,26 @@ case class ComponentDataProducts (
             // Optimize the U8 case
             case Type.U8 =>
               """|  const bool omitSerializedLength = true;
-                 |  status = serializeRepr.serialize(array, size, omitSerializedLength);
+                 |  status = this->dataBuffer.serialize(array, size, omitSerializedLength);
                  |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);"""
             case _ =>
               """|  for (FwSizeType i = 0; i < size; i++) {
-                 |    status = serializeRepr.serialize(array[i]);
+                 |    status = this->dataBuffer.serialize(array[i]);
                  |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
                  |  }"""
           }).stripMargin
           lines(
             s"""|FW_ASSERT(array != nullptr);
-                |Fw::SerializeBufferBase& serializeRepr = this->buffer.getSerializeRepr();
                 |const FwSizeType sizeDelta =
                 |  sizeof(FwDpIdType) +
                 |  sizeof(FwSizeType) +
                 |  size * $eltSize;
                 |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-                |if (serializeRepr.getBuffLength() + sizeDelta <= serializeRepr.getBuffCapacity()) {
+                |if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
                 |  const FwDpIdType id = this->baseId + RecordId::$name;
-                |  status = serializeRepr.serialize(id);
+                |  status = this->dataBuffer.serialize(id);
                 |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-                |  status = serializeRepr.serialize(size);
+                |  status = this->dataBuffer.serialize(size);
                 |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
                 |$serializeElts
                 |  this->dataSize += sizeDelta;

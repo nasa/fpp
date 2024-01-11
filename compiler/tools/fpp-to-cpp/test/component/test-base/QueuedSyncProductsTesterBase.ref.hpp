@@ -864,7 +864,7 @@ class QueuedSyncProductsTesterBase :
     //! Push an entry on the product request history
     void pushProductRequestEntry(
         FwDpIdType id, //!< The container ID
-        FwSizeType size //!< The size of the requested buffer
+        FwSizeType dataSize //!< The data size of the requested buffer
     );
 
     //! Handle a data product request from the component under test
@@ -873,7 +873,7 @@ class QueuedSyncProductsTesterBase :
     //! this behavior.
     virtual void productRequest_handler(
         FwDpIdType id, //!< The container ID
-        FwSizeType size //!< The size of the requested buffer
+        FwSizeType dataSize //!< The data size of the requested buffer
     );
 
     //! Send a data product response to the component under test
@@ -949,7 +949,7 @@ class QueuedSyncProductsTesterBase :
         Fw::PassiveComponentBase* const callComp, //!< The component instance
         NATIVE_INT_TYPE portNum, //!< The port number
         FwDpIdType id, //!< The container ID
-        FwSizeType size //!< The size of the requested buffer
+        FwSizeType dataSize //!< The data size of the requested buffer
     );
 
     //! Static function for port from_productSendOut
