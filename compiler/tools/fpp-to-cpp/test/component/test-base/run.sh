@@ -34,6 +34,7 @@ active()
   diff_test ActiveEvents && \
   diff_test ActiveGetProducts && \
   diff_test ActiveGuardedProducts && \
+  diff_test ActiveNoArgsPortsOnly && \
   diff_test ActiveParams &&\
   diff_test ActiveSerial && \
   diff_test ActiveSyncProducts && \
@@ -50,6 +51,7 @@ queued()
   diff_test QueuedEvents && \
   diff_test QueuedGetProducts && \
   diff_test QueuedGuardedProducts && \
+  diff_test QueuedNoArgsPortsOnly && \
   diff_test QueuedParams && \
   diff_test QueuedSerial && \
   diff_test QueuedSyncProducts
