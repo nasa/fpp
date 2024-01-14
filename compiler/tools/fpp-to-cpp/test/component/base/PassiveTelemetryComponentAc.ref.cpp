@@ -36,7 +36,7 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 23];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -62,7 +62,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -88,7 +88,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 37];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -114,7 +114,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -140,7 +140,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -166,7 +166,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 30];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -192,7 +192,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -218,7 +218,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -244,7 +244,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -265,7 +265,7 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -286,7 +286,7 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -307,7 +307,7 @@ void PassiveTelemetryComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -328,7 +328,7 @@ void PassiveTelemetryComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -349,7 +349,7 @@ void PassiveTelemetryComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -371,7 +371,7 @@ void PassiveTelemetryComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -393,7 +393,7 @@ void PassiveTelemetryComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -414,7 +414,7 @@ void PassiveTelemetryComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 25];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -435,7 +435,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -456,7 +456,7 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -477,7 +477,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -498,7 +498,7 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),

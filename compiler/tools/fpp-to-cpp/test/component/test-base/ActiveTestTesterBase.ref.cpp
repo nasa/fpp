@@ -35,7 +35,7 @@ namespace M {
       this->m_from_cmdRegOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 27];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -61,7 +61,7 @@ namespace M {
       this->m_from_cmdResponseOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 32];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -87,7 +87,7 @@ namespace M {
       this->m_from_eventOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 26];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -113,7 +113,7 @@ namespace M {
       this->m_from_prmGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 27];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -139,7 +139,7 @@ namespace M {
       this->m_from_prmSetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 27];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -165,7 +165,7 @@ namespace M {
       this->m_from_productRequestOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 35];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -191,7 +191,7 @@ namespace M {
       this->m_from_productSendOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 32];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -218,7 +218,7 @@ namespace M {
       this->m_from_textEventOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 30];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -245,7 +245,7 @@ namespace M {
       this->m_from_timeGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 28];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -271,7 +271,7 @@ namespace M {
       this->m_from_tlmOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 24];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -297,7 +297,7 @@ namespace M {
       this->m_from_noArgsOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 27];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -323,7 +323,7 @@ namespace M {
       this->m_from_noArgsReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 33];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -349,7 +349,7 @@ namespace M {
       this->m_from_typedOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 26];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -375,7 +375,7 @@ namespace M {
       this->m_from_typedReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 32];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -396,7 +396,7 @@ namespace M {
       this->m_to_cmdIn[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 24];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -417,7 +417,7 @@ namespace M {
       this->m_to_productRecvIn[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 32];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -438,7 +438,7 @@ namespace M {
       this->m_to_noArgsAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 30];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -459,7 +459,7 @@ namespace M {
       this->m_to_noArgsGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 32];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -480,7 +480,7 @@ namespace M {
       this->m_to_noArgsReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 38];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -501,7 +501,7 @@ namespace M {
       this->m_to_noArgsReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 35];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -522,7 +522,7 @@ namespace M {
       this->m_to_noArgsSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 29];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -543,7 +543,7 @@ namespace M {
       this->m_to_typedAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 29];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -564,7 +564,7 @@ namespace M {
       this->m_to_typedAsyncAssert[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 35];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -585,7 +585,7 @@ namespace M {
       this->m_to_typedAsyncBlockPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 42];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -606,7 +606,7 @@ namespace M {
       this->m_to_typedAsyncDropPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 41];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -627,7 +627,7 @@ namespace M {
       this->m_to_typedGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 31];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -648,7 +648,7 @@ namespace M {
       this->m_to_typedReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 37];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -669,7 +669,7 @@ namespace M {
       this->m_to_typedReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 34];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -690,7 +690,7 @@ namespace M {
       this->m_to_typedSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+      char portName[FW_OBJ_NAME_MAX_SIZE + 28];
       (void) snprintf(
         portName,
         sizeof(portName),

@@ -31,7 +31,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 32];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -52,7 +52,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),

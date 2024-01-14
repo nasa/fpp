@@ -255,7 +255,7 @@ void ActiveGetProductsComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 23];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -281,7 +281,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -307,7 +307,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -333,7 +333,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 37];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -359,7 +359,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -385,7 +385,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -411,7 +411,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -437,7 +437,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -463,7 +463,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 41];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -489,7 +489,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 40];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -515,7 +515,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 30];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -541,7 +541,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -567,7 +567,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -593,7 +593,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -614,7 +614,7 @@ void ActiveGetProductsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -635,7 +635,7 @@ void ActiveGetProductsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -656,7 +656,7 @@ void ActiveGetProductsComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -677,7 +677,7 @@ void ActiveGetProductsComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -698,7 +698,7 @@ void ActiveGetProductsComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -719,7 +719,7 @@ void ActiveGetProductsComponentBase ::
     this->m_productGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 32];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -740,7 +740,7 @@ void ActiveGetProductsComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -762,7 +762,7 @@ void ActiveGetProductsComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -784,7 +784,7 @@ void ActiveGetProductsComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -805,7 +805,7 @@ void ActiveGetProductsComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 25];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -826,7 +826,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -847,7 +847,7 @@ void ActiveGetProductsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -868,7 +868,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -889,7 +889,7 @@ void ActiveGetProductsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE * 2];
+    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
     (void) snprintf(
       portName,
       sizeof(portName),

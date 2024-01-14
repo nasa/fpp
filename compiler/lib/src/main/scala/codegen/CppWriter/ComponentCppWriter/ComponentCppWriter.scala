@@ -963,9 +963,9 @@ object ComponentCppWriter extends CppWriterUtils {
             case PortInstance.Direction.Output => Nil
           },
           Line.blank :: lines(
+            // In the portName buffer 8 chars are used to store the fixed characters and 5 chars the port indices
             s"""|#if FW_OBJECT_NAMES == 1
-                |// Max obj name size + Unqualified port name + Port type + fixed characters + port indices
-                |char portName[FW_OBJ_NAME_MAX_SIZE + ${port.getUnqualifiedName.length} + ${d.toString.capitalize.length} + 8 + 5];
+                |char portName[FW_OBJ_NAME_MAX_SIZE + ${port.getUnqualifiedName.length + d.toString.capitalize.length + 8 + 5}];
                 |(void) snprintf(
                 |  portName,
                 |  sizeof(portName),
