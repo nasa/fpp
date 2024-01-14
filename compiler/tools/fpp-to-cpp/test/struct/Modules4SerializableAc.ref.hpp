@@ -128,25 +128,25 @@ class Modules4 :
     //! Get member arr1
     Type_of_arr1& getarr1()
     {
-      return this->arr1;
+      return this->m_arr1;
     }
 
     //! Get member arr1 (const)
     const Type_of_arr1& getarr1() const
     {
-      return this->arr1;
+      return this->m_arr1;
     }
 
     //! Get member arr2
     Type_of_arr2& getarr2()
     {
-      return this->arr2;
+      return this->m_arr2;
     }
 
     //! Get member arr2 (const)
     const Type_of_arr2& getarr2() const
     {
-      return this->arr2;
+      return this->m_arr2;
     }
 
     // ----------------------------------------------------------------------
@@ -171,8 +171,8 @@ class Modules4 :
     // Member variables
     // ----------------------------------------------------------------------
 
-    M::Modules2 arr1[3];
-    M::Modules2 arr2[6];
+    M::Modules2 m_arr1[3];
+    M::Modules2 m_arr2[6];
 
 };
 

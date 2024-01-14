@@ -165,25 +165,25 @@ class Default :
     //! Get member mU32
     U32 getmU32() const
     {
-      return this->mU32;
+      return this->m_mU32;
     }
 
     //! Get member mS1
     StringSize40& getmS1()
     {
-      return this->mS1;
+      return this->m_mS1;
     }
 
     //! Get member mS1 (const)
     const StringSize40& getmS1() const
     {
-      return this->mS1;
+      return this->m_mS1;
     }
 
     //! Get member mF64
     F64 getmF64() const
     {
-      return this->mF64;
+      return this->m_mF64;
     }
 
     // ----------------------------------------------------------------------
@@ -212,9 +212,9 @@ class Default :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 mU32;
-    StringSize40 mS1;
-    F64 mF64;
+    U32 m_mU32;
+    StringSize40 m_mS1;
+    F64 m_mF64;
 
 };
 

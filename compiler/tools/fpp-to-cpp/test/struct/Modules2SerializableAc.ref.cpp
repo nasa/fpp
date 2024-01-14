@@ -20,7 +20,7 @@ namespace M {
   Modules2 ::
     Modules2() :
       Serializable(),
-      x(0, 0.0f)
+      m_x(0, 0.0f)
   {
 
   }
@@ -28,7 +28,7 @@ namespace M {
   Modules2 ::
     Modules2(const M::Modules1& x) :
       Serializable(),
-      x(x)
+      m_x(x)
   {
 
   }
@@ -36,7 +36,7 @@ namespace M {
   Modules2 ::
     Modules2(const Modules2& obj) :
       Serializable(),
-      x(obj.x)
+      m_x(obj.m_x)
   {
 
   }
@@ -52,14 +52,14 @@ namespace M {
       return *this;
     }
 
-    set(obj.x);
+    set(obj.m_x);
     return *this;
   }
 
   bool Modules2 ::
     operator==(const Modules2& obj) const
   {
-    return (this->x == obj.x);
+    return (this->m_x == obj.m_x);
   }
 
   bool Modules2 ::
@@ -88,7 +88,7 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serialize(this->x);
+    status = buffer.serialize(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -101,7 +101,7 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserialize(this->x);
+    status = buffer.deserialize(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -116,14 +116,14 @@ namespace M {
   {
     static const char* formatString =
       "( "
-      "x = %s"
+      "m_x = %s"
       " )";
 
     // Declare strings to hold any serializable toString() arguments
     Fw::String xStr;
 
     // Call toString for arrays and serializable types
-    this->x.toString(xStr);
+    this->m_x.toString(xStr);
 
     char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
     (void) snprintf(
@@ -146,13 +146,13 @@ namespace M {
   void Modules2 ::
     set(const M::Modules1& x)
   {
-    this->x = x;
+    this->m_x = x;
   }
 
   void Modules2 ::
     setx(const M::Modules1& x)
   {
-    this->x = x;
+    this->m_x = x;
   }
 
 }

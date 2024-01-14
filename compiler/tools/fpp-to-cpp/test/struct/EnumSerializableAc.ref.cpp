@@ -18,7 +18,7 @@
 Enum ::
   Enum() :
     Serializable(),
-    e(M::E::X)
+    m_e(M::E::X)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->eArr[i] = M::E::X;
@@ -31,7 +31,7 @@ Enum ::
       const Type_of_eArr& eArr
   ) :
     Serializable(),
-    e(e)
+    m_e(e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->eArr[i] = eArr[i];
@@ -41,10 +41,10 @@ Enum ::
 Enum ::
   Enum(const Enum& obj) :
     Serializable(),
-    e(obj.e)
+    m_e(obj.m_e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = obj.eArr[i];
+    this->eArr[i] = obj.m_eArr[i];
   }
 }
 
@@ -54,7 +54,7 @@ Enum ::
       M::E::T eArr
   ) :
     Serializable(),
-    e(e)
+    m_e(e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
     this->eArr[i] = eArr;
@@ -72,7 +72,7 @@ Enum& Enum ::
     return *this;
   }
 
-  set(obj.e, obj.eArr);
+  set(obj.m_e, obj.m_eArr);
   return *this;
 }
 
@@ -80,14 +80,14 @@ bool Enum ::
   operator==(const Enum& obj) const
 {
   // Compare non-array members
-  if (!(this->e == obj.e)) {
+  if (!(this->m_e == obj.m_e)) {
     return false;
   }
 
   // Compare array members
-  if (!(this->eArr == obj.eArr)) {
+  if (!(this->m_eArr == obj.m_eArr)) {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      if (!(this->eArr[i] == obj.eArr[i])) {
+      if (!(this->m_eArr[i] == obj.m_eArr[i])) {
         return false;
       }
     }
@@ -122,12 +122,12 @@ Fw::SerializeStatus Enum ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->e);
+  status = buffer.serialize(this->m_e);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.serialize(this->eArr[i]);
+    status = buffer.serialize(this->m_eArr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -141,12 +141,12 @@ Fw::SerializeStatus Enum ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->e);
+  status = buffer.deserialize(this->m_e);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->eArr[i]);
+    status = buffer.deserialize(this->m_eArr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -162,8 +162,8 @@ void Enum ::
 {
   static const char* formatString =
     "( "
-    "e = %s, "
-    "eArr = [ %s, "
+    "m_e = %s, "
+    "m_eArr = [ %s, "
     "%s, "
     "%s ]"
     " )";
@@ -173,9 +173,9 @@ void Enum ::
   Fw::String eArrStr[3];
 
   // Call toString for arrays and serializable types
-  this->e.toString(eStr);
+  this->m_e.toString(eStr);
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i].toString(eArrStr[i]);
+    this->m_eArr[i].toString(eArrStr[i]);
   }
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -205,23 +205,23 @@ void Enum ::
       const Type_of_eArr& eArr
   )
 {
-  this->e = e;
+  this->m_e = e;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = eArr[i];
+    this->eArr[i] = m_eArr[i];
   }
 }
 
 void Enum ::
   sete(M::E::T e)
 {
-  this->e = e;
+  this->m_e = e;
 }
 
 void Enum ::
   seteArr(const Type_of_eArr& eArr)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = eArr[i];
+    this->m_eArr[i] = eArr[i];
   }
 }

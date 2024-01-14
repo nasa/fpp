@@ -228,25 +228,25 @@ class StringArray :
     //! Get member s1
     StringSize80& gets1()
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     //! Get member s1 (const)
     const StringSize80& gets1() const
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     //! Get member s2
     Type_of_s2& gets2()
     {
-      return this->s2;
+      return this->m_s2;
     }
 
     //! Get member s2 (const)
     const Type_of_s2& gets2() const
     {
-      return this->s2;
+      return this->m_s2;
     }
 
     // ----------------------------------------------------------------------
@@ -271,8 +271,8 @@ class StringArray :
     // Member variables
     // ----------------------------------------------------------------------
 
-    StringSize80 s1;
-    StringSize40 s2[16];
+    StringSize80 m_s1;
+    StringSize40 m_s2[16];
 
 };
 

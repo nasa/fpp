@@ -127,19 +127,19 @@ class Enum :
     //! Get member e
     M::E::T gete() const
     {
-      return this->e.e;
+      return this->m_e.e;
     }
 
     //! Get member eArr
     Type_of_eArr& geteArr()
     {
-      return this->eArr;
+      return this->m_eArr;
     }
 
     //! Get member eArr (const)
     const Type_of_eArr& geteArr() const
     {
-      return this->eArr;
+      return this->m_eArr;
     }
 
     // ----------------------------------------------------------------------
@@ -164,8 +164,8 @@ class Enum :
     // Member variables
     // ----------------------------------------------------------------------
 
-    M::E e;
-    M::E eArr[3];
+    M::E m_e;
+    M::E m_eArr[3];
 
 };
 

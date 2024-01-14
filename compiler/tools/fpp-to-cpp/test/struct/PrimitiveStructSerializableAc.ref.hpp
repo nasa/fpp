@@ -108,13 +108,13 @@ class PrimitiveStruct :
     //! Get member s1
     Primitive& gets1()
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     //! Get member s1 (const)
     const Primitive& gets1() const
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     // ----------------------------------------------------------------------
@@ -133,7 +133,7 @@ class PrimitiveStruct :
     // Member variables
     // ----------------------------------------------------------------------
 
-    Primitive s1;
+    Primitive m_s1;
 
 };
 

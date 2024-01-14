@@ -18,7 +18,7 @@
 AbsType ::
   AbsType() :
     Serializable(),
-    t()
+    m_t()
 {
 
 }
@@ -26,7 +26,7 @@ AbsType ::
 AbsType ::
   AbsType(const T& t) :
     Serializable(),
-    t(t)
+    m_t(t)
 {
 
 }
@@ -34,7 +34,7 @@ AbsType ::
 AbsType ::
   AbsType(const AbsType& obj) :
     Serializable(),
-    t(obj.t)
+    m_t(obj.m_t)
 {
 
 }
@@ -50,14 +50,14 @@ AbsType& AbsType ::
     return *this;
   }
 
-  set(obj.t);
+  set(obj.m_t);
   return *this;
 }
 
 bool AbsType ::
   operator==(const AbsType& obj) const
 {
-  return (this->t == obj.t);
+  return (this->m_t == obj.m_t);
 }
 
 bool AbsType ::
@@ -86,7 +86,7 @@ Fw::SerializeStatus AbsType ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->t);
+  status = buffer.serialize(this->m_t);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -99,7 +99,7 @@ Fw::SerializeStatus AbsType ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->t);
+  status = buffer.deserialize(this->m_t);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,14 +114,14 @@ void AbsType ::
 {
   static const char* formatString =
     "( "
-    "t = %s"
+    "m_t = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String tStr;
 
   // Call toString for arrays and serializable types
-  this->t.toString(tStr);
+  this->m_t.toString(tStr);
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
@@ -144,11 +144,11 @@ void AbsType ::
 void AbsType ::
   set(const T& t)
 {
-  this->t = t;
+  this->m_t = t;
 }
 
 void AbsType ::
   sett(const T& t)
 {
-  this->t = t;
+  this->m_t = t;
 }

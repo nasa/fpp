@@ -18,7 +18,7 @@
 Including ::
   Including() :
     Serializable(),
-    x(0)
+    m_x(0)
 {
 
 }
@@ -26,7 +26,7 @@ Including ::
 Including ::
   Including(const Included& x) :
     Serializable(),
-    x(x)
+    m_x(x)
 {
 
 }
@@ -34,7 +34,7 @@ Including ::
 Including ::
   Including(const Including& obj) :
     Serializable(),
-    x(obj.x)
+    m_x(obj.m_x)
 {
 
 }
@@ -50,14 +50,14 @@ Including& Including ::
     return *this;
   }
 
-  set(obj.x);
+  set(obj.m_x);
   return *this;
 }
 
 bool Including ::
   operator==(const Including& obj) const
 {
-  return (this->x == obj.x);
+  return (this->m_x == obj.m_x);
 }
 
 bool Including ::
@@ -86,7 +86,7 @@ Fw::SerializeStatus Including ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->x);
+  status = buffer.serialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -99,7 +99,7 @@ Fw::SerializeStatus Including ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->x);
+  status = buffer.deserialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,14 +114,14 @@ void Including ::
 {
   static const char* formatString =
     "( "
-    "x = %s"
+    "m_x = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String xStr;
 
   // Call toString for arrays and serializable types
-  this->x.toString(xStr);
+  this->m_x.toString(xStr);
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
@@ -144,11 +144,11 @@ void Including ::
 void Including ::
   set(const Included& x)
 {
-  this->x = x;
+  this->m_x = x;
 }
 
 void Including ::
   setx(const Included& x)
 {
-  this->x = x;
+  this->m_x = x;
 }

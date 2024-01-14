@@ -176,8 +176,8 @@ NATIVE_UINT_TYPE String::StringSize40 ::
 String ::
   String() :
     Serializable(),
-    s1("hello"),
-    s2("")
+    m_s1("hello"),
+    m_s2("")
 {
 
 }
@@ -188,8 +188,8 @@ String ::
       const StringSize40& s2
   ) :
     Serializable(),
-    s1(s1),
-    s2(s2)
+    m_s1(s1),
+    m_s2(s2)
 {
 
 }
@@ -197,8 +197,8 @@ String ::
 String ::
   String(const String& obj) :
     Serializable(),
-    s1(obj.s1),
-    s2(obj.s2)
+    m_s1(obj.m_s1),
+    m_s2(obj.m_s2)
 {
 
 }
@@ -214,7 +214,7 @@ String& String ::
     return *this;
   }
 
-  set(obj.s1, obj.s2);
+  set(obj.m_s1, obj.m_s2);
   return *this;
 }
 
@@ -222,8 +222,8 @@ bool String ::
   operator==(const String& obj) const
 {
   return (
-    (this->s1 == obj.s1) &&
-    (this->s2 == obj.s2)
+    (this->m_s1 == obj.m_s1) &&
+    (this->m_s2 == obj.m_s2)
   );
 }
 
@@ -253,11 +253,11 @@ Fw::SerializeStatus String ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->s1);
+  status = buffer.serialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->s2);
+  status = buffer.serialize(this->m_s2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -270,11 +270,11 @@ Fw::SerializeStatus String ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->s1);
+  status = buffer.deserialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->s2);
+  status = buffer.deserialize(this->m_s2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -289,8 +289,8 @@ void String ::
 {
   static const char* formatString =
     "( "
-    "s1 = %s, "
-    "s2 = %s"
+    "m_s1 = %s, "
+    "m_s2 = %s"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -298,8 +298,8 @@ void String ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->s1.toChar(),
-    this->s2.toChar()
+    this->m_s1.toChar(),
+    this->m_s2.toChar()
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -318,18 +318,18 @@ void String ::
       const StringSize40& s2
   )
 {
-  this->s1 = s1;
-  this->s2 = s2;
+  this->m_s1 = s1;
+  this->m_s2 = s2;
 }
 
 void String ::
   sets1(const StringSize80& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }
 
 void String ::
   sets2(const StringSize40& s2)
 {
-  this->s2 = s2;
+  this->m_s2 = s2;
 }

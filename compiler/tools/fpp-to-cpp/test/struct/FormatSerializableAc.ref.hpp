@@ -141,103 +141,103 @@ class Format :
     //! Get member m1
     I32 getm1() const
     {
-      return this->m1;
+      return this->m_m1;
     }
 
     //! Get member m2
     U32 getm2() const
     {
-      return this->m2;
+      return this->m_m2;
     }
 
     //! Get member m3
     I32 getm3() const
     {
-      return this->m3;
+      return this->m_m3;
     }
 
     //! Get member m4
     U32 getm4() const
     {
-      return this->m4;
+      return this->m_m4;
     }
 
     //! Get member m5
     I32 getm5() const
     {
-      return this->m5;
+      return this->m_m5;
     }
 
     //! Get member m6
     U32 getm6() const
     {
-      return this->m6;
+      return this->m_m6;
     }
 
     //! Get member m7
     I32 getm7() const
     {
-      return this->m7;
+      return this->m_m7;
     }
 
     //! Get member m8
     U32 getm8() const
     {
-      return this->m8;
+      return this->m_m8;
     }
 
     //! Get member m9
     I32 getm9() const
     {
-      return this->m9;
+      return this->m_m9;
     }
 
     //! Get member m10
     U32 getm10() const
     {
-      return this->m10;
+      return this->m_m10;
     }
 
     //! Get member m11
     F32 getm11() const
     {
-      return this->m11;
+      return this->m_m11;
     }
 
     //! Get member m12
     F32 getm12() const
     {
-      return this->m12;
+      return this->m_m12;
     }
 
     //! Get member m13
     F32 getm13() const
     {
-      return this->m13;
+      return this->m_m13;
     }
 
     //! Get member m14
     F32 getm14() const
     {
-      return this->m14;
+      return this->m_m14;
     }
 
     //! Get member m15
     F32 getm15() const
     {
-      return this->m15;
+      return this->m_m15;
     }
 
     //! Get member m16
     F32 getm16() const
     {
-      return this->m16;
+      return this->m_m16;
     }
 
     //! Get member m17
     F32 getm17() const
     {
-      return this->m17;
+      return this->m_m17;
     }
 
     // ----------------------------------------------------------------------
@@ -322,23 +322,23 @@ class Format :
     // Member variables
     // ----------------------------------------------------------------------
 
-    I32 m1;
-    U32 m2;
-    I32 m3;
-    U32 m4;
-    I32 m5;
-    U32 m6;
-    I32 m7;
-    U32 m8;
-    I32 m9;
-    U32 m10;
-    F32 m11;
-    F32 m12;
-    F32 m13;
-    F32 m14;
-    F32 m15;
-    F32 m16;
-    F32 m17;
+    I32 m_m1;
+    U32 m_m2;
+    I32 m_m3;
+    U32 m_m4;
+    I32 m_m5;
+    U32 m_m6;
+    I32 m_m7;
+    U32 m_m8;
+    I32 m_m9;
+    U32 m_m10;
+    F32 m_m11;
+    F32 m_m12;
+    F32 m_m13;
+    F32 m_m14;
+    F32 m_m15;
+    F32 m_m16;
+    F32 m_m17;
 
 };
 
