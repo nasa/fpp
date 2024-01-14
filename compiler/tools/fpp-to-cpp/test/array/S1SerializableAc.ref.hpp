@@ -185,79 +185,79 @@ namespace M {
       //! Get member mF32
       F32 getmF32() const
       {
-        return this->mF32;
+        return this->m_mF32;
       }
 
       //! Get member mF64
       F64 getmF64() const
       {
-        return this->mF64;
+        return this->m_mF64;
       }
 
       //! Get member mI16
       I16 getmI16() const
       {
-        return this->mI16;
+        return this->m_mI16;
       }
 
       //! Get member mI32
       I32 getmI32() const
       {
-        return this->mI32;
+        return this->m_mI32;
       }
 
       //! Get member mI64
       I64 getmI64() const
       {
-        return this->mI64;
+        return this->m_mI64;
       }
 
       //! Get member mI8
       I8 getmI8() const
       {
-        return this->mI8;
+        return this->m_mI8;
       }
 
       //! Get member mU16
       U16 getmU16() const
       {
-        return this->mU16;
+        return this->m_mU16;
       }
 
       //! Get member mU32
       U32 getmU32() const
       {
-        return this->mU32;
+        return this->m_mU32;
       }
 
       //! Get member mU64
       U64 getmU64() const
       {
-        return this->mU64;
+        return this->m_mU64;
       }
 
       //! Get member mU8
       U8 getmU8() const
       {
-        return this->mU8;
+        return this->m_mU8;
       }
 
       //! Get member mBool
       bool getmBool() const
       {
-        return this->mBool;
+        return this->m_mBool;
       }
 
       //! Get member mString
       StringSize80& getmString()
       {
-        return this->mString;
+        return this->m_mString;
       }
 
       //! Get member mString (const)
       const StringSize80& getmString() const
       {
-        return this->mString;
+        return this->m_mString;
       }
 
       // ----------------------------------------------------------------------
@@ -322,18 +322,18 @@ namespace M {
       // Member variables
       // ----------------------------------------------------------------------
 
-      F32 mF32;
-      F64 mF64;
-      I16 mI16;
-      I32 mI32;
-      I64 mI64;
-      I8 mI8;
-      U16 mU16;
-      U32 mU32;
-      U64 mU64;
-      U8 mU8;
-      bool mBool;
-      StringSize80 mString;
+      F32 m_mF32;
+      F64 m_mF64;
+      I16 m_mI16;
+      I32 m_mI32;
+      I64 m_mI64;
+      I8 m_mI8;
+      U16 m_mU16;
+      U32 m_mU32;
+      U64 m_mU64;
+      U8 m_mU8;
+      bool m_mBool;
+      StringSize80 m_mString;
 
   };
 

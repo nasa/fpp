@@ -20,10 +20,10 @@ namespace S {
   S3 ::
     S3() :
       Serializable(),
-      mF64(0.0)
+      m_mF64(0.0)
   {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = 0;
+      this->m_mU32Array[i] = 0;
     }
   }
 
@@ -33,20 +33,20 @@ namespace S {
         F64 mF64
     ) :
       Serializable(),
-      mF64(mF64)
+      m_mF64(mF64)
   {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = mU32Array[i];
+      this->m_mU32Array[i] = mU32Array[i];
     }
   }
 
   S3 ::
     S3(const S3& obj) :
       Serializable(),
-      mF64(obj.mF64)
+      m_mF64(obj.m_mF64)
   {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = obj.mU32Array[i];
+      this->m_mU32Array[i] = obj.m_mU32Array[i];
     }
   }
 
@@ -56,10 +56,10 @@ namespace S {
         F64 mF64
     ) :
       Serializable(),
-      mF64(mF64)
+      m_mF64(mF64)
   {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = mU32Array;
+      this->m_mU32Array[i] = mU32Array;
     }
   }
 
@@ -74,7 +74,7 @@ namespace S {
       return *this;
     }
 
-    set(obj.mU32Array, obj.mF64);
+    set(obj.m_mU32Array, obj.m_mF64);
     return *this;
   }
 
@@ -82,14 +82,14 @@ namespace S {
     operator==(const S3& obj) const
   {
     // Compare non-array members
-    if (!(this->mF64 == obj.mF64)) {
+    if (!(this->m_mF64 == obj.m_mF64)) {
       return false;
     }
 
     // Compare array members
-    if (!(this->mU32Array == obj.mU32Array)) {
+    if (!(this->m_mU32Array == obj.m_mU32Array)) {
       for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-        if (!(this->mU32Array[i] == obj.mU32Array[i])) {
+        if (!(this->m_mU32Array[i] == obj.m_mU32Array[i])) {
           return false;
         }
       }
@@ -125,12 +125,12 @@ namespace S {
     Fw::SerializeStatus status;
 
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      status = buffer.serialize(this->mU32Array[i]);
+      status = buffer.serialize(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.serialize(this->mF64);
+    status = buffer.serialize(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -144,12 +144,12 @@ namespace S {
     Fw::SerializeStatus status;
 
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      status = buffer.deserialize(this->mU32Array[i]);
+      status = buffer.deserialize(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
       }
     }
-    status = buffer.deserialize(this->mF64);
+    status = buffer.deserialize(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -164,10 +164,10 @@ namespace S {
   {
     static const char* formatString =
       "( "
-      "mU32Array = [ %" PRIu32 ", "
+      "m_mU32Array = [ %" PRIu32 ", "
       "%" PRIu32 ", "
       "%" PRIu32 " ], "
-      "mF64 = %f"
+      "m_mF64 = %f"
       " )";
 
     char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -175,10 +175,10 @@ namespace S {
       outputString,
       FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
       formatString,
-      this->mU32Array[0],
-      this->mU32Array[1],
-      this->mU32Array[2],
-      this->mF64
+      this->m_mU32Array[0],
+      this->m_mU32Array[1],
+      this->m_mU32Array[2],
+      this->m_mF64
     );
 
     outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -197,10 +197,10 @@ namespace S {
         F64 mF64
     )
   {
-    this->mF64 = mF64;
+    this->m_mF64 = mF64;
 
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = mU32Array[i];
+      this->m_mU32Array[i] = mU32Array[i];
     }
   }
 
@@ -208,14 +208,14 @@ namespace S {
     setmU32Array(const Type_of_mU32Array& mU32Array)
   {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      this->mU32Array[i] = mU32Array[i];
+      this->m_mU32Array[i] = mU32Array[i];
     }
   }
 
   void S3 ::
     setmF64(F64 mF64)
   {
-    this->mF64 = mF64;
+    this->m_mF64 = mF64;
   }
 
 }

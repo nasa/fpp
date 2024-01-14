@@ -164,19 +164,19 @@ class S :
     //! Get member x
     U32 getx() const
     {
-      return this->x;
+      return this->m_x;
     }
 
     //! Get member y
     StringSize80& gety()
     {
-      return this->y;
+      return this->m_y;
     }
 
     //! Get member y (const)
     const StringSize80& gety() const
     {
-      return this->y;
+      return this->m_y;
     }
 
     // ----------------------------------------------------------------------
@@ -201,8 +201,8 @@ class S :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 x;
-    StringSize80 y;
+    U32 m_x;
+    StringSize80 m_y;
 
 };
 

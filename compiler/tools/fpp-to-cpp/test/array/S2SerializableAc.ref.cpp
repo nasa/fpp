@@ -18,7 +18,7 @@
 S2 ::
   S2() :
     Serializable(),
-    s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
+    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
 {
 
 }
@@ -26,7 +26,7 @@ S2 ::
 S2 ::
   S2(const M::S1& s1) :
     Serializable(),
-    s1(s1)
+    m_s1(s1)
 {
 
 }
@@ -34,7 +34,7 @@ S2 ::
 S2 ::
   S2(const S2& obj) :
     Serializable(),
-    s1(obj.s1)
+    m_s1(obj.m_s1)
 {
 
 }
@@ -50,14 +50,14 @@ S2& S2 ::
     return *this;
   }
 
-  set(obj.s1);
+  set(obj.m_s1);
   return *this;
 }
 
 bool S2 ::
   operator==(const S2& obj) const
 {
-  return (this->s1 == obj.s1);
+  return (this->m_s1 == obj.m_s1);
 }
 
 bool S2 ::
@@ -86,7 +86,7 @@ Fw::SerializeStatus S2 ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->s1);
+  status = buffer.serialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -99,7 +99,7 @@ Fw::SerializeStatus S2 ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->s1);
+  status = buffer.deserialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -114,14 +114,14 @@ void S2 ::
 {
   static const char* formatString =
     "( "
-    "s1 = %s"
+    "m_s1 = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments
   Fw::String s1Str;
 
   // Call toString for arrays and serializable types
-  this->s1.toString(s1Str);
+  this->m_s1.toString(s1Str);
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
@@ -144,11 +144,11 @@ void S2 ::
 void S2 ::
   set(const M::S1& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }
 
 void S2 ::
   sets1(const M::S1& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }
