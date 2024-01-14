@@ -97,23 +97,23 @@ NATIVE_UINT_TYPE Default::StringSize40 ::
 Default ::
   Default() :
     Serializable(),
-    m_var_U32(54),
+    m_varU32(54),
     m_S1("hello"),
-    m_var_F64(0.0)
+    m_varF64(0.0)
 {
 
 }
 
 Default ::
   Default(
-      U32 var_U32,
+      U32 varU32,
       const StringSize40& S1,
-      F64 var_F64
+      F64 varF64
   ) :
     Serializable(),
-    m_var_U32(var_U32),
+    m_varU32(varU32),
     m_S1(S1),
-    m_var_F64(var_F64)
+    m_varF64(varF64)
 {
 
 }
@@ -121,9 +121,9 @@ Default ::
 Default ::
   Default(const Default& obj) :
     Serializable(),
-    m_var_U32(obj.m_var_U32),
+    m_varU32(obj.m_varU32),
     m_S1(obj.m_S1),
-    m_var_F64(obj.m_var_F64)
+    m_varF64(obj.m_varF64)
 {
 
 }
@@ -139,7 +139,7 @@ Default& Default ::
     return *this;
   }
 
-  set(obj.m_var_U32, obj.m_S1, obj.m_var_F64);
+  set(obj.m_varU32, obj.m_S1, obj.m_varF64);
   return *this;
 }
 
@@ -147,9 +147,9 @@ bool Default ::
   operator==(const Default& obj) const
 {
   return (
-    (this->m_var_U32 == obj.m_var_U32) &&
+    (this->m_varU32 == obj.m_varU32) &&
     (this->m_S1 == obj.m_S1) &&
-    (this->m_var_F64 == obj.m_var_F64)
+    (this->m_varF64 == obj.m_varF64)
   );
 }
 
@@ -179,7 +179,7 @@ Fw::SerializeStatus Default ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_var_U32);
+  status = buffer.serialize(this->m_varU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -187,7 +187,7 @@ Fw::SerializeStatus Default ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_var_F64);
+  status = buffer.serialize(this->m_varF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -200,7 +200,7 @@ Fw::SerializeStatus Default ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_var_U32);
+  status = buffer.deserialize(this->m_varU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -208,7 +208,7 @@ Fw::SerializeStatus Default ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_var_F64);
+  status = buffer.deserialize(this->m_varF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -223,9 +223,9 @@ void Default ::
 {
   static const char* formatString =
     "( "
-    "m_var_U32 = %" PRIu32 ", "
+    "m_varU32 = %" PRIu32 ", "
     "m_S1 = %s, "
-    "m_var_F64 = %f"
+    "m_varF64 = %f"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -233,9 +233,9 @@ void Default ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_var_U32,
+    this->m_varU32,
     this->m_S1.toChar(),
-    this->m_var_F64
+    this->m_varF64
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -250,20 +250,20 @@ void Default ::
 
 void Default ::
   set(
-      U32 var_U32,
+      U32 varU32,
       const StringSize40& S1,
-      F64 var_F64
+      F64 varF64
   )
 {
-  this->m_var_U32 = var_U32;
+  this->m_varU32 = varU32;
   this->m_S1 = S1;
-  this->m_var_F64 = var_F64;
+  this->m_varF64 = varF64;
 }
 
 void Default ::
-  setvar_U32(U32 var_U32)
+  setvarU32(U32 varU32)
 {
-  this->m_var_U32 = var_U32;
+  this->m_varU32 = varU32;
 }
 
 void Default ::
@@ -273,7 +273,7 @@ void Default ::
 }
 
 void Default ::
-  setvar_F64(F64 var_F64)
+  setvarF64(F64 varF64)
 {
-  this->m_var_F64 = var_F64;
+  this->m_varF64 = varF64;
 }

@@ -92,9 +92,9 @@ class Default :
 
     //! Member constructor
     Default(
-        U32 var_U32,
+        U32 varU32,
         const StringSize40& S1,
-        F64 var_F64
+        F64 varF64
     );
 
     //! Copy constructor
@@ -162,10 +162,10 @@ class Default :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member var_U32
-    U32 getvar_U32() const
+    //! Get member varU32
+    U32 getvarU32() const
     {
-      return this->m_var_U32;
+      return this->m_varU32;
     }
 
     //! Get member S1
@@ -180,10 +180,10 @@ class Default :
       return this->m_S1;
     }
 
-    //! Get member var_F64
-    F64 getvar_F64() const
+    //! Get member varF64
+    F64 getvarF64() const
     {
-      return this->m_var_F64;
+      return this->m_varF64;
     }
 
     // ----------------------------------------------------------------------
@@ -192,19 +192,19 @@ class Default :
 
     //! Set all members
     void set(
-        U32 var_U32,
+        U32 varU32,
         const StringSize40& S1,
-        F64 var_F64
+        F64 varF64
     );
 
-    //! Set member var_U32
-    void setvar_U32(U32 var_U32);
+    //! Set member varU32
+    void setvarU32(U32 varU32);
 
     //! Set member S1
     void setS1(const StringSize40& S1);
 
-    //! Set member var_F64
-    void setvar_F64(F64 var_F64);
+    //! Set member varF64
+    void setvarF64(F64 varF64);
 
   protected:
 
@@ -212,9 +212,9 @@ class Default :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 m_var_U32;
+    U32 m_varU32;
     StringSize40 m_S1;
-    F64 m_var_F64;
+    F64 m_varF64;
 
 };
 
