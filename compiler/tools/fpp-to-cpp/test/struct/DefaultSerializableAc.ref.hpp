@@ -92,9 +92,9 @@ class Default :
 
     //! Member constructor
     Default(
-        U32 mU32,
-        const StringSize40& mS1,
-        F64 mF64
+        U32 var_U32,
+        const StringSize40& S1,
+        F64 var_F64
     );
 
     //! Copy constructor
@@ -162,28 +162,28 @@ class Default :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member mU32
-    U32 getmU32() const
+    //! Get member var_U32
+    U32 getvar_U32() const
     {
-      return this->m_mU32;
+      return this->m_var_U32;
     }
 
-    //! Get member mS1
-    StringSize40& getmS1()
+    //! Get member S1
+    StringSize40& getS1()
     {
-      return this->m_mS1;
+      return this->m_S1;
     }
 
-    //! Get member mS1 (const)
-    const StringSize40& getmS1() const
+    //! Get member S1 (const)
+    const StringSize40& getS1() const
     {
-      return this->m_mS1;
+      return this->m_S1;
     }
 
-    //! Get member mF64
-    F64 getmF64() const
+    //! Get member var_F64
+    F64 getvar_F64() const
     {
-      return this->m_mF64;
+      return this->m_var_F64;
     }
 
     // ----------------------------------------------------------------------
@@ -192,19 +192,19 @@ class Default :
 
     //! Set all members
     void set(
-        U32 mU32,
-        const StringSize40& mS1,
-        F64 mF64
+        U32 var_U32,
+        const StringSize40& S1,
+        F64 var_F64
     );
 
-    //! Set member mU32
-    void setmU32(U32 mU32);
+    //! Set member var_U32
+    void setvar_U32(U32 var_U32);
 
-    //! Set member mS1
-    void setmS1(const StringSize40& mS1);
+    //! Set member S1
+    void setS1(const StringSize40& S1);
 
-    //! Set member mF64
-    void setmF64(F64 mF64);
+    //! Set member var_F64
+    void setvar_F64(F64 var_F64);
 
   protected:
 
@@ -212,9 +212,9 @@ class Default :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 m_mU32;
-    StringSize40 m_mS1;
-    F64 m_mF64;
+    U32 m_var_U32;
+    StringSize40 m_S1;
+    F64 m_var_F64;
 
 };
 

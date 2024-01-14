@@ -20,10 +20,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 
@@ -35,10 +35,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1[i];
+    this->m_arr1[i] = arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2[i];
+    this->m_arr2[i] = arr2[i];
   }
 }
 
@@ -47,10 +47,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = obj.m_arr1[i];
+    this->m_arr1[i] = obj.m_arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = obj.m_arr2[i];
+    this->m_arr2[i] = obj.m_arr2[i];
   }
 }
 
@@ -62,10 +62,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1;
+    this->m_arr1[i] = arr1;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2;
+    this->m_arr2[i] = arr2;
   }
 }
 
@@ -235,10 +235,10 @@ void Modules4 ::
 {
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = m_arr1[i];
+    this->m_arr1[i] = arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = m_arr2[i];
+    this->m_arr2[i] = arr2[i];
   }
 }
 

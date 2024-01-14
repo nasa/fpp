@@ -54,23 +54,23 @@ class Format :
 
     //! Member constructor
     Format(
-        I32 m1,
-        U32 m2,
-        I32 m3,
-        U32 m4,
-        I32 m5,
-        U32 m6,
-        I32 m7,
-        U32 m8,
-        I32 m9,
-        U32 m10,
-        F32 m11,
-        F32 m12,
-        F32 m13,
-        F32 m14,
-        F32 m15,
-        F32 m16,
-        F32 m17
+        I32 I32_1,
+        U32 U32_2,
+        I32 I32_3,
+        U32 U32_4,
+        I32 I32_5,
+        U32 U32_6,
+        I32 I32_7,
+        U32 U32_8,
+        I32 I32_9,
+        U32 U32_10,
+        F32 F32_11,
+        F32 F32_12,
+        F32 F32_13,
+        F32 F32_14,
+        F32 F32_15,
+        F32 F32_16,
+        F32 F32_17
     );
 
     //! Copy constructor
@@ -138,106 +138,106 @@ class Format :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member m1
-    I32 getm1() const
+    //! Get member I32_1
+    I32 getI32_1() const
     {
-      return this->m_m1;
+      return this->m_I32_1;
     }
 
-    //! Get member m2
-    U32 getm2() const
+    //! Get member U32_2
+    U32 getU32_2() const
     {
-      return this->m_m2;
+      return this->m_U32_2;
     }
 
-    //! Get member m3
-    I32 getm3() const
+    //! Get member I32_3
+    I32 getI32_3() const
     {
-      return this->m_m3;
+      return this->m_I32_3;
     }
 
-    //! Get member m4
-    U32 getm4() const
+    //! Get member U32_4
+    U32 getU32_4() const
     {
-      return this->m_m4;
+      return this->m_U32_4;
     }
 
-    //! Get member m5
-    I32 getm5() const
+    //! Get member I32_5
+    I32 getI32_5() const
     {
-      return this->m_m5;
+      return this->m_I32_5;
     }
 
-    //! Get member m6
-    U32 getm6() const
+    //! Get member U32_6
+    U32 getU32_6() const
     {
-      return this->m_m6;
+      return this->m_U32_6;
     }
 
-    //! Get member m7
-    I32 getm7() const
+    //! Get member I32_7
+    I32 getI32_7() const
     {
-      return this->m_m7;
+      return this->m_I32_7;
     }
 
-    //! Get member m8
-    U32 getm8() const
+    //! Get member U32_8
+    U32 getU32_8() const
     {
-      return this->m_m8;
+      return this->m_U32_8;
     }
 
-    //! Get member m9
-    I32 getm9() const
+    //! Get member I32_9
+    I32 getI32_9() const
     {
-      return this->m_m9;
+      return this->m_I32_9;
     }
 
-    //! Get member m10
-    U32 getm10() const
+    //! Get member U32_10
+    U32 getU32_10() const
     {
-      return this->m_m10;
+      return this->m_U32_10;
     }
 
-    //! Get member m11
-    F32 getm11() const
+    //! Get member F32_11
+    F32 getF32_11() const
     {
-      return this->m_m11;
+      return this->m_F32_11;
     }
 
-    //! Get member m12
-    F32 getm12() const
+    //! Get member F32_12
+    F32 getF32_12() const
     {
-      return this->m_m12;
+      return this->m_F32_12;
     }
 
-    //! Get member m13
-    F32 getm13() const
+    //! Get member F32_13
+    F32 getF32_13() const
     {
-      return this->m_m13;
+      return this->m_F32_13;
     }
 
-    //! Get member m14
-    F32 getm14() const
+    //! Get member F32_14
+    F32 getF32_14() const
     {
-      return this->m_m14;
+      return this->m_F32_14;
     }
 
-    //! Get member m15
-    F32 getm15() const
+    //! Get member F32_15
+    F32 getF32_15() const
     {
-      return this->m_m15;
+      return this->m_F32_15;
     }
 
-    //! Get member m16
-    F32 getm16() const
+    //! Get member F32_16
+    F32 getF32_16() const
     {
-      return this->m_m16;
+      return this->m_F32_16;
     }
 
-    //! Get member m17
-    F32 getm17() const
+    //! Get member F32_17
+    F32 getF32_17() const
     {
-      return this->m_m17;
+      return this->m_F32_17;
     }
 
     // ----------------------------------------------------------------------
@@ -246,75 +246,75 @@ class Format :
 
     //! Set all members
     void set(
-        I32 m1,
-        U32 m2,
-        I32 m3,
-        U32 m4,
-        I32 m5,
-        U32 m6,
-        I32 m7,
-        U32 m8,
-        I32 m9,
-        U32 m10,
-        F32 m11,
-        F32 m12,
-        F32 m13,
-        F32 m14,
-        F32 m15,
-        F32 m16,
-        F32 m17
+        I32 I32_1,
+        U32 U32_2,
+        I32 I32_3,
+        U32 U32_4,
+        I32 I32_5,
+        U32 U32_6,
+        I32 I32_7,
+        U32 U32_8,
+        I32 I32_9,
+        U32 U32_10,
+        F32 F32_11,
+        F32 F32_12,
+        F32 F32_13,
+        F32 F32_14,
+        F32 F32_15,
+        F32 F32_16,
+        F32 F32_17
     );
 
-    //! Set member m1
-    void setm1(I32 m1);
+    //! Set member I32_1
+    void setI32_1(I32 I32_1);
 
-    //! Set member m2
-    void setm2(U32 m2);
+    //! Set member U32_2
+    void setU32_2(U32 U32_2);
 
-    //! Set member m3
-    void setm3(I32 m3);
+    //! Set member I32_3
+    void setI32_3(I32 I32_3);
 
-    //! Set member m4
-    void setm4(U32 m4);
+    //! Set member U32_4
+    void setU32_4(U32 U32_4);
 
-    //! Set member m5
-    void setm5(I32 m5);
+    //! Set member I32_5
+    void setI32_5(I32 I32_5);
 
-    //! Set member m6
-    void setm6(U32 m6);
+    //! Set member U32_6
+    void setU32_6(U32 U32_6);
 
-    //! Set member m7
-    void setm7(I32 m7);
+    //! Set member I32_7
+    void setI32_7(I32 I32_7);
 
-    //! Set member m8
-    void setm8(U32 m8);
+    //! Set member U32_8
+    void setU32_8(U32 U32_8);
 
-    //! Set member m9
-    void setm9(I32 m9);
+    //! Set member I32_9
+    void setI32_9(I32 I32_9);
 
-    //! Set member m10
-    void setm10(U32 m10);
+    //! Set member U32_10
+    void setU32_10(U32 U32_10);
 
-    //! Set member m11
-    void setm11(F32 m11);
+    //! Set member F32_11
+    void setF32_11(F32 F32_11);
 
-    //! Set member m12
-    void setm12(F32 m12);
+    //! Set member F32_12
+    void setF32_12(F32 F32_12);
 
-    //! Set member m13
-    void setm13(F32 m13);
+    //! Set member F32_13
+    void setF32_13(F32 F32_13);
 
-    //! Set member m14
-    void setm14(F32 m14);
+    //! Set member F32_14
+    void setF32_14(F32 F32_14);
 
-    //! Set member m15
-    void setm15(F32 m15);
+    //! Set member F32_15
+    void setF32_15(F32 F32_15);
 
-    //! Set member m16
-    void setm16(F32 m16);
+    //! Set member F32_16
+    void setF32_16(F32 F32_16);
 
-    //! Set member m17
-    void setm17(F32 m17);
+    //! Set member F32_17
+    void setF32_17(F32 F32_17);
 
   protected:
 
@@ -322,23 +322,23 @@ class Format :
     // Member variables
     // ----------------------------------------------------------------------
 
-    I32 m_m1;
-    U32 m_m2;
-    I32 m_m3;
-    U32 m_m4;
-    I32 m_m5;
-    U32 m_m6;
-    I32 m_m7;
-    U32 m_m8;
-    I32 m_m9;
-    U32 m_m10;
-    F32 m_m11;
-    F32 m_m12;
-    F32 m_m13;
-    F32 m_m14;
-    F32 m_m15;
-    F32 m_m16;
-    F32 m_m17;
+    I32 m_I32_1;
+    U32 m_U32_2;
+    I32 m_I32_3;
+    U32 m_U32_4;
+    I32 m_I32_5;
+    U32 m_U32_6;
+    I32 m_I32_7;
+    U32 m_U32_8;
+    I32 m_I32_9;
+    U32 m_U32_10;
+    F32 m_F32_11;
+    F32 m_F32_12;
+    F32 m_F32_13;
+    F32 m_F32_14;
+    F32 m_F32_15;
+    F32 m_F32_16;
+    F32 m_F32_17;
 
 };
 

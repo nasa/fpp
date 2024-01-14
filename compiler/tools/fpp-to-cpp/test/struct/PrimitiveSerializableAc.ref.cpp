@@ -97,106 +97,106 @@ NATIVE_UINT_TYPE Primitive::StringSize80 ::
 Primitive ::
   Primitive() :
     Serializable(),
-    m_mF64(0.0),
-    m_mI16(0),
-    m_mI32(0),
-    m_mI64(0),
-    m_mI8(0),
-    m_mU16(0),
-    m_mU32(0),
-    m_mU64(0),
-    m_mU8(0),
-    m_m_bool(false),
-    m_m_string("")
+    m_var_F64(0.0),
+    m_var_I16(0),
+    m_var_I32(0),
+    m_var_I64(0),
+    m_var_I8(0),
+    m_var_U16(0),
+    m_var_U32(0),
+    m_var_U64(0),
+    m_var_U8(0),
+    m_var_bool(false),
+    m_var_string("")
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->mF32[i] = 0.0f;
+    this->m_var_F32[i] = 0.0f;
   }
 }
 
 Primitive ::
   Primitive(
-      const Type_of_mF32& mF32,
-      F64 mF64,
-      I16 mI16,
-      I32 mI32,
-      I64 mI64,
-      I8 mI8,
-      U16 mU16,
-      U32 mU32,
-      U64 mU64,
-      U8 mU8,
-      bool m_bool,
-      const StringSize80& m_string
+      const Type_of_var_F32& var_F32,
+      F64 var_F64,
+      I16 var_I16,
+      I32 var_I32,
+      I64 var_I64,
+      I8 var_I8,
+      U16 var_U16,
+      U32 var_U32,
+      U64 var_U64,
+      U8 var_U8,
+      bool var_bool,
+      const StringSize80& var_string
   ) :
     Serializable(),
-    m_mF64(mF64),
-    m_mI16(mI16),
-    m_mI32(mI32),
-    m_mI64(mI64),
-    m_mI8(mI8),
-    m_mU16(mU16),
-    m_mU32(mU32),
-    m_mU64(mU64),
-    m_mU8(mU8),
-    m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_var_F64(var_F64),
+    m_var_I16(var_I16),
+    m_var_I32(var_I32),
+    m_var_I64(var_I64),
+    m_var_I8(var_I8),
+    m_var_U16(var_U16),
+    m_var_U32(var_U32),
+    m_var_U64(var_U64),
+    m_var_U8(var_U8),
+    m_var_bool(var_bool),
+    m_var_string(var_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->mF32[i] = mF32[i];
+    this->m_var_F32[i] = var_F32[i];
   }
 }
 
 Primitive ::
   Primitive(const Primitive& obj) :
     Serializable(),
-    m_mF64(obj.m_mF64),
-    m_mI16(obj.m_mI16),
-    m_mI32(obj.m_mI32),
-    m_mI64(obj.m_mI64),
-    m_mI8(obj.m_mI8),
-    m_mU16(obj.m_mU16),
-    m_mU32(obj.m_mU32),
-    m_mU64(obj.m_mU64),
-    m_mU8(obj.m_mU8),
-    m_m_bool(obj.m_m_bool),
-    m_m_string(obj.m_m_string)
+    m_var_F64(obj.m_var_F64),
+    m_var_I16(obj.m_var_I16),
+    m_var_I32(obj.m_var_I32),
+    m_var_I64(obj.m_var_I64),
+    m_var_I8(obj.m_var_I8),
+    m_var_U16(obj.m_var_U16),
+    m_var_U32(obj.m_var_U32),
+    m_var_U64(obj.m_var_U64),
+    m_var_U8(obj.m_var_U8),
+    m_var_bool(obj.m_var_bool),
+    m_var_string(obj.m_var_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->mF32[i] = obj.m_mF32[i];
+    this->m_var_F32[i] = obj.m_var_F32[i];
   }
 }
 
 Primitive ::
   Primitive(
-      F32 mF32,
-      F64 mF64,
-      I16 mI16,
-      I32 mI32,
-      I64 mI64,
-      I8 mI8,
-      U16 mU16,
-      U32 mU32,
-      U64 mU64,
-      U8 mU8,
-      bool m_bool,
-      const StringSize80& m_string
+      F32 var_F32,
+      F64 var_F64,
+      I16 var_I16,
+      I32 var_I32,
+      I64 var_I64,
+      I8 var_I8,
+      U16 var_U16,
+      U32 var_U32,
+      U64 var_U64,
+      U8 var_U8,
+      bool var_bool,
+      const StringSize80& var_string
   ) :
     Serializable(),
-    m_mF64(mF64),
-    m_mI16(mI16),
-    m_mI32(mI32),
-    m_mI64(mI64),
-    m_mI8(mI8),
-    m_mU16(mU16),
-    m_mU32(mU32),
-    m_mU64(mU64),
-    m_mU8(mU8),
-    m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_var_F64(var_F64),
+    m_var_I16(var_I16),
+    m_var_I32(var_I32),
+    m_var_I64(var_I64),
+    m_var_I8(var_I8),
+    m_var_U16(var_U16),
+    m_var_U32(var_U32),
+    m_var_U64(var_U64),
+    m_var_U8(var_U8),
+    m_var_bool(var_bool),
+    m_var_string(var_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->mF32[i] = mF32;
+    this->m_var_F32[i] = var_F32;
   }
 }
 
@@ -211,7 +211,7 @@ Primitive& Primitive ::
     return *this;
   }
 
-  set(obj.m_mF32, obj.m_mF64, obj.m_mI16, obj.m_mI32, obj.m_mI64, obj.m_mI8, obj.m_mU16, obj.m_mU32, obj.m_mU64, obj.m_mU8, obj.m_m_bool, obj.m_m_string);
+  set(obj.m_var_F32, obj.m_var_F64, obj.m_var_I16, obj.m_var_I32, obj.m_var_I64, obj.m_var_I8, obj.m_var_U16, obj.m_var_U32, obj.m_var_U64, obj.m_var_U8, obj.m_var_bool, obj.m_var_string);
   return *this;
 }
 
@@ -220,25 +220,25 @@ bool Primitive ::
 {
   // Compare non-array members
   if (!(
-    (this->m_mF64 == obj.m_mF64) &&
-    (this->m_mI16 == obj.m_mI16) &&
-    (this->m_mI32 == obj.m_mI32) &&
-    (this->m_mI64 == obj.m_mI64) &&
-    (this->m_mI8 == obj.m_mI8) &&
-    (this->m_mU16 == obj.m_mU16) &&
-    (this->m_mU32 == obj.m_mU32) &&
-    (this->m_mU64 == obj.m_mU64) &&
-    (this->m_mU8 == obj.m_mU8) &&
-    (this->m_m_bool == obj.m_m_bool) &&
-    (this->m_m_string == obj.m_m_string)
+    (this->m_var_F64 == obj.m_var_F64) &&
+    (this->m_var_I16 == obj.m_var_I16) &&
+    (this->m_var_I32 == obj.m_var_I32) &&
+    (this->m_var_I64 == obj.m_var_I64) &&
+    (this->m_var_I8 == obj.m_var_I8) &&
+    (this->m_var_U16 == obj.m_var_U16) &&
+    (this->m_var_U32 == obj.m_var_U32) &&
+    (this->m_var_U64 == obj.m_var_U64) &&
+    (this->m_var_U8 == obj.m_var_U8) &&
+    (this->m_var_bool == obj.m_var_bool) &&
+    (this->m_var_string == obj.m_var_string)
   )) {
     return false;
   }
 
   // Compare array members
-  if (!(this->m_mF32 == obj.m_mF32)) {
+  if (!(this->m_var_F32 == obj.m_var_F32)) {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      if (!(this->m_mF32[i] == obj.m_mF32[i])) {
+      if (!(this->m_var_F32[i] == obj.m_var_F32[i])) {
         return false;
       }
     }
@@ -274,52 +274,52 @@ Fw::SerializeStatus Primitive ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_mF32[i]);
+    status = buffer.serialize(this->m_var_F32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.serialize(this->m_mF64);
+  status = buffer.serialize(this->m_var_F64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI16);
+  status = buffer.serialize(this->m_var_I16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI32);
+  status = buffer.serialize(this->m_var_I32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI64);
+  status = buffer.serialize(this->m_var_I64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mI8);
+  status = buffer.serialize(this->m_var_I8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU16);
+  status = buffer.serialize(this->m_var_U16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU32);
+  status = buffer.serialize(this->m_var_U32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU64);
+  status = buffer.serialize(this->m_var_U64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_mU8);
+  status = buffer.serialize(this->m_var_U8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m_bool);
+  status = buffer.serialize(this->m_var_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_m_string);
+  status = buffer.serialize(this->m_var_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -333,52 +333,52 @@ Fw::SerializeStatus Primitive ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_mF32[i]);
+    status = buffer.deserialize(this->m_var_F32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.deserialize(this->m_mF64);
+  status = buffer.deserialize(this->m_var_F64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI16);
+  status = buffer.deserialize(this->m_var_I16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI32);
+  status = buffer.deserialize(this->m_var_I32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI64);
+  status = buffer.deserialize(this->m_var_I64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mI8);
+  status = buffer.deserialize(this->m_var_I8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU16);
+  status = buffer.deserialize(this->m_var_U16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU32);
+  status = buffer.deserialize(this->m_var_U32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU64);
+  status = buffer.deserialize(this->m_var_U64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_mU8);
+  status = buffer.deserialize(this->m_var_U8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m_bool);
+  status = buffer.deserialize(this->m_var_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_m_string);
+  status = buffer.deserialize(this->m_var_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -393,20 +393,20 @@ void Primitive ::
 {
   static const char* formatString =
     "( "
-    "m_mF32 = [ %f, "
+    "m_var_F32 = [ %f, "
     "%f, "
     "%f ], "
-    "m_mF64 = %f, "
-    "m_mI16 = %" PRIi16 ", "
-    "m_mI32 = %" PRIi32 ", "
-    "m_mI64 = %" PRIi64 ", "
-    "m_mI8 = %" PRIi8 ", "
-    "m_mU16 = %" PRIu16 ", "
-    "m_mU32 = %" PRIu32 ", "
-    "m_mU64 = %" PRIu64 ", "
-    "m_mU8 = %" PRIu8 ", "
-    "m_m_bool = %d, "
-    "m_m_string = %s"
+    "m_var_F64 = %f, "
+    "m_var_I16 = %" PRIi16 ", "
+    "m_var_I32 = %" PRIi32 ", "
+    "m_var_I64 = %" PRIi64 ", "
+    "m_var_I8 = %" PRIi8 ", "
+    "m_var_U16 = %" PRIu16 ", "
+    "m_var_U32 = %" PRIu32 ", "
+    "m_var_U64 = %" PRIu64 ", "
+    "m_var_U8 = %" PRIu8 ", "
+    "m_var_bool = %d, "
+    "m_var_string = %s"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -414,20 +414,20 @@ void Primitive ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_mF32[0],
-    this->m_mF32[1],
-    this->m_mF32[2],
-    this->m_mF64,
-    this->m_mI16,
-    this->m_mI32,
-    this->m_mI64,
-    this->m_mI8,
-    this->m_mU16,
-    this->m_mU32,
-    this->m_mU64,
-    this->m_mU8,
-    this->m_m_bool,
-    this->m_m_string.toChar()
+    this->m_var_F32[0],
+    this->m_var_F32[1],
+    this->m_var_F32[2],
+    this->m_var_F64,
+    this->m_var_I16,
+    this->m_var_I32,
+    this->m_var_I64,
+    this->m_var_I8,
+    this->m_var_U16,
+    this->m_var_U32,
+    this->m_var_U64,
+    this->m_var_U8,
+    this->m_var_bool,
+    this->m_var_string.toChar()
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -442,107 +442,107 @@ void Primitive ::
 
 void Primitive ::
   set(
-      const Type_of_mF32& mF32,
-      F64 mF64,
-      I16 mI16,
-      I32 mI32,
-      I64 mI64,
-      I8 mI8,
-      U16 mU16,
-      U32 mU32,
-      U64 mU64,
-      U8 mU8,
-      bool m_bool,
-      const StringSize80& m_string
+      const Type_of_var_F32& var_F32,
+      F64 var_F64,
+      I16 var_I16,
+      I32 var_I32,
+      I64 var_I64,
+      I8 var_I8,
+      U16 var_U16,
+      U32 var_U32,
+      U64 var_U64,
+      U8 var_U8,
+      bool var_bool,
+      const StringSize80& var_string
   )
 {
-  this->m_mF64 = mF64;
-  this->m_mI16 = mI16;
-  this->m_mI32 = mI32;
-  this->m_mI64 = mI64;
-  this->m_mI8 = mI8;
-  this->m_mU16 = mU16;
-  this->m_mU32 = mU32;
-  this->m_mU64 = mU64;
-  this->m_mU8 = mU8;
-  this->m_m_bool = m_bool;
-  this->m_m_string = m_string;
+  this->m_var_F64 = var_F64;
+  this->m_var_I16 = var_I16;
+  this->m_var_I32 = var_I32;
+  this->m_var_I64 = var_I64;
+  this->m_var_I8 = var_I8;
+  this->m_var_U16 = var_U16;
+  this->m_var_U32 = var_U32;
+  this->m_var_U64 = var_U64;
+  this->m_var_U8 = var_U8;
+  this->m_var_bool = var_bool;
+  this->m_var_string = var_string;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->mF32[i] = m_mF32[i];
+    this->m_var_F32[i] = var_F32[i];
   }
 }
 
 void Primitive ::
-  setmF32(const Type_of_mF32& mF32)
+  setvar_F32(const Type_of_var_F32& var_F32)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_mF32[i] = mF32[i];
+    this->m_var_F32[i] = var_F32[i];
   }
 }
 
 void Primitive ::
-  setmF64(F64 mF64)
+  setvar_F64(F64 var_F64)
 {
-  this->m_mF64 = mF64;
+  this->m_var_F64 = var_F64;
 }
 
 void Primitive ::
-  setmI16(I16 mI16)
+  setvar_I16(I16 var_I16)
 {
-  this->m_mI16 = mI16;
+  this->m_var_I16 = var_I16;
 }
 
 void Primitive ::
-  setmI32(I32 mI32)
+  setvar_I32(I32 var_I32)
 {
-  this->m_mI32 = mI32;
+  this->m_var_I32 = var_I32;
 }
 
 void Primitive ::
-  setmI64(I64 mI64)
+  setvar_I64(I64 var_I64)
 {
-  this->m_mI64 = mI64;
+  this->m_var_I64 = var_I64;
 }
 
 void Primitive ::
-  setmI8(I8 mI8)
+  setvar_I8(I8 var_I8)
 {
-  this->m_mI8 = mI8;
+  this->m_var_I8 = var_I8;
 }
 
 void Primitive ::
-  setmU16(U16 mU16)
+  setvar_U16(U16 var_U16)
 {
-  this->m_mU16 = mU16;
+  this->m_var_U16 = var_U16;
 }
 
 void Primitive ::
-  setmU32(U32 mU32)
+  setvar_U32(U32 var_U32)
 {
-  this->m_mU32 = mU32;
+  this->m_var_U32 = var_U32;
 }
 
 void Primitive ::
-  setmU64(U64 mU64)
+  setvar_U64(U64 var_U64)
 {
-  this->m_mU64 = mU64;
+  this->m_var_U64 = var_U64;
 }
 
 void Primitive ::
-  setmU8(U8 mU8)
+  setvar_U8(U8 var_U8)
 {
-  this->m_mU8 = mU8;
+  this->m_var_U8 = var_U8;
 }
 
 void Primitive ::
-  setm_bool(bool m_bool)
+  setvar_bool(bool var_bool)
 {
-  this->m_m_bool = m_bool;
+  this->m_var_bool = var_bool;
 }
 
 void Primitive ::
-  setm_string(const StringSize80& m_string)
+  setvar_string(const StringSize80& var_string)
 {
-  this->m_m_string = m_string;
+  this->m_var_string = var_string;
 }

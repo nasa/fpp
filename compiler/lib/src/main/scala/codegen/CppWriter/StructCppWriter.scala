@@ -609,7 +609,7 @@ case class StructCppWriter(
       List(
         nonArrayMemberNames.map(n => line(s"this->m_$n = $n;")),
         if arrayMemberNames.isEmpty then Nil
-        else Line.blank :: writeArraySetters(n => s"m_$n[i]"),
+        else Line.blank :: writeArraySetters(n => s"$n[i]"),
       ).flatten
     ) ::
       memberList.map((n, tn) =>
@@ -685,7 +685,7 @@ case class StructCppWriter(
   // Writes a for loop to set the value of each array member
   private def writeArraySetters(getValue: String => String) =
     arrayMemberNames.flatMap(n =>
-      iterateN(sizes(n), lines(s"this->$n[i] = ${getValue(n)};"))
+      iterateN(sizes(n), lines(s"this->m_$n[i] = ${getValue(n)};"))
     )
 
   // Writes a for loop that iterates n times

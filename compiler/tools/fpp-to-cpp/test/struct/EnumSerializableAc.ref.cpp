@@ -21,7 +21,7 @@ Enum ::
     m_e(M::E::X)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = M::E::X;
+    this->m_eArr[i] = M::E::X;
   }
 }
 
@@ -34,7 +34,7 @@ Enum ::
     m_e(e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = eArr[i];
+    this->m_eArr[i] = eArr[i];
   }
 }
 
@@ -44,7 +44,7 @@ Enum ::
     m_e(obj.m_e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = obj.m_eArr[i];
+    this->m_eArr[i] = obj.m_eArr[i];
   }
 }
 
@@ -57,7 +57,7 @@ Enum ::
     m_e(e)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = eArr;
+    this->m_eArr[i] = eArr;
   }
 }
 
@@ -208,7 +208,7 @@ void Enum ::
   this->m_e = e;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->eArr[i] = m_eArr[i];
+    this->m_eArr[i] = eArr[i];
   }
 }
 

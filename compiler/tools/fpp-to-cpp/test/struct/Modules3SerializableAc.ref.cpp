@@ -21,7 +21,7 @@ Modules3 ::
     m_x(M::Modules1(0, 0.0f))
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 
@@ -34,7 +34,7 @@ Modules3 ::
     m_x(x)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = arr[i];
+    this->m_arr[i] = arr[i];
   }
 }
 
@@ -44,7 +44,7 @@ Modules3 ::
     m_x(obj.m_x)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = obj.m_arr[i];
+    this->m_arr[i] = obj.m_arr[i];
   }
 }
 
@@ -57,7 +57,7 @@ Modules3 ::
     m_x(x)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = arr;
+    this->m_arr[i] = arr;
   }
 }
 
@@ -208,7 +208,7 @@ void Modules3 ::
   this->m_x = x;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr[i] = m_arr[i];
+    this->m_arr[i] = arr[i];
   }
 }
 

@@ -179,7 +179,7 @@ StringArray ::
     m_s1("")
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = "";
+    this->m_s2[i] = "";
   }
 }
 
@@ -192,7 +192,7 @@ StringArray ::
     m_s1(s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2[i];
+    this->m_s2[i] = s2[i];
   }
 }
 
@@ -202,7 +202,7 @@ StringArray ::
     m_s1(obj.m_s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = obj.m_s2[i];
+    this->m_s2[i] = obj.m_s2[i];
   }
 }
 
@@ -215,7 +215,7 @@ StringArray ::
     m_s1(s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2;
+    this->m_s2[i] = s2;
   }
 }
 
@@ -382,7 +382,7 @@ void StringArray ::
   this->m_s1 = s1;
 
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = m_s2[i];
+    this->m_s2[i] = s2[i];
   }
 }
 
