@@ -867,9 +867,8 @@ QueuedGetProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product get history
+  // Destroy data product histories
   delete this->productGetHistory;
-  // Destroy product send history
   delete this->productSendHistory;
 }
 

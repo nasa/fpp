@@ -902,9 +902,8 @@ ActiveSyncProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product request history
+  // Destroy data product histories
   delete this->productRequestHistory;
-  // Destroy product send history
   delete this->productSendHistory;
 }
 

@@ -298,20 +298,15 @@ case class ComponentTesterBaseWriter(
               })
             lazy val destroyDpHistories = {
               lazy val destroyProductGetHistory = lines(
-                """|// Destroy product get history
-                   |delete this->productGetHistory;
-                   |"""
+                "delete this->productGetHistory;"
               )
               lazy val destroyProductRequestHistory = lines(
-                """|// Destroy product request history
-                   |delete this->productRequestHistory;
-                   |"""
+                "delete this->productRequestHistory;"
               )
               val destroyProductSendHistory = lines(
-                """|// Destroy product send history
-                   |delete this->productSendHistory;
-                   |"""
+                "delete this->productSendHistory;"
               )
+              line("// Destroy data product histories") ::
               List.concat(
                 guardedList (hasProductGetPort) (destroyProductGetHistory),
                 guardedList (hasProductRequestPort) (destroyProductRequestHistory),
