@@ -217,7 +217,7 @@ class ActiveAsyncProductPortsOnlyComponentBase :
     void productRequestOut_out(
         NATIVE_INT_TYPE portNum, //!< The port number
         FwDpIdType id, //!< The container ID
-        FwSizeType size //!< The size of the requested buffer
+        FwSizeType dataSize //!< The data size of the requested buffer
     );
 
     //! Invoke output port productSendOut

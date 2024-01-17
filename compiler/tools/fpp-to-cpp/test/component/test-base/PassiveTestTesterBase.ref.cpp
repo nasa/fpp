@@ -990,9 +990,8 @@ PassiveTestTesterBase ::
   delete this->tlmHistory_ChannelU32OnChange;
   delete this->tlmHistory_ChannelEnumOnChange;
 
-  // Destroy product request history
+  // Destroy data product histories
   delete this->productRequestHistory;
-  // Destroy product send history
   delete this->productSendHistory;
 }
 
@@ -3041,20 +3040,20 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   pushProductRequestEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpRequest e = { id, size };
+  DpRequest e = { id, dataSize };
   this->productRequestHistory->push_back(e);
 }
 
 void PassiveTestTesterBase ::
   productRequest_handler(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  this->pushProductRequestEntry(id, size);
+  this->pushProductRequestEntry(id, dataSize);
 }
 
 void PassiveTestTesterBase ::
@@ -3509,11 +3508,11 @@ void PassiveTestTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   PassiveTestTesterBase* _testerBase = static_cast<PassiveTestTesterBase*>(callComp);
-  _testerBase->productRequest_handler(id, size);
+  _testerBase->productRequest_handler(id, dataSize);
 }
 
 void PassiveTestTesterBase ::

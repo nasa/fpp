@@ -297,17 +297,18 @@ case class ComponentTesterBaseWriter(
                 line(s"delete this->$historyName;")
               })
             lazy val destroyDpHistories = {
+              lazy val destroyProductGetHistory = lines(
+                "delete this->productGetHistory;"
+              )
               lazy val destroyProductRequestHistory = lines(
-                """|// Destroy product request history
-                   |delete this->productRequestHistory;
-                   |"""
+                "delete this->productRequestHistory;"
               )
               val destroyProductSendHistory = lines(
-                """|// Destroy product send history
-                   |delete this->productSendHistory;
-                   |"""
+                "delete this->productSendHistory;"
               )
+              line("// Destroy data product histories") ::
               List.concat(
+                guardedList (hasProductGetPort) (destroyProductGetHistory),
                 guardedList (hasProductRequestPort) (destroyProductRequestHistory),
                 destroyProductSendHistory
               )
@@ -479,7 +480,7 @@ case class ComponentTesterBaseWriter(
       getPortFunctionParams(productGetPort.get).take(2),
       CppDoc.Type("void"),
       lines(
-        """|DpGet e = { id, size };
+        """|DpGet e = { id, dataSize };
            |this->productGetHistory->push_back(e);"""
       )
     )
@@ -496,7 +497,7 @@ case class ComponentTesterBaseWriter(
       CppDoc.Type("Fw::Success::T"),
       lines(
         """|(void) buffer;
-           |this->pushProductGetEntry(id, size);
+           |this->pushProductGetEntry(id, dataSize);
            |return Fw::Success::FAILURE;
            |"""
       ),
@@ -508,7 +509,7 @@ case class ComponentTesterBaseWriter(
       getPortFunctionParams(productRequestPort.get),
       CppDoc.Type("void"),
       lines(
-        """|DpRequest e = { id, size };
+        """|DpRequest e = { id, dataSize };
            |this->productRequestHistory->push_back(e);"""
       )
     )
@@ -522,7 +523,7 @@ case class ComponentTesterBaseWriter(
       "productRequest_handler",
       getPortFunctionParams(productRequestPort.get),
       CppDoc.Type("void"),
-      lines("this->pushProductRequestEntry(id, size);"),
+      lines("this->pushProductRequestEntry(id, dataSize);"),
       CppDoc.Function.Virtual
     )
     lazy val sendProductResponse = functionClassMember(

@@ -69,7 +69,7 @@ move_template()
   file=$1
   for suffix in hpp cpp
   do
-    mv $file'.template.'$suffix $file'.template.ref.'$suffix
+    remove_author < $file'.template.'$suffix > $file'.template.ref.'$suffix
   done
 }
 
@@ -92,13 +92,13 @@ move_test_template()
   file=$1
   for suffix in hpp cpp
   do
-    mv $file'Tester.'$suffix $file'Tester.ref.'$suffix
+    remove_author < $file'Tester.'$suffix > $file'Tester.ref.'$suffix
   done
   if test -f $file'TesterHelpers.cpp'
   then
     mv $file'TesterHelpers.cpp' $file'TesterHelpers.ref.cpp'
   fi
-  mv $file'TestMain.cpp' $file'TestMain.ref.cpp'
+  remove_author < $file'TestMain.cpp' > $file'TestMain.ref.cpp'
 }
 
 . ./update-ref.sh
