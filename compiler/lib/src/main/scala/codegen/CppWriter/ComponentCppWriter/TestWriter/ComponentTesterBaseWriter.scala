@@ -297,6 +297,11 @@ case class ComponentTesterBaseWriter(
                 line(s"delete this->$historyName;")
               })
             lazy val destroyDpHistories = {
+              lazy val destroyProductGetHistory = lines(
+                """|// Destroy product get history
+                   |delete this->productGetHistory;
+                   |"""
+              )
               lazy val destroyProductRequestHistory = lines(
                 """|// Destroy product request history
                    |delete this->productRequestHistory;
@@ -308,6 +313,7 @@ case class ComponentTesterBaseWriter(
                    |"""
               )
               List.concat(
+                guardedList (hasProductGetPort) (destroyProductGetHistory),
                 guardedList (hasProductRequestPort) (destroyProductRequestHistory),
                 destroyProductSendHistory
               )
