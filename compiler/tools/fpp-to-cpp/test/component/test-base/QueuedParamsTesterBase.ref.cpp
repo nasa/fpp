@@ -37,10 +37,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_cmdRegOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -71,10 +72,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_cmdResponseOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -105,10 +107,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_prmGetOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -139,10 +142,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_prmSetOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -173,10 +177,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_timeGetOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -207,10 +212,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_noArgsOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -241,10 +247,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_noArgsReturnOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -275,10 +282,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_typedOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -309,10 +317,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_from_typedReturnOut[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -338,10 +347,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_cmdIn[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -367,10 +377,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_noArgsAsync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -396,10 +407,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_noArgsGuarded[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -425,10 +437,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_noArgsReturnGuarded[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -454,10 +467,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_noArgsReturnSync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -483,10 +497,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_noArgsSync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -512,10 +527,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedAsync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -541,10 +557,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedAsyncAssert[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -570,10 +587,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedAsyncBlockPriority[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -599,10 +617,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedAsyncDropPriority[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -628,10 +647,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedGuarded[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -657,10 +677,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedReturnGuarded[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -686,10 +707,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedReturnSync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -715,10 +737,11 @@ void QueuedParamsTesterBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_to_typedSync[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,

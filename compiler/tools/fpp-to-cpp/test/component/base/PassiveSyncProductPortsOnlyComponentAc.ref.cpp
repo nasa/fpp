@@ -40,10 +40,11 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_productRecvIn_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -69,10 +70,11 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_productRequestOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -98,10 +100,11 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_productSendOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,

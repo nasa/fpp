@@ -40,10 +40,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_cmdIn_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -74,10 +75,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsGuarded_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -108,10 +110,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsReturnGuarded_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -142,10 +145,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsReturnSync_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -176,10 +180,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsSync_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -210,10 +215,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedGuarded_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -244,10 +250,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedReturnGuarded_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -278,10 +285,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedReturnSync_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -312,10 +320,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedSync_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -346,10 +355,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_serialGuarded_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -380,10 +390,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_serialSync_InputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -409,10 +420,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_cmdRegOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -438,10 +450,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_cmdResponseOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -467,10 +480,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_eventOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -496,10 +510,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_prmGetOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -525,10 +540,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_prmSetOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -555,10 +571,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_textEventOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -585,10 +602,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_timeGetOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -614,10 +632,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_tlmOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -643,10 +662,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -672,10 +692,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_noArgsReturnOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -701,10 +722,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -730,10 +752,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_typedReturnOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
@@ -759,10 +782,11 @@ void PassiveSerialComponentBase ::
     constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
     constexpr FwSizeType PORT_NAME_MAX_SIZE =
       FW_OBJ_NAME_MAX_SIZE +
+      // Size includes terminating '\0'
       (sizeof "_serialOut_OutputPort[") +
       MAX_NUM_IDX_DIGITS +
-      (sizeof "]") +
-      (sizeof "\0");
+      // Size includes terminating '\0'
+      (sizeof "]");
     char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
