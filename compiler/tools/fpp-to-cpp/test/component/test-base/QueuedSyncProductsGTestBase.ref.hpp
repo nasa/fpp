@@ -210,8 +210,8 @@
 #define ASSERT_PRODUCT_SEND_SIZE(size) \
   this->assertProductSend_size(__FILE__, __LINE__, size)
 
-#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dataSize, buffer) \
-    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dataSize, buffer)
+#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procTypes, userData, dpState, dataSize, buffer) \
+    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procTypes, userData, dpState, dataSize, buffer)
 
 //! \class QueuedSyncProductsGTestBase
 //! \brief Auto-generated base for QueuedSyncProducts component Google Test harness
@@ -322,8 +322,9 @@ class QueuedSyncProductsGTestBase :
         FwDpIdType id, //!< The expected container ID (input)
         FwDpPriorityType priority, //!< The expected priority (input)
         const Fw::Time& timeTag, //!< The expected time tag (input)
-        Fw::DpCfg::ProcType procType, //!< The expected processing type (input)
+        Fw::DpCfg::ProcType::SerialType procTypes, //!< The expected processing types (input)
         const Fw::DpContainer::Header::UserData& userData, //!< The expected user data (input)
+        Fw::DpState dpState, //!< The expected data product state (input)
         FwSizeType dataSize, //!< The expected data size (input)
         Fw::Buffer& historyBuffer //!< The buffer from the history (output)
     ) const;

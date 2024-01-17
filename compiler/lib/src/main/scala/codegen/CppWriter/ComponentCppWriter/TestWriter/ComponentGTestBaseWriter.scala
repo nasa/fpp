@@ -289,8 +289,8 @@ case class ComponentGTestBaseWriter(
           """#define ASSERT_PRODUCT_SEND_SIZE(size) \
             |  this->assertProductSend_size(__FILE__, __LINE__, size)
             |
-            |#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procType, userData, dataSize, buffer) \
-            |    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procType, userData, dataSize, buffer)
+            |#define ASSERT_PRODUCT_SEND(index, id, priority, timeTag, procTypes, userData, dpState, dataSize, buffer) \
+            |    assertProductSend(__FILE__, __LINE__, index, id, priority, timeTag, procTypes, userData, dpState, dataSize, buffer)
             |"""
         )
       )
@@ -829,14 +829,19 @@ case class ComponentGTestBaseWriter(
             Some("The expected time tag (input)")
           ),
           CppDoc.Function.Param(
-            CppDoc.Type("Fw::DpCfg::ProcType"),
-            "procType",
-            Some("The expected processing type (input)")
+            CppDoc.Type("Fw::DpCfg::ProcType::SerialType"),
+            "procTypes",
+            Some("The expected processing types (input)")
           ),
           CppDoc.Function.Param(
             CppDoc.Type("const Fw::DpContainer::Header::UserData&"),
             "userData",
             Some("The expected user data (input)")
+          ),
+          CppDoc.Function.Param(
+            CppDoc.Type("Fw::DpState"),
+            "dpState",
+            Some("The expected data product state (input)")
           ),
           CppDoc.Function.Param(
             CppDoc.Type("FwSizeType"),
@@ -878,8 +883,9 @@ case class ComponentGTestBaseWriter(
                |    id,
                |    priority,
                |    timeTag,
-               |    procType,
+               |    procTypes,
                |    userData,
+               |    dpState,
                |    dataSize
                |);
                |"""

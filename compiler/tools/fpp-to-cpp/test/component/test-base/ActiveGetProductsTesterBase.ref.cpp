@@ -867,7 +867,8 @@ ActiveGetProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product send history
+  // Destroy data product histories
+  delete this->productGetHistory;
   delete this->productSendHistory;
 }
 
@@ -1589,22 +1590,22 @@ void ActiveGetProductsTesterBase ::
 void ActiveGetProductsTesterBase ::
   pushProductGetEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpGet e = { id, size };
+  DpGet e = { id, dataSize };
   this->productGetHistory->push_back(e);
 }
 
 Fw::Success::T ActiveGetProductsTesterBase ::
   productGet_handler(
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
   (void) buffer;
-  this->pushProductGetEntry(id, size);
+  this->pushProductGetEntry(id, dataSize);
   return Fw::Success::FAILURE;
 }
 
@@ -1720,12 +1721,12 @@ Fw::Success ActiveGetProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
   ActiveGetProductsTesterBase* _testerBase = static_cast<ActiveGetProductsTesterBase*>(callComp);
-  return _testerBase->productGet_handler(id, size, buffer);
+  return _testerBase->productGet_handler(id, dataSize, buffer);
 }
 
 void ActiveGetProductsTesterBase ::

@@ -727,9 +727,8 @@ PassiveSyncProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product request history
+  // Destroy data product histories
   delete this->productRequestHistory;
-  // Destroy product send history
   delete this->productSendHistory;
 }
 
@@ -1260,20 +1259,20 @@ void PassiveSyncProductsTesterBase ::
 void PassiveSyncProductsTesterBase ::
   pushProductRequestEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpRequest e = { id, size };
+  DpRequest e = { id, dataSize };
   this->productRequestHistory->push_back(e);
 }
 
 void PassiveSyncProductsTesterBase ::
   productRequest_handler(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  this->pushProductRequestEntry(id, size);
+  this->pushProductRequestEntry(id, dataSize);
 }
 
 void PassiveSyncProductsTesterBase ::
@@ -1400,11 +1399,11 @@ void PassiveSyncProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   PassiveSyncProductsTesterBase* _testerBase = static_cast<PassiveSyncProductsTesterBase*>(callComp);
-  _testerBase->productRequest_handler(id, size);
+  _testerBase->productRequest_handler(id, dataSize);
 }
 
 void PassiveSyncProductsTesterBase ::

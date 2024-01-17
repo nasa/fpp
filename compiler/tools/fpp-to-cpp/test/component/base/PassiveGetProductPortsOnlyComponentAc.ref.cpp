@@ -186,7 +186,7 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
   productGetOut_out(
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size,
+      FwSizeType dataSize,
       Fw::Buffer& buffer
   )
 {
@@ -196,7 +196,7 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
   );
   return this->m_productGetOut_OutputPort[portNum].invoke(
     id,
-    size,
+    dataSize,
     buffer
   );
 }

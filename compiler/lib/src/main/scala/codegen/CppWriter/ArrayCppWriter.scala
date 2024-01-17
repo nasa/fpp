@@ -265,7 +265,7 @@ case class ArrayCppWriter (
         ),
         CppDoc.Type("ElementType&", Some(s"$name::ElementType&")),
         List(
-          line("FW_ASSERT(i < SIZE);"),
+          line("FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));"),
           line("return this->elements[i];"),
         ),
       ),
@@ -281,7 +281,7 @@ case class ArrayCppWriter (
         ),
         CppDoc.Type("const ElementType&", Some(s"const $name::ElementType&")),
         List(
-          line("FW_ASSERT(i < SIZE);"),
+          line("FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));"),
           line("return this->elements[i];"),
         ),
         CppDoc.Function.NonSV,

@@ -1016,8 +1016,9 @@ void PassiveTestGTestBase ::
       FwDpIdType id,
       FwDpPriorityType priority,
       const Fw::Time& timeTag,
-      Fw::DpCfg::ProcType procType,
+      Fw::DpCfg::ProcType::SerialType procTypes,
       const Fw::DpContainer::Header::UserData& userData,
+      Fw::DpState dpState,
       FwSizeType dataSize,
       Fw::Buffer& historyBuffer
   ) const
@@ -1049,8 +1050,9 @@ void PassiveTestGTestBase ::
       id,
       priority,
       timeTag,
-      procType,
+      procTypes,
       userData,
+      dpState,
       dataSize
   );
 }

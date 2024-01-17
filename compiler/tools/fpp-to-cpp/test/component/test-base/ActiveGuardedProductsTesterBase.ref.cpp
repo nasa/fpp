@@ -902,9 +902,8 @@ ActiveGuardedProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product request history
+  // Destroy data product histories
   delete this->productRequestHistory;
-  // Destroy product send history
   delete this->productSendHistory;
 }
 
@@ -1643,20 +1642,20 @@ void ActiveGuardedProductsTesterBase ::
 void ActiveGuardedProductsTesterBase ::
   pushProductRequestEntry(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  DpRequest e = { id, size };
+  DpRequest e = { id, dataSize };
   this->productRequestHistory->push_back(e);
 }
 
 void ActiveGuardedProductsTesterBase ::
   productRequest_handler(
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
-  this->pushProductRequestEntry(id, size);
+  this->pushProductRequestEntry(id, dataSize);
 }
 
 void ActiveGuardedProductsTesterBase ::
@@ -1783,11 +1782,11 @@ void ActiveGuardedProductsTesterBase ::
       Fw::PassiveComponentBase* const callComp,
       NATIVE_INT_TYPE portNum,
       FwDpIdType id,
-      FwSizeType size
+      FwSizeType dataSize
   )
 {
   ActiveGuardedProductsTesterBase* _testerBase = static_cast<ActiveGuardedProductsTesterBase*>(callComp);
-  _testerBase->productRequest_handler(id, size);
+  _testerBase->productRequest_handler(id, dataSize);
 }
 
 void ActiveGuardedProductsTesterBase ::
