@@ -36,11 +36,19 @@ void PassiveSerialComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 23];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdIn_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdIn_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -62,11 +70,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -88,11 +104,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 37];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -114,11 +138,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -140,11 +172,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -166,11 +206,19 @@ void PassiveSerialComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 30];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -192,11 +240,19 @@ void PassiveSerialComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -218,11 +274,19 @@ void PassiveSerialComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -244,11 +308,19 @@ void PassiveSerialComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -270,11 +342,19 @@ void PassiveSerialComponentBase ::
     this->m_serialGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_serialGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_serialGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_serialGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -296,11 +376,19 @@ void PassiveSerialComponentBase ::
     this->m_serialSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_serialSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_serialSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_serialSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -317,11 +405,19 @@ void PassiveSerialComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdRegOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdRegOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -338,11 +434,19 @@ void PassiveSerialComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdResponseOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdResponseOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -359,11 +463,19 @@ void PassiveSerialComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_eventOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_eventOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -380,11 +492,19 @@ void PassiveSerialComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_prmGetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_prmGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -401,11 +521,19 @@ void PassiveSerialComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_prmSetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_prmSetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -423,11 +551,19 @@ void PassiveSerialComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_textEventOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_textEventOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -445,11 +581,19 @@ void PassiveSerialComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_timeGetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_timeGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -466,11 +610,19 @@ void PassiveSerialComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 25];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_tlmOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_tlmOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -487,11 +639,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -508,11 +668,19 @@ void PassiveSerialComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -529,11 +697,19 @@ void PassiveSerialComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -550,11 +726,19 @@ void PassiveSerialComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -571,11 +755,19 @@ void PassiveSerialComponentBase ::
     this->m_serialOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_serialOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_serialOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_serialOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );

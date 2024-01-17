@@ -31,11 +31,19 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 32];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productGetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -52,11 +60,19 @@ void PassiveGetProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productSendOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productSendOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );

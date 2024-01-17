@@ -86,11 +86,19 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productRecvIn_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productRecvIn_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -107,11 +115,19 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productRequestOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productRequestOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -128,11 +144,19 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productSendOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productSendOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );

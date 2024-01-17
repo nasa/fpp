@@ -288,11 +288,19 @@ void QueuedTestComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 23];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdIn_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdIn_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -314,11 +322,19 @@ void QueuedTestComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productRecvIn_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productRecvIn_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -340,11 +356,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsAsync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsAsync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -366,11 +390,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -392,11 +424,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 37];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -418,11 +458,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -444,11 +492,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -470,11 +526,19 @@ void QueuedTestComponentBase ::
     this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedAsync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedAsync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -496,11 +560,19 @@ void QueuedTestComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedAsyncAssert_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedAsyncAssert_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedAsyncAssert_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -522,11 +594,19 @@ void QueuedTestComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 41];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedAsyncBlockPriority_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedAsyncBlockPriority_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedAsyncBlockPriority_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -548,11 +628,19 @@ void QueuedTestComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 40];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedAsyncDropPriority_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedAsyncDropPriority_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedAsyncDropPriority_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -574,11 +662,19 @@ void QueuedTestComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 30];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -600,11 +696,19 @@ void QueuedTestComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnGuarded_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -626,11 +730,19 @@ void QueuedTestComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -652,11 +764,19 @@ void QueuedTestComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedSync_InputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedSync_InputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -673,11 +793,19 @@ void QueuedTestComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdRegOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdRegOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -694,11 +822,19 @@ void QueuedTestComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_cmdResponseOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_cmdResponseOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -715,11 +851,19 @@ void QueuedTestComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_eventOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_eventOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -736,11 +880,19 @@ void QueuedTestComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_prmGetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_prmGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -757,11 +909,19 @@ void QueuedTestComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_prmSetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_prmSetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -778,11 +938,19 @@ void QueuedTestComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 36];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productRequestOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productRequestOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -799,11 +967,19 @@ void QueuedTestComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_productSendOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_productSendOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -821,11 +997,19 @@ void QueuedTestComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 31];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_textEventOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_textEventOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -843,11 +1027,19 @@ void QueuedTestComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 29];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_timeGetOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_timeGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -864,11 +1056,19 @@ void QueuedTestComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 25];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_tlmOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_tlmOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -885,11 +1085,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 28];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -906,11 +1114,19 @@ void QueuedTestComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 34];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_noArgsReturnOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_noArgsReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -927,11 +1143,19 @@ void QueuedTestComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 27];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -948,11 +1172,19 @@ void QueuedTestComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[FW_OBJ_NAME_MAX_SIZE + 33];
+    // Handle up to 9999 ports
+    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+    constexpr FwSizeType PORT_NAME_MAX_SIZE =
+      FW_OBJ_NAME_MAX_SIZE +
+      (sizeof "_typedReturnOut_OutputPort[") +
+      MAX_NUM_IDX_DIGITS +
+      (sizeof "]") +
+      (sizeof "\0");
+    char portName[PORT_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof(portName),
-      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      sizeof portName,
+      "%s" "_typedReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );

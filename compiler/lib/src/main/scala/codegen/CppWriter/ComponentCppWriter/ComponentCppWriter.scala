@@ -962,21 +962,34 @@ object ComponentCppWriter extends CppWriterUtils {
             )
             case PortInstance.Direction.Output => Nil
           },
-          Line.blank :: lines(
-            // In the portName buffer 8 chars are used to store the fixed characters and 5 chars the port indices
-            s"""|#if FW_OBJECT_NAMES == 1
-                |char portName[FW_OBJ_NAME_MAX_SIZE + ${port.getUnqualifiedName.length + d.toString.capitalize.length + 8 + 5}];
-                |(void) snprintf(
-                |  portName,
-                |  sizeof(portName),
-                |  "%s_${printName(port)}[%" PRI_PlatformIntType "]",
-                |  this->m_objName,
-                |  port
-                |);
-                |this->${variableName(port)}[port].setObjName(portName);
-                |#endif
-                |"""
-          )
+          {
+            val portNameStr = printName(port)
+            val varNameStr = variableName(port)
+            val s1 = s"_$portNameStr["
+            val s2 = "]"
+            Line.blank :: lines(
+              s"""|#if FW_OBJECT_NAMES == 1
+                  |// Handle up to 9999 ports
+                  |constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
+                  |constexpr FwSizeType PORT_NAME_MAX_SIZE =
+                  |  FW_OBJ_NAME_MAX_SIZE +
+                  |  (sizeof "$s1") +
+                  |  MAX_NUM_IDX_DIGITS +
+                  |  (sizeof "$s2") +
+                  |  (sizeof "\\0");
+                  |char portName[PORT_NAME_MAX_SIZE];
+                  |(void) snprintf(
+                  |  portName,
+                  |  sizeof portName,
+                  |  "%s" "$s1" "%" PRI_PlatformIntType "$s2",
+                  |  this->m_objName,
+                  |  port
+                  |);
+                  |this->$varNameStr[port].setObjName(portName);
+                  |#endif
+                  |"""
+            )
+          }
         ).flatten
       )
 
