@@ -692,7 +692,8 @@ PassiveGetProductsTesterBase ::
   delete this->fromPortHistory_typedOut;
   delete this->fromPortHistory_typedReturnOut;
 
-  // Destroy product send history
+  // Destroy data product histories
+  delete this->productGetHistory;
   delete this->productSendHistory;
 }
 

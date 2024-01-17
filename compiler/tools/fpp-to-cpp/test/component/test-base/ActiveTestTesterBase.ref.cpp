@@ -1167,9 +1167,8 @@ namespace M {
     delete this->tlmHistory_ChannelU32OnChange;
     delete this->tlmHistory_ChannelEnumOnChange;
 
-    // Destroy product request history
+    // Destroy data product histories
     delete this->productRequestHistory;
-    // Destroy product send history
     delete this->productSendHistory;
   }
 
