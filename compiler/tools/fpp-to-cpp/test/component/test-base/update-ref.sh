@@ -34,6 +34,7 @@ active()
   move_test ActiveEvents
   move_test ActiveGetProducts
   move_test ActiveGuardedProducts
+  move_test ActiveNoArgsPortsOnly
   move_test ActiveParams
   move_test ActiveSerial
   move_test ActiveSyncProducts
@@ -50,6 +51,7 @@ queued()
   move_test QueuedEvents
   move_test QueuedGetProducts
   move_test QueuedGuardedProducts
+  move_test QueuedNoArgsPortsOnly
   move_test QueuedParams
   move_test QueuedSerial
   move_test QueuedSyncProducts

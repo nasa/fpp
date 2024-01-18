@@ -137,3 +137,10 @@ active component ActiveAsyncProductPortsOnly {
   include "include/product_ports_async.fppi"
 
 }
+
+@ An active component with only ports without arguments
+active component ActiveNoArgsPortsOnly {
+
+  include "include/typed_ports_no_args.fppi"
+
+}

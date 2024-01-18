@@ -34,6 +34,7 @@ active()
   diff_test_template ActiveEvents && \
   diff_test_template ActiveGetProducts && \
   diff_test_template ActiveGuardedProducts && \
+  diff_test_template ActiveNoArgsPortsOnly && \
   diff_test_template ActiveParams && \
   diff_test_template ActiveSerial && \
   diff_test_template ActiveSyncProducts && \

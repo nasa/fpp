@@ -133,3 +133,10 @@ queued component QueuedAsyncProductPortsOnly {
   include "include/product_ports_async.fppi"
 
 }
+
+@ An queued component with only ports without arguments
+queued component QueuedNoArgsPortsOnly {
+
+  include "include/typed_ports_no_args.fppi"
+
+}

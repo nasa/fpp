@@ -34,6 +34,7 @@ active()
   move_test_template ActiveEvents
   move_test_template ActiveGetProducts
   move_test_template ActiveGuardedProducts
+  move_test_template ActiveNoArgsPortsOnly
   move_test_template ActiveParams
   move_test_template ActiveSerial
   move_test_template ActiveSyncProducts
