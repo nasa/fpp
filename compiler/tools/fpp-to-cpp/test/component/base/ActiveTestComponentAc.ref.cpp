@@ -290,7 +290,13 @@ namespace M {
       this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -316,7 +322,13 @@ namespace M {
       this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -342,7 +354,13 @@ namespace M {
       this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -368,7 +386,13 @@ namespace M {
       this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -394,7 +418,13 @@ namespace M {
       this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -420,7 +450,13 @@ namespace M {
       this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -446,7 +482,13 @@ namespace M {
       this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -472,7 +514,13 @@ namespace M {
       this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -498,7 +546,13 @@ namespace M {
       this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -524,7 +578,13 @@ namespace M {
       this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -550,7 +610,13 @@ namespace M {
       this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -576,7 +642,13 @@ namespace M {
       this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -602,7 +674,13 @@ namespace M {
       this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -628,7 +706,13 @@ namespace M {
       this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -654,7 +738,13 @@ namespace M {
       this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -675,7 +765,13 @@ namespace M {
       this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -696,7 +792,13 @@ namespace M {
       this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -717,7 +819,13 @@ namespace M {
       this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -738,7 +846,13 @@ namespace M {
       this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -759,7 +873,13 @@ namespace M {
       this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -780,7 +900,13 @@ namespace M {
       this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -801,7 +927,13 @@ namespace M {
       this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -823,7 +955,13 @@ namespace M {
       this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -845,7 +983,13 @@ namespace M {
       this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -866,7 +1010,13 @@ namespace M {
       this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -887,7 +1037,13 @@ namespace M {
       this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -908,7 +1064,13 @@ namespace M {
       this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -929,7 +1091,13 @@ namespace M {
       this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
@@ -950,7 +1118,13 @@ namespace M {
       this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-      char portName[FW_OBJ_NAME_MAX_SIZE];
+      // The port name consists of this->m_objName and some extra info.
+      // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+      // However, the compiler may assume that this->m_objName fills
+      // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+      // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+      // bytes to cover the extra info.
+      char portName[2*FW_OBJ_NAME_MAX_SIZE];
       (void) snprintf(
         portName,
         sizeof(portName),
