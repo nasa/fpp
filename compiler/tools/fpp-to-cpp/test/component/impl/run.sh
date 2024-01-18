@@ -32,6 +32,7 @@ active()
   diff_template ActiveEvents && \
   diff_template ActiveGetProducts && \
   diff_template ActiveGuardedProducts && \
+  diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
   diff_template ActiveSerial && \
   diff_template ActiveSyncProducts && \
@@ -48,6 +49,7 @@ queued()
   diff_template QueuedEvents && \
   diff_template QueuedGetProducts && \
   diff_template QueuedGuardedProducts && \
+  diff_template QueuedNoArgsPortsOnly && \
   diff_template QueuedParams && \
   diff_template QueuedSerial && \
   diff_template QueuedSyncProducts && \

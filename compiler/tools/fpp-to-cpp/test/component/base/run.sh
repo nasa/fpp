@@ -44,6 +44,7 @@ active()
   diff_cpp ActiveEventsComponent && \
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
+  diff_cpp ActiveNoArgsPortsOnlyComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
   diff_cpp ActiveSyncProductsComponent && \
@@ -60,6 +61,7 @@ queued()
   diff_cpp QueuedEventsComponent && \
   diff_cpp QueuedGetProductsComponent && \
   diff_cpp QueuedGuardedProductsComponent && \
+  diff_cpp QueuedNoArgsPortsOnlyComponent && \
   diff_cpp QueuedParamsComponent && \
   diff_cpp QueuedSerialComponent && \
   diff_cpp QueuedSyncProductsComponent && \

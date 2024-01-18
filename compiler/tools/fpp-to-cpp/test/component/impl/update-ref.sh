@@ -32,6 +32,7 @@ active()
   move_template ActiveEvents
   move_template ActiveGetProducts
   move_template ActiveGuardedProducts
+  move_template ActiveNoArgsPortsOnly
   move_template ActiveParams
   move_template ActiveSerial
   move_template ActiveSyncProducts
@@ -48,6 +49,7 @@ queued()
   move_template QueuedEvents
   move_template QueuedGetProducts
   move_template QueuedGuardedProducts
+  move_template QueuedNoArgsPortsOnly
   move_template QueuedParams
   move_template QueuedSerial
   move_template QueuedSyncProducts

@@ -44,6 +44,7 @@ active()
   move_cpp ActiveEventsComponent
   move_cpp ActiveGetProductsComponent
   move_cpp ActiveGuardedProductsComponent
+  move_cpp ActiveNoArgsPortsOnlyComponent
   move_cpp ActiveParamsComponent
   move_cpp ActiveSerialComponent
   move_cpp ActiveSyncProductsComponent
@@ -60,6 +61,7 @@ queued()
   move_cpp QueuedEventsComponent
   move_cpp QueuedGetProductsComponent
   move_cpp QueuedGuardedProductsComponent
+  move_cpp QueuedNoArgsPortsOnlyComponent
   move_cpp QueuedParamsComponent
   move_cpp QueuedSerialComponent
   move_cpp QueuedSyncProductsComponent
