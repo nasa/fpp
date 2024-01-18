@@ -103,6 +103,7 @@ abstract class ComponentCppWriterUtils(
   /** List of typed async input ports */
   val typedAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(typedInputPorts)
 
+
   /** List of serial async input ports */
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
 

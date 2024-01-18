@@ -57,8 +57,6 @@ namespace {
       sizeof(F32) +
       sizeof(U8)
     ];
-    // Size of internalPriorityDrop argument list
-    // [ no port arguments ]
     // Size of internalString argument list
     BYTE internalStringIntIfSize[
       Fw::InternalInterfaceString::SERIALIZED_SIZE +
