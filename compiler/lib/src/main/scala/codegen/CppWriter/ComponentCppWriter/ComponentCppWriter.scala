@@ -962,7 +962,7 @@ object ComponentCppWriter extends CppWriterUtils {
           },
           Line.blank :: lines(
             s"""|#if FW_OBJECT_NAMES == 1
-                |char portName[120];
+                |char portName[FW_OBJ_NAME_MAX_SIZE];
                 |(void) snprintf(
                 |  portName,
                 |  sizeof(portName),
