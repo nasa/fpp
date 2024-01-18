@@ -36,20 +36,11 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_cmdIn_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_cmdIn_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -71,20 +62,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsGuarded_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsGuarded_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -106,20 +88,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsReturnGuarded_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -141,20 +114,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsReturnSync_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -176,20 +140,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsSync_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsSync_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -211,20 +166,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedGuarded_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedGuarded_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -246,20 +192,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedReturnGuarded_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedReturnGuarded_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -281,20 +218,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedReturnSync_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedReturnSync_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -316,20 +244,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedSync_InputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedSync_InputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -346,20 +265,11 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_cmdRegOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_cmdRegOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -376,20 +286,11 @@ void PassiveTelemetryComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_cmdResponseOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_cmdResponseOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -406,20 +307,11 @@ void PassiveTelemetryComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_eventOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_eventOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -436,20 +328,11 @@ void PassiveTelemetryComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_prmGetOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_prmGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -466,20 +349,11 @@ void PassiveTelemetryComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_prmSetOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_prmSetOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -497,20 +371,11 @@ void PassiveTelemetryComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_textEventOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_textEventOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -528,20 +393,11 @@ void PassiveTelemetryComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_timeGetOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_timeGetOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -558,20 +414,11 @@ void PassiveTelemetryComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_tlmOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_tlmOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -588,20 +435,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -618,20 +456,11 @@ void PassiveTelemetryComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_noArgsReturnOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_noArgsReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -648,20 +477,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
@@ -678,20 +498,11 @@ void PassiveTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // Handle up to 9999 ports
-    constexpr FwSizeType MAX_NUM_IDX_DIGITS = 4;
-    constexpr FwSizeType PORT_NAME_MAX_SIZE =
-      FW_OBJ_NAME_MAX_SIZE +
-      // Size includes terminating '\0'
-      (sizeof "_typedReturnOut_OutputPort[") +
-      MAX_NUM_IDX_DIGITS +
-      // Size includes terminating '\0'
-      (sizeof "]");
-    char portName[PORT_NAME_MAX_SIZE];
+    char portName[FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
-      sizeof portName,
-      "%s" "_typedReturnOut_OutputPort[" "%" PRI_PlatformIntType "]",
+      sizeof(portName),
+      "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
       this->m_objName,
       port
     );
