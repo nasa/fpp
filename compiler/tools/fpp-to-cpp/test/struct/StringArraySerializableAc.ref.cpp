@@ -176,10 +176,10 @@ NATIVE_UINT_TYPE StringArray::StringSize40 ::
 StringArray ::
   StringArray() :
     Serializable(),
-    s1("")
+    m_s1("")
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = "";
+    this->m_s2[i] = "";
   }
 }
 
@@ -189,20 +189,20 @@ StringArray ::
       const Type_of_s2& s2
   ) :
     Serializable(),
-    s1(s1)
+    m_s1(s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2[i];
+    this->m_s2[i] = s2[i];
   }
 }
 
 StringArray ::
   StringArray(const StringArray& obj) :
     Serializable(),
-    s1(obj.s1)
+    m_s1(obj.m_s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = obj.s2[i];
+    this->m_s2[i] = obj.m_s2[i];
   }
 }
 
@@ -212,10 +212,10 @@ StringArray ::
       const StringSize40& s2
   ) :
     Serializable(),
-    s1(s1)
+    m_s1(s1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2;
+    this->m_s2[i] = s2;
   }
 }
 
@@ -230,7 +230,7 @@ StringArray& StringArray ::
     return *this;
   }
 
-  set(obj.s1, obj.s2);
+  set(obj.m_s1, obj.m_s2);
   return *this;
 }
 
@@ -238,14 +238,14 @@ bool StringArray ::
   operator==(const StringArray& obj) const
 {
   // Compare non-array members
-  if (!(this->s1 == obj.s1)) {
+  if (!(this->m_s1 == obj.m_s1)) {
     return false;
   }
 
   // Compare array members
-  if (!(this->s2 == obj.s2)) {
+  if (!(this->m_s2 == obj.m_s2)) {
     for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-      if (!(this->s2[i] == obj.s2[i])) {
+      if (!(this->m_s2[i] == obj.m_s2[i])) {
         return false;
       }
     }
@@ -280,12 +280,12 @@ Fw::SerializeStatus StringArray ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->s1);
+  status = buffer.serialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    status = buffer.serialize(this->s2[i]);
+    status = buffer.serialize(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -299,12 +299,12 @@ Fw::SerializeStatus StringArray ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->s1);
+  status = buffer.deserialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    status = buffer.deserialize(this->s2[i]);
+    status = buffer.deserialize(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -344,23 +344,23 @@ void StringArray ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->s1.toChar(),
-    this->s2[0].toChar(),
-    this->s2[1].toChar(),
-    this->s2[2].toChar(),
-    this->s2[3].toChar(),
-    this->s2[4].toChar(),
-    this->s2[5].toChar(),
-    this->s2[6].toChar(),
-    this->s2[7].toChar(),
-    this->s2[8].toChar(),
-    this->s2[9].toChar(),
-    this->s2[10].toChar(),
-    this->s2[11].toChar(),
-    this->s2[12].toChar(),
-    this->s2[13].toChar(),
-    this->s2[14].toChar(),
-    this->s2[15].toChar()
+    this->m_s1.toChar(),
+    this->m_s2[0].toChar(),
+    this->m_s2[1].toChar(),
+    this->m_s2[2].toChar(),
+    this->m_s2[3].toChar(),
+    this->m_s2[4].toChar(),
+    this->m_s2[5].toChar(),
+    this->m_s2[6].toChar(),
+    this->m_s2[7].toChar(),
+    this->m_s2[8].toChar(),
+    this->m_s2[9].toChar(),
+    this->m_s2[10].toChar(),
+    this->m_s2[11].toChar(),
+    this->m_s2[12].toChar(),
+    this->m_s2[13].toChar(),
+    this->m_s2[14].toChar(),
+    this->m_s2[15].toChar()
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -379,23 +379,23 @@ void StringArray ::
       const Type_of_s2& s2
   )
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2[i];
+    this->m_s2[i] = s2[i];
   }
 }
 
 void StringArray ::
   sets1(const StringSize80& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }
 
 void StringArray ::
   sets2(const Type_of_s2& s2)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
-    this->s2[i] = s2[i];
+    this->m_s2[i] = s2[i];
   }
 }

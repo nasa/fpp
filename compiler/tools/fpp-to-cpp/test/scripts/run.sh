@@ -96,7 +96,7 @@ diff_test_template()
   if test -f $file'TesterHelpers.ref.cpp'
   then
     diff -u $file'TesterHelpers.ref.cpp' $file'TesterHelpers.cpp'
-  fi & \
+  fi && \
   remove_author < $file'TestMain.cpp' > $file'TestMain.out.cpp' && \
   diff -u $file'TestMain.ref.cpp' $file'TestMain.out.cpp'
 }

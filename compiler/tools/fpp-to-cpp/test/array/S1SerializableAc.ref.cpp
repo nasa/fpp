@@ -99,18 +99,18 @@ namespace M {
   S1 ::
     S1() :
       Serializable(),
-      mF32(0.0f),
-      mF64(0.0),
-      mI16(0),
-      mI32(0),
-      mI64(0),
-      mI8(0),
-      mU16(0),
-      mU32(0),
-      mU64(0),
-      mU8(0),
-      mBool(false),
-      mString("")
+      m_mF32(0.0f),
+      m_mF64(0.0),
+      m_mI16(0),
+      m_mI32(0),
+      m_mI64(0),
+      m_mI8(0),
+      m_mU16(0),
+      m_mU32(0),
+      m_mU64(0),
+      m_mU8(0),
+      m_mBool(false),
+      m_mString("")
   {
 
   }
@@ -131,18 +131,18 @@ namespace M {
         const StringSize80& mString
     ) :
       Serializable(),
-      mF32(mF32),
-      mF64(mF64),
-      mI16(mI16),
-      mI32(mI32),
-      mI64(mI64),
-      mI8(mI8),
-      mU16(mU16),
-      mU32(mU32),
-      mU64(mU64),
-      mU8(mU8),
-      mBool(mBool),
-      mString(mString)
+      m_mF32(mF32),
+      m_mF64(mF64),
+      m_mI16(mI16),
+      m_mI32(mI32),
+      m_mI64(mI64),
+      m_mI8(mI8),
+      m_mU16(mU16),
+      m_mU32(mU32),
+      m_mU64(mU64),
+      m_mU8(mU8),
+      m_mBool(mBool),
+      m_mString(mString)
   {
 
   }
@@ -150,18 +150,18 @@ namespace M {
   S1 ::
     S1(const S1& obj) :
       Serializable(),
-      mF32(obj.mF32),
-      mF64(obj.mF64),
-      mI16(obj.mI16),
-      mI32(obj.mI32),
-      mI64(obj.mI64),
-      mI8(obj.mI8),
-      mU16(obj.mU16),
-      mU32(obj.mU32),
-      mU64(obj.mU64),
-      mU8(obj.mU8),
-      mBool(obj.mBool),
-      mString(obj.mString)
+      m_mF32(obj.m_mF32),
+      m_mF64(obj.m_mF64),
+      m_mI16(obj.m_mI16),
+      m_mI32(obj.m_mI32),
+      m_mI64(obj.m_mI64),
+      m_mI8(obj.m_mI8),
+      m_mU16(obj.m_mU16),
+      m_mU32(obj.m_mU32),
+      m_mU64(obj.m_mU64),
+      m_mU8(obj.m_mU8),
+      m_mBool(obj.m_mBool),
+      m_mString(obj.m_mString)
   {
 
   }
@@ -177,7 +177,7 @@ namespace M {
       return *this;
     }
 
-    set(obj.mF32, obj.mF64, obj.mI16, obj.mI32, obj.mI64, obj.mI8, obj.mU16, obj.mU32, obj.mU64, obj.mU8, obj.mBool, obj.mString);
+    set(obj.m_mF32, obj.m_mF64, obj.m_mI16, obj.m_mI32, obj.m_mI64, obj.m_mI8, obj.m_mU16, obj.m_mU32, obj.m_mU64, obj.m_mU8, obj.m_mBool, obj.m_mString);
     return *this;
   }
 
@@ -185,18 +185,18 @@ namespace M {
     operator==(const S1& obj) const
   {
     return (
-      (this->mF32 == obj.mF32) &&
-      (this->mF64 == obj.mF64) &&
-      (this->mI16 == obj.mI16) &&
-      (this->mI32 == obj.mI32) &&
-      (this->mI64 == obj.mI64) &&
-      (this->mI8 == obj.mI8) &&
-      (this->mU16 == obj.mU16) &&
-      (this->mU32 == obj.mU32) &&
-      (this->mU64 == obj.mU64) &&
-      (this->mU8 == obj.mU8) &&
-      (this->mBool == obj.mBool) &&
-      (this->mString == obj.mString)
+      (this->m_mF32 == obj.m_mF32) &&
+      (this->m_mF64 == obj.m_mF64) &&
+      (this->m_mI16 == obj.m_mI16) &&
+      (this->m_mI32 == obj.m_mI32) &&
+      (this->m_mI64 == obj.m_mI64) &&
+      (this->m_mI8 == obj.m_mI8) &&
+      (this->m_mU16 == obj.m_mU16) &&
+      (this->m_mU32 == obj.m_mU32) &&
+      (this->m_mU64 == obj.m_mU64) &&
+      (this->m_mU8 == obj.m_mU8) &&
+      (this->m_mBool == obj.m_mBool) &&
+      (this->m_mString == obj.m_mString)
     );
   }
 
@@ -226,51 +226,51 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serialize(this->mF32);
+    status = buffer.serialize(this->m_mF32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mF64);
+    status = buffer.serialize(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mI16);
+    status = buffer.serialize(this->m_mI16);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mI32);
+    status = buffer.serialize(this->m_mI32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mI64);
+    status = buffer.serialize(this->m_mI64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mI8);
+    status = buffer.serialize(this->m_mI8);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mU16);
+    status = buffer.serialize(this->m_mU16);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mU32);
+    status = buffer.serialize(this->m_mU32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mU64);
+    status = buffer.serialize(this->m_mU64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mU8);
+    status = buffer.serialize(this->m_mU8);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mBool);
+    status = buffer.serialize(this->m_mBool);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->mString);
+    status = buffer.serialize(this->m_mString);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -283,51 +283,51 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserialize(this->mF32);
+    status = buffer.deserialize(this->m_mF32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mF64);
+    status = buffer.deserialize(this->m_mF64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mI16);
+    status = buffer.deserialize(this->m_mI16);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mI32);
+    status = buffer.deserialize(this->m_mI32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mI64);
+    status = buffer.deserialize(this->m_mI64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mI8);
+    status = buffer.deserialize(this->m_mI8);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mU16);
+    status = buffer.deserialize(this->m_mU16);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mU32);
+    status = buffer.deserialize(this->m_mU32);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mU64);
+    status = buffer.deserialize(this->m_mU64);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mU8);
+    status = buffer.deserialize(this->m_mU8);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mBool);
+    status = buffer.deserialize(this->m_mBool);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->mString);
+    status = buffer.deserialize(this->m_mString);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -361,18 +361,18 @@ namespace M {
       outputString,
       FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
       formatString,
-      this->mF32,
-      this->mF64,
-      this->mI16,
-      this->mI32,
-      this->mI64,
-      this->mI8,
-      this->mU16,
-      this->mU32,
-      this->mU64,
-      this->mU8,
-      this->mBool,
-      this->mString.toChar()
+      this->m_mF32,
+      this->m_mF64,
+      this->m_mI16,
+      this->m_mI32,
+      this->m_mI64,
+      this->m_mI8,
+      this->m_mU16,
+      this->m_mU32,
+      this->m_mU64,
+      this->m_mU8,
+      this->m_mBool,
+      this->m_mString.toChar()
     );
 
     outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -401,90 +401,90 @@ namespace M {
         const StringSize80& mString
     )
   {
-    this->mF32 = mF32;
-    this->mF64 = mF64;
-    this->mI16 = mI16;
-    this->mI32 = mI32;
-    this->mI64 = mI64;
-    this->mI8 = mI8;
-    this->mU16 = mU16;
-    this->mU32 = mU32;
-    this->mU64 = mU64;
-    this->mU8 = mU8;
-    this->mBool = mBool;
-    this->mString = mString;
+    this->m_mF32 = mF32;
+    this->m_mF64 = mF64;
+    this->m_mI16 = mI16;
+    this->m_mI32 = mI32;
+    this->m_mI64 = mI64;
+    this->m_mI8 = mI8;
+    this->m_mU16 = mU16;
+    this->m_mU32 = mU32;
+    this->m_mU64 = mU64;
+    this->m_mU8 = mU8;
+    this->m_mBool = mBool;
+    this->m_mString = mString;
   }
 
   void S1 ::
     setmF32(F32 mF32)
   {
-    this->mF32 = mF32;
+    this->m_mF32 = mF32;
   }
 
   void S1 ::
     setmF64(F64 mF64)
   {
-    this->mF64 = mF64;
+    this->m_mF64 = mF64;
   }
 
   void S1 ::
     setmI16(I16 mI16)
   {
-    this->mI16 = mI16;
+    this->m_mI16 = mI16;
   }
 
   void S1 ::
     setmI32(I32 mI32)
   {
-    this->mI32 = mI32;
+    this->m_mI32 = mI32;
   }
 
   void S1 ::
     setmI64(I64 mI64)
   {
-    this->mI64 = mI64;
+    this->m_mI64 = mI64;
   }
 
   void S1 ::
     setmI8(I8 mI8)
   {
-    this->mI8 = mI8;
+    this->m_mI8 = mI8;
   }
 
   void S1 ::
     setmU16(U16 mU16)
   {
-    this->mU16 = mU16;
+    this->m_mU16 = mU16;
   }
 
   void S1 ::
     setmU32(U32 mU32)
   {
-    this->mU32 = mU32;
+    this->m_mU32 = mU32;
   }
 
   void S1 ::
     setmU64(U64 mU64)
   {
-    this->mU64 = mU64;
+    this->m_mU64 = mU64;
   }
 
   void S1 ::
     setmU8(U8 mU8)
   {
-    this->mU8 = mU8;
+    this->m_mU8 = mU8;
   }
 
   void S1 ::
     setmBool(bool mBool)
   {
-    this->mBool = mBool;
+    this->m_mBool = mBool;
   }
 
   void S1 ::
     setmString(const StringSize80& mString)
   {
-    this->mString = mString;
+    this->m_mString = mString;
   }
 
 }

@@ -113,13 +113,13 @@ namespace M {
       //! Get member x
       U32 getx() const
       {
-        return this->x;
+        return this->m_x;
       }
 
       //! Get member y
       F32 gety() const
       {
-        return this->y;
+        return this->m_y;
       }
 
       // ----------------------------------------------------------------------
@@ -144,8 +144,8 @@ namespace M {
       // Member variables
       // ----------------------------------------------------------------------
 
-      U32 x;
-      F32 y;
+      U32 m_x;
+      F32 m_y;
 
   };
 

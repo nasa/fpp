@@ -108,13 +108,13 @@ class S2 :
     //! Get member s1
     M::S1& gets1()
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     //! Get member s1 (const)
     const M::S1& gets1() const
     {
-      return this->s1;
+      return this->m_s1;
     }
 
     // ----------------------------------------------------------------------
@@ -133,7 +133,7 @@ class S2 :
     // Member variables
     // ----------------------------------------------------------------------
 
-    M::S1 s1;
+    M::S1 m_s1;
 
 };
 

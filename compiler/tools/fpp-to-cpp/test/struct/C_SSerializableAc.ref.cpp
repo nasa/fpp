@@ -18,7 +18,7 @@
 C_S ::
   C_S() :
     Serializable(),
-    x(0)
+    m_x(0)
 {
 
 }
@@ -26,7 +26,7 @@ C_S ::
 C_S ::
   C_S(U32 x) :
     Serializable(),
-    x(x)
+    m_x(x)
 {
 
 }
@@ -34,7 +34,7 @@ C_S ::
 C_S ::
   C_S(const C_S& obj) :
     Serializable(),
-    x(obj.x)
+    m_x(obj.m_x)
 {
 
 }
@@ -50,14 +50,14 @@ C_S& C_S ::
     return *this;
   }
 
-  set(obj.x);
+  set(obj.m_x);
   return *this;
 }
 
 bool C_S ::
   operator==(const C_S& obj) const
 {
-  return (this->x == obj.x);
+  return (this->m_x == obj.m_x);
 }
 
 bool C_S ::
@@ -86,7 +86,7 @@ Fw::SerializeStatus C_S ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->x);
+  status = buffer.serialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -99,7 +99,7 @@ Fw::SerializeStatus C_S ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->x);
+  status = buffer.deserialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -122,7 +122,7 @@ void C_S ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->x
+    this->m_x
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -138,11 +138,11 @@ void C_S ::
 void C_S ::
   set(U32 x)
 {
-  this->x = x;
+  this->m_x = x;
 }
 
 void C_S ::
   setx(U32 x)
 {
-  this->x = x;
+  this->m_x = x;
 }

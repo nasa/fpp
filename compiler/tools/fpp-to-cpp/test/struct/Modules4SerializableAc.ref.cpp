@@ -20,10 +20,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 
@@ -35,10 +35,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1[i];
+    this->m_arr1[i] = arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2[i];
+    this->m_arr2[i] = arr2[i];
   }
 }
 
@@ -47,10 +47,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = obj.arr1[i];
+    this->m_arr1[i] = obj.m_arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = obj.arr2[i];
+    this->m_arr2[i] = obj.m_arr2[i];
   }
 }
 
@@ -62,10 +62,10 @@ Modules4 ::
     Serializable()
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1;
+    this->m_arr1[i] = arr1;
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2;
+    this->m_arr2[i] = arr2;
   }
 }
 
@@ -80,7 +80,7 @@ Modules4& Modules4 ::
     return *this;
   }
 
-  set(obj.arr1, obj.arr2);
+  set(obj.m_arr1, obj.m_arr2);
   return *this;
 }
 
@@ -90,16 +90,16 @@ bool Modules4 ::
 
 
   // Compare array members
-  if (!(this->arr1 == obj.arr1)) {
+  if (!(this->m_arr1 == obj.m_arr1)) {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      if (!(this->arr1[i] == obj.arr1[i])) {
+      if (!(this->m_arr1[i] == obj.m_arr1[i])) {
         return false;
       }
     }
   }
-  if (!(this->arr2 == obj.arr2)) {
+  if (!(this->m_arr2 == obj.m_arr2)) {
     for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-      if (!(this->arr2[i] == obj.arr2[i])) {
+      if (!(this->m_arr2[i] == obj.m_arr2[i])) {
         return false;
       }
     }
@@ -135,13 +135,13 @@ Fw::SerializeStatus Modules4 ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.serialize(this->arr1[i]);
+    status = buffer.serialize(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    status = buffer.serialize(this->arr2[i]);
+    status = buffer.serialize(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -156,13 +156,13 @@ Fw::SerializeStatus Modules4 ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->arr1[i]);
+    status = buffer.deserialize(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    status = buffer.deserialize(this->arr2[i]);
+    status = buffer.deserialize(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -195,10 +195,10 @@ void Modules4 ::
 
   // Call toString for arrays and serializable types
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i].toString(arr1Str[i]);
+    this->m_arr1[i].toString(arr1Str[i]);
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i].toString(arr2Str[i]);
+    this->m_arr2[i].toString(arr2Str[i]);
   }
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -235,10 +235,10 @@ void Modules4 ::
 {
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1[i];
+    this->m_arr1[i] = arr1[i];
   }
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2[i];
+    this->m_arr2[i] = arr2[i];
   }
 }
 
@@ -246,7 +246,7 @@ void Modules4 ::
   setarr1(const Type_of_arr1& arr1)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->arr1[i] = arr1[i];
+    this->m_arr1[i] = arr1[i];
   }
 }
 
@@ -254,6 +254,6 @@ void Modules4 ::
   setarr2(const Type_of_arr2& arr2)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
-    this->arr2[i] = arr2[i];
+    this->m_arr2[i] = arr2[i];
   }
 }

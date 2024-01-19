@@ -108,13 +108,13 @@ class AbsType :
     //! Get member t
     T& gett()
     {
-      return this->t;
+      return this->m_t;
     }
 
     //! Get member t (const)
     const T& gett() const
     {
-      return this->t;
+      return this->m_t;
     }
 
     // ----------------------------------------------------------------------
@@ -133,7 +133,7 @@ class AbsType :
     // Member variables
     // ----------------------------------------------------------------------
 
-    T t;
+    T m_t;
 
 };
 
