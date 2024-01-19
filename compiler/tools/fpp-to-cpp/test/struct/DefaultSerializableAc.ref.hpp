@@ -92,9 +92,9 @@ class Default :
 
     //! Member constructor
     Default(
-        U32 varU32,
-        const StringSize40& S1,
-        F64 varF64
+        U32 memberU32,
+        const StringSize40& memberString,
+        F64 memberF64
     );
 
     //! Copy constructor
@@ -162,28 +162,28 @@ class Default :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member varU32
-    U32 getvarU32() const
+    //! Get member memberU32
+    U32 getmemberU32() const
     {
-      return this->m_varU32;
+      return this->m_memberU32;
     }
 
-    //! Get member S1
-    StringSize40& getS1()
+    //! Get member memberString
+    StringSize40& getmemberString()
     {
-      return this->m_S1;
+      return this->m_memberString;
     }
 
-    //! Get member S1 (const)
-    const StringSize40& getS1() const
+    //! Get member memberString (const)
+    const StringSize40& getmemberString() const
     {
-      return this->m_S1;
+      return this->m_memberString;
     }
 
-    //! Get member varF64
-    F64 getvarF64() const
+    //! Get member memberF64
+    F64 getmemberF64() const
     {
-      return this->m_varF64;
+      return this->m_memberF64;
     }
 
     // ----------------------------------------------------------------------
@@ -192,19 +192,19 @@ class Default :
 
     //! Set all members
     void set(
-        U32 varU32,
-        const StringSize40& S1,
-        F64 varF64
+        U32 memberU32,
+        const StringSize40& memberString,
+        F64 memberF64
     );
 
-    //! Set member varU32
-    void setvarU32(U32 varU32);
+    //! Set member memberU32
+    void setmemberU32(U32 memberU32);
 
-    //! Set member S1
-    void setS1(const StringSize40& S1);
+    //! Set member memberString
+    void setmemberString(const StringSize40& memberString);
 
-    //! Set member varF64
-    void setvarF64(F64 varF64);
+    //! Set member memberF64
+    void setmemberF64(F64 memberF64);
 
   protected:
 
@@ -212,9 +212,9 @@ class Default :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 m_varU32;
-    StringSize40 m_S1;
-    F64 m_varF64;
+    U32 m_memberU32;
+    StringSize40 m_memberString;
+    F64 m_memberF64;
 
 };
 

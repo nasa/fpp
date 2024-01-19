@@ -18,65 +18,65 @@
 Format ::
   Format() :
     Serializable(),
-    m_I32_1(0),
-    m_U32_2(0),
-    m_I32_3(0),
-    m_U32_4(0),
-    m_I32_5(0),
-    m_U32_6(0),
-    m_I32_7(0),
-    m_U32_8(0),
-    m_I32_9(0),
-    m_U32_10(0),
-    m_F32_11(0.0f),
-    m_F32_12(0.0f),
-    m_F32_13(0.0f),
-    m_F32_14(0.0f),
-    m_F32_15(0.0f),
-    m_F32_16(0.0f),
-    m_F32_17(0.0f)
+    m_member1(0),
+    m_member2(0),
+    m_member3(0),
+    m_member4(0),
+    m_member5(0),
+    m_member6(0),
+    m_member7(0),
+    m_member8(0),
+    m_member9(0),
+    m_member10(0),
+    m_member11(0.0f),
+    m_member12(0.0f),
+    m_member13(0.0f),
+    m_member14(0.0f),
+    m_member15(0.0f),
+    m_member16(0.0f),
+    m_member17(0.0f)
 {
 
 }
 
 Format ::
   Format(
-      I32 I32_1,
-      U32 U32_2,
-      I32 I32_3,
-      U32 U32_4,
-      I32 I32_5,
-      U32 U32_6,
-      I32 I32_7,
-      U32 U32_8,
-      I32 I32_9,
-      U32 U32_10,
-      F32 F32_11,
-      F32 F32_12,
-      F32 F32_13,
-      F32 F32_14,
-      F32 F32_15,
-      F32 F32_16,
-      F32 F32_17
+      I32 member1,
+      U32 member2,
+      I32 member3,
+      U32 member4,
+      I32 member5,
+      U32 member6,
+      I32 member7,
+      U32 member8,
+      I32 member9,
+      U32 member10,
+      F32 member11,
+      F32 member12,
+      F32 member13,
+      F32 member14,
+      F32 member15,
+      F32 member16,
+      F32 member17
   ) :
     Serializable(),
-    m_I32_1(I32_1),
-    m_U32_2(U32_2),
-    m_I32_3(I32_3),
-    m_U32_4(U32_4),
-    m_I32_5(I32_5),
-    m_U32_6(U32_6),
-    m_I32_7(I32_7),
-    m_U32_8(U32_8),
-    m_I32_9(I32_9),
-    m_U32_10(U32_10),
-    m_F32_11(F32_11),
-    m_F32_12(F32_12),
-    m_F32_13(F32_13),
-    m_F32_14(F32_14),
-    m_F32_15(F32_15),
-    m_F32_16(F32_16),
-    m_F32_17(F32_17)
+    m_member1(member1),
+    m_member2(member2),
+    m_member3(member3),
+    m_member4(member4),
+    m_member5(member5),
+    m_member6(member6),
+    m_member7(member7),
+    m_member8(member8),
+    m_member9(member9),
+    m_member10(member10),
+    m_member11(member11),
+    m_member12(member12),
+    m_member13(member13),
+    m_member14(member14),
+    m_member15(member15),
+    m_member16(member16),
+    m_member17(member17)
 {
 
 }
@@ -84,23 +84,23 @@ Format ::
 Format ::
   Format(const Format& obj) :
     Serializable(),
-    m_I32_1(obj.m_I32_1),
-    m_U32_2(obj.m_U32_2),
-    m_I32_3(obj.m_I32_3),
-    m_U32_4(obj.m_U32_4),
-    m_I32_5(obj.m_I32_5),
-    m_U32_6(obj.m_U32_6),
-    m_I32_7(obj.m_I32_7),
-    m_U32_8(obj.m_U32_8),
-    m_I32_9(obj.m_I32_9),
-    m_U32_10(obj.m_U32_10),
-    m_F32_11(obj.m_F32_11),
-    m_F32_12(obj.m_F32_12),
-    m_F32_13(obj.m_F32_13),
-    m_F32_14(obj.m_F32_14),
-    m_F32_15(obj.m_F32_15),
-    m_F32_16(obj.m_F32_16),
-    m_F32_17(obj.m_F32_17)
+    m_member1(obj.m_member1),
+    m_member2(obj.m_member2),
+    m_member3(obj.m_member3),
+    m_member4(obj.m_member4),
+    m_member5(obj.m_member5),
+    m_member6(obj.m_member6),
+    m_member7(obj.m_member7),
+    m_member8(obj.m_member8),
+    m_member9(obj.m_member9),
+    m_member10(obj.m_member10),
+    m_member11(obj.m_member11),
+    m_member12(obj.m_member12),
+    m_member13(obj.m_member13),
+    m_member14(obj.m_member14),
+    m_member15(obj.m_member15),
+    m_member16(obj.m_member16),
+    m_member17(obj.m_member17)
 {
 
 }
@@ -116,7 +116,7 @@ Format& Format ::
     return *this;
   }
 
-  set(obj.m_I32_1, obj.m_U32_2, obj.m_I32_3, obj.m_U32_4, obj.m_I32_5, obj.m_U32_6, obj.m_I32_7, obj.m_U32_8, obj.m_I32_9, obj.m_U32_10, obj.m_F32_11, obj.m_F32_12, obj.m_F32_13, obj.m_F32_14, obj.m_F32_15, obj.m_F32_16, obj.m_F32_17);
+  set(obj.m_member1, obj.m_member2, obj.m_member3, obj.m_member4, obj.m_member5, obj.m_member6, obj.m_member7, obj.m_member8, obj.m_member9, obj.m_member10, obj.m_member11, obj.m_member12, obj.m_member13, obj.m_member14, obj.m_member15, obj.m_member16, obj.m_member17);
   return *this;
 }
 
@@ -124,23 +124,23 @@ bool Format ::
   operator==(const Format& obj) const
 {
   return (
-    (this->m_I32_1 == obj.m_I32_1) &&
-    (this->m_U32_2 == obj.m_U32_2) &&
-    (this->m_I32_3 == obj.m_I32_3) &&
-    (this->m_U32_4 == obj.m_U32_4) &&
-    (this->m_I32_5 == obj.m_I32_5) &&
-    (this->m_U32_6 == obj.m_U32_6) &&
-    (this->m_I32_7 == obj.m_I32_7) &&
-    (this->m_U32_8 == obj.m_U32_8) &&
-    (this->m_I32_9 == obj.m_I32_9) &&
-    (this->m_U32_10 == obj.m_U32_10) &&
-    (this->m_F32_11 == obj.m_F32_11) &&
-    (this->m_F32_12 == obj.m_F32_12) &&
-    (this->m_F32_13 == obj.m_F32_13) &&
-    (this->m_F32_14 == obj.m_F32_14) &&
-    (this->m_F32_15 == obj.m_F32_15) &&
-    (this->m_F32_16 == obj.m_F32_16) &&
-    (this->m_F32_17 == obj.m_F32_17)
+    (this->m_member1 == obj.m_member1) &&
+    (this->m_member2 == obj.m_member2) &&
+    (this->m_member3 == obj.m_member3) &&
+    (this->m_member4 == obj.m_member4) &&
+    (this->m_member5 == obj.m_member5) &&
+    (this->m_member6 == obj.m_member6) &&
+    (this->m_member7 == obj.m_member7) &&
+    (this->m_member8 == obj.m_member8) &&
+    (this->m_member9 == obj.m_member9) &&
+    (this->m_member10 == obj.m_member10) &&
+    (this->m_member11 == obj.m_member11) &&
+    (this->m_member12 == obj.m_member12) &&
+    (this->m_member13 == obj.m_member13) &&
+    (this->m_member14 == obj.m_member14) &&
+    (this->m_member15 == obj.m_member15) &&
+    (this->m_member16 == obj.m_member16) &&
+    (this->m_member17 == obj.m_member17)
   );
 }
 
@@ -170,71 +170,71 @@ Fw::SerializeStatus Format ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_I32_1);
+  status = buffer.serialize(this->m_member1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_U32_2);
+  status = buffer.serialize(this->m_member2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_I32_3);
+  status = buffer.serialize(this->m_member3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_U32_4);
+  status = buffer.serialize(this->m_member4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_I32_5);
+  status = buffer.serialize(this->m_member5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_U32_6);
+  status = buffer.serialize(this->m_member6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_I32_7);
+  status = buffer.serialize(this->m_member7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_U32_8);
+  status = buffer.serialize(this->m_member8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_I32_9);
+  status = buffer.serialize(this->m_member9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_U32_10);
+  status = buffer.serialize(this->m_member10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_11);
+  status = buffer.serialize(this->m_member11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_12);
+  status = buffer.serialize(this->m_member12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_13);
+  status = buffer.serialize(this->m_member13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_14);
+  status = buffer.serialize(this->m_member14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_15);
+  status = buffer.serialize(this->m_member15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_16);
+  status = buffer.serialize(this->m_member16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_F32_17);
+  status = buffer.serialize(this->m_member17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -247,71 +247,71 @@ Fw::SerializeStatus Format ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_I32_1);
+  status = buffer.deserialize(this->m_member1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_U32_2);
+  status = buffer.deserialize(this->m_member2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_I32_3);
+  status = buffer.deserialize(this->m_member3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_U32_4);
+  status = buffer.deserialize(this->m_member4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_I32_5);
+  status = buffer.deserialize(this->m_member5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_U32_6);
+  status = buffer.deserialize(this->m_member6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_I32_7);
+  status = buffer.deserialize(this->m_member7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_U32_8);
+  status = buffer.deserialize(this->m_member8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_I32_9);
+  status = buffer.deserialize(this->m_member9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_U32_10);
+  status = buffer.deserialize(this->m_member10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_11);
+  status = buffer.deserialize(this->m_member11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_12);
+  status = buffer.deserialize(this->m_member12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_13);
+  status = buffer.deserialize(this->m_member13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_14);
+  status = buffer.deserialize(this->m_member14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_15);
+  status = buffer.deserialize(this->m_member15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_16);
+  status = buffer.deserialize(this->m_member16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_F32_17);
+  status = buffer.deserialize(this->m_member17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -326,23 +326,23 @@ void Format ::
 {
   static const char* formatString =
     "( "
-    "m_I32_1 = %" PRIi32 ", "
-    "m_U32_2 = %" PRIu32 ", "
-    "m_I32_3 = %" PRIi32 ", "
-    "m_U32_4 = %" PRIu32 ", "
-    "m_I32_5 = %" PRIx32 ", "
-    "m_U32_6 = %" PRIx32 ", "
-    "m_I32_7 = %c, "
-    "m_U32_8 = %c, "
-    "m_I32_9 = %" PRIo32 ", "
-    "m_U32_10 = %" PRIo32 ", "
-    "m_F32_11 = %e, "
-    "m_F32_12 = %f, "
-    "m_F32_13 = %g, "
-    "m_F32_14 = %.3e, "
-    "m_F32_15 = %.3f, "
-    "m_F32_16 = %.3g, "
-    "m_F32_17 = %.3g%%"
+    "m_member1 = %" PRIi32 ", "
+    "m_member2 = %" PRIu32 ", "
+    "m_member3 = %" PRIi32 ", "
+    "m_member4 = %" PRIu32 ", "
+    "m_member5 = %" PRIx32 ", "
+    "m_member6 = %" PRIx32 ", "
+    "m_member7 = %c, "
+    "m_member8 = %c, "
+    "m_member9 = %" PRIo32 ", "
+    "m_member10 = %" PRIo32 ", "
+    "m_member11 = %e, "
+    "m_member12 = %f, "
+    "m_member13 = %g, "
+    "m_member14 = %.3e, "
+    "m_member15 = %.3f, "
+    "m_member16 = %.3g, "
+    "m_member17 = %.3g%%"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -350,23 +350,23 @@ void Format ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_I32_1,
-    this->m_U32_2,
-    this->m_I32_3,
-    this->m_U32_4,
-    this->m_I32_5,
-    this->m_U32_6,
-    this->m_I32_7,
-    this->m_U32_8,
-    this->m_I32_9,
-    this->m_U32_10,
-    this->m_F32_11,
-    this->m_F32_12,
-    this->m_F32_13,
-    this->m_F32_14,
-    this->m_F32_15,
-    this->m_F32_16,
-    this->m_F32_17
+    this->m_member1,
+    this->m_member2,
+    this->m_member3,
+    this->m_member4,
+    this->m_member5,
+    this->m_member6,
+    this->m_member7,
+    this->m_member8,
+    this->m_member9,
+    this->m_member10,
+    this->m_member11,
+    this->m_member12,
+    this->m_member13,
+    this->m_member14,
+    this->m_member15,
+    this->m_member16,
+    this->m_member17
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -381,142 +381,142 @@ void Format ::
 
 void Format ::
   set(
-      I32 I32_1,
-      U32 U32_2,
-      I32 I32_3,
-      U32 U32_4,
-      I32 I32_5,
-      U32 U32_6,
-      I32 I32_7,
-      U32 U32_8,
-      I32 I32_9,
-      U32 U32_10,
-      F32 F32_11,
-      F32 F32_12,
-      F32 F32_13,
-      F32 F32_14,
-      F32 F32_15,
-      F32 F32_16,
-      F32 F32_17
+      I32 member1,
+      U32 member2,
+      I32 member3,
+      U32 member4,
+      I32 member5,
+      U32 member6,
+      I32 member7,
+      U32 member8,
+      I32 member9,
+      U32 member10,
+      F32 member11,
+      F32 member12,
+      F32 member13,
+      F32 member14,
+      F32 member15,
+      F32 member16,
+      F32 member17
   )
 {
-  this->m_I32_1 = I32_1;
-  this->m_U32_2 = U32_2;
-  this->m_I32_3 = I32_3;
-  this->m_U32_4 = U32_4;
-  this->m_I32_5 = I32_5;
-  this->m_U32_6 = U32_6;
-  this->m_I32_7 = I32_7;
-  this->m_U32_8 = U32_8;
-  this->m_I32_9 = I32_9;
-  this->m_U32_10 = U32_10;
-  this->m_F32_11 = F32_11;
-  this->m_F32_12 = F32_12;
-  this->m_F32_13 = F32_13;
-  this->m_F32_14 = F32_14;
-  this->m_F32_15 = F32_15;
-  this->m_F32_16 = F32_16;
-  this->m_F32_17 = F32_17;
+  this->m_member1 = member1;
+  this->m_member2 = member2;
+  this->m_member3 = member3;
+  this->m_member4 = member4;
+  this->m_member5 = member5;
+  this->m_member6 = member6;
+  this->m_member7 = member7;
+  this->m_member8 = member8;
+  this->m_member9 = member9;
+  this->m_member10 = member10;
+  this->m_member11 = member11;
+  this->m_member12 = member12;
+  this->m_member13 = member13;
+  this->m_member14 = member14;
+  this->m_member15 = member15;
+  this->m_member16 = member16;
+  this->m_member17 = member17;
 }
 
 void Format ::
-  setI32_1(I32 I32_1)
+  setmember1(I32 member1)
 {
-  this->m_I32_1 = I32_1;
+  this->m_member1 = member1;
 }
 
 void Format ::
-  setU32_2(U32 U32_2)
+  setmember2(U32 member2)
 {
-  this->m_U32_2 = U32_2;
+  this->m_member2 = member2;
 }
 
 void Format ::
-  setI32_3(I32 I32_3)
+  setmember3(I32 member3)
 {
-  this->m_I32_3 = I32_3;
+  this->m_member3 = member3;
 }
 
 void Format ::
-  setU32_4(U32 U32_4)
+  setmember4(U32 member4)
 {
-  this->m_U32_4 = U32_4;
+  this->m_member4 = member4;
 }
 
 void Format ::
-  setI32_5(I32 I32_5)
+  setmember5(I32 member5)
 {
-  this->m_I32_5 = I32_5;
+  this->m_member5 = member5;
 }
 
 void Format ::
-  setU32_6(U32 U32_6)
+  setmember6(U32 member6)
 {
-  this->m_U32_6 = U32_6;
+  this->m_member6 = member6;
 }
 
 void Format ::
-  setI32_7(I32 I32_7)
+  setmember7(I32 member7)
 {
-  this->m_I32_7 = I32_7;
+  this->m_member7 = member7;
 }
 
 void Format ::
-  setU32_8(U32 U32_8)
+  setmember8(U32 member8)
 {
-  this->m_U32_8 = U32_8;
+  this->m_member8 = member8;
 }
 
 void Format ::
-  setI32_9(I32 I32_9)
+  setmember9(I32 member9)
 {
-  this->m_I32_9 = I32_9;
+  this->m_member9 = member9;
 }
 
 void Format ::
-  setU32_10(U32 U32_10)
+  setmember10(U32 member10)
 {
-  this->m_U32_10 = U32_10;
+  this->m_member10 = member10;
 }
 
 void Format ::
-  setF32_11(F32 F32_11)
+  setmember11(F32 member11)
 {
-  this->m_F32_11 = F32_11;
+  this->m_member11 = member11;
 }
 
 void Format ::
-  setF32_12(F32 F32_12)
+  setmember12(F32 member12)
 {
-  this->m_F32_12 = F32_12;
+  this->m_member12 = member12;
 }
 
 void Format ::
-  setF32_13(F32 F32_13)
+  setmember13(F32 member13)
 {
-  this->m_F32_13 = F32_13;
+  this->m_member13 = member13;
 }
 
 void Format ::
-  setF32_14(F32 F32_14)
+  setmember14(F32 member14)
 {
-  this->m_F32_14 = F32_14;
+  this->m_member14 = member14;
 }
 
 void Format ::
-  setF32_15(F32 F32_15)
+  setmember15(F32 member15)
 {
-  this->m_F32_15 = F32_15;
+  this->m_member15 = member15;
 }
 
 void Format ::
-  setF32_16(F32 F32_16)
+  setmember16(F32 member16)
 {
-  this->m_F32_16 = F32_16;
+  this->m_member16 = member16;
 }
 
 void Format ::
-  setF32_17(F32 F32_17)
+  setmember17(F32 member17)
 {
-  this->m_F32_17 = F32_17;
+  this->m_member17 = member17;
 }

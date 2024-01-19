@@ -97,23 +97,23 @@ NATIVE_UINT_TYPE Default::StringSize40 ::
 Default ::
   Default() :
     Serializable(),
-    m_varU32(54),
-    m_S1("hello"),
-    m_varF64(0.0)
+    m_memberU32(54),
+    m_memberString("hello"),
+    m_memberF64(0.0)
 {
 
 }
 
 Default ::
   Default(
-      U32 varU32,
-      const StringSize40& S1,
-      F64 varF64
+      U32 memberU32,
+      const StringSize40& memberString,
+      F64 memberF64
   ) :
     Serializable(),
-    m_varU32(varU32),
-    m_S1(S1),
-    m_varF64(varF64)
+    m_memberU32(memberU32),
+    m_memberString(memberString),
+    m_memberF64(memberF64)
 {
 
 }
@@ -121,9 +121,9 @@ Default ::
 Default ::
   Default(const Default& obj) :
     Serializable(),
-    m_varU32(obj.m_varU32),
-    m_S1(obj.m_S1),
-    m_varF64(obj.m_varF64)
+    m_memberU32(obj.m_memberU32),
+    m_memberString(obj.m_memberString),
+    m_memberF64(obj.m_memberF64)
 {
 
 }
@@ -139,7 +139,7 @@ Default& Default ::
     return *this;
   }
 
-  set(obj.m_varU32, obj.m_S1, obj.m_varF64);
+  set(obj.m_memberU32, obj.m_memberString, obj.m_memberF64);
   return *this;
 }
 
@@ -147,9 +147,9 @@ bool Default ::
   operator==(const Default& obj) const
 {
   return (
-    (this->m_varU32 == obj.m_varU32) &&
-    (this->m_S1 == obj.m_S1) &&
-    (this->m_varF64 == obj.m_varF64)
+    (this->m_memberU32 == obj.m_memberU32) &&
+    (this->m_memberString == obj.m_memberString) &&
+    (this->m_memberF64 == obj.m_memberF64)
   );
 }
 
@@ -179,15 +179,15 @@ Fw::SerializeStatus Default ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_varU32);
+  status = buffer.serialize(this->m_memberU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_S1);
+  status = buffer.serialize(this->m_memberString);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_varF64);
+  status = buffer.serialize(this->m_memberF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -200,15 +200,15 @@ Fw::SerializeStatus Default ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_varU32);
+  status = buffer.deserialize(this->m_memberU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_S1);
+  status = buffer.deserialize(this->m_memberString);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_varF64);
+  status = buffer.deserialize(this->m_memberF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -223,9 +223,9 @@ void Default ::
 {
   static const char* formatString =
     "( "
-    "m_varU32 = %" PRIu32 ", "
-    "m_S1 = %s, "
-    "m_varF64 = %f"
+    "m_memberU32 = %" PRIu32 ", "
+    "m_memberString = %s, "
+    "m_memberF64 = %f"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -233,9 +233,9 @@ void Default ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_varU32,
-    this->m_S1.toChar(),
-    this->m_varF64
+    this->m_memberU32,
+    this->m_memberString.toChar(),
+    this->m_memberF64
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -250,30 +250,30 @@ void Default ::
 
 void Default ::
   set(
-      U32 varU32,
-      const StringSize40& S1,
-      F64 varF64
+      U32 memberU32,
+      const StringSize40& memberString,
+      F64 memberF64
   )
 {
-  this->m_varU32 = varU32;
-  this->m_S1 = S1;
-  this->m_varF64 = varF64;
+  this->m_memberU32 = memberU32;
+  this->m_memberString = memberString;
+  this->m_memberF64 = memberF64;
 }
 
 void Default ::
-  setvarU32(U32 varU32)
+  setmemberU32(U32 memberU32)
 {
-  this->m_varU32 = varU32;
+  this->m_memberU32 = memberU32;
 }
 
 void Default ::
-  setS1(const StringSize40& S1)
+  setmemberString(const StringSize40& memberString)
 {
-  this->m_S1 = S1;
+  this->m_memberString = memberString;
 }
 
 void Default ::
-  setvarF64(F64 varF64)
+  setmemberF64(F64 memberF64)
 {
-  this->m_varF64 = varF64;
+  this->m_memberF64 = memberF64;
 }
