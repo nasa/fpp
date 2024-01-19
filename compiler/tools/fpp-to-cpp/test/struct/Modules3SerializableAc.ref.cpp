@@ -162,8 +162,8 @@ void Modules3 ::
 {
   static const char* formatString =
     "( "
-    "m_x = %s, "
-    "m_arr = [ %s, "
+    "x = %s, "
+    "arr = [ %s, "
     "%s, "
     "%s ]"
     " )";

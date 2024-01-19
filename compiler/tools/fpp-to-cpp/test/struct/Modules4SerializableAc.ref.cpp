@@ -178,10 +178,10 @@ void Modules4 ::
 {
   static const char* formatString =
     "( "
-    "m_arr1 = [ %s, "
+    "arr1 = [ %s, "
     "%s, "
     "%s ], "
-    "m_arr2 = [ %s, "
+    "arr2 = [ %s, "
     "%s, "
     "%s, "
     "%s, "

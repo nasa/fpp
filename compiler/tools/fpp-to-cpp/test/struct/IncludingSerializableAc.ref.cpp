@@ -114,7 +114,7 @@ void Including ::
 {
   static const char* formatString =
     "( "
-    "m_x = %s"
+    "x = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments

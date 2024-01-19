@@ -289,8 +289,8 @@ void String ::
 {
   static const char* formatString =
     "( "
-    "m_s1 = %s, "
-    "m_s2 = %s"
+    "s1 = %s, "
+    "s2 = %s"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];

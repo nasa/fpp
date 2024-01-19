@@ -162,8 +162,8 @@ void Enum ::
 {
   static const char* formatString =
     "( "
-    "m_e = %s, "
-    "m_eArr = [ %s, "
+    "e = %s, "
+    "eArr = [ %s, "
     "%s, "
     "%s ]"
     " )";

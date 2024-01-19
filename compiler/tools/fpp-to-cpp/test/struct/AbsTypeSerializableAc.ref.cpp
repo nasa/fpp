@@ -114,7 +114,7 @@ void AbsType ::
 {
   static const char* formatString =
     "( "
-    "m_t = %s"
+    "t = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments

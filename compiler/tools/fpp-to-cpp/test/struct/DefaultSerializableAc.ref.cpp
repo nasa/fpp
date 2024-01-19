@@ -223,9 +223,9 @@ void Default ::
 {
   static const char* formatString =
     "( "
-    "m_mU32 = %" PRIu32 ", "
-    "m_mS1 = %s, "
-    "m_mF64 = %f"
+    "mU32 = %" PRIu32 ", "
+    "mS1 = %s, "
+    "mF64 = %f"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];

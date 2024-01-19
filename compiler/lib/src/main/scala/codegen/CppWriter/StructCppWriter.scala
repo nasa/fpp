@@ -490,13 +490,13 @@ case class StructCppWriter(
                 )
                 if sizes.contains(n) then {
                   if sizes(n) == 1 then
-                    List(s"m_$n = [ $formatStr ]")
+                    List(s"$n = [ $formatStr ]")
                   else
-                    s"m_$n = [ $formatStr" ::
+                    s"$n = [ $formatStr" ::
                       List.fill(sizes(n) - 2)(formatStr) ++
                         List(s"$formatStr ]")
                 } else
-                  List(s"m_$n = $formatStr")
+                  List(s"$n = $formatStr")
               }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
               initStrings,
               Line.blank ::

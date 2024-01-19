@@ -114,7 +114,7 @@ void Included ::
 {
   static const char* formatString =
     "( "
-    "m_x = %" PRIu32 ""
+    "x = %" PRIu32 ""
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];

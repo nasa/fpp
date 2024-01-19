@@ -320,8 +320,8 @@ void StringArray ::
 {
   static const char* formatString =
     "( "
-    "m_s1 = %s, "
-    "m_s2 = [ %s, "
+    "s1 = %s, "
+    "s2 = [ %s, "
     "%s, "
     "%s, "
     "%s, "
