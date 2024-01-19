@@ -3,18 +3,18 @@
 struct Primitive {
   @ Member annotation, line 1.
   @ Member annotation, line 2.
-  memberF32: [3] F32
-  memberF64: F64
-  memberI16: I16
-  memberI32: I32
-  memberI64: I64
-  memberI8: I8
-  memberU16: U16
-  memberU32: U32
-  memberU64: U64
-  memberU8: U8
-  memberBool: bool
-  memberString: string
+  mF32: [3] F32
+  mF64: F64
+  mI16: I16
+  mI32: I32
+  mI64: I64
+  mI8: I8
+  mU16: U16
+  mU32: U32
+  mU64: U64
+  mU8: U8
+  m_bool: bool
+  m_string: string
 }
 
 struct PrimitiveStruct {

@@ -76,7 +76,7 @@ class Primitive :
     // ----------------------------------------------------------------------
 
     //! The array member types
-    typedef F32 Type_of_memberF32[3];
+    typedef F32 Type_of_mF32[3];
 
   public:
 
@@ -112,18 +112,18 @@ class Primitive :
 
     //! Member constructor
     Primitive(
-        const Type_of_memberF32& memberF32,
-        F64 memberF64,
-        I16 memberI16,
-        I32 memberI32,
-        I64 memberI64,
-        I8 memberI8,
-        U16 memberU16,
-        U32 memberU32,
-        U64 memberU64,
-        U8 memberU8,
-        bool memberBool,
-        const StringSize80& memberString
+        const Type_of_mF32& mF32,
+        F64 mF64,
+        I16 mI16,
+        I32 mI32,
+        I64 mI64,
+        I8 mI8,
+        U16 mU16,
+        U32 mU32,
+        U64 mU64,
+        U8 mU8,
+        bool m_bool,
+        const StringSize80& m_string
     );
 
     //! Copy constructor
@@ -133,18 +133,18 @@ class Primitive :
 
     //! Member constructor (scalar values for arrays)
     Primitive(
-        F32 memberF32,
-        F64 memberF64,
-        I16 memberI16,
-        I32 memberI32,
-        I64 memberI64,
-        I8 memberI8,
-        U16 memberU16,
-        U32 memberU32,
-        U64 memberU64,
-        U8 memberU8,
-        bool memberBool,
-        const StringSize80& memberString
+        F32 mF32,
+        F64 mF64,
+        I16 mI16,
+        I32 mI32,
+        I64 mI64,
+        I8 mI8,
+        U16 mU16,
+        U32 mU32,
+        U64 mU64,
+        U8 mU8,
+        bool m_bool,
+        const StringSize80& m_string
     );
 
   public:
@@ -207,88 +207,88 @@ class Primitive :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member memberF32
-    Type_of_memberF32& getmemberF32()
+    //! Get member mF32
+    Type_of_mF32& getmF32()
     {
-      return this->m_memberF32;
+      return this->m_mF32;
     }
 
-    //! Get member memberF32 (const)
-    const Type_of_memberF32& getmemberF32() const
+    //! Get member mF32 (const)
+    const Type_of_mF32& getmF32() const
     {
-      return this->m_memberF32;
+      return this->m_mF32;
     }
 
-    //! Get member memberF64
-    F64 getmemberF64() const
+    //! Get member mF64
+    F64 getmF64() const
     {
-      return this->m_memberF64;
+      return this->m_mF64;
     }
 
-    //! Get member memberI16
-    I16 getmemberI16() const
+    //! Get member mI16
+    I16 getmI16() const
     {
-      return this->m_memberI16;
+      return this->m_mI16;
     }
 
-    //! Get member memberI32
-    I32 getmemberI32() const
+    //! Get member mI32
+    I32 getmI32() const
     {
-      return this->m_memberI32;
+      return this->m_mI32;
     }
 
-    //! Get member memberI64
-    I64 getmemberI64() const
+    //! Get member mI64
+    I64 getmI64() const
     {
-      return this->m_memberI64;
+      return this->m_mI64;
     }
 
-    //! Get member memberI8
-    I8 getmemberI8() const
+    //! Get member mI8
+    I8 getmI8() const
     {
-      return this->m_memberI8;
+      return this->m_mI8;
     }
 
-    //! Get member memberU16
-    U16 getmemberU16() const
+    //! Get member mU16
+    U16 getmU16() const
     {
-      return this->m_memberU16;
+      return this->m_mU16;
     }
 
-    //! Get member memberU32
-    U32 getmemberU32() const
+    //! Get member mU32
+    U32 getmU32() const
     {
-      return this->m_memberU32;
+      return this->m_mU32;
     }
 
-    //! Get member memberU64
-    U64 getmemberU64() const
+    //! Get member mU64
+    U64 getmU64() const
     {
-      return this->m_memberU64;
+      return this->m_mU64;
     }
 
-    //! Get member memberU8
-    U8 getmemberU8() const
+    //! Get member mU8
+    U8 getmU8() const
     {
-      return this->m_memberU8;
+      return this->m_mU8;
     }
 
-    //! Get member memberBool
-    bool getmemberBool() const
+    //! Get member m_bool
+    bool getm_bool() const
     {
-      return this->m_memberBool;
+      return this->m_m_bool;
     }
 
-    //! Get member memberString
-    StringSize80& getmemberString()
+    //! Get member m_string
+    StringSize80& getm_string()
     {
-      return this->m_memberString;
+      return this->m_m_string;
     }
 
-    //! Get member memberString (const)
-    const StringSize80& getmemberString() const
+    //! Get member m_string (const)
+    const StringSize80& getm_string() const
     {
-      return this->m_memberString;
+      return this->m_m_string;
     }
 
     // ----------------------------------------------------------------------
@@ -297,55 +297,55 @@ class Primitive :
 
     //! Set all members
     void set(
-        const Type_of_memberF32& memberF32,
-        F64 memberF64,
-        I16 memberI16,
-        I32 memberI32,
-        I64 memberI64,
-        I8 memberI8,
-        U16 memberU16,
-        U32 memberU32,
-        U64 memberU64,
-        U8 memberU8,
-        bool memberBool,
-        const StringSize80& memberString
+        const Type_of_mF32& mF32,
+        F64 mF64,
+        I16 mI16,
+        I32 mI32,
+        I64 mI64,
+        I8 mI8,
+        U16 mU16,
+        U32 mU32,
+        U64 mU64,
+        U8 mU8,
+        bool m_bool,
+        const StringSize80& m_string
     );
 
-    //! Set member memberF32
-    void setmemberF32(const Type_of_memberF32& memberF32);
+    //! Set member mF32
+    void setmF32(const Type_of_mF32& mF32);
 
-    //! Set member memberF64
-    void setmemberF64(F64 memberF64);
+    //! Set member mF64
+    void setmF64(F64 mF64);
 
-    //! Set member memberI16
-    void setmemberI16(I16 memberI16);
+    //! Set member mI16
+    void setmI16(I16 mI16);
 
-    //! Set member memberI32
-    void setmemberI32(I32 memberI32);
+    //! Set member mI32
+    void setmI32(I32 mI32);
 
-    //! Set member memberI64
-    void setmemberI64(I64 memberI64);
+    //! Set member mI64
+    void setmI64(I64 mI64);
 
-    //! Set member memberI8
-    void setmemberI8(I8 memberI8);
+    //! Set member mI8
+    void setmI8(I8 mI8);
 
-    //! Set member memberU16
-    void setmemberU16(U16 memberU16);
+    //! Set member mU16
+    void setmU16(U16 mU16);
 
-    //! Set member memberU32
-    void setmemberU32(U32 memberU32);
+    //! Set member mU32
+    void setmU32(U32 mU32);
 
-    //! Set member memberU64
-    void setmemberU64(U64 memberU64);
+    //! Set member mU64
+    void setmU64(U64 mU64);
 
-    //! Set member memberU8
-    void setmemberU8(U8 memberU8);
+    //! Set member mU8
+    void setmU8(U8 mU8);
 
-    //! Set member memberBool
-    void setmemberBool(bool memberBool);
+    //! Set member m_bool
+    void setm_bool(bool m_bool);
 
-    //! Set member memberString
-    void setmemberString(const StringSize80& memberString);
+    //! Set member m_string
+    void setm_string(const StringSize80& m_string);
 
   protected:
 
@@ -353,18 +353,18 @@ class Primitive :
     // Member variables
     // ----------------------------------------------------------------------
 
-    F32 m_memberF32[3];
-    F64 m_memberF64;
-    I16 m_memberI16;
-    I32 m_memberI32;
-    I64 m_memberI64;
-    I8 m_memberI8;
-    U16 m_memberU16;
-    U32 m_memberU32;
-    U64 m_memberU64;
-    U8 m_memberU8;
-    bool m_memberBool;
-    StringSize80 m_memberString;
+    F32 m_mF32[3];
+    F64 m_mF64;
+    I16 m_mI16;
+    I32 m_mI32;
+    I64 m_mI64;
+    I8 m_mI8;
+    U16 m_mU16;
+    U32 m_mU32;
+    U64 m_mU64;
+    U8 m_mU8;
+    bool m_m_bool;
+    StringSize80 m_m_string;
 
 };
 

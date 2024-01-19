@@ -92,9 +92,9 @@ class Default :
 
     //! Member constructor
     Default(
-        U32 memberU32,
-        const StringSize40& memberString,
-        F64 memberF64
+        U32 mU32,
+        const StringSize40& mS1,
+        F64 mF64
     );
 
     //! Copy constructor
@@ -162,28 +162,28 @@ class Default :
     // Getter functions
     // ----------------------------------------------------------------------
 
-    //! Get member memberU32
-    U32 getmemberU32() const
+    //! Get member mU32
+    U32 getmU32() const
     {
-      return this->m_memberU32;
+      return this->m_mU32;
     }
 
-    //! Get member memberString
-    StringSize40& getmemberString()
+    //! Get member mS1
+    StringSize40& getmS1()
     {
-      return this->m_memberString;
+      return this->m_mS1;
     }
 
-    //! Get member memberString (const)
-    const StringSize40& getmemberString() const
+    //! Get member mS1 (const)
+    const StringSize40& getmS1() const
     {
-      return this->m_memberString;
+      return this->m_mS1;
     }
 
-    //! Get member memberF64
-    F64 getmemberF64() const
+    //! Get member mF64
+    F64 getmF64() const
     {
-      return this->m_memberF64;
+      return this->m_mF64;
     }
 
     // ----------------------------------------------------------------------
@@ -192,19 +192,19 @@ class Default :
 
     //! Set all members
     void set(
-        U32 memberU32,
-        const StringSize40& memberString,
-        F64 memberF64
+        U32 mU32,
+        const StringSize40& mS1,
+        F64 mF64
     );
 
-    //! Set member memberU32
-    void setmemberU32(U32 memberU32);
+    //! Set member mU32
+    void setmU32(U32 mU32);
 
-    //! Set member memberString
-    void setmemberString(const StringSize40& memberString);
+    //! Set member mS1
+    void setmS1(const StringSize40& mS1);
 
-    //! Set member memberF64
-    void setmemberF64(F64 memberF64);
+    //! Set member mF64
+    void setmF64(F64 mF64);
 
   protected:
 
@@ -212,9 +212,9 @@ class Default :
     // Member variables
     // ----------------------------------------------------------------------
 
-    U32 m_memberU32;
-    StringSize40 m_memberString;
-    F64 m_memberF64;
+    U32 m_mU32;
+    StringSize40 m_mS1;
+    F64 m_mF64;
 
 };
 

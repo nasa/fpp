@@ -97,106 +97,106 @@ NATIVE_UINT_TYPE Primitive::StringSize80 ::
 Primitive ::
   Primitive() :
     Serializable(),
-    m_memberF64(0.0),
-    m_memberI16(0),
-    m_memberI32(0),
-    m_memberI64(0),
-    m_memberI8(0),
-    m_memberU16(0),
-    m_memberU32(0),
-    m_memberU64(0),
-    m_memberU8(0),
-    m_memberBool(false),
-    m_memberString("")
+    m_mF64(0.0),
+    m_mI16(0),
+    m_mI32(0),
+    m_mI64(0),
+    m_mI8(0),
+    m_mU16(0),
+    m_mU32(0),
+    m_mU64(0),
+    m_mU8(0),
+    m_m_bool(false),
+    m_m_string("")
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = 0.0f;
+    this->m_mF32[i] = 0.0f;
   }
 }
 
 Primitive ::
   Primitive(
-      const Type_of_memberF32& memberF32,
-      F64 memberF64,
-      I16 memberI16,
-      I32 memberI32,
-      I64 memberI64,
-      I8 memberI8,
-      U16 memberU16,
-      U32 memberU32,
-      U64 memberU64,
-      U8 memberU8,
-      bool memberBool,
-      const StringSize80& memberString
+      const Type_of_mF32& mF32,
+      F64 mF64,
+      I16 mI16,
+      I32 mI32,
+      I64 mI64,
+      I8 mI8,
+      U16 mU16,
+      U32 mU32,
+      U64 mU64,
+      U8 mU8,
+      bool m_bool,
+      const StringSize80& m_string
   ) :
     Serializable(),
-    m_memberF64(memberF64),
-    m_memberI16(memberI16),
-    m_memberI32(memberI32),
-    m_memberI64(memberI64),
-    m_memberI8(memberI8),
-    m_memberU16(memberU16),
-    m_memberU32(memberU32),
-    m_memberU64(memberU64),
-    m_memberU8(memberU8),
-    m_memberBool(memberBool),
-    m_memberString(memberString)
+    m_mF64(mF64),
+    m_mI16(mI16),
+    m_mI32(mI32),
+    m_mI64(mI64),
+    m_mI8(mI8),
+    m_mU16(mU16),
+    m_mU32(mU32),
+    m_mU64(mU64),
+    m_mU8(mU8),
+    m_m_bool(m_bool),
+    m_m_string(m_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = memberF32[i];
+    this->m_mF32[i] = mF32[i];
   }
 }
 
 Primitive ::
   Primitive(const Primitive& obj) :
     Serializable(),
-    m_memberF64(obj.m_memberF64),
-    m_memberI16(obj.m_memberI16),
-    m_memberI32(obj.m_memberI32),
-    m_memberI64(obj.m_memberI64),
-    m_memberI8(obj.m_memberI8),
-    m_memberU16(obj.m_memberU16),
-    m_memberU32(obj.m_memberU32),
-    m_memberU64(obj.m_memberU64),
-    m_memberU8(obj.m_memberU8),
-    m_memberBool(obj.m_memberBool),
-    m_memberString(obj.m_memberString)
+    m_mF64(obj.m_mF64),
+    m_mI16(obj.m_mI16),
+    m_mI32(obj.m_mI32),
+    m_mI64(obj.m_mI64),
+    m_mI8(obj.m_mI8),
+    m_mU16(obj.m_mU16),
+    m_mU32(obj.m_mU32),
+    m_mU64(obj.m_mU64),
+    m_mU8(obj.m_mU8),
+    m_m_bool(obj.m_m_bool),
+    m_m_string(obj.m_m_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = obj.m_memberF32[i];
+    this->m_mF32[i] = obj.m_mF32[i];
   }
 }
 
 Primitive ::
   Primitive(
-      F32 memberF32,
-      F64 memberF64,
-      I16 memberI16,
-      I32 memberI32,
-      I64 memberI64,
-      I8 memberI8,
-      U16 memberU16,
-      U32 memberU32,
-      U64 memberU64,
-      U8 memberU8,
-      bool memberBool,
-      const StringSize80& memberString
+      F32 mF32,
+      F64 mF64,
+      I16 mI16,
+      I32 mI32,
+      I64 mI64,
+      I8 mI8,
+      U16 mU16,
+      U32 mU32,
+      U64 mU64,
+      U8 mU8,
+      bool m_bool,
+      const StringSize80& m_string
   ) :
     Serializable(),
-    m_memberF64(memberF64),
-    m_memberI16(memberI16),
-    m_memberI32(memberI32),
-    m_memberI64(memberI64),
-    m_memberI8(memberI8),
-    m_memberU16(memberU16),
-    m_memberU32(memberU32),
-    m_memberU64(memberU64),
-    m_memberU8(memberU8),
-    m_memberBool(memberBool),
-    m_memberString(memberString)
+    m_mF64(mF64),
+    m_mI16(mI16),
+    m_mI32(mI32),
+    m_mI64(mI64),
+    m_mI8(mI8),
+    m_mU16(mU16),
+    m_mU32(mU32),
+    m_mU64(mU64),
+    m_mU8(mU8),
+    m_m_bool(m_bool),
+    m_m_string(m_string)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = memberF32;
+    this->m_mF32[i] = mF32;
   }
 }
 
@@ -211,7 +211,7 @@ Primitive& Primitive ::
     return *this;
   }
 
-  set(obj.m_memberF32, obj.m_memberF64, obj.m_memberI16, obj.m_memberI32, obj.m_memberI64, obj.m_memberI8, obj.m_memberU16, obj.m_memberU32, obj.m_memberU64, obj.m_memberU8, obj.m_memberBool, obj.m_memberString);
+  set(obj.m_mF32, obj.m_mF64, obj.m_mI16, obj.m_mI32, obj.m_mI64, obj.m_mI8, obj.m_mU16, obj.m_mU32, obj.m_mU64, obj.m_mU8, obj.m_m_bool, obj.m_m_string);
   return *this;
 }
 
@@ -220,25 +220,25 @@ bool Primitive ::
 {
   // Compare non-array members
   if (!(
-    (this->m_memberF64 == obj.m_memberF64) &&
-    (this->m_memberI16 == obj.m_memberI16) &&
-    (this->m_memberI32 == obj.m_memberI32) &&
-    (this->m_memberI64 == obj.m_memberI64) &&
-    (this->m_memberI8 == obj.m_memberI8) &&
-    (this->m_memberU16 == obj.m_memberU16) &&
-    (this->m_memberU32 == obj.m_memberU32) &&
-    (this->m_memberU64 == obj.m_memberU64) &&
-    (this->m_memberU8 == obj.m_memberU8) &&
-    (this->m_memberBool == obj.m_memberBool) &&
-    (this->m_memberString == obj.m_memberString)
+    (this->m_mF64 == obj.m_mF64) &&
+    (this->m_mI16 == obj.m_mI16) &&
+    (this->m_mI32 == obj.m_mI32) &&
+    (this->m_mI64 == obj.m_mI64) &&
+    (this->m_mI8 == obj.m_mI8) &&
+    (this->m_mU16 == obj.m_mU16) &&
+    (this->m_mU32 == obj.m_mU32) &&
+    (this->m_mU64 == obj.m_mU64) &&
+    (this->m_mU8 == obj.m_mU8) &&
+    (this->m_m_bool == obj.m_m_bool) &&
+    (this->m_m_string == obj.m_m_string)
   )) {
     return false;
   }
 
   // Compare array members
-  if (!(this->m_memberF32 == obj.m_memberF32)) {
+  if (!(this->m_mF32 == obj.m_mF32)) {
     for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-      if (!(this->m_memberF32[i] == obj.m_memberF32[i])) {
+      if (!(this->m_mF32[i] == obj.m_mF32[i])) {
         return false;
       }
     }
@@ -274,52 +274,52 @@ Fw::SerializeStatus Primitive ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.serialize(this->m_memberF32[i]);
+    status = buffer.serialize(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.serialize(this->m_memberF64);
+  status = buffer.serialize(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberI16);
+  status = buffer.serialize(this->m_mI16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberI32);
+  status = buffer.serialize(this->m_mI32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberI64);
+  status = buffer.serialize(this->m_mI64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberI8);
+  status = buffer.serialize(this->m_mI8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberU16);
+  status = buffer.serialize(this->m_mU16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberU32);
+  status = buffer.serialize(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberU64);
+  status = buffer.serialize(this->m_mU64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberU8);
+  status = buffer.serialize(this->m_mU8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberBool);
+  status = buffer.serialize(this->m_m_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_memberString);
+  status = buffer.serialize(this->m_m_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -333,52 +333,52 @@ Fw::SerializeStatus Primitive ::
   Fw::SerializeStatus status;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    status = buffer.deserialize(this->m_memberF32[i]);
+    status = buffer.deserialize(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  status = buffer.deserialize(this->m_memberF64);
+  status = buffer.deserialize(this->m_mF64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberI16);
+  status = buffer.deserialize(this->m_mI16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberI32);
+  status = buffer.deserialize(this->m_mI32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberI64);
+  status = buffer.deserialize(this->m_mI64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberI8);
+  status = buffer.deserialize(this->m_mI8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberU16);
+  status = buffer.deserialize(this->m_mU16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberU32);
+  status = buffer.deserialize(this->m_mU32);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberU64);
+  status = buffer.deserialize(this->m_mU64);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberU8);
+  status = buffer.deserialize(this->m_mU8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberBool);
+  status = buffer.deserialize(this->m_m_bool);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_memberString);
+  status = buffer.deserialize(this->m_m_string);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -393,20 +393,20 @@ void Primitive ::
 {
   static const char* formatString =
     "( "
-    "m_memberF32 = [ %f, "
+    "m_mF32 = [ %f, "
     "%f, "
     "%f ], "
-    "m_memberF64 = %f, "
-    "m_memberI16 = %" PRIi16 ", "
-    "m_memberI32 = %" PRIi32 ", "
-    "m_memberI64 = %" PRIi64 ", "
-    "m_memberI8 = %" PRIi8 ", "
-    "m_memberU16 = %" PRIu16 ", "
-    "m_memberU32 = %" PRIu32 ", "
-    "m_memberU64 = %" PRIu64 ", "
-    "m_memberU8 = %" PRIu8 ", "
-    "m_memberBool = %d, "
-    "m_memberString = %s"
+    "m_mF64 = %f, "
+    "m_mI16 = %" PRIi16 ", "
+    "m_mI32 = %" PRIi32 ", "
+    "m_mI64 = %" PRIi64 ", "
+    "m_mI8 = %" PRIi8 ", "
+    "m_mU16 = %" PRIu16 ", "
+    "m_mU32 = %" PRIu32 ", "
+    "m_mU64 = %" PRIu64 ", "
+    "m_mU8 = %" PRIu8 ", "
+    "m_m_bool = %d, "
+    "m_m_string = %s"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -414,20 +414,20 @@ void Primitive ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_memberF32[0],
-    this->m_memberF32[1],
-    this->m_memberF32[2],
-    this->m_memberF64,
-    this->m_memberI16,
-    this->m_memberI32,
-    this->m_memberI64,
-    this->m_memberI8,
-    this->m_memberU16,
-    this->m_memberU32,
-    this->m_memberU64,
-    this->m_memberU8,
-    this->m_memberBool,
-    this->m_memberString.toChar()
+    this->m_mF32[0],
+    this->m_mF32[1],
+    this->m_mF32[2],
+    this->m_mF64,
+    this->m_mI16,
+    this->m_mI32,
+    this->m_mI64,
+    this->m_mI8,
+    this->m_mU16,
+    this->m_mU32,
+    this->m_mU64,
+    this->m_mU8,
+    this->m_m_bool,
+    this->m_m_string.toChar()
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -442,107 +442,107 @@ void Primitive ::
 
 void Primitive ::
   set(
-      const Type_of_memberF32& memberF32,
-      F64 memberF64,
-      I16 memberI16,
-      I32 memberI32,
-      I64 memberI64,
-      I8 memberI8,
-      U16 memberU16,
-      U32 memberU32,
-      U64 memberU64,
-      U8 memberU8,
-      bool memberBool,
-      const StringSize80& memberString
+      const Type_of_mF32& mF32,
+      F64 mF64,
+      I16 mI16,
+      I32 mI32,
+      I64 mI64,
+      I8 mI8,
+      U16 mU16,
+      U32 mU32,
+      U64 mU64,
+      U8 mU8,
+      bool m_bool,
+      const StringSize80& m_string
   )
 {
-  this->m_memberF64 = memberF64;
-  this->m_memberI16 = memberI16;
-  this->m_memberI32 = memberI32;
-  this->m_memberI64 = memberI64;
-  this->m_memberI8 = memberI8;
-  this->m_memberU16 = memberU16;
-  this->m_memberU32 = memberU32;
-  this->m_memberU64 = memberU64;
-  this->m_memberU8 = memberU8;
-  this->m_memberBool = memberBool;
-  this->m_memberString = memberString;
+  this->m_mF64 = mF64;
+  this->m_mI16 = mI16;
+  this->m_mI32 = mI32;
+  this->m_mI64 = mI64;
+  this->m_mI8 = mI8;
+  this->m_mU16 = mU16;
+  this->m_mU32 = mU32;
+  this->m_mU64 = mU64;
+  this->m_mU8 = mU8;
+  this->m_m_bool = m_bool;
+  this->m_m_string = m_string;
 
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = memberF32[i];
+    this->m_mF32[i] = mF32[i];
   }
 }
 
 void Primitive ::
-  setmemberF32(const Type_of_memberF32& memberF32)
+  setmF32(const Type_of_mF32& mF32)
 {
   for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
-    this->m_memberF32[i] = memberF32[i];
+    this->m_mF32[i] = mF32[i];
   }
 }
 
 void Primitive ::
-  setmemberF64(F64 memberF64)
+  setmF64(F64 mF64)
 {
-  this->m_memberF64 = memberF64;
+  this->m_mF64 = mF64;
 }
 
 void Primitive ::
-  setmemberI16(I16 memberI16)
+  setmI16(I16 mI16)
 {
-  this->m_memberI16 = memberI16;
+  this->m_mI16 = mI16;
 }
 
 void Primitive ::
-  setmemberI32(I32 memberI32)
+  setmI32(I32 mI32)
 {
-  this->m_memberI32 = memberI32;
+  this->m_mI32 = mI32;
 }
 
 void Primitive ::
-  setmemberI64(I64 memberI64)
+  setmI64(I64 mI64)
 {
-  this->m_memberI64 = memberI64;
+  this->m_mI64 = mI64;
 }
 
 void Primitive ::
-  setmemberI8(I8 memberI8)
+  setmI8(I8 mI8)
 {
-  this->m_memberI8 = memberI8;
+  this->m_mI8 = mI8;
 }
 
 void Primitive ::
-  setmemberU16(U16 memberU16)
+  setmU16(U16 mU16)
 {
-  this->m_memberU16 = memberU16;
+  this->m_mU16 = mU16;
 }
 
 void Primitive ::
-  setmemberU32(U32 memberU32)
+  setmU32(U32 mU32)
 {
-  this->m_memberU32 = memberU32;
+  this->m_mU32 = mU32;
 }
 
 void Primitive ::
-  setmemberU64(U64 memberU64)
+  setmU64(U64 mU64)
 {
-  this->m_memberU64 = memberU64;
+  this->m_mU64 = mU64;
 }
 
 void Primitive ::
-  setmemberU8(U8 memberU8)
+  setmU8(U8 mU8)
 {
-  this->m_memberU8 = memberU8;
+  this->m_mU8 = mU8;
 }
 
 void Primitive ::
-  setmemberBool(bool memberBool)
+  setm_bool(bool m_bool)
 {
-  this->m_memberBool = memberBool;
+  this->m_m_bool = m_bool;
 }
 
 void Primitive ::
-  setmemberString(const StringSize80& memberString)
+  setm_string(const StringSize80& m_string)
 {
-  this->m_memberString = memberString;
+  this->m_m_string = m_string;
 }

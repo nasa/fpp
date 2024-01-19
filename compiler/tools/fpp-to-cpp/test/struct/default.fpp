@@ -1,5 +1,5 @@
 struct Default {
-  memberU32: U32
-  memberString: string size 40
-  memberF64: F64
-} default { memberU32 = 54, memberString = "hello" }
+  mU32: U32
+  mS1: string size 40
+  mF64: F64 
+} default {mU32 = 54, mS1 = "hello"}

@@ -18,65 +18,65 @@
 Format ::
   Format() :
     Serializable(),
-    m_member1(0),
-    m_member2(0),
-    m_member3(0),
-    m_member4(0),
-    m_member5(0),
-    m_member6(0),
-    m_member7(0),
-    m_member8(0),
-    m_member9(0),
-    m_member10(0),
-    m_member11(0.0f),
-    m_member12(0.0f),
-    m_member13(0.0f),
-    m_member14(0.0f),
-    m_member15(0.0f),
-    m_member16(0.0f),
-    m_member17(0.0f)
+    m_m1(0),
+    m_m2(0),
+    m_m3(0),
+    m_m4(0),
+    m_m5(0),
+    m_m6(0),
+    m_m7(0),
+    m_m8(0),
+    m_m9(0),
+    m_m10(0),
+    m_m11(0.0f),
+    m_m12(0.0f),
+    m_m13(0.0f),
+    m_m14(0.0f),
+    m_m15(0.0f),
+    m_m16(0.0f),
+    m_m17(0.0f)
 {
 
 }
 
 Format ::
   Format(
-      I32 member1,
-      U32 member2,
-      I32 member3,
-      U32 member4,
-      I32 member5,
-      U32 member6,
-      I32 member7,
-      U32 member8,
-      I32 member9,
-      U32 member10,
-      F32 member11,
-      F32 member12,
-      F32 member13,
-      F32 member14,
-      F32 member15,
-      F32 member16,
-      F32 member17
+      I32 m1,
+      U32 m2,
+      I32 m3,
+      U32 m4,
+      I32 m5,
+      U32 m6,
+      I32 m7,
+      U32 m8,
+      I32 m9,
+      U32 m10,
+      F32 m11,
+      F32 m12,
+      F32 m13,
+      F32 m14,
+      F32 m15,
+      F32 m16,
+      F32 m17
   ) :
     Serializable(),
-    m_member1(member1),
-    m_member2(member2),
-    m_member3(member3),
-    m_member4(member4),
-    m_member5(member5),
-    m_member6(member6),
-    m_member7(member7),
-    m_member8(member8),
-    m_member9(member9),
-    m_member10(member10),
-    m_member11(member11),
-    m_member12(member12),
-    m_member13(member13),
-    m_member14(member14),
-    m_member15(member15),
-    m_member16(member16),
-    m_member17(member17)
+    m_m1(m1),
+    m_m2(m2),
+    m_m3(m3),
+    m_m4(m4),
+    m_m5(m5),
+    m_m6(m6),
+    m_m7(m7),
+    m_m8(m8),
+    m_m9(m9),
+    m_m10(m10),
+    m_m11(m11),
+    m_m12(m12),
+    m_m13(m13),
+    m_m14(m14),
+    m_m15(m15),
+    m_m16(m16),
+    m_m17(m17)
 {
 
 }
@@ -84,23 +84,23 @@ Format ::
 Format ::
   Format(const Format& obj) :
     Serializable(),
-    m_member1(obj.m_member1),
-    m_member2(obj.m_member2),
-    m_member3(obj.m_member3),
-    m_member4(obj.m_member4),
-    m_member5(obj.m_member5),
-    m_member6(obj.m_member6),
-    m_member7(obj.m_member7),
-    m_member8(obj.m_member8),
-    m_member9(obj.m_member9),
-    m_member10(obj.m_member10),
-    m_member11(obj.m_member11),
-    m_member12(obj.m_member12),
-    m_member13(obj.m_member13),
-    m_member14(obj.m_member14),
-    m_member15(obj.m_member15),
-    m_member16(obj.m_member16),
-    m_member17(obj.m_member17)
+    m_m1(obj.m_m1),
+    m_m2(obj.m_m2),
+    m_m3(obj.m_m3),
+    m_m4(obj.m_m4),
+    m_m5(obj.m_m5),
+    m_m6(obj.m_m6),
+    m_m7(obj.m_m7),
+    m_m8(obj.m_m8),
+    m_m9(obj.m_m9),
+    m_m10(obj.m_m10),
+    m_m11(obj.m_m11),
+    m_m12(obj.m_m12),
+    m_m13(obj.m_m13),
+    m_m14(obj.m_m14),
+    m_m15(obj.m_m15),
+    m_m16(obj.m_m16),
+    m_m17(obj.m_m17)
 {
 
 }
@@ -116,7 +116,7 @@ Format& Format ::
     return *this;
   }
 
-  set(obj.m_member1, obj.m_member2, obj.m_member3, obj.m_member4, obj.m_member5, obj.m_member6, obj.m_member7, obj.m_member8, obj.m_member9, obj.m_member10, obj.m_member11, obj.m_member12, obj.m_member13, obj.m_member14, obj.m_member15, obj.m_member16, obj.m_member17);
+  set(obj.m_m1, obj.m_m2, obj.m_m3, obj.m_m4, obj.m_m5, obj.m_m6, obj.m_m7, obj.m_m8, obj.m_m9, obj.m_m10, obj.m_m11, obj.m_m12, obj.m_m13, obj.m_m14, obj.m_m15, obj.m_m16, obj.m_m17);
   return *this;
 }
 
@@ -124,23 +124,23 @@ bool Format ::
   operator==(const Format& obj) const
 {
   return (
-    (this->m_member1 == obj.m_member1) &&
-    (this->m_member2 == obj.m_member2) &&
-    (this->m_member3 == obj.m_member3) &&
-    (this->m_member4 == obj.m_member4) &&
-    (this->m_member5 == obj.m_member5) &&
-    (this->m_member6 == obj.m_member6) &&
-    (this->m_member7 == obj.m_member7) &&
-    (this->m_member8 == obj.m_member8) &&
-    (this->m_member9 == obj.m_member9) &&
-    (this->m_member10 == obj.m_member10) &&
-    (this->m_member11 == obj.m_member11) &&
-    (this->m_member12 == obj.m_member12) &&
-    (this->m_member13 == obj.m_member13) &&
-    (this->m_member14 == obj.m_member14) &&
-    (this->m_member15 == obj.m_member15) &&
-    (this->m_member16 == obj.m_member16) &&
-    (this->m_member17 == obj.m_member17)
+    (this->m_m1 == obj.m_m1) &&
+    (this->m_m2 == obj.m_m2) &&
+    (this->m_m3 == obj.m_m3) &&
+    (this->m_m4 == obj.m_m4) &&
+    (this->m_m5 == obj.m_m5) &&
+    (this->m_m6 == obj.m_m6) &&
+    (this->m_m7 == obj.m_m7) &&
+    (this->m_m8 == obj.m_m8) &&
+    (this->m_m9 == obj.m_m9) &&
+    (this->m_m10 == obj.m_m10) &&
+    (this->m_m11 == obj.m_m11) &&
+    (this->m_m12 == obj.m_m12) &&
+    (this->m_m13 == obj.m_m13) &&
+    (this->m_m14 == obj.m_m14) &&
+    (this->m_m15 == obj.m_m15) &&
+    (this->m_m16 == obj.m_m16) &&
+    (this->m_m17 == obj.m_m17)
   );
 }
 
@@ -170,71 +170,71 @@ Fw::SerializeStatus Format ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->m_member1);
+  status = buffer.serialize(this->m_m1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member2);
+  status = buffer.serialize(this->m_m2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member3);
+  status = buffer.serialize(this->m_m3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member4);
+  status = buffer.serialize(this->m_m4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member5);
+  status = buffer.serialize(this->m_m5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member6);
+  status = buffer.serialize(this->m_m6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member7);
+  status = buffer.serialize(this->m_m7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member8);
+  status = buffer.serialize(this->m_m8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member9);
+  status = buffer.serialize(this->m_m9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member10);
+  status = buffer.serialize(this->m_m10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member11);
+  status = buffer.serialize(this->m_m11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member12);
+  status = buffer.serialize(this->m_m12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member13);
+  status = buffer.serialize(this->m_m13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member14);
+  status = buffer.serialize(this->m_m14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member15);
+  status = buffer.serialize(this->m_m15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member16);
+  status = buffer.serialize(this->m_m16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->m_member17);
+  status = buffer.serialize(this->m_m17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -247,71 +247,71 @@ Fw::SerializeStatus Format ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->m_member1);
+  status = buffer.deserialize(this->m_m1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member2);
+  status = buffer.deserialize(this->m_m2);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member3);
+  status = buffer.deserialize(this->m_m3);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member4);
+  status = buffer.deserialize(this->m_m4);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member5);
+  status = buffer.deserialize(this->m_m5);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member6);
+  status = buffer.deserialize(this->m_m6);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member7);
+  status = buffer.deserialize(this->m_m7);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member8);
+  status = buffer.deserialize(this->m_m8);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member9);
+  status = buffer.deserialize(this->m_m9);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member10);
+  status = buffer.deserialize(this->m_m10);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member11);
+  status = buffer.deserialize(this->m_m11);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member12);
+  status = buffer.deserialize(this->m_m12);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member13);
+  status = buffer.deserialize(this->m_m13);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member14);
+  status = buffer.deserialize(this->m_m14);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member15);
+  status = buffer.deserialize(this->m_m15);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member16);
+  status = buffer.deserialize(this->m_m16);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->m_member17);
+  status = buffer.deserialize(this->m_m17);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -326,23 +326,23 @@ void Format ::
 {
   static const char* formatString =
     "( "
-    "m_member1 = %" PRIi32 ", "
-    "m_member2 = %" PRIu32 ", "
-    "m_member3 = %" PRIi32 ", "
-    "m_member4 = %" PRIu32 ", "
-    "m_member5 = %" PRIx32 ", "
-    "m_member6 = %" PRIx32 ", "
-    "m_member7 = %c, "
-    "m_member8 = %c, "
-    "m_member9 = %" PRIo32 ", "
-    "m_member10 = %" PRIo32 ", "
-    "m_member11 = %e, "
-    "m_member12 = %f, "
-    "m_member13 = %g, "
-    "m_member14 = %.3e, "
-    "m_member15 = %.3f, "
-    "m_member16 = %.3g, "
-    "m_member17 = %.3g%%"
+    "m_m1 = %" PRIi32 ", "
+    "m_m2 = %" PRIu32 ", "
+    "m_m3 = %" PRIi32 ", "
+    "m_m4 = %" PRIu32 ", "
+    "m_m5 = %" PRIx32 ", "
+    "m_m6 = %" PRIx32 ", "
+    "m_m7 = %c, "
+    "m_m8 = %c, "
+    "m_m9 = %" PRIo32 ", "
+    "m_m10 = %" PRIo32 ", "
+    "m_m11 = %e, "
+    "m_m12 = %f, "
+    "m_m13 = %g, "
+    "m_m14 = %.3e, "
+    "m_m15 = %.3f, "
+    "m_m16 = %.3g, "
+    "m_m17 = %.3g%%"
     " )";
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
@@ -350,23 +350,23 @@ void Format ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->m_member1,
-    this->m_member2,
-    this->m_member3,
-    this->m_member4,
-    this->m_member5,
-    this->m_member6,
-    this->m_member7,
-    this->m_member8,
-    this->m_member9,
-    this->m_member10,
-    this->m_member11,
-    this->m_member12,
-    this->m_member13,
-    this->m_member14,
-    this->m_member15,
-    this->m_member16,
-    this->m_member17
+    this->m_m1,
+    this->m_m2,
+    this->m_m3,
+    this->m_m4,
+    this->m_m5,
+    this->m_m6,
+    this->m_m7,
+    this->m_m8,
+    this->m_m9,
+    this->m_m10,
+    this->m_m11,
+    this->m_m12,
+    this->m_m13,
+    this->m_m14,
+    this->m_m15,
+    this->m_m16,
+    this->m_m17
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -381,142 +381,142 @@ void Format ::
 
 void Format ::
   set(
-      I32 member1,
-      U32 member2,
-      I32 member3,
-      U32 member4,
-      I32 member5,
-      U32 member6,
-      I32 member7,
-      U32 member8,
-      I32 member9,
-      U32 member10,
-      F32 member11,
-      F32 member12,
-      F32 member13,
-      F32 member14,
-      F32 member15,
-      F32 member16,
-      F32 member17
+      I32 m1,
+      U32 m2,
+      I32 m3,
+      U32 m4,
+      I32 m5,
+      U32 m6,
+      I32 m7,
+      U32 m8,
+      I32 m9,
+      U32 m10,
+      F32 m11,
+      F32 m12,
+      F32 m13,
+      F32 m14,
+      F32 m15,
+      F32 m16,
+      F32 m17
   )
 {
-  this->m_member1 = member1;
-  this->m_member2 = member2;
-  this->m_member3 = member3;
-  this->m_member4 = member4;
-  this->m_member5 = member5;
-  this->m_member6 = member6;
-  this->m_member7 = member7;
-  this->m_member8 = member8;
-  this->m_member9 = member9;
-  this->m_member10 = member10;
-  this->m_member11 = member11;
-  this->m_member12 = member12;
-  this->m_member13 = member13;
-  this->m_member14 = member14;
-  this->m_member15 = member15;
-  this->m_member16 = member16;
-  this->m_member17 = member17;
+  this->m_m1 = m1;
+  this->m_m2 = m2;
+  this->m_m3 = m3;
+  this->m_m4 = m4;
+  this->m_m5 = m5;
+  this->m_m6 = m6;
+  this->m_m7 = m7;
+  this->m_m8 = m8;
+  this->m_m9 = m9;
+  this->m_m10 = m10;
+  this->m_m11 = m11;
+  this->m_m12 = m12;
+  this->m_m13 = m13;
+  this->m_m14 = m14;
+  this->m_m15 = m15;
+  this->m_m16 = m16;
+  this->m_m17 = m17;
 }
 
 void Format ::
-  setmember1(I32 member1)
+  setm1(I32 m1)
 {
-  this->m_member1 = member1;
+  this->m_m1 = m1;
 }
 
 void Format ::
-  setmember2(U32 member2)
+  setm2(U32 m2)
 {
-  this->m_member2 = member2;
+  this->m_m2 = m2;
 }
 
 void Format ::
-  setmember3(I32 member3)
+  setm3(I32 m3)
 {
-  this->m_member3 = member3;
+  this->m_m3 = m3;
 }
 
 void Format ::
-  setmember4(U32 member4)
+  setm4(U32 m4)
 {
-  this->m_member4 = member4;
+  this->m_m4 = m4;
 }
 
 void Format ::
-  setmember5(I32 member5)
+  setm5(I32 m5)
 {
-  this->m_member5 = member5;
+  this->m_m5 = m5;
 }
 
 void Format ::
-  setmember6(U32 member6)
+  setm6(U32 m6)
 {
-  this->m_member6 = member6;
+  this->m_m6 = m6;
 }
 
 void Format ::
-  setmember7(I32 member7)
+  setm7(I32 m7)
 {
-  this->m_member7 = member7;
+  this->m_m7 = m7;
 }
 
 void Format ::
-  setmember8(U32 member8)
+  setm8(U32 m8)
 {
-  this->m_member8 = member8;
+  this->m_m8 = m8;
 }
 
 void Format ::
-  setmember9(I32 member9)
+  setm9(I32 m9)
 {
-  this->m_member9 = member9;
+  this->m_m9 = m9;
 }
 
 void Format ::
-  setmember10(U32 member10)
+  setm10(U32 m10)
 {
-  this->m_member10 = member10;
+  this->m_m10 = m10;
 }
 
 void Format ::
-  setmember11(F32 member11)
+  setm11(F32 m11)
 {
-  this->m_member11 = member11;
+  this->m_m11 = m11;
 }
 
 void Format ::
-  setmember12(F32 member12)
+  setm12(F32 m12)
 {
-  this->m_member12 = member12;
+  this->m_m12 = m12;
 }
 
 void Format ::
-  setmember13(F32 member13)
+  setm13(F32 m13)
 {
-  this->m_member13 = member13;
+  this->m_m13 = m13;
 }
 
 void Format ::
-  setmember14(F32 member14)
+  setm14(F32 m14)
 {
-  this->m_member14 = member14;
+  this->m_m14 = m14;
 }
 
 void Format ::
-  setmember15(F32 member15)
+  setm15(F32 m15)
 {
-  this->m_member15 = member15;
+  this->m_m15 = m15;
 }
 
 void Format ::
-  setmember16(F32 member16)
+  setm16(F32 m16)
 {
-  this->m_member16 = member16;
+  this->m_m16 = m16;
 }
 
 void Format ::
-  setmember17(F32 member17)
+  setm17(F32 m17)
 {
-  this->m_member17 = member17;
+  this->m_m17 = m17;
 }
