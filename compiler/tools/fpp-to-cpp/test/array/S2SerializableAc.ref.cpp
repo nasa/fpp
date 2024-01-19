@@ -114,7 +114,7 @@ void S2 ::
 {
   static const char* formatString =
     "( "
-    "m_s1 = %s"
+    "s1 = %s"
     " )";
 
   // Declare strings to hold any serializable toString() arguments

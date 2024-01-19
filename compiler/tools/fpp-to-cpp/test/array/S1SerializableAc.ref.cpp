@@ -342,18 +342,18 @@ namespace M {
   {
     static const char* formatString =
       "( "
-      "m_mF32 = %f, "
-      "m_mF64 = %f, "
-      "m_mI16 = %" PRIi16 ", "
-      "m_mI32 = %" PRIi32 ", "
-      "m_mI64 = %" PRIi64 ", "
-      "m_mI8 = %" PRIi8 ", "
-      "m_mU16 = %" PRIu16 ", "
-      "m_mU32 = %" PRIu32 ", "
-      "m_mU64 = %" PRIu64 ", "
-      "m_mU8 = %" PRIu8 ", "
-      "m_mBool = %d, "
-      "m_mString = %s"
+      "mF32 = %f, "
+      "mF64 = %f, "
+      "mI16 = %" PRIi16 ", "
+      "mI32 = %" PRIi32 ", "
+      "mI64 = %" PRIi64 ", "
+      "mI8 = %" PRIi8 ", "
+      "mU16 = %" PRIu16 ", "
+      "mU32 = %" PRIu32 ", "
+      "mU64 = %" PRIu64 ", "
+      "mU8 = %" PRIu8 ", "
+      "mBool = %d, "
+      "mString = %s"
       " )";
 
     char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];

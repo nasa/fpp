@@ -164,10 +164,10 @@ namespace S {
   {
     static const char* formatString =
       "( "
-      "m_mU32Array = [ %" PRIu32 ", "
+      "mU32Array = [ %" PRIu32 ", "
       "%" PRIu32 ", "
       "%" PRIu32 " ], "
-      "m_mF64 = %f"
+      "mF64 = %f"
       " )";
 
     char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
