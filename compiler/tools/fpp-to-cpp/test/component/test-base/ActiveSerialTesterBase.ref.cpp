@@ -33,12 +33,6 @@ void ActiveSerialTesterBase ::
     this->m_from_cmdRegOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_cmdRegOut[%" PRI_PlatformIntType "]",
@@ -63,12 +57,6 @@ void ActiveSerialTesterBase ::
     this->m_from_cmdResponseOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_cmdResponseOut[%" PRI_PlatformIntType "]",
@@ -93,12 +81,6 @@ void ActiveSerialTesterBase ::
     this->m_from_eventOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_eventOut[%" PRI_PlatformIntType "]",
@@ -123,12 +105,6 @@ void ActiveSerialTesterBase ::
     this->m_from_prmGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_prmGetOut[%" PRI_PlatformIntType "]",
@@ -153,12 +129,6 @@ void ActiveSerialTesterBase ::
     this->m_from_prmSetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_prmSetOut[%" PRI_PlatformIntType "]",
@@ -184,12 +154,6 @@ void ActiveSerialTesterBase ::
     this->m_from_textEventOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_textEventOut[%" PRI_PlatformIntType "]",
@@ -215,12 +179,6 @@ void ActiveSerialTesterBase ::
     this->m_from_timeGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_timeGetOut[%" PRI_PlatformIntType "]",
@@ -245,12 +203,6 @@ void ActiveSerialTesterBase ::
     this->m_from_tlmOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_tlmOut[%" PRI_PlatformIntType "]",
@@ -275,12 +227,6 @@ void ActiveSerialTesterBase ::
     this->m_from_noArgsOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
@@ -305,12 +251,6 @@ void ActiveSerialTesterBase ::
     this->m_from_noArgsReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
@@ -335,12 +275,6 @@ void ActiveSerialTesterBase ::
     this->m_from_typedOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_typedOut[%" PRI_PlatformIntType "]",
@@ -365,12 +299,6 @@ void ActiveSerialTesterBase ::
     this->m_from_typedReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_typedReturnOut[%" PRI_PlatformIntType "]",
@@ -395,12 +323,6 @@ void ActiveSerialTesterBase ::
     this->m_from_serialOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_from_serialOut[%" PRI_PlatformIntType "]",
@@ -420,12 +342,6 @@ void ActiveSerialTesterBase ::
     this->m_to_cmdIn[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_cmdIn[%" PRI_PlatformIntType "]",
@@ -445,12 +361,6 @@ void ActiveSerialTesterBase ::
     this->m_to_noArgsAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_noArgsAsync[%" PRI_PlatformIntType "]",
@@ -470,12 +380,6 @@ void ActiveSerialTesterBase ::
     this->m_to_noArgsGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_noArgsGuarded[%" PRI_PlatformIntType "]",
@@ -495,12 +399,6 @@ void ActiveSerialTesterBase ::
     this->m_to_noArgsReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_noArgsReturnGuarded[%" PRI_PlatformIntType "]",
@@ -520,12 +418,6 @@ void ActiveSerialTesterBase ::
     this->m_to_noArgsReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_noArgsReturnSync[%" PRI_PlatformIntType "]",
@@ -545,12 +437,6 @@ void ActiveSerialTesterBase ::
     this->m_to_noArgsSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_noArgsSync[%" PRI_PlatformIntType "]",
@@ -570,12 +456,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedAsync[%" PRI_PlatformIntType "]",
@@ -595,12 +475,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedAsyncAssert[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedAsyncAssert[%" PRI_PlatformIntType "]",
@@ -620,12 +494,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedAsyncBlockPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedAsyncBlockPriority[%" PRI_PlatformIntType "]",
@@ -645,12 +513,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedAsyncDropPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedAsyncDropPriority[%" PRI_PlatformIntType "]",
@@ -670,12 +532,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedGuarded[%" PRI_PlatformIntType "]",
@@ -695,12 +551,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedReturnGuarded[%" PRI_PlatformIntType "]",
@@ -720,12 +570,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedReturnSync[%" PRI_PlatformIntType "]",
@@ -745,12 +589,6 @@ void ActiveSerialTesterBase ::
     this->m_to_typedSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_typedSync[%" PRI_PlatformIntType "]",
@@ -770,12 +608,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialAsync[%" PRI_PlatformIntType "]",
@@ -795,12 +627,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialAsyncAssert[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialAsyncAssert[%" PRI_PlatformIntType "]",
@@ -820,12 +646,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialAsyncBlockPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialAsyncBlockPriority[%" PRI_PlatformIntType "]",
@@ -845,12 +665,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialAsyncDropPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialAsyncDropPriority[%" PRI_PlatformIntType "]",
@@ -870,12 +684,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialGuarded[%" PRI_PlatformIntType "]",
@@ -895,12 +703,6 @@ void ActiveSerialTesterBase ::
     this->m_to_serialSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_to_serialSync[%" PRI_PlatformIntType "]",

@@ -36,12 +36,6 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
@@ -61,12 +55,6 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -86,12 +74,6 @@ void PassiveSyncProductPortsOnlyComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",

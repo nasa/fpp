@@ -79,12 +79,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
@@ -109,12 +103,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -139,12 +127,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -169,12 +151,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
@@ -194,12 +170,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -219,12 +189,6 @@ void ActiveNoArgsPortsOnlyComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",

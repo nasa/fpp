@@ -94,12 +94,6 @@ void QueuedEventsComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
@@ -124,12 +118,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
@@ -154,12 +142,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -184,12 +166,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -214,12 +190,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
@@ -244,12 +214,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
@@ -274,12 +238,6 @@ void QueuedEventsComponentBase ::
     this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
@@ -304,12 +262,6 @@ void QueuedEventsComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedAsyncAssert_InputPort[%" PRI_PlatformIntType "]",
@@ -334,12 +286,6 @@ void QueuedEventsComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedAsyncBlockPriority_InputPort[%" PRI_PlatformIntType "]",
@@ -364,12 +310,6 @@ void QueuedEventsComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedAsyncDropPriority_InputPort[%" PRI_PlatformIntType "]",
@@ -394,12 +334,6 @@ void QueuedEventsComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -424,12 +358,6 @@ void QueuedEventsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
@@ -454,12 +382,6 @@ void QueuedEventsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
@@ -484,12 +406,6 @@ void QueuedEventsComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
@@ -509,12 +425,6 @@ void QueuedEventsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -534,12 +444,6 @@ void QueuedEventsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -559,12 +463,6 @@ void QueuedEventsComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -584,12 +482,6 @@ void QueuedEventsComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -609,12 +501,6 @@ void QueuedEventsComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -635,12 +521,6 @@ void QueuedEventsComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -661,12 +541,6 @@ void QueuedEventsComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -686,12 +560,6 @@ void QueuedEventsComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -711,12 +579,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -736,12 +598,6 @@ void QueuedEventsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -761,12 +617,6 @@ void QueuedEventsComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
@@ -786,12 +636,6 @@ void QueuedEventsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
     Fw::ObjectName portName;
     portName.format(
       "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
