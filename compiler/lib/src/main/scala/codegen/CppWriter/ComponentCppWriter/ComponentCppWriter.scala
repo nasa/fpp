@@ -973,15 +973,13 @@ object ComponentCppWriter extends CppWriterUtils {
                 |// the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
                 |// avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
                 |// bytes to cover the extra info.
-                |char portName[2*FW_OBJ_NAME_MAX_SIZE];
-                |(void) snprintf(
-                |  portName,
-                |  sizeof(portName),
+                |Fw::ObjectName portName;
+                |portName.format(
                 |  "%s_${printName(port)}[%" PRI_PlatformIntType "]",
-                |  this->m_objName,
+                |  this->m_objName.toChar(),
                 |  port
                 |);
-                |this->${variableName(port)}[port].setObjName(portName);
+                |this->${variableName(port)}[port].setObjName(portName.toChar());
                 |#endif
                 |"""
           )

@@ -37,15 +37,13 @@ void PassiveGetProductPortsOnlyComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productGetOut_OutputPort[port].setObjName(portName);
+    this->m_productGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -64,15 +62,13 @@ void PassiveGetProductPortsOnlyComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productSendOut_OutputPort[port].setObjName(portName);
+    this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 }

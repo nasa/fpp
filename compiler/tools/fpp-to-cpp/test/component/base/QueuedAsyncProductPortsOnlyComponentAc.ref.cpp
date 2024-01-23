@@ -92,15 +92,13 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productRecvIn_InputPort[port].setObjName(portName);
+    this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -119,15 +117,13 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productRequestOut_OutputPort[port].setObjName(portName);
+    this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -146,15 +142,13 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productSendOut_OutputPort[port].setObjName(portName);
+    this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 

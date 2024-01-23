@@ -42,15 +42,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdIn_InputPort[port].setObjName(portName);
+    this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -74,15 +72,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -106,15 +102,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -138,15 +132,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -170,15 +162,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsSync_InputPort[port].setObjName(portName);
+    this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -202,15 +192,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedGuarded_InputPort[port].setObjName(portName);
+    this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -234,15 +222,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnGuarded_InputPort[port].setObjName(portName);
+    this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -266,15 +252,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnSync_InputPort[port].setObjName(portName);
+    this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -298,15 +282,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedSync_InputPort[port].setObjName(portName);
+    this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -325,15 +307,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdRegOut_OutputPort[port].setObjName(portName);
+    this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -352,15 +332,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdResponseOut_OutputPort[port].setObjName(portName);
+    this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -379,15 +357,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_eventOut_OutputPort[port].setObjName(portName);
+    this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -406,15 +382,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_prmGetOut_OutputPort[port].setObjName(portName);
+    this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -433,15 +407,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_prmSetOut_OutputPort[port].setObjName(portName);
+    this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -461,15 +433,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_textEventOut_OutputPort[port].setObjName(portName);
+    this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 #endif
@@ -489,15 +459,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_timeGetOut_OutputPort[port].setObjName(portName);
+    this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -516,15 +484,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_tlmOut_OutputPort[port].setObjName(portName);
+    this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -543,15 +509,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+    this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -570,15 +534,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -597,15 +559,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedOut_OutputPort[port].setObjName(portName);
+    this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -624,15 +584,13 @@ void PassiveCommandsComponentBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnOut_OutputPort[port].setObjName(portName);
+    this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 }

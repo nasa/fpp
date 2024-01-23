@@ -39,15 +39,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_cmdRegOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_cmdRegOut[port].setObjName(portName);
+    this->m_from_cmdRegOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -71,15 +69,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_cmdResponseOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_cmdResponseOut[port].setObjName(portName);
+    this->m_from_cmdResponseOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -103,15 +99,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_eventOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_eventOut[port].setObjName(portName);
+    this->m_from_eventOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -135,15 +129,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_prmGetOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_prmGetOut[port].setObjName(portName);
+    this->m_from_prmGetOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -167,15 +159,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_prmSetOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_prmSetOut[port].setObjName(portName);
+    this->m_from_prmSetOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -199,15 +189,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_productRequestOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_productRequestOut[port].setObjName(portName);
+    this->m_from_productRequestOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -231,15 +219,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_productSendOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_productSendOut[port].setObjName(portName);
+    this->m_from_productSendOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -264,15 +250,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_textEventOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_textEventOut[port].setObjName(portName);
+    this->m_from_textEventOut[port].setObjName(portName.toChar());
 #endif
   }
 #endif
@@ -297,15 +281,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_timeGetOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_timeGetOut[port].setObjName(portName);
+    this->m_from_timeGetOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -329,15 +311,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_tlmOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_tlmOut[port].setObjName(portName);
+    this->m_from_tlmOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -361,15 +341,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_noArgsOut[port].setObjName(portName);
+    this->m_from_noArgsOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -393,15 +371,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_noArgsReturnOut[port].setObjName(portName);
+    this->m_from_noArgsReturnOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -425,15 +401,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_typedOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_typedOut[port].setObjName(portName);
+    this->m_from_typedOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -457,15 +431,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_from_typedReturnOut[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_from_typedReturnOut[port].setObjName(portName);
+    this->m_from_typedReturnOut[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -484,15 +456,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_cmdIn[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_cmdIn[port].setObjName(portName);
+    this->m_to_cmdIn[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -511,15 +481,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_productRecvIn[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_productRecvIn[port].setObjName(portName);
+    this->m_to_productRecvIn[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -538,15 +506,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_noArgsAsync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_noArgsAsync[port].setObjName(portName);
+    this->m_to_noArgsAsync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -565,15 +531,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_noArgsGuarded[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_noArgsGuarded[port].setObjName(portName);
+    this->m_to_noArgsGuarded[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -592,15 +556,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_noArgsReturnGuarded[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_noArgsReturnGuarded[port].setObjName(portName);
+    this->m_to_noArgsReturnGuarded[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -619,15 +581,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_noArgsReturnSync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_noArgsReturnSync[port].setObjName(portName);
+    this->m_to_noArgsReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -646,15 +606,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_noArgsSync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_noArgsSync[port].setObjName(portName);
+    this->m_to_noArgsSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -673,15 +631,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedAsync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedAsync[port].setObjName(portName);
+    this->m_to_typedAsync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -700,15 +656,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedAsyncAssert[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedAsyncAssert[port].setObjName(portName);
+    this->m_to_typedAsyncAssert[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -727,15 +681,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedAsyncBlockPriority[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedAsyncBlockPriority[port].setObjName(portName);
+    this->m_to_typedAsyncBlockPriority[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -754,15 +706,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedAsyncDropPriority[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedAsyncDropPriority[port].setObjName(portName);
+    this->m_to_typedAsyncDropPriority[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -781,15 +731,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedGuarded[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedGuarded[port].setObjName(portName);
+    this->m_to_typedGuarded[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -808,15 +756,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedReturnGuarded[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedReturnGuarded[port].setObjName(portName);
+    this->m_to_typedReturnGuarded[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -835,15 +781,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedReturnSync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedReturnSync[port].setObjName(portName);
+    this->m_to_typedReturnSync[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -862,15 +806,13 @@ void QueuedTestTesterBase ::
     // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
     // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
     // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_to_typedSync[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_to_typedSync[port].setObjName(portName);
+    this->m_to_typedSync[port].setObjName(portName.toChar());
 #endif
   }
 }
