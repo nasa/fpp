@@ -14,8 +14,8 @@ case class ChannelEntry(identifier: BigInt, channel: TlmChannel)
 case class DictionaryJsonEncoder(
     /** Analysis data structure */
     analysis: Analysis,
-    /** Constructed Dictionary data structure*/
-    dictionary: Dictionary,
+    /** Constructed Dictionary data structure */
+    dictionary: Dictionary
 ) {
     private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
         (map.map { case (key, value) => f1(key, value) }).toList.asJson
@@ -26,48 +26,6 @@ case class DictionaryJsonEncoder(
     private def enumConstantAsJson(aNode: AstNode[Ast.DefEnumConstant]): Map[String, Json] = {
         val Value.EnumConstant(value, _) = analysis.valueMap(aNode.id)
         Map(value._1 -> value._2.asJson)
-    }
-
-    private def exprAsJson(expr: AstNode[Ast.Expr]): Option[Json] = {
-        expr match {
-            case AstNode(Ast.ExprLiteralInt(x), _) => Some(BigInt(x).asJson)
-            case AstNode(Ast.ExprLiteralFloat(x), _) => Some(x.toDouble.asJson)
-            case AstNode(Ast.ExprLiteralBool(x), _) => Some(x.toString.toBoolean.asJson)
-            case AstNode(Ast.ExprLiteralString(x), _) => Some(x.toString.asJson)
-            case AstNode(Ast.ExprIdent(x), _) => Some(x.toString.asJson)
-            case AstNode(Ast.ExprArray(x), _) => {
-                val arrayRes: List[Json] = for(elem <- x) yield exprAsJson(elem).asJson
-                Some(arrayRes.asJson)
-            }
-            case _ => None // TODO: figure out how to get default value for type when none is specified
-        }
-    }
-    private def structTypeMemberListToJson(members: List[Ast.Annotated[AstNode[Ast.StructTypeMember]]]): Json = {
-        val defaultList = for(((_, memberNode, _), index) <- members.zipWithIndex) yield {
-            val size: Option[Json] = memberNode.data.size match {
-                case Some(sizeVal) => exprAsJson(sizeVal)
-                case None => None
-            }
-            val jsonObj = Json.obj(
-                "type" -> typeNameAsJson(Some(memberNode.data.typeName)),
-                "index" -> index.asJson,
-            )
-            val formatString = memberNode.data.format
-
-            val updatedJson = if (size.isDefined) jsonObj.deepMerge(Json.obj("size" -> size.asJson)) else jsonObj
-            val updatedJson2 = if (formatString.isDefined) jsonObj.deepMerge(Json.obj("formatSpecifier" -> formatString.toString.asJson)) else updatedJson
-
-            Map(memberNode.data.name -> updatedJson2)
-        }
-        defaultList.flatten.toMap.asJson
-    }
-
-    private def structDefaultMemberListToJson(members: List[AstNode[Ast.StructMember]]): Json = {
-        val defaultList = for(memberNode <- members) yield {
-            val v: Option[Json] = exprAsJson(memberNode.data.value) 
-            if (v.isDefined) Map(memberNode.data.name -> v) else Map() // else case is when the member is not a valid dictionary entry and should be excluded
-        }
-        defaultList.flatten.toMap.asJson
     }
 
     private implicit def typeSymbolSetEncoder [T <: Symbol]: Encoder[Set[T]] = {
@@ -95,33 +53,84 @@ case class DictionaryJsonEncoder(
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
+    def jsonWithOptional(key: String, optional: Option[Any], json: Json): Json = {
+        optional match {
+            case Some(value) => value match {
+                case x: Format => Json.obj(key -> formatSpecifierAsJson(x)).deepMerge(json)
+                case x: Int => Json.obj(key -> x.asJson).deepMerge(json)
+                case Value.Struct(a, t) => {
+                    val Value.AnonStruct(members) = a
+                    val memberJson = members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
+                    Json.obj(key -> memberJson).deepMerge(json)
+                }
+                case x: Value => Json.obj(key -> valueAsJson(x)).deepMerge(json)
+                case x: BigInt => Json.obj(key -> x.asJson).deepMerge(json)
+                case x: Ast.QueueFull => Json.obj(key -> x.toString.asJson).deepMerge(json)
+            }
+            case None => json
+        }
+    }
+
+    def formatSpecifierAsJson(format: Format): Json =
+        format.fields.foldLeft(format.prefix) ((acc, inst) => acc + "{}" + inst._2).asJson
+
     def typeAsJson[T <: Type](elemType: T): Json = {
         elemType match {
             case Type.PrimitiveInt(kind) => {
-                val stringVal = kind.toString
-                val size = if (stringVal.startsWith("I")) stringVal.split("I").tail else stringVal.split("U").tail
-                val signed = if (stringVal.startsWith("I")) true else false
+                val kindString = kind.toString
+                val size = if (kindString.startsWith("I")) kindString.split("I").tail else kindString.split("U").tail
+                val signed = if (kindString.startsWith("I")) true else false
                 Json.obj(
-                    "name" -> stringVal.asJson,
+                    "name" -> kindString.asJson,
                     "kind" -> "integer".asJson,
                     "size" -> size.mkString("").toInt.asJson,
                     "signed" -> signed.asJson
                 )
             }
             case Type.Float(kind) => {
-                val stringVal = kind.toString
-                val size = stringVal.split("F").tail
+                val kindString = kind.toString
+                val size = kindString.split("F").tail
                 Json.obj(
-                    "name" -> stringVal.asJson,
+                    "name" -> kindString.asJson,
                     "kind" -> "float".asJson,
                     "size" -> size.mkString("").toInt.asJson
                 )
             }
+            case Type.String(size) => {
+                val jsonObj = Json.obj(
+                    "name" -> "string".asJson,
+                    "kind" -> "string".asJson
+                )
+                size match {
+                    case Some(s) => {
+                        Json.obj("size" -> valueAsJson(analysis.valueMap(s.id))).deepMerge(jsonObj)
+                    }
+                    case None => jsonObj
+                }
+            }
+            case Type.Array(node, _, _, _) => {
+                Json.obj(
+                    "name" -> analysis.getQualifiedName(Symbol.Array(node)).toString.asJson,
+                    "kind" -> "qualifiedIdentifier".asJson,
+                )
+            }
+            case Type.Enum(node, _, _) => {
+                Json.obj(
+                    "name" -> analysis.getQualifiedName(Symbol.Enum(node)).toString.asJson,
+                    "kind" -> "qualifiedIdentifier".asJson,
+                )
+            }
+            case Type.Struct(node, _, _, _, _) => {
+                Json.obj(
+                    "name" -> analysis.getQualifiedName(Symbol.Struct(node)).toString.asJson,
+                    "kind" -> "qualifiedIdentifier".asJson,
+                )
+            }
+            // TODO: things excluded from the spec - empty json / do not add
             case _ => {
                 Json.obj(
-                    "name" -> "stringVal".asJson,
+                    "name" -> "not defined".asJson,
                     "kind" -> "not defined".asJson,
-                    "size" -> "".asJson
                 )
             }
         }
@@ -180,21 +189,51 @@ case class DictionaryJsonEncoder(
         }
     }
 
+    def arrayElementsAsJson(elements: List[Value]): Json = {
+        val arrayRes = for(e <- elements) yield {
+            val res = e match {
+                // Case where array is N-dimensional
+                case Value.Array(a, t) => arrayElementsAsJson(a.elements)
+                case _ => valueAsJson(e)
+            }
+
+            res.asJson
+        }
+        arrayRes.asJson
+    }
+
+    def valueAsJson[V <: Value](value: V): Json = {
+        value match {
+            case Value.PrimitiveInt(v, _) => v.asJson
+            case Value.Integer(v) => v.asJson
+            case Value.Float(v, _) => v.asJson
+            case Value.Boolean(v) => v.asJson
+            case Value.String(v) => v.asJson
+            case Value.Array(a, t) => arrayElementsAsJson(a.elements)
+            case Value.EnumConstant(v, _) => v._2.asJson
+            case Value.Struct(Value.AnonStruct(members), t) => members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
+            case _ => value.toString.asJson
+        }
+    }
+
     private implicit def typeSymbolEncoder [T <: Symbol]: Encoder[T] = new Encoder[T] {
         override def apply(symbol: T): Json = {
             val qualifiedName = analysis.getQualifiedName(symbol).toString
             symbol match {
-                case Symbol.Array(_, node, _) => {
+                case Symbol.Array(_, _, _) => {
                     val arrayType = analysis.typeMap(symbol.getNodeId)
-                    val Type.Array(_, _, default, format) = arrayType
-                    val arrayDefault = default
-                    println(arrayDefault)
+                    val Type.Array(_, anonArray, default, format) = arrayType
+                    val defaultJsonList: List[Json]= default match {
+                        case Some(defaultVal) => for (elem <- defaultVal._1._1) yield valueAsJson(elem)
+                        case None => List.empty[Json]
+                    }
+
                     Json.obj(
                         "kind" -> "array".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
                         "size" -> arrayType.getArraySize.asJson,
-                        "elementType" -> typeNameAsJson(Some(node.data.eltType)),
-                        "default" -> arrayDefault.toString.asJson
+                        "elementType" -> typeAsJson(anonArray.eltType),
+                        "default" -> defaultJsonList.asJson
                     )
                 }
                 case Symbol.Enum(_, node, _) => {
@@ -203,28 +242,30 @@ case class DictionaryJsonEncoder(
                         case Some(defaultVal) => defaultVal.value._1
                         case None => ""
                     }
-                    val identifiers = for (aNode <- node.data.constants) yield enumConstantAsJson(aNode._2)
+                    val identifiers = for (aNode <- node.data.constants) yield Map(aNode._2._1._1.toString -> valueAsJson(analysis.valueMap(aNode._2.id)))
                     Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
-                        "representationType" -> typeAsJson(repType), // note: type name info does not appear for enums that do not have types explicitely stated
+                        "representationType" -> typeAsJson(repType),
                         "identifiers" -> identifiers.flatten.toMap.asJson,
                         "default" -> (qualifiedName ++ "." ++ enumDefault).asJson
                     )
                 }
                 case Symbol.Struct(_, node, _) => {
-                    val default: Json = node.data.default match {
-                        case Some(AstNode(Ast.ExprIdent(value), _)) => "".asJson
-                        case Some(AstNode(Ast.ExprStruct(value), _)) => structDefaultMemberListToJson(value)
-                        case Some(_) => "".asJson
-                        case None => "".asJson
+                    val Type.Struct(_, anonStruct, default, sizes, formats) = analysis.typeMap(symbol.getNodeId)
+                    val Type.AnonStruct(members) = anonStruct
+                    val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
+                        val json = Json.obj("type" -> typeAsJson(t).asJson, "index" -> index.asJson)
+                        val optionalMap = Map("size" -> sizes.get(key), "formatString" -> formats.get(key))
+                        val withOptionals = optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
+                        (key.toString -> withOptionals)
                     }
-                    Json.obj(
+                    val json = Json.obj(
                         "kind" -> "struct".asJson,
-                        "qualifiedName" -> node.data.name.asJson,
-                        "members" -> structTypeMemberListToJson(node.data.members),
-                        "default" -> default
+                        "qualifiedName" -> qualifiedName.asJson,
+                        "members" -> membersFormatted.toMap.asJson,
                     )
+                    jsonWithOptional("default", default, json)
                 }
                 case _ => Json.obj("TODO" -> "TODO".asJson)
             }
@@ -233,7 +274,7 @@ case class DictionaryJsonEncoder(
 
     private implicit def channelLimitEncoder: Encoder[TlmChannel.Limits] = new Encoder[TlmChannel.Limits] {
         override def apply(limits: TlmChannel.Limits): Json = {
-            (limits.map { case (limitKind, valueNode) => limitKind.toString -> valueNode._2.toString }).asJson
+            (limits.map { case (limitKind, (id, value)) => limitKind.toString -> valueAsJson(value)}).asJson
         }
     }
 
@@ -245,12 +286,15 @@ case class DictionaryJsonEncoder(
                     val (_, elem, annotation) = paramEntry
                     val description = annotation.mkString("\n")
                     val AstNode(Ast.FormalParam(kind, identifier, typeNameNode), _) = elem
-                    // TODO: figure out how to encode optional fields (ie: size). Currently size is "null" if its None
+                    val ref = kind match {
+                        case Ast.FormalParam.Ref => true
+                        case Ast.FormalParam.Value => false
+                    }
                     Json.obj(
                         "identifier" -> identifier.asJson,
                         "description" -> description.asJson, 
-                        "type" -> typeNameAsJson(Some(typeNameNode)),
-                        "ref" -> false.asJson
+                        "type" -> typeAsJson(analysis.typeMap(typeNameNode.id)),
+                        "ref" -> ref.asJson
                     )
                 }
             }
@@ -269,33 +313,24 @@ case class DictionaryJsonEncoder(
                     val data = node.data
                     val description = annotation.mkString("\n")
                     // kind can either be: async, guarded, or sync
-                    val commandKind = kind match {
-                        case _: Command.NonParam.Async => "async"
-                        case Command.NonParam.Guarded => "guarded"
-                        case Command.NonParam.Sync => "sync"
-                    }
-                    val priority = data.priority match {
-                        case Some(x) => exprAsJson(x)
-                        case None => None
-                    }
-                    val queueFullBehavior: Option[String] = data.queueFull match {
-                        case Some(_) => Some(Analysis.getQueueFull(data.queueFull.map(_.data)).toString)
-                        case None => None
+                    val (commandKind, priority, queueFull) = kind match {
+                        case Command.NonParam.Async(priority, queueFull) => ("async", priority, Some(queueFull))
+                        case Command.NonParam.Guarded => ("guarded", None, None)
+                        case Command.NonParam.Sync => ("sync", None, None)
                     }
 
                     val formalParams = data.params
-                    // val newCommand = Command(identifier, commandKind, opcode, description, formalParams, priority, queueFullBehavior)
-                    val initJson = Json.obj(
+
+                    val json = Json.obj(
                         "identifier" -> identifier.asJson,
                         "commandKind" -> commandKind.asJson, 
                         "opcode" -> opcode.asJson,
                         "description" -> description.asJson, 
-                        "formalParams" -> formalParams.asJson,
+                        "formalParams" -> formalParams.asJson
                     )
 
-                    val updatedJson = if(priority.isDefined) Json.obj("priority" -> priority.asJson).deepMerge(initJson) else initJson
-                    val updatedJson2 = if(queueFullBehavior.isDefined) Json.obj("queueFullBehavior" -> queueFullBehavior.asJson).deepMerge(updatedJson) else updatedJson
-                    updatedJson2
+                    val optionalMap = Map("priority" -> priority, "queueFullBehavior" -> queueFull)
+                    optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
                 }
                 // case where command is param set/save command
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
@@ -320,36 +355,31 @@ case class DictionaryJsonEncoder(
     private implicit def paramEncoder: Encoder[ParamEntry] = new Encoder[ParamEntry] {
         override def apply(entry: ParamEntry): Json = {
             val param = entry.param
-            val (annotation, node, _) = param.aNode
-            val identifier = node.data.name
-            val description = annotation.mkString("\n")
-            // TODO: get default values
-           
-            Json.obj(
-                "identifier" -> identifier.asJson,
-                "description" -> description.asJson,
-                // "default" -> default.asJson,
-                "type" -> typeNameAsJson(Some(node.data.typeName)),
+            val (annotation, node, _) = param.aNode           
+            val json = Json.obj(
+                "identifier" -> node.data.name.asJson,
+                "description" -> annotation.mkString("\n").asJson,
+                "type" -> typeAsJson(param.paramType),
                 "numericIdentifier" -> entry.identifier.asJson
             )
+            jsonWithOptional("default", param.default, json)
         }
     }
 
     private implicit def eventEncoder: Encoder[EventEntry] = new Encoder[EventEntry] {
         override def apply(entry: EventEntry): Json = {
             val event = entry.event
-            val identifier = event.getName.toString
             val (annotation, node, _) = event.aNode
             // val format = event.format.prefix // need to fix format so it adheres to spec (ie: python string format convention)
-            Json.obj(
-                "identifier" -> identifier.asJson,
+            val json = Json.obj(
+                "identifier" -> event.getName.toString.asJson,
                 "description" -> annotation.mkString("\n").asJson,
                 "severity" -> node.data.severity.toString.asJson,
                 "formalParams" -> node.data.params.asJson,
                 "numericIdentifier" -> entry.identifier.asJson,
-                // "formatString" -> format.asJson,
-                "throttle" -> event.throttle.asJson
             )
+            val optionalMap = Map("formatString" -> Some(event.format), "throttle" -> event.throttle)
+            optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
         }
     }
 
@@ -357,26 +387,25 @@ case class DictionaryJsonEncoder(
         override def apply(entry: ChannelEntry): Json = {
             val channel = entry.channel
             val (annotation, node, _) = channel.aNode
-            val identifier = node.data.name
-            // val format = channel.format.prefix // need to fix format so it adheres to spec (ie: python string format convention)
-            Json.obj(
-                "identifier" -> identifier.asJson,
+            val json = Json.obj(
+                "identifier" -> node.data.name.asJson,
                 "description" -> annotation.mkString("\n").asJson,
-                "type" -> typeNameAsJson(Some(node.data.typeName)),
+                "type" -> typeAsJson(channel.channelType),
                 "numericIdentifier" -> entry.identifier.asJson,
-                "telemtryUpdate" -> channel.update.toString.asJson,
-                "limit" -> Json.obj(
-                    "low" -> channel.lowLimits.asJson,
-                    "high" -> channel.highLimits.asJson
-                )
-                // "formatString" -> format.asJson
+                "telemtryUpdate" -> channel.update.toString.asJson
+                // "limit" -> Json.obj(
+                //     "low" -> channel.lowLimits.asJson,
+                //     "high" -> channel.highLimits.asJson
+                // )
             )
+            
+            jsonWithOptional("formatString", channel.format, json)
         }
     }
 
      /** Given a set of symbols, splits set into subsets consisting of array, enum, and struct symbols */
     def splitTypeSymbolSet(symbolSet: Set[Symbol], outArray: Set[Symbol.Array], outEnum: Set[Symbol.Enum], outStruct: Set[Symbol.Struct]): (Set[Symbol.Array], Set[Symbol.Enum], Set[Symbol.Struct]) = {
-        if (symbolSet.tail.isEmpty) (outArray, outEnum, outStruct) else {
+        if (symbolSet.isEmpty) (outArray, outEnum, outStruct) else {
             val (tail, outA, outE, outS) = symbolSet.head match {
                 case h: Symbol.Array => (symbolSet.tail, outArray + h, outEnum, outStruct)
                 case h: Symbol.Enum => (symbolSet.tail, outArray, outEnum + h, outStruct)

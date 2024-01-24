@@ -4,17 +4,6 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.analysis._
 
-case class ResolvedComponentInstance(
-    /** The map from resolved ID to command */
-    resolvedIdCommandMap: Map[BigInt, Command] = Map(),
-    /** The map from resolved ID to telemetry channel */
-    resolvedIdChannelMap: Map[BigInt, TlmChannel] = Map(),
-    /** The map from resolved ID to event */
-    resolvedIdEventMap: Map[BigInt, Event] = Map(),
-    /** The map from resolved ID to parameter */
-    resolvedIdParamMap: Map[BigInt, Param] = Map()
-)
-
 /** Dictionary data structure */
 case class Dictionary(
     /** A set of type symbols used in the topology */
@@ -65,9 +54,10 @@ case class Dictionary(
        symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
     }
 
-    /** Given an map and base IDs, returns a mapping of resolved IDs to map values */
+    /** Given a map and base IDs, returns a mapping of resolved IDs to map values */
     def resolveIds[T](currentMap: Map[BigInt, T], baseId: BigInt): Map[BigInt, T] = {
         currentMap.map((id, elem) => baseId + id -> elem)
+        // currentMap.foldLeft(resMap) ((resMap, inst) => resMap + (baseId + id -> elem))
     }
 
     def buildDictionary(analysis: Analysis, topology: Topology): Dictionary = {

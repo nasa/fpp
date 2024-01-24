@@ -12,28 +12,26 @@ object FPPToDict {
     case class Options(
         files: List[File] = Nil
     )
+    // TODO: need to add arg for including dependency FPP files
 
-    def createDictionary(dict: dictionary.Dictionary, componentMap: Map[Symbol.Component, Component]): dictionary.Dictionary = {
-        var newDict = dict
-        for((componentSymbol, component) <- componentMap) {
-            // call func to gather commmands
-            for((commandOpcode, commandEntry) <- component.commandMap) {
-                newDict = newDict.addCommand(commandOpcode, commandEntry)
-            }
-            // call func to gather events
-            // call func to gather channels
-            // call func to gather params
-            // call func to gather commmands
-            for((paramIdentifier, paramEntry) <- component.paramMap) {
-                newDict.addParameter(paramIdentifier, paramEntry)
-            }
-            // create Dictionary object with above properties
-            // add dicitionary to component to dictionary mapping
+    def constructDictionary(a: Analysis): Iterable[dictionary.Dictionary] = {
+        val dictionaryList = for (((_, t), index) <- a.topologyMap.zipWithIndex) yield {
+            val constructedDictionary = dictionary.Dictionary().buildDictionary(a, t)
+            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary)
+            writeJson("justine-test-" + index + ".json",  jsonEncoder.dictionaryToJson)
+            constructedDictionary
         }
-        // return component to dictionary mapping
-        return newDict
+        return dictionaryList
     }
 
+    def writeJson (fileName: String, json: io.circe.Json): Result.Result[Unit] = {
+        val path = java.nio.file.Paths.get(".", fileName)
+        val file = File.Path(path)
+        for (writer <- file.openWrite()) yield {
+            writer.println(json)
+            writer.close()
+        }
+    }
 
     // create Analysis
     // extract info we need from analysis and store in dictionary data structure (done in Dictionary.scala)
@@ -45,11 +43,10 @@ object FPPToDict {
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
-        val d = dictionary.Dictionary()
         for {
             tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
             a <- CheckSemantics.tuList(a, tul)
-            d <- createDictionary(d, a.componentMap).asInstanceOf[Result.Result[Unit]]
+            dictionaryList <- constructDictionary(a).asInstanceOf[Result.Result[dictionary.Dictionary]]
         } yield ()
     }
 
