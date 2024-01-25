@@ -108,13 +108,13 @@ class Including :
     //! Get member x
     Included& getx()
     {
-      return this->x;
+      return this->m_x;
     }
 
     //! Get member x (const)
     const Included& getx() const
     {
-      return this->x;
+      return this->m_x;
     }
 
     // ----------------------------------------------------------------------
@@ -133,7 +133,7 @@ class Including :
     // Member variables
     // ----------------------------------------------------------------------
 
-    Included x;
+    Included m_x;
 
 };
 

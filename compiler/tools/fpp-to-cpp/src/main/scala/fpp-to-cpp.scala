@@ -11,6 +11,7 @@ import scopt.OParser
 object FPPToCpp {
 
   case class Options(
+    autoTestHelpers: Boolean = false,
     dir: Option[String] = None,
     files: List[File] = Nil,
     imports: List[File] = Nil,
@@ -23,6 +24,7 @@ object FPPToCpp {
   )
 
   def command(options: Options) = {
+    val testHelperMode = CppWriter.getTestHelperMode(options.autoTestHelpers)
     val files = options.files.reverse match {
       case Nil => List(File.StdIn)
       case list => list
@@ -42,6 +44,8 @@ object FPPToCpp {
         Parser.parseFile (Parser.transUnit) (None) _
       )
       a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+      // Compute the generated file names. This step also checks for
+      // name collisions.
       s <- mode match {
         case CppWriter.Autocode => ComputeAutocodeCppFiles.visitList (
           CppWriterState(a),
@@ -59,18 +63,24 @@ object FPPToCpp {
             tulFiles,
             ComputeAutocodeCppFiles.transUnit
           )
-          s <- ComputeTestCppFiles.visitList(
-            s,
-            tulFiles,
-            ComputeTestCppFiles.transUnit
-          )
+          s <- {
+            val computeTestCppFiles = ComputeTestCppFiles(testHelperMode)
+            computeTestCppFiles.visitList(
+              s,
+              tulFiles,
+              computeTestCppFiles.transUnit
+            )
+          }
         } yield s
-        case CppWriter.UnitTestTemplate => ComputeTestImplCppFiles.visitList(
-          CppWriterState(a),
-          tulFiles,
-          ComputeTestImplCppFiles.transUnit
-        )
+        case CppWriter.UnitTestTemplate => 
+          val computeTestImplCppFiles = ComputeTestImplCppFiles(testHelperMode)
+          computeTestImplCppFiles.visitList(
+            CppWriterState(a),
+            tulFiles,
+            computeTestImplCppFiles.transUnit
+          )
       }
+      // If file name output is requested, then write it now
       _ <- options.names match {
         case Some(fileName) => writeCppFileNames(
           s.locationMap.toList.map(_._1), fileName
@@ -93,11 +103,10 @@ object FPPToCpp {
         mode match {
           case CppWriter.Autocode => AutocodeCppWriter.tuList(state, tulFiles)
           case CppWriter.ImplTemplate => ImplCppWriter.tuList(state, tulFiles)
-          case CppWriter.UnitTest => for {
-            _ <- AutocodeCppWriter.tuList(state, tulFiles)
-            _ <- TestCppWriter.tuList(state, tulFiles)
-          } yield ()
-          case CppWriter.UnitTestTemplate => TestImplCppWriter.tuList(state, tulFiles)
+          case CppWriter.UnitTest =>
+            TestCppWriter(testHelperMode).tuList(state, tulFiles)
+          case CppWriter.UnitTestTemplate =>
+            TestImplCppWriter(testHelperMode).tuList(state, tulFiles)
         }
       }
     } yield ()
@@ -125,6 +134,9 @@ object FPPToCpp {
       programName(name),
       head(name, Version.v),
       help('h', "help").text("print this message and exit"),
+      opt[Unit]('a', "auto-test-helpers")
+        .action((_, c) => c.copy(autoTestHelpers = true))
+        .text("enable automatic generation of test helper code"),
       opt[String]('d', "directory")
         .valueName("<dir>")
         .action((d, c) => c.copy(dir = Some(d)))

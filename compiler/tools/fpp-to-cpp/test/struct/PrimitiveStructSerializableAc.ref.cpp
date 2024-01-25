@@ -18,7 +18,7 @@
 PrimitiveStruct ::
   PrimitiveStruct() :
     Serializable(),
-    s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
+    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
 {
 
 }
@@ -26,7 +26,7 @@ PrimitiveStruct ::
 PrimitiveStruct ::
   PrimitiveStruct(const Primitive& s1) :
     Serializable(),
-    s1(s1)
+    m_s1(s1)
 {
 
 }
@@ -34,7 +34,7 @@ PrimitiveStruct ::
 PrimitiveStruct ::
   PrimitiveStruct(const PrimitiveStruct& obj) :
     Serializable(),
-    s1(obj.s1)
+    m_s1(obj.m_s1)
 {
 
 }
@@ -50,14 +50,14 @@ PrimitiveStruct& PrimitiveStruct ::
     return *this;
   }
 
-  set(obj.s1);
+  set(obj.m_s1);
   return *this;
 }
 
 bool PrimitiveStruct ::
   operator==(const PrimitiveStruct& obj) const
 {
-  return (this->s1 == obj.s1);
+  return (this->m_s1 == obj.m_s1);
 }
 
 bool PrimitiveStruct ::
@@ -86,7 +86,7 @@ Fw::SerializeStatus PrimitiveStruct ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->s1);
+  status = buffer.serialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -99,7 +99,7 @@ Fw::SerializeStatus PrimitiveStruct ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->s1);
+  status = buffer.deserialize(this->m_s1);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -121,7 +121,7 @@ void PrimitiveStruct ::
   Fw::String s1Str;
 
   // Call toString for arrays and serializable types
-  this->s1.toString(s1Str);
+  this->m_s1.toString(s1Str);
 
   char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
   (void) snprintf(
@@ -144,11 +144,11 @@ void PrimitiveStruct ::
 void PrimitiveStruct ::
   set(const Primitive& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }
 
 void PrimitiveStruct ::
   sets1(const Primitive& s1)
 {
-  this->s1 = s1;
+  this->m_s1 = s1;
 }

@@ -36,5 +36,13 @@ active component C {
   internal port I(a: U32, b: F32) priority 10 assert
   @< Internal port specifier
 
+  @ Data product container specifier
+  product container C id 0x100 default priority 10
+  @< Data product container specifier
+
+  @ Data product record specifier
+  product record R: U32 id 0x100
+  @< Data product record specifier
+
 }
 @< Component definition

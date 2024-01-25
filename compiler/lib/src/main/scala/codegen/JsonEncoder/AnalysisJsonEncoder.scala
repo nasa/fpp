@@ -123,6 +123,14 @@ object AnalysisJsonEncoder extends JsonEncoder{
     Encoder.instance (mapAsJsonMap (symbolToIdString) (f2) _)
   }
 
+  private implicit val containerMapEncoder:
+    Encoder[Map[Container.Id, Container]] =
+  {
+    def f1(id: Container.Id) = id.toString
+    def f2(c: Container) = c.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
   private implicit val directImportMapEncoder:
     Encoder[Map[Symbol.Topology, Location]] =
   {
@@ -170,6 +178,14 @@ object AnalysisJsonEncoder extends JsonEncoder{
     def f1(kind: Ast.SpecConnectionGraph.Pattern.Kind) =
       getUnqualifiedClassName(kind)
     def f2(pattern: ConnectionPattern) = pattern.asJson
+    Encoder.instance (mapAsJsonMap (f1) (f2) _)
+  }
+
+  private implicit val recordMapEncoder:
+    Encoder[Map[Record.Id, Record]] =
+  {
+    def f1(id: Record.Id) = id.toString
+    def f2(c: Record) = c.asJson
     Encoder.instance (mapAsJsonMap (f1) (f2) _)
   }
 

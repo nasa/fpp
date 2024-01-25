@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/bad_priority_product_recv.fpp:9.50
+  async product recv port productRecvIn priority "abc"
+                                                 ^
+error: cannot convert string to a numeric type

@@ -1,0 +1,162 @@
+// ======================================================================
+// \title  PassiveGetProducts.cpp
+// \author [user name]
+// \brief  cpp file for PassiveGetProducts component implementation class
+// ======================================================================
+
+#include "FpConfig.hpp"
+#include "PassiveGetProducts.hpp"
+
+// ----------------------------------------------------------------------
+// Component construction and destruction
+// ----------------------------------------------------------------------
+
+PassiveGetProducts ::
+  PassiveGetProducts(const char* const compName) :
+    PassiveGetProductsComponentBase(compName)
+{
+
+}
+
+PassiveGetProducts ::
+  ~PassiveGetProducts()
+{
+
+}
+
+// ----------------------------------------------------------------------
+// Handler implementations for user-defined typed input ports
+// ----------------------------------------------------------------------
+
+void PassiveGetProducts ::
+  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO
+}
+
+U32 PassiveGetProducts ::
+  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
+U32 PassiveGetProducts ::
+  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO return
+}
+
+void PassiveGetProducts ::
+  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  typedGuarded_handler(
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Ports::TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+F32 PassiveGetProducts ::
+  typedReturnGuarded_handler(
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+F32 PassiveGetProducts ::
+  typedReturnSync_handler(
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO return
+}
+
+void PassiveGetProducts ::
+  typedSync_handler(
+      NATIVE_INT_TYPE portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Ports::TypedPortStrings::StringSize80& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+// ----------------------------------------------------------------------
+// Handler implementations for data products
+// ----------------------------------------------------------------------
+
+void PassiveGetProducts ::
+  dpRecv_Container1_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  dpRecv_Container2_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  dpRecv_Container3_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  dpRecv_Container4_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}
+
+void PassiveGetProducts ::
+  dpRecv_Container5_handler(
+      DpContainer& container,
+      Fw::Success::T status
+  )
+{
+  // TODO
+}

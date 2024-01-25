@@ -110,13 +110,13 @@ namespace M {
       //! Get member x
       M::Modules1& getx()
       {
-        return this->x;
+        return this->m_x;
       }
 
       //! Get member x (const)
       const M::Modules1& getx() const
       {
-        return this->x;
+        return this->m_x;
       }
 
       // ----------------------------------------------------------------------
@@ -135,7 +135,7 @@ namespace M {
       // Member variables
       // ----------------------------------------------------------------------
 
-      M::Modules1 x;
+      M::Modules1 m_x;
 
   };
 

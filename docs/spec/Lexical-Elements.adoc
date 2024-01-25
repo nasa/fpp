@@ -56,6 +56,7 @@ command
 component
 connections
 constant
+container
 cpu
 default
 diagnostic
@@ -89,14 +90,18 @@ phase
 port
 priority
 private
+product
 queue
 queued
+record
 recv
 red
 ref
 reg
+request
 resp
 save
+send
 serial
 set
 severity

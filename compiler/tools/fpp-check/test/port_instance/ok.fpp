@@ -3,6 +3,9 @@ module Fw {
   port Cmd
   port CmdReg
   port CmdResponse
+  port DpRequest
+  port DpResponse
+  port DpSend
   port Log
   port LogText
   port PrmGet
@@ -25,12 +28,15 @@ active component C {
   guarded input port s3: serial
   output port s4: serial
 
+  async product recv port productRecvIn priority 3 drop
   command recv port cmdIn
   command reg port cmdRegIn
   command resp port cmdResponseIn
   event port eventOut
   param get port paramGetOut
   param set port paramSetOut
+  product request port productRequestOut
+  product send port productSendOut
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut

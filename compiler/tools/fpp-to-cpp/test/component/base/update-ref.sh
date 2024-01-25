@@ -22,32 +22,49 @@ empty()
 passive()
 {
   update "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../passive" passive
-  move_cpp PassiveTestComponent
-  move_cpp PassiveSerialComponent
   move_cpp PassiveCommandsComponent
   move_cpp PassiveEventsComponent
-  move_cpp PassiveTelemetryComponent
+  move_cpp PassiveGetProductPortsOnlyComponent
+  move_cpp PassiveGetProductsComponent
+  move_cpp PassiveGuardedProductsComponent
   move_cpp PassiveParamsComponent
+  move_cpp PassiveSerialComponent
+  move_cpp PassiveSyncProductPortsOnlyComponent
+  move_cpp PassiveSyncProductsComponent
+  move_cpp PassiveTelemetryComponent
+  move_cpp PassiveTestComponent
 }
 
 active()
 {
   update "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../active" active
-  move_cpp ActiveTestComponent
-  move_cpp ActiveSerialComponent
+  move_cpp ActiveAsyncProductPortsOnlyComponent
+  move_cpp ActiveAsyncProductsComponent
   move_cpp ActiveCommandsComponent
   move_cpp ActiveEventsComponent
-  move_cpp ActiveTelemetryComponent
+  move_cpp ActiveGetProductsComponent
+  move_cpp ActiveGuardedProductsComponent
+  move_cpp ActiveNoArgsPortsOnlyComponent
   move_cpp ActiveParamsComponent
+  move_cpp ActiveSerialComponent
+  move_cpp ActiveSyncProductsComponent
+  move_cpp ActiveTelemetryComponent
+  move_cpp ActiveTestComponent
 }
 
 queued()
 {
   update "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
-  move_cpp QueuedTestComponent
-  move_cpp QueuedSerialComponent
+  move_cpp QueuedAsyncProductPortsOnlyComponent
+  move_cpp QueuedAsyncProductsComponent
   move_cpp QueuedCommandsComponent
   move_cpp QueuedEventsComponent
-  move_cpp QueuedTelemetryComponent
+  move_cpp QueuedGetProductsComponent
+  move_cpp QueuedGuardedProductsComponent
+  move_cpp QueuedNoArgsPortsOnlyComponent
   move_cpp QueuedParamsComponent
+  move_cpp QueuedSerialComponent
+  move_cpp QueuedSyncProductsComponent
+  move_cpp QueuedTelemetryComponent
+  move_cpp QueuedTestComponent
 }

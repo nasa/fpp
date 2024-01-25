@@ -20,8 +20,8 @@ namespace M {
   Modules1 ::
     Modules1() :
       Serializable(),
-      x(0),
-      y(0.0f)
+      m_x(0),
+      m_y(0.0f)
   {
 
   }
@@ -32,8 +32,8 @@ namespace M {
         F32 y
     ) :
       Serializable(),
-      x(x),
-      y(y)
+      m_x(x),
+      m_y(y)
   {
 
   }
@@ -41,8 +41,8 @@ namespace M {
   Modules1 ::
     Modules1(const Modules1& obj) :
       Serializable(),
-      x(obj.x),
-      y(obj.y)
+      m_x(obj.m_x),
+      m_y(obj.m_y)
   {
 
   }
@@ -58,7 +58,7 @@ namespace M {
       return *this;
     }
 
-    set(obj.x, obj.y);
+    set(obj.m_x, obj.m_y);
     return *this;
   }
 
@@ -66,8 +66,8 @@ namespace M {
     operator==(const Modules1& obj) const
   {
     return (
-      (this->x == obj.x) &&
-      (this->y == obj.y)
+      (this->m_x == obj.m_x) &&
+      (this->m_y == obj.m_y)
     );
   }
 
@@ -97,11 +97,11 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.serialize(this->x);
+    status = buffer.serialize(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.serialize(this->y);
+    status = buffer.serialize(this->m_y);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -114,11 +114,11 @@ namespace M {
   {
     Fw::SerializeStatus status;
 
-    status = buffer.deserialize(this->x);
+    status = buffer.deserialize(this->m_x);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
-    status = buffer.deserialize(this->y);
+    status = buffer.deserialize(this->m_y);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
@@ -142,8 +142,8 @@ namespace M {
       outputString,
       FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
       formatString,
-      this->x,
-      this->y
+      this->m_x,
+      this->m_y
     );
 
     outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -162,20 +162,20 @@ namespace M {
         F32 y
     )
   {
-    this->x = x;
-    this->y = y;
+    this->m_x = x;
+    this->m_y = y;
   }
 
   void Modules1 ::
     setx(U32 x)
   {
-    this->x = x;
+    this->m_x = x;
   }
 
   void Modules1 ::
     sety(F32 y)
   {
-    this->y = y;
+    this->m_y = y;
   }
 
 }

@@ -1,0 +1,60 @@
+=== Record Specifiers
+
+A *record specifier* specifies a data product record as part of a
+<<Definitions_Component-Definitions,component definition>>.
+A record is a unit of data that is stored in a
+<<Specifiers_Container-Specifiers,container>>.
+
+==== Syntax
+
+`product` `record` <<Lexical-Elements_Identifiers,_identifier_>>
+`:` <<Type-Names,_type-name_>>
+_[_
+`array`
+_]_
+_[_
+`id` <<Expressions,_expression_>>
+_]_
+
+==== Semantics
+
+. The identifier names the record.
+
+. The type name _T_ following the identifier specifies the type of the data stored
+in the record.
+
+.. If the keyword `array` appears after the type name, then the record stores
+a variable number of elements of type _T_.
+In this case the record consists of a size _s_ followed by a data payload
+consisting of _s_ elements of type _T_.
+
+.. Otherwise the record stores a single value of type _T_.
+
+. The optional expression _e_ after the keyword `id` specifies the
+numeric identifier for the record.
+If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+If _e_ is not present, then the
+default identifier is either zero (for the first record appearing in a
+component) or the previous record identifier plus one.
+
+==== Examples
+
+[source,fpp]
+----
+@ An array of 3 F64 values
+array F64x3 = [3] F64
+
+@ Record 0: A variable number of F32 values
+@ Implied id is 0x00
+product record Record0: F32 array
+
+@ Record 1: A single U32 value
+product record Record1: U32 id 0x02
+
+@ Record 2: A single F64x3 value
+@ Implied id is 0x03
+product record Record2: F64x3
+----

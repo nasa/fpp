@@ -10,6 +10,7 @@
 #include <cstdio>
 
 #include "Fw/Comp/PassiveComponentBase.hpp"
+#include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "test-base/ActiveTestComponentAc.hpp"
@@ -243,6 +244,18 @@ namespace M {
         E arg;
       };
 
+      //! A type representing a data product request
+      struct DpRequest {
+        FwDpIdType id;
+        FwSizeType size;
+      };
+
+      // A type representing a data product send
+      struct DpSend {
+        FwDpIdType id;
+        Fw::Buffer buffer;
+      };
+
     public:
 
       // ----------------------------------------------------------------------
@@ -264,6 +277,12 @@ namespace M {
       void connect_to_cmdIn(
           NATIVE_INT_TYPE portNum, //!< The port number
           Fw::InputCmdPort* port //!< The input port
+      );
+
+      //! Connect port to productRecvIn[portNum]
+      void connect_to_productRecvIn(
+          NATIVE_INT_TYPE portNum, //!< The port number
+          Fw::InputDpResponsePort* port //!< The input port
       );
 
       //! Connect port to noArgsAsync[portNum]
@@ -385,6 +404,20 @@ namespace M {
           NATIVE_INT_TYPE portNum //!< The port number
       );
 
+      //! Get from port at index
+      //!
+      //! \return from_productRequestOut[portNum]
+      Fw::InputDpRequestPort* get_from_productRequestOut(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Get from port at index
+      //!
+      //! \return from_productSendOut[portNum]
+      Fw::InputDpSendPort* get_from_productSendOut(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
       //! Get from port at index
@@ -407,6 +440,20 @@ namespace M {
       //!
       //! \return from_tlmOut[portNum]
       Fw::InputTlmPort* get_from_tlmOut(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Get from port at index
+      //!
+      //! \return from_noArgsOut[portNum]
+      Ports::InputNoArgsPort* get_from_noArgsOut(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Get from port at index
+      //!
+      //! \return from_noArgsReturnOut[portNum]
+      Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
           NATIVE_INT_TYPE portNum //!< The port number
       );
 
@@ -445,6 +492,16 @@ namespace M {
       // Handlers to implement for from ports
       // ----------------------------------------------------------------------
 
+      //! Handler for input port from_noArgsOut
+      virtual void from_noArgsOut_handler(
+          NATIVE_INT_TYPE portNum //!< The port number
+      ) = 0;
+
+      //! Handler for input port from_noArgsReturnOut
+      virtual U32 from_noArgsReturnOut_handler(
+          NATIVE_INT_TYPE portNum //!< The port number
+      ) = 0;
+
       //! Handler for input port from_typedOut
       virtual void from_typedOut_handler(
           NATIVE_INT_TYPE portNum, //!< The port number
@@ -474,6 +531,16 @@ namespace M {
       // ----------------------------------------------------------------------
       // Handler base-class functions for from ports
       // ----------------------------------------------------------------------
+
+      //! Handler base-class function for from_noArgsOut
+      void from_noArgsOut_handlerBase(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Handler base-class function for from_noArgsReturnOut
+      U32 from_noArgsReturnOut_handlerBase(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
 
       //! Handler base-class function for from_typedOut
       void from_typedOut_handlerBase(
@@ -637,6 +704,11 @@ namespace M {
       //! \return The number of to_cmdIn ports
       NATIVE_INT_TYPE getNum_to_cmdIn() const;
 
+      //! Get the number of to_productRecvIn ports
+      //!
+      //! \return The number of to_productRecvIn ports
+      NATIVE_INT_TYPE getNum_to_productRecvIn() const;
+
       //! Get the number of to_noArgsAsync ports
       //!
       //! \return The number of to_noArgsAsync ports
@@ -727,6 +799,16 @@ namespace M {
       //! \return The number of from_prmSetOut ports
       NATIVE_INT_TYPE getNum_from_prmSetOut() const;
 
+      //! Get the number of from_productRequestOut ports
+      //!
+      //! \return The number of from_productRequestOut ports
+      NATIVE_INT_TYPE getNum_from_productRequestOut() const;
+
+      //! Get the number of from_productSendOut ports
+      //!
+      //! \return The number of from_productSendOut ports
+      NATIVE_INT_TYPE getNum_from_productSendOut() const;
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
       //! Get the number of from_textEventOut ports
@@ -745,6 +827,16 @@ namespace M {
       //!
       //! \return The number of from_tlmOut ports
       NATIVE_INT_TYPE getNum_from_tlmOut() const;
+
+      //! Get the number of from_noArgsOut ports
+      //!
+      //! \return The number of from_noArgsOut ports
+      NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+
+      //! Get the number of from_noArgsReturnOut ports
+      //!
+      //! \return The number of from_noArgsReturnOut ports
+      NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
 
       //! Get the number of from_typedOut ports
       //!
@@ -766,6 +858,13 @@ namespace M {
       //!
       //! \return Whether port to_cmdIn is connected
       bool isConnected_to_cmdIn(
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Check whether port to_productRecvIn is connected
+      //!
+      //! \return Whether port to_productRecvIn is connected
+      bool isConnected_to_productRecvIn(
           NATIVE_INT_TYPE portNum //!< The port number
       );
 
@@ -1009,7 +1108,7 @@ namespace M {
       //! Dispatch an event
       void dispatchEvents(
           FwEventIdType id, //!< The event ID
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const Fw::LogSeverity severity, //!< The severity
           Fw::LogBuffer& args //!< The serialized arguments
       );
@@ -1017,9 +1116,9 @@ namespace M {
 #if FW_ENABLE_TEXT_LOGGING
 
       //! Handle a text event
-      void textLogIn(
+      virtual void textLogIn(
           FwEventIdType id, //!< The event ID
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const Fw::LogSeverity severity, //!< The severity
           const Fw::TextLogString& text //!< The event string
       );
@@ -1069,73 +1168,73 @@ namespace M {
       //! Dispatch telemetry
       void dispatchTlm(
           FwChanIdType id, //!< The channel id
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           Fw::TlmBuffer& val //!< The channel value
       );
 
       //! Handle channel ChannelU32Format
       void tlmInput_ChannelU32Format(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const U32& val //!< The channel value
       );
 
       //! Handle channel ChannelF32Format
       void tlmInput_ChannelF32Format(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const F32& val //!< The channel value
       );
 
       //! Handle channel ChannelStringFormat
       void tlmInput_ChannelStringFormat(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const Fw::TlmString& val //!< The channel value
       );
 
       //! Handle channel ChannelEnum
       void tlmInput_ChannelEnum(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const E& val //!< The channel value
       );
 
       //! Handle channel ChannelArrayFreq
       void tlmInput_ChannelArrayFreq(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const A& val //!< The channel value
       );
 
       //! Handle channel ChannelStructFreq
       void tlmInput_ChannelStructFreq(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const S& val //!< The channel value
       );
 
       //! Handle channel ChannelU32Limits
       void tlmInput_ChannelU32Limits(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const U32& val //!< The channel value
       );
 
       //! Handle channel ChannelF32Limits
       void tlmInput_ChannelF32Limits(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const F32& val //!< The channel value
       );
 
       //! Handle channel ChannelF64
       void tlmInput_ChannelF64(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const F64& val //!< The channel value
       );
 
       //! Handle channel ChannelU32OnChange
       void tlmInput_ChannelU32OnChange(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const U32& val //!< The channel value
       );
 
       //! Handle channel ChannelEnumOnChange
       void tlmInput_ChannelEnumOnChange(
-          Fw::Time& timeTag, //!< The time
+          const Fw::Time& timeTag, //!< The time
           const E& val //!< The channel value
       );
 
@@ -1261,7 +1360,50 @@ namespace M {
 
       //! Set the test time for events and telemetry
       void setTestTime(
-          Fw::Time& timeTag //!< The time
+          const Fw::Time& timeTag //!< The time
+      );
+
+    protected:
+
+      // ----------------------------------------------------------------------
+      // Functions for testing data products
+      // ----------------------------------------------------------------------
+
+      //! Push an entry on the product request history
+      void pushProductRequestEntry(
+          FwDpIdType id, //!< The container ID
+          FwSizeType dataSize //!< The data size of the requested buffer
+      );
+
+      //! Handle a data product request from the component under test
+      //!
+      //! By default, call pushProductRequestEntry. You can override
+      //! this behavior.
+      virtual void productRequest_handler(
+          FwDpIdType id, //!< The container ID
+          FwSizeType dataSize //!< The data size of the requested buffer
+      );
+
+      //! Send a data product response to the component under test
+      void sendProductResponse(
+          FwDpIdType id, //!< The container ID
+          const Fw::Buffer& buffer, //!< The buffer
+          const Fw::Success& status //!< The status
+      );
+
+      //! Push an entry on the product send history
+      void pushProductSendEntry(
+          FwDpIdType id, //!< The container ID
+          const Fw::Buffer& buffer //!< The buffer
+      );
+
+      //! Handle a data product send from the component under test
+      //!
+      //! By default, call pushProductSendEntry. You can override
+      //! this behavior.
+      virtual void productSend_handler(
+          FwDpIdType id, //!< The container ID
+          const Fw::Buffer& buffer //!< The buffer
       );
 
     protected:
@@ -1275,6 +1417,12 @@ namespace M {
 
       //! Clear from port history
       void clearFromPortHistory();
+
+      //! Push an entry on the history for from_noArgsOut
+      void pushFromPortEntry_noArgsOut();
+
+      //! Push an entry on the history for from_noArgsReturnOut
+      void pushFromPortEntry_noArgsReturnOut();
 
       //! Push an entry on the history for from_typedOut
       void pushFromPortEntry_typedOut(
@@ -1365,6 +1513,22 @@ namespace M {
           Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
       );
 
+      //! Static function for port from_productRequestOut
+      static void from_productRequestOut_static(
+          Fw::PassiveComponentBase* const callComp, //!< The component instance
+          NATIVE_INT_TYPE portNum, //!< The port number
+          FwDpIdType id, //!< The container ID
+          FwSizeType dataSize //!< The data size of the requested buffer
+      );
+
+      //! Static function for port from_productSendOut
+      static void from_productSendOut_static(
+          Fw::PassiveComponentBase* const callComp, //!< The component instance
+          NATIVE_INT_TYPE portNum, //!< The port number
+          FwDpIdType id, //!< The container ID
+          const Fw::Buffer& buffer //!< The buffer
+      );
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
       //! Static function for port from_textEventOut
@@ -1393,6 +1557,18 @@ namespace M {
           FwChanIdType id, //!< Telemetry Channel ID
           Fw::Time& timeTag, //!< Time Tag
           Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
+      );
+
+      //! Static function for port from_noArgsOut
+      static void from_noArgsOut_static(
+          Fw::PassiveComponentBase* const callComp, //!< The component instance
+          NATIVE_INT_TYPE portNum //!< The port number
+      );
+
+      //! Static function for port from_noArgsReturnOut
+      static U32 from_noArgsReturnOut_static(
+          Fw::PassiveComponentBase* const callComp, //!< The component instance
+          NATIVE_INT_TYPE portNum //!< The port number
       );
 
       //! Static function for port from_typedOut
@@ -1429,6 +1605,12 @@ namespace M {
 
       //! The total number of port entries
       U32 fromPortHistorySize;
+
+      //! The size of history for from_noArgsOut
+      U32 fromPortHistorySize_noArgsOut;
+
+      //! The size of history for from_noArgsReturnOut
+      U32 fromPortHistorySize_noArgsReturnOut;
 
       //! The history for from_typedOut
       History<FromPortEntry_typedOut>* fromPortHistory_typedOut;
@@ -1506,6 +1688,12 @@ namespace M {
       //! The history of ChannelEnumOnChange values
       History<TlmEntry_ChannelEnumOnChange>* tlmHistory_ChannelEnumOnChange;
 
+      //! The data product request history
+      History<DpRequest>* productRequestHistory;
+
+      //! The data product send history
+      History<DpSend>* productSendHistory;
+
     private:
 
       // ----------------------------------------------------------------------
@@ -1514,6 +1702,9 @@ namespace M {
 
       //! To port connected to cmdIn
       Fw::OutputCmdPort m_to_cmdIn[1];
+
+      //! To port connected to productRecvIn
+      Fw::OutputDpResponsePort m_to_productRecvIn[1];
 
       //! To port connected to noArgsAsync
       Ports::OutputNoArgsPort m_to_noArgsAsync[1];
@@ -1575,6 +1766,12 @@ namespace M {
       //! From port connected to prmSetOut
       Fw::InputPrmSetPort m_from_prmSetOut[1];
 
+      //! From port connected to productRequestOut
+      Fw::InputDpRequestPort m_from_productRequestOut[1];
+
+      //! From port connected to productSendOut
+      Fw::InputDpSendPort m_from_productSendOut[1];
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
       //! From port connected to textEventOut
@@ -1587,6 +1784,12 @@ namespace M {
 
       //! From port connected to tlmOut
       Fw::InputTlmPort m_from_tlmOut[1];
+
+      //! From port connected to noArgsOut
+      Ports::InputNoArgsPort m_from_noArgsOut[1];
+
+      //! From port connected to noArgsReturnOut
+      Ports::InputNoArgsReturnPort m_from_noArgsReturnOut[1];
 
       //! From port connected to typedOut
       Ports::InputTypedPort m_from_typedOut[1];

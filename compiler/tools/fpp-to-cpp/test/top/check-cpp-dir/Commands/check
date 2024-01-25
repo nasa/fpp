@@ -1,20 +1,17 @@
 #!/bin/sh -e
 
+export FPRIME_GCC_FLAGS="-I../../../fprime -Wno-unused-parameter -Wno-unused-variable"
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
+
 echo '  removing old files'
 ./clean
 
 dir=`cd ../..; echo $PWD`
-
-echo '  generating XML'
-fpp-to-xml -p $dir -i ../../builtin.fpp ../../commands.fpp
-cp ../../../fprime/Fw/Cmd/*Ai.xml .
+fprime_dir=../../../fprime
 
 echo '  generating C++'
-(cd ../../../fprime/Fw/Cmd; fprime-codegen CmdResponseEnumAi.xml > /dev/null)
-for file in CComponent CmdPort CmdRegPort CmdResponsePort
-do
-  fprime-codegen $file'Ai.xml' > /dev/null
-done
+fpp-to-cpp -p $dir -i $fprime_dir/config/FpConfig.fpp,$fprime_dir/Fw/Prm/Prm.fpp,../../phases.fpp \
+  $fprime_dir/Fw/Cmd/Cmd.fpp ../../commands.fpp
 for suffix in hpp cpp
 do
   cp ../../CommandsTopologyAc.ref.$suffix CommandsTopologyAc.$suffix

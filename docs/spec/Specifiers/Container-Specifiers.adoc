@@ -1,0 +1,54 @@
+=== Container Specifiers
+
+A *container specifier* specifies a data product container as part of a
+<<Definitions_Component-Definitions,component definition>>.
+Containers are units of data that can be downlinked and then deleted.
+They hold <<Specifiers_Record-Specifiers,data product records>>.
+
+==== Syntax
+
+`product` `container` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`id` <<Expressions,_expression_>>
+_]_
+_[_
+`default` `priority` <<Expressions,_expression_>>
+_]_
+
+==== Semantics
+
+. The identifier names the container.
+
+. The optional expression _e_ after the keyword `id` specifies the
+numeric identifier for the container.
+If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+If _e_ is not present, then the
+default identifier is either zero (for the first container appearing in a
+component) or the previous container identifier plus one.
+
+. The optional expression _e_ after the keywords `default` `priority`
+specifies a downlink priority for the container.
+This priority can be overridden by the command that downlinks the data.
+If _e_ is present, then the type of _e_ must be
+<<Type-Checking_Type-Conversion,convertible to>>
+<<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
+to a nonnegative integer.
+
+==== Examples
+
+[source,fpp]
+----
+@ Container 0
+@ Implied id is 0x00
+product container Container0
+
+@ Container 1
+product container Container1 id 0x02
+
+@ Container 2
+@ Implied id is 0x03
+product container Container2 default priority 10
+----

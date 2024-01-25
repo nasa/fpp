@@ -97,8 +97,8 @@ NATIVE_UINT_TYPE S::StringSize80 ::
 S ::
   S() :
     Serializable(),
-    x(0),
-    y("")
+    m_x(0),
+    m_y("")
 {
 
 }
@@ -109,8 +109,8 @@ S ::
       const StringSize80& y
   ) :
     Serializable(),
-    x(x),
-    y(y)
+    m_x(x),
+    m_y(y)
 {
 
 }
@@ -118,8 +118,8 @@ S ::
 S ::
   S(const S& obj) :
     Serializable(),
-    x(obj.x),
-    y(obj.y)
+    m_x(obj.m_x),
+    m_y(obj.m_y)
 {
 
 }
@@ -135,7 +135,7 @@ S& S ::
     return *this;
   }
 
-  set(obj.x, obj.y);
+  set(obj.m_x, obj.m_y);
   return *this;
 }
 
@@ -143,8 +143,8 @@ bool S ::
   operator==(const S& obj) const
 {
   return (
-    (this->x == obj.x) &&
-    (this->y == obj.y)
+    (this->m_x == obj.m_x) &&
+    (this->m_y == obj.m_y)
   );
 }
 
@@ -174,11 +174,11 @@ Fw::SerializeStatus S ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.serialize(this->x);
+  status = buffer.serialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.serialize(this->y);
+  status = buffer.serialize(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -191,11 +191,11 @@ Fw::SerializeStatus S ::
 {
   Fw::SerializeStatus status;
 
-  status = buffer.deserialize(this->x);
+  status = buffer.deserialize(this->m_x);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  status = buffer.deserialize(this->y);
+  status = buffer.deserialize(this->m_y);
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
@@ -219,8 +219,8 @@ void S ::
     outputString,
     FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
     formatString,
-    this->x,
-    this->y.toChar()
+    this->m_x,
+    this->m_y.toChar()
   );
 
   outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
@@ -239,18 +239,18 @@ void S ::
       const StringSize80& y
   )
 {
-  this->x = x;
-  this->y = y;
+  this->m_x = x;
+  this->m_y = y;
 }
 
 void S ::
   setx(U32 x)
 {
-  this->x = x;
+  this->m_x = x;
 }
 
 void S ::
   sety(const StringSize80& y)
 {
-  this->y = y;
+  this->m_y = y;
 }

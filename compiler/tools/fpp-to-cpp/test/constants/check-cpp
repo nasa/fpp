@@ -4,14 +4,19 @@
 # Compile ref C++ files, to check them for validity
 # ----------------------------------------------------------------------
 
+cd `dirname $0`
+
 fprime_gcc=../../../../scripts/fprime-gcc
 
 for file in `find . -name 'FppConstantsAc_*.ref.cpp'`
 do
-  echo "compiling $file"
-  base=`echo $file | sed 's;\.cpp;;'`
-  dest_base=`echo $base | sed 's;\(.*FppConstantsAc\).*;\1;'`
-  cp $base.hpp $dest_base.hpp
-  cp $base.cpp $dest_base.cpp
+  base=`basename $file .cpp`
+  dest_base=FppConstantsAc
+  for suffix in hpp cpp
+  do
+    echo "copying $base.$suffix to $dest_base.$suffix"
+    cp $base.$suffix $dest_base.$suffix
+  done
+  echo "compiling $dest_base.cpp"
   $fprime_gcc -I../../.. -c $dest_base.cpp
 done

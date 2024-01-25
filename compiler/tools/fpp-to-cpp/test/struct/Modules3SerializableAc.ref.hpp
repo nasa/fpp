@@ -127,25 +127,25 @@ class Modules3 :
     //! Get member x
     M::Modules2& getx()
     {
-      return this->x;
+      return this->m_x;
     }
 
     //! Get member x (const)
     const M::Modules2& getx() const
     {
-      return this->x;
+      return this->m_x;
     }
 
     //! Get member arr
     Type_of_arr& getarr()
     {
-      return this->arr;
+      return this->m_arr;
     }
 
     //! Get member arr (const)
     const Type_of_arr& getarr() const
     {
-      return this->arr;
+      return this->m_arr;
     }
 
     // ----------------------------------------------------------------------
@@ -170,8 +170,8 @@ class Modules3 :
     // Member variables
     // ----------------------------------------------------------------------
 
-    M::Modules2 x;
-    M::Modules2 arr[3];
+    M::Modules2 m_x;
+    M::Modules2 m_arr[3];
 
 };
 

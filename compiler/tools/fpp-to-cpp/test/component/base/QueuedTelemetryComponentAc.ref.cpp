@@ -22,21 +22,13 @@ namespace {
     TYPEDASYNCDROPPRIORITY_TYPED,
   };
 
-  // Get the max size by doing a union of the input and internal port serialization sizes
+  // Get the max size by constructing a union of the async input, command, and
+  // internal port serialization sizes
   union BuffUnion {
-    BYTE noArgsAsyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
     BYTE typedAsyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncAssertPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncBlockPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE typedAsyncDropPriorityPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
     BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
   };
 
@@ -102,7 +94,13 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -128,7 +126,13 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -154,7 +158,13 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -180,7 +190,13 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -206,7 +222,13 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -232,7 +254,13 @@ void QueuedTelemetryComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -258,7 +286,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -284,7 +318,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -310,7 +350,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -336,7 +382,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -362,7 +414,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -388,7 +446,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -414,7 +478,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -440,7 +510,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -461,7 +537,13 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -482,7 +564,13 @@ void QueuedTelemetryComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -503,7 +591,13 @@ void QueuedTelemetryComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -524,7 +618,13 @@ void QueuedTelemetryComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -545,7 +645,13 @@ void QueuedTelemetryComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -567,7 +673,13 @@ void QueuedTelemetryComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -589,7 +701,13 @@ void QueuedTelemetryComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -610,7 +728,13 @@ void QueuedTelemetryComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -619,6 +743,60 @@ void QueuedTelemetryComponentBase ::
       port
     );
     this->m_tlmOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
 
@@ -631,7 +809,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -652,7 +836,13 @@ void QueuedTelemetryComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -961,6 +1151,34 @@ void QueuedTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedTelemetryComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
+
+void QueuedTelemetryComponentBase ::
   set_typedOut_OutputPort(
       NATIVE_INT_TYPE portNum,
       Ports::InputTypedPort* port
@@ -1103,6 +1321,20 @@ void QueuedTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+}
 
 void QueuedTelemetryComponentBase ::
   set_typedOut_OutputPort(
@@ -1295,6 +1527,18 @@ NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 
 NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
+  getNum_noArgsOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
+  getNum_noArgsReturnOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
@@ -1407,6 +1651,28 @@ bool QueuedTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedTelemetryComponentBase ::
+  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedTelemetryComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool QueuedTelemetryComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1486,7 +1752,7 @@ void QueuedTelemetryComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1507,7 +1773,7 @@ U32 QueuedTelemetryComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1527,7 +1793,7 @@ U32 QueuedTelemetryComponentBase ::
 
   U32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
 
   return retVal;
@@ -1542,7 +1808,7 @@ void QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsSync_handler(portNum);
 }
 
@@ -2000,7 +2266,7 @@ void QueuedTelemetryComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -2039,7 +2305,7 @@ F32 QueuedTelemetryComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -2077,7 +2343,7 @@ F32 QueuedTelemetryComponentBase ::
 
   F32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -2110,7 +2376,7 @@ void QueuedTelemetryComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedSync_handler(
     portNum,
     u32,
@@ -2200,6 +2466,26 @@ void QueuedTelemetryComponentBase ::
 // ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
+
+void QueuedTelemetryComponentBase ::
+  noArgsOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_noArgsOut_OutputPort[portNum].invoke();
+}
+
+U32 QueuedTelemetryComponentBase ::
+  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
 
 void QueuedTelemetryComponentBase ::
   typedOut_out(

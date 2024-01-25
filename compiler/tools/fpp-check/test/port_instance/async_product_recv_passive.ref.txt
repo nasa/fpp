@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/port_instance/async_product_recv_passive.fpp:9.3
+  async product recv port productRecvIn
+  ^
+error: passive component may not have async input

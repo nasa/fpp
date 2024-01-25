@@ -29,12 +29,14 @@ object Parser extends Parsers {
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
+    node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
     node(specInclude) ^^ { case n => Ast.ComponentMember.SpecInclude(n) } |
     node(specInternalPort) ^^ { case n => Ast.ComponentMember.SpecInternalPort(n) } |
     node(specPortInstance) ^^ { case n => Ast.ComponentMember.SpecPortInstance(n) } |
     node(specPortMatching) ^^ { case n => Ast.ComponentMember.SpecPortMatching(n) } |
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
+    node(specRecord) ^^ { case n => Ast.ComponentMember.SpecRecord(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
     failure("component member expected")
   }
@@ -357,10 +359,22 @@ object Parser extends Parsers {
       sync ^^ { case _ => Ast.SpecCommand.Sync } |
       failure("command kind expected")
     }
-    kind ~ (command ~>! ident) ~! formalParamList ~!
+    kind ~ (command ~> ident) ~! formalParamList ~!
     opt(opcode ~>! exprNode) ~! opt(priority ~>! exprNode) ~! opt(node(queueFull)) ^^ {
       case kind ~ name ~ params ~ opcode ~ priority ~ queueFull =>
         Ast.SpecCommand(kind, name, params, opcode, priority, queueFull)
+    }
+  }
+
+  def specContainer: Parser[Ast.SpecContainer] = {
+    ((product ~ container) ~>! ident) ~!
+    opt(id ~>! exprNode) ~!
+    opt((default ~ priority) ~>! exprNode) ^^ {
+      case name ~ id ~ defaultPriority => Ast.SpecContainer(
+        name,
+        id,
+        defaultPriority
+      )
     }
   }
 
@@ -480,6 +494,11 @@ object Parser extends Parsers {
       serial ^^ { case _ => None} |
       failure("port type expected")
     }
+    def specialInputKind = {
+      async ^^ { case _ => Ast.SpecPortInstance.Async } |
+      guarded ^^ { case _ => Ast.SpecPortInstance.Guarded } |
+      sync ^^ { case _ => Ast.SpecPortInstance.Sync }
+    }
     def specialKind = {
       command ~ recv ^^ { case _ => Ast.SpecPortInstance.CommandRecv } |
       command ~ reg ^^ { case _ => Ast.SpecPortInstance.CommandReg } |
@@ -487,6 +506,10 @@ object Parser extends Parsers {
       event ^^ { case _ => Ast.SpecPortInstance.Event } |
       param ~ get ^^ { case _ => Ast.SpecPortInstance.ParamGet } |
       param ~ set ^^ { case _ => Ast.SpecPortInstance.ParamSet } |
+      product ~ get ^^ { case _ => Ast.SpecPortInstance.ProductGet } |
+      product ~ recv ^^ { case _ => Ast.SpecPortInstance.ProductRecv } |
+      product ~ request ^^ { case _ => Ast.SpecPortInstance.ProductRequest } |
+      product ~ send ^^ { case _ => Ast.SpecPortInstance.ProductSend } |
       telemetry ^^ { case _ => Ast.SpecPortInstance.Telemetry } |
       text ~ event ^^ { case _ => Ast.SpecPortInstance.TextEvent } |
       time ~ get ^^ { case _ => Ast.SpecPortInstance.TimeGet }
@@ -502,9 +525,19 @@ object Parser extends Parsers {
       }
     }
     def special: Parser[Ast.SpecPortInstance] = {
-      specialKind ~ (port ~>! ident) ^^ {
-        case kind ~ name =>
-          Ast.SpecPortInstance.Special(None, kind, name, None, None)
+      opt(specialInputKind) ~
+      specialKind ~
+      (port ~>! ident) ~!
+      opt(priority ~>! exprNode) ~!
+      opt(node(queueFull)) ^^ {
+        case inputKind ~ kind ~ name ~ priority ~ queueFull =>
+          Ast.SpecPortInstance.Special(
+            inputKind,
+            kind,
+            name,
+            priority,
+            queueFull
+          )
       }
     }
     general | special
@@ -513,6 +546,24 @@ object Parser extends Parsers {
   def specPortMatching: Parser[Ast.SpecPortMatching] = {
     fppMatch ~>! node(ident) ~! (fppWith ~>! node(ident)) ^^ {
       case port1 ~ port2 => Ast.SpecPortMatching(port1, port2)
+    }
+  }
+
+  def specRecord: Parser[Ast.SpecRecord] = {
+    def arrayOpt = opt(array) ^^ {
+      case Some(_) => true
+      case None => false
+    }
+    ((product ~ record) ~>! ident) ~!
+    (colon ~>! node(typeName)) ~!
+    arrayOpt ~!
+    opt(id ~>! exprNode) ^^ {
+      case name ~ recordType ~ arrayOpt ~ id => Ast.SpecRecord(
+        name,
+        recordType,
+        arrayOpt,
+        id
+      )
     }
   }
 
@@ -684,6 +735,8 @@ object Parser extends Parsers {
 
   private def constant = accept("constant", { case t : Token.CONSTANT => t })
 
+  private def container = accept("container", { case t : Token.CONTAINER => t })
+
   private def cpu = accept("cpu", { case t : Token.CPU => t })
 
   private def default = accept("default", { case t : Token.DEFAULT => t })
@@ -787,6 +840,8 @@ object Parser extends Parsers {
 
   private def priority = accept("priority", { case t : Token.PRIORITY => t })
 
+  private def product = accept("product", { case t : Token.PRODUCT => t })
+
   private def queue = accept("queue", { case t : Token.QUEUE => t })
 
   private def queued = accept("queued", { case t : Token.QUEUED => t })
@@ -797,6 +852,8 @@ object Parser extends Parsers {
 
   private def rbracket = accept("]", { case t : Token.RBRACKET => t })
 
+  private def record = accept("record", { case t : Token.RECORD => t })
+
   private def recv = accept("recv", { case t : Token.RECV => t })
 
   private def red = accept("red", { case t : Token.RED => t })
@@ -805,6 +862,8 @@ object Parser extends Parsers {
 
   private def reg = accept("reg", { case t : Token.REG => t })
 
+  private def request = accept("request", { case t : Token.REQUEST => t })
+
   private def resp = accept("resp", { case t : Token.RESP => t })
 
   private def rparen = accept(")", { case t : Token.RPAREN => t })
@@ -812,6 +871,8 @@ object Parser extends Parsers {
   private def save = accept("save", { case t : Token.SAVE => t })
 
   private def semi = accept(";", { case t : Token.SEMI => t })
+
+  private def send = accept("send", { case t : Token.SEND => t })
 
   private def serial = accept("serial", { case t : Token.SERIAL => t })
 

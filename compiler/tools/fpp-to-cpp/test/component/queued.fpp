@@ -1,6 +1,7 @@
 @ A queued component
 queued component QueuedTest {
 
+  include "include/product_ports_async.fppi"
   include "include/typed_ports.fppi"
   include "include/typed_ports_async.fppi"
   include "include/special_ports.fppi"
@@ -9,6 +10,7 @@ queued component QueuedTest {
   include "include/commands.fppi"
   include "include/commands_async.fppi"
   include "include/events.fppi"
+  include "include/products.fppi"
   include "include/telemetry.fppi"
   include "include/params.fppi"
 
@@ -74,5 +76,67 @@ queued component QueuedParams {
   include "include/special_ports.fppi"
 
   include "include/params.fppi"
+
+}
+
+@ A queued component with async data products
+active component QueuedAsyncProducts {
+
+  include "include/product_ports_async.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ A queued component with sync data products
+active component QueuedSyncProducts {
+
+  include "include/product_ports_sync.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ A queued component with guarded data products
+active component QueuedGuardedProducts {
+
+  include "include/product_ports_guarded.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ A queued component with data product get
+active component QueuedGetProducts {
+
+  include "include/product_ports_get.fppi"
+  include "include/special_ports.fppi"
+  include "include/typed_ports.fppi"
+  include "include/typed_ports_async.fppi"
+
+  include "include/products.fppi"
+
+}
+
+@ An queued component with async product request and ports only
+queued component QueuedAsyncProductPortsOnly {
+
+  include "include/product_ports_async.fppi"
+
+}
+
+@ An queued component with only ports without arguments
+queued component QueuedNoArgsPortsOnly {
+
+  include "include/typed_ports_no_args.fppi"
 
 }

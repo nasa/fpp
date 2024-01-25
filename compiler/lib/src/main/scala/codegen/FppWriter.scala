@@ -313,6 +313,17 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
+  override def specContainerAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"product container ${ident(data.name)}").
+      joinOpt (data.id) (" id ") (exprNode).
+      joinOpt (data.defaultPriority) (" default priority ") (exprNode)
+  }
+
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -395,7 +406,13 @@ object FppWriter extends AstVisitor with LineUtils {
     }
     def special(i: Ast.SpecPortInstance.Special) = {
       val kind = i.kind.toString
-      lines(s"$kind port ${ident(i.name)}")
+      val inputKind = i.inputKind match {
+        case Some(kind) => s"$kind "
+        case None => ""
+      }
+      lines(s"${inputKind}$kind port ${ident(i.name)}").
+        joinOptWithBreak (i.priority) ("priority ") (exprNode).
+        joinOptWithBreak (i.queueFull) ("") (applyToData(queueFull))
     }
     node.data match {
       case i : Ast.SpecPortInstance.General => general(i)
@@ -412,6 +429,24 @@ object FppWriter extends AstVisitor with LineUtils {
     val port1 = data.port1.data
     val port2 = data.port2.data
     lines(s"match $port1 with $port2")
+  }
+
+  override def specRecordAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    def recordType(
+      typeName: AstNode[Ast.TypeName],
+      isArray: Boolean
+    ) = {
+      val tn = typeNameNode(typeName)
+      if isArray then Line.addSuffix(tn, " array") else tn
+    }
+    lines(s"product record ${ident(data.name)}").
+      join (": ") (recordType(data.recordType, data.isArray)).
+      joinOpt (data.id) (" id ") (exprNode)
   }
 
   override def specTlmChannelAnnotatedNode(
@@ -617,6 +652,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "component",
     "connections",
     "constant",
+    "container",
     "default",
     "diagnostic",
     "drop",
@@ -649,14 +685,19 @@ object FppWriter extends AstVisitor with LineUtils {
     "port",
     "priority",
     "private",
+    "product",
     "queue",
     "queued",
+    "raw",
+    "record",
     "recv",
     "red",
     "ref",
     "reg",
+    "request",
     "resp",
     "save",
+    "send",
     "serial",
     "set",
     "severity",

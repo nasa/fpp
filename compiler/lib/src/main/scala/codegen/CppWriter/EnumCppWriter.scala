@@ -189,10 +189,10 @@ case class EnumCppWriter(
                 |
                 |//! Constructor (user-provided value)
                 |$name(
-                |    const T e //!< The raw enum value
+                |    const T e1 //!< The raw enum value
                 |)
                 |{
-                |  this->e = e;
+                |  this->e = e1;
                 |}
                 |
                 |//! Copy constructor
@@ -202,6 +202,7 @@ case class EnumCppWriter(
                 |{
                 |  this->e = obj.e;
                 |}"""
+
           )
         ).flatten
       ),
@@ -238,13 +239,13 @@ case class EnumCppWriter(
         List(
           CppDoc.Function.Param(
             CppDoc.Type("T"),
-            "e",
+            "e1",
             Some("The enum value"),
           ),
         ),
         CppDoc.Type(s"$name&"),
         List(
-          line("this->e = e;"),
+          line("this->e = e1;"),
           line("return *this;"),
         )
       ),
@@ -258,15 +259,15 @@ case class EnumCppWriter(
              |}
              |
              |//! Equality operator
-             |bool operator==(T e) const
+             |bool operator==(T e1) const
              |{
-             |  return this->e == e;
+             |  return this->e == e1;
              |}
              |
              |//! Inequality operator
-             |bool operator!=(T e) const
+             |bool operator!=(T e1) const
              |{
-             |  return !(*this == e);
+             |  return !(*this == e1);
              |}"""
         )
       ),

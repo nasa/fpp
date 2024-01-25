@@ -17,6 +17,14 @@ module DefinitionsAndSpecifiers {
     struct S { x: [3] U32, y: F32, z: string }
     enum E { X, Y, Z }
 
+    @ Container specifier
+    product container C id 0x00 default priority 10
+    @< Container specifier
+
+    @ Record specifier
+    product record R: U32 array id 0x00
+    @< Record specifier
+
     @ Command specifier
     async command C(a: U32, b: F32) opcode 0x00 priority 10 assert
     @< Command specifier
@@ -32,6 +40,10 @@ module DefinitionsAndSpecifiers {
     @ Special port instance specifier
     command recv port cmdIn
     @< Special port instance specifier
+
+    @ Async product receive port
+    async product recv port productRecvIn priority 10 assert
+    @< Async product receive port
 
     output port p2: [10] P
     @ Port matching specifier

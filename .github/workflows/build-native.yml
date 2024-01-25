@@ -2,9 +2,9 @@ name: Build Native Images
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "release/**" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "release/**" ]
   release:
     types: [ published ]
 
@@ -16,4 +16,6 @@ jobs:
       build: ./compiler/install
       test: ./compiler/test
       output-directory: ./compiler/bin
+      meta-package: fpp
+      fast-hack: true
     secrets: inherit

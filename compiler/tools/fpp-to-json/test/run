@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 
 . ../../../scripts/test-utils.sh
 
@@ -17,28 +17,36 @@ run_test()
   fi
 
 
-  # Run fpp_to_json and concatenate the output files
-  $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.out.txt
-  
-  remove_path_prefix < fpp-ast.json >> $outfile.out.txt
-  remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
-  
-  locationMapValidator "$outfile"
-  exit_status=$?
-  if [ $exit_status -eq 1 ]; then
-    return 1
-  fi
-
-  if [ "$args" = "-s" ]; then
-    rm fpp-ast.json fpp-loc-map.json
-  
-  else
-    remove_path_prefix < fpp-analysis.json >> $outfile.out.txt
-    # Delete the JSON files
-    rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
-  fi
-
-  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+  {
+    # Run fpp_to_json and concatenate the output files
+    $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.out.txt && \
+    remove_path_prefix < fpp-ast.json >> $outfile.out.txt && \
+    remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
+  } && \
+  {
+    # Validate the location map
+    if which python3 > /dev/null 2>&1
+    then
+      python3 python/locationMapValidator.py fpp-ast.json fpp-loc-map.json
+    else
+      # Work around an issue in CI
+      echo "python3 is not available; skipping map validation" 1>&2
+    fi
+  } && \
+  {
+    # Clean up
+    if [ "$args" = "-s" ]; then
+      rm fpp-ast.json fpp-loc-map.json
+    else
+      remove_path_prefix < fpp-analysis.json >> $outfile.out.txt
+      # Delete the JSON files
+      rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
+    fi
+  } && \
+  {
+    # Compare the output
+    diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+  }
 }
 
 
@@ -129,20 +137,6 @@ importedTopologies(){
 syntaxOnly(){
   run_test "-s" syntaxOnly 
 }
-
-locationMapValidator(){
-  outfile=$1
-
-  # Run locationMapValidator.py and capture its output
-  output=$(python3 python/locationMapValidator.py fpp-ast.json fpp-loc-map.json)
-  exit_status=$?
-  if [ $exit_status -eq 1 ]; then
-    echo "$output" >&2
-    return 1
-  fi
-  return 0
-}
-
 
 tests="
 activeComponents

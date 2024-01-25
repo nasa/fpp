@@ -35,9 +35,19 @@ include_test()
   run_test "-u" "include" include_test
 }
 
+include_test_auto_helpers()
+{
+  run_test "-u -a" "include" include_test_auto_helpers
+}
+
 include_test_template()
 {
   run_test "-u -t" "include" include_test_template
+}
+
+include_test_template_auto_helpers()
+{
+  run_test "-u -t -a" "include" include_test_template_auto_helpers
 }
 
 ok()
@@ -55,20 +65,34 @@ ok_test()
   run_test "-u" "ok" ok_test
 }
 
+ok_test_auto_helpers()
+{
+  run_test "-u -a" "ok" ok_test_auto_helpers
+}
+
 ok_test_template()
 {
   run_test "-u -t" "ok" ok_test_template
+}
+
+ok_test_template_auto_helpers()
+{
+  run_test "-u -t -a" "ok" ok_test_template_auto_helpers
 }
 
 tests="
 include
 include_template
 include_test
+include_test_auto_helpers
 include_test_template
+include_test_template_auto_helpers
 ok
 ok_template
 ok_test
+ok_test_auto_helpers
 ok_test_template
+ok_test_template_auto_helpers
 "
 
 run_suite $tests

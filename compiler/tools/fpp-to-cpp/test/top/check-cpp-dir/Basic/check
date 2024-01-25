@@ -1,20 +1,16 @@
 #!/bin/sh -e
 
-fpp_to_xml=../../../../../../bin/fpp-to-xml
+export FPRIME_GCC_FLAGS="-I../../../fprime -Wno-unused-parameter -Wno-unused-variable"
+fpp_to_cpp=../../../../../../bin/fpp-to-cpp
 
 echo '  removing old files'
 ./clean
 
 dir=`cd ../..; echo $PWD`
 
-echo '  generating XML'
-$fpp_to_xml -p $dir -i ../../builtin.fpp ../../basic.fpp
-
 echo '  generating C++'
-for file in ActiveComponent PassiveComponent PPort
-do
-  fprime-codegen $file'Ai.xml' > /dev/null
-done
+$fpp_to_cpp -p $dir -i ../../builtin.fpp ../../basic.fpp
+
 for suffix in hpp cpp
 do
   cp ../../BasicTopologyAc.ref.$suffix BasicTopologyAc.$suffix

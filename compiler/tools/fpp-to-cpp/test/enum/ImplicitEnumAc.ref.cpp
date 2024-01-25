@@ -24,9 +24,9 @@ namespace M {
   }
 
   Implicit& Implicit ::
-    operator=(T e)
+    operator=(T e1)
   {
-    this->e = e;
+    this->e = e1;
     return *this;
   }
 

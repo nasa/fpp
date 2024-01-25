@@ -1,2 +1,0 @@
-C.template.cpp
-C.template.hpp

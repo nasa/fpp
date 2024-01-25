@@ -74,14 +74,14 @@ BuiltInType ::
 BuiltInType::ElementType& BuiltInType ::
   operator[](const U32 i)
 {
-  FW_ASSERT(i < SIZE);
+  FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 
 const BuiltInType::ElementType& BuiltInType ::
   operator[](const U32 i) const
 {
-  FW_ASSERT(i < SIZE);
+  FW_ASSERT(i < SIZE, static_cast<FwAssertArgType>(i), static_cast<FwAssertArgType>(SIZE));
   return this->elements[i];
 }
 

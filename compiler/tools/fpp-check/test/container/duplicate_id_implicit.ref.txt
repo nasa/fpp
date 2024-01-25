@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/container/duplicate_id_implicit.fpp:7.3
+  product container C3
+  ^
+error: duplicate identifier value (17 dec, 11 hex)
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/container/duplicate_id_implicit.fpp:3.3
+  product container C1 id 0x11
+  ^

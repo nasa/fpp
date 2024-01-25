@@ -29,7 +29,8 @@ abstract class ComponentTestUtils(
     hasCommands ||
     hasParameters ||
     hasEvents ||
-    hasCommands
+    hasCommands ||
+    hasDataProducts
 
   val inputPorts: List[PortInstance] = List.concat(
     specialInputPorts,
@@ -57,7 +58,7 @@ abstract class ComponentTestUtils(
   )
 
   val timeTagParam: CppDoc.Function.Param = CppDoc.Function.Param(
-    CppDoc.Type("Fw::Time&"),
+    CppDoc.Type("const Fw::Time&"),
     "timeTag",
     Some("The time")
   )
@@ -119,10 +120,22 @@ abstract class ComponentTestUtils(
       case _ => value
     }
 
+  def writeAssertEq(t: Type): String =
+    t match {
+      case Type.String(_) => "ASSERT_STREQ"
+      case _ => "ASSERT_EQ"
+    }
+
   def writeEventValue(value: String, typeName: String): String =
     typeName match {
       case "Fw::LogStringArg" => s"$value.toChar()"
       case _ => value
+    }
+
+  def writeEventAssertEq(typeName: String): String =
+    typeName match {
+      case "Fw::LogStringArg" => "ASSERT_STREQ"
+      case _ => "ASSERT_EQ"
     }
 
   def writeCppType(t: Type): String = {
@@ -292,6 +305,10 @@ abstract class ComponentTestUtils(
           case Event => hasEvents
           case ParamGet => hasParameters
           case ParamSet => hasParameters
+          case ProductGet => component.hasDataProducts
+          case ProductRecv => component.hasDataProducts
+          case ProductRequest => component.hasDataProducts
+          case ProductSend => component.hasDataProducts
           case Telemetry => hasTelemetry
           case TextEvent => hasEvents
           case TimeGet => true

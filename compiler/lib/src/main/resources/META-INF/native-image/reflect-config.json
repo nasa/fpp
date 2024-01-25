@@ -24,135 +24,107 @@
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1",
-  "fields":[{"name":"0bitmap$318"}]
+  "fields":[{"name":"0bitmap$346"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1000",
-  "fields":[{"name":"0bitmap$906"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1014",
+  "fields":[{"name":"0bitmap$1048"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1004",
-  "fields":[{"name":"0bitmap$910"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1015",
+  "fields":[{"name":"0bitmap$971"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1005",
-  "fields":[{"name":"0bitmap$908"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1006",
-  "fields":[{"name":"0bitmap$909"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1007",
-  "fields":[{"name":"0bitmap$965"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1008",
-  "fields":[{"name":"0bitmap$941"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1041",
-  "fields":[{"name":"0bitmap$960"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1042",
-  "fields":[{"name":"0bitmap$945"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1047",
-  "fields":[{"name":"0bitmap$955"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1048",
-  "fields":[{"name":"0bitmap$946"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1049",
-  "fields":[{"name":"0bitmap$947"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1050",
-  "fields":[{"name":"0bitmap$948"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1051",
-  "fields":[{"name":"0bitmap$949"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1052",
-  "fields":[{"name":"0bitmap$950"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1016",
+  "fields":[{"name":"0bitmap$957"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1053",
-  "fields":[{"name":"0bitmap$951"}]
+  "fields":[{"name":"0bitmap$967"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1054",
-  "fields":[{"name":"0bitmap$952"}]
+  "fields":[{"name":"0bitmap$962"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1055",
-  "fields":[{"name":"0bitmap$953"}]
+  "fields":[{"name":"0bitmap$958"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1056",
-  "fields":[{"name":"0bitmap$954"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1058",
   "fields":[{"name":"0bitmap$959"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1062",
-  "fields":[{"name":"0bitmap$964"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1057",
+  "fields":[{"name":"0bitmap$960"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1058",
+  "fields":[{"name":"0bitmap$961"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1060",
+  "fields":[{"name":"0bitmap$966"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1064",
+  "fields":[{"name":"0bitmap$970"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1065",
+  "fields":[{"name":"0bitmap$968"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1066",
-  "fields":[{"name":"0bitmap$979"}]
+  "fields":[{"name":"0bitmap$969"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1067",
-  "fields":[{"name":"0bitmap$974"}]
+  "fields":[{"name":"0bitmap$1033"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1077",
-  "fields":[{"name":"0bitmap$978"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1068",
+  "fields":[{"name":"0bitmap$1005"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1078",
-  "fields":[{"name":"0bitmap$975"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1105",
+  "fields":[{"name":"0bitmap$1028"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1079",
-  "fields":[{"name":"0bitmap$976"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1106",
+  "fields":[{"name":"0bitmap$1009"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1080",
-  "fields":[{"name":"0bitmap$977"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1111",
+  "fields":[{"name":"0bitmap$1023"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1081",
-  "fields":[{"name":"0bitmap$981"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1112",
+  "fields":[{"name":"0bitmap$1010"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1082",
-  "fields":[{"name":"0bitmap$1071"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1113",
+  "fields":[{"name":"0bitmap$1011"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1083",
-  "fields":[{"name":"0bitmap$982"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1084",
-  "fields":[{"name":"0bitmap$1026"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1085",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1114",
   "fields":[{"name":"0bitmap$1012"}]
 },
 {
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1115",
+  "fields":[{"name":"0bitmap$1013"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1116",
+  "fields":[{"name":"0bitmap$1014"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1117",
+  "fields":[{"name":"0bitmap$1015"}]
+},
+{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1118",
-  "fields":[{"name":"0bitmap$1022"}]
+  "fields":[{"name":"0bitmap$1016"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1119",
@@ -160,1235 +132,1311 @@
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1120",
-  "fields":[{"name":"0bitmap$1013"}]
+  "fields":[{"name":"0bitmap$1018"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1121",
-  "fields":[{"name":"0bitmap$1014"}]
+  "fields":[{"name":"0bitmap$1019"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1122",
-  "fields":[{"name":"0bitmap$1015"}]
+  "fields":[{"name":"0bitmap$1020"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1123",
-  "fields":[{"name":"0bitmap$1016"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1125",
   "fields":[{"name":"0bitmap$1021"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1129",
-  "fields":[{"name":"0bitmap$1025"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1124",
+  "fields":[{"name":"0bitmap$1022"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1126",
+  "fields":[{"name":"0bitmap$1027"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1130",
-  "fields":[{"name":"0bitmap$1023"}]
+  "fields":[{"name":"0bitmap$1032"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1131",
-  "fields":[{"name":"0bitmap$1024"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1134",
+  "fields":[{"name":"0bitmap$1047"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1132",
-  "fields":[{"name":"0bitmap$1070"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1135",
+  "fields":[{"name":"0bitmap$1042"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1133",
-  "fields":[{"name":"0bitmap$1056"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1145",
+  "fields":[{"name":"0bitmap$1046"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1166",
-  "fields":[{"name":"0bitmap$1066"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1146",
+  "fields":[{"name":"0bitmap$1043"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1167",
-  "fields":[{"name":"0bitmap$1061"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1147",
+  "fields":[{"name":"0bitmap$1044"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1168",
-  "fields":[{"name":"0bitmap$1057"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1148",
+  "fields":[{"name":"0bitmap$1045"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1169",
-  "fields":[{"name":"0bitmap$1058"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1149",
+  "fields":[{"name":"0bitmap$1049"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1170",
-  "fields":[{"name":"0bitmap$1059"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1150",
+  "fields":[{"name":"0bitmap$1147"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1171",
-  "fields":[{"name":"0bitmap$1060"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1151",
+  "fields":[{"name":"0bitmap$1050"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1173",
-  "fields":[{"name":"0bitmap$1065"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1177",
-  "fields":[{"name":"0bitmap$1069"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1178",
-  "fields":[{"name":"0bitmap$1067"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1179",
-  "fields":[{"name":"0bitmap$1068"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1180",
-  "fields":[{"name":"0bitmap$1100"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1181",
-  "fields":[{"name":"0bitmap$1085"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1196",
-  "fields":[{"name":"0bitmap$1099"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1197",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1152",
   "fields":[{"name":"0bitmap$1098"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1198",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1153",
+  "fields":[{"name":"0bitmap$1084"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1190",
+  "fields":[{"name":"0bitmap$1094"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1191",
+  "fields":[{"name":"0bitmap$1089"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1192",
+  "fields":[{"name":"0bitmap$1085"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1193",
   "fields":[{"name":"0bitmap$1086"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1199",
-  "fields":[{"name":"0bitmap$1092"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1194",
+  "fields":[{"name":"0bitmap$1087"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1206",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1195",
+  "fields":[{"name":"0bitmap$1088"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1197",
+  "fields":[{"name":"0bitmap$1093"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1201",
   "fields":[{"name":"0bitmap$1097"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1212",
-  "fields":[{"name":"0bitmap$1121"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1202",
+  "fields":[{"name":"0bitmap$1095"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1213",
-  "fields":[{"name":"0bitmap$1110"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1203",
+  "fields":[{"name":"0bitmap$1096"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1224",
-  "fields":[{"name":"0bitmap$1111"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1225",
-  "fields":[{"name":"0bitmap$1115"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1230",
-  "fields":[{"name":"0bitmap$1116"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1231",
-  "fields":[{"name":"0bitmap$1117"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1232",
-  "fields":[{"name":"0bitmap$1120"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1235",
-  "fields":[{"name":"0bitmap$1123"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1236",
-  "fields":[{"name":"0bitmap$1122"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1237",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1204",
   "fields":[{"name":"0bitmap$1146"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1238",
-  "fields":[{"name":"0bitmap$1124"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1239",
-  "fields":[{"name":"0bitmap$1145"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1240",
-  "fields":[{"name":"0bitmap$1134"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1241",
-  "fields":[{"name":"0bitmap$1133"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1242",
-  "fields":[{"name":"0bitmap$1125"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1243",
-  "fields":[{"name":"0bitmap$1126"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1244",
-  "fields":[{"name":"0bitmap$1127"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1245",
-  "fields":[{"name":"0bitmap$1128"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1246",
-  "fields":[{"name":"0bitmap$1129"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1247",
-  "fields":[{"name":"0bitmap$1130"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1248",
-  "fields":[{"name":"0bitmap$1131"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1249",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1205",
   "fields":[{"name":"0bitmap$1132"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$125",
-  "fields":[{"name":"0bitmap$223"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1242",
+  "fields":[{"name":"0bitmap$1142"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1251",
-  "fields":[{"name":"0bitmap$1135"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1252",
-  "fields":[{"name":"0bitmap$1139"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1253",
-  "fields":[{"name":"0bitmap$1138"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1254",
-  "fields":[{"name":"0bitmap$1136"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1255",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1243",
   "fields":[{"name":"0bitmap$1137"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1257",
-  "fields":[{"name":"0bitmap$1140"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1244",
+  "fields":[{"name":"0bitmap$1133"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1258",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1245",
+  "fields":[{"name":"0bitmap$1134"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1246",
+  "fields":[{"name":"0bitmap$1135"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1247",
+  "fields":[{"name":"0bitmap$1136"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1249",
   "fields":[{"name":"0bitmap$1141"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1259",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1253",
+  "fields":[{"name":"0bitmap$1145"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1254",
+  "fields":[{"name":"0bitmap$1143"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1255",
   "fields":[{"name":"0bitmap$1144"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$126",
-  "fields":[{"name":"0bitmap$154"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1258",
+  "fields":[{"name":"0bitmap$1178"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$127",
-  "fields":[{"name":"0bitmap$140"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1259",
+  "fields":[{"name":"0bitmap$1163"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1288",
-  "fields":[{"name":"0bitmap$1172"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1274",
+  "fields":[{"name":"0bitmap$1177"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1289",
-  "fields":[{"name":"0bitmap$1171"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1275",
+  "fields":[{"name":"0bitmap$1176"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1276",
+  "fields":[{"name":"0bitmap$1164"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1277",
+  "fields":[{"name":"0bitmap$1170"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1284",
+  "fields":[{"name":"0bitmap$1175"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1290",
-  "fields":[{"name":"0bitmap$1226"}]
+  "fields":[{"name":"0bitmap$1199"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1291",
+  "fields":[{"name":"0bitmap$1188"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1302",
+  "fields":[{"name":"0bitmap$1189"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1303",
+  "fields":[{"name":"0bitmap$1193"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1308",
+  "fields":[{"name":"0bitmap$1194"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1309",
+  "fields":[{"name":"0bitmap$1195"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1310",
+  "fields":[{"name":"0bitmap$1198"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1313",
+  "fields":[{"name":"0bitmap$1201"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1314",
+  "fields":[{"name":"0bitmap$1200"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1315",
+  "fields":[{"name":"0bitmap$1224"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1316",
   "fields":[{"name":"0bitmap$1202"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1324",
-  "fields":[{"name":"0bitmap$1221"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1317",
+  "fields":[{"name":"0bitmap$1223"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1325",
-  "fields":[{"name":"0bitmap$1206"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1330",
-  "fields":[{"name":"0bitmap$1216"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1331",
-  "fields":[{"name":"0bitmap$1207"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1332",
-  "fields":[{"name":"0bitmap$1208"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1333",
-  "fields":[{"name":"0bitmap$1209"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1334",
-  "fields":[{"name":"0bitmap$1210"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1335",
-  "fields":[{"name":"0bitmap$1211"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1336",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1318",
   "fields":[{"name":"0bitmap$1212"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1337",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1319",
+  "fields":[{"name":"0bitmap$1211"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1320",
+  "fields":[{"name":"0bitmap$1203"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1321",
+  "fields":[{"name":"0bitmap$1204"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1322",
+  "fields":[{"name":"0bitmap$1205"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1323",
+  "fields":[{"name":"0bitmap$1206"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1324",
+  "fields":[{"name":"0bitmap$1207"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1325",
+  "fields":[{"name":"0bitmap$1208"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1326",
+  "fields":[{"name":"0bitmap$1209"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1327",
+  "fields":[{"name":"0bitmap$1210"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1329",
   "fields":[{"name":"0bitmap$1213"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1338",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$133",
+  "fields":[{"name":"0bitmap$243"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1330",
+  "fields":[{"name":"0bitmap$1217"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1331",
+  "fields":[{"name":"0bitmap$1216"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1332",
   "fields":[{"name":"0bitmap$1214"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1339",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1333",
   "fields":[{"name":"0bitmap$1215"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1341",
-  "fields":[{"name":"0bitmap$1220"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1335",
+  "fields":[{"name":"0bitmap$1218"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1345",
-  "fields":[{"name":"0bitmap$1225"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1336",
+  "fields":[{"name":"0bitmap$1219"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1349",
-  "fields":[{"name":"0bitmap$1256"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1337",
+  "fields":[{"name":"0bitmap$1222"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1350",
-  "fields":[{"name":"0bitmap$1238"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$134",
+  "fields":[{"name":"0bitmap$166"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1365",
-  "fields":[{"name":"0bitmap$1241"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1366",
-  "fields":[{"name":"0bitmap$1239"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1367",
-  "fields":[{"name":"0bitmap$1240"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1369",
-  "fields":[{"name":"0bitmap$1255"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1370",
-  "fields":[{"name":"0bitmap$1254"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1371",
-  "fields":[{"name":"0bitmap$1242"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1372",
-  "fields":[{"name":"0bitmap$1248"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1379",
-  "fields":[{"name":"0bitmap$1253"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1380",
-  "fields":[{"name":"0bitmap$1252"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1381",
-  "fields":[{"name":"0bitmap$1249"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1382",
-  "fields":[{"name":"0bitmap$1250"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1383",
-  "fields":[{"name":"0bitmap$1251"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1385",
-  "fields":[{"name":"0bitmap$1318"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1386",
-  "fields":[{"name":"0bitmap$1283"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1415",
-  "fields":[{"name":"0bitmap$1311"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1416",
-  "fields":[{"name":"0bitmap$1310"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1445",
-  "fields":[{"name":"0bitmap$1314"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1446",
-  "fields":[{"name":"0bitmap$1312"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1447",
-  "fields":[{"name":"0bitmap$1313"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1448",
-  "fields":[{"name":"0bitmap$1317"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1449",
-  "fields":[{"name":"0bitmap$1315"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1450",
-  "fields":[{"name":"0bitmap$1316"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1451",
-  "fields":[{"name":"0bitmap$1339"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1452",
-  "fields":[{"name":"0bitmap$1328"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1463",
-  "fields":[{"name":"0bitmap$1329"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1464",
-  "fields":[{"name":"0bitmap$1333"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1465",
-  "fields":[{"name":"0bitmap$1332"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1466",
-  "fields":[{"name":"0bitmap$1330"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1467",
-  "fields":[{"name":"0bitmap$1331"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1469",
-  "fields":[{"name":"0bitmap$1334"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1470",
-  "fields":[{"name":"0bitmap$1335"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1471",
-  "fields":[{"name":"0bitmap$1338"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1474",
-  "fields":[{"name":"0bitmap$1342"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1475",
-  "fields":[{"name":"0bitmap$1340"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1476",
-  "fields":[{"name":"0bitmap$1341"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1477",
-  "fields":[{"name":"0bitmap$1345"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1478",
-  "fields":[{"name":"0bitmap$1343"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1479",
-  "fields":[{"name":"0bitmap$1344"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1480",
-  "fields":[{"name":"0bitmap$1352"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1488",
-  "fields":[{"name":"0bitmap$1353"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1489",
-  "fields":[{"name":"0bitmap$1361"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1498",
-  "fields":[{"name":"0bitmap$1364"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1499",
-  "fields":[{"name":"0bitmap$1362"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1500",
-  "fields":[{"name":"0bitmap$1363"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$160",
-  "fields":[{"name":"0bitmap$150"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$161",
-  "fields":[{"name":"0bitmap$145"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$162",
-  "fields":[{"name":"0bitmap$141"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$163",
-  "fields":[{"name":"0bitmap$142"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$164",
-  "fields":[{"name":"0bitmap$143"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$165",
-  "fields":[{"name":"0bitmap$144"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$167",
-  "fields":[{"name":"0bitmap$149"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$171",
-  "fields":[{"name":"0bitmap$153"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$172",
-  "fields":[{"name":"0bitmap$151"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$173",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$135",
   "fields":[{"name":"0bitmap$152"}]
 },
 {
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1368",
+  "fields":[{"name":"0bitmap$1252"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1369",
+  "fields":[{"name":"0bitmap$1251"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1370",
+  "fields":[{"name":"0bitmap$1314"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1371",
+  "fields":[{"name":"0bitmap$1286"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1408",
+  "fields":[{"name":"0bitmap$1309"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1409",
+  "fields":[{"name":"0bitmap$1290"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1414",
+  "fields":[{"name":"0bitmap$1304"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1415",
+  "fields":[{"name":"0bitmap$1291"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1416",
+  "fields":[{"name":"0bitmap$1292"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1417",
+  "fields":[{"name":"0bitmap$1293"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1418",
+  "fields":[{"name":"0bitmap$1294"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1419",
+  "fields":[{"name":"0bitmap$1295"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1420",
+  "fields":[{"name":"0bitmap$1296"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1421",
+  "fields":[{"name":"0bitmap$1297"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1422",
+  "fields":[{"name":"0bitmap$1298"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1423",
+  "fields":[{"name":"0bitmap$1299"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1424",
+  "fields":[{"name":"0bitmap$1300"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1425",
+  "fields":[{"name":"0bitmap$1301"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1426",
+  "fields":[{"name":"0bitmap$1302"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1427",
+  "fields":[{"name":"0bitmap$1303"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1429",
+  "fields":[{"name":"0bitmap$1308"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1433",
+  "fields":[{"name":"0bitmap$1313"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1437",
+  "fields":[{"name":"0bitmap$1344"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1438",
+  "fields":[{"name":"0bitmap$1326"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1453",
+  "fields":[{"name":"0bitmap$1329"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1454",
+  "fields":[{"name":"0bitmap$1327"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1455",
+  "fields":[{"name":"0bitmap$1328"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1457",
+  "fields":[{"name":"0bitmap$1343"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1458",
+  "fields":[{"name":"0bitmap$1342"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1459",
+  "fields":[{"name":"0bitmap$1330"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1460",
+  "fields":[{"name":"0bitmap$1336"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1467",
+  "fields":[{"name":"0bitmap$1341"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1468",
+  "fields":[{"name":"0bitmap$1340"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1469",
+  "fields":[{"name":"0bitmap$1337"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1470",
+  "fields":[{"name":"0bitmap$1338"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1471",
+  "fields":[{"name":"0bitmap$1339"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1473",
+  "fields":[{"name":"0bitmap$1406"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1474",
+  "fields":[{"name":"0bitmap$1371"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1503",
+  "fields":[{"name":"0bitmap$1399"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1504",
+  "fields":[{"name":"0bitmap$1398"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1533",
+  "fields":[{"name":"0bitmap$1402"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1534",
+  "fields":[{"name":"0bitmap$1400"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1535",
+  "fields":[{"name":"0bitmap$1401"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1536",
+  "fields":[{"name":"0bitmap$1405"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1537",
+  "fields":[{"name":"0bitmap$1403"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1538",
+  "fields":[{"name":"0bitmap$1404"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1539",
+  "fields":[{"name":"0bitmap$1427"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1540",
+  "fields":[{"name":"0bitmap$1416"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1551",
+  "fields":[{"name":"0bitmap$1417"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1552",
+  "fields":[{"name":"0bitmap$1421"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1553",
+  "fields":[{"name":"0bitmap$1420"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1554",
+  "fields":[{"name":"0bitmap$1418"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1555",
+  "fields":[{"name":"0bitmap$1419"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1557",
+  "fields":[{"name":"0bitmap$1422"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1558",
+  "fields":[{"name":"0bitmap$1423"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1559",
+  "fields":[{"name":"0bitmap$1426"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1562",
+  "fields":[{"name":"0bitmap$1430"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1563",
+  "fields":[{"name":"0bitmap$1428"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1564",
+  "fields":[{"name":"0bitmap$1429"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1565",
+  "fields":[{"name":"0bitmap$1433"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1566",
+  "fields":[{"name":"0bitmap$1431"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1567",
+  "fields":[{"name":"0bitmap$1432"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1568",
+  "fields":[{"name":"0bitmap$1440"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1576",
+  "fields":[{"name":"0bitmap$1441"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1577",
+  "fields":[{"name":"0bitmap$1449"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1586",
+  "fields":[{"name":"0bitmap$1452"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1587",
+  "fields":[{"name":"0bitmap$1450"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$1588",
+  "fields":[{"name":"0bitmap$1451"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$172",
+  "fields":[{"name":"0bitmap$162"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$173",
+  "fields":[{"name":"0bitmap$157"}]
+},
+{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$174",
-  "fields":[{"name":"0bitmap$208"}]
+  "fields":[{"name":"0bitmap$153"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$175",
-  "fields":[{"name":"0bitmap$184"}]
+  "fields":[{"name":"0bitmap$154"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$176",
+  "fields":[{"name":"0bitmap$155"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$177",
+  "fields":[{"name":"0bitmap$156"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$179",
+  "fields":[{"name":"0bitmap$161"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$183",
+  "fields":[{"name":"0bitmap$165"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$184",
+  "fields":[{"name":"0bitmap$163"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$185",
+  "fields":[{"name":"0bitmap$164"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$186",
+  "fields":[{"name":"0bitmap$228"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$187",
+  "fields":[{"name":"0bitmap$200"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$2",
   "fields":[{"name":"0bitmap$2"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$208",
-  "fields":[{"name":"0bitmap$203"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$209",
-  "fields":[{"name":"0bitmap$188"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$214",
-  "fields":[{"name":"0bitmap$198"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$215",
-  "fields":[{"name":"0bitmap$189"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$216",
-  "fields":[{"name":"0bitmap$190"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$217",
-  "fields":[{"name":"0bitmap$191"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$218",
-  "fields":[{"name":"0bitmap$192"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$219",
-  "fields":[{"name":"0bitmap$193"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$220",
-  "fields":[{"name":"0bitmap$194"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$221",
-  "fields":[{"name":"0bitmap$195"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$222",
-  "fields":[{"name":"0bitmap$196"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$223",
-  "fields":[{"name":"0bitmap$197"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$224",
+  "fields":[{"name":"0bitmap$223"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$225",
-  "fields":[{"name":"0bitmap$202"}]
+  "fields":[{"name":"0bitmap$204"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$229",
-  "fields":[{"name":"0bitmap$207"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$230",
+  "fields":[{"name":"0bitmap$218"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$231",
+  "fields":[{"name":"0bitmap$205"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$232",
+  "fields":[{"name":"0bitmap$206"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$233",
+  "fields":[{"name":"0bitmap$207"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$234",
+  "fields":[{"name":"0bitmap$208"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$235",
+  "fields":[{"name":"0bitmap$209"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$236",
+  "fields":[{"name":"0bitmap$210"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$237",
+  "fields":[{"name":"0bitmap$211"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$238",
+  "fields":[{"name":"0bitmap$212"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$239",
+  "fields":[{"name":"0bitmap$213"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$240",
+  "fields":[{"name":"0bitmap$214"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$241",
+  "fields":[{"name":"0bitmap$215"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$242",
+  "fields":[{"name":"0bitmap$216"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$243",
+  "fields":[{"name":"0bitmap$217"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$245",
   "fields":[{"name":"0bitmap$222"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$248",
-  "fields":[{"name":"0bitmap$224"}]
-},
-{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$249",
-  "fields":[{"name":"0bitmap$314"}]
+  "fields":[{"name":"0bitmap$227"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$347",
-  "fields":[{"name":"0bitmap$317"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$253",
+  "fields":[{"name":"0bitmap$242"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$349",
-  "fields":[{"name":"0bitmap$425"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$268",
+  "fields":[{"name":"0bitmap$244"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$269",
+  "fields":[{"name":"0bitmap$342"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$375",
+  "fields":[{"name":"0bitmap$345"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$377",
+  "fields":[{"name":"0bitmap$461"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$4",
   "fields":[{"name":"0bitmap$3"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$468",
-  "fields":[{"name":"0bitmap$439"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$469",
-  "fields":[{"name":"0bitmap$438"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$470",
-  "fields":[{"name":"0bitmap$427"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$472",
-  "fields":[{"name":"0bitmap$437"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$473",
-  "fields":[{"name":"0bitmap$436"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$474",
-  "fields":[{"name":"0bitmap$428"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$475",
-  "fields":[{"name":"0bitmap$429"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$476",
-  "fields":[{"name":"0bitmap$430"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$477",
-  "fields":[{"name":"0bitmap$431"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$478",
-  "fields":[{"name":"0bitmap$432"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$479",
-  "fields":[{"name":"0bitmap$433"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$480",
-  "fields":[{"name":"0bitmap$434"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$481",
-  "fields":[{"name":"0bitmap$435"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$483",
-  "fields":[{"name":"0bitmap$553"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$484",
-  "fields":[{"name":"0bitmap$552"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$485",
-  "fields":[{"name":"0bitmap$483"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$486",
-  "fields":[{"name":"0bitmap$469"}]
-},
-{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$5",
-  "fields":[{"name":"0bitmap$315"}]
+  "fields":[{"name":"0bitmap$343"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$519",
-  "fields":[{"name":"0bitmap$479"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$504",
+  "fields":[{"name":"0bitmap$475"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$520",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$505",
   "fields":[{"name":"0bitmap$474"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$521",
-  "fields":[{"name":"0bitmap$470"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$506",
+  "fields":[{"name":"0bitmap$463"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$522",
-  "fields":[{"name":"0bitmap$471"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$523",
-  "fields":[{"name":"0bitmap$472"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$524",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$508",
   "fields":[{"name":"0bitmap$473"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$526",
-  "fields":[{"name":"0bitmap$478"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$509",
+  "fields":[{"name":"0bitmap$472"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$530",
-  "fields":[{"name":"0bitmap$482"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$510",
+  "fields":[{"name":"0bitmap$464"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$531",
-  "fields":[{"name":"0bitmap$480"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$511",
+  "fields":[{"name":"0bitmap$465"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$532",
-  "fields":[{"name":"0bitmap$481"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$512",
+  "fields":[{"name":"0bitmap$466"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$533",
-  "fields":[{"name":"0bitmap$537"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$513",
+  "fields":[{"name":"0bitmap$467"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$592",
-  "fields":[{"name":"0bitmap$551"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$514",
+  "fields":[{"name":"0bitmap$468"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$6",
-  "fields":[{"name":"0bitmap$110"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$515",
+  "fields":[{"name":"0bitmap$469"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$607",
-  "fields":[{"name":"0bitmap$651"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$516",
+  "fields":[{"name":"0bitmap$470"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$608",
-  "fields":[{"name":"0bitmap$565"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$517",
+  "fields":[{"name":"0bitmap$471"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$609",
-  "fields":[{"name":"0bitmap$563"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$610",
-  "fields":[{"name":"0bitmap$562"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$611",
-  "fields":[{"name":"0bitmap$554"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$612",
-  "fields":[{"name":"0bitmap$555"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$613",
-  "fields":[{"name":"0bitmap$556"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$614",
-  "fields":[{"name":"0bitmap$557"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$615",
-  "fields":[{"name":"0bitmap$558"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$616",
-  "fields":[{"name":"0bitmap$559"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$617",
-  "fields":[{"name":"0bitmap$560"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$618",
-  "fields":[{"name":"0bitmap$561"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$620",
-  "fields":[{"name":"0bitmap$564"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$622",
-  "fields":[{"name":"0bitmap$581"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$623",
-  "fields":[{"name":"0bitmap$575"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$634",
-  "fields":[{"name":"0bitmap$579"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$635",
-  "fields":[{"name":"0bitmap$578"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$636",
-  "fields":[{"name":"0bitmap$576"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$637",
-  "fields":[{"name":"0bitmap$577"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$639",
-  "fields":[{"name":"0bitmap$580"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$641",
-  "fields":[{"name":"0bitmap$591"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$652",
-  "fields":[{"name":"0bitmap$595"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$657",
-  "fields":[{"name":"0bitmap$596"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$658",
-  "fields":[{"name":"0bitmap$597"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$659",
-  "fields":[{"name":"0bitmap$598"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$660",
-  "fields":[{"name":"0bitmap$600"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$661",
-  "fields":[{"name":"0bitmap$599"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$662",
-  "fields":[{"name":"0bitmap$617"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$663",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$519",
   "fields":[{"name":"0bitmap$601"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$664",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$520",
+  "fields":[{"name":"0bitmap$600"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$521",
+  "fields":[{"name":"0bitmap$523"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$522",
+  "fields":[{"name":"0bitmap$509"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$559",
+  "fields":[{"name":"0bitmap$519"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$560",
+  "fields":[{"name":"0bitmap$514"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$561",
+  "fields":[{"name":"0bitmap$510"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$562",
+  "fields":[{"name":"0bitmap$511"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$563",
+  "fields":[{"name":"0bitmap$512"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$564",
+  "fields":[{"name":"0bitmap$513"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$566",
+  "fields":[{"name":"0bitmap$518"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$570",
+  "fields":[{"name":"0bitmap$522"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$571",
+  "fields":[{"name":"0bitmap$520"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$572",
+  "fields":[{"name":"0bitmap$521"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$573",
+  "fields":[{"name":"0bitmap$585"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$6",
+  "fields":[{"name":"0bitmap$118"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$640",
+  "fields":[{"name":"0bitmap$599"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$655",
+  "fields":[{"name":"0bitmap$699"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$656",
+  "fields":[{"name":"0bitmap$613"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$657",
+  "fields":[{"name":"0bitmap$611"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$658",
+  "fields":[{"name":"0bitmap$610"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$659",
   "fields":[{"name":"0bitmap$602"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$665",
-  "fields":[{"name":"0bitmap$616"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$666",
-  "fields":[{"name":"0bitmap$615"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$667",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$660",
   "fields":[{"name":"0bitmap$603"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$668",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$661",
+  "fields":[{"name":"0bitmap$604"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$662",
+  "fields":[{"name":"0bitmap$605"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$663",
+  "fields":[{"name":"0bitmap$606"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$664",
+  "fields":[{"name":"0bitmap$607"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$665",
+  "fields":[{"name":"0bitmap$608"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$666",
   "fields":[{"name":"0bitmap$609"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$675",
-  "fields":[{"name":"0bitmap$614"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$668",
+  "fields":[{"name":"0bitmap$612"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$681",
-  "fields":[{"name":"0bitmap$630"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$682",
-  "fields":[{"name":"0bitmap$619"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$684",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$670",
   "fields":[{"name":"0bitmap$629"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$685",
-  "fields":[{"name":"0bitmap$628"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$686",
-  "fields":[{"name":"0bitmap$620"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$687",
-  "fields":[{"name":"0bitmap$621"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$688",
-  "fields":[{"name":"0bitmap$622"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$689",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$671",
   "fields":[{"name":"0bitmap$623"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$690",
-  "fields":[{"name":"0bitmap$624"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$691",
-  "fields":[{"name":"0bitmap$625"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$692",
-  "fields":[{"name":"0bitmap$626"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$693",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$682",
   "fields":[{"name":"0bitmap$627"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$695",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$683",
+  "fields":[{"name":"0bitmap$626"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$684",
+  "fields":[{"name":"0bitmap$624"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$685",
+  "fields":[{"name":"0bitmap$625"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$687",
+  "fields":[{"name":"0bitmap$628"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$689",
+  "fields":[{"name":"0bitmap$639"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$700",
+  "fields":[{"name":"0bitmap$643"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$705",
+  "fields":[{"name":"0bitmap$644"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$706",
+  "fields":[{"name":"0bitmap$645"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$707",
+  "fields":[{"name":"0bitmap$646"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$708",
   "fields":[{"name":"0bitmap$648"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$696",
-  "fields":[{"name":"0bitmap$632"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$698",
-  "fields":[{"name":"0bitmap$633"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$699",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$709",
   "fields":[{"name":"0bitmap$647"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$715",
-  "fields":[{"name":"0bitmap$649"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$716",
-  "fields":[{"name":"0bitmap$650"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$717",
-  "fields":[{"name":"0bitmap$673"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$718",
-  "fields":[{"name":"0bitmap$672"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$719",
-  "fields":[{"name":"0bitmap$661"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$730",
-  "fields":[{"name":"0bitmap$662"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$731",
-  "fields":[{"name":"0bitmap$666"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$732",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$710",
   "fields":[{"name":"0bitmap$665"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$733",
-  "fields":[{"name":"0bitmap$663"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$711",
+  "fields":[{"name":"0bitmap$649"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$734",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$712",
+  "fields":[{"name":"0bitmap$650"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$713",
   "fields":[{"name":"0bitmap$664"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$736",
-  "fields":[{"name":"0bitmap$667"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$714",
+  "fields":[{"name":"0bitmap$663"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$737",
-  "fields":[{"name":"0bitmap$668"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$715",
+  "fields":[{"name":"0bitmap$651"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$738",
-  "fields":[{"name":"0bitmap$671"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$716",
+  "fields":[{"name":"0bitmap$657"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$739",
-  "fields":[{"name":"0bitmap$670"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$723",
+  "fields":[{"name":"0bitmap$662"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$740",
-  "fields":[{"name":"0bitmap$669"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$741",
-  "fields":[{"name":"0bitmap$695"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$742",
-  "fields":[{"name":"0bitmap$694"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$743",
-  "fields":[{"name":"0bitmap$683"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$744",
-  "fields":[{"name":"0bitmap$682"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$745",
-  "fields":[{"name":"0bitmap$674"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$746",
-  "fields":[{"name":"0bitmap$675"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$747",
-  "fields":[{"name":"0bitmap$676"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$748",
-  "fields":[{"name":"0bitmap$677"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$749",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$729",
   "fields":[{"name":"0bitmap$678"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$750",
-  "fields":[{"name":"0bitmap$679"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$730",
+  "fields":[{"name":"0bitmap$667"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$751",
-  "fields":[{"name":"0bitmap$680"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$732",
+  "fields":[{"name":"0bitmap$677"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$752",
-  "fields":[{"name":"0bitmap$681"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$733",
+  "fields":[{"name":"0bitmap$676"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$754",
-  "fields":[{"name":"0bitmap$684"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$734",
+  "fields":[{"name":"0bitmap$668"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$755",
-  "fields":[{"name":"0bitmap$688"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$735",
+  "fields":[{"name":"0bitmap$669"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$760",
-  "fields":[{"name":"0bitmap$689"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$736",
+  "fields":[{"name":"0bitmap$670"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$761",
-  "fields":[{"name":"0bitmap$690"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$737",
+  "fields":[{"name":"0bitmap$671"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$762",
-  "fields":[{"name":"0bitmap$693"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$738",
+  "fields":[{"name":"0bitmap$672"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$765",
-  "fields":[{"name":"0bitmap$713"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$739",
+  "fields":[{"name":"0bitmap$673"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$766",
-  "fields":[{"name":"0bitmap$712"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$740",
+  "fields":[{"name":"0bitmap$674"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$767",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$741",
+  "fields":[{"name":"0bitmap$675"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$743",
   "fields":[{"name":"0bitmap$696"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$768",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$744",
+  "fields":[{"name":"0bitmap$680"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$746",
+  "fields":[{"name":"0bitmap$681"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$747",
+  "fields":[{"name":"0bitmap$695"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$763",
   "fields":[{"name":"0bitmap$697"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$769",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$764",
+  "fields":[{"name":"0bitmap$698"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$765",
+  "fields":[{"name":"0bitmap$721"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$766",
+  "fields":[{"name":"0bitmap$720"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$767",
+  "fields":[{"name":"0bitmap$709"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$778",
+  "fields":[{"name":"0bitmap$710"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$779",
+  "fields":[{"name":"0bitmap$714"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$780",
+  "fields":[{"name":"0bitmap$713"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$781",
   "fields":[{"name":"0bitmap$711"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$785",
-  "fields":[{"name":"0bitmap$732"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$782",
+  "fields":[{"name":"0bitmap$712"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$786",
-  "fields":[{"name":"0bitmap$731"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$787",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$784",
   "fields":[{"name":"0bitmap$715"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$789",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$785",
   "fields":[{"name":"0bitmap$716"}]
 },
 {
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$786",
+  "fields":[{"name":"0bitmap$719"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$787",
+  "fields":[{"name":"0bitmap$718"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$788",
+  "fields":[{"name":"0bitmap$717"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$789",
+  "fields":[{"name":"0bitmap$743"}]
+},
+{
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$790",
+  "fields":[{"name":"0bitmap$742"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$791",
+  "fields":[{"name":"0bitmap$731"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$792",
   "fields":[{"name":"0bitmap$730"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$806",
-  "fields":[{"name":"0bitmap$760"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$793",
+  "fields":[{"name":"0bitmap$722"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$807",
-  "fields":[{"name":"0bitmap$754"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$794",
+  "fields":[{"name":"0bitmap$723"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$795",
+  "fields":[{"name":"0bitmap$724"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$796",
+  "fields":[{"name":"0bitmap$725"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$797",
+  "fields":[{"name":"0bitmap$726"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$798",
+  "fields":[{"name":"0bitmap$727"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$799",
+  "fields":[{"name":"0bitmap$728"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$800",
+  "fields":[{"name":"0bitmap$729"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$802",
+  "fields":[{"name":"0bitmap$732"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$803",
+  "fields":[{"name":"0bitmap$736"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$808",
+  "fields":[{"name":"0bitmap$737"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$809",
+  "fields":[{"name":"0bitmap$738"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$810",
+  "fields":[{"name":"0bitmap$741"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$813",
+  "fields":[{"name":"0bitmap$761"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$814",
+  "fields":[{"name":"0bitmap$760"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$815",
+  "fields":[{"name":"0bitmap$744"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$816",
   "fields":[{"name":"0bitmap$745"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$823",
-  "fields":[{"name":"0bitmap$753"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$824",
-  "fields":[{"name":"0bitmap$750"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$825",
-  "fields":[{"name":"0bitmap$749"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$826",
-  "fields":[{"name":"0bitmap$746"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$827",
-  "fields":[{"name":"0bitmap$747"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$828",
-  "fields":[{"name":"0bitmap$748"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$829",
-  "fields":[{"name":"0bitmap$751"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$830",
-  "fields":[{"name":"0bitmap$752"}]
-},
-{
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$832",
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$817",
   "fields":[{"name":"0bitmap$759"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$833",
-  "fields":[{"name":"0bitmap$755"}]
+  "fields":[{"name":"0bitmap$780"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$834",
-  "fields":[{"name":"0bitmap$758"}]
+  "fields":[{"name":"0bitmap$779"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$835",
-  "fields":[{"name":"0bitmap$756"}]
+  "fields":[{"name":"0bitmap$763"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$836",
-  "fields":[{"name":"0bitmap$757"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$837",
+  "fields":[{"name":"0bitmap$764"}]
 },
 {
   "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$838",
-  "fields":[{"name":"0bitmap$1072"}]
+  "fields":[{"name":"0bitmap$778"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$839",
-  "fields":[{"name":"0bitmap$867"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$854",
+  "fields":[{"name":"0bitmap$808"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$958",
-  "fields":[{"name":"0bitmap$980"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$855",
+  "fields":[{"name":"0bitmap$802"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$959",
-  "fields":[{"name":"0bitmap$911"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$856",
+  "fields":[{"name":"0bitmap$793"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$960",
-  "fields":[{"name":"0bitmap$897"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$871",
+  "fields":[{"name":"0bitmap$801"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$993",
-  "fields":[{"name":"0bitmap$907"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$872",
+  "fields":[{"name":"0bitmap$798"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$994",
-  "fields":[{"name":"0bitmap$902"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$873",
+  "fields":[{"name":"0bitmap$797"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$995",
-  "fields":[{"name":"0bitmap$898"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$874",
+  "fields":[{"name":"0bitmap$794"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$996",
-  "fields":[{"name":"0bitmap$899"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$875",
+  "fields":[{"name":"0bitmap$795"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$997",
-  "fields":[{"name":"0bitmap$900"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$876",
+  "fields":[{"name":"0bitmap$796"}]
 },
 {
-  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$998",
-  "fields":[{"name":"0bitmap$901"}]
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$877",
+  "fields":[{"name":"0bitmap$799"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$878",
+  "fields":[{"name":"0bitmap$800"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$880",
+  "fields":[{"name":"0bitmap$807"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$881",
+  "fields":[{"name":"0bitmap$803"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$882",
+  "fields":[{"name":"0bitmap$806"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$883",
+  "fields":[{"name":"0bitmap$804"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$884",
+  "fields":[{"name":"0bitmap$805"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$886",
+  "fields":[{"name":"0bitmap$1148"}]
+},
+{
+  "name":"fpp.compiler.codegen.AnalysisJsonEncoder$$anon$887",
+  "fields":[{"name":"0bitmap$923"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$1",
@@ -1480,39 +1528,35 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$124",
-  "fields":[{"name":"0bitmap$127"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$125",
-  "fields":[{"name":"0bitmap$126"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$126",
-  "fields":[{"name":"0bitmap$117"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$127",
-  "fields":[{"name":"0bitmap$116"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$128",
-  "fields":[{"name":"0bitmap$114"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$129",
   "fields":[{"name":"0bitmap$115"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$131",
-  "fields":[{"name":"0bitmap$125"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$126",
+  "fields":[{"name":"0bitmap$129"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$132",
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$127",
+  "fields":[{"name":"0bitmap$128"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$128",
+  "fields":[{"name":"0bitmap$119"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$129",
   "fields":[{"name":"0bitmap$118"}]
 },
 {
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$130",
+  "fields":[{"name":"0bitmap$116"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$131",
+  "fields":[{"name":"0bitmap$117"}]
+},
+{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$133",
-  "fields":[{"name":"0bitmap$119"}]
+  "fields":[{"name":"0bitmap$127"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$134",
@@ -1535,48 +1579,48 @@
   "fields":[{"name":"0bitmap$124"}]
 },
 {
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$139",
+  "fields":[{"name":"0bitmap$125"}]
+},
+{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$140",
-  "fields":[{"name":"0bitmap$129"}]
+  "fields":[{"name":"0bitmap$126"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$142",
-  "fields":[{"name":"0bitmap$139"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$143",
-  "fields":[{"name":"0bitmap$138"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$144",
-  "fields":[{"name":"0bitmap$133"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$145",
-  "fields":[{"name":"0bitmap$132"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$146",
-  "fields":[{"name":"0bitmap$130"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$147",
   "fields":[{"name":"0bitmap$131"}]
 },
 {
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$144",
+  "fields":[{"name":"0bitmap$141"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$145",
+  "fields":[{"name":"0bitmap$140"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$146",
+  "fields":[{"name":"0bitmap$135"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$147",
+  "fields":[{"name":"0bitmap$134"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$148",
+  "fields":[{"name":"0bitmap$132"}]
+},
+{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$149",
-  "fields":[{"name":"0bitmap$137"}]
+  "fields":[{"name":"0bitmap$133"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$15",
   "fields":[{"name":"0bitmap$14"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$150",
-  "fields":[{"name":"0bitmap$134"}]
-},
-{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$151",
-  "fields":[{"name":"0bitmap$135"}]
+  "fields":[{"name":"0bitmap$139"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$152",
@@ -1584,31 +1628,31 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$153",
-  "fields":[{"name":"0bitmap$141"}]
+  "fields":[{"name":"0bitmap$137"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$154",
-  "fields":[{"name":"0bitmap$140"}]
+  "fields":[{"name":"0bitmap$138"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$155",
-  "fields":[{"name":"0bitmap$172"}]
+  "fields":[{"name":"0bitmap$143"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$156",
-  "fields":[{"name":"0bitmap$171"}]
+  "fields":[{"name":"0bitmap$142"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$157",
-  "fields":[{"name":"0bitmap$151"}]
+  "fields":[{"name":"0bitmap$178"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$158",
-  "fields":[{"name":"0bitmap$146"}]
+  "fields":[{"name":"0bitmap$177"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$159",
-  "fields":[{"name":"0bitmap$142"}]
+  "fields":[{"name":"0bitmap$153"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$16",
@@ -1616,7 +1660,7 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$160",
-  "fields":[{"name":"0bitmap$143"}]
+  "fields":[{"name":"0bitmap$148"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$161",
@@ -1627,16 +1671,16 @@
   "fields":[{"name":"0bitmap$145"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$164",
-  "fields":[{"name":"0bitmap$150"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$163",
+  "fields":[{"name":"0bitmap$146"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$165",
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$164",
   "fields":[{"name":"0bitmap$147"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$166",
-  "fields":[{"name":"0bitmap$148"}]
+  "fields":[{"name":"0bitmap$152"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$167",
@@ -1644,27 +1688,27 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$168",
-  "fields":[{"name":"0bitmap$170"}]
+  "fields":[{"name":"0bitmap$150"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$169",
-  "fields":[{"name":"0bitmap$155"}]
+  "fields":[{"name":"0bitmap$151"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$17",
   "fields":[{"name":"0bitmap$16"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$174",
-  "fields":[{"name":"0bitmap$165"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$170",
+  "fields":[{"name":"0bitmap$176"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$175",
-  "fields":[{"name":"0bitmap$156"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$171",
+  "fields":[{"name":"0bitmap$157"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$176",
-  "fields":[{"name":"0bitmap$157"}]
+  "fields":[{"name":"0bitmap$171"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$177",
@@ -1699,52 +1743,52 @@
   "fields":[{"name":"0bitmap$164"}]
 },
 {
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$184",
+  "fields":[{"name":"0bitmap$165"}]
+},
+{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$185",
+  "fields":[{"name":"0bitmap$166"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$186",
+  "fields":[{"name":"0bitmap$167"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$187",
+  "fields":[{"name":"0bitmap$168"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$188",
   "fields":[{"name":"0bitmap$169"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$189",
-  "fields":[{"name":"0bitmap$174"}]
+  "fields":[{"name":"0bitmap$170"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$19",
   "fields":[{"name":"0bitmap$19"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$190",
-  "fields":[{"name":"0bitmap$173"}]
-},
-{
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$191",
-  "fields":[{"name":"0bitmap$187"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$192",
-  "fields":[{"name":"0bitmap$186"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$193",
-  "fields":[{"name":"0bitmap$177"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$194",
   "fields":[{"name":"0bitmap$175"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$195",
-  "fields":[{"name":"0bitmap$176"}]
+  "fields":[{"name":"0bitmap$180"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$196",
+  "fields":[{"name":"0bitmap$179"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$197",
-  "fields":[{"name":"0bitmap$181"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$198",
-  "fields":[{"name":"0bitmap$178"}]
+  "fields":[{"name":"0bitmap$182"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$199",
-  "fields":[{"name":"0bitmap$179"}]
+  "fields":[{"name":"0bitmap$195"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$2",
@@ -1756,31 +1800,35 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$200",
-  "fields":[{"name":"0bitmap$180"}]
+  "fields":[{"name":"0bitmap$194"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$202",
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$201",
   "fields":[{"name":"0bitmap$185"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$203",
-  "fields":[{"name":"0bitmap$182"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$204",
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$202",
   "fields":[{"name":"0bitmap$183"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$205",
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$203",
   "fields":[{"name":"0bitmap$184"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$208",
-  "fields":[{"name":"0bitmap$213"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$205",
+  "fields":[{"name":"0bitmap$189"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$209",
-  "fields":[{"name":"0bitmap$193"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$206",
+  "fields":[{"name":"0bitmap$186"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$207",
+  "fields":[{"name":"0bitmap$187"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$208",
+  "fields":[{"name":"0bitmap$188"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$21",
@@ -1788,43 +1836,35 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$210",
-  "fields":[{"name":"0bitmap$192"}]
+  "fields":[{"name":"0bitmap$193"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$211",
-  "fields":[{"name":"0bitmap$191"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$212",
-  "fields":[{"name":"0bitmap$189"}]
-},
-{
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$213",
   "fields":[{"name":"0bitmap$190"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$214",
-  "fields":[{"name":"0bitmap$208"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$212",
+  "fields":[{"name":"0bitmap$191"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$215",
-  "fields":[{"name":"0bitmap$207"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$213",
+  "fields":[{"name":"0bitmap$192"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$216",
-  "fields":[{"name":"0bitmap$197"}]
+  "fields":[{"name":"0bitmap$221"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$217",
-  "fields":[{"name":"0bitmap$196"}]
+  "fields":[{"name":"0bitmap$201"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$218",
-  "fields":[{"name":"0bitmap$194"}]
+  "fields":[{"name":"0bitmap$200"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$219",
-  "fields":[{"name":"0bitmap$195"}]
+  "fields":[{"name":"0bitmap$199"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$22",
@@ -1832,27 +1872,59 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$220",
-  "fields":[{"name":"0bitmap$206"}]
+  "fields":[{"name":"0bitmap$197"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$221",
+  "fields":[{"name":"0bitmap$198"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$222",
+  "fields":[{"name":"0bitmap$216"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$223",
+  "fields":[{"name":"0bitmap$215"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$224",
+  "fields":[{"name":"0bitmap$205"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$225",
+  "fields":[{"name":"0bitmap$204"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$226",
+  "fields":[{"name":"0bitmap$202"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$227",
+  "fields":[{"name":"0bitmap$203"}]
+},
+{
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$228",
+  "fields":[{"name":"0bitmap$214"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$23",
   "fields":[{"name":"0bitmap$20"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$230",
-  "fields":[{"name":"0bitmap$210"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$238",
+  "fields":[{"name":"0bitmap$218"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$232",
-  "fields":[{"name":"0bitmap$212"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$240",
+  "fields":[{"name":"0bitmap$220"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$233",
-  "fields":[{"name":"0bitmap$211"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$241",
+  "fields":[{"name":"0bitmap$219"}]
 },
 {
-  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$236",
-  "fields":[{"name":"0bitmap$214"}]
+  "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$244",
+  "fields":[{"name":"0bitmap$222"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$25",
@@ -2104,7 +2176,7 @@
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$95",
-  "fields":[{"name":"0bitmap$188"}]
+  "fields":[{"name":"0bitmap$196"}]
 },
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$96",
@@ -2113,6 +2185,10 @@
 {
   "name":"fpp.compiler.codegen.AstJsonEncoder$$anon$98",
   "fields":[{"name":"0bitmap$91"}]
+},
+{
+  "name":"fpp.compiler.codegen.ComponentDataProducts",
+  "fields":[{"name":"0bitmap$1"}]
 },
 {
   "name":"fpp.compiler.codegen.CppDocCppWriter$",

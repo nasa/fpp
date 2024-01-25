@@ -22,6 +22,30 @@ trait CppWriter extends AstStateVisitor with LineUtils {
 
 object CppWriter extends LineUtils{
 
+  /** A file banner for the CppWriter */
+  case class FileBanner(toolNameOpt: Option[String]) extends CppDoc.FileBanner {
+    val defaultFileBanner = CppDoc.DefaultFileBanner(toolNameOpt)
+    override def getTitle(fileName: String): String =
+      // If the file is a template, the title is the actual file name
+      ComputeCppFiles.FileNames.convertTemplateToActual(fileName)
+    override def getAuthor(fileName: String): String =
+      if ComputeCppFiles.FileNames.isTemplate(fileName)
+      // If the file is a template, then write in the user name as the author.
+      // Ownership of the generated code passes to the user when the
+      // template file is copied to the actual file.
+      then System.getProperty("user.name")
+      // Otherwise say that the file is auto-generated
+      else defaultFileBanner.getAuthor(fileName)
+    override def getDescription(fileName: String, genericDescription: String): String = {
+      // The description for the TesterHelpers file is specialized
+      val defaultDescription =
+        defaultFileBanner.getDescription(fileName, genericDescription)
+      if ComputeCppFiles.FileNames.isTesterHelpers(fileName)
+      then defaultDescription.replaceAll("implementation class", "helper functions")
+      else defaultDescription
+    }
+  }
+
   def createCppDoc(
     description: String,
     fileNameBase: String,
@@ -32,7 +56,8 @@ object CppWriter extends LineUtils{
     cppFileExtension: String = "cpp",
   ): CppDoc = {
     val hppFile = CppDoc.HppFile(s"$fileNameBase.$hppFileExtension", includeGuard)
-    CppDoc(description, hppFile, s"$fileNameBase.$cppFileExtension", members, toolName)
+    val fileBanner = Some(FileBanner(toolName))
+    CppDoc(description, hppFile, s"$fileNameBase.$cppFileExtension", members, toolName, fileBanner)
   }
 
   def headerString(s: String): String = {
@@ -44,17 +69,31 @@ object CppWriter extends LineUtils{
 
   def headerLine(s: String): Line = line(headerString(s))
 
+  /** Write the CppDoc.
+   *  Always write the hpp file and cppDoc.cppFileName.
+   *  If cppFileNameBases is non-Nil, then write those files as well. */
   def writeCppDoc(
     s: CppWriterState,
     cppDoc: CppDoc,
-    cppFileNameBaseOpt: Option[String] = None
-  ): Result.Result[CppWriterState] =
+    cppFileNameBases: List[String] = Nil
+  ): Result.Result[CppWriterState] = {
     for {
-      _ <- writeHppFile(s, cppDoc)
-      _ <- writeCppFile(s, cppDoc, cppFileNameBaseOpt)
+      // Write the hpp file
+      s <- writeHppFile(s, cppDoc)
+      // Write the default cpp file
+      s <- writeCppFile(s, cppDoc)
+      // Write the supplemental cpp files
+      s <- Result.foldLeft (cppFileNameBases) (s) (
+        (s, fileName) => writeCppFile(s, cppDoc, Some(fileName))
+      )
     }
     yield s
+  }
 
+  /** Writes a cpp file for the CppDoc. By default, the cpp file written is
+   *  cppDoc.cppFileName.
+   *  You can specify a different cpp file by setting cppFileNameBaseOpt to
+   *  a value other than None. */
   def writeCppFile(
     s: CppWriterState,
     cppDoc: CppDoc,
@@ -65,12 +104,13 @@ object CppWriter extends LineUtils{
       case Some(base) => s"$base.cpp"
       case None => cppDoc.cppFileName
     }
-    writeLinesToFile(s, cppFileName, lines)
+    for (_ <- writeLinesToFile(s, cppFileName, lines)) yield s
   }
 
+  /** Writes the hpp file for the CppDoc. */
   def writeHppFile(s: CppWriterState, cppDoc: CppDoc) = {
     val lines = CppDocHppWriter.visitCppDoc(cppDoc)
-    writeLinesToFile(s, cppDoc.hppFile.name, lines)
+    for (_ <- writeLinesToFile(s, cppDoc.hppFile.name, lines)) yield s
   }
 
   private def writeLinesToFile(
@@ -80,7 +120,7 @@ object CppWriter extends LineUtils{
   ) = {
     val path = java.nio.file.Paths.get(s.dir, fileName)
     val file = File.Path(path)
-    for (writer <- file.openWrite()) yield { 
+    for (writer <- file.openWrite()) yield {
       lines.map(Line.write(writer) _)
       writer.close()
     }
@@ -103,6 +143,12 @@ object CppWriter extends LineUtils{
       case (true, false) => ImplTemplate
       case (false, true) => UnitTest
       case (true, true) => UnitTestTemplate
+    }
+
+  def getTestHelperMode(auto: Boolean): TestHelperMode =
+    auto match {
+      case true => TestHelperMode.Auto
+      case false => TestHelperMode.Manual
     }
 
   /** The phases of code generation */
@@ -151,5 +197,11 @@ object CppWriter extends LineUtils{
   case object ImplTemplate extends Mode
   case object UnitTest extends Mode
   case object UnitTestTemplate extends Mode
+
+  sealed trait TestHelperMode
+  object TestHelperMode {
+    case object Auto extends TestHelperMode
+    case object Manual extends TestHelperMode
+  }
 
 }

@@ -378,6 +378,17 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "spec container OK" should {
+    parseAllOK(
+      Parser.specContainer,
+      List(
+        "product container C",
+        "product container C id 0x100",
+        "product container C id 0x100 default priority 10"
+      )
+    )
+  }
+
   "spec event OK" should {
     parseAllOK(
       Parser.specEvent,
@@ -468,12 +479,19 @@ class ParserSpec extends AnyWordSpec {
     parseAllOK(
       Parser.specPortInstance,
       List(
+        "async product recv port p",
         "command recv port p",
         "command reg port p",
         "command resp port p",
         "event port p",
+        "guarded product recv port p",
         "param get port p",
         "param set port p",
+        "product get port p",
+        "product recv port p",
+        "product request port p",
+        "product send port p",
+        "sync product recv port p",
         "telemetry port p",
         "text event port p",
         "time get port p",
@@ -486,6 +504,17 @@ class ParserSpec extends AnyWordSpec {
       Parser.specPortMatching,
       List(
         "match p1 with p2",
+      )
+    )
+  }
+
+  "spec record OK" should {
+    parseAllOK(
+      Parser.specRecord,
+      List(
+        "product record R: U32",
+        "product record R: U32 array",
+        "product record R: U32 id 0x100"
       )
     )
   }

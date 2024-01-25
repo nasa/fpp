@@ -129,19 +129,19 @@ namespace S {
       //! Get member mU32Array
       Type_of_mU32Array& getmU32Array()
       {
-        return this->mU32Array;
+        return this->m_mU32Array;
       }
 
       //! Get member mU32Array (const)
       const Type_of_mU32Array& getmU32Array() const
       {
-        return this->mU32Array;
+        return this->m_mU32Array;
       }
 
       //! Get member mF64
       F64 getmF64() const
       {
-        return this->mF64;
+        return this->m_mF64;
       }
 
       // ----------------------------------------------------------------------
@@ -166,8 +166,8 @@ namespace S {
       // Member variables
       // ----------------------------------------------------------------------
 
-      U32 mU32Array[3];
-      F64 mF64;
+      U32 m_mU32Array[3];
+      F64 m_mF64;
 
   };
 

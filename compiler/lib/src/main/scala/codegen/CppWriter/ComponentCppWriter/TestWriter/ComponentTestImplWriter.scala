@@ -40,16 +40,16 @@ case class ComponentTestImplWriter(
 
   private def getHppIncludes: CppDoc.Member = {
     val headers = List(
-      s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponentGTestBase(name))}.hpp",
-      s"${s.getRelativePath(ComputeCppFiles.FileNames.getComponentImpl(name))}.hpp"
-    )
+      ComputeCppFiles.FileNames.getComponentGTestBase(name),
+      ComputeCppFiles.FileNames.getComponentImpl(name)
+    ).map(s.getIncludePath(symbol, _))
     linesMember(
       addBlankPrefix(headers.map(CppWriter.headerString).map(line))
     )
   }
 
   private def getCppIncludes: List[CppDoc.Member] = {
-    val header = s"${s.getRelativePath(fileName).toString}.hpp"
+    val header = s"${fileName}.hpp"
     val headerLines = addBlankPrefix(lines(CppWriter.headerString(header)))
     List(
       linesMember(

@@ -12,53 +12,159 @@
 #endif
 #include "base/PassiveTestComponentAc.hpp"
 
-namespace {
-  // Get the max size by doing a union of the input and internal port serialization sizes
-  union BuffUnion {
-    BYTE noArgsGuardedPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnGuardedPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsReturnSyncPortSize[Ports::InputNoArgsReturnPort::SERIALIZED_SIZE];
-    BYTE noArgsSyncPortSize[Ports::InputNoArgsPort::SERIALIZED_SIZE];
-    BYTE typedGuardedPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE typedReturnGuardedPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedReturnSyncPortSize[Ports::InputTypedReturnPort::SERIALIZED_SIZE];
-    BYTE typedSyncPortSize[Ports::InputTypedPort::SERIALIZED_SIZE];
-    BYTE cmdPortSize[Fw::InputCmdPort::SERIALIZED_SIZE];
-  };
+// ----------------------------------------------------------------------
+// Types for data products
+// ----------------------------------------------------------------------
 
-  // Define a message buffer class large enough to handle all the
-  // asynchronous inputs to the component
-  class ComponentIpcSerializableBuffer :
-    public Fw::SerializeBufferBase
-  {
+PassiveTestComponentBase::DpContainer ::
+  DpContainer(
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      FwDpIdType baseId
+  ) :
+    Fw::DpContainer(id, buffer),
+    baseId(baseId)
+{
 
-    public:
+}
 
-      enum {
-        // Max. message size = size of data + message id + port
-        SERIALIZATION_SIZE =
-          sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
-      };
+PassiveTestComponentBase::DpContainer ::
+  DpContainer() :
+    Fw::DpContainer(),
+    baseId(0)
+{
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
-        return sizeof(m_buff);
-      }
+}
 
-      U8* getBuffAddr() {
-        return m_buff;
-      }
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_DataArrayRecord(
+      const PassiveTest_Data* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * PassiveTest_Data::SERIALIZED_SIZE;
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
+    status = this->dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->dataBuffer.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = this->dataBuffer.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
 
-      const U8* getBuffAddr() const {
-        return m_buff;
-      }
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_DataRecord(const PassiveTest_Data& elt)
+{
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    PassiveTest_Data::SERIALIZED_SIZE;
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::DataRecord;
+    status = this->dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->dataBuffer.serialize(elt);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
 
-    private:
-      // Should be the max of all the input ports serialized sizes...
-      U8 m_buff[SERIALIZATION_SIZE];
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U32ArrayRecord(
+      const U32* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * sizeof(U32);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
+    status = this->dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->dataBuffer.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      status = this->dataBuffer.serialize(array[i]);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
 
-  };
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U32Record(U32 elt)
+{
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(U32);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U32Record;
+    status = this->dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->dataBuffer.serialize(elt);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
+  serializeRecord_U8ArrayRecord(
+      const U8* array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeType) +
+    size * sizeof(U8);
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
+    status = this->dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->dataBuffer.serialize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    const bool omitSerializedLength = true;
+    status = this->dataBuffer.serialize(array, size, omitSerializedLength);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
 }
 
 // ----------------------------------------------------------------------
@@ -85,7 +191,13 @@ void PassiveTestComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -94,6 +206,38 @@ void PassiveTestComponentBase ::
       port
     );
     this->m_cmdIn_InputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port productRecvIn
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    port++
+  ) {
+    this->m_productRecvIn_InputPort[port].init();
+    this->m_productRecvIn_InputPort[port].addCallComp(
+      this,
+      m_p_productRecvIn_in
+    );
+    this->m_productRecvIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRecvIn_InputPort[port].setObjName(portName);
 #endif
   }
 
@@ -111,7 +255,13 @@ void PassiveTestComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -137,7 +287,13 @@ void PassiveTestComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -163,7 +319,13 @@ void PassiveTestComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -189,7 +351,13 @@ void PassiveTestComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -215,7 +383,13 @@ void PassiveTestComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -241,7 +415,13 @@ void PassiveTestComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -267,7 +447,13 @@ void PassiveTestComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -293,7 +479,13 @@ void PassiveTestComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -314,7 +506,13 @@ void PassiveTestComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -335,7 +533,13 @@ void PassiveTestComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -356,7 +560,13 @@ void PassiveTestComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -377,7 +587,13 @@ void PassiveTestComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -398,7 +614,13 @@ void PassiveTestComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -407,6 +629,60 @@ void PassiveTestComponentBase ::
       port
     );
     this->m_prmSetOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port productRequestOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    port++
+  ) {
+    this->m_productRequestOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productRequestOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port productSendOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    port++
+  ) {
+    this->m_productSendOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_productSendOut_OutputPort[port].setObjName(portName);
 #endif
   }
 
@@ -420,7 +696,13 @@ void PassiveTestComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -442,7 +724,13 @@ void PassiveTestComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -463,7 +751,13 @@ void PassiveTestComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -472,6 +766,60 @@ void PassiveTestComponentBase ::
       port
     );
     this->m_tlmOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+#endif
+  }
+
+  // Connect output port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    port++
+  ) {
+    this->m_noArgsReturnOut_OutputPort[port].init();
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
 #endif
   }
 
@@ -484,7 +832,13 @@ void PassiveTestComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -505,7 +859,13 @@ void PassiveTestComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -531,6 +891,17 @@ Fw::InputCmdPort* PassiveTestComponentBase ::
   );
 
   return &this->m_cmdIn_InputPort[portNum];
+}
+
+Fw::InputDpResponsePort* PassiveTestComponentBase ::
+  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_productRecvIn_InputPort[portNum];
 }
 
 // ----------------------------------------------------------------------
@@ -699,6 +1070,34 @@ void PassiveTestComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].addCallPort(port);
 }
 
+void PassiveTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpRequestPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputDpSendPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].addCallPort(port);
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 void PassiveTestComponentBase ::
@@ -748,6 +1147,34 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Connect typed input ports to typed output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].addCallPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_noArgsReturnOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Ports::InputNoArgsReturnPort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsReturnOut_OutputPort[portNum].addCallPort(port);
+}
 
 void PassiveTestComponentBase ::
   set_typedOut_OutputPort(
@@ -839,6 +1266,34 @@ void PassiveTestComponentBase ::
   this->m_prmSetOut_OutputPort[portNum].registerSerialPort(port);
 }
 
+void PassiveTestComponentBase ::
+  set_productRequestOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productRequestOut_OutputPort[portNum].registerSerialPort(port);
+}
+
+void PassiveTestComponentBase ::
+  set_productSendOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_productSendOut_OutputPort[portNum].registerSerialPort(port);
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 void PassiveTestComponentBase ::
@@ -892,6 +1347,20 @@ void PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Connect serial input ports to typed output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  set_noArgsOut_OutputPort(
+      NATIVE_INT_TYPE portNum,
+      Fw::InputSerializePort* port
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  this->m_noArgsOut_OutputPort[portNum].registerSerialPort(port);
+}
 
 void PassiveTestComponentBase ::
   set_typedOut_OutputPort(
@@ -1233,6 +1702,12 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productRecvIn_InputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+}
+
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
@@ -1319,6 +1794,18 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productRequestOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_productSendOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 NATIVE_INT_TYPE PassiveTestComponentBase ::
@@ -1344,6 +1831,18 @@ NATIVE_INT_TYPE PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_noArgsOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+}
+
+NATIVE_INT_TYPE PassiveTestComponentBase ::
+  getNum_noArgsReturnOut_OutputPorts() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+}
 
 NATIVE_INT_TYPE PassiveTestComponentBase ::
   getNum_typedOut_OutputPorts() const
@@ -1416,6 +1915,28 @@ bool PassiveTestComponentBase ::
   return this->m_prmSetOut_OutputPort[portNum].isConnected();
 }
 
+bool PassiveTestComponentBase ::
+  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productRequestOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveTestComponentBase ::
+  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_productSendOut_OutputPort[portNum].isConnected();
+}
+
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveTestComponentBase ::
@@ -1458,6 +1979,28 @@ bool PassiveTestComponentBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveTestComponentBase ::
+  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveTestComponentBase ::
+  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return this->m_noArgsReturnOut_OutputPort[portNum].isConnected();
+}
+
+bool PassiveTestComponentBase ::
   isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
 {
   FW_ASSERT(
@@ -1480,6 +2023,35 @@ bool PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Port handler base-class functions for special input ports
+//
+// Call these functions directly to bypass the corresponding ports
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRecvIn_handlerBase(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_productRecvIn_InputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  // Call handler function
+  this->productRecvIn_handler(
+    portNum,
+    id,
+    buffer,
+    status
+  );
+}
+
+// ----------------------------------------------------------------------
 // Port handler base-class functions for typed input ports
 //
 // Call these functions directly to bypass the corresponding ports
@@ -1497,7 +2069,7 @@ void PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1518,7 +2090,7 @@ U32 PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnGuarded_handler(portNum);
 
   // Unlock guard mutex
@@ -1538,7 +2110,7 @@ U32 PassiveTestComponentBase ::
 
   U32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->noArgsReturnSync_handler(portNum);
 
   return retVal;
@@ -1553,7 +2125,7 @@ void PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->noArgsSync_handler(portNum);
 }
 
@@ -1578,7 +2150,7 @@ void PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedGuarded_handler(
     portNum,
     u32,
@@ -1617,7 +2189,7 @@ F32 PassiveTestComponentBase ::
   // Lock guard mutex before calling
   this->lock();
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnGuarded_handler(
     portNum,
     u32,
@@ -1655,7 +2227,7 @@ F32 PassiveTestComponentBase ::
 
   F32 retVal;
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   retVal = this->typedReturnSync_handler(
     portNum,
     u32,
@@ -1688,7 +2260,7 @@ void PassiveTestComponentBase ::
     static_cast<FwAssertArgType>(portNum)
   );
 
-  // Down call to pure virtual handler method implemented in Impl class
+  // Call handler function
   this->typedSync_handler(
     portNum,
     u32,
@@ -1702,8 +2274,85 @@ void PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Pre-message hooks for special async input ports
+//
+// Each of these functions is invoked just before processing a message
+// on the corresponding port. By default, they do nothing. You can
+// override them to provide specific pre-message behavior.
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRecvIn_preMsgHook(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // Default: no-op
+}
+
+// ----------------------------------------------------------------------
+// Invocation functions for special output ports
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  productRequestOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      FwSizeType dataSize
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productRequestOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productRequestOut_OutputPort[portNum].invoke(
+    id,
+    dataSize
+  );
+}
+
+void PassiveTestComponentBase ::
+  productSendOut_out(
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer
+  )
+{
+  FW_ASSERT(
+    portNum < this->getNum_productSendOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_productSendOut_OutputPort[portNum].invoke(
+    id,
+    buffer
+  );
+}
+
+// ----------------------------------------------------------------------
 // Invocation functions for typed output ports
 // ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  noArgsOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->m_noArgsOut_OutputPort[portNum].invoke();
+}
+
+U32 PassiveTestComponentBase ::
+  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_noArgsReturnOut_OutputPorts(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->m_noArgsReturnOut_OutputPort[portNum].invoke();
+}
 
 void PassiveTestComponentBase ::
   typedOut_out(
@@ -3587,6 +4236,35 @@ S PassiveTestComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Functions for managing data products
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  dpSend(
+      DpContainer& container,
+      Fw::Time timeTag
+  )
+{
+  // Update the time tag
+  if (timeTag == Fw::ZERO_TIME) {
+    // Get the time from the time port
+    timeTag = this->getTime();
+  }
+  container.setTimeTag(timeTag);
+  // Serialize the header into the packet
+  container.serializeHeader();
+  // Update the data hash
+  container.updateDataHash();
+  // Update the size of the buffer according to the data size
+  const FwSizeType packetSize = container.getPacketSize();
+  Fw::Buffer buffer = container.getBuffer();
+  FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
+  buffer.setSize(packetSize);
+  // Send the buffer
+  this->productSendOut_out(0, container.getId(), buffer);
+}
+
+// ----------------------------------------------------------------------
 // Time
 // ----------------------------------------------------------------------
 
@@ -3871,6 +4549,25 @@ void PassiveTestComponentBase ::
       break;
     }
   }
+}
+
+void PassiveTestComponentBase ::
+  m_p_productRecvIn_in(
+      Fw::PassiveComponentBase* callComp,
+      NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  FW_ASSERT(callComp);
+  PassiveTestComponentBase* compPtr = static_cast<PassiveTestComponentBase*>(callComp);
+  compPtr->productRecvIn_handlerBase(
+    portNum,
+    id,
+    buffer,
+    status
+  );
 }
 
 // ----------------------------------------------------------------------
@@ -4329,4 +5026,70 @@ Fw::CmdResponse PassiveTestComponentBase ::
   }
 
   return Fw::CmdResponse::EXECUTION_ERROR;
+}
+
+// ----------------------------------------------------------------------
+// Private data product handling functions
+// ----------------------------------------------------------------------
+
+void PassiveTestComponentBase ::
+  dpRequest(
+      ContainerId::T containerId,
+      FwSizeType dataSize
+  )
+{
+  const FwDpIdType globalId = this->getIdBase() + containerId;
+  const FwSizeType size = DpContainer::getPacketSizeForDataSize(dataSize);
+  this->productRequestOut_out(0, globalId, size);
+}
+
+void PassiveTestComponentBase ::
+  productRecvIn_handler(
+      const NATIVE_INT_TYPE portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  DpContainer container(id, buffer, this->getIdBase());
+  // Convert global id to local id
+  const FwDpIdType idBase = this->getIdBase();
+  FW_ASSERT(id >= idBase, id, idBase);
+  const FwDpIdType localId = id - idBase;
+  // Switch on the local id
+  switch (localId) {
+    case ContainerId::Container1:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container1);
+      // Call the handler
+      this->dpRecv_Container1_handler(container, status.e);
+      break;
+    case ContainerId::Container2:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container2);
+      // Call the handler
+      this->dpRecv_Container2_handler(container, status.e);
+      break;
+    case ContainerId::Container3:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container3);
+      // Call the handler
+      this->dpRecv_Container3_handler(container, status.e);
+      break;
+    case ContainerId::Container4:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container4);
+      // Call the handler
+      this->dpRecv_Container4_handler(container, status.e);
+      break;
+    case ContainerId::Container5:
+      // Set the priority
+      container.setPriority(ContainerPriority::Container5);
+      // Call the handler
+      this->dpRecv_Container5_handler(container, status.e);
+      break;
+    default:
+      FW_ASSERT(0);
+      break;
+  }
 }

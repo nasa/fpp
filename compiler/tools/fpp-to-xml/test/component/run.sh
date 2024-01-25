@@ -39,10 +39,23 @@ ports()
   run_test "-p $PWD" ports && \
     diff_xml PPort \
       CmdPort CmdRegPort CmdResponsePort \
+      DpGetPort DpRequestPort DpResponsePort DpSendPort \
       LogPort LogTextPort \
       PrmGetPort PrmSetPort \
       TimePort \
       TlmPort
+}
+
+product_recv_port_async()
+{
+  run_test "-p $PWD -i ports.fpp" product_recv_port_async && \
+    diff_xml ProductRecvPortAsyncComponent
+}
+
+product_recv_port_guarded()
+{
+  run_test "-p $PWD -i ports.fpp" product_recv_port_guarded && \
+    diff_xml ProductRecvPortGuardedComponent
 }
 
 special_ports()

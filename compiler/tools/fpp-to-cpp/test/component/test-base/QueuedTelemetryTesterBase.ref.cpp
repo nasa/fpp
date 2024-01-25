@@ -33,7 +33,13 @@ void QueuedTelemetryTesterBase ::
     this->m_from_timeGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -59,7 +65,13 @@ void QueuedTelemetryTesterBase ::
     this->m_from_tlmOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -68,6 +80,70 @@ void QueuedTelemetryTesterBase ::
       port
     );
     this->m_from_tlmOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    port++
+  ) {
+    this->m_from_noArgsOut[port].init();
+    this->m_from_noArgsOut[port].addCallComp(
+      this,
+      from_noArgsOut_static
+    );
+    this->m_from_noArgsOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsReturnOut[port].init();
+    this->m_from_noArgsReturnOut[port].addCallComp(
+      this,
+      from_noArgsReturnOut_static
+    );
+    this->m_from_noArgsReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsReturnOut[port].setObjName(portName);
 #endif
   }
 
@@ -85,7 +161,13 @@ void QueuedTelemetryTesterBase ::
     this->m_from_typedOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -111,7 +193,13 @@ void QueuedTelemetryTesterBase ::
     this->m_from_typedReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -132,7 +220,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_noArgsAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -153,7 +247,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_noArgsGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -174,7 +274,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_noArgsReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -195,7 +301,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_noArgsReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -216,7 +328,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_noArgsSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -237,7 +355,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedAsync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -258,7 +382,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedAsyncAssert[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -279,7 +409,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedAsyncBlockPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -300,7 +436,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedAsyncDropPriority[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -321,7 +463,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -342,7 +490,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -363,7 +517,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -384,7 +544,13 @@ void QueuedTelemetryTesterBase ::
     this->m_to_typedSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -693,6 +859,28 @@ Fw::InputTlmPort* QueuedTelemetryTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
+Ports::InputNoArgsPort* QueuedTelemetryTesterBase ::
+  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsOut[portNum];
+}
+
+Ports::InputNoArgsReturnPort* QueuedTelemetryTesterBase ::
+  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsReturnOut[portNum];
+}
+
 Ports::InputTypedPort* QueuedTelemetryTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
@@ -771,6 +959,28 @@ QueuedTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 // Handler base-class functions for from ports
 // ----------------------------------------------------------------------
+
+void QueuedTelemetryTesterBase ::
+  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->from_noArgsOut_handler(portNum);
+}
+
+U32 QueuedTelemetryTesterBase ::
+  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsReturnOut_handler(portNum);
+}
 
 void QueuedTelemetryTesterBase ::
   from_typedOut_handlerBase(
@@ -1254,6 +1464,18 @@ NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
 }
 
 NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_noArgsOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
+  getNum_from_noArgsReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+}
+
+NATIVE_INT_TYPE QueuedTelemetryTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1430,7 +1652,7 @@ bool QueuedTelemetryTesterBase ::
 void QueuedTelemetryTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1592,7 +1814,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1603,7 +1825,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1614,7 +1836,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -1625,7 +1847,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1636,7 +1858,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -1647,7 +1869,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -1658,7 +1880,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1669,7 +1891,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1680,7 +1902,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -1691,7 +1913,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1702,7 +1924,7 @@ void QueuedTelemetryTesterBase ::
 
 void QueuedTelemetryTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1716,7 +1938,7 @@ void QueuedTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }
@@ -1736,8 +1958,24 @@ void QueuedTelemetryTesterBase ::
   clearFromPortHistory()
 {
   this->fromPortHistorySize = 0;
+  this->fromPortHistorySize_noArgsOut = 0;
+  this->fromPortHistorySize_noArgsReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
+}
+
+void QueuedTelemetryTesterBase ::
+  pushFromPortEntry_noArgsOut()
+{
+  this->fromPortHistorySize_noArgsOut++;
+  this->fromPortHistorySize++;
+}
+
+void QueuedTelemetryTesterBase ::
+  pushFromPortEntry_noArgsReturnOut()
+{
+  this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
 }
 
 void QueuedTelemetryTesterBase ::
@@ -1831,6 +2069,28 @@ void QueuedTelemetryTesterBase ::
 {
   QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
   _testerBase->dispatchTlm(id, timeTag, val);
+}
+
+void QueuedTelemetryTesterBase ::
+  from_noArgsOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  _testerBase->from_noArgsOut_handlerBase(portNum);
+}
+
+U32 QueuedTelemetryTesterBase ::
+  from_noArgsReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  QueuedTelemetryTesterBase* _testerBase = static_cast<QueuedTelemetryTesterBase*>(callComp);
+  return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
 }
 
 void QueuedTelemetryTesterBase ::

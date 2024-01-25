@@ -116,7 +116,7 @@ object CheckExprTypes extends UseAnalyzer {
 
   override def exprLiteralIntNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralInt) =
     Right(a.assignType(node -> Type.Integer))
-  
+
   override def exprLiteralStringNode(a: Analysis, node: AstNode[Ast.Expr], e: Ast.ExprLiteralString) =
     Right(a.assignType(node -> Type.String(None)))
 
@@ -130,7 +130,7 @@ object CheckExprTypes extends UseAnalyzer {
     for {
       _ <- Analysis.checkForDuplicateStructMember(getName)(e.members)
       a <- super.exprStructNode(a, node, e)
-    } 
+    }
     yield {
       def visitor(members: Type.Struct.Members, node: AstNode[Ast.StructMember]): Type.Struct.Members = {
         val data = node.data
@@ -161,6 +161,20 @@ object CheckExprTypes extends UseAnalyzer {
       a <- super.specCommandAnnotatedNode(a, aNode)
       _ <- convertNodeToNumericOpt(a, data.opcode)
       _ <- convertNodeToNumericOpt(a, data.priority)
+    }
+    yield a
+  }
+
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specContainerAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+      _ <- convertNodeToNumericOpt(a, data.defaultPriority)
     }
     yield a
   }
@@ -226,8 +240,25 @@ object CheckExprTypes extends UseAnalyzer {
           _ <- convertNodeToNumericOpt(a, general.priority)
         }
         yield a
-      case _ => Right(a)
+      case special : Ast.SpecPortInstance.Special =>
+        for {
+          a <- super.specPortInstanceAnnotatedNode(a, aNode)
+          _ <- convertNodeToNumericOpt(a, special.priority)
+        } yield a
     }
+  }
+
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- super.specRecordAnnotatedNode(a, aNode)
+      _ <- convertNodeToNumericOpt(a, data.id)
+    }
+    yield a
   }
 
   override def specTlmChannelAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]) = {
@@ -281,7 +312,7 @@ object CheckExprTypes extends UseAnalyzer {
         // Unqualified constant symbol: visit the constant definition
         // to ensure it has a type
         case Symbol.Constant(node) => defConstantAnnotatedNode(a, node)
-        // Unqualified enum symbol: if this is in scope, then we are in 
+        // Unqualified enum symbol: if this is in scope, then we are in
         // the enum definition, so it already has a type
         case Symbol.EnumConstant(node) => Right(a)
         // Invalid use of a symbol in an expression
@@ -312,7 +343,7 @@ object CheckExprTypes extends UseAnalyzer {
     }
 
   private def convertToNumeric(loc: Location, t: Type): Result.Result[Type] = {
-    if (t.isNumeric) Right(t) 
+    if (t.isNumeric) Right(t)
     else if (t.isConvertibleTo(Type.Integer)) Right(Type.Integer)
     else {
       val error = SemanticError.InvalidType(loc, s"cannot convert $t to a numeric type")

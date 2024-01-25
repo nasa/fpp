@@ -46,7 +46,37 @@ void QueuedTestGTestBase ::
 }
 
 void QueuedTestGTestBase ::
-  assert_from_typedOut(
+  assert_from_noArgsOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistorySize_noArgsOut)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for noArgsOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistorySize_noArgsOut << "\n";
+}
+
+void QueuedTestGTestBase ::
+  assert_from_noArgsReturnOut_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->fromPortHistorySize_noArgsReturnOut)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of history for noArgsReturnOut\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->fromPortHistorySize_noArgsReturnOut << "\n";
+}
+
+void QueuedTestGTestBase ::
+  assert_from_typedOut_size(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 size
@@ -55,22 +85,22 @@ void QueuedTestGTestBase ::
   ASSERT_EQ(size, this->fromPortHistory_typedOut->size())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Size of history for from_typedOut\n"
+    << "  Value:    Size of history for typedOut\n"
     << "  Expected: " << size << "\n"
     << "  Actual:   " << this->fromPortHistory_typedOut->size() << "\n";
 }
 
 void QueuedTestGTestBase ::
-  assert_from_typedReturnOut(
+  assert_from_typedReturnOut_size(
       const char* const __callSiteFileName,
       const U32 __callSiteLineNumber,
       const U32 size
   ) const
 {
-  ASSERT_EQ(size, this->fromPortHistory_typedOut->size())
+  ASSERT_EQ(size, this->fromPortHistory_typedReturnOut->size())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
-    << "  Value:    Size of history for from_typedOut\n"
+    << "  Value:    Size of history for typedReturnOut\n"
     << "  Expected: " << size << "\n"
     << "  Actual:   " << this->fromPortHistory_typedReturnOut->size() << "\n";
 }
@@ -265,7 +295,7 @@ void QueuedTestGTestBase ::
     << "  Actual:   " << __index << "\n";
   const EventEntry_EventCommand& _e =
     this->eventHistory_EventCommand->at(__index);
-  ASSERT_EQ(str1, _e.str1.toChar())
+  ASSERT_STREQ(str1, _e.str1.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value of argument str1 at index "
@@ -273,7 +303,7 @@ void QueuedTestGTestBase ::
     << " in history of event EventCommand\n"
     << "  Expected: " << str1 << "\n"
     << "  Actual:   " << _e.str1.toChar() << "\n";
-  ASSERT_EQ(str2, _e.str2.toChar())
+  ASSERT_STREQ(str2, _e.str2.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value of argument str2 at index "
@@ -559,7 +589,7 @@ void QueuedTestGTestBase ::
     << "  Actual:   " << __index << "\n";
   const TlmEntry_ChannelStringFormat& _e =
     this->tlmHistory_ChannelStringFormat->at(__index);
-  ASSERT_EQ(val, _e.arg.toChar())
+  ASSERT_STREQ(val, _e.arg.toChar())
     << "\n"
     << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
     << "  Value:    Value at index "
@@ -903,4 +933,126 @@ void QueuedTestGTestBase ::
     << " on telemetry channel ChannelEnumOnChange\n"
     << "  Expected: " << val << "\n"
     << "  Actual:   " << _e.arg << "\n";
+}
+
+// ----------------------------------------------------------------------
+// Data Product Request
+// ----------------------------------------------------------------------
+
+void QueuedTestGTestBase ::
+  assertProductRequest_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productRequestHistory->size() << "\n";
+}
+
+void QueuedTestGTestBase ::
+  assertProductRequest(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwDpIdType id,
+      FwSizeType size
+  ) const
+{
+  ASSERT_LT(__index, this->productRequestHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product request history\n"
+    << "  Expected: Less than size of product request history ("
+    << this->productRequestHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpRequest& e = this->productRequestHistory->at(__index);
+  ASSERT_EQ(id, e.id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Id at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  ASSERT_EQ(size, e.size)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size at index "
+    << __index
+    << " in product request history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << e.size << "\n";
+}
+
+// ----------------------------------------------------------------------
+// Data Product Send
+// ----------------------------------------------------------------------
+
+void QueuedTestGTestBase ::
+  assertProductSend_size(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 size
+  ) const
+{
+  ASSERT_EQ(size, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Size of product send history\n"
+    << "  Expected: " << size << "\n"
+    << "  Actual:   " << this->productSendHistory->size() << "\n";
+}
+
+void QueuedTestGTestBase ::
+  assertProductSend(
+      const char* const __callSiteFileName,
+      const U32 __callSiteLineNumber,
+      const U32 __index,
+      FwDpIdType id,
+      FwDpPriorityType priority,
+      const Fw::Time& timeTag,
+      Fw::DpCfg::ProcType::SerialType procTypes,
+      const Fw::DpContainer::Header::UserData& userData,
+      Fw::DpState dpState,
+      FwSizeType dataSize,
+      Fw::Buffer& historyBuffer
+  ) const
+{
+  ASSERT_LT(__index, this->productSendHistory->size())
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Index into product send history\n"
+    << "  Expected: Less than size of product send history ("
+    << this->productSendHistory->size() << ")\n"
+    << "  Actual:   " << __index << "\n";
+  const DpSend& e = this->productSendHistory->at(__index);
+  // Set the history buffer output
+  historyBuffer = e.buffer;
+  // Check the container id
+  ASSERT_EQ(e.id, id)
+    << "\n"
+    << __callSiteFileName << ":" << __callSiteLineNumber << "\n"
+    << "  Value:    Container ID at index " << __index << " in product send history\n"
+    << "  Expected: " << id << "\n"
+    << "  Actual:   " << e.id << "\n";
+  // Check the header
+  Fw::TestUtil::DpContainerHeader header;
+  header.deserialize(__callSiteFileName, __callSiteLineNumber, historyBuffer);
+  header.check(
+      __callSiteFileName,
+      __callSiteLineNumber,
+      historyBuffer,
+      id,
+      priority,
+      timeTag,
+      procTypes,
+      userData,
+      dpState,
+      dataSize
+  );
 }

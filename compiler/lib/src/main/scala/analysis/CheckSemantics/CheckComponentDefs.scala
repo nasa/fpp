@@ -38,6 +38,19 @@ object CheckComponentDefs
     yield a.copy(component = Some(component))
   }
 
+  override def specContainerAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ) = {
+    val data = aNode._2.data
+    for {
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      container <- Container.fromSpecContainer(a, aNode)
+      component <- a.component.get.addContainer(idOpt, container)
+    }
+    yield a.copy(component = Some(component))
+  }
+
   override def specEventAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -99,6 +112,19 @@ object CheckComponentDefs
     val list = aNode :: component.specPortMatchingList
     val component1 = component.copy(specPortMatchingList = list)
     Right(a.copy(component = Some(component1)))
+  }
+
+  override def specRecordAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecRecord]]
+  ) = {
+    val data = aNode._2.data
+    val record = Record.fromSpecRecord(a, aNode)
+    for {
+      idOpt <- a.getNonnegativeBigIntValueOpt(data.id)
+      component <- a.component.get.addRecord(idOpt, record)
+    }
+    yield a.copy(component = Some(component))
   }
 
   override def specTlmChannelAnnotatedNode(

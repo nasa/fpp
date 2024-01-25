@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/record/duplicate_name.fpp:4.3
+  product record R: U32
+  ^
+error: duplicate record name R
+previous occurrence is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/record/duplicate_name.fpp:3.3
+  product record R: U32
+  ^

@@ -128,10 +128,19 @@ case class CppWriterState(
       removeComponentQualifiers(psOpt, out1)
   }
 
-  /** Write include directives as lines */
+  /** Get an include path for a symbol and a file name base */
+  def getIncludePath(
+    sym: Symbol,
+    fileNameBase: String
+  ): String = {
+    val loc = sym.getLoc.tuLocation
+    val fullPath = loc.getNeighborPath(fileNameBase)
+    val path = removeLongestPathPrefix(fullPath)
+    s"${path.toString}.hpp"
+  }
+
+  /** Write include directives for autocoded files */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getHeaderStr(file: File.JavaPath) =
-      CppWriter.headerString(s"${file.toString}.hpp")
     def getDirectiveForSymbol(sym: Symbol): Option[String] =
       for {
         fileName <- sym match {
@@ -160,12 +169,7 @@ case class CppWriterState(
           case _ => None
         }
       }
-      yield {
-        val loc = sym.getLoc.tuLocation
-        val fullPath = loc.getNeighborPath(fileName)
-        val path = removeLongestPathPrefix(fullPath)
-        getHeaderStr(path)
-      }
+      yield CppWriter.headerString(getIncludePath(sym, fileName))
 
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
@@ -199,6 +203,8 @@ object CppWriterState {
   val builtInTypes: Map[String,Value.Integer] = Map(
     "FwBuffSizeType" -> zero,
     "FwChanIdType" -> zero,
+    "FwDpIdType" -> zero,
+    "FwDpPriorityType" -> zero,
     "FwEnumStoreType" -> zero,
     "FwEventIdType" -> zero,
     "FwIndexType" -> zero,

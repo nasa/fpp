@@ -33,7 +33,13 @@ void PassiveTelemetryTesterBase ::
     this->m_from_timeGetOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -59,7 +65,13 @@ void PassiveTelemetryTesterBase ::
     this->m_from_tlmOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -68,6 +80,70 @@ void PassiveTelemetryTesterBase ::
       port
     );
     this->m_from_tlmOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    port++
+  ) {
+    this->m_from_noArgsOut[port].init();
+    this->m_from_noArgsOut[port].addCallComp(
+      this,
+      from_noArgsOut_static
+    );
+    this->m_from_noArgsOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsOut[port].setObjName(portName);
+#endif
+  }
+
+  // Connect input port noArgsReturnOut
+  for (
+    PlatformIntType port = 0;
+    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    port++
+  ) {
+    this->m_from_noArgsReturnOut[port].init();
+    this->m_from_noArgsReturnOut[port].addCallComp(
+      this,
+      from_noArgsReturnOut_static
+    );
+    this->m_from_noArgsReturnOut[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
+    (void) snprintf(
+      portName,
+      sizeof(portName),
+      "%s_from_noArgsReturnOut[%" PRI_PlatformIntType "]",
+      this->m_objName,
+      port
+    );
+    this->m_from_noArgsReturnOut[port].setObjName(portName);
 #endif
   }
 
@@ -85,7 +161,13 @@ void PassiveTelemetryTesterBase ::
     this->m_from_typedOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -111,7 +193,13 @@ void PassiveTelemetryTesterBase ::
     this->m_from_typedReturnOut[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -132,7 +220,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_noArgsGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -153,7 +247,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_noArgsReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -174,7 +274,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_noArgsReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -195,7 +301,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_noArgsSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -216,7 +328,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_typedGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -237,7 +355,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_typedReturnGuarded[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -258,7 +382,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_typedReturnSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -279,7 +409,13 @@ void PassiveTelemetryTesterBase ::
     this->m_to_typedSync[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    char portName[120];
+    // The port name consists of this->m_objName and some extra info.
+    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
+    // However, the compiler may assume that this->m_objName fills
+    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
+    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
+    // bytes to cover the extra info.
+    char portName[2*FW_OBJ_NAME_MAX_SIZE];
     (void) snprintf(
       portName,
       sizeof(portName),
@@ -518,6 +654,28 @@ Fw::InputTlmPort* PassiveTelemetryTesterBase ::
   return &this->m_from_tlmOut[portNum];
 }
 
+Ports::InputNoArgsPort* PassiveTelemetryTesterBase ::
+  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsOut[portNum];
+}
+
+Ports::InputNoArgsReturnPort* PassiveTelemetryTesterBase ::
+  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+{
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+
+  return &this->m_from_noArgsReturnOut[portNum];
+}
+
 Ports::InputTypedPort* PassiveTelemetryTesterBase ::
   get_from_typedOut(NATIVE_INT_TYPE portNum)
 {
@@ -596,6 +754,28 @@ PassiveTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 // Handler base-class functions for from ports
 // ----------------------------------------------------------------------
+
+void PassiveTelemetryTesterBase ::
+  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  this->from_noArgsOut_handler(portNum);
+}
+
+U32 PassiveTelemetryTesterBase ::
+  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+{
+  // Make sure port number is valid
+  FW_ASSERT(
+    portNum < this->getNum_from_noArgsReturnOut(),
+    static_cast<FwAssertArgType>(portNum)
+  );
+  return this->from_noArgsReturnOut_handler(portNum);
+}
 
 void PassiveTelemetryTesterBase ::
   from_typedOut_handlerBase(
@@ -926,6 +1106,18 @@ NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
 }
 
 NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
+  getNum_from_noArgsOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+}
+
+NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
+  getNum_from_noArgsReturnOut() const
+{
+  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+}
+
+NATIVE_INT_TYPE PassiveTelemetryTesterBase ::
   getNum_from_typedOut() const
 {
   return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
@@ -1047,7 +1239,7 @@ bool PassiveTelemetryTesterBase ::
 void PassiveTelemetryTesterBase ::
   dispatchTlm(
       FwChanIdType id,
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       Fw::TlmBuffer& val
   )
 {
@@ -1209,7 +1401,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1220,7 +1412,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF32Format(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1231,7 +1423,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelStringFormat(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const Fw::TlmString& val
   )
 {
@@ -1242,7 +1434,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelEnum(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1253,7 +1445,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelArrayFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const A& val
   )
 {
@@ -1264,7 +1456,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelStructFreq(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const S& val
   )
 {
@@ -1275,7 +1467,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1286,7 +1478,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF32Limits(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F32& val
   )
 {
@@ -1297,7 +1489,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelF64(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const F64& val
   )
 {
@@ -1308,7 +1500,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelU32OnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const U32& val
   )
 {
@@ -1319,7 +1511,7 @@ void PassiveTelemetryTesterBase ::
 
 void PassiveTelemetryTesterBase ::
   tlmInput_ChannelEnumOnChange(
-      Fw::Time& timeTag,
+      const Fw::Time& timeTag,
       const E& val
   )
 {
@@ -1333,7 +1525,7 @@ void PassiveTelemetryTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveTelemetryTesterBase ::
-  setTestTime(Fw::Time& timeTag)
+  setTestTime(const Fw::Time& timeTag)
 {
   this->m_testTime = timeTag;
 }
@@ -1353,8 +1545,24 @@ void PassiveTelemetryTesterBase ::
   clearFromPortHistory()
 {
   this->fromPortHistorySize = 0;
+  this->fromPortHistorySize_noArgsOut = 0;
+  this->fromPortHistorySize_noArgsReturnOut = 0;
   this->fromPortHistory_typedOut->clear();
   this->fromPortHistory_typedReturnOut->clear();
+}
+
+void PassiveTelemetryTesterBase ::
+  pushFromPortEntry_noArgsOut()
+{
+  this->fromPortHistorySize_noArgsOut++;
+  this->fromPortHistorySize++;
+}
+
+void PassiveTelemetryTesterBase ::
+  pushFromPortEntry_noArgsReturnOut()
+{
+  this->fromPortHistorySize_noArgsReturnOut++;
+  this->fromPortHistorySize++;
 }
 
 void PassiveTelemetryTesterBase ::
@@ -1448,6 +1656,28 @@ void PassiveTelemetryTesterBase ::
 {
   PassiveTelemetryTesterBase* _testerBase = static_cast<PassiveTelemetryTesterBase*>(callComp);
   _testerBase->dispatchTlm(id, timeTag, val);
+}
+
+void PassiveTelemetryTesterBase ::
+  from_noArgsOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveTelemetryTesterBase* _testerBase = static_cast<PassiveTelemetryTesterBase*>(callComp);
+  _testerBase->from_noArgsOut_handlerBase(portNum);
+}
+
+U32 PassiveTelemetryTesterBase ::
+  from_noArgsReturnOut_static(
+      Fw::PassiveComponentBase* const callComp,
+      NATIVE_INT_TYPE portNum
+  )
+{
+  FW_ASSERT(callComp != nullptr);
+  PassiveTelemetryTesterBase* _testerBase = static_cast<PassiveTelemetryTesterBase*>(callComp);
+  return _testerBase->from_noArgsReturnOut_handlerBase(portNum);
 }
 
 void PassiveTelemetryTesterBase ::

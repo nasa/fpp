@@ -17,6 +17,38 @@
 #define ASSERT_FROM_PORT_HISTORY_SIZE(size) \
   this->assertFromPortHistory_size(__FILE__, __LINE__, size)
 
+#define ASSERT_from_noArgsOut_SIZE(size) \
+  this->assert_from_noArgsOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_noArgsOut(index) \
+  { \
+    ASSERT_GT(this->fromPortHistory_noArgsOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of noArgsOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_noArgsOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_noArgsOut& _e = \
+        this->fromPortHistory_noArgsOut->at(index); \
+  }
+
+#define ASSERT_from_noArgsReturnOut_SIZE(size) \
+  this->assert_from_noArgsReturnOut_size(__FILE__, __LINE__, size)
+
+#define ASSERT_from_noArgsReturnOut(index) \
+  { \
+    ASSERT_GT(this->fromPortHistory_noArgsReturnOut->size(), static_cast<U32>(index)) \
+      << "\n" \
+      << __FILE__ << ":" << __LINE__ << "\n" \
+      << "  Value:    Index into history of noArgsReturnOut\n" \
+      << "  Expected: Less than size of history (" \
+      << this->fromPortHistory_noArgsReturnOut->size() << ")\n" \
+      << "  Actual:   " << index << "\n"; \
+      const FromPortEntry_noArgsReturnOut& _e = \
+        this->fromPortHistory_noArgsReturnOut->at(index); \
+  }
+
 #define ASSERT_from_typedOut_SIZE(size) \
   this->assert_from_typedOut_size(__FILE__, __LINE__, size)
 
@@ -205,15 +237,29 @@ class QueuedCommandsGTestBase :
         const U32 size //!< The asserted size
     ) const;
 
+    //! From port: noArgsOut
+    void assert_from_noArgsOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
+    //! From port: noArgsReturnOut
+    void assert_from_noArgsReturnOut_size(
+        const char* const __callSiteFileName, //!< The name of the file containing the call site
+        const U32 __callSiteLineNumber, //!< The line number of the call site
+        const U32 size //!< The asserted size
+    ) const;
+
     //! From port: typedOut
-    void assert_from_typedOut(
+    void assert_from_typedOut_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size
     ) const;
 
     //! From port: typedReturnOut
-    void assert_from_typedReturnOut(
+    void assert_from_typedReturnOut_size(
         const char* const __callSiteFileName, //!< The name of the file containing the call site
         const U32 __callSiteLineNumber, //!< The line number of the call site
         const U32 size //!< The asserted size
