@@ -4591,6 +4591,8 @@ namespace M {
     )
   {
     // Defaults to no-op; can be overridden
+    (void) opCode;
+    (void) cmdSeq;
   }
 
   void ActiveTestComponentBase ::
@@ -4600,6 +4602,8 @@ namespace M {
     )
   {
     // Defaults to no-op; can be overridden
+    (void) opCode;
+    (void) cmdSeq;
   }
 
   void ActiveTestComponentBase ::
@@ -4609,6 +4613,8 @@ namespace M {
     )
   {
     // Defaults to no-op; can be overridden
+    (void) opCode;
+    (void) cmdSeq;
   }
 
   void ActiveTestComponentBase ::
@@ -4618,6 +4624,8 @@ namespace M {
     )
   {
     // Defaults to no-op; can be overridden
+    (void) opCode;
+    (void) cmdSeq;
   }
 
   void ActiveTestComponentBase ::
@@ -4627,6 +4635,8 @@ namespace M {
     )
   {
     // Defaults to no-op; can be overridden
+    (void) opCode;
+    (void) cmdSeq;
   }
 
   // ----------------------------------------------------------------------

@@ -306,7 +306,12 @@ case class ComponentCommands (
             cmdSeqParam
           ),
           CppDoc.Type("void"),
-          lines("// Defaults to no-op; can be overridden"),
+          lines(
+            s"""|// Defaults to no-op; can be overridden
+                |(void) opCode;
+                |(void) cmdSeq;
+                |"""
+          ),
           CppDoc.Function.Virtual
         )
       )
