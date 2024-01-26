@@ -3588,6 +3588,8 @@ void QueuedCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedCommandsComponentBase ::
@@ -3597,6 +3599,8 @@ void QueuedCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedCommandsComponentBase ::
@@ -3606,6 +3610,8 @@ void QueuedCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedCommandsComponentBase ::
@@ -3615,6 +3621,8 @@ void QueuedCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedCommandsComponentBase ::
@@ -3624,6 +3632,8 @@ void QueuedCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 // ----------------------------------------------------------------------
