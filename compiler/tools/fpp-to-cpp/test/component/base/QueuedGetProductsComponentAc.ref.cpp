@@ -103,17 +103,17 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
     sizeof(FwSizeType) +
     size * QueuedGetProducts_Data::SERIALIZED_SIZE;
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serialize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serialize(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     }
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -128,13 +128,13 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     QueuedGetProducts_Data::SERIALIZED_SIZE;
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::DataRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serialize(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -154,17 +154,17 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
     sizeof(FwSizeType) +
     size * sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serialize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serialize(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     }
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -179,13 +179,13 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U32Record;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serialize(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -205,16 +205,16 @@ Fw::SerializeStatus QueuedGetProductsComponentBase::DpContainer ::
     sizeof(FwSizeType) +
     size * sizeof(U8);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serialize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     const bool omitSerializedLength = true;
-    status = this->dataBuffer.serialize(array, size, omitSerializedLength);
+    status = this->m_dataBuffer.serialize(array, size, omitSerializedLength);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
