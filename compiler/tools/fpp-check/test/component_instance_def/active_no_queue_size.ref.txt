@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/component_instance_def/active_no_queue_size.fpp:9.1
+instance c: C base id 0x100 \
+^
+error: invalid component instance definition c: active component must have queue size
