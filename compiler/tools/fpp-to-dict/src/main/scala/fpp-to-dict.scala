@@ -8,20 +8,26 @@ import fpp.compiler.transform._
 import fpp.compiler.util._
 import scopt.OParser
 
+
 object FPPToDict {
     case class Options(
-        files: List[File] = Nil
+        files: List[File] = Nil,
+        imports: List[File] = Nil,
+        defaultStringSize: Int = 80,
+        deploymentName: String = "",
+        frameworkVersion: String = "",
+        libraryVersions: List[String] = Nil,
+        dictionarySpecVersion: String = "1.0.0",
+        verbose: Boolean = false
     )
-    // TODO: need to add arg for including dependency FPP files
 
-    def constructDictionary(a: Analysis): Iterable[dictionary.Dictionary] = {
-        val dictionaryList = for (((_, t), index) <- a.topologyMap.zipWithIndex) yield {
+    def writeDictionary(a: Analysis, defaultStringSize: Int, verbose: Boolean, metadata: dictionary.DictionaryMetadata): Result.Result[Unit] = {
+        for (((_, t), index) <- a.topologyMap.zipWithIndex) yield {
             val constructedDictionary = dictionary.Dictionary().buildDictionary(a, t)
-            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary)
-            writeJson("justine-test-" + index + ".json",  jsonEncoder.dictionaryToJson)
-            constructedDictionary
+            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary, metadata, defaultStringSize, verbose)
+            writeJson("topology-" + index + "-dictionary.json",  jsonEncoder.dictionaryToJson)
         }
-        return dictionaryList
+        Right(())
     }
 
     def writeJson (fileName: String, json: io.circe.Json): Result.Result[Unit] = {
@@ -36,17 +42,19 @@ object FPPToDict {
     // create Analysis
     // extract info we need from analysis and store in dictionary data structure (done in Dictionary.scala)
     // write json to file (maybe the fpp-to-dict tool should have a dictionary file name input?)
-    def command(options: Options): Result.Result[Unit] = {
+    def command(options: Options) = {
         fpp.compiler.util.Error.setTool(Tool(name))
          val files = options.files.reverse match {
             case Nil  => List(File.StdIn)
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
+        val metadata = dictionary.DictionaryMetadata(options.deploymentName, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
         for {
-            tul <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
-            a <- CheckSemantics.tuList(a, tul)
-            dictionaryList <- constructDictionary(a).asInstanceOf[Result.Result[dictionary.Dictionary]]
+            tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+            tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
+            a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
+            _ <- writeDictionary(a, options.defaultStringSize, options.verbose, metadata)
         } yield ()
     }
 
@@ -68,6 +76,33 @@ object FPPToDict {
                 .optional()
                 .action((f, c) => c.copy(files = File.fromString(f) :: c.files))
                 .text(".fpp file(s)"),
+            opt[Seq[String]]('i', "imports")
+                .valueName("<file1>,<file2>...")
+                .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
+                .text("files to import"),
+            opt[Int]('s', "size")
+                .valueName("<size>")
+                .validate(s => if (s > 0) success else failure("size must be greater than zero"))
+                .action((s, c) => c.copy(defaultStringSize = s))
+                .text("default string size"),
+            opt[String]('d', "deployment")
+                .valueName("<deployment>")
+                .action((d, c) => c.copy(deploymentName = d))
+                .text("deployment name"),
+            opt[String]('f', "frameworkVersion")
+                .valueName("<frameworkVersion>")
+                .action((f, c) => c.copy(frameworkVersion = f))
+                .text("framework version"),
+            opt[Seq[String]]('l', "libraryVersions")
+                .valueName("<lib1ver>,<lib2ver>,...")
+                .action((l, c) => {
+                    c.copy(libraryVersions = l.toList)
+                })
+                .text("library versions"),
+            opt[Unit]('v', "verbose")
+                .valueName("<verbose>")
+                .action((_, c) => c.copy(verbose = true))
+                .text("verbose"),
         )
     }
 }
