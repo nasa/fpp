@@ -374,7 +374,7 @@ case class DictionaryJsonEncoder(
                 "description" -> annotation.mkString("\n").asJson,
                 "type" -> typeAsJson(channel.channelType),
                 "identifier" -> numIdentifier.asJson,
-                "telemtryUpdate" -> channel.update.toString.asJson
+                "telemetryUpdate" -> channel.update.toString.asJson
             )
             
             val jsonWithOptionals = jsonWithOptional("formatString", channel.format, json)
@@ -454,7 +454,7 @@ case class DictionaryJsonEncoder(
             "commands" -> dictionary.commandEntryMap.asJson,
             "parameters" -> dictionary.paramEntryMap.asJson,
             "events" -> dictionary.eventEntryMap.asJson,
-            "telemtryChannels" -> dictionary.tlmChannelEntryMap.asJson,
+            "telemetryChannels" -> dictionary.tlmChannelEntryMap.asJson,
             "records" -> dictionary.recordEntryMap.asJson,
             "containers" -> dictionary.containerEntryMap.asJson
         )
