@@ -18,14 +18,13 @@ object FPPToDict {
         frameworkVersion: String = "",
         projectVersion: String = "",
         libraryVersions: List[String] = Nil,
-        dictionarySpecVersion: String = "1.0.0",
-        verbose: Boolean = false
+        dictionarySpecVersion: String = "1.0.0"
     )
 
-    def writeDictionary(a: Analysis, defaultStringSize: Int, verbose: Boolean, metadata: dictionary.DictionaryMetadata): Result.Result[Unit] = {
+    def writeDictionary(a: Analysis, defaultStringSize: Int, metadata: dictionary.DictionaryMetadata): Result.Result[Unit] = {
         for (((_, t), index) <- a.topologyMap.zipWithIndex) yield {
             val constructedDictionary = dictionary.Dictionary().buildDictionary(a, t)
-            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary, metadata, defaultStringSize, verbose)
+            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary, metadata, defaultStringSize)
             writeJson("topology-" + index + "-dictionary.json",  jsonEncoder.dictionaryToJson)
         }
         Right(())
@@ -34,7 +33,6 @@ object FPPToDict {
     def writeJson (fileName: String, json: io.circe.Json): Result.Result[Unit] = {
         val path = java.nio.file.Paths.get(".", fileName)
         val file = File.Path(path)
-        println(s"Saving JSON file to ${path}")
         for (writer <- file.openWrite()) yield {
             writer.println(json)
             writer.close()
@@ -56,7 +54,7 @@ object FPPToDict {
             tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
             tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
             a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-            _ <- writeDictionary(a, options.defaultStringSize, options.verbose, metadata)
+            _ <- writeDictionary(a, options.defaultStringSize, metadata)
         } yield ()
     }
 
@@ -96,7 +94,7 @@ object FPPToDict {
                 .action((f, c) => c.copy(frameworkVersion = f))
                 .text("framework version"),
             opt[String]('p', "projectVersion")
-                .valueName("<project version>")
+                .valueName("<projectVersion>")
                 .action((p, c) => c.copy(projectVersion = p))
                 .text("project version"),
             opt[Seq[String]]('l', "libraryVersions")
@@ -104,11 +102,7 @@ object FPPToDict {
                 .action((l, c) => {
                     c.copy(libraryVersions = l.toList)
                 })
-                .text("library versions"),
-            opt[Unit]('v', "verbose")
-                .valueName("<verbose>")
-                .action((_, c) => c.copy(verbose = true))
-                .text("verbose"),
+                .text("library versions")
         )
     }
 }

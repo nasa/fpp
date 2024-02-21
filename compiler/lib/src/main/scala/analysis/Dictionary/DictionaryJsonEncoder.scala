@@ -20,8 +20,7 @@ case class DictionaryJsonEncoder(
     /** Constructed Dictionary data structure */
     dictionary: Dictionary,
     metadata: DictionaryMetadata,
-    defaultStringSize: Int,
-    verbose: Boolean
+    defaultStringSize: Int
 ) {
     private def dictionaryEntryMapAsJson[A, B] (f1: (A, B) => Json) (map: Map[A, B]): Json =
         (map.map { case (key, value) => f1(key, value) }).toList.asJson
@@ -300,13 +299,8 @@ case class DictionaryJsonEncoder(
                         "formalParams" -> formalParams.asJson
                     )
 
-                    if(verbose) {
-                        val optionalMap = Map("priority" -> priority, "queueFullBehavior" -> queueFull)
-                        optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
-                    }
-                    else {
-                        json
-                    }
+                    val optionalMap = Map("priority" -> priority, "queueFullBehavior" -> queueFull)
+                    optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
                 }
                 // case where command is param set/save command
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
@@ -428,26 +422,22 @@ case class DictionaryJsonEncoder(
     }
 
      /** Given a set of symbols, splits set into subsets consisting of array, enum, and struct symbols */
-    def splitTypeSymbolSet(symbolSet: Set[Symbol], outArray: Set[Symbol.Array], outEnum: Set[Symbol.Enum], outStruct: Set[Symbol.Struct]): (Set[Symbol.Array], Set[Symbol.Enum], Set[Symbol.Struct]) = {
-        if (symbolSet.isEmpty) (outArray, outEnum, outStruct) else {
-            val (tail, outA, outE, outS) = symbolSet.head match {
-                case h: Symbol.Array => (symbolSet.tail, outArray + h, outEnum, outStruct)
-                case h: Symbol.Enum => (symbolSet.tail, outArray, outEnum + h, outStruct)
-                case h: Symbol.Struct => (symbolSet.tail, outArray, outEnum, outStruct + h)
-                case _ => (symbolSet.tail, outArray, outEnum, outStruct)
+    def splitTypeSymbolSet(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
+        if (symbolSet.isEmpty) (outSet) else {
+            val (tail, out) = symbolSet.head match {
+                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct) => (symbolSet.tail, outSet + h)
+                case _ => (symbolSet.tail, outSet)
             }
-            splitTypeSymbolSet(tail, outA, outE, outS)
+            splitTypeSymbolSet(tail, out)
         }
     }
 
     def dictionaryToJson: Json = {
         // split set into individual sets consisting of each symbol type (arrays, enums, structs)
-        val (arraySymbolSet, enumSymbolSet, structSymbolSet) = splitTypeSymbolSet(dictionary.typeSymbolSet, Set(), Set(), Set())
+        val typeDefSymbols = splitTypeSymbolSet(dictionary.typeSymbolSet, Set())
         Json.obj(
             "metadata" -> metadata.asJson,
-            "arrays" -> arraySymbolSet.asJson,
-            "enums" -> enumSymbolSet.asJson,
-            "structs" -> structSymbolSet.asJson,
+            "typeDefinitions" -> typeDefSymbols.asJson,
             "commands" -> dictionary.commandEntryMap.asJson,
             "parameters" -> dictionary.paramEntryMap.asJson,
             "events" -> dictionary.eventEntryMap.asJson,
