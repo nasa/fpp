@@ -16,6 +16,7 @@ object FPPToDict {
         defaultStringSize: Int = 80,
         deploymentName: String = "",
         frameworkVersion: String = "",
+        projectVersion: String = "",
         libraryVersions: List[String] = Nil,
         dictionarySpecVersion: String = "1.0.0",
         verbose: Boolean = false
@@ -33,6 +34,7 @@ object FPPToDict {
     def writeJson (fileName: String, json: io.circe.Json): Result.Result[Unit] = {
         val path = java.nio.file.Paths.get(".", fileName)
         val file = File.Path(path)
+        println(s"Saving JSON file to ${path}")
         for (writer <- file.openWrite()) yield {
             writer.println(json)
             writer.close()
@@ -49,7 +51,7 @@ object FPPToDict {
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
-        val metadata = dictionary.DictionaryMetadata(options.deploymentName, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
+        val metadata = dictionary.DictionaryMetadata(options.deploymentName, options.projectVersion, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
         for {
             tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
             tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
@@ -93,6 +95,10 @@ object FPPToDict {
                 .valueName("<frameworkVersion>")
                 .action((f, c) => c.copy(frameworkVersion = f))
                 .text("framework version"),
+            opt[String]('p', "projectVersion")
+                .valueName("<project version>")
+                .action((p, c) => c.copy(projectVersion = p))
+                .text("project version"),
             opt[Seq[String]]('l', "libraryVersions")
                 .valueName("<lib1ver>,<lib2ver>,...")
                 .action((l, c) => {

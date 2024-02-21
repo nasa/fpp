@@ -7,7 +7,8 @@ import io.circe._
 import io.circe.syntax._
 
 case class DictionaryMetadata(
-    deploymentName: String, 
+    deploymentName: String,
+    projectVersion: String, 
     frameworkVersion: String, 
     libraryVersions: List[String], 
     dictionarySpecVersion: String
@@ -42,6 +43,7 @@ case class DictionaryJsonEncoder(
         override def apply(metadata: DictionaryMetadata): Json = {
             Json.obj(
                 "deploymentName" -> metadata.deploymentName.asJson,
+                "projectVersion" -> metadata.projectVersion.asJson,
                 "frameworkVersion" -> metadata.frameworkVersion.asJson,
                 "libraryVersions" -> metadata.libraryVersions.asJson,
                 "dictionarySpecVersion" -> metadata.dictionarySpecVersion.asJson
@@ -421,12 +423,7 @@ case class DictionaryJsonEncoder(
                 "description" -> annotation.mkString("\n").asJson,
                 "identifier" -> numIdentifier.asJson,
             )
-            if(verbose) {
-                jsonWithOptional("defaultPriority", container.defaultPriority, json)
-            }
-            else {
-                json
-            }
+            jsonWithOptional("defaultPriority", container.defaultPriority, json)
         }
     }
 
