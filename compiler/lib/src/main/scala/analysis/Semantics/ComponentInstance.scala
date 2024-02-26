@@ -63,6 +63,7 @@ object ComponentInstance {
       queueSize <- getQueueSize(
         a,
         data.name,
+        Locations.get(node.id),
         componentKind,
         data.queueSize
       )
@@ -130,6 +131,7 @@ object ComponentInstance {
   private def getQueueSize(
     a: Analysis,
     name: String,
+    loc: Location,
     componentKind: Ast.ComponentKind,
     nodeOpt: Option[AstNode[Ast.Expr]]
   ): Result.Result[Option[BigInt]] = {
@@ -140,8 +142,12 @@ object ComponentInstance {
         "passive component may not have queue size"
       )
       case (_, Some(_)) => a.getNonnegativeBigIntValueOpt(nodeOpt)
-      case (_, None) =>
-        Right(None)
+      case (Ast.ComponentKind.Passive, None) => Right(None)
+      case _ => invalid(
+        name,
+        loc,
+        s"$componentKind component must have queue size"
+      )
     }
   }
 

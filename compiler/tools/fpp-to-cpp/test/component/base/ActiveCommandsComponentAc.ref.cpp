@@ -3380,6 +3380,8 @@ void ActiveCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void ActiveCommandsComponentBase ::
@@ -3389,6 +3391,8 @@ void ActiveCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void ActiveCommandsComponentBase ::
@@ -3398,6 +3402,8 @@ void ActiveCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void ActiveCommandsComponentBase ::
@@ -3407,6 +3413,8 @@ void ActiveCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void ActiveCommandsComponentBase ::
@@ -3416,6 +3424,8 @@ void ActiveCommandsComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 // ----------------------------------------------------------------------

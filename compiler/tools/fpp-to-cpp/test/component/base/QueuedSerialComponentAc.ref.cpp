@@ -4546,6 +4546,8 @@ void QueuedSerialComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedSerialComponentBase ::
@@ -4555,6 +4557,8 @@ void QueuedSerialComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedSerialComponentBase ::
@@ -4564,6 +4568,8 @@ void QueuedSerialComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedSerialComponentBase ::
@@ -4573,6 +4579,8 @@ void QueuedSerialComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 void QueuedSerialComponentBase ::
@@ -4582,6 +4590,8 @@ void QueuedSerialComponentBase ::
   )
 {
   // Defaults to no-op; can be overridden
+  (void) opCode;
+  (void) cmdSeq;
 }
 
 // ----------------------------------------------------------------------
