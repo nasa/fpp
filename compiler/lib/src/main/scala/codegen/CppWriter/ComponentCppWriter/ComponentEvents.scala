@@ -214,7 +214,7 @@ case class ComponentEvents (
                     |  FW_LOG_TEXT_BUFFER_SIZE,
                     |  _formatString,
                     |#if FW_OBJECT_NAMES == 1
-                    |  this->m_objName,
+                    |  this->m_objName.toChar(),
                     |#endif
                     |"""
               ),
