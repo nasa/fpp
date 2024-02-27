@@ -25,7 +25,7 @@ void PassiveGetProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpGetPort* PassiveGetProductPortsOnlyTesterBase ::
-  get_from_productGetOut(NATIVE_INT_TYPE portNum)
+  get_from_productGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productGetOut(),
@@ -36,7 +36,7 @@ Fw::InputDpGetPort* PassiveGetProductPortsOnlyTesterBase ::
 }
 
 Fw::InputDpSendPort* PassiveGetProductPortsOnlyTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),

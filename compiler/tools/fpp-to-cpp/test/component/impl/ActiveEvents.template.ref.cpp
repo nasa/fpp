@@ -29,38 +29,38 @@ ActiveEvents ::
 // ----------------------------------------------------------------------
 
 void ActiveEvents ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveEvents ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveEvents ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 ActiveEvents ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void ActiveEvents ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveEvents ::
   typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -75,7 +75,7 @@ void ActiveEvents ::
 
 void ActiveEvents ::
   typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -90,7 +90,7 @@ void ActiveEvents ::
 
 void ActiveEvents ::
   typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -105,7 +105,7 @@ void ActiveEvents ::
 
 void ActiveEvents ::
   typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -120,7 +120,7 @@ void ActiveEvents ::
 
 void ActiveEvents ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -135,7 +135,7 @@ void ActiveEvents ::
 
 F32 ActiveEvents ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -150,7 +150,7 @@ F32 ActiveEvents ::
 
 F32 ActiveEvents ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -165,7 +165,7 @@ F32 ActiveEvents ::
 
 void ActiveEvents ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

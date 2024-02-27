@@ -29,38 +29,38 @@ QueuedParams ::
 // ----------------------------------------------------------------------
 
 void QueuedParams ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void QueuedParams ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 QueuedParams ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 QueuedParams ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void QueuedParams ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void QueuedParams ::
   typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -75,7 +75,7 @@ void QueuedParams ::
 
 void QueuedParams ::
   typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -90,7 +90,7 @@ void QueuedParams ::
 
 void QueuedParams ::
   typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -105,7 +105,7 @@ void QueuedParams ::
 
 void QueuedParams ::
   typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -120,7 +120,7 @@ void QueuedParams ::
 
 void QueuedParams ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -135,7 +135,7 @@ void QueuedParams ::
 
 F32 QueuedParams ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -150,7 +150,7 @@ F32 QueuedParams ::
 
 F32 QueuedParams ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -165,7 +165,7 @@ F32 QueuedParams ::
 
 void QueuedParams ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

@@ -29,38 +29,38 @@ ActiveSyncProducts ::
 // ----------------------------------------------------------------------
 
 void ActiveSyncProducts ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveSyncProducts ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveSyncProducts ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 ActiveSyncProducts ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void ActiveSyncProducts ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveSyncProducts ::
   typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -75,7 +75,7 @@ void ActiveSyncProducts ::
 
 void ActiveSyncProducts ::
   typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -90,7 +90,7 @@ void ActiveSyncProducts ::
 
 void ActiveSyncProducts ::
   typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -105,7 +105,7 @@ void ActiveSyncProducts ::
 
 void ActiveSyncProducts ::
   typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -120,7 +120,7 @@ void ActiveSyncProducts ::
 
 void ActiveSyncProducts ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -135,7 +135,7 @@ void ActiveSyncProducts ::
 
 F32 ActiveSyncProducts ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -150,7 +150,7 @@ F32 ActiveSyncProducts ::
 
 F32 ActiveSyncProducts ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -165,7 +165,7 @@ F32 ActiveSyncProducts ::
 
 void ActiveSyncProducts ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

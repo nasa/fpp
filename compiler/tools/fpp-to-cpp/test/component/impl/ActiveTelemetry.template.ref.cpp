@@ -29,38 +29,38 @@ ActiveTelemetry ::
 // ----------------------------------------------------------------------
 
 void ActiveTelemetry ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveTelemetry ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveTelemetry ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 ActiveTelemetry ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void ActiveTelemetry ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void ActiveTelemetry ::
   typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -75,7 +75,7 @@ void ActiveTelemetry ::
 
 void ActiveTelemetry ::
   typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -90,7 +90,7 @@ void ActiveTelemetry ::
 
 void ActiveTelemetry ::
   typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -105,7 +105,7 @@ void ActiveTelemetry ::
 
 void ActiveTelemetry ::
   typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -120,7 +120,7 @@ void ActiveTelemetry ::
 
 void ActiveTelemetry ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -135,7 +135,7 @@ void ActiveTelemetry ::
 
 F32 ActiveTelemetry ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -150,7 +150,7 @@ F32 ActiveTelemetry ::
 
 F32 ActiveTelemetry ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -165,7 +165,7 @@ F32 ActiveTelemetry ::
 
 void ActiveTelemetry ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

@@ -26,7 +26,7 @@ void QueuedAsyncProductPortsOnlyTesterBase ::
 
 void QueuedAsyncProductPortsOnlyTesterBase ::
   connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpResponsePort* port
   )
 {
@@ -43,7 +43,7 @@ void QueuedAsyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpRequestPort* QueuedAsyncProductPortsOnlyTesterBase ::
-  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+  get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productRequestOut(),
@@ -54,7 +54,7 @@ Fw::InputDpRequestPort* QueuedAsyncProductPortsOnlyTesterBase ::
 }
 
 Fw::InputDpSendPort* QueuedAsyncProductPortsOnlyTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -111,7 +111,7 @@ NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedAsyncProductPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_productRecvIn(),

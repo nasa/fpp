@@ -45,10 +45,10 @@ namespace {
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
           sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
+          sizeof(FwIndexType)
       };
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      FwSizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -82,8 +82,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
     port++
   ) {
     this->m_cmdIn_InputPort[port].init();
@@ -106,8 +106,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
     port++
   ) {
     this->m_noArgsAsync_InputPort[port].init();
@@ -130,8 +130,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsGuarded_InputPort[port].init();
@@ -154,8 +154,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsReturnGuarded_InputPort[port].init();
@@ -178,8 +178,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
     port++
   ) {
     this->m_noArgsReturnSync_InputPort[port].init();
@@ -202,8 +202,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts());
     port++
   ) {
     this->m_noArgsSync_InputPort[port].init();
@@ -226,8 +226,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsync_InputPorts());
     port++
   ) {
     this->m_typedAsync_InputPort[port].init();
@@ -250,8 +250,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncAssert_InputPorts());
     port++
   ) {
     this->m_typedAsyncAssert_InputPort[port].init();
@@ -274,8 +274,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncBlockPriority_InputPorts());
     port++
   ) {
     this->m_typedAsyncBlockPriority_InputPort[port].init();
@@ -298,8 +298,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncDropPriority_InputPorts());
     port++
   ) {
     this->m_typedAsyncDropPriority_InputPort[port].init();
@@ -322,8 +322,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts());
     port++
   ) {
     this->m_typedGuarded_InputPort[port].init();
@@ -346,8 +346,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts());
     port++
   ) {
     this->m_typedReturnGuarded_InputPort[port].init();
@@ -370,8 +370,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts());
     port++
   ) {
     this->m_typedReturnSync_InputPort[port].init();
@@ -394,8 +394,8 @@ void QueuedParamsComponentBase ::
 
   // Connect input port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts());
     port++
   ) {
     this->m_typedSync_InputPort[port].init();
@@ -418,8 +418,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
     port++
   ) {
     this->m_cmdRegOut_OutputPort[port].init();
@@ -437,8 +437,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
     port++
   ) {
     this->m_cmdResponseOut_OutputPort[port].init();
@@ -456,8 +456,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port eventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
     port++
   ) {
     this->m_eventOut_OutputPort[port].init();
@@ -475,8 +475,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
     port++
   ) {
     this->m_prmGetOut_OutputPort[port].init();
@@ -494,8 +494,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
     port++
   ) {
     this->m_prmSetOut_OutputPort[port].init();
@@ -514,8 +514,8 @@ void QueuedParamsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port textEventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
     port++
   ) {
     this->m_textEventOut_OutputPort[port].init();
@@ -534,8 +534,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
     port++
   ) {
     this->m_timeGetOut_OutputPort[port].init();
@@ -553,8 +553,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port tlmOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
     port++
   ) {
     this->m_tlmOut_OutputPort[port].init();
@@ -572,8 +572,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
     port++
   ) {
     this->m_noArgsOut_OutputPort[port].init();
@@ -591,8 +591,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
     port++
   ) {
     this->m_noArgsReturnOut_OutputPort[port].init();
@@ -610,8 +610,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts());
     port++
   ) {
     this->m_typedOut_OutputPort[port].init();
@@ -629,8 +629,8 @@ void QueuedParamsComponentBase ::
 
   // Connect output port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts());
     port++
   ) {
     this->m_typedReturnOut_OutputPort[port].init();
@@ -661,7 +661,7 @@ void QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdPort* QueuedParamsComponentBase ::
-  get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdIn_InputPorts(),
@@ -676,7 +676,7 @@ Fw::InputCmdPort* QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 Ports::InputNoArgsPort* QueuedParamsComponentBase ::
-  get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsAsync_InputPorts(),
@@ -687,7 +687,7 @@ Ports::InputNoArgsPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputNoArgsPort* QueuedParamsComponentBase ::
-  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsGuarded_InputPorts(),
@@ -698,7 +698,7 @@ Ports::InputNoArgsPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* QueuedParamsComponentBase ::
-  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
@@ -709,7 +709,7 @@ Ports::InputNoArgsReturnPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* QueuedParamsComponentBase ::
-  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnSync_InputPorts(),
@@ -720,7 +720,7 @@ Ports::InputNoArgsReturnPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputNoArgsPort* QueuedParamsComponentBase ::
-  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsSync_InputPorts(),
@@ -731,7 +731,7 @@ Ports::InputNoArgsPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsync_InputPorts(),
@@ -742,7 +742,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedAsyncAssert_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncAssert_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncAssert_InputPorts(),
@@ -753,7 +753,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedAsyncBlockPriority_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncBlockPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncBlockPriority_InputPorts(),
@@ -764,7 +764,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedAsyncDropPriority_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncDropPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncDropPriority_InputPorts(),
@@ -775,7 +775,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedGuarded_InputPorts(),
@@ -786,7 +786,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* QueuedParamsComponentBase ::
-  get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnGuarded_InputPorts(),
@@ -797,7 +797,7 @@ Ports::InputTypedReturnPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* QueuedParamsComponentBase ::
-  get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnSync_InputPorts(),
@@ -808,7 +808,7 @@ Ports::InputTypedReturnPort* QueuedParamsComponentBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedSync_InputPorts(),
@@ -824,7 +824,7 @@ Ports::InputTypedPort* QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdRegPort* port
   )
 {
@@ -838,7 +838,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdResponsePort* port
   )
 {
@@ -852,7 +852,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogPort* port
   )
 {
@@ -866,7 +866,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmGetPort* port
   )
 {
@@ -880,7 +880,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmSetPort* port
   )
 {
@@ -896,7 +896,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogTextPort* port
   )
 {
@@ -912,7 +912,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTimePort* port
   )
 {
@@ -926,7 +926,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTlmPort* port
   )
 {
@@ -944,7 +944,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -958,7 +958,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_noArgsReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -972,7 +972,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -986,7 +986,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -1006,7 +1006,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1020,7 +1020,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1034,7 +1034,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1048,7 +1048,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1064,7 +1064,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1080,7 +1080,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1094,7 +1094,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1116,7 +1116,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1130,7 +1130,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1580,7 +1580,7 @@ NATIVE_INT_TYPE QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedParamsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdRegOut_OutputPorts(),
@@ -1591,7 +1591,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdResponseOut_OutputPorts(),
@@ -1602,7 +1602,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_eventOut_OutputPorts(),
@@ -1613,7 +1613,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmGetOut_OutputPorts(),
@@ -1624,7 +1624,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmSetOut_OutputPorts(),
@@ -1637,7 +1637,7 @@ bool QueuedParamsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool QueuedParamsComponentBase ::
-  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_textEventOut_OutputPorts(),
@@ -1650,7 +1650,7 @@ bool QueuedParamsComponentBase ::
 #endif
 
 bool QueuedParamsComponentBase ::
-  isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_timeGetOut_OutputPorts(),
@@ -1661,7 +1661,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_tlmOut_OutputPorts(),
@@ -1676,7 +1676,7 @@ bool QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedParamsComponentBase ::
-  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -1687,7 +1687,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -1698,7 +1698,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
@@ -1709,7 +1709,7 @@ bool QueuedParamsComponentBase ::
 }
 
 bool QueuedParamsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnOut_OutputPorts(),
@@ -1726,7 +1726,7 @@ bool QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsComponentBase ::
-  noArgsAsync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1766,7 +1766,7 @@ void QueuedParamsComponentBase ::
 }
 
 void QueuedParamsComponentBase ::
-  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1785,7 +1785,7 @@ void QueuedParamsComponentBase ::
 }
 
 U32 QueuedParamsComponentBase ::
-  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1808,7 +1808,7 @@ U32 QueuedParamsComponentBase ::
 }
 
 U32 QueuedParamsComponentBase ::
-  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1825,7 +1825,7 @@ U32 QueuedParamsComponentBase ::
 }
 
 void QueuedParamsComponentBase ::
-  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1839,7 +1839,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1946,7 +1946,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncAssert_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2053,7 +2053,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncBlockPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2160,7 +2160,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncDropPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2272,7 +2272,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2309,7 +2309,7 @@ void QueuedParamsComponentBase ::
 
 F32 QueuedParamsComponentBase ::
   typedReturnGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2350,7 +2350,7 @@ F32 QueuedParamsComponentBase ::
 
 F32 QueuedParamsComponentBase ::
   typedReturnSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2385,7 +2385,7 @@ F32 QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2423,14 +2423,14 @@ void QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsComponentBase ::
-  noArgsAsync_preMsgHook(NATIVE_INT_TYPE portNum)
+  noArgsAsync_preMsgHook(FwIndexType portNum)
 {
   // Default: no-op
 }
 
 void QueuedParamsComponentBase ::
   typedAsync_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2445,7 +2445,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncAssert_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2460,7 +2460,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncBlockPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2475,7 +2475,7 @@ void QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedAsyncDropPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2493,7 +2493,7 @@ void QueuedParamsComponentBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsComponentBase ::
-  noArgsOut_out(NATIVE_INT_TYPE portNum)
+  noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -2503,7 +2503,7 @@ void QueuedParamsComponentBase ::
 }
 
 U32 QueuedParamsComponentBase ::
-  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+  noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -2514,7 +2514,7 @@ U32 QueuedParamsComponentBase ::
 
 void QueuedParamsComponentBase ::
   typedOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2541,7 +2541,7 @@ void QueuedParamsComponentBase ::
 
 F32 QueuedParamsComponentBase ::
   typedReturnOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2744,7 +2744,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
     return MSG_DISPATCH_EXIT;
   }
 
-  NATIVE_INT_TYPE portNum = 0;
+  FwIndexType portNum = 0;
   deserStatus = msg.deserialize(portNum);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3062,7 +3062,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -3205,7 +3205,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_noArgsAsync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3216,7 +3216,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_noArgsGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3227,7 +3227,7 @@ void QueuedParamsComponentBase ::
 U32 QueuedParamsComponentBase ::
   m_p_noArgsReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3238,7 +3238,7 @@ U32 QueuedParamsComponentBase ::
 U32 QueuedParamsComponentBase ::
   m_p_noArgsReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3249,7 +3249,7 @@ U32 QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_noArgsSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3260,7 +3260,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedAsync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3287,7 +3287,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedAsyncAssert_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3314,7 +3314,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedAsyncBlockPriority_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3341,7 +3341,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedAsyncDropPriority_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3368,7 +3368,7 @@ void QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3395,7 +3395,7 @@ void QueuedParamsComponentBase ::
 F32 QueuedParamsComponentBase ::
   m_p_typedReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3422,7 +3422,7 @@ F32 QueuedParamsComponentBase ::
 F32 QueuedParamsComponentBase ::
   m_p_typedReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3449,7 +3449,7 @@ F32 QueuedParamsComponentBase ::
 void QueuedParamsComponentBase ::
   m_p_typedSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

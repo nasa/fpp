@@ -29,32 +29,32 @@ PassiveGetProducts ::
 // ----------------------------------------------------------------------
 
 void PassiveGetProducts ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 PassiveGetProducts ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 PassiveGetProducts ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void PassiveGetProducts ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void PassiveGetProducts ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -69,7 +69,7 @@ void PassiveGetProducts ::
 
 F32 PassiveGetProducts ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -84,7 +84,7 @@ F32 PassiveGetProducts ::
 
 F32 PassiveGetProducts ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -99,7 +99,7 @@ F32 PassiveGetProducts ::
 
 void PassiveGetProducts ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

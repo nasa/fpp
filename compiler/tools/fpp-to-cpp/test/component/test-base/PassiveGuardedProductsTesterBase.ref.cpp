@@ -21,8 +21,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_productRequestOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_productRequestOut());
     port++
   ) {
     this->m_from_productRequestOut[port].init();
@@ -45,8 +45,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_productSendOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_productSendOut());
     port++
   ) {
     this->m_from_productSendOut[port].init();
@@ -69,8 +69,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_timeGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_timeGetOut());
     port++
   ) {
     this->m_from_timeGetOut[port].init();
@@ -93,8 +93,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsOut());
     port++
   ) {
     this->m_from_noArgsOut[port].init();
@@ -117,8 +117,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsReturnOut());
     port++
   ) {
     this->m_from_noArgsReturnOut[port].init();
@@ -141,8 +141,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedOut());
     port++
   ) {
     this->m_from_typedOut[port].init();
@@ -165,8 +165,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect input port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedReturnOut());
     port++
   ) {
     this->m_from_typedReturnOut[port].init();
@@ -189,8 +189,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_productRecvIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_productRecvIn());
     port++
   ) {
     this->m_to_productRecvIn[port].init();
@@ -208,8 +208,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsGuarded());
     port++
   ) {
     this->m_to_noArgsGuarded[port].init();
@@ -227,8 +227,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnGuarded());
     port++
   ) {
     this->m_to_noArgsReturnGuarded[port].init();
@@ -246,8 +246,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnSync());
     port++
   ) {
     this->m_to_noArgsReturnSync[port].init();
@@ -265,8 +265,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsSync());
     port++
   ) {
     this->m_to_noArgsSync[port].init();
@@ -284,8 +284,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedGuarded());
     port++
   ) {
     this->m_to_typedGuarded[port].init();
@@ -303,8 +303,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnGuarded());
     port++
   ) {
     this->m_to_typedReturnGuarded[port].init();
@@ -322,8 +322,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnSync());
     port++
   ) {
     this->m_to_typedReturnSync[port].init();
@@ -341,8 +341,8 @@ void PassiveGuardedProductsTesterBase ::
 
   // Connect output port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedSync());
     port++
   ) {
     this->m_to_typedSync[port].init();
@@ -365,7 +365,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_cmdIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdPort* port
   )
 {
@@ -379,7 +379,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpResponsePort* port
   )
 {
@@ -393,7 +393,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_noArgsGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -407,7 +407,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_noArgsReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -421,7 +421,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_noArgsReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -435,7 +435,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_noArgsSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -449,7 +449,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -463,7 +463,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -477,7 +477,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -491,7 +491,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   connect_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -508,7 +508,7 @@ void PassiveGuardedProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdRegPort* PassiveGuardedProductsTesterBase ::
-  get_from_cmdRegOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdRegOut(),
@@ -519,7 +519,7 @@ Fw::InputCmdRegPort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputCmdResponsePort* PassiveGuardedProductsTesterBase ::
-  get_from_cmdResponseOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdResponseOut(),
@@ -530,7 +530,7 @@ Fw::InputCmdResponsePort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputLogPort* PassiveGuardedProductsTesterBase ::
-  get_from_eventOut(NATIVE_INT_TYPE portNum)
+  get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_eventOut(),
@@ -541,7 +541,7 @@ Fw::InputLogPort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputPrmGetPort* PassiveGuardedProductsTesterBase ::
-  get_from_prmGetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmGetOut(),
@@ -552,7 +552,7 @@ Fw::InputPrmGetPort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputPrmSetPort* PassiveGuardedProductsTesterBase ::
-  get_from_prmSetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmSetOut(),
@@ -563,7 +563,7 @@ Fw::InputPrmSetPort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputDpRequestPort* PassiveGuardedProductsTesterBase ::
-  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+  get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productRequestOut(),
@@ -574,7 +574,7 @@ Fw::InputDpRequestPort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputDpSendPort* PassiveGuardedProductsTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -587,7 +587,7 @@ Fw::InputDpSendPort* PassiveGuardedProductsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* PassiveGuardedProductsTesterBase ::
-  get_from_textEventOut(NATIVE_INT_TYPE portNum)
+  get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_textEventOut(),
@@ -600,7 +600,7 @@ Fw::InputLogTextPort* PassiveGuardedProductsTesterBase ::
 #endif
 
 Fw::InputTimePort* PassiveGuardedProductsTesterBase ::
-  get_from_timeGetOut(NATIVE_INT_TYPE portNum)
+  get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_timeGetOut(),
@@ -611,7 +611,7 @@ Fw::InputTimePort* PassiveGuardedProductsTesterBase ::
 }
 
 Fw::InputTlmPort* PassiveGuardedProductsTesterBase ::
-  get_from_tlmOut(NATIVE_INT_TYPE portNum)
+  get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_tlmOut(),
@@ -622,7 +622,7 @@ Fw::InputTlmPort* PassiveGuardedProductsTesterBase ::
 }
 
 Ports::InputNoArgsPort* PassiveGuardedProductsTesterBase ::
-  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsOut(),
@@ -633,7 +633,7 @@ Ports::InputNoArgsPort* PassiveGuardedProductsTesterBase ::
 }
 
 Ports::InputNoArgsReturnPort* PassiveGuardedProductsTesterBase ::
-  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsReturnOut(),
@@ -644,7 +644,7 @@ Ports::InputNoArgsReturnPort* PassiveGuardedProductsTesterBase ::
 }
 
 Ports::InputTypedPort* PassiveGuardedProductsTesterBase ::
-  get_from_typedOut(NATIVE_INT_TYPE portNum)
+  get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedOut(),
@@ -655,7 +655,7 @@ Ports::InputTypedPort* PassiveGuardedProductsTesterBase ::
 }
 
 Ports::InputTypedReturnPort* PassiveGuardedProductsTesterBase ::
-  get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedReturnOut(),
@@ -705,7 +705,7 @@ PassiveGuardedProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveGuardedProductsTesterBase ::
-  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -716,7 +716,7 @@ void PassiveGuardedProductsTesterBase ::
 }
 
 U32 PassiveGuardedProductsTesterBase ::
-  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -728,7 +728,7 @@ U32 PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   from_typedOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -757,7 +757,7 @@ void PassiveGuardedProductsTesterBase ::
 
 F32 PassiveGuardedProductsTesterBase ::
   from_typedReturnOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -789,7 +789,7 @@ F32 PassiveGuardedProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveGuardedProductsTesterBase ::
-  invoke_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -800,7 +800,7 @@ void PassiveGuardedProductsTesterBase ::
 }
 
 U32 PassiveGuardedProductsTesterBase ::
-  invoke_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -811,7 +811,7 @@ U32 PassiveGuardedProductsTesterBase ::
 }
 
 U32 PassiveGuardedProductsTesterBase ::
-  invoke_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -822,7 +822,7 @@ U32 PassiveGuardedProductsTesterBase ::
 }
 
 void PassiveGuardedProductsTesterBase ::
-  invoke_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -834,7 +834,7 @@ void PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   invoke_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -862,7 +862,7 @@ void PassiveGuardedProductsTesterBase ::
 
 F32 PassiveGuardedProductsTesterBase ::
   invoke_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -890,7 +890,7 @@ F32 PassiveGuardedProductsTesterBase ::
 
 F32 PassiveGuardedProductsTesterBase ::
   invoke_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -918,7 +918,7 @@ F32 PassiveGuardedProductsTesterBase ::
 
 void PassiveGuardedProductsTesterBase ::
   invoke_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1101,7 +1101,7 @@ NATIVE_INT_TYPE PassiveGuardedProductsTesterBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_cmdIn(),
@@ -1112,7 +1112,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_productRecvIn(),
@@ -1123,7 +1123,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsGuarded(),
@@ -1134,7 +1134,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnGuarded(),
@@ -1145,7 +1145,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnSync(),
@@ -1156,7 +1156,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsSync(),
@@ -1167,7 +1167,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_typedGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedGuarded(),
@@ -1178,7 +1178,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_typedReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnGuarded(),
@@ -1189,7 +1189,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_typedReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnSync(),
@@ -1200,7 +1200,7 @@ bool PassiveGuardedProductsTesterBase ::
 }
 
 bool PassiveGuardedProductsTesterBase ::
-  isConnected_to_typedSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedSync(),
@@ -1365,7 +1365,7 @@ void PassiveGuardedProductsTesterBase ::
 void PassiveGuardedProductsTesterBase ::
   from_productRequestOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -1377,7 +1377,7 @@ void PassiveGuardedProductsTesterBase ::
 void PassiveGuardedProductsTesterBase ::
   from_productSendOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -1389,7 +1389,7 @@ void PassiveGuardedProductsTesterBase ::
 void PassiveGuardedProductsTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::Time& time
   )
 {
@@ -1400,7 +1400,7 @@ void PassiveGuardedProductsTesterBase ::
 void PassiveGuardedProductsTesterBase ::
   from_noArgsOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -1411,7 +1411,7 @@ void PassiveGuardedProductsTesterBase ::
 U32 PassiveGuardedProductsTesterBase ::
   from_noArgsReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -1422,7 +1422,7 @@ U32 PassiveGuardedProductsTesterBase ::
 void PassiveGuardedProductsTesterBase ::
   from_typedOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1449,7 +1449,7 @@ void PassiveGuardedProductsTesterBase ::
 F32 PassiveGuardedProductsTesterBase ::
   from_typedReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

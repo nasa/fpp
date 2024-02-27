@@ -21,8 +21,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdRegOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdRegOut());
     port++
   ) {
     this->m_from_cmdRegOut[port].init();
@@ -45,8 +45,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdResponseOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdResponseOut());
     port++
   ) {
     this->m_from_cmdResponseOut[port].init();
@@ -69,8 +69,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port eventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_eventOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_eventOut());
     port++
   ) {
     this->m_from_eventOut[port].init();
@@ -93,8 +93,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmGetOut());
     port++
   ) {
     this->m_from_prmGetOut[port].init();
@@ -117,8 +117,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmSetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmSetOut());
     port++
   ) {
     this->m_from_prmSetOut[port].init();
@@ -141,8 +141,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_productRequestOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_productRequestOut());
     port++
   ) {
     this->m_from_productRequestOut[port].init();
@@ -165,8 +165,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_productSendOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_productSendOut());
     port++
   ) {
     this->m_from_productSendOut[port].init();
@@ -190,8 +190,8 @@ void QueuedTestTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect input port textEventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_textEventOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_textEventOut());
     port++
   ) {
     this->m_from_textEventOut[port].init();
@@ -215,8 +215,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_timeGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_timeGetOut());
     port++
   ) {
     this->m_from_timeGetOut[port].init();
@@ -239,8 +239,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port tlmOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_tlmOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_tlmOut());
     port++
   ) {
     this->m_from_tlmOut[port].init();
@@ -263,8 +263,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsOut());
     port++
   ) {
     this->m_from_noArgsOut[port].init();
@@ -287,8 +287,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsReturnOut());
     port++
   ) {
     this->m_from_noArgsReturnOut[port].init();
@@ -311,8 +311,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedOut());
     port++
   ) {
     this->m_from_typedOut[port].init();
@@ -335,8 +335,8 @@ void QueuedTestTesterBase ::
 
   // Connect input port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedReturnOut());
     port++
   ) {
     this->m_from_typedReturnOut[port].init();
@@ -359,8 +359,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_cmdIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_cmdIn());
     port++
   ) {
     this->m_to_cmdIn[port].init();
@@ -378,8 +378,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_productRecvIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_productRecvIn());
     port++
   ) {
     this->m_to_productRecvIn[port].init();
@@ -397,8 +397,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsAsync());
     port++
   ) {
     this->m_to_noArgsAsync[port].init();
@@ -416,8 +416,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsGuarded());
     port++
   ) {
     this->m_to_noArgsGuarded[port].init();
@@ -435,8 +435,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnGuarded());
     port++
   ) {
     this->m_to_noArgsReturnGuarded[port].init();
@@ -454,8 +454,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnSync());
     port++
   ) {
     this->m_to_noArgsReturnSync[port].init();
@@ -473,8 +473,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsSync());
     port++
   ) {
     this->m_to_noArgsSync[port].init();
@@ -492,8 +492,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsync());
     port++
   ) {
     this->m_to_typedAsync[port].init();
@@ -511,8 +511,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncAssert());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncAssert());
     port++
   ) {
     this->m_to_typedAsyncAssert[port].init();
@@ -530,8 +530,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncBlockPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncBlockPriority());
     port++
   ) {
     this->m_to_typedAsyncBlockPriority[port].init();
@@ -549,8 +549,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncDropPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncDropPriority());
     port++
   ) {
     this->m_to_typedAsyncDropPriority[port].init();
@@ -568,8 +568,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedGuarded());
     port++
   ) {
     this->m_to_typedGuarded[port].init();
@@ -587,8 +587,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnGuarded());
     port++
   ) {
     this->m_to_typedReturnGuarded[port].init();
@@ -606,8 +606,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnSync());
     port++
   ) {
     this->m_to_typedReturnSync[port].init();
@@ -625,8 +625,8 @@ void QueuedTestTesterBase ::
 
   // Connect output port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedSync());
     port++
   ) {
     this->m_to_typedSync[port].init();
@@ -649,7 +649,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_cmdIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdPort* port
   )
 {
@@ -663,7 +663,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpResponsePort* port
   )
 {
@@ -677,7 +677,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_noArgsAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -691,7 +691,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_noArgsGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -705,7 +705,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_noArgsReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -719,7 +719,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_noArgsReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -733,7 +733,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_noArgsSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -747,7 +747,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -761,7 +761,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -775,7 +775,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -789,7 +789,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -803,7 +803,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -817,7 +817,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -831,7 +831,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -845,7 +845,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   connect_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -862,7 +862,7 @@ void QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdRegPort* QueuedTestTesterBase ::
-  get_from_cmdRegOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdRegOut(),
@@ -873,7 +873,7 @@ Fw::InputCmdRegPort* QueuedTestTesterBase ::
 }
 
 Fw::InputCmdResponsePort* QueuedTestTesterBase ::
-  get_from_cmdResponseOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdResponseOut(),
@@ -884,7 +884,7 @@ Fw::InputCmdResponsePort* QueuedTestTesterBase ::
 }
 
 Fw::InputLogPort* QueuedTestTesterBase ::
-  get_from_eventOut(NATIVE_INT_TYPE portNum)
+  get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_eventOut(),
@@ -895,7 +895,7 @@ Fw::InputLogPort* QueuedTestTesterBase ::
 }
 
 Fw::InputPrmGetPort* QueuedTestTesterBase ::
-  get_from_prmGetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmGetOut(),
@@ -906,7 +906,7 @@ Fw::InputPrmGetPort* QueuedTestTesterBase ::
 }
 
 Fw::InputPrmSetPort* QueuedTestTesterBase ::
-  get_from_prmSetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmSetOut(),
@@ -917,7 +917,7 @@ Fw::InputPrmSetPort* QueuedTestTesterBase ::
 }
 
 Fw::InputDpRequestPort* QueuedTestTesterBase ::
-  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+  get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productRequestOut(),
@@ -928,7 +928,7 @@ Fw::InputDpRequestPort* QueuedTestTesterBase ::
 }
 
 Fw::InputDpSendPort* QueuedTestTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -941,7 +941,7 @@ Fw::InputDpSendPort* QueuedTestTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* QueuedTestTesterBase ::
-  get_from_textEventOut(NATIVE_INT_TYPE portNum)
+  get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_textEventOut(),
@@ -954,7 +954,7 @@ Fw::InputLogTextPort* QueuedTestTesterBase ::
 #endif
 
 Fw::InputTimePort* QueuedTestTesterBase ::
-  get_from_timeGetOut(NATIVE_INT_TYPE portNum)
+  get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_timeGetOut(),
@@ -965,7 +965,7 @@ Fw::InputTimePort* QueuedTestTesterBase ::
 }
 
 Fw::InputTlmPort* QueuedTestTesterBase ::
-  get_from_tlmOut(NATIVE_INT_TYPE portNum)
+  get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_tlmOut(),
@@ -976,7 +976,7 @@ Fw::InputTlmPort* QueuedTestTesterBase ::
 }
 
 Ports::InputNoArgsPort* QueuedTestTesterBase ::
-  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsOut(),
@@ -987,7 +987,7 @@ Ports::InputNoArgsPort* QueuedTestTesterBase ::
 }
 
 Ports::InputNoArgsReturnPort* QueuedTestTesterBase ::
-  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsReturnOut(),
@@ -998,7 +998,7 @@ Ports::InputNoArgsReturnPort* QueuedTestTesterBase ::
 }
 
 Ports::InputTypedPort* QueuedTestTesterBase ::
-  get_from_typedOut(NATIVE_INT_TYPE portNum)
+  get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedOut(),
@@ -1009,7 +1009,7 @@ Ports::InputTypedPort* QueuedTestTesterBase ::
 }
 
 Ports::InputTypedReturnPort* QueuedTestTesterBase ::
-  get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedReturnOut(),
@@ -1117,7 +1117,7 @@ QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestTesterBase ::
-  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1128,7 +1128,7 @@ void QueuedTestTesterBase ::
 }
 
 U32 QueuedTestTesterBase ::
-  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1140,7 +1140,7 @@ U32 QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   from_typedOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1169,7 +1169,7 @@ void QueuedTestTesterBase ::
 
 F32 QueuedTestTesterBase ::
   from_typedReturnOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1201,7 +1201,7 @@ F32 QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedTestTesterBase ::
-  invoke_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsAsync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1212,7 +1212,7 @@ void QueuedTestTesterBase ::
 }
 
 void QueuedTestTesterBase ::
-  invoke_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1223,7 +1223,7 @@ void QueuedTestTesterBase ::
 }
 
 U32 QueuedTestTesterBase ::
-  invoke_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1234,7 +1234,7 @@ U32 QueuedTestTesterBase ::
 }
 
 U32 QueuedTestTesterBase ::
-  invoke_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1245,7 +1245,7 @@ U32 QueuedTestTesterBase ::
 }
 
 void QueuedTestTesterBase ::
-  invoke_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1257,7 +1257,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1285,7 +1285,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1313,7 +1313,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1341,7 +1341,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1369,7 +1369,7 @@ void QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1397,7 +1397,7 @@ void QueuedTestTesterBase ::
 
 F32 QueuedTestTesterBase ::
   invoke_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1425,7 +1425,7 @@ F32 QueuedTestTesterBase ::
 
 F32 QueuedTestTesterBase ::
   invoke_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1453,7 +1453,7 @@ F32 QueuedTestTesterBase ::
 
 void QueuedTestTesterBase ::
   invoke_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1666,7 +1666,7 @@ NATIVE_INT_TYPE QueuedTestTesterBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedTestTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_cmdIn(),
@@ -1677,7 +1677,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_productRecvIn(),
@@ -1688,7 +1688,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsAsync(),
@@ -1699,7 +1699,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsGuarded(),
@@ -1710,7 +1710,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnGuarded(),
@@ -1721,7 +1721,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnSync(),
@@ -1732,7 +1732,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsSync(),
@@ -1743,7 +1743,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsync(),
@@ -1754,7 +1754,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedAsyncAssert(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncAssert(),
@@ -1765,7 +1765,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedAsyncBlockPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncBlockPriority(),
@@ -1776,7 +1776,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedAsyncDropPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncDropPriority(),
@@ -1787,7 +1787,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedGuarded(),
@@ -1798,7 +1798,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnGuarded(),
@@ -1809,7 +1809,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnSync(),
@@ -1820,7 +1820,7 @@ bool QueuedTestTesterBase ::
 }
 
 bool QueuedTestTesterBase ::
-  isConnected_to_typedSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedSync(),
@@ -3744,7 +3744,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_cmdRegOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode
   )
 {
@@ -3754,7 +3754,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       const Fw::CmdResponse& response
@@ -3767,7 +3767,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_eventOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwEventIdType id,
       Fw::Time& timeTag,
       const Fw::LogSeverity& severity,
@@ -3781,7 +3781,7 @@ void QueuedTestTesterBase ::
 Fw::ParamValid QueuedTestTesterBase ::
   from_prmGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -3868,7 +3868,7 @@ Fw::ParamValid QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_prmSetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -3974,7 +3974,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_productRequestOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -3986,7 +3986,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_productSendOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -4000,7 +4000,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_textEventOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwEventIdType id,
       Fw::Time& timeTag,
       const Fw::LogSeverity& severity,
@@ -4016,7 +4016,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::Time& time
   )
 {
@@ -4027,7 +4027,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_tlmOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwChanIdType id,
       Fw::Time& timeTag,
       Fw::TlmBuffer& val
@@ -4040,7 +4040,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_noArgsOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -4051,7 +4051,7 @@ void QueuedTestTesterBase ::
 U32 QueuedTestTesterBase ::
   from_noArgsReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -4062,7 +4062,7 @@ U32 QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   from_typedOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -4089,7 +4089,7 @@ void QueuedTestTesterBase ::
 F32 QueuedTestTesterBase ::
   from_typedReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

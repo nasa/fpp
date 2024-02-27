@@ -184,7 +184,7 @@ case class ComponentDataProducts (
         s"${portName}_handler",
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const NATIVE_INT_TYPE"),
+            CppDoc.Type("const FwIndexType"),
             "portNum",
             Some("The port number")
           ),

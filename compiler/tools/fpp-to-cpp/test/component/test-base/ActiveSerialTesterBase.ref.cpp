@@ -21,8 +21,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdRegOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdRegOut());
     port++
   ) {
     this->m_from_cmdRegOut[port].init();
@@ -45,8 +45,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdResponseOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdResponseOut());
     port++
   ) {
     this->m_from_cmdResponseOut[port].init();
@@ -69,8 +69,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port eventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_eventOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_eventOut());
     port++
   ) {
     this->m_from_eventOut[port].init();
@@ -93,8 +93,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmGetOut());
     port++
   ) {
     this->m_from_prmGetOut[port].init();
@@ -117,8 +117,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmSetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmSetOut());
     port++
   ) {
     this->m_from_prmSetOut[port].init();
@@ -142,8 +142,8 @@ void ActiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect input port textEventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_textEventOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_textEventOut());
     port++
   ) {
     this->m_from_textEventOut[port].init();
@@ -167,8 +167,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_timeGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_timeGetOut());
     port++
   ) {
     this->m_from_timeGetOut[port].init();
@@ -191,8 +191,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port tlmOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_tlmOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_tlmOut());
     port++
   ) {
     this->m_from_tlmOut[port].init();
@@ -215,8 +215,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsOut());
     port++
   ) {
     this->m_from_noArgsOut[port].init();
@@ -239,8 +239,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsReturnOut());
     port++
   ) {
     this->m_from_noArgsReturnOut[port].init();
@@ -263,8 +263,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedOut());
     port++
   ) {
     this->m_from_typedOut[port].init();
@@ -287,8 +287,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedReturnOut());
     port++
   ) {
     this->m_from_typedReturnOut[port].init();
@@ -311,8 +311,8 @@ void ActiveSerialTesterBase ::
 
   // Connect input port serialOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_serialOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_serialOut());
     port++
   ) {
     this->m_from_serialOut[port].init();
@@ -335,8 +335,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_cmdIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_cmdIn());
     port++
   ) {
     this->m_to_cmdIn[port].init();
@@ -354,8 +354,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsAsync());
     port++
   ) {
     this->m_to_noArgsAsync[port].init();
@@ -373,8 +373,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsGuarded());
     port++
   ) {
     this->m_to_noArgsGuarded[port].init();
@@ -392,8 +392,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnGuarded());
     port++
   ) {
     this->m_to_noArgsReturnGuarded[port].init();
@@ -411,8 +411,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnSync());
     port++
   ) {
     this->m_to_noArgsReturnSync[port].init();
@@ -430,8 +430,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsSync());
     port++
   ) {
     this->m_to_noArgsSync[port].init();
@@ -449,8 +449,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsync());
     port++
   ) {
     this->m_to_typedAsync[port].init();
@@ -468,8 +468,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncAssert());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncAssert());
     port++
   ) {
     this->m_to_typedAsyncAssert[port].init();
@@ -487,8 +487,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncBlockPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncBlockPriority());
     port++
   ) {
     this->m_to_typedAsyncBlockPriority[port].init();
@@ -506,8 +506,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncDropPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncDropPriority());
     port++
   ) {
     this->m_to_typedAsyncDropPriority[port].init();
@@ -525,8 +525,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedGuarded());
     port++
   ) {
     this->m_to_typedGuarded[port].init();
@@ -544,8 +544,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnGuarded());
     port++
   ) {
     this->m_to_typedReturnGuarded[port].init();
@@ -563,8 +563,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnSync());
     port++
   ) {
     this->m_to_typedReturnSync[port].init();
@@ -582,8 +582,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedSync());
     port++
   ) {
     this->m_to_typedSync[port].init();
@@ -601,8 +601,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialAsync());
     port++
   ) {
     this->m_to_serialAsync[port].init();
@@ -620,8 +620,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialAsyncAssert());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialAsyncAssert());
     port++
   ) {
     this->m_to_serialAsyncAssert[port].init();
@@ -639,8 +639,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialAsyncBlockPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialAsyncBlockPriority());
     port++
   ) {
     this->m_to_serialAsyncBlockPriority[port].init();
@@ -658,8 +658,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialAsyncDropPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialAsyncDropPriority());
     port++
   ) {
     this->m_to_serialAsyncDropPriority[port].init();
@@ -677,8 +677,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialGuarded());
     port++
   ) {
     this->m_to_serialGuarded[port].init();
@@ -696,8 +696,8 @@ void ActiveSerialTesterBase ::
 
   // Connect output port serialSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_serialSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_serialSync());
     port++
   ) {
     this->m_to_serialSync[port].init();
@@ -720,7 +720,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_cmdIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdPort* port
   )
 {
@@ -734,7 +734,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_noArgsAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -748,7 +748,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_noArgsGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -762,7 +762,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_noArgsReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -776,7 +776,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_noArgsReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -790,7 +790,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_noArgsSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -804,7 +804,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -818,7 +818,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -832,7 +832,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -846,7 +846,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -860,7 +860,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -874,7 +874,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -888,7 +888,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -902,7 +902,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -916,7 +916,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -930,7 +930,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -944,7 +944,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -958,7 +958,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -972,7 +972,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -986,7 +986,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   connect_to_serialSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1003,7 +1003,7 @@ void ActiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdRegPort* ActiveSerialTesterBase ::
-  get_from_cmdRegOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdRegOut(),
@@ -1014,7 +1014,7 @@ Fw::InputCmdRegPort* ActiveSerialTesterBase ::
 }
 
 Fw::InputCmdResponsePort* ActiveSerialTesterBase ::
-  get_from_cmdResponseOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdResponseOut(),
@@ -1025,7 +1025,7 @@ Fw::InputCmdResponsePort* ActiveSerialTesterBase ::
 }
 
 Fw::InputLogPort* ActiveSerialTesterBase ::
-  get_from_eventOut(NATIVE_INT_TYPE portNum)
+  get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_eventOut(),
@@ -1036,7 +1036,7 @@ Fw::InputLogPort* ActiveSerialTesterBase ::
 }
 
 Fw::InputPrmGetPort* ActiveSerialTesterBase ::
-  get_from_prmGetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmGetOut(),
@@ -1047,7 +1047,7 @@ Fw::InputPrmGetPort* ActiveSerialTesterBase ::
 }
 
 Fw::InputPrmSetPort* ActiveSerialTesterBase ::
-  get_from_prmSetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmSetOut(),
@@ -1060,7 +1060,7 @@ Fw::InputPrmSetPort* ActiveSerialTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* ActiveSerialTesterBase ::
-  get_from_textEventOut(NATIVE_INT_TYPE portNum)
+  get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_textEventOut(),
@@ -1073,7 +1073,7 @@ Fw::InputLogTextPort* ActiveSerialTesterBase ::
 #endif
 
 Fw::InputTimePort* ActiveSerialTesterBase ::
-  get_from_timeGetOut(NATIVE_INT_TYPE portNum)
+  get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_timeGetOut(),
@@ -1084,7 +1084,7 @@ Fw::InputTimePort* ActiveSerialTesterBase ::
 }
 
 Fw::InputTlmPort* ActiveSerialTesterBase ::
-  get_from_tlmOut(NATIVE_INT_TYPE portNum)
+  get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_tlmOut(),
@@ -1095,7 +1095,7 @@ Fw::InputTlmPort* ActiveSerialTesterBase ::
 }
 
 Ports::InputNoArgsPort* ActiveSerialTesterBase ::
-  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsOut(),
@@ -1106,7 +1106,7 @@ Ports::InputNoArgsPort* ActiveSerialTesterBase ::
 }
 
 Ports::InputNoArgsReturnPort* ActiveSerialTesterBase ::
-  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsReturnOut(),
@@ -1117,7 +1117,7 @@ Ports::InputNoArgsReturnPort* ActiveSerialTesterBase ::
 }
 
 Ports::InputTypedPort* ActiveSerialTesterBase ::
-  get_from_typedOut(NATIVE_INT_TYPE portNum)
+  get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedOut(),
@@ -1128,7 +1128,7 @@ Ports::InputTypedPort* ActiveSerialTesterBase ::
 }
 
 Ports::InputTypedReturnPort* ActiveSerialTesterBase ::
-  get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedReturnOut(),
@@ -1139,7 +1139,7 @@ Ports::InputTypedReturnPort* ActiveSerialTesterBase ::
 }
 
 Fw::InputSerializePort* ActiveSerialTesterBase ::
-  get_from_serialOut(NATIVE_INT_TYPE portNum)
+  get_from_serialOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_serialOut(),
@@ -1239,7 +1239,7 @@ ActiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void ActiveSerialTesterBase ::
-  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1250,7 +1250,7 @@ void ActiveSerialTesterBase ::
 }
 
 U32 ActiveSerialTesterBase ::
-  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1262,7 +1262,7 @@ U32 ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   from_typedOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1291,7 +1291,7 @@ void ActiveSerialTesterBase ::
 
 F32 ActiveSerialTesterBase ::
   from_typedReturnOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1320,7 +1320,7 @@ F32 ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   from_serialOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1340,7 +1340,7 @@ void ActiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 void ActiveSerialTesterBase ::
-  invoke_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsAsync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1351,7 +1351,7 @@ void ActiveSerialTesterBase ::
 }
 
 void ActiveSerialTesterBase ::
-  invoke_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1362,7 +1362,7 @@ void ActiveSerialTesterBase ::
 }
 
 U32 ActiveSerialTesterBase ::
-  invoke_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1373,7 +1373,7 @@ U32 ActiveSerialTesterBase ::
 }
 
 U32 ActiveSerialTesterBase ::
-  invoke_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1384,7 +1384,7 @@ U32 ActiveSerialTesterBase ::
 }
 
 void ActiveSerialTesterBase ::
-  invoke_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1396,7 +1396,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1424,7 +1424,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1452,7 +1452,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1480,7 +1480,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1508,7 +1508,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1536,7 +1536,7 @@ void ActiveSerialTesterBase ::
 
 F32 ActiveSerialTesterBase ::
   invoke_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1564,7 +1564,7 @@ F32 ActiveSerialTesterBase ::
 
 F32 ActiveSerialTesterBase ::
   invoke_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1592,7 +1592,7 @@ F32 ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1620,7 +1620,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1636,7 +1636,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1652,7 +1652,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1668,7 +1668,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1684,7 +1684,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1700,7 +1700,7 @@ void ActiveSerialTesterBase ::
 
 void ActiveSerialTesterBase ::
   invoke_to_serialSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -1925,7 +1925,7 @@ NATIVE_INT_TYPE ActiveSerialTesterBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_cmdIn(),
@@ -1936,7 +1936,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsAsync(),
@@ -1947,7 +1947,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsGuarded(),
@@ -1958,7 +1958,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnGuarded(),
@@ -1969,7 +1969,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnSync(),
@@ -1980,7 +1980,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsSync(),
@@ -1991,7 +1991,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsync(),
@@ -2002,7 +2002,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncAssert(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncAssert(),
@@ -2013,7 +2013,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncBlockPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncBlockPriority(),
@@ -2024,7 +2024,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedAsyncDropPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncDropPriority(),
@@ -2035,7 +2035,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedGuarded(),
@@ -2046,7 +2046,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnGuarded(),
@@ -2057,7 +2057,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnSync(),
@@ -2068,7 +2068,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_typedSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedSync(),
@@ -2079,7 +2079,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialAsync(),
@@ -2090,7 +2090,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncAssert(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialAsyncAssert(),
@@ -2101,7 +2101,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncBlockPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialAsyncBlockPriority(),
@@ -2112,7 +2112,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialAsyncDropPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialAsyncDropPriority(),
@@ -2123,7 +2123,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialGuarded(),
@@ -2134,7 +2134,7 @@ bool ActiveSerialTesterBase ::
 }
 
 bool ActiveSerialTesterBase ::
-  isConnected_to_serialSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_serialSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_serialSync(),
@@ -4002,7 +4002,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_cmdRegOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode
   )
 {
@@ -4012,7 +4012,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       const Fw::CmdResponse& response
@@ -4025,7 +4025,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_eventOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwEventIdType id,
       Fw::Time& timeTag,
       const Fw::LogSeverity& severity,
@@ -4039,7 +4039,7 @@ void ActiveSerialTesterBase ::
 Fw::ParamValid ActiveSerialTesterBase ::
   from_prmGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -4126,7 +4126,7 @@ Fw::ParamValid ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_prmSetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -4234,7 +4234,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_textEventOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwEventIdType id,
       Fw::Time& timeTag,
       const Fw::LogSeverity& severity,
@@ -4250,7 +4250,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::Time& time
   )
 {
@@ -4261,7 +4261,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_tlmOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwChanIdType id,
       Fw::Time& timeTag,
       Fw::TlmBuffer& val
@@ -4274,7 +4274,7 @@ void ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_noArgsOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -4285,7 +4285,7 @@ void ActiveSerialTesterBase ::
 U32 ActiveSerialTesterBase ::
   from_noArgsReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -4296,7 +4296,7 @@ U32 ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_typedOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -4323,7 +4323,7 @@ void ActiveSerialTesterBase ::
 F32 ActiveSerialTesterBase ::
   from_typedReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -4350,7 +4350,7 @@ F32 ActiveSerialTesterBase ::
 void ActiveSerialTesterBase ::
   from_serialOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {

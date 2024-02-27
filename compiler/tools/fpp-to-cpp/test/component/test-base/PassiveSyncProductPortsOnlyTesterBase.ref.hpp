@@ -39,7 +39,7 @@ class PassiveSyncProductPortsOnlyTesterBase :
 
     //! Connect port to productRecvIn[portNum]
     void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpResponsePort* port //!< The input port
     );
 
@@ -53,14 +53,14 @@ class PassiveSyncProductPortsOnlyTesterBase :
     //!
     //! \return from_productRequestOut[portNum]
     Fw::InputDpRequestPort* get_from_productRequestOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productSendOut[portNum]
     Fw::InputDpSendPort* get_from_productSendOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -109,7 +109,7 @@ class PassiveSyncProductPortsOnlyTesterBase :
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   private:

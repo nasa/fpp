@@ -194,7 +194,7 @@ case class ComponentTestImplWriter(
             p => p.getArraySize match {
               case 1 => writeConnection(p, "0")
               case size => wrapInForLoop(
-                "NATIVE_UINT_TYPE i = 0",
+                "FwIndexType i = 0",
                 s"i < $size",
                 "i++",
                 writeConnection(p, "i")

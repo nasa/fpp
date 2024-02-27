@@ -83,10 +83,10 @@ namespace M {
           SERIALIZATION_SIZE =
             sizeof(BuffUnion) +
             sizeof(NATIVE_INT_TYPE) +
-            sizeof(NATIVE_INT_TYPE)
+            sizeof(FwIndexType)
         };
 
-        NATIVE_UINT_TYPE getBuffCapacity() const {
+        FwSizeType getBuffCapacity() const {
           return sizeof(m_buff);
         }
 
@@ -275,8 +275,8 @@ namespace M {
 
     // Connect input port cmdIn
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
       port++
     ) {
       this->m_cmdIn_InputPort[port].init();
@@ -299,8 +299,8 @@ namespace M {
 
     // Connect input port productRecvIn
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
       port++
     ) {
       this->m_productRecvIn_InputPort[port].init();
@@ -323,8 +323,8 @@ namespace M {
 
     // Connect input port noArgsAsync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
       port++
     ) {
       this->m_noArgsAsync_InputPort[port].init();
@@ -347,8 +347,8 @@ namespace M {
 
     // Connect input port noArgsGuarded
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
       port++
     ) {
       this->m_noArgsGuarded_InputPort[port].init();
@@ -371,8 +371,8 @@ namespace M {
 
     // Connect input port noArgsReturnGuarded
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
       port++
     ) {
       this->m_noArgsReturnGuarded_InputPort[port].init();
@@ -395,8 +395,8 @@ namespace M {
 
     // Connect input port noArgsReturnSync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
       port++
     ) {
       this->m_noArgsReturnSync_InputPort[port].init();
@@ -419,8 +419,8 @@ namespace M {
 
     // Connect input port noArgsSync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts());
       port++
     ) {
       this->m_noArgsSync_InputPort[port].init();
@@ -443,8 +443,8 @@ namespace M {
 
     // Connect input port typedAsync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedAsync_InputPorts());
       port++
     ) {
       this->m_typedAsync_InputPort[port].init();
@@ -467,8 +467,8 @@ namespace M {
 
     // Connect input port typedAsyncAssert
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedAsyncAssert_InputPorts());
       port++
     ) {
       this->m_typedAsyncAssert_InputPort[port].init();
@@ -491,8 +491,8 @@ namespace M {
 
     // Connect input port typedAsyncBlockPriority
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedAsyncBlockPriority_InputPorts());
       port++
     ) {
       this->m_typedAsyncBlockPriority_InputPort[port].init();
@@ -515,8 +515,8 @@ namespace M {
 
     // Connect input port typedAsyncDropPriority
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedAsyncDropPriority_InputPorts());
       port++
     ) {
       this->m_typedAsyncDropPriority_InputPort[port].init();
@@ -539,8 +539,8 @@ namespace M {
 
     // Connect input port typedGuarded
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts());
       port++
     ) {
       this->m_typedGuarded_InputPort[port].init();
@@ -563,8 +563,8 @@ namespace M {
 
     // Connect input port typedReturnGuarded
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts());
       port++
     ) {
       this->m_typedReturnGuarded_InputPort[port].init();
@@ -587,8 +587,8 @@ namespace M {
 
     // Connect input port typedReturnSync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts());
       port++
     ) {
       this->m_typedReturnSync_InputPort[port].init();
@@ -611,8 +611,8 @@ namespace M {
 
     // Connect input port typedSync
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts());
       port++
     ) {
       this->m_typedSync_InputPort[port].init();
@@ -635,8 +635,8 @@ namespace M {
 
     // Connect output port cmdRegOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
       port++
     ) {
       this->m_cmdRegOut_OutputPort[port].init();
@@ -654,8 +654,8 @@ namespace M {
 
     // Connect output port cmdResponseOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
       port++
     ) {
       this->m_cmdResponseOut_OutputPort[port].init();
@@ -673,8 +673,8 @@ namespace M {
 
     // Connect output port eventOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
       port++
     ) {
       this->m_eventOut_OutputPort[port].init();
@@ -692,8 +692,8 @@ namespace M {
 
     // Connect output port prmGetOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
       port++
     ) {
       this->m_prmGetOut_OutputPort[port].init();
@@ -711,8 +711,8 @@ namespace M {
 
     // Connect output port prmSetOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
       port++
     ) {
       this->m_prmSetOut_OutputPort[port].init();
@@ -730,8 +730,8 @@ namespace M {
 
     // Connect output port productRequestOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
       port++
     ) {
       this->m_productRequestOut_OutputPort[port].init();
@@ -749,8 +749,8 @@ namespace M {
 
     // Connect output port productSendOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
       port++
     ) {
       this->m_productSendOut_OutputPort[port].init();
@@ -769,8 +769,8 @@ namespace M {
 #if FW_ENABLE_TEXT_LOGGING == 1
     // Connect output port textEventOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
       port++
     ) {
       this->m_textEventOut_OutputPort[port].init();
@@ -789,8 +789,8 @@ namespace M {
 
     // Connect output port timeGetOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
       port++
     ) {
       this->m_timeGetOut_OutputPort[port].init();
@@ -808,8 +808,8 @@ namespace M {
 
     // Connect output port tlmOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
       port++
     ) {
       this->m_tlmOut_OutputPort[port].init();
@@ -827,8 +827,8 @@ namespace M {
 
     // Connect output port noArgsOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
       port++
     ) {
       this->m_noArgsOut_OutputPort[port].init();
@@ -846,8 +846,8 @@ namespace M {
 
     // Connect output port noArgsReturnOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
       port++
     ) {
       this->m_noArgsReturnOut_OutputPort[port].init();
@@ -865,8 +865,8 @@ namespace M {
 
     // Connect output port typedOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts());
       port++
     ) {
       this->m_typedOut_OutputPort[port].init();
@@ -884,8 +884,8 @@ namespace M {
 
     // Connect output port typedReturnOut
     for (
-      PlatformIntType port = 0;
-      port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts());
       port++
     ) {
       this->m_typedReturnOut_OutputPort[port].init();
@@ -916,7 +916,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Fw::InputCmdPort* ActiveTestComponentBase ::
-    get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
+    get_cmdIn_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_cmdIn_InputPorts(),
@@ -927,7 +927,7 @@ namespace M {
   }
 
   Fw::InputDpResponsePort* ActiveTestComponentBase ::
-    get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+    get_productRecvIn_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_productRecvIn_InputPorts(),
@@ -942,7 +942,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   Ports::InputNoArgsPort* ActiveTestComponentBase ::
-    get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
+    get_noArgsAsync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsAsync_InputPorts(),
@@ -953,7 +953,7 @@ namespace M {
   }
 
   Ports::InputNoArgsPort* ActiveTestComponentBase ::
-    get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+    get_noArgsGuarded_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsGuarded_InputPorts(),
@@ -964,7 +964,7 @@ namespace M {
   }
 
   Ports::InputNoArgsReturnPort* ActiveTestComponentBase ::
-    get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+    get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
@@ -975,7 +975,7 @@ namespace M {
   }
 
   Ports::InputNoArgsReturnPort* ActiveTestComponentBase ::
-    get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+    get_noArgsReturnSync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsReturnSync_InputPorts(),
@@ -986,7 +986,7 @@ namespace M {
   }
 
   Ports::InputNoArgsPort* ActiveTestComponentBase ::
-    get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+    get_noArgsSync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsSync_InputPorts(),
@@ -997,7 +997,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedAsync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedAsync_InputPorts(),
@@ -1008,7 +1008,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedAsyncAssert_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedAsyncAssert_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedAsyncAssert_InputPorts(),
@@ -1019,7 +1019,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedAsyncBlockPriority_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedAsyncBlockPriority_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedAsyncBlockPriority_InputPorts(),
@@ -1030,7 +1030,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedAsyncDropPriority_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedAsyncDropPriority_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedAsyncDropPriority_InputPorts(),
@@ -1041,7 +1041,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedGuarded_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedGuarded_InputPorts(),
@@ -1052,7 +1052,7 @@ namespace M {
   }
 
   Ports::InputTypedReturnPort* ActiveTestComponentBase ::
-    get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedReturnGuarded_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedReturnGuarded_InputPorts(),
@@ -1063,7 +1063,7 @@ namespace M {
   }
 
   Ports::InputTypedReturnPort* ActiveTestComponentBase ::
-    get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedReturnSync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedReturnSync_InputPorts(),
@@ -1074,7 +1074,7 @@ namespace M {
   }
 
   Ports::InputTypedPort* ActiveTestComponentBase ::
-    get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+    get_typedSync_InputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedSync_InputPorts(),
@@ -1090,7 +1090,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_cmdRegOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputCmdRegPort* port
     )
   {
@@ -1104,7 +1104,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_cmdResponseOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputCmdResponsePort* port
     )
   {
@@ -1118,7 +1118,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_eventOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputLogPort* port
     )
   {
@@ -1132,7 +1132,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_prmGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputPrmGetPort* port
     )
   {
@@ -1146,7 +1146,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_prmSetOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputPrmSetPort* port
     )
   {
@@ -1160,7 +1160,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_productRequestOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputDpRequestPort* port
     )
   {
@@ -1174,7 +1174,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputDpSendPort* port
     )
   {
@@ -1190,7 +1190,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_textEventOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputLogTextPort* port
     )
   {
@@ -1206,7 +1206,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_timeGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputTimePort* port
     )
   {
@@ -1220,7 +1220,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_tlmOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputTlmPort* port
     )
   {
@@ -1238,7 +1238,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Ports::InputNoArgsPort* port
     )
   {
@@ -1252,7 +1252,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_noArgsReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Ports::InputNoArgsReturnPort* port
     )
   {
@@ -1266,7 +1266,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Ports::InputTypedPort* port
     )
   {
@@ -1280,7 +1280,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Ports::InputTypedReturnPort* port
     )
   {
@@ -1300,7 +1300,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_cmdRegOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1314,7 +1314,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_cmdResponseOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1328,7 +1328,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_eventOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1342,7 +1342,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_prmSetOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1356,7 +1356,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_productRequestOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1370,7 +1370,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1386,7 +1386,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_textEventOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1402,7 +1402,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_timeGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1416,7 +1416,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_tlmOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1438,7 +1438,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1452,7 +1452,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         Fw::InputSerializePort* port
     )
   {
@@ -1999,7 +1999,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   bool ActiveTestComponentBase ::
-    isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_cmdRegOut_OutputPorts(),
@@ -2010,7 +2010,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_cmdResponseOut_OutputPorts(),
@@ -2021,7 +2021,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_eventOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_eventOut_OutputPorts(),
@@ -2032,7 +2032,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_prmGetOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_prmGetOut_OutputPorts(),
@@ -2043,7 +2043,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_prmSetOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_prmSetOut_OutputPorts(),
@@ -2054,7 +2054,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_productRequestOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_productRequestOut_OutputPorts(),
@@ -2065,7 +2065,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_productSendOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_productSendOut_OutputPorts(),
@@ -2078,7 +2078,7 @@ namespace M {
 #if FW_ENABLE_TEXT_LOGGING == 1
 
   bool ActiveTestComponentBase ::
-    isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_textEventOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_textEventOut_OutputPorts(),
@@ -2091,7 +2091,7 @@ namespace M {
 #endif
 
   bool ActiveTestComponentBase ::
-    isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_timeGetOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_timeGetOut_OutputPorts(),
@@ -2102,7 +2102,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_tlmOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_tlmOut_OutputPorts(),
@@ -2117,7 +2117,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   bool ActiveTestComponentBase ::
-    isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_noArgsOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -2128,7 +2128,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -2139,7 +2139,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_typedOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedOut_OutputPorts(),
@@ -2150,7 +2150,7 @@ namespace M {
   }
 
   bool ActiveTestComponentBase ::
-    isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+    isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_typedReturnOut_OutputPorts(),
@@ -2168,7 +2168,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     productRecvIn_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwDpIdType id,
         const Fw::Buffer& buffer,
         const Fw::Success& status
@@ -2244,7 +2244,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
-    noArgsAsync_handlerBase(NATIVE_INT_TYPE portNum)
+    noArgsAsync_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
     FW_ASSERT(
@@ -2284,7 +2284,7 @@ namespace M {
   }
 
   void ActiveTestComponentBase ::
-    noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+    noArgsGuarded_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
     FW_ASSERT(
@@ -2303,7 +2303,7 @@ namespace M {
   }
 
   U32 ActiveTestComponentBase ::
-    noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+    noArgsReturnGuarded_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
     FW_ASSERT(
@@ -2326,7 +2326,7 @@ namespace M {
   }
 
   U32 ActiveTestComponentBase ::
-    noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+    noArgsReturnSync_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
     FW_ASSERT(
@@ -2343,7 +2343,7 @@ namespace M {
   }
 
   void ActiveTestComponentBase ::
-    noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+    noArgsSync_handlerBase(FwIndexType portNum)
   {
     // Make sure port number is valid
     FW_ASSERT(
@@ -2357,7 +2357,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsync_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2464,7 +2464,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncAssert_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2571,7 +2571,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncBlockPriority_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2678,7 +2678,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncDropPriority_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2790,7 +2790,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2827,7 +2827,7 @@ namespace M {
 
   F32 ActiveTestComponentBase ::
     typedReturnGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2868,7 +2868,7 @@ namespace M {
 
   F32 ActiveTestComponentBase ::
     typedReturnSync_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2903,7 +2903,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedSync_handlerBase(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2942,7 +2942,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     productRecvIn_preMsgHook(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwDpIdType id,
         const Fw::Buffer& buffer,
         const Fw::Success& status
@@ -2960,14 +2960,14 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
-    noArgsAsync_preMsgHook(NATIVE_INT_TYPE portNum)
+    noArgsAsync_preMsgHook(FwIndexType portNum)
   {
     // Default: no-op
   }
 
   void ActiveTestComponentBase ::
     typedAsync_preMsgHook(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2982,7 +2982,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncAssert_preMsgHook(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -2997,7 +2997,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncBlockPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -3012,7 +3012,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedAsyncDropPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -3031,7 +3031,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     productRequestOut_out(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwDpIdType id,
         FwSizeType dataSize
     )
@@ -3048,7 +3048,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     productSendOut_out(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwDpIdType id,
         const Fw::Buffer& buffer
     )
@@ -3068,7 +3068,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTestComponentBase ::
-    noArgsOut_out(NATIVE_INT_TYPE portNum)
+    noArgsOut_out(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -3078,7 +3078,7 @@ namespace M {
   }
 
   U32 ActiveTestComponentBase ::
-    noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+    noArgsReturnOut_out(FwIndexType portNum)
   {
     FW_ASSERT(
       portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -3089,7 +3089,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     typedOut_out(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -3116,7 +3116,7 @@ namespace M {
 
   F32 ActiveTestComponentBase ::
     typedReturnOut_out(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -3159,7 +3159,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -3195,7 +3195,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -3235,7 +3235,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -3283,7 +3283,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -3321,7 +3321,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -3363,7 +3363,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+    _status = msg.serialize(static_cast<FwIndexType>(0));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -4062,7 +4062,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    NATIVE_INT_TYPE port = 0;
+    FwIndexType port = 0;
 
     _status = msg.serialize(port);
     FW_ASSERT (
@@ -4121,7 +4121,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    NATIVE_INT_TYPE port = 0;
+    FwIndexType port = 0;
 
     _status = msg.serialize(port);
     FW_ASSERT (
@@ -4180,7 +4180,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    NATIVE_INT_TYPE port = 0;
+    FwIndexType port = 0;
 
     _status = msg.serialize(port);
     FW_ASSERT (
@@ -4239,7 +4239,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    NATIVE_INT_TYPE port = 0;
+    FwIndexType port = 0;
 
     _status = msg.serialize(port);
     FW_ASSERT (
@@ -4303,7 +4303,7 @@ namespace M {
     );
 
     // Fake port number to make message dequeue work
-    NATIVE_INT_TYPE port = 0;
+    FwIndexType port = 0;
 
     _status = msg.serialize(port);
     FW_ASSERT (
@@ -5686,7 +5686,7 @@ namespace M {
       return MSG_DISPATCH_EXIT;
     }
 
-    NATIVE_INT_TYPE portNum = 0;
+    FwIndexType portNum = 0;
     deserStatus = msg.deserialize(portNum);
     FW_ASSERT(
       deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6486,7 +6486,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_cmdIn_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwOpcodeType opCode,
         U32 cmdSeq,
         Fw::CmdArgBuffer& args
@@ -6778,7 +6778,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_productRecvIn_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         FwDpIdType id,
         const Fw::Buffer& buffer,
         const Fw::Success& status
@@ -6801,7 +6801,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_noArgsAsync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum
+        FwIndexType portNum
     )
   {
     FW_ASSERT(callComp);
@@ -6812,7 +6812,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_noArgsGuarded_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum
+        FwIndexType portNum
     )
   {
     FW_ASSERT(callComp);
@@ -6823,7 +6823,7 @@ namespace M {
   U32 ActiveTestComponentBase ::
     m_p_noArgsReturnGuarded_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum
+        FwIndexType portNum
     )
   {
     FW_ASSERT(callComp);
@@ -6834,7 +6834,7 @@ namespace M {
   U32 ActiveTestComponentBase ::
     m_p_noArgsReturnSync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum
+        FwIndexType portNum
     )
   {
     FW_ASSERT(callComp);
@@ -6845,7 +6845,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_noArgsSync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum
+        FwIndexType portNum
     )
   {
     FW_ASSERT(callComp);
@@ -6856,7 +6856,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedAsync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -6883,7 +6883,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedAsyncAssert_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -6910,7 +6910,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedAsyncBlockPriority_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -6937,7 +6937,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedAsyncDropPriority_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -6964,7 +6964,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedGuarded_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -6991,7 +6991,7 @@ namespace M {
   F32 ActiveTestComponentBase ::
     m_p_typedReturnGuarded_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -7018,7 +7018,7 @@ namespace M {
   F32 ActiveTestComponentBase ::
     m_p_typedReturnSync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -7045,7 +7045,7 @@ namespace M {
   void ActiveTestComponentBase ::
     m_p_typedSync_in(
         Fw::PassiveComponentBase* callComp,
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -7388,7 +7388,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     productRecvIn_handler(
-        const NATIVE_INT_TYPE portNum,
+        const FwIndexType portNum,
         FwDpIdType id,
         const Fw::Buffer& buffer,
         const Fw::Success& status

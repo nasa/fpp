@@ -41,14 +41,14 @@ class PassiveGetProductPortsOnlyTesterBase :
     //!
     //! \return from_productGetOut[portNum]
     Fw::InputDpGetPort* get_from_productGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productSendOut[portNum]
     Fw::InputDpSendPort* get_from_productSendOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:

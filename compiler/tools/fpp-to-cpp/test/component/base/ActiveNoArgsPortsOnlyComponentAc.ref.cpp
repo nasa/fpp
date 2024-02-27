@@ -30,10 +30,10 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
+          sizeof(FwIndexType)
       };
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      FwSizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -67,8 +67,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect input port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
     port++
   ) {
     this->m_noArgsAsync_InputPort[port].init();
@@ -91,8 +91,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect input port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsGuarded_InputPort[port].init();
@@ -115,8 +115,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect input port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsReturnGuarded_InputPort[port].init();
@@ -139,8 +139,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect input port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
     port++
   ) {
     this->m_noArgsReturnSync_InputPort[port].init();
@@ -163,8 +163,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect output port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
     port++
   ) {
     this->m_noArgsOut_OutputPort[port].init();
@@ -182,8 +182,8 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
   // Connect output port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
     port++
   ) {
     this->m_noArgsReturnOut_OutputPort[port].init();
@@ -214,7 +214,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 Ports::InputNoArgsPort* ActiveNoArgsPortsOnlyComponentBase ::
-  get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsAsync_InputPorts(),
@@ -225,7 +225,7 @@ Ports::InputNoArgsPort* ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 Ports::InputNoArgsPort* ActiveNoArgsPortsOnlyComponentBase ::
-  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsGuarded_InputPorts(),
@@ -236,7 +236,7 @@ Ports::InputNoArgsPort* ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
-  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
@@ -247,7 +247,7 @@ Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
-  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnSync_InputPorts(),
@@ -263,7 +263,7 @@ Ports::InputNoArgsReturnPort* ActiveNoArgsPortsOnlyComponentBase ::
 
 void ActiveNoArgsPortsOnlyComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -277,7 +277,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
 void ActiveNoArgsPortsOnlyComponentBase ::
   set_noArgsReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -297,7 +297,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 
 void ActiveNoArgsPortsOnlyComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -377,7 +377,7 @@ NATIVE_INT_TYPE ActiveNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -388,7 +388,7 @@ bool ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 bool ActiveNoArgsPortsOnlyComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -405,7 +405,7 @@ bool ActiveNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsAsync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -445,7 +445,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 void ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -464,7 +464,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 U32 ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -487,7 +487,7 @@ U32 ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 U32 ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -512,7 +512,7 @@ U32 ActiveNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsAsync_preMsgHook(NATIVE_INT_TYPE portNum)
+  noArgsAsync_preMsgHook(FwIndexType portNum)
 {
   // Default: no-op
 }
@@ -522,7 +522,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsOut_out(NATIVE_INT_TYPE portNum)
+  noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -532,7 +532,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 }
 
 U32 ActiveNoArgsPortsOnlyComponentBase ::
-  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+  noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -596,7 +596,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveNoArgsPortsOnlyComponentBase ::
     return MSG_DISPATCH_EXIT;
   }
 
-  NATIVE_INT_TYPE portNum = 0;
+  FwIndexType portNum = 0;
   deserStatus = msg.deserialize(portNum);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -626,7 +626,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveNoArgsPortsOnlyComponentBase ::
 void ActiveNoArgsPortsOnlyComponentBase ::
   m_p_noArgsAsync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -637,7 +637,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 void ActiveNoArgsPortsOnlyComponentBase ::
   m_p_noArgsGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -648,7 +648,7 @@ void ActiveNoArgsPortsOnlyComponentBase ::
 U32 ActiveNoArgsPortsOnlyComponentBase ::
   m_p_noArgsReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -659,7 +659,7 @@ U32 ActiveNoArgsPortsOnlyComponentBase ::
 U32 ActiveNoArgsPortsOnlyComponentBase ::
   m_p_noArgsReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);

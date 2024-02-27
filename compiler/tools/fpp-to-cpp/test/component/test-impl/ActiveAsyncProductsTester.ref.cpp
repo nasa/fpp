@@ -40,20 +40,20 @@ void ActiveAsyncProductsTester ::
 // ----------------------------------------------------------------------
 
 void ActiveAsyncProductsTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveAsyncProductsTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void ActiveAsyncProductsTester ::
   from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -68,7 +68,7 @@ void ActiveAsyncProductsTester ::
 
 F32 ActiveAsyncProductsTester ::
   from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

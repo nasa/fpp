@@ -31,38 +31,38 @@ namespace M {
   // ----------------------------------------------------------------------
 
   void ActiveTest ::
-    noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+    noArgsAsync_handler(FwIndexType portNum)
   {
     // TODO
   }
 
   void ActiveTest ::
-    noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+    noArgsGuarded_handler(FwIndexType portNum)
   {
     // TODO
   }
 
   U32 ActiveTest ::
-    noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+    noArgsReturnGuarded_handler(FwIndexType portNum)
   {
     // TODO return
   }
 
   U32 ActiveTest ::
-    noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+    noArgsReturnSync_handler(FwIndexType portNum)
   {
     // TODO return
   }
 
   void ActiveTest ::
-    noArgsSync_handler(NATIVE_INT_TYPE portNum)
+    noArgsSync_handler(FwIndexType portNum)
   {
     // TODO
   }
 
   void ActiveTest ::
     typedAsync_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -77,7 +77,7 @@ namespace M {
 
   void ActiveTest ::
     typedAsyncAssert_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -92,7 +92,7 @@ namespace M {
 
   void ActiveTest ::
     typedAsyncBlockPriority_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -107,7 +107,7 @@ namespace M {
 
   void ActiveTest ::
     typedAsyncDropPriority_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -122,7 +122,7 @@ namespace M {
 
   void ActiveTest ::
     typedGuarded_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -137,7 +137,7 @@ namespace M {
 
   F32 ActiveTest ::
     typedReturnGuarded_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -152,7 +152,7 @@ namespace M {
 
   F32 ActiveTest ::
     typedReturnSync_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,
@@ -167,7 +167,7 @@ namespace M {
 
   void ActiveTest ::
     typedSync_handler(
-        NATIVE_INT_TYPE portNum,
+        FwIndexType portNum,
         U32 u32,
         F32 f32,
         bool b,

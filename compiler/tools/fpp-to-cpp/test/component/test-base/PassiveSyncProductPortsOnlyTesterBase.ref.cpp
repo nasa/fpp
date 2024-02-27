@@ -26,7 +26,7 @@ void PassiveSyncProductPortsOnlyTesterBase ::
 
 void PassiveSyncProductPortsOnlyTesterBase ::
   connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpResponsePort* port
   )
 {
@@ -43,7 +43,7 @@ void PassiveSyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpRequestPort* PassiveSyncProductPortsOnlyTesterBase ::
-  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+  get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productRequestOut(),
@@ -54,7 +54,7 @@ Fw::InputDpRequestPort* PassiveSyncProductPortsOnlyTesterBase ::
 }
 
 Fw::InputDpSendPort* PassiveSyncProductPortsOnlyTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -111,7 +111,7 @@ NATIVE_INT_TYPE PassiveSyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveSyncProductPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_productRecvIn(),

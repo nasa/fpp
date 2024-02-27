@@ -24,8 +24,8 @@ void PassiveGetProductPortsOnlyComponentBase ::
 
   // Connect output port productGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productGetOut_OutputPorts());
     port++
   ) {
     this->m_productGetOut_OutputPort[port].init();
@@ -43,8 +43,8 @@ void PassiveGetProductPortsOnlyComponentBase ::
 
   // Connect output port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
     port++
   ) {
     this->m_productSendOut_OutputPort[port].init();
@@ -67,7 +67,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
 
 void PassiveGetProductPortsOnlyComponentBase ::
   set_productGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpGetPort* port
   )
 {
@@ -81,7 +81,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
 
 void PassiveGetProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpSendPort* port
   )
 {
@@ -101,7 +101,7 @@ void PassiveGetProductPortsOnlyComponentBase ::
 
 void PassiveGetProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -153,7 +153,7 @@ NATIVE_INT_TYPE PassiveGetProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveGetProductPortsOnlyComponentBase ::
-  isConnected_productGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productGetOut_OutputPorts(),
@@ -164,7 +164,7 @@ bool PassiveGetProductPortsOnlyComponentBase ::
 }
 
 bool PassiveGetProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
@@ -180,7 +180,7 @@ bool PassiveGetProductPortsOnlyComponentBase ::
 
 Fw::Success PassiveGetProductPortsOnlyComponentBase ::
   productGetOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize,
       Fw::Buffer& buffer
@@ -199,7 +199,7 @@ Fw::Success PassiveGetProductPortsOnlyComponentBase ::
 
 void PassiveGetProductPortsOnlyComponentBase ::
   productSendOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )

@@ -29,32 +29,32 @@ PassiveSerial ::
 // ----------------------------------------------------------------------
 
 void PassiveSerial ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 PassiveSerial ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 PassiveSerial ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void PassiveSerial ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void PassiveSerial ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -69,7 +69,7 @@ void PassiveSerial ::
 
 F32 PassiveSerial ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -84,7 +84,7 @@ F32 PassiveSerial ::
 
 F32 PassiveSerial ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -99,7 +99,7 @@ F32 PassiveSerial ::
 
 void PassiveSerial ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -118,7 +118,7 @@ void PassiveSerial ::
 
 void PassiveSerial ::
   serialGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -127,7 +127,7 @@ void PassiveSerial ::
 
 void PassiveSerial ::
   serialSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {

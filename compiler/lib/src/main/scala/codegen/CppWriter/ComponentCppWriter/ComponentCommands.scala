@@ -170,7 +170,7 @@ case class ComponentCommands (
                       |);
                       |
                       |// Fake port number to make message dequeue work
-                      |NATIVE_INT_TYPE port = 0;
+                      |FwIndexType port = 0;
                       |"""
                 ),
                 intersperseBlankLines(

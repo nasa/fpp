@@ -63,7 +63,7 @@ case class ComponentInternalPort (
                     |);
                     |
                     |// Fake port number to make message dequeue work
-                    |_status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+                    |_status = msg.serialize(static_cast<FwIndexType>(0));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)

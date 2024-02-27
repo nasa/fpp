@@ -40,20 +40,20 @@ void QueuedSyncProductsTester ::
 // ----------------------------------------------------------------------
 
 void QueuedSyncProductsTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 QueuedSyncProductsTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void QueuedSyncProductsTester ::
   from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -68,7 +68,7 @@ void QueuedSyncProductsTester ::
 
 F32 QueuedSyncProductsTester ::
   from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

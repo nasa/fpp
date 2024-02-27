@@ -58,12 +58,12 @@ class ActiveNoArgsPortsOnlyTester :
 
     //! Handler implementation for noArgsOut
     void from_noArgsOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnOut
     U32 from_noArgsReturnOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   private:

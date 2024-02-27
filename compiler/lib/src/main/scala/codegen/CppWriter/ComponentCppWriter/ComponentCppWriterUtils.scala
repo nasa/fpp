@@ -34,7 +34,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Port number param as a CppDoc Function Param */
   val portNumParam: CppDoc.Function.Param = CppDoc.Function.Param(
-    CppDoc.Type("NATIVE_INT_TYPE"),
+    CppDoc.Type("FwIndexType"),
     "portNum",
     Some("The port number")
   )

@@ -40,20 +40,20 @@ void ActiveEventsTester ::
 // ----------------------------------------------------------------------
 
 void ActiveEventsTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveEventsTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void ActiveEventsTester ::
   from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -68,7 +68,7 @@ void ActiveEventsTester ::
 
 F32 ActiveEventsTester ::
   from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

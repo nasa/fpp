@@ -358,10 +358,10 @@ case class ComponentCppWriter (
           |      SERIALIZATION_SIZE =${if (buffUnion.nonEmpty) """
           |        sizeof(BuffUnion) +""" else "" }
           |        sizeof(NATIVE_INT_TYPE) +
-          |        sizeof(NATIVE_INT_TYPE)
+          |        sizeof(FwIndexType)
           |    };
           |
-          |    NATIVE_UINT_TYPE getBuffCapacity() const {
+          |    FwSizeType getBuffCapacity() const {
           |      return sizeof(m_buff);
           |    }
           |
@@ -413,7 +413,7 @@ case class ComponentCppWriter (
                  |// NATIVE_INT_TYPE cast because of compiler warning.
                  |this->m_msgSize = FW_MAX(
                  |  msgSize +
-                 |  static_cast<NATIVE_INT_TYPE>(sizeof(NATIVE_INT_TYPE)) +
+                 |  static_cast<NATIVE_INT_TYPE>(sizeof(FwIndexType)) +
                  |  static_cast<NATIVE_INT_TYPE>(sizeof(I32)),
                  |  static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
@@ -796,7 +796,7 @@ case class ComponentCppWriter (
               ),
               lines(
                 """|
-                   |NATIVE_INT_TYPE portNum = 0;
+                   |FwIndexType portNum = 0;
                    |deserStatus = msg.deserialize(portNum);
                    |FW_ASSERT(
                    |  deserStatus == Fw::FW_SERIALIZE_OK,
@@ -947,8 +947,8 @@ object ComponentCppWriter extends CppWriterUtils {
 
     val body = line(s"// Connect ${d.toString} port ${port.getUnqualifiedName}") ::
       wrapInForLoopStaggered(
-        "PlatformIntType port = 0",
-        s"port < static_cast<PlatformIntType>(this->${numGetterName(port)}())",
+        "FwIndexType port = 0",
+        s"port < static_cast<FwIndexType>(this->${numGetterName(port)}())",
         "port++",
         List(
           lines(

@@ -37,10 +37,10 @@ namespace {
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
           sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
+          sizeof(FwIndexType)
       };
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      FwSizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -74,8 +74,8 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
   // Connect input port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
     port++
   ) {
     this->m_productRecvIn_InputPort[port].init();
@@ -98,8 +98,8 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
   // Connect output port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
     port++
   ) {
     this->m_productRequestOut_OutputPort[port].init();
@@ -117,8 +117,8 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
   // Connect output port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
     port++
   ) {
     this->m_productSendOut_OutputPort[port].init();
@@ -149,7 +149,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::
-  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRecvIn_InputPorts(),
@@ -165,7 +165,7 @@ Fw::InputDpResponsePort* ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpRequestPort* port
   )
 {
@@ -179,7 +179,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpSendPort* port
   )
 {
@@ -199,7 +199,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -213,7 +213,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -275,7 +275,7 @@ NATIVE_INT_TYPE ActiveAsyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveAsyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRequestOut_OutputPorts(),
@@ -286,7 +286,7 @@ bool ActiveAsyncProductPortsOnlyComponentBase ::
 }
 
 bool ActiveAsyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
@@ -304,7 +304,7 @@ bool ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   productRecvIn_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -383,7 +383,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   productRecvIn_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -398,7 +398,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   productRequestOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -415,7 +415,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   productSendOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -466,7 +466,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyComponentB
     return MSG_DISPATCH_EXIT;
   }
 
-  NATIVE_INT_TYPE portNum = 0;
+  FwIndexType portNum = 0;
   deserStatus = msg.deserialize(portNum);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -524,7 +524,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyComponentB
 void ActiveAsyncProductPortsOnlyComponentBase ::
   m_p_productRecvIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -546,7 +546,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
 void ActiveAsyncProductPortsOnlyComponentBase ::
   productRecvIn_handler(
-      const NATIVE_INT_TYPE portNum,
+      const FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
