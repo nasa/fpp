@@ -196,15 +196,15 @@ case class TopHelperFns(
           val name = getNameAsIdent(ci.qualifiedName)
           val priority = ci.priority match {
             case Some(_) => s"static_cast<Os::Task::ParamType>(Priorities::$name),"
-            case None => "Os::Task::DEFAULT_PARAM, // Default priority"
+            case None => "Os::Task::TASK_DEFAULT, // Default priority"
           }
           val stackSize = ci.stackSize match {
             case Some(_) => s"static_cast<Os::Task::ParamType>(StackSizes::$name),"
-            case None => "Os::Task::DEFAULT_PARAM, // Default stack size"
+            case None => "Os::Task::TASK_DEFAULT, // Default stack size"
           }
           val cpu = ci.cpu match {
             case Some(_) => s"static_cast<Os::Task::ParamType>(CPUs::$name),"
-            case None => "Os::Task::DEFAULT_PARAM, // Default CPU"
+            case None => "Os::Task::TASK_DEFAULT, // Default CPU"
           }
           wrapInScope(
             s"$name.start(",

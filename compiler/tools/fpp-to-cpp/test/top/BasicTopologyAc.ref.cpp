@@ -96,9 +96,9 @@ namespace M {
     );
     active2.startSpecial();
     active3.start(
-      Os::Task::DEFAULT_PARAM, // Default priority
-      Os::Task::DEFAULT_PARAM, // Default stack size
-      Os::Task::DEFAULT_PARAM, // Default CPU
+      Os::Task::TASK_DEFAULT, // Default priority
+      Os::Task::TASK_DEFAULT, // Default stack size
+      Os::Task::TASK_DEFAULT, // Default CPU
       static_cast<Os::Task::ParamType>(TaskIds::active3)
     );
   }
