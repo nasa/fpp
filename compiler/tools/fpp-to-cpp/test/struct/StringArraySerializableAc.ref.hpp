@@ -59,7 +59,7 @@ class StringArray :
         //! Retrieves char buffer of string
         const char* toChar() const;
 
-        NATIVE_UINT_TYPE getCapacity() const;
+        Fw::StringBase::SizeType getCapacity() const;
 
       private:
 
@@ -109,7 +109,7 @@ class StringArray :
         //! Retrieves char buffer of string
         const char* toChar() const;
 
-        NATIVE_UINT_TYPE getCapacity() const;
+        Fw::StringBase::SizeType getCapacity() const;
 
       private:
 

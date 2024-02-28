@@ -215,12 +215,6 @@ object CppWriterState {
     "FwTimeBaseStoreType" -> zero,
     "FwTimeContextStoreType" -> zero,
     "FwTlmPacketizeIdType" -> zero,
-    // For compatibility with the current F Prime code.
-    // Eventually we should remove these machine-dependent types
-    // from the FPP model and from the FPP-facing interface
-    // in F Prime.
-    "NATIVE_INT_TYPE" -> zero,
-    "NATIVE_UINT_TYPE" -> zero,
     "POINTER_CAST" -> zero,
   )
 

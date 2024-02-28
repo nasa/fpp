@@ -85,7 +85,7 @@ namespace Ports {
       return this->m_buf;
     }
 
-    NATIVE_UINT_TYPE StringSize80 ::
+    Fw::StringBase::SizeType StringSize80 ::
       getCapacity() const
     {
       return sizeof(this->m_buf);
