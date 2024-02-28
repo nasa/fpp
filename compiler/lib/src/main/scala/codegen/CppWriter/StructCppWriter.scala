@@ -691,7 +691,7 @@ case class StructCppWriter(
   // Writes a for loop that iterates n times
   private def iterateN(n: Int, ll: List[Line]) =
     wrapInForLoop(
-      "NATIVE_UINT_TYPE i = 0",
+      "FwSizeType i = 0",
       s"i < $n",
       "i++",
       ll

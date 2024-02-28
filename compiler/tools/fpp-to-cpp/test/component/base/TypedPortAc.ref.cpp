@@ -103,7 +103,7 @@ namespace Ports {
 
       public:
 
-        NATIVE_UINT_TYPE getBuffCapacity() const {
+        FwSizeType getBuffCapacity() const {
           return InputTypedPort::SERIALIZED_SIZE;
         }
 

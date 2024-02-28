@@ -249,32 +249,32 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    NATIVE_INT_TYPE getNum_to_noArgsAsync() const;
+    FwIndexType getNum_to_noArgsAsync() const;
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
+    FwIndexType getNum_to_noArgsGuarded() const;
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
+    FwIndexType getNum_to_noArgsReturnGuarded() const;
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
+    FwIndexType getNum_to_noArgsReturnSync() const;
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+    FwIndexType getNum_from_noArgsOut() const;
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+    FwIndexType getNum_from_noArgsReturnOut() const;
 
   protected:
 

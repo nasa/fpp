@@ -178,7 +178,7 @@ StringArray ::
     Serializable(),
     m_s1("")
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = "";
   }
 }
@@ -191,7 +191,7 @@ StringArray ::
     Serializable(),
     m_s1(s1)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];
   }
 }
@@ -201,7 +201,7 @@ StringArray ::
     Serializable(),
     m_s1(obj.m_s1)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = obj.m_s2[i];
   }
 }
@@ -214,7 +214,7 @@ StringArray ::
     Serializable(),
     m_s1(s1)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2;
   }
 }
@@ -244,7 +244,7 @@ bool StringArray ::
 
   // Compare array members
   if (!(this->m_s2 == obj.m_s2)) {
-    for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+    for (FwSizeType i = 0; i < 16; i++) {
       if (!(this->m_s2[i] == obj.m_s2[i])) {
         return false;
       }
@@ -284,7 +284,7 @@ Fw::SerializeStatus StringArray ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     status = buffer.serialize(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -303,7 +303,7 @@ Fw::SerializeStatus StringArray ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     status = buffer.deserialize(this->m_s2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -381,7 +381,7 @@ void StringArray ::
 {
   this->m_s1 = s1;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];
   }
 }
@@ -395,7 +395,7 @@ void StringArray ::
 void StringArray ::
   sets2(const Type_of_s2& s2)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 16; i++) {
+  for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];
   }
 }

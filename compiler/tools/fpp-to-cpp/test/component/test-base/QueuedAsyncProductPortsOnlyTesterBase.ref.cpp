@@ -88,22 +88,22 @@ QueuedAsyncProductPortsOnlyTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_to_productRecvIn() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
 }
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_from_productRequestOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
 }
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
 }
 
 // ----------------------------------------------------------------------

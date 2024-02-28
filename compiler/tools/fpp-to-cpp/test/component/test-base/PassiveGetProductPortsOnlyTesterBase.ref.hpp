@@ -75,12 +75,12 @@ class PassiveGetProductPortsOnlyTesterBase :
     //! Get the number of from_productGetOut ports
     //!
     //! \return The number of from_productGetOut ports
-    NATIVE_INT_TYPE getNum_from_productGetOut() const;
+    FwIndexType getNum_from_productGetOut() const;
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+    FwIndexType getNum_from_productSendOut() const;
 
   private:
 

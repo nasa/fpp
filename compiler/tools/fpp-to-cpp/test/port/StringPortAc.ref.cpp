@@ -180,7 +180,7 @@ namespace {
 
     public:
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      FwSizeType getBuffCapacity() const {
         return InputStringPort::SERIALIZED_SIZE;
       }
 

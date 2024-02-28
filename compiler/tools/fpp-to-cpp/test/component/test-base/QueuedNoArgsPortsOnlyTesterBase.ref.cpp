@@ -331,40 +331,40 @@ U32 QueuedNoArgsPortsOnlyTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsAsync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyTesterBase ::
+FwIndexType QueuedNoArgsPortsOnlyTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
 }
 
 // ----------------------------------------------------------------------

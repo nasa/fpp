@@ -119,9 +119,9 @@ case class ComponentPorts(
         ),
         numGetterName(p),
         Nil,
-        CppDoc.Type("NATIVE_INT_TYPE"),
+        CppDoc.Type("FwIndexType"),
         lines(
-          s"return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->${variableName(p)}));"
+          s"return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->${variableName(p)}));"
         ),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const

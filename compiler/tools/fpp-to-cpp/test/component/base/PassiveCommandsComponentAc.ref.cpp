@@ -981,146 +981,146 @@ PassiveCommandsComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_cmdIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_cmdRegOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_cmdResponseOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_eventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_prmGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_textEventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
 
 #endif
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_timeGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_tlmOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveCommandsComponentBase ::
+FwIndexType PassiveCommandsComponentBase ::
   getNum_typedReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------

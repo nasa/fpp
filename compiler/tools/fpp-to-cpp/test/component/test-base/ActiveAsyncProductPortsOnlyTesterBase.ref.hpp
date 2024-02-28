@@ -87,17 +87,17 @@ class ActiveAsyncProductPortsOnlyTesterBase :
     //! Get the number of to_productRecvIn ports
     //!
     //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
+    FwIndexType getNum_to_productRecvIn() const;
 
     //! Get the number of from_productRequestOut ports
     //!
     //! \return The number of from_productRequestOut ports
-    NATIVE_INT_TYPE getNum_from_productRequestOut() const;
+    FwIndexType getNum_from_productRequestOut() const;
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+    FwIndexType getNum_from_productSendOut() const;
 
   protected:
 

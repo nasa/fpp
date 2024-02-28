@@ -213,7 +213,7 @@ case class PortCppWriter (
       List(
         CppDocHppWriter.writeAccessTag("public"),
         Line.blank :: lines(
-          s"""|NATIVE_UINT_TYPE getBuffCapacity() const {
+          s"""|FwSizeType getBuffCapacity() const {
               |  return ${PortCppWriter.inputPortName(name)}::SERIALIZED_SIZE;
               |}
               |
@@ -271,9 +271,9 @@ case class PortCppWriter (
     val compFuncParams = 
       line("Fw::PassiveComponentBase* callComp,") ::
         (if params.isEmpty then
-          lines("NATIVE_INT_TYPE portNum")
+          lines("FwIndexType portNum")
         else
-          line("NATIVE_INT_TYPE portNum,") ::
+          line("FwIndexType portNum,") ::
             lines(params.map(p => {
               s"${formalParamsCppWriter.getFormalParamType(p._2.data, None, List(strNamespace)).hppType} ${p._2.data.name}"
             }).mkString(",\n")))

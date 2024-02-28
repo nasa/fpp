@@ -29,7 +29,7 @@ namespace {
       enum {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
-          sizeof(NATIVE_INT_TYPE) +
+          sizeof(FwMsgIdType) +
           sizeof(FwIndexType)
       };
 
@@ -332,44 +332,44 @@ QueuedNoArgsPortsOnlyComponentBase ::
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsAsync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedNoArgsPortsOnlyComponentBase ::
+FwIndexType QueuedNoArgsPortsOnlyComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -420,7 +420,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
+    static_cast<FwMsgIdType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -588,7 +588,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  NATIVE_INT_TYPE desMsg = 0;
+  FwMsgIdType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,

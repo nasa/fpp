@@ -19,10 +19,10 @@ Modules4 ::
   Modules4() :
     Serializable()
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
@@ -34,10 +34,10 @@ Modules4 ::
   ) :
     Serializable()
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1[i];
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2[i];
   }
 }
@@ -46,10 +46,10 @@ Modules4 ::
   Modules4(const Modules4& obj) :
     Serializable()
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = obj.m_arr1[i];
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = obj.m_arr2[i];
   }
 }
@@ -61,10 +61,10 @@ Modules4 ::
   ) :
     Serializable()
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1;
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2;
   }
 }
@@ -91,14 +91,14 @@ bool Modules4 ::
 
   // Compare array members
   if (!(this->m_arr1 == obj.m_arr1)) {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       if (!(this->m_arr1[i] == obj.m_arr1[i])) {
         return false;
       }
     }
   }
   if (!(this->m_arr2 == obj.m_arr2)) {
-    for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+    for (FwSizeType i = 0; i < 6; i++) {
       if (!(this->m_arr2[i] == obj.m_arr2[i])) {
         return false;
       }
@@ -134,13 +134,13 @@ Fw::SerializeStatus Modules4 ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.serialize(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     status = buffer.serialize(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -155,13 +155,13 @@ Fw::SerializeStatus Modules4 ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.deserialize(this->m_arr1[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
     }
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     status = buffer.deserialize(this->m_arr2[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -194,10 +194,10 @@ void Modules4 ::
   Fw::String arr2Str[6];
 
   // Call toString for arrays and serializable types
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i].toString(arr1Str[i]);
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i].toString(arr2Str[i]);
   }
 
@@ -234,10 +234,10 @@ void Modules4 ::
   )
 {
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1[i];
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2[i];
   }
 }
@@ -245,7 +245,7 @@ void Modules4 ::
 void Modules4 ::
   setarr1(const Type_of_arr1& arr1)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr1[i] = arr1[i];
   }
 }
@@ -253,7 +253,7 @@ void Modules4 ::
 void Modules4 ::
   setarr2(const Type_of_arr2& arr2)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 6; i++) {
+  for (FwSizeType i = 0; i < 6; i++) {
     this->m_arr2[i] = arr2[i];
   }
 }

@@ -160,7 +160,7 @@ class InputStringPort :
     //! The port callback function type
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       const StringPortStrings::StringSize80& str80,
       StringPortStrings::StringSize80& str80Ref,
       const StringPortStrings::StringSize100& str100,

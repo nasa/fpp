@@ -36,7 +36,7 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
+          sizeof(FwMsgIdType) +
           sizeof(FwIndexType)
       };
 
@@ -248,26 +248,26 @@ ActiveAsyncProductPortsOnlyComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveAsyncProductPortsOnlyComponentBase ::
+FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveAsyncProductPortsOnlyComponentBase ::
+FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveAsyncProductPortsOnlyComponentBase ::
+FwIndexType ActiveAsyncProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -328,7 +328,7 @@ void ActiveAsyncProductPortsOnlyComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(PRODUCTRECVIN_DPRESPONSE)
+    static_cast<FwMsgIdType>(PRODUCTRECVIN_DPRESPONSE)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -453,7 +453,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveAsyncProductPortsOnlyComponentB
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  NATIVE_INT_TYPE desMsg = 0;
+  FwMsgIdType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,

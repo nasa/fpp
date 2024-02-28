@@ -109,12 +109,12 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! Get the number of productGetOut output ports
     //!
     //! \return The number of productGetOut output ports
-    NATIVE_INT_TYPE getNum_productGetOut_OutputPorts() const;
+    FwIndexType getNum_productGetOut_OutputPorts() const;
 
     //! Get the number of productSendOut output ports
     //!
     //! \return The number of productSendOut output ports
-    NATIVE_INT_TYPE getNum_productSendOut_OutputPorts() const;
+    FwIndexType getNum_productSendOut_OutputPorts() const;
 
   PROTECTED:
 

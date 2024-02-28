@@ -136,16 +136,16 @@ PassiveGetProductPortsOnlyComponentBase ::
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyComponentBase ::
+FwIndexType PassiveGetProductPortsOnlyComponentBase ::
   getNum_productGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyComponentBase ::
+FwIndexType PassiveGetProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------

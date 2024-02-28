@@ -357,7 +357,7 @@ case class ComponentCppWriter (
           |      // Max. message size = size of data + message id + port
           |      SERIALIZATION_SIZE =${if (buffUnion.nonEmpty) """
           |        sizeof(BuffUnion) +""" else "" }
-          |        sizeof(NATIVE_INT_TYPE) +
+          |        sizeof(FwMsgIdType) +
           |        sizeof(FwIndexType)
           |    };
           |
@@ -414,7 +414,7 @@ case class ComponentCppWriter (
                  |this->m_msgSize = FW_MAX(
                  |  msgSize +
                  |  static_cast<NATIVE_INT_TYPE>(sizeof(FwIndexType)) +
-                 |  static_cast<NATIVE_INT_TYPE>(sizeof(I32)),
+                 |  static_cast<NATIVE_INT_TYPE>(sizeof(FwMsgIdType)),
                  |  static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |
@@ -780,7 +780,7 @@ case class ComponentCppWriter (
                    |// Reset to beginning of buffer
                    |msg.resetDeser();
                    |
-                   |NATIVE_INT_TYPE desMsg = 0;
+                   |FwMsgIdType desMsg = 0;
                    |Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
                    |FW_ASSERT(
                    |  deserStatus == Fw::FW_SERIALIZE_OK,

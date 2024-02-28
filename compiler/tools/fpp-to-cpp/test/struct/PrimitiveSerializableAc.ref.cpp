@@ -109,7 +109,7 @@ Primitive ::
     m_m_bool(false),
     m_m_string("")
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = 0.0f;
   }
 }
@@ -142,7 +142,7 @@ Primitive ::
     m_m_bool(m_bool),
     m_m_string(m_string)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
   }
 }
@@ -162,7 +162,7 @@ Primitive ::
     m_m_bool(obj.m_m_bool),
     m_m_string(obj.m_m_string)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = obj.m_mF32[i];
   }
 }
@@ -195,7 +195,7 @@ Primitive ::
     m_m_bool(m_bool),
     m_m_string(m_string)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32;
   }
 }
@@ -237,7 +237,7 @@ bool Primitive ::
 
   // Compare array members
   if (!(this->m_mF32 == obj.m_mF32)) {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       if (!(this->m_mF32[i] == obj.m_mF32[i])) {
         return false;
       }
@@ -273,7 +273,7 @@ Fw::SerializeStatus Primitive ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.serialize(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -332,7 +332,7 @@ Fw::SerializeStatus Primitive ::
 {
   Fw::SerializeStatus status;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.deserialize(this->m_mF32[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -468,7 +468,7 @@ void Primitive ::
   this->m_m_bool = m_bool;
   this->m_m_string = m_string;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
   }
 }
@@ -476,7 +476,7 @@ void Primitive ::
 void Primitive ::
   setmF32(const Type_of_mF32& mF32)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
   }
 }

@@ -70,14 +70,14 @@ PassiveGetProductPortsOnlyTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyTesterBase ::
+FwIndexType PassiveGetProductPortsOnlyTesterBase ::
   getNum_from_productGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
 }
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyTesterBase ::
+FwIndexType PassiveGetProductPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
 }

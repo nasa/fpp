@@ -134,7 +134,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Get the number of productRecvIn input ports
     //!
     //! \return The number of productRecvIn input ports
-    NATIVE_INT_TYPE getNum_productRecvIn_InputPorts() const;
+    FwIndexType getNum_productRecvIn_InputPorts() const;
 
   PROTECTED:
 
@@ -145,12 +145,12 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Get the number of productRequestOut output ports
     //!
     //! \return The number of productRequestOut output ports
-    NATIVE_INT_TYPE getNum_productRequestOut_OutputPorts() const;
+    FwIndexType getNum_productRequestOut_OutputPorts() const;
 
     //! Get the number of productSendOut output ports
     //!
     //! \return The number of productSendOut output ports
-    NATIVE_INT_TYPE getNum_productSendOut_OutputPorts() const;
+    FwIndexType getNum_productSendOut_OutputPorts() const;
 
   PROTECTED:
 

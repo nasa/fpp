@@ -80,7 +80,7 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
+          sizeof(FwMsgIdType) +
           sizeof(FwIndexType)
       };
 
@@ -1802,194 +1802,194 @@ QueuedTestComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_cmdIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsAsync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedAsync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedAsyncAssert_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedAsyncBlockPriority_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedAsyncDropPriority_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_cmdRegOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_cmdResponseOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_eventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_prmGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_textEventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
 
 #endif
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_timeGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_tlmOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedTestComponentBase ::
+FwIndexType QueuedTestComponentBase ::
   getNum_typedReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -2190,7 +2190,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(PRODUCTRECVIN_DPRESPONSE)
+    static_cast<FwMsgIdType>(PRODUCTRECVIN_DPRESPONSE)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2257,7 +2257,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
+    static_cast<FwMsgIdType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2387,7 +2387,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNC_TYPED)
+    static_cast<FwMsgIdType>(TYPEDASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2494,7 +2494,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCASSERT_TYPED)
+    static_cast<FwMsgIdType>(TYPEDASYNCASSERT_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2601,7 +2601,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCBLOCKPRIORITY_TYPED)
+    static_cast<FwMsgIdType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2708,7 +2708,7 @@ void QueuedTestComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCDROPPRIORITY_TYPED)
+    static_cast<FwMsgIdType>(TYPEDASYNCDROPPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -3150,7 +3150,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALARRAY));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALARRAY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3186,7 +3186,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALENUM));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALENUM));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3226,7 +3226,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALPRIMITIVE));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALPRIMITIVE));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3274,7 +3274,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALPRIORITYDROP));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALPRIORITYDROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3312,7 +3312,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALSTRING));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALSTRING));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3354,7 +3354,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(INT_IF_INTERNALSTRUCT));
+  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALSTRUCT));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4053,7 +4053,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(CMD_CMD_ASYNC));
+  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_ASYNC));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4112,7 +4112,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(CMD_CMD_PRIORITY));
+  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PRIORITY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4171,7 +4171,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(CMD_CMD_PARAMS_PRIORITY));
+  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PARAMS_PRIORITY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4230,7 +4230,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(CMD_CMD_DROP));
+  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_DROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4294,7 +4294,7 @@ void QueuedTestComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<NATIVE_INT_TYPE>(CMD_CMD_PARAMS_PRIORITY_DROP));
+  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PARAMS_PRIORITY_DROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -5676,7 +5676,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedTestComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  NATIVE_INT_TYPE desMsg = 0;
+  FwMsgIdType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
