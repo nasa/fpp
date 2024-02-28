@@ -143,7 +143,7 @@ class QueuedParamsTesterBase :
 
     //! Initialize object QueuedParamsTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:
@@ -830,13 +830,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamU32
     void paramSend_ParamU32(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamU32
     void paramSave_ParamU32(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -848,13 +848,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamF64
     void paramSend_ParamF64(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamF64
     void paramSave_ParamF64(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -866,13 +866,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamString
     void paramSend_ParamString(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamString
     void paramSave_ParamString(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -884,13 +884,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamEnum
     void paramSend_ParamEnum(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamEnum
     void paramSave_ParamEnum(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -902,13 +902,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamArray
     void paramSend_ParamArray(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamArray
     void paramSave_ParamArray(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -920,13 +920,13 @@ class QueuedParamsTesterBase :
 
     //! Send parameter ParamStruct
     void paramSend_ParamStruct(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamStruct
     void paramSave_ParamStruct(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwInstanceIdType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 

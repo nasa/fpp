@@ -207,8 +207,8 @@ class ActiveGetProductsComponentBase :
 
     //! Initialize ActiveGetProductsComponentBase object
     void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwQueueSizeType queueDepth, //!< The queue depth
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:

@@ -149,7 +149,7 @@ class QueuedGetProductsTesterBase :
 
     //! Initialize object QueuedGetProductsTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:

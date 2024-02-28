@@ -264,7 +264,7 @@ namespace M {
 
       //! Initialize object ActiveTestTesterBase
       virtual void init(
-          NATIVE_INT_TYPE instance = 0 //!< The instance number
+          FwInstanceIdType instance = 0 //!< The instance number
       );
 
     public:
@@ -981,13 +981,13 @@ namespace M {
 
       //! Send a CMD_SYNC command
       void sendCmd_CMD_SYNC(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Send a CMD_SYNC_PRIMITIVE command
       void sendCmd_CMD_SYNC_PRIMITIVE(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           U32 u32, //!< A U32
           F32 f32, //!< An F32
@@ -996,7 +996,7 @@ namespace M {
 
       //! Send a CMD_SYNC_STRING command
       void sendCmd_CMD_SYNC_STRING(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           const Fw::CmdStringArg& str1, //!< A string
           const Fw::CmdStringArg& str2 //!< Another string
@@ -1004,34 +1004,34 @@ namespace M {
 
       //! Send a CMD_SYNC_ENUM command
       void sendCmd_CMD_SYNC_ENUM(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           E e //!< An enum
       );
 
       //! Send a CMD_SYNC_ARRAY command
       void sendCmd_CMD_SYNC_ARRAY(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           A a //!< An array
       );
 
       //! Send a CMD_SYNC_STRUCT command
       void sendCmd_CMD_SYNC_STRUCT(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           S s //!< A struct
       );
 
       //! Send a CMD_GUARDED command
       void sendCmd_CMD_GUARDED(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Send a CMD_GUARDED_PRIMITIVE command
       void sendCmd_CMD_GUARDED_PRIMITIVE(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           U32 u32, //!< A U32
           F32 f32, //!< An F32
@@ -1040,7 +1040,7 @@ namespace M {
 
       //! Send a CMD_GUARDED_STRING command
       void sendCmd_CMD_GUARDED_STRING(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           const Fw::CmdStringArg& str1, //!< A string
           const Fw::CmdStringArg& str2 //!< Another string
@@ -1048,53 +1048,53 @@ namespace M {
 
       //! Send a CMD_GUARDED_ENUM command
       void sendCmd_CMD_GUARDED_ENUM(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           E e //!< An enum
       );
 
       //! Send a CMD_GUARDED_ARRAY command
       void sendCmd_CMD_GUARDED_ARRAY(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           A a //!< An array
       );
 
       //! Send a CMD_GUARDED_STRUCT command
       void sendCmd_CMD_GUARDED_STRUCT(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           S s //!< A struct
       );
 
       //! Send a CMD_ASYNC command
       void sendCmd_CMD_ASYNC(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Send a CMD_PRIORITY command
       void sendCmd_CMD_PRIORITY(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Send a CMD_PARAMS_PRIORITY command
       void sendCmd_CMD_PARAMS_PRIORITY(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           U32 u32
       );
 
       //! Send a CMD_DROP command
       void sendCmd_CMD_DROP(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Send a CMD_PARAMS_PRIORITY_DROP command
       void sendCmd_CMD_PARAMS_PRIORITY_DROP(
-          const NATIVE_INT_TYPE instance, //!< The instance number
+          const FwInstanceIdType instance, //!< The instance number
           U32 cmdSeq, //!< The command sequence number
           U32 u32
       );
@@ -1252,13 +1252,13 @@ namespace M {
 
       //! Send parameter ParamU32
       void paramSend_ParamU32(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamU32
       void paramSave_ParamU32(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
@@ -1270,13 +1270,13 @@ namespace M {
 
       //! Send parameter ParamF64
       void paramSend_ParamF64(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamF64
       void paramSave_ParamF64(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
@@ -1288,13 +1288,13 @@ namespace M {
 
       //! Send parameter ParamString
       void paramSend_ParamString(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamString
       void paramSave_ParamString(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
@@ -1306,13 +1306,13 @@ namespace M {
 
       //! Send parameter ParamEnum
       void paramSend_ParamEnum(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamEnum
       void paramSave_ParamEnum(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
@@ -1324,13 +1324,13 @@ namespace M {
 
       //! Send parameter ParamArray
       void paramSend_ParamArray(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamArray
       void paramSave_ParamArray(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
@@ -1342,13 +1342,13 @@ namespace M {
 
       //! Send parameter ParamStruct
       void paramSend_ParamStruct(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 
       //! Save parameter ParamStruct
       void paramSave_ParamStruct(
-          NATIVE_INT_TYPE instance, //!< The component instance
+          FwInstanceIdType instance, //!< The component instance
           U32 cmdSeq //!< The command sequence number
       );
 

@@ -85,17 +85,17 @@ case class ComponentTestImplWriter(
           List.concat(
             Line.blank :: lines(
               s"""|// Maximum size of histories storing events, telemetry, and port outputs
-                  |static const NATIVE_INT_TYPE $historySizeConstantName = 10;
+                  |static const FwSizeType $historySizeConstantName = 10;
                   |
                   |// Instance ID supplied to the component instance under test
-                  |static const NATIVE_INT_TYPE $idConstantName = 0;
+                  |static const FwInstanceIdType $idConstantName = 0;
                   |"""
             ),
             guardedList (data.kind != Ast.ComponentKind.Passive) (
               lines(
                 s"""|
                     |// Queue depth supplied to the component instance under test
-                    |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
+                    |static const FwQueueSizeType $queueDepthConstantName = 10;
                     |"""
               )
             )

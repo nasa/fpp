@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveCommandsTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwInstanceIdType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -1181,7 +1181,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -1206,7 +1206,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_PRIMITIVE(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1254,7 +1254,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_STRING(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1295,7 +1295,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_ENUM(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       E e
   )
@@ -1329,7 +1329,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_ARRAY(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       A a
   )
@@ -1363,7 +1363,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_STRUCT(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       S s
   )
@@ -1397,7 +1397,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -1422,7 +1422,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_PRIMITIVE(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1470,7 +1470,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1511,7 +1511,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_ENUM(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       E e
   )
@@ -1545,7 +1545,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_ARRAY(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       A a
   )
@@ -1579,7 +1579,7 @@ void PassiveCommandsTesterBase ::
 
 void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_STRUCT(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       S s
   )

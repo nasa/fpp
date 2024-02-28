@@ -294,8 +294,8 @@ class QueuedTestComponentBase :
 
     //! Initialize QueuedTestComponentBase object
     void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwQueueSizeType queueDepth, //!< The queue depth
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:
@@ -2543,13 +2543,13 @@ class QueuedTestComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    NATIVE_UINT_TYPE m_EventActivityLowThrottledThrottle;
+    FwEventCounterType m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    NATIVE_UINT_TYPE m_EventFatalThrottledThrottle;
+    FwEventCounterType m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    NATIVE_UINT_TYPE m_EventWarningLowThrottledThrottle;
+    FwEventCounterType m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

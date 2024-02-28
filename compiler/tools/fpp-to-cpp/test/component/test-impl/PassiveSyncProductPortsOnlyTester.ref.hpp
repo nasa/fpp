@@ -21,10 +21,10 @@ class PassiveSyncProductPortsOnlyTester :
     // ----------------------------------------------------------------------
 
     // Maximum size of histories storing events, telemetry, and port outputs
-    static const NATIVE_INT_TYPE MAX_HISTORY_SIZE = 10;
+    static const FwSizeType MAX_HISTORY_SIZE = 10;
 
     // Instance ID supplied to the component instance under test
-    static const NATIVE_INT_TYPE TEST_INSTANCE_ID = 0;
+    static const FwInstanceIdType TEST_INSTANCE_ID = 0;
 
   public:
 

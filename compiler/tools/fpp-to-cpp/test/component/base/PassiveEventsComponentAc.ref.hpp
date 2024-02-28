@@ -116,7 +116,7 @@ class PassiveEventsComponentBase :
 
     //! Initialize PassiveEventsComponentBase object
     void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:
@@ -1087,13 +1087,13 @@ class PassiveEventsComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    NATIVE_UINT_TYPE m_EventActivityLowThrottledThrottle;
+    FwEventCounterType m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    NATIVE_UINT_TYPE m_EventFatalThrottledThrottle;
+    FwEventCounterType m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    NATIVE_UINT_TYPE m_EventWarningLowThrottledThrottle;
+    FwEventCounterType m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

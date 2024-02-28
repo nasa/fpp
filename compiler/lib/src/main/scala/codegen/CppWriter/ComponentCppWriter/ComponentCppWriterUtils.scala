@@ -276,7 +276,7 @@ abstract class ComponentCppWriterUtils(
   val initParams: List[CppDoc.Function.Param] = List.concat(
     if data.kind != Ast.ComponentKind.Passive then List(
       CppDoc.Function.Param(
-        CppDoc.Type("NATIVE_INT_TYPE"),
+        CppDoc.Type("FwQueueSizeType"),
         "queueDepth",
         Some("The queue depth")
       )
@@ -284,7 +284,7 @@ abstract class ComponentCppWriterUtils(
     else Nil,
     if hasSerialAsyncInputPorts then List(
       CppDoc.Function.Param(
-        CppDoc.Type("NATIVE_INT_TYPE"),
+        CppDoc.Type("FwSizeType"),
         "msgSize",
         Some("The message size")
       )
@@ -292,7 +292,7 @@ abstract class ComponentCppWriterUtils(
     else Nil,
     List(
       CppDoc.Function.Param(
-        CppDoc.Type("NATIVE_INT_TYPE"),
+        CppDoc.Type("FwInstanceIdType"),
         "instance",
         Some("The instance number"),
         Some("0")

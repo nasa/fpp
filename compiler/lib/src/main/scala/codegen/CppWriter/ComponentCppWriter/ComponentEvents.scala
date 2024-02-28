@@ -64,7 +64,7 @@ case class ComponentEvents (
         linesClassMember(
           Line.blank :: lines(
             s"""|//! Throttle for ${event.getName}
-                |NATIVE_UINT_TYPE ${eventThrottleCounterName(event.getName)};
+                |FwEventCounterType ${eventThrottleCounterName(event.getName)};
                 |"""
           )
         )

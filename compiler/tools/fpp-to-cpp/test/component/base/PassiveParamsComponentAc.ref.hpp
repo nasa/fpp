@@ -126,7 +126,7 @@ class PassiveParamsComponentBase :
 
     //! Initialize PassiveParamsComponentBase object
     void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:

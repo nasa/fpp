@@ -172,7 +172,7 @@ Fw::SerializeStatus PassiveSyncProductsComponentBase::DpContainer ::
 // ----------------------------------------------------------------------
 
 void PassiveSyncProductsComponentBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwInstanceIdType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

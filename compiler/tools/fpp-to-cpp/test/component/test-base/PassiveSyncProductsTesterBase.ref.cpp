@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveSyncProductsTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwInstanceIdType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

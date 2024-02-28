@@ -410,12 +410,11 @@ case class ComponentCppWriter (
           case _ => List.concat(
             if hasSerialAsyncInputPorts then lines(
               """|// Passed-in size added to port number and message type enumeration sizes.
-                 |// NATIVE_INT_TYPE cast because of compiler warning.
                  |this->m_msgSize = FW_MAX(
                  |  msgSize +
-                 |  static_cast<NATIVE_INT_TYPE>(sizeof(FwIndexType)) +
-                 |  static_cast<NATIVE_INT_TYPE>(sizeof(FwMsgIdType)),
-                 |  static_cast<NATIVE_INT_TYPE>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
+                 |  static_cast<FwSizeType>(sizeof(FwIndexType)) +
+                 |  static_cast<FwSizeType>(sizeof(FwMsgIdType)),
+                 |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |
                  |Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
@@ -760,7 +759,7 @@ case class ComponentCppWriter (
               )
               else lines("ComponentIpcSerializableBuffer msg;"),
               lines(
-                s"""|NATIVE_INT_TYPE priority = 0;
+                s"""|FwQueuePriorityType priority = 0;
                     |
                     |Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
                     |  msg,
@@ -875,7 +874,7 @@ case class ComponentCppWriter (
           lines(
             """|
                |//! Stores max message size
-               |NATIVE_INT_TYPE m_msgSize;
+               |FwSizeType m_msgSize;
                |"""
           )
         ).flatten

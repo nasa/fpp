@@ -143,7 +143,7 @@ class PassiveCommandsTesterBase :
 
     //! Initialize object PassiveCommandsTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwInstanceIdType instance = 0 //!< The instance number
     );
 
   public:
@@ -675,13 +675,13 @@ class PassiveCommandsTesterBase :
 
     //! Send a CMD_SYNC command
     void sendCmd_CMD_SYNC(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_SYNC_PRIMITIVE command
     void sendCmd_CMD_SYNC_PRIMITIVE(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -690,7 +690,7 @@ class PassiveCommandsTesterBase :
 
     //! Send a CMD_SYNC_STRING command
     void sendCmd_CMD_SYNC_STRING(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -698,34 +698,34 @@ class PassiveCommandsTesterBase :
 
     //! Send a CMD_SYNC_ENUM command
     void sendCmd_CMD_SYNC_ENUM(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_SYNC_ARRAY command
     void sendCmd_CMD_SYNC_ARRAY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_SYNC_STRUCT command
     void sendCmd_CMD_SYNC_STRUCT(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_GUARDED command
     void sendCmd_CMD_GUARDED(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_GUARDED_PRIMITIVE command
     void sendCmd_CMD_GUARDED_PRIMITIVE(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -734,7 +734,7 @@ class PassiveCommandsTesterBase :
 
     //! Send a CMD_GUARDED_STRING command
     void sendCmd_CMD_GUARDED_STRING(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -742,21 +742,21 @@ class PassiveCommandsTesterBase :
 
     //! Send a CMD_GUARDED_ENUM command
     void sendCmd_CMD_GUARDED_ENUM(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_GUARDED_ARRAY command
     void sendCmd_CMD_GUARDED_ARRAY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_GUARDED_STRUCT command
     void sendCmd_CMD_GUARDED_STRUCT(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwInstanceIdType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );

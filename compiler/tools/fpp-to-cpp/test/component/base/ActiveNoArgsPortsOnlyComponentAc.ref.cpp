@@ -58,8 +58,8 @@ namespace {
 
 void ActiveNoArgsPortsOnlyComponentBase ::
   init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
+      FwQueueSizeType queueDepth,
+      FwInstanceIdType instance
   )
 {
   // Initialize base class
@@ -568,7 +568,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveNoArgsPortsOnlyComponentBase ::
   doDispatch()
 {
   ComponentIpcSerializableBuffer msg;
-  NATIVE_INT_TYPE priority = 0;
+  FwQueuePriorityType priority = 0;
 
   Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
     msg,

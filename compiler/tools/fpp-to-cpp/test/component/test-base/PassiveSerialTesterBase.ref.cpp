@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveSerialTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwInstanceIdType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -1545,7 +1545,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -1570,7 +1570,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_PRIMITIVE(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1618,7 +1618,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_STRING(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1659,7 +1659,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_ENUM(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       E e
   )
@@ -1693,7 +1693,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_ARRAY(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       A a
   )
@@ -1727,7 +1727,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_SYNC_STRUCT(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       S s
   )
@@ -1761,7 +1761,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -1786,7 +1786,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_PRIMITIVE(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1834,7 +1834,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1875,7 +1875,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_ENUM(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       E e
   )
@@ -1909,7 +1909,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_ARRAY(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       A a
   )
@@ -1943,7 +1943,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   sendCmd_CMD_GUARDED_STRUCT(
-      const NATIVE_INT_TYPE instance,
+      const FwInstanceIdType instance,
       U32 cmdSeq,
       S s
   )
@@ -2683,7 +2683,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2710,7 +2710,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2742,7 +2742,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2769,7 +2769,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2801,7 +2801,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2828,7 +2828,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2860,7 +2860,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2887,7 +2887,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2919,7 +2919,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2946,7 +2946,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -2978,7 +2978,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSend_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
@@ -3005,7 +3005,7 @@ void PassiveSerialTesterBase ::
 
 void PassiveSerialTesterBase ::
   paramSave_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwInstanceIdType instance,
       U32 cmdSeq
   )
 {
