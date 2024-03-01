@@ -312,16 +312,16 @@ case class DictionaryJsonEncoder(
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
                     val (annotation, node, _) = aNode
                     val data = node.data
-                    val commandKind = kind match {
-                        case Command.Param.Set => "set"
-                        case Command.Param.Save => "save"
+                    val (commandKind, formalParams) = kind match {
+                        case Command.Param.Set => ("set", formatParamSetCommandParams(data.typeName))
+                        case Command.Param.Save => ("save", List.empty[String].asJson)
                     }                    
                     Json.obj(
                         "name" -> name.asJson,
                         "commandKind" -> commandKind.asJson, 
                         "opcode" -> opcode.asJson,
                         "description" -> annotation.mkString("\n").asJson, 
-                        "formalParams" -> formatParamSetCommandParams(data.typeName)
+                        "formalParams" -> formalParams
                     )
                 }
             }
