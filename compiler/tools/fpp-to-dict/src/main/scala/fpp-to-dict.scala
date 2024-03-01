@@ -13,7 +13,7 @@ object FPPToDict {
     case class Options(
         files: List[File] = Nil,
         imports: List[File] = Nil,
-        defaultStringSize: Int = 80,
+        defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
         deploymentName: String = "",
         frameworkVersion: String = "",
         projectVersion: String = "",
@@ -21,27 +21,6 @@ object FPPToDict {
         dictionarySpecVersion: String = "1.0.0"
     )
 
-    def writeDictionary(a: Analysis, defaultStringSize: Int, metadata: dictionary.DictionaryMetadata): Result.Result[Unit] = {
-        for (((_, t), index) <- a.topologyMap.zipWithIndex) yield {
-            val constructedDictionary = dictionary.Dictionary().buildDictionary(a, t)
-            val jsonEncoder = dictionary.DictionaryJsonEncoder(a, constructedDictionary, metadata, defaultStringSize)
-            writeJson("topology-" + index + "-dictionary.json",  jsonEncoder.dictionaryToJson)
-        }
-        Right(())
-    }
-
-    def writeJson (fileName: String, json: io.circe.Json): Result.Result[Unit] = {
-        val path = java.nio.file.Paths.get(".", fileName)
-        val file = File.Path(path)
-        for (writer <- file.openWrite()) yield {
-            writer.println(json)
-            writer.close()
-        }
-    }
-
-    // create Analysis
-    // extract info we need from analysis and store in dictionary data structure (done in Dictionary.scala)
-    // write json to file (maybe the fpp-to-dict tool should have a dictionary file name input?)
     def command(options: Options) = {
         fpp.compiler.util.Error.setTool(Tool(name))
          val files = options.files.reverse match {
@@ -49,12 +28,23 @@ object FPPToDict {
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
-        val metadata = dictionary.DictionaryMetadata(options.deploymentName, options.projectVersion, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
+        val metadata = DictionaryMetadata(options.deploymentName, options.projectVersion, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
         for {
             tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
+            aTulFiles <- ResolveSpecInclude.transformList(
+                a,
+                tulFiles, 
+                ResolveSpecInclude.transUnit
+            )
+            tulFiles <- Right(aTulFiles._2)
             tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
             a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-            _ <- writeDictionary(a, options.defaultStringSize, metadata)
+            state <- ComputeDictionaryFiles.visitList(
+                DictionaryJsonEncoderState(a=a, defaultStringSize=options.defaultStringSize, metadata=metadata),
+                tulFiles, 
+                ComputeDictionaryFiles.transUnit
+            )
+            _ <- DictionaryJsonWriter.visitList(state, tulFiles, DictionaryJsonWriter.transUnit)
         } yield ()
     }
 
@@ -65,6 +55,8 @@ object FPPToDict {
     val builder = OParser.builder[Options]
     val name = "fpp-to-dict"
 
+    // add output directory
+    // be as consistent as possible with XML
     val oparser = {
         import builder._
         OParser.sequence(

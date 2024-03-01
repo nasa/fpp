@@ -1,4 +1,4 @@
-package fpp.compiler.analysis.dictionary
+package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
@@ -65,7 +65,7 @@ case class Dictionary(
             combined.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
 
         }
-       // merge list of sets into a single set and return
+       // Merge list of sets into a single set and return
        symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
     }
 
