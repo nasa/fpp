@@ -88,7 +88,7 @@ case class ComponentTestImplWriter(
                   |static const FwSizeType $historySizeConstantName = 10;
                   |
                   |// Instance ID supplied to the component instance under test
-                  |static const FwInstanceIdType $idConstantName = 0;
+                  |static const FwEnumStoreType $idConstantName = 0;
                   |"""
             ),
             guardedList (data.kind != Ast.ComponentKind.Passive) (

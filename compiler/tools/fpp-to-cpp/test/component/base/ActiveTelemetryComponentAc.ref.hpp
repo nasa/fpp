@@ -119,7 +119,7 @@ class ActiveTelemetryComponentBase :
     //! Initialize ActiveTelemetryComponentBase object
     void init(
         FwQueueSizeType queueDepth, //!< The queue depth
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:

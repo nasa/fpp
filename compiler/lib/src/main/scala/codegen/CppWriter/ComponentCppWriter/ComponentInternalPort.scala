@@ -56,7 +56,7 @@ case class ComponentInternalPort (
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |
                     |// Serialize the message ID
-                    |_status = msg.serialize(static_cast<FwMsgIdType>(${internalPortCppConstantName(p)}));
+                    |_status = msg.serialize(static_cast<FwEnumStoreType>(${internalPortCppConstantName(p)}));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)

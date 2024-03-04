@@ -172,7 +172,7 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 // ----------------------------------------------------------------------
 
 void PassiveTestComponentBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

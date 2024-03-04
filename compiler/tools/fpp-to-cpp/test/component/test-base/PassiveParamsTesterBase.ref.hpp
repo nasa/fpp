@@ -143,7 +143,7 @@ class PassiveParamsTesterBase :
 
     //! Initialize object PassiveParamsTesterBase
     virtual void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -687,13 +687,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamU32
     void paramSend_ParamU32(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamU32
     void paramSave_ParamU32(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -705,13 +705,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamF64
     void paramSend_ParamF64(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamF64
     void paramSave_ParamF64(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -723,13 +723,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamString
     void paramSend_ParamString(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamString
     void paramSave_ParamString(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -741,13 +741,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamEnum
     void paramSend_ParamEnum(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamEnum
     void paramSave_ParamEnum(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -759,13 +759,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamArray
     void paramSend_ParamArray(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamArray
     void paramSave_ParamArray(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -777,13 +777,13 @@ class PassiveParamsTesterBase :
 
     //! Send parameter ParamStruct
     void paramSend_ParamStruct(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamStruct
     void paramSave_ParamStruct(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 

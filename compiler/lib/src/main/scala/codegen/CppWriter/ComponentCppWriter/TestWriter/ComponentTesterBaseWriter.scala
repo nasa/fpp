@@ -160,7 +160,7 @@ case class ComponentTesterBaseWriter(
           "init",
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("FwInstanceIdType"),
+              CppDoc.Type("FwEnumStoreType"),
               "instance",
               Some("The instance number"),
               Some("0")
@@ -607,7 +607,7 @@ case class ComponentTesterBaseWriter(
       List.concat(
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const FwInstanceIdType"),
+            CppDoc.Type("const FwEnumStoreType"),
             "instance",
             Some("The instance number")
           ),
@@ -1097,7 +1097,7 @@ case class ComponentTesterBaseWriter(
             paramSendName(prm.getName),
             List(
               CppDoc.Function.Param(
-                CppDoc.Type("FwInstanceIdType"),
+                CppDoc.Type("FwEnumStoreType"),
                 "instance",
                 Some("The component instance")
               ),
@@ -1137,7 +1137,7 @@ case class ComponentTesterBaseWriter(
             paramSaveName(prm.getName),
             List(
               CppDoc.Function.Param(
-                CppDoc.Type("FwInstanceIdType"),
+                CppDoc.Type("FwEnumStoreType"),
                 "instance",
                 Some("The component instance")
               ),

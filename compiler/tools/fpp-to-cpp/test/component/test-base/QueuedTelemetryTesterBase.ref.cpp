@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void QueuedTelemetryTesterBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

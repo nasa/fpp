@@ -114,7 +114,7 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Initialize object QueuedNoArgsPortsOnlyTesterBase
     virtual void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:

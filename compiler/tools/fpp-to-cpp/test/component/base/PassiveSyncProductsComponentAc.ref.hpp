@@ -204,7 +204,7 @@ class PassiveSyncProductsComponentBase :
 
     //! Initialize PassiveSyncProductsComponentBase object
     void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:

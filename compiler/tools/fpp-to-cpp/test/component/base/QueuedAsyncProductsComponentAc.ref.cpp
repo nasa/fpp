@@ -46,11 +46,11 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(FwMsgIdType) +
+          sizeof(FwEnumStoreType) +
           sizeof(FwIndexType)
       };
 
-      FwSizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -231,7 +231,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
 void QueuedAsyncProductsComponentBase ::
   init(
       FwQueueSizeType queueDepth,
-      FwInstanceIdType instance
+      FwEnumStoreType instance
   )
 {
   // Initialize base class
@@ -1839,7 +1839,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(PRODUCTRECVIN_DPRESPONSE)
+    static_cast<FwEnumStoreType>(PRODUCTRECVIN_DPRESPONSE)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1906,7 +1906,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(NOARGSASYNC_NOARGS)
+    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2036,7 +2036,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNC_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2143,7 +2143,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCASSERT_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCASSERT_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2250,7 +2250,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2357,7 +2357,7 @@ void QueuedAsyncProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCDROPPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCDROPPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2876,7 +2876,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  FwMsgIdType desMsg = 0;
+  FwEnumStoreType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,

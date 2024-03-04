@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveParamsTesterBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -1249,7 +1249,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1276,7 +1276,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1308,7 +1308,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1335,7 +1335,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1367,7 +1367,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1394,7 +1394,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1426,7 +1426,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1453,7 +1453,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1485,7 +1485,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1512,7 +1512,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1544,7 +1544,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1571,7 +1571,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {

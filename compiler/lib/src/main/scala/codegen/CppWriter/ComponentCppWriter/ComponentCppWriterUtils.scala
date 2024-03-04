@@ -292,7 +292,7 @@ abstract class ComponentCppWriterUtils(
     else Nil,
     List(
       CppDoc.Function.Param(
-        CppDoc.Type("FwInstanceIdType"),
+        CppDoc.Type("FwEnumStoreType"),
         "instance",
         Some("The instance number"),
         Some("0")

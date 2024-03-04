@@ -149,7 +149,7 @@ class ActiveGetProductsTesterBase :
 
     //! Initialize object ActiveGetProductsTesterBase
     virtual void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:

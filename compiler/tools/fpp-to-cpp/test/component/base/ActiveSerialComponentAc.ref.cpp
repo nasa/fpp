@@ -82,11 +82,11 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(FwMsgIdType) +
+          sizeof(FwEnumStoreType) +
           sizeof(FwIndexType)
       };
 
-      FwSizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -113,7 +113,7 @@ void ActiveSerialComponentBase ::
   init(
       FwQueueSizeType queueDepth,
       FwSizeType msgSize,
-      FwInstanceIdType instance
+      FwEnumStoreType instance
   )
 {
   // Initialize base class
@@ -852,7 +852,7 @@ void ActiveSerialComponentBase ::
   this->m_msgSize = FW_MAX(
     msgSize +
     static_cast<FwSizeType>(sizeof(FwIndexType)) +
-    static_cast<FwSizeType>(sizeof(FwMsgIdType)),
+    static_cast<FwSizeType>(sizeof(FwEnumStoreType)),
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
   );
 
@@ -2184,7 +2184,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(NOARGSASYNC_NOARGS)
+    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2314,7 +2314,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNC_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2421,7 +2421,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCASSERT_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCASSERT_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2528,7 +2528,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2635,7 +2635,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(TYPEDASYNCDROPPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCDROPPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2882,7 +2882,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msgSerBuff.serialize(
-    static_cast<FwMsgIdType>(SERIALASYNC_SERIAL)
+    static_cast<FwEnumStoreType>(SERIALASYNC_SERIAL)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2932,7 +2932,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msgSerBuff.serialize(
-    static_cast<FwMsgIdType>(SERIALASYNCASSERT_SERIAL)
+    static_cast<FwEnumStoreType>(SERIALASYNCASSERT_SERIAL)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2982,7 +2982,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msgSerBuff.serialize(
-    static_cast<FwMsgIdType>(SERIALASYNCBLOCKPRIORITY_SERIAL)
+    static_cast<FwEnumStoreType>(SERIALASYNCBLOCKPRIORITY_SERIAL)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -3032,7 +3032,7 @@ void ActiveSerialComponentBase ::
 
   // Serialize message ID
   _status = msgSerBuff.serialize(
-    static_cast<FwMsgIdType>(SERIALASYNCDROPPRIORITY_SERIAL)
+    static_cast<FwEnumStoreType>(SERIALASYNCDROPPRIORITY_SERIAL)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -3338,7 +3338,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALARRAY));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALARRAY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3374,7 +3374,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALENUM));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALENUM));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3414,7 +3414,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALPRIMITIVE));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALPRIMITIVE));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3462,7 +3462,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALPRIORITYDROP));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALPRIORITYDROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3500,7 +3500,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALSTRING));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALSTRING));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -3542,7 +3542,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwMsgIdType>(INT_IF_INTERNALSTRUCT));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(INT_IF_INTERNALSTRUCT));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4241,7 +4241,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_ASYNC));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(CMD_CMD_ASYNC));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4300,7 +4300,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PRIORITY));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(CMD_CMD_PRIORITY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4359,7 +4359,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PARAMS_PRIORITY));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(CMD_CMD_PARAMS_PRIORITY));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4418,7 +4418,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_DROP));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(CMD_CMD_DROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -4482,7 +4482,7 @@ void ActiveSerialComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize for IPC
-  _status = msg.serialize(static_cast<FwMsgIdType>(CMD_CMD_PARAMS_PRIORITY_DROP));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(CMD_CMD_PARAMS_PRIORITY_DROP));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -5831,7 +5831,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveSerialComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  FwMsgIdType desMsg = 0;
+  FwEnumStoreType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,

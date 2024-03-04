@@ -130,7 +130,7 @@ case class ComponentInputPorts(
           lines(
             s"""|// Serialize message ID
                 |_status = $bufferName.serialize(
-                |  static_cast<FwMsgIdType>(${portCppConstantName(p)})
+                |  static_cast<FwEnumStoreType>(${portCppConstantName(p)})
                 |);
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,

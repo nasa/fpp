@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveTestTesterBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -1495,7 +1495,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1520,7 +1520,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_PRIMITIVE(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1568,7 +1568,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_STRING(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1609,7 +1609,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_ENUM(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       E e
   )
@@ -1643,7 +1643,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_ARRAY(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       A a
   )
@@ -1677,7 +1677,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_STRUCT(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       S s
   )
@@ -1711,7 +1711,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1736,7 +1736,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_PRIMITIVE(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       U32 u32,
       F32 f32,
@@ -1784,7 +1784,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       const Fw::CmdStringArg& str1,
       const Fw::CmdStringArg& str2
@@ -1825,7 +1825,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_ENUM(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       E e
   )
@@ -1859,7 +1859,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_ARRAY(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       A a
   )
@@ -1893,7 +1893,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_STRUCT(
-      const FwInstanceIdType instance,
+      const FwEnumStoreType instance,
       U32 cmdSeq,
       S s
   )
@@ -2633,7 +2633,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2660,7 +2660,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2692,7 +2692,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2719,7 +2719,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2751,7 +2751,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2778,7 +2778,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2810,7 +2810,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2837,7 +2837,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2869,7 +2869,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2896,7 +2896,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2928,7 +2928,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSend_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2955,7 +2955,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSave_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {

@@ -29,11 +29,11 @@ namespace {
       enum {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
-          sizeof(FwMsgIdType) +
+          sizeof(FwEnumStoreType) +
           sizeof(FwIndexType)
       };
 
-      FwSizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -59,7 +59,7 @@ namespace {
 void QueuedNoArgsPortsOnlyComponentBase ::
   init(
       FwQueueSizeType queueDepth,
-      FwInstanceIdType instance
+      FwEnumStoreType instance
   )
 {
   // Initialize base class
@@ -420,7 +420,7 @@ void QueuedNoArgsPortsOnlyComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<FwMsgIdType>(NOARGSASYNC_NOARGS)
+    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -588,7 +588,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedNoArgsPortsOnlyComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  FwMsgIdType desMsg = 0;
+  FwEnumStoreType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,

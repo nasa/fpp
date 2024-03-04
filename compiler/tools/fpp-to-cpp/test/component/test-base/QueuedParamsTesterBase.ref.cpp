@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void QueuedParamsTesterBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -1622,7 +1622,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1649,7 +1649,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamU32(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1681,7 +1681,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1708,7 +1708,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamF64(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1740,7 +1740,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1767,7 +1767,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamString(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1799,7 +1799,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1826,7 +1826,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamEnum(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1858,7 +1858,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1885,7 +1885,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamArray(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1917,7 +1917,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1944,7 +1944,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamStruct(
-      FwInstanceIdType instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {

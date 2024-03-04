@@ -206,7 +206,7 @@ class ActiveSerialComponentBase :
     void init(
         FwQueueSizeType queueDepth, //!< The queue depth
         FwSizeType msgSize, //!< The message size
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -2560,13 +2560,13 @@ class ActiveSerialComponentBase :
     // ----------------------------------------------------------------------
 
     //! Throttle for EventActivityLowThrottled
-    FwEventCounterType m_EventActivityLowThrottledThrottle;
+    FwIndexType m_EventActivityLowThrottledThrottle;
 
     //! Throttle for EventFatalThrottled
-    FwEventCounterType m_EventFatalThrottledThrottle;
+    FwIndexType m_EventFatalThrottledThrottle;
 
     //! Throttle for EventWarningLowThrottled
-    FwEventCounterType m_EventWarningLowThrottledThrottle;
+    FwIndexType m_EventWarningLowThrottledThrottle;
 
   PRIVATE:
 

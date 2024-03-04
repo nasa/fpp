@@ -249,7 +249,7 @@ class PassiveSerialTesterBase :
 
     //! Initialize object PassiveSerialTesterBase
     virtual void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -853,13 +853,13 @@ class PassiveSerialTesterBase :
 
     //! Send a CMD_SYNC command
     void sendCmd_CMD_SYNC(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_SYNC_PRIMITIVE command
     void sendCmd_CMD_SYNC_PRIMITIVE(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -868,7 +868,7 @@ class PassiveSerialTesterBase :
 
     //! Send a CMD_SYNC_STRING command
     void sendCmd_CMD_SYNC_STRING(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -876,34 +876,34 @@ class PassiveSerialTesterBase :
 
     //! Send a CMD_SYNC_ENUM command
     void sendCmd_CMD_SYNC_ENUM(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_SYNC_ARRAY command
     void sendCmd_CMD_SYNC_ARRAY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_SYNC_STRUCT command
     void sendCmd_CMD_SYNC_STRUCT(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_GUARDED command
     void sendCmd_CMD_GUARDED(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_GUARDED_PRIMITIVE command
     void sendCmd_CMD_GUARDED_PRIMITIVE(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -912,7 +912,7 @@ class PassiveSerialTesterBase :
 
     //! Send a CMD_GUARDED_STRING command
     void sendCmd_CMD_GUARDED_STRING(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -920,21 +920,21 @@ class PassiveSerialTesterBase :
 
     //! Send a CMD_GUARDED_ENUM command
     void sendCmd_CMD_GUARDED_ENUM(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_GUARDED_ARRAY command
     void sendCmd_CMD_GUARDED_ARRAY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_GUARDED_STRUCT command
     void sendCmd_CMD_GUARDED_STRUCT(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
@@ -1092,13 +1092,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamU32
     void paramSend_ParamU32(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamU32
     void paramSave_ParamU32(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1110,13 +1110,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamF64
     void paramSend_ParamF64(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamF64
     void paramSave_ParamF64(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1128,13 +1128,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamString
     void paramSend_ParamString(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamString
     void paramSave_ParamString(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1146,13 +1146,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamEnum
     void paramSend_ParamEnum(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamEnum
     void paramSave_ParamEnum(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1164,13 +1164,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamArray
     void paramSend_ParamArray(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamArray
     void paramSave_ParamArray(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1182,13 +1182,13 @@ class PassiveSerialTesterBase :
 
     //! Send parameter ParamStruct
     void paramSend_ParamStruct(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamStruct
     void paramSave_ParamStruct(
-        FwInstanceIdType instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 

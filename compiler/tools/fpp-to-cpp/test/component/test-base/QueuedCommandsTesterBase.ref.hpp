@@ -143,7 +143,7 @@ class QueuedCommandsTesterBase :
 
     //! Initialize object QueuedCommandsTesterBase
     virtual void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -818,13 +818,13 @@ class QueuedCommandsTesterBase :
 
     //! Send a CMD_SYNC command
     void sendCmd_CMD_SYNC(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_SYNC_PRIMITIVE command
     void sendCmd_CMD_SYNC_PRIMITIVE(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -833,7 +833,7 @@ class QueuedCommandsTesterBase :
 
     //! Send a CMD_SYNC_STRING command
     void sendCmd_CMD_SYNC_STRING(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -841,34 +841,34 @@ class QueuedCommandsTesterBase :
 
     //! Send a CMD_SYNC_ENUM command
     void sendCmd_CMD_SYNC_ENUM(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_SYNC_ARRAY command
     void sendCmd_CMD_SYNC_ARRAY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_SYNC_STRUCT command
     void sendCmd_CMD_SYNC_STRUCT(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_GUARDED command
     void sendCmd_CMD_GUARDED(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_GUARDED_PRIMITIVE command
     void sendCmd_CMD_GUARDED_PRIMITIVE(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -877,7 +877,7 @@ class QueuedCommandsTesterBase :
 
     //! Send a CMD_GUARDED_STRING command
     void sendCmd_CMD_GUARDED_STRING(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -885,53 +885,53 @@ class QueuedCommandsTesterBase :
 
     //! Send a CMD_GUARDED_ENUM command
     void sendCmd_CMD_GUARDED_ENUM(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_GUARDED_ARRAY command
     void sendCmd_CMD_GUARDED_ARRAY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_GUARDED_STRUCT command
     void sendCmd_CMD_GUARDED_STRUCT(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_ASYNC command
     void sendCmd_CMD_ASYNC(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PRIORITY command
     void sendCmd_CMD_PRIORITY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PARAMS_PRIORITY command
     void sendCmd_CMD_PARAMS_PRIORITY(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32
     );
 
     //! Send a CMD_DROP command
     void sendCmd_CMD_DROP(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PARAMS_PRIORITY_DROP command
     void sendCmd_CMD_PARAMS_PRIORITY_DROP(
-        const FwInstanceIdType instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32
     );

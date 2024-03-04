@@ -24,7 +24,7 @@ class QueuedGetProductsTester :
     static const FwSizeType MAX_HISTORY_SIZE = 10;
 
     // Instance ID supplied to the component instance under test
-    static const FwInstanceIdType TEST_INSTANCE_ID = 0;
+    static const FwEnumStoreType TEST_INSTANCE_ID = 0;
 
     // Queue depth supplied to the component instance under test
     static const FwQueueSizeType TEST_INSTANCE_QUEUE_DEPTH = 10;

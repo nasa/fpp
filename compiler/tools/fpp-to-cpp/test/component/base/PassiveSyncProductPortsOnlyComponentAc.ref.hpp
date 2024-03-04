@@ -55,7 +55,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Initialize PassiveSyncProductPortsOnlyComponentBase object
     void init(
-        FwInstanceIdType instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:

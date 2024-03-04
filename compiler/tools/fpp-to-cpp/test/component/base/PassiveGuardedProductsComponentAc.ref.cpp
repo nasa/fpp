@@ -172,7 +172,7 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
 // ----------------------------------------------------------------------
 
 void PassiveGuardedProductsComponentBase ::
-  init(FwInstanceIdType instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

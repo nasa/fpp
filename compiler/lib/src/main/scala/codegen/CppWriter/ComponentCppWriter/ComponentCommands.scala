@@ -163,7 +163,7 @@ case class ComponentCommands (
                       |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                       |
                       |// Serialize for IPC
-                      |_status = msg.serialize(static_cast<FwMsgIdType>(${commandCppConstantName(cmd)}));
+                      |_status = msg.serialize(static_cast<FwEnumStoreType>(${commandCppConstantName(cmd)}));
                       |FW_ASSERT (
                       |  _status == Fw::FW_SERIALIZE_OK,
                       |  static_cast<FwAssertArgType>(_status)
