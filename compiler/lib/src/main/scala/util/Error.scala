@@ -28,6 +28,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate C++ file ${file}")
         System.err.println("previous file would be generated here:")
         System.err.println(prevLoc)
+      case CodeGenError.DuplicateJsonFile(file, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate JSON file ${file}")
+        System.err.println("previous file would be generated here:")
+        System.err.println(prevLoc)
       case CodeGenError.DuplicateXmlFile(file, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate XML file ${file}")
         System.err.println("previous file would be generated here:")
@@ -228,6 +232,8 @@ final case class SyntaxError(loc: Location, msg: String) extends Error
 object CodeGenError {
   /** Duplicate C++ file path */
   final case class DuplicateCppFile(file: String, loc: Location, prevLoc: Location) extends Error
+  /** Duplicate JSON file path */
+  final case class DuplicateJsonFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Duplicate XML file path */
   final case class DuplicateXmlFile(file: String, loc: Location, prevLoc: Location) extends Error
   /** Empty struct */

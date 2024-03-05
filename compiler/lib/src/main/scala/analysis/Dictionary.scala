@@ -4,6 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 import fpp.compiler.analysis._
 
+/** Case classes for each dictionary entry */
 case class CommandEntry(command: Command, componentInstance: ComponentInstance)
 case class ParamEntry(param: Param, componentInstance: ComponentInstance)
 case class EventEntry(event: Event, componentInstance: ComponentInstance)
@@ -69,6 +70,8 @@ case class Dictionary(
        symbolSetList.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)
     }
 
+    /** Resolve base identifiers for all entries in the dictionary */
+    /** Constructs maps from base identifiers to dictionary entry (ie: CommandEntry, TlmChannelEntry, ParamEntry, etc.) */
     def resolveCommands(componentInstance: ComponentInstance, resultMap: Map[BigInt, CommandEntry]): Map[BigInt, CommandEntry] = {
         componentInstance.component.commandMap.foldLeft(resultMap) ((resultMap, inst) => 
             resultMap + (componentInstance.baseId + inst._1 -> CommandEntry(componentInstance=componentInstance, command=inst._2))
@@ -105,6 +108,7 @@ case class Dictionary(
         )
     }
 
+    /** Constructs dictionary for all component instances in a topology */
     def buildDictionary(analysis: Analysis, topology: Topology): Dictionary = {
         val instances = topology.instanceMap.keys
         Dictionary(

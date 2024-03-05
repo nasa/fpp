@@ -35,14 +35,13 @@ case class DictionaryJsonEncoderState(
 
 case object DictionaryJsonEncoderState {
 
-  /** The default default string size */
-  // move out since its shared between cpp and json
+  /** The default string size */
   val defaultDefaultStringSize = 80
 
-  /** The default default bool size */
+  /** The default bool size */
   val boolSize = 8
 
-  /** Gets the generated XML file name for a topology definition */
+  /** Gets the generated JSON file name for a topology definition */
   def getTopologyFileName(baseName: String): String = s"${baseName}TopologyDictionary.json"
 
 }

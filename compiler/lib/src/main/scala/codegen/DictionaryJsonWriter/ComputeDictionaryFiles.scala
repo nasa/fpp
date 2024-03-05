@@ -36,7 +36,7 @@ object ComputeDictionaryFiles extends AstStateVisitor {
 
   private def addMapping(s: State, fileName: String, loc: Location) =
     s.locationMap.get(fileName) match {
-      case Some(prevLoc) => Left(CodeGenError.DuplicateXmlFile(fileName, loc, prevLoc))
+      case Some(prevLoc) => Left(CodeGenError.DuplicateJsonFile(fileName, loc, prevLoc))
       case None =>
         val locationMap = s.locationMap + (fileName -> loc)
         Right(s.copy(locationMap = locationMap))

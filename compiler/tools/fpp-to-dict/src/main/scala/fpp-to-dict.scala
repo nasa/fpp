@@ -13,6 +13,7 @@ object FPPToDict {
     case class Options(
         files: List[File] = Nil,
         imports: List[File] = Nil,
+        dir: Option[String] = None,
         defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
         deploymentName: String = "",
         frameworkVersion: String = "",
@@ -39,11 +40,17 @@ object FPPToDict {
             tulFiles <- Right(aTulFiles._2)
             tulImports <- Result.map(options.imports, Parser.parseFile (Parser.transUnit) (None) _)
             a <- CheckSemantics.tuList(a, tulFiles ++ tulImports)
-            state <- ComputeDictionaryFiles.visitList(
-                DictionaryJsonEncoderState(a=a, defaultStringSize=options.defaultStringSize, metadata=metadata),
-                tulFiles, 
-                ComputeDictionaryFiles.transUnit
-            )
+            state <- {
+                val dir = options.dir match {
+                    case Some(dir1) => dir1
+                    case None => "."
+                }
+                ComputeDictionaryFiles.visitList(
+                    DictionaryJsonEncoderState(a=a, dir=dir, defaultStringSize=options.defaultStringSize, metadata=metadata),
+                    tulFiles, 
+                    ComputeDictionaryFiles.transUnit
+                )
+            }
             _ <- DictionaryJsonWriter.visitList(state, tulFiles, DictionaryJsonWriter.transUnit)
         } yield ()
     }
@@ -55,8 +62,6 @@ object FPPToDict {
     val builder = OParser.builder[Options]
     val name = "fpp-to-dict"
 
-    // add output directory
-    // be as consistent as possible with XML
     val oparser = {
         import builder._
         OParser.sequence(
@@ -72,14 +77,18 @@ object FPPToDict {
                 .valueName("<file1>,<file2>...")
                 .action((i, c) => c.copy(imports = i.toList.map(File.fromString(_))))
                 .text("files to import"),
+            opt[String]('d', "directory")
+                .valueName("<dir>")
+                .action((d, c) => c.copy(dir = Some(d)))
+                .text("output directory"),
             opt[Int]('s', "size")
                 .valueName("<size>")
                 .validate(s => if (s > 0) success else failure("size must be greater than zero"))
                 .action((s, c) => c.copy(defaultStringSize = s))
                 .text("default string size"),
-            opt[String]('d', "deployment")
+            opt[String]('e', "deployment")
                 .valueName("<deployment>")
-                .action((d, c) => c.copy(deploymentName = d))
+                .action((e, c) => c.copy(deploymentName = e))
                 .text("deployment name"),
             opt[String]('f', "frameworkVersion")
                 .valueName("<frameworkVersion>")

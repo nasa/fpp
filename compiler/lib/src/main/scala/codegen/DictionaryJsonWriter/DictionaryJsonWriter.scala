@@ -6,7 +6,9 @@ import fpp.compiler.util._
 import io.circe._
 import io.circe.syntax._
 
-/** Write out F Prime JSON */
+/** ====================================================================== 
+ *  Write out FFP dictionary JSON for each Topology in an Analysis
+ *  ======================================================================*/
 object DictionaryJsonWriter extends AstStateVisitor {
 
     type State = DictionaryJsonEncoderState
@@ -23,25 +25,22 @@ object DictionaryJsonWriter extends AstStateVisitor {
     override def defTopologyAnnotatedNode(s: DictionaryJsonEncoderState, aNode: Ast.Annotated[AstNode[Ast.DefTopology]]) = {
         val (_, node, _) = aNode
         val data = node.data
+        // Given the topology symbol, lookup topology in analysis topology map
         val topSymbol = Symbol.Topology(aNode)
         val name = s.getName(topSymbol)
         val topology = s.a.topologyMap(topSymbol)
         val fileName = DictionaryJsonEncoderState.getTopologyFileName(name)
-
-        // Given the topology symbol, we can look up the topology in the analysis topology map
-        // From there, construct dictionary and generate it's JSON
+        // Construct dictionary for topology
         val constructedDictionary = Dictionary().buildDictionary(s.a, topology)
-        val jsonEncoder = DictionaryJsonEncoder(constructedDictionary, s)
-
-        // Write generated JSON to file
-        writeJson(s, fileName, jsonEncoder.dictionaryAsJson)
+        // Generate JSON for dictionary and write JSON to file
+        writeJson(s, fileName, DictionaryJsonEncoder(constructedDictionary, s).dictionaryAsJson)
     }
 
     override def transUnit(s: DictionaryJsonEncoderState, tu: Ast.TransUnit) =
         visitList(s, tu.members, matchTuMember)
 
     def writeJson (s: DictionaryJsonEncoderState, fileName: String, json: io.circe.Json) = {
-        val path = java.nio.file.Paths.get(".", fileName)
+        val path = java.nio.file.Paths.get(s.dir, fileName)
         val file = File.Path(path)
         for (writer <- file.openWrite()) yield {
             writer.println(json)
