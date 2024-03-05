@@ -1,27 +1,29 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "link to file in github repo?",
-    "title": "FPP JSON Dictionary JSON Schema",
-    "description": "JSON Schema for FPP JSON dictionaries",
+    "title": "FPP JSON Dictionary Schema",
+    "description": "Schema for FPP JSON dictionaries",
     "type": "object",
     "$defs": {
         "typeName": {
             "type": "object",
             "properties": {
                 "name": {"type": "string"},
-                "kind": {"type": "string", "kind": ["integer", "float", "bool", "string", "qualifiedIdentifier"]},
+                "kind": {"type": "string", "enum": ["integer", "float", "bool", "string", "qualifiedIdentifier"]},
                 "size": {"type": "number"},
                 "signed": {"type": "boolean"}
-            }
+            },
+            "required": ["name", "kind"]
         },
         "formalParameter": {
             "type": "object",
             "properties": {
-                "name": { "type": "string" },
+                "name": {"type": "string"},
                 "description": {"type": "string"},
-                "type":  { "$ref": "#/$defs/typeName" },
+                "type":  {"$ref": "#/$defs/typeName"},
                 "ref": {"type": "boolean"}
-            }
+            },
+            "required": ["name", "description", "type", "ref"]
         }
     },
     "properties": {
@@ -50,7 +52,8 @@
                             "size": {"type": "number"},
                             "elementType" : { "$ref": "#/$defs/typeName" },
                             "default" :  {"type": "array"}
-                        }
+                        },
+                        "required": ["kind", "qualifiedName", "size", "elementType", "default"]
                     }, 
                     {
                         "type": "object",
@@ -60,26 +63,41 @@
                             "representationType": { "$ref": "#/$defs/typeName" },
                             "identifiers" : {
                                 "type": "object",
-                                "properties": {
-                                    "_placeholder": {"type": "number"}
-                                },
-                                "additionalProperties": true
+                                "additionalProperties": {"type": "number"}
                             },
                             "default" : {"type": "string"}
-                        }
+                        },
+                        "required": ["kind", "qualifiedName", "representationType", "identifiers", "default"]
                     }, 
                     {
-                        // need to add struct
                         "type": "object",
                         "properties": {
-                            "type": { "$ref": "#/$defs/typeName" },
-                            "index": {"type": "number"},
-                            "size": {"type": "number"},
-                            "format": {"type": "string"}
-                        }
+                            "kind" : {"type": "string", "enum": ["struct"]},
+                            "qualifiedName" :  {"type": "string"},
+                            "members": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": "object",
+                                    "properties": {
+                                        "type": { "$ref": "#/$defs/typeName" },
+                                        "index": {"type": "number"},
+                                        "size": {"type": "number"},
+                                        "format": {"type": "string"}
+                                    },
+                                    "required": ["type", "index"]
+                                }
+                            },
+                            "default": {
+                                "type": "object",
+                                "additionalProperties": {
+                                    "type": ["string", "number", "boolean", "array"]
+                                }
+                            }
+                        },
+                        "required": ["kind", "qualifiedName", "members", "default"]
                     }
                 ]
-            } 
+            }
         },
         "commands":  {
             "type": "array",
@@ -90,10 +108,11 @@
                     "commandKind": {"type": "string"},
                     "opcode": {"type": "number"},
                     "description": {"type": "string"},
-                    "formalParams": {"type":"array", "items":  { "$ref": "#/$defs/typeName" }},
+                    "formalParams": {"type":"array", "items":  { "$ref": "#/$defs/formalParameter" }},
                     "priority": {"type": "number"},
                     "queueFullBehavior": {"type": "string", "enum": ["assert", "block", "drop"]}
-                }
+                },
+                "required": ["name", "commandKind", "opcode", "description", "formalParams"]
             }
         },
         "parameters": {
@@ -106,7 +125,8 @@
                     "type": { "$ref": "#/$defs/typeName" },
                     "default": {"type": ["number", "string", "boolean", "object", "array"]},
                     "id": {"type": "number"}
-                }
+                },
+                "required": ["name", "description", "type", "id"]
             }
         },
         "events":  {
@@ -121,7 +141,8 @@
                     "id": {"type": "number"},
                     "format": {"type": "string"},
                     "throttle": {"type": "number"}
-                }
+                },
+                "required": ["name", "description", "severity", "formalParams", "id"]
             }
         },
         "telemetryChannels":  {
@@ -133,7 +154,7 @@
                     "description": {"type": "string"},
                     "type": { "$ref": "#/$defs/typeName" },
                     "id": {"type": "number"},
-                    "telemetryUpdate": {"type": "string", "enum": ["always", "onchange"]},
+                    "telemetryUpdate": {"type": "string", "enum": ["always", "on change"]},
                     "format": {"type": "string"},
                     "limit": {
                         "type": "object",
@@ -156,7 +177,8 @@
                             }
                         }
                     }
-                }
+                },
+                "required": ["name", "description", "type", "id", "telemetryUpdate"]
             }
         },
         "records":  {
@@ -169,7 +191,8 @@
                     "type": { "$ref": "#/$defs/typeName" },
                     "array": {"type": "boolean"},
                     "id": {"type": "number"}
-                }
+                },
+                "required": ["name", "description", "type", "id"]
             }
         },
         "containers":  { 
@@ -181,7 +204,8 @@
                     "description": {"type": "string"},
                     "id": {"type": "number"},
                     "defaultPriority": {"type": "number"}
-                }
+                },
+                "required": ["name", "description", "id"]
             }
         }
     }
