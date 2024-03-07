@@ -229,10 +229,14 @@ module Module1 {
     telemetry port tlmOut
   }
 
-  instance myFirstC1: Component1 base id 0x300
+  instance myFirstC1: Component1 base id 0x300 \
+    queue size 10
+    
   instance myFirstC2: Component2 base id 0x400
 
-  instance mySecondC1: Component1 base id 0x500
+  instance mySecondC1: Component1 base id 0x500 \
+    queue size 10
+
   instance mySecondC2: Component2 base id 0x600
 
   topology FirstTop { 

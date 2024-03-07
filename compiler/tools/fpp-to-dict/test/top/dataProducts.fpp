@@ -92,8 +92,11 @@ module FppTest {
 
   }
 
-  instance c1: DpTestComponent base id 0x1388
-  instance c2: DpTestComponent base id 0x1688
+  instance c1: DpTestComponent base id 0x1388 \
+    queue size 10
+  
+  instance c2: DpTestComponent base id 0x1688 \
+    queue size 10
 
   topology BasicDp { 
 
