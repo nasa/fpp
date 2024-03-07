@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh -e
 
 . $COMPILER_ROOT/scripts/test-utils.sh
 
