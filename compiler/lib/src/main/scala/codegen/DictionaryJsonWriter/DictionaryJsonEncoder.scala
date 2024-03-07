@@ -12,7 +12,7 @@ import io.circe.syntax._
  *  Case class representing dictionary metadata
  *  ====================================================================== */
 case class DictionaryMetadata(
-    deploymentName: String,
+    deploymentName: String = "",
     projectVersion: String, 
     frameworkVersion: String, 
     libraryVersions: List[String], 
@@ -169,10 +169,8 @@ case class DictionaryJsonEncoder(
                     "kind" -> "qualifiedIdentifier".asJson,
                 )
             }
-            // TODO: things excluded from the spec - empty json / do not add
-            case _ => {
-                Json.obj()
-            }
+            // Case where type we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
+            case _ => throw InternalError("type not supported in JSON dictionary spec")
         }
     }
 
@@ -257,8 +255,8 @@ case class DictionaryJsonEncoder(
                     )
                     jsonWithOptional("default", default, json)
                 }
-                // TODO: what to return here
-                case _ => Json.obj("TODO" -> "TODO".asJson)
+                // Case where type symbol we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
+                case _ => throw InternalError("type symbol not supported in JSON dictionary spec")
             }
         }
     }

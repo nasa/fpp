@@ -90,7 +90,7 @@
                             "default": {
                                 "type": "object",
                                 "additionalProperties": {
-                                    "type": ["string", "number", "boolean", "array"]
+                                    "type": ["string", "number", "boolean", "array", "object"]
                                 }
                             }
                         },

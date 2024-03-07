@@ -1,0 +1,669 @@
+{
+  "metadata" : {
+    "deploymentName" : "FirstTop",
+    "projectVersion" : "1.0.0",
+    "frameworkVersion" : "3.4.3",
+    "libraryVersions" : [
+      "lib1-1.0.0",
+      "lib2-2.0.0"
+    ],
+    "dictionarySpecVersion" : "1.0.0"
+  },
+  "typeDefinitions" : [
+    {
+      "kind" : "array",
+      "qualifiedName" : "Module1.F64x4",
+      "size" : 4,
+      "elementType" : {
+        "name" : "F64",
+        "kind" : "float",
+        "size" : 64
+      },
+      "default" : [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "kind" : "array",
+      "qualifiedName" : "Module1.StringArray",
+      "size" : 2,
+      "elementType" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 80
+      },
+      "default" : [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "Module1.S1",
+      "members" : {
+        "x" : {
+          "type" : {
+            "name" : "U64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : false
+          },
+          "index" : 0,
+          "format" : "The value of x is {}"
+        },
+        "y" : {
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "index" : 1
+        }
+      },
+      "default" : {
+        "x" : 1,
+        "y" : 1.5
+      }
+    },
+    {
+      "kind" : "array",
+      "qualifiedName" : "Module1.U32x4",
+      "size" : 4,
+      "elementType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "default" : [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Module1.E3",
+      "representationType" : {
+        "name" : "U8",
+        "kind" : "integer",
+        "size" : 8,
+        "signed" : false
+      },
+      "identifiers" : {
+        "YES" : 0,
+        "NO" : 1,
+        "MAYBE" : 2
+      },
+      "default" : "Module1.E3.YES"
+    },
+    {
+      "kind" : "struct",
+      "qualifiedName" : "Module1.S2",
+      "members" : {
+        "x" : {
+          "type" : {
+            "name" : "Module1.E2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 0
+        },
+        "y" : {
+          "type" : {
+            "name" : "Module1.EnumArray",
+            "kind" : "qualifiedIdentifier"
+          },
+          "index" : 1
+        }
+      },
+      "default" : {
+        "x" : 0,
+        "y" : [
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "kind" : "enum",
+      "qualifiedName" : "Module1.E1",
+      "representationType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "identifiers" : {
+        "X" : 0,
+        "Y" : 1,
+        "Z" : 2
+      },
+      "default" : "Module1.E1.X"
+    }
+  ],
+  "commands" : [
+    {
+      "name" : "myFirstC2.Command1",
+      "commandKind" : "sync",
+      "opcode" : 1024,
+      "description" : "Command with 1 arg (of type struct)",
+      "formalParams" : [
+        {
+          "name" : "a",
+          "description" : "",
+          "type" : {
+            "name" : "Module1.S2",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM2_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 898,
+      "description" : "Parameter of type array (with 4 U32 values)",
+      "formalParams" : [
+        {
+          "name" : "val",
+          "description" : "",
+          "type" : {
+            "name" : "Module1.U32x4",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM5_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 905,
+      "description" : "Parameter of type enum",
+      "formalParams" : [
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM3_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 901,
+      "description" : "Parameter of type string",
+      "formalParams" : [
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM1_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 773,
+      "description" : "Parameter (struct)",
+      "formalParams" : [
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM3_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 900,
+      "description" : "Parameter of type string",
+      "formalParams" : [
+        {
+          "name" : "val",
+          "description" : "",
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 20
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.Command2",
+      "commandKind" : "sync",
+      "opcode" : 769,
+      "description" : "Command with string arg",
+      "formalParams" : [
+        {
+          "name" : "a",
+          "description" : "",
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 16
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.Command1",
+      "commandKind" : "async",
+      "opcode" : 768,
+      "description" : "Command with I32 arg",
+      "formalParams" : [
+        {
+          "name" : "a",
+          "description" : "description for argument a",
+          "type" : {
+            "name" : "I32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : true
+          },
+          "ref" : false
+        }
+      ],
+      "priority" : 10,
+      "queueFullBehavior" : "drop"
+    },
+    {
+      "name" : "myFirstC2.Command2",
+      "commandKind" : "sync",
+      "opcode" : 1025,
+      "description" : "Command with 3 args (of types string, I32, and bool)",
+      "formalParams" : [
+        {
+          "name" : "a",
+          "description" : "",
+          "type" : {
+            "name" : "string",
+            "kind" : "string",
+            "size" : 80
+          },
+          "ref" : false
+        },
+        {
+          "name" : "b",
+          "description" : "",
+          "type" : {
+            "name" : "I32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : true
+          },
+          "ref" : false
+        },
+        {
+          "name" : "c",
+          "description" : "",
+          "type" : {
+            "name" : "bool",
+            "kind" : "bool",
+            "size" : 8
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM2_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 899,
+      "description" : "Parameter of type array (with 4 U32 values)",
+      "formalParams" : [
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM4_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 902,
+      "description" : "Parameter of type F32",
+      "formalParams" : [
+        {
+          "name" : "val",
+          "description" : "",
+          "type" : {
+            "name" : "F32",
+            "kind" : "float",
+            "size" : 32
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.Command3",
+      "commandKind" : "sync",
+      "opcode" : 770,
+      "description" : "Command with 2 args (array of strings and U32)",
+      "formalParams" : [
+        {
+          "name" : "a",
+          "description" : "description for argument a",
+          "type" : {
+            "name" : "Module1.StringArray",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        },
+        {
+          "name" : "b",
+          "description" : "description for argument b",
+          "type" : {
+            "name" : "U32",
+            "kind" : "integer",
+            "size" : 32,
+            "signed" : false
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM5_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 904,
+      "description" : "Parameter of type enum",
+      "formalParams" : [
+        {
+          "name" : "val",
+          "description" : "",
+          "type" : {
+            "name" : "Module1.E1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM1_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 772,
+      "description" : "Parameter (struct)",
+      "formalParams" : [
+        {
+          "name" : "val",
+          "description" : "",
+          "type" : {
+            "name" : "Module1.S1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "myFirstC1.PARAM4_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 903,
+      "description" : "Parameter of type F32",
+      "formalParams" : [
+      ]
+    },
+    {
+      "name" : "myFirstC1.Command4",
+      "commandKind" : "sync",
+      "opcode" : 771,
+      "description" : "Command with no args",
+      "formalParams" : [
+      ]
+    }
+  ],
+  "parameters" : [
+    {
+      "name" : "myFirstC1.Param2",
+      "description" : "Parameter of type array (with 4 U32 values)",
+      "type" : {
+        "name" : "Module1.U32x4",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 770
+    },
+    {
+      "name" : "myFirstC1.Param5",
+      "description" : "Parameter of type enum",
+      "type" : {
+        "name" : "Module1.E1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 773
+    },
+    {
+      "name" : "myFirstC1.Param4",
+      "description" : "Parameter of type F32",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "id" : 772
+    },
+    {
+      "name" : "myFirstC1.Param1",
+      "description" : "Parameter (struct)",
+      "type" : {
+        "name" : "Module1.S1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 769,
+      "default" : {
+        "x" : 2,
+        "y" : 1.5
+      }
+    },
+    {
+      "name" : "myFirstC1.Param3",
+      "description" : "Parameter of type string",
+      "type" : {
+        "name" : "string",
+        "kind" : "string",
+        "size" : 20
+      },
+      "id" : 771
+    }
+  ],
+  "events" : [
+    {
+      "name" : "myFirstC1.Event1",
+      "description" : "Event with array arg (containing 4 F32 values)",
+      "severity" : "ACTIVITY_HIGH",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "description" : "description of arg1 formal param",
+          "type" : {
+            "name" : "Module1.F64x4",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "id" : 768,
+      "format" : "Arg one is {} and there is no arg 2"
+    },
+    {
+      "name" : "myFirstC1.Event2",
+      "description" : "Event with enum arg",
+      "severity" : "ACTIVITY_HIGH",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "description" : "description of arg1 formal param",
+          "type" : {
+            "name" : "Module1.E3",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ],
+      "id" : 769,
+      "format" : "Arg1 is {}"
+    },
+    {
+      "name" : "myFirstC2.Event1",
+      "description" : "Event with a single U64 arg",
+      "severity" : "WARNING_LOW",
+      "formalParams" : [
+        {
+          "name" : "arg1",
+          "description" : "description of arg1 formal param",
+          "type" : {
+            "name" : "U64",
+            "kind" : "integer",
+            "size" : 64,
+            "signed" : false
+          },
+          "ref" : false
+        }
+      ],
+      "id" : 1024,
+      "format" : "Arg one is {}"
+    }
+  ],
+  "telemetryChannels" : [
+    {
+      "name" : "myFirstC2.TlmChannel1",
+      "description" : "Telemetry channel of type U32 with no high/low limits",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "id" : 1024,
+      "telemetryUpdate" : "always"
+    },
+    {
+      "name" : "myFirstC1.MyTlmChannel3",
+      "description" : "Telemetry channel of type U64",
+      "type" : {
+        "name" : "U64",
+        "kind" : "integer",
+        "size" : 64,
+        "signed" : false
+      },
+      "id" : 770,
+      "telemetryUpdate" : "always"
+    },
+    {
+      "name" : "myFirstC2.TlmChannel3",
+      "description" : "Telemetry channel of type F32 with high limits",
+      "type" : {
+        "name" : "F64",
+        "kind" : "float",
+        "size" : 64
+      },
+      "id" : 1026,
+      "telemetryUpdate" : "always",
+      "limits" : {
+        "high" : {
+          "yellow" : 1.0,
+          "orange" : 2.0,
+          "red" : 3.0
+        }
+      }
+    },
+    {
+      "name" : "myFirstC1.MyTlmChannel2",
+      "description" : "Telemetry channel of type F32",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "id" : 769,
+      "telemetryUpdate" : "always"
+    },
+    {
+      "name" : "myFirstC1.TlmChannel1",
+      "description" : "Telemetry channel of type F64 with high and low limits",
+      "type" : {
+        "name" : "F64",
+        "kind" : "float",
+        "size" : 64
+      },
+      "id" : 768,
+      "telemetryUpdate" : "always",
+      "limits" : {
+        "high" : {
+          "yellow" : 1.1,
+          "orange" : 2.2,
+          "red" : 3.3
+        },
+        "low" : {
+          "yellow" : -1.1,
+          "orange" : -2.2,
+          "red" : -3.3
+        }
+      }
+    },
+    {
+      "name" : "myFirstC2.TlmChannel2",
+      "description" : "Telemetry channel of type F64 with low limits",
+      "type" : {
+        "name" : "F64",
+        "kind" : "float",
+        "size" : 64
+      },
+      "id" : 1025,
+      "telemetryUpdate" : "always",
+      "limits" : {
+        "low" : {
+          "yellow" : -1.1,
+          "orange" : -2.2,
+          "red" : -3.3
+        }
+      }
+    }
+  ],
+  "records" : [
+    {
+      "name" : "myFirstC1.Record1",
+      "description" : "Record with single U32 value",
+      "type" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "array" : false,
+      "id" : 768
+    },
+    {
+      "name" : "myFirstC1.Record2",
+      "description" : "Record with a single F64x4 value",
+      "type" : {
+        "name" : "Module1.F64x4",
+        "kind" : "qualifiedIdentifier"
+      },
+      "array" : false,
+      "id" : 769
+    },
+    {
+      "name" : "myFirstC1.Record3",
+      "description" : "Record with array of F32 values",
+      "type" : {
+        "name" : "F32",
+        "kind" : "float",
+        "size" : 32
+      },
+      "array" : true,
+      "id" : 770
+    }
+  ],
+  "containers" : [
+    {
+      "name" : "myFirstC1.Container1",
+      "description" : "Description of Container 1",
+      "id" : 784
+    },
+    {
+      "name" : "myFirstC1.Container2",
+      "description" : "Description Container 2",
+      "id" : 785
+    },
+    {
+      "name" : "myFirstC1.Container3",
+      "description" : "Description Container 3 with a default priority of 10",
+      "id" : 786,
+      "defaultPriority" : 10
+    }
+  ]
+}

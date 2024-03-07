@@ -11,7 +11,7 @@ def load_json_file(path: str):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--json_dict', type=str, help='Dictionary JSON file', required=True)
-    parser.add_argument('--schema', type=str, help='Dictioanry JSON schema to validate against', required=True)
+    parser.add_argument('--schema', type=str, help='Dictionary JSON schema to validate against', required=True)
     args = parser.parse_args()
     # Dictionary JSON file
     dictionary_json = load_json_file(args.json_dict)

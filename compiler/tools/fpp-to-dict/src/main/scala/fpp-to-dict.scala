@@ -15,7 +15,6 @@ object FPPToDict {
         imports: List[File] = Nil,
         dir: Option[String] = None,
         defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
-        deploymentName: String = "",
         frameworkVersion: String = "",
         projectVersion: String = "",
         libraryVersions: List[String] = Nil,
@@ -29,7 +28,12 @@ object FPPToDict {
             case list => list
         }
         val a = Analysis(inputFileSet = options.files.toSet)
-        val metadata = DictionaryMetadata(options.deploymentName, options.projectVersion, options.frameworkVersion, options.libraryVersions, options.dictionarySpecVersion)
+        val metadata = DictionaryMetadata(
+            projectVersion=options.projectVersion, 
+            frameworkVersion=options.frameworkVersion, 
+            libraryVersions=options.libraryVersions, 
+            dictionarySpecVersion=options.dictionarySpecVersion
+        )
         for {
             tulFiles <- Result.map(files, Parser.parseFile (Parser.transUnit) (None) _)
             aTulFiles <- ResolveSpecInclude.transformList(
@@ -86,10 +90,6 @@ object FPPToDict {
                 .validate(s => if (s > 0) success else failure("size must be greater than zero"))
                 .action((s, c) => c.copy(defaultStringSize = s))
                 .text("default string size"),
-            opt[String]('e', "deployment")
-                .valueName("<deployment>")
-                .action((e, c) => c.copy(deploymentName = e))
-                .text("deployment name"),
             opt[String]('f', "frameworkVersion")
                 .valueName("<frameworkVersion>")
                 .action((f, c) => c.copy(frameworkVersion = f))
