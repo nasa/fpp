@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+. ../../../../scripts/utils.sh
+
+clean
+rm -f default-tests.sh default-update-ref.sh
+for file in `find . -maxdepth 1 -name '*out.*' -or -name '*TopologyDictionary.json'`
+do
+  rm $file
+done
