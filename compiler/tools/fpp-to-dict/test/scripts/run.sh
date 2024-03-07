@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 
 . $COMPILER_ROOT/scripts/test-utils.sh
 
@@ -54,7 +54,7 @@ validate_json_schema()
   if which python3 > /dev/null 2>&1
   then
     result=$(python3 ../python/json_schema_validator.py --json_dict $dictFile'TopologyDictionary.json' --schema ../dictionary.schema.json)
-    if [[ ! $result = *"is valid"* ]]; 
+    if [ "$result" != "Dictionary JSON is valid!" ]; 
     then
       echo "\n"$result 1>&2
       return 1
