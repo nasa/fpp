@@ -18,7 +18,7 @@ namespace {
 
     public:
 
-      FwSizeType getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return InputAbsTypePort::SERIALIZED_SIZE;
       }
 
