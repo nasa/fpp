@@ -94,8 +94,9 @@ case class ComponentDataProducts (
               |// Update the size of the buffer according to the data size
               |const FwSizeType packetSize = container.getPacketSize();
               |Fw::Buffer buffer = container.getBuffer();
-              |FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
-              |buffer.setSize(packetSize);
+              |FW_ASSERT(packetSize <= buffer.getSize(), static_cast<FwAssertArgType>(packetSize),
+              |    static_cast<FwAssertArgType>(buffer.getSize()));
+              |buffer.setSize(static_cast<U32>(packetSize));
               |// Send the buffer
               |this->$invokeProductSend(0, container.getId(), buffer);"""
         )
@@ -382,13 +383,13 @@ case class ComponentDataProducts (
               |  sizeof(FwDpIdType) +
               |  $typeSize;
               |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-              |if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+              |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
               |  const FwDpIdType id = this->baseId + RecordId::$name;
-              |  status = this->dataBuffer.serialize(id);
+              |  status = this->m_dataBuffer.serialize(id);
               |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-              |  status = this->dataBuffer.serialize(elt);
+              |  status = this->m_dataBuffer.serialize(elt);
               |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-              |  this->dataSize += sizeDelta;
+              |  this->m_dataSize += sizeDelta;
               |}
               |else {
               |  status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -424,12 +425,11 @@ case class ComponentDataProducts (
           val serializeElts = (t match {
             // Optimize the U8 case
             case Type.U8 =>
-              """|  const bool omitSerializedLength = true;
-                 |  status = this->dataBuffer.serialize(array, size, omitSerializedLength);
+              """|  status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
                  |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);"""
             case _ =>
               """|  for (FwSizeType i = 0; i < size; i++) {
-                 |    status = this->dataBuffer.serialize(array[i]);
+                 |    status = this->m_dataBuffer.serialize(array[i]);
                  |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
                  |  }"""
           }).stripMargin
@@ -437,17 +437,17 @@ case class ComponentDataProducts (
             s"""|FW_ASSERT(array != nullptr);
                 |const FwSizeType sizeDelta =
                 |  sizeof(FwDpIdType) +
-                |  sizeof(FwSizeType) +
+                |  sizeof(FwSizeStoreType) +
                 |  size * $eltSize;
                 |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-                |if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+                |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
                 |  const FwDpIdType id = this->baseId + RecordId::$name;
-                |  status = this->dataBuffer.serialize(id);
+                |  status = this->m_dataBuffer.serialize(id);
                 |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-                |  status = this->dataBuffer.serialize(size);
+                |  status = this->m_dataBuffer.serializeSize(size);
                 |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
                 |$serializeElts
-                |  this->dataSize += sizeDelta;
+                |  this->m_dataSize += sizeDelta;
                 |}
                 |else {
                 |  status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;

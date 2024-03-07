@@ -102,20 +102,20 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   FW_ASSERT(array != nullptr);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    sizeof(FwSizeType) +
+    sizeof(FwSizeStoreType) +
     size * ActiveAsyncProducts_Data::SERIALIZED_SIZE;
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::DataArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serialize(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     }
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -130,13 +130,13 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     ActiveAsyncProducts_Data::SERIALIZED_SIZE;
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::DataRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serialize(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -153,20 +153,20 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   FW_ASSERT(array != nullptr);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    sizeof(FwSizeType) +
+    sizeof(FwSizeStoreType) +
     size * sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U32ArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     for (FwSizeType i = 0; i < size; i++) {
-      status = this->dataBuffer.serialize(array[i]);
+      status = this->m_dataBuffer.serialize(array[i]);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     }
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -181,13 +181,13 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
     sizeof(FwDpIdType) +
     sizeof(U32);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U32Record;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(elt);
+    status = this->m_dataBuffer.serialize(elt);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -204,19 +204,18 @@ Fw::SerializeStatus ActiveAsyncProductsComponentBase::DpContainer ::
   FW_ASSERT(array != nullptr);
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    sizeof(FwSizeType) +
+    sizeof(FwSizeStoreType) +
     size * sizeof(U8);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-  if (this->dataBuffer.getBuffLength() + sizeDelta <= this->dataBuffer.getBuffCapacity()) {
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::U8ArrayRecord;
-    status = this->dataBuffer.serialize(id);
+    status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = this->dataBuffer.serialize(size);
+    status = this->m_dataBuffer.serializeSize(size);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    const bool omitSerializedLength = true;
-    status = this->dataBuffer.serialize(array, size, omitSerializedLength);
+    status = this->m_dataBuffer.serialize(array, size, Fw::Serialization::OMIT_LENGTH);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    this->dataSize += sizeDelta;
+    this->m_dataSize += sizeDelta;
   }
   else {
     status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
@@ -251,21 +250,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_cmdIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdIn_InputPort[port].setObjName(portName);
+    this->m_cmdIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -283,21 +274,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_productRecvIn_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productRecvIn_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productRecvIn_InputPort[port].setObjName(portName);
+    this->m_productRecvIn_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -315,21 +298,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsAsync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsAsync_InputPort[port].setObjName(portName);
+    this->m_noArgsAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -347,21 +322,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsGuarded_InputPort[port].setObjName(portName);
+    this->m_noArgsGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -379,21 +346,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName);
+    this->m_noArgsReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -411,21 +370,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnSync_InputPort[port].setObjName(portName);
+    this->m_noArgsReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -443,21 +394,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsSync_InputPort[port].setObjName(portName);
+    this->m_noArgsSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -475,21 +418,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedAsync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedAsync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedAsync_InputPort[port].setObjName(portName);
+    this->m_typedAsync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -507,21 +442,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedAsyncAssert_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedAsyncAssert_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedAsyncAssert_InputPort[port].setObjName(portName);
+    this->m_typedAsyncAssert_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -539,21 +466,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedAsyncBlockPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedAsyncBlockPriority_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName);
+    this->m_typedAsyncBlockPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -571,21 +490,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedAsyncDropPriority_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedAsyncDropPriority_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName);
+    this->m_typedAsyncDropPriority_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -603,21 +514,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedGuarded_InputPort[port].setObjName(portName);
+    this->m_typedGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -635,21 +538,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedReturnGuarded_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnGuarded_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnGuarded_InputPort[port].setObjName(portName);
+    this->m_typedReturnGuarded_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -667,21 +562,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedReturnSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnSync_InputPort[port].setObjName(portName);
+    this->m_typedReturnSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -699,21 +586,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedSync_InputPort[port].setPortNum(port);
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedSync_InputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedSync_InputPort[port].setObjName(portName);
+    this->m_typedSync_InputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -726,21 +605,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_cmdRegOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdRegOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdRegOut_OutputPort[port].setObjName(portName);
+    this->m_cmdRegOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -753,21 +624,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_cmdResponseOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_cmdResponseOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_cmdResponseOut_OutputPort[port].setObjName(portName);
+    this->m_cmdResponseOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -780,21 +643,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_eventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_eventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_eventOut_OutputPort[port].setObjName(portName);
+    this->m_eventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -807,21 +662,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_prmGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_prmGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_prmGetOut_OutputPort[port].setObjName(portName);
+    this->m_prmGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -834,21 +681,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_prmSetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_prmSetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_prmSetOut_OutputPort[port].setObjName(portName);
+    this->m_prmSetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -861,21 +700,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_productRequestOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productRequestOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productRequestOut_OutputPort[port].setObjName(portName);
+    this->m_productRequestOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -888,21 +719,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_productSendOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_productSendOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_productSendOut_OutputPort[port].setObjName(portName);
+    this->m_productSendOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -916,21 +739,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_textEventOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_textEventOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_textEventOut_OutputPort[port].setObjName(portName);
+    this->m_textEventOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 #endif
@@ -944,21 +759,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_timeGetOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_timeGetOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_timeGetOut_OutputPort[port].setObjName(portName);
+    this->m_timeGetOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -971,21 +778,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_tlmOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_tlmOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_tlmOut_OutputPort[port].setObjName(portName);
+    this->m_tlmOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -998,21 +797,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsOut_OutputPort[port].setObjName(portName);
+    this->m_noArgsOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -1025,21 +816,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_noArgsReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_noArgsReturnOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName);
+    this->m_noArgsReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -1052,21 +835,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedOut_OutputPort[port].setObjName(portName);
+    this->m_typedOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -1079,21 +854,13 @@ void ActiveAsyncProductsComponentBase ::
     this->m_typedReturnOut_OutputPort[port].init();
 
 #if FW_OBJECT_NAMES == 1
-    // The port name consists of this->m_objName and some extra info.
-    // We expect all of this to fit in FW_OBJ_NAME_MAX_SIZE bytes.
-    // However, the compiler may assume that this->m_objName fills
-    // the entire array, whose size is FW_OBJ_NAME_MAX_SIZE. So to
-    // avoid a compiler warning, we provide an extra FW_OBJ_NAME_MAX_SIZE
-    // bytes to cover the extra info.
-    char portName[2*FW_OBJ_NAME_MAX_SIZE];
-    (void) snprintf(
-      portName,
-      sizeof(portName),
+    Fw::ObjectName portName;
+    portName.format(
       "%s_typedReturnOut_OutputPort[%" PRI_PlatformIntType "]",
-      this->m_objName,
+      this->m_objName.toChar(),
       port
     );
-    this->m_typedReturnOut_OutputPort[port].setObjName(portName);
+    this->m_typedReturnOut_OutputPort[port].setObjName(portName.toChar());
 #endif
   }
 
@@ -3043,8 +2810,9 @@ void ActiveAsyncProductsComponentBase ::
   // Update the size of the buffer according to the data size
   const FwSizeType packetSize = container.getPacketSize();
   Fw::Buffer buffer = container.getBuffer();
-  FW_ASSERT(packetSize <= buffer.getSize(), packetSize, buffer.getSize());
-  buffer.setSize(packetSize);
+  FW_ASSERT(packetSize <= buffer.getSize(), static_cast<FwAssertArgType>(packetSize),
+      static_cast<FwAssertArgType>(buffer.getSize()));
+  buffer.setSize(static_cast<U32>(packetSize));
   // Send the buffer
   this->productSendOut_out(0, container.getId(), buffer);
 }
