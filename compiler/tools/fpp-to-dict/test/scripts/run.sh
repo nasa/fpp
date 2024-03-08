@@ -51,22 +51,16 @@ validate_json_schema()
 { 
   dictFile=$1
   # Check to see if the dictionary JSON schema is valid
-  if which python3 > /dev/null 2>&1
-  then
-    # Work around an issue in CI
-    if python3 -c "import jsonschema" > /dev/null 2>&1; then
-      result=$(python3 ../python/json_schema_validator.py --json_dict $dictFile'TopologyDictionary.json' --schema ../dictionary.schema.json)
-      if [ "$result" != "Dictionary JSON is valid!" ]; 
-      then
-        echo "\n"$result 1>&2
-        return 1
-      fi
-    else
-      echo "jsonschema python library not installed; skipping JSON schema validation" 1>&2
+  if python3 -c "import jsonschema" > /dev/null 2>&1; then
+    result=$(python3 ../python/json_schema_validator.py --json_dict $dictFile'TopologyDictionary.json' --schema ../dictionary.schema.json)
+    if [ "$result" != "Dictionary JSON is valid!" ]; 
+    then
+      echo "\n"$result 1>&2
+      return 1
     fi
   else
     # Work around an issue in CI
-    echo "python3 is not available; skipping JSON schema validation" 1>&2
+    echo "python3 or jsonschema library is not available; skipping JSON schema validation" 1>&2
   fi
 }
 
