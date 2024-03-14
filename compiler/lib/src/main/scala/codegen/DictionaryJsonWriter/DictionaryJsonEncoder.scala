@@ -13,10 +13,10 @@ import io.circe.syntax._
  *  ====================================================================== */
 case class DictionaryMetadata(
     deploymentName: String = "",
-    projectVersion: String, 
-    frameworkVersion: String, 
-    libraryVersions: List[String], 
-    dictionarySpecVersion: String
+    projectVersion: String = "", 
+    frameworkVersion: String = "", 
+    libraryVersions: List[String] = Nil, 
+    dictionarySpecVersion: String = ""
 )
 
 /** ====================================================================== 

@@ -10,14 +10,12 @@ case class DictionaryJsonEncoderState(
   a: Analysis,
   /** The output directory */
   dir: String = ".",
-  /** The list of include prefixes */
-  prefixes: List[String] = Nil,
   /** The default string size */
   defaultStringSize: Int = DictionaryJsonEncoderState.defaultDefaultStringSize,
   /** The default bool size */
   boolSize: Int = DictionaryJsonEncoderState.boolSize,
   /** The Dictionary metadata */
-  metadata: DictionaryMetadata,
+  metadata: DictionaryMetadata = DictionaryMetadata(),
   /** The map from strings to locations */
   locationMap: Map[String, Location] = Map()
 ) {
