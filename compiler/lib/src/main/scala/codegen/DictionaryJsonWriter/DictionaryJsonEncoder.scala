@@ -12,11 +12,11 @@ import io.circe.syntax._
  *  Case class representing dictionary metadata
  *  ====================================================================== */
 case class DictionaryMetadata(
-    deploymentName: String = "",
-    projectVersion: String = "", 
-    frameworkVersion: String = "", 
+    deploymentName: String = "[no value specified]",
+    projectVersion: String = "[no value specified]", 
+    frameworkVersion: String = "[no value specified]", 
     libraryVersions: List[String] = Nil, 
-    dictionarySpecVersion: String = ""
+    dictionarySpecVersion: String = "[no value specified]"
 )
 
 /** ====================================================================== 
@@ -155,18 +155,21 @@ case class DictionaryJsonEncoder(
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Array(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
+                    "kind_type" -> "array".asJson
                 )
             }
             case Type.Enum(node, _, _) => {
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Enum(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
+                    "kind_type" -> "enum".asJson
                 )
             }
             case Type.Struct(node, _, _, _, _) => {
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Struct(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
+                    "kind_type" -> "struct".asJson
                 )
             }
             // Case where type we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
