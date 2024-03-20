@@ -155,21 +155,18 @@ case class DictionaryJsonEncoder(
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Array(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
-                    "kind_type" -> "array".asJson
                 )
             }
             case Type.Enum(node, _, _) => {
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Enum(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
-                    "kind_type" -> "enum".asJson
                 )
             }
             case Type.Struct(node, _, _, _, _) => {
                 Json.obj(
                     "name" -> dictionaryState.a.getQualifiedName(Symbol.Struct(node)).toString.asJson,
                     "kind" -> "qualifiedIdentifier".asJson,
-                    "kind_type" -> "struct".asJson
                 )
             }
             // Case where type we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
