@@ -37,30 +37,30 @@ case class Dictionary(
                 command match {
                     case fpp.compiler.analysis.Command.NonParam(aNode, kind) => {
                         val Right(a) = UsedSymbols.specCommandAnnotatedNode(analysis, aNode)
-                        a.usedSymbolSet
+                        a.usedSymbolSet.flatMap(UsedSymbols.symbol)
                     }
                     case fpp.compiler.analysis.Command.Param(aNode, kind) => Set()
                 }
             }
             val eventSymbolSet = for (_, event) <- component.eventMap yield {
                 val Right(a) = UsedSymbols.specEventAnnotatedNode(analysis, event.aNode)
-                a.usedSymbolSet
+                a.usedSymbolSet.flatMap(UsedSymbols.symbol)
             }
             val tlmChannelSymbolSet = for (_, channel) <- component.tlmChannelMap yield {
                 val Right(a) = UsedSymbols.specTlmChannelAnnotatedNode(analysis, channel.aNode)
-                a.usedSymbolSet
+                a.usedSymbolSet.flatMap(UsedSymbols.symbol)
             }
             val paramSymbolSet = for (_, param) <- component.paramMap yield {
                 val Right(a) = UsedSymbols.specParamAnnotatedNode(analysis, param.aNode)
-                a.usedSymbolSet
+                a.usedSymbolSet.flatMap(UsedSymbols.symbol)
             }
             val recordSymbolSet = for (_, record) <- component.recordMap yield {
                 val Right(a) = UsedSymbols.specRecordAnnotatedNode(analysis, record.aNode)
-                a.usedSymbolSet
+                a.usedSymbolSet.flatMap(UsedSymbols.symbol)
             }
             val containerSymbolSet = for (_, container) <- component.containerMap yield {
                 val Right(a) = UsedSymbols.specContainerAnnotatedNode(analysis, container.aNode)
-                a.usedSymbolSet
+                a.usedSymbolSet.flatMap(UsedSymbols.symbol)
             }
             val combined = commandSymbolSet ++ eventSymbolSet ++ tlmChannelSymbolSet ++ paramSymbolSet ++ recordSymbolSet ++ containerSymbolSet
             combined.foldLeft(Set[Symbol]()) ((acc, elem) => acc ++ elem)

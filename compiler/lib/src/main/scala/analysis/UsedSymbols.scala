@@ -47,4 +47,24 @@ object UsedSymbols extends UseAnalyzer {
     Right(a.copy(usedSymbolSet = a.usedSymbolSet + symbol))
   }
 
+  def symbol(s: Symbol): Set[Symbol] = {
+    val a1 = Analysis()
+    val Right(a) = s match {
+      case Symbol.AbsType(node) => defAbsTypeAnnotatedNode(a1, node)
+      case Symbol.Array(node) => defArrayAnnotatedNode(a1, node)
+      case Symbol.Component(node) => defComponentAnnotatedNode(a1, node)
+      case Symbol.ComponentInstance(node) => defComponentInstanceAnnotatedNode(a1, node)
+      case Symbol.Constant(node) => defConstantAnnotatedNode(a1, node)
+      case Symbol.Enum(node) => defEnumAnnotatedNode(a1, node)
+      case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a1, node)
+      case Symbol.Module(node) => defModuleAnnotatedNode(a1, node)
+      case Symbol.Port(node) => defPortAnnotatedNode(a1, node)
+      case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
+      case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
+      case null => Right(a1)
+    }
+    val symbolSet = a.usedSymbolSet
+    symbolSet ++ symbolSet.flatMap(symbol)
+  }
+
 }
