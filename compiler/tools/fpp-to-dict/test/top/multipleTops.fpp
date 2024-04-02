@@ -37,7 +37,7 @@ module Module1 {
   # structs
   struct S1 {
     x: U64 format "The value of x is {}"
-    y: F32
+    y: F32 format "The value of y is {.2f}"
   } default { x = 1, y = 1.5 }
 
   struct S2 {
@@ -103,6 +103,15 @@ module Module1 {
     ) \
       severity activity high \
       format "Arg1 is {}"
+
+    @ Event with format specifier
+    @ Multiple lines of annotation
+    @ And not used on purpose
+    event Event3(
+      arg1: F64 @< description of arg1 formal param
+    ) \
+      severity activity high \
+      format "Arg1 is {f}"
 
 
     # Telemtry Channels
