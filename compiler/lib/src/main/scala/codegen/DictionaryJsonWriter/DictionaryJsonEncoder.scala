@@ -232,28 +232,23 @@ case class DictionaryJsonEncoder(
                         case Some(format) => Some(format.data)
                         case None => None
                     }
-                    val description = {
-                        val concat = (preA ++ postA).mkString("\n")
-                        if (concat.isEmpty) None else Some(concat)
-                    }
-                    val optionalMap = Map("format" -> formatVal, "description" -> description)
-                    jsonWithOptionalMap(json, optionalMap)
+                    val optionalValues = Map("format" -> formatVal, "description" -> concatAnnotations(preA, postA))
+                    jsonWithOptionalMap(json, optionalValues)
                 }
                 case Symbol.Enum(preA, node, postA) => {
                     val Type.Enum(_, repType, default) = dictionaryState.a.typeMap(symbol.getNodeId)
                     val enumDefault = default match {
                         case Some(defaultVal) => defaultVal.value._1
                         case None => ""
-                    } 
-                    val identifiers = for (aNode <- node.data.constants) yield Map(aNode._2.data.name.toString -> 
-                        dictionaryState.a.valueMap(aNode._2.id).asInstanceOf[Value.EnumConstant].value._2 
-                        // TODO see if this is a good way of doing it?
-                        // if other Method identifier {} struct from Rob/Michael feedback, change here
-                    )
-                    val description = {
-                        val concat = (preA ++ postA).mkString("\n")
-                        if (concat.isEmpty) None else Some(concat)
                     }
+                    //TODO: Can we order them by value here?
+                    val enumaratedConstants = node.data.constants.map { case (cPreA, cNode, cPostA) =>
+                        val json = Json.obj(
+                            "value" -> dictionaryState.a.valueMap(cNode.id).asInstanceOf[Value.EnumConstant].value._2.asJson
+                        )
+                        cNode.data.name.toString -> jsonWithOptional("description", concatAnnotations(cPreA, cPostA), json)
+                    }.toMap
+                    val description = concatAnnotations(preA, postA)
                     val memberDescriptions = node.data.constants.flatMap({ case (preA, node, postA) =>
                         val description = (preA ++ postA).mkString("\n")
                         if (description.isEmpty) None else Some(node.data.name -> description)
@@ -262,14 +257,13 @@ case class DictionaryJsonEncoder(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
                         "representationType" -> typeAsJson(repType),
-                        "identifiers" -> identifiers.flatten.toMap.asJson,
+                        "enumaratedConstants" -> enumaratedConstants.asJson,
                         "default" -> s"${qualifiedName}.${enumDefault}".asJson
                     )
-                    val optionalMap = Map(
+                    val optionalValues = Map(
                         "description" -> description, 
-                        "identifierDescriptions" -> {if (memberDescriptions.isEmpty) None else Some(memberDescriptions.asJson)}
                     )
-                    jsonWithOptionalMap(json, optionalMap)
+                    jsonWithOptionalMap(json, optionalValues)
                 }
                 case Symbol.Struct(preA, node, postA) => {
                     val Type.Struct(_, anonStruct, default, sizes, formats) = dictionaryState.a.typeMap(symbol.getNodeId)
@@ -283,20 +277,16 @@ case class DictionaryJsonEncoder(
                     }.toMap
                     val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
                         val json = Json.obj("type" -> typeAsJson(t).asJson, "index" -> index.asJson)
-                        val optionalMap = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "description" -> memberDescriptionMap.get(key))
-                        (key.toString -> jsonWithOptionalMap(json, optionalMap))
-                    }
-                    val description = {
-                        val concat = (preA ++ postA).mkString("\n")
-                        if (concat.isEmpty) None else Some(concat)
+                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "description" -> memberDescriptionMap.get(key))
+                        (key.toString -> jsonWithOptionalMap(json, optionalValues))
                     }
                     val json = Json.obj(
                         "kind" -> "struct".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
                         "members" -> membersFormatted.toMap.asJson,
                     )
-                    val optionalMap = Map("default" -> default, "description" -> description)
-                    jsonWithOptionalMap(json, optionalMap)
+                    val optionalValues = Map("default" -> default, "description" -> concatAnnotations(preA, postA))
+                    jsonWithOptionalMap(json, optionalValues)
                 }
                 // Case where type symbol we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
                 case _ => throw InternalError("type symbol not supported in JSON dictionary spec")
@@ -309,7 +299,6 @@ case class DictionaryJsonEncoder(
         // Convert to list since that is how formal params are represented in the JSON spec
         List.apply(Json.obj(
             "name" -> "val".asJson,
-            "description" -> "".asJson,
             "type" -> typeAsJson(dictionaryState.a.typeMap(typeNameNode.id)),
             "ref" -> false.asJson
         )).asJson
@@ -319,19 +308,18 @@ case class DictionaryJsonEncoder(
     private implicit def formalParamListEncoder: Encoder[Ast.FormalParamList] = new Encoder[Ast.FormalParamList] {
         override def apply(params: Ast.FormalParamList): Json = {
             val paramListJson = for (paramEntry <- params) yield {
-                val (_, elem, annotation) = paramEntry
-                val description = annotation.mkString("\n")
+                val (preA, elem, postA) = paramEntry
                 val AstNode(Ast.FormalParam(kind, name, typeNameNode), _) = elem
                 val ref = kind match {
                     case Ast.FormalParam.Ref => true
                     case Ast.FormalParam.Value => false
                 }
-                Json.obj(
+                val json = Json.obj(
                     "name" -> name.asJson,
-                    "description" -> description.asJson, //TODO: bug here in some cases?
                     "type" -> typeAsJson(dictionaryState.a.typeMap(typeNameNode.id)),
                     "ref" -> ref.asJson
                 )
+                jsonWithOptional("description", concatAnnotations(preA, postA), json)
             }
             paramListJson.asJson
         }
@@ -346,43 +334,48 @@ case class DictionaryJsonEncoder(
             val name = s"${componentInstUnqualName}.${command.getName}"
             command match {
                 case Command.NonParam(aNode, kind) => {
-                    val (annotation, node, _) = aNode
-                    val data = node.data
-                    val description = annotation.mkString("\n")
+                    val (preA, node, postA) = aNode
                     val (commandKind, priority, queueFull) = kind match {
                         case Command.NonParam.Async(priority, queueFull) => ("async", priority, Some(queueFull))
                         case Command.NonParam.Guarded => ("guarded", None, None)
                         case Command.NonParam.Sync => ("sync", None, None)
                     }
-                    val formalParams = data.params
+                    val formalParams = node.data.params
                     val json = Json.obj(
                         "name" -> name.asJson,
                         "commandKind" -> commandKind.asJson, 
                         "opcode" -> opcode.asJson,
-                        "description" -> description.asJson, 
                         "formalParams" -> formalParams.asJson
                     )
-                    val optionalMap = Map("priority" -> priority, "queueFullBehavior" -> queueFull)
-                    jsonWithOptionalMap(json, optionalMap)
+                    val optionalValues = Map(
+                        "priority" -> priority,
+                        "queueFullBehavior" -> queueFull,
+                        "description" -> concatAnnotations(preA, postA)
+                    )
+                    jsonWithOptionalMap(json, optionalValues)
                 }
                 // Case where command is param set/save command
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
-                    val (annotation, node, _) = aNode
-                    val data = node.data
+                    val (preA, node, postA) = aNode
                     val (commandKind, formalParams) = kind match {
-                        case Command.Param.Set => ("set", formatParamSetCommandParams(data.typeName))
+                        case Command.Param.Set => ("set", formatParamSetCommandParams(node.data.typeName))
                         case Command.Param.Save => ("save", List.empty[String].asJson)
-                    }                    
-                    Json.obj(
+                    }
+                    val json = Json.obj(
                         "name" -> name.asJson,
                         "commandKind" -> commandKind.asJson, 
                         "opcode" -> opcode.asJson,
-                        "description" -> annotation.mkString("\n").asJson, 
                         "formalParams" -> formalParams
                     )
+                    jsonWithOptional("description", concatAnnotations(preA, postA), json)
                 }
             }
         }
+    }
+
+    private def concatAnnotations(preAnnotation: List[String], postAnnotation: List[String]): Option[String] = {
+        val concat = (preAnnotation ++ postAnnotation).mkString("\n")
+        if (concat.isEmpty) None else Some(concat)
     }
 
     /** JSON Encoding for Parameters */
@@ -392,14 +385,17 @@ case class DictionaryJsonEncoder(
             val param = entry._2.param
             val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
             val name = s"${componentInstUnqualName}.${param.getName}"
-            val (annotation, node, _) = param.aNode
+            val (preA, node, postA) = param.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
-                "description" -> annotation.mkString("\n").asJson,
                 "type" -> typeAsJson(param.paramType),
                 "id" -> numIdentifier.asJson
             )
-            jsonWithOptional("default", param.default, json)
+            val optionalValues = Map(
+                "default" -> param.default,
+                "description" -> concatAnnotations(preA, postA)
+            )
+            jsonWithOptionalMap(json, optionalValues)
         }
     }
 
@@ -410,7 +406,7 @@ case class DictionaryJsonEncoder(
             val numIdentifier = entry._1
             val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
             val name = s"${componentInstUnqualName}.${event.getName}"
-            val (annotation, node, _) = event.aNode
+            val (preA, node, postA) = event.aNode
             val severityStr = node.data.severity match {
                 case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
                 case Ast.SpecEvent.ActivityLow => "ACTIVITY_LO"
@@ -420,13 +416,16 @@ case class DictionaryJsonEncoder(
             }
             val json = Json.obj(
                 "name" -> name.asJson,
-                "description" -> annotation.mkString("\n").asJson,
                 "severity" -> severityStr.asJson,
                 "formalParams" -> node.data.params.asJson,
                 "id" -> numIdentifier.asJson,
                 "format" -> node.data.format.data.asJson
             )
-            jsonWithOptional("throttle", event.throttle, json)
+            val optionalValues = Map(
+                "description" -> concatAnnotations(preA, postA),
+                "throttle" -> event.throttle
+            )
+            jsonWithOptionalMap(json, optionalValues)
         }
     }
 
@@ -444,10 +443,9 @@ case class DictionaryJsonEncoder(
             val numIdentifier = entry._1
             val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
             val name = s"${componentInstUnqualName}.${channel.getName}"
-            val (annotation, node, _) = channel.aNode
+            val (preA, node, postA) = channel.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
-                "description" -> annotation.mkString("\n").asJson,
                 "type" -> typeAsJson(channel.channelType),
                 "id" -> numIdentifier.asJson,
                 "telemetryUpdate" -> channel.update.toString.asJson
@@ -458,7 +456,11 @@ case class DictionaryJsonEncoder(
                 case Some(format) => Some(format.data)
                 case None => None
             }
-            val jsonWithOptionals = jsonWithOptional("format", formatVal, json)
+            val optionalValues = Map(
+                "format" -> formatVal,
+                "description" -> concatAnnotations(preA, postA)
+            )
+            val jsonWithOptionals = jsonWithOptionalMap(json, optionalValues)
 
             // If channel high or low limits are specified, add them to the JSON and return the telem channel JSON
             if(!channel.lowLimits.isEmpty || !channel.highLimits.isEmpty) {
@@ -480,14 +482,14 @@ case class DictionaryJsonEncoder(
             val numIdentifier = entry._1
             val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
             val name = s"${componentInstUnqualName}.${record.getName}"
-            val (annotation, node, _) = record.aNode
-            Json.obj(
+            val (preA, node, postA) = record.aNode
+            val json = Json.obj(
                 "name" -> name.asJson,
-                "description" -> annotation.mkString("\n").asJson,
                 "type" -> typeAsJson(record.recordType),
                 "array" -> record.isArray.asJson,
                 "id" -> numIdentifier.asJson,
             )
+            jsonWithOptional("description", concatAnnotations(preA, postA), json)
         }
     }
 
@@ -498,13 +500,16 @@ case class DictionaryJsonEncoder(
             val numIdentifier = entry._1
             val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
             val name = s"${componentInstUnqualName}.${container.getName}"
-            val (annotation, node, _) = container.aNode
+            val (preA, node, postA) = container.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
-                "description" -> annotation.mkString("\n").asJson,
                 "id" -> numIdentifier.asJson,
             )
-            jsonWithOptional("defaultPriority", container.defaultPriority, json)
+            val optionalValues = Map(
+                "defaultPriority" -> container.defaultPriority,
+                "description" -> concatAnnotations(preA, postA)
+            )
+            jsonWithOptionalMap(json, optionalValues)
         }
     }
 
