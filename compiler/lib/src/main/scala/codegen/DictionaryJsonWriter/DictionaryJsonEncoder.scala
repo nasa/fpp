@@ -93,32 +93,6 @@ case class DictionaryJsonEncoder(
         Encoder.instance (dictionaryEntryMapAsJson (f1) _)
     }
 
-
-    /** JSON Encoding for optional fields */
-    def jsonWithOptional(key: String, optional: Option[Any], json: Json): Json = {
-        optional match {
-            case Some(value) => value match {
-                case x: Int => Json.obj(key -> x.asJson).deepMerge(json)
-                case Value.Struct(a, t) => {
-                    val Value.AnonStruct(members) = a
-                    val memberJson = members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
-                    Json.obj(key -> memberJson).deepMerge(json)
-                }
-                case x: Value => Json.obj(key -> valueAsJson(x)).deepMerge(json)
-                case x: BigInt => Json.obj(key -> x.asJson).deepMerge(json)
-                case x: Ast.QueueFull => Json.obj(key -> x.toString.asJson).deepMerge(json)
-                case x: String => Json.obj(key -> x.asJson).deepMerge(json)
-                case x: Json => Json.obj(key -> x).deepMerge(json)
-            }
-            case None => json
-        }
-    }
-
-    /** Takes in a JSON object and adds fields only if they map to Some value */
-    def jsonWithOptionalMap(json: Json, optionalMap: Map[String, Option[Any]]): Json = {
-        optionalMap.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
-    }
-
     /** JSON Encoding for FPP Types */
     def typeAsJson[T <: Type](elemType: T): Json = {
         elemType match {
@@ -227,13 +201,11 @@ case class DictionaryJsonEncoder(
                         "elementType" -> typeAsJson(anonArray.eltType),
                         "default" -> defaultJsonList.asJson
                     )
-                    // probably this can be abstracted/shared in jsonWithOptional
-                    val formatVal = node.data.format match {
-                        case Some(format) => Some(format.data)
-                        case None => None
-                    }
-                    val optionalValues = Map("format" -> formatVal, "description" -> concatAnnotations(preA, postA))
-                    jsonWithOptionalMap(json, optionalValues)
+                    val optionalValues = Map(
+                        "format" -> node.data.format.map(_.data),
+                        "annotation" -> concatAnnotations(preA, postA)
+                    )
+                    jsonWithOptionalValues(json, optionalValues)
                 }
                 case Symbol.Enum(preA, node, postA) => {
                     val Type.Enum(_, repType, default) = dictionaryState.a.typeMap(symbol.getNodeId)
@@ -242,17 +214,18 @@ case class DictionaryJsonEncoder(
                         case None => ""
                     }
                     //TODO: Can we order them by value here?
+                    // also general question about do we want to order the JSON output in any way? could be nice for readability
                     val enumaratedConstants = node.data.constants.map { case (cPreA, cNode, cPostA) =>
-                        val json = Json.obj(
-                            "value" -> dictionaryState.a.valueMap(cNode.id).asInstanceOf[Value.EnumConstant].value._2.asJson
+                        cNode.data.name -> jsonWithOptionalValues(
+                            Json.obj(
+                                "value" -> dictionaryState.a.valueMap(cNode.id).asInstanceOf[Value.EnumConstant].value._2.asJson
+                            ),
+                            Map(
+                                "annotation" -> concatAnnotations(cPreA, cPostA)
+                            )
                         )
-                        cNode.data.name.toString -> jsonWithOptional("description", concatAnnotations(cPreA, cPostA), json)
                     }.toMap
                     val description = concatAnnotations(preA, postA)
-                    val memberDescriptions = node.data.constants.flatMap({ case (preA, node, postA) =>
-                        val description = (preA ++ postA).mkString("\n")
-                        if (description.isEmpty) None else Some(node.data.name -> description)
-                    }).toMap
                     val json = Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
@@ -261,9 +234,9 @@ case class DictionaryJsonEncoder(
                         "default" -> s"${qualifiedName}.${enumDefault}".asJson
                     )
                     val optionalValues = Map(
-                        "description" -> description, 
+                        "annotation" -> description, 
                     )
-                    jsonWithOptionalMap(json, optionalValues)
+                    jsonWithOptionalValues(json, optionalValues)
                 }
                 case Symbol.Struct(preA, node, postA) => {
                     val Type.Struct(_, anonStruct, default, sizes, formats) = dictionaryState.a.typeMap(symbol.getNodeId)
@@ -277,16 +250,16 @@ case class DictionaryJsonEncoder(
                     }.toMap
                     val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
                         val json = Json.obj("type" -> typeAsJson(t).asJson, "index" -> index.asJson)
-                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "description" -> memberDescriptionMap.get(key))
-                        (key.toString -> jsonWithOptionalMap(json, optionalValues))
+                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "annotation" -> memberDescriptionMap.get(key))
+                        (key.toString -> jsonWithOptionalValues(json, optionalValues))
                     }
                     val json = Json.obj(
                         "kind" -> "struct".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
                         "members" -> membersFormatted.toMap.asJson,
                     )
-                    val optionalValues = Map("default" -> default, "description" -> concatAnnotations(preA, postA))
-                    jsonWithOptionalMap(json, optionalValues)
+                    val optionalValues = Map("default" -> default, "annotation" -> concatAnnotations(preA, postA))
+                    jsonWithOptionalValues(json, optionalValues)
                 }
                 // Case where type symbol we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
                 case _ => throw InternalError("type symbol not supported in JSON dictionary spec")
@@ -319,7 +292,10 @@ case class DictionaryJsonEncoder(
                     "type" -> typeAsJson(dictionaryState.a.typeMap(typeNameNode.id)),
                     "ref" -> ref.asJson
                 )
-                jsonWithOptional("description", concatAnnotations(preA, postA), json)
+                val optionalValues = Map(
+                    "annotation" -> concatAnnotations(preA, postA)
+                )
+                jsonWithOptionalValues(json, optionalValues)
             }
             paramListJson.asJson
         }
@@ -350,9 +326,9 @@ case class DictionaryJsonEncoder(
                     val optionalValues = Map(
                         "priority" -> priority,
                         "queueFullBehavior" -> queueFull,
-                        "description" -> concatAnnotations(preA, postA)
+                        "annotation" -> concatAnnotations(preA, postA)
                     )
-                    jsonWithOptionalMap(json, optionalValues)
+                    jsonWithOptionalValues(json, optionalValues)
                 }
                 // Case where command is param set/save command
                 case fpp.compiler.analysis.Command.Param(aNode, kind) => {
@@ -367,15 +343,13 @@ case class DictionaryJsonEncoder(
                         "opcode" -> opcode.asJson,
                         "formalParams" -> formalParams
                     )
-                    jsonWithOptional("description", concatAnnotations(preA, postA), json)
+                    val optionalValues = Map(
+                        "annotation" -> concatAnnotations(preA, postA)
+                    )
+                    jsonWithOptionalValues(json, optionalValues)
                 }
             }
         }
-    }
-
-    private def concatAnnotations(preAnnotation: List[String], postAnnotation: List[String]): Option[String] = {
-        val concat = (preAnnotation ++ postAnnotation).mkString("\n")
-        if (concat.isEmpty) None else Some(concat)
     }
 
     /** JSON Encoding for Parameters */
@@ -393,9 +367,9 @@ case class DictionaryJsonEncoder(
             )
             val optionalValues = Map(
                 "default" -> param.default,
-                "description" -> concatAnnotations(preA, postA)
+                "annotation" -> concatAnnotations(preA, postA)
             )
-            jsonWithOptionalMap(json, optionalValues)
+            jsonWithOptionalValues(json, optionalValues)
         }
     }
 
@@ -422,10 +396,10 @@ case class DictionaryJsonEncoder(
                 "format" -> node.data.format.data.asJson
             )
             val optionalValues = Map(
-                "description" -> concatAnnotations(preA, postA),
+                "annotation" -> concatAnnotations(preA, postA),
                 "throttle" -> event.throttle
             )
-            jsonWithOptionalMap(json, optionalValues)
+            jsonWithOptionalValues(json, optionalValues)
         }
     }
 
@@ -452,15 +426,11 @@ case class DictionaryJsonEncoder(
             )
 
             // TODO: There's probably prettier to do? Maybe not
-            val formatVal = node.data.format match {
-                case Some(format) => Some(format.data)
-                case None => None
-            }
             val optionalValues = Map(
-                "format" -> formatVal,
-                "description" -> concatAnnotations(preA, postA)
+                "format" -> node.data.format.map(_.data),
+                "annotation" -> concatAnnotations(preA, postA)
             )
-            val jsonWithOptionals = jsonWithOptionalMap(json, optionalValues)
+            val jsonWithOptionals = jsonWithOptionalValues(json, optionalValues)
 
             // If channel high or low limits are specified, add them to the JSON and return the telem channel JSON
             if(!channel.lowLimits.isEmpty || !channel.highLimits.isEmpty) {
@@ -489,7 +459,10 @@ case class DictionaryJsonEncoder(
                 "array" -> record.isArray.asJson,
                 "id" -> numIdentifier.asJson,
             )
-            jsonWithOptional("description", concatAnnotations(preA, postA), json)
+            val optionalValues = Map(
+                "annotation" -> concatAnnotations(preA, postA)
+            )
+            jsonWithOptionalValues(json, optionalValues)
         }
     }
 
@@ -507,24 +480,13 @@ case class DictionaryJsonEncoder(
             )
             val optionalValues = Map(
                 "defaultPriority" -> container.defaultPriority,
-                "description" -> concatAnnotations(preA, postA)
+                "annotation" -> concatAnnotations(preA, postA)
             )
-            jsonWithOptionalMap(json, optionalValues)
+            jsonWithOptionalValues(json, optionalValues)
         }
     }
 
-     /** Given a set of symbols, returns subset consisting of array, enum, and struct symbols */
-    def splitTypeSymbolSet(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
-        if (symbolSet.isEmpty) (outSet) else {
-            val (tail, out) = symbolSet.head match {
-                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct) => (symbolSet.tail, outSet + h)
-                case _ => (symbolSet.tail, outSet)
-            }
-            splitTypeSymbolSet(tail, out)
-        }
-    }
-
-    /** JSON Encoding for a complete dictionary */
+    /** Main interface for the class. JSON Encoding for a complete dictionary */
     def dictionaryAsJson: Json = {
         /** Split set into individual sets consisting of each symbol type (arrays, enums, structs) */
         val typeDefSymbols = splitTypeSymbolSet(dictionary.typeSymbolSet, Set())
@@ -540,4 +502,52 @@ case class DictionaryJsonEncoder(
             "containers" -> dictionary.containerEntryMap.asJson
         )
     }
+
+
+
+    /* ############################  Helpers and utilities ############################ */
+
+
+    /** JSON Encoding for optional fields */
+    def jsonWithOptional(key: String, optional: Option[Any], json: Json): Json = {
+        optional match {
+            case Some(value) => value match {
+                case x: Json => Json.obj(key -> x).deepMerge(json)
+                case x: Int => Json.obj(key -> x.asJson).deepMerge(json)
+                case x: BigInt => Json.obj(key -> x.asJson).deepMerge(json)
+                case x: String => Json.obj(key -> x.asJson).deepMerge(json)
+                case Value.Struct(a, t) => {
+                    val Value.AnonStruct(members) = a
+                    val memberJson = members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
+                    Json.obj(key -> memberJson).deepMerge(json)
+                }
+                case x: Value => Json.obj(key -> valueAsJson(x)).deepMerge(json)
+                case x: Ast.QueueFull => Json.obj(key -> x.toString.asJson).deepMerge(json)
+            }
+            case None => json
+        }
+    }
+
+    /** Returns the updated JSON object with fields of optionalMap added only if they map to Some value*/
+    private def jsonWithOptionalValues(json: Json, optionals: Map[String, Option[Any]]): Json = {
+        optionals.foldLeft(json) ((acc, inst) => jsonWithOptional(inst._1, inst._2, acc))
+    }
+
+    /** Helper function to concatenate annotations List[String] together and return Option[String] for easy encoding */
+    private def concatAnnotations(preAnnotation: List[String], postAnnotation: List[String]): Option[String] = {
+        val concat = (preAnnotation ++ postAnnotation).mkString("\n")
+        if (concat.isEmpty) None else Some(concat)
+    }
+
+     /** Given a set of symbols, returns subset consisting of array, enum, and struct symbols */
+    private def splitTypeSymbolSet(symbolSet: Set[Symbol], outSet: Set[Symbol]): (Set[Symbol]) = {
+        if (symbolSet.isEmpty) (outSet) else {
+            val (tail, out) = symbolSet.head match {
+                case h: (Symbol.Array | Symbol.Enum | Symbol.Struct) => (symbolSet.tail, outSet + h)
+                case _ => (symbolSet.tail, outSet)
+            }
+            splitTypeSymbolSet(tail, out)
+        }
+    }
+
 }
