@@ -149,7 +149,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Initialize object PassiveSyncProductsTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -160,61 +160,61 @@ class PassiveSyncProductsTesterBase :
 
     //! Connect port to cmdIn[portNum]
     void connect_to_cmdIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputCmdPort* port //!< The input port
     );
 
     //! Connect port to productRecvIn[portNum]
     void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpResponsePort* port //!< The input port
     );
 
     //! Connect port to noArgsGuarded[portNum]
     void connect_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnGuarded[portNum]
     void connect_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnSync[portNum]
     void connect_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsSync[portNum]
     void connect_to_noArgsSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to typedGuarded[portNum]
     void connect_to_typedGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedReturnGuarded[portNum]
     void connect_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedReturnSync[portNum]
     void connect_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedSync[portNum]
     void connect_to_typedSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
@@ -228,49 +228,49 @@ class PassiveSyncProductsTesterBase :
     //!
     //! \return from_cmdRegOut[portNum]
     Fw::InputCmdRegPort* get_from_cmdRegOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_cmdResponseOut[portNum]
     Fw::InputCmdResponsePort* get_from_cmdResponseOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_eventOut[portNum]
     Fw::InputLogPort* get_from_eventOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_prmGetOut[portNum]
     Fw::InputPrmGetPort* get_from_prmGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_prmSetOut[portNum]
     Fw::InputPrmSetPort* get_from_prmSetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productRequestOut[portNum]
     Fw::InputDpRequestPort* get_from_productRequestOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productSendOut[portNum]
     Fw::InputDpSendPort* get_from_productSendOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -279,7 +279,7 @@ class PassiveSyncProductsTesterBase :
     //!
     //! \return from_textEventOut[portNum]
     Fw::InputLogTextPort* get_from_textEventOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #endif
@@ -288,42 +288,42 @@ class PassiveSyncProductsTesterBase :
     //!
     //! \return from_timeGetOut[portNum]
     Fw::InputTimePort* get_from_timeGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_tlmOut[portNum]
     Fw::InputTlmPort* get_from_tlmOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_noArgsOut[portNum]
     Ports::InputNoArgsPort* get_from_noArgsOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_noArgsReturnOut[portNum]
     Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_typedReturnOut[portNum]
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -349,17 +349,17 @@ class PassiveSyncProductsTesterBase :
 
     //! Handler for input port from_noArgsOut
     virtual void from_noArgsOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port from_noArgsReturnOut
     virtual U32 from_noArgsReturnOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -371,7 +371,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Handler for input port from_typedReturnOut
     virtual F32 from_typedReturnOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -389,17 +389,17 @@ class PassiveSyncProductsTesterBase :
 
     //! Handler base-class function for from_noArgsOut
     void from_noArgsOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for from_noArgsReturnOut
     U32 from_noArgsReturnOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -411,7 +411,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Handler base-class function for from_typedReturnOut
     F32 from_typedReturnOut_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -429,27 +429,27 @@ class PassiveSyncProductsTesterBase :
 
     //! Invoke the to port connected to noArgsGuarded
     void invoke_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnGuarded
     U32 invoke_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnSync
     U32 invoke_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsSync
     void invoke_to_noArgsSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to typedGuarded
     void invoke_to_typedGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -461,7 +461,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Invoke the to port connected to typedReturnGuarded
     F32 invoke_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -473,7 +473,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Invoke the to port connected to typedReturnSync
     F32 invoke_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -485,7 +485,7 @@ class PassiveSyncProductsTesterBase :
 
     //! Invoke the to port connected to typedSync
     void invoke_to_typedSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -504,126 +504,126 @@ class PassiveSyncProductsTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn() const;
+    FwIndexType getNum_to_cmdIn() const;
 
     //! Get the number of to_productRecvIn ports
     //!
     //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
+    FwIndexType getNum_to_productRecvIn() const;
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
+    FwIndexType getNum_to_noArgsGuarded() const;
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
+    FwIndexType getNum_to_noArgsReturnGuarded() const;
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
+    FwIndexType getNum_to_noArgsReturnSync() const;
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsSync() const;
+    FwIndexType getNum_to_noArgsSync() const;
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedGuarded() const;
+    FwIndexType getNum_to_typedGuarded() const;
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedReturnGuarded() const;
+    FwIndexType getNum_to_typedReturnGuarded() const;
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    NATIVE_INT_TYPE getNum_to_typedReturnSync() const;
+    FwIndexType getNum_to_typedReturnSync() const;
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    NATIVE_INT_TYPE getNum_to_typedSync() const;
+    FwIndexType getNum_to_typedSync() const;
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    NATIVE_INT_TYPE getNum_from_cmdRegOut() const;
+    FwIndexType getNum_from_cmdRegOut() const;
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    NATIVE_INT_TYPE getNum_from_cmdResponseOut() const;
+    FwIndexType getNum_from_cmdResponseOut() const;
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    NATIVE_INT_TYPE getNum_from_eventOut() const;
+    FwIndexType getNum_from_eventOut() const;
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    NATIVE_INT_TYPE getNum_from_prmGetOut() const;
+    FwIndexType getNum_from_prmGetOut() const;
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    NATIVE_INT_TYPE getNum_from_prmSetOut() const;
+    FwIndexType getNum_from_prmSetOut() const;
 
     //! Get the number of from_productRequestOut ports
     //!
     //! \return The number of from_productRequestOut ports
-    NATIVE_INT_TYPE getNum_from_productRequestOut() const;
+    FwIndexType getNum_from_productRequestOut() const;
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+    FwIndexType getNum_from_productSendOut() const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    NATIVE_INT_TYPE getNum_from_textEventOut() const;
+    FwIndexType getNum_from_textEventOut() const;
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    NATIVE_INT_TYPE getNum_from_timeGetOut() const;
+    FwIndexType getNum_from_timeGetOut() const;
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    NATIVE_INT_TYPE getNum_from_tlmOut() const;
+    FwIndexType getNum_from_tlmOut() const;
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+    FwIndexType getNum_from_noArgsOut() const;
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+    FwIndexType getNum_from_noArgsReturnOut() const;
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut() const;
+    FwIndexType getNum_from_typedOut() const;
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+    FwIndexType getNum_from_typedReturnOut() const;
 
   protected:
 
@@ -635,70 +635,70 @@ class PassiveSyncProductsTesterBase :
     //!
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_productRecvIn is connected
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -804,7 +804,7 @@ class PassiveSyncProductsTesterBase :
     //! Static function for port from_productRequestOut
     static void from_productRequestOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         FwSizeType dataSize //!< The data size of the requested buffer
     );
@@ -812,7 +812,7 @@ class PassiveSyncProductsTesterBase :
     //! Static function for port from_productSendOut
     static void from_productSendOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
@@ -820,26 +820,26 @@ class PassiveSyncProductsTesterBase :
     //! Static function for port from_timeGetOut
     static void from_timeGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::Time& time //!< The time tag
     );
 
     //! Static function for port from_noArgsOut
     static void from_noArgsOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Static function for port from_noArgsReturnOut
     static U32 from_noArgsReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -852,7 +852,7 @@ class PassiveSyncProductsTesterBase :
     //! Static function for port from_typedReturnOut
     static F32 from_typedReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean

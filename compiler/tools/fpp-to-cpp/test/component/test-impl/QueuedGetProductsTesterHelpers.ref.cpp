@@ -47,14 +47,14 @@ void QueuedGetProductsTester ::
     this->component.get_noArgsReturnGuarded_InputPort(0)
   );
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsReturnSync(
       i,
       this->component.get_noArgsReturnSync_InputPort(i)
     );
   }
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsSync(
       i,
       this->component.get_noArgsSync_InputPort(i)
@@ -91,14 +91,14 @@ void QueuedGetProductsTester ::
     this->component.get_typedReturnGuarded_InputPort(0)
   );
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_typedReturnSync(
       i,
       this->component.get_typedReturnSync_InputPort(i)
     );
   }
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_typedSync(
       i,
       this->component.get_typedSync_InputPort(i)

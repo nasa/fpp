@@ -49,7 +49,7 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Initialize PassiveGetProductPortsOnlyComponentBase object
     void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -60,13 +60,13 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Connect port to productGetOut[portNum]
     void set_productGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpGetPort* port //!< The input port
     );
 
     //! Connect port to productSendOut[portNum]
     void set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpSendPort* port //!< The input port
     );
 
@@ -80,7 +80,7 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Connect port to productSendOut[portNum]
     void set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -109,12 +109,12 @@ class PassiveGetProductPortsOnlyComponentBase :
     //! Get the number of productGetOut output ports
     //!
     //! \return The number of productGetOut output ports
-    NATIVE_INT_TYPE getNum_productGetOut_OutputPorts() const;
+    FwIndexType getNum_productGetOut_OutputPorts() const;
 
     //! Get the number of productSendOut output ports
     //!
     //! \return The number of productSendOut output ports
-    NATIVE_INT_TYPE getNum_productSendOut_OutputPorts() const;
+    FwIndexType getNum_productSendOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -126,14 +126,14 @@ class PassiveGetProductPortsOnlyComponentBase :
     //!
     //! \return Whether port productGetOut is connected
     bool isConnected_productGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -144,7 +144,7 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Invoke output port productGetOut
     Fw::Success productGetOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID (input)
         FwSizeType dataSize, //!< The data size of the requested buffer (input)
         Fw::Buffer& buffer //!< The buffer (output)
@@ -152,7 +152,7 @@ class PassiveGetProductPortsOnlyComponentBase :
 
     //! Invoke output port productSendOut
     void productSendOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );

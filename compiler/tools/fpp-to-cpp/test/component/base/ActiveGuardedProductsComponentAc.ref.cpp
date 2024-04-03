@@ -44,11 +44,11 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
+          sizeof(FwEnumStoreType) +
+          sizeof(FwIndexType)
       };
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -227,8 +227,8 @@ Fw::SerializeStatus ActiveGuardedProductsComponentBase::DpContainer ::
 
 void ActiveGuardedProductsComponentBase ::
   init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
+      FwQueueSizeType queueDepth,
+      FwEnumStoreType instance
   )
 {
   // Initialize base class
@@ -236,8 +236,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
     port++
   ) {
     this->m_cmdIn_InputPort[port].init();
@@ -260,8 +260,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
     port++
   ) {
     this->m_productRecvIn_InputPort[port].init();
@@ -284,8 +284,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsAsync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsAsync_InputPorts());
     port++
   ) {
     this->m_noArgsAsync_InputPort[port].init();
@@ -308,8 +308,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsGuarded_InputPort[port].init();
@@ -332,8 +332,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsReturnGuarded_InputPort[port].init();
@@ -356,8 +356,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
     port++
   ) {
     this->m_noArgsReturnSync_InputPort[port].init();
@@ -380,8 +380,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts());
     port++
   ) {
     this->m_noArgsSync_InputPort[port].init();
@@ -404,8 +404,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsync_InputPorts());
     port++
   ) {
     this->m_typedAsync_InputPort[port].init();
@@ -428,8 +428,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncAssert_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncAssert_InputPorts());
     port++
   ) {
     this->m_typedAsyncAssert_InputPort[port].init();
@@ -452,8 +452,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncBlockPriority_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncBlockPriority_InputPorts());
     port++
   ) {
     this->m_typedAsyncBlockPriority_InputPort[port].init();
@@ -476,8 +476,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedAsyncDropPriority_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedAsyncDropPriority_InputPorts());
     port++
   ) {
     this->m_typedAsyncDropPriority_InputPort[port].init();
@@ -500,8 +500,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts());
     port++
   ) {
     this->m_typedGuarded_InputPort[port].init();
@@ -524,8 +524,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts());
     port++
   ) {
     this->m_typedReturnGuarded_InputPort[port].init();
@@ -548,8 +548,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts());
     port++
   ) {
     this->m_typedReturnSync_InputPort[port].init();
@@ -572,8 +572,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect input port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts());
     port++
   ) {
     this->m_typedSync_InputPort[port].init();
@@ -596,8 +596,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
     port++
   ) {
     this->m_cmdRegOut_OutputPort[port].init();
@@ -615,8 +615,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
     port++
   ) {
     this->m_cmdResponseOut_OutputPort[port].init();
@@ -634,8 +634,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port eventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
     port++
   ) {
     this->m_eventOut_OutputPort[port].init();
@@ -653,8 +653,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
     port++
   ) {
     this->m_prmGetOut_OutputPort[port].init();
@@ -672,8 +672,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
     port++
   ) {
     this->m_prmSetOut_OutputPort[port].init();
@@ -691,8 +691,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
     port++
   ) {
     this->m_productRequestOut_OutputPort[port].init();
@@ -710,8 +710,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
     port++
   ) {
     this->m_productSendOut_OutputPort[port].init();
@@ -730,8 +730,8 @@ void ActiveGuardedProductsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port textEventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
     port++
   ) {
     this->m_textEventOut_OutputPort[port].init();
@@ -750,8 +750,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
     port++
   ) {
     this->m_timeGetOut_OutputPort[port].init();
@@ -769,8 +769,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port tlmOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
     port++
   ) {
     this->m_tlmOut_OutputPort[port].init();
@@ -788,8 +788,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
     port++
   ) {
     this->m_noArgsOut_OutputPort[port].init();
@@ -807,8 +807,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
     port++
   ) {
     this->m_noArgsReturnOut_OutputPort[port].init();
@@ -826,8 +826,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts());
     port++
   ) {
     this->m_typedOut_OutputPort[port].init();
@@ -845,8 +845,8 @@ void ActiveGuardedProductsComponentBase ::
 
   // Connect output port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts());
     port++
   ) {
     this->m_typedReturnOut_OutputPort[port].init();
@@ -877,7 +877,7 @@ void ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdPort* ActiveGuardedProductsComponentBase ::
-  get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdIn_InputPorts(),
@@ -888,7 +888,7 @@ Fw::InputCmdPort* ActiveGuardedProductsComponentBase ::
 }
 
 Fw::InputDpResponsePort* ActiveGuardedProductsComponentBase ::
-  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRecvIn_InputPorts(),
@@ -903,7 +903,7 @@ Fw::InputDpResponsePort* ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
-  get_noArgsAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsAsync_InputPorts(),
@@ -914,7 +914,7 @@ Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
-  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsGuarded_InputPorts(),
@@ -925,7 +925,7 @@ Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* ActiveGuardedProductsComponentBase ::
-  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
@@ -936,7 +936,7 @@ Ports::InputNoArgsReturnPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* ActiveGuardedProductsComponentBase ::
-  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnSync_InputPorts(),
@@ -947,7 +947,7 @@ Ports::InputNoArgsReturnPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
-  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsSync_InputPorts(),
@@ -958,7 +958,7 @@ Ports::InputNoArgsPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedAsync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsync_InputPorts(),
@@ -969,7 +969,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedAsyncAssert_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncAssert_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncAssert_InputPorts(),
@@ -980,7 +980,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedAsyncBlockPriority_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncBlockPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncBlockPriority_InputPorts(),
@@ -991,7 +991,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedAsyncDropPriority_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedAsyncDropPriority_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedAsyncDropPriority_InputPorts(),
@@ -1002,7 +1002,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedGuarded_InputPorts(),
@@ -1013,7 +1013,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* ActiveGuardedProductsComponentBase ::
-  get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnGuarded_InputPorts(),
@@ -1024,7 +1024,7 @@ Ports::InputTypedReturnPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* ActiveGuardedProductsComponentBase ::
-  get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnSync_InputPorts(),
@@ -1035,7 +1035,7 @@ Ports::InputTypedReturnPort* ActiveGuardedProductsComponentBase ::
 }
 
 Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedSync_InputPorts(),
@@ -1051,7 +1051,7 @@ Ports::InputTypedPort* ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdRegPort* port
   )
 {
@@ -1065,7 +1065,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdResponsePort* port
   )
 {
@@ -1079,7 +1079,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogPort* port
   )
 {
@@ -1093,7 +1093,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmGetPort* port
   )
 {
@@ -1107,7 +1107,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmSetPort* port
   )
 {
@@ -1121,7 +1121,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpRequestPort* port
   )
 {
@@ -1135,7 +1135,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpSendPort* port
   )
 {
@@ -1151,7 +1151,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogTextPort* port
   )
 {
@@ -1167,7 +1167,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTimePort* port
   )
 {
@@ -1181,7 +1181,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTlmPort* port
   )
 {
@@ -1199,7 +1199,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -1213,7 +1213,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_noArgsReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -1227,7 +1227,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -1241,7 +1241,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -1261,7 +1261,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1275,7 +1275,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1289,7 +1289,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1303,7 +1303,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1317,7 +1317,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1331,7 +1331,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1347,7 +1347,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1363,7 +1363,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1377,7 +1377,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1399,7 +1399,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1413,7 +1413,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -1448,194 +1448,194 @@ ActiveGuardedProductsComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_cmdIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsAsync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsAsync_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedAsync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsync_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedAsyncAssert_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncAssert_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedAsyncBlockPriority_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncBlockPriority_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedAsyncDropPriority_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedAsyncDropPriority_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_cmdRegOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_cmdResponseOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_eventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_prmGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_textEventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
 
 #endif
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_timeGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_tlmOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
-NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
+FwIndexType ActiveGuardedProductsComponentBase ::
   getNum_typedReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1643,7 +1643,7 @@ NATIVE_INT_TYPE ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdRegOut_OutputPorts(),
@@ -1654,7 +1654,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdResponseOut_OutputPorts(),
@@ -1665,7 +1665,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_eventOut_OutputPorts(),
@@ -1676,7 +1676,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmGetOut_OutputPorts(),
@@ -1687,7 +1687,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmSetOut_OutputPorts(),
@@ -1698,7 +1698,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRequestOut_OutputPorts(),
@@ -1709,7 +1709,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
@@ -1722,7 +1722,7 @@ bool ActiveGuardedProductsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_textEventOut_OutputPorts(),
@@ -1735,7 +1735,7 @@ bool ActiveGuardedProductsComponentBase ::
 #endif
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_timeGetOut_OutputPorts(),
@@ -1746,7 +1746,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_tlmOut_OutputPorts(),
@@ -1761,7 +1761,7 @@ bool ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -1772,7 +1772,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -1783,7 +1783,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
@@ -1794,7 +1794,7 @@ bool ActiveGuardedProductsComponentBase ::
 }
 
 bool ActiveGuardedProductsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnOut_OutputPorts(),
@@ -1812,7 +1812,7 @@ bool ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   productRecvIn_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -1846,7 +1846,7 @@ void ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveGuardedProductsComponentBase ::
-  noArgsAsync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1861,7 +1861,7 @@ void ActiveGuardedProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(NOARGSASYNC_NOARGS)
+    static_cast<FwEnumStoreType>(NOARGSASYNC_NOARGS)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -1886,7 +1886,7 @@ void ActiveGuardedProductsComponentBase ::
 }
 
 void ActiveGuardedProductsComponentBase ::
-  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1905,7 +1905,7 @@ void ActiveGuardedProductsComponentBase ::
 }
 
 U32 ActiveGuardedProductsComponentBase ::
-  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1928,7 +1928,7 @@ U32 ActiveGuardedProductsComponentBase ::
 }
 
 U32 ActiveGuardedProductsComponentBase ::
-  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1945,7 +1945,7 @@ U32 ActiveGuardedProductsComponentBase ::
 }
 
 void ActiveGuardedProductsComponentBase ::
-  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1959,7 +1959,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1991,7 +1991,7 @@ void ActiveGuardedProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNC_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNC_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2066,7 +2066,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncAssert_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2098,7 +2098,7 @@ void ActiveGuardedProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCASSERT_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCASSERT_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2173,7 +2173,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncBlockPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2205,7 +2205,7 @@ void ActiveGuardedProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCBLOCKPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCBLOCKPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2280,7 +2280,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncDropPriority_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2312,7 +2312,7 @@ void ActiveGuardedProductsComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(TYPEDASYNCDROPPRIORITY_TYPED)
+    static_cast<FwEnumStoreType>(TYPEDASYNCDROPPRIORITY_TYPED)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -2392,7 +2392,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2429,7 +2429,7 @@ void ActiveGuardedProductsComponentBase ::
 
 F32 ActiveGuardedProductsComponentBase ::
   typedReturnGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2470,7 +2470,7 @@ F32 ActiveGuardedProductsComponentBase ::
 
 F32 ActiveGuardedProductsComponentBase ::
   typedReturnSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2505,7 +2505,7 @@ F32 ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2544,7 +2544,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   productRecvIn_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -2562,14 +2562,14 @@ void ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveGuardedProductsComponentBase ::
-  noArgsAsync_preMsgHook(NATIVE_INT_TYPE portNum)
+  noArgsAsync_preMsgHook(FwIndexType portNum)
 {
   // Default: no-op
 }
 
 void ActiveGuardedProductsComponentBase ::
   typedAsync_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2584,7 +2584,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncAssert_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2599,7 +2599,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncBlockPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2614,7 +2614,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedAsyncDropPriority_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2633,7 +2633,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   productRequestOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -2650,7 +2650,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   productSendOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -2670,7 +2670,7 @@ void ActiveGuardedProductsComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveGuardedProductsComponentBase ::
-  noArgsOut_out(NATIVE_INT_TYPE portNum)
+  noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -2680,7 +2680,7 @@ void ActiveGuardedProductsComponentBase ::
 }
 
 U32 ActiveGuardedProductsComponentBase ::
-  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+  noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -2691,7 +2691,7 @@ U32 ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   typedOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2718,7 +2718,7 @@ void ActiveGuardedProductsComponentBase ::
 
 F32 ActiveGuardedProductsComponentBase ::
   typedReturnOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2817,7 +2817,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveGuardedProductsComponentBase ::
   doDispatch()
 {
   ComponentIpcSerializableBuffer msg;
-  NATIVE_INT_TYPE priority = 0;
+  FwQueuePriorityType priority = 0;
 
   Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
     msg,
@@ -2832,7 +2832,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveGuardedProductsComponentBase ::
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  NATIVE_INT_TYPE desMsg = 0;
+  FwEnumStoreType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2845,7 +2845,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveGuardedProductsComponentBase ::
     return MSG_DISPATCH_EXIT;
   }
 
-  NATIVE_INT_TYPE portNum = 0;
+  FwIndexType portNum = 0;
   deserStatus = msg.deserialize(portNum);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3163,7 +3163,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -3178,7 +3178,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_productRecvIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -3201,7 +3201,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_noArgsAsync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3212,7 +3212,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_noArgsGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3223,7 +3223,7 @@ void ActiveGuardedProductsComponentBase ::
 U32 ActiveGuardedProductsComponentBase ::
   m_p_noArgsReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3234,7 +3234,7 @@ U32 ActiveGuardedProductsComponentBase ::
 U32 ActiveGuardedProductsComponentBase ::
   m_p_noArgsReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3245,7 +3245,7 @@ U32 ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_noArgsSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -3256,7 +3256,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedAsync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3283,7 +3283,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedAsyncAssert_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3310,7 +3310,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedAsyncBlockPriority_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3337,7 +3337,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedAsyncDropPriority_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3364,7 +3364,7 @@ void ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3391,7 +3391,7 @@ void ActiveGuardedProductsComponentBase ::
 F32 ActiveGuardedProductsComponentBase ::
   m_p_typedReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3418,7 +3418,7 @@ F32 ActiveGuardedProductsComponentBase ::
 F32 ActiveGuardedProductsComponentBase ::
   m_p_typedReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3445,7 +3445,7 @@ F32 ActiveGuardedProductsComponentBase ::
 void ActiveGuardedProductsComponentBase ::
   m_p_typedSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -3486,7 +3486,7 @@ void ActiveGuardedProductsComponentBase ::
 
 void ActiveGuardedProductsComponentBase ::
   productRecvIn_handler(
-      const NATIVE_INT_TYPE portNum,
+      const FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status

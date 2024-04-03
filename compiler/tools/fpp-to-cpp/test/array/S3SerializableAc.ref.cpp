@@ -22,7 +22,7 @@ namespace S {
       Serializable(),
       m_mF64(0.0)
   {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = 0;
     }
   }
@@ -35,7 +35,7 @@ namespace S {
       Serializable(),
       m_mF64(mF64)
   {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = mU32Array[i];
     }
   }
@@ -45,7 +45,7 @@ namespace S {
       Serializable(),
       m_mF64(obj.m_mF64)
   {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = obj.m_mU32Array[i];
     }
   }
@@ -58,7 +58,7 @@ namespace S {
       Serializable(),
       m_mF64(mF64)
   {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = mU32Array;
     }
   }
@@ -88,7 +88,7 @@ namespace S {
 
     // Compare array members
     if (!(this->m_mU32Array == obj.m_mU32Array)) {
-      for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+      for (FwSizeType i = 0; i < 3; i++) {
         if (!(this->m_mU32Array[i] == obj.m_mU32Array[i])) {
           return false;
         }
@@ -124,7 +124,7 @@ namespace S {
   {
     Fw::SerializeStatus status;
 
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       status = buffer.serialize(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
@@ -143,7 +143,7 @@ namespace S {
   {
     Fw::SerializeStatus status;
 
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       status = buffer.deserialize(this->m_mU32Array[i]);
       if (status != Fw::FW_SERIALIZE_OK) {
         return status;
@@ -199,7 +199,7 @@ namespace S {
   {
     this->m_mF64 = mF64;
 
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = mU32Array[i];
     }
   }
@@ -207,7 +207,7 @@ namespace S {
   void S3 ::
     setmU32Array(const Type_of_mU32Array& mU32Array)
   {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       this->m_mU32Array[i] = mU32Array[i];
     }
   }

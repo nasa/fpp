@@ -35,7 +35,7 @@ namespace M {
 
       }
 
-      void p_handler(NATIVE_INT_TYPE portNum) {
+      void p_handler(FwIndexType portNum) {
 
       }
 

@@ -14,15 +14,15 @@
 // ----------------------------------------------------------------------
 
 void QueuedParamsTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
   // Connect input port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdRegOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdRegOut());
     port++
   ) {
     this->m_from_cmdRegOut[port].init();
@@ -45,8 +45,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdResponseOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdResponseOut());
     port++
   ) {
     this->m_from_cmdResponseOut[port].init();
@@ -69,8 +69,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmGetOut());
     port++
   ) {
     this->m_from_prmGetOut[port].init();
@@ -93,8 +93,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmSetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmSetOut());
     port++
   ) {
     this->m_from_prmSetOut[port].init();
@@ -117,8 +117,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_timeGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_timeGetOut());
     port++
   ) {
     this->m_from_timeGetOut[port].init();
@@ -141,8 +141,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsOut());
     port++
   ) {
     this->m_from_noArgsOut[port].init();
@@ -165,8 +165,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsReturnOut());
     port++
   ) {
     this->m_from_noArgsReturnOut[port].init();
@@ -189,8 +189,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedOut());
     port++
   ) {
     this->m_from_typedOut[port].init();
@@ -213,8 +213,8 @@ void QueuedParamsTesterBase ::
 
   // Connect input port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedReturnOut());
     port++
   ) {
     this->m_from_typedReturnOut[port].init();
@@ -237,8 +237,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_cmdIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_cmdIn());
     port++
   ) {
     this->m_to_cmdIn[port].init();
@@ -256,8 +256,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port noArgsAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsAsync());
     port++
   ) {
     this->m_to_noArgsAsync[port].init();
@@ -275,8 +275,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsGuarded());
     port++
   ) {
     this->m_to_noArgsGuarded[port].init();
@@ -294,8 +294,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnGuarded());
     port++
   ) {
     this->m_to_noArgsReturnGuarded[port].init();
@@ -313,8 +313,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnSync());
     port++
   ) {
     this->m_to_noArgsReturnSync[port].init();
@@ -332,8 +332,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsSync());
     port++
   ) {
     this->m_to_noArgsSync[port].init();
@@ -351,8 +351,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedAsync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsync());
     port++
   ) {
     this->m_to_typedAsync[port].init();
@@ -370,8 +370,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedAsyncAssert
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncAssert());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncAssert());
     port++
   ) {
     this->m_to_typedAsyncAssert[port].init();
@@ -389,8 +389,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedAsyncBlockPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncBlockPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncBlockPriority());
     port++
   ) {
     this->m_to_typedAsyncBlockPriority[port].init();
@@ -408,8 +408,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedAsyncDropPriority
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedAsyncDropPriority());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedAsyncDropPriority());
     port++
   ) {
     this->m_to_typedAsyncDropPriority[port].init();
@@ -427,8 +427,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedGuarded());
     port++
   ) {
     this->m_to_typedGuarded[port].init();
@@ -446,8 +446,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnGuarded());
     port++
   ) {
     this->m_to_typedReturnGuarded[port].init();
@@ -465,8 +465,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnSync());
     port++
   ) {
     this->m_to_typedReturnSync[port].init();
@@ -484,8 +484,8 @@ void QueuedParamsTesterBase ::
 
   // Connect output port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedSync());
     port++
   ) {
     this->m_to_typedSync[port].init();
@@ -508,7 +508,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_cmdIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdPort* port
   )
 {
@@ -522,7 +522,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_noArgsAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -536,7 +536,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_noArgsGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -550,7 +550,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_noArgsReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -564,7 +564,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_noArgsReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -578,7 +578,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_noArgsSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -592,7 +592,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -606,7 +606,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -620,7 +620,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -634,7 +634,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -648,7 +648,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -662,7 +662,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -676,7 +676,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -690,7 +690,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   connect_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -707,7 +707,7 @@ void QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdRegPort* QueuedParamsTesterBase ::
-  get_from_cmdRegOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdRegOut(),
@@ -718,7 +718,7 @@ Fw::InputCmdRegPort* QueuedParamsTesterBase ::
 }
 
 Fw::InputCmdResponsePort* QueuedParamsTesterBase ::
-  get_from_cmdResponseOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdResponseOut(),
@@ -729,7 +729,7 @@ Fw::InputCmdResponsePort* QueuedParamsTesterBase ::
 }
 
 Fw::InputLogPort* QueuedParamsTesterBase ::
-  get_from_eventOut(NATIVE_INT_TYPE portNum)
+  get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_eventOut(),
@@ -740,7 +740,7 @@ Fw::InputLogPort* QueuedParamsTesterBase ::
 }
 
 Fw::InputPrmGetPort* QueuedParamsTesterBase ::
-  get_from_prmGetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmGetOut(),
@@ -751,7 +751,7 @@ Fw::InputPrmGetPort* QueuedParamsTesterBase ::
 }
 
 Fw::InputPrmSetPort* QueuedParamsTesterBase ::
-  get_from_prmSetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmSetOut(),
@@ -764,7 +764,7 @@ Fw::InputPrmSetPort* QueuedParamsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* QueuedParamsTesterBase ::
-  get_from_textEventOut(NATIVE_INT_TYPE portNum)
+  get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_textEventOut(),
@@ -777,7 +777,7 @@ Fw::InputLogTextPort* QueuedParamsTesterBase ::
 #endif
 
 Fw::InputTimePort* QueuedParamsTesterBase ::
-  get_from_timeGetOut(NATIVE_INT_TYPE portNum)
+  get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_timeGetOut(),
@@ -788,7 +788,7 @@ Fw::InputTimePort* QueuedParamsTesterBase ::
 }
 
 Fw::InputTlmPort* QueuedParamsTesterBase ::
-  get_from_tlmOut(NATIVE_INT_TYPE portNum)
+  get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_tlmOut(),
@@ -799,7 +799,7 @@ Fw::InputTlmPort* QueuedParamsTesterBase ::
 }
 
 Ports::InputNoArgsPort* QueuedParamsTesterBase ::
-  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsOut(),
@@ -810,7 +810,7 @@ Ports::InputNoArgsPort* QueuedParamsTesterBase ::
 }
 
 Ports::InputNoArgsReturnPort* QueuedParamsTesterBase ::
-  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsReturnOut(),
@@ -821,7 +821,7 @@ Ports::InputNoArgsReturnPort* QueuedParamsTesterBase ::
 }
 
 Ports::InputTypedPort* QueuedParamsTesterBase ::
-  get_from_typedOut(NATIVE_INT_TYPE portNum)
+  get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedOut(),
@@ -832,7 +832,7 @@ Ports::InputTypedPort* QueuedParamsTesterBase ::
 }
 
 Ports::InputTypedReturnPort* QueuedParamsTesterBase ::
-  get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedReturnOut(),
@@ -886,7 +886,7 @@ QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsTesterBase ::
-  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -897,7 +897,7 @@ void QueuedParamsTesterBase ::
 }
 
 U32 QueuedParamsTesterBase ::
-  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -909,7 +909,7 @@ U32 QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   from_typedOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -938,7 +938,7 @@ void QueuedParamsTesterBase ::
 
 F32 QueuedParamsTesterBase ::
   from_typedReturnOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -970,7 +970,7 @@ F32 QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void QueuedParamsTesterBase ::
-  invoke_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsAsync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -981,7 +981,7 @@ void QueuedParamsTesterBase ::
 }
 
 void QueuedParamsTesterBase ::
-  invoke_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -992,7 +992,7 @@ void QueuedParamsTesterBase ::
 }
 
 U32 QueuedParamsTesterBase ::
-  invoke_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1003,7 +1003,7 @@ U32 QueuedParamsTesterBase ::
 }
 
 U32 QueuedParamsTesterBase ::
-  invoke_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1014,7 +1014,7 @@ U32 QueuedParamsTesterBase ::
 }
 
 void QueuedParamsTesterBase ::
-  invoke_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1026,7 +1026,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedAsync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1054,7 +1054,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedAsyncAssert(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1082,7 +1082,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedAsyncBlockPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1110,7 +1110,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedAsyncDropPriority(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1138,7 +1138,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1166,7 +1166,7 @@ void QueuedParamsTesterBase ::
 
 F32 QueuedParamsTesterBase ::
   invoke_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1194,7 +1194,7 @@ F32 QueuedParamsTesterBase ::
 
 F32 QueuedParamsTesterBase ::
   invoke_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1222,7 +1222,7 @@ F32 QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   invoke_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1252,164 +1252,164 @@ void QueuedParamsTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_cmdIn() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_noArgsAsync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsAsync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_noArgsSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedAsync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedAsyncAssert() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncAssert));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedAsyncBlockPriority() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncBlockPriority));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedAsyncDropPriority() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedAsyncDropPriority));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedReturnGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedReturnSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_to_typedSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_cmdRegOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_cmdResponseOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_eventOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_prmGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_prmSetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_textEventOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
 
 #endif
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_timeGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_tlmOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_typedOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
-NATIVE_INT_TYPE QueuedParamsTesterBase ::
+FwIndexType QueuedParamsTesterBase ::
   getNum_from_typedReturnOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1417,7 +1417,7 @@ NATIVE_INT_TYPE QueuedParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_cmdIn(),
@@ -1428,7 +1428,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_noArgsAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsAsync(),
@@ -1439,7 +1439,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsGuarded(),
@@ -1450,7 +1450,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnGuarded(),
@@ -1461,7 +1461,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnSync(),
@@ -1472,7 +1472,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsSync(),
@@ -1483,7 +1483,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedAsync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsync(),
@@ -1494,7 +1494,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedAsyncAssert(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncAssert(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncAssert(),
@@ -1505,7 +1505,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedAsyncBlockPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncBlockPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncBlockPriority(),
@@ -1516,7 +1516,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedAsyncDropPriority(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedAsyncDropPriority(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedAsyncDropPriority(),
@@ -1527,7 +1527,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedGuarded(),
@@ -1538,7 +1538,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnGuarded(),
@@ -1549,7 +1549,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnSync(),
@@ -1560,7 +1560,7 @@ bool QueuedParamsTesterBase ::
 }
 
 bool QueuedParamsTesterBase ::
-  isConnected_to_typedSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedSync(),
@@ -1622,7 +1622,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1649,7 +1649,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1681,7 +1681,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1708,7 +1708,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1740,7 +1740,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1767,7 +1767,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1799,7 +1799,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1826,7 +1826,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1858,7 +1858,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1885,7 +1885,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1917,7 +1917,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSend_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1944,7 +1944,7 @@ void QueuedParamsTesterBase ::
 
 void QueuedParamsTesterBase ::
   paramSave_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -2064,7 +2064,7 @@ void QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_cmdRegOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode
   )
 {
@@ -2074,7 +2074,7 @@ void QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       const Fw::CmdResponse& response
@@ -2087,7 +2087,7 @@ void QueuedParamsTesterBase ::
 Fw::ParamValid QueuedParamsTesterBase ::
   from_prmGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -2174,7 +2174,7 @@ Fw::ParamValid QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_prmSetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -2280,7 +2280,7 @@ void QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::Time& time
   )
 {
@@ -2291,7 +2291,7 @@ void QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_noArgsOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -2302,7 +2302,7 @@ void QueuedParamsTesterBase ::
 U32 QueuedParamsTesterBase ::
   from_noArgsReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -2313,7 +2313,7 @@ U32 QueuedParamsTesterBase ::
 void QueuedParamsTesterBase ::
   from_typedOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2340,7 +2340,7 @@ void QueuedParamsTesterBase ::
 F32 QueuedParamsTesterBase ::
   from_typedReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

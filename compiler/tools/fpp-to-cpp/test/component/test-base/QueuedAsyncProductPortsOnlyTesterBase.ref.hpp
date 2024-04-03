@@ -28,7 +28,7 @@ class QueuedAsyncProductPortsOnlyTesterBase :
 
     //! Initialize object QueuedAsyncProductPortsOnlyTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -39,7 +39,7 @@ class QueuedAsyncProductPortsOnlyTesterBase :
 
     //! Connect port to productRecvIn[portNum]
     void connect_to_productRecvIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpResponsePort* port //!< The input port
     );
 
@@ -53,14 +53,14 @@ class QueuedAsyncProductPortsOnlyTesterBase :
     //!
     //! \return from_productRequestOut[portNum]
     Fw::InputDpRequestPort* get_from_productRequestOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productSendOut[portNum]
     Fw::InputDpSendPort* get_from_productSendOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -87,17 +87,17 @@ class QueuedAsyncProductPortsOnlyTesterBase :
     //! Get the number of to_productRecvIn ports
     //!
     //! \return The number of to_productRecvIn ports
-    NATIVE_INT_TYPE getNum_to_productRecvIn() const;
+    FwIndexType getNum_to_productRecvIn() const;
 
     //! Get the number of from_productRequestOut ports
     //!
     //! \return The number of from_productRequestOut ports
-    NATIVE_INT_TYPE getNum_from_productRequestOut() const;
+    FwIndexType getNum_from_productRequestOut() const;
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+    FwIndexType getNum_from_productSendOut() const;
 
   protected:
 
@@ -109,7 +109,7 @@ class QueuedAsyncProductPortsOnlyTesterBase :
     //!
     //! \return Whether port to_productRecvIn is connected
     bool isConnected_to_productRecvIn(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   private:

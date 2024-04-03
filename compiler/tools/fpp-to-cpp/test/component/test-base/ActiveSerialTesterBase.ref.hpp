@@ -249,7 +249,7 @@ class ActiveSerialTesterBase :
 
     //! Initialize object ActiveSerialTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -260,121 +260,121 @@ class ActiveSerialTesterBase :
 
     //! Connect port to cmdIn[portNum]
     void connect_to_cmdIn(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputCmdPort* port //!< The input port
     );
 
     //! Connect port to noArgsAsync[portNum]
     void connect_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsGuarded[portNum]
     void connect_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnGuarded[portNum]
     void connect_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnSync[portNum]
     void connect_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsSync[portNum]
     void connect_to_noArgsSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to typedAsync[portNum]
     void connect_to_typedAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncAssert[portNum]
     void connect_to_typedAsyncAssert(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncBlockPriority[portNum]
     void connect_to_typedAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedAsyncDropPriority[portNum]
     void connect_to_typedAsyncDropPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedGuarded[portNum]
     void connect_to_typedGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedReturnGuarded[portNum]
     void connect_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedReturnSync[portNum]
     void connect_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
     //! Connect port to typedSync[portNum]
     void connect_to_typedSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to serialAsync[portNum]
     void connect_to_serialAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
     //! Connect port to serialAsyncAssert[portNum]
     void connect_to_serialAsyncAssert(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
     //! Connect port to serialAsyncBlockPriority[portNum]
     void connect_to_serialAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
     //! Connect port to serialAsyncDropPriority[portNum]
     void connect_to_serialAsyncDropPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
     //! Connect port to serialGuarded[portNum]
     void connect_to_serialGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
     //! Connect port to serialSync[portNum]
     void connect_to_serialSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The input port
     );
 
@@ -388,35 +388,35 @@ class ActiveSerialTesterBase :
     //!
     //! \return from_cmdRegOut[portNum]
     Fw::InputCmdRegPort* get_from_cmdRegOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_cmdResponseOut[portNum]
     Fw::InputCmdResponsePort* get_from_cmdResponseOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_eventOut[portNum]
     Fw::InputLogPort* get_from_eventOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_prmGetOut[portNum]
     Fw::InputPrmGetPort* get_from_prmGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_prmSetOut[portNum]
     Fw::InputPrmSetPort* get_from_prmSetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -425,7 +425,7 @@ class ActiveSerialTesterBase :
     //!
     //! \return from_textEventOut[portNum]
     Fw::InputLogTextPort* get_from_textEventOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #endif
@@ -434,49 +434,49 @@ class ActiveSerialTesterBase :
     //!
     //! \return from_timeGetOut[portNum]
     Fw::InputTimePort* get_from_timeGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_tlmOut[portNum]
     Fw::InputTlmPort* get_from_tlmOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_noArgsOut[portNum]
     Ports::InputNoArgsPort* get_from_noArgsOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_noArgsReturnOut[portNum]
     Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_typedOut[portNum]
     Ports::InputTypedPort* get_from_typedOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_typedReturnOut[portNum]
     Ports::InputTypedReturnPort* get_from_typedReturnOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_serialOut[portNum]
     Fw::InputSerializePort* get_from_serialOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -502,17 +502,17 @@ class ActiveSerialTesterBase :
 
     //! Handler for input port from_noArgsOut
     virtual void from_noArgsOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port from_noArgsReturnOut
     virtual U32 from_noArgsReturnOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port from_typedOut
     virtual void from_typedOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -524,7 +524,7 @@ class ActiveSerialTesterBase :
 
     //! Handler for input port from_typedReturnOut
     virtual F32 from_typedReturnOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -536,7 +536,7 @@ class ActiveSerialTesterBase :
 
     //! Handler for input port from_serialOut
     virtual void from_serialOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) = 0;
 
@@ -548,17 +548,17 @@ class ActiveSerialTesterBase :
 
     //! Handler base-class function for from_noArgsOut
     void from_noArgsOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for from_noArgsReturnOut
     U32 from_noArgsReturnOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for from_typedOut
     void from_typedOut_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -570,7 +570,7 @@ class ActiveSerialTesterBase :
 
     //! Handler base-class function for from_typedReturnOut
     F32 from_typedReturnOut_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -582,7 +582,7 @@ class ActiveSerialTesterBase :
 
     //! Handler base-class function for from_serialOut
     void from_serialOut_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
@@ -594,32 +594,32 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to noArgsAsync
     void invoke_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsGuarded
     void invoke_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnGuarded
     U32 invoke_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnSync
     U32 invoke_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsSync
     void invoke_to_noArgsSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to typedAsync
     void invoke_to_typedAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -631,7 +631,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedAsyncAssert
     void invoke_to_typedAsyncAssert(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -643,7 +643,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedAsyncBlockPriority
     void invoke_to_typedAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -655,7 +655,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedAsyncDropPriority
     void invoke_to_typedAsyncDropPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -667,7 +667,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedGuarded
     void invoke_to_typedGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -679,7 +679,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedReturnGuarded
     F32 invoke_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -691,7 +691,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedReturnSync
     F32 invoke_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -703,7 +703,7 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to typedSync
     void invoke_to_typedSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -715,37 +715,37 @@ class ActiveSerialTesterBase :
 
     //! Invoke the to port connected to serialAsync
     void invoke_to_serialAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialAsyncAssert
     void invoke_to_serialAsyncAssert(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialAsyncBlockPriority
     void invoke_to_serialAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialAsyncDropPriority
     void invoke_to_serialAsyncDropPriority(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialGuarded
     void invoke_to_serialGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
     //! Invoke the to port connected to serialSync
     void invoke_to_serialSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 
@@ -758,171 +758,171 @@ class ActiveSerialTesterBase :
     //! Get the number of to_cmdIn ports
     //!
     //! \return The number of to_cmdIn ports
-    NATIVE_INT_TYPE getNum_to_cmdIn() const;
+    FwIndexType getNum_to_cmdIn() const;
 
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    NATIVE_INT_TYPE getNum_to_noArgsAsync() const;
+    FwIndexType getNum_to_noArgsAsync() const;
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
+    FwIndexType getNum_to_noArgsGuarded() const;
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
+    FwIndexType getNum_to_noArgsReturnGuarded() const;
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
+    FwIndexType getNum_to_noArgsReturnSync() const;
 
     //! Get the number of to_noArgsSync ports
     //!
     //! \return The number of to_noArgsSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsSync() const;
+    FwIndexType getNum_to_noArgsSync() const;
 
     //! Get the number of to_typedAsync ports
     //!
     //! \return The number of to_typedAsync ports
-    NATIVE_INT_TYPE getNum_to_typedAsync() const;
+    FwIndexType getNum_to_typedAsync() const;
 
     //! Get the number of to_typedAsyncAssert ports
     //!
     //! \return The number of to_typedAsyncAssert ports
-    NATIVE_INT_TYPE getNum_to_typedAsyncAssert() const;
+    FwIndexType getNum_to_typedAsyncAssert() const;
 
     //! Get the number of to_typedAsyncBlockPriority ports
     //!
     //! \return The number of to_typedAsyncBlockPriority ports
-    NATIVE_INT_TYPE getNum_to_typedAsyncBlockPriority() const;
+    FwIndexType getNum_to_typedAsyncBlockPriority() const;
 
     //! Get the number of to_typedAsyncDropPriority ports
     //!
     //! \return The number of to_typedAsyncDropPriority ports
-    NATIVE_INT_TYPE getNum_to_typedAsyncDropPriority() const;
+    FwIndexType getNum_to_typedAsyncDropPriority() const;
 
     //! Get the number of to_typedGuarded ports
     //!
     //! \return The number of to_typedGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedGuarded() const;
+    FwIndexType getNum_to_typedGuarded() const;
 
     //! Get the number of to_typedReturnGuarded ports
     //!
     //! \return The number of to_typedReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_typedReturnGuarded() const;
+    FwIndexType getNum_to_typedReturnGuarded() const;
 
     //! Get the number of to_typedReturnSync ports
     //!
     //! \return The number of to_typedReturnSync ports
-    NATIVE_INT_TYPE getNum_to_typedReturnSync() const;
+    FwIndexType getNum_to_typedReturnSync() const;
 
     //! Get the number of to_typedSync ports
     //!
     //! \return The number of to_typedSync ports
-    NATIVE_INT_TYPE getNum_to_typedSync() const;
+    FwIndexType getNum_to_typedSync() const;
 
     //! Get the number of to_serialAsync ports
     //!
     //! \return The number of to_serialAsync ports
-    NATIVE_INT_TYPE getNum_to_serialAsync() const;
+    FwIndexType getNum_to_serialAsync() const;
 
     //! Get the number of to_serialAsyncAssert ports
     //!
     //! \return The number of to_serialAsyncAssert ports
-    NATIVE_INT_TYPE getNum_to_serialAsyncAssert() const;
+    FwIndexType getNum_to_serialAsyncAssert() const;
 
     //! Get the number of to_serialAsyncBlockPriority ports
     //!
     //! \return The number of to_serialAsyncBlockPriority ports
-    NATIVE_INT_TYPE getNum_to_serialAsyncBlockPriority() const;
+    FwIndexType getNum_to_serialAsyncBlockPriority() const;
 
     //! Get the number of to_serialAsyncDropPriority ports
     //!
     //! \return The number of to_serialAsyncDropPriority ports
-    NATIVE_INT_TYPE getNum_to_serialAsyncDropPriority() const;
+    FwIndexType getNum_to_serialAsyncDropPriority() const;
 
     //! Get the number of to_serialGuarded ports
     //!
     //! \return The number of to_serialGuarded ports
-    NATIVE_INT_TYPE getNum_to_serialGuarded() const;
+    FwIndexType getNum_to_serialGuarded() const;
 
     //! Get the number of to_serialSync ports
     //!
     //! \return The number of to_serialSync ports
-    NATIVE_INT_TYPE getNum_to_serialSync() const;
+    FwIndexType getNum_to_serialSync() const;
 
     //! Get the number of from_cmdRegOut ports
     //!
     //! \return The number of from_cmdRegOut ports
-    NATIVE_INT_TYPE getNum_from_cmdRegOut() const;
+    FwIndexType getNum_from_cmdRegOut() const;
 
     //! Get the number of from_cmdResponseOut ports
     //!
     //! \return The number of from_cmdResponseOut ports
-    NATIVE_INT_TYPE getNum_from_cmdResponseOut() const;
+    FwIndexType getNum_from_cmdResponseOut() const;
 
     //! Get the number of from_eventOut ports
     //!
     //! \return The number of from_eventOut ports
-    NATIVE_INT_TYPE getNum_from_eventOut() const;
+    FwIndexType getNum_from_eventOut() const;
 
     //! Get the number of from_prmGetOut ports
     //!
     //! \return The number of from_prmGetOut ports
-    NATIVE_INT_TYPE getNum_from_prmGetOut() const;
+    FwIndexType getNum_from_prmGetOut() const;
 
     //! Get the number of from_prmSetOut ports
     //!
     //! \return The number of from_prmSetOut ports
-    NATIVE_INT_TYPE getNum_from_prmSetOut() const;
+    FwIndexType getNum_from_prmSetOut() const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of from_textEventOut ports
     //!
     //! \return The number of from_textEventOut ports
-    NATIVE_INT_TYPE getNum_from_textEventOut() const;
+    FwIndexType getNum_from_textEventOut() const;
 
 #endif
 
     //! Get the number of from_timeGetOut ports
     //!
     //! \return The number of from_timeGetOut ports
-    NATIVE_INT_TYPE getNum_from_timeGetOut() const;
+    FwIndexType getNum_from_timeGetOut() const;
 
     //! Get the number of from_tlmOut ports
     //!
     //! \return The number of from_tlmOut ports
-    NATIVE_INT_TYPE getNum_from_tlmOut() const;
+    FwIndexType getNum_from_tlmOut() const;
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+    FwIndexType getNum_from_noArgsOut() const;
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+    FwIndexType getNum_from_noArgsReturnOut() const;
 
     //! Get the number of from_typedOut ports
     //!
     //! \return The number of from_typedOut ports
-    NATIVE_INT_TYPE getNum_from_typedOut() const;
+    FwIndexType getNum_from_typedOut() const;
 
     //! Get the number of from_typedReturnOut ports
     //!
     //! \return The number of from_typedReturnOut ports
-    NATIVE_INT_TYPE getNum_from_typedReturnOut() const;
+    FwIndexType getNum_from_typedReturnOut() const;
 
     //! Get the number of from_serialOut ports
     //!
     //! \return The number of from_serialOut ports
-    NATIVE_INT_TYPE getNum_from_serialOut() const;
+    FwIndexType getNum_from_serialOut() const;
 
   protected:
 
@@ -934,140 +934,140 @@ class ActiveSerialTesterBase :
     //!
     //! \return Whether port to_cmdIn is connected
     bool isConnected_to_cmdIn(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsAsync is connected
     //!
     //! \return Whether port to_noArgsAsync is connected
     bool isConnected_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsSync is connected
     //!
     //! \return Whether port to_noArgsSync is connected
     bool isConnected_to_noArgsSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedAsync is connected
     //!
     //! \return Whether port to_typedAsync is connected
     bool isConnected_to_typedAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedAsyncAssert is connected
     //!
     //! \return Whether port to_typedAsyncAssert is connected
     bool isConnected_to_typedAsyncAssert(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedAsyncBlockPriority is connected
     //!
     //! \return Whether port to_typedAsyncBlockPriority is connected
     bool isConnected_to_typedAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedAsyncDropPriority is connected
     //!
     //! \return Whether port to_typedAsyncDropPriority is connected
     bool isConnected_to_typedAsyncDropPriority(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedGuarded is connected
     //!
     //! \return Whether port to_typedGuarded is connected
     bool isConnected_to_typedGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedReturnGuarded is connected
     //!
     //! \return Whether port to_typedReturnGuarded is connected
     bool isConnected_to_typedReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedReturnSync is connected
     //!
     //! \return Whether port to_typedReturnSync is connected
     bool isConnected_to_typedReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_typedSync is connected
     //!
     //! \return Whether port to_typedSync is connected
     bool isConnected_to_typedSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialAsync is connected
     //!
     //! \return Whether port to_serialAsync is connected
     bool isConnected_to_serialAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialAsyncAssert is connected
     //!
     //! \return Whether port to_serialAsyncAssert is connected
     bool isConnected_to_serialAsyncAssert(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialAsyncBlockPriority is connected
     //!
     //! \return Whether port to_serialAsyncBlockPriority is connected
     bool isConnected_to_serialAsyncBlockPriority(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialAsyncDropPriority is connected
     //!
     //! \return Whether port to_serialAsyncDropPriority is connected
     bool isConnected_to_serialAsyncDropPriority(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialGuarded is connected
     //!
     //! \return Whether port to_serialGuarded is connected
     bool isConnected_to_serialGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_serialSync is connected
     //!
     //! \return Whether port to_serialSync is connected
     bool isConnected_to_serialSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -1092,13 +1092,13 @@ class ActiveSerialTesterBase :
 
     //! Send a CMD_SYNC command
     void sendCmd_CMD_SYNC(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_SYNC_PRIMITIVE command
     void sendCmd_CMD_SYNC_PRIMITIVE(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -1107,7 +1107,7 @@ class ActiveSerialTesterBase :
 
     //! Send a CMD_SYNC_STRING command
     void sendCmd_CMD_SYNC_STRING(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -1115,34 +1115,34 @@ class ActiveSerialTesterBase :
 
     //! Send a CMD_SYNC_ENUM command
     void sendCmd_CMD_SYNC_ENUM(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_SYNC_ARRAY command
     void sendCmd_CMD_SYNC_ARRAY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_SYNC_STRUCT command
     void sendCmd_CMD_SYNC_STRUCT(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_GUARDED command
     void sendCmd_CMD_GUARDED(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_GUARDED_PRIMITIVE command
     void sendCmd_CMD_GUARDED_PRIMITIVE(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
@@ -1151,7 +1151,7 @@ class ActiveSerialTesterBase :
 
     //! Send a CMD_GUARDED_STRING command
     void sendCmd_CMD_GUARDED_STRING(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         const Fw::CmdStringArg& str1, //!< A string
         const Fw::CmdStringArg& str2 //!< Another string
@@ -1159,53 +1159,53 @@ class ActiveSerialTesterBase :
 
     //! Send a CMD_GUARDED_ENUM command
     void sendCmd_CMD_GUARDED_ENUM(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         E e //!< An enum
     );
 
     //! Send a CMD_GUARDED_ARRAY command
     void sendCmd_CMD_GUARDED_ARRAY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         A a //!< An array
     );
 
     //! Send a CMD_GUARDED_STRUCT command
     void sendCmd_CMD_GUARDED_STRUCT(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         S s //!< A struct
     );
 
     //! Send a CMD_ASYNC command
     void sendCmd_CMD_ASYNC(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PRIORITY command
     void sendCmd_CMD_PRIORITY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PARAMS_PRIORITY command
     void sendCmd_CMD_PARAMS_PRIORITY(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32
     );
 
     //! Send a CMD_DROP command
     void sendCmd_CMD_DROP(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Send a CMD_PARAMS_PRIORITY_DROP command
     void sendCmd_CMD_PARAMS_PRIORITY_DROP(
-        const NATIVE_INT_TYPE instance, //!< The instance number
+        const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
         U32 u32
     );
@@ -1363,13 +1363,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamU32
     void paramSend_ParamU32(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamU32
     void paramSave_ParamU32(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1381,13 +1381,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamF64
     void paramSend_ParamF64(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamF64
     void paramSave_ParamF64(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1399,13 +1399,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamString
     void paramSend_ParamString(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamString
     void paramSave_ParamString(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1417,13 +1417,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamEnum
     void paramSend_ParamEnum(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamEnum
     void paramSave_ParamEnum(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1435,13 +1435,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamArray
     void paramSend_ParamArray(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamArray
     void paramSave_ParamArray(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1453,13 +1453,13 @@ class ActiveSerialTesterBase :
 
     //! Send parameter ParamStruct
     void paramSend_ParamStruct(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
     //! Save parameter ParamStruct
     void paramSave_ParamStruct(
-        NATIVE_INT_TYPE instance, //!< The component instance
+        FwEnumStoreType instance, //!< The component instance
         U32 cmdSeq //!< The command sequence number
     );
 
@@ -1542,14 +1542,14 @@ class ActiveSerialTesterBase :
     //! Static function for port from_cmdRegOut
     static void from_cmdRegOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwOpcodeType opCode //!< Command Op Code
     );
 
     //! Static function for port from_cmdResponseOut
     static void from_cmdResponseOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwOpcodeType opCode, //!< Command Op Code
         U32 cmdSeq, //!< Command Sequence
         const Fw::CmdResponse& response //!< The command response argument
@@ -1558,7 +1558,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_eventOut
     static void from_eventOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwEventIdType id, //!< Log ID
         Fw::Time& timeTag, //!< Time Tag
         const Fw::LogSeverity& severity, //!< The severity argument
@@ -1568,7 +1568,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_prmGetOut
     static Fw::ParamValid from_prmGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwPrmIdType id, //!< Parameter ID
         Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
@@ -1576,7 +1576,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_prmSetOut
     static void from_prmSetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwPrmIdType id, //!< Parameter ID
         Fw::ParamBuffer& val //!< Buffer containing serialized parameter value
     );
@@ -1586,7 +1586,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_textEventOut
     static void from_textEventOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwEventIdType id, //!< Log ID
         Fw::Time& timeTag, //!< Time Tag
         const Fw::LogSeverity& severity, //!< The severity argument
@@ -1598,14 +1598,14 @@ class ActiveSerialTesterBase :
     //! Static function for port from_timeGetOut
     static void from_timeGetOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::Time& time //!< The time tag
     );
 
     //! Static function for port from_tlmOut
     static void from_tlmOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwChanIdType id, //!< Telemetry Channel ID
         Fw::Time& timeTag, //!< Time Tag
         Fw::TlmBuffer& val //!< Buffer containing serialized telemetry value
@@ -1614,19 +1614,19 @@ class ActiveSerialTesterBase :
     //! Static function for port from_noArgsOut
     static void from_noArgsOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Static function for port from_noArgsReturnOut
     static U32 from_noArgsReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Static function for port from_typedOut
     static void from_typedOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1639,7 +1639,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_typedReturnOut
     static F32 from_typedReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1652,7 +1652,7 @@ class ActiveSerialTesterBase :
     //! Static function for port from_serialOut
     static void from_serialOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     );
 

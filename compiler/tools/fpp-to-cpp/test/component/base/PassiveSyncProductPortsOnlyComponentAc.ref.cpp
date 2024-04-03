@@ -17,15 +17,15 @@
 // ----------------------------------------------------------------------
 
 void PassiveSyncProductPortsOnlyComponentBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
   // Connect input port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
     port++
   ) {
     this->m_productRecvIn_InputPort[port].init();
@@ -48,8 +48,8 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
   // Connect output port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
     port++
   ) {
     this->m_productRequestOut_OutputPort[port].init();
@@ -67,8 +67,8 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
   // Connect output port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
     port++
   ) {
     this->m_productSendOut_OutputPort[port].init();
@@ -90,7 +90,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpResponsePort* PassiveSyncProductPortsOnlyComponentBase ::
-  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRecvIn_InputPorts(),
@@ -106,7 +106,7 @@ Fw::InputDpResponsePort* PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpRequestPort* port
   )
 {
@@ -120,7 +120,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpSendPort* port
   )
 {
@@ -140,7 +140,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -154,7 +154,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -189,26 +189,26 @@ PassiveSyncProductPortsOnlyComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveSyncProductPortsOnlyComponentBase ::
+FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveSyncProductPortsOnlyComponentBase ::
+FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveSyncProductPortsOnlyComponentBase ::
+FwIndexType PassiveSyncProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -216,7 +216,7 @@ NATIVE_INT_TYPE PassiveSyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveSyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRequestOut_OutputPorts(),
@@ -227,7 +227,7 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
 }
 
 bool PassiveSyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
@@ -245,7 +245,7 @@ bool PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   productRecvIn_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -276,7 +276,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   productRecvIn_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -291,7 +291,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   productRequestOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -308,7 +308,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   productSendOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -330,7 +330,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 void PassiveSyncProductPortsOnlyComponentBase ::
   m_p_productRecvIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -352,7 +352,7 @@ void PassiveSyncProductPortsOnlyComponentBase ::
 
 void PassiveSyncProductPortsOnlyComponentBase ::
   productRecvIn_handler(
-      const NATIVE_INT_TYPE portNum,
+      const FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status

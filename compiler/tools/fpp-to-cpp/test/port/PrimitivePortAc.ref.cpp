@@ -18,7 +18,7 @@ namespace {
 
     public:
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return InputPrimitivePort::SERIALIZED_SIZE;
       }
 

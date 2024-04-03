@@ -61,7 +61,7 @@ namespace StringPortStrings {
       //! Retrieves char buffer of string
       const char* toChar() const;
 
-      NATIVE_UINT_TYPE getCapacity() const;
+      Fw::StringBase::SizeType getCapacity() const;
 
     private:
 
@@ -111,7 +111,7 @@ namespace StringPortStrings {
       //! Retrieves char buffer of string
       const char* toChar() const;
 
-      NATIVE_UINT_TYPE getCapacity() const;
+      Fw::StringBase::SizeType getCapacity() const;
 
     private:
 
@@ -160,7 +160,7 @@ class InputStringPort :
     //! The port callback function type
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       const StringPortStrings::StringSize80& str80,
       StringPortStrings::StringSize80& str80Ref,
       const StringPortStrings::StringSize100& str100,

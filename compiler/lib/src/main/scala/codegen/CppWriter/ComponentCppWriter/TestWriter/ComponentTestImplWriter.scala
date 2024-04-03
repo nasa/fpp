@@ -85,17 +85,17 @@ case class ComponentTestImplWriter(
           List.concat(
             Line.blank :: lines(
               s"""|// Maximum size of histories storing events, telemetry, and port outputs
-                  |static const NATIVE_INT_TYPE $historySizeConstantName = 10;
+                  |static const FwSizeType $historySizeConstantName = 10;
                   |
                   |// Instance ID supplied to the component instance under test
-                  |static const NATIVE_INT_TYPE $idConstantName = 0;
+                  |static const FwEnumStoreType $idConstantName = 0;
                   |"""
             ),
             guardedList (data.kind != Ast.ComponentKind.Passive) (
               lines(
                 s"""|
                     |// Queue depth supplied to the component instance under test
-                    |static const NATIVE_INT_TYPE $queueDepthConstantName = 10;
+                    |static const FwQueueSizeType $queueDepthConstantName = 10;
                     |"""
               )
             )
@@ -194,7 +194,7 @@ case class ComponentTestImplWriter(
             p => p.getArraySize match {
               case 1 => writeConnection(p, "0")
               case size => wrapInForLoop(
-                "NATIVE_UINT_TYPE i = 0",
+                "FwIndexType i = 0",
                 s"i < $size",
                 "i++",
                 writeConnection(p, "i")

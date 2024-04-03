@@ -17,7 +17,7 @@
 // ----------------------------------------------------------------------
 
 void EmptyComponentBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);

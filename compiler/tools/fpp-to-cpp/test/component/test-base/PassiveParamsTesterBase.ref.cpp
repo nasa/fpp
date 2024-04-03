@@ -14,15 +14,15 @@
 // ----------------------------------------------------------------------
 
 void PassiveParamsTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
   // Connect input port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdRegOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdRegOut());
     port++
   ) {
     this->m_from_cmdRegOut[port].init();
@@ -45,8 +45,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_cmdResponseOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_cmdResponseOut());
     port++
   ) {
     this->m_from_cmdResponseOut[port].init();
@@ -69,8 +69,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmGetOut());
     port++
   ) {
     this->m_from_prmGetOut[port].init();
@@ -93,8 +93,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_prmSetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_prmSetOut());
     port++
   ) {
     this->m_from_prmSetOut[port].init();
@@ -117,8 +117,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_timeGetOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_timeGetOut());
     port++
   ) {
     this->m_from_timeGetOut[port].init();
@@ -141,8 +141,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsOut());
     port++
   ) {
     this->m_from_noArgsOut[port].init();
@@ -165,8 +165,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_noArgsReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_noArgsReturnOut());
     port++
   ) {
     this->m_from_noArgsReturnOut[port].init();
@@ -189,8 +189,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedOut());
     port++
   ) {
     this->m_from_typedOut[port].init();
@@ -213,8 +213,8 @@ void PassiveParamsTesterBase ::
 
   // Connect input port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_from_typedReturnOut());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_from_typedReturnOut());
     port++
   ) {
     this->m_from_typedReturnOut[port].init();
@@ -237,8 +237,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_cmdIn());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_cmdIn());
     port++
   ) {
     this->m_to_cmdIn[port].init();
@@ -256,8 +256,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsGuarded());
     port++
   ) {
     this->m_to_noArgsGuarded[port].init();
@@ -275,8 +275,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnGuarded());
     port++
   ) {
     this->m_to_noArgsReturnGuarded[port].init();
@@ -294,8 +294,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsReturnSync());
     port++
   ) {
     this->m_to_noArgsReturnSync[port].init();
@@ -313,8 +313,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_noArgsSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_noArgsSync());
     port++
   ) {
     this->m_to_noArgsSync[port].init();
@@ -332,8 +332,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedGuarded());
     port++
   ) {
     this->m_to_typedGuarded[port].init();
@@ -351,8 +351,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnGuarded());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnGuarded());
     port++
   ) {
     this->m_to_typedReturnGuarded[port].init();
@@ -370,8 +370,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedReturnSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedReturnSync());
     port++
   ) {
     this->m_to_typedReturnSync[port].init();
@@ -389,8 +389,8 @@ void PassiveParamsTesterBase ::
 
   // Connect output port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_to_typedSync());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_to_typedSync());
     port++
   ) {
     this->m_to_typedSync[port].init();
@@ -413,7 +413,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_cmdIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdPort* port
   )
 {
@@ -427,7 +427,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_noArgsGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -441,7 +441,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_noArgsReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -455,7 +455,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_noArgsReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -469,7 +469,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_noArgsSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -483,7 +483,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -497,7 +497,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -511,7 +511,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -525,7 +525,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   connect_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -542,7 +542,7 @@ void PassiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdRegPort* PassiveParamsTesterBase ::
-  get_from_cmdRegOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdRegOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdRegOut(),
@@ -553,7 +553,7 @@ Fw::InputCmdRegPort* PassiveParamsTesterBase ::
 }
 
 Fw::InputCmdResponsePort* PassiveParamsTesterBase ::
-  get_from_cmdResponseOut(NATIVE_INT_TYPE portNum)
+  get_from_cmdResponseOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_cmdResponseOut(),
@@ -564,7 +564,7 @@ Fw::InputCmdResponsePort* PassiveParamsTesterBase ::
 }
 
 Fw::InputLogPort* PassiveParamsTesterBase ::
-  get_from_eventOut(NATIVE_INT_TYPE portNum)
+  get_from_eventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_eventOut(),
@@ -575,7 +575,7 @@ Fw::InputLogPort* PassiveParamsTesterBase ::
 }
 
 Fw::InputPrmGetPort* PassiveParamsTesterBase ::
-  get_from_prmGetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmGetOut(),
@@ -586,7 +586,7 @@ Fw::InputPrmGetPort* PassiveParamsTesterBase ::
 }
 
 Fw::InputPrmSetPort* PassiveParamsTesterBase ::
-  get_from_prmSetOut(NATIVE_INT_TYPE portNum)
+  get_from_prmSetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_prmSetOut(),
@@ -599,7 +599,7 @@ Fw::InputPrmSetPort* PassiveParamsTesterBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 Fw::InputLogTextPort* PassiveParamsTesterBase ::
-  get_from_textEventOut(NATIVE_INT_TYPE portNum)
+  get_from_textEventOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_textEventOut(),
@@ -612,7 +612,7 @@ Fw::InputLogTextPort* PassiveParamsTesterBase ::
 #endif
 
 Fw::InputTimePort* PassiveParamsTesterBase ::
-  get_from_timeGetOut(NATIVE_INT_TYPE portNum)
+  get_from_timeGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_timeGetOut(),
@@ -623,7 +623,7 @@ Fw::InputTimePort* PassiveParamsTesterBase ::
 }
 
 Fw::InputTlmPort* PassiveParamsTesterBase ::
-  get_from_tlmOut(NATIVE_INT_TYPE portNum)
+  get_from_tlmOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_tlmOut(),
@@ -634,7 +634,7 @@ Fw::InputTlmPort* PassiveParamsTesterBase ::
 }
 
 Ports::InputNoArgsPort* PassiveParamsTesterBase ::
-  get_from_noArgsOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsOut(),
@@ -645,7 +645,7 @@ Ports::InputNoArgsPort* PassiveParamsTesterBase ::
 }
 
 Ports::InputNoArgsReturnPort* PassiveParamsTesterBase ::
-  get_from_noArgsReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_noArgsReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_noArgsReturnOut(),
@@ -656,7 +656,7 @@ Ports::InputNoArgsReturnPort* PassiveParamsTesterBase ::
 }
 
 Ports::InputTypedPort* PassiveParamsTesterBase ::
-  get_from_typedOut(NATIVE_INT_TYPE portNum)
+  get_from_typedOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedOut(),
@@ -667,7 +667,7 @@ Ports::InputTypedPort* PassiveParamsTesterBase ::
 }
 
 Ports::InputTypedReturnPort* PassiveParamsTesterBase ::
-  get_from_typedReturnOut(NATIVE_INT_TYPE portNum)
+  get_from_typedReturnOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_typedReturnOut(),
@@ -721,7 +721,7 @@ PassiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveParamsTesterBase ::
-  from_noArgsOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -732,7 +732,7 @@ void PassiveParamsTesterBase ::
 }
 
 U32 PassiveParamsTesterBase ::
-  from_noArgsReturnOut_handlerBase(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -744,7 +744,7 @@ U32 PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   from_typedOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -773,7 +773,7 @@ void PassiveParamsTesterBase ::
 
 F32 PassiveParamsTesterBase ::
   from_typedReturnOut_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -805,7 +805,7 @@ F32 PassiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 void PassiveParamsTesterBase ::
-  invoke_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -816,7 +816,7 @@ void PassiveParamsTesterBase ::
 }
 
 U32 PassiveParamsTesterBase ::
-  invoke_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -827,7 +827,7 @@ U32 PassiveParamsTesterBase ::
 }
 
 U32 PassiveParamsTesterBase ::
-  invoke_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsReturnSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -838,7 +838,7 @@ U32 PassiveParamsTesterBase ::
 }
 
 void PassiveParamsTesterBase ::
-  invoke_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  invoke_to_noArgsSync(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -850,7 +850,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   invoke_to_typedGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -878,7 +878,7 @@ void PassiveParamsTesterBase ::
 
 F32 PassiveParamsTesterBase ::
   invoke_to_typedReturnGuarded(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -906,7 +906,7 @@ F32 PassiveParamsTesterBase ::
 
 F32 PassiveParamsTesterBase ::
   invoke_to_typedReturnSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -934,7 +934,7 @@ F32 PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   invoke_to_typedSync(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -964,134 +964,134 @@ void PassiveParamsTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_cmdIn() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_cmdIn));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_noArgsGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsGuarded));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_noArgsReturnGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnGuarded));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_noArgsReturnSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsReturnSync));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_noArgsSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_noArgsSync));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_typedGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedGuarded));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_typedReturnGuarded() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnGuarded));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_typedReturnSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedReturnSync));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_to_typedSync() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_typedSync));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_cmdRegOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdRegOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_cmdResponseOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_cmdResponseOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_eventOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_eventOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_prmGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmGetOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_prmSetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_prmSetOut));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_textEventOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_textEventOut));
 }
 
 #endif
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_timeGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_timeGetOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_tlmOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_tlmOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_noArgsOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_noArgsReturnOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_noArgsReturnOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_typedOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedOut));
 }
 
-NATIVE_INT_TYPE PassiveParamsTesterBase ::
+FwIndexType PassiveParamsTesterBase ::
   getNum_from_typedReturnOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_typedReturnOut));
 }
 
 // ----------------------------------------------------------------------
@@ -1099,7 +1099,7 @@ NATIVE_INT_TYPE PassiveParamsTesterBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_cmdIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_cmdIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_cmdIn(),
@@ -1110,7 +1110,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_noArgsGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsGuarded(),
@@ -1121,7 +1121,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_noArgsReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnGuarded(),
@@ -1132,7 +1132,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_noArgsReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsReturnSync(),
@@ -1143,7 +1143,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_noArgsSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_noArgsSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_noArgsSync(),
@@ -1154,7 +1154,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_typedGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedGuarded(),
@@ -1165,7 +1165,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_typedReturnGuarded(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnGuarded(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnGuarded(),
@@ -1176,7 +1176,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_typedReturnSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedReturnSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedReturnSync(),
@@ -1187,7 +1187,7 @@ bool PassiveParamsTesterBase ::
 }
 
 bool PassiveParamsTesterBase ::
-  isConnected_to_typedSync(NATIVE_INT_TYPE portNum)
+  isConnected_to_typedSync(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_typedSync(),
@@ -1249,7 +1249,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1276,7 +1276,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamU32(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1308,7 +1308,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1335,7 +1335,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamF64(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1367,7 +1367,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1394,7 +1394,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamString(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1426,7 +1426,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1453,7 +1453,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamEnum(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1485,7 +1485,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1512,7 +1512,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamArray(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1544,7 +1544,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSend_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1571,7 +1571,7 @@ void PassiveParamsTesterBase ::
 
 void PassiveParamsTesterBase ::
   paramSave_ParamStruct(
-      NATIVE_INT_TYPE instance,
+      FwEnumStoreType instance,
       U32 cmdSeq
   )
 {
@@ -1691,7 +1691,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_cmdRegOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode
   )
 {
@@ -1701,7 +1701,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_cmdResponseOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       const Fw::CmdResponse& response
@@ -1714,7 +1714,7 @@ void PassiveParamsTesterBase ::
 Fw::ParamValid PassiveParamsTesterBase ::
   from_prmGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -1801,7 +1801,7 @@ Fw::ParamValid PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_prmSetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwPrmIdType id,
       Fw::ParamBuffer& val
   )
@@ -1907,7 +1907,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_timeGetOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::Time& time
   )
 {
@@ -1918,7 +1918,7 @@ void PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_noArgsOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -1929,7 +1929,7 @@ void PassiveParamsTesterBase ::
 U32 PassiveParamsTesterBase ::
   from_noArgsReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp != nullptr);
@@ -1940,7 +1940,7 @@ U32 PassiveParamsTesterBase ::
 void PassiveParamsTesterBase ::
   from_typedOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1967,7 +1967,7 @@ void PassiveParamsTesterBase ::
 F32 PassiveParamsTesterBase ::
   from_typedReturnOut_static(
       Fw::PassiveComponentBase* const callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

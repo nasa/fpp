@@ -84,7 +84,7 @@ const char* String1::StringSize80 ::
   return this->m_buf;
 }
 
-NATIVE_UINT_TYPE String1::StringSize80 ::
+Fw::StringBase::SizeType String1::StringSize80 ::
   getCapacity() const
 {
   return sizeof(this->m_buf);

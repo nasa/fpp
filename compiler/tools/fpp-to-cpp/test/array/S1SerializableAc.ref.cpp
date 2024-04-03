@@ -86,7 +86,7 @@ namespace M {
     return this->m_buf;
   }
 
-  NATIVE_UINT_TYPE S1::StringSize80 ::
+  Fw::StringBase::SizeType S1::StringSize80 ::
     getCapacity() const
   {
     return sizeof(this->m_buf);

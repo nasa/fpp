@@ -36,11 +36,11 @@ namespace {
         // Max. message size = size of data + message id + port
         SERIALIZATION_SIZE =
           sizeof(BuffUnion) +
-          sizeof(NATIVE_INT_TYPE) +
-          sizeof(NATIVE_INT_TYPE)
+          sizeof(FwEnumStoreType) +
+          sizeof(FwIndexType)
       };
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return sizeof(m_buff);
       }
 
@@ -65,8 +65,8 @@ namespace {
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   init(
-      NATIVE_INT_TYPE queueDepth,
-      NATIVE_INT_TYPE instance
+      FwQueueSizeType queueDepth,
+      FwEnumStoreType instance
   )
 {
   // Initialize base class
@@ -74,8 +74,8 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
   // Connect input port productRecvIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRecvIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRecvIn_InputPorts());
     port++
   ) {
     this->m_productRecvIn_InputPort[port].init();
@@ -98,8 +98,8 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
   // Connect output port productRequestOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productRequestOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productRequestOut_OutputPorts());
     port++
   ) {
     this->m_productRequestOut_OutputPort[port].init();
@@ -117,8 +117,8 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
   // Connect output port productSendOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_productSendOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_productSendOut_OutputPorts());
     port++
   ) {
     this->m_productSendOut_OutputPort[port].init();
@@ -149,7 +149,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpResponsePort* QueuedAsyncProductPortsOnlyComponentBase ::
-  get_productRecvIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_productRecvIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRecvIn_InputPorts(),
@@ -165,7 +165,7 @@ Fw::InputDpResponsePort* QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpRequestPort* port
   )
 {
@@ -179,7 +179,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpSendPort* port
   )
 {
@@ -199,7 +199,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   set_productRequestOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -213,7 +213,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   set_productSendOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -248,26 +248,26 @@ QueuedAsyncProductPortsOnlyComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyComponentBase ::
+FwIndexType QueuedAsyncProductPortsOnlyComponentBase ::
   getNum_productRecvIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRecvIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyComponentBase ::
+FwIndexType QueuedAsyncProductPortsOnlyComponentBase ::
   getNum_productRequestOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productRequestOut_OutputPort));
 }
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyComponentBase ::
+FwIndexType QueuedAsyncProductPortsOnlyComponentBase ::
   getNum_productSendOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_productSendOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -275,7 +275,7 @@ NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyComponentBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedAsyncProductPortsOnlyComponentBase ::
-  isConnected_productRequestOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productRequestOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productRequestOut_OutputPorts(),
@@ -286,7 +286,7 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
 }
 
 bool QueuedAsyncProductPortsOnlyComponentBase ::
-  isConnected_productSendOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_productSendOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_productSendOut_OutputPorts(),
@@ -304,7 +304,7 @@ bool QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   productRecvIn_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -328,7 +328,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
   // Serialize message ID
   _status = msg.serialize(
-    static_cast<NATIVE_INT_TYPE>(PRODUCTRECVIN_DPRESPONSE)
+    static_cast<FwEnumStoreType>(PRODUCTRECVIN_DPRESPONSE)
   );
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
@@ -383,7 +383,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   productRecvIn_preMsgHook(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -398,7 +398,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   productRequestOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       FwSizeType dataSize
   )
@@ -415,7 +415,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   productSendOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer
   )
@@ -438,7 +438,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
   doDispatch()
 {
   ComponentIpcSerializableBuffer msg;
-  NATIVE_INT_TYPE priority = 0;
+  FwQueuePriorityType priority = 0;
 
   Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
     msg,
@@ -458,7 +458,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
   // Reset to beginning of buffer
   msg.resetDeser();
 
-  NATIVE_INT_TYPE desMsg = 0;
+  FwEnumStoreType desMsg = 0;
   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -471,7 +471,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
     return MSG_DISPATCH_EXIT;
   }
 
-  NATIVE_INT_TYPE portNum = 0;
+  FwIndexType portNum = 0;
   deserStatus = msg.deserialize(portNum);
   FW_ASSERT(
     deserStatus == Fw::FW_SERIALIZE_OK,
@@ -529,7 +529,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductPortsOnlyComponentB
 void QueuedAsyncProductPortsOnlyComponentBase ::
   m_p_productRecvIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status
@@ -551,7 +551,7 @@ void QueuedAsyncProductPortsOnlyComponentBase ::
 
 void QueuedAsyncProductPortsOnlyComponentBase ::
   productRecvIn_handler(
-      const NATIVE_INT_TYPE portNum,
+      const FwIndexType portNum,
       FwDpIdType id,
       const Fw::Buffer& buffer,
       const Fw::Success& status

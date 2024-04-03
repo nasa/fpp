@@ -20,7 +20,7 @@ Modules3 ::
     Serializable(),
     m_x(M::Modules1(0, 0.0f))
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
@@ -33,7 +33,7 @@ Modules3 ::
     Serializable(),
     m_x(x)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = arr[i];
   }
 }
@@ -43,7 +43,7 @@ Modules3 ::
     Serializable(),
     m_x(obj.m_x)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = obj.m_arr[i];
   }
 }
@@ -56,7 +56,7 @@ Modules3 ::
     Serializable(),
     m_x(x)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = arr;
   }
 }
@@ -86,7 +86,7 @@ bool Modules3 ::
 
   // Compare array members
   if (!(this->m_arr == obj.m_arr)) {
-    for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+    for (FwSizeType i = 0; i < 3; i++) {
       if (!(this->m_arr[i] == obj.m_arr[i])) {
         return false;
       }
@@ -126,7 +126,7 @@ Fw::SerializeStatus Modules3 ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.serialize(this->m_arr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -145,7 +145,7 @@ Fw::SerializeStatus Modules3 ::
   if (status != Fw::FW_SERIALIZE_OK) {
     return status;
   }
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     status = buffer.deserialize(this->m_arr[i]);
     if (status != Fw::FW_SERIALIZE_OK) {
       return status;
@@ -174,7 +174,7 @@ void Modules3 ::
 
   // Call toString for arrays and serializable types
   this->m_x.toString(xStr);
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i].toString(arrStr[i]);
   }
 
@@ -207,7 +207,7 @@ void Modules3 ::
 {
   this->m_x = x;
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = arr[i];
   }
 }
@@ -221,7 +221,7 @@ void Modules3 ::
 void Modules3 ::
   setarr(const Type_of_arr& arr)
 {
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = arr[i];
   }
 }

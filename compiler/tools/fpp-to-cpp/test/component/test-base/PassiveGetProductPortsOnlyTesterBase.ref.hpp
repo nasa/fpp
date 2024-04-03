@@ -28,7 +28,7 @@ class PassiveGetProductPortsOnlyTesterBase :
 
     //! Initialize object PassiveGetProductPortsOnlyTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -41,14 +41,14 @@ class PassiveGetProductPortsOnlyTesterBase :
     //!
     //! \return from_productGetOut[portNum]
     Fw::InputDpGetPort* get_from_productGetOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_productSendOut[portNum]
     Fw::InputDpSendPort* get_from_productSendOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -75,12 +75,12 @@ class PassiveGetProductPortsOnlyTesterBase :
     //! Get the number of from_productGetOut ports
     //!
     //! \return The number of from_productGetOut ports
-    NATIVE_INT_TYPE getNum_from_productGetOut() const;
+    FwIndexType getNum_from_productGetOut() const;
 
     //! Get the number of from_productSendOut ports
     //!
     //! \return The number of from_productSendOut ports
-    NATIVE_INT_TYPE getNum_from_productSendOut() const;
+    FwIndexType getNum_from_productSendOut() const;
 
   private:
 

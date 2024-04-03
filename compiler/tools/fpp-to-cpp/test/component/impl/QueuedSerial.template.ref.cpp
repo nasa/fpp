@@ -29,38 +29,38 @@ QueuedSerial ::
 // ----------------------------------------------------------------------
 
 void QueuedSerial ::
-  noArgsAsync_handler(NATIVE_INT_TYPE portNum)
+  noArgsAsync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void QueuedSerial ::
-  noArgsGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 QueuedSerial ::
-  noArgsReturnGuarded_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 U32 QueuedSerial ::
-  noArgsReturnSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void QueuedSerial ::
-  noArgsSync_handler(NATIVE_INT_TYPE portNum)
+  noArgsSync_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 void QueuedSerial ::
   typedAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -75,7 +75,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   typedAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -90,7 +90,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   typedAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -105,7 +105,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   typedAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -120,7 +120,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   typedGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -135,7 +135,7 @@ void QueuedSerial ::
 
 F32 QueuedSerial ::
   typedReturnGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -150,7 +150,7 @@ F32 QueuedSerial ::
 
 F32 QueuedSerial ::
   typedReturnSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -165,7 +165,7 @@ F32 QueuedSerial ::
 
 void QueuedSerial ::
   typedSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -184,7 +184,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialAsync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -193,7 +193,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialAsyncAssert_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -202,7 +202,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialAsyncBlockPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -211,7 +211,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialAsyncDropPriority_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -220,7 +220,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialGuarded_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {
@@ -229,7 +229,7 @@ void QueuedSerial ::
 
 void QueuedSerial ::
   serialSync_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {

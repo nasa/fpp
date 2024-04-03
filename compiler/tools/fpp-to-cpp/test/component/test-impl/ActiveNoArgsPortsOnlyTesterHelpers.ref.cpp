@@ -15,7 +15,7 @@ void ActiveNoArgsPortsOnlyTester ::
 {
   // Connect typed input ports
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsAsync(
       i,
       this->component.get_noArgsAsync_InputPort(i)
@@ -32,7 +32,7 @@ void ActiveNoArgsPortsOnlyTester ::
     this->component.get_noArgsReturnGuarded_InputPort(0)
   );
 
-  for (NATIVE_UINT_TYPE i = 0; i < 3; i++) {
+  for (FwIndexType i = 0; i < 3; i++) {
     this->connect_to_noArgsReturnSync(
       i,
       this->component.get_noArgsReturnSync_InputPort(i)

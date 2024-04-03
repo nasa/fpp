@@ -118,8 +118,8 @@ class QueuedTelemetryComponentBase :
 
     //! Initialize QueuedTelemetryComponentBase object
     void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwQueueSizeType queueDepth, //!< The queue depth
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -132,7 +132,7 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return cmdIn[portNum]
     Fw::InputCmdPort* get_cmdIn_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   public:
@@ -145,91 +145,91 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return noArgsAsync[portNum]
     Ports::InputNoArgsPort* get_noArgsAsync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsGuarded[portNum]
     Ports::InputNoArgsPort* get_noArgsGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnGuarded[portNum]
     Ports::InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnSync[portNum]
     Ports::InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsSync[portNum]
     Ports::InputNoArgsPort* get_noArgsSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsync[portNum]
     Ports::InputTypedPort* get_typedAsync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncAssert[portNum]
     Ports::InputTypedPort* get_typedAsyncAssert_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncBlockPriority[portNum]
     Ports::InputTypedPort* get_typedAsyncBlockPriority_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedAsyncDropPriority[portNum]
     Ports::InputTypedPort* get_typedAsyncDropPriority_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedGuarded[portNum]
     Ports::InputTypedPort* get_typedGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedReturnGuarded[portNum]
     Ports::InputTypedReturnPort* get_typedReturnGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedReturnSync[portNum]
     Ports::InputTypedReturnPort* get_typedReturnSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return typedSync[portNum]
     Ports::InputTypedPort* get_typedSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   public:
@@ -240,31 +240,31 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to cmdRegOut[portNum]
     void set_cmdRegOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputCmdRegPort* port //!< The input port
     );
 
     //! Connect port to cmdResponseOut[portNum]
     void set_cmdResponseOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputCmdResponsePort* port //!< The input port
     );
 
     //! Connect port to eventOut[portNum]
     void set_eventOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputLogPort* port //!< The input port
     );
 
     //! Connect port to prmGetOut[portNum]
     void set_prmGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputPrmGetPort* port //!< The input port
     );
 
     //! Connect port to prmSetOut[portNum]
     void set_prmSetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputPrmSetPort* port //!< The input port
     );
 
@@ -272,7 +272,7 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputLogTextPort* port //!< The input port
     );
 
@@ -280,13 +280,13 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputTimePort* port //!< The input port
     );
 
     //! Connect port to tlmOut[portNum]
     void set_tlmOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputTlmPort* port //!< The input port
     );
 
@@ -298,25 +298,25 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to noArgsOut[portNum]
     void set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnOut[portNum]
     void set_noArgsReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedPort* port //!< The input port
     );
 
     //! Connect port to typedReturnOut[portNum]
     void set_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputTypedReturnPort* port //!< The input port
     );
 
@@ -330,25 +330,25 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to cmdRegOut[portNum]
     void set_cmdRegOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to cmdResponseOut[portNum]
     void set_cmdResponseOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to eventOut[portNum]
     void set_eventOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to prmSetOut[portNum]
     void set_prmSetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -356,7 +356,7 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to textEventOut[portNum]
     void set_textEventOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -364,13 +364,13 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to timeGetOut[portNum]
     void set_timeGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to tlmOut[portNum]
     void set_tlmOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -386,13 +386,13 @@ class QueuedTelemetryComponentBase :
 
     //! Connect port to noArgsOut[portNum]
     void set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to typedOut[portNum]
     void set_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -421,7 +421,7 @@ class QueuedTelemetryComponentBase :
     //! Get the number of cmdIn input ports
     //!
     //! \return The number of cmdIn input ports
-    NATIVE_INT_TYPE getNum_cmdIn_InputPorts() const;
+    FwIndexType getNum_cmdIn_InputPorts() const;
 
   PROTECTED:
 
@@ -432,67 +432,67 @@ class QueuedTelemetryComponentBase :
     //! Get the number of noArgsAsync input ports
     //!
     //! \return The number of noArgsAsync input ports
-    NATIVE_INT_TYPE getNum_noArgsAsync_InputPorts() const;
+    FwIndexType getNum_noArgsAsync_InputPorts() const;
 
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts() const;
+    FwIndexType getNum_noArgsGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnGuarded input ports
     //!
     //! \return The number of noArgsReturnGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts() const;
+    FwIndexType getNum_noArgsReturnGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnSync input ports
     //!
     //! \return The number of noArgsReturnSync input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts() const;
+    FwIndexType getNum_noArgsReturnSync_InputPorts() const;
 
     //! Get the number of noArgsSync input ports
     //!
     //! \return The number of noArgsSync input ports
-    NATIVE_INT_TYPE getNum_noArgsSync_InputPorts() const;
+    FwIndexType getNum_noArgsSync_InputPorts() const;
 
     //! Get the number of typedAsync input ports
     //!
     //! \return The number of typedAsync input ports
-    NATIVE_INT_TYPE getNum_typedAsync_InputPorts() const;
+    FwIndexType getNum_typedAsync_InputPorts() const;
 
     //! Get the number of typedAsyncAssert input ports
     //!
     //! \return The number of typedAsyncAssert input ports
-    NATIVE_INT_TYPE getNum_typedAsyncAssert_InputPorts() const;
+    FwIndexType getNum_typedAsyncAssert_InputPorts() const;
 
     //! Get the number of typedAsyncBlockPriority input ports
     //!
     //! \return The number of typedAsyncBlockPriority input ports
-    NATIVE_INT_TYPE getNum_typedAsyncBlockPriority_InputPorts() const;
+    FwIndexType getNum_typedAsyncBlockPriority_InputPorts() const;
 
     //! Get the number of typedAsyncDropPriority input ports
     //!
     //! \return The number of typedAsyncDropPriority input ports
-    NATIVE_INT_TYPE getNum_typedAsyncDropPriority_InputPorts() const;
+    FwIndexType getNum_typedAsyncDropPriority_InputPorts() const;
 
     //! Get the number of typedGuarded input ports
     //!
     //! \return The number of typedGuarded input ports
-    NATIVE_INT_TYPE getNum_typedGuarded_InputPorts() const;
+    FwIndexType getNum_typedGuarded_InputPorts() const;
 
     //! Get the number of typedReturnGuarded input ports
     //!
     //! \return The number of typedReturnGuarded input ports
-    NATIVE_INT_TYPE getNum_typedReturnGuarded_InputPorts() const;
+    FwIndexType getNum_typedReturnGuarded_InputPorts() const;
 
     //! Get the number of typedReturnSync input ports
     //!
     //! \return The number of typedReturnSync input ports
-    NATIVE_INT_TYPE getNum_typedReturnSync_InputPorts() const;
+    FwIndexType getNum_typedReturnSync_InputPorts() const;
 
     //! Get the number of typedSync input ports
     //!
     //! \return The number of typedSync input ports
-    NATIVE_INT_TYPE getNum_typedSync_InputPorts() const;
+    FwIndexType getNum_typedSync_InputPorts() const;
 
   PROTECTED:
 
@@ -503,46 +503,46 @@ class QueuedTelemetryComponentBase :
     //! Get the number of cmdRegOut output ports
     //!
     //! \return The number of cmdRegOut output ports
-    NATIVE_INT_TYPE getNum_cmdRegOut_OutputPorts() const;
+    FwIndexType getNum_cmdRegOut_OutputPorts() const;
 
     //! Get the number of cmdResponseOut output ports
     //!
     //! \return The number of cmdResponseOut output ports
-    NATIVE_INT_TYPE getNum_cmdResponseOut_OutputPorts() const;
+    FwIndexType getNum_cmdResponseOut_OutputPorts() const;
 
     //! Get the number of eventOut output ports
     //!
     //! \return The number of eventOut output ports
-    NATIVE_INT_TYPE getNum_eventOut_OutputPorts() const;
+    FwIndexType getNum_eventOut_OutputPorts() const;
 
     //! Get the number of prmGetOut output ports
     //!
     //! \return The number of prmGetOut output ports
-    NATIVE_INT_TYPE getNum_prmGetOut_OutputPorts() const;
+    FwIndexType getNum_prmGetOut_OutputPorts() const;
 
     //! Get the number of prmSetOut output ports
     //!
     //! \return The number of prmSetOut output ports
-    NATIVE_INT_TYPE getNum_prmSetOut_OutputPorts() const;
+    FwIndexType getNum_prmSetOut_OutputPorts() const;
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
     //! Get the number of textEventOut output ports
     //!
     //! \return The number of textEventOut output ports
-    NATIVE_INT_TYPE getNum_textEventOut_OutputPorts() const;
+    FwIndexType getNum_textEventOut_OutputPorts() const;
 
 #endif
 
     //! Get the number of timeGetOut output ports
     //!
     //! \return The number of timeGetOut output ports
-    NATIVE_INT_TYPE getNum_timeGetOut_OutputPorts() const;
+    FwIndexType getNum_timeGetOut_OutputPorts() const;
 
     //! Get the number of tlmOut output ports
     //!
     //! \return The number of tlmOut output ports
-    NATIVE_INT_TYPE getNum_tlmOut_OutputPorts() const;
+    FwIndexType getNum_tlmOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -553,22 +553,22 @@ class QueuedTelemetryComponentBase :
     //! Get the number of noArgsOut output ports
     //!
     //! \return The number of noArgsOut output ports
-    NATIVE_INT_TYPE getNum_noArgsOut_OutputPorts() const;
+    FwIndexType getNum_noArgsOut_OutputPorts() const;
 
     //! Get the number of noArgsReturnOut output ports
     //!
     //! \return The number of noArgsReturnOut output ports
-    NATIVE_INT_TYPE getNum_noArgsReturnOut_OutputPorts() const;
+    FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
 
     //! Get the number of typedOut output ports
     //!
     //! \return The number of typedOut output ports
-    NATIVE_INT_TYPE getNum_typedOut_OutputPorts() const;
+    FwIndexType getNum_typedOut_OutputPorts() const;
 
     //! Get the number of typedReturnOut output ports
     //!
     //! \return The number of typedReturnOut output ports
-    NATIVE_INT_TYPE getNum_typedReturnOut_OutputPorts() const;
+    FwIndexType getNum_typedReturnOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -580,35 +580,35 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return Whether port cmdRegOut is connected
     bool isConnected_cmdRegOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port cmdResponseOut is connected
     //!
     //! \return Whether port cmdResponseOut is connected
     bool isConnected_cmdResponseOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port eventOut is connected
     //!
     //! \return Whether port eventOut is connected
     bool isConnected_eventOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port prmGetOut is connected
     //!
     //! \return Whether port prmGetOut is connected
     bool isConnected_prmGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port prmSetOut is connected
     //!
     //! \return Whether port prmSetOut is connected
     bool isConnected_prmSetOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #if FW_ENABLE_TEXT_LOGGING == 1
@@ -617,7 +617,7 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return Whether port textEventOut is connected
     bool isConnected_textEventOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
 #endif
@@ -626,14 +626,14 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return Whether port timeGetOut is connected
     bool isConnected_timeGetOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port tlmOut is connected
     //!
     //! \return Whether port tlmOut is connected
     bool isConnected_tlmOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -646,28 +646,28 @@ class QueuedTelemetryComponentBase :
     //!
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port typedOut is connected
     //!
     //! \return Whether port typedOut is connected
     bool isConnected_typedOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port typedReturnOut is connected
     //!
     //! \return Whether port typedReturnOut is connected
     bool isConnected_typedReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -678,32 +678,32 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port noArgsAsync
     virtual void noArgsAsync_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsGuarded
     virtual void noArgsGuarded_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsReturnGuarded
     virtual U32 noArgsReturnGuarded_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsReturnSync
     virtual U32 noArgsReturnSync_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsSync
     virtual void noArgsSync_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port typedAsync
     virtual void typedAsync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -715,7 +715,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedAsyncAssert
     virtual void typedAsyncAssert_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -727,7 +727,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedAsyncBlockPriority
     virtual void typedAsyncBlockPriority_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -739,7 +739,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedAsyncDropPriority
     virtual void typedAsyncDropPriority_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -751,7 +751,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedGuarded
     virtual void typedGuarded_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -763,7 +763,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedReturnGuarded
     virtual F32 typedReturnGuarded_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -775,7 +775,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedReturnSync
     virtual F32 typedReturnSync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -787,7 +787,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler for input port typedSync
     virtual void typedSync_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -807,32 +807,32 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port noArgsAsync
     void noArgsAsync_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsGuarded
     void noArgsGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsReturnGuarded
     U32 noArgsReturnGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsReturnSync
     U32 noArgsReturnSync_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsSync
     void noArgsSync_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port typedAsync
     void typedAsync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -844,7 +844,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedAsyncAssert
     void typedAsyncAssert_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -856,7 +856,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedAsyncBlockPriority
     void typedAsyncBlockPriority_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -868,7 +868,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedAsyncDropPriority
     void typedAsyncDropPriority_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -880,7 +880,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedGuarded
     void typedGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -892,7 +892,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedReturnGuarded
     F32 typedReturnGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -904,7 +904,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedReturnSync
     F32 typedReturnSync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -916,7 +916,7 @@ class QueuedTelemetryComponentBase :
 
     //! Handler base-class function for input port typedSync
     void typedSync_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -938,12 +938,12 @@ class QueuedTelemetryComponentBase :
 
     //! Pre-message hook for async input port noArgsAsync
     virtual void noArgsAsync_preMsgHook(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Pre-message hook for async input port typedAsync
     virtual void typedAsync_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -955,7 +955,7 @@ class QueuedTelemetryComponentBase :
 
     //! Pre-message hook for async input port typedAsyncAssert
     virtual void typedAsyncAssert_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -967,7 +967,7 @@ class QueuedTelemetryComponentBase :
 
     //! Pre-message hook for async input port typedAsyncBlockPriority
     virtual void typedAsyncBlockPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -979,7 +979,7 @@ class QueuedTelemetryComponentBase :
 
     //! Pre-message hook for async input port typedAsyncDropPriority
     virtual void typedAsyncDropPriority_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -997,17 +997,17 @@ class QueuedTelemetryComponentBase :
 
     //! Invoke output port noArgsOut
     void noArgsOut_out(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke output port typedOut
     void typedOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1019,7 +1019,7 @@ class QueuedTelemetryComponentBase :
 
     //! Invoke output port typedReturnOut
     F32 typedReturnOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1167,7 +1167,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port cmdIn
     static void m_p_cmdIn_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwOpcodeType opCode, //!< Command Op Code
         U32 cmdSeq, //!< Command Sequence
         Fw::CmdArgBuffer& args //!< Buffer containing arguments
@@ -1182,37 +1182,37 @@ class QueuedTelemetryComponentBase :
     //! Callback for port noArgsAsync
     static void m_p_noArgsAsync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsGuarded
     static void m_p_noArgsGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsReturnGuarded
     static U32 m_p_noArgsReturnGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsReturnSync
     static U32 m_p_noArgsReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsSync
     static void m_p_noArgsSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port typedAsync
     static void m_p_typedAsync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1225,7 +1225,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedAsyncAssert
     static void m_p_typedAsyncAssert_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1238,7 +1238,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedAsyncBlockPriority
     static void m_p_typedAsyncBlockPriority_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1251,7 +1251,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedAsyncDropPriority
     static void m_p_typedAsyncDropPriority_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1264,7 +1264,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedGuarded
     static void m_p_typedGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1277,7 +1277,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedReturnGuarded
     static F32 m_p_typedReturnGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1290,7 +1290,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedReturnSync
     static F32 m_p_typedReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -1303,7 +1303,7 @@ class QueuedTelemetryComponentBase :
     //! Callback for port typedSync
     static void m_p_typedSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean

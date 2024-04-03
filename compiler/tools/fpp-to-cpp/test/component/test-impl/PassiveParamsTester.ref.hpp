@@ -21,10 +21,10 @@ class PassiveParamsTester :
     // ----------------------------------------------------------------------
 
     // Maximum size of histories storing events, telemetry, and port outputs
-    static const NATIVE_INT_TYPE MAX_HISTORY_SIZE = 10;
+    static const FwSizeType MAX_HISTORY_SIZE = 10;
 
     // Instance ID supplied to the component instance under test
-    static const NATIVE_INT_TYPE TEST_INSTANCE_ID = 0;
+    static const FwEnumStoreType TEST_INSTANCE_ID = 0;
 
   public:
 
@@ -55,17 +55,17 @@ class PassiveParamsTester :
 
     //! Handler implementation for noArgsOut
     void from_noArgsOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler implementation for noArgsReturnOut
     U32 from_noArgsReturnOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler implementation for typedOut
     void from_typedOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
@@ -77,7 +77,7 @@ class PassiveParamsTester :
 
     //! Handler implementation for typedReturnOut
     F32 from_typedReturnOut_handler(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean

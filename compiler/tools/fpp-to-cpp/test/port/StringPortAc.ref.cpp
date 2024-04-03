@@ -83,7 +83,7 @@ namespace StringPortStrings {
     return this->m_buf;
   }
 
-  NATIVE_UINT_TYPE StringSize80 ::
+  Fw::StringBase::SizeType StringSize80 ::
     getCapacity() const
   {
     return sizeof(this->m_buf);
@@ -162,7 +162,7 @@ namespace StringPortStrings {
     return this->m_buf;
   }
 
-  NATIVE_UINT_TYPE StringSize100 ::
+  Fw::StringBase::SizeType StringSize100 ::
     getCapacity() const
   {
     return sizeof(this->m_buf);
@@ -180,7 +180,7 @@ namespace {
 
     public:
 
-      NATIVE_UINT_TYPE getBuffCapacity() const {
+      Fw::Serializable::SizeType getBuffCapacity() const {
         return InputStringPort::SERIALIZED_SIZE;
       }
 

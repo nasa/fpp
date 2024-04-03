@@ -55,7 +55,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Initialize PassiveSyncProductPortsOnlyComponentBase object
     void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -68,7 +68,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //!
     //! \return productRecvIn[portNum]
     Fw::InputDpResponsePort* get_productRecvIn_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   public:
@@ -79,13 +79,13 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Connect port to productRequestOut[portNum]
     void set_productRequestOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpRequestPort* port //!< The input port
     );
 
     //! Connect port to productSendOut[portNum]
     void set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputDpSendPort* port //!< The input port
     );
 
@@ -99,13 +99,13 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Connect port to productRequestOut[portNum]
     void set_productRequestOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
     //! Connect port to productSendOut[portNum]
     void set_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -134,7 +134,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Get the number of productRecvIn input ports
     //!
     //! \return The number of productRecvIn input ports
-    NATIVE_INT_TYPE getNum_productRecvIn_InputPorts() const;
+    FwIndexType getNum_productRecvIn_InputPorts() const;
 
   PROTECTED:
 
@@ -145,12 +145,12 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Get the number of productRequestOut output ports
     //!
     //! \return The number of productRequestOut output ports
-    NATIVE_INT_TYPE getNum_productRequestOut_OutputPorts() const;
+    FwIndexType getNum_productRequestOut_OutputPorts() const;
 
     //! Get the number of productSendOut output ports
     //!
     //! \return The number of productSendOut output ports
-    NATIVE_INT_TYPE getNum_productSendOut_OutputPorts() const;
+    FwIndexType getNum_productSendOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -162,14 +162,14 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //!
     //! \return Whether port productRequestOut is connected
     bool isConnected_productRequestOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port productSendOut is connected
     //!
     //! \return Whether port productSendOut is connected
     bool isConnected_productSendOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -182,7 +182,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Handler base-class function for input port productRecvIn
     void productRecvIn_handlerBase(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The status
@@ -200,7 +200,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Pre-message hook for async input port productRecvIn
     virtual void productRecvIn_preMsgHook(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The status
@@ -214,14 +214,14 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Invoke output port productRequestOut
     void productRequestOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         FwSizeType dataSize //!< The data size of the requested buffer
     );
 
     //! Invoke output port productSendOut
     void productSendOut_out(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer //!< The buffer
     );
@@ -235,7 +235,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
     //! Callback for port productRecvIn
     static void m_p_productRecvIn_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container ID
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The status
@@ -249,7 +249,7 @@ class PassiveSyncProductPortsOnlyComponentBase :
 
     //! Handler implementation for productRecvIn
     void productRecvIn_handler(
-        const NATIVE_INT_TYPE portNum, //!< The port number
+        const FwIndexType portNum, //!< The port number
         FwDpIdType id, //!< The container id
         const Fw::Buffer& buffer, //!< The buffer
         const Fw::Success& status //!< The buffer status

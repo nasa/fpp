@@ -17,15 +17,15 @@
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
 
   // Connect input port cmdIn
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdIn_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdIn_InputPorts());
     port++
   ) {
     this->m_cmdIn_InputPort[port].init();
@@ -48,8 +48,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port noArgsGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsGuarded_InputPort[port].init();
@@ -72,8 +72,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port noArgsReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnGuarded_InputPorts());
     port++
   ) {
     this->m_noArgsReturnGuarded_InputPort[port].init();
@@ -96,8 +96,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port noArgsReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnSync_InputPorts());
     port++
   ) {
     this->m_noArgsReturnSync_InputPort[port].init();
@@ -120,8 +120,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port noArgsSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsSync_InputPorts());
     port++
   ) {
     this->m_noArgsSync_InputPort[port].init();
@@ -144,8 +144,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port typedGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedGuarded_InputPorts());
     port++
   ) {
     this->m_typedGuarded_InputPort[port].init();
@@ -168,8 +168,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port typedReturnGuarded
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnGuarded_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnGuarded_InputPorts());
     port++
   ) {
     this->m_typedReturnGuarded_InputPort[port].init();
@@ -192,8 +192,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port typedReturnSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnSync_InputPorts());
     port++
   ) {
     this->m_typedReturnSync_InputPort[port].init();
@@ -216,8 +216,8 @@ void PassiveEventsComponentBase ::
 
   // Connect input port typedSync
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedSync_InputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedSync_InputPorts());
     port++
   ) {
     this->m_typedSync_InputPort[port].init();
@@ -240,8 +240,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port cmdRegOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdRegOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdRegOut_OutputPorts());
     port++
   ) {
     this->m_cmdRegOut_OutputPort[port].init();
@@ -259,8 +259,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port cmdResponseOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_cmdResponseOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_cmdResponseOut_OutputPorts());
     port++
   ) {
     this->m_cmdResponseOut_OutputPort[port].init();
@@ -278,8 +278,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port eventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_eventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_eventOut_OutputPorts());
     port++
   ) {
     this->m_eventOut_OutputPort[port].init();
@@ -297,8 +297,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port prmGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmGetOut_OutputPorts());
     port++
   ) {
     this->m_prmGetOut_OutputPort[port].init();
@@ -316,8 +316,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port prmSetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_prmSetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_prmSetOut_OutputPorts());
     port++
   ) {
     this->m_prmSetOut_OutputPort[port].init();
@@ -336,8 +336,8 @@ void PassiveEventsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
   // Connect output port textEventOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_textEventOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_textEventOut_OutputPorts());
     port++
   ) {
     this->m_textEventOut_OutputPort[port].init();
@@ -356,8 +356,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port timeGetOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_timeGetOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_timeGetOut_OutputPorts());
     port++
   ) {
     this->m_timeGetOut_OutputPort[port].init();
@@ -375,8 +375,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port tlmOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_tlmOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_tlmOut_OutputPorts());
     port++
   ) {
     this->m_tlmOut_OutputPort[port].init();
@@ -394,8 +394,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port noArgsOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsOut_OutputPorts());
     port++
   ) {
     this->m_noArgsOut_OutputPort[port].init();
@@ -413,8 +413,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port noArgsReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_noArgsReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_noArgsReturnOut_OutputPorts());
     port++
   ) {
     this->m_noArgsReturnOut_OutputPort[port].init();
@@ -432,8 +432,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port typedOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedOut_OutputPorts());
     port++
   ) {
     this->m_typedOut_OutputPort[port].init();
@@ -451,8 +451,8 @@ void PassiveEventsComponentBase ::
 
   // Connect output port typedReturnOut
   for (
-    PlatformIntType port = 0;
-    port < static_cast<PlatformIntType>(this->getNum_typedReturnOut_OutputPorts());
+    FwIndexType port = 0;
+    port < static_cast<FwIndexType>(this->getNum_typedReturnOut_OutputPorts());
     port++
   ) {
     this->m_typedReturnOut_OutputPort[port].init();
@@ -474,7 +474,7 @@ void PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputCmdPort* PassiveEventsComponentBase ::
-  get_cmdIn_InputPort(NATIVE_INT_TYPE portNum)
+  get_cmdIn_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdIn_InputPorts(),
@@ -489,7 +489,7 @@ Fw::InputCmdPort* PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 Ports::InputNoArgsPort* PassiveEventsComponentBase ::
-  get_noArgsGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsGuarded_InputPorts(),
@@ -500,7 +500,7 @@ Ports::InputNoArgsPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
-  get_noArgsReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnGuarded_InputPorts(),
@@ -511,7 +511,7 @@ Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
-  get_noArgsReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnSync_InputPorts(),
@@ -522,7 +522,7 @@ Ports::InputNoArgsReturnPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputNoArgsPort* PassiveEventsComponentBase ::
-  get_noArgsSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_noArgsSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsSync_InputPorts(),
@@ -533,7 +533,7 @@ Ports::InputNoArgsPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputTypedPort* PassiveEventsComponentBase ::
-  get_typedGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedGuarded_InputPorts(),
@@ -544,7 +544,7 @@ Ports::InputTypedPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
-  get_typedReturnGuarded_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnGuarded_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnGuarded_InputPorts(),
@@ -555,7 +555,7 @@ Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
-  get_typedReturnSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedReturnSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnSync_InputPorts(),
@@ -566,7 +566,7 @@ Ports::InputTypedReturnPort* PassiveEventsComponentBase ::
 }
 
 Ports::InputTypedPort* PassiveEventsComponentBase ::
-  get_typedSync_InputPort(NATIVE_INT_TYPE portNum)
+  get_typedSync_InputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedSync_InputPorts(),
@@ -582,7 +582,7 @@ Ports::InputTypedPort* PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdRegPort* port
   )
 {
@@ -596,7 +596,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputCmdResponsePort* port
   )
 {
@@ -610,7 +610,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogPort* port
   )
 {
@@ -624,7 +624,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_prmGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmGetPort* port
   )
 {
@@ -638,7 +638,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputPrmSetPort* port
   )
 {
@@ -654,7 +654,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputLogTextPort* port
   )
 {
@@ -670,7 +670,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTimePort* port
   )
 {
@@ -684,7 +684,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputTlmPort* port
   )
 {
@@ -702,7 +702,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsPort* port
   )
 {
@@ -716,7 +716,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_noArgsReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputNoArgsReturnPort* port
   )
 {
@@ -730,7 +730,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedPort* port
   )
 {
@@ -744,7 +744,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_typedReturnOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Ports::InputTypedReturnPort* port
   )
 {
@@ -764,7 +764,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_cmdRegOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -778,7 +778,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_cmdResponseOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -792,7 +792,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_eventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -806,7 +806,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_prmSetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -822,7 +822,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_textEventOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -838,7 +838,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_timeGetOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -852,7 +852,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_tlmOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -874,7 +874,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_noArgsOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -888,7 +888,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   set_typedOut_OutputPort(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputSerializePort* port
   )
 {
@@ -925,146 +925,146 @@ PassiveEventsComponentBase ::
 // Getters for numbers of special input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_cmdIn_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdIn_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed input ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedReturnGuarded_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnGuarded_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedReturnSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnSync_InputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedSync_InputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedSync_InputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of special output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_cmdRegOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdRegOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_cmdResponseOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_cmdResponseOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_eventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_eventOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_prmGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_prmSetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_prmSetOut_OutputPort));
 }
 
 #if FW_ENABLE_TEXT_LOGGING == 1
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_textEventOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_textEventOut_OutputPort));
 }
 
 #endif
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_timeGetOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_timeGetOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_tlmOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_tlmOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
 // Getters for numbers of typed output ports
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_noArgsReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_noArgsReturnOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedOut_OutputPort));
 }
 
-NATIVE_INT_TYPE PassiveEventsComponentBase ::
+FwIndexType PassiveEventsComponentBase ::
   getNum_typedReturnOut_OutputPorts() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_typedReturnOut_OutputPort));
 }
 
 // ----------------------------------------------------------------------
@@ -1072,7 +1072,7 @@ NATIVE_INT_TYPE PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveEventsComponentBase ::
-  isConnected_cmdRegOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdRegOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdRegOut_OutputPorts(),
@@ -1083,7 +1083,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_cmdResponseOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_cmdResponseOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_cmdResponseOut_OutputPorts(),
@@ -1094,7 +1094,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_eventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_eventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_eventOut_OutputPorts(),
@@ -1105,7 +1105,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_prmGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmGetOut_OutputPorts(),
@@ -1116,7 +1116,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_prmSetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_prmSetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_prmSetOut_OutputPorts(),
@@ -1129,7 +1129,7 @@ bool PassiveEventsComponentBase ::
 #if FW_ENABLE_TEXT_LOGGING == 1
 
 bool PassiveEventsComponentBase ::
-  isConnected_textEventOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_textEventOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_textEventOut_OutputPorts(),
@@ -1142,7 +1142,7 @@ bool PassiveEventsComponentBase ::
 #endif
 
 bool PassiveEventsComponentBase ::
-  isConnected_timeGetOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_timeGetOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_timeGetOut_OutputPorts(),
@@ -1153,7 +1153,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_tlmOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_tlmOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_tlmOut_OutputPorts(),
@@ -1168,7 +1168,7 @@ bool PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 bool PassiveEventsComponentBase ::
-  isConnected_noArgsOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -1179,7 +1179,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_noArgsReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_noArgsReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -1190,7 +1190,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedOut_OutputPorts(),
@@ -1201,7 +1201,7 @@ bool PassiveEventsComponentBase ::
 }
 
 bool PassiveEventsComponentBase ::
-  isConnected_typedReturnOut_OutputPort(NATIVE_INT_TYPE portNum)
+  isConnected_typedReturnOut_OutputPort(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_typedReturnOut_OutputPorts(),
@@ -1218,7 +1218,7 @@ bool PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
-  noArgsGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1237,7 +1237,7 @@ void PassiveEventsComponentBase ::
 }
 
 U32 PassiveEventsComponentBase ::
-  noArgsReturnGuarded_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnGuarded_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1260,7 +1260,7 @@ U32 PassiveEventsComponentBase ::
 }
 
 U32 PassiveEventsComponentBase ::
-  noArgsReturnSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsReturnSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1277,7 +1277,7 @@ U32 PassiveEventsComponentBase ::
 }
 
 void PassiveEventsComponentBase ::
-  noArgsSync_handlerBase(NATIVE_INT_TYPE portNum)
+  noArgsSync_handlerBase(FwIndexType portNum)
 {
   // Make sure port number is valid
   FW_ASSERT(
@@ -1291,7 +1291,7 @@ void PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   typedGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1328,7 +1328,7 @@ void PassiveEventsComponentBase ::
 
 F32 PassiveEventsComponentBase ::
   typedReturnGuarded_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1369,7 +1369,7 @@ F32 PassiveEventsComponentBase ::
 
 F32 PassiveEventsComponentBase ::
   typedReturnSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1404,7 +1404,7 @@ F32 PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   typedSync_handlerBase(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1438,7 +1438,7 @@ void PassiveEventsComponentBase ::
 // ----------------------------------------------------------------------
 
 void PassiveEventsComponentBase ::
-  noArgsOut_out(NATIVE_INT_TYPE portNum)
+  noArgsOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsOut_OutputPorts(),
@@ -1448,7 +1448,7 @@ void PassiveEventsComponentBase ::
 }
 
 U32 PassiveEventsComponentBase ::
-  noArgsReturnOut_out(NATIVE_INT_TYPE portNum)
+  noArgsReturnOut_out(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_noArgsReturnOut_OutputPorts(),
@@ -1459,7 +1459,7 @@ U32 PassiveEventsComponentBase ::
 
 void PassiveEventsComponentBase ::
   typedOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -1486,7 +1486,7 @@ void PassiveEventsComponentBase ::
 
 F32 PassiveEventsComponentBase ::
   typedReturnOut_out(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2249,7 +2249,7 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   m_p_cmdIn_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType opCode,
       U32 cmdSeq,
       Fw::CmdArgBuffer& args
@@ -2268,7 +2268,7 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   m_p_noArgsGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -2279,7 +2279,7 @@ void PassiveEventsComponentBase ::
 U32 PassiveEventsComponentBase ::
   m_p_noArgsReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -2290,7 +2290,7 @@ U32 PassiveEventsComponentBase ::
 U32 PassiveEventsComponentBase ::
   m_p_noArgsReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -2301,7 +2301,7 @@ U32 PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   m_p_noArgsSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum
+      FwIndexType portNum
   )
 {
   FW_ASSERT(callComp);
@@ -2312,7 +2312,7 @@ void PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   m_p_typedGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2339,7 +2339,7 @@ void PassiveEventsComponentBase ::
 F32 PassiveEventsComponentBase ::
   m_p_typedReturnGuarded_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2366,7 +2366,7 @@ F32 PassiveEventsComponentBase ::
 F32 PassiveEventsComponentBase ::
   m_p_typedReturnSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -2393,7 +2393,7 @@ F32 PassiveEventsComponentBase ::
 void PassiveEventsComponentBase ::
   m_p_typedSync_in(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,

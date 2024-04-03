@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void QueuedAsyncProductPortsOnlyTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -26,7 +26,7 @@ void QueuedAsyncProductPortsOnlyTesterBase ::
 
 void QueuedAsyncProductPortsOnlyTesterBase ::
   connect_to_productRecvIn(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::InputDpResponsePort* port
   )
 {
@@ -43,7 +43,7 @@ void QueuedAsyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpRequestPort* QueuedAsyncProductPortsOnlyTesterBase ::
-  get_from_productRequestOut(NATIVE_INT_TYPE portNum)
+  get_from_productRequestOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productRequestOut(),
@@ -54,7 +54,7 @@ Fw::InputDpRequestPort* QueuedAsyncProductPortsOnlyTesterBase ::
 }
 
 Fw::InputDpSendPort* QueuedAsyncProductPortsOnlyTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -88,22 +88,22 @@ QueuedAsyncProductPortsOnlyTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_to_productRecvIn() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_to_productRecvIn));
 }
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_from_productRequestOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productRequestOut));
 }
 
-NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
+FwIndexType QueuedAsyncProductPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
 }
 
 // ----------------------------------------------------------------------
@@ -111,7 +111,7 @@ NATIVE_INT_TYPE QueuedAsyncProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 bool QueuedAsyncProductPortsOnlyTesterBase ::
-  isConnected_to_productRecvIn(NATIVE_INT_TYPE portNum)
+  isConnected_to_productRecvIn(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_to_productRecvIn(),

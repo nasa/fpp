@@ -33,7 +33,7 @@ class EmptyComponentBase :
 
     //! Initialize EmptyComponentBase object
     void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   PROTECTED:

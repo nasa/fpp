@@ -14,7 +14,7 @@
 // ----------------------------------------------------------------------
 
 void PassiveGetProductPortsOnlyTesterBase ::
-  init(NATIVE_INT_TYPE instance)
+  init(FwEnumStoreType instance)
 {
   // Initialize base class
   Fw::PassiveComponentBase::init(instance);
@@ -25,7 +25,7 @@ void PassiveGetProductPortsOnlyTesterBase ::
 // ----------------------------------------------------------------------
 
 Fw::InputDpGetPort* PassiveGetProductPortsOnlyTesterBase ::
-  get_from_productGetOut(NATIVE_INT_TYPE portNum)
+  get_from_productGetOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productGetOut(),
@@ -36,7 +36,7 @@ Fw::InputDpGetPort* PassiveGetProductPortsOnlyTesterBase ::
 }
 
 Fw::InputDpSendPort* PassiveGetProductPortsOnlyTesterBase ::
-  get_from_productSendOut(NATIVE_INT_TYPE portNum)
+  get_from_productSendOut(FwIndexType portNum)
 {
   FW_ASSERT(
     portNum < this->getNum_from_productSendOut(),
@@ -70,14 +70,14 @@ PassiveGetProductPortsOnlyTesterBase ::
 // Getters for port counts
 // ----------------------------------------------------------------------
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyTesterBase ::
+FwIndexType PassiveGetProductPortsOnlyTesterBase ::
   getNum_from_productGetOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productGetOut));
 }
 
-NATIVE_INT_TYPE PassiveGetProductPortsOnlyTesterBase ::
+FwIndexType PassiveGetProductPortsOnlyTesterBase ::
   getNum_from_productSendOut() const
 {
-  return static_cast<NATIVE_INT_TYPE>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
+  return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_from_productSendOut));
 }

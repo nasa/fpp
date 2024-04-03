@@ -114,7 +114,7 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Initialize object QueuedNoArgsPortsOnlyTesterBase
     virtual void init(
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -125,25 +125,25 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Connect port to noArgsAsync[portNum]
     void connect_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsGuarded[portNum]
     void connect_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnGuarded[portNum]
     void connect_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnSync[portNum]
     void connect_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
@@ -157,14 +157,14 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //!
     //! \return from_noArgsOut[portNum]
     Ports::InputNoArgsPort* get_from_noArgsOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get from port at index
     //!
     //! \return from_noArgsReturnOut[portNum]
     Ports::InputNoArgsReturnPort* get_from_noArgsReturnOut(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -190,12 +190,12 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Handler for input port from_noArgsOut
     virtual void from_noArgsOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port from_noArgsReturnOut
     virtual U32 from_noArgsReturnOut_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
   protected:
@@ -206,12 +206,12 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Handler base-class function for from_noArgsOut
     void from_noArgsOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for from_noArgsReturnOut
     U32 from_noArgsReturnOut_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -222,22 +222,22 @@ class QueuedNoArgsPortsOnlyTesterBase :
 
     //! Invoke the to port connected to noArgsAsync
     void invoke_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsGuarded
     void invoke_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnGuarded
     U32 invoke_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke the to port connected to noArgsReturnSync
     U32 invoke_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -249,32 +249,32 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //! Get the number of to_noArgsAsync ports
     //!
     //! \return The number of to_noArgsAsync ports
-    NATIVE_INT_TYPE getNum_to_noArgsAsync() const;
+    FwIndexType getNum_to_noArgsAsync() const;
 
     //! Get the number of to_noArgsGuarded ports
     //!
     //! \return The number of to_noArgsGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsGuarded() const;
+    FwIndexType getNum_to_noArgsGuarded() const;
 
     //! Get the number of to_noArgsReturnGuarded ports
     //!
     //! \return The number of to_noArgsReturnGuarded ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnGuarded() const;
+    FwIndexType getNum_to_noArgsReturnGuarded() const;
 
     //! Get the number of to_noArgsReturnSync ports
     //!
     //! \return The number of to_noArgsReturnSync ports
-    NATIVE_INT_TYPE getNum_to_noArgsReturnSync() const;
+    FwIndexType getNum_to_noArgsReturnSync() const;
 
     //! Get the number of from_noArgsOut ports
     //!
     //! \return The number of from_noArgsOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsOut() const;
+    FwIndexType getNum_from_noArgsOut() const;
 
     //! Get the number of from_noArgsReturnOut ports
     //!
     //! \return The number of from_noArgsReturnOut ports
-    NATIVE_INT_TYPE getNum_from_noArgsReturnOut() const;
+    FwIndexType getNum_from_noArgsReturnOut() const;
 
   protected:
 
@@ -286,28 +286,28 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //!
     //! \return Whether port to_noArgsAsync is connected
     bool isConnected_to_noArgsAsync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsGuarded is connected
     //!
     //! \return Whether port to_noArgsGuarded is connected
     bool isConnected_to_noArgsGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnGuarded is connected
     //!
     //! \return Whether port to_noArgsReturnGuarded is connected
     bool isConnected_to_noArgsReturnGuarded(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port to_noArgsReturnSync is connected
     //!
     //! \return Whether port to_noArgsReturnSync is connected
     bool isConnected_to_noArgsReturnSync(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:
@@ -337,13 +337,13 @@ class QueuedNoArgsPortsOnlyTesterBase :
     //! Static function for port from_noArgsOut
     static void from_noArgsOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Static function for port from_noArgsReturnOut
     static U32 from_noArgsReturnOut_static(
         Fw::PassiveComponentBase* const callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   protected:

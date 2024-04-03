@@ -40,20 +40,20 @@ void PassiveSerialTester ::
 // ----------------------------------------------------------------------
 
 void PassiveSerialTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 PassiveSerialTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void PassiveSerialTester ::
   from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -68,7 +68,7 @@ void PassiveSerialTester ::
 
 F32 PassiveSerialTester ::
   from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -87,7 +87,7 @@ F32 PassiveSerialTester ::
 
 void PassiveSerialTester ::
   from_serialOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {

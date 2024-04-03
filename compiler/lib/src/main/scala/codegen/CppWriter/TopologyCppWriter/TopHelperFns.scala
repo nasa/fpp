@@ -195,15 +195,15 @@ case class TopHelperFns(
         if (isActive(ci)) {
           val name = getNameAsIdent(ci.qualifiedName)
           val priority = ci.priority match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(Priorities::$name),"
+            case Some(_) => s"static_cast<Os::Task::ParamType>(Priorities::$name),"
             case None => "Os::Task::TASK_DEFAULT, // Default priority"
           }
           val stackSize = ci.stackSize match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(StackSizes::$name),"
+            case Some(_) => s"static_cast<Os::Task::ParamType>(StackSizes::$name),"
             case None => "Os::Task::TASK_DEFAULT, // Default stack size"
           }
           val cpu = ci.cpu match {
-            case Some(_) => s"static_cast<NATIVE_UINT_TYPE>(CPUs::$name),"
+            case Some(_) => s"static_cast<Os::Task::ParamType>(CPUs::$name),"
             case None => "Os::Task::TASK_DEFAULT, // Default CPU"
           }
           wrapInScope(
@@ -213,7 +213,7 @@ case class TopHelperFns(
                 priority,
                 stackSize,
                 cpu,
-                s"static_cast<NATIVE_UINT_TYPE>(TaskIds::$name)",
+                s"static_cast<Os::Task::ParamType>(TaskIds::$name)",
               )
             ).map(line),
             ");"

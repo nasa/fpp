@@ -40,20 +40,20 @@ void QueuedSerialTester ::
 // ----------------------------------------------------------------------
 
 void QueuedSerialTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 QueuedSerialTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
 
 void QueuedSerialTester ::
   from_typedOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -68,7 +68,7 @@ void QueuedSerialTester ::
 
 F32 QueuedSerialTester ::
   from_typedReturnOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       U32 u32,
       F32 f32,
       bool b,
@@ -87,7 +87,7 @@ F32 QueuedSerialTester ::
 
 void QueuedSerialTester ::
   from_serialOut_handler(
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       Fw::SerializeBufferBase& buffer
   )
 {

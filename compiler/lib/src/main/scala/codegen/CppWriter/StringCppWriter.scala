@@ -219,7 +219,7 @@ case class StringCppWriter(
         None,
         "getCapacity",
         Nil,
-        CppDoc.Type("NATIVE_UINT_TYPE"),
+        CppDoc.Type("Fw::StringBase::SizeType"),
         lines("return sizeof(this->m_buf);"),
         CppDoc.Function.NonSV,
         CppDoc.Function.Const

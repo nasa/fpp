@@ -45,7 +45,7 @@ class InputBuiltInTypePort :
     //! The port callback function type
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
-      NATIVE_INT_TYPE portNum,
+      FwIndexType portNum,
       FwOpcodeType t,
       FwOpcodeType& tRef
     );

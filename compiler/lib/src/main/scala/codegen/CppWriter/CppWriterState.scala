@@ -201,7 +201,6 @@ object CppWriterState {
    *  default values */
   val zero: Value.Integer = Value.Integer(0)
   val builtInTypes: Map[String,Value.Integer] = Map(
-    "FwBuffSizeType" -> zero,
     "FwChanIdType" -> zero,
     "FwDpIdType" -> zero,
     "FwDpPriorityType" -> zero,
@@ -211,17 +210,12 @@ object CppWriterState {
     "FwOpcodeType" -> zero,
     "FwPacketDescriptorType" -> zero,
     "FwPrmIdType" -> zero,
+    "FwSignedSizeType" -> zero,
+    "FwSizeStoreType" -> zero,
     "FwSizeType" -> zero,
     "FwTimeBaseStoreType" -> zero,
     "FwTimeContextStoreType" -> zero,
     "FwTlmPacketizeIdType" -> zero,
-    // For compatibility with the current F Prime code.
-    // Eventually we should remove these machine-dependent types
-    // from the FPP model and from the FPP-facing interface
-    // in F Prime.
-    "NATIVE_INT_TYPE" -> zero,
-    "NATIVE_UINT_TYPE" -> zero,
-    "POINTER_CAST" -> zero,
   )
 
 }

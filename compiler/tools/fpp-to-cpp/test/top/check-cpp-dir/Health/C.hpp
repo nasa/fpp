@@ -19,7 +19,7 @@ namespace M {
 
       }
 
-      virtual void pingIn_handler(NATIVE_INT_TYPE portNum) {
+      virtual void pingIn_handler(FwIndexType portNum) {
 
       }
 

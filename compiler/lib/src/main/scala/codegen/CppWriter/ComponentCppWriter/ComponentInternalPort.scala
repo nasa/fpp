@@ -56,14 +56,14 @@ case class ComponentInternalPort (
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |
                     |// Serialize the message ID
-                    |_status = msg.serialize(static_cast<NATIVE_INT_TYPE>(${internalPortCppConstantName(p)}));
+                    |_status = msg.serialize(static_cast<FwEnumStoreType>(${internalPortCppConstantName(p)}));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
                     |);
                     |
                     |// Fake port number to make message dequeue work
-                    |_status = msg.serialize(static_cast<NATIVE_INT_TYPE>(0));
+                    |_status = msg.serialize(static_cast<FwIndexType>(0));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)

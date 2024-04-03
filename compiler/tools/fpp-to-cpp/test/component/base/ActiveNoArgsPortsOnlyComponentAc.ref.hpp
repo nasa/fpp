@@ -58,8 +58,8 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Initialize ActiveNoArgsPortsOnlyComponentBase object
     void init(
-        NATIVE_INT_TYPE queueDepth, //!< The queue depth
-        NATIVE_INT_TYPE instance = 0 //!< The instance number
+        FwQueueSizeType queueDepth, //!< The queue depth
+        FwEnumStoreType instance = 0 //!< The instance number
     );
 
   public:
@@ -72,28 +72,28 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //!
     //! \return noArgsAsync[portNum]
     Ports::InputNoArgsPort* get_noArgsAsync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsGuarded[portNum]
     Ports::InputNoArgsPort* get_noArgsGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnGuarded[portNum]
     Ports::InputNoArgsReturnPort* get_noArgsReturnGuarded_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Get typed input port at index
     //!
     //! \return noArgsReturnSync[portNum]
     Ports::InputNoArgsReturnPort* get_noArgsReturnSync_InputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   public:
@@ -104,13 +104,13 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Connect port to noArgsOut[portNum]
     void set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsPort* port //!< The input port
     );
 
     //! Connect port to noArgsReturnOut[portNum]
     void set_noArgsReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Ports::InputNoArgsReturnPort* port //!< The input port
     );
 
@@ -124,7 +124,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Connect port to noArgsOut[portNum]
     void set_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum, //!< The port number
+        FwIndexType portNum, //!< The port number
         Fw::InputSerializePort* port //!< The port
     );
 
@@ -153,22 +153,22 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Get the number of noArgsAsync input ports
     //!
     //! \return The number of noArgsAsync input ports
-    NATIVE_INT_TYPE getNum_noArgsAsync_InputPorts() const;
+    FwIndexType getNum_noArgsAsync_InputPorts() const;
 
     //! Get the number of noArgsGuarded input ports
     //!
     //! \return The number of noArgsGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsGuarded_InputPorts() const;
+    FwIndexType getNum_noArgsGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnGuarded input ports
     //!
     //! \return The number of noArgsReturnGuarded input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnGuarded_InputPorts() const;
+    FwIndexType getNum_noArgsReturnGuarded_InputPorts() const;
 
     //! Get the number of noArgsReturnSync input ports
     //!
     //! \return The number of noArgsReturnSync input ports
-    NATIVE_INT_TYPE getNum_noArgsReturnSync_InputPorts() const;
+    FwIndexType getNum_noArgsReturnSync_InputPorts() const;
 
   PROTECTED:
 
@@ -179,12 +179,12 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Get the number of noArgsOut output ports
     //!
     //! \return The number of noArgsOut output ports
-    NATIVE_INT_TYPE getNum_noArgsOut_OutputPorts() const;
+    FwIndexType getNum_noArgsOut_OutputPorts() const;
 
     //! Get the number of noArgsReturnOut output ports
     //!
     //! \return The number of noArgsReturnOut output ports
-    NATIVE_INT_TYPE getNum_noArgsReturnOut_OutputPorts() const;
+    FwIndexType getNum_noArgsReturnOut_OutputPorts() const;
 
   PROTECTED:
 
@@ -196,14 +196,14 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //!
     //! \return Whether port noArgsOut is connected
     bool isConnected_noArgsOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Check whether port noArgsReturnOut is connected
     //!
     //! \return Whether port noArgsReturnOut is connected
     bool isConnected_noArgsReturnOut_OutputPort(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -214,22 +214,22 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Handler for input port noArgsAsync
     virtual void noArgsAsync_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsGuarded
     virtual void noArgsGuarded_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsReturnGuarded
     virtual U32 noArgsReturnGuarded_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
     //! Handler for input port noArgsReturnSync
     virtual U32 noArgsReturnSync_handler(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     ) = 0;
 
   PROTECTED:
@@ -242,22 +242,22 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Handler base-class function for input port noArgsAsync
     void noArgsAsync_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsGuarded
     void noArgsGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsReturnGuarded
     U32 noArgsReturnGuarded_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Handler base-class function for input port noArgsReturnSync
     U32 noArgsReturnSync_handlerBase(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -272,7 +272,7 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Pre-message hook for async input port noArgsAsync
     virtual void noArgsAsync_preMsgHook(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -283,12 +283,12 @@ class ActiveNoArgsPortsOnlyComponentBase :
 
     //! Invoke output port noArgsOut
     void noArgsOut_out(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Invoke output port noArgsReturnOut
     U32 noArgsReturnOut_out(
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PROTECTED:
@@ -324,25 +324,25 @@ class ActiveNoArgsPortsOnlyComponentBase :
     //! Callback for port noArgsAsync
     static void m_p_noArgsAsync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsGuarded
     static void m_p_noArgsGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsReturnGuarded
     static U32 m_p_noArgsReturnGuarded_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
     //! Callback for port noArgsReturnSync
     static U32 m_p_noArgsReturnSync_in(
         Fw::PassiveComponentBase* callComp, //!< The component instance
-        NATIVE_INT_TYPE portNum //!< The port number
+        FwIndexType portNum //!< The port number
     );
 
   PRIVATE:

@@ -40,13 +40,13 @@ void ActiveNoArgsPortsOnlyTester ::
 // ----------------------------------------------------------------------
 
 void ActiveNoArgsPortsOnlyTester ::
-  from_noArgsOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsOut_handler(FwIndexType portNum)
 {
   // TODO
 }
 
 U32 ActiveNoArgsPortsOnlyTester ::
-  from_noArgsReturnOut_handler(NATIVE_INT_TYPE portNum)
+  from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   // TODO return
 }
