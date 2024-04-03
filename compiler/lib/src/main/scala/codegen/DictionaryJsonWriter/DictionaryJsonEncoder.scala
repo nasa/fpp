@@ -194,6 +194,8 @@ case class DictionaryJsonEncoder(
                         case Some(defaultVal) => for (elem <- defaultVal._1._1) yield valueAsJson(elem)
                         case None => List.empty[Json]
                     }
+                    // NOTE: should default be optional and be the info in the FPP model, 
+                    // or required and handed by FPP resolving the default value?
                     val json = Json.obj(
                         "kind" -> "array".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
@@ -225,7 +227,8 @@ case class DictionaryJsonEncoder(
                             )
                         )
                     }.toMap
-                    val description = concatAnnotations(preA, postA)
+                    val annotation = concatAnnotations(preA, postA)
+                    // NOTE: default, see note above
                     val json = Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
@@ -234,7 +237,7 @@ case class DictionaryJsonEncoder(
                         "default" -> s"${qualifiedName}.${enumDefault}".asJson
                     )
                     val optionalValues = Map(
-                        "annotation" -> description, 
+                        "annotation" -> annotation, 
                     )
                     jsonWithOptionalValues(json, optionalValues)
                 }
@@ -244,13 +247,13 @@ case class DictionaryJsonEncoder(
                     val memberFormatMap = node.data.members.flatMap { case (_, memberNode, _) =>
                         memberNode.data.format.map(format => memberNode.data.name -> format.data)
                     }.toMap
-                    val memberDescriptionMap = node.data.members.flatMap { case (preA, memberNode, postA) =>
-                        val description = (preA ++ postA).mkString("\n")
-                        if (description.isEmpty) None else Some(memberNode.data.name -> description)
+                    val memberAnnotationMap = node.data.members.flatMap { case (preA, memberNode, postA) =>
+                        val annotation = (preA ++ postA).mkString("\n")
+                        if (annotation.isEmpty) None else Some(memberNode.data.name -> annotation)
                     }.toMap
                     val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
                         val json = Json.obj("type" -> typeAsJson(t).asJson, "index" -> index.asJson)
-                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "annotation" -> memberDescriptionMap.get(key))
+                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "annotation" -> memberAnnotationMap.get(key))
                         (key.toString -> jsonWithOptionalValues(json, optionalValues))
                     }
                     val json = Json.obj(
@@ -424,8 +427,6 @@ case class DictionaryJsonEncoder(
                 "id" -> numIdentifier.asJson,
                 "telemetryUpdate" -> channel.update.toString.asJson
             )
-
-            // TODO: There's probably prettier to do? Maybe not
             val optionalValues = Map(
                 "format" -> node.data.format.map(_.data),
                 "annotation" -> concatAnnotations(preA, postA)
