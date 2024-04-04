@@ -176,7 +176,10 @@ case class DictionaryJsonEncoder(
             case Value.Boolean(v) => v.asJson
             case Value.String(v) => v.asJson
             case Value.Array(a, t) => arrayElementsAsJson(a.elements)
-            case Value.EnumConstant(v, _) => v._1.asJson // returns the string representation of the constant (not the numeral value)
+            case Value.EnumConstant(v, t) => {
+                val qualifiedName = dictionaryState.a.getQualifiedName(Symbol.Enum(t.node)).toString
+                s"${qualifiedName}.${v._1}".asJson // FQN of the enum constant
+            }
             case Value.Struct(Value.AnonStruct(members), t) => members.map((key, value) => (key.toString -> valueAsJson(value))).asJson
             case _ => value.toString.asJson
         }
@@ -194,8 +197,6 @@ case class DictionaryJsonEncoder(
                         case Some(defaultVal) => for (elem <- defaultVal._1._1) yield valueAsJson(elem)
                         case None => List.empty[Json]
                     }
-                    // NOTE: should default be optional and be the info in the FPP model, 
-                    // or required and handed by FPP resolving the default value?
                     val json = Json.obj(
                         "kind" -> "array".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
@@ -228,7 +229,6 @@ case class DictionaryJsonEncoder(
                         )
                     }.toMap
                     val annotation = concatAnnotations(preA, postA)
-                    // NOTE: default, see note above
                     val json = Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
