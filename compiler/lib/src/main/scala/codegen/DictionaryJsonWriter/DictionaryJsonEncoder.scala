@@ -224,7 +224,6 @@ case class DictionaryJsonEncoder(
                         val optionalValues = Map("annotation" -> concatAnnotations(cPreA, cPostA))
                         jsonWithOptionalValues(json, optionalValues)
                     }
-                    val annotation = concatAnnotations(preA, postA)
                     val json = Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
@@ -233,7 +232,7 @@ case class DictionaryJsonEncoder(
                         "default" -> s"${qualifiedName}.${enumDefault}".asJson
                     )
                     val optionalValues = Map(
-                        "annotation" -> annotation, 
+                        "annotation" -> concatAnnotations(preA, postA), 
                     )
                     jsonWithOptionalValues(json, optionalValues)
                 }
@@ -248,8 +247,15 @@ case class DictionaryJsonEncoder(
                         if (annotation.isEmpty) None else Some(memberNode.data.name -> annotation)
                     }.toMap
                     val membersFormatted = for(((key, t), index) <- members.zipWithIndex) yield {
-                        val json = Json.obj("type" -> typeAsJson(t).asJson, "index" -> index.asJson)
-                        val optionalValues = Map("size" -> sizes.get(key), "format" -> memberFormatMap.get(key), "annotation" -> memberAnnotationMap.get(key))
+                        val json = Json.obj(
+                            "type" -> typeAsJson(t).asJson, 
+                            "index" -> index.asJson
+                        )
+                        val optionalValues = Map(
+                            "size" -> sizes.get(key), 
+                            "format" -> memberFormatMap.get(key), 
+                            "annotation" -> memberAnnotationMap.get(key)
+                        )
                         (key.toString -> jsonWithOptionalValues(json, optionalValues))
                     }
                     val json = Json.obj(
@@ -257,7 +263,10 @@ case class DictionaryJsonEncoder(
                         "qualifiedName" -> qualifiedName.asJson,
                         "members" -> membersFormatted.toMap.asJson,
                     )
-                    val optionalValues = Map("default" -> default, "annotation" -> concatAnnotations(preA, postA))
+                    val optionalValues = Map(
+                        "default" -> default, 
+                        "annotation" -> concatAnnotations(preA, postA)
+                    )
                     jsonWithOptionalValues(json, optionalValues)
                 }
                 // Case where type symbol we are trying to convert to JSON is not supported in the dictionary spec (should never occur)
