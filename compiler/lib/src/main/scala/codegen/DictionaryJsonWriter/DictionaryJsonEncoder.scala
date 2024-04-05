@@ -217,23 +217,20 @@ case class DictionaryJsonEncoder(
                         case None => ""
                     }
                     //TODO: Can we order them by value here?
-                    // also general question about do we want to order the JSON output in any way? could be nice for readability
-                    val enumaratedConstants = node.data.constants.map { case (cPreA, cNode, cPostA) =>
-                        cNode.data.name -> jsonWithOptionalValues(
-                            Json.obj(
-                                "value" -> dictionaryState.a.valueMap(cNode.id).asInstanceOf[Value.EnumConstant].value._2.asJson
-                            ),
-                            Map(
-                                "annotation" -> concatAnnotations(cPreA, cPostA)
-                            )
+                    val enumeratedConstants = node.data.constants.map { case (cPreA, cNode, cPostA) =>
+                        val json = Json.obj(
+                            "name" -> cNode.data.name.asJson,
+                            "value" -> dictionaryState.a.valueMap(cNode.id).asInstanceOf[Value.EnumConstant].value._2.asJson
                         )
-                    }.toMap
+                        val optionalValues = Map("annotation" -> concatAnnotations(cPreA, cPostA))
+                        jsonWithOptionalValues(json, optionalValues)
+                    }
                     val annotation = concatAnnotations(preA, postA)
                     val json = Json.obj(
                         "kind" -> "enum".asJson,
                         "qualifiedName" -> qualifiedName.asJson,
                         "representationType" -> typeAsJson(repType),
-                        "enumaratedConstants" -> enumaratedConstants.asJson,
+                        "enumeratedConstants" -> enumeratedConstants.asJson,
                         "default" -> s"${qualifiedName}.${enumDefault}".asJson
                     )
                     val optionalValues = Map(
