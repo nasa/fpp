@@ -216,7 +216,6 @@ case class DictionaryJsonEncoder(
                         case Some(defaultVal) => defaultVal.value._1
                         case None => ""
                     }
-                    //TODO: Can we order them by value here?
                     val enumeratedConstants = node.data.constants.map { case (cPreA, cNode, cPostA) =>
                         val json = Json.obj(
                             "name" -> cNode.data.name.asJson,
