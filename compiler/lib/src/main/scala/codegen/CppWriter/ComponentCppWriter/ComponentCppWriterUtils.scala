@@ -454,23 +454,31 @@ abstract class ComponentCppWriterUtils(
   /** Determine whether a port has params */
   def hasPortParams(p: PortInstance): Boolean = getPortFunctionParams(p) != Nil
 
-  /** Get a return type of a port instance as an optional C++ type */
-  def getPortReturnType(p: PortInstance): Option[String] =
-    p.getType match {
-      case Some(PortInstance.Type.DefPort(symbol)) =>
-        symbol.node._2.data.returnType match {
-          case Some(typeName) => Some(
-            TypeCppWriter.getName(
-              s,
-              s.a.typeMap(typeName.id),
-              None,
-              PortCppWriter.getPortNamespaces(s, symbol)
-            )
-          )
-          case _ => None
-        }
+  /** Get a port instance as a symbol option */
+  def getPortSymbol(pi: PortInstance): Option[Symbol.Port] =
+    pi.getType match {
+      case Some(PortInstance.Type.DefPort(symbol)) => Some(symbol)
       case _ => None
     }
+
+  /** Get the semantic port return type as a type option */
+  def getPortReturnTypeSemantic(pi: PortInstance) =
+    getPortSymbol(pi).flatMap(
+      _.node._2.data.returnType.map(typeName => s.a.typeMap(typeName.id))
+    )
+
+  /** Get a return type of a port instance as an optional C++ type */
+  def getPortReturnType(pi: PortInstance): Option[String] =
+    getPortSymbol(pi).flatMap(
+      symbol => symbol.node._2.data.returnType.map(
+        typeName => TypeCppWriter.getName(
+          s,
+          s.a.typeMap(typeName.id),
+          None,
+          PortCppWriter.getPortNamespaces(s, symbol)
+        )
+      )
+    )
 
   /** Get a return type of a port as a CppDoc type */
   def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
