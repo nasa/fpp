@@ -461,24 +461,34 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }
 
-  /** Get the semantic type of a port instance as a type option */
-  def getPortReturnTypeSemantic(pi: PortInstance) =
+  /** Extract an optional return type from a port instance and transform it */
+  private def transformPortReturnType[T](
+    pi: PortInstance,
+    transformer: Symbol.Port => AstNode[Ast.TypeName] => T
+  ): Option[T] =
     getPortSymbol(pi).flatMap(
-      _.node._2.data.returnType.map(typeName => s.a.typeMap(typeName.id))
+      symbol => symbol.node._2.data.returnType.map(transformer (symbol))
     )
 
-  /** Get the return type of a port instance as an optional C++ type */
-  def getPortReturnType(pi: PortInstance): Option[String] =
-    getPortSymbol(pi).flatMap(
-      symbol => symbol.node._2.data.returnType.map(
-        typeName => TypeCppWriter.getName(
-          s,
-          s.a.typeMap(typeName.id),
-          None,
-          PortCppWriter.getPortNamespaces(s, symbol)
-        )
+
+  /** Get the semantic type of a port instance as a Type option */
+  def getPortReturnTypeSemantic(pi: PortInstance): Option[Type] = {
+    def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
+      s.a.typeMap(node.id)
+    transformPortReturnType(pi, transformer)
+  }
+
+  /** Get the C++ return type of a port instance as a String option */
+  def getPortReturnType(pi: PortInstance): Option[String] = {
+    def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
+      TypeCppWriter.getName(
+        s,
+        s.a.typeMap(node.id),
+        None,
+        PortCppWriter.getPortNamespaces(s, sym)
       )
-    )
+    transformPortReturnType(pi, transformer)
+  }
 
   /** Get a return type of a port as a CppDoc type */
   def getPortReturnTypeAsCppDocType(p: PortInstance): CppDoc.Type =
