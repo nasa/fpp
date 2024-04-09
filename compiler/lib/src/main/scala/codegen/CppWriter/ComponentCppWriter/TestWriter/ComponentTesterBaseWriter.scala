@@ -350,27 +350,13 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-//  private def getPortHandlers: List[CppDoc.Class.Member] = {
-//    addAccessTagAndComment(
-//      "protected",
-//      s"Handlers to implement for from ports",
-//      ComponentInputPorts(s, aNode).generateHandlers(
-//        List.concat(
-//          typedOutputPorts,
-//          serialOutputPorts,
-//        ),
-//        inputPortName,
-//        fromPortHandlerName
-//      ),
-//      CppDoc.Lines.Hpp
-//    )
-//  }
-
+  /** Get the two port handler groups */
   private def getPortHandlers = List.concat(
     getPortHandlerGroup(typedOutputPorts),
     getPortHandlerGroup(serialOutputPorts)
   )
 
+  /** Get a group of port handlers with a tag and comment */
   private def getPortHandlerGroup(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
@@ -379,6 +365,7 @@ case class ComponentTesterBaseWriter(
       ports.map(getPortHandler)
     )
 
+  /** Get a single port handler */
   private def getPortHandler(pi: PortInstance): CppDoc.Class.Member.Function = {
     val portName = pi.getUnqualifiedName
     val fromPortName = inputPortName(portName)
@@ -393,7 +380,9 @@ case class ComponentTesterBaseWriter(
         // Handle a serial port
         case None => lines("// TODO")
       }
-      // If needed, generate a return statement
+      // If needed, generate a return statement.
+      // In the default implementation, we return the default value
+      // for the return type.
       val returnOpt = getPortReturnTypeSemantic(pi) match {
         case Some(ty) => 
           val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)

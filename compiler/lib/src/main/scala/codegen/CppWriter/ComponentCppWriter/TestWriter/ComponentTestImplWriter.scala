@@ -69,7 +69,6 @@ case class ComponentTestImplWriter(
       getConstantMembers,
       getConstructorMembers,
       getTestMembers,
-      //getPortHandlers,
       getHelpers,
       getVariableMembers
     )
@@ -144,49 +143,6 @@ case class ComponentTestImplWriter(
           lines("// TODO")
         )
       )
-    )
-  }
-
-  private def getPortHandlers = List.concat(
-    getPortHandlerGroup(typedOutputPorts),
-    getPortHandlerGroup(serialOutputPorts)
-  )
-
-  private def getPortHandlerGroup(ports: List[PortInstance]): List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "private",
-      s"Handlers for ${getPortListTypeString(ports)} from ports",
-      ports.map(getPortHandler)
-    )
-
-  private def getPortHandler(pi: PortInstance): CppDoc.Class.Member.Function = {
-    val portName = pi.getUnqualifiedName
-    val body = {
-      // if needed, generate code to push values on the history
-      val callOpt = portParamTypeMap.get(portName) match {
-        // Handle a typed port with arguments
-        case Some(pairs) =>
-          val pushFunctionArgs = pairs.map(_._1).mkString(", ")
-          val pushFunctionName = fromPortPushEntryName(portName)
-          lines(s"this->$pushFunctionName($pushFunctionArgs);")
-        // Handle a serial port
-        case None => lines("// TODO")
-      }
-      // If needed, generate a return statement
-      val returnOpt = getPortReturnTypeSemantic(pi) match {
-        case Some(ty) => 
-          val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)
-          lines(s"return $defaultValue;")
-        case None => Nil
-      }
-      List.concat(callOpt, returnOpt)
-    }
-    functionClassMember(
-      Some(s"Handler implementation for $portName"),
-      fromPortHandlerName(portName),
-      portNumParam :: getPortFunctionParams(pi),
-      getPortReturnTypeAsCppDocType(pi),
-      body
     )
   }
 
