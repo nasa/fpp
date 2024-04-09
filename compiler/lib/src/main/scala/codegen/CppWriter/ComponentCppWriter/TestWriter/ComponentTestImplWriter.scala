@@ -153,17 +153,25 @@ case class ComponentTestImplWriter(
       "private",
       s"Handlers for ${getPortListTypeString(ports)} from ports",
       ports.map(p => {
-        val todoMsg = getPortReturnType(p) match {
-          case Some(_) => "// TODO return"
-          case None => "// TODO"
+        val portName = p.getUnqualifiedName
+        val body = {
+          val callOpt = portParamTypeMap.get(portName) match {
+            case Some(pairs) => {
+              val pushFunctionArgs = pairs.map(_._1).mkString(", ")
+              val pushFunctionName = fromPortPushEntryName(portName)
+              lines(s"this->$pushFunctionName($pushFunctionArgs);")
+            }
+            case None => lines("// TODO")
+          }
+          val returnOpt = guardedList (getPortReturnType(p).isDefined) (lines("// TODO: Return a value"))
+          List.concat(callOpt, returnOpt)
         }
-
         functionClassMember(
-          Some(s"Handler implementation for ${p.getUnqualifiedName}"),
-          fromPortHandlerName(p.getUnqualifiedName),
+          Some(s"Handler implementation for $portName"),
+          fromPortHandlerName(portName),
           portNumParam :: getPortFunctionParams(p),
           getPortReturnTypeAsCppDocType(p),
-          lines(todoMsg)
+          body
         )
       })
     )

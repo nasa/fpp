@@ -42,11 +42,12 @@ void ActiveNoArgsPortsOnlyTester ::
 void ActiveNoArgsPortsOnlyTester ::
   from_noArgsOut_handler(FwIndexType portNum)
 {
-  // TODO
+  this->pushFromPortEntry_noArgsOut();
 }
 
 U32 ActiveNoArgsPortsOnlyTester ::
   from_noArgsReturnOut_handler(FwIndexType portNum)
 {
-  // TODO return
+  this->pushFromPortEntry_noArgsReturnOut();
+  // TODO: Return a value
 }

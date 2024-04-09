@@ -42,13 +42,14 @@ void QueuedTelemetryTester ::
 void QueuedTelemetryTester ::
   from_noArgsOut_handler(FwIndexType portNum)
 {
-  // TODO
+  this->pushFromPortEntry_noArgsOut();
 }
 
 U32 QueuedTelemetryTester ::
   from_noArgsReturnOut_handler(FwIndexType portNum)
 {
-  // TODO return
+  this->pushFromPortEntry_noArgsReturnOut();
+  // TODO: Return a value
 }
 
 void QueuedTelemetryTester ::
@@ -63,7 +64,7 @@ void QueuedTelemetryTester ::
       const S& s
   )
 {
-  // TODO
+  this->pushFromPortEntry_typedOut(u32, f32, b, str1, e, a, s);
 }
 
 F32 QueuedTelemetryTester ::
@@ -78,5 +79,6 @@ F32 QueuedTelemetryTester ::
       const S& s
   )
 {
-  // TODO return
+  this->pushFromPortEntry_typedReturnOut(u32, f32, b, str2, e, a, s);
+  // TODO: Return a value
 }
