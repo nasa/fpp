@@ -384,7 +384,7 @@ case class ComponentTesterBaseWriter(
       // In the default implementation, we return the default value
       // for the return type.
       val returnOpt = getPortReturnTypeSemantic(pi) match {
-        case Some(ty) => 
+        case Some(ty) =>
           val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)
           lines(s"return $defaultValue;")
         case None => Nil
@@ -1314,7 +1314,7 @@ case class ComponentTesterBaseWriter(
       def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
         paramNames(i) else s"missingParam$i"
       lazy val body = p match {
-        case i: PortInstance.General => 
+        case i: PortInstance.General =>
           val baseName = fromPortHandlerBaseName(p.getUnqualifiedName)
           List.concat(
             lines(

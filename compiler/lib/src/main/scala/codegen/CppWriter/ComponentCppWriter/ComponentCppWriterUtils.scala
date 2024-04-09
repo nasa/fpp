@@ -470,7 +470,6 @@ abstract class ComponentCppWriterUtils(
       symbol => symbol.node._2.data.returnType.map(transformer (symbol))
     )
 
-
   /** Get the semantic type of a port instance as a Type option */
   def getPortReturnTypeSemantic(pi: PortInstance): Option[Type] = {
     def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
