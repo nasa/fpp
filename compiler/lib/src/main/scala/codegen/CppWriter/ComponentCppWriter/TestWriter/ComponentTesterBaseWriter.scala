@@ -361,7 +361,7 @@ case class ComponentTesterBaseWriter(
     addAccessTagAndComment(
       "protected",
       s"""|Default handler implementations for ${getPortListTypeString(ports)} from ports
-          |You can override these implementation with more specific behavior.""",
+          |You can override these implementation with more specific behavior""",
       ports.map(getPortHandler)
     )
 
@@ -378,7 +378,7 @@ case class ComponentTesterBaseWriter(
           val pushFunctionName = fromPortPushEntryName(portName)
           lines(s"this->$pushFunctionName($pushFunctionArgs);")
         // Handle a serial port
-        case None => lines("// TODO")
+        case None => lines("// Default behavior is to do nothing")
       }
       // If needed, generate a return statement.
       // In the default implementation, we return the default value

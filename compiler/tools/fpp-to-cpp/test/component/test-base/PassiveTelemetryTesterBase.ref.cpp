@@ -641,7 +641,7 @@ PassiveTelemetryTesterBase ::
 
 // ----------------------------------------------------------------------
 // Default handler implementations for typed from ports
-// You can override these implementation with more specific behavior.
+// You can override these implementation with more specific behavior
 // ----------------------------------------------------------------------
 
 void PassiveTelemetryTesterBase ::

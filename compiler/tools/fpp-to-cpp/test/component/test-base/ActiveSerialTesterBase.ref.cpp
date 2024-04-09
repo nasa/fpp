@@ -1236,7 +1236,7 @@ ActiveSerialTesterBase ::
 
 // ----------------------------------------------------------------------
 // Default handler implementations for typed from ports
-// You can override these implementation with more specific behavior.
+// You can override these implementation with more specific behavior
 // ----------------------------------------------------------------------
 
 void ActiveSerialTesterBase ::
@@ -1285,7 +1285,7 @@ F32 ActiveSerialTesterBase ::
 
 // ----------------------------------------------------------------------
 // Default handler implementations for serial from ports
-// You can override these implementation with more specific behavior.
+// You can override these implementation with more specific behavior
 // ----------------------------------------------------------------------
 
 void ActiveSerialTesterBase ::
@@ -1294,7 +1294,7 @@ void ActiveSerialTesterBase ::
       Fw::SerializeBufferBase& buffer
   )
 {
-  // TODO
+  // Default behavior is to do nothing
 }
 
 // ----------------------------------------------------------------------
