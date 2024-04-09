@@ -350,19 +350,65 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private def getPortHandlers: List[CppDoc.Class.Member] = {
+//  private def getPortHandlers: List[CppDoc.Class.Member] = {
+//    addAccessTagAndComment(
+//      "protected",
+//      s"Handlers to implement for from ports",
+//      ComponentInputPorts(s, aNode).generateHandlers(
+//        List.concat(
+//          typedOutputPorts,
+//          serialOutputPorts,
+//        ),
+//        inputPortName,
+//        fromPortHandlerName
+//      ),
+//      CppDoc.Lines.Hpp
+//    )
+//  }
+
+  private def getPortHandlers = List.concat(
+    getPortHandlerGroup(typedOutputPorts),
+    getPortHandlerGroup(serialOutputPorts)
+  )
+
+  private def getPortHandlerGroup(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
-      s"Handlers to implement for from ports",
-      ComponentInputPorts(s, aNode).generateHandlers(
-        List.concat(
-          typedOutputPorts,
-          serialOutputPorts,
-        ),
-        inputPortName,
-        fromPortHandlerName
-      ),
-      CppDoc.Lines.Hpp
+      s"""|Default handler implementations for ${getPortListTypeString(ports)} from ports
+          |You can override these implementation with more specific behavior.""",
+      ports.map(getPortHandler)
+    )
+
+  private def getPortHandler(pi: PortInstance): CppDoc.Class.Member.Function = {
+    val portName = pi.getUnqualifiedName
+    val fromPortName = inputPortName(portName)
+    val body = {
+      // if needed, generate code to push values on the history
+      val callOpt = portParamTypeMap.get(portName) match {
+        // Handle a typed port with arguments
+        case Some(pairs) =>
+          val pushFunctionArgs = pairs.map(_._1).mkString(", ")
+          val pushFunctionName = fromPortPushEntryName(portName)
+          lines(s"this->$pushFunctionName($pushFunctionArgs);")
+        // Handle a serial port
+        case None => lines("// TODO")
+      }
+      // If needed, generate a return statement
+      val returnOpt = getPortReturnTypeSemantic(pi) match {
+        case Some(ty) => 
+          val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)
+          lines(s"return $defaultValue;")
+        case None => Nil
+      }
+      List.concat(callOpt, returnOpt)
+    }
+    functionClassMember(
+      Some(s"Default handler implementation for $fromPortName"),
+      fromPortHandlerName(portName),
+      portNumParam :: getPortFunctionParams(pi),
+      getPortReturnTypeAsCppDocType(pi),
+      body,
+      CppDoc.Function.Virtual
     )
   }
 

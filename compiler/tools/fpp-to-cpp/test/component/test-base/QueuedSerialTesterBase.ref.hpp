@@ -497,20 +497,21 @@ class QueuedSerialTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Handlers to implement for from ports
+    // Default handler implementations for typed from ports
+    // You can override these implementation with more specific behavior.
     // ----------------------------------------------------------------------
 
-    //! Handler for input port from_noArgsOut
+    //! Default handler implementation for from_noArgsOut
     virtual void from_noArgsOut_handler(
         FwIndexType portNum //!< The port number
-    ) = 0;
+    );
 
-    //! Handler for input port from_noArgsReturnOut
+    //! Default handler implementation for from_noArgsReturnOut
     virtual U32 from_noArgsReturnOut_handler(
         FwIndexType portNum //!< The port number
-    ) = 0;
+    );
 
-    //! Handler for input port from_typedOut
+    //! Default handler implementation for from_typedOut
     virtual void from_typedOut_handler(
         FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
@@ -520,9 +521,9 @@ class QueuedSerialTesterBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    ) = 0;
+    );
 
-    //! Handler for input port from_typedReturnOut
+    //! Default handler implementation for from_typedReturnOut
     virtual F32 from_typedReturnOut_handler(
         FwIndexType portNum, //!< The port number
         U32 u32, //!< A U32
@@ -532,13 +533,20 @@ class QueuedSerialTesterBase :
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
-    ) = 0;
+    );
 
-    //! Handler for input port from_serialOut
+  protected:
+
+    // ----------------------------------------------------------------------
+    // Default handler implementations for serial from ports
+    // You can override these implementation with more specific behavior.
+    // ----------------------------------------------------------------------
+
+    //! Default handler implementation for from_serialOut
     virtual void from_serialOut_handler(
         FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
-    ) = 0;
+    );
 
   protected:
 

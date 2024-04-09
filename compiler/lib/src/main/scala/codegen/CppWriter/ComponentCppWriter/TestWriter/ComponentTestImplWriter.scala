@@ -69,7 +69,7 @@ case class ComponentTestImplWriter(
       getConstantMembers,
       getConstructorMembers,
       getTestMembers,
-      getPortHandlers,
+      //getPortHandlers,
       getHelpers,
       getVariableMembers
     )

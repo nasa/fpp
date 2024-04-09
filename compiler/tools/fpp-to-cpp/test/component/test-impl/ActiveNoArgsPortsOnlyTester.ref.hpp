@@ -53,22 +53,6 @@ class ActiveNoArgsPortsOnlyTester :
   private:
 
     // ----------------------------------------------------------------------
-    // Handlers for typed from ports
-    // ----------------------------------------------------------------------
-
-    //! Handler implementation for noArgsOut
-    void from_noArgsOut_handler(
-        FwIndexType portNum //!< The port number
-    );
-
-    //! Handler implementation for noArgsReturnOut
-    U32 from_noArgsReturnOut_handler(
-        FwIndexType portNum //!< The port number
-    );
-
-  private:
-
-    // ----------------------------------------------------------------------
     // Helper functions
     // ----------------------------------------------------------------------
 

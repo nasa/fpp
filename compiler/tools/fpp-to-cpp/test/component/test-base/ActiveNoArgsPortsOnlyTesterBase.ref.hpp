@@ -185,18 +185,19 @@ class ActiveNoArgsPortsOnlyTesterBase :
   protected:
 
     // ----------------------------------------------------------------------
-    // Handlers to implement for from ports
+    // Default handler implementations for typed from ports
+    // You can override these implementation with more specific behavior.
     // ----------------------------------------------------------------------
 
-    //! Handler for input port from_noArgsOut
+    //! Default handler implementation for from_noArgsOut
     virtual void from_noArgsOut_handler(
         FwIndexType portNum //!< The port number
-    ) = 0;
+    );
 
-    //! Handler for input port from_noArgsReturnOut
+    //! Default handler implementation for from_noArgsReturnOut
     virtual U32 from_noArgsReturnOut_handler(
         FwIndexType portNum //!< The port number
-    ) = 0;
+    );
 
   protected:
 

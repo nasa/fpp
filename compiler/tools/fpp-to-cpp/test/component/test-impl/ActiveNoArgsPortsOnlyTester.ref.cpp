@@ -34,20 +34,3 @@ void ActiveNoArgsPortsOnlyTester ::
 {
   // TODO
 }
-
-// ----------------------------------------------------------------------
-// Handlers for typed from ports
-// ----------------------------------------------------------------------
-
-void ActiveNoArgsPortsOnlyTester ::
-  from_noArgsOut_handler(FwIndexType portNum)
-{
-  this->pushFromPortEntry_noArgsOut();
-}
-
-U32 ActiveNoArgsPortsOnlyTester ::
-  from_noArgsReturnOut_handler(FwIndexType portNum)
-{
-  this->pushFromPortEntry_noArgsReturnOut();
-  return 0;
-}

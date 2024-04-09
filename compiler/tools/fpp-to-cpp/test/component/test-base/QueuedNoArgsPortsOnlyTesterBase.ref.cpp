@@ -254,6 +254,24 @@ QueuedNoArgsPortsOnlyTesterBase ::
 }
 
 // ----------------------------------------------------------------------
+// Default handler implementations for typed from ports
+// You can override these implementation with more specific behavior.
+// ----------------------------------------------------------------------
+
+void QueuedNoArgsPortsOnlyTesterBase ::
+  from_noArgsOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsOut();
+}
+
+U32 QueuedNoArgsPortsOnlyTesterBase ::
+  from_noArgsReturnOut_handler(FwIndexType portNum)
+{
+  this->pushFromPortEntry_noArgsReturnOut();
+  return 0;
+}
+
+// ----------------------------------------------------------------------
 // Handler base-class functions for from ports
 // ----------------------------------------------------------------------
 
