@@ -49,7 +49,7 @@ U32 QueuedSerialTester ::
   from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   this->pushFromPortEntry_noArgsReturnOut();
-  // TODO: Return a value
+  return 0;
 }
 
 void QueuedSerialTester ::
@@ -80,7 +80,7 @@ F32 QueuedSerialTester ::
   )
 {
   this->pushFromPortEntry_typedReturnOut(u32, f32, b, str2, e, a, s);
-  // TODO: Return a value
+  return 0.0f;
 }
 
 // ----------------------------------------------------------------------

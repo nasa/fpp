@@ -155,15 +155,23 @@ case class ComponentTestImplWriter(
       ports.map(p => {
         val portName = p.getUnqualifiedName
         val body = {
+          // if needed, generate code to push values on the history
           val callOpt = portParamTypeMap.get(portName) match {
-            case Some(pairs) => {
+            // Handle a typed port with arguments
+            case Some(pairs) =>
               val pushFunctionArgs = pairs.map(_._1).mkString(", ")
               val pushFunctionName = fromPortPushEntryName(portName)
               lines(s"this->$pushFunctionName($pushFunctionArgs);")
-            }
+            // Handle a serial port
             case None => lines("// TODO")
           }
-          val returnOpt = guardedList (getPortReturnType(p).isDefined) (lines("// TODO: Return a value"))
+          // If needed, generate a return statement
+          val returnOpt = getPortReturnTypeSemantic(p) match {
+            case Some(ty) => 
+              val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)
+              lines(s"return $defaultValue;")
+            case None => Nil
+          }
           List.concat(callOpt, returnOpt)
         }
         functionClassMember(

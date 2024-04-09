@@ -49,7 +49,7 @@ U32 QueuedSyncProductsTester ::
   from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   this->pushFromPortEntry_noArgsReturnOut();
-  // TODO: Return a value
+  return 0;
 }
 
 void QueuedSyncProductsTester ::
@@ -80,5 +80,5 @@ F32 QueuedSyncProductsTester ::
   )
 {
   this->pushFromPortEntry_typedReturnOut(u32, f32, b, str2, e, a, s);
-  // TODO: Return a value
+  return 0.0f;
 }

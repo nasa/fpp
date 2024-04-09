@@ -461,13 +461,13 @@ abstract class ComponentCppWriterUtils(
       case _ => None
     }
 
-  /** Get the semantic port return type as a type option */
+  /** Get the semantic type of a port instance as a type option */
   def getPortReturnTypeSemantic(pi: PortInstance) =
     getPortSymbol(pi).flatMap(
       _.node._2.data.returnType.map(typeName => s.a.typeMap(typeName.id))
     )
 
-  /** Get a return type of a port instance as an optional C++ type */
+  /** Get the return type of a port instance as an optional C++ type */
   def getPortReturnType(pi: PortInstance): Option[String] =
     getPortSymbol(pi).flatMap(
       symbol => symbol.node._2.data.returnType.map(

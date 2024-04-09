@@ -49,5 +49,5 @@ U32 ActiveNoArgsPortsOnlyTester ::
   from_noArgsReturnOut_handler(FwIndexType portNum)
 {
   this->pushFromPortEntry_noArgsReturnOut();
-  // TODO: Return a value
+  return 0;
 }
