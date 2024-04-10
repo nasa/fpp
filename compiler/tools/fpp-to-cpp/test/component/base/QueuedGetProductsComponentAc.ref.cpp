@@ -3351,6 +3351,7 @@ Fw::Success::T QueuedGetProductsComponentBase ::
   dpGet(
       ContainerId::T containerId,
       FwSizeType dataSize,
+      FwDpPriorityType priority,
       DpContainer& container
   )
 {
@@ -3363,6 +3364,7 @@ Fw::Success::T QueuedGetProductsComponentBase ::
     container.setId(globalId);
     container.setBuffer(buffer);
     container.setBaseId(baseId);
+    container.setPriority(priority);
   }
   return status;
 }
