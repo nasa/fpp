@@ -350,19 +350,54 @@ case class ComponentTesterBaseWriter(
     )
   }
 
-  private def getPortHandlers: List[CppDoc.Class.Member] = {
+  /** Get the two port handler groups */
+  private def getPortHandlers = List.concat(
+    getPortHandlerGroup(typedOutputPorts),
+    getPortHandlerGroup(serialOutputPorts)
+  )
+
+  /** Get a group of port handlers with a tag and comment */
+  private def getPortHandlerGroup(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "protected",
-      s"Handlers to implement for from ports",
-      ComponentInputPorts(s, aNode).generateHandlers(
-        List.concat(
-          typedOutputPorts,
-          serialOutputPorts,
-        ),
-        inputPortName,
-        fromPortHandlerName
-      ),
-      CppDoc.Lines.Hpp
+      s"""|Default handler implementations for ${getPortListTypeString(ports)} from ports
+          |You can override these implementation with more specific behavior""",
+      ports.map(getPortHandler)
+    )
+
+  /** Get a single port handler */
+  private def getPortHandler(pi: PortInstance): CppDoc.Class.Member.Function = {
+    val portName = pi.getUnqualifiedName
+    val fromPortName = inputPortName(portName)
+    val body = {
+      // if needed, generate code to push values on the history
+      val callOpt = portParamTypeMap.get(portName) match {
+        // Handle a typed port with arguments
+        case Some(pairs) =>
+          val pushFunctionArgs = pairs.map(_._1).mkString(", ")
+          val pushFunctionName = fromPortPushEntryName(portName)
+          lines(s"this->$pushFunctionName($pushFunctionArgs);")
+        // Handle a serial port
+        case None => lines("// Default behavior is to do nothing")
+      }
+      // If needed, generate a return statement.
+      // In the default implementation, we return the default value
+      // for the return type.
+      val returnOpt = getPortReturnTypeSemantic(pi) match {
+        case Some(ty) =>
+          val defaultValue = ValueCppWriter.write(s, ty.getDefaultValue.get)
+          lines(s"return $defaultValue;")
+        case None => Nil
+      }
+      List.concat(callOpt, returnOpt)
+    }
+    functionClassMember(
+      Some(s"Default handler implementation for $fromPortName"),
+      fromPortHandlerName(portName),
+      portNumParam :: getPortFunctionParams(pi),
+      getPortReturnTypeAsCppDocType(pi),
+      body,
+      CppDoc.Function.Virtual
     )
   }
 
@@ -1279,7 +1314,7 @@ case class ComponentTesterBaseWriter(
       def getParamName(i: Int) = if (i >= 0 && i < paramNames.size)
         paramNames(i) else s"missingParam$i"
       lazy val body = p match {
-        case i: PortInstance.General => 
+        case i: PortInstance.General =>
           val baseName = fromPortHandlerBaseName(p.getUnqualifiedName)
           List.concat(
             lines(
