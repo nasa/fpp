@@ -365,14 +365,19 @@ case class ComponentDataProducts (
       // Get the type name
       val typeName = TypeCppWriter.getName(s, t)
       // Get the parameter type
+      // For strings this is a const reference to Fw::StringBase
+      // For primitive types it is the type name
+      // For othe types it is a const reference to the type name
       val paramType = t match {
         case Type.String(_) => "const Fw::StringBase&"
         case _ =>
           if s.isPrimitive(t, typeName)
           then typeName
-          else s"const ${typeName}&"
+          else s"const $typeName&"
       }
       // Construct part 1 of the function body
+      // For strings this declares a string of the specified size
+      // For other types it is empty
       val body1 = t match {
         case ts: Type.String =>
           val stringSize = StringCppWriter(s).getSize(ts).toString
@@ -383,11 +388,15 @@ case class ComponentDataProducts (
         case _ => Nil
       }
       // Get the serialized size
+      // For strings this is the serialized size of the data
+      // For other types it is the serialized size of the type
       val serialSize = t match {
         case Type.String(_) => "es.serializedSize()"
         case _ => s.getSerializedSizeExpr(t, typeName)
       }
       // Get the variable holding the element to serialize
+      // For strings this is the variable we declared above
+      // For other types it is the elt parameter to the function
       val serialElt = t match {
         case Type.String(_) => "es"
         case _ => "elt"
