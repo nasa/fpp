@@ -30,6 +30,9 @@ product record DataArrayRecord: Data array id 500
 @ Record 6
 product record StringRecord: string id 600
 
+@ Record 7
+product record StringArrayRecord: string array id 700
+
 # ----------------------------------------------------------------------
 # Containers
 # ----------------------------------------------------------------------

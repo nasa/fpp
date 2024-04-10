@@ -89,6 +89,40 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
 }
 
 Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
+  serializeRecord_StringArrayRecord(
+      const Fw::StringBase** array,
+      FwSizeType size
+  )
+{
+  FW_ASSERT(array != nullptr);
+  FwSizeType sizeDelta = 0;
+  for (FwSizeType i = 0; i < size; i++) {
+    const Fw::StringBase *const sbPtr = array[i];
+    FW_ASSERT(sbPtr != nullptr);
+    sizeDelta += sbPtr->serializedSize();
+  }
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::StringArrayRecord;
+    status = this->m_dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->m_dataBuffer.serializeSize(size);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    for (FwSizeType i = 0; i < size; i++) {
+      const Fw::StringBase *const sbPtr = array[i];
+      FW_ASSERT(sbPtr != nullptr);
+      status = this->m_dataBuffer.serialize(*sbPtr);
+      FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    }
+    this->m_dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   serializeRecord_StringRecord(const Fw::StringBase& elt)
 {
   char esData[80];

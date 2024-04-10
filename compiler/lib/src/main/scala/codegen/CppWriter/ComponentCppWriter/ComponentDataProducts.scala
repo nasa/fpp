@@ -449,7 +449,7 @@ case class ComponentDataProducts (
         case Type.String(_) =>
           """|FwSizeType sizeDelta = 0;
              |for (FwSizeType i = 0; i < size; i++) {
-             |  Fw::StringBase *const sbPtr = array[i];
+             |  const Fw::StringBase *const sbPtr = array[i];
              |  FW_ASSERT(sbPtr != nullptr);
              |  sizeDelta += sbPtr->serializedSize();
              |}"""
@@ -471,7 +471,7 @@ case class ComponentDataProducts (
         // Handle the string case
         case Type.String(_) =>
           """|  for (FwSizeType i = 0; i < size; i++) {
-             |    Fw::StringBase *const sbPtr = array[i];
+             |    const Fw::StringBase *const sbPtr = array[i];
              |    FW_ASSERT(sbPtr != nullptr);
              |    status = this->m_dataBuffer.serialize(*sbPtr);
              |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);

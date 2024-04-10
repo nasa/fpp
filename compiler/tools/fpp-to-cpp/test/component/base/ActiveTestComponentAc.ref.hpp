@@ -223,6 +223,7 @@ namespace M {
           U32ArrayRecord = 400,
           DataArrayRecord = 500,
           StringRecord = 600,
+          StringArrayRecord = 700,
         };
       };
 
@@ -256,6 +257,13 @@ namespace M {
           //! \return The serialize status
           Fw::SerializeStatus serializeRecord_DataRecord(
               const M::ActiveTest_Data& elt //!< The element
+          );
+
+          //! Serialize a StringArrayRecord record into the packet buffer
+          //! \return The serialize status
+          Fw::SerializeStatus serializeRecord_StringArrayRecord(
+              const Fw::StringBase** array, //!< An array of pointers to StringBase objects
+              FwSizeType size //!< The array size
           );
 
           //! Serialize a StringRecord record into the packet buffer
