@@ -3134,7 +3134,7 @@ void QueuedTelemetryComponentBase ::
   FW_ASSERT(callComp);
 
   const U32 idBase = callComp->getIdBase();
-  FW_ASSERT(opCode >= idBase, opCode, idBase);
+  FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
 }
 
 // ----------------------------------------------------------------------

@@ -276,7 +276,7 @@ case class ComponentInputPorts(
         """|FW_ASSERT(callComp);
            |
            |const U32 idBase = callComp->getIdBase();
-           |FW_ASSERT(opCode >= idBase, opCode, idBase);
+           |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
            |"""
       )
       else List(
@@ -285,7 +285,7 @@ case class ComponentInputPorts(
               |$className* compPtr = static_cast<$className*>(callComp);
               |
               |const U32 idBase = callComp->getIdBase();
-              |FW_ASSERT(opCode >= idBase, opCode, idBase);
+              |FW_ASSERT(opCode >= idBase, static_cast<FwAssertArgType>(opCode), static_cast<FwAssertArgType>(idBase));
               |
               |// Select base class function based on opcode
               |"""
