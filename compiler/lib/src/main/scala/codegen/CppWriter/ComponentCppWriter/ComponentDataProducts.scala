@@ -42,7 +42,12 @@ case class ComponentDataProducts (
               |    FwSizeType dataSize, //!< The data size (input)
               |    DpContainer& container //!< The container (output)
               |) {
-              |  return this->dpGet(ContainerId::$name, dataSize, container);
+              |  return this->dpGet(
+              |    ContainerId::$name,
+              |    dataSize,
+              |    ContainerPriority::$name,
+              |    container
+              |  );
               |}"""
         )
       )
@@ -132,6 +137,11 @@ case class ComponentDataProducts (
           Some("The data size (input)")
         ),
         CppDoc.Function.Param(
+          CppDoc.Type("FwDpPriorityType"),
+          "priority",
+          Some("The priority (input)")
+        ),
+        CppDoc.Function.Param(
           CppDoc.Type("DpContainer&"),
           "container",
           Some("The container (output)")
@@ -149,6 +159,7 @@ case class ComponentDataProducts (
                   |  container.setId(globalId);
                   |  container.setBuffer(buffer);
                   |  container.setBaseId(baseId);
+                  |  container.setPriority(priority);
                   |}
                   |return status;""")
       }

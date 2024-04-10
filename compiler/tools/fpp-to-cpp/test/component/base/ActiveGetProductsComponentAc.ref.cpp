@@ -3409,6 +3409,7 @@ Fw::Success::T ActiveGetProductsComponentBase ::
   dpGet(
       ContainerId::T containerId,
       FwSizeType dataSize,
+      FwDpPriorityType priority,
       DpContainer& container
   )
 {
@@ -3421,6 +3422,7 @@ Fw::Success::T ActiveGetProductsComponentBase ::
     container.setId(globalId);
     container.setBuffer(buffer);
     container.setBaseId(baseId);
+    container.setPriority(priority);
   }
   return status;
 }

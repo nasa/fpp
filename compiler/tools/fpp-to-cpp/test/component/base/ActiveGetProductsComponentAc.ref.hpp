@@ -1208,7 +1208,12 @@ class ActiveGetProductsComponentBase :
         FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container1, dataSize, container);
+      return this->dpGet(
+        ContainerId::Container1,
+        dataSize,
+        ContainerPriority::Container1,
+        container
+      );
     }
 
     //! Get a buffer and use it to initialize container Container2
@@ -1217,7 +1222,12 @@ class ActiveGetProductsComponentBase :
         FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container2, dataSize, container);
+      return this->dpGet(
+        ContainerId::Container2,
+        dataSize,
+        ContainerPriority::Container2,
+        container
+      );
     }
 
     //! Get a buffer and use it to initialize container Container3
@@ -1226,7 +1236,12 @@ class ActiveGetProductsComponentBase :
         FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container3, dataSize, container);
+      return this->dpGet(
+        ContainerId::Container3,
+        dataSize,
+        ContainerPriority::Container3,
+        container
+      );
     }
 
     //! Get a buffer and use it to initialize container Container4
@@ -1235,7 +1250,12 @@ class ActiveGetProductsComponentBase :
         FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container4, dataSize, container);
+      return this->dpGet(
+        ContainerId::Container4,
+        dataSize,
+        ContainerPriority::Container4,
+        container
+      );
     }
 
     //! Get a buffer and use it to initialize container Container5
@@ -1244,7 +1264,12 @@ class ActiveGetProductsComponentBase :
         FwSizeType dataSize, //!< The data size (input)
         DpContainer& container //!< The container (output)
     ) {
-      return this->dpGet(ContainerId::Container5, dataSize, container);
+      return this->dpGet(
+        ContainerId::Container5,
+        dataSize,
+        ContainerPriority::Container5,
+        container
+      );
     }
 
     //! Send a data product
@@ -1490,6 +1515,7 @@ class ActiveGetProductsComponentBase :
     Fw::Success::T dpGet(
         ContainerId::T containerId, //!< The component-local container id (input)
         FwSizeType dataSize, //!< The data size (input)
+        FwDpPriorityType priority, //!< The priority (input)
         DpContainer& container //!< The container (output)
     );
 
