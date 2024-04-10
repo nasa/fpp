@@ -128,6 +128,7 @@ class PassiveGetProductsComponentBase :
         U8ArrayRecord = 300,
         U32ArrayRecord = 400,
         DataArrayRecord = 500,
+        StringRecord = 600,
       };
     };
 
@@ -161,6 +162,12 @@ class PassiveGetProductsComponentBase :
         //! \return The serialize status
         Fw::SerializeStatus serializeRecord_DataRecord(
             const PassiveGetProducts_Data& elt //!< The element
+        );
+
+        //! Serialize a StringRecord record into the packet buffer
+        //! \return The serialize status
+        Fw::SerializeStatus serializeRecord_StringRecord(
+            const Fw::StringBase& elt //!< The element
         );
 
         //! Serialize a U32ArrayRecord record into the packet buffer

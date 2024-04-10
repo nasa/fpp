@@ -7,6 +7,7 @@
 #include <cstdio>
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -133,6 +134,29 @@ Fw::SerializeStatus ActiveSyncProductsComponentBase::DpContainer ::
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     status = this->m_dataBuffer.serialize(elt);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    this->m_dataSize += sizeDelta;
+  }
+  else {
+    status = Fw::FW_SERIALIZE_NO_ROOM_LEFT;
+  }
+  return status;
+}
+
+Fw::SerializeStatus ActiveSyncProductsComponentBase::DpContainer ::
+  serializeRecord_StringRecord(const Fw::StringBase& elt)
+{
+  char esData[80];
+  Fw::ExternalString es(esData, sizeof esData, elt);
+  const FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    es.serializedSize();
+  Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+  if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+    const FwDpIdType id = this->baseId + RecordId::StringRecord;
+    status = this->m_dataBuffer.serialize(id);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
+    status = this->m_dataBuffer.serialize(es);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     this->m_dataSize += sizeDelta;
   }

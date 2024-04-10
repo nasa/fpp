@@ -27,6 +27,9 @@ product record U32ArrayRecord: U32 array id 400
 @ Record 5
 product record DataArrayRecord: Data array id 500
 
+@ Record 6
+product record StringRecord: string id 600
+
 # ----------------------------------------------------------------------
 # Containers
 # ----------------------------------------------------------------------
