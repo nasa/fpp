@@ -128,15 +128,16 @@ Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
 Fw::SerializeStatus PassiveTestComponentBase::DpContainer ::
   serializeRecord_StringRecord(const Fw::StringBase& elt)
 {
+  const FwSizeType stringSize = 80;
   const FwSizeType sizeDelta =
     sizeof(FwDpIdType) +
-    elt.serializedTruncatedSize(80);
+    elt.serializedTruncatedSize(stringSize);
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
   if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
     const FwDpIdType id = this->baseId + RecordId::StringRecord;
     status = this->m_dataBuffer.serialize(id);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
-    status = elt.serialize(this->m_dataBuffer, 80);
+    status = elt.serialize(this->m_dataBuffer, stringSize);
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     this->m_dataSize += sizeDelta;
   }

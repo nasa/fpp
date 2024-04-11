@@ -386,31 +386,30 @@ case class ComponentDataProducts (
           then typeName
           else s"const $typeName&"
       }
-      // Get the string size, if any
-      val stringSize = t match {
-        case ts: Type.String => StringCppWriter(s).getSize(ts).toString
-        case _ => "0"
-      }
-      // Get the serialized size
-      // For strings this is the serialized size of the data
-      // For other types it is the serialized size of the type
-      val serialSize = t match {
+      // Generate the code for computing the size delta
+      val computeSizeDelta = (t match {
         case ts: Type.String => 
-          s"elt.serializedTruncatedSize($stringSize)"
-        case _ => s.getSerializedSizeExpr(t, typeName)
-      }
+          val stringSize = StringCppWriter(s).getSize(ts).toString
+          s"""|const FwSizeType stringSize = $stringSize;
+              |const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  elt.serializedTruncatedSize(stringSize);"""
+        case _ =>
+          val serialSize = s.getSerializedSizeExpr(t, typeName)
+          s"""|const FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  $serialSize;"""
+      }).stripMargin
       // Get the expression that does the serialization
       // For strings this is a truncated serialization
       val serialExpr = t match {
         case ts: Type.String =>
-          s"elt.serialize(this->m_dataBuffer, $stringSize)"
+          "elt.serialize(this->m_dataBuffer, stringSize)"
         case _ => "this->m_dataBuffer.serialize(elt)"
       }
       // Construct the function body
       val body = lines(
-        s"""|const FwSizeType sizeDelta =
-            |  sizeof(FwDpIdType) +
-            |  $serialSize;
+        s"""|$computeSizeDelta
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->baseId + RecordId::$name;
