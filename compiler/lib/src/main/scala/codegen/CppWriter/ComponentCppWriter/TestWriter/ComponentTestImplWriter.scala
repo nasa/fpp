@@ -69,8 +69,6 @@ case class ComponentTestImplWriter(
       getConstantMembers,
       getConstructorMembers,
       getTestMembers,
-      getPortHandlers(typedOutputPorts),
-      getPortHandlers(serialOutputPorts),
       getHelpers,
       getVariableMembers
     )
@@ -145,27 +143,6 @@ case class ComponentTestImplWriter(
           lines("// TODO")
         )
       )
-    )
-  }
-
-  private def getPortHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "private",
-      s"Handlers for ${getPortListTypeString(ports)} from ports",
-      ports.map(p => {
-        val todoMsg = getPortReturnType(p) match {
-          case Some(_) => "// TODO return"
-          case None => "// TODO"
-        }
-
-        functionClassMember(
-          Some(s"Handler implementation for ${p.getUnqualifiedName}"),
-          fromPortHandlerName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          getPortReturnTypeAsCppDocType(p),
-          lines(todoMsg)
-        )
-      })
     )
   }
 
