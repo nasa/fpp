@@ -152,11 +152,12 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
 {
   FW_ASSERT(array != nullptr);
   // Compute the size delta
+  const FwSizeType stringSize = 80;
   FwSizeType sizeDelta = 0;
   for (FwSizeType i = 0; i < size; i++) {
     const Fw::StringBase *const sbPtr = array[i];
     FW_ASSERT(sbPtr != nullptr);
-    sizeDelta += sbPtr->serializedTruncatedSize(80);
+    sizeDelta += sbPtr->serializedTruncatedSize(stringSize);
   }
   // Serialize the elements if they will fit
   Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
@@ -169,7 +170,7 @@ Fw::SerializeStatus QueuedGuardedProductsComponentBase::DpContainer ::
     for (FwSizeType i = 0; i < size; i++) {
       const Fw::StringBase *const sbPtr = array[i];
       FW_ASSERT(sbPtr != nullptr);
-      status = sbPtr->serialize(this->m_dataBuffer, 80);
+      status = sbPtr->serialize(this->m_dataBuffer, stringSize);
       FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
     }
     this->m_dataSize += sizeDelta;

@@ -448,19 +448,16 @@ case class ComponentDataProducts (
         case Type.String(_) => "const Fw::StringBase**"
         case _ => s"const ${typeName}*"
       }
-      // Get the string size, if any
-      val stringSize = t match {
-        case ts: Type.String => StringCppWriter(s).getSize(ts).toString
-        case _ => "0"
-      }
       // Generate the code for computing the size delta
       val computeSizeDelta = (t match {
         case ts: Type.String =>
-          s"""|FwSizeType sizeDelta = 0;
+          val stringSize = StringCppWriter(s).getSize(ts).toString
+          s"""|const FwSizeType stringSize = $stringSize;
+              |FwSizeType sizeDelta = 0;
               |for (FwSizeType i = 0; i < size; i++) {
               |  const Fw::StringBase *const sbPtr = array[i];
               |  FW_ASSERT(sbPtr != nullptr);
-              |  sizeDelta += sbPtr->serializedTruncatedSize($stringSize);
+              |  sizeDelta += sbPtr->serializedTruncatedSize(stringSize);
               |}"""
         case _ =>
           val eltSize = if s.isPrimitive(t, typeName)
@@ -482,7 +479,7 @@ case class ComponentDataProducts (
           s"""|  for (FwSizeType i = 0; i < size; i++) {
               |    const Fw::StringBase *const sbPtr = array[i];
               |    FW_ASSERT(sbPtr != nullptr);
-              |    status = sbPtr->serialize(this->m_dataBuffer, $stringSize);
+              |    status = sbPtr->serialize(this->m_dataBuffer, stringSize);
               |    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
               |  }"""
         // Handle the general case
