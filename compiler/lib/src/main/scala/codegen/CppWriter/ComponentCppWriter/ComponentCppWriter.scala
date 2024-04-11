@@ -128,7 +128,6 @@ case class ComponentCppWriter (
     ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).flatMap({
