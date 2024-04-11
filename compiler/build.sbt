@@ -40,6 +40,7 @@ lazy val root = (project in file("."))
     fpp_to_cpp,
     fpp_to_json,
     fpp_to_xml,
+    fpp_to_dict
   )
 
 lazy val lib = project
@@ -96,6 +97,11 @@ lazy val fpp_to_json = (project in file("tools/fpp-to-json"))
   .enablePlugins(AssemblyPlugin)
 
 lazy val fpp_to_xml = (project in file("tools/fpp-to-xml"))
+  .settings(settings)
+  .dependsOn(lib)
+  .enablePlugins(AssemblyPlugin)
+
+lazy val fpp_to_dict = (project in file("tools/fpp-to-dict"))
   .settings(settings)
   .dependsOn(lib)
   .enablePlugins(AssemblyPlugin)

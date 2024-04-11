@@ -1,0 +1,8 @@
+== fpp-to-dict/test
+
+This is the test directory for the `fpp-to-dict` tool.
+
+=== Running Tests
+
+To run the tests, execute `./test` in this directory.
+All the tests should pass.
