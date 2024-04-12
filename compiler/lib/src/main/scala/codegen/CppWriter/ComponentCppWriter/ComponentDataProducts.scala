@@ -388,7 +388,7 @@ case class ComponentDataProducts (
       }
       // Generate the code for computing the size delta
       val computeSizeDelta = (t match {
-        case ts: Type.String => 
+        case ts: Type.String =>
           val stringSize = StringCppWriter(s).getSize(ts).toString
           s"""|const FwSizeType stringSize = $stringSize;
               |const FwSizeType sizeDelta =
