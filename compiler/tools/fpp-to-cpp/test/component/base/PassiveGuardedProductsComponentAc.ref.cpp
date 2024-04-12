@@ -98,7 +98,9 @@ Fw::SerializeStatus PassiveGuardedProductsComponentBase::DpContainer ::
   FW_ASSERT(array != nullptr);
   // Compute the size delta
   const FwSizeType stringSize = 80;
-  FwSizeType sizeDelta = 0;
+  FwSizeType sizeDelta =
+    sizeof(FwDpIdType) +
+    sizeof(FwSizeStoreType);
   for (FwSizeType i = 0; i < size; i++) {
     const Fw::StringBase *const sbPtr = array[i];
     FW_ASSERT(sbPtr != nullptr);

@@ -453,7 +453,9 @@ case class ComponentDataProducts (
         case ts: Type.String =>
           val stringSize = StringCppWriter(s).getSize(ts).toString
           s"""|const FwSizeType stringSize = $stringSize;
-              |FwSizeType sizeDelta = 0;
+              |FwSizeType sizeDelta =
+              |  sizeof(FwDpIdType) +
+              |  sizeof(FwSizeStoreType);
               |for (FwSizeType i = 0; i < size; i++) {
               |  const Fw::StringBase *const sbPtr = array[i];
               |  FW_ASSERT(sbPtr != nullptr);
