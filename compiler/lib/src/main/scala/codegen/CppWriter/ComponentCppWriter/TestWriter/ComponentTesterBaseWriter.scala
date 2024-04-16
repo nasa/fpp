@@ -984,10 +984,11 @@ case class ComponentTesterBaseWriter(
           val channelName = channel.getName
           val constantName = channelIdConstantName(channelName)
           val handlerName = tlmHandlerName(channelName)
+          val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
           wrapInScope(
             s"case $className::$constantName: {",
             lines(
-              s"""|${writeChannelType(channel.channelType)} arg;
+              s"""|$channelType arg;
                   |const Fw::SerializeStatus _status = val.deserialize(arg);
                   |
                   |if (_status != Fw::FW_SERIALIZE_OK) {
@@ -1051,7 +1052,7 @@ case class ComponentTesterBaseWriter(
           guardedList (hasTelemetry) (List(dispatchTlm)),
           sortedChannels.map((_, channel) => {
             val channelName = channel.getName
-            val channelType = writeChannelType(channel.channelType)
+            val channelType = writeCppType(channel.channelType, Some("Fw::StringBase"))
             val entryName = tlmEntryName(channelName)
             val historyName = tlmHistoryName(channelName)
             functionClassMember(
@@ -1060,7 +1061,7 @@ case class ComponentTesterBaseWriter(
               List(
                 timeTagParam,
                 CppDoc.Function.Param(
-                  CppDoc.Type(s"const $channelType&"),
+                  CppDoc.Type(channelType),
                   "val",
                   Some("The channel value")
                 )

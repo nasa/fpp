@@ -586,7 +586,7 @@ case class ComponentHistory(
       sortedChannels.flatMap((_, channel) => {
         val channelName = channel.getName
         val entryName = tlmEntryName(channelName)
-        val channelType = writeChannelType(channel.channelType)
+        val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
         Line.blank ::
         line(s"//! A history entry for telemetry channel $channelName") ::
         wrapInScope(

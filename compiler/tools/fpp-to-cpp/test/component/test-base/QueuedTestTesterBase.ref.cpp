@@ -3064,7 +3064,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Format(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32Format e = { timeTag, val };
@@ -3075,7 +3075,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Format(
       const Fw::Time& timeTag,
-      const F32& val
+      const F32 val
   )
 {
   TlmEntry_ChannelF32Format e = { timeTag, val };
@@ -3086,7 +3086,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelStringFormat(
       const Fw::Time& timeTag,
-      const Fw::TlmString& val
+      const Fw::StringBase& val
   )
 {
   TlmEntry_ChannelStringFormat e = { timeTag, val };
@@ -3130,7 +3130,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32Limits(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32Limits e = { timeTag, val };
@@ -3141,7 +3141,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelF32Limits(
       const Fw::Time& timeTag,
-      const F32& val
+      const F32 val
   )
 {
   TlmEntry_ChannelF32Limits e = { timeTag, val };
@@ -3152,7 +3152,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelF64(
       const Fw::Time& timeTag,
-      const F64& val
+      const F64 val
   )
 {
   TlmEntry_ChannelF64 e = { timeTag, val };
@@ -3163,7 +3163,7 @@ void QueuedTestTesterBase ::
 void QueuedTestTesterBase ::
   tlmInput_ChannelU32OnChange(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32OnChange e = { timeTag, val };

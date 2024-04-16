@@ -1174,19 +1174,19 @@ class QueuedTestTesterBase :
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
         const Fw::Time& timeTag, //!< The time
-        const Fw::TlmString& val //!< The channel value
+        const Fw::StringBase& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
@@ -1210,25 +1210,25 @@ class QueuedTestTesterBase :
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
         const Fw::Time& timeTag, //!< The time
-        const F64& val //!< The channel value
+        const F64 val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange

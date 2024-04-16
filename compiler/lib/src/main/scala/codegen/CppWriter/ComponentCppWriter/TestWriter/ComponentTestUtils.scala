@@ -138,11 +138,14 @@ abstract class ComponentTestUtils(
       case _ => "ASSERT_EQ"
     }
 
-  def writeCppType(t: Type): String = {
-    val typeName = TypeCppWriter.getName(s, t, Some("char*"))
+  def writeCppType(t: Type, stringRepOpt: Option[String] = None): String = {
+    val typeName = TypeCppWriter.getName(s, t, stringRepOpt)
     t match {
       case t if s.isPrimitive(t, typeName) => s"const $typeName"
-      case _: Type.String => s"const $typeName const"
+      case _: Type.String => stringRepOpt match {
+        case Some(stringRep) => s"const $stringRep&"
+        case _ => s"const char* const"
+      }
       case _ => s"const $typeName&"
     }
   }

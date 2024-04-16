@@ -1937,7 +1937,7 @@ class QueuedSerialComponentBase :
     //!
     //! A telemetry channel with string data with format string
     void tlmWrite_ChannelStringFormat(
-        const Fw::TlmString& arg, //!< The telemetry value
+        const Fw::StringBase& arg, //!< The telemetry value
         Fw::Time _tlmTime = Fw::Time() //!< Timestamp. Default: unspecified, request from getTime port
     );
 

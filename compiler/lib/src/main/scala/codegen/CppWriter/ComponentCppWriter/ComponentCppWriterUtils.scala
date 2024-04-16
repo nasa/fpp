@@ -554,8 +554,8 @@ abstract class ComponentCppWriterUtils(
     )
 
   /** Write a channel type as a C++ type */
-  def writeChannelType(t: Type): String =
-    TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
+  def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
+    TypeCppWriter.getName(s, t, Some(stringRep))
 
   def writeSendMessageLogic(
     bufferName: String,

@@ -5240,7 +5240,7 @@ namespace M {
 
   void ActiveTestComponentBase ::
     tlmWrite_ChannelStringFormat(
-        const Fw::TlmString& arg,
+        const Fw::StringBase& arg,
         Fw::Time _tlmTime
     )
   {
@@ -5253,7 +5253,7 @@ namespace M {
       }
 
       Fw::TlmBuffer _tlmBuff;
-      Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, 80);
+      Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
       FW_ASSERT(
         _stat == Fw::FW_SERIALIZE_OK,
         static_cast<FwAssertArgType>(_stat)
