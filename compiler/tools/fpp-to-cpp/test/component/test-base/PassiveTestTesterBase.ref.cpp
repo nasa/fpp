@@ -2329,8 +2329,8 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   logIn_COMMAND_EventCommand(
-      const Fw::LogStringArg& str1,
-      const Fw::LogStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   EventEntry_EventCommand _e = {

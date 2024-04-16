@@ -409,7 +409,7 @@ case class ComponentHistory(
       )
     val eventHistories = linesClassMember(
       sortedEvents.flatMap((id, event) =>
-        eventParamTypeMap(id) match {
+        getEventParamTypes(event, "Fw::LogStringArg") match {
           case Nil => Nil
           case params =>
             val eventName = event.getName

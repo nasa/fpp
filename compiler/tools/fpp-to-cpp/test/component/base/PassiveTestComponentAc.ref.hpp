@@ -1386,8 +1386,8 @@ class PassiveTestComponentBase :
     //!
     //! A command event with string params
     void log_COMMAND_EventCommand(
-        const Fw::LogStringArg& str1, //!< A string
-        const Fw::LogStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Log event EventDiagnostic

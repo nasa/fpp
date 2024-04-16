@@ -378,7 +378,7 @@ case class ComponentDataProducts (
       // Get the parameter type
       // For strings this is a const reference to Fw::StringBase
       // For primitive types it is the type name
-      // For othe types it is a const reference to the type name
+      // For other types it is a const reference to the type name
       val paramType = t match {
         case Type.String(_) => "const Fw::StringBase&"
         case _ =>

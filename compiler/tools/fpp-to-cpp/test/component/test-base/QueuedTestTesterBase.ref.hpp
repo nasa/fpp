@@ -1136,8 +1136,8 @@ class QueuedTestTesterBase :
 
     //! Handle event EventCommand
     virtual void logIn_COMMAND_EventCommand(
-        const Fw::LogStringArg& str1, //!< A string
-        const Fw::LogStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Handle event EventDiagnostic

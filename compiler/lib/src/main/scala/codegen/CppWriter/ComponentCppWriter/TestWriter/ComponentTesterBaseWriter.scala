@@ -810,7 +810,7 @@ case class ComponentTesterBaseWriter(
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
             val name = data.name
-            val tn = writeEventParamType(data)
+            val tn = writeEventParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
 
@@ -943,7 +943,7 @@ case class ComponentTesterBaseWriter(
         formalParamsCppWriter.write(
           event.aNode._2.data.params,
           Nil,
-          Some("Fw::LogStringArg"),
+          Some("Fw::StringBase"),
           FormalParamsCppWriter.Value
         ),
         CppDoc.Type("void"),

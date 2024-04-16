@@ -336,13 +336,13 @@ abstract class ComponentCppWriterUtils(
       )
     )).toMap
 
+  def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase") =
+    event.aNode._2.data.params.map(param =>
+      (param._2.data.name, writeEventParamType(param._2.data, stringRep))
+    )
+
   val eventParamTypeMap: Map[Event.Id, List[(String, String)]] =
-    sortedEvents.map((id, event) => (
-      id,
-      event.aNode._2.data.params.map(param =>
-        (param._2.data.name, writeEventParamType(param._2.data))
-      )
-    )).toMap
+    sortedEvents.map((id, event) => (id, getEventParamTypes(event))).toMap
 
   // Map from a port instance name to param list
   private val portParamMap =
@@ -545,12 +545,12 @@ abstract class ComponentCppWriterUtils(
       Some("Fw::InternalInterfaceString")
     )
 
-  /** Write an the type of an event param as a C++ type */
-  def writeEventParamType(param: Ast.FormalParam) =
+  /** Write the type of an event param as a C++ type */
+  def writeEventParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
-      Some("Fw::LogStringArg")
+      Some(stringRep)
     )
 
   /** Write a channel type as a C++ type */

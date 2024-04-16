@@ -134,9 +134,11 @@ case class ComponentEvents (
 
                   List.concat(
                     s.a.typeMap(param._2.data.typeName.id) match {
-                      case t: Type.String => lines(
-                        s"_status = $name.serialize(_logBuff, ${stringCppWriter.getSize(t)});"
-                      )
+                      case t: Type.String =>
+                        val serialSize = stringCppWriter.getSize(t)
+                        lines(
+                          s"_status = $name.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                        )
                       case t => lines(
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
@@ -295,7 +297,7 @@ case class ComponentEvents (
           formalParamsCppWriter.write(
             event.aNode._2.data.params,
             Nil,
-            Some("Fw::LogStringArg"),
+            Some("Fw::StringBase"),
             FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),

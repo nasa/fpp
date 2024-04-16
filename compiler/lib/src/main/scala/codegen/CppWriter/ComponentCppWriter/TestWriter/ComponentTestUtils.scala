@@ -128,13 +128,13 @@ abstract class ComponentTestUtils(
 
   def writeEventValue(value: String, typeName: String): String =
     typeName match {
-      case "Fw::LogStringArg" => s"$value.toChar()"
+      case "Fw::StringBase" => s"$value.toChar()"
       case _ => value
     }
 
   def writeEventAssertEq(typeName: String): String =
     typeName match {
-      case "Fw::LogStringArg" => "ASSERT_STREQ"
+      case "Fw::StringBase" => "ASSERT_STREQ"
       case _ => "ASSERT_EQ"
     }
 
