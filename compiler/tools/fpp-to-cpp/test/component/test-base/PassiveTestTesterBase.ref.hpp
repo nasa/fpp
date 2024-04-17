@@ -1106,7 +1106,7 @@ class PassiveTestTesterBase :
 
     //! Set parameter ParamString
     void paramSet_ParamString(
-        const Fw::ParamString& val, //!< The parameter value
+        const Fw::StringBase& val, //!< The parameter value
         Fw::ParamValid valid //!< The parameter valid flag
     );
 

@@ -1277,7 +1277,7 @@ case class ComponentTesterBaseWriter(
             val idConstantName = paramIdConstantName(paramName)
             val paramNameVal = s"${paramName}Val"
             val paramVarName = paramVariableName(paramName)
-            val paramType = writeParamType(prm.paramType)
+            val paramType = writeParamType(prm.paramType, "Fw::ParamString")
             wrapInScope(
               s"case $className::$idConstantName: {",
               lines(
@@ -1483,7 +1483,7 @@ case class ComponentTesterBaseWriter(
         "Parameter variables",
         sortedParams.map((_, prm) => {
           val paramName = prm.getName
-          val paramType = writeParamType(prm.paramType)
+          val paramType = writeParamType(prm.paramType, "Fw::ParamString")
           val varName = paramVariableName(paramName)
           linesClassMember(
             Line.blank :: lines(

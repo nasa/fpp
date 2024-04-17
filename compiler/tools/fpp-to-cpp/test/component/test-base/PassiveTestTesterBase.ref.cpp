@@ -2790,7 +2790,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSet_ParamString(
-      const Fw::ParamString& val,
+      const Fw::StringBase& val,
       Fw::ParamValid valid
   )
 {

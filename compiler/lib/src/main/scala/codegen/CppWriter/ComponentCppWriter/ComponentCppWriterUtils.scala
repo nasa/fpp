@@ -626,8 +626,8 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Write a parameter type as a C++ type */
-  def writeParamType(t: Type) =
-    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
+  def writeParamType(t: Type, stringRep: String = "Fw::StringBase") =
+    TypeCppWriter.getName(s, t, Some(stringRep))
 
   /** Get the name for a general port enumerated constant in cpp file */
   def portCppConstantName(p: PortInstance) =
