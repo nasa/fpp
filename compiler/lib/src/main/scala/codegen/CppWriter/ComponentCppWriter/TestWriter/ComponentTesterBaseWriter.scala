@@ -651,39 +651,43 @@ case class ComponentTesterBaseWriter(
         cmdParamMap(opcode)
       ),
       CppDoc.Type("void"),
-      intersperseBlankLines(
-        List(
-          if cmdParamMap(opcode).isEmpty then lines("Fw::CmdArgBuffer buf;")
-          else List.concat(
-            lines(
-              """|// Serialize arguments
-                 |Fw::CmdArgBuffer buf;
-                 |Fw::SerializeStatus _status;
-                 |"""
-            ),
-            Line.blank :: intersperseBlankLines(
-              cmdParamTypeMap(opcode).map((name, _) =>
-                lines(
-                  s"""|_status = buf.serialize($name);
-                      |FW_ASSERT(
-                      |  _status == Fw::FW_SERIALIZE_OK,
-                      |  static_cast<FwAssertArgType>(_status)
-                      |);
-                      |"""
+      {
+        val cmd @ Command.NonParam(_, _) = component.commandMap(opcode)
+        val cmdFormalParams = cmd.aNode._2.data.params
+        intersperseBlankLines(
+          List(
+            if cmdFormalParams.isEmpty then lines("Fw::CmdArgBuffer buf;")
+            else List.concat(
+              lines(
+                """|// Serialize arguments
+                   |Fw::CmdArgBuffer buf;
+                   |Fw::SerializeStatus _status;
+                   |"""
+              ),
+              Line.blank :: intersperseBlankLines(
+                cmdFormalParams.map(param =>
+                  lines(
+                    s"""|_status = buf.serialize(${param._2.data.name});
+                        |FW_ASSERT(
+                        |  _status == Fw::FW_SERIALIZE_OK,
+                        |  static_cast<FwAssertArgType>(_status)
+                        |);
+                        |"""
+                  )
                 )
               )
-            )
-          ),
-          lines(
-            s"""|// Call output command port
-                |FwOpcodeType _opcode;
-                |const U32 idBase = this->getIdBase();
-                |_opcode = $className::${commandConstantName(cmd)} + idBase;
-                |"""
-          ),
-          cmdPortInvocation
+            ),
+            lines(
+              s"""|// Call output command port
+                  |FwOpcodeType _opcode;
+                  |const U32 idBase = this->getIdBase();
+                  |_opcode = $className::${commandConstantName(cmd)} + idBase;
+                  |"""
+            ),
+            cmdPortInvocation
+          )
         )
-      )
+      }
     )
 
     addAccessTagAndComment(
