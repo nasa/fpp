@@ -1691,13 +1691,13 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1907,13 +1907,13 @@ void PassiveSerialTesterBase ::
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)

@@ -665,16 +665,30 @@ case class ComponentTesterBaseWriter(
                    |"""
               ),
               Line.blank :: intersperseBlankLines(
-                cmdFormalParams.map(param =>
-                  lines(
-                    s"""|_status = buf.serialize(${param._2.data.name});
-                        |FW_ASSERT(
-                        |  _status == Fw::FW_SERIALIZE_OK,
-                        |  static_cast<FwAssertArgType>(_status)
-                        |);
-                        |"""
-                  )
-                )
+                cmdFormalParams.map(param => {
+                  val t = s.a.typeMap(param._2.data.typeName.id)
+                  val varName = param._2.data.name
+                  t match {
+                    case ts: Type.String =>
+                      lines(
+                        s"""|_status = $varName.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+                            |FW_ASSERT(
+                            |  _status == Fw::FW_SERIALIZE_OK,
+                            |  static_cast<FwAssertArgType>(_status)
+                            |);
+                            |"""
+                      )
+                    case _ =>
+                      lines(
+                        s"""|_status = buf.serialize($varName);
+                            |FW_ASSERT(
+                            |  _status == Fw::FW_SERIALIZE_OK,
+                            |  static_cast<FwAssertArgType>(_status)
+                            |);
+                            |"""
+                      )
+                  }
+                })
               )
             ),
             lines(
