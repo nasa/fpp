@@ -1678,8 +1678,8 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_SYNC_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments
@@ -1894,8 +1894,8 @@ void QueuedCommandsTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments

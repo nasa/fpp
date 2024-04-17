@@ -139,15 +139,19 @@ abstract class ComponentCppWriterUtils(
     case _ => false
   })
 
-  /** Map from command opcodes to command parameters */
-  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
-    opcode,
+  /** Get the CppDoc formal parameters for a non-parameter command */
+  def getNonParamCmdFormalParams(cmd: Command.NonParam, stringRep: String): List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
       Nil,
-      Some("Fw::CmdStringArg"),
+      Some(stringRep),
       FormalParamsCppWriter.Value
     )
+
+  /** Map from command opcodes to command parameters */
+  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
+    opcode,
+    getNonParamCmdFormalParams(cmd, "Fw::CmdStringArg")
   )}).toMap
 
   /** List of events sorted by ID */
@@ -338,7 +342,7 @@ abstract class ComponentCppWriterUtils(
 
   def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase") =
     event.aNode._2.data.params.map(param =>
-      (param._2.data.name, writeEventParamType(param._2.data, stringRep))
+      (param._2.data.name, writeFormalParamType(param._2.data, stringRep))
     )
 
   val eventParamTypeMap: Map[Event.Id, List[(String, String)]] =
@@ -545,8 +549,8 @@ abstract class ComponentCppWriterUtils(
       Some("Fw::InternalInterfaceString")
     )
 
-  /** Write the type of an event param as a C++ type */
-  def writeEventParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
+  /** Write the type of an formal parameter as a C++ type */
+  def writeFormalParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),

@@ -636,7 +636,7 @@ case class ComponentTesterBaseWriter(
       )
     }
 
-    def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command) = functionClassMember(
+    def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command.NonParam) = functionClassMember(
       Some(s"Send a ${cmd.getName} command"),
       commandSendName(cmd.getName),
       List.concat(
@@ -648,11 +648,10 @@ case class ComponentTesterBaseWriter(
           ),
           cmdSeqParam
         ),
-        cmdParamMap(opcode)
+        getNonParamCmdFormalParams(cmd, "Fw::StringBase")
       ),
       CppDoc.Type("void"),
       {
-        val cmd @ Command.NonParam(_, _) = component.commandMap(opcode)
         val cmdFormalParams = cmd.aNode._2.data.params
         intersperseBlankLines(
           List(
@@ -828,7 +827,7 @@ case class ComponentTesterBaseWriter(
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
             val name = data.name
-            val tn = writeEventParamType(data, "Fw::LogStringArg")
+            val tn = writeFormalParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
 

@@ -997,8 +997,8 @@ class QueuedTestTesterBase :
     void sendCmd_CMD_SYNC_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_SYNC_ENUM command
@@ -1041,8 +1041,8 @@ class QueuedTestTesterBase :
     void sendCmd_CMD_GUARDED_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_GUARDED_ENUM command
