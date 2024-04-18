@@ -498,7 +498,7 @@ case class ComponentDataProducts (
             |$computeSizeDelta
             |// Serialize the elements if they will fit
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
-            |if (this->m_dataBuffer.getBuffLength() + sizeDelta <= this->m_dataBuffer.getBuffCapacity()) {
+            |if ((this->m_dataBuffer.getBuffLength() + sizeDelta) <= this->m_dataBuffer.getBuffCapacity()) {
             |  const FwDpIdType id = this->baseId + RecordId::$name;
             |  status = this->m_dataBuffer.serialize(id);
             |  FW_ASSERT(status == Fw::FW_SERIALIZE_OK, status);
