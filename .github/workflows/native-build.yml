@@ -1,0 +1,261 @@
+name: 'fprime-build-native-scala'
+on:
+  workflow_call:
+    inputs:
+      working-directory:
+        description: "Working directory to use when running commands"
+        required: false
+        default: .
+        type: string
+      build:
+        description: "Build command for generating compiled JARs"
+        required: false
+        default: ./install
+        type: string
+      output-directory:
+        description: "Directory for output of the build"
+        required: false
+        default: ./bin
+        type: string
+      test:
+        description: "Test command used to generate tracing and prove output"
+        required: false
+        default: ./test
+        type: string
+      trace:
+        description: "Turn off tracing step"
+        required: false
+        default: true
+        type: boolean
+      trace-directory:
+        description: "Directory for tracing output"
+        required: false
+        default: trace/META-INF/native-image
+        type: string
+      meta-package:
+        description: "Meta-package name to publish"
+        required: false
+        default: ""
+        type: string
+      extra-tools:
+        description: "Extra meta-package tools publish"
+        required: false
+        default: ""
+        type: string
+      fast-hack:
+        description: "Publish fast (deprecated) packages"
+        required: false
+        default: false
+        type: boolean
+jobs:
+  build-jars:
+    runs-on: "ubuntu-latest"
+    name: "Build Standard JARs"
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: "Setup Native Image Tools"
+        uses: fprime-community/native-images-action@main
+      - name: "Building JAR files"
+        run: |
+          cd ${{ inputs.working-directory }}
+          ${{ inputs.build }} ${{ inputs.output-directory }}
+        shell: bash
+      - name: "Archiving JARs package"
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-jar
+          path: ${{ inputs.output-directory }}/*
+          retention-days: 5
+          if-no-files-found: error
+      - if: ${{ inputs.trace }}
+        name: "Tracing JARs via Unit-Tests"
+        run: |
+          cd ${{ inputs.working-directory }}
+          mkdir -p "${{ inputs.trace-directory }}"
+          export TRACE_METADATA_DIRECTORY="$( pwd )/${{ inputs.trace-directory }}"
+          export PATH="${NATIVE_IMAGE_TOOLS_PATH}:${PATH}"
+          ${{ inputs.test }}
+          echo -e "Trace output files:\n$( find ${{ inputs.trace-directory }} -name *.json )"
+      - name: "Archiving Tracing"
+        uses: actions/upload-artifact@v3
+        with:
+          name: jar-traces
+          path: ${{ inputs.trace-directory }}/*.json
+          retention-days: 5
+          if-no-files-found: error
+  generate-run-matricies:
+    outputs:
+      native: ${{ steps.set-matrix.outputs.native }}
+      tags: ${{ steps.set-matrix.outputs.tags }}
+    runs-on: ubuntu-latest
+    steps:
+      - id: set-matrix
+        shell: python
+        run: |
+          import os
+          import json
+          import sys
+          matrix = {
+            "run": [
+              {
+                "runner": "macos-11",
+                "tag": "macosx_10_9_universal2"
+              },
+              {
+                "runner": "ubuntu-latest",
+                "tag": "manylinux2014_x86_64",
+                "container": "quay.io/pypa/manylinux2014_x86_64"
+              }
+            ]
+          }
+          if "${{ github.event_name }}" == 'release':
+            matrix["run"].append(
+              {
+                "runner": "odroid",
+                "tag": "manylinux_2_28_aarch64"
+              }
+            )
+          tags = {"tag": ["jar"] + [run["tag"] for run in matrix["run"]]}
+          with open(os.environ["GITHUB_OUTPUT"], "a") as file_handle:
+            for file_stream in [sys.stdout, file_handle]:
+              print(f"native={json.dumps(matrix)}", file=file_stream)
+              print(f"tags={json.dumps(tags)}", file=file_stream)
+  build-native-images:
+    needs: [build-jars, generate-run-matricies]
+    strategy:
+      matrix: ${{ fromJson(needs.generate-run-matricies.outputs.native) }}
+    runs-on: ${{ matrix.run.runner }}
+    container:
+      image:  ${{ matrix.run.container || '' }}
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: "Setup Native Image Tools"
+        uses: fprime-community/native-images-action@main
+      - name: "Download JARs"
+        uses: actions/download-artifact@v3
+        with:
+          name: build-jar
+          path:  ${{ inputs.output-directory }}
+      - if: ${{ inputs.trace }}
+        name: "Download Tracing"
+        uses: actions/download-artifact@v3
+        with:
+          name: jar-traces
+          path: ${{ inputs.trace-directory }}
+      - name: "Build Native Images"
+        run: |
+          export CLASSPATH="`cd ${{ inputs.trace-directory }}/../..; pwd`:${CLASSPATH}"
+          cd ${{ inputs.working-directory }}
+          $NATIVE_IMAGE_TOOLS_PATH/native-images ${{ inputs.output-directory }} ${{ inputs.tools }}
+        shell: bash
+      - name: "Archive Native Images"
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-${{ matrix.run.tag }}
+          path:  ${{ inputs.output-directory }}/*
+          retention-days: 5
+          if-no-files-found: error
+      - name: "Testing Native Images via Unit-Tests"
+        run: |
+          cd ${{ inputs.working-directory }}
+          ${{ inputs.test }}
+  build-wheels:
+    needs: [build-jars, build-native-images, generate-run-matricies]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: "Download Package"
+        uses: actions/download-artifact@v3
+        with:
+          name: build-${{ matrix.tag }}
+          path: ${{ inputs.output-directory }}
+      - name: "Install Builder"
+        run: pip install fprime-native-images
+        shell: bash
+      - name: "Run Builder"
+        run: |
+          FLAGS="--package-tag ${{ matrix.tag }} --extra-tools ${{ inputs.extra-tools }}"
+          if [[ "${{ matrix.tag }}" == "jar" ]] && [[ "${{ inputs.meta-package }}" != "" ]]
+          then
+              echo "[INFO] Generating Meta-Package: ${{ inputs.meta-package }}"
+              FLAGS="${FLAGS} --meta-package ${{ inputs.meta-package }}"
+          elif [[ "${{ inputs.fast-hack }}" == "true" ]]
+          then
+              echo "[INFO] Generating fast-hack packages"
+              FLAGS="${FLAGS} --fast-hack"
+          fi
+          fprime-native-packager ${{ inputs.output-directory }} ${FLAGS}
+        shell: bash
+      - name: "Archiving Wheels"
+        uses: actions/upload-artifact@v3
+        with:
+          name: wheels-${{ matrix.tag }}
+          path: packages/dist/*
+          retention-days: 5
+          if-no-files-found: error
+  test-wheels:
+    needs: [build-wheels, generate-run-matricies]
+    strategy:
+      matrix: ${{ fromJson(needs.generate-run-matricies.outputs.native) }}
+    runs-on: ${{ matrix.run.runner }}
+    steps:
+      - name: "Setup Native Image Tools"
+        uses: fprime-community/native-images-action@main
+      - name: "Download Native Wheels"
+        uses: actions/download-artifact@v3
+        with:
+          name: wheels-${{ matrix.run.tag }}
+          path: ${{ inputs.output-directory }}/native
+      - name: "Download JAR Wheels"
+        uses: actions/download-artifact@v3
+        with:
+          name: wheels-jar
+          path: ${{ inputs.output-directory }}/jars
+      - name: "Test Packages"
+        run: |
+          for subdir in native jars
+          do
+              python3 -m venv ./test-${subdir}
+              . ./test-${subdir}/bin/activate
+              echo "[INFO] Testin ${subdir} Wheels"
+              $NATIVE_IMAGE_TOOLS_PATH/test-wheels "${{ inputs.output-directory }}/${subdir}" "${{ inputs.meta-package }}" || exit $?
+          done
+        shell: bash
+  publish-wheels:
+    if: ${{ github.event_name == 'release' }}
+    needs: [test-wheels, generate-run-matricies]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
+    steps:
+      - name: "Download Package"
+        uses: actions/download-artifact@v3
+        with:
+          name: wheels-${{ matrix.tag }}
+          path: dist
+      - name: "Install Builder"
+        run: pip install twine
+        shell: bash
+      - name: Publish distributions to TestPyPI
+        env:
+          TWINE_PASSWORD: ${{ secrets.TESTPYPI_CREDENTIAL }}
+        run: |
+          twine upload -r testpypi -u "__token__" dist/*
+        shell: bash
+      - name: Publish distributions to PyPI
+        env:
+          TWINE_PASSWORD: ${{ secrets.PYPI_CREDENTIAL }}
+        run: |
+          twine upload -u "__token__" dist/*
+        shell: bash
