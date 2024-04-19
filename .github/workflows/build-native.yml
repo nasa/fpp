@@ -10,12 +10,16 @@ on:
 
 jobs:
   run:
-    name: "Package"
-    uses: "fprime-community/native-images-action/.github/workflows/native-build.yml@main"
-    with:
-      build: ./compiler/install
-      test: ./compiler/test
-      output-directory: ./compiler/bin
-      meta-package: fpp
-      fast-hack: true
-    secrets: inherit
+   - name: "Checkout repository"
+     uses: actions/checkout@v3
+     with:
+       submodules: recursive
+   - name: "Package"
+     uses: ".github/native-images-action/.github/workflows/native-build.yml"
+     with:
+       build: ./compiler/install
+       test: ./compiler/test
+       output-directory: ./compiler/bin
+       meta-package: fpp
+       fast-hack: true
+     secrets: inherit
