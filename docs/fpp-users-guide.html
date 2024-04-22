@@ -655,6 +655,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</a></li>
+<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories">12.8. Symbolic Links to Directories</a>
+<ul class="sectlevel3">
+<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories_Relative-Paths">12.8.1. Relative Paths</a></li>
+<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories_Unique-Locations">12.8.2. Unique Locations</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models">13. Analyzing and Translating Models</a>
@@ -9332,6 +9338,101 @@ whenever desired, and see the dependencies that way.</p>
 for the location specifiers.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories">12.8. Symbolic Links to Directories</h3>
+<div class="paragraph">
+<p>Care is required when using path names that contain symbolic links
+to directories.
+There are two issues to consider:
+relative paths and unique locations.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories_Relative-Paths">12.8.1. Relative Paths</h4>
+<div class="paragraph">
+<p>A <strong>relative path</strong> is a path that does not start with a slash and is
+relative to the current directory path, which is
+set by the environment in which an FPP tool is run.
+For example, the command sequence</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">% cd /home/user/dir
+% fpp-check file.fpp</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>sets the current directory path to <code>/home/user/dir</code> and then runs
+<code>fpp-check file.fpp</code>.
+In this case, the relative path <code>file.fpp</code> is resolved to
+<code>/home/user/dir/file.fpp</code>.
+An <strong>absolute path</strong> is a path that starts with a slash and specifies
+a complete path from the root of the file system, e.g.,
+<code>/home/user/dir/file.fpp</code>.</p>
+</div>
+<div class="paragraph">
+<p>Because FPP is implemented in Scala, relative paths are resolved by
+the Java Virtual Machine (JVM).
+When the current directory path contains a symbolic link,
+this resolution may not work in the way that you expect.
+For example, suppose the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>D</em> is an absolute path to a directory.
+<em>D</em> is a &#8220;real&#8221; path, i.e., none of the path elements in <em>D</em> is a symbolic
+link to a directory.</p>
+</li>
+<li>
+<p><em>S</em> is an absolute path in which one or more of the path elements is a symbolic
+link to a directory.
+After resolving all symbolic links, <em>S</em> points to <em>D</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Suppose that <em>D</em> contains a file <code>file.fpp</code>, and that the
+current directory path is <em>D</em>.
+In this case, when you run an FPP tool with <code>file.fpp</code> as input,
+any symbols defined in <code>file.fpp</code> will have location
+<em>D</em> <code>/file.fpp</code>, as expected.</p>
+</div>
+<div class="paragraph">
+<p>Now suppose that the current directory path is <em>S</em>.
+In this case, when you run an FPP tool with <code>file.fpp</code> as input,
+the symbols defined in <code>file.fpp</code> again have location <em>D</em> <code>/file.fpp</code>,
+when you might expect them to have location <em>S</em> <code>/file.fpp</code>.
+This is because the JVM resolves all symbolic links before computing
+relative path names.</p>
+</div>
+<div class="paragraph">
+<p>This behavior can cause problems when using the <code>-p</code> (path prefix)
+option with FPP code generation tools, as described in the section on
+<a href="#Analyzing-and-Translating-Models">analyzing and translating models</a>.
+See that section for details, and for suggested workarounds.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories_Unique-Locations">12.8.2. Unique Locations</h4>
+<div class="paragraph">
+<p>The FPP analyzers assume that each symbol <em>s</em> has
+a unique path defining the location of the source file where
+<em>s</em> is defined.
+If paths can contain symbolic links, then this may not be true:
+for example, paths <em>P<sub>1</sub></em> and <em>P<sub>2</sub></em> may be syntactically different,
+but both may resolve to the same &#8220;real&#8221; path (i.e., path containing
+no symbolic link), and so both may describe the physical location of
+the same FPP symbol definition.</p>
+</div>
+<div class="paragraph">
+<p>You must ensure that this doesn&#8217;t happen.
+If you present the same file <em>F</em> to the FPP tools several times,
+for example to locate definitions and to compute dependencies,
+you must ensure that the path describing <em>F</em> is the same each
+time, after resolving relative paths as described above.</p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -9757,6 +9858,25 @@ To continue the previous example, running</p>
 <div class="paragraph">
 <p>For each generated path, the tool will delete the longest prefix
 that matches a prefix in the list.</p>
+</div>
+<div class="paragraph">
+<p>As discussed in the section on
+<a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories">symbolic links to directories</a>,
+when a file name is relative to a path <em>S</em> that includes symbolic links,
+the associated location is relative to the directory <em>D</em> pointed to by <em>S</em>.
+In this case, providing <em>S</em> as an argument to <code>-p</code> will not work as expected.
+To work around this issue, you can do one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Provide both <em>D</em> and <em>S</em> as arguments to <code>-p</code>.</p>
+</li>
+<li>
+<p>Use absolute paths when presenting files to FPP code generation tools
+with the <code>-p</code> option.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>More options:</strong> The following additional options are available
@@ -11729,7 +11849,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-10 17:04:06 -0700
+Last updated 2024-04-22 14:12:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
