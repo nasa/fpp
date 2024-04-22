@@ -11,7 +11,7 @@ on:
 jobs:
   run:
     name: "Package"
-    uses: "fprime-community/native-images-action/.github/workflows/native-build.yml@main"
+    uses: "./.github/workflows/native-build.yml"
     with:
       build: ./compiler/install
       test: ./compiler/test
