@@ -575,9 +575,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</a></li>
 </ul>
 </li>
-<li><a href="#Defining-Components_Constants-and-Types">9.9. Constants and Types</a></li>
-<li><a href="#Defining-Components_Include-Specifiers">9.10. Include Specifiers</a></li>
-<li><a href="#Defining-Components_Matched-Ports">9.11. Matched Ports</a></li>
+<li><a href="#Defining-Components_Data-Products">9.9. Data Products</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-Components_Data-Products_Basic-Data-Products">9.9.1. Basic Data Products</a></li>
+<li><a href="#Defining-Components_Data-Products_Identifiers">9.9.2. Identifiers</a></li>
+<li><a href="#Defining-Components_Data-Products_Array-Records">9.9.3. Array Records</a></li>
+</ul>
+</li>
+<li><a href="#Defining-Components_Constants-and-Types">9.10. Constants and Types</a></li>
+<li><a href="#Defining-Components_Include-Specifiers">9.11. Include Specifiers</a></li>
+<li><a href="#Defining-Components_Matched-Ports">9.12. Matched Ports</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Component-Instances">10. Defining Component Instances</a>
@@ -4417,7 +4424,7 @@ simplified definition of this port:</p>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Data-Product-Ports">9.3.6. Data Product Ports</h4>
 <div class="paragraph">
-<p>A <strong>data product</strong> is a unit of data that can be stored to an
+<p>A <strong>data product</strong> is a collection of data that can be stored to an
 onboard file system, given a priority, and downlinked in priority
 order.
 For example, a data product may be an image or a unit of
@@ -4533,7 +4540,7 @@ simplified definitions of these ports:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>For further information about events in F Prime, see the
+<p>For further information about data products in F Prime, see the
 <a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">data products documentation</a>
 in the F Prime repository.</p>
 </div>
@@ -6017,7 +6024,138 @@ passive component ParamOpcodes {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Constants-and-Types">9.9. Constants and Types</h3>
+<h3 id="Defining-Components_Data-Products">9.9. Data Products</h3>
+<div class="paragraph">
+<p>When defining an F Prime component, you may specify the <strong>data products</strong>
+produced by that component.
+A data product is a collection of related data that is stored onboard
+and transmitted to the ground.
+F Prime has special support for data products, including components
+for (1) providing buffers that can store data products in memory;
+(2) writing data products to the file system; and (3)
+cataloging stored data products for downlink in priority order.
+For more information about these F Prime features, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">documentation</a>
+on F Prime framework support for data products.</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Data-Products_Basic-Data-Products">9.9.1. Basic Data Products</h4>
+<div class="paragraph">
+<p>In F Prime, a data product is represented as a <strong>container</strong>.
+One container holds one data product, and each data product
+is typically stored in its own file.
+A container consists of a header, which provides information about
+the container (e.g., the size of the data payload), and a list
+of <strong>records</strong>.
+A record is a unit of data.
+For a complete specification of the container format, see the
+<a href="https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md">F
+Prime data products documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>In an F Prime component, you can specify one or more containers
+and one or more records.
+The simplest container specification consists of the keywords <code>product</code> <code>container</code>
+and a name.
+The name is the name of the container.
+The simplest record specification consists of the keywords <code>product</code> <code>record</code>,
+a name, and a data type.
+The name is the name of the record.
+The data type is the type of the data that the record holds.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a component called <code>BasicDataProducts</code> that specifies
+two records and two containers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating basic data products
+passive component BasicDataProducts {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records
+  # ----------------------------------------------------------------------
+
+  @ Record 1
+  product record Record1: I32
+
+  @ Record 2
+  product record Record2: Data
+
+  # ----------------------------------------------------------------------
+  # Containers
+  # ----------------------------------------------------------------------
+
+  @ Container 1
+  product container Container1
+
+  @ Container 2
+  product container Container2
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The FPP back end uses this specification to generate code for requesting
+buffers to hold containers and for serializing records into containers.
+See the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">F
+Prime data products documentation</a> for the details.</p>
+</div>
+<div class="paragraph">
+<p>Note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Records are not specific to containers.
+For example, with the specification shown above, you can serialize instances of
+<code>Record1</code> and <code>Record2</code> into either or both of <code>Container1</code> and <code>Container2</code>.</p>
+</li>
+<li>
+<p>Like telemetry channels, F Prime containers are component-centric.
+A component can request containers that it defines, and it can fill those
+containers with records that it defines.
+It cannot use records or containers defined by another component.</p>
+</li>
+<li>
+<p>If a component has container specifier, then it must have at least one record
+specifier, and vice versa.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Data-Products_Identifiers">9.9.2. Identifiers</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Data-Products_Array-Records">9.9.3. Array Records</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Components_Constants-and-Types">9.10. Constants and Types</h3>
 <div class="paragraph">
 <p>You can write a <a href="#Defining-Constants">constant definition</a>
 or <a href="#Defining-Types">type definition</a>
@@ -6154,7 +6292,7 @@ and
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Include-Specifiers">9.10. Include Specifiers</h3>
+<h3 id="Defining-Components_Include-Specifiers">9.11. Include Specifiers</h3>
 <div class="paragraph">
 <p>Component definitions can become long, especially when there
 are many commands, events, telemetry channels, and parameters.
@@ -6207,7 +6345,7 @@ We discuss include specifiers further in the section on
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Matched-Ports">9.11. Matched Ports</h3>
+<h3 id="Defining-Components_Matched-Ports">9.12. Matched Ports</h3>
 <div class="paragraph">
 <p>Some F Prime components employ the following pattern:</p>
 </div>
@@ -11975,7 +12113,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 14:31:09 -0700
+Last updated 2024-04-23 15:46:49 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
