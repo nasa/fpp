@@ -4,7 +4,7 @@ Before reading the rest of this document, you should install
 the latest version of FPP.
 The installation instructions are available here:
 
-https://github.com/fprime-community/fpp/tree/main/compiler#compiler
+https://github.com/nasa/fpp/tree/main/compiler#compiler
 
 Make sure that the FPP command-line tools are in your shell path.
 For example, running `fpp-check` on the command line should succeed and should

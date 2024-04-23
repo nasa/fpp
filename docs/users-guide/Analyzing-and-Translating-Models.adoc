@@ -1304,13 +1304,13 @@ data structures used during the analysis algorithm are
 omitted.
 For more information on the Analysis data structure,
 see the
-https://github.com/fprime-community/fpp/wiki/Analysis-Data-Structure[FPP wiki].
+https://github.com/nasa/fpp/wiki/Analysis-Data-Structure[FPP wiki].
 
 *JSON format:*
 To understand this subsection, you need to know a little
 bit about case classes in Scala.
 For a primer, see 
-https://github.com/fprime-community/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching[this wiki page].
+https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching[this wiki page].
 
 The JSON translation uses a Scala library called
 https://circe.github.io/circe/[Circe].

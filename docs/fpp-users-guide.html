@@ -538,6 +538,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Special-Port-Instances_Telemetry-Ports">9.3.3. Telemetry Ports</a></li>
 <li><a href="#Defining-Components_Special-Port-Instances_Parameter-Ports">9.3.4. Parameter Ports</a></li>
 <li><a href="#Defining-Components_Special-Port-Instances_Time-Get-Ports">9.3.5. Time Get Ports</a></li>
+<li><a href="#Defining-Components_Special-Port-Instances_Data-Product-Ports">9.3.6. Data Product Ports</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Internal-Ports">9.4. Internal Ports</a></li>
@@ -714,7 +715,7 @@ A <a href="https://digitalcommons.usu.edu/smallsat/2018/all2018/328/">paper pres
 SmallSat 2018</a>
 provides an overview of F Prime.
 For more detailed information about F Prime, see the
-<a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+<a href="https://github.com/nasa/fprime/blob/devel/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 <div class="paragraph">
 <p>The goals of FPP are as follows:</p>
@@ -799,7 +800,7 @@ the latest version of FPP.
 The installation instructions are available here:</p>
 </div>
 <div class="paragraph">
-<p><a href="https://github.com/fprime-community/fpp/tree/main/compiler#compiler" class="bare">https://github.com/fprime-community/fpp/tree/main/compiler#compiler</a></p>
+<p><a href="https://github.com/nasa/fpp/tree/main/compiler#compiler" class="bare">https://github.com/nasa/fpp/tree/main/compiler#compiler</a></p>
 </div>
 <div class="paragraph">
 <p>Make sure that the FPP command-line tools are in your shell path.
@@ -4022,8 +4023,9 @@ information such as array size and priority.
 Writing a special port instance is a bit different.
 In this case you specify a predefined behavior
 provided by the F Prime framework.
-The special port behaviors fall into five groups:
-commands, events, telemetry, parameters, and time.</p>
+The special port behaviors fall into six groups:
+commands, events, telemetry, parameters, time,
+and data products.</p>
 </div>
 <div class="sect3">
 <h4 id="Defining-Components_Special-Port-Instances_Command-Ports">9.3.1. Command Ports</h4>
@@ -4410,6 +4412,130 @@ simplified definition of this port:</p>
 <div class="paragraph">
 <p>For further information about time in F Prime, see the
 <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Special-Port-Instances_Data-Product-Ports">9.3.6. Data Product Ports</h4>
+<div class="paragraph">
+<p>A <strong>data product</strong> is a unit of data that can be stored to an
+onboard file system, given a priority, and downlinked in priority
+order.
+For example, a data product may be an image or a unit of
+science data.
+Data products are stored in <strong>containers</strong> that contain
+<strong>records</strong>.
+A record is a unit of data.
+A container stores (1) a header that describes the container
+and (2) a list of records.</p>
+</div>
+<div class="paragraph">
+<p>The special data product behaviors, and their keywords, are as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>product</code> <code>get</code>: A port for synchronously requesting a
+memory buffer to store a container.</p>
+</li>
+<li>
+<p><code>product</code> <code>request</code>: A port for asynchronously requesting
+a buffer to store a container.</p>
+</li>
+<li>
+<p><code>product</code> <code>recv</code>: A port for receiving a response to an
+asynchronous buffer request.</p>
+</li>
+<li>
+<p><code>product</code> <code>send</code>: A port for sending a buffer that stores
+a container, after the container has been filled with data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Collectively, these ports are known as <strong>data product ports</strong>.
+To specify a data product port, you write one of the keyword groups
+shown above followed by the keyword <code>port</code> and the port name.
+To specify a product receive port, you must first write
+<code>async</code>, <code>sync</code> or <code>guarded</code> to specify whether the input port
+is asynchronous, synchronous, or guarded, as described in
+the section on <a href="#Defining-Components_Port-Instances_Basic-Port-Instances">basic port instances</a>.
+When specifying an <code>async</code> product receive port, you may
+specify a <a href="#Defining-Components_Port-Instances_Priority">priority behavior</a>
+or <a href="#Defining-Components_Port-Instances_Queue-Full-Behavior">queue full behavior</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is a passive component <code>DataProductPorts</code> with each
+of the data product ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component for illustrating data product ports
+active component DataProductPorts {
+
+  @ A port for getting a data product container
+  product get port productGetOut
+
+  @ A port for requesting a data product container
+  product request port productRequestOut
+
+  @ An async port for receiving a requested data product container
+  async product recv port productRecvIn priority 10 assert
+
+  @ A port for sending a filled data product container
+  product send port productSendOut
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any component may have at most one of each kind of data product
+port.
+If a component defines data products (more on this below),
+then there must be (1) a product get port or a product request port
+and (2) a product send port.
+If there is a product request port, then there must be a product
+receive port.</p>
+</div>
+<div class="paragraph">
+<p>During translation, each data product port is converted into
+a typed port instance with a predefined port type, as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>product</code> <code>get</code> uses the port <code>Fw.DpGet</code></p>
+</li>
+<li>
+<p><code>product</code> <code>request</code> uses the port <code>Fw.DpRequest</code></p>
+</li>
+<li>
+<p><code>product</code> <code>recv</code> uses the port <code>Fw.DpResponse</code></p>
+</li>
+<li>
+<p><code>product</code> <code>send</code> uses the port <code>Fw.DpSend</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The F Prime framework provides definitions for these ports
+in the directory <code>Fw/Dp</code>.
+For checking simple examples, you can use the following
+simplified definitions of these ports:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module Fw {
+  port DpGet
+  port DpRequest
+  port DpResponse
+  port DpSend
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For further information about events in F Prime, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md">data products documentation</a>
+in the F Prime repository.</p>
 </div>
 </div>
 </div>
@@ -8259,7 +8385,7 @@ We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
-<a href="https://github.com/fprime-community/fpp/wiki/Tools">the FPP wiki</a>.</p>
+<a href="https://github.com/nasa/fpp/wiki/Tools">the FPP wiki</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Specifying-Models-as-Files_Dividing-Models-into-Files">12.1. Dividing Models into Files</h3>
@@ -11156,7 +11282,7 @@ data structures used during the analysis algorithm are
 omitted.
 For more information on the Analysis data structure,
 see the
-<a href="https://github.com/fprime-community/fpp/wiki/Analysis-Data-Structure">FPP wiki</a>.</p>
+<a href="https://github.com/nasa/fpp/wiki/Analysis-Data-Structure">FPP wiki</a>.</p>
 </li>
 </ul>
 </div>
@@ -11165,7 +11291,7 @@ see the
 To understand this subsection, you need to know a little
 bit about case classes in Scala.
 For a primer, see
-<a href="https://github.com/fprime-community/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching">this wiki page</a>.</p>
+<a href="https://github.com/nasa/fpp/wiki/Pure-Functional-Programming-in-Scala#use-case-classes-for-pattern-matching">this wiki page</a>.</p>
 </div>
 <div class="paragraph">
 <p>The JSON translation uses a Scala library called
@@ -11849,7 +11975,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 14:12:49 -0700
+Last updated 2024-04-23 14:31:09 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

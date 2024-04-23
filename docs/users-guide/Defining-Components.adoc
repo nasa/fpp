@@ -411,8 +411,9 @@ information such as array size and priority.
 Writing a special port instance is a bit different.
 In this case you specify a predefined behavior
 provided by the F Prime framework.
-The special port behaviors fall into five groups:
-commands, events, telemetry, parameters, and time.
+The special port behaviors fall into six groups:
+commands, events, telemetry, parameters, time,
+and data products.
 
 ==== Command Ports
 
@@ -708,6 +709,104 @@ module Fw {
 
 For further information about time in F Prime, see the
 https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F Prime User's Guide].
+
+==== Data Product Ports
+
+A *data product* is a unit of data that can be stored to an
+onboard file system, given a priority, and downlinked in priority
+order.
+For example, a data product may be an image or a unit of
+science data.
+Data products are stored in *containers* that contain
+*records*.
+A record is a unit of data.
+A container stores (1) a header that describes the container
+and (2) a list of records.
+
+The special data product behaviors, and their keywords, are as follows:
+
+* `product` `get`: A port for synchronously requesting a
+memory buffer to store a container.
+
+* `product` `request`: A port for asynchronously requesting
+a buffer to store a container.
+
+* `product` `recv`: A port for receiving a response to an
+asynchronous buffer request.
+
+* `product` `send`: A port for sending a buffer that stores
+a container, after the container has been filled with data.
+
+Collectively, these ports are known as *data product ports*.
+To specify a data product port, you write one of the keyword groups
+shown above followed by the keyword `port` and the port name.
+To specify a product receive port, you must first write
+`async`, `sync` or `guarded` to specify whether the input port
+is asynchronous, synchronous, or guarded, as described in
+the section on <<Defining-Components_Port-Instances_Basic-Port-Instances,
+basic port instances>>.
+When specifying an `async` product receive port, you may
+specify a <<Defining-Components_Port-Instances_Priority,priority behavior>>
+or <<Defining-Components_Port-Instances_Queue-Full-Behavior,queue full behavior>>.
+
+As an example, here is a passive component `DataProductPorts` with each
+of the data product ports:
+
+[source,fpp]
+----
+@ A component for illustrating data product ports
+active component DataProductPorts {
+
+  @ A port for getting a data product container
+  product get port productGetOut
+
+  @ A port for requesting a data product container
+  product request port productRequestOut
+
+  @ An async port for receiving a requested data product container
+  async product recv port productRecvIn priority 10 assert
+
+  @ A port for sending a filled data product container
+  product send port productSendOut
+
+}
+----
+
+Any component may have at most one of each kind of data product
+port.
+If a component defines data products (more on this below),
+then there must be (1) a product get port or a product request port
+and (2) a product send port.
+If there is a product request port, then there must be a product
+receive port.
+
+During translation, each data product port is converted into
+a typed port instance with a predefined port type, as follows:
+
+* `product` `get` uses the port `Fw.DpGet`
+* `product` `request` uses the port `Fw.DpRequest`
+* `product` `recv` uses the port `Fw.DpResponse`
+* `product` `send` uses the port `Fw.DpSend`
+
+The F Prime framework provides definitions for these ports
+in the directory `Fw/Dp`.
+For checking simple examples, you can use the following
+simplified definitions of these ports:
+
+[source,fpp]
+--------
+module Fw {
+  port DpGet
+  port DpRequest
+  port DpResponse
+  port DpSend
+}
+--------
+
+For further information about events in F Prime, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[data products documentation]
+in the F Prime repository.
+
 
 === Internal Ports
 

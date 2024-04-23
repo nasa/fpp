@@ -12,7 +12,7 @@ We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
-https://github.com/fprime-community/fpp/wiki/Tools[the FPP wiki].
+https://github.com/nasa/fpp/wiki/Tools[the FPP wiki].
 
 === Dividing Models into Files
 
