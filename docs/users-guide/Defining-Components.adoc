@@ -2170,12 +2170,12 @@ produced by that component.
 A data product is a collection of related data that is stored onboard
 and transmitted to the ground.
 F Prime has special support for data products, including components
-for (1) providing buffers that can store data products in memory;
+for (1) managing buffers that can store data products in memory;
 (2) writing data products to the file system; and (3)
 cataloging stored data products for downlink in priority order.
 For more information about these F Prime features, see the
-https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[documentation]
-on F Prime framework support for data products.
+https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[F Prime 
+data products documentation].
 
 ==== Basic Data Products
 
@@ -2187,8 +2187,8 @@ the container (e.g., the size of the data payload), and a list
 of *records*.
 A record is a unit of data.
 For a complete specification of the container format, see the 
-https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md[F
-Prime data products documentation].
+https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md[documentation]
+on F Prime framework support for data products.
 
 In an F Prime component, you can specify one or more containers
 and one or more records.
