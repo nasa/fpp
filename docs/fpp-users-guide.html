@@ -655,10 +655,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Specifying-Models-as-Files_Locating-Uses">12.7. Locating Uses</a></li>
-<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories">12.8. Symbolic Links to Directories</a>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases">12.8. Path Name Aliases</a>
 <ul class="sectlevel3">
-<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories_Relative-Paths">12.8.1. Relative Paths</a></li>
-<li><a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories_Unique-Locations">12.8.2. Unique Locations</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">12.8.1. Relative Paths and Symbolic Links</a></li>
+<li><a href="#Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">12.8.2. Unique Locations</a></li>
 </ul>
 </li>
 </ul>
@@ -9339,15 +9339,16 @@ for the location specifiers.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories">12.8. Symbolic Links to Directories</h3>
+<h3 id="Specifying-Models-as-Files_Path-Name-Aliases">12.8. Path Name Aliases</h3>
 <div class="paragraph">
-<p>Care is required when using path names that contain symbolic links
-to directories.
+<p>Because FPP associates locations with symbols, and the locations
+are path names, care is required when using path names that are
+aliases of other path names, via symbolic links or hard links.
 There are two issues to consider:
 relative paths and unique locations.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories_Relative-Paths">12.8.1. Relative Paths</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">12.8.1. Relative Paths and Symbolic Links</h4>
 <div class="paragraph">
 <p>A <strong>relative path</strong> is a path that does not start with a slash and is
 relative to the current directory path, which is
@@ -9413,16 +9414,17 @@ See that section for details, and for suggested workarounds.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifying-Models-as-Files_Symbolic-Links-to-Directories_Unique-Locations">12.8.2. Unique Locations</h4>
+<h4 id="Specifying-Models-as-Files_Path-Name-Aliases_Unique-Locations">12.8.2. Unique Locations</h4>
 <div class="paragraph">
 <p>The FPP analyzers assume that each symbol <em>s</em> has
 a unique path defining the location of the source file where
 <em>s</em> is defined.
-If paths can contain symbolic links, then this may not be true:
-for example, paths <em>P<sub>1</sub></em> and <em>P<sub>2</sub></em> may be syntactically different,
-but both may resolve to the same &#8220;real&#8221; path (i.e., path containing
-no symbolic link), and so both may describe the physical location of
-the same FPP symbol definition.</p>
+If paths contain names that are aliased via symbolic links or hard links, then
+this may not be true:
+for example, <em>P<sub>1</sub></em> and <em>P<sub>2</sub></em> may be syntactically different
+absolute paths that represent the same physical location in the file system.
+In this case it may be possible for the tools to associate two different locations
+with the same FPP symbol definition.</p>
 </div>
 <div class="paragraph">
 <p>You must ensure that this doesn&#8217;t happen.
@@ -9861,7 +9863,7 @@ that matches a prefix in the list.</p>
 </div>
 <div class="paragraph">
 <p>As discussed in the section on
-<a href="#Specifying-Models-as-Files_Symbolic-Links-to-Directories">symbolic links to directories</a>,
+<a href="#Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links">relative paths and symbolic links</a>,
 when a file name is relative to a path <em>S</em> that includes symbolic links,
 the associated location is relative to the directory <em>D</em> pointed to by <em>S</em>.
 In this case, providing <em>S</em> as an argument to <code>-p</code> will not work as expected.
@@ -11849,7 +11851,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-22 14:12:49 -0700
+Last updated 2024-04-23 17:49:40 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
