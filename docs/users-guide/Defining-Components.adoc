@@ -2269,7 +2269,81 @@ specifier, and vice versa.
 
 ==== Identifiers
 
-TODO
+Every record in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<<Defining-Components_Commands_Opcodes,command opcodes>>,
+<<Defining-Components_Events_Identifiers,event identifiers>>,
+<<Defining-Components_Telemetry_Identifiers,
+telemetry channel identifiers>>, and
+<<Defining-Components_Parameters,parameters>>,
+the record identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the
+identifier of the previous parameter.
+The same observations apply to containers and container
+identifiers.
+
+If you wish, you may explicitly specify one or more
+container or record identifiers.
+To do this, you write the keyword `id` followed
+by a numeric expression at the end of the container
+or record specifier.
+Here is an example:
+
+[source,fpp]
+----
+@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating data product 
+passive component DataProductIdentifiers {
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records 
+  # ----------------------------------------------------------------------
+
+  @ Record 1
+  @ Its implied identifier is 0x00
+  product record Record1: I32
+
+  @ Record 2
+  @ Its identifier is 0x10
+  product record Record2: Data id 0x10
+  
+  # ----------------------------------------------------------------------
+  # Containers 
+  # ----------------------------------------------------------------------
+
+  @ Container 1
+  @ Its identifier is 0x10
+  product container Container1 id 0x10
+
+  @ Container 2
+  @ Its implied identifier is 0x11
+  product container Container2
+
+}
+----
+
+Within a component, the record identifiers must be unique,
+and the container identifiers must be unique.
 
 ==== Array Records
 
