@@ -2183,8 +2183,8 @@ In F Prime, a data product is represented as a *container*.
 One container holds one data product, and each data product
 is typically stored in its own file.
 A container consists of a header, which provides information about
-the container (e.g., the size of the data payload), and a list
-of *records*.
+the container (e.g., the size of the data payload), and binary data
+representing a list of serialized *records*.
 A record is a unit of data.
 For a complete specification of the container format, see the 
 https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md[documentation]
@@ -2347,7 +2347,66 @@ and the container identifiers must be unique.
 
 ==== Array Records
 
-TODO
+In the basic form of a record described above, each record that
+does not have 
+<<Defining-Types_Array-Type-Definitions_Type-Names,string type>>
+has a fixed, statically-specified size.
+The record may contain an array (e.g., an
+<<Defining-Types_Array-Type-Definitions,array type>>
+or a struct type with a
+<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>),
+but the size of the array must be specified in the model.
+To specify a record that is a dynamically-sized array, you put
+the keyword `array` after the type specifier for the record.
+For example:
+
+[source,fpp]
+----
+@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating array records
+passive component ArrayRecords {
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records 
+  # ----------------------------------------------------------------------
+
+  @ A data record
+  @ It holds one element of type Data
+  product record DataRecord: Data
+
+  @ A data array record
+  @ It holds an array of elements of type Data
+  product record DataArrayRecord: Data array
+
+  # ----------------------------------------------------------------------
+  # Containers 
+  # ----------------------------------------------------------------------
+
+  @ A container
+  product container Container
+
+}
+----
+
+In this example, a record with name `DataArrayRecord` holds
+an array of elements of type `Data`.
+The number of elements is unspecified in the model;
+it is provided when the record is serialized into a container.
 
 === Constants and Types
 

@@ -6045,8 +6045,8 @@ data products documentation</a>.</p>
 One container holds one data product, and each data product
 is typically stored in its own file.
 A container consists of a header, which provides information about
-the container (e.g., the size of the data payload), and a list
-of <strong>records</strong>.
+the container (e.g., the size of the data payload), and binary data
+representing a list of serialized <strong>records</strong>.
 A record is a unit of data.
 For a complete specification of the container format, see the
 <a href="https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md">documentation</a>
@@ -6225,7 +6225,67 @@ and the container identifiers must be unique.</p>
 <div class="sect3">
 <h4 id="Defining-Components_Data-Products_Array-Records">9.9.3. Array Records</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>In the basic form of a record described above, each record that
+does not have
+<a href="#Defining-Types_Array-Type-Definitions_Type-Names">string type</a>
+has a fixed, statically-specified size.
+The record may contain an array (e.g., an
+<a href="#Defining-Types_Array-Type-Definitions">array type</a>
+or a struct type with a
+<a href="#Defining-Types_Struct-Type-Definitions_Member-Arrays">member array</a>),
+but the size of the array must be specified in the model.
+To specify a record that is a dynamically-sized array, you put
+the keyword <code>array</code> after the type specifier for the record.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating array records
+passive component ArrayRecords {
+
+  # ----------------------------------------------------------------------
+  # Ports
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records
+  # ----------------------------------------------------------------------
+
+  @ A data record
+  @ It holds one element of type Data
+  product record DataRecord: Data
+
+  @ A data array record
+  @ It holds an array of elements of type Data
+  product record DataArrayRecord: Data array
+
+  # ----------------------------------------------------------------------
+  # Containers
+  # ----------------------------------------------------------------------
+
+  @ A container
+  product container Container
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, a record with name <code>DataArrayRecord</code> holds
+an array of elements of type <code>Data</code>.
+The number of elements is unspecified in the model;
+it is provided when the record is serialized into a container.</p>
 </div>
 </div>
 </div>
@@ -12188,7 +12248,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 17:01:44 -0700
+Last updated 2024-04-23 17:31:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
