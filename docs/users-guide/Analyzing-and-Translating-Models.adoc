@@ -300,8 +300,8 @@ For each generated path, the tool will delete the longest prefix
 that matches a prefix in the list.
 
 As discussed in the section on
-<<Specifying-Models-as-Files_Symbolic-Links-to-Directories,
-symbolic links to directories>>,
+<<Specifying-Models-as-Files_Path-Name-Aliases_Relative-Paths-and-Symbolic-Links,
+relative paths and symbolic links>>,
 when a file name is relative to a path _S_ that includes symbolic links,
 the associated location is relative to the directory _D_ pointed to by _S_.
 In this case, providing _S_ as an argument to `-p` will not work as expected.

@@ -862,14 +862,15 @@ whenever desired, and see the dependencies that way.
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
 for the location specifiers.
 
-=== Symbolic Links to Directories
+=== Path Name Aliases
 
-Care is required when using path names that contain symbolic links
-to directories.
+Because FPP associates locations with symbols, and the locations
+are path names, care is required when using path names that are
+aliases of other path names, via symbolic links or hard links.
 There are two issues to consider:
 relative paths and unique locations.
 
-==== Relative Paths
+==== Relative Paths and Symbolic Links
 
 A *relative path* is a path that does not start with a slash and is
 relative to the current directory path, which is
@@ -927,11 +928,12 @@ See that section for details, and for suggested workarounds.
 The FPP analyzers assume that each symbol _s_ has
 a unique path defining the location of the source file where
 _s_ is defined.
-If paths can contain symbolic links, then this may not be true:
-for example, paths _P~1~_ and _P~2~_ may be syntactically different,
-but both may resolve to the same "`real`" path (i.e., path containing
-no symbolic link), and so both may describe the physical location of
-the same FPP symbol definition.
+If paths contain names that are aliased via symbolic links or hard links, then
+this may not be true:
+for example, _P~1~_ and _P~2~_ may be syntactically different
+absolute paths that represent the same physical location in the file system.
+In this case it may be possible for the tools to associate two different locations
+with the same FPP symbol definition.
 
 You must ensure that this doesn't happen.
 If you present the same file _F_ to the FPP tools several times,
