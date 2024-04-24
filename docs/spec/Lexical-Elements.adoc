@@ -107,6 +107,8 @@ set
 severity
 size
 stack
+statemachine
+statemodel
 string
 struct
 sync

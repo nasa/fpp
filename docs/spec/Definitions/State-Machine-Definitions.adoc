@@ -1,0 +1,56 @@
+=== State machine Definitions
+
+A *state machine definition* instantiates a  <<Specifiers_State-Model-Specifiers,state model specifier>>.
+
+==== Syntax
+
+`statemachine`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`:`
+<<Specifiers_State-Model-Specifiers,state model specifier>>
+
+==== Semantics
+
+The identifier is the name of the instantiated state machine model.
+
+==== Examples
+
+[source,fpp]
+----
+
+statemodel MonitorSm {
+
+    [*] -> Black
+
+    state Black {
+        Black:Internal: RTI/checkSignal()
+    }
+
+    state Green {
+        Green:Entry: clearMonitorCount()
+        Green:Internal: RTI/checkSignal()
+    }
+
+    state Yellow {
+        Yellow:Entry: clearPersistCount()
+        Yellow:Internal: RTI/checkSignal()
+
+    }
+
+    state Red {
+        Red:Entry: ReportMonitorTrip()
+
+    }
+
+    Black -> Green: ValidSignal
+    Green -> Yellow: SignalOutsideLimits
+    Yellow -> Red: PersistenceExceeded
+    Yellow -> Green: SignalWithinLimts
+    Red -> Green: MonitorReset
+
+}
+
+@ state machine monitor1 is an instance of state machine model MonitorSm
+statemachine monitor1 : MonitorSm
+
+----

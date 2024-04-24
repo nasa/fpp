@@ -1,0 +1,55 @@
+=== State Model Specifiers
+
+A *state model specifier* specifies a state machine model  
+as part
+of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+* `statemodel` <<Lexical-Elements_Identifiers,_identifier_>> `{` _state-machine-logic_ `}` 
+
+==== Semantics
+
+. The identifier specifies the name of the state machine mdoel.
+
+. The _state-machine-logic_ is a subset of the the PlantUML state machine syntax
+
+==== Examples
+
+[source,fpp]
+----
+@ MonitorSm defines the states for this component
+statemodel MonitorSm {
+
+    [*] -> Black
+
+    state Black {
+        Black:Internal: RTI/checkSignal()
+    }
+
+    state Green {
+        Green:Entry: clearMonitorCount()
+        Green:Internal: RTI/checkSignal()
+    }
+
+    state Yellow {
+        Yellow:Entry: clearPersistCount()
+        Yellow:Internal: RTI/checkSignal()
+
+    }
+
+    state Red {
+        Red:Entry: ReportMonitorTrip()
+
+    }
+
+    Black -> Green: ValidSignal
+    Green -> Yellow: SignalOutsideLimits
+    Yellow -> Red: PersistenceExceeded
+    Yellow -> Green: SignalWithinLimts
+    Red -> Green: MonitorReset
+
+}
+
+----
