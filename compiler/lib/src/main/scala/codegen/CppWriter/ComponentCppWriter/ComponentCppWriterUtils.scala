@@ -139,15 +139,19 @@ abstract class ComponentCppWriterUtils(
     case _ => false
   })
 
-  /** Map from command opcodes to command parameters */
-  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
-    opcode,
+  /** Get the CppDoc formal parameters for a non-parameter command */
+  def getNonParamCmdFormalParams(cmd: Command.NonParam, stringRep: String): List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
       Nil,
-      Some("Fw::CmdStringArg"),
+      Some(stringRep),
       FormalParamsCppWriter.Value
     )
+
+  /** Map from command opcodes to command parameters */
+  val cmdParamMap: Map[Command.Opcode, List[CppDoc.Function.Param]] = nonParamCmds.map((opcode, cmd) => {(
+    opcode,
+    getNonParamCmdFormalParams(cmd, "Fw::CmdStringArg")
   )}).toMap
 
   /** List of events sorted by ID */
@@ -336,13 +340,13 @@ abstract class ComponentCppWriterUtils(
       )
     )).toMap
 
+  def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase") =
+    event.aNode._2.data.params.map(param =>
+      (param._2.data.name, writeFormalParamType(param._2.data, stringRep))
+    )
+
   val eventParamTypeMap: Map[Event.Id, List[(String, String)]] =
-    sortedEvents.map((id, event) => (
-      id,
-      event.aNode._2.data.params.map(param =>
-        (param._2.data.name, writeEventParamType(param._2.data))
-      )
-    )).toMap
+    sortedEvents.map((id, event) => (id, getEventParamTypes(event))).toMap
 
   // Map from a port instance name to param list
   private val portParamMap =
@@ -545,17 +549,17 @@ abstract class ComponentCppWriterUtils(
       Some("Fw::InternalInterfaceString")
     )
 
-  /** Write an the type of an event param as a C++ type */
-  def writeEventParamType(param: Ast.FormalParam) =
+  /** Write the type of an formal parameter as a C++ type */
+  def writeFormalParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
-      Some("Fw::LogStringArg")
+      Some(stringRep)
     )
 
   /** Write a channel type as a C++ type */
-  def writeChannelType(t: Type): String =
-    TypeCppWriter.getName(s, t, Some("Fw::TlmString"))
+  def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
+    TypeCppWriter.getName(s, t, Some(stringRep))
 
   def writeSendMessageLogic(
     bufferName: String,
@@ -626,8 +630,8 @@ abstract class ComponentCppWriterUtils(
     }
 
   /** Write a parameter type as a C++ type */
-  def writeParamType(t: Type) =
-    TypeCppWriter.getName(s, t, Some("Fw::ParamString"))
+  def writeParamType(t: Type, stringRep: String = "Fw::StringBase") =
+    TypeCppWriter.getName(s, t, Some(stringRep))
 
   /** Get the name for a general port enumerated constant in cpp file */
   def portCppConstantName(p: PortInstance) =

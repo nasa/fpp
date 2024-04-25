@@ -4804,8 +4804,8 @@ void ActiveSerialComponentBase ::
 
 void ActiveSerialComponentBase ::
   log_COMMAND_EventCommand(
-      const Fw::LogStringArg& str1,
-      const Fw::LogStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Get the time
@@ -4832,13 +4832,13 @@ void ActiveSerialComponentBase ::
     );
 #endif
 
-    _status = str1.serialize(_logBuff, 80);
+    _status = str1.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serialize(_logBuff, 100);
+    _status = str2.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -5360,7 +5360,7 @@ void ActiveSerialComponentBase ::
 
 void ActiveSerialComponentBase ::
   tlmWrite_ChannelStringFormat(
-      const Fw::TlmString& arg,
+      const Fw::StringBase& arg,
       Fw::Time _tlmTime
   )
 {
@@ -5373,7 +5373,7 @@ void ActiveSerialComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, 80);
+    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)

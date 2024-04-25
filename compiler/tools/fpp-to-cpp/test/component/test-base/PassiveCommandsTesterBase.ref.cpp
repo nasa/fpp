@@ -1305,21 +1305,21 @@ void PassiveCommandsTesterBase ::
   sendCmd_CMD_SYNC_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1521,21 +1521,21 @@ void PassiveCommandsTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)

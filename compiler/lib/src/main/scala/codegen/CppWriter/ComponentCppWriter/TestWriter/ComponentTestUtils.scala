@@ -128,21 +128,24 @@ abstract class ComponentTestUtils(
 
   def writeEventValue(value: String, typeName: String): String =
     typeName match {
-      case "Fw::LogStringArg" => s"$value.toChar()"
+      case "Fw::StringBase" => s"$value.toChar()"
       case _ => value
     }
 
   def writeEventAssertEq(typeName: String): String =
     typeName match {
-      case "Fw::LogStringArg" => "ASSERT_STREQ"
+      case "Fw::StringBase" => "ASSERT_STREQ"
       case _ => "ASSERT_EQ"
     }
 
-  def writeCppType(t: Type): String = {
-    val typeName = TypeCppWriter.getName(s, t, Some("char*"))
+  def writeCppType(t: Type, stringRepOpt: Option[String] = None): String = {
+    val typeName = TypeCppWriter.getName(s, t, stringRepOpt)
     t match {
       case t if s.isPrimitive(t, typeName) => s"const $typeName"
-      case _: Type.String => s"const $typeName const"
+      case _: Type.String => stringRepOpt match {
+        case Some(stringRep) => s"const $stringRep&"
+        case _ => s"const char* const"
+      }
       case _ => s"const $typeName&"
     }
   }

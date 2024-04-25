@@ -134,14 +134,16 @@ case class ComponentEvents (
 
                   List.concat(
                     s.a.typeMap(param._2.data.typeName.id) match {
-                      case t: Type.String => lines(
-                        s"_status = $name.serialize(_logBuff, ${stringCppWriter.getSize(t)});"
-                      )
+                      case t: Type.String =>
+                        val serialSize = stringCppWriter.getSize(t)
+                        lines(
+                          s"_status = $name.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
+                        )
                       case t => lines(
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
                             |_status = _logBuff.serialize(
-                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, writeEventParamType(param._2.data))})
+                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, writeFormalParamType(param._2.data))})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
@@ -199,7 +201,7 @@ case class ComponentEvents (
             event.aNode._2.data.params.flatMap(param =>
               s.a.typeMap(param._2.data.typeName.id) match {
                 case Type.String(_) => Nil
-                case t if s.isPrimitive(t, writeEventParamType(param._2.data)) => Nil
+                case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) => Nil
                 case _ => lines(
                   s"""|Fw::String ${param._2.data.name}Str;
                       |${param._2.data.name}.toString(${param._2.data.name}Str);
@@ -224,7 +226,7 @@ case class ComponentEvents (
                     val name = param._2.data.name
                     s.a.typeMap(param._2.data.typeName.id) match {
                       case Type.String(_) => s"$name.toChar()"
-                      case t if s.isPrimitive(t, writeEventParamType(param._2.data)) => name
+                      case t if s.isPrimitive(t, writeFormalParamType(param._2.data)) => name
                       case _ => s"${name}Str.toChar()"
                     }
                   })).mkString(",\n")
@@ -295,7 +297,7 @@ case class ComponentEvents (
           formalParamsCppWriter.write(
             event.aNode._2.data.params,
             Nil,
-            Some("Fw::LogStringArg"),
+            Some("Fw::StringBase"),
             FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),

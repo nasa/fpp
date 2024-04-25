@@ -1117,8 +1117,8 @@ class QueuedSerialTesterBase :
     void sendCmd_CMD_SYNC_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_SYNC_ENUM command
@@ -1161,8 +1161,8 @@ class QueuedSerialTesterBase :
     void sendCmd_CMD_GUARDED_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_GUARDED_ENUM command
@@ -1256,8 +1256,8 @@ class QueuedSerialTesterBase :
 
     //! Handle event EventCommand
     virtual void logIn_COMMAND_EventCommand(
-        const Fw::LogStringArg& str1, //!< A string
-        const Fw::LogStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Handle event EventDiagnostic
@@ -1294,19 +1294,19 @@ class QueuedSerialTesterBase :
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
         const Fw::Time& timeTag, //!< The time
-        const Fw::TlmString& val //!< The channel value
+        const Fw::StringBase& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
@@ -1330,25 +1330,25 @@ class QueuedSerialTesterBase :
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
         const Fw::Time& timeTag, //!< The time
-        const F64& val //!< The channel value
+        const F64 val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange
@@ -1401,7 +1401,7 @@ class QueuedSerialTesterBase :
 
     //! Set parameter ParamString
     void paramSet_ParamString(
-        const Fw::ParamString& val, //!< The parameter value
+        const Fw::StringBase& val, //!< The parameter value
         Fw::ParamValid valid //!< The parameter valid flag
     );
 

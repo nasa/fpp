@@ -636,7 +636,7 @@ case class ComponentTesterBaseWriter(
       )
     }
 
-    def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command) = functionClassMember(
+    def writeCmdSendFunc(opcode: Command.Opcode, cmd: Command.NonParam) = functionClassMember(
       Some(s"Send a ${cmd.getName} command"),
       commandSendName(cmd.getName),
       List.concat(
@@ -648,42 +648,59 @@ case class ComponentTesterBaseWriter(
           ),
           cmdSeqParam
         ),
-        cmdParamMap(opcode)
+        getNonParamCmdFormalParams(cmd, "Fw::StringBase")
       ),
       CppDoc.Type("void"),
-      intersperseBlankLines(
-        List(
-          if cmdParamMap(opcode).isEmpty then lines("Fw::CmdArgBuffer buf;")
-          else List.concat(
-            lines(
-              """|// Serialize arguments
-                 |Fw::CmdArgBuffer buf;
-                 |Fw::SerializeStatus _status;
-                 |"""
-            ),
-            Line.blank :: intersperseBlankLines(
-              cmdParamTypeMap(opcode).map((name, _) =>
-                lines(
-                  s"""|_status = buf.serialize($name);
-                      |FW_ASSERT(
-                      |  _status == Fw::FW_SERIALIZE_OK,
-                      |  static_cast<FwAssertArgType>(_status)
-                      |);
-                      |"""
-                )
+      {
+        val cmdFormalParams = cmd.aNode._2.data.params
+        intersperseBlankLines(
+          List(
+            if cmdFormalParams.isEmpty then lines("Fw::CmdArgBuffer buf;")
+            else List.concat(
+              lines(
+                """|// Serialize arguments
+                   |Fw::CmdArgBuffer buf;
+                   |Fw::SerializeStatus _status;
+                   |"""
+              ),
+              Line.blank :: intersperseBlankLines(
+                cmdFormalParams.map(param => {
+                  val t = s.a.typeMap(param._2.data.typeName.id)
+                  val varName = param._2.data.name
+                  t match {
+                    case ts: Type.String =>
+                      lines(
+                        s"""|_status = $varName.serialize(buf, FW_CMD_STRING_MAX_SIZE);
+                            |FW_ASSERT(
+                            |  _status == Fw::FW_SERIALIZE_OK,
+                            |  static_cast<FwAssertArgType>(_status)
+                            |);
+                            |"""
+                      )
+                    case _ =>
+                      lines(
+                        s"""|_status = buf.serialize($varName);
+                            |FW_ASSERT(
+                            |  _status == Fw::FW_SERIALIZE_OK,
+                            |  static_cast<FwAssertArgType>(_status)
+                            |);
+                            |"""
+                      )
+                  }
+                })
               )
-            )
-          ),
-          lines(
-            s"""|// Call output command port
-                |FwOpcodeType _opcode;
-                |const U32 idBase = this->getIdBase();
-                |_opcode = $className::${commandConstantName(cmd)} + idBase;
-                |"""
-          ),
-          cmdPortInvocation
+            ),
+            lines(
+              s"""|// Call output command port
+                  |FwOpcodeType _opcode;
+                  |const U32 idBase = this->getIdBase();
+                  |_opcode = $className::${commandConstantName(cmd)} + idBase;
+                  |"""
+            ),
+            cmdPortInvocation
+          )
         )
-      )
+      }
     )
 
     addAccessTagAndComment(
@@ -810,7 +827,7 @@ case class ComponentTesterBaseWriter(
           event.aNode._2.data.params.flatMap(aNode => {
             val data = aNode._2.data
             val name = data.name
-            val tn = writeEventParamType(data)
+            val tn = writeFormalParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
             val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
 
@@ -943,7 +960,7 @@ case class ComponentTesterBaseWriter(
         formalParamsCppWriter.write(
           event.aNode._2.data.params,
           Nil,
-          Some("Fw::LogStringArg"),
+          Some("Fw::StringBase"),
           FormalParamsCppWriter.Value
         ),
         CppDoc.Type("void"),
@@ -984,10 +1001,11 @@ case class ComponentTesterBaseWriter(
           val channelName = channel.getName
           val constantName = channelIdConstantName(channelName)
           val handlerName = tlmHandlerName(channelName)
+          val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
           wrapInScope(
             s"case $className::$constantName: {",
             lines(
-              s"""|${writeChannelType(channel.channelType)} arg;
+              s"""|$channelType arg;
                   |const Fw::SerializeStatus _status = val.deserialize(arg);
                   |
                   |if (_status != Fw::FW_SERIALIZE_OK) {
@@ -1051,7 +1069,7 @@ case class ComponentTesterBaseWriter(
           guardedList (hasTelemetry) (List(dispatchTlm)),
           sortedChannels.map((_, channel) => {
             val channelName = channel.getName
-            val channelType = writeChannelType(channel.channelType)
+            val channelType = writeCppType(channel.channelType, Some("Fw::StringBase"))
             val entryName = tlmEntryName(channelName)
             val historyName = tlmHistoryName(channelName)
             functionClassMember(
@@ -1060,7 +1078,7 @@ case class ComponentTesterBaseWriter(
               List(
                 timeTagParam,
                 CppDoc.Function.Param(
-                  CppDoc.Type(s"const $channelType&"),
+                  CppDoc.Type(channelType),
                   "val",
                   Some("The channel value")
                 )
@@ -1276,7 +1294,7 @@ case class ComponentTesterBaseWriter(
             val idConstantName = paramIdConstantName(paramName)
             val paramNameVal = s"${paramName}Val"
             val paramVarName = paramVariableName(paramName)
-            val paramType = writeParamType(prm.paramType)
+            val paramType = writeParamType(prm.paramType, "Fw::ParamString")
             wrapInScope(
               s"case $className::$idConstantName: {",
               lines(
@@ -1482,7 +1500,7 @@ case class ComponentTesterBaseWriter(
         "Parameter variables",
         sortedParams.map((_, prm) => {
           val paramName = prm.getName
-          val paramType = writeParamType(prm.paramType)
+          val paramType = writeParamType(prm.paramType, "Fw::ParamString")
           val varName = paramVariableName(paramName)
           linesClassMember(
             Line.blank :: lines(

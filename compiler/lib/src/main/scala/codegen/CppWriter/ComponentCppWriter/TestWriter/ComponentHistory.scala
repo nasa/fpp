@@ -409,7 +409,7 @@ case class ComponentHistory(
       )
     val eventHistories = linesClassMember(
       sortedEvents.flatMap((id, event) =>
-        eventParamTypeMap(id) match {
+        getEventParamTypes(event, "Fw::LogStringArg") match {
           case Nil => Nil
           case params =>
             val eventName = event.getName
@@ -586,7 +586,7 @@ case class ComponentHistory(
       sortedChannels.flatMap((_, channel) => {
         val channelName = channel.getName
         val entryName = tlmEntryName(channelName)
-        val channelType = writeChannelType(channel.channelType)
+        val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
         Line.blank ::
         line(s"//! A history entry for telemetry channel $channelName") ::
         wrapInScope(
