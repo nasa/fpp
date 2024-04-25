@@ -411,8 +411,9 @@ information such as array size and priority.
 Writing a special port instance is a bit different.
 In this case you specify a predefined behavior
 provided by the F Prime framework.
-The special port behaviors fall into five groups:
-commands, events, telemetry, parameters, and time.
+The special port behaviors fall into six groups:
+commands, events, telemetry, parameters, time,
+and data products.
 
 ==== Command Ports
 
@@ -708,6 +709,104 @@ module Fw {
 
 For further information about time in F Prime, see the
 https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F Prime User's Guide].
+
+==== Data Product Ports
+
+A *data product* is a collection of data that can be stored to an
+onboard file system, given a priority, and downlinked in priority
+order.
+For example, a data product may be an image or a unit of
+science data.
+Data products are stored in *containers* that contain
+*records*.
+A record is a unit of data.
+A container stores (1) a header that describes the container
+and (2) a list of records.
+
+The special data product behaviors, and their keywords, are as follows:
+
+* `product` `get`: A port for synchronously requesting a
+memory buffer to store a container.
+
+* `product` `request`: A port for asynchronously requesting
+a buffer to store a container.
+
+* `product` `recv`: A port for receiving a response to an
+asynchronous buffer request.
+
+* `product` `send`: A port for sending a buffer that stores
+a container, after the container has been filled with data.
+
+Collectively, these ports are known as *data product ports*.
+To specify a data product port, you write one of the keyword groups
+shown above followed by the keyword `port` and the port name.
+To specify a product receive port, you must first write
+`async`, `sync` or `guarded` to specify whether the input port
+is asynchronous, synchronous, or guarded, as described in
+the section on <<Defining-Components_Port-Instances_Basic-Port-Instances,
+basic port instances>>.
+When specifying an `async` product receive port, you may
+specify a <<Defining-Components_Port-Instances_Priority,priority behavior>>
+or <<Defining-Components_Port-Instances_Queue-Full-Behavior,queue full behavior>>.
+
+As an example, here is a passive component `DataProductPorts` with each
+of the data product ports:
+
+[source,fpp]
+----
+@ A component for illustrating data product ports
+active component DataProductPorts {
+
+  @ A port for getting a data product container
+  product get port productGetOut
+
+  @ A port for requesting a data product container
+  product request port productRequestOut
+
+  @ An async port for receiving a requested data product container
+  async product recv port productRecvIn priority 10 assert
+
+  @ A port for sending a filled data product container
+  product send port productSendOut
+
+}
+----
+
+Any component may have at most one of each kind of data product
+port.
+If a component defines data products (more on this below),
+then there must be (1) a product get port or a product request port
+and (2) a product send port.
+If there is a product request port, then there must be a product
+receive port.
+
+During translation, each data product port is converted into
+a typed port instance with a predefined port type, as follows:
+
+* `product` `get` uses the port `Fw.DpGet`
+* `product` `request` uses the port `Fw.DpRequest`
+* `product` `recv` uses the port `Fw.DpResponse`
+* `product` `send` uses the port `Fw.DpSend`
+
+The F Prime framework provides definitions for these ports
+in the directory `Fw/Dp`.
+For checking simple examples, you can use the following
+simplified definitions of these ports:
+
+[source,fpp]
+--------
+module Fw {
+  port DpGet
+  port DpRequest
+  port DpResponse
+  port DpSend
+}
+--------
+
+For further information about data products in F Prime, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[data products documentation]
+in the F Prime repository.
+
 
 === Internal Ports
 
@@ -2063,6 +2162,251 @@ passive component ParamOpcodes {
 
 }
 ----
+
+=== Data Products
+
+When defining an F Prime component, you may specify the *data products*
+produced by that component.
+A data product is a collection of related data that is stored onboard
+and transmitted to the ground.
+F Prime has special support for data products, including components
+for (1) managing buffers that can store data products in memory;
+(2) writing data products to the file system; and (3)
+cataloging stored data products for downlink in priority order.
+For more information about these F Prime features, see the
+https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[F Prime 
+data products documentation].
+
+==== Basic Data Products
+
+In F Prime, a data product is represented as a *container*.
+One container holds one data product, and each data product
+is typically stored in its own file.
+A container consists of a header, which provides information about
+the container (e.g., the size of the data payload), and binary data
+representing a list of serialized *records*.
+A record is a unit of data.
+For a complete specification of the container format, see the 
+https://github.com/nasa/fprime/blob/devel/Fw/Dp/docs/sdd.md[documentation]
+on F Prime framework support for data products.
+
+In an F Prime component, you can specify one or more containers
+and one or more records.
+The simplest container specification consists of the keywords `product` `container`
+and a name.
+The name is the name of the container.
+The simplest record specification consists of the keywords `product` `record`,
+a name, and a data type.
+The name is the name of the record.
+The data type is the type of the data that the record holds.
+
+As an example, here is a component called `BasicDataProducts` that specifies
+two records and two containers.
+
+[source,fpp]
+----
+@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating basic data products
+passive component BasicDataProducts {
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records 
+  # ----------------------------------------------------------------------
+
+  @ Record 1
+  product record Record1: I32
+
+  @ Record 2
+  product record Record2: Data
+  
+  # ----------------------------------------------------------------------
+  # Containers 
+  # ----------------------------------------------------------------------
+
+  @ Container 1
+  product container Container1
+
+  @ Container 2
+  product container Container2
+
+}
+----
+
+The FPP back end uses this specification to generate code for requesting
+buffers to hold containers and for serializing records into containers.
+See the
+https://github.com/nasa/fprime/blob/devel/docs/Design/data-products.md[F
+Prime data products documentation] for the details.
+
+Note the following:
+
+* Records are not specific to containers.
+For example, with the specification shown above, you can serialize instances of 
+`Record1` and `Record2` into either or both of `Container1` and `Container2`.
+
+* Like telemetry channels, F Prime containers are component-centric.
+A component can request containers that it defines, and it can fill those
+containers with records that it defines.
+It cannot use records or containers defined by another component.
+
+* If a component has container specifier, then it must have at least one record 
+specifier, and vice versa.
+
+==== Identifiers
+
+Every record in an F Prime FSW application has a unique
+numeric identifier.
+As for
+<<Defining-Components_Commands_Opcodes,command opcodes>>,
+<<Defining-Components_Events_Identifiers,event identifiers>>,
+<<Defining-Components_Telemetry_Identifiers,
+telemetry channel identifiers>>, and
+<<Defining-Components_Parameters,parameters>>,
+the record identifiers for a component are specified
+relative to the component, usually starting from
+zero and counting up by one.
+If you omit the identifier, then
+FPP assigns a default identifier: zero for the first
+event in the component; otherwise one more than the
+identifier of the previous parameter.
+The same observations apply to containers and container
+identifiers.
+
+If you wish, you may explicitly specify one or more
+container or record identifiers.
+To do this, you write the keyword `id` followed
+by a numeric expression at the end of the container
+or record specifier.
+Here is an example:
+
+[source,fpp]
+----
+@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating data product 
+passive component DataProductIdentifiers {
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records 
+  # ----------------------------------------------------------------------
+
+  @ Record 1
+  @ Its implied identifier is 0x00
+  product record Record1: I32
+
+  @ Record 2
+  @ Its identifier is 0x10
+  product record Record2: Data id 0x10
+  
+  # ----------------------------------------------------------------------
+  # Containers 
+  # ----------------------------------------------------------------------
+
+  @ Container 1
+  @ Its identifier is 0x10
+  product container Container1 id 0x10
+
+  @ Container 2
+  @ Its implied identifier is 0x11
+  product container Container2
+
+}
+----
+
+Within a component, the record identifiers must be unique,
+and the container identifiers must be unique.
+
+==== Array Records
+
+In the basic form of a record described above, each record that
+does not have 
+<<Defining-Types_Array-Type-Definitions_Type-Names,string type>>
+has a fixed, statically-specified size.
+The record may contain an array (e.g., an
+<<Defining-Types_Array-Type-Definitions,array type>>
+or a struct type with a
+<<Defining-Types_Struct-Type-Definitions_Member-Arrays,member array>>),
+but the size of the array must be specified in the model.
+To specify a record that is a dynamically-sized array, you put
+the keyword `array` after the type specifier for the record.
+For example:
+
+[source,fpp]
+----
+@ A struct type defining some data
+struct Data { a: U32, b: F32 }
+
+@ A component for illustrating array records
+passive component ArrayRecords {
+
+  # ----------------------------------------------------------------------
+  # Ports 
+  # ----------------------------------------------------------------------
+
+  @ Product get port
+  product get port productGetOut
+
+  @ Product send port
+  product send port productSendOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  # ----------------------------------------------------------------------
+  # Records 
+  # ----------------------------------------------------------------------
+
+  @ A data record
+  @ It holds one element of type Data
+  product record DataRecord: Data
+
+  @ A data array record
+  @ It holds an array of elements of type Data
+  product record DataArrayRecord: Data array
+
+  # ----------------------------------------------------------------------
+  # Containers 
+  # ----------------------------------------------------------------------
+
+  @ A container
+  product container Container
+
+}
+----
+
+In this example, a record with name `DataArrayRecord` holds
+an array of elements of type `Data`.
+The number of elements is unspecified in the model;
+it is provided when the record is serialized into a container.
 
 === Constants and Types
 
