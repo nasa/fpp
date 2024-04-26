@@ -1304,12 +1304,14 @@ The JSON format is specified in the
 https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime 
 dictionary documentation].
 
-The most common use case is to run `fpp-to-dict` with a single topology _T_
-in the input files.
+The most common use case is as follows:
+
+* The input files to `fpp-to-dict` define a single topology _T_.
 _T_ describes all the component instances and connections in a FSW
-binary application, and the generated dictionary _T_ `TopologyDictionary.json`
+application, and the generated dictionary _T_ `TopologyDictionary.json`
 is the dictionary for the application.
-In this case, if _T_ imports subtopologies, then you use `-i` to
+
+* If _T_ imports subtopologies, then you use `-i` to
 import the source files defining those topologies.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
@@ -1321,7 +1323,15 @@ are generated for them.
 <<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
 `fpp-to-cpp`>>.
 
-* TODO
+* You can use the `-f` and `-p` options to specify a framework version
+and project version for the dictionary.
+That way the dictionary is stamped with information that connects
+it to the FSW version for which it is intended to be used.
+
+* You can use the `-l` option to specify library versions used
+in the project.
+
+See the https://github.com/nasa/fpp/wiki/fpp-to-dict[FPP wiki] for details.
 
 === Generating JSON Models
 

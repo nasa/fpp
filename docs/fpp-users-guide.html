@@ -11559,15 +11559,23 @@ The JSON format is specified in the
 dictionary documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The most common use case is to run <code>fpp-to-dict</code> with a single topology <em>T</em>
-in the input files.
+<p>The most common use case is as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The input files to <code>fpp-to-dict</code> define a single topology <em>T</em>.
 <em>T</em> describes all the component instances and connections in a FSW
-binary application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
-is the dictionary for the application.
-In this case, if <em>T</em> imports subtopologies, then you use <code>-i</code> to
+application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
+is the dictionary for the application.</p>
+</li>
+<li>
+<p>If <em>T</em> imports subtopologies, then you use <code>-i</code> to
 import the source files defining those topologies.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p><strong>Options:</strong>
@@ -11580,9 +11588,19 @@ are generated for them.</p>
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
 </li>
 <li>
-<p>TODO</p>
+<p>You can use the <code>-f</code> and <code>-p</code> options to specify a framework version
+and project version for the dictionary.
+That way the dictionary is stamped with information that connects
+it to the FSW version for which it is intended to be used.</p>
+</li>
+<li>
+<p>You can use the <code>-l</code> option to specify library versions used
+in the project.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-dict">FPP wiki</a> for details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12342,7 +12360,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-26 11:21:43 -0700
+Last updated 2024-04-26 11:50:14 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
