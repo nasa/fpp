@@ -1264,7 +1264,7 @@ repository] for more details.
 
 === Generating Ground Dictionaries
 
-A *ground dictionary* is a specification of all the commands,
+A *ground dictionary* specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
 application.
 Typically a ground data system (GDS), such as the F Prime GDS,
@@ -1272,8 +1272,8 @@ uses the ground dictionary to provide the operational
 interface to the application.
 The interface typically includes real-time commanding;
 real-time display of events and telemetry; logging of
-commands, events, telemetry, and data products; and decoding of
-data products.
+commands, events, and telemetry; uplink and downlink of files, including data 
+products; and decoding of data products.
 This section explains how to generate ground dictionaries from
 FPP models.
 
@@ -1297,22 +1297,22 @@ Except for the tool name, this procedure is identical to the one given for
 either through named files or through standard input.
 
 *Tool behavior:*
-For each topology _T_ defined in the input files, `fpp-to-dict` writes a file
+For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a file
 _T_ `TopologyDictionary.json`.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
 https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime 
 dictionary documentation].
 
-The most common use case is as follows:
+Here is a common use case:
 
-* The input files to `fpp-to-dict` define a single topology _T_.
+* The input files _F_ define a single topology _T_.
 _T_ describes all the component instances and connections in a FSW
 application, and the generated dictionary _T_ `TopologyDictionary.json`
 is the dictionary for the application.
 
-* If _T_ imports subtopologies, then you use `-i` to
-import the source files defining those topologies.
+* If _T_ imports subtopologies, then those subtopologies are defined
+in the dependency files _D_.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.
 

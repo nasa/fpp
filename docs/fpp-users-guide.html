@@ -11502,7 +11502,7 @@ repository</a> for more details.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">13.8. Generating Ground Dictionaries</h3>
 <div class="paragraph">
-<p>A <strong>ground dictionary</strong> is a specification of all the commands,
+<p>A <strong>ground dictionary</strong> specifies all the commands,
 events, telemetry, parameters, and data products in a FSW
 application.
 Typically a ground data system (GDS), such as the F Prime GDS,
@@ -11510,8 +11510,8 @@ uses the ground dictionary to provide the operational
 interface to the application.
 The interface typically includes real-time commanding;
 real-time display of events and telemetry; logging of
-commands, events, telemetry, and data products; and decoding of
-data products.
+commands, events, and telemetry; uplink and downlink of files, including data
+products; and decoding of data products.
 This section explains how to generate ground dictionaries from
 FPP models.</p>
 </div>
@@ -11551,7 +11551,7 @@ either through named files or through standard input.</p>
 </div>
 <div class="paragraph">
 <p><strong>Tool behavior:</strong>
-For each topology <em>T</em> defined in the input files, <code>fpp-to-dict</code> writes a file
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a file
 <em>T</em> <code>TopologyDictionary.json</code>.
 The dictionary is specified in JavaScript Object Notation (JSON) format.
 The JSON format is specified in the
@@ -11559,19 +11559,19 @@ The JSON format is specified in the
 dictionary documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The most common use case is as follows:</p>
+<p>Here is a common use case:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The input files to <code>fpp-to-dict</code> define a single topology <em>T</em>.
+<p>The input files <em>F</em> define a single topology <em>T</em>.
 <em>T</em> describes all the component instances and connections in a FSW
 application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
 is the dictionary for the application.</p>
 </li>
 <li>
-<p>If <em>T</em> imports subtopologies, then you use <code>-i</code> to
-import the source files defining those topologies.
+<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
+in the dependency files <em>D</em>.
 That way the subtopologies are part of the model, but no dictionaries
 are generated for them.</p>
 </li>
@@ -12360,7 +12360,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-26 11:50:14 -0700
+Last updated 2024-04-29 15:46:58 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
