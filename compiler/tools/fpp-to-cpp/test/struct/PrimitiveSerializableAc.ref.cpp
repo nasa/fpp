@@ -4,8 +4,8 @@
 // \brief  cpp file for Primitive struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -127,7 +127,7 @@ Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   ) :
     Serializable(),
     m_mF64(mF64),
@@ -180,7 +180,7 @@ Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   ) :
     Serializable(),
     m_mF64(mF64),
@@ -453,7 +453,7 @@ void Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   )
 {
   this->m_mF64 = mF64;
@@ -542,7 +542,7 @@ void Primitive ::
 }
 
 void Primitive ::
-  setm_string(const StringSize80& m_string)
+  setm_string(const Fw::StringBase& m_string)
 {
   this->m_m_string = m_string;
 }

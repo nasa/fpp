@@ -141,8 +141,8 @@ class String :
 
     //! Member constructor
     String(
-        const StringSize80& s1,
-        const StringSize40& s2
+        const Fw::StringBase& s1,
+        const Fw::StringBase& s2
     );
 
     //! Copy constructor
@@ -211,25 +211,25 @@ class String :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    StringSize80& gets1()
+    Fw::StringBase& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const StringSize80& gets1() const
+    const Fw::StringBase& gets1() const
     {
       return this->m_s1;
     }
 
     //! Get member s2
-    StringSize40& gets2()
+    Fw::StringBase& gets2()
     {
       return this->m_s2;
     }
 
     //! Get member s2 (const)
-    const StringSize40& gets2() const
+    const Fw::StringBase& gets2() const
     {
       return this->m_s2;
     }
@@ -240,15 +240,15 @@ class String :
 
     //! Set all members
     void set(
-        const StringSize80& s1,
-        const StringSize40& s2
+        const Fw::StringBase& s1,
+        const Fw::StringBase& s2
     );
 
     //! Set member s1
-    void sets1(const StringSize80& s1);
+    void sets1(const Fw::StringBase& s1);
 
     //! Set member s2
-    void sets2(const StringSize40& s2);
+    void sets2(const Fw::StringBase& s2);
 
   protected:
 

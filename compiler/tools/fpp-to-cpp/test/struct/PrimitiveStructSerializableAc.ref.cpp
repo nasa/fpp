@@ -4,8 +4,8 @@
 // \brief  cpp file for PrimitiveStruct struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -18,7 +18,7 @@
 PrimitiveStruct ::
   PrimitiveStruct() :
     Serializable(),
-    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
+    m_s1()
 {
 
 }

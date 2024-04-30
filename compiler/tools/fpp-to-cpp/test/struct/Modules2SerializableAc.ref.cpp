@@ -4,8 +4,8 @@
 // \brief  cpp file for Modules2 struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -20,7 +20,7 @@ namespace M {
   Modules2 ::
     Modules2() :
       Serializable(),
-      m_x(0, 0.0f)
+      m_x()
   {
 
   }

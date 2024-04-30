@@ -4,8 +4,8 @@
 // \brief  cpp file for Including struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -18,7 +18,7 @@
 Including ::
   Including() :
     Serializable(),
-    m_x(0)
+    m_x()
 {
 
 }

@@ -4,8 +4,8 @@
 // \brief  cpp file for Modules3 struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -18,7 +18,7 @@
 Modules3 ::
   Modules3() :
     Serializable(),
-    m_x(M::Modules1(0, 0.0f))
+    m_x()
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_arr[i] = M::Modules2(M::Modules1(0, 0.0f));

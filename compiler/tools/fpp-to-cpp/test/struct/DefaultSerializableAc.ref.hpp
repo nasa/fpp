@@ -93,7 +93,7 @@ class Default :
     //! Member constructor
     Default(
         U32 mU32,
-        const StringSize40& mS1,
+        const Fw::StringBase& mS1,
         F64 mF64
     );
 
@@ -169,13 +169,13 @@ class Default :
     }
 
     //! Get member mS1
-    StringSize40& getmS1()
+    Fw::StringBase& getmS1()
     {
       return this->m_mS1;
     }
 
     //! Get member mS1 (const)
-    const StringSize40& getmS1() const
+    const Fw::StringBase& getmS1() const
     {
       return this->m_mS1;
     }
@@ -193,7 +193,7 @@ class Default :
     //! Set all members
     void set(
         U32 mU32,
-        const StringSize40& mS1,
+        const Fw::StringBase& mS1,
         F64 mF64
     );
 
@@ -201,7 +201,7 @@ class Default :
     void setmU32(U32 mU32);
 
     //! Set member mS1
-    void setmS1(const StringSize40& mS1);
+    void setmS1(const Fw::StringBase& mS1);
 
     //! Set member mF64
     void setmF64(F64 mF64);

@@ -4,8 +4,8 @@
 // \brief  cpp file for StringArray struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -185,7 +185,7 @@ StringArray ::
 
 StringArray ::
   StringArray(
-      const StringSize80& s1,
+      const Fw::StringBase& s1,
       const Type_of_s2& s2
   ) :
     Serializable(),
@@ -208,8 +208,8 @@ StringArray ::
 
 StringArray ::
   StringArray(
-      const StringSize80& s1,
-      const StringSize40& s2
+      const Fw::StringBase& s1,
+      const Fw::StringBase& s2
   ) :
     Serializable(),
     m_s1(s1)
@@ -375,7 +375,7 @@ void StringArray ::
 
 void StringArray ::
   set(
-      const StringSize80& s1,
+      const Fw::StringBase& s1,
       const Type_of_s2& s2
   )
 {
@@ -387,7 +387,7 @@ void StringArray ::
 }
 
 void StringArray ::
-  sets1(const StringSize80& s1)
+  sets1(const Fw::StringBase& s1)
 {
   this->m_s1 = s1;
 }

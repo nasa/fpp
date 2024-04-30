@@ -4,8 +4,8 @@
 // \brief  cpp file for Default struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "DefaultSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"
@@ -107,7 +107,7 @@ Default ::
 Default ::
   Default(
       U32 mU32,
-      const StringSize40& mS1,
+      const Fw::StringBase& mS1,
       F64 mF64
   ) :
     Serializable(),
@@ -251,7 +251,7 @@ void Default ::
 void Default ::
   set(
       U32 mU32,
-      const StringSize40& mS1,
+      const Fw::StringBase& mS1,
       F64 mF64
   )
 {
@@ -267,7 +267,7 @@ void Default ::
 }
 
 void Default ::
-  setmS1(const StringSize40& mS1)
+  setmS1(const Fw::StringBase& mS1)
 {
   this->m_mS1 = mS1;
 }

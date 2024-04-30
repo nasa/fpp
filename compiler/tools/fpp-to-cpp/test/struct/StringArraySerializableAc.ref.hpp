@@ -150,7 +150,7 @@ class StringArray :
 
     //! Member constructor
     StringArray(
-        const StringSize80& s1,
+        const Fw::StringBase& s1,
         const Type_of_s2& s2
     );
 
@@ -161,8 +161,8 @@ class StringArray :
 
     //! Member constructor (scalar values for arrays)
     StringArray(
-        const StringSize80& s1,
-        const StringSize40& s2
+        const Fw::StringBase& s1,
+        const Fw::StringBase& s2
     );
 
   public:
@@ -226,13 +226,13 @@ class StringArray :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    StringSize80& gets1()
+    Fw::StringBase& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const StringSize80& gets1() const
+    const Fw::StringBase& gets1() const
     {
       return this->m_s1;
     }
@@ -255,12 +255,12 @@ class StringArray :
 
     //! Set all members
     void set(
-        const StringSize80& s1,
+        const Fw::StringBase& s1,
         const Type_of_s2& s2
     );
 
     //! Set member s1
-    void sets1(const StringSize80& s1);
+    void sets1(const Fw::StringBase& s1);
 
     //! Set member s2
     void sets2(const Type_of_s2& s2);

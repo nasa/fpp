@@ -123,7 +123,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
     //! Copy constructor
@@ -144,7 +144,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
   public:
@@ -280,13 +280,13 @@ class Primitive :
     }
 
     //! Get member m_string
-    StringSize80& getm_string()
+    Fw::StringBase& getm_string()
     {
       return this->m_m_string;
     }
 
     //! Get member m_string (const)
-    const StringSize80& getm_string() const
+    const Fw::StringBase& getm_string() const
     {
       return this->m_m_string;
     }
@@ -308,7 +308,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
     //! Set member mF32
@@ -345,7 +345,7 @@ class Primitive :
     void setm_bool(bool m_bool);
 
     //! Set member m_string
-    void setm_string(const StringSize80& m_string);
+    void setm_string(const Fw::StringBase& m_string);
 
   protected:
 

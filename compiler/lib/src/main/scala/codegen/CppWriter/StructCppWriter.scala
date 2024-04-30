@@ -27,9 +27,9 @@ case class StructCppWriter(
 
   private val strCppWriter = StringCppWriter(s, Some(name))
 
-  private val members = structType.anonStruct.members
+  private val astMembers = data.members
 
-  private val typeMembers = data.members
+  private val typeMembers = structType.anonStruct.members
 
   private val sizes = structType.sizes
 
@@ -37,9 +37,9 @@ case class StructCppWriter(
 
   // List of tuples (<memberName>, <memberTypeName>)
   // Preserves ordering of struct members
-  private val memberList = typeMembers.map((_, node, _) => {
+  private val memberList = astMembers.map((_, node, _) => {
     val n = node.data.name
-    val t = members(n)
+    val t = typeMembers(n)
 
     (n, typeCppWriter.write(t))
   })
@@ -63,7 +63,7 @@ case class StructCppWriter(
     if formats.contains(n) then formats(n)
     else Format("", List((Format.Field.Default, "")))
 
-  private def getArrayTypeName(n: String) = s"Type_of_$n"
+  private def getMemberTypeName(n: String) = s"Type_of_$n"
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -115,7 +115,7 @@ case class StructCppWriter(
     val systemheaders = List(
       "cstdio",
       "cstring",
-    ).map(CppWriter.headerString).map(line)
+    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
@@ -142,7 +142,7 @@ case class StructCppWriter(
     ).flatten
 
   private def getStringClasses: List[CppDoc.Class.Member] = {
-    val strTypes = members.map((_, t) => t match {
+    val strTypes = typeMembers.map((_, t) => t match {
       case t: Type.String => Some(t)
       case _ => None
     }).filter(_.isDefined).map(_.get).toList
@@ -163,7 +163,7 @@ case class StructCppWriter(
                 lines("//! The size of the serial representation"),
                 lines("SERIALIZED_SIZE ="),
                 lines(memberList.map((n, tn) =>
-                  s.getSerializedSizeExpr(members(n), tn) + (
+                  s.getSerializedSizeExpr(typeMembers(n), tn) + (
                     if sizes.contains(n) then s" * ${sizes(n)}"
                     else ""
                     )).mkString(" +\n")).map(indentIn),
@@ -184,7 +184,7 @@ case class StructCppWriter(
             CppDocWriter.writeBannerComment("Types"),
             Line.blank :: lines("//! The array member types"),
             memberList.filter((n, _) => sizes.contains(n)).map((n, tn) =>
-              line(s"typedef $tn ${getArrayTypeName(n)}[${sizes(n)}];")
+              line(s"typedef $tn ${getMemberTypeName(n)}[${sizes(n)}];")
             )
           ).flatten
         )
@@ -217,7 +217,7 @@ case class StructCppWriter(
         Nil,
         "Serializable()" :: nonArrayMemberNames.map(n => {
           defaultValues(n) match {
-            case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
+            case _: Value.Struct => s"m_$n()"
             case _: Value.AbsType => s"m_$n()"
             case v => s"m_$n(${ValueCppWriter.write(s, v)})"
           }
@@ -371,7 +371,7 @@ case class StructCppWriter(
   private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
     // Members on which to call toString()
     val toStringMemberNames =
-      memberList.filter((n, tn) => members(n) match {
+      memberList.filter((n, tn) => typeMembers(n) match {
         case _: Type.String => false
         case t if s.isPrimitive(t, tn) => false
         case _ => true
@@ -482,7 +482,7 @@ case class StructCppWriter(
             CppDoc.Type("void"),
             List(
               lines("static const char* formatString ="),
-              lines(typeMembers.flatMap((_, node, _) => {
+              lines(astMembers.flatMap((_, node, _) => {
                 val n = node.data.name
                 val formatStr = FormatCppWriter.write(
                   getFormatStr(n),
@@ -511,7 +511,7 @@ case class StructCppWriter(
                   ),
                   // Write format arguments
                   lines(memberList.flatMap((n, tn) =>
-                    (sizes.contains(n), members(n)) match {
+                    (sizes.contains(n), typeMembers(n)) match {
                       case (false, _: Type.String) =>
                         List(s"this->m_$n.toChar()")
                       case (false, t) if s.isPrimitive(t, tn) =>
@@ -552,7 +552,7 @@ case class StructCppWriter(
   private def getGetterFunctionMembers: List[CppDoc.Class.Member] = {
     def getGetterName(n: String) = s"get$n"
 
-    memberList.flatMap((n, tn) => (sizes.contains(n), members(n)) match {
+    memberList.flatMap((n, tn) => (sizes.contains(n), typeMembers(n)) match {
       case (false, _: Type.Enum) => List(
         CppDoc.Class.Member.Lines(
           CppDoc.Lines(
@@ -590,7 +590,7 @@ case class StructCppWriter(
                 |}
                 |
                 |//! Get member $n (const)
-                |${writeMemberAsReturnType((n, tn), true)} ${getGetterName(n)}() const
+                |${writeMemberAsReturnType((n, tn), StructCppWriter.Const)} ${getGetterName(n)}() const
                 |{
                 |  return this->m_$n;
                 |}"""
@@ -645,7 +645,7 @@ case class StructCppWriter(
     case (n, _) =>
       if sizes.contains(n) then
         CppDoc.Function.Param(
-          CppDoc.Type(s"const ${getArrayTypeName(n)}&"),
+          CppDoc.Type(s"const ${getMemberTypeName(n)}&"),
           s"$n"
         )
       else writeMemberAsParamScalar(member)
@@ -655,27 +655,36 @@ case class StructCppWriter(
   private def writeMemberAsParamScalar(member: (String, String)) = member match {
     case (n, tn) => CppDoc.Function.Param(
       CppDoc.Type(
-        members(n) match {
+        typeMembers(n) match {
           case _: Type.Enum => s"$tn::T"
           case t if s.isPrimitive(t, tn) => s"$tn"
-          case _ => s"const $tn&"
+          case _ => s"const ${getInterfaceType(n, tn)}&"
         }
       ),
       s"$n"
     )
   }
 
+  private def getInterfaceType(name: String, typeName: String): String =
+    typeMembers(name) match {
+      case _: Type.String => "Fw::StringBase"
+      case _ => typeName
+    }
+
   private def writeMemberAsReturnType(
     member: (String, String),
-    isConst: Boolean = false
+    returnMode: StructCppWriter.ReturnMode = StructCppWriter.NonConst
   ) = member match {
     case (n, tn) =>
-      val constStr = if isConst then "const " else ""
-      (sizes.contains(n), members(n)) match {
+      val maybeConstStr = returnMode match {
+        case StructCppWriter.Const => "const "
+        case StructCppWriter.NonConst => ""
+      }
+      (sizes.contains(n), typeMembers(n)) match {
         case (false, _: Type.Enum) => s"$tn::T"
         case (false, t) if s.isPrimitive(t, tn) => s"$tn"
-        case (false, _) => s"$constStr$tn&"
-        case _ => s"$constStr${getArrayTypeName(n)}&"
+        case (false, _) => s"$maybeConstStr${getInterfaceType(n, tn)}&"
+        case _ => s"$maybeConstStr${getMemberTypeName(n)}&"
       }
   }
 
@@ -698,3 +707,10 @@ case class StructCppWriter(
     )
 
 }
+
+case object StructCppWriter {
+  sealed trait ReturnMode
+  case object Const extends ReturnMode
+  case object NonConst extends ReturnMode
+}
+

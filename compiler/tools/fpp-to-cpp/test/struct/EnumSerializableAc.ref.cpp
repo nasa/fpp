@@ -4,8 +4,8 @@
 // \brief  cpp file for Enum struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "EnumSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"

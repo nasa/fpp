@@ -4,8 +4,8 @@
 // \brief  cpp file for String struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -184,8 +184,8 @@ String ::
 
 String ::
   String(
-      const StringSize80& s1,
-      const StringSize40& s2
+      const Fw::StringBase& s1,
+      const Fw::StringBase& s2
   ) :
     Serializable(),
     m_s1(s1),
@@ -314,8 +314,8 @@ void String ::
 
 void String ::
   set(
-      const StringSize80& s1,
-      const StringSize40& s2
+      const Fw::StringBase& s1,
+      const Fw::StringBase& s2
   )
 {
   this->m_s1 = s1;
@@ -323,13 +323,13 @@ void String ::
 }
 
 void String ::
-  sets1(const StringSize80& s1)
+  sets1(const Fw::StringBase& s1)
 {
   this->m_s1 = s1;
 }
 
 void String ::
-  sets2(const StringSize40& s2)
+  sets2(const Fw::StringBase& s2)
 {
   this->m_s2 = s2;
 }
