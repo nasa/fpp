@@ -91,11 +91,11 @@ case class StringCppWriter(
               |
               |  $name() : StringBase() { *this = ""; }
               |
-              |  explicit $name(const $name& src) : StringBase() { *this = src; }
+              |  $name(const $name& src) : StringBase() { *this = src; }
               |
-              |  explicit $name(const StringBase& src) : StringBase() { *this = src; }
+              |  $name(const StringBase& src) : StringBase() { *this = src; }
               |
-              |   $name(const char* src) : StringBase() { *this = src; }
+              |  $name(const char* src) : StringBase() { *this = src; }
               |
               |  ~$name() {}
               |
