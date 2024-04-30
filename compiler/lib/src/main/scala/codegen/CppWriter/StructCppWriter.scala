@@ -173,6 +173,9 @@ case class StructCppWriter(
       )
     )
 
+  /** Provide type aliases for member types. This helps make
+   *  the user code independent of string sizes. It also helps
+   *  with difficult C++ array syntax. */
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
       linesClassMember(
@@ -194,7 +197,9 @@ case class StructCppWriter(
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
-    // Only write this constructor if the struct contains an array
+    // Write this constructor only if the struct has an array member
+    // In this case, the constructor provides scalar initialization
+    // of the array members.
     val scalarConstructor =
       if sizes.isEmpty then None
       else Some(
