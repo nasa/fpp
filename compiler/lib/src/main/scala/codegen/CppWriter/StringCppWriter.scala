@@ -47,12 +47,7 @@ case class StringCppWriter(
     size => {
       val name = getClassName(size)
       List(
-        mkLines(
-          CppDoc.Lines(
-            CppDocWriter.writeBannerComment(s"$name class"),
-            CppDoc.Lines.Both
-          )
-        ),
+        mkLines(CppDoc.Lines(CppDocWriter.writeBannerComment(s"$name class"))),
         mkClass(writeClass(size))
       )
     }
