@@ -653,19 +653,13 @@ case class StructCppWriter(
       CppDoc.Type(
         typeMembers(n) match {
           case _: Type.Enum => s"$tn::T"
-          case t if s.isPrimitive(t, tn) => s"$tn"
-          case _ => s"const ${getInterfaceType(n, tn)}&"
+          case _: Type.String => "const Fw::StringBase&"
+          case t => if s.isPrimitive(t, tn) then tn else s"const $tn&"
         }
       ),
-      s"$n"
+      n
     )
   }
-
-  private def getInterfaceType(name: String, typeName: String): String =
-    typeMembers(name) match {
-      case _: Type.String => "Fw::StringBase"
-      case _ => typeName
-    }
 
   private def writeMemberAsReturnType(
     member: (String, String),
