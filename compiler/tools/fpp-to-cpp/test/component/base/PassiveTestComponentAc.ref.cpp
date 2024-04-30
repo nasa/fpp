@@ -2981,11 +2981,8 @@ void PassiveTestComponentBase ::
       "%s: Event Activity High occurred";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -2993,9 +2990,6 @@ void PassiveTestComponentBase ::
       "EventActivityHigh "
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3112,11 +3106,8 @@ void PassiveTestComponentBase ::
       "%s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3127,9 +3118,6 @@ void PassiveTestComponentBase ::
       b
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3201,11 +3189,8 @@ void PassiveTestComponentBase ::
       "%s: Event Command occurred with arguments: %s, %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3215,9 +3200,6 @@ void PassiveTestComponentBase ::
       str2.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3290,14 +3272,11 @@ void PassiveTestComponentBase ::
       "%s: Event Diagnostic occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String eStr;
     e.toString(eStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3306,9 +3285,6 @@ void PassiveTestComponentBase ::
       eStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3402,14 +3378,11 @@ void PassiveTestComponentBase ::
       "%s: Event Fatal occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String aStr;
     a.toString(aStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3418,9 +3391,6 @@ void PassiveTestComponentBase ::
       aStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3493,14 +3463,11 @@ void PassiveTestComponentBase ::
       "%s: Event Warning High occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String sStr;
     s.toString(sStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3509,9 +3476,6 @@ void PassiveTestComponentBase ::
       sStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -3576,11 +3540,8 @@ void PassiveTestComponentBase ::
       "%s: Event Warning Low occurred";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -3588,9 +3549,6 @@ void PassiveTestComponentBase ::
       "EventWarningLowThrottled "
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,

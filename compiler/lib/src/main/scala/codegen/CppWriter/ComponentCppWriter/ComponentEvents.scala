@@ -194,8 +194,6 @@ case class ComponentEvents (
                   |const char* _formatString =
                   |  "%s: ${writeEventFormat(event)}";
                   |#endif
-                  |
-                  |char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
                   |"""
             ),
             event.aNode._2.data.params.flatMap(param =>
@@ -211,9 +209,8 @@ case class ComponentEvents (
             ),
             List.concat(
               lines(
-                s"""|(void) snprintf(
-                    |  _textBuffer,
-                    |  FW_LOG_TEXT_BUFFER_SIZE,
+                s"""|Fw::TextLogString _logString;
+                    |_logString.format(
                     |  _formatString,
                     |#if FW_OBJECT_NAMES == 1
                     |  this->m_objName.toChar(),
@@ -234,10 +231,7 @@ case class ComponentEvents (
               lines(");")
             ),
             lines(
-              s"""|// Null terminate
-                  |_textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-                  |Fw::TextLogString _logString = _textBuffer;
-                  |this->${portVariableName(textEventPort.get)}[0].invoke(
+              s"""|this->${portVariableName(textEventPort.get)}[0].invoke(
                   |  _id,
                   |  _logTime,
                   |  Fw::LogSeverity::${writeSeverity(event)},
