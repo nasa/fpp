@@ -22,8 +22,11 @@ class Modules3 :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef M::Modules2 Type_of_arr[3];
+    //! The type of x
+    using Type_of_x = M::Modules2;
+
+    //! The type of arr
+    using Type_of_arr = M::Modules2[3];
 
   public:
 

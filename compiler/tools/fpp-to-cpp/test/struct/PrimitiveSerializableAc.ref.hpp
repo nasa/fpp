@@ -75,8 +75,41 @@ class Primitive :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef F32 Type_of_mF32[3];
+    //! The type of mF32
+    using Type_of_mF32 = F32[3];
+
+    //! The type of mF64
+    using Type_of_mF64 = F64;
+
+    //! The type of mI16
+    using Type_of_mI16 = I16;
+
+    //! The type of mI32
+    using Type_of_mI32 = I32;
+
+    //! The type of mI64
+    using Type_of_mI64 = I64;
+
+    //! The type of mI8
+    using Type_of_mI8 = I8;
+
+    //! The type of mU16
+    using Type_of_mU16 = U16;
+
+    //! The type of mU32
+    using Type_of_mU32 = U32;
+
+    //! The type of mU64
+    using Type_of_mU64 = U64;
+
+    //! The type of mU8
+    using Type_of_mU8 = U8;
+
+    //! The type of m_bool
+    using Type_of_m_bool = bool;
+
+    //! The type of m_string
+    using Type_of_m_string = StringSize80;
 
   public:
 

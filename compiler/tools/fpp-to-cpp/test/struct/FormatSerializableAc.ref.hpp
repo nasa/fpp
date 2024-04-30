@@ -18,6 +18,63 @@ class Format :
   public:
 
     // ----------------------------------------------------------------------
+    // Types
+    // ----------------------------------------------------------------------
+
+    //! The type of m1
+    using Type_of_m1 = I32;
+
+    //! The type of m2
+    using Type_of_m2 = U32;
+
+    //! The type of m3
+    using Type_of_m3 = I32;
+
+    //! The type of m4
+    using Type_of_m4 = U32;
+
+    //! The type of m5
+    using Type_of_m5 = I32;
+
+    //! The type of m6
+    using Type_of_m6 = U32;
+
+    //! The type of m7
+    using Type_of_m7 = I32;
+
+    //! The type of m8
+    using Type_of_m8 = U32;
+
+    //! The type of m9
+    using Type_of_m9 = I32;
+
+    //! The type of m10
+    using Type_of_m10 = U32;
+
+    //! The type of m11
+    using Type_of_m11 = F32;
+
+    //! The type of m12
+    using Type_of_m12 = F32;
+
+    //! The type of m13
+    using Type_of_m13 = F32;
+
+    //! The type of m14
+    using Type_of_m14 = F32;
+
+    //! The type of m15
+    using Type_of_m15 = F32;
+
+    //! The type of m16
+    using Type_of_m16 = F32;
+
+    //! The type of m17
+    using Type_of_m17 = F32;
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 

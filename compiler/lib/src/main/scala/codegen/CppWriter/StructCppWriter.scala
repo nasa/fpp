@@ -174,21 +174,23 @@ case class StructCppWriter(
     )
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
-    if sizes.isEmpty then Nil
-    else
-      // Write types for array members to simplify C++ array reference syntax
-      List(
-        linesClassMember(
-          List(
-            CppDocHppWriter.writeAccessTag("public"),
-            CppDocWriter.writeBannerComment("Types"),
-            Line.blank :: lines("//! The array member types"),
-            memberList.filter((n, _) => sizes.contains(n)).map((n, tn) =>
-              line(s"typedef $tn ${getMemberTypeName(n)}[${sizes(n)}];")
+    List(
+      linesClassMember(
+        List.concat(
+          CppDocHppWriter.writeAccessTag("public"),
+          CppDocWriter.writeBannerComment("Types"),
+          memberList.flatMap((n, tn) => {
+            val mtn = getMemberTypeName(n)
+            val maybeArraySuffix = sizes.get(n).map(s => s"[$s]").getOrElse("")
+            List(
+              Line.blank,
+              line(s"//! The type of $n"),
+              line(s"using $mtn = $tn$maybeArraySuffix;")
             )
-          ).flatten
+          })
         )
       )
+    )
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues

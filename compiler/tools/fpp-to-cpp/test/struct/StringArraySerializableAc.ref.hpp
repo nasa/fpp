@@ -123,8 +123,11 @@ class StringArray :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef StringSize40 Type_of_s2[16];
+    //! The type of s1
+    using Type_of_s1 = StringSize80;
+
+    //! The type of s2
+    using Type_of_s2 = StringSize40[16];
 
   public:
 
