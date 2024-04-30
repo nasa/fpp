@@ -34,11 +34,11 @@ class String1 :
 
         StringSize80() : StringBase() { *this = ""; }
 
-        explicit StringSize80(const StringSize80& src) : StringBase() { *this = src; }
+        StringSize80(const StringSize80& src) : StringBase() { *this = src; }
 
-        explicit StringSize80(const StringBase& src) : StringBase() { *this = src; }
+        StringSize80(const StringBase& src) : StringBase() { *this = src; }
 
-         StringSize80(const char* src) : StringBase() { *this = src; }
+        StringSize80(const char* src) : StringBase() { *this = src; }
 
         ~StringSize80() {}
 

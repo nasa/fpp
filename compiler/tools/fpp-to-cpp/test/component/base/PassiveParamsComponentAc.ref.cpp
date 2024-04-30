@@ -1041,13 +1041,13 @@ void PassiveParamsComponentBase ::
     if (stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
       // Set default value
-      this->m_ParamString = "default";
+      this->m_ParamString = Fw::String("default");
     }
   }
   else {
     // Set default value
     this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
-    this->m_ParamString = "default";
+    this->m_ParamString = Fw::String("default");
   }
 
   this->m_paramLock.unLock();

@@ -12,85 +12,6 @@
 #include "base/SSerializableAc.hpp"
 
 // ----------------------------------------------------------------------
-// StringSize80 class
-// ----------------------------------------------------------------------
-
-S::StringSize80 ::
-  StringSize80() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-S::StringSize80 ::
-  StringSize80(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-S::StringSize80 ::
-  StringSize80(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-S::StringSize80 ::
-  StringSize80(const StringSize80& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-S::StringSize80 ::
-  ~StringSize80()
-{
-
-}
-
-S::StringSize80& S::StringSize80 ::
-  operator=(const StringSize80& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-S::StringSize80& S::StringSize80 ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-S::StringSize80& S::StringSize80 ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* S::StringSize80 ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-Fw::StringBase::SizeType S::StringSize80 ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
-
-// ----------------------------------------------------------------------
 // Constructors
 // ----------------------------------------------------------------------
 
@@ -98,7 +19,7 @@ S ::
   S() :
     Serializable(),
     m_x(0),
-    m_y("")
+    m_y(Fw::String(""))
 {
 
 }
