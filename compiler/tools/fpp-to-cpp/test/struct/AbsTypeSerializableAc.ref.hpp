@@ -115,13 +115,13 @@ class AbsType :
     // ----------------------------------------------------------------------
 
     //! Get member t
-    T& gett()
+    Type_of_t& gett()
     {
       return this->m_t;
     }
 
     //! Get member t (const)
-    const T& gett() const
+    const Type_of_t& gett() const
     {
       return this->m_t;
     }

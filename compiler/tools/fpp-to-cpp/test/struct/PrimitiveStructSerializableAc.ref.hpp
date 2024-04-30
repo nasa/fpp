@@ -115,13 +115,13 @@ class PrimitiveStruct :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Primitive& gets1()
+    Type_of_s1& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Primitive& gets1() const
+    const Type_of_s1& gets1() const
     {
       return this->m_s1;
     }

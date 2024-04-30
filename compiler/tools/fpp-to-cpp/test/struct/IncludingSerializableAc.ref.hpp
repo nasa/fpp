@@ -115,13 +115,13 @@ class Including :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    Included& getx()
+    Type_of_x& getx()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const Included& getx() const
+    const Type_of_x& getx() const
     {
       return this->m_x;
     }

@@ -117,13 +117,13 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! Get member x
-      M::Modules1& getx()
+      Type_of_x& getx()
       {
         return this->m_x;
       }
 
       //! Get member x (const)
-      const M::Modules1& getx() const
+      const Type_of_x& getx() const
       {
         return this->m_x;
       }

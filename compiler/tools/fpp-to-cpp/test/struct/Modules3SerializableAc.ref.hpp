@@ -128,13 +128,13 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    M::Modules2& getx()
+    Type_of_x& getx()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const M::Modules2& getx() const
+    const Type_of_x& getx() const
     {
       return this->m_x;
     }

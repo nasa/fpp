@@ -229,13 +229,13 @@ class StringArray :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Fw::StringBase& gets1()
+    Type_of_s1& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Fw::StringBase& gets1() const
+    const Type_of_s1& gets1() const
     {
       return this->m_s1;
     }

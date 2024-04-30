@@ -184,13 +184,13 @@ class Default :
     }
 
     //! Get member mS1
-    Fw::StringBase& getmS1()
+    Type_of_mS1& getmS1()
     {
       return this->m_mS1;
     }
 
     //! Get member mS1 (const)
-    const Fw::StringBase& getmS1() const
+    const Type_of_mS1& getmS1() const
     {
       return this->m_mS1;
     }

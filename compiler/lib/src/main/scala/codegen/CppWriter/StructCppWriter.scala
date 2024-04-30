@@ -685,7 +685,6 @@ case class StructCppWriter(
       (sizes.contains(n), typeMembers(n)) match {
         case (false, _: Type.Enum) => s"$tn::T"
         case (false, t) if s.isPrimitive(t, tn) => s"$tn"
-        case (false, _) => s"$maybeConstStr${getInterfaceType(n, tn)}&"
         case _ => s"$maybeConstStr${getMemberTypeName(n)}&"
       }
   }

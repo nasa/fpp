@@ -313,13 +313,13 @@ class Primitive :
     }
 
     //! Get member m_string
-    Fw::StringBase& getm_string()
+    Type_of_m_string& getm_string()
     {
       return this->m_m_string;
     }
 
     //! Get member m_string (const)
-    const Fw::StringBase& getm_string() const
+    const Type_of_m_string& getm_string() const
     {
       return this->m_m_string;
     }
