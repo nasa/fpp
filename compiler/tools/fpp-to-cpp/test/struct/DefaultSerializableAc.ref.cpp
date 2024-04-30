@@ -98,7 +98,7 @@ Default ::
   Default() :
     Serializable(),
     m_mU32(54),
-    m_mS1("hello"),
+    m_mS1(Fw::String("hello")),
     m_mF64(0.0)
 {
 

@@ -107,7 +107,7 @@ Primitive ::
     m_mU64(0),
     m_mU8(0),
     m_m_bool(false),
-    m_m_string("")
+    m_m_string(Fw::String(""))
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = 0.0f;

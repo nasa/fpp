@@ -20,10 +20,10 @@ Modules4 ::
     Serializable()
 {
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr1[i] = M::Modules2();
+    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    this->m_arr2[i] = M::Modules2();
+    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 

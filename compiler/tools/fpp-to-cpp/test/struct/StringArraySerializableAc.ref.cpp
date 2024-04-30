@@ -176,10 +176,10 @@ Fw::StringBase::SizeType StringArray::StringSize40 ::
 StringArray ::
   StringArray() :
     Serializable(),
-    m_s1("")
+    m_s1(Fw::String(""))
 {
   for (FwSizeType i = 0; i < 16; i++) {
-    this->m_s2[i] = "";
+    this->m_s2[i] = Fw::String("");
   }
 }
 

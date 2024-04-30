@@ -176,8 +176,8 @@ Fw::StringBase::SizeType String::StringSize40 ::
 String ::
   String() :
     Serializable(),
-    m_s1("hello"),
-    m_s2("")
+    m_s1(Fw::String("hello")),
+    m_s2(Fw::String(""))
 {
 
 }

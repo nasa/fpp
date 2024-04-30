@@ -49,10 +49,12 @@ object ValueCppWriter {
     override def primitiveInt(s: CppWriterState, v: Value.PrimitiveInt) = v.value.toString
 
     override def string(s: CppWriterState, v: Value.String) =
+      "Fw::String(" ++
       "\"" ++
       v.value.toString.replaceAll("\\\\", "\\\\\\\\").
         replaceAll("\"", "\\\\\"").replaceAll("\n", "\\\\n") ++
-      "\""
+      "\"" ++
+      ")"
 
     override def struct(s: CppWriterState, v: Value.Struct) = {
       val aggregate = writeStructMembers(s, v)

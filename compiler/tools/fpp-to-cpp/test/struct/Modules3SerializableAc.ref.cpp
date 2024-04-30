@@ -18,10 +18,10 @@
 Modules3 ::
   Modules3() :
     Serializable(),
-    m_x()
+    m_x(M::Modules1(0, 0.0f))
 {
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr[i] = M::Modules2();
+    this->m_arr[i] = M::Modules2(M::Modules1(0, 0.0f));
   }
 }
 
