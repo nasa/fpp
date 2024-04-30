@@ -206,10 +206,7 @@ void StringArray ::
   this->elements[3].toString(str3);
   this->elements[4].toString(str4);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
@@ -217,9 +214,6 @@ void StringArray ::
     str3.toChar(),
     str4.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

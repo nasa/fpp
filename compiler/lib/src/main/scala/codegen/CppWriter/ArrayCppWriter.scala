@@ -484,32 +484,22 @@ case class ArrayCppWriter (
               )
             ),
             CppDoc.Type("void"),
-            List(
+            List.concat(
               wrapInScope(
                 "static const char *formatString = \"[ \"",
                 lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
                 ""
               ),
               initStrings,
-              lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
               wrapInScope(
-                "(void) snprintf(",
-                List(
-                  List(
-                    line("outputString,"),
-                    line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
-                    line("formatString,"),
-                  ),
-                  formatArgs,
-                ).flatten,
+                "sb.format(",
+                {
+                  line("formatString,") ::
+                  formatArgs
+                },
                 ");"
-              ),
-              List(
-                Line.blank,
-                line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-                line("sb = outputString;"),
-              ),
-            ).flatten,
+              )
+            ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,
           )

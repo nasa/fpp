@@ -184,18 +184,12 @@ void String1 ::
     "%s "
     "%s ]";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->elements[0].toChar(),
     this->elements[1].toChar(),
     this->elements[2].toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif
