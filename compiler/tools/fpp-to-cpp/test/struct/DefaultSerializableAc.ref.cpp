@@ -228,18 +228,12 @@ void Default ::
     "mF64 = %f"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_mU32,
     this->m_mS1.toChar(),
     this->m_mF64
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

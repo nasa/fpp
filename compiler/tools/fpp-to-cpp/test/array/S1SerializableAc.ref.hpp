@@ -72,6 +72,48 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
+      // Types
+      // ----------------------------------------------------------------------
+
+      //! The type of mF32
+      using Type_of_mF32 = F32;
+
+      //! The type of mF64
+      using Type_of_mF64 = F64;
+
+      //! The type of mI16
+      using Type_of_mI16 = I16;
+
+      //! The type of mI32
+      using Type_of_mI32 = I32;
+
+      //! The type of mI64
+      using Type_of_mI64 = I64;
+
+      //! The type of mI8
+      using Type_of_mI8 = I8;
+
+      //! The type of mU16
+      using Type_of_mU16 = U16;
+
+      //! The type of mU32
+      using Type_of_mU32 = U32;
+
+      //! The type of mU64
+      using Type_of_mU64 = U64;
+
+      //! The type of mU8
+      using Type_of_mU8 = U8;
+
+      //! The type of mBool
+      using Type_of_mBool = bool;
+
+      //! The type of mString
+      using Type_of_mString = StringSize80;
+
+    public:
+
+      // ----------------------------------------------------------------------
       // Constants
       // ----------------------------------------------------------------------
 
@@ -114,7 +156,7 @@ namespace M {
           U64 mU64,
           U8 mU8,
           bool mBool,
-          const StringSize80& mString
+          const Fw::StringBase& mString
       );
 
       //! Copy constructor
@@ -249,13 +291,13 @@ namespace M {
       }
 
       //! Get member mString
-      StringSize80& getmString()
+      Type_of_mString& getmString()
       {
         return this->m_mString;
       }
 
       //! Get member mString (const)
-      const StringSize80& getmString() const
+      const Type_of_mString& getmString() const
       {
         return this->m_mString;
       }
@@ -277,7 +319,7 @@ namespace M {
           U64 mU64,
           U8 mU8,
           bool mBool,
-          const StringSize80& mString
+          const Fw::StringBase& mString
       );
 
       //! Set member mF32
@@ -314,7 +356,7 @@ namespace M {
       void setmBool(bool mBool);
 
       //! Set member mString
-      void setmString(const StringSize80& mString);
+      void setmString(const Fw::StringBase& mString);
 
     protected:
 

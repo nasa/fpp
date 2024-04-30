@@ -123,16 +123,10 @@ void PrimitiveStruct ::
   // Call toString for arrays and serializable types
   this->m_s1.toString(s1Str);
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     s1Str.toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

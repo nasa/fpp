@@ -4,8 +4,8 @@
 // \brief  cpp file for S3 struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -170,19 +170,13 @@ namespace S {
       "mF64 = %f"
       " )";
 
-    char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-    (void) snprintf(
-      outputString,
-      FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+    sb.format(
       formatString,
       this->m_mU32Array[0],
       this->m_mU32Array[1],
       this->m_mU32Array[2],
       this->m_mF64
     );
-
-    outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-    sb = outputString;
   }
 
 #endif

@@ -21,7 +21,7 @@ Modules3 ::
     m_x()
 {
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr[i] = M::Modules2();
   }
 }
 
@@ -178,19 +178,13 @@ void Modules3 ::
     this->m_arr[i].toString(arrStr[i]);
   }
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     xStr.toChar(),
     arrStr[0].toChar(),
     arrStr[1].toChar(),
     arrStr[2].toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

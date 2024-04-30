@@ -482,7 +482,7 @@ case class StructCppWriter(
               )
             ),
             CppDoc.Type("void"),
-            List(
+            List.concat(
               lines("static const char* formatString ="),
               lines(astMembers.flatMap((_, node, _) => {
                 val n = node.data.name
@@ -502,16 +502,10 @@ case class StructCppWriter(
               }).mkString("\"( \"\n\"", ", \"\n\"", "\"\n\" )\";")).map(indentIn),
               initStrings,
               Line.blank ::
-                lines("char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];"),
               wrapInScope(
-                "(void) snprintf(",
-                List(
-                  List(
-                    line("outputString,"),
-                    line("FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,"),
-                    line("formatString,"),
-                  ),
-                  // Write format arguments
+                "sb.format(",
+                {
+                  line("formatString,") ::
                   lines(memberList.flatMap((n, tn) =>
                     (sizes.contains(n), typeMembers(n)) match {
                       case (false, _: Type.String) =>
@@ -526,16 +520,11 @@ case class StructCppWriter(
                         List.range(0, sizes(n)).map(i => s"this->m_$n[$i]")
                       case _ =>
                         List.range(0, sizes(n)).map(i => s"${n}Str[$i].toChar()")
-                    }).mkString(",\n")),
-                ).flatten,
+                    }).mkString(",\n"))
+                },
                 ");"
-              ),
-              List(
-                Line.blank,
-                line("outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-                line("sb = outputString;"),
-              ),
-            ).flatten,
+              )
+            ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const
           )

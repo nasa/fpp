@@ -4,8 +4,8 @@
 // \brief  cpp file for S struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -106,7 +106,7 @@ S ::
 S ::
   S(
       U32 x,
-      const StringSize80& y
+      const Fw::StringBase& y
   ) :
     Serializable(),
     m_x(x),
@@ -214,17 +214,11 @@ void S ::
     "y = %s"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_x,
     this->m_y.toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif
@@ -236,7 +230,7 @@ void S ::
 void S ::
   set(
       U32 x,
-      const StringSize80& y
+      const Fw::StringBase& y
   )
 {
   this->m_x = x;
@@ -250,7 +244,7 @@ void S ::
 }
 
 void S ::
-  sety(const StringSize80& y)
+  sety(const Fw::StringBase& y)
 {
   this->m_y = y;
 }

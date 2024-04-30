@@ -24,8 +24,11 @@ namespace S {
       // Types
       // ----------------------------------------------------------------------
 
-      //! The array member types
-      typedef U32 Type_of_mU32Array[3];
+      //! The type of mU32Array
+      using Type_of_mU32Array = U32[3];
+
+      //! The type of mF64
+      using Type_of_mF64 = F64;
 
     public:
 

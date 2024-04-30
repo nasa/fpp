@@ -4,8 +4,8 @@
 // \brief  cpp file for S1 struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
+#include <cstdio>
+#include <cstring>
 
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
@@ -128,7 +128,7 @@ namespace M {
         U64 mU64,
         U8 mU8,
         bool mBool,
-        const StringSize80& mString
+        const Fw::StringBase& mString
     ) :
       Serializable(),
       m_mF32(mF32),
@@ -356,10 +356,7 @@ namespace M {
       "mString = %s"
       " )";
 
-    char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-    (void) snprintf(
-      outputString,
-      FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+    sb.format(
       formatString,
       this->m_mF32,
       this->m_mF64,
@@ -374,9 +371,6 @@ namespace M {
       this->m_mBool,
       this->m_mString.toChar()
     );
-
-    outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-    sb = outputString;
   }
 
 #endif
@@ -398,7 +392,7 @@ namespace M {
         U64 mU64,
         U8 mU8,
         bool mBool,
-        const StringSize80& mString
+        const Fw::StringBase& mString
     )
   {
     this->m_mF32 = mF32;
@@ -482,7 +476,7 @@ namespace M {
   }
 
   void S1 ::
-    setmString(const StringSize80& mString)
+    setmString(const Fw::StringBase& mString)
   {
     this->m_mString = mString;
   }

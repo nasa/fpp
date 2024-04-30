@@ -178,19 +178,13 @@ void Enum ::
     this->m_eArr[i].toString(eArrStr[i]);
   }
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     eStr.toChar(),
     eArrStr[0].toChar(),
     eArrStr[1].toChar(),
     eArrStr[2].toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

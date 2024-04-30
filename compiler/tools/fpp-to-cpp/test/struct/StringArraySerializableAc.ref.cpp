@@ -339,10 +339,7 @@ void StringArray ::
     "%s ]"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_s1.toChar(),
     this->m_s2[0].toChar(),
@@ -362,9 +359,6 @@ void StringArray ::
     this->m_s2[14].toChar(),
     this->m_s2[15].toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

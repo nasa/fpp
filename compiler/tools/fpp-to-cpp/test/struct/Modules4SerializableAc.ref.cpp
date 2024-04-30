@@ -20,10 +20,10 @@ Modules4 ::
     Serializable()
 {
   for (FwSizeType i = 0; i < 3; i++) {
-    this->m_arr1[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr1[i] = M::Modules2();
   }
   for (FwSizeType i = 0; i < 6; i++) {
-    this->m_arr2[i] = M::Modules2(M::Modules1(0, 0.0f));
+    this->m_arr2[i] = M::Modules2();
   }
 }
 
@@ -201,10 +201,7 @@ void Modules4 ::
     this->m_arr2[i].toString(arr2Str[i]);
   }
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     arr1Str[0].toChar(),
     arr1Str[1].toChar(),
@@ -216,9 +213,6 @@ void Modules4 ::
     arr2Str[4].toChar(),
     arr2Str[5].toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

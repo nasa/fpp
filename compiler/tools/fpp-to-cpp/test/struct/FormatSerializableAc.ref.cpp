@@ -345,10 +345,7 @@ void Format ::
     "m17 = %.3g%%"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_m1,
     this->m_m2,
@@ -368,9 +365,6 @@ void Format ::
     this->m_m16,
     this->m_m17
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

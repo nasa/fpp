@@ -71,6 +71,18 @@ class S :
   public:
 
     // ----------------------------------------------------------------------
+    // Types
+    // ----------------------------------------------------------------------
+
+    //! The type of x
+    using Type_of_x = U32;
+
+    //! The type of y
+    using Type_of_y = StringSize80;
+
+  public:
+
+    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -93,7 +105,7 @@ class S :
     //! Member constructor
     S(
         U32 x,
-        const StringSize80& y
+        const Fw::StringBase& y
     );
 
     //! Copy constructor
@@ -168,13 +180,13 @@ class S :
     }
 
     //! Get member y
-    StringSize80& gety()
+    Type_of_y& gety()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const StringSize80& gety() const
+    const Type_of_y& gety() const
     {
       return this->m_y;
     }
@@ -186,14 +198,14 @@ class S :
     //! Set all members
     void set(
         U32 x,
-        const StringSize80& y
+        const Fw::StringBase& y
     );
 
     //! Set member x
     void setx(U32 x);
 
     //! Set member y
-    void sety(const StringSize80& y);
+    void sety(const Fw::StringBase& y);
 
   protected:
 
