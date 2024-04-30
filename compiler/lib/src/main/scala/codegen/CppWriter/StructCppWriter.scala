@@ -219,7 +219,7 @@ case class StructCppWriter(
         Nil,
         "Serializable()" :: nonArrayMemberNames.map(n => {
           defaultValues(n) match {
-            case _: Value.Struct => s"m_$n()"
+            case v: Value.Struct => s"m_$n(${ValueCppWriter.writeStructMembers(s, v)})"
             case _: Value.AbsType => s"m_$n()"
             case v => s"m_$n(${ValueCppWriter.write(s, v)})"
           }
