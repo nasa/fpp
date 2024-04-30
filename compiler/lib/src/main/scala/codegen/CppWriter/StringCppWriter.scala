@@ -5,7 +5,7 @@ import fpp.compiler.ast.*
 import fpp.compiler.codegen
 import fpp.compiler.util.*
 
-/** Write C++ string classes of given sizees */
+/** Write C++ string classes of given sizes */
 case class StringCppWriter(
   /** CppWriterState */
   s: CppWriterState,
@@ -86,151 +86,47 @@ case class StringCppWriter(
     val name = getClassName(size)
     List(
       linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("public"),
-          addBlankPrefix(
-            wrapInEnum(
-              List(
-                line("//! The size of the string length plus the size of the string buffer"),
-                line(s"SERIALIZED_SIZE = sizeof(FwBuffSizeType) + $size")
-              )
-            )
-          ),
-        ).flatten
-      ),
-      constructorClassMember(
-        Some("Default constructor"),
-        Nil,
-        List("StringBase()"),
-        lines("this->m_buf[0] = 0;")
-      ),
-      constructorClassMember(
-        Some("Char array constructor"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const char*"),
-            "src",
-            None
-          )
-        ),
-        List("StringBase()"),
         lines(
-          "Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));"
-        )
-      ),
-      constructorClassMember(
-        Some("String base constructor"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const Fw::StringBase&"),
-            "src",
-            None
-          )
-        ),
-        List("StringBase()"),
-        lines(
-          "Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));"
-        )
-      ),
-      constructorClassMember(
-        Some("Copy constructor"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "src",
-            None
-          )
-        ),
-        List("StringBase()"),
-        lines(
-          "Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));"
-        )
-      ),
-      destructorClassMember(
-        Some("Destructor"),
-        Nil
-      ),
-      functionClassMember(
-        Some("Copy assignment operator"),
-        "operator=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const $name&"),
-            "other",
-            None
-          )
-        ),
-        getCppType(s"$name&"),
-        List(
-          wrapInIf("this == &other", lines("return *this;")),
-          List(
-            Line.blank,
-            line("Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));"),
-            line("return *this;"),
-          ),
-        ).flatten
-      ),
-      functionClassMember(
-        Some("String base assignment operator"),
-        "operator=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const Fw::StringBase&"),
-            "other",
-            None
-          )
-        ),
-        getCppType(s"$name&"),
-        List(
-          wrapInIf("this == &other", lines("return *this;")),
-          List(
-            Line.blank,
-            line("Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));"),
-            line("return *this;"),
-          ),
-        ).flatten
-      ),
-      functionClassMember(
-        Some("char* assignment operator"),
-        "operator=",
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const char*"),
-            "other",
-            None
-          )
-        ),
-        getCppType(s"$name&"),
-        List(
-          line("Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));"),
-          line("return *this;"),
-        )
-      ),
-      functionClassMember(
-        Some("Retrieves char buffer of string"),
-        "toChar",
-        Nil,
-        CppDoc.Type("const char*"),
-        lines("return this->m_buf;"),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-      functionClassMember(
-        None,
-        "getCapacity",
-        Nil,
-        CppDoc.Type("Fw::StringBase::SizeType"),
-        lines("return sizeof(this->m_buf);"),
-        CppDoc.Function.NonSV,
-        CppDoc.Function.Const
-      ),
-      linesClassMember(
-        List(
-          CppDocHppWriter.writeAccessTag("private"),
-          addBlankPrefix(lines(
-            s"char m_buf[$size]; //!< Buffer for string storage"
-          )),
-        ).flatten
+          s"""|public:
+              |
+              |  enum {
+              |    STRING_SIZE = $size,
+              |    SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
+              |  };
+              |
+              |  $name() : StringBase() { *this = ""; }
+              |
+              |  explicit $name(const $name& src) : StringBase() { *this = src; }
+              |
+              |  explicit $name(const StringBase& src) : StringBase() { *this = src; }
+              |
+              |   $name(const char* src) : StringBase() { *this = src; }
+              |
+              |  ~$name() {}
+              |
+              |  $name& operator=(const $name& src) {
+              |    (void)StringBase::operator=(src);
+              |    return *this;
+              |  }
+              |
+              |  $name& operator=(const StringBase& src) {
+              |    (void)StringBase::operator=(src);
+              |    return *this;
+              |  }
+              |
+              |  $name& operator=(const char* src) {
+              |    (void)StringBase::operator=(src);
+              |    return *this;
+              |  }
+              |
+              |  const char* toChar() const { return this->m_buf; }
+              |
+              |  StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
+              |
+              |private:
+              |
+              |  char m_buf[BUFFER_SIZE(STRING_SIZE)];"""
+        ).map(_.indentOut(2))
       )
     )
   }

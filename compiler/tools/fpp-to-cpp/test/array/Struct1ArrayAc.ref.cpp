@@ -21,11 +21,11 @@ Struct1 ::
 {
   // Construct using element-wise constructor
   *this = Struct1(
-    M::S1(),
-    M::S1(),
-    M::S1(),
-    M::S1(),
-    M::S1()
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))
   );
 }
 

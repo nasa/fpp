@@ -18,7 +18,7 @@
 S2 ::
   S2() :
     Serializable(),
-    m_s1()
+    m_s1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))
 {
 
 }

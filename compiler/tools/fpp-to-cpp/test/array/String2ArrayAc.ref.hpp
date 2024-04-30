@@ -25,46 +25,45 @@ class String2 :
     class StringSize80 :
       public Fw::StringBase
     {
-
       public:
 
         enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
+          STRING_SIZE = 80,
+          SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
         };
 
-        //! Default constructor
-        StringSize80();
+        StringSize80() : StringBase() { *this = ""; }
 
-        //! Char array constructor
-        StringSize80(const char* src);
+        explicit StringSize80(const StringSize80& src) : StringBase() { *this = src; }
 
-        //! String base constructor
-        StringSize80(const Fw::StringBase& src);
+        explicit StringSize80(const StringBase& src) : StringBase() { *this = src; }
 
-        //! Copy constructor
-        StringSize80(const StringSize80& src);
+         StringSize80(const char* src) : StringBase() { *this = src; }
 
-        //! Destructor
-        ~StringSize80();
+        ~StringSize80() {}
 
-        //! Copy assignment operator
-        StringSize80& operator=(const StringSize80& other);
+        StringSize80& operator=(const StringSize80& src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! String base assignment operator
-        StringSize80& operator=(const Fw::StringBase& other);
+        StringSize80& operator=(const StringBase& src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! char* assignment operator
-        StringSize80& operator=(const char* other);
+        StringSize80& operator=(const char* src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! Retrieves char buffer of string
-        const char* toChar() const;
+        const char* toChar() const { return this->m_buf; }
 
-        Fw::StringBase::SizeType getCapacity() const;
+        StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
 
       private:
 
-        char m_buf[80]; //!< Buffer for string storage
+        char m_buf[BUFFER_SIZE(STRING_SIZE)];
 
     };
 
@@ -106,13 +105,13 @@ class String2 :
 
     //! Constructor (single element)
     String2(
-        const ElementType& e //!< The element
+        const Fw::StringBase& e //!< The element
     );
 
     //! Constructor (multiple elements)
     String2(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2 //!< Element 2
+        const Fw::StringBase& e1, //!< Element 1
+        const Fw::StringBase& e2 //!< Element 2
     );
 
     //! Copy Constructor

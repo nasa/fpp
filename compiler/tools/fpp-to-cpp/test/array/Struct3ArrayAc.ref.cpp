@@ -21,9 +21,9 @@ Struct3 ::
 {
   // Construct using element-wise constructor
   *this = Struct3(
-    S::S3(),
-    S::S3(),
-    S::S3()
+    S::S3(0, 0.0),
+    S::S3(0, 0.0),
+    S::S3(0, 0.0)
   );
 }
 

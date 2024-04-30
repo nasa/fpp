@@ -15,81 +15,6 @@
 // StringSize80 class
 // ----------------------------------------------------------------------
 
-String2::StringSize80 ::
-  StringSize80() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-String2::StringSize80 ::
-  StringSize80(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-String2::StringSize80 ::
-  StringSize80(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-String2::StringSize80 ::
-  StringSize80(const StringSize80& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-String2::StringSize80 ::
-  ~StringSize80()
-{
-
-}
-
-String2::StringSize80& String2::StringSize80 ::
-  operator=(const StringSize80& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-String2::StringSize80& String2::StringSize80 ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-String2::StringSize80& String2::StringSize80 ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* String2::StringSize80 ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-Fw::StringBase::SizeType String2::StringSize80 ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
-
 // ----------------------------------------------------------------------
 // Constructors
 // ----------------------------------------------------------------------
@@ -100,8 +25,8 @@ String2 ::
 {
   // Construct using element-wise constructor
   *this = String2(
-    "\"\\",
-    "abc\ndef"
+    Fw::String("\"\\"),
+    Fw::String("abc\ndef")
   );
 }
 
@@ -115,7 +40,7 @@ String2 ::
 }
 
 String2 ::
-  String2(const ElementType& e) :
+  String2(const Fw::StringBase& e) :
     Serializable()
 {
   for (U32 index = 0; index < SIZE; index++) {
@@ -125,8 +50,8 @@ String2 ::
 
 String2 ::
   String2(
-      const ElementType& e1,
-      const ElementType& e2
+      const Fw::StringBase& e1,
+      const Fw::StringBase& e2
   ) :
     Serializable()
 {

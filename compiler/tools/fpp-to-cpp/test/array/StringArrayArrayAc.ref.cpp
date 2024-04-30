@@ -21,11 +21,11 @@ StringArray ::
 {
   // Construct using element-wise constructor
   *this = StringArray(
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef")
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef"))
   );
 }
 

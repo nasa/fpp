@@ -30,6 +30,11 @@ case class ArrayCppWriter (
 
   private val eltType = arrayType.anonArray.eltType
 
+  private val constructorEltType = eltType match {
+    case _: Type.String => "Fw::StringBase"
+    case _ => "ElementType"
+  }
+
   private val arraySize = arrayType.getArraySize.get
 
   private val eltTypeName = typeCppWriter.write(eltType)
@@ -171,7 +176,7 @@ case class ArrayCppWriter (
           Some("Constructor (single element)"),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("const ElementType&"),
+              CppDoc.Type(s"const $constructorEltType&"),
               "e",
               Some("The element"),
             )
@@ -206,7 +211,7 @@ case class ArrayCppWriter (
         Some("Constructor (user-provided value)"),
         List(
           CppDoc.Function.Param(
-            CppDoc.Type("const ElementType"),
+            CppDoc.Type(s"const ElementType"),
             "(&a)[SIZE]",
             Some("The array"),
           )
@@ -220,7 +225,7 @@ case class ArrayCppWriter (
         constructorClassMember(
           Some("Constructor (multiple elements)"),
           List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type("const ElementType&"),
+            CppDoc.Type(s"const $constructorEltType&"),
             s"e$i",
             Some(s"Element $i"),
           )),

@@ -17,81 +17,6 @@ namespace M {
   // StringSize80 class
   // ----------------------------------------------------------------------
 
-  S1::StringSize80 ::
-    StringSize80() :
-      StringBase()
-  {
-    this->m_buf[0] = 0;
-  }
-
-  S1::StringSize80 ::
-    StringSize80(const char* src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-  }
-
-  S1::StringSize80 ::
-    StringSize80(const Fw::StringBase& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  S1::StringSize80 ::
-    StringSize80(const StringSize80& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  S1::StringSize80 ::
-    ~StringSize80()
-  {
-
-  }
-
-  S1::StringSize80& S1::StringSize80 ::
-    operator=(const StringSize80& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  S1::StringSize80& S1::StringSize80 ::
-    operator=(const Fw::StringBase& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  S1::StringSize80& S1::StringSize80 ::
-    operator=(const char* other)
-  {
-    Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-    return *this;
-  }
-
-  const char* S1::StringSize80 ::
-    toChar() const
-  {
-    return this->m_buf;
-  }
-
-  Fw::StringBase::SizeType S1::StringSize80 ::
-    getCapacity() const
-  {
-    return sizeof(this->m_buf);
-  }
-
   // ----------------------------------------------------------------------
   // Constructors
   // ----------------------------------------------------------------------
@@ -110,7 +35,7 @@ namespace M {
       m_mU64(0),
       m_mU8(0),
       m_mBool(false),
-      m_mString("")
+      m_mString(Fw::String(""))
   {
 
   }

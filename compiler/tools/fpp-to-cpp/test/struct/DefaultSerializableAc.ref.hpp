@@ -24,46 +24,45 @@ class Default :
     class StringSize40 :
       public Fw::StringBase
     {
-
       public:
 
         enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 40
+          STRING_SIZE = 40,
+          SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
         };
 
-        //! Default constructor
-        StringSize40();
+        StringSize40() : StringBase() { *this = ""; }
 
-        //! Char array constructor
-        StringSize40(const char* src);
+        explicit StringSize40(const StringSize40& src) : StringBase() { *this = src; }
 
-        //! String base constructor
-        StringSize40(const Fw::StringBase& src);
+        explicit StringSize40(const StringBase& src) : StringBase() { *this = src; }
 
-        //! Copy constructor
-        StringSize40(const StringSize40& src);
+         StringSize40(const char* src) : StringBase() { *this = src; }
 
-        //! Destructor
-        ~StringSize40();
+        ~StringSize40() {}
 
-        //! Copy assignment operator
-        StringSize40& operator=(const StringSize40& other);
+        StringSize40& operator=(const StringSize40& src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! String base assignment operator
-        StringSize40& operator=(const Fw::StringBase& other);
+        StringSize40& operator=(const StringBase& src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! char* assignment operator
-        StringSize40& operator=(const char* other);
+        StringSize40& operator=(const char* src) {
+          (void)StringBase::operator=(src);
+          return *this;
+        }
 
-        //! Retrieves char buffer of string
-        const char* toChar() const;
+        const char* toChar() const { return this->m_buf; }
 
-        Fw::StringBase::SizeType getCapacity() const;
+        StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
 
       private:
 
-        char m_buf[40]; //!< Buffer for string storage
+        char m_buf[BUFFER_SIZE(STRING_SIZE)];
 
     };
 
