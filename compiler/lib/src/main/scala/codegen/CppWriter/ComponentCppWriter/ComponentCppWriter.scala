@@ -123,9 +123,6 @@ case class ComponentCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemHeaders = List(
-      "cstdio",
-    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/String.hpp",
@@ -140,13 +137,7 @@ case class ComponentCppWriter (
         )
       case s => lines(s)
     })
-    linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten,
-      CppDoc.Lines.Cpp
-    )
+    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
 
   private def getStaticAssertion: List[CppDoc.Member] = {

@@ -4,8 +4,6 @@
 // \brief  cpp file for ActiveGetProducts component base class
 // ======================================================================
 
-#include <cstdio>
-
 #include "Fw/Types/Assert.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
