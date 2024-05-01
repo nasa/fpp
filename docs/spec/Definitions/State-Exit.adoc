@@ -1,0 +1,29 @@
+=== State Exit
+
+A *state exit* specifies the exit action for a  
+<<Definitions_State-Definition,state>>    
+
+==== Syntax
+
+* `exit`
+`:`
+<<Definitions_State-Functions,_function_list_>>
+
+==== Semantics
+
+. The _state-functions_ specifies a list of functions separated by a semicolon
+that are invoked upon exit from the state
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    state Black {
+        exit: clearMonitorCount(); initSignals()
+    }
+
+}
+
+----

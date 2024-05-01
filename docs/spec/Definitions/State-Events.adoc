@@ -1,0 +1,33 @@
+=== State Events
+
+A *state events* specifies an event, guard and action used in transitions. 
+
+==== Syntax
+* <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ 
+`[`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`()`
+`]`
+_]_
+_[_
+`/`
+<<Definitions_State-Functions,_state-functions_>>
+_]_
+
+==== Semantics
+
+. The first _identifier_ specifies the event that triggers the transition.
+The second _identifier_ specifies the guard that determines if the transition is taken.
+The _state-functions_ specifies the list of actions taken if the transition is taken
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    Black -> Green : Ev1[guard()]/action1(); action2()
+
+}
+
+----

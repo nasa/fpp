@@ -17,6 +17,16 @@ Enum-Definitions.adoc
 Enumerated-Constant-Definitions.adoc
 Module-Definitions.adoc
 Port-Definitions.adoc
+State-Definition.adoc
+State-Entry.adoc
+State-Exit.adoc
+State-Events.adoc
+State-Functions.adoc
+State-Initial.adoc
+State-Internal.adoc
+State-Junction.adoc
+State-Machine-Definitions.adoc
+State-Transition.adoc
 Struct-Definitions.adoc
 Topology-Definitions.adoc
 "

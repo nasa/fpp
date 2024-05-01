@@ -1,0 +1,29 @@
+=== State Entry
+
+A *state entry* specifies the entry action for a  
+<<Definitions_State-Definition,state>>    
+
+==== Syntax
+
+* `entry`
+`:`
+<<Definitions_State-Functions,_state-functions_>>
+
+==== Semantics
+
+. The _state-functions_ specifies a list of functions separated by a semicolon
+that are invoked upon entry into the state
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    state Black {
+        entry: clearMonitorCount(); initSignals()
+    }
+
+}
+
+----

@@ -1,0 +1,23 @@
+=== State Initial
+
+A *state initial* specifies an initial state transition  
+
+==== Syntax
+
+* `[*]` -> 
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+
+==== Semantics
+
+. The identifier specifies the initial state transition. 
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    [*] -> Black
+}
+
+----

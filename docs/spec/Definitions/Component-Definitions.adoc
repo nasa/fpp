@@ -64,9 +64,10 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
-* A <<Specifiers_State-Model-Specifiers,state model specifier>>
+* A <<Definitions_State-Machine-Definitions,state machine definition>>
 
-* A <<Definitions_State-Machine-Definitions,state machine instance>>
+* A <<Specifiers_State-Machine-Instance,state machine instance>>
+
 
 The command, event, parameter, telemetry, record, and container
 specifiers are collectively referred to as *dictionary specifiers*.

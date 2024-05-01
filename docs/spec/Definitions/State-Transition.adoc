@@ -1,0 +1,28 @@
+=== State Transition
+
+A *state transition* specifies a state transition in a   
+<<Definitions_State-Machine-Definitions,state machine>>    
+
+==== Syntax
+
+* <<Lexical-Elements_Identifiers,_identifier_>> 
+`->`
+<<Lexical-Elements_Identifiers,_identifier_>> 
+`:`
+<<Definitions_State-Events,_state-events_>>
+
+==== Semantics
+
+. A transition from an initial state (first _identifier_) to a target state (second _identifier_)
+with event, guard and actions specified by _state-events_
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    Black -> Green: ValidSignal[guard()]/action()
+
+}
+
+----

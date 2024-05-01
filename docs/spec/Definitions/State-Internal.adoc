@@ -1,0 +1,28 @@
+=== State Internal
+
+A *state internal* specifies an internal transition in a 
+<<Definitions_State-Definition,state>>    
+
+==== Syntax
+
+* `internal`
+`:`
+<<Definitions_State-Events,_state_events_>>
+
+==== Semantics
+
+. The _state_events_ specifies the event, guard and actions for the internal transition
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    state Black {
+        internal: Ev1[guard()]/action()
+    }
+
+}
+
+----

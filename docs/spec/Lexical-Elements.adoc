@@ -61,8 +61,10 @@ cpu
 default
 diagnostic
 drop
+entry
 enum
 event
+exit
 false
 fatal
 format
@@ -78,6 +80,7 @@ instance
 internal
 locate
 low
+machine
 match
 module
 on
@@ -107,8 +110,7 @@ set
 severity
 size
 stack
-statemachine
-statemodel
+state
 string
 struct
 sync

@@ -1,0 +1,51 @@
+=== State Definition
+
+A *state definition* specifies a state in a 
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `{` _state_sequence_ `}` _]_
+
+_state-sequence_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state member*,
+and the terminating punctuation is a semicolon.
+A state member is one of the following
+
+* A <<Definitions_State-Initial,state initial>>
+* A <<Definitions_State-Definition,state definition>>
+* A <<Definitions_State-Junction,state junction>>
+* A <<Definitions_State-Entry,state entry>>
+* A <<Definitions_State-Exit,state exit>>
+* A <<Definitions_State-Internal,state internal>>
+* A <<Definitions_State-Transition,state transition>>
+
+
+==== Semantics
+
+. The _identifier_ specifies the name of a state in the state machine
+
+. The state can be hierarchical, a state can be defined within another state
+
+. Each hierarchical state is expected to contain one _state initial_, all other elements are optional
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    state Black {
+        [*] -> Idle
+        state Idle
+        state Running
+
+        Idle -> Running: RTI
+
+    }
+
+}
+
+----

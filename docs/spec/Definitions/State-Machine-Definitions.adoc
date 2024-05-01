@@ -1,44 +1,61 @@
-=== State machine Definitions
+=== State Machine Definitions
 
-A *state machine definition* instantiates a  <<Specifiers_State-Model-Specifiers,state model specifier>>.
+A *state machine definion* defines a state machine  
 
 ==== Syntax
 
-`statemachine`
-<<Lexical-Elements_Identifiers,_identifier_>>
-`:`
-<<Specifiers_State-Model-Specifiers,state model specifier>>
+* `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
+`{` _state-machine-logic_ `}` 
+
+_state-machine-logic_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state machine member*,
+and the terminating punctuation is a semicolon.
+A state machine member is one of the following
+
+* A <<Definitions_State-Initial,state initial>>
+* A <<Definitions_State-Definition,state definition>>
+* A <<Definitions_State-Junction,state junction>>
+* A <<Definitions_State-Transition,state transition>>
+
 
 ==== Semantics
 
-The identifier is the name of the instantiated state machine model.
+. The identifier specifies the name of the state machine.
+
+. The _state-machine-logic_ contains a textual description
+of a hierarchical state machine.
+
+. The state machine is expected to have one _state initial_.
+
+. Every state that is referenced in the _state transition_ is expected to be defined in the in the _state definition_
 
 ==== Examples
 
 [source,fpp]
 ----
-
-statemodel MonitorSm {
+@ MonitorSm defines the states for this component
+state machine MonitorSm {
 
     [*] -> Black
 
     state Black {
-        Black:Internal: RTI/checkSignal()
+        internal: RTI/checkSignal()
     }
 
     state Green {
-        Green:Entry: clearMonitorCount()
-        Green:Internal: RTI/checkSignal()
+        entry: clearMonitorCount()
+        internal: RTI/checkSignal()
     }
 
     state Yellow {
-        Yellow:Entry: clearPersistCount()
-        Yellow:Internal: RTI/checkSignal()
+        entry: clearPersistCount()
+        internal: RTI/checkSignal()
 
     }
 
     state Red {
-        Red:Entry: ReportMonitorTrip()
+        entry: ReportMonitorTrip()
 
     }
 
@@ -49,8 +66,5 @@ statemodel MonitorSm {
     Red -> Green: MonitorReset
 
 }
-
-@ state machine monitor1 is an instance of state machine model MonitorSm
-statemachine monitor1 : MonitorSm
 
 ----

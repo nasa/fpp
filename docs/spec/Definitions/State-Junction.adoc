@@ -1,0 +1,37 @@
+=== State Junction
+
+A *state junction* specifies a state junction in a  
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+`<choice>`
+
+==== Semantics
+
+. The _identifier_ is the name of the junction.  Junction states are simple and have no hierarchy and no entry or exit functions.
+
+. Each junction requires a unique name.
+
+. Each Junction requires two exit transitions in which one must have one guard and the other transition no guard.
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    state c1 <choice>
+
+    state Black {
+        Entry: StartMonitor()
+    }
+
+    state Green
+    
+    Black -> c1: StartEvent
+    c1 -> Black: [NotReady()]
+    c1 -> Green: /startAction()
+}
+
+----

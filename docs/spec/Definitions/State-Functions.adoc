@@ -1,0 +1,24 @@
+=== State Functions
+
+*state functions* specifies a list of functions separated by a semicolon.  
+
+==== Syntax
+<<Lexical-Elements_Identifiers,_identifier_>>
+`()`
+
+==== Semantics
+
+. The identifier is a state machine function
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    state Black {
+        entry: action1(); action2()
+    }
+
+}
+
+----
