@@ -10,6 +10,7 @@ A *state internal* specifies an internal transition in a
 <<Definitions_State-Events,_state_events_>>
 
 ==== Semantics
+. An `internal` transition occurs within a <<Definitions_State-Definition,state>> and does not cause a transition to another state
 
 . The _state_events_ specifies the event, guard and actions for the internal transition
 
@@ -20,6 +21,7 @@ A *state internal* specifies an internal transition in a
 state machine MonitorSm {
 
     state Black {
+        # state internal
         internal: Ev1[guard()]/action()
     }
 

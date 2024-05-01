@@ -21,6 +21,8 @@ A *state junction* specifies a state junction in a
 [source,fpp]
 ----
 state machine MonitorSm {
+
+    # state junction
     state c1 <choice>
 
     state Black {

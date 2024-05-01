@@ -10,6 +10,7 @@ A *state entry* specifies the entry action for a
 <<Definitions_State-Functions,_state-functions_>>
 
 ==== Semantics
+. The optional `entry` within a <<Definitions_State-Definition,state>> specifies the entry actions for a state
 
 . The _state-functions_ specifies a list of functions separated by a semicolon
 that are invoked upon entry into the state
@@ -21,6 +22,7 @@ that are invoked upon entry into the state
 state machine MonitorSm {
 
     state Black {
+        # state entry
         entry: clearMonitorCount(); initSignals()
     }
 

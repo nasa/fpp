@@ -16,16 +16,31 @@ _[_
 _]_
 
 ==== Semantics
-
 . The first _identifier_ specifies the event that triggers the transition.
-The second _identifier_ specifies the guard that determines if the transition is taken.
-The _state-functions_ specifies the list of actions taken if the transition is taken
+
+. The second _identifier_ specifies the guard that determines if the transition is taken.
+
+. The _state-functions_ specifies the list of actions taken if the transition is taken
 
 ==== Examples
 
 [source,fpp]
 ----
 state machine MonitorSm {
+    state Black
+    state Green
+    state Yellow
+    
+    # A transition triggered by an event
+    Black -> Green : Ev1
+
+    # A transition triggered by an event with actions
+    Black -> Green : Ev1/action1(); action2();
+
+    # A transition triggered by an event with a guard
+    Black -> Green : Ev1[guard()]
+
+    # A transition triggered by an event with a guard and actions
     Black -> Green : Ev1[guard()]/action1(); action2()
 
 }

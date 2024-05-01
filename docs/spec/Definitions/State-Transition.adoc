@@ -12,15 +12,18 @@ A *state transition* specifies a state transition in a
 <<Definitions_State-Events,_state-events_>>
 
 ==== Semantics
+. The first _identifier_ specifies the initial state
 
-. A transition from an initial state (first _identifier_) to a target state (second _identifier_)
-with event, guard and actions specified by _state-events_
+. The second _identifier_ specifies the target state
+
+. The _state-events_ specify the event, guard and actions for the transition
 
 ==== Examples
 
 [source,fpp]
 ----
 state machine MonitorSm {
+    # state transition
     Black -> Green: ValidSignal[guard()]/action()
 
 }

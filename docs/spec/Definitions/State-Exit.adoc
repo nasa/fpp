@@ -10,6 +10,7 @@ A *state exit* specifies the exit action for a
 <<Definitions_State-Functions,_function_list_>>
 
 ==== Semantics
+. The optional `exit` within a <<Definitions_State-Definition,state>> specifies the exit actions for a state
 
 . The _state-functions_ specifies a list of functions separated by a semicolon
 that are invoked upon exit from the state
@@ -21,6 +22,7 @@ that are invoked upon exit from the state
 state machine MonitorSm {
 
     state Black {
+        # state exit
         exit: clearMonitorCount(); initSignals()
     }
 

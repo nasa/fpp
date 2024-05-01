@@ -34,36 +34,29 @@ of a hierarchical state machine.
 
 [source,fpp]
 ----
-@ MonitorSm defines the states for this component
+# MonitorSm defines the name of the state machine
 state machine MonitorSm {
 
+    # state initial
     [*] -> Black
 
-    state Black {
-        internal: RTI/checkSignal()
-    }
+    # state definition
+    state Black
 
+    # state definition
     state Green {
         entry: clearMonitorCount()
-        internal: RTI/checkSignal()
     }
 
-    state Yellow {
-        entry: clearPersistCount()
-        internal: RTI/checkSignal()
+    # state junction
+    state c1 <choice>
 
-    }
-
-    state Red {
-        entry: ReportMonitorTrip()
-
-    }
-
+    # state transitions
     Black -> Green: ValidSignal
-    Green -> Yellow: SignalOutsideLimits
-    Yellow -> Red: PersistenceExceeded
-    Yellow -> Green: SignalWithinLimts
-    Red -> Green: MonitorReset
+    Green -> Black: MonitorReset
+    Black -> c1: RTI
+    c1 -> Green: [guard()]
+    c1 -> Black
 
 }
 

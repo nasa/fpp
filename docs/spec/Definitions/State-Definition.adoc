@@ -31,20 +31,39 @@ A state member is one of the following
 
 . Each hierarchical state is expected to contain one _state initial_, all other elements are optional
 
+. Each state must have a unique name
+
 ==== Examples
 
 [source,fpp]
 ----
 state machine MonitorSm {
 
+    # state initial
+    [*] -> Black
+
+    # hierarchical state definition.  Black has sub states Idle and Running 
     state Black {
+        # state initial
         [*] -> Idle
+
         state Idle
         state Running
 
+        # state transition
         Idle -> Running: RTI
-
     }
+
+    # state definition
+    state Green
+
+    # state junction
+    state c1 <choice>
+
+    # state transitions
+    Black -> c1: RTI
+    c1 -> Black: [guard()]
+    c1 -> Green
 
 }
 
