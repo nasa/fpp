@@ -4,9 +4,6 @@
 // \brief  cpp file for Modules2 struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
 #include "Modules2SerializableAc.hpp"

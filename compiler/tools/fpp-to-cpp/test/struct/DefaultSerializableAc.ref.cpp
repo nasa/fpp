@@ -4,9 +4,6 @@
 // \brief  cpp file for Default struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "DefaultSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"

@@ -4,9 +4,6 @@
 // \brief  cpp file for PrimitiveStruct struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
 #include "PrimitiveStructSerializableAc.hpp"

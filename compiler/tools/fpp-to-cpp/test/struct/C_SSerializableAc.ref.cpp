@@ -4,9 +4,6 @@
 // \brief  cpp file for C_S struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "C_SSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"

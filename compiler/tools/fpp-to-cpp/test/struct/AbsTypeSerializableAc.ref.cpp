@@ -4,9 +4,6 @@
 // \brief  cpp file for AbsType struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "AbsTypeSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"

@@ -112,22 +112,12 @@ case class StructCppWriter(
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemheaders = List(
-      "cstdio",
-      "cstring",
-    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
       "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp",
     ).sorted.map(CppWriter.headerString).map(line)
-    linesMember(
-      List(
-        Line.blank :: systemheaders,
-        Line.blank :: userHeaders,
-      ).flatten,
-      CppDoc.Lines.Cpp
-    )
+    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =

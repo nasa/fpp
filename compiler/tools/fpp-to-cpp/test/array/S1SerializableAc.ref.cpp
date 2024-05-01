@@ -4,9 +4,6 @@
 // \brief  cpp file for S1 struct
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
 #include "Fw/Types/StringUtils.hpp"
 #include "S1SerializableAc.hpp"
