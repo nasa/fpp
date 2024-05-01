@@ -4,11 +4,7 @@
 // \brief  cpp file for Struct3 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "Struct3ArrayAc.hpp"
 
 // ----------------------------------------------------------------------

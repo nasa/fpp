@@ -4,11 +4,7 @@
 // \brief  cpp file for PrimitiveU16 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "PrimitiveU16ArrayAc.hpp"
 
 namespace M {

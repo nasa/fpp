@@ -4,12 +4,8 @@
 // \brief  cpp file for C_A array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "C_AArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

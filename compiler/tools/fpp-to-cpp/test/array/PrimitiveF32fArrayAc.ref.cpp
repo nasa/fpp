@@ -4,11 +4,7 @@
 // \brief  cpp file for PrimitiveF32f array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "PrimitiveF32fArrayAc.hpp"
 
 namespace M {

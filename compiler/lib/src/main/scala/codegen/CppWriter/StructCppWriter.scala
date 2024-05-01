@@ -114,7 +114,6 @@ case class StructCppWriter(
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp",
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)

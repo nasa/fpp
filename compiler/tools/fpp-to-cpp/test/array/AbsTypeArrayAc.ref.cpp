@@ -4,12 +4,8 @@
 // \brief  cpp file for AbsType array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "AbsTypeArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

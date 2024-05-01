@@ -4,12 +4,8 @@
 // \brief  cpp file for BuiltInType array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "BuiltInTypeArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors

@@ -4,11 +4,7 @@
 // \brief  cpp file for A array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "base/AArrayAc.hpp"
 
 // ----------------------------------------------------------------------
