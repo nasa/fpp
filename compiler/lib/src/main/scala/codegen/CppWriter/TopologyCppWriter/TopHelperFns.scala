@@ -255,7 +255,7 @@ case class TopHelperFns(
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
         if (isActive(ci)) {
           val name = getNameAsIdent(ci.qualifiedName)
-          lines(s"(void) $name.ActiveComponentBase::join(nullptr);")
+          lines(s"(void) $name.ActiveComponentBase::join();")
         }
         else Nil
       }
