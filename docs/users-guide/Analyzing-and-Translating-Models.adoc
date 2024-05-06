@@ -195,7 +195,7 @@ The usual procedure for running `fpp-to-xml` is as follows:
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-xml` _F_.
-. Otherwise run `fpp-to-xml -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
+. Otherwise run `fpp-to-xml -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
 names of the dependencies.
 
 For example, suppose you want to generate XML for the definitions in `c.fpp`,
@@ -415,7 +415,7 @@ The usual procedure for running `fpp-to-cpp` is as follows:
 . Identify one or more files _F_ that you want to translate.
 . <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
 . If _D_ is empty, then run `fpp-to-cpp` _F_.
-. Otherwise run `fpp-to-cpp -i` _D1_ `,` ... `,` _Dn_ _F_, where _Di_ are the
+. Otherwise run `fpp-to-cpp -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
 names of the dependencies.
 
 Except for the tool name, this procedure is identical to the one given for
@@ -545,6 +545,10 @@ This is similar to the `-d` option for
 * `-n` _file_ : Write the names of the generated XML files
 to _file_.
 This is similar to the `-n` option for
+<<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
+
+* `-s` _size_ : Specify a default string size. 
+This is similar to the `-s` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
 ==== Topology Definitions
@@ -1258,7 +1262,78 @@ and view the layouts in a browser.
 See the https://github.com/fprime-community/fprime-layout[`fprime-layout`
 repository] for more details.
 
-=== Generating JSON
+=== Generating Ground Dictionaries
+
+A *ground dictionary* specifies all the commands,
+events, telemetry, parameters, and data products in a FSW
+application.
+Typically a ground data system (GDS), such as the F Prime GDS,
+uses the ground dictionary to provide the operational
+interface to the application.
+The interface typically includes real-time commanding;
+real-time display of events and telemetry; logging of
+commands, events, and telemetry; uplink and downlink of files, including data 
+products; and decoding of data products.
+This section explains how to generate ground dictionaries from
+FPP models.
+
+*Tool name:* The tool for generating ground dictionaries is called
+`fpp-to-dict`.
+
+*Procedure:*
+The usual procedure for running `fpp-to-dict` is as follows:
+
+. Identify one or more files _F_ that you want to translate.
+. <<Specifying-Models-as-Files_Computing-Dependencies,Compute the dependencies>> _D_ of _F_.
+. If _D_ is empty, then run `fpp-to-dict` _F_.
+. Otherwise run `fpp-to-dict -i` _D~1~_ `,` ... `,` _D~n~_ _F_, where _D~i~_ are the
+names of the dependencies.
+
+Except for the tool name, this procedure is identical to the one given for
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus,generating {cpp}>>.
+
+*Input:* As with the tools described above, you can provide input to
+`fpp-to-dict`
+either through named files or through standard input.
+
+*Tool behavior:*
+For each topology _T_ defined in the input files _F_, `fpp-to-dict` writes a file
+_T_ `TopologyDictionary.json`.
+The dictionary is specified in JavaScript Object Notation (JSON) format.
+The JSON format is specified in the
+https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md[F Prime 
+dictionary documentation].
+
+Here is a common use case:
+
+* The input files _F_ define a single topology _T_.
+_T_ describes all the component instances and connections in a FSW
+application, and the generated dictionary _T_ `TopologyDictionary.json`
+is the dictionary for the application.
+
+* If _T_ imports subtopologies, then those subtopologies are defined
+in the dependency files _D_.
+That way the subtopologies are part of the model, but no dictionaries
+are generated for them.
+
+*Options:*
+`fpp-to-dict` provides the following options:
+
+* The `-d` and `-s` options work in the same way as for
+<<Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions,
+`fpp-to-cpp`>>.
+
+* You can use the `-f` and `-p` options to specify a framework version
+and project version for the dictionary.
+That way the dictionary is stamped with information that connects
+it to the FSW version for which it is intended to be used.
+
+* You can use the `-l` option to specify library versions used
+in the project.
+
+See the https://github.com/nasa/fpp/wiki/fpp-to-dict[FPP wiki] for details.
+
+=== Generating JSON Models
 
 FPP provides a tool called `fpp-to-json` for converting FPP models to
 JavaScript Object Notation (JSON) format.

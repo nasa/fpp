@@ -44,7 +44,7 @@ the annotatable element that precedes it.
 
 In either case
 
-* Any whitespace immediately following the `@` or `@<` characters is ignored.
+* Any white space immediately following the `@` or `@<` characters is ignored.
 
 * The annotation goes to the end of the line.
 
