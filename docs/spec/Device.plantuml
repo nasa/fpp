@@ -1,11 +1,9 @@
 
 @startuml
 
-[*] --> Off
+state DeviceOff
 
-state Off
-
-state On {
+state DeviceOn {
     [*] --> Initializing
 
     state Initializing
@@ -28,6 +26,12 @@ state On {
     Driving --> Idle: Stop
 }
 
+state g1 <<choice>>
+
+[*] -> g1
+g1 -> DeviceOff: [coldStart()]
+g1 -> DeviceOn:/initPower()
+
 state Recovery {
     Recovery:Internal: RTI/doSafe()
 }
@@ -35,13 +39,16 @@ state Recovery {
 state Diagnostics {
     Diagnostics:Internal: RTI/doDiagnostics()
 }
+state g2 <<choice>>
 
-Off --> On: PowerOn
-On --> Off: PowerOff
-On --> Recovery: Fault/reportFault()
-Diagnostics --> On: Resume
+DeviceOff --> DeviceOn: PowerOn/setPower()
+DeviceOn --> DeviceOff: PowerOff
+DeviceOn --> g2: Fault
+g2 --> Recovery: /reportFault()
+g2 --> Diagnostics: [noRecovery()]
+Diagnostics --> DeviceOn: Resume
 Recovery --> Diagnostics: Complete
-On --> On: POR
+DeviceOn --> DeviceOn: POR
 
 
 @enduml

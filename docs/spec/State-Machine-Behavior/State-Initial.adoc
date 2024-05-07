@@ -5,8 +5,7 @@ A *state initial* specifies an initial state transition
 ==== Syntax
 
 * `[*]` -> 
-<<Lexical-Elements_Identifiers,_identifier_>>
-
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 ==== Semantics
 

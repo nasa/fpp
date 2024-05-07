@@ -1,91 +1,93 @@
-# Define a basic state machine event type
-# Only contains the required state machine ID and an event signal,
-# no payload data
-struct SMEvents {
-    smId : U32
-    eventSignal : U32
+# Define the data structure for events that carry data
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+struct PowerData {
+    level: F32
 }
 
 # Start of the state machine definition
 state machine Device {
 
-    event RTI: SMEvents
-    event Complete: SMEvents
-    event Calibrate: SMEvents
-    event Fault: SMEvents
-    event Drive: SMEvents
-    event Stop: SMEvents
-    event Resume: SMEvents
-    event POR: SMEvents
+# Specify state machine events
+    event RTI
+    event Complete
+    event Calibrate
+    event Fault: FaultData
+    event Drive
+    event Stop
+    event Resume
+    event POR
+    event PowerOn: PowerData
+    event PowerOff
 
-    state Off
+# Specify actions
+    action setPower: PowerData
+    action initPower
+    action reportFault: FaultData
+    action motorControl
+    action doCalibrate
+    action doSafe
+    action doDiagnostics
 
-    state On {
+# Specify guards
+    guard coldStart
+    guard noRecovery: FaultData
+    guard calibrateReady
 
-        state Initializing
+# Specify states and junctions
 
-        state Idle
+    initial junction j1 {
+        go DeviceOff guard coldStart
+        go DeviceOn action initPower
+    }
+
+    state DeviceOff {
+        on PowerOn go DeviceOn action setPower
+    }
+
+    state DeviceOn {
+
+        initial state Initializing {
+            on Complete go Idle
+        }
+
+        state Idle {
+            on Drive go Driving
+            on Calibrate go Calibrating guard calibrateReady
+        }
 
         state Calibrating {
-
-            action doCalibrate: SMEvents
-            internal event RTI
-                     action doCalibrate
+            on RTI action doCalibrate
+            on Fault go Idle action reportFault
+            on Complete go Idle
         }
 
         state Driving {
-
-            action motorControl: SMEvents
-            internal event RTI
-                     action motorControl
+            on RTI action motorControl
+            on Stop go Idle
         }
 
-        [*] -> Initializing
+        on POR go DeviceOn
+        on Fault go j2
+        on PowerOff go DeviceOff
+    }
 
-        Initializing -> Idle event Complete
-
-        Idle -> Driving event Drive
-
-        guard calibrateReady: SMEvents
-        Idle -> Calibrating event Calibrate
-                            guard calibrateReady
-
-        action reportFault: SMEvents
-        Calibrating -> Idle event Fault
-                            action reportFault
-
-        Calibrating -> Idle event Complete
-
-        Driving -> Idle event Stop
+    junction j2 {
+        go Diagnostics guard noRecovery
+        go Recovery action reportFault
     }
 
     state Recovery {
-
-        action doSafe: SMEvents
-        internal event RTI
-                  action doSafe
+        on RTI action doSafe
+        on Complete go Diagnotics
     }
 
     state Diagnostics {
-
-        action doDiagnostics: SMEvents
-        internal event RTI
-                 action: doDiagnostics
+        on RTI action doDiagnostics
+        on Resume go DeviceOn
     }
- 
-    [*] -> Off
- 
-    Off -> On event PowerOn
 
-    On -> Off event PowerOff
-
-    action reportFault: SMEvents
-    On -> Recovery event Fault
-                   action reportFault
-
-    Diagnostics -> On event Resume
-
-    Recovery -> Diagnostics event Complete
-
-    On -> On event POR
 }

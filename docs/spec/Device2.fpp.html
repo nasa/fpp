@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/fpp/docs/spec/Device2.fpp.html</title>
+<meta name="Generator" content="Vim/8.1">
+<meta name="plugin-version" content="vim8.1_v1">
+<meta name="syntax" content="none">
+<meta name="settings" content="use_css,pre_wrap,no_foldcolumn,expand_tabs,prevent_copy=">
+<meta name="colorscheme" content="desert">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #ffffff; background-color: #000000; }
+body { font-family: monospace; color: #ffffff; background-color: #000000; }
+* { font-size: 1em; }
+.Type { color: #008000; }
+.Comment { color: #008080; }
+.Identifier { color: #008080; font-weight: bold; }
+.Statement { color: #804000; }
+-->
+</style>
+</head>
+<body>
+<pre id='vimCodeElement'>
+<span class="Comment"># Define the data structure for events that carry data</span>
+<span class="Statement">struct</span> <span class="Identifier">FaultData</span> {
+    <span class="Statement">id</span>: <span class="Type">U32</span>
+    <span class="Identifier">data</span>: <span class="Type">U32</span>
+}
+
+<span class="Statement">struct</span> <span class="Identifier">PowerData</span> {
+    <span class="Identifier">level</span>: <span class="Type">F32</span>
+}
+
+<span class="Comment"># Start of the state machine definition</span>
+<span class="Statement">state</span> <span class="Statement">machine</span> <span class="Identifier">Device</span> {
+
+<span class="Comment"># Specify state machine events</span>
+    <span class="Statement">event</span> <span class="Identifier">RTI</span>
+    <span class="Statement">event</span> <span class="Identifier">Complete</span>
+    <span class="Statement">event</span> <span class="Identifier">Calibrate</span>
+    <span class="Statement">event</span> <span class="Identifier">Fault</span>: <span class="Identifier">FaultData</span>
+    <span class="Statement">event</span> <span class="Identifier">Drive</span>
+    <span class="Statement">event</span> <span class="Identifier">Stop</span>
+    <span class="Statement">event</span> <span class="Identifier">Resume</span>
+    <span class="Statement">event</span> <span class="Identifier">POR</span>
+    <span class="Statement">event</span> <span class="Identifier">PowerOn</span>: <span class="Identifier">PowerData</span>
+    <span class="Statement">event</span> <span class="Identifier">PowerOff</span>
+
+<span class="Comment"># Specify actions</span>
+    <span class="Statement">action</span> <span class="Identifier">setPower</span>: <span class="Identifier">PowerData</span>
+    <span class="Statement">action</span> <span class="Identifier">initPower</span>
+    <span class="Statement">action</span> <span class="Identifier">reportFault</span>: <span class="Identifier">FaultData</span>
+    <span class="Statement">action</span> <span class="Identifier">motorControl</span>
+    <span class="Statement">action</span> <span class="Identifier">doCalibrate</span>
+    <span class="Statement">action</span> <span class="Identifier">doSafe</span>
+    <span class="Statement">action</span> <span class="Identifier">doDiagnostics</span>
+
+<span class="Comment"># Specify guards</span>
+    <span class="Statement">guard</span> <span class="Identifier">coldStart</span>
+    <span class="Statement">guard</span> <span class="Identifier">noRecovery</span>: <span class="Identifier">FaultData</span>
+    <span class="Statement">guard</span> <span class="Identifier">calibrateReady</span>
+
+<span class="Comment"># Specify states and junctions</span>
+
+    <span class="Statement">initial</span> <span class="Statement">junction</span> <span class="Identifier">j1</span>
+
+    <span class="Statement">transition</span> <span class="Identifier">j1</span> -&gt; <span class="Identifier">DeviceOff</span> <span class="Statement">guard</span> <span class="Identifier">coldStart</span>
+    <span class="Statement">transition</span> <span class="Identifier">j1</span> -&gt; <span class="Identifier">DeviceOn</span> <span class="Statement">action</span> <span class="Identifier">initPower</span>
+
+    <span class="Statement">state</span> <span class="Identifier">DeviceOff</span>
+
+    <span class="Statement">transition</span> <span class="Identifier">DeviceOff</span> -&gt; <span class="Identifier">DeviceOn</span> <span class="Statement">event</span> <span class="Identifier">PowerOn</span> <span class="Statement">action</span> <span class="Identifier">setPower</span>
+
+    <span class="Statement">state</span> <span class="Identifier">DeviceOn</span> {
+
+        <span class="Statement">initial</span> <span class="Statement">state</span> <span class="Identifier">Initializing</span>
+
+        <span class="Statement">state</span> <span class="Identifier">Idle</span>
+
+        <span class="Statement">state</span> <span class="Identifier">Calibrating</span> {
+            <span class="Statement">transition</span> <span class="Statement">event</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doCalibrate</span>
+        }
+
+        <span class="Statement">state</span> <span class="Identifier">Driving</span> {
+            <span class="Statement">transition</span> <span class="Statement">event</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">motorControl</span>
+        }
+
+        <span class="Statement">transition</span> <span class="Identifier">Driving</span> -&gt; <span class="Identifier">Idle</span> <span class="Statement">event</span> <span class="Identifier">Stop</span>
+        <span class="Statement">transition</span> <span class="Identifier">Calibrating</span> -&gt; <span class="Identifier">Idle</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
+        <span class="Statement">transition</span> <span class="Identifier">Calibrating</span> -&gt; <span class="Identifier">Idle</span> <span class="Statement">event</span> <span class="Identifier">Complete</span>
+        <span class="Statement">transition</span> <span class="Identifier">Idle</span> -&gt; <span class="Identifier">Driving</span> <span class="Statement">event</span> <span class="Identifier">Drive</span>
+        <span class="Statement">transition</span> <span class="Identifier">Idle</span> -&gt; <span class="Identifier">Calibrating</span> <span class="Statement">event</span> <span class="Identifier">Calibrate</span> <span class="Statement">guard</span> <span class="Identifier">calibrateReady</span>
+        <span class="Statement">transition</span> <span class="Identifier">Initializing</span> -&gt; <span class="Identifier">Idle</span> <span class="Statement">event</span> <span class="Identifier">Complete</span>
+
+    }
+
+    <span class="Statement">junction</span> <span class="Identifier">j2</span>
+
+    <span class="Statement">transition</span> <span class="Identifier">DeviceOn</span> -&gt; <span class="Identifier">DeviceOn</span> <span class="Statement">event</span> <span class="Identifier">POR</span>
+    <span class="Statement">transition</span> <span class="Identifier">DeviceOn</span> -&gt; <span class="Identifier">j2</span> <span class="Statement">event</span> <span class="Identifier">Fault</span>
+    <span class="Statement">transition</span> <span class="Identifier">j2</span> -&gt; <span class="Identifier">Diagnostics</span> <span class="Statement">guard</span> <span class="Identifier">noRecovery</span>
+    <span class="Statement">transition</span> <span class="Identifier">j2</span> -&gt; <span class="Identifier">Recovery</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
+    <span class="Statement">transition</span> <span class="Identifier">DeviceOn</span> -&gt; <span class="Identifier">DeviceOff</span> <span class="Statement">event</span> <span class="Identifier">PowerOff</span>
+
+    <span class="Statement">state</span> <span class="Identifier">Recovery</span> {
+        <span class="Statement">transition</span> <span class="Statement">event</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doSafe</span>
+    }
+
+    <span class="Statement">state</span> <span class="Identifier">Diagnostics</span> {
+        <span class="Statement">transition</span> <span class="Statement">event</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doDiagnostics</span>
+    }
+
+    <span class="Statement">transition</span> <span class="Identifier">Diagnostics</span> -&gt; <span class="Identifier">DeviceOn</span> <span class="Statement">event</span> <span class="Identifier">Resume</span>
+    <span class="Statement">transition</span> <span class="Identifier">Recovery</span> -&gt; <span class="Identifier">Diagnostics</span> <span class="Statement">event</span> <span class="Identifier">Complete</span>
+
+}
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->
