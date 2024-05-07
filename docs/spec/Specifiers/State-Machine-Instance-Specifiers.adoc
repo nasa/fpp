@@ -1,6 +1,6 @@
-=== State Machine Instance
+=== State Machine Instance Specifiers
 
-A *state machine instance* instantiates a  <<Definitions_State-Machine-Definitions,state machine definition>>.
+A *state machine instance specifier* instantiates a  <<Definitions_State-Machine-Definitions,state machine definition>>.
 
 ==== Syntax
 

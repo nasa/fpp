@@ -14,13 +14,13 @@ which each element is a *state member*,
 and the terminating punctuation is a semicolon.
 A state member is one of the following
 
-* A <<Definitions_State-Initial,state initial>>
-* A <<Definitions_State-Definition,state definition>>
-* A <<Definitions_State-Junction,state junction>>
-* A <<Definitions_State-Entry,state entry>>
-* A <<Definitions_State-Exit,state exit>>
-* A <<Definitions_State-Internal,state internal>>
-* A <<Definitions_State-Transition,state transition>>
+* A <<State-Machine-Behavior_State-Initial,state initial>>
+* A <<State-Machine-Behavior_State-Definition,state definition>>
+* A <<State-Machine-Behavior_State-Junction,state junction>>
+* A <<State-Machine-Behavior_State-Entry,state entry>>
+* A <<State-Machine-Behavior_State-Exit,state exit>>
+* A <<State-Machine-Behavior_State-Internal,state internal>>
+* A <<State-Machine-Behavior_State-Transition,state transition>>
 
 
 ==== Semantics

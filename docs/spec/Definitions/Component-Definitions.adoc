@@ -66,7 +66,7 @@ values.
 
 * A <<Definitions_State-Machine-Definitions,state machine definition>>
 
-* A <<Specifiers_State-Machine-Instance,state machine instance>>
+* A <<Specifiers_State-Machine-Instance-Specifiers,state machine instance specifier>>
 
 
 The command, event, parameter, telemetry, record, and container

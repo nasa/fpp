@@ -1,0 +1,286 @@
+
+== State Machine Behavior
+
+Blah blah
+
+=== State Exit
+
+Blah blah
+
+
+=== State Entry
+
+Blah blah
+
+
+=== State Events
+
+A *state events* specifies an event, guard and action used in transitions. 
+
+==== Syntax
+* <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ 
+`[`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`()`
+`]`
+_]_
+_[_
+`/`
+<<State-Machine-Behavior_State-Functions,_state-functions_>>
+_]_
+
+==== Semantics
+. The first _identifier_ specifies the event that triggers the transition.
+
+. The second _identifier_ specifies the guard that determines if the transition is taken.
+
+. The _state-functions_ specifies the list of actions taken if the transition is taken
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    state Black
+    state Green
+    state Yellow
+    
+    # A transition triggered by an event
+    Black -> Green : Ev1
+
+    # A transition triggered by an event with actions
+    Black -> Green : Ev1/action1(); action2();
+
+    # A transition triggered by an event with a guard
+    Black -> Green : Ev1[guard()]
+
+    # A transition triggered by an event with a guard and actions
+    Black -> Green : Ev1[guard()]/action1(); action2()
+
+}
+
+----
+
+=== State Definition
+
+A *state definition* specifies a state in a 
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `{` _state_sequence_ `}` _]_
+
+_state-sequence_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state member*,
+and the terminating punctuation is a semicolon.
+A state member is one of the following
+
+* A <<State-Machine-Behavior_State-Initial,state initial>>
+* A <<State-Machine-Behavior_State-Definition,state definition>>
+* A <<State-Machine-Behavior_State-Junction,state junction>>
+* A <<State-Machine-Behavior_State-Entry,state entry>>
+* A <<State-Machine-Behavior_State-Exit,state exit>>
+* A <<State-Machine-Behavior_State-Internal,state internal>>
+* A <<State-Machine-Behavior_State-Transition,state transition>>
+
+
+==== Semantics
+
+. The _identifier_ specifies the name of a state in the state machine
+
+. The state can be hierarchical, a state can be defined within another state
+
+. Each hierarchical state is expected to contain one _state initial_, all other elements are optional
+
+. Each state must have a unique name
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    # state initial
+    [*] -> Black
+
+    # hierarchical state definition.  Black has sub states Idle and Running 
+    state Black {
+        # state initial
+        [*] -> Idle
+
+        state Idle
+        state Running
+
+        # state transition
+        Idle -> Running: RTI
+    }
+
+    # state definition
+    state Green
+
+    # state junction
+    state c1 <choice>
+
+    # state transitions
+    Black -> c1: RTI
+    c1 -> Black: [guard()]
+    c1 -> Green
+
+}
+
+----
+
+=== State Functions
+
+*state functions* specifies a list of functions separated by a semicolon.  
+
+==== Syntax
+<<Lexical-Elements_Identifiers,_identifier_>>
+`()`
+
+==== Semantics
+
+. The identifier is a state machine function
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    state Black {
+        entry: action1(); action2()
+    }
+
+}
+
+----
+
+=== State Initial
+
+A *state initial* specifies an initial state transition  
+
+==== Syntax
+
+* `[*]` -> 
+<<Lexical-Elements_Identifiers,_identifier_>>
+
+
+==== Semantics
+
+. The identifier specifies the initial state transition. 
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    [*] -> Black
+}
+
+----
+
+=== State Internal
+
+A *state internal* specifies an internal transition in a 
+<<State-Machine-Behavior_State-Definition,state>>    
+
+==== Syntax
+
+* `internal`
+`:`
+<<State-Machine-Behavior_State-Events,_state_events_>>
+
+==== Semantics
+. An `internal` transition occurs within a <<State-Machine-Behavior_State-Definition,state>> and does not cause a transition to another state
+
+. The _state_events_ specifies the event, guard and actions for the internal transition
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    state Black {
+        # state internal
+        internal: Ev1[guard()]/action()
+    }
+
+}
+
+----
+
+=== State Junction
+
+A *state junction* specifies a state junction in a  
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+`<choice>`
+
+==== Semantics
+
+. The _identifier_ is the name of the junction.  Junction states are simple and have no hierarchy and no entry or exit functions.
+
+. Each junction requires a unique name.
+
+. Each Junction requires two exit transitions in which one must have one guard and the other transition no guard.
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    # state junction
+    state c1 <choice>
+
+    state Black {
+        Entry: StartMonitor()
+    }
+
+    state Green
+    
+    Black -> c1: StartEvent
+    c1 -> Black: [NotReady()]
+    c1 -> Green: /startAction()
+}
+
+----
+
+=== State Transition
+
+A *state transition* specifies a state transition in a   
+<<Definitions_State-Machine-Definitions,state machine>>    
+
+==== Syntax
+
+* <<Lexical-Elements_Identifiers,_identifier_>> 
+`->`
+<<Lexical-Elements_Identifiers,_identifier_>> 
+`:`
+<<State-Machine-Behavior_State-Events,_state-events_>>
+
+==== Semantics
+. The first _identifier_ specifies the initial state
+
+. The second _identifier_ specifies the target state
+
+. The _state-events_ specify the event, guard and actions for the transition
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+    # state transition
+    Black -> Green: ValidSignal[guard()]/action()
+
+}
+
+----

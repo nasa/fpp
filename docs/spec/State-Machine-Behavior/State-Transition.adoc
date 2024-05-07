@@ -9,7 +9,7 @@ A *state transition* specifies a state transition in a
 `->`
 <<Lexical-Elements_Identifiers,_identifier_>> 
 `:`
-<<Definitions_State-Events,_state-events_>>
+<<State-Machine-Behavior_State-Events,_state-events_>>
 
 ==== Semantics
 . The first _identifier_ specifies the initial state

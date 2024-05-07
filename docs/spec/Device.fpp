@@ -28,9 +28,9 @@ state machine Device {
 
         state Calibrating {
 
-            guard doCalibrate: SMEvents
+            action doCalibrate: SMEvents
             internal event RTI
-                     guard doCalibrate
+                     action doCalibrate
         }
 
         state Driving {

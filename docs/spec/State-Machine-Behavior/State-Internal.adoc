@@ -1,16 +1,16 @@
 === State Internal
 
 A *state internal* specifies an internal transition in a 
-<<Definitions_State-Definition,state>>    
+<<State-Machine-Behavior_State-Definition,state>>    
 
 ==== Syntax
 
 * `internal`
 `:`
-<<Definitions_State-Events,_state_events_>>
+<<State-Machine-Behavior_State-Events,_state_events_>>
 
 ==== Semantics
-. An `internal` transition occurs within a <<Definitions_State-Definition,state>> and does not cause a transition to another state
+. An `internal` transition occurs within a <<State-Machine-Behavior_State-Definition,state>> and does not cause a transition to another state
 
 . The _state_events_ specifies the event, guard and actions for the internal transition
 

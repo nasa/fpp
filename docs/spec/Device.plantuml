@@ -1,0 +1,47 @@
+
+@startuml
+
+[*] --> Off
+
+state Off
+
+state On {
+    [*] --> Initializing
+
+    state Initializing
+
+    state Idle
+
+    state Calibrating {
+        Calibrating:Internal: RTI/doCalibrate()
+    }
+
+    state Driving {
+        Driving:Internal: RTI/motorControl()
+    }
+
+    Initializing --> Idle: Complete
+    Idle --> Driving: Drive
+    Idle --> Calibrating: Calibrate[calibrateReady()]
+    Calibrating --> Idle: Fault/reportFault()
+    Calibrating --> Idle: Complete
+    Driving --> Idle: Stop
+}
+
+state Recovery {
+    Recovery:Internal: RTI/doSafe()
+}
+
+state Diagnostics {
+    Diagnostics:Internal: RTI/doDiagnostics()
+}
+
+Off --> On: PowerOn
+On --> Off: PowerOff
+On --> Recovery: Fault/reportFault()
+Diagnostics --> On: Resume
+Recovery --> Diagnostics: Complete
+On --> On: POR
+
+
+@enduml
