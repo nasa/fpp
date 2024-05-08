@@ -48,6 +48,8 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
     <span class="Statement">event</span> <span class="Identifier">PowerOff</span>
 
 <span class="Comment"># Specify actions</span>
+    <span class="Statement">action</span> <span class="Identifier">init1</span>
+    <span class="Statement">action</span> <span class="Identifier">init2</span>
     <span class="Statement">action</span> <span class="Identifier">setPower</span>: <span class="Identifier">PowerData</span>
     <span class="Statement">action</span> <span class="Identifier">initPower</span>
     <span class="Statement">action</span> <span class="Identifier">reportFault</span>: <span class="Identifier">FaultData</span>
@@ -62,10 +64,11 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
     <span class="Statement">guard</span> <span class="Identifier">calibrateReady</span>
 
 <span class="Comment"># Specify states and junctions</span>
+    <span class="Statement">initial</span> <span class="Identifier">j1</span> <span class="Statement">action</span> <span class="Identifier">init1</span>
 
-    <span class="Statement">initial</span> <span class="Statement">junction</span> <span class="Identifier">j1</span> {
+    <span class="Statement">junction</span> <span class="Identifier">j1</span> {
         <span class="Statement">go</span> <span class="Identifier">DeviceOff</span> <span class="Statement">guard</span> <span class="Identifier">coldStart</span>
-        <span class="Statement">go</span> <span class="Identifier">DeviceOn</span> <span class="Statement">action</span> <span class="Identifier">initPower</span>
+        <span class="Statement">else</span> <span class="Statement">go</span> <span class="Identifier">DeviceOn</span> <span class="Statement">action</span> <span class="Identifier">initPower</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">DeviceOff</span> {
@@ -74,7 +77,9 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 
     <span class="Statement">state</span> <span class="Identifier">DeviceOn</span> {
 
-        <span class="Statement">initial</span> <span class="Statement">state</span> <span class="Identifier">Initializing</span> {
+        <span class="Statement">initial</span> <span class="Identifier">Initializing</span> <span class="Statement">action</span> <span class="Identifier">init2</span>
+
+        <span class="Statement">state</span> <span class="Identifier">Initializing</span> {
             <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">go</span> <span class="Identifier">Idle</span>
         }
 
@@ -101,7 +106,7 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
 
     <span class="Statement">junction</span> <span class="Identifier">j2</span> {
         <span class="Statement">go</span> <span class="Identifier">Diagnostics</span> <span class="Statement">guard</span> <span class="Identifier">noRecovery</span>
-        <span class="Statement">go</span> <span class="Identifier">Recovery</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
+        <span class="Statement">else</span> <span class="Statement">go</span> <span class="Identifier">Recovery</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">Recovery</span> {

@@ -1,48 +1,33 @@
 === State Events
 
-A *state events* specifies an event, guard and action used in transitions. 
+*state events* specifies _events_ that are dispatched to the state machine which causes the state machine to run to completion.
 
 ==== Syntax
-* <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ 
-`[`
+`event`
 <<Lexical-Elements_Identifiers,_identifier_>>
-`()`
-`]`
-_]_
 _[_
-`/`
-<<State-Machine-Behavior_State-Functions,_state-functions_>>
-_]_
+`:` 
+<<Definitions_Struct-Definitions,struct definition>>
+`]`
 
 ==== Semantics
-. The first _identifier_ specifies the event that triggers the transition.
+. The _identifier_ specifies the event name.
 
-. The second _identifier_ specifies the guard that determines if the transition is taken.
-
-. The _state-functions_ specifies the list of actions taken if the transition is taken
+. The _struct definition_ specifies an optional data structure associated with the event
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-    state Black
-    state Green
-    state Yellow
-    
-    # A transition triggered by an event
-    Black -> Green : Ev1
-
-    # A transition triggered by an event with actions
-    Black -> Green : Ev1/action1(); action2();
-
-    # A transition triggered by an event with a guard
-    Black -> Green : Ev1[guard()]
-
-    # A transition triggered by an event with a guard and actions
-    Black -> Green : Ev1[guard()]/action1(); action2()
-
+struct FaultData {
+    id: U32
+    data: U32
 }
+
+# An event without data
+event RTI
+
+# An event with data
+event Fault: FaultData
 
 ----

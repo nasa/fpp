@@ -4,7 +4,7 @@
 state DeviceOff
 
 state DeviceOn {
-    [*] --> Initializing
+    [*] --> Initializing:/init2()
 
     state Initializing
 
@@ -28,7 +28,7 @@ state DeviceOn {
 
 state g1 <<choice>>
 
-[*] -> g1
+[*] -> g1:/init1()
 g1 -> DeviceOff: [coldStart()]
 g1 -> DeviceOn:/initPower()
 

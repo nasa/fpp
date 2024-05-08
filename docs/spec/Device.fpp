@@ -24,6 +24,8 @@ state machine Device {
     event PowerOff
 
 # Specify actions
+    action init1
+    action init2
     action setPower: PowerData
     action initPower
     action reportFault: FaultData
@@ -38,10 +40,11 @@ state machine Device {
     guard calibrateReady
 
 # Specify states and junctions
+    initial j1 action init1
 
-    initial junction j1 {
+    junction j1 {
         go DeviceOff guard coldStart
-        go DeviceOn action initPower
+        else go DeviceOn action initPower
     }
 
     state DeviceOff {
@@ -50,7 +53,9 @@ state machine Device {
 
     state DeviceOn {
 
-        initial state Initializing {
+        initial Initializing action init2
+
+        state Initializing {
             on Complete go Idle
         }
 
@@ -77,7 +82,7 @@ state machine Device {
 
     junction j2 {
         go Diagnostics guard noRecovery
-        go Recovery action reportFault
+        else go Recovery action reportFault
     }
 
     state Recovery {
