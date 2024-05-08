@@ -3,16 +3,6 @@
 
 Blah blah
 
-=== State Exit
-
-Blah blah
-
-
-=== State Entry
-
-Blah blah
-
-
 === State Events
 
 *state events* specifies _events_ that are dispatched to the state machine which causes the state machine to run to completion.
@@ -47,6 +37,76 @@ event Fault: FaultData
 
 ----
 
+=== State Actions
+
+*state actions* specifies _actions_ that are invoked upon transitions
+
+==== Syntax
+`action`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Definitions_Struct-Definitions,struct definition>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the action name.
+
+. The _struct definition_ specifies an optional data structure associated with the action and will be
+passed into the action function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# An action without data
+action initPower
+
+# An action with data
+action reportFault: FaultData
+
+----
+
+=== State Guards
+
+*state guards* specifies _guards_ that are associated with transitions
+
+==== Syntax
+`guard`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Definitions_Struct-Definitions,struct definition>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
+
+. The _struct definition_ specifies an optional data structure associated with the guard and will be
+passed into the guard function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# A guard without data
+guard noRecovery
+
+# A guard with data
+guard noRecovery: FaultData
+
+----
+
 === State Definition
 
 A *state definition* specifies a state in a 
@@ -54,7 +114,7 @@ A *state definition* specifies a state in a
 
 ==== Syntax
 
-* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+`state` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `{` _state_sequence_ `}` _]_
 
 _state-sequence_ is an 
@@ -63,12 +123,8 @@ which each element is a *state member*,
 and the terminating punctuation is a semicolon.
 A state member is one of the following
 
-* A <<State-Machine-Behavior_State-Initial,state initial>>
 * A <<State-Machine-Behavior_State-Definition,state definition>>
 * A <<State-Machine-Behavior_State-Junction,state junction>>
-* A <<State-Machine-Behavior_State-Entry,state entry>>
-* A <<State-Machine-Behavior_State-Exit,state exit>>
-* A <<State-Machine-Behavior_State-Internal,state internal>>
 * A <<State-Machine-Behavior_State-Transition,state transition>>
 
 
@@ -78,69 +134,60 @@ A state member is one of the following
 
 . The state can be hierarchical, a state can be defined within another state
 
-. Each hierarchical state is expected to contain one _state initial_, all other elements are optional
+. The state is required to have one _initial_ specification if it is a hierarchical state
 
-. Each state must have a unique name
+. The state can have _junctions_
 
-==== Examples
+. All _transitions_ from a state are required to be specified inside the state
 
-[source,fpp]
-----
-state machine MonitorSm {
-
-    # state initial
-    [*] -> Black
-
-    # hierarchical state definition.  Black has sub states Idle and Running 
-    state Black {
-        # state initial
-        [*] -> Idle
-
-        state Idle
-        state Running
-
-        # state transition
-        Idle -> Running: RTI
-    }
-
-    # state definition
-    state Green
-
-    # state junction
-    state c1 <choice>
-
-    # state transitions
-    Black -> c1: RTI
-    c1 -> Black: [guard()]
-    c1 -> Green
-
-}
-
-----
-
-=== State Functions
-
-*state functions* specifies a list of functions separated by a semicolon.  
-
-==== Syntax
-<<Lexical-Elements_Identifiers,_identifier_>>
-`()`
-
-==== Semantics
-
-. The identifier is a state machine function
 
 ==== Examples
 
 [source,fpp]
 ----
 state machine MonitorSm {
-    state Black {
-        entry: action1(); action2()
+
+    event Complete
+    event Drive
+    event Calibrate
+    event RTI
+    event Stop
+    event Fault
+    
+    action init2
+    action doCalibrate
+    action motorControl
+
+    guard calibrateReady
+
+    
+    state DeviceOn {
+
+        initial Initializing do init2
+
+        state Initializing {
+            on Complete go Idle
+        }
+
+        state Idle {
+            on Drive go Driving
+            on Calibrate if calibrateReady go Calibrating
+        }
+
+        state Calibrating {
+            on RTI do doCalibrate
+            on Fault go Idle do reportFault
+            on Complete go Idle
+        }
+
+        state Driving {
+            on RTI do motorControl
+            on Stop go Idle
+        }
+
     }
 
 }
-
 ----
 
 === State Initial
@@ -149,52 +196,44 @@ A *state initial* specifies an initial state transition
 
 ==== Syntax
 
-* `[*]` -> 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`initial` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_]_
 
 ==== Semantics
 
-. The identifier specifies the initial state transition. 
+. The first _identifier_ specifies the state or junction that will initially be transitioned into.
+
+. An _initial_ specification is required at the top of the state machine
+
+. An _initial_ specification is required at the top of every hierarchical state
+ 
+. The optional _identifier_ after the keyword `do` specifies the action performed on the initial transition
+ 
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-    [*] -> Black
-}
+state machine Device {
 
-----
+    action initDevices
 
-=== State Internal
+    initial DeviceOn
 
-A *state internal* specifies an internal transition in a 
-<<State-Machine-Behavior_State-Definition,state>>    
+    state DeviceOn {
 
-==== Syntax
+            initial Initializing do initDevices
 
-* `internal`
-`:`
-<<State-Machine-Behavior_State-Events,_state_events_>>
+            state Initializing {
+                on Complete visit Idle
+            }
 
-==== Semantics
-. An `internal` transition occurs within a <<State-Machine-Behavior_State-Definition,state>> and does not cause a transition to another state
-
-. The _state_events_ specifies the event, guard and actions for the internal transition
-
-==== Examples
-
-[source,fpp]
-----
-state machine MonitorSm {
-
-    state Black {
-        # state internal
-        internal: Ev1[guard()]/action()
     }
-
 }
-
 ----
 
 === State Junction
@@ -204,66 +243,107 @@ A *state junction* specifies a state junction in a
 
 ==== Syntax
 
-* `state` <<Lexical-Elements_Identifiers,_identifier_>>
-`<choice>`
+`junction` <<Lexical-Elements_Identifiers,_identifier_>>
+`{`
+`if` <<Lexical-Elements_Identifiers,_identifier_>> `visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`else` `visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`}`
 
 ==== Semantics
 
-. The _identifier_ is the name of the junction.  Junction states are simple and have no hierarchy and no entry or exit functions.
+. The _identifier_ after the keyword `junction` is the name of the _junction_. 
 
-. Each junction requires a unique name.
+. Each _junction_ requires a unique name.
 
-. Each Junction requires two exit transitions in which one must have one guard and the other transition no guard.
+. Each _junction_ requires two exit transitions in which one must have one guard and the other transition no guard.
+
+. The _identifier_ after the keywrod `if` specifies the name of the _guard_
+
+. The _identifier_ after the keyword `visit` specifies the target state for the transition
+
+. The _identifier_ after the keyword `do` specifies the action performed when the transition is taken
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
+state machine Device {
 
-    # state junction
-    state c1 <choice>
+    action initPower
+    guard coldStart
 
-    state Black {
-        Entry: StartMonitor()
+    junction j1 {
+            if coldStart visit DeviceOff
+            else visit DeviceOn do initPower
     }
 
-    state Green
-    
-    Black -> c1: StartEvent
-    c1 -> Black: [NotReady()]
-    c1 -> Green: /startAction()
+    state DeviceOff {
+
+    }
+
+    state DeviceOn {
+
+    }
+
 }
 
 ----
 
 === State Transition
 
-A *state transition* specifies a state transition in a   
-<<Definitions_State-Machine-Definitions,state machine>>    
+A *state transition* specifies a state transition in a  
+<<Definitions_State-Machine-Definitions,state machine>>  
 
 ==== Syntax
 
-* <<Lexical-Elements_Identifiers,_identifier_>> 
-`->`
-<<Lexical-Elements_Identifiers,_identifier_>> 
-`:`
-<<State-Machine-Behavior_State-Events,_state-events_>>
+`on` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
 
 ==== Semantics
-. The first _identifier_ specifies the initial state
 
-. The second _identifier_ specifies the target state
+. The _identifier_ after the keyword `on` is the name of the _event_ that triggers this transition 
 
-. The _state-events_ specify the event, guard and actions for the transition
+. The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
+
+. The _identifier_ after the keyword `visit` specifies the name of the target state
+
+. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-    # state transition
-    Black -> Green: ValidSignal[guard()]/action()
+state machine Device {
+
+    event RTI
+    event PowerOn
+    
+    action performStuff
+    action getReady
+
+    guard initComplete
+
+    state DeviceOff
+        on PowerOn if initComplete visit DeviceOn do getReady
+
+    }
+
+    state DeviceOn {
+        on RTI do performStuff
+
+    }
 
 }
 

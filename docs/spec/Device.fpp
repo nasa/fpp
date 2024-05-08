@@ -40,59 +40,59 @@ state machine Device {
     guard calibrateReady
 
 # Specify states and junctions
-    initial j1 action init1
+    initial j1 do init1
 
     junction j1 {
-        go DeviceOff guard coldStart
-        else go DeviceOn action initPower
+        if coldStart visit DeviceOff
+        else visit DeviceOn do initPower
     }
 
     state DeviceOff {
-        on PowerOn go DeviceOn action setPower
+        on PowerOn visit DeviceOn do setPower
     }
 
     state DeviceOn {
 
-        initial Initializing action init2
+        initial Initializing do init2
 
         state Initializing {
-            on Complete go Idle
+            on Complete visit Idle
         }
 
         state Idle {
-            on Drive go Driving
-            on Calibrate go Calibrating guard calibrateReady
+            on Drive visit Driving
+            on Calibrate if calibrateReady visit Calibrating
         }
 
         state Calibrating {
-            on RTI action doCalibrate
-            on Fault go Idle action reportFault
-            on Complete go Idle
+            on RTI do doCalibrate
+            on Fault visit Idle do reportFault
+            on Complete visit Idle
         }
 
         state Driving {
-            on RTI action motorControl
-            on Stop go Idle
+            on RTI do motorControl
+            on Stop visit Idle
         }
 
-        on POR go DeviceOn
-        on Fault go j2
-        on PowerOff go DeviceOff
+        on POR visit DeviceOn
+        on Fault visit j2
+        on PowerOff visit DeviceOff
     }
 
     junction j2 {
-        go Diagnostics guard noRecovery
-        else go Recovery action reportFault
+        if noRecovery visit Diagnostics
+        else visit Recovery do reportFault
     }
 
     state Recovery {
-        on RTI action doSafe
-        on Complete go Diagnotics
+        on RTI do doSafe
+        on Complete visit Diagnotics
     }
 
     state Diagnostics {
-        on RTI action doDiagnostics
-        on Resume go DeviceOn
+        on RTI do doDiagnostics
+        on Resume visit DeviceOn
     }
 
 }

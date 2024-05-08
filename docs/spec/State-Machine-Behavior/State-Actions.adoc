@@ -1,0 +1,34 @@
+=== State Actions
+
+*state actions* specifies _actions_ that are invoked upon transitions
+
+==== Syntax
+`action`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Definitions_Struct-Definitions,struct definition>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the action name.
+
+. The _struct definition_ specifies an optional data structure associated with the action and will be
+passed into the action function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# An action without data
+action initPower
+
+# An action with data
+action reportFault: FaultData
+
+----

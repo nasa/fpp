@@ -4,19 +4,42 @@ A *state initial* specifies an initial state transition
 
 ==== Syntax
 
-* `[*]` -> 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+`initial` 
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_]_
 
 ==== Semantics
 
-. The identifier specifies the initial state transition. 
+. The first _identifier_ specifies the state or junction that will initially be transitioned into.
+
+. An _initial_ specification is required at the top of the state machine
+
+. An _initial_ specification is required at the top of every hierarchical state
+ 
+. The optional _identifier_ after the keyword `do` specifies the action performed on the initial transition
+ 
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-    [*] -> Black
-}
+state machine Device {
 
+    action initDevices
+
+    initial DeviceOn
+
+    state DeviceOn {
+
+            initial Initializing do initDevices
+
+            state Initializing {
+                on Complete visit Idle
+            }
+
+    }
+}
 ----

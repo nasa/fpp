@@ -5,35 +5,54 @@ A *state junction* specifies a state junction in a
 
 ==== Syntax
 
-* `state` <<Lexical-Elements_Identifiers,_identifier_>>
-`<choice>`
+`junction` <<Lexical-Elements_Identifiers,_identifier_>>
+`{`
+`if` <<Lexical-Elements_Identifiers,_identifier_>> `visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`else` `visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`}`
 
 ==== Semantics
 
-. The _identifier_ is the name of the junction.  Junction states are simple and have no hierarchy and no entry or exit functions.
+. The _identifier_ after the keyword `junction` is the name of the _junction_. 
 
-. Each junction requires a unique name.
+. Each _junction_ requires a unique name.
 
-. Each Junction requires two exit transitions in which one must have one guard and the other transition no guard.
+. Each _junction_ requires two exit transitions in which one must have one guard and the other transition no guard.
+
+. The _identifier_ after the keywrod `if` specifies the name of the _guard_
+
+. The _identifier_ after the keyword `visit` specifies the target state for the transition
+
+. The _identifier_ after the keyword `do` specifies the action performed when the transition is taken
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
+state machine Device {
 
-    # state junction
-    state c1 <choice>
+    action initPower
+    guard coldStart
 
-    state Black {
-        Entry: StartMonitor()
+    junction j1 {
+            if coldStart visit DeviceOff
+            else visit DeviceOn do initPower
     }
 
-    state Green
-    
-    Black -> c1: StartEvent
-    c1 -> Black: [NotReady()]
-    c1 -> Green: /startAction()
+    state DeviceOff {
+
+    }
+
+    state DeviceOn {
+
+    }
+
 }
 
 ----

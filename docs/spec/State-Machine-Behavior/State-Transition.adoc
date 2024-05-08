@@ -1,30 +1,52 @@
 === State Transition
 
-A *state transition* specifies a state transition in a   
-<<Definitions_State-Machine-Definitions,state machine>>    
+A *state transition* specifies a state transition in a  
+<<Definitions_State-Machine-Definitions,state machine>>  
 
 ==== Syntax
 
-* <<Lexical-Elements_Identifiers,_identifier_>> 
-`->`
-<<Lexical-Elements_Identifiers,_identifier_>> 
-`:`
-<<State-Machine-Behavior_State-Events,_state-events_>>
+`on` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`visit` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
 
 ==== Semantics
-. The first _identifier_ specifies the initial state
 
-. The second _identifier_ specifies the target state
+. The _identifier_ after the keyword `on` is the name of the _event_ that triggers this transition 
 
-. The _state-events_ specify the event, guard and actions for the transition
+. The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
+
+. The _identifier_ after the keyword `visit` specifies the name of the target state
+
+. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-    # state transition
-    Black -> Green: ValidSignal[guard()]/action()
+state machine Device {
+
+    event RTI
+    event PowerOn
+    
+    action performStuff
+    action getReady
+
+    guard initComplete
+
+    state DeviceOff
+        on PowerOn if initComplete visit DeviceOn do getReady
+
+    }
+
+    state DeviceOn {
+        on RTI do performStuff
+
+    }
 
 }
 

@@ -64,59 +64,59 @@ body { font-family: monospace; color: #ffffff; background-color: #000000; }
     <span class="Statement">guard</span> <span class="Identifier">calibrateReady</span>
 
 <span class="Comment"># Specify states and junctions</span>
-    <span class="Statement">initial</span> <span class="Identifier">j1</span> <span class="Statement">action</span> <span class="Identifier">init1</span>
+    <span class="Statement">initial</span> <span class="Identifier">j1</span> <span class="Statement">do</span> <span class="Identifier">init1</span>
 
     <span class="Statement">junction</span> <span class="Identifier">j1</span> {
-        <span class="Statement">go</span> <span class="Identifier">DeviceOff</span> <span class="Statement">guard</span> <span class="Identifier">coldStart</span>
-        <span class="Statement">else</span> <span class="Statement">go</span> <span class="Identifier">DeviceOn</span> <span class="Statement">action</span> <span class="Identifier">initPower</span>
+        <span class="Statement">if</span> <span class="Identifier">coldStart</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOff</span>
+        <span class="Statement">else</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOn</span> <span class="Statement">do</span> <span class="Identifier">initPower</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">DeviceOff</span> {
-        <span class="Statement">on</span> <span class="Identifier">PowerOn</span> <span class="Statement">go</span> <span class="Identifier">DeviceOn</span> <span class="Statement">action</span> <span class="Identifier">setPower</span>
+        <span class="Statement">on</span> <span class="Identifier">PowerOn</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOn</span> <span class="Statement">do</span> <span class="Identifier">setPower</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">DeviceOn</span> {
 
-        <span class="Statement">initial</span> <span class="Identifier">Initializing</span> <span class="Statement">action</span> <span class="Identifier">init2</span>
+        <span class="Statement">initial</span> <span class="Identifier">Initializing</span> <span class="Statement">do</span> <span class="Identifier">init2</span>
 
         <span class="Statement">state</span> <span class="Identifier">Initializing</span> {
-            <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">go</span> <span class="Identifier">Idle</span>
+            <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">visit</span> <span class="Identifier">Idle</span>
         }
 
         <span class="Statement">state</span> <span class="Identifier">Idle</span> {
-            <span class="Statement">on</span> <span class="Identifier">Drive</span> <span class="Statement">go</span> <span class="Identifier">Driving</span>
-            <span class="Statement">on</span> <span class="Identifier">Calibrate</span> <span class="Statement">go</span> <span class="Identifier">Calibrating</span> <span class="Statement">guard</span> <span class="Identifier">calibrateReady</span>
+            <span class="Statement">on</span> <span class="Identifier">Drive</span> <span class="Statement">visit</span> <span class="Identifier">Driving</span>
+            <span class="Statement">on</span> <span class="Identifier">Calibrate</span> <span class="Statement">if</span> <span class="Identifier">calibrateReady</span> <span class="Statement">visit</span> <span class="Identifier">Calibrating</span>
         }
 
         <span class="Statement">state</span> <span class="Identifier">Calibrating</span> {
-            <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doCalibrate</span>
-            <span class="Statement">on</span> <span class="Identifier">Fault</span> <span class="Statement">go</span> <span class="Identifier">Idle</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
-            <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">go</span> <span class="Identifier">Idle</span>
+            <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">do</span> <span class="Identifier">doCalibrate</span>
+            <span class="Statement">on</span> <span class="Identifier">Fault</span> <span class="Statement">visit</span> <span class="Identifier">Idle</span> <span class="Statement">do</span> <span class="Identifier">reportFault</span>
+            <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">visit</span> <span class="Identifier">Idle</span>
         }
 
         <span class="Statement">state</span> <span class="Identifier">Driving</span> {
-            <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">motorControl</span>
-            <span class="Statement">on</span> <span class="Identifier">Stop</span> <span class="Statement">go</span> <span class="Identifier">Idle</span>
+            <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">do</span> <span class="Identifier">motorControl</span>
+            <span class="Statement">on</span> <span class="Identifier">Stop</span> <span class="Statement">visit</span> <span class="Identifier">Idle</span>
         }
 
-        <span class="Statement">on</span> <span class="Identifier">POR</span> <span class="Statement">go</span> <span class="Identifier">DeviceOn</span>
-        <span class="Statement">on</span> <span class="Identifier">Fault</span> <span class="Statement">go</span> <span class="Identifier">j2</span>
-        <span class="Statement">on</span> <span class="Identifier">PowerOff</span> <span class="Statement">go</span> <span class="Identifier">DeviceOff</span>
+        <span class="Statement">on</span> <span class="Identifier">POR</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOn</span>
+        <span class="Statement">on</span> <span class="Identifier">Fault</span> <span class="Statement">visit</span> <span class="Identifier">j2</span>
+        <span class="Statement">on</span> <span class="Identifier">PowerOff</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOff</span>
     }
 
     <span class="Statement">junction</span> <span class="Identifier">j2</span> {
-        <span class="Statement">go</span> <span class="Identifier">Diagnostics</span> <span class="Statement">guard</span> <span class="Identifier">noRecovery</span>
-        <span class="Statement">else</span> <span class="Statement">go</span> <span class="Identifier">Recovery</span> <span class="Statement">action</span> <span class="Identifier">reportFault</span>
+        <span class="Statement">if</span> <span class="Identifier">noRecovery</span> <span class="Statement">visit</span> <span class="Identifier">Diagnostics</span>
+        <span class="Statement">else</span> <span class="Statement">visit</span> <span class="Identifier">Recovery</span> <span class="Statement">do</span> <span class="Identifier">reportFault</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">Recovery</span> {
-        <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doSafe</span>
-        <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">go</span> <span class="Identifier">Diagnotics</span>
+        <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">do</span> <span class="Identifier">doSafe</span>
+        <span class="Statement">on</span> <span class="Identifier">Complete</span> <span class="Statement">visit</span> <span class="Identifier">Diagnotics</span>
     }
 
     <span class="Statement">state</span> <span class="Identifier">Diagnostics</span> {
-        <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">action</span> <span class="Identifier">doDiagnostics</span>
-        <span class="Statement">on</span> <span class="Identifier">Resume</span> <span class="Statement">go</span> <span class="Identifier">DeviceOn</span>
+        <span class="Statement">on</span> <span class="Identifier">RTI</span> <span class="Statement">do</span> <span class="Identifier">doDiagnostics</span>
+        <span class="Statement">on</span> <span class="Identifier">Resume</span> <span class="Statement">visit</span> <span class="Identifier">DeviceOn</span>
     }
 
 }

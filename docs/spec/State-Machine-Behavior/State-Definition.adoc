@@ -5,7 +5,7 @@ A *state definition* specifies a state in a
 
 ==== Syntax
 
-* `state` <<Lexical-Elements_Identifiers,_identifier_>>
+`state` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `{` _state_sequence_ `}` _]_
 
 _state-sequence_ is an 
@@ -14,12 +14,8 @@ which each element is a *state member*,
 and the terminating punctuation is a semicolon.
 A state member is one of the following
 
-* A <<State-Machine-Behavior_State-Initial,state initial>>
 * A <<State-Machine-Behavior_State-Definition,state definition>>
 * A <<State-Machine-Behavior_State-Junction,state junction>>
-* A <<State-Machine-Behavior_State-Entry,state entry>>
-* A <<State-Machine-Behavior_State-Exit,state exit>>
-* A <<State-Machine-Behavior_State-Internal,state internal>>
 * A <<State-Machine-Behavior_State-Transition,state transition>>
 
 
@@ -29,9 +25,12 @@ A state member is one of the following
 
 . The state can be hierarchical, a state can be defined within another state
 
-. Each hierarchical state is expected to contain one _state initial_, all other elements are optional
+. The state is required to have one _initial_ specification if it is a hierarchical state
 
-. Each state must have a unique name
+. The state can have _junctions_
+
+. All _transitions_ from a state are required to be specified inside the state
+
 
 ==== Examples
 
@@ -39,32 +38,45 @@ A state member is one of the following
 ----
 state machine MonitorSm {
 
-    # state initial
-    [*] -> Black
+    event Complete
+    event Drive
+    event Calibrate
+    event RTI
+    event Stop
+    event Fault
+    
+    action init2
+    action doCalibrate
+    action motorControl
 
-    # hierarchical state definition.  Black has sub states Idle and Running 
-    state Black {
-        # state initial
-        [*] -> Idle
+    guard calibrateReady
 
-        state Idle
-        state Running
+    
+    state DeviceOn {
 
-        # state transition
-        Idle -> Running: RTI
+        initial Initializing do init2
+
+        state Initializing {
+            on Complete go Idle
+        }
+
+        state Idle {
+            on Drive go Driving
+            on Calibrate if calibrateReady go Calibrating
+        }
+
+        state Calibrating {
+            on RTI do doCalibrate
+            on Fault go Idle do reportFault
+            on Complete go Idle
+        }
+
+        state Driving {
+            on RTI do motorControl
+            on Stop go Idle
+        }
+
     }
 
-    # state definition
-    state Green
-
-    # state junction
-    state c1 <choice>
-
-    # state transitions
-    Black -> c1: RTI
-    c1 -> Black: [guard()]
-    c1 -> Green
-
 }
-
 ----

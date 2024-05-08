@@ -1,0 +1,34 @@
+=== State Guards
+
+*state guards* specifies _guards_ that are associated with transitions
+
+==== Syntax
+`guard`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Definitions_Struct-Definitions,struct definition>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
+
+. The _struct definition_ specifies an optional data structure associated with the guard and will be
+passed into the guard function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# A guard without data
+guard noRecovery
+
+# A guard with data
+guard noRecovery: FaultData
+
+----
