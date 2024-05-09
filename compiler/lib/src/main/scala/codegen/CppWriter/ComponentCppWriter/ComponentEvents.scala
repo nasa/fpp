@@ -129,11 +129,10 @@ case class ComponentEvents (
                 lines("#endif")
               ),
               intersperseBlankLines(
-                event.aNode._2.data.params.map(param => {
-                  val name = param._2.data.name
+                eventParamTypeMap(id).map((name, typeName, ty) => {
 
                   List.concat(
-                    s.a.typeMap(param._2.data.typeName.id) match {
+                    ty match {
                       case t: Type.String =>
                         val serialSize = stringCppWriter.getSize(t)
                         lines(
@@ -143,7 +142,7 @@ case class ComponentEvents (
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
                             |_status = _logBuff.serialize(
-                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, writeFormalParamType(param._2.data))})
+                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, typeName)})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,

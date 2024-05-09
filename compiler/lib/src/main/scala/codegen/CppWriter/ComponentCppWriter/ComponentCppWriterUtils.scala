@@ -320,7 +320,7 @@ abstract class ComponentCppWriterUtils(
             val data = param._2.data
             val paramName = data.name
             val paramType = s.a.typeMap(data.typeName.id)
-            val paramTypeString = writeGeneralPortParamType(paramType, symbol)
+            val paramTypeString = writeTypeAsGeneralPortParamType(paramType, symbol)
             (paramName, paramTypeString, paramType)
           })
         ))
@@ -331,7 +331,7 @@ abstract class ComponentCppWriterUtils(
               val data = param._2.data
               val paramName = data.name
               val paramType = s.a.typeMap(data.typeName.id)
-              val paramTypeString = writeInternalPortParamType(paramType)
+              val paramTypeString = writeTypeAsInternalPortParamType(paramType)
               (paramName, paramTypeString, paramType)
             })
           ))
@@ -349,12 +349,17 @@ abstract class ComponentCppWriterUtils(
       )
     )).toMap
 
-  def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase") =
-    event.aNode._2.data.params.map(param =>
-      (param._2.data.name, writeFormalParamType(param._2.data, stringRep))
-    )
+  def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase"):
+  List[(String, String, Type)] =
+    event.aNode._2.data.params.map(param => {
+      val data = param._2.data
+      val paramName = data.name
+      val paramType = s.a.typeMap(data.typeName.id)
+      val paramTypeString = writeTypeAsFormalParamType(paramType, stringRep)
+      (paramName, paramTypeString, paramType)
+    })
 
-  val eventParamTypeMap: Map[Event.Id, List[(String, String)]] =
+  val eventParamTypeMap: Map[Event.Id, List[(String, String, Type)]] =
     sortedEvents.map((id, event) => (id, getEventParamTypes(event))).toMap
 
   // Map from a port instance name to param list
@@ -552,19 +557,19 @@ abstract class ComponentCppWriterUtils(
 
   /** Write the type of an internal port param as a C++ type */
   def writeInternalPortParamType(param: Ast.FormalParam): String =
-    writeInternalPortParamType(s.a.typeMap(param.typeName.id))
+    writeTypeAsInternalPortParamType(s.a.typeMap(param.typeName.id))
 
-  /** Write the type of an internal port param as a C++ type */
-  def writeInternalPortParamType(t: Type): String =
+  /** Write a type as the type of an internal port param as a C++ type */
+  def writeTypeAsInternalPortParamType(t: Type): String =
     TypeCppWriter.getName(s, t, Some("Fw::InternalInterfaceString"))
 
-  /** Write the type of an formal parameter as a C++ type */
+  /** Write the type of a formal parameter as a C++ type */
   def writeFormalParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
-    TypeCppWriter.getName(
-      s,
-      s.a.typeMap(param.typeName.id),
-      Some(stringRep)
-    )
+    writeTypeAsFormalParamType(s.a.typeMap(param.typeName.id), stringRep)
+
+  /** Write a type as the type of a formal parameter as a C++ type */
+  def writeTypeAsFormalParamType(t: Type, stringRep: String = "Fw::StringBase") =
+    TypeCppWriter.getName(s, t, Some(stringRep))
 
   /** Write a channel type as a C++ type */
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
@@ -801,15 +806,10 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a general port param as a C++ type */
   private def writeGeneralPortParamTypeOld(param: Ast.FormalParam, symbol: Symbol.Port) =
-    TypeCppWriter.getName(
-      s,
-      s.a.typeMap(param.typeName.id),
-      None,
-      PortCppWriter.getPortNamespaces(s, symbol)
-    )
+    writeTypeAsGeneralPortParamType(s.a.typeMap(param.typeName.id), symbol)
 
-  /** Write a general port param as a C++ type */
-  private def writeGeneralPortParamType(t: Type, symbol: Symbol.Port) =
+  /** Write a type as the type of a general port param */
+  private def writeTypeAsGeneralPortParamType(t: Type, symbol: Symbol.Port) =
     TypeCppWriter.getName(
       s,
       t,
