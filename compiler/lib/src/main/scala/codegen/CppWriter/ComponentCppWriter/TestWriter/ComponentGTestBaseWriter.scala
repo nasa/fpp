@@ -128,7 +128,7 @@ case class ComponentGTestBaseWriter(
         ),
         typedOutputPorts.flatMap(p => {
           val params = portParamTypeMap(p.getUnqualifiedName)
-          val paramList = params.map((name, _) => s", _$name").mkString("")
+          val paramList = params.map((name, _, _) => s", _$name").mkString("")
           val portName = p.getUnqualifiedName
           val historyName = fromPortHistoryName(portName)
           val sizeAssertFnName = fromPortSizeAssertionFuncName(portName)
@@ -154,7 +154,7 @@ case class ComponentGTestBaseWriter(
                    |      const $entryName& _e = \\
                    |        this->$historyName->at(index); \\
                    |"""
-              ) ++ params.flatMap((name, _) =>
+              ) ++ params.flatMap((name, _, _) =>
                 lines(
                   s"""    ASSERT_EQ(_$name, _e.$name) \\
                      |      << "\\n" \\

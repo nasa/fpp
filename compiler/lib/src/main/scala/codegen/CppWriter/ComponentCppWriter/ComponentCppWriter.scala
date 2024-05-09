@@ -542,7 +542,7 @@ case class ComponentCppWriter (
         case PortInstance.Type.DefPort(_) =>
           List(
             intersperseBlankLines(
-              portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+              portParamTypeMap(p.getUnqualifiedName).map((n, tn, _) =>
                 lines(
                   s"""|// Deserialize argument $n
                       |$tn $n;
@@ -675,7 +675,7 @@ case class ComponentCppWriter (
       val body = intersperseBlankLines(
         List(
           intersperseBlankLines(
-            portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+            portParamTypeMap(p.getUnqualifiedName).map((n, tn, _) =>
               lines(
                 s"""|$tn $n;
                     |deserStatus = msg.deserialize($n);

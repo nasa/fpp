@@ -180,7 +180,7 @@ case class ComponentHistory(
               line(s"//! A history entry for port $portName") ::
               wrapInScope(
                 s"struct $entryName {",
-                params.map((name, tn) => line(s"$tn $name;")),
+                params.map((name, tn, _) => line(s"$tn $name;")),
                 "};"
               )
           }

@@ -94,7 +94,7 @@ case class ComponentInputPorts(
   def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     def writeAsyncInputPort(
       p: PortInstance,
-      params: List[(String, String)],
+      params: List[(String, String, Option[Type])],
       queueFull: Ast.QueueFull,
       priority: Option[BigInt]
     ) = {
@@ -146,7 +146,7 @@ case class ComponentInputPorts(
                 |"""
           ),
           intersperseBlankLines(
-            getPortParams(p).map((n, _) => lines(
+            getPortParams(p).map((n, _, _) => lines(
               s"""|// Serialize argument $n
                   |_status = $bufferName.serialize($n);
                   |FW_ASSERT(

@@ -304,33 +304,42 @@ abstract class ComponentCppWriterUtils(
     ),
   )
 
-  val portParamTypeMap: Map[String, List[(String, String)]] =
+  val portParamTypeMap: Map[String, List[(String, String, Type)]] =
     List(
       specialInputPorts,
       typedInputPorts,
       specialOutputPorts,
       typedOutputPorts,
       internalPorts
-    ).flatten.map(p =>
+    ).flatten.map(p => {
+      val portName = p.getUnqualifiedName
       p.getType match {
         case Some(PortInstance.Type.DefPort(symbol)) => Some((
-          p.getUnqualifiedName,
+          portName,
           symbol.node._2.data.params.map(param => {
-            (param._2.data.name, getGeneralPortParam(param._2.data, symbol))
+            val data = param._2.data
+            val paramName = data.name
+            val paramType = s.a.typeMap(data.typeName.id)
+            val paramTypeString = writeGeneralPortParamType(paramType, symbol)
+            (paramName, paramTypeString, paramType)
           })
         ))
         case None => p match {
           case PortInstance.Internal(node, _, _) => Some((
-            p.getUnqualifiedName,
+            portName,
             node._2.data.params.map(param => {
-              (param._2.data.name, writeInternalPortParamType(param._2.data))
+              val data = param._2.data
+              val paramName = data.name
+              val paramType = s.a.typeMap(data.typeName.id)
+              val paramTypeString = writeInternalPortParamType(paramType)
+              (paramName, paramTypeString, paramType)
             })
           ))
           case _ => None
         }
         case _ => None
       }
-    ).filter(_.isDefined).map(_.get).toMap
+    }).filter(_.isDefined).map(_.get).toMap
 
   val cmdParamTypeMap: Map[Command.Opcode, List[(String, String)]] =
     nonParamCmds.map((opcode, cmd) => (
@@ -434,12 +443,12 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Get port params as a list of tuples containing the name and typename for each param */
-  def getPortParams(p: PortInstance): List[(String, String)] =
+  def getPortParams(p: PortInstance): List[(String, String, Option[Type])] =
     p.getType match {
       case Some(PortInstance.Type.Serial) => List(
-        ("buffer", "Fw::SerializeBufferBase")
+        ("buffer", "Fw::SerializeBufferBase", None)
       )
-      case _ => portParamTypeMap(p.getUnqualifiedName)
+      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
 
   /** Get port params as CppDoc Function Params */
@@ -543,11 +552,11 @@ abstract class ComponentCppWriterUtils(
 
   /** Write the type of an internal port param as a C++ type */
   def writeInternalPortParamType(param: Ast.FormalParam): String =
-    TypeCppWriter.getName(
-      s,
-      s.a.typeMap(param.typeName.id),
-      Some("Fw::InternalInterfaceString")
-    )
+    writeInternalPortParamType(s.a.typeMap(param.typeName.id))
+
+  /** Write the type of an internal port param as a C++ type */
+  def writeInternalPortParamType(t: Type): String =
+    TypeCppWriter.getName(s, t, Some("Fw::InternalInterfaceString"))
 
   /** Write the type of an formal parameter as a C++ type */
   def writeFormalParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
@@ -791,10 +800,19 @@ abstract class ComponentCppWriterUtils(
   }
 
   /** Write a general port param as a C++ type */
-  private def getGeneralPortParam(param: Ast.FormalParam, symbol: Symbol.Port) =
+  private def writeGeneralPortParamTypeOld(param: Ast.FormalParam, symbol: Symbol.Port) =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
+      None,
+      PortCppWriter.getPortNamespaces(s, symbol)
+    )
+
+  /** Write a general port param as a C++ type */
+  private def writeGeneralPortParamType(t: Type, symbol: Symbol.Port) =
+    TypeCppWriter.getName(
+      s,
+      t,
       None,
       PortCppWriter.getPortNamespaces(s, symbol)
     )
