@@ -338,9 +338,13 @@ abstract class ComponentCppWriterUtils(
   val cmdParamTypeMap: ComponentCppWriterUtils.CmdParamTypeMap =
     nonParamCmds.map((opcode, cmd) => (
       opcode,
-      cmd.aNode._2.data.params.map(param =>
-        (param._2.data.name, writeCommandParamType(param._2.data))
-      )
+      cmd.aNode._2.data.params.map(param => {
+        val data = param._2.data
+        val paramName = data.name
+        val paramType = s.a.typeMap(data.typeName.id)
+        val paramTypeString = writeTypeAsCommandParamType(paramType)
+        (paramName, paramTypeString, paramType)
+      })
     )).toMap
 
   def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase"):
@@ -808,11 +812,11 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a command param as a C++ type */
   private def writeCommandParamType(param: Ast.FormalParam) =
-    TypeCppWriter.getName(
-      s,
-      s.a.typeMap(param.typeName.id),
-      Some("Fw::CmdStringArg")
-    )
+    writeTypeAsCommandParamType(s.a.typeMap(param.typeName.id))
+
+  /** Write a type as the type of a command param */
+  private def writeTypeAsCommandParamType(t: Type) =
+    TypeCppWriter.getName(s, t, Some("Fw::CmdStringArg"))
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>
@@ -859,12 +863,10 @@ abstract class ComponentCppWriterUtils(
 
 object ComponentCppWriterUtils {
 
-  /** ( parameter name, parameter type name ) **/
-  type CmdParamTypeMapInfo = (String, String)
-  type CmdParamTypeMap = Map[Command.Opcode, List[CmdParamTypeMapInfo]]
-  type PortParamMap = Map[String, List[CppDoc.Function.Param]]
   /** (  parameter name, parameter type name, parameter type ) **/
   type ParamTypeMapInfo = (String, String, Type)
+  type CmdParamTypeMap = Map[Command.Opcode, List[ParamTypeMapInfo]]
+  type PortParamMap = Map[String, List[CppDoc.Function.Param]]
   type PortParamTypeMap = Map[String, List[ParamTypeMapInfo]]
   type EventParamTypeMap = Map[Event.Id, List[ParamTypeMapInfo]]
 

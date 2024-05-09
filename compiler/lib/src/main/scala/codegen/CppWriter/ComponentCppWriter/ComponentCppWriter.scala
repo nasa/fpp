@@ -620,7 +620,7 @@ case class ComponentCppWriter (
                |"""
           ),
           intersperseBlankLines(
-            cmdParamTypeMap(opcode).map((n, tn) =>
+            cmdParamTypeMap(opcode).map((n, tn, _) =>
               lines(
                 s"""|// Deserialize argument $n
                     |$tn $n;
