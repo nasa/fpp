@@ -368,28 +368,25 @@ abstract class ComponentCppWriterUtils(
       specialOutputPorts,
       typedOutputPorts,
       internalPorts
-    ).flatten.map(p =>
+    ).flatten.foldLeft (Map(): ComponentCppWriterUtils.PortParamMap) ((m, p) => {
+      val portName = p.getUnqualifiedName
       (p, p.getType) match {
         case (_, Some(PortInstance.Type.DefPort(symbol))) =>
-          Some((
-            p.getUnqualifiedName,
-            formalParamsCppWriter.write(
-              symbol.node._2.data.params,
-              PortCppWriter.getPortNamespaces(s, symbol)
-            )
-          ))
+          val params = formalParamsCppWriter.write(
+            symbol.node._2.data.params,
+            PortCppWriter.getPortNamespaces(s, symbol)
+          )
+          m + (portName -> params)
         case (PortInstance.Internal(node, _, _), _) =>
-          Some((
-            p.getUnqualifiedName,
-            formalParamsCppWriter.write(
-              node._2.data.params,
-              Nil,
-              Some("Fw::InternalInterfaceString")
-            )
-          ))
-        case _ => None
+          val params = formalParamsCppWriter.write(
+            node._2.data.params,
+            Nil,
+            Some("Fw::InternalInterfaceString")
+          )
+          m + (portName -> params)
+        case _ => m
       }
-    ).filter(_.isDefined).map(_.get).toMap
+    })
 
   /** Get the qualified name of a port type */
   def getQualifiedPortTypeName(
