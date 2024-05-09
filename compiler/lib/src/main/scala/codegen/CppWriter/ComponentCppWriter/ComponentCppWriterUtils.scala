@@ -374,7 +374,8 @@ abstract class ComponentCppWriterUtils(
         case (_, Some(PortInstance.Type.DefPort(symbol))) =>
           val params = formalParamsCppWriter.write(
             symbol.node._2.data.params,
-            PortCppWriter.getPortNamespaces(s, symbol)
+            Nil,
+            Some("Fw::StringBase")
           )
           m + (portName -> params)
         case (PortInstance.Internal(node, _, _), _) =>

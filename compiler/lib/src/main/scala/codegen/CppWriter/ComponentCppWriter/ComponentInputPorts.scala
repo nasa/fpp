@@ -106,7 +106,7 @@ case class ComponentInputPorts(
       intersperseBlankLines(
         List(
           p.getType.get match {
-            case PortInstance.Type.DefPort(_) => List(
+            case PortInstance.Type.DefPort(_) => List.concat(
               line("// Call pre-message hook") ::
                 writeFunctionCall(
                   s"${inputPortHookName(p.getUnqualifiedName)}",
@@ -118,7 +118,7 @@ case class ComponentInputPorts(
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |"""
               )
-            ).flatten
+            )
             case PortInstance.Type.Serial => lines(
               s"""|// Declare buffer for ${p.getUnqualifiedName}
                   |U8 msgBuff[this->m_msgSize];

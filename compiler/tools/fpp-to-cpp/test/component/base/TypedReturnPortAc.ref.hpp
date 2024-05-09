@@ -117,7 +117,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -146,7 +146,7 @@ namespace Ports {
           U32 u32, //!< A U32
           F32 f32, //!< An F32
           bool b, //!< A boolean
-          const TypedReturnPortStrings::StringSize80& str2, //!< A string
+          const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s //!< A struct
@@ -200,7 +200,7 @@ namespace Ports {
           U32 u32, //!< A U32
           F32 f32, //!< An F32
           bool b, //!< A boolean
-          const TypedReturnPortStrings::StringSize80& str2, //!< A string
+          const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s //!< A struct

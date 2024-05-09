@@ -401,7 +401,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -413,7 +413,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -441,7 +441,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -453,7 +453,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -496,7 +496,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -508,7 +508,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -520,7 +520,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -532,7 +532,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -544,7 +544,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -556,7 +556,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -568,7 +568,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -580,7 +580,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -924,7 +924,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -935,7 +935,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1013,7 +1013,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1026,7 +1026,7 @@ class QueuedEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct

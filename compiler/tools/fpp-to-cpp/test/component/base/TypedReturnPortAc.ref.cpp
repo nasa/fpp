@@ -47,7 +47,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -113,7 +113,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s

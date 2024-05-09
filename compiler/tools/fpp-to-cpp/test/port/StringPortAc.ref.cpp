@@ -72,10 +72,10 @@ void InputStringPort ::
 
 void InputStringPort ::
   invoke(
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1
@@ -166,10 +166,10 @@ void OutputStringPort ::
 
 void OutputStringPort ::
   invoke(
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1

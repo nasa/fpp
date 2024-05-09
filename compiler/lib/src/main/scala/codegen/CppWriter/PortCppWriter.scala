@@ -58,7 +58,7 @@ case class PortCppWriter (
 
   // Port params as CppDoc Function Params
   private val functionParams: List[CppDoc.Function.Param] =
-    formalParamsCppWriter.write(params, List(strNamespace))
+    formalParamsCppWriter.write(params, Nil, Some("Fw::StringBase"))
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
@@ -275,7 +275,7 @@ case class PortCppWriter (
         else
           line("FwIndexType portNum,") ::
             lines(params.map(p => {
-              s"${formalParamsCppWriter.getFormalParamType(p._2.data, None, List(strNamespace)).hppType} ${p._2.data.name}"
+              s"${formalParamsCppWriter.getFormalParamType(p._2.data, Some("Fw::StringBase")).hppType} ${p._2.data.name}"
             }).mkString(",\n")))
 
     List(

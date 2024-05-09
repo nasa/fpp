@@ -159,10 +159,10 @@ class InputStringPort :
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
     );
 
   public:
@@ -185,10 +185,10 @@ class InputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const StringPortStrings::StringSize80& str80, //!< A string of size 80
-        StringPortStrings::StringSize80& str80Ref,
-        const StringPortStrings::StringSize100& str100, //!< A string of size 100
-        StringPortStrings::StringSize100& str100Ref
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
     );
 
   private:
@@ -236,10 +236,10 @@ class OutputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const StringPortStrings::StringSize80& str80, //!< A string of size 80
-        StringPortStrings::StringSize80& str80Ref,
-        const StringPortStrings::StringSize100& str100, //!< A string of size 100
-        StringPortStrings::StringSize100& str100Ref
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
     );
 
   private:

@@ -851,7 +851,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -866,7 +866,7 @@ F32 QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -908,7 +908,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -937,7 +937,7 @@ F32 QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1025,7 +1025,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1053,7 +1053,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1081,7 +1081,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1109,7 +1109,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1137,7 +1137,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1165,7 +1165,7 @@ F32 QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1193,7 +1193,7 @@ F32 QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1221,7 +1221,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2226,7 +2226,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2250,7 +2250,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2336,7 +2336,7 @@ void QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2363,7 +2363,7 @@ F32 QueuedCommandsTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
