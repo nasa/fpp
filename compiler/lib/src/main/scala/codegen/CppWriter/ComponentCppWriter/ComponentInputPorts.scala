@@ -146,15 +146,23 @@ case class ComponentInputPorts(
                 |"""
           ),
           intersperseBlankLines(
-            getPortParams(p).map((n, _, _) => lines(
+            getPortParams(p).map((n, _, tyOpt) => {
+              val serializeExpr = tyOpt match {
+                case Some(t: Type.String) =>
+                  val serialSize = stringCppWriter.getSize(t)
+                  s"$n.serialize($bufferName, $serialSize)"
+                case _ => s"$bufferName.serialize($n)"
+              }
+              lines(
               s"""|// Serialize argument $n
-                  |_status = $bufferName.serialize($n);
+                  |_status = $serializeExpr;
                   |FW_ASSERT(
                   |  _status == Fw::FW_SERIALIZE_OK,
                   |  static_cast<FwAssertArgType>(_status)
                   |);
                   |"""
-            ))
+              )
+            })
           ),
           writeSendMessageLogic(bufferName, queueFull, priority)
         )

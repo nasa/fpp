@@ -1672,7 +1672,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1779,7 +1779,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1886,7 +1886,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1993,7 +1993,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
