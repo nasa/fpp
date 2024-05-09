@@ -304,14 +304,14 @@ abstract class ComponentCppWriterUtils(
     ),
   )
 
-  val portParamTypeMap: Map[String, List[(String, String, Type)]] =
+  val portParamTypeMap: ComponentCppWriterUtils.PortParamTypeMap =
     List(
       specialInputPorts,
       typedInputPorts,
       specialOutputPorts,
       typedOutputPorts,
       internalPorts
-    ).flatten.map(p => {
+    ).flatten.foldLeft (Map(): ComponentCppWriterUtils.PortParamTypeMap) ((m, p) => {
       val portName = p.getUnqualifiedName
       def makeTuple
         (typeWriter: Type => String)
@@ -326,24 +326,20 @@ abstract class ComponentCppWriterUtils(
       (p, p.getType) match {
         case (_, Some(PortInstance.Type.DefPort(symbol))) =>
           val typeWriter = writeTypeAsGeneralPortParamType (symbol) _
-          Some((
-            portName,
-            symbol.node._2.data.params.map(makeTuple (typeWriter) _)
-          ))
+          val tuples = symbol.node._2.data.params.map(makeTuple (typeWriter) _)
+          m + (portName -> tuples)
         case (PortInstance.Internal(node, _, _), _) =>
-          Some((
-            portName,
-            node._2.data.params.map(makeTuple (writeTypeAsInternalPortParamType) _)
-          ))
-        case _ => None
+          val tuples = node._2.data.params.map(makeTuple (writeTypeAsInternalPortParamType) _)
+          m + (portName -> tuples)
+        case _ => m
       }
-    }).filter(_.isDefined).map(_.get).toMap
+    })
 
-  val cmdParamTypeMap: Map[Command.Opcode, List[(String, String)]] =
+  val cmdParamTypeMap: ComponentCppWriterUtils.CmdParamTypeMap =
     nonParamCmds.map((opcode, cmd) => (
       opcode,
       cmd.aNode._2.data.params.map(param =>
-        (param._2.data.name, getCommandParam(param._2.data))
+        (param._2.data.name, writeCommandParamType(param._2.data))
       )
     )).toMap
 
@@ -357,11 +353,11 @@ abstract class ComponentCppWriterUtils(
       (paramName, paramTypeString, paramType)
     })
 
-  val eventParamTypeMap: Map[Event.Id, List[(String, String, Type)]] =
+  val eventParamTypeMap: ComponentCppWriterUtils.EventParamTypeMap =
     sortedEvents.map((id, event) => (id, getEventParamTypes(event))).toMap
 
   // Map from a port instance name to param list
-  private val portParamMap: Map[String, List[CppDoc.Function.Param]] =
+  private val portParamMap: ComponentCppWriterUtils.PortParamMap =
     List(
       specialInputPorts,
       typedInputPorts,
@@ -811,7 +807,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   /** Write a command param as a C++ type */
-  private def getCommandParam(param: Ast.FormalParam) =
+  private def writeCommandParamType(param: Ast.FormalParam) =
     TypeCppWriter.getName(
       s,
       s.a.typeMap(param.typeName.id),
@@ -862,6 +858,15 @@ abstract class ComponentCppWriterUtils(
 }
 
 object ComponentCppWriterUtils {
+
+  /** ( parameter name, parameter type name ) **/
+  type CmdParamTypeMapInfo = (String, String)
+  type CmdParamTypeMap = Map[Command.Opcode, List[CmdParamTypeMapInfo]]
+  type PortParamMap = Map[String, List[CppDoc.Function.Param]]
+  /** (  parameter name, parameter type name, parameter type ) **/
+  type ParamTypeMapInfo = (String, String, Type)
+  type PortParamTypeMap = Map[String, List[ParamTypeMapInfo]]
+  type EventParamTypeMap = Map[Event.Id, List[ParamTypeMapInfo]]
 
   sealed trait Radix
   case object Decimal extends Radix
