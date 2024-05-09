@@ -13,50 +13,77 @@ which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
 A state machine member is one of the following
 
+* A <<State-Machine-Behavior_State-Events,state events>>
+* A <<State-Machine-Behavior_State-Actions,state actions>>
+* A <<State-Machine-Behavior_State-Guards,state guards>>
 * A <<State-Machine-Behavior_State-Initial,state initial>>
 * A <<State-Machine-Behavior_State-Definition,state definition>>
 * A <<State-Machine-Behavior_State-Junction,state junction>>
-* A <<State-Machine-Behavior_State-Transition,state transition>>
 
 
 ==== Semantics
 
-. The identifier specifies the name of the state machine.
+. The _identifier_ specifies the name of the state machine.
 
 . The _state-machine-logic_ contains a textual description
 of a hierarchical state machine.
 
-. The state machine is expected to have one _state initial_.
+. _state events_ specify all the _events_ that can be dispatched to this state machine
 
-. Every state that is referenced in the _state transition_ is expected to be defined in the in the _state definition_
+. _state actions_ specify all the actions that can be invoked by this state machine
+
+. _state guards_ specify all the guards that are used in transitions by this state machine
+
+. The state machine is expected to have one _state initial_ that specifies the initial state
 
 ==== Examples
 
 [source,fpp]
 ----
-# MonitorSm defines the name of the state machine
+
 state machine MonitorSm {
 
-    # state initial
-    [*] -> Black
+    event Complete
+    event Drive
+    event Calibrate
+    event RTI
+    event Stop
+    event Fault
+    
+    action init2
+    action doCalibrate
+    action motorControl
+    action reportFault
 
-    # state definition
-    state Black
+    guard calibrateReady
 
-    # state definition
-    state Green {
-        entry: clearMonitorCount()
+    initial DeviceOn
+    
+    state DeviceOn {
+
+        initial Initializing do init2
+
+        state Initializing {
+            on Complete visit Idle
+        }
+
+        state Idle {
+            on Drive visit Driving
+            on Calibrate if calibrateReady visit Calibrating
+        }
+
+        state Calibrating {
+            on RTI do doCalibrate
+            on Fault go Idle do reportFault
+            on Complete visit Idle
+        }
+
+        state Driving {
+            on RTI do motorControl
+            on Stop visit Idle
+        }
+
     }
-
-    # state junction
-    state c1 <choice>
-
-    # state transitions
-    Black -> Green: ValidSignal
-    Green -> Black: MonitorReset
-    Black -> c1: RTI
-    c1 -> Green: [guard()]
-    c1 -> Black
 
 }
 

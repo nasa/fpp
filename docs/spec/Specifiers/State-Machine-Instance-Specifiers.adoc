@@ -11,7 +11,9 @@ A *state machine instance specifier* instantiates a  <<Definitions_State-Machine
 
 ==== Semantics
 
-The identifier is the name of the instantiated state machine.
+. The _identifier_ is the name of the instantiated state machine
+
+. The _qual-ident_ is the name of the state machine definition
 
 ==== Examples
 
@@ -19,34 +21,6 @@ The identifier is the name of the instantiated state machine.
 ----
 
 state machine MonitorSm {
-
-    [*] -> Black
-
-    state Black {
-        Black:Internal: RTI/checkSignal()
-    }
-
-    state Green {
-        Green:Entry: clearMonitorCount()
-        Green:Internal: RTI/checkSignal()
-    }
-
-    state Yellow {
-        Yellow:Entry: clearPersistCount()
-        Yellow:Internal: RTI/checkSignal()
-
-    }
-
-    state Red {
-        Red:Entry: ReportMonitorTrip()
-
-    }
-
-    Black -> Green: ValidSignal
-    Green -> Yellow: SignalOutsideLimits
-    Yellow -> Red: PersistenceExceeded
-    Yellow -> Green: SignalWithinLimts
-    Red -> Green: MonitorReset
 
 }
 

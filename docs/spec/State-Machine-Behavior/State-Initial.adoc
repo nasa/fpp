@@ -34,12 +34,10 @@ state machine Device {
 
     state DeviceOn {
 
-            initial Initializing do initDevices
+        initial PoweringUp do initDevices
 
-            state Initializing {
-                on Complete visit Idle
-            }
+        state PoweringUp {
 
+        }
     }
-}
 ----
