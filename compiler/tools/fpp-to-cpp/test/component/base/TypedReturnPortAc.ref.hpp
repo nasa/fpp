@@ -74,12 +74,6 @@ namespace Ports {
 
   }
 
-  // ----------------------------------------------------------------------
-  // String types for backwards compatibility
-  // ----------------------------------------------------------------------
-
-  typedef TypedReturnPortStrings::StringSize80 str2String;
-
   //! Input TypedReturn port
   //! A typed port with a return type
   class InputTypedReturnPort :
