@@ -21,8 +21,6 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val strNamespace = s"${name}PortStrings"
-
   private val typeCppWriter = TypeCppWriter(s, Some("Fw::StringBase"))
 
   private val strCppWriter = StringCppWriter(s)
@@ -99,7 +97,6 @@ case class PortCppWriter (
       )
     }
     val classes = List(
-      getStringClasses,
       portBufferClass,
       List(
         classMember(
@@ -160,20 +157,6 @@ case class PortCppWriter (
       Line.blank :: userHeaders,
       CppDoc.Lines.Cpp
     )
-  }
-
-  private def getStringClasses: List[CppDoc.Member] = {
-    val strTypes = paramTypeMap.map((_, t) => t match {
-      case t: Type.String => Some(t)
-      case _ => None
-    }).filter(_.isDefined).map(_.get).toList
-    strTypes match {
-      case Nil => Nil
-      case l => wrapInNamespaces(
-        List(strNamespace),
-        strCppWriter.write(l)
-      )
-    }
   }
 
   private def getPortBufferClass: List[Line] = {
