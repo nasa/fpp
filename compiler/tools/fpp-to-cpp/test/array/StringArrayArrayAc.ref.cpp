@@ -147,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus StringArray ::

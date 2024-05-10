@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const Struct2& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Struct2 ::

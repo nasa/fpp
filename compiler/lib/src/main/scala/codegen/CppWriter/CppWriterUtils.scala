@@ -5,6 +5,16 @@ import fpp.compiler.analysis._
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
+  /** Guards a value with a Boolean condition */
+  def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
+    if cond then value else default
+
+  /** Guards a list with a Boolean condition */
+  def guardedList[T] = guardedValue (Nil: List[T]) _
+
+  /** Guards an option type with a Boolean condition */
+  def guardedOption[T] = guardedValue (None: Option[T]) _
+
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
     accessTag: String,

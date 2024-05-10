@@ -149,7 +149,7 @@ namespace M {
 #endif
 
   // ----------------------------------------------------------------------
-  // Member functions
+  // Public member functions
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus PrimitiveF64 ::

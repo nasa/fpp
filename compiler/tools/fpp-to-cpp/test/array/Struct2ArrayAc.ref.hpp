@@ -8,6 +8,7 @@
 #define Struct2ArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "S2SerializableAc.hpp"
@@ -24,7 +25,7 @@ class Struct2 :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef S2 ElementType;
+    using ElementType = S2;
 
   public:
 
@@ -35,8 +36,10 @@ class Struct2 :
     enum {
       //! The size of the array
       SIZE = 3,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = S2::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * S2::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -124,7 +127,7 @@ class Struct2 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

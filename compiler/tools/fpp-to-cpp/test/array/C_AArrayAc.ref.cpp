@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const C_A& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus C_A ::

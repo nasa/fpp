@@ -8,6 +8,7 @@
 #define C_C_AArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -22,7 +23,7 @@ class C_A :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef U32 ElementType;
+    using ElementType = U32;
 
   public:
 
@@ -33,8 +34,10 @@ class C_A :
     enum {
       //! The size of the array
       SIZE = 3,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = sizeof(U32),
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * sizeof(U32),
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -122,7 +125,7 @@ class C_A :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

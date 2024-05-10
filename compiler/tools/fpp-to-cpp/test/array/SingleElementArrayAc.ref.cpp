@@ -124,7 +124,7 @@ std::ostream& operator<<(std::ostream& os, const SingleElement& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus SingleElement ::

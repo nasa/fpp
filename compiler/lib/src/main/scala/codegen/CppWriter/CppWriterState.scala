@@ -187,10 +187,13 @@ case class CppWriterState(
       // F Prime serializes bool as U8
       case (Type.Boolean, _)=> "sizeof(U8)"
       case (ts: Type.String, _) =>
+        lazy val stringSizeExpr = {
+          val serialSize = StringCppWriter(this).getSize(ts)
+          s"Fw::StringBase::STATIC_SERIALIZED_SIZE($serialSize)"
+        }
         typeName match {
-          case "Fw::StringBase" =>
-            val serialSize = StringCppWriter(this).getSize(ts)
-            s"Fw::StringBase::STATIC_SERIALIZED_SIZE($serialSize)"
+          case "Fw::StringBase" => stringSizeExpr
+          case "Fw::ExternalString" => stringSizeExpr
           case _ => s"$typeName::SERIALIZED_SIZE"
         }
       case (_, true) => s"sizeof($typeName)"

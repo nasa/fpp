@@ -141,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus AbsType ::

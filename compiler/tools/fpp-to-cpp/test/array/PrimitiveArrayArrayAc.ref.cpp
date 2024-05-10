@@ -147,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const PrimitiveArray& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus PrimitiveArray ::

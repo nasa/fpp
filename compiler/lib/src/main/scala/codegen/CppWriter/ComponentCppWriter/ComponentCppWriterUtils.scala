@@ -755,16 +755,6 @@ abstract class ComponentCppWriterUtils(
   def paramIdConstantName(name: String) =
     s"PARAMID_${name.toUpperCase}"
 
-  /** Guards a value with a Boolean condition */
-  def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
-    if cond then value else default
-
-  /** Guards a list with a Boolean condition */
-  def guardedList[T] = guardedValue (Nil: List[T]) _
-
-  /** Guards an option type with a Boolean condition */
-  def guardedOption[T] = guardedValue (None: Option[T]) _
-
   /** Gets a data product receive handler */
   def getDpRecvHandler(name: String, body: List[Line] = Nil) =
     functionClassMember(

@@ -147,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const Enum2& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Enum2 ::

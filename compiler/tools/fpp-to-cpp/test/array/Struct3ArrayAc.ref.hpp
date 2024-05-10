@@ -8,6 +8,7 @@
 #define Struct3ArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "S3SerializableAc.hpp"
@@ -24,7 +25,7 @@ class Struct3 :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef S::S3 ElementType;
+    using ElementType = S::S3;
 
   public:
 
@@ -35,8 +36,10 @@ class Struct3 :
     enum {
       //! The size of the array
       SIZE = 3,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = S::S3::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * S::S3::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -124,7 +127,7 @@ class Struct3 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

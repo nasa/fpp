@@ -15,6 +15,7 @@ String1 ::
   String1() :
     Serializable()
 {
+  this->initElements();
   // Construct using element-wise constructor
   *this = String1(
     Fw::String(""),
@@ -27,6 +28,7 @@ String1 ::
   String1(const ElementType (&a)[SIZE]) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
   }
@@ -36,6 +38,7 @@ String1 ::
   String1(const Fw::StringBase& e) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
@@ -49,6 +52,7 @@ String1 ::
   ) :
     Serializable()
 {
+  this->initElements();
   this->elements[0] = e1;
   this->elements[1] = e2;
   this->elements[2] = e3;
@@ -58,6 +62,7 @@ String1 ::
   String1(const String1& obj) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
@@ -141,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, const String1& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus String1 ::
@@ -189,3 +194,15 @@ void String1 ::
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Private member functions
+// ----------------------------------------------------------------------
+
+void String1 ::
+  initElements()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index].setBuffer(&this->buffers[index][0], sizeof this->buffers[index]);
+  }
+}
