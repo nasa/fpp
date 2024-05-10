@@ -1696,15 +1696,14 @@ void PassiveParamsTesterBase ::
       const S& s
   )
 {
-  FromPortEntry_typedOut _e = {
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str1 = str1;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedOut->push_back(_e);
   this->fromPortHistorySize++;
 }
@@ -1720,15 +1719,14 @@ void PassiveParamsTesterBase ::
       const S& s
   )
 {
-  FromPortEntry_typedReturnOut _e = {
-    u32,
-    f32,
-    b,
-    str2,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedReturnOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
 }

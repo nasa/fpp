@@ -214,12 +214,9 @@ case class ComponentHistory(
       val entryName = fromPortEntryName(portName)
       val historyName = fromPortHistoryName(portName)
       List.concat(
-        wrapInScope(
-          s"$entryName _e = {",
-          lines(getPortParams(p).map(_._1).mkString(",\n")),
-          "};"
-        ),
-        lines(s"|this->$historyName->push_back(_e);")
+        lines(s"$entryName _e;"),
+        getPortParams(p).map((n, _, _) => line(s"_e.$n = $n;")),
+        lines(s"this->$historyName->push_back(_e);")
       )
     }
 
