@@ -49,7 +49,7 @@ case class ComponentHistory(
            |    //! Push an item onto the history
            |    //!
            |    void push_back(
-           |        T entry //!< The item
+           |        const T& entry //!< The item
            |    )
            |    {
            |      FW_ASSERT(this->numEntries < this->maxSize);
@@ -59,7 +59,7 @@ case class ComponentHistory(
            |    //! Get an item at an index
            |    //!
            |    //! \return The item at index i
-           |    T at(
+           |    const T& at(
            |        const U32 i //!< The index
            |    ) const
            |    {
