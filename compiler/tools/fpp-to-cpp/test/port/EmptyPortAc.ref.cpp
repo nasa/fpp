@@ -6,7 +6,7 @@
 
 #include "EmptyPortAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include "Fw/Types/ExternalString.hpp"
 
 namespace {
 

@@ -134,10 +134,10 @@ class InputStringPort :
     enum {
       //! The size of the serial representations of the port arguments
       SERIALIZED_SIZE =
-        StringPortStrings::StringSize80::SERIALIZED_SIZE +
-        StringPortStrings::StringSize80::SERIALIZED_SIZE +
-        StringPortStrings::StringSize100::SERIALIZED_SIZE +
-        StringPortStrings::StringSize100::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(100)
     };
 
   public:

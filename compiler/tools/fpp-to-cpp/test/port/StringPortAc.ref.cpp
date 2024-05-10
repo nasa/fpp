@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
 
 namespace {
@@ -102,25 +102,29 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  StringPortStrings::StringSize80 str80;
+  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
   _status = _buffer.deserialize(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize80 str80Ref;
+  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
   _status = _buffer.deserialize(str80Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize100 str100;
+  char __fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100(__fprime_ac_str100_buffer, sizeof __fprime_ac_str100_buffer);
   _status = _buffer.deserialize(str100);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize100 str100Ref;
+  char __fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100Ref(__fprime_ac_str100Ref_buffer, sizeof __fprime_ac_str100Ref_buffer);
   _status = _buffer.deserialize(str100Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;

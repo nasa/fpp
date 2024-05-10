@@ -23,7 +23,7 @@ case class PortCppWriter (
 
   private val strNamespace = s"${name}PortStrings"
 
-  private val typeCppWriter = TypeCppWriter(s, None, List(strNamespace))
+  private val typeCppWriter = TypeCppWriter(s, Some("Fw::StringBase"))
 
   private val strCppWriter = StringCppWriter(s)
 
@@ -153,7 +153,7 @@ case class PortCppWriter (
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      "Fw/Types/StringUtils.hpp",
+      "Fw/Types/ExternalString.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
@@ -295,9 +295,17 @@ case class PortCppWriter (
                |"""
           ) ++
           paramList.flatMap((n, tn, _) => {
+            val varDecl = paramTypeMap(n) match {
+              case t: Type.String =>
+                val size = strCppWriter.getSize(t)
+                val bufferName = s"__fprime_ac_${n}_buffer"
+                s"""|char $bufferName[Fw::StringBase::BUFFER_SIZE($size)];
+                    |Fw::ExternalString $n($bufferName, sizeof $bufferName);""".stripMargin
+              case _ => s"$tn $n;"
+            }
             lines(
               s"""|
-                  |$tn $n;
+                  |$varDecl
                   |_status = _buffer.deserialize($n);
                   |if (_status != Fw::FW_SERIALIZE_OK) {
                   |  return _status;

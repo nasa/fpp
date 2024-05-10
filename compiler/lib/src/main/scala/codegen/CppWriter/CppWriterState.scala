@@ -190,7 +190,7 @@ case class CppWriterState(
         typeName match {
           case "Fw::StringBase" =>
             val serialSize = StringCppWriter(this).getSize(ts)
-            s"StringBase::staticSerializedSize($serialSize)"
+            s"Fw::StringBase::STATIC_SERIALIZED_SIZE($serialSize)"
           case _ => s"$typeName::SERIALIZED_SIZE"
         }
       case (_, true) => s"sizeof($typeName)"
