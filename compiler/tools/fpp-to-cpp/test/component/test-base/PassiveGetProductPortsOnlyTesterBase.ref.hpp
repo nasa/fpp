@@ -12,6 +12,7 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "test-base/PassiveGetProductPortsOnlyComponentAc.hpp"
 
 //! \class PassiveGetProductPortsOnlyTesterBase

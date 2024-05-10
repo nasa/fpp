@@ -173,16 +173,30 @@ case class ComponentHistory(
         typedOutputPorts.flatMap(p => {
           val portName = testerPortName(p)
           val entryName = fromPortEntryName(p.getUnqualifiedName)
-          portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => Nil
-            case params =>
-              Line.blank ::
-              line(s"//! A history entry for port $portName") ::
-              wrapInScope(
-                s"struct $entryName {",
-                params.map((name, tn, _) => line(s"$tn $name;")),
-                "};"
-              )
+          val params = portParamTypeMap(p.getUnqualifiedName)
+          guardedList (params.size > 0) {
+            val constructor = wrapInScope(
+              s"$entryName() :",
+              lines(
+                params.map((n, tn, t) => {
+                  t match {
+                    case ts: Type.String =>
+                      val bufferName = getBufferName(n)
+                      s"$n($bufferName, sizeof $bufferName)"
+                    case _ => s"$n()"
+                  }
+                }).mkString(",\n")
+              ),
+              "{}"
+            )
+            val members = params.flatMap((n, tn, t) => lines(writeMemberDecl(s, tn, n, t)))
+            Line.blank ::
+            line(s"//! A history entry for port $portName") ::
+            wrapInScope(
+              s"struct $entryName {",
+              constructor ++ members,
+              "};"
+            )
           }
         })
       )

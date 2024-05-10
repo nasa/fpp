@@ -54,7 +54,8 @@ case class ComponentTesterBaseWriter(
       s"$componentRelativeFileName.hpp",
       "Fw/Comp/PassiveComponentBase.hpp",
       "Fw/Port/InputSerializePort.hpp",
-      "Fw/Types/Assert.hpp"
+      "Fw/Types/Assert.hpp",
+      "Fw/Types/ExternalString.hpp"
     )
     val dpHeaders = guardedList (hasDataProducts) (
       List("Fw/Dp/test/util/DpContainerHeader.hpp")
