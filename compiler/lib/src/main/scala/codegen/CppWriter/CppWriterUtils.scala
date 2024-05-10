@@ -225,15 +225,23 @@ trait CppWriterUtils extends LineUtils {
     }
 
   /** Write a member declaration */
-  def writeMemberDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
+  def writeMemberDecl(
+    s: CppWriterState,
+    typeName: String,
+    name: String,
+    t: Type,
+    arraySize: Option[String] = None
+  ): String = {
+    val arrayBrackets = arraySize.map(s => s"[$s]").getOrElse("")
     t match {
       case st: Type.String =>
         val bufferName = getBufferName(name)
         val size = StringCppWriter(s).getSize(st)
-        s"""|char ${bufferName}[Fw::StringBase::BUFFER_SIZE($size)];
-            |Fw::ExternalString $name;""".stripMargin
-      case _ => s"$typeName $name;"
+        s"""|char ${bufferName}${arrayBrackets}[Fw::StringBase::BUFFER_SIZE($size)];
+            |Fw::ExternalString $name$arrayBrackets;""".stripMargin
+      case _ => s"$typeName $name$arrayBrackets;"
     }
+  }
 
   /** Get a buffer name */
   def getBufferName(name: String) = s"__fprime_ac_${name}_buffer"
