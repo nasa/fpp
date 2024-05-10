@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -3541,7 +3542,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3613,7 +3615,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3685,7 +3688,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3757,7 +3761,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveCommandsComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,

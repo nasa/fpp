@@ -295,14 +295,7 @@ case class PortCppWriter (
                |"""
           ) ++
           paramList.flatMap((n, tn, _) => {
-            val varDecl = paramTypeMap(n) match {
-              case t: Type.String =>
-                val size = strCppWriter.getSize(t)
-                val bufferName = s"__fprime_ac_${n}_buffer"
-                s"""|char $bufferName[Fw::StringBase::BUFFER_SIZE($size)];
-                    |Fw::ExternalString $n($bufferName, sizeof $bufferName);""".stripMargin
-              case _ => s"$tn $n;"
-            }
+            val varDecl = writeVarDecl(s, tn, n, paramTypeMap(n))
             lines(
               s"""|
                   |$varDecl

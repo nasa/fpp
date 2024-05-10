@@ -5,6 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif

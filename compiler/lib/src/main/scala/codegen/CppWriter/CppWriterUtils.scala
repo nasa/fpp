@@ -1,5 +1,7 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
+
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
@@ -200,6 +202,17 @@ trait CppWriterUtils extends LineUtils {
       ");"
     )
   }
+
+  /** Write a variable declaration */
+  def writeVarDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
+    t match {
+      case st: Type.String =>
+        val size = StringCppWriter(s).getSize(st)
+        val bufferName = s"__fprime_ac_${name}_buffer"
+        s"""|char $bufferName[Fw::StringBase::BUFFER_SIZE($size)];
+            |Fw::ExternalString $name($bufferName, sizeof $bufferName);""".stripMargin
+      case _ => s"$typeName $name;"
+    }
 
   def classMember(
     comment: Option[String],

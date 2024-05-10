@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "base/TypedPortAc.hpp"
 
 namespace Ports {
@@ -125,7 +125,8 @@ namespace Ports {
       return _status;
     }
 
-    TypedPortStrings::StringSize80 str1;
+    char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
     _status = _buffer.deserialize(str1);
     if (_status != Fw::FW_SERIALIZE_OK) {
       return _status;

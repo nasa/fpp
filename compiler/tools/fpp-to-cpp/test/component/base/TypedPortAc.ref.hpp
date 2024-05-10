@@ -93,7 +93,7 @@ namespace Ports {
           sizeof(U32) +
           sizeof(F32) +
           sizeof(U8) +
-          TypedPortStrings::StringSize80::SERIALIZED_SIZE +
+          Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
           E::SERIALIZED_SIZE +
           A::SERIALIZED_SIZE +
           S::SERIALIZED_SIZE

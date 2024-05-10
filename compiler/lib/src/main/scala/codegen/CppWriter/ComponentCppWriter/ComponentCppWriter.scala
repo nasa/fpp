@@ -125,6 +125,7 @@ case class ComponentCppWriter (
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
+      "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).flatMap({
@@ -542,10 +543,11 @@ case class ComponentCppWriter (
         case PortInstance.Type.DefPort(_) =>
           List(
             intersperseBlankLines(
-              portParamTypeMap(p.getUnqualifiedName).map((n, tn, _) =>
+              portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => {
+                val varDecl = writeVarDecl(s, tn, n, t)
                 lines(
                   s"""|// Deserialize argument $n
-                      |$tn $n;
+                      |$varDecl
                       |deserStatus = msg.deserialize($n);
                       |FW_ASSERT(
                       |  deserStatus == Fw::FW_SERIALIZE_OK,
@@ -553,7 +555,7 @@ case class ComponentCppWriter (
                       |);
                       |"""
                 )
-              )
+              })
             ),
             line("// Call handler function") ::
               writeFunctionCall(
