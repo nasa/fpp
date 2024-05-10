@@ -24,7 +24,7 @@ Primitive ::
     m_mU64(0),
     m_mU8(0),
     m_m_bool(false),
-    m_m_string(Fw::String(""))
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, Fw::String(""))
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = 0.0f;
@@ -57,7 +57,7 @@ Primitive ::
     m_mU64(mU64),
     m_mU8(mU8),
     m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
@@ -77,7 +77,7 @@ Primitive ::
     m_mU64(obj.m_mU64),
     m_mU8(obj.m_mU8),
     m_m_bool(obj.m_m_bool),
-    m_m_string(obj.m_m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, obj.m_m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = obj.m_mF32[i];
@@ -110,7 +110,7 @@ Primitive ::
     m_mU64(mU64),
     m_mU8(mU8),
     m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32;

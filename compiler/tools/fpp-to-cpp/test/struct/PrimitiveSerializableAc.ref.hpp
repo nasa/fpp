@@ -8,6 +8,7 @@
 #define PrimitiveSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -16,57 +17,6 @@
 class Primitive :
   public Fw::Serializable
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-      public:
-
-        enum {
-          STRING_SIZE = 80,
-          SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
-        };
-
-        StringSize80() : StringBase() { *this = ""; }
-
-        StringSize80(const StringSize80& src) : StringBase() { *this = src; }
-
-        StringSize80(const StringBase& src) : StringBase() { *this = src; }
-
-        StringSize80(const char* src) : StringBase() { *this = src; }
-
-        ~StringSize80() {}
-
-        StringSize80& operator=(const StringSize80& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize80& operator=(const StringBase& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize80& operator=(const char* src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        const char* toChar() const { return this->m_buf; }
-
-        StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
-
-      private:
-
-        char m_buf[BUFFER_SIZE(STRING_SIZE)];
-
-    };
 
   public:
 
@@ -108,7 +58,7 @@ class Primitive :
     using Type_of_m_bool = bool;
 
     //! The type of m_string
-    using Type_of_m_string = StringSize80;
+    using Type_of_m_string = Fw::ExternalString;
 
   public:
 
@@ -130,7 +80,7 @@ class Primitive :
         sizeof(U64) +
         sizeof(U8) +
         sizeof(U8) +
-        StringSize80::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
     };
 
   public:
@@ -396,7 +346,8 @@ class Primitive :
     U64 m_mU64;
     U8 m_mU8;
     bool m_m_bool;
-    StringSize80 m_m_string;
+    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    Fw::ExternalString m_m_string;
 
 };
 

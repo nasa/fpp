@@ -8,63 +8,13 @@
 #define DefaultSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
 class Default :
   public Fw::Serializable
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // StringSize40 class
-    // ----------------------------------------------------------------------
-
-    class StringSize40 :
-      public Fw::StringBase
-    {
-      public:
-
-        enum {
-          STRING_SIZE = 40,
-          SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
-        };
-
-        StringSize40() : StringBase() { *this = ""; }
-
-        StringSize40(const StringSize40& src) : StringBase() { *this = src; }
-
-        StringSize40(const StringBase& src) : StringBase() { *this = src; }
-
-        StringSize40(const char* src) : StringBase() { *this = src; }
-
-        ~StringSize40() {}
-
-        StringSize40& operator=(const StringSize40& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize40& operator=(const StringBase& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize40& operator=(const char* src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        const char* toChar() const { return this->m_buf; }
-
-        StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
-
-      private:
-
-        char m_buf[BUFFER_SIZE(STRING_SIZE)];
-
-    };
 
   public:
 
@@ -76,7 +26,7 @@ class Default :
     using Type_of_mU32 = U32;
 
     //! The type of mS1
-    using Type_of_mS1 = StringSize40;
+    using Type_of_mS1 = Fw::ExternalString;
 
     //! The type of mF64
     using Type_of_mF64 = F64;
@@ -91,7 +41,7 @@ class Default :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U32) +
-        StringSize40::SERIALIZED_SIZE +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(40) +
         sizeof(F64)
     };
 
@@ -227,7 +177,8 @@ class Default :
     // ----------------------------------------------------------------------
 
     U32 m_mU32;
-    StringSize40 m_mS1;
+    char m___fprime_ac_mS1_buffer[Fw::StringBase::BUFFER_SIZE(40)];
+    Fw::ExternalString m_mS1;
     F64 m_mF64;
 
 };

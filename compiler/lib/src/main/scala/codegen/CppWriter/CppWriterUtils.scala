@@ -230,6 +230,7 @@ trait CppWriterUtils extends LineUtils {
     typeName: String,
     name: String,
     t: Type,
+    prefix: String = "",
     arraySize: Option[String] = None
   ): String = {
     val arrayBrackets = arraySize.map(s => s"[$s]").getOrElse("")
@@ -237,9 +238,9 @@ trait CppWriterUtils extends LineUtils {
       case st: Type.String =>
         val bufferName = getBufferName(name)
         val size = StringCppWriter(s).getSize(st)
-        s"""|char ${bufferName}${arrayBrackets}[Fw::StringBase::BUFFER_SIZE($size)];
-            |Fw::ExternalString $name$arrayBrackets;""".stripMargin
-      case _ => s"$typeName $name$arrayBrackets;"
+        s"""|char ${prefix}${bufferName}${arrayBrackets}[Fw::StringBase::BUFFER_SIZE($size)];
+            |Fw::ExternalString ${prefix}${name}${arrayBrackets};""".stripMargin
+      case _ => s"$typeName ${prefix}${name}${arrayBrackets};"
     }
   }
 

@@ -14,7 +14,7 @@
 StringArray ::
   StringArray() :
     Serializable(),
-    m_s1(Fw::String(""))
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, Fw::String(""))
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = Fw::String("");
@@ -27,7 +27,7 @@ StringArray ::
       const Type_of_s2& s2
   ) :
     Serializable(),
-    m_s1(s1)
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2[i];
@@ -37,7 +37,7 @@ StringArray ::
 StringArray ::
   StringArray(const StringArray& obj) :
     Serializable(),
-    m_s1(obj.m_s1)
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, obj.m_s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = obj.m_s2[i];
@@ -50,7 +50,7 @@ StringArray ::
       const Fw::StringBase& s2
   ) :
     Serializable(),
-    m_s1(s1)
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
     this->m_s2[i] = s2;

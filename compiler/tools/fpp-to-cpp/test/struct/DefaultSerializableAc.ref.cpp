@@ -15,7 +15,7 @@ Default ::
   Default() :
     Serializable(),
     m_mU32(54),
-    m_mS1(Fw::String("hello")),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
     m_mF64(0.0)
 {
 
@@ -29,7 +29,7 @@ Default ::
   ) :
     Serializable(),
     m_mU32(mU32),
-    m_mS1(mS1),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, mS1),
     m_mF64(mF64)
 {
 
@@ -39,7 +39,7 @@ Default ::
   Default(const Default& obj) :
     Serializable(),
     m_mU32(obj.m_mU32),
-    m_mS1(obj.m_mS1),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, obj.m_mS1),
     m_mF64(obj.m_mF64)
 {
 

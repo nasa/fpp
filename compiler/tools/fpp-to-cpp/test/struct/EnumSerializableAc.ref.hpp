@@ -9,6 +9,7 @@
 
 #include "EEnumAc.hpp"
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 

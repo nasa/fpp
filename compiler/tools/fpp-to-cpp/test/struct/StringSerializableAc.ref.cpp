@@ -14,8 +14,8 @@
 String ::
   String() :
     Serializable(),
-    m_s1(Fw::String("hello")),
-    m_s2(Fw::String(""))
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, Fw::String("hello")),
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, Fw::String(""))
 {
 
 }
@@ -26,8 +26,8 @@ String ::
       const Fw::StringBase& s2
   ) :
     Serializable(),
-    m_s1(s1),
-    m_s2(s2)
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1),
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, s2)
 {
 
 }
@@ -35,8 +35,8 @@ String ::
 String ::
   String(const String& obj) :
     Serializable(),
-    m_s1(obj.m_s1),
-    m_s2(obj.m_s2)
+    m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, obj.m_s1),
+    m_s2(m___fprime_ac_s2_buffer, sizeof m___fprime_ac_s2_buffer, obj.m_s2)
 {
 
 }
