@@ -27,7 +27,7 @@ namespace M {
       m_mU64(0),
       m_mU8(0),
       m_mBool(false),
-      m_mString(Fw::String(""))
+      m_mString(m___fprime_ac_mString_buffer, sizeof m___fprime_ac_mString_buffer, Fw::String(""))
   {
 
   }
@@ -59,7 +59,7 @@ namespace M {
       m_mU64(mU64),
       m_mU8(mU8),
       m_mBool(mBool),
-      m_mString(mString)
+      m_mString(m___fprime_ac_mString_buffer, sizeof m___fprime_ac_mString_buffer, mString)
   {
 
   }
@@ -78,7 +78,7 @@ namespace M {
       m_mU64(obj.m_mU64),
       m_mU8(obj.m_mU8),
       m_mBool(obj.m_mBool),
-      m_mString(obj.m_mString)
+      m_mString(m___fprime_ac_mString_buffer, sizeof m___fprime_ac_mString_buffer, obj.m_mString)
   {
 
   }

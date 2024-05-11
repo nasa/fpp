@@ -17,6 +17,9 @@ StringArray ::
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, Fw::String(""))
 {
   for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
+    // Set the array value
     this->m_s2[i] = Fw::String("");
   }
 }
@@ -30,6 +33,9 @@ StringArray ::
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
+    // Set the array value
     this->m_s2[i] = s2[i];
   }
 }
@@ -40,6 +46,9 @@ StringArray ::
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, obj.m_s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
+    // Set the array value
     this->m_s2[i] = obj.m_s2[i];
   }
 }
@@ -53,6 +62,9 @@ StringArray ::
     m_s1(m___fprime_ac_s1_buffer, sizeof m___fprime_ac_s1_buffer, s1)
 {
   for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
+    // Set the array value
     this->m_s2[i] = s2;
   }
 }
@@ -214,6 +226,9 @@ void StringArray ::
   this->m_s1 = s1;
 
   for (FwSizeType i = 0; i < 16; i++) {
+    // Initialize the external string
+    this->m_s2[i].setBuffer(&m___fprime_ac_s2_buffer[i][0], sizeof m___fprime_ac_s2_buffer[i]);
+    // Set the array value
     this->m_s2[i] = s2[i];
   }
 }

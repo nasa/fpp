@@ -8,6 +8,7 @@
 #define SSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -19,57 +20,6 @@ class S :
   public:
 
     // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-      public:
-
-        enum {
-          STRING_SIZE = 80,
-          SERIALIZED_SIZE = STATIC_SERIALIZED_SIZE(STRING_SIZE)
-        };
-
-        StringSize80() : StringBase() { *this = ""; }
-
-        StringSize80(const StringSize80& src) : StringBase() { *this = src; }
-
-        StringSize80(const StringBase& src) : StringBase() { *this = src; }
-
-        StringSize80(const char* src) : StringBase() { *this = src; }
-
-        ~StringSize80() {}
-
-        StringSize80& operator=(const StringSize80& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize80& operator=(const StringBase& src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        StringSize80& operator=(const char* src) {
-          (void)StringBase::operator=(src);
-          return *this;
-        }
-
-        const char* toChar() const { return this->m_buf; }
-
-        StringBase::SizeType getCapacity() const { return sizeof this->m_buf; }
-
-      private:
-
-        char m_buf[BUFFER_SIZE(STRING_SIZE)];
-
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Types
     // ----------------------------------------------------------------------
 
@@ -77,7 +27,7 @@ class S :
     using Type_of_x = U32;
 
     //! The type of y
-    using Type_of_y = StringSize80;
+    using Type_of_y = Fw::ExternalString;
 
   public:
 
@@ -89,7 +39,7 @@ class S :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U32) +
-        StringSize80::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
     };
 
   public:
@@ -213,7 +163,8 @@ class S :
     // ----------------------------------------------------------------------
 
     U32 m_x;
-    StringSize80 m_y;
+    char m___fprime_ac_y_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    Fw::ExternalString m_y;
 
 };
 

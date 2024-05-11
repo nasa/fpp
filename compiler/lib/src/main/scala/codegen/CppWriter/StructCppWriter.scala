@@ -671,7 +671,22 @@ case class StructCppWriter(
   // Writes a for loop to set the value of each array member
   private def writeArraySetters(getValue: String => String) =
     arrayMemberNames.flatMap(n =>
-      iterateN(sizes(n), lines(s"this->m_$n[i] = ${getValue(n)};"))
+      iterateN(
+        sizes(n),
+        List.concat(
+          {
+            typeMembers(n) match {
+              case _: Type.String =>
+                val bufferName = getBufferName(n)
+                lines(s"""|// Initialize the external string
+                          |this->m_$n[i].setBuffer(&m_$bufferName[i][0], sizeof m_$bufferName[i]);
+                          |// Set the array value""".stripMargin)
+              case _ => Nil
+            }
+          },
+          lines(s"this->m_$n[i] = ${getValue(n)};")
+        )
+      )
     )
 
   // Writes a for loop that iterates n times

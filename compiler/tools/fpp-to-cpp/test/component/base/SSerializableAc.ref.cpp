@@ -15,7 +15,7 @@ S ::
   S() :
     Serializable(),
     m_x(0),
-    m_y(Fw::String(""))
+    m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, Fw::String(""))
 {
 
 }
@@ -27,7 +27,7 @@ S ::
   ) :
     Serializable(),
     m_x(x),
-    m_y(y)
+    m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, y)
 {
 
 }
@@ -36,7 +36,7 @@ S ::
   S(const S& obj) :
     Serializable(),
     m_x(obj.m_x),
-    m_y(obj.m_y)
+    m_y(m___fprime_ac_y_buffer, sizeof m___fprime_ac_y_buffer, obj.m_y)
 {
 
 }
