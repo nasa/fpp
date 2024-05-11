@@ -25,8 +25,6 @@ case class StructCppWriter(
 
   private val typeCppWriter = TypeCppWriter(s, Some("Fw::ExternalString"))
 
-  private val strCppWriter = StringCppWriter(s)
-
   private val astMembers = data.members
 
   private val typeMembers = structType.anonStruct.members

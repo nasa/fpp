@@ -149,7 +149,7 @@ case class ComponentInputPorts(
             getPortParams(p).map((n, _, tyOpt) => {
               val serializeExpr = tyOpt match {
                 case Some(t: Type.String) =>
-                  val serialSize = stringCppWriter.getSize(t)
+                  val serialSize = writeStringSize(s, t)
                   s"$n.serialize($bufferName, $serialSize)"
                 case _ => s"$bufferName.serialize($n)"
               }

@@ -28,8 +28,6 @@ abstract class ComponentCppWriterUtils(
 
   val members: List[Ast.ComponentMember] = data.members
 
-  val stringCppWriter: StringCppWriter = StringCppWriter(s)
-
   val formalParamsCppWriter: FormalParamsCppWriter = FormalParamsCppWriter(s)
 
   /** Port number param as a CppDoc Function Param */

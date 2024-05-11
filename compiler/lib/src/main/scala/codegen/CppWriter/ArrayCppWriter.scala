@@ -26,8 +26,6 @@ case class ArrayCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s, Some("Fw::ExternalString"))
 
-  private val strCppWriter = StringCppWriter(s)
-
   private val eltType = arrayType.anonArray.eltType
 
   private val eltTypeName = typeCppWriter.write(eltType)

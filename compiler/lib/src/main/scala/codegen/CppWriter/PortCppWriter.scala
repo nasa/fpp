@@ -23,8 +23,6 @@ case class PortCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s, Some("Fw::StringBase"))
 
-  private val strCppWriter = StringCppWriter(s)
-
   private val formalParamsCppWriter = FormalParamsCppWriter(s)
 
   private val params = data.params
@@ -42,7 +40,7 @@ case class PortCppWriter (
 
   // Map from string size to list of names of string of that size
   private val strNameMap = strParamList.groupBy((_, t) => {
-    strCppWriter.getSize(t)
+    writeStringSize(s, t)
   }).map((size, l) => (size, l.map(_._1)))
 
   // List of tuples (name, C++ type, kind) for each param

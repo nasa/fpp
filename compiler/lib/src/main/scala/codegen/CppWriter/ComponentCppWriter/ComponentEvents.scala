@@ -134,7 +134,7 @@ case class ComponentEvents (
                   List.concat(
                     ty match {
                       case t: Type.String =>
-                        val serialSize = stringCppWriter.getSize(t)
+                        val serialSize = writeStringSize(s, t)
                         lines(
                           s"_status = $name.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
                         )
