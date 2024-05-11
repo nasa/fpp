@@ -32,15 +32,9 @@ case class ArrayCppWriter (
 
   private val hasPrimitiveEltType = s.isPrimitive(eltType, eltTypeName)
 
-  private val hasStringEltType= eltType match {
-    case _: Type.String => true
-    case _ => false
-  }
+  private val hasStringEltType= s.isStringType(eltType)
 
-  private val constructorEltType = eltType match {
-    case _: Type.String => "Fw::StringBase"
-    case _ => "ElementType"
-  }
+  private val constructorEltType = if hasStringEltType then "Fw::StringBase" else "ElementType"
 
   private val arraySize = arrayType.getArraySize.get
 

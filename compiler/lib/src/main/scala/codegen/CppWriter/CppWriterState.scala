@@ -174,11 +174,17 @@ case class CppWriterState(
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
 
-  /** Is this a built-in type? */
+  /** Is t a built-in type? */
   def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
 
-  /** Is this a primitive type (not serializable)? */
+  /** Is t a primitive type (not serializable)? */
   def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
+
+  /** Is t a string type? */
+  def isStringType(t: Type) = t match {
+    case _: Type.String => true
+    case _ => false
+  }
 
 }
 
