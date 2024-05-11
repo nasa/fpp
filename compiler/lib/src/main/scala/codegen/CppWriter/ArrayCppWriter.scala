@@ -26,7 +26,7 @@ case class ArrayCppWriter (
 
   private val typeCppWriter = TypeCppWriter(s, Some("Fw::ExternalString"))
 
-  private val strCppWriter = StringCppWriter(s, Some(name))
+  private val strCppWriter = StringCppWriter(s)
 
   private val eltType = arrayType.anonArray.eltType
 
@@ -149,14 +149,14 @@ case class ArrayCppWriter (
             val elementSizes = eltType match {
               case ts: Type.String =>
                 s"""|//! The string size of each element
-                    |ELEMENT_STRING_SIZE = ${strCppWriter.getSize(ts)},
+                    |ELEMENT_STRING_SIZE = ${writeStringSize(s, ts)},
                     |//! The buffer size of each element
                     |ELEMENT_BUFFER_SIZE = Fw::StringBase::BUFFER_SIZE(ELEMENT_STRING_SIZE),
                     |//! The serialized size of each element
                     |ELEMENT_SERIALIZED_SIZE = Fw::StringBase::STATIC_SERIALIZED_SIZE(ELEMENT_STRING_SIZE),"""
               case _ =>
                 s"""|//! The serialized size of each element
-                    |ELEMENT_SERIALIZED_SIZE = ${s.getSerializedSizeExpr(eltType, eltTypeName)},"""
+                    |ELEMENT_SERIALIZED_SIZE = ${writeSerializedSizeExpr(s, eltType, eltTypeName)},"""
             }
             lines(s"""|//! The size of the array
                       |SIZE = $arraySize,

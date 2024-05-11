@@ -56,7 +56,7 @@ case class PortCppWriter (
 
   // Port params as CppDoc Function Params
   private val functionParams: List[CppDoc.Function.Param] =
-    formalParamsCppWriter.write(params, Nil, Some("Fw::StringBase"))
+    formalParamsCppWriter.write(params, Some("Fw::StringBase"))
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
@@ -218,7 +218,7 @@ case class PortCppWriter (
                 else
                   line("SERIALIZED_SIZE =") ::
                     lines(paramList.map((n, tn, _) =>
-                      s.getSerializedSizeExpr(paramTypeMap(n), tn)
+                      writeSerializedSizeExpr(s, paramTypeMap(n), tn)
                     ).mkString(" +\n")).map(indentIn)
               ).flatten
             )

@@ -142,7 +142,7 @@ case class ComponentEvents (
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
                             |_status = _logBuff.serialize(
-                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, typeName)})
+                            |  static_cast<U8>(${writeSerializedSizeExpr(s, t, typeName)})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
@@ -289,7 +289,6 @@ case class ComponentEvents (
           eventLogName(event),
           formalParamsCppWriter.write(
             event.aNode._2.data.params,
-            Nil,
             Some("Fw::StringBase"),
             FormalParamsCppWriter.Value
           ),

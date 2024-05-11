@@ -830,7 +830,7 @@ case class ComponentTesterBaseWriter(
             val name = data.name
             val tn = writeFormalParamType(data, "Fw::LogStringArg")
             val paramType = s.a.typeMap(data.typeName.id)
-            val serializedSizeExpr = s.getSerializedSizeExpr(paramType, tn)
+            val serializedSizeExpr = writeSerializedSizeExpr(s, paramType, tn)
 
             lines(
               s"""|
@@ -960,7 +960,6 @@ case class ComponentTesterBaseWriter(
         eventHandlerName(event),
         formalParamsCppWriter.write(
           event.aNode._2.data.params,
-          Nil,
           Some("Fw::StringBase"),
           FormalParamsCppWriter.Value
         ),

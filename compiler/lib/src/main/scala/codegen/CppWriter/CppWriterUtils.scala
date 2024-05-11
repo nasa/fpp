@@ -218,7 +218,7 @@ trait CppWriterUtils extends LineUtils {
     t match {
       case st: Type.String =>
         val bufferName = getBufferName(name)
-        val size = StringCppWriter(s).getSize(st)
+        val size = writeStringSize(s, st)
         s"""|char ${bufferName}[Fw::StringBase::BUFFER_SIZE($size)];
             |Fw::ExternalString $name($bufferName, sizeof $bufferName);""".stripMargin
       case _ => s"$typeName $name;"
@@ -237,7 +237,7 @@ trait CppWriterUtils extends LineUtils {
     t match {
       case st: Type.String =>
         val bufferName = getBufferName(name)
-        val size = StringCppWriter(s).getSize(st)
+        val size = writeStringSize(s, st)
         s"""|char ${prefix}${bufferName}${arrayBrackets}[Fw::StringBase::BUFFER_SIZE($size)];
             |Fw::ExternalString ${prefix}${name}${arrayBrackets};""".stripMargin
       case _ => s"$typeName ${prefix}${name}${arrayBrackets};"
@@ -246,6 +246,31 @@ trait CppWriterUtils extends LineUtils {
 
   /** Get a buffer name */
   def getBufferName(name: String) = s"__fprime_ac_${name}_buffer"
+
+  /** Write the size of a string type */
+  def writeStringSize(s: CppWriterState, t: Type.String): String =
+    t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
+      getOrElse(s.defaultStringSize.toString)
+
+  /** Write a C++ expression for static serialized size */
+  def writeSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
+    (t, s.isPrimitive(t, typeName))  match {
+      // sizeof(bool) is not defined in C++
+      // F Prime serializes bool as U8
+      case (Type.Boolean, _)=> "sizeof(U8)"
+      case (ts: Type.String, _) =>
+        lazy val stringSizeExpr = {
+          val serialSize = writeStringSize(s, ts)
+          s"Fw::StringBase::STATIC_SERIALIZED_SIZE($serialSize)"
+        }
+        typeName match {
+          case "Fw::StringBase" => stringSizeExpr
+          case "Fw::ExternalString" => stringSizeExpr
+          case _ => s"$typeName::SERIALIZED_SIZE"
+        }
+      case (_, true) => s"sizeof($typeName)"
+      case _ => s"$typeName::SERIALIZED_SIZE"
+    }
 
   def classMember(
     comment: Option[String],

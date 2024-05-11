@@ -141,7 +141,7 @@ case class StructCppWriter(
                 lines("//! The size of the serial representation"),
                 lines("SERIALIZED_SIZE ="),
                 lines(memberList.map((n, tn) =>
-                  s.getSerializedSizeExpr(typeMembers(n), tn) + (
+                  writeSerializedSizeExpr(s, typeMembers(n), tn) + (
                     if sizes.contains(n) then s" * ${sizes(n)}"
                     else ""
                     )).mkString(" +\n")).map(indentIn),

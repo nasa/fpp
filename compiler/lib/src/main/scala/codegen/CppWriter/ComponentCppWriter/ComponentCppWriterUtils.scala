@@ -143,7 +143,6 @@ abstract class ComponentCppWriterUtils(
   def getNonParamCmdFormalParams(cmd: Command.NonParam, stringRep: String): List[CppDoc.Function.Param] =
     formalParamsCppWriter.write(
       cmd.aNode._2.data.params,
-      Nil,
       Some(stringRep),
       FormalParamsCppWriter.Value
     )
@@ -374,14 +373,12 @@ abstract class ComponentCppWriterUtils(
         case (_, Some(PortInstance.Type.DefPort(symbol))) =>
           val params = formalParamsCppWriter.write(
             symbol.node._2.data.params,
-            Nil,
             Some("Fw::StringBase")
           )
           m + (portName -> params)
         case (PortInstance.Internal(node, _, _), _) =>
           val params = formalParamsCppWriter.write(
             node._2.data.params,
-            Nil,
             Some("Fw::InternalInterfaceString")
           )
           m + (portName -> params)
@@ -496,8 +493,7 @@ abstract class ComponentCppWriterUtils(
       TypeCppWriter.getName(
         s,
         s.a.typeMap(node.id),
-        None,
-        PortCppWriter.getPortNamespaces(s, sym)
+        None
       )
     transformPortReturnType(pi, transformer)
   }
@@ -794,8 +790,7 @@ abstract class ComponentCppWriterUtils(
     TypeCppWriter.getName(
       s,
       t,
-      None,
-      PortCppWriter.getPortNamespaces(s, symbol)
+      None
     )
 
   /** Write a command param as a C++ type */

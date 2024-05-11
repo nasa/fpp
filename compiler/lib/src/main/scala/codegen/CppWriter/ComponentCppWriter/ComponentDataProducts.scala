@@ -395,7 +395,7 @@ case class ComponentDataProducts (
               |  sizeof(FwDpIdType) +
               |  elt.serializedTruncatedSize(stringSize);"""
         case _ =>
-          val serialSize = s.getSerializedSizeExpr(t, typeName)
+          val serialSize = writeSerializedSizeExpr(s, t, typeName)
           s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  $serialSize;"""

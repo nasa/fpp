@@ -9,8 +9,6 @@ case class TypeCppWriter(
   s: CppWriterState,
   /** Specific string type name */
   stringTypeName: Option[String] = None,
-  /** List of namespace qualifiers for a string type */
-  stringNamespaceNames: List[String] = Nil
 ) {
 
   private object NameVisitor extends TypeVisitor {
@@ -34,7 +32,7 @@ case class TypeCppWriter(
 
     override def string(s: CppWriterState, t: Type.String) = stringTypeName match {
       case Some(tn) => tn
-      case None => StringCppWriter(s).getQualifiedClassName(t, stringNamespaceNames)
+      case None => "Fw::String"
     }
 
     override def struct(s: CppWriterState, t: Type.Struct) =
@@ -58,8 +56,7 @@ object TypeCppWriter {
     s: CppWriterState,
     t: Type,
     stringTypeName: Option[String] = None,
-    stringNamespaceNames: List[String] = Nil
   ): String =
-    TypeCppWriter(s, stringTypeName, stringNamespaceNames).write(t)
+    TypeCppWriter(s, stringTypeName).write(t)
 
 }
