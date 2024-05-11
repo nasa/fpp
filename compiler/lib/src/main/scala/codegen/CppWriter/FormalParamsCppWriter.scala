@@ -33,7 +33,7 @@ case class FormalParamsCppWriter(
     passingConvention: FormalParamsCppWriter.SerializablePassingConvention = FormalParamsCppWriter.ConstRef
   ): CppDoc.Type = {
     val t = s.a.typeMap(param.typeName.id)
-    val typeName = TypeCppWriter(s, strName).write(t)
+    val typeName = TypeCppWriter(s, strName.getOrElse("Fw::String")).write(t)
     val qualifiedTypeName = param.kind match {
       // Reference formal parameters become non-constant C++ reference parameters
       case Ast.FormalParam.Ref => s"$typeName&"

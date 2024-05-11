@@ -21,7 +21,7 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s, Some("Fw::StringBase"))
+  private val typeCppWriter = TypeCppWriter(s, "Fw::StringBase")
 
   private val formalParamsCppWriter = FormalParamsCppWriter(s)
 

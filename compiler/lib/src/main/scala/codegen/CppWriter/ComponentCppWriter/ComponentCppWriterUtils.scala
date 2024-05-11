@@ -488,11 +488,7 @@ abstract class ComponentCppWriterUtils(
   /** Get the C++ return type of a port instance as a String option */
   def getPortReturnType(pi: PortInstance): Option[String] = {
     def transformer (sym: Symbol.Port) (node: AstNode[Ast.TypeName]) =
-      TypeCppWriter.getName(
-        s,
-        s.a.typeMap(node.id),
-        None
-      )
+      TypeCppWriter.getName(s, s.a.typeMap(node.id))
     transformPortReturnType(pi, transformer)
   }
 
@@ -550,7 +546,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a type as the type of an internal port param as a C++ type */
   def writeTypeAsInternalPortParamType(t: Type): String =
-    TypeCppWriter.getName(s, t, Some("Fw::InternalInterfaceString"))
+    TypeCppWriter.getName(s, t, "Fw::InternalInterfaceString")
 
   /** Write the type of a formal parameter as a C++ type */
   def writeFormalParamType(param: Ast.FormalParam, stringRep: String = "Fw::StringBase") =
@@ -558,11 +554,11 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a type as the type of a formal parameter as a C++ type */
   def writeTypeAsFormalParamType(t: Type, stringRep: String = "Fw::StringBase") =
-    TypeCppWriter.getName(s, t, Some(stringRep))
+    TypeCppWriter.getName(s, t, stringRep)
 
   /** Write a channel type as a C++ type */
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
-    TypeCppWriter.getName(s, t, Some(stringRep))
+    TypeCppWriter.getName(s, t, stringRep)
 
   def writeSendMessageLogic(
     bufferName: String,
@@ -634,7 +630,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a parameter type as a C++ type */
   def writeParamType(t: Type, stringRep: String = "Fw::StringBase") =
-    TypeCppWriter.getName(s, t, Some(stringRep))
+    TypeCppWriter.getName(s, t, stringRep)
 
   /** Get the name for a general port enumerated constant in cpp file */
   def portCppConstantName(p: PortInstance) =
@@ -785,11 +781,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a type as the type of a general port param */
   private def writeTypeAsGeneralPortParamType (symbol: Symbol.Port) (t: Type) =
-    TypeCppWriter.getName(
-      s,
-      t,
-      None
-    )
+    TypeCppWriter.getName(s, t)
 
   /** Write a command param as a C++ type */
   private def writeCommandParamType(param: Ast.FormalParam) =
@@ -797,7 +789,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Write a type as the type of a command param */
   private def writeTypeAsCommandParamType(t: Type) =
-    TypeCppWriter.getName(s, t, Some("Fw::CmdStringArg"))
+    TypeCppWriter.getName(s, t, "Fw::CmdStringArg")
 
   private def filterByPortDirection[T<: PortInstance](ports: List[T], direction: PortInstance.Direction) =
     ports.filter(p =>

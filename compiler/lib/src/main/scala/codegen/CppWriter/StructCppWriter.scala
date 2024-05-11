@@ -23,7 +23,7 @@ case class StructCppWriter(
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s, Some("Fw::ExternalString"))
+  private val typeCppWriter = TypeCppWriter(s, "Fw::ExternalString")
 
   private val astMembers = data.members
 
