@@ -185,45 +185,46 @@ case class ArrayCppWriter (
         )
       )
 
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Constructors"),
-        CppDoc.Lines.Both
-      ),
-      constructorClassMember(
-        Some("Constructor (default value)"),
-        Nil,
-        List("Serializable()"),
-        List.concat(
-          initElementsCall,
-          lines("// Construct using element-wise constructor"),
-          wrapInScope(
-            s"*this = $name(",
-            lines(defaultValues.map(v => s"$v").mkString(",\n")),
-            ");",
-          ),
-        )
-      ),
-      constructorClassMember(
-        Some("Constructor (user-provided value)"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(s"const ElementType"),
-            "(&a)[SIZE]",
-            Some("The array"),
+    List.concat(
+      List(
+        linesClassMember(
+          CppDocHppWriter.writeAccessTag("public")
+        ),
+        linesClassMember(
+          CppDocWriter.writeBannerComment("Constructors"),
+          CppDoc.Lines.Both
+        ),
+        constructorClassMember(
+          Some("Constructor (default value)"),
+          Nil,
+          List("Serializable()"),
+          List.concat(
+            initElementsCall,
+            lines("// Construct using element-wise constructor"),
+            wrapInScope(
+              s"*this = $name(",
+              lines(defaultValues.map(v => s"$v").mkString(",\n")),
+              ");",
+            ),
           )
         ),
-        List("Serializable()"),
-        List.concat(
-          initElementsCall,
-          indexIterator(lines("this->elements[index] = a[index];"))
+        constructorClassMember(
+          Some("Constructor (user-provided value)"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const ElementType"),
+              "(&a)[SIZE]",
+              Some("The array"),
+            )
+          ),
+          List("Serializable()"),
+          List.concat(
+            initElementsCall,
+            indexIterator(lines("this->elements[index] = a[index];"))
+          )
         )
-      )
-    ) ++
-      singleElementConstructor ++
+      ),
+      singleElementConstructor,
       List(
         constructorClassMember(
           Some("Constructor (multiple elements)"),
@@ -256,6 +257,7 @@ case class ArrayCppWriter (
           )
         )
       )
+    )
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
