@@ -289,7 +289,7 @@ case class ComponentEvents (
           eventLogName(event),
           formalParamsCppWriter.write(
             event.aNode._2.data.params,
-            Some("Fw::StringBase"),
+            "Fw::StringBase",
             FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),
