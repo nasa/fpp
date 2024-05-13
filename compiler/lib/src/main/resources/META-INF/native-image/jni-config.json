@@ -8,6 +8,10 @@
   "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
 },
 {
+  "name":"fpp.compiler.FPPToDict",
+  "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
+},
+{
   "name":"fpp.compiler.FPPtoJson",
   "methods":[{"name":"main","parameterTypes":["java.lang.String[]"] }]
 },
