@@ -666,6 +666,17 @@ class ParserSpec extends AnyWordSpec {
       )
     )
   }
+  
+
+  "state machine parse OK" should {
+    parseAllOK(
+      Parser.defStateMachine,
+      List(
+        "state machine Foo",
+      )
+    )
+  }
+
 
   def parseAllError[T](p: Parser.Parser[T], ss: List[String]): Unit = {
     ss.foreach { s => s"not parse $s" in parseError(p, s) }

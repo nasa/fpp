@@ -68,29 +68,6 @@ object Ast {
     final case class SpecTlmChannel(node: AstNode[Ast.SpecTlmChannel]) extends Node
   }
 
-  /** Statemachine member */
-  final case class StatemachineMember(node: Annotated[StatemachineMember.Node])
-  object StatemachineMember {
-    sealed trait Node
-    final case class DefStateInitial(node: AstNode[Ast.DefStateInitial]) extends Node
-    //final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class DefStateJunction(node: AstNode[Ast.DefStateJunction]) extends Node
-    final case class DefStateTransition(node: AstNode[Ast.DefStateTransition]) extends Node
-  }
-
-  /** State member */
-  final case class StateMember(node: Annotated[StateMember.Node])
-  object StateMember {
-    sealed trait Node
-    final case class DefStateInitial(node: AstNode[Ast.DefStateInitial]) extends Node
-    //final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class DefStateJunction(node: AstNode[Ast.DefStateJunction]) extends Node
-    final case class DefStateTransition(node: AstNode[Ast.DefStateTransition]) extends Node
-    final case class DefStateEntry(node: AstNode[Ast.DefStateEntry]) extends Node
-    final case class DefStateExit(node: AstNode[Ast.DefStateExit]) extends Node
-    final case class DefStateInternal(node: AstNode[Ast.DefStateInternal]) extends Node
-  }
-
   /** Abstract type definition */
   final case class DefAbsType(name: Ident)
 
@@ -110,6 +87,11 @@ object Ast {
     members: List[ComponentMember]
   )
 
+  /** State machine definition */
+  final case class DefStateMachine(
+    name: Ident
+  )
+
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
@@ -126,30 +108,6 @@ object Ast {
 
   /** Constant definition */
   final case class DefConstant(name: Ident, value: AstNode[Expr])
-
-  /** StateInitial definition */
-  final case class DefStateInitial(target: AstNode[Ident])
-
-  /** StateJunction definition */
-  final case class DefStateJunction(name: AstNode[Ident])
-
-  /** StateFunctions definition */
-  final case class StateFunctions(functions: AstNode[List[String]])
-
-  /** StateEvents definition */
-  final case class StateEvents(event: AstNode[Ident], guard: AstNode[Ident], stateFunctions: AstNode[StateFunctions])
-
-  /** StateTransition definition */
-  final case class DefStateTransition(source: AstNode[Ident], target: AstNode[Ident], stateEvents: AstNode[StateEvents])
-
-  /** StateEntry definition */
-  final case class DefStateEntry(stateFunctions: AstNode[StateFunctions])
-
-  /** StateExit definition */
-  final case class DefStateExit(stateFunctions: AstNode[StateFunctions])
-
-  /** StateInternal definition */
-  final case class DefStateInternal(stateEvents: AstNode[StateEvents])
 
   /** Enum definition */
   final case class DefEnum(
@@ -178,6 +136,7 @@ object Ast {
     final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefComponent(node: AstNode[Ast.DefComponent]) extends Node
+    final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node

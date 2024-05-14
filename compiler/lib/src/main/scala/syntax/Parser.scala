@@ -77,6 +77,7 @@ object Parser extends Parsers {
     }
   }
 
+
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
       def id(x: Ast.Annotated[AstNode[Ast.SpecInit]]) = x
@@ -141,6 +142,14 @@ object Parser extends Parsers {
   def defPort: Parser[Ast.DefPort] = {
     (port ~>! ident) ~! formalParamList ~! opt(rarrow ~>! node(typeName)) ^^ {
       case ident ~ formalParamList ~ returnType => Ast.DefPort(ident, formalParamList, returnType)
+    }
+  }
+
+  //componentKind ~! (component ~>! ident) ~! (lbrace ~>! componentMembers <~! rbrace)
+
+  def defStateMachine: Parser[Ast.DefStateMachine] = {
+    (state ~>! (machine ~>! ident)) ^^ {
+      case name => Ast.DefStateMachine(name)
     }
   }
 
@@ -810,6 +819,8 @@ object Parser extends Parsers {
 
   private def lparen = accept("(", { case t : Token.LPAREN => t })
 
+  private def machine = accept("machine", { case t : Token.MACHINE => t })
+
   private def minus = accept("-", { case t : Token.MINUS => t })
 
   private def module = accept("module", { case t : Token.MODULE => t })
@@ -887,6 +898,8 @@ object Parser extends Parsers {
   private def stack = accept("stack", { case t : Token.STACK => t })
 
   private def star = accept("*", { case t : Token.STAR => t  })
+
+  private def state = accept("state", { case t : Token.STATE => t })
 
   private def string = accept("string", { case t : Token.STRING => t })
 

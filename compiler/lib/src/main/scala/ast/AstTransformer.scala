@@ -29,6 +29,7 @@ trait AstTransformer {
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
     Right(default(in), node)
 
+
   def defComponentInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
@@ -38,6 +39,11 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefConstant]]
   ): ResultAnnotatedNode[Ast.DefConstant] = Right(default(in), node)
+
+  def defStateMachineAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
 
   def defEnumAnnotatedNode(
     in: In,
@@ -268,6 +274,10 @@ trait AstTransformer {
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefArray(_))
       case Ast.ModuleMember.DefComponent(node1) =>
         transform(defComponentAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponent(_))
+     
+      case Ast.ModuleMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
+     
       case Ast.ModuleMember.DefComponentInstance(node1) =>
         transform(defComponentInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponentInstance(_))
       case Ast.ModuleMember.DefConstant(node1) =>
