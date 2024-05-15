@@ -29,6 +29,7 @@ object Parser extends Parsers {
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
     node(defStateMachine) ^^ { case n => Ast.ComponentMember.DefStateMachine(n) } |
+    node(specStateMachineInstance) ^^ { case n => Ast.ComponentMember.SpecStateMachineInstance(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
     node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
@@ -147,13 +148,13 @@ object Parser extends Parsers {
   }
 
   def defStateMachine: Parser[Ast.DefStateMachine] = {
-    (state ~>! (machine ~>! ident)) ^^ {
+    (state ~> (machine ~> ident)) ^^ {
       case name => Ast.DefStateMachine(name)
     }
   }
 
   def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
-    (state ~>! machine ~>! (instance ~>! ident) ~! (colon ~>! node(qualIdent))) ^^ {
+    (state ~> machine ~> (instance ~> ident) ~ (colon ~>! node(qualIdent))) ^^ {
       case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }

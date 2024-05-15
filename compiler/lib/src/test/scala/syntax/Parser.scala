@@ -88,6 +88,8 @@ class ParserSpec extends AnyWordSpec {
           include "a.fpp"
           internal port P
           state machine Foo
+          state machine instance foo1: Foo
+          state machine instance foo2: Foo
         }""",
         """active component C {
           @ Pre
