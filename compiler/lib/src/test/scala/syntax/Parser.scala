@@ -178,6 +178,24 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
+  "def state machine OK" should {
+    parseAllOK(
+      Parser.defStateMachine,
+      List(
+        "state machine Foo",
+      )
+    )
+  }
+
+  "spec state machine instance specifier OK" should {
+    parseAllOK(
+      Parser.specStateMachineInstance,
+      List(
+        "state machine instance foo: Foo",
+      )
+    )
+  }
+
   "def struct OK" should {
     parseAllOK(
       Parser.defStruct,
@@ -668,14 +686,6 @@ class ParserSpec extends AnyWordSpec {
   }
   
 
-  "state machine parse OK" should {
-    parseAllOK(
-      Parser.defStateMachine,
-      List(
-        "state machine Foo",
-      )
-    )
-  }
 
 
   def parseAllError[T](p: Parser.Parser[T], ss: List[String]): Unit = {

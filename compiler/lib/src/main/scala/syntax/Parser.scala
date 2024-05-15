@@ -145,11 +145,15 @@ object Parser extends Parsers {
     }
   }
 
-  //componentKind ~! (component ~>! ident) ~! (lbrace ~>! componentMembers <~! rbrace)
-
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     (state ~>! (machine ~>! ident)) ^^ {
       case name => Ast.DefStateMachine(name)
+    }
+  }
+
+  def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
+    (state ~>! machine ~>! (instance ~>! ident) ~! (colon ~>! node(qualIdent))) ^^ {
+      case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }
 

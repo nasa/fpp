@@ -27,6 +27,8 @@ trait AstVisitor {
 
   def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out = default(in)
 
+  def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
+
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
@@ -143,6 +145,7 @@ trait AstVisitor {
       case Ast.ModuleMember.DefModule(node1) => defModuleAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefPort(node1) => defPortAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
+      case Ast.ModuleMember.SpecStateMachineInstance(node1) => specStateMachineInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
