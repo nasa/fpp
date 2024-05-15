@@ -44,6 +44,7 @@ syn keyword fppKeyword instance
 syn keyword fppKeyword internal
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
+syn keyword fppKeyword machine
 syn keyword fppKeyword match
 syn keyword fppKeyword module
 syn keyword fppKeyword on
@@ -73,6 +74,7 @@ syn keyword fppKeyword set
 syn keyword fppKeyword severity
 syn keyword fppKeyword size
 syn keyword fppKeyword stack
+syn keyword fppKeyword state
 syn keyword fppKeyword struct
 syn keyword fppKeyword sync
 syn keyword fppKeyword telemetry

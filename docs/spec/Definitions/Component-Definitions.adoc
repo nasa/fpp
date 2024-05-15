@@ -268,5 +268,18 @@ active component CommandDispatcher {
   @ A record for holding an image
   product record ImageRecord: Image
 
+  # ----------------------------------------------------------------------
+  # State machines
+  # ----------------------------------------------------------------------
+
+  @ A state machine definition
+  state machine Foo
+
+  @ state machine instance 1
+  state machine instance foo1: Foo
+
+  @ state machine instance 2
+  state machine instance foo2: Foo
+
 }
 ----

@@ -104,9 +104,8 @@ trait AstVisitor {
       case Ast.ComponentMember.DefArray(node1) => defArrayAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
-      case Ast.ComponentMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
-      case Ast.ComponentMember.SpecStateMachineInstance(node1) => specStateMachineInstanceAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecCommand(node1) => specCommandAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecContainer(node1) => specContainerAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecEvent(node1) => specEventAnnotatedNode(in, (pre, node1, post))
@@ -116,6 +115,7 @@ trait AstVisitor {
       case Ast.ComponentMember.SpecPortInstance(node1) => specPortInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecPortMatching(node1) => specPortMatchingAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecRecord(node1) => specRecordAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.SpecStateMachineInstance(node1) => specStateMachineInstanceAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecTlmChannel(node1) => specTlmChannelAnnotatedNode(in, (pre, node1, post))
     }
   }

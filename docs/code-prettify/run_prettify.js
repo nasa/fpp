@@ -440,6 +440,7 @@ var IN_GLOBAL_SCOPE = false;
           "internal," +
           "locate," +
           "low," +
+          "machine," +
           "match," +
           "module," +
           "on," +
@@ -469,6 +470,7 @@ var IN_GLOBAL_SCOPE = false;
           "severity," +
           "size," +
           "stack," +
+          "state," +
           "string," +
           "struct," +
           "sync," +
