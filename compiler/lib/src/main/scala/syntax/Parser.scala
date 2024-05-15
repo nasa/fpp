@@ -28,6 +28,7 @@ object Parser extends Parsers {
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
+    node(defStateMachine) ^^ { case n => Ast.ComponentMember.DefStateMachine(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
     node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |

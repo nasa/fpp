@@ -56,6 +56,7 @@ object Ast {
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
     final case class SpecContainer(node: AstNode[Ast.SpecContainer]) extends Node
     final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node

@@ -223,6 +223,8 @@ trait AstTransformer {
         transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefEnum(_))
       case Ast.ComponentMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStruct(_))
+      case Ast.ComponentMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStateMachine(_))
       case Ast.ComponentMember.SpecCommand(node1) =>
         transform(specCommandAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecCommand(_))
       case Ast.ComponentMember.SpecContainer(node1) =>

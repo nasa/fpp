@@ -87,6 +87,7 @@ class ParserSpec extends AnyWordSpec {
           event E severity activity low format "Event E"
           include "a.fpp"
           internal port P
+          state machine Foo
         }""",
         """active component C {
           @ Pre

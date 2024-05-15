@@ -105,6 +105,7 @@ trait AstVisitor {
       case Ast.ComponentMember.DefConstant(node1) => defConstantAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefEnum(node1) => defEnumAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.DefStruct(node1) => defStructAnnotatedNode(in, (pre, node1, post))
+      case Ast.ComponentMember.DefStateMachine(node1) => defStateMachineAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecCommand(node1) => specCommandAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecContainer(node1) => specContainerAnnotatedNode(in, (pre, node1, post))
       case Ast.ComponentMember.SpecEvent(node1) => specEventAnnotatedNode(in, (pre, node1, post))
