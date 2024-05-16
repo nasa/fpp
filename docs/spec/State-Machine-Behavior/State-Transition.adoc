@@ -5,14 +5,27 @@ A *state transition* specifies a state transition in a
 
 ==== Syntax
 
-`on` <<Lexical-Elements_Identifiers,_identifier_>>
+A state transition is one of the following:
+
+* _regular_transtion_
+* _self_transition_
+
+_regular_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-`visit` <<Lexical-Elements_Identifiers,_identifier_>>
+<<State-Machine-Behavior_State-Visit,state visit>>
+
+_self_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
+do` <<Lexical-Elements_Identifiers,_identifier_>>
+
 
 ==== Semantics
 
@@ -20,9 +33,9 @@ _]_
 
 . The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
 
-. The _identifier_ after the keyword `visit` specifies the name of the target state
+. The _identifier_ after the keyword `do` is the action performed
 
-. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+. The _state visit_ specifies the name of the target state and the optional action performed
 
 ==== Examples
 
@@ -38,12 +51,14 @@ state machine Device {
 
     guard initComplete
 
-    state DeviceOff
-        on PowerOn if initComplete visit DeviceOn do getReady
+    initial OFF
+
+    state OFF
+        on PowerOn if initComplete visit ON do getReady
 
     }
 
-    state DeviceOn {
+    state ON {
         on RTI do performStuff
 
     }

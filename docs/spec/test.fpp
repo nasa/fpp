@@ -1,11 +1,10 @@
-active component Device {
+module TestComp {
 
-  type T
+  active component Device {
 
-  state machine Foo
+    type T
 
-  state machine instance foo1: Foo
-
-  state machine instance foo2: Foo
+    async input port sched: Fw.Sched
+  }
 
 }

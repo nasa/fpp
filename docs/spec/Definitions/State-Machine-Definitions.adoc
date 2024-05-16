@@ -5,9 +5,9 @@ A *state machine definion* defines a state machine
 ==== Syntax
 
 * `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
-`{` _state-machine-logic_ `}` 
+`{` _state-machine-behavior_ `}` 
 
-_state-machine-logic_ is an 
+_state-machine-behavior_ is an 
 <<Element-Sequences,element sequence>> in
 which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
@@ -25,16 +25,16 @@ A state machine member is one of the following
 
 . The _identifier_ specifies the name of the state machine.
 
-. The _state-machine-logic_ contains a textual description
-of a hierarchical state machine.
+. The _state-machine-behavior_ describes
+a hierarchical state machine.
 
-. _state events_ specify all the _events_ that can be dispatched to this state machine
+. _state_events_ specify all the _events_ that can be dispatched to this state machine.  An _event_ causes a state transition
 
-. _state actions_ specify all the actions that can be invoked by this state machine
+. _state actions_ specify all the actions that can be invoked by this state machine.  An _action_ is a function that's called on a state transition
 
-. _state guards_ specify all the guards that are used in transitions by this state machine
+. _state guards_ specify all the guards that are used in transitions by this state machine.  A _guard_ is a predicate that indicates if a transition can occur
 
-. The state machine is expected to have one _state initial_ that specifies the initial state
+. The state machine must have one _state initial_ that specifies the initial state
 
 ==== Examples
 

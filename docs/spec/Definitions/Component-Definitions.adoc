@@ -258,28 +258,42 @@ active component CommandDispatcher {
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
 
-  # ----------------------------------------------------------------------
-  # Data products
-  # ----------------------------------------------------------------------
+}
+----
 
-  @ A container for images
-  product container Images
 
-  @ A record for holding an image
-  product record ImageRecord: Image
+[source,fpp]
+----
+@ A component that has a state machine and data products
+active component DeviceMgr {
 
   # ----------------------------------------------------------------------
   # State machines
   # ----------------------------------------------------------------------
 
   @ A state machine definition
-  state machine Foo
+  state machine DeviceSM {
+    
+    event StartCmd
+    event OffCmd
+
+    initial IDLE
+    
+    state IDLE {
+      on StartCmd visit RUNNING
+    }
+
+    state RUNNING {
+      on OffCmd visit IDLE
+    }
+
+  }
 
   @ state machine instance 1
-  state machine instance foo1: Foo
+  state machine instance device1Machine: DeviceSM
 
   @ state machine instance 2
-  state machine instance foo2: Foo
-
+  state machine instance device2Machine: DeviceSM
 }
+
 ----

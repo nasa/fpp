@@ -1,24 +1,24 @@
 
 == State Machine Behavior
 
-Blah blah
 
 === State Events
 
 *state events* specifies _events_ that are dispatched to the state machine which causes the state machine to run to completion.
+When a state machine _runs to completion_ it means that it processes all pending events and transitions through its states until it reaches a stable state where no further transitions are immediately required.
 
 ==== Syntax
 `event`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `:` 
-<<Definitions_Struct-Definitions,struct definition>>
+<<Type-Names,_type-name_>>
 `]`
 
 ==== Semantics
 . The _identifier_ specifies the event name.
 
-. The _struct definition_ specifies an optional data structure associated with the event
+. If present, the optional _type-name_ names the type of the data carried by the event.  If _type-name_ is not present, then the event carries no data
 
 ==== Examples
 
@@ -39,20 +39,20 @@ event Fault: FaultData
 
 === State Actions
 
-*state actions* specifies _actions_ that are invoked upon transitions
+*state actions* specifies _actions_ that are invoked upon transitions.  Actions are functions that can carry data.
 
 ==== Syntax
 `action`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `:` 
-<<Definitions_Struct-Definitions,struct definition>>
+<<Type-Names,_type-name_>>
 `]`
 
 ==== Semantics
 . The _identifier_ specifies the action name.
 
-. The _struct definition_ specifies an optional data structure associated with the action and will be
+. The _type-name_ specifies an optional data type associated with the action and will be
 passed into the action function when invoked.
 
 ==== Examples
@@ -74,20 +74,20 @@ action reportFault: FaultData
 
 === State Guards
 
-*state guards* specifies _guards_ that are associated with transitions
+*state guards* specifies _guards_ that are associated with transitions.  A _guard_ is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.
 
 ==== Syntax
 `guard`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `:` 
-<<Definitions_Struct-Definitions,struct definition>>
+<<Type-Names,_type-name_>>
 `]`
 
 ==== Semantics
 . The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
 
-. The _struct definition_ specifies an optional data structure associated with the guard and will be
+. The _type-name_ specifies an optional data type associated with the guard and will be
 passed into the guard function when invoked.
 
 ==== Examples
@@ -162,29 +162,30 @@ state machine MonitorSm {
 
     guard calibrateReady
 
+    initial DEVICE_ON
     
-    state DeviceOn {
+    state DEVICE_ON {
 
-        initial Initializing do init2
+        initial INITIALIZING do init2
 
-        state Initializing {
-            on Complete visit Idle
+        state INITIALIZING {
+            on Complete visit IDLE
         }
 
-        state Idle {
-            on Drive visit Driving
-            on Calibrate if calibrateReady visit Calibrating
+        state IDLE {
+            on Drive visit DRIVING
+            on Calibrate if calibrateReady visit CALIBRATING
         }
 
-        state Calibrating {
+        state CALIBRATING {
             on RTI do doCalibrate
             on Fault go Idle do reportFault
-            on Complete visit Idle
+            on Complete visit IDLE
         }
 
-        state Driving {
+        state DRIVING {
             on RTI do motorControl
-            on Stop visit Idle
+            on Stop visit IDLE
         }
 
     }
@@ -199,7 +200,7 @@ A *state initial* specifies an initial state transition
 ==== Syntax
 
 `initial` 
-<<Lexical-Elements_Identifiers,_identifier_>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `do`
 <<Lexical-Elements_Identifiers,_identifier_>>
@@ -207,13 +208,13 @@ _]_
 
 ==== Semantics
 
-. The first _identifier_ specifies the state or junction that will initially be transitioned into.
+. The _qual-ident_ specifies the state or junction that will be visited when the state machine starts running.
 
 . An _initial_ specification is required at the top of the state machine
 
 . An _initial_ specification is required at the top of every hierarchical state
  
-. The optional _identifier_ after the keyword `do` specifies the action performed on the initial transition
+. The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
  
 
 ==== Examples
@@ -224,13 +225,13 @@ state machine Device {
 
     action initDevices
 
-    initial DeviceOn
+    initial ON
 
-    state DeviceOn {
+    state ON {
 
-        initial PoweringUp do initDevices
+        initial POWERING_UP do initDevices
 
-        state PoweringUp {
+        state POWERING_UP {
 
         }
     }
@@ -239,20 +240,15 @@ state machine Device {
 === State Junction
 
 A *state junction* specifies a state junction in a  
-<<Definitions_State-Machine-Definitions,state machine>>  
+<<Definitions_State-Machine-Definitions,state machine>>.  
+A _junction_ is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the _guard_ (predicate).  Other psuedo states in the state machine terminology are _initial_ and _final_
 
 ==== Syntax
 
 `junction` <<Lexical-Elements_Identifiers,_identifier_>>
 `{`
-`if` <<Lexical-Elements_Identifiers,_identifier_>> `visit` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
-`else` `visit` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior_State-Visit,state visit>>
+`else` <<State-Machine-Behavior_State-Visit,state visit>>
 `}`
 
 ==== Semantics
@@ -261,13 +257,9 @@ _]_
 
 . Each _junction_ requires a unique name.
 
-. Each _junction_ requires two exit transitions in which one must have one guard and the other transition no guard.
+. The _identifier_ after the keyword `if` specifies the name of the _guard_
 
-. The _identifier_ after the keywrod `if` specifies the name of the _guard_
-
-. The _identifier_ after the keyword `visit` specifies the target state for the transition
-
-. The _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+. The _state visit_ specifies the state to enter with an optional action
 
 ==== Examples
 
@@ -278,16 +270,18 @@ state machine Device {
     action initPower
     guard coldStart
 
-    junction j1 {
-            if coldStart visit DeviceOff
-            else visit DeviceOn do initPower
+    initial J1
+
+    junction J1 {
+            if coldStart visit OFF
+            else visit ON do initPower
     }
 
-    state DeviceOff {
+    state OFF {
 
     }
 
-    state DeviceOn {
+    state ON {
 
     }
 
@@ -302,14 +296,27 @@ A *state transition* specifies a state transition in a
 
 ==== Syntax
 
-`on` <<Lexical-Elements_Identifiers,_identifier_>>
+A state transition is one of the following:
+
+* _regular_transtion_
+* _self_transition_
+
+_regular_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-`visit` <<Lexical-Elements_Identifiers,_identifier_>>
+<<State-Machine-Behavior_State-Visit,state visit>>
+
+_self_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
+do` <<Lexical-Elements_Identifiers,_identifier_>>
+
 
 ==== Semantics
 
@@ -317,9 +324,9 @@ _]_
 
 . The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
 
-. The _identifier_ after the keyword `visit` specifies the name of the target state
+. The _identifier_ after the keyword `do` is the action performed
 
-. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+. The _state visit_ specifies the name of the target state and the optional action performed
 
 ==== Examples
 
@@ -335,13 +342,59 @@ state machine Device {
 
     guard initComplete
 
-    state DeviceOff
-        on PowerOn if initComplete visit DeviceOn do getReady
+    initial OFF
+
+    state OFF
+        on PowerOn if initComplete visit ON do getReady
 
     }
 
-    state DeviceOn {
+    state ON {
         on RTI do performStuff
+
+    }
+
+}
+
+----
+
+=== State Visit
+
+A *state visit* specifies a visit or entry into another state with optional actions  
+
+==== Syntax
+
+`visit` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+
+==== Semantics
+
+. The _qual-ident_ after the keyword `visit` is the _state_ which is visited or entered 
+
+. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+    event PowerOn
+    
+    action getReady
+
+    guard initComplete
+
+    initial OFF
+
+    state OFF {
+        on PowerOn if initComplete visit ON do getReady
+
+    }
+
+    state ON {
 
     }
 

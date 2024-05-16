@@ -41,6 +41,7 @@ U16
 U32
 U64
 U8
+action
 active
 activity
 always
@@ -60,7 +61,9 @@ container
 cpu
 default
 diagnostic
+do
 drop
+else
 entry
 enum
 event
@@ -69,15 +72,19 @@ false
 fatal
 format
 get
+guard
 guarded
 health
 high
 id
+if
 import
 include
+initial
 input
 instance
 internal
+junction
 locate
 low
 machine
@@ -122,6 +129,7 @@ topology
 true
 type
 update
+visit
 warning
 with
 yellow

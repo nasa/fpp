@@ -599,6 +599,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior_State-Transition_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
+<li><a href="#State-Machine-Behavior_State-Visit">6.8. State Visit</a>
+<ul class="sectlevel3">
+<li><a href="#State-Machine-Behavior_State-Visit_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior_State-Visit_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior_State-Visit_Examples">6.8.3. Examples</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Specifiers">7. Specifiers</a>
@@ -1046,6 +1053,7 @@ U16
 U32
 U64
 U8
+action
 active
 activity
 always
@@ -1065,7 +1073,9 @@ container
 cpu
 default
 diagnostic
+do
 drop
+else
 entry
 enum
 event
@@ -1074,15 +1084,19 @@ false
 fatal
 format
 get
+guard
 guarded
 health
 high
 id
+if
 import
 include
+initial
 input
 instance
 internal
+junction
 locate
 low
 machine
@@ -1127,6 +1141,7 @@ topology
 true
 type
 update
+visit
 warning
 with
 yellow</code></pre>
@@ -1970,29 +1985,41 @@ active component CommandDispatcher {
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
 
-  # ----------------------------------------------------------------------
-  # Data products
-  # ----------------------------------------------------------------------
-
-  @ A container for images
-  product container Images
-
-  @ A record for holding an image
-  product record ImageRecord: Image
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component that has a state machine and data products
+active component DeviceMgr {
 
   # ----------------------------------------------------------------------
   # State machines
   # ----------------------------------------------------------------------
 
   @ A state machine definition
-  state machine Foo
+  state machine DeviceSM {
+
+    event StartCmd
+    event OffCmd
+
+    initial IDLE
+
+    state IDLE {
+      on StartCmd visit RUNNING
+    }
+
+    state RUNNING {
+      on OffCmd visit IDLE
+    }
+
+  }
 
   @ state machine instance 1
-  state machine instance foo1: Foo
+  state machine instance device1Machine: DeviceSM
 
   @ state machine instance 2
-  state machine instance foo2: Foo
-
+  state machine instance device2Machine: DeviceSM
 }</code></pre>
 </div>
 </div>
@@ -2495,6 +2522,9 @@ A module member is one of the following:</p>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
 </li>
+<li>
+<p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -2613,12 +2643,12 @@ port Port3(
 <ul>
 <li>
 <p><code>state machine</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code> <em>state-machine-logic</em> <code>}</code></p>
+<code>{</code> <em>state-machine-behavior</em> <code>}</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><em>state-machine-logic</em> is an
+<p><em>state-machine-behavior</em> is an
 <a href="#Element-Sequences">element sequence</a> in
 which each element is a <strong>state machine member</strong>,
 and the terminating punctuation is a semicolon.
@@ -2655,20 +2685,20 @@ A state machine member is one of the following</p>
 <p>The <em>identifier</em> specifies the name of the state machine.</p>
 </li>
 <li>
-<p>The <em>state-machine-logic</em> contains a textual description
-of a hierarchical state machine.</p>
+<p>The <em>state-machine-behavior</em> describes
+a hierarchical state machine.</p>
 </li>
 <li>
-<p><em>state events</em> specify all the <em>events</em> that can be dispatched to this state machine</p>
+<p><em>state_events</em> specify all the <em>events</em> that can be dispatched to this state machine.  An <em>event</em> causes a state transition</p>
 </li>
 <li>
-<p><em>state actions</em> specify all the actions that can be invoked by this state machine</p>
+<p><em>state actions</em> specify all the actions that can be invoked by this state machine.  An <em>action</em> is a function that&#8217;s called on a state transition</p>
 </li>
 <li>
-<p><em>state guards</em> specify all the guards that are used in transitions by this state machine</p>
+<p><em>state guards</em> specify all the guards that are used in transitions by this state machine.  A <em>guard</em> is a predicate that indicates if a transition can occur</p>
 </li>
 <li>
-<p>The state machine is expected to have one <em>state initial</em> that specifies the initial state</p>
+<p>The state machine must have one <em>state initial</em> that specifies the initial state</p>
 </li>
 </ol>
 </div>
@@ -3384,13 +3414,11 @@ specifiers</a>:</p>
 <div class="sect1">
 <h2 id="State-Machine-Behavior">6. State Machine Behavior</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Blah blah</p>
-</div>
 <div class="sect2">
 <h3 id="State-Machine-Behavior_State-Events">6.1. State Events</h3>
 <div class="paragraph">
-<p><strong>state events</strong> specifies <em>events</em> that are dispatched to the state machine which causes the state machine to run to completion.</p>
+<p><strong>state events</strong> specifies <em>events</em> that are dispatched to the state machine which causes the state machine to run to completion.
+When a state machine <em>runs to completion</em> it means that it processes all pending events and transitions through its states until it reaches a stable state where no further transitions are immediately required.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior_State-Events_Syntax">6.1.1. Syntax</h4>
@@ -3399,7 +3427,7 @@ specifiers</a>:</p>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>:</code>
-<a href="#Definitions_Struct-Definitions">struct definition</a>
+<a href="#Type-Names"><em>type-name</em></a>
 <code>]</code></p>
 </div>
 </div>
@@ -3411,7 +3439,7 @@ specifiers</a>:</p>
 <p>The <em>identifier</em> specifies the event name.</p>
 </li>
 <li>
-<p>The <em>struct definition</em> specifies an optional data structure associated with the event</p>
+<p>If present, the optional <em>type-name</em> names the type of the data carried by the event.  If <em>type-name</em> is not present, then the event carries no data</p>
 </li>
 </ol>
 </div>
@@ -3437,7 +3465,7 @@ event Fault: FaultData</code></pre>
 <div class="sect2">
 <h3 id="State-Machine-Behavior_State-Actions">6.2. State Actions</h3>
 <div class="paragraph">
-<p><strong>state actions</strong> specifies <em>actions</em> that are invoked upon transitions</p>
+<p><strong>state actions</strong> specifies <em>actions</em> that are invoked upon transitions.  Actions are functions that can carry data.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior_State-Actions_Syntax">6.2.1. Syntax</h4>
@@ -3446,7 +3474,7 @@ event Fault: FaultData</code></pre>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>:</code>
-<a href="#Definitions_Struct-Definitions">struct definition</a>
+<a href="#Type-Names"><em>type-name</em></a>
 <code>]</code></p>
 </div>
 </div>
@@ -3458,7 +3486,7 @@ event Fault: FaultData</code></pre>
 <p>The <em>identifier</em> specifies the action name.</p>
 </li>
 <li>
-<p>The <em>struct definition</em> specifies an optional data structure associated with the action and will be
+<p>The <em>type-name</em> specifies an optional data type associated with the action and will be
 passed into the action function when invoked.</p>
 </li>
 </ol>
@@ -3485,7 +3513,7 @@ action reportFault: FaultData</code></pre>
 <div class="sect2">
 <h3 id="State-Machine-Behavior_State-Guards">6.3. State Guards</h3>
 <div class="paragraph">
-<p><strong>state guards</strong> specifies <em>guards</em> that are associated with transitions</p>
+<p><strong>state guards</strong> specifies <em>guards</em> that are associated with transitions.  A <em>guard</em> is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior_State-Guards_Syntax">6.3.1. Syntax</h4>
@@ -3494,7 +3522,7 @@ action reportFault: FaultData</code></pre>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>:</code>
-<a href="#Definitions_Struct-Definitions">struct definition</a>
+<a href="#Type-Names"><em>type-name</em></a>
 <code>]</code></p>
 </div>
 </div>
@@ -3506,7 +3534,7 @@ action reportFault: FaultData</code></pre>
 <p>The <em>identifier</em> specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.</p>
 </li>
 <li>
-<p>The <em>struct definition</em> specifies an optional data structure associated with the guard and will be
+<p>The <em>type-name</em> specifies an optional data type associated with the guard and will be
 passed into the guard function when invoked.</p>
 </li>
 </ol>
@@ -3608,29 +3636,30 @@ A state member is one of the following</p>
 
     guard calibrateReady
 
+    initial DEVICE_ON
 
-    state DeviceOn {
+    state DEVICE_ON {
 
-        initial Initializing do init2
+        initial INITIALIZING do init2
 
-        state Initializing {
-            on Complete visit Idle
+        state INITIALIZING {
+            on Complete visit IDLE
         }
 
-        state Idle {
-            on Drive visit Driving
-            on Calibrate if calibrateReady visit Calibrating
+        state IDLE {
+            on Drive visit DRIVING
+            on Calibrate if calibrateReady visit CALIBRATING
         }
 
-        state Calibrating {
+        state CALIBRATING {
             on RTI do doCalibrate
             on Fault go Idle do reportFault
-            on Complete visit Idle
+            on Complete visit IDLE
         }
 
-        state Driving {
+        state DRIVING {
             on RTI do motorControl
-            on Stop visit Idle
+            on Stop visit IDLE
         }
 
     }
@@ -3649,7 +3678,7 @@ A state member is one of the following</p>
 <h4 id="State-Machine-Behavior_State-Initial_Syntax">6.5.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
 <code>do</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -3661,7 +3690,7 @@ A state member is one of the following</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The first <em>identifier</em> specifies the state or junction that will initially be transitioned into.</p>
+<p>The <em>qual-ident</em> specifies the state or junction that will be visited when the state machine starts running.</p>
 </li>
 <li>
 <p>An <em>initial</em> specification is required at the top of the state machine</p>
@@ -3670,7 +3699,7 @@ A state member is one of the following</p>
 <p>An <em>initial</em> specification is required at the top of every hierarchical state</p>
 </li>
 <li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed on the initial transition</p>
+<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed before visiting the initial state</p>
 </li>
 </ol>
 </div>
@@ -3683,13 +3712,13 @@ A state member is one of the following</p>
 
     action initDevices
 
-    initial DeviceOn
+    initial ON
 
-    state DeviceOn {
+    state ON {
 
-        initial PoweringUp do initDevices
+        initial POWERING_UP do initDevices
 
-        state PoweringUp {
+        state POWERING_UP {
 
         }
     }</code></pre>
@@ -3701,21 +3730,16 @@ A state member is one of the following</p>
 <h3 id="State-Machine-Behavior_State-Junction">6.6. State Junction</h3>
 <div class="paragraph">
 <p>A <strong>state junction</strong> specifies a state junction in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a></p>
+<a href="#Definitions_State-Machine-Definitions">state machine</a>.
+A <em>junction</em> is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the <em>guard</em> (predicate).  Other psuedo states in the state machine terminology are <em>initial</em> and <em>final</em></p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior_State-Junction_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
 <p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <code>visit</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-<code>else</code> <code>visit</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior_State-Visit">state visit</a>
+<code>else</code> <a href="#State-Machine-Behavior_State-Visit">state visit</a>
 <code>}</code></p>
 </div>
 </div>
@@ -3730,16 +3754,10 @@ A state member is one of the following</p>
 <p>Each <em>junction</em> requires a unique name.</p>
 </li>
 <li>
-<p>Each <em>junction</em> requires two exit transitions in which one must have one guard and the other transition no guard.</p>
+<p>The <em>identifier</em> after the keyword <code>if</code> specifies the name of the <em>guard</em></p>
 </li>
 <li>
-<p>The <em>identifier</em> after the keywrod <code>if</code> specifies the name of the <em>guard</em></p>
-</li>
-<li>
-<p>The <em>identifier</em> after the keyword <code>visit</code> specifies the target state for the transition</p>
-</li>
-<li>
-<p>The <em>identifier</em> after the keyword <code>do</code> specifies the action performed when the transition is taken</p>
+<p>The <em>state visit</em> specifies the state to enter with an optional action</p>
 </li>
 </ol>
 </div>
@@ -3753,16 +3771,18 @@ A state member is one of the following</p>
     action initPower
     guard coldStart
 
-    junction j1 {
-            if coldStart visit DeviceOff
-            else visit DeviceOn do initPower
+    initial J1
+
+    junction J1 {
+            if coldStart visit OFF
+            else visit ON do initPower
     }
 
-    state DeviceOff {
+    state OFF {
 
     }
 
-    state DeviceOn {
+    state ON {
 
     }
 
@@ -3780,14 +3800,45 @@ A state member is one of the following</p>
 <div class="sect3">
 <h4 id="State-Machine-Behavior_State-Transition_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
+<p>A state transition is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><em>regular_transtion</em></p>
+</li>
+<li>
+<p><em>self_transition</em></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>regular_transition</em> has the following syntax:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>]</em>
-<code>visit</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<a href="#State-Machine-Behavior_State-Visit">state visit</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>self_transition</em> has the following syntax:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
-<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em></p>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em>
+do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -3801,10 +3852,10 @@ A state member is one of the following</p>
 <p>The optional <em>identifier</em> after the keyword <code>if</code> is the name of the <em>guard</em> for this transition</p>
 </li>
 <li>
-<p>The <em>identifier</em> after the keyword <code>visit</code> specifies the name of the target state</p>
+<p>The <em>identifier</em> after the keyword <code>do</code> is the action performed</p>
 </li>
 <li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed when the transition is taken</p>
+<p>The <em>state visit</em> specifies the name of the target state and the optional action performed</p>
 </li>
 </ol>
 </div>
@@ -3823,13 +3874,70 @@ A state member is one of the following</p>
 
     guard initComplete
 
-    state DeviceOff
-        on PowerOn if initComplete visit DeviceOn do getReady
+    initial OFF
+
+    state OFF
+        on PowerOn if initComplete visit ON do getReady
 
     }
 
-    state DeviceOn {
+    state ON {
         on RTI do performStuff
+
+    }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior_State-Visit">6.8. State Visit</h3>
+<div class="paragraph">
+<p>A <strong>state visit</strong> specifies a visit or entry into another state with optional actions</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior_State-Visit_Syntax">6.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>visit</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<em>[</em>
+<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior_State-Visit_Semantics">6.8.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <em>qual-ident</em> after the keyword <code>visit</code> is the <em>state</em> which is visited or entered</p>
+</li>
+<li>
+<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed when the transition is taken</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior_State-Visit_Examples">6.8.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+    event PowerOn
+
+    action getReady
+
+    guard initComplete
+
+    initial OFF
+
+    state OFF {
+        on PowerOn if initComplete visit ON do getReady
+
+    }
+
+    state ON {
 
     }
 
@@ -9210,7 +9318,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-15 10:20:14 -0700
+Last updated 2024-05-16 16:27:43 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

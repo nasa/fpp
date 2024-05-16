@@ -1,20 +1,15 @@
 === State Junction
 
 A *state junction* specifies a state junction in a  
-<<Definitions_State-Machine-Definitions,state machine>>  
+<<Definitions_State-Machine-Definitions,state machine>>.  
+A _junction_ is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the _guard_ (predicate).  Other psuedo states in the state machine terminology are _initial_ and _final_
 
 ==== Syntax
 
 `junction` <<Lexical-Elements_Identifiers,_identifier_>>
 `{`
-`if` <<Lexical-Elements_Identifiers,_identifier_>> `visit` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
-`else` `visit` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior_State-Visit,state visit>>
+`else` <<State-Machine-Behavior_State-Visit,state visit>>
 `}`
 
 ==== Semantics
@@ -23,13 +18,9 @@ _]_
 
 . Each _junction_ requires a unique name.
 
-. Each _junction_ requires two exit transitions in which one must have one guard and the other transition no guard.
+. The _identifier_ after the keyword `if` specifies the name of the _guard_
 
-. The _identifier_ after the keywrod `if` specifies the name of the _guard_
-
-. The _identifier_ after the keyword `visit` specifies the target state for the transition
-
-. The _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+. The _state visit_ specifies the state to enter with an optional action
 
 ==== Examples
 
@@ -40,16 +31,18 @@ state machine Device {
     action initPower
     guard coldStart
 
-    junction j1 {
-            if coldStart visit DeviceOff
-            else visit DeviceOn do initPower
+    initial J1
+
+    junction J1 {
+            if coldStart visit OFF
+            else visit ON do initPower
     }
 
-    state DeviceOff {
+    state OFF {
 
     }
 
-    state DeviceOn {
+    state ON {
 
     }
 

@@ -15,4 +15,5 @@ State-Definition.adoc
 State-Initial.adoc
 State-Junction.adoc
 State-Transition.adoc
+State-Visit.adoc
 "

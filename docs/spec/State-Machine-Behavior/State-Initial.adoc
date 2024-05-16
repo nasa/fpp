@@ -5,7 +5,7 @@ A *state initial* specifies an initial state transition
 ==== Syntax
 
 `initial` 
-<<Lexical-Elements_Identifiers,_identifier_>>
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `do`
 <<Lexical-Elements_Identifiers,_identifier_>>
@@ -13,13 +13,13 @@ _]_
 
 ==== Semantics
 
-. The first _identifier_ specifies the state or junction that will initially be transitioned into.
+. The _qual-ident_ specifies the state or junction that will be visited when the state machine starts running.
 
 . An _initial_ specification is required at the top of the state machine
 
 . An _initial_ specification is required at the top of every hierarchical state
  
-. The optional _identifier_ after the keyword `do` specifies the action performed on the initial transition
+. The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
  
 
 ==== Examples
@@ -30,13 +30,13 @@ state machine Device {
 
     action initDevices
 
-    initial DeviceOn
+    initial ON
 
-    state DeviceOn {
+    state ON {
 
-        initial PoweringUp do initDevices
+        initial POWERING_UP do initDevices
 
-        state PoweringUp {
+        state POWERING_UP {
 
         }
     }

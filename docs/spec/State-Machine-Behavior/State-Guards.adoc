@@ -1,19 +1,19 @@
 === State Guards
 
-*state guards* specifies _guards_ that are associated with transitions
+*state guards* specifies _guards_ that are associated with transitions.  A _guard_ is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.
 
 ==== Syntax
 `guard`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `:` 
-<<Definitions_Struct-Definitions,struct definition>>
+<<Type-Names,_type-name_>>
 `]`
 
 ==== Semantics
 . The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
 
-. The _struct definition_ specifies an optional data structure associated with the guard and will be
+. The _type-name_ specifies an optional data type associated with the guard and will be
 passed into the guard function when invoked.
 
 ==== Examples

@@ -1,19 +1,19 @@
 === State Actions
 
-*state actions* specifies _actions_ that are invoked upon transitions
+*state actions* specifies _actions_ that are invoked upon transitions.  Actions are functions that can carry data.
 
 ==== Syntax
 `action`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `:` 
-<<Definitions_Struct-Definitions,struct definition>>
+<<Type-Names,_type-name_>>
 `]`
 
 ==== Semantics
 . The _identifier_ specifies the action name.
 
-. The _struct definition_ specifies an optional data structure associated with the action and will be
+. The _type-name_ specifies an optional data type associated with the action and will be
 passed into the action function when invoked.
 
 ==== Examples
