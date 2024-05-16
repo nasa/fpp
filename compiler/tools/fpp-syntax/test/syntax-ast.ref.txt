@@ -102,6 +102,20 @@ def module
       priority literal int 10
       queue full assert
     @< Async product receive port
+    @ State machine definition
+    def state machine
+      ident Foo
+    @< State machine definition
+    @ State machine instance 1
+    spec state machine instance
+      ident foo1
+      state machine qual ident Foo
+    @ State machine instance 1
+    @ State machine instance 2
+    spec state machine instance
+      ident foo2
+      state machine qual ident Foo
+    @ State machine instance 2
     spec port instance general
       kind output
       ident p2
