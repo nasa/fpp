@@ -1909,6 +1909,8 @@ void PassiveGetProductsComponentBase ::
   FW_ASSERT(packetSize <= buffer.getSize(), static_cast<FwAssertArgType>(packetSize),
       static_cast<FwAssertArgType>(buffer.getSize()));
   buffer.setSize(static_cast<U32>(packetSize));
+  // Invalidate the buffer in the container, so it can't be reused
+  container.invalidateBuffer();
   // Send the buffer
   this->productSendOut_out(0, container.getId(), buffer);
 }
