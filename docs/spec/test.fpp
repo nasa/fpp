@@ -1,10 +1,13 @@
 module TestComp {
 
+  port Sched(
+              context: U32
+            )
+
   active component Device {
 
-    type T
+    async input port sched: Sched
 
-    async input port sched: Fw.Sched
   }
 
 }

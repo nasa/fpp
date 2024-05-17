@@ -30,7 +30,7 @@ active component Switch {
 
   @ Set the state
   async command SET_STATE(
-    state: State @< The new state
+    $state: State @< The new state
   )
 
 }
