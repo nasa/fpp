@@ -13,7 +13,7 @@ case class ComponentDataProducts (
   def getConstantMembers: List[CppDoc.Class.Member] = {
     def writeRecordSize(record: Record) = {
       val data = record.aNode._2.data
-      val constantName = s"SIZE_OF_${data.name}"
+      val constantName = s"SIZE_OF_${data.name}_RECORD"
       val typeName = TypeCppWriter.getName(s, record.recordType)
       val eltSize = writeSerializedSizeExpr(s, record.recordType, typeName)
       if record.isArray
