@@ -287,9 +287,6 @@ trait AstTransformer {
       case Ast.ModuleMember.DefStateMachine(node1) =>
         transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
 
-      case Ast.ModuleMember.SpecStateMachineInstance(node1) =>
-        transform(specStateMachineInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.SpecStateMachineInstance(_))
-     
       case Ast.ModuleMember.DefComponentInstance(node1) =>
         transform(defComponentInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponentInstance(_))
       case Ast.ModuleMember.DefConstant(node1) =>

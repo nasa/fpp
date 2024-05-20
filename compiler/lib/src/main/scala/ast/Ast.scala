@@ -145,7 +145,6 @@ object Ast {
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefComponent(node: AstNode[Ast.DefComponent]) extends Node
     final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
-    final case class SpecStateMachineInstance(node: AstNode[Ast.SpecStateMachineInstance]) extends Node
     final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node

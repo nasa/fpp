@@ -288,6 +288,7 @@ object Parser extends Parsers {
     node(defEnum) ^^ { case n => Ast.ModuleMember.DefEnum(n) } |
     node(defModule) ^^ { case n => Ast.ModuleMember.DefModule(n) } |
     node(defPort) ^^ { case n => Ast.ModuleMember.DefPort(n) } |
+    node(defStateMachine) ^^ { case n => Ast.ModuleMember.DefStateMachine(n) } |
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
