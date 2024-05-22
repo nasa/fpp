@@ -8,6 +8,7 @@
 #define String2ArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -19,63 +20,11 @@ class String2 :
   public:
 
     // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-
-      public:
-
-        enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-        };
-
-        //! Default constructor
-        StringSize80();
-
-        //! Char array constructor
-        StringSize80(const char* src);
-
-        //! String base constructor
-        StringSize80(const Fw::StringBase& src);
-
-        //! Copy constructor
-        StringSize80(const StringSize80& src);
-
-        //! Destructor
-        ~StringSize80();
-
-        //! Copy assignment operator
-        StringSize80& operator=(const StringSize80& other);
-
-        //! String base assignment operator
-        StringSize80& operator=(const Fw::StringBase& other);
-
-        //! char* assignment operator
-        StringSize80& operator=(const char* other);
-
-        //! Retrieves char buffer of string
-        const char* toChar() const;
-
-        Fw::StringBase::SizeType getCapacity() const;
-
-      private:
-
-        char m_buf[80]; //!< Buffer for string storage
-
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Types
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef StringSize80 ElementType;
+    using ElementType = Fw::ExternalString;
 
   public:
 
@@ -86,8 +35,14 @@ class String2 :
     enum {
       //! The size of the array
       SIZE = 2,
+      //! The string size of each element
+      ELEMENT_STRING_SIZE = 80,
+      //! The buffer size of each element
+      ELEMENT_BUFFER_SIZE = Fw::StringBase::BUFFER_SIZE(ELEMENT_STRING_SIZE),
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = Fw::StringBase::STATIC_SERIALIZED_SIZE(ELEMENT_STRING_SIZE),
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * StringSize80::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -106,13 +61,13 @@ class String2 :
 
     //! Constructor (single element)
     String2(
-        const ElementType& e //!< The element
+        const Fw::StringBase& e //!< The element
     );
 
     //! Constructor (multiple elements)
     String2(
-        const ElementType& e1, //!< Element 1
-        const ElementType& e2 //!< Element 2
+        const Fw::StringBase& e1, //!< Element 1
+        const Fw::StringBase& e2 //!< Element 2
     );
 
     //! Copy Constructor
@@ -174,7 +129,7 @@ class String2 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization
@@ -199,8 +154,20 @@ class String2 :
   private:
 
     // ----------------------------------------------------------------------
+    // Private member functions
+    // ----------------------------------------------------------------------
+
+    //! Initialize elements
+    void initElements();
+
+  private:
+
+    // ----------------------------------------------------------------------
     // Member variables
     // ----------------------------------------------------------------------
+
+    //! The char buffers
+    char buffers[SIZE][ELEMENT_BUFFER_SIZE];
 
     //! The array elements
     ElementType elements[SIZE];

@@ -8,6 +8,7 @@
 #define BuiltInTypeArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -23,7 +24,7 @@ class BuiltInType :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef FwOpcodeType ElementType;
+    using ElementType = FwOpcodeType;
 
   public:
 
@@ -34,8 +35,10 @@ class BuiltInType :
     enum {
       //! The size of the array
       SIZE = 3,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = sizeof(FwOpcodeType),
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * sizeof(FwOpcodeType),
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -123,7 +126,7 @@ class BuiltInType :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

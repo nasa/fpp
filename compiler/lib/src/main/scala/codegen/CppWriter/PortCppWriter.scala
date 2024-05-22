@@ -21,11 +21,7 @@ case class PortCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val strNamespace = s"${name}PortStrings"
-
-  private val typeCppWriter = TypeCppWriter(s, None, List(strNamespace))
-
-  private val strCppWriter = StringCppWriter(s)
+  private val typeCppWriter = TypeCppWriter(s, "Fw::StringBase")
 
   private val formalParamsCppWriter = FormalParamsCppWriter(s)
 
@@ -44,7 +40,7 @@ case class PortCppWriter (
 
   // Map from string size to list of names of string of that size
   private val strNameMap = strParamList.groupBy((_, t) => {
-    strCppWriter.getSize(t)
+    writeStringSize(s, t)
   }).map((size, l) => (size, l.map(_._1)))
 
   // List of tuples (name, C++ type, kind) for each param
@@ -58,7 +54,7 @@ case class PortCppWriter (
 
   // Port params as CppDoc Function Params
   private val functionParams: List[CppDoc.Function.Param] =
-    formalParamsCppWriter.write(params, List(strNamespace))
+    formalParamsCppWriter.write(params, "Fw::StringBase")
 
   // Return type as a C++ type
   private val returnType = data.returnType match {
@@ -99,8 +95,6 @@ case class PortCppWriter (
       )
     }
     val classes = List(
-      getStringClasses,
-      getStringTypedefs,
       portBufferClass,
       List(
         classMember(
@@ -154,48 +148,13 @@ case class PortCppWriter (
   private def getCppIncludes: CppDoc.Member = {
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      "Fw/Types/StringUtils.hpp",
+      "Fw/Types/ExternalString.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
     linesMember(
       Line.blank :: userHeaders,
       CppDoc.Lines.Cpp
     )
-  }
-
-  private def getStringTypedefs: List[CppDoc.Member] = {
-    if strParamList.isEmpty then Nil
-    else List(
-      linesMember(
-        List(
-          CppDocWriter.writeBannerComment(
-            "String types for backwards compatibility"
-          ),
-          Line.blank ::
-            strNameMap.flatMap((size, l) => {
-              l.map(strName => line(
-                s"typedef ${
-                  strCppWriter.getQualifiedClassName(size, List(strNamespace))
-                } ${strName}String;"
-              ))
-            }).toList
-        ).flatten
-      )
-    )
-  }
-
-  private def getStringClasses: List[CppDoc.Member] = {
-    val strTypes = paramTypeMap.map((_, t) => t match {
-      case t: Type.String => Some(t)
-      case _ => None
-    }).filter(_.isDefined).map(_.get).toList
-    strTypes match {
-      case Nil => Nil
-      case l => wrapInNamespaces(
-        List(strNamespace),
-        strCppWriter.write(l)
-      )
-    }
   }
 
   private def getPortBufferClass: List[Line] = {
@@ -257,7 +216,7 @@ case class PortCppWriter (
                 else
                   line("SERIALIZED_SIZE =") ::
                     lines(paramList.map((n, tn, _) =>
-                      s.getSerializedSizeExpr(paramTypeMap(n), tn)
+                      writeSerializedSizeExpr(s, paramTypeMap(n), tn)
                     ).mkString(" +\n")).map(indentIn)
               ).flatten
             )
@@ -275,7 +234,7 @@ case class PortCppWriter (
         else
           line("FwIndexType portNum,") ::
             lines(params.map(p => {
-              s"${formalParamsCppWriter.getFormalParamType(p._2.data, None, List(strNamespace)).hppType} ${p._2.data.name}"
+              s"${formalParamsCppWriter.getFormalParamType(p._2.data, "Fw::StringBase").hppType} ${p._2.data.name}"
             }).mkString(",\n")))
 
     List(
@@ -317,9 +276,10 @@ case class PortCppWriter (
                |"""
           ) ++
           paramList.flatMap((n, tn, _) => {
+            val varDecl = writeVarDecl(s, tn, n, paramTypeMap(n))
             lines(
               s"""|
-                  |$tn $n;
+                  |$varDecl
                   |_status = _buffer.deserialize($n);
                   |if (_status != Fw::FW_SERIALIZE_OK) {
                   |  return _status;

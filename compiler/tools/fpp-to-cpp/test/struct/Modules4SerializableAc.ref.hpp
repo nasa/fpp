@@ -8,6 +8,7 @@
 #define Modules4SerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "Modules2SerializableAc.hpp"
@@ -22,9 +23,11 @@ class Modules4 :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef M::Modules2 Type_of_arr1[3];
-    typedef M::Modules2 Type_of_arr2[6];
+    //! The type of arr1
+    using Type_of_arr1 = M::Modules2[3];
+
+    //! The type of arr2
+    using Type_of_arr2 = M::Modules2[6];
 
   public:
 

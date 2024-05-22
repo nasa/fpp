@@ -4,9 +4,8 @@
 // \brief  cpp file for ActiveTelemetry component base class
 // ======================================================================
 
-#include <cstdio>
-
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -1610,7 +1609,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1674,7 +1673,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1717,7 +1716,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1781,7 +1780,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1824,7 +1823,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1888,7 +1887,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1931,7 +1930,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1995,7 +1994,7 @@ void ActiveTelemetryComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2043,7 +2042,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2080,7 +2079,7 @@ F32 ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2121,7 +2120,7 @@ F32 ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2156,7 +2155,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2201,7 +2200,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2216,7 +2215,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2231,7 +2230,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2246,7 +2245,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2285,7 +2284,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2312,7 +2311,7 @@ F32 ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2845,7 +2844,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2917,7 +2917,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -2989,7 +2990,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3061,7 +3063,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveTelemetryComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -3198,7 +3201,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3225,7 +3228,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3252,7 +3255,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3279,7 +3282,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3306,7 +3309,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3333,7 +3336,7 @@ F32 ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3360,7 +3363,7 @@ F32 ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -3387,7 +3390,7 @@ void ActiveTelemetryComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s

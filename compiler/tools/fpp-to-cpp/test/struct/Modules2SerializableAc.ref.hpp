@@ -8,6 +8,7 @@
 #define M_Modules2SerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "Modules1SerializableAc.hpp"

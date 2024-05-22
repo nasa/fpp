@@ -5,170 +5,8 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "StringPortAc.hpp"
-
-namespace StringPortStrings {
-
-  // ----------------------------------------------------------------------
-  // StringSize80 class
-  // ----------------------------------------------------------------------
-
-  StringSize80 ::
-    StringSize80() :
-      StringBase()
-  {
-    this->m_buf[0] = 0;
-  }
-
-  StringSize80 ::
-    StringSize80(const char* src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-  }
-
-  StringSize80 ::
-    StringSize80(const Fw::StringBase& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  StringSize80 ::
-    StringSize80(const StringSize80& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  StringSize80 ::
-    ~StringSize80()
-  {
-
-  }
-
-  StringSize80& StringSize80 ::
-    operator=(const StringSize80& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  StringSize80& StringSize80 ::
-    operator=(const Fw::StringBase& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  StringSize80& StringSize80 ::
-    operator=(const char* other)
-  {
-    Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-    return *this;
-  }
-
-  const char* StringSize80 ::
-    toChar() const
-  {
-    return this->m_buf;
-  }
-
-  Fw::StringBase::SizeType StringSize80 ::
-    getCapacity() const
-  {
-    return sizeof(this->m_buf);
-  }
-
-  // ----------------------------------------------------------------------
-  // StringSize100 class
-  // ----------------------------------------------------------------------
-
-  StringSize100 ::
-    StringSize100() :
-      StringBase()
-  {
-    this->m_buf[0] = 0;
-  }
-
-  StringSize100 ::
-    StringSize100(const char* src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-  }
-
-  StringSize100 ::
-    StringSize100(const Fw::StringBase& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  StringSize100 ::
-    StringSize100(const StringSize100& src) :
-      StringBase()
-  {
-    Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-  }
-
-  StringSize100 ::
-    ~StringSize100()
-  {
-
-  }
-
-  StringSize100& StringSize100 ::
-    operator=(const StringSize100& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  StringSize100& StringSize100 ::
-    operator=(const Fw::StringBase& other)
-  {
-    if (this == &other) {
-      return *this;
-    }
-
-    Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-    return *this;
-  }
-
-  StringSize100& StringSize100 ::
-    operator=(const char* other)
-  {
-    Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-    return *this;
-  }
-
-  const char* StringSize100 ::
-    toChar() const
-  {
-    return this->m_buf;
-  }
-
-  Fw::StringBase::SizeType StringSize100 ::
-    getCapacity() const
-  {
-    return sizeof(this->m_buf);
-  }
-
-}
 
 namespace {
 
@@ -234,10 +72,10 @@ void InputStringPort ::
 
 void InputStringPort ::
   invoke(
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1
@@ -264,25 +102,29 @@ Fw::SerializeStatus InputStringPort ::
   FW_ASSERT(this->m_comp != nullptr);
   FW_ASSERT(this->m_func != nullptr);
 
-  StringPortStrings::StringSize80 str80;
+  char __fprime_ac_str80_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  Fw::ExternalString str80(__fprime_ac_str80_buffer, sizeof __fprime_ac_str80_buffer);
   _status = _buffer.deserialize(str80);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize80 str80Ref;
+  char __fprime_ac_str80Ref_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+  Fw::ExternalString str80Ref(__fprime_ac_str80Ref_buffer, sizeof __fprime_ac_str80Ref_buffer);
   _status = _buffer.deserialize(str80Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize100 str100;
+  char __fprime_ac_str100_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100(__fprime_ac_str100_buffer, sizeof __fprime_ac_str100_buffer);
   _status = _buffer.deserialize(str100);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
   }
 
-  StringPortStrings::StringSize100 str100Ref;
+  char __fprime_ac_str100Ref_buffer[Fw::StringBase::BUFFER_SIZE(100)];
+  Fw::ExternalString str100Ref(__fprime_ac_str100Ref_buffer, sizeof __fprime_ac_str100Ref_buffer);
   _status = _buffer.deserialize(str100Ref);
   if (_status != Fw::FW_SERIALIZE_OK) {
     return _status;
@@ -328,10 +170,10 @@ void OutputStringPort ::
 
 void OutputStringPort ::
   invoke(
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
   )
 {
 #if FW_PORT_TRACING == 1

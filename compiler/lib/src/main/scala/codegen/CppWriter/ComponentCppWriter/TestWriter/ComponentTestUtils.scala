@@ -139,7 +139,10 @@ abstract class ComponentTestUtils(
     }
 
   def writeCppType(t: Type, stringRepOpt: Option[String] = None): String = {
-    val typeName = TypeCppWriter.getName(s, t, stringRepOpt)
+    val typeName = stringRepOpt match {
+      case Some(stringRep) => TypeCppWriter.getName(s, t, stringRep)
+      case None => TypeCppWriter.getName(s, t)
+    }
     t match {
       case t if s.isPrimitive(t, typeName) => s"const $typeName"
       case _: Type.String => stringRepOpt match {

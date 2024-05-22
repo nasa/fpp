@@ -961,7 +961,7 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -976,7 +976,7 @@ F32 PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1032,7 +1032,7 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1061,7 +1061,7 @@ F32 PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1155,7 +1155,7 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1183,7 +1183,7 @@ F32 PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1211,7 +1211,7 @@ F32 PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1239,7 +1239,7 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3143,21 +3143,20 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
   )
 {
-  FromPortEntry_typedOut _e = {
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str1 = str1;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedOut->push_back(_e);
   this->fromPortHistorySize++;
 }
@@ -3167,21 +3166,20 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
   )
 {
-  FromPortEntry_typedReturnOut _e = {
-    u32,
-    f32,
-    b,
-    str2,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedReturnOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
 }
@@ -3583,7 +3581,7 @@ void PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3610,7 +3608,7 @@ F32 PassiveSerialTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s

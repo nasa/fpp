@@ -17,119 +17,6 @@
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/StringType.hpp"
 
-namespace StringPortStrings {
-
-  // ----------------------------------------------------------------------
-  // StringSize80 class
-  // ----------------------------------------------------------------------
-
-  class StringSize80 :
-    public Fw::StringBase
-  {
-
-    public:
-
-      enum {
-        //! The size of the string length plus the size of the string buffer
-        SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-      };
-
-      //! Default constructor
-      StringSize80();
-
-      //! Char array constructor
-      StringSize80(const char* src);
-
-      //! String base constructor
-      StringSize80(const Fw::StringBase& src);
-
-      //! Copy constructor
-      StringSize80(const StringSize80& src);
-
-      //! Destructor
-      ~StringSize80();
-
-      //! Copy assignment operator
-      StringSize80& operator=(const StringSize80& other);
-
-      //! String base assignment operator
-      StringSize80& operator=(const Fw::StringBase& other);
-
-      //! char* assignment operator
-      StringSize80& operator=(const char* other);
-
-      //! Retrieves char buffer of string
-      const char* toChar() const;
-
-      Fw::StringBase::SizeType getCapacity() const;
-
-    private:
-
-      char m_buf[80]; //!< Buffer for string storage
-
-  };
-
-  // ----------------------------------------------------------------------
-  // StringSize100 class
-  // ----------------------------------------------------------------------
-
-  class StringSize100 :
-    public Fw::StringBase
-  {
-
-    public:
-
-      enum {
-        //! The size of the string length plus the size of the string buffer
-        SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 100
-      };
-
-      //! Default constructor
-      StringSize100();
-
-      //! Char array constructor
-      StringSize100(const char* src);
-
-      //! String base constructor
-      StringSize100(const Fw::StringBase& src);
-
-      //! Copy constructor
-      StringSize100(const StringSize100& src);
-
-      //! Destructor
-      ~StringSize100();
-
-      //! Copy assignment operator
-      StringSize100& operator=(const StringSize100& other);
-
-      //! String base assignment operator
-      StringSize100& operator=(const Fw::StringBase& other);
-
-      //! char* assignment operator
-      StringSize100& operator=(const char* other);
-
-      //! Retrieves char buffer of string
-      const char* toChar() const;
-
-      Fw::StringBase::SizeType getCapacity() const;
-
-    private:
-
-      char m_buf[100]; //!< Buffer for string storage
-
-  };
-
-}
-
-// ----------------------------------------------------------------------
-// String types for backwards compatibility
-// ----------------------------------------------------------------------
-
-typedef StringPortStrings::StringSize80 str80String;
-typedef StringPortStrings::StringSize80 str80RefString;
-typedef StringPortStrings::StringSize100 str100String;
-typedef StringPortStrings::StringSize100 str100RefString;
-
 //! Input String port
 //! A port with string parameters
 class InputStringPort :
@@ -145,10 +32,10 @@ class InputStringPort :
     enum {
       //! The size of the serial representations of the port arguments
       SERIALIZED_SIZE =
-        StringPortStrings::StringSize80::SERIALIZED_SIZE +
-        StringPortStrings::StringSize80::SERIALIZED_SIZE +
-        StringPortStrings::StringSize100::SERIALIZED_SIZE +
-        StringPortStrings::StringSize100::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(100) +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(100)
     };
 
   public:
@@ -161,10 +48,10 @@ class InputStringPort :
     typedef void (*CompFuncPtr)(
       Fw::PassiveComponentBase* callComp,
       FwIndexType portNum,
-      const StringPortStrings::StringSize80& str80,
-      StringPortStrings::StringSize80& str80Ref,
-      const StringPortStrings::StringSize100& str100,
-      StringPortStrings::StringSize100& str100Ref
+      const Fw::StringBase& str80,
+      Fw::StringBase& str80Ref,
+      const Fw::StringBase& str100,
+      Fw::StringBase& str100Ref
     );
 
   public:
@@ -187,10 +74,10 @@ class InputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const StringPortStrings::StringSize80& str80, //!< A string of size 80
-        StringPortStrings::StringSize80& str80Ref,
-        const StringPortStrings::StringSize100& str100, //!< A string of size 100
-        StringPortStrings::StringSize100& str100Ref
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
     );
 
   private:
@@ -238,10 +125,10 @@ class OutputStringPort :
 
     //! Invoke a port interface
     void invoke(
-        const StringPortStrings::StringSize80& str80, //!< A string of size 80
-        StringPortStrings::StringSize80& str80Ref,
-        const StringPortStrings::StringSize100& str100, //!< A string of size 100
-        StringPortStrings::StringSize100& str100Ref
+        const Fw::StringBase& str80, //!< A string of size 80
+        Fw::StringBase& str80Ref,
+        const Fw::StringBase& str100, //!< A string of size 100
+        Fw::StringBase& str100Ref
     );
 
   private:

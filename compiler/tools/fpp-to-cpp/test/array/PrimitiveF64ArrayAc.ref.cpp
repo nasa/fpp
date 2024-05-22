@@ -4,11 +4,7 @@
 // \brief  cpp file for PrimitiveF64 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "PrimitiveF64ArrayAc.hpp"
 
 namespace M {
@@ -153,7 +149,7 @@ namespace M {
 #endif
 
   // ----------------------------------------------------------------------
-  // Member functions
+  // Public member functions
   // ----------------------------------------------------------------------
 
   Fw::SerializeStatus PrimitiveF64 ::
@@ -194,10 +190,7 @@ namespace M {
       "%.5g "
       "%.5g ]";
 
-    char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-    (void) snprintf(
-      outputString,
-      FW_ARRAY_TO_STRING_BUFFER_SIZE,
+    sb.format(
       formatString,
       this->elements[0],
       this->elements[1],
@@ -205,9 +198,6 @@ namespace M {
       this->elements[3],
       this->elements[4]
     );
-
-    outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-    sb = outputString;
   }
 
 #endif

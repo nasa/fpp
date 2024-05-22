@@ -8,6 +8,7 @@
 #define HeaderPathArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "include/T.hpp"
@@ -24,7 +25,7 @@ class HeaderPath :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef T ElementType;
+    using ElementType = T;
 
   public:
 
@@ -35,8 +36,10 @@ class HeaderPath :
     enum {
       //! The size of the array
       SIZE = 3,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = T::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * T::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -124,7 +127,7 @@ class HeaderPath :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

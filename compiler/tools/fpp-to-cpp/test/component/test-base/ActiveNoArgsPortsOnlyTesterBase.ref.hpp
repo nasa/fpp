@@ -12,6 +12,7 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "test-base/ActiveNoArgsPortsOnlyComponentAc.hpp"
 
 //! \class ActiveNoArgsPortsOnlyTesterBase
@@ -61,7 +62,7 @@ class ActiveNoArgsPortsOnlyTesterBase :
         //! Push an item onto the history
         //!
         void push_back(
-            T entry //!< The item
+            const T& entry //!< The item
         )
         {
           FW_ASSERT(this->numEntries < this->maxSize);
@@ -71,7 +72,7 @@ class ActiveNoArgsPortsOnlyTesterBase :
         //! Get an item at an index
         //!
         //! \return The item at index i
-        T at(
+        const T& at(
             const U32 i //!< The index
         ) const
         {

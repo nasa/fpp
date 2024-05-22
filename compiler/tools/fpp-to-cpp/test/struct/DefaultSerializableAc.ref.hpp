@@ -8,64 +8,13 @@
 #define DefaultSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
 class Default :
   public Fw::Serializable
 {
-
-  public:
-
-    // ----------------------------------------------------------------------
-    // StringSize40 class
-    // ----------------------------------------------------------------------
-
-    class StringSize40 :
-      public Fw::StringBase
-    {
-
-      public:
-
-        enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 40
-        };
-
-        //! Default constructor
-        StringSize40();
-
-        //! Char array constructor
-        StringSize40(const char* src);
-
-        //! String base constructor
-        StringSize40(const Fw::StringBase& src);
-
-        //! Copy constructor
-        StringSize40(const StringSize40& src);
-
-        //! Destructor
-        ~StringSize40();
-
-        //! Copy assignment operator
-        StringSize40& operator=(const StringSize40& other);
-
-        //! String base assignment operator
-        StringSize40& operator=(const Fw::StringBase& other);
-
-        //! char* assignment operator
-        StringSize40& operator=(const char* other);
-
-        //! Retrieves char buffer of string
-        const char* toChar() const;
-
-        Fw::StringBase::SizeType getCapacity() const;
-
-      private:
-
-        char m_buf[40]; //!< Buffer for string storage
-
-    };
 
   public:
 
@@ -77,7 +26,7 @@ class Default :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U32) +
-        StringSize40::SERIALIZED_SIZE +
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(40) +
         sizeof(F64)
     };
 
@@ -93,7 +42,7 @@ class Default :
     //! Member constructor
     Default(
         U32 mU32,
-        const StringSize40& mS1,
+        const Fw::StringBase& mS1,
         F64 mF64
     );
 
@@ -169,13 +118,13 @@ class Default :
     }
 
     //! Get member mS1
-    StringSize40& getmS1()
+    Fw::ExternalString& getmS1()
     {
       return this->m_mS1;
     }
 
     //! Get member mS1 (const)
-    const StringSize40& getmS1() const
+    const Fw::ExternalString& getmS1() const
     {
       return this->m_mS1;
     }
@@ -193,7 +142,7 @@ class Default :
     //! Set all members
     void set(
         U32 mU32,
-        const StringSize40& mS1,
+        const Fw::StringBase& mS1,
         F64 mF64
     );
 
@@ -201,7 +150,7 @@ class Default :
     void setmU32(U32 mU32);
 
     //! Set member mS1
-    void setmS1(const StringSize40& mS1);
+    void setmS1(const Fw::StringBase& mS1);
 
     //! Set member mF64
     void setmF64(F64 mF64);
@@ -213,7 +162,8 @@ class Default :
     // ----------------------------------------------------------------------
 
     U32 m_mU32;
-    StringSize40 m_mS1;
+    char m___fprime_ac_mS1_buffer[Fw::StringBase::BUFFER_SIZE(40)];
+    Fw::ExternalString m_mS1;
     F64 m_mF64;
 
 };

@@ -9,6 +9,7 @@
 
 #include "E2EnumAc.hpp"
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -23,7 +24,7 @@ class Enum2 :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef E2 ElementType;
+    using ElementType = E2;
 
   public:
 
@@ -34,8 +35,10 @@ class Enum2 :
     enum {
       //! The size of the array
       SIZE = 5,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = E2::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * E2::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -125,7 +128,7 @@ class Enum2 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

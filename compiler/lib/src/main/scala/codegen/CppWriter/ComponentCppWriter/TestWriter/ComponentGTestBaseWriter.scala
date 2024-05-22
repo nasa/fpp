@@ -128,7 +128,7 @@ case class ComponentGTestBaseWriter(
         ),
         typedOutputPorts.flatMap(p => {
           val params = portParamTypeMap(p.getUnqualifiedName)
-          val paramList = params.map((name, _) => s", _$name").mkString("")
+          val paramList = params.map((name, _, _) => s", _$name").mkString("")
           val portName = p.getUnqualifiedName
           val historyName = fromPortHistoryName(portName)
           val sizeAssertFnName = fromPortSizeAssertionFuncName(portName)
@@ -154,7 +154,7 @@ case class ComponentGTestBaseWriter(
                    |      const $entryName& _e = \\
                    |        this->$historyName->at(index); \\
                    |"""
-              ) ++ params.flatMap((name, _) =>
+              ) ++ params.flatMap((name, _, _) =>
                 lines(
                   s"""    ASSERT_EQ(_$name, _e.$name) \\
                      |      << "\\n" \\
@@ -201,7 +201,7 @@ case class ComponentGTestBaseWriter(
             |"""
         ),
         sortedEvents.flatMap((id, event) => {
-          val params = eventParamTypeMap(id).map((name, _) => s", _$name").mkString("")
+          val params = eventParamTypeMap(id).map((name, _, _) => s", _$name").mkString("")
           val eventName = event.getName
           val sizeAssertFn = eventSizeAssertionFuncName(eventName)
           val eventAssertFn = eventAssertionFuncName(eventName)
@@ -489,7 +489,7 @@ case class ComponentGTestBaseWriter(
                      |  this->$historyName->at(__index);
                      |"""
                 ),
-                eventParamTypeMap(id).flatMap((name, tn) => {
+                eventParamTypeMap(id).flatMap((name, tn, _) => {
                   val assertEq = writeEventAssertEq(tn)
                   val eventValue = writeEventValue(s"_e.$name", tn)
                   lines(

@@ -4,9 +4,8 @@
 // \brief  cpp file for PassiveGetProducts component base class
 // ======================================================================
 
-#include <cstdio>
-
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -1628,7 +1627,7 @@ void PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1665,7 +1664,7 @@ F32 PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1706,7 +1705,7 @@ F32 PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1741,7 +1740,7 @@ void PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1836,7 +1835,7 @@ void PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1863,7 +1862,7 @@ F32 PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2024,7 +2023,7 @@ void PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2051,7 +2050,7 @@ F32 PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2078,7 +2077,7 @@ F32 PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2105,7 +2104,7 @@ void PassiveGetProductsComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s

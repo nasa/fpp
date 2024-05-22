@@ -5,93 +5,10 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "base/TypedReturnPortAc.hpp"
 
 namespace Ports {
-
-  namespace TypedReturnPortStrings {
-
-    // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    StringSize80 ::
-      StringSize80() :
-        StringBase()
-    {
-      this->m_buf[0] = 0;
-    }
-
-    StringSize80 ::
-      StringSize80(const char* src) :
-        StringBase()
-    {
-      Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-    }
-
-    StringSize80 ::
-      StringSize80(const Fw::StringBase& src) :
-        StringBase()
-    {
-      Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-    }
-
-    StringSize80 ::
-      StringSize80(const StringSize80& src) :
-        StringBase()
-    {
-      Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-    }
-
-    StringSize80 ::
-      ~StringSize80()
-    {
-
-    }
-
-    StringSize80& StringSize80 ::
-      operator=(const StringSize80& other)
-    {
-      if (this == &other) {
-        return *this;
-      }
-
-      Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-      return *this;
-    }
-
-    StringSize80& StringSize80 ::
-      operator=(const Fw::StringBase& other)
-    {
-      if (this == &other) {
-        return *this;
-      }
-
-      Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-      return *this;
-    }
-
-    StringSize80& StringSize80 ::
-      operator=(const char* other)
-    {
-      Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-      return *this;
-    }
-
-    const char* StringSize80 ::
-      toChar() const
-    {
-      return this->m_buf;
-    }
-
-    Fw::StringBase::SizeType StringSize80 ::
-      getCapacity() const
-    {
-      return sizeof(this->m_buf);
-    }
-
-  }
 
   // ----------------------------------------------------------------------
   // Input Port Member functions
@@ -130,7 +47,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -196,7 +113,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s

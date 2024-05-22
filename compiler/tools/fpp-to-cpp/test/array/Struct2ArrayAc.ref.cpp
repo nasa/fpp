@@ -4,11 +4,7 @@
 // \brief  cpp file for Struct2 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "Struct2ArrayAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -21,9 +17,9 @@ Struct2 ::
 {
   // Construct using element-wise constructor
   *this = Struct2(
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")),
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")),
-    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, ""))
+    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))),
+    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))),
+    S2(M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")))
   );
 }
 
@@ -145,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const Struct2& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Struct2 ::
@@ -194,18 +190,12 @@ void Struct2 ::
   this->elements[1].toString(str1);
   this->elements[2].toString(str2);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
     str2.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

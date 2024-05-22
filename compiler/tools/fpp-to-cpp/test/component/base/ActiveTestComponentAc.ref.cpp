@@ -4,9 +4,8 @@
 // \brief  cpp file for ActiveTest component base class
 // ======================================================================
 
-#include <cstdio>
-
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -1739,13 +1738,13 @@ namespace M {
       if (stat != Fw::FW_SERIALIZE_OK) {
         this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
         // Set default value
-        this->m_ParamString = "default";
+        this->m_ParamString = Fw::String("default");
       }
     }
     else {
       // Set default value
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
-      this->m_ParamString = "default";
+      this->m_ParamString = Fw::String("default");
     }
 
     this->m_paramLock.unLock();
@@ -2427,7 +2426,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -2491,7 +2490,7 @@ namespace M {
     );
 
     // Serialize argument str1
-    _status = msg.serialize(str1);
+    _status = str1.serialize(msg, 80);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2534,7 +2533,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -2598,7 +2597,7 @@ namespace M {
     );
 
     // Serialize argument str1
-    _status = msg.serialize(str1);
+    _status = str1.serialize(msg, 80);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2641,7 +2640,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -2705,7 +2704,7 @@ namespace M {
     );
 
     // Serialize argument str1
-    _status = msg.serialize(str1);
+    _status = str1.serialize(msg, 80);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2748,7 +2747,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -2812,7 +2811,7 @@ namespace M {
     );
 
     // Serialize argument str1
-    _status = msg.serialize(str1);
+    _status = str1.serialize(msg, 80);
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -2860,7 +2859,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -2897,7 +2896,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -2938,7 +2937,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -2973,7 +2972,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3037,7 +3036,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3052,7 +3051,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3067,7 +3066,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3082,7 +3081,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3159,7 +3158,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -3186,7 +3185,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -4523,11 +4522,8 @@ namespace M {
         "%s: Event Activity High occurred";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -4535,9 +4531,6 @@ namespace M {
         "EventActivityHigh "
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -4654,11 +4647,8 @@ namespace M {
         "%s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -4669,9 +4659,6 @@ namespace M {
         b
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -4743,11 +4730,8 @@ namespace M {
         "%s: Event Command occurred with arguments: %s, %s";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -4757,9 +4741,6 @@ namespace M {
         str2.toChar()
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -4832,14 +4813,11 @@ namespace M {
         "%s: Event Diagnostic occurred with argument: %s";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
       Fw::String eStr;
       e.toString(eStr);
 
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -4848,9 +4826,6 @@ namespace M {
         eStr.toChar()
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -4944,14 +4919,11 @@ namespace M {
         "%s: Event Fatal occurred with argument: %s";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
       Fw::String aStr;
       a.toString(aStr);
 
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -4960,9 +4932,6 @@ namespace M {
         aStr.toChar()
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -5035,14 +5004,11 @@ namespace M {
         "%s: Event Warning High occurred with argument: %s";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
       Fw::String sStr;
       s.toString(sStr);
 
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -5051,9 +5017,6 @@ namespace M {
         sStr.toChar()
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -5118,11 +5081,8 @@ namespace M {
         "%s: Event Warning Low occurred";
 #endif
 
-      char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-      (void) snprintf(
-        _textBuffer,
-        FW_LOG_TEXT_BUFFER_SIZE,
+      Fw::TextLogString _logString;
+      _logString.format(
         _formatString,
 #if FW_OBJECT_NAMES == 1
         this->m_objName.toChar(),
@@ -5130,9 +5090,6 @@ namespace M {
         "EventWarningLowThrottled "
       );
 
-      // Null terminate
-      _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-      Fw::TextLogString _logString = _textBuffer;
       this->m_textEventOut_OutputPort[0].invoke(
         _id,
         _logTime,
@@ -5832,7 +5789,8 @@ namespace M {
         );
 
         // Deserialize argument str1
-        Ports::TypedPortStrings::StringSize80 str1;
+        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
         deserStatus = msg.deserialize(str1);
         FW_ASSERT(
           deserStatus == Fw::FW_SERIALIZE_OK,
@@ -5904,7 +5862,8 @@ namespace M {
         );
 
         // Deserialize argument str1
-        Ports::TypedPortStrings::StringSize80 str1;
+        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
         deserStatus = msg.deserialize(str1);
         FW_ASSERT(
           deserStatus == Fw::FW_SERIALIZE_OK,
@@ -5976,7 +5935,8 @@ namespace M {
         );
 
         // Deserialize argument str1
-        Ports::TypedPortStrings::StringSize80 str1;
+        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
         deserStatus = msg.deserialize(str1);
         FW_ASSERT(
           deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6048,7 +6008,8 @@ namespace M {
         );
 
         // Deserialize argument str1
-        Ports::TypedPortStrings::StringSize80 str1;
+        char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+        Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
         deserStatus = msg.deserialize(str1);
         FW_ASSERT(
           deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6927,7 +6888,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -6954,7 +6915,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -6981,7 +6942,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -7008,7 +6969,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -7035,7 +6996,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s
@@ -7062,7 +7023,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -7089,7 +7050,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -7116,7 +7077,7 @@ namespace M {
         U32 u32,
         F32 f32,
         bool b,
-        const Ports::TypedPortStrings::StringSize80& str1,
+        const Fw::StringBase& str1,
         const E& e,
         const A& a,
         const S& s

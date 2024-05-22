@@ -8,6 +8,7 @@
 #define M_PrimitiveF64ArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -25,7 +26,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! The element type
-      typedef F64 ElementType;
+      using ElementType = F64;
 
     public:
 
@@ -36,8 +37,10 @@ namespace M {
       enum {
         //! The size of the array
         SIZE = 5,
+        //! The serialized size of each element
+        ELEMENT_SERIALIZED_SIZE = sizeof(F64),
         //! The size of the serial representation
-        SERIALIZED_SIZE = SIZE * sizeof(F64),
+        SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
       };
 
     public:
@@ -127,7 +130,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Member functions
+      // Public member functions
       // ----------------------------------------------------------------------
 
       //! Serialization

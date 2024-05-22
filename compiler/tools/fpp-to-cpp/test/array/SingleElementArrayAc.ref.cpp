@@ -4,11 +4,7 @@
 // \brief  cpp file for SingleElement array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "SingleElementArrayAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -128,7 +124,7 @@ std::ostream& operator<<(std::ostream& os, const SingleElement& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus SingleElement ::
@@ -165,16 +161,10 @@ void SingleElement ::
   static const char *formatString = "[ "
     "%" PRIu32 " ]";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->elements[0]
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

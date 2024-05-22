@@ -4,12 +4,8 @@
 // \brief  cpp file for AbsType array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "AbsTypeArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors
@@ -145,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const AbsType& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus AbsType ::
@@ -194,18 +190,12 @@ void AbsType ::
   this->elements[1].toString(str1);
   this->elements[2].toString(str2);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
     str2.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

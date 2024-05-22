@@ -174,28 +174,17 @@ case class CppWriterState(
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
 
-  /** Is this a built-in type? */
+  /** Is t a built-in type? */
   def isBuiltInType(typeName: String): Boolean = builtInTypes.contains(typeName)
 
-  /** Is this a primitive type (not serializable)? */
+  /** Is t a primitive type (not serializable)? */
   def isPrimitive(t: Type, typeName: String): Boolean  = t.isPrimitive || isBuiltInType(typeName)
 
-  /** Get C++ expression for static serialized size */
-  def getSerializedSizeExpr(t: Type, typeName: String): String =
-    (t, isPrimitive(t, typeName))  match {
-      // sizeof(bool) is not defined in C++
-      // F Prime serializes bool as U8
-      case (Type.Boolean, _)=> "sizeof(U8)"
-      case (ts: Type.String, _) =>
-        typeName match {
-          case "Fw::StringBase" =>
-            val serialSize = StringCppWriter(this).getSize(ts)
-            s"StringBase::staticSerializedSize($serialSize)"
-          case _ => s"$typeName::SERIALIZED_SIZE"
-        }
-      case (_, true) => s"sizeof($typeName)"
-      case _ => s"$typeName::SERIALIZED_SIZE"
-    }
+  /** Is t a string type? */
+  def isStringType(t: Type) = t match {
+    case _: Type.String => true
+    case _ => false
+  }
 
 }
 

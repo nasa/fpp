@@ -4,11 +4,7 @@
 // \brief  cpp file for Struct3 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "Struct3ArrayAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -145,7 +141,7 @@ std::ostream& operator<<(std::ostream& os, const Struct3& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Struct3 ::
@@ -194,18 +190,12 @@ void Struct3 ::
   this->elements[1].toString(str1);
   this->elements[2].toString(str2);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
     str2.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

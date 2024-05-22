@@ -202,7 +202,7 @@ case class ComponentCommands (
                   )
                 },
                 intersperseBlankLines(
-                  cmdParamTypeMap(opcode).map((n, tn) =>
+                  cmdParamTypeMap(opcode).map((n, tn, _) =>
                     lines(
                       s"""|$tn $n;
                           |_status = args.deserialize($n);

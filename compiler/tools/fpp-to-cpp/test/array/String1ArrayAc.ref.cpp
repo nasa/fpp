@@ -4,91 +4,8 @@
 // \brief  cpp file for String1 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "String1ArrayAc.hpp"
-
-// ----------------------------------------------------------------------
-// StringSize80 class
-// ----------------------------------------------------------------------
-
-String1::StringSize80 ::
-  StringSize80() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-String1::StringSize80 ::
-  StringSize80(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-String1::StringSize80 ::
-  StringSize80(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-String1::StringSize80 ::
-  StringSize80(const StringSize80& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-String1::StringSize80 ::
-  ~StringSize80()
-{
-
-}
-
-String1::StringSize80& String1::StringSize80 ::
-  operator=(const StringSize80& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-String1::StringSize80& String1::StringSize80 ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-String1::StringSize80& String1::StringSize80 ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* String1::StringSize80 ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-Fw::StringBase::SizeType String1::StringSize80 ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
 
 // ----------------------------------------------------------------------
 // Constructors
@@ -98,11 +15,12 @@ String1 ::
   String1() :
     Serializable()
 {
+  this->initElements();
   // Construct using element-wise constructor
   *this = String1(
-    "",
-    "",
-    ""
+    Fw::String(""),
+    Fw::String(""),
+    Fw::String("")
   );
 }
 
@@ -110,15 +28,17 @@ String1 ::
   String1(const ElementType (&a)[SIZE]) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = a[index];
   }
 }
 
 String1 ::
-  String1(const ElementType& e) :
+  String1(const Fw::StringBase& e) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = e;
   }
@@ -126,12 +46,13 @@ String1 ::
 
 String1 ::
   String1(
-      const ElementType& e1,
-      const ElementType& e2,
-      const ElementType& e3
+      const Fw::StringBase& e1,
+      const Fw::StringBase& e2,
+      const Fw::StringBase& e3
   ) :
     Serializable()
 {
+  this->initElements();
   this->elements[0] = e1;
   this->elements[1] = e2;
   this->elements[2] = e3;
@@ -141,6 +62,7 @@ String1 ::
   String1(const String1& obj) :
     Serializable()
 {
+  this->initElements();
   for (U32 index = 0; index < SIZE; index++) {
     this->elements[index] = obj.elements[index];
   }
@@ -224,7 +146,7 @@ std::ostream& operator<<(std::ostream& os, const String1& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus String1 ::
@@ -263,18 +185,24 @@ void String1 ::
     "%s "
     "%s ]";
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->elements[0].toChar(),
     this->elements[1].toChar(),
     this->elements[2].toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif
+
+// ----------------------------------------------------------------------
+// Private member functions
+// ----------------------------------------------------------------------
+
+void String1 ::
+  initElements()
+{
+  for (U32 index = 0; index < SIZE; index++) {
+    this->elements[index].setBuffer(&this->buffers[index][0], sizeof this->buffers[index]);
+  }
+}

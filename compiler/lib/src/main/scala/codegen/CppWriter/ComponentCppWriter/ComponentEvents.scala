@@ -129,13 +129,12 @@ case class ComponentEvents (
                 lines("#endif")
               ),
               intersperseBlankLines(
-                event.aNode._2.data.params.map(param => {
-                  val name = param._2.data.name
+                eventParamTypeMap(id).map((name, typeName, ty) => {
 
                   List.concat(
-                    s.a.typeMap(param._2.data.typeName.id) match {
+                    ty match {
                       case t: Type.String =>
-                        val serialSize = stringCppWriter.getSize(t)
+                        val serialSize = writeStringSize(s, t)
                         lines(
                           s"_status = $name.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, $serialSize));"
                         )
@@ -143,7 +142,7 @@ case class ComponentEvents (
                         s"""|#if FW_AMPCS_COMPATIBLE
                             |// Serialize the argument size
                             |_status = _logBuff.serialize(
-                            |  static_cast<U8>(${s.getSerializedSizeExpr(t, writeFormalParamType(param._2.data))})
+                            |  static_cast<U8>(${writeSerializedSizeExpr(s, t, typeName)})
                             |);
                             |FW_ASSERT(
                             |  _status == Fw::FW_SERIALIZE_OK,
@@ -194,8 +193,6 @@ case class ComponentEvents (
                   |const char* _formatString =
                   |  "%s: ${writeEventFormat(event)}";
                   |#endif
-                  |
-                  |char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
                   |"""
             ),
             event.aNode._2.data.params.flatMap(param =>
@@ -211,9 +208,8 @@ case class ComponentEvents (
             ),
             List.concat(
               lines(
-                s"""|(void) snprintf(
-                    |  _textBuffer,
-                    |  FW_LOG_TEXT_BUFFER_SIZE,
+                s"""|Fw::TextLogString _logString;
+                    |_logString.format(
                     |  _formatString,
                     |#if FW_OBJECT_NAMES == 1
                     |  this->m_objName.toChar(),
@@ -234,10 +230,7 @@ case class ComponentEvents (
               lines(");")
             ),
             lines(
-              s"""|// Null terminate
-                  |_textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-                  |Fw::TextLogString _logString = _textBuffer;
-                  |this->${portVariableName(textEventPort.get)}[0].invoke(
+              s"""|this->${portVariableName(textEventPort.get)}[0].invoke(
                   |  _id,
                   |  _logTime,
                   |  Fw::LogSeverity::${writeSeverity(event)},
@@ -296,8 +289,7 @@ case class ComponentEvents (
           eventLogName(event),
           formalParamsCppWriter.write(
             event.aNode._2.data.params,
-            Nil,
-            Some("Fw::StringBase"),
+            "Fw::StringBase",
             FormalParamsCppWriter.Value
           ),
           CppDoc.Type("void"),

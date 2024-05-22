@@ -7,10 +7,8 @@ import fpp.compiler.util._
 case class TypeCppWriter(
   /** CppWriterState */
   s: CppWriterState,
-  /** Specific string type name */
-  stringTypeName: Option[String] = None,
-  /** List of namespace qualifiers for a string type */
-  stringNamespaceNames: List[String] = Nil
+  /** The name to use for string types */
+  stringTypeName: String = "Fw::String"
 ) {
 
   private object NameVisitor extends TypeVisitor {
@@ -32,10 +30,7 @@ case class TypeCppWriter(
 
     override def primitiveInt(s: CppWriterState, t: Type.PrimitiveInt) = t.toString
 
-    override def string(s: CppWriterState, t: Type.String) = stringTypeName match {
-      case Some(tn) => tn
-      case None => StringCppWriter(s).getQualifiedClassName(t, stringNamespaceNames)
-    }
+    override def string(s: CppWriterState, t: Type.String) = stringTypeName
 
     override def struct(s: CppWriterState, t: Type.Struct) =
       s.writeSymbol(Symbol.Struct(t.node))
@@ -57,9 +52,8 @@ object TypeCppWriter {
   def getName(
     s: CppWriterState,
     t: Type,
-    stringTypeName: Option[String] = None,
-    stringNamespaceNames: List[String] = Nil
+    stringTypeName: String = "Fw::String"
   ): String =
-    TypeCppWriter(s, stringTypeName, stringNamespaceNames).write(t)
+    TypeCppWriter(s, stringTypeName).write(t)
 
 }

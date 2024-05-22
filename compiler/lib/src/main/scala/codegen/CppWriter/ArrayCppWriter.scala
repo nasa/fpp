@@ -24,15 +24,19 @@ case class ArrayCppWriter (
 
   private val namespaceIdentList = s.getNamespaceIdentList(symbol)
 
-  private val typeCppWriter = TypeCppWriter(s)
-
-  private val strCppWriter = StringCppWriter(s, Some(name))
+  private val typeCppWriter = TypeCppWriter(s, "Fw::ExternalString")
 
   private val eltType = arrayType.anonArray.eltType
 
-  private val arraySize = arrayType.getArraySize.get
-
   private val eltTypeName = typeCppWriter.write(eltType)
+
+  private val hasPrimitiveEltType = s.isPrimitive(eltType, eltTypeName)
+
+  private val hasStringEltType= s.isStringType(eltType)
+
+  private val constructorEltType = if hasStringEltType then "Fw::StringBase" else "ElementType"
+
+  private val arraySize = arrayType.getArraySize.get
 
   private val formatStr = FormatCppWriter.write(
     arrayType.format.getOrElse(Format("", List((Format.Field.Default, "")))),
@@ -84,6 +88,7 @@ case class ArrayCppWriter (
   private def getHppIncludes: CppDoc.Member = {
     val standardHeaders = List(
       "FpConfig.hpp",
+      "Fw/Types/ExternalString.hpp",
       "Fw/Types/Serializable.hpp",
       "Fw/Types/String.hpp"
     ).map(CppWriter.headerString)
@@ -93,40 +98,23 @@ case class ArrayCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemHeaders = List(
-      "cstdio",
-      "cstring",
-    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
-      "Fw/Types/StringUtils.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).map(line)
-    linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten,
-      CppDoc.Lines.Cpp
-    )
+    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
-    List(
-      getStringClass,
+    List.concat(
       getTypeMembers,
       getConstantMembers,
       getConstructorMembers,
       getOperatorMembers,
-      getMemberFunctionMembers,
+      getPublicFunctionMembers,
+      guardedList (hasStringEltType) (getPrivateFunctionMembers),
       getMemberVariableMembers,
-    ).flatten
-
-  // Generate a nested string class of the specified size for arrays of strings
-  private def getStringClass: List[CppDoc.Class.Member] = eltType match {
-    case t: Type.String => strCppWriter.writeNested(List(t))
-    case _ => Nil
-  }
+    )
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     List(
@@ -137,7 +125,7 @@ case class ArrayCppWriter (
           lines(
             s"""|
                 |//! The element type
-                |typedef $eltTypeName ElementType;"""
+                |using ElementType = $eltTypeName;"""
           ),
         ).flatten
       )
@@ -149,17 +137,30 @@ case class ArrayCppWriter (
         CppDocHppWriter.writeAccessTag("public") ++
         CppDocWriter.writeBannerComment("Constants") ++
         addBlankPrefix(
-          wrapInEnum(
-            lines(
-              s"""|//! The size of the array
-                  |SIZE = $arraySize,
-                  |//! The size of the serial representation
-                  |SERIALIZED_SIZE = SIZE * ${s.getSerializedSizeExpr(eltType, eltTypeName)},"""
-            )
-          )
+          wrapInEnum({
+            val elementSizes = eltType match {
+              case ts: Type.String =>
+                s"""|//! The string size of each element
+                    |ELEMENT_STRING_SIZE = ${writeStringSize(s, ts)},
+                    |//! The buffer size of each element
+                    |ELEMENT_BUFFER_SIZE = Fw::StringBase::BUFFER_SIZE(ELEMENT_STRING_SIZE),
+                    |//! The serialized size of each element
+                    |ELEMENT_SERIALIZED_SIZE = Fw::StringBase::STATIC_SERIALIZED_SIZE(ELEMENT_STRING_SIZE),"""
+              case _ =>
+                s"""|//! The serialized size of each element
+                    |ELEMENT_SERIALIZED_SIZE = ${writeSerializedSizeExpr(s, eltType, eltTypeName)},"""
+            }
+            lines(s"""|//! The size of the array
+                      |SIZE = $arraySize,
+                      |${elementSizes.stripMargin}
+                      |//! The size of the serial representation
+                      |SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE""")
+          })
         )
       )
     )
+
+  private val initElementsCall = guardedList (hasStringEltType) (lines("this->initElements();"))
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
@@ -171,63 +172,74 @@ case class ArrayCppWriter (
           Some("Constructor (single element)"),
           List(
             CppDoc.Function.Param(
-              CppDoc.Type("const ElementType&"),
+              CppDoc.Type(s"const $constructorEltType&"),
               "e",
               Some("The element"),
             )
           ),
           List("Serializable()"),
-          indexIterator(lines("this->elements[index] = e;")),
+          List.concat(
+            initElementsCall,
+            indexIterator(lines("this->elements[index] = e;"))
+          )
         )
       )
 
-    List(
-      linesClassMember(
-        CppDocHppWriter.writeAccessTag("public")
-      ),
-      linesClassMember(
-        CppDocWriter.writeBannerComment("Constructors"),
-        CppDoc.Lines.Both
-      ),
-      constructorClassMember(
-        Some("Constructor (default value)"),
-        Nil,
-        List("Serializable()"),
-        List(
-          lines("// Construct using element-wise constructor"),
-          wrapInScope(
-            s"*this = $name(",
-            lines(defaultValues.map(v => s"$v").mkString(",\n")),
-            ");",
-          ),
-        ).flatten
-      ),
-      constructorClassMember(
-        Some("Constructor (user-provided value)"),
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type("const ElementType"),
-            "(&a)[SIZE]",
-            Some("The array"),
+    List.concat(
+      List(
+        linesClassMember(
+          CppDocHppWriter.writeAccessTag("public")
+        ),
+        linesClassMember(
+          CppDocWriter.writeBannerComment("Constructors"),
+          CppDoc.Lines.Both
+        ),
+        constructorClassMember(
+          Some("Constructor (default value)"),
+          Nil,
+          List("Serializable()"),
+          List.concat(
+            initElementsCall,
+            lines("// Construct using element-wise constructor"),
+            wrapInScope(
+              s"*this = $name(",
+              lines(defaultValues.map(v => s"$v").mkString(",\n")),
+              ");",
+            ),
           )
         ),
-        List("Serializable()"),
-        indexIterator(lines("this->elements[index] = a[index];")),
-      )
-    ) ++
-      singleElementConstructor ++
+        constructorClassMember(
+          Some("Constructor (user-provided value)"),
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type(s"const ElementType"),
+              "(&a)[SIZE]",
+              Some("The array"),
+            )
+          ),
+          List("Serializable()"),
+          List.concat(
+            initElementsCall,
+            indexIterator(lines("this->elements[index] = a[index];"))
+          )
+        )
+      ),
+      singleElementConstructor,
       List(
         constructorClassMember(
           Some("Constructor (multiple elements)"),
           List.range(1, arraySize + 1).map(i => CppDoc.Function.Param(
-            CppDoc.Type("const ElementType&"),
+            CppDoc.Type(s"const $constructorEltType&"),
             s"e$i",
             Some(s"Element $i"),
           )),
           List("Serializable()"),
-          List.range(1, arraySize + 1).map(i => line(
-            s"this->elements[${i - 1}] = e$i;"
-          )),
+          List.concat(
+            initElementsCall,
+            List.range(1, arraySize + 1).map(i => line(
+              s"this->elements[${i - 1}] = e$i;"
+            ))
+          )
         ),
         constructorClassMember(
           Some("Copy Constructor"),
@@ -239,9 +251,13 @@ case class ArrayCppWriter (
             )
           ),
           List("Serializable()"),
-          indexIterator(lines("this->elements[index] = obj.elements[index];")),
-        ),
+          List.concat(
+            initElementsCall,
+            indexIterator(lines("this->elements[index] = obj.elements[index];"))
+          )
+        )
       )
+    )
   }
 
   private def getOperatorMembers: List[CppDoc.Class.Member] =
@@ -388,12 +404,7 @@ case class ArrayCppWriter (
       )
     )
 
-  private def getMemberFunctionMembers: List[CppDoc.Class.Member] = {
-    val hasPrimitiveEltType = s.isPrimitive(eltType, eltTypeName)
-    val hasStringEltType= eltType match {
-      case _: Type.String => true
-      case _ => false
-    }
+  private def getPublicFunctionMembers: List[CppDoc.Class.Member] = {
     // Write string initialization for serializable element types in toString()
     val initStrings =
       if hasPrimitiveEltType || hasStringEltType then Nil
@@ -419,7 +430,7 @@ case class ArrayCppWriter (
         CppDocHppWriter.writeAccessTag("public")
       ),
       linesClassMember(
-        CppDocWriter.writeBannerComment("Member functions"),
+        CppDocWriter.writeBannerComment("Public member functions"),
         CppDoc.Lines.Both
       ),
       functionClassMember(
@@ -479,37 +490,48 @@ case class ArrayCppWriter (
               )
             ),
             CppDoc.Type("void"),
-            List(
+            List.concat(
               wrapInScope(
                 "static const char *formatString = \"[ \"",
                 lines(List.fill(arraySize)(s"\"$formatStr ").mkString("\"\n") + "]\";"),
                 ""
               ),
               initStrings,
-              lines("char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];"),
               wrapInScope(
-                "(void) snprintf(",
-                List(
-                  List(
-                    line("outputString,"),
-                    line("FW_ARRAY_TO_STRING_BUFFER_SIZE,"),
-                    line("formatString,"),
-                  ),
-                  formatArgs,
-                ).flatten,
+                "sb.format(",
+                {
+                  line("formatString,") ::
+                  formatArgs
+                },
                 ");"
-              ),
-              List(
-                Line.blank,
-                line("outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate"),
-                line("sb = outputString;"),
-              ),
-            ).flatten,
+              )
+            ),
             CppDoc.Function.NonSV,
             CppDoc.Function.Const,
           )
         )
       )
+  }
+
+  private def getPrivateFunctionMembers: List[CppDoc.Class.Member] = {
+    List(
+      linesClassMember(
+        CppDocHppWriter.writeAccessTag("private")
+      ),
+      linesClassMember(
+        CppDocWriter.writeBannerComment("Private member functions"),
+        CppDoc.Lines.Both
+      ),
+      functionClassMember(
+        Some("Initialize elements"),
+        "initElements",
+        Nil,
+        CppDoc.Type("void"),
+        indexIterator(
+          lines("this->elements[index].setBuffer(&this->buffers[index][0], sizeof this->buffers[index]);")
+        )
+      )
+    )
   }
 
   private def getMemberVariableMembers: List[CppDoc.Class.Member] =
@@ -519,12 +541,22 @@ case class ArrayCppWriter (
       ),
       linesClassMember(
         CppDocWriter.writeBannerComment("Member variables") ++
+        List.concat(
+          addBlankPrefix(
+            eltType match {
+              case _: Type.String =>
+                lines("""|//! The char buffers
+                         |char buffers[SIZE][ELEMENT_BUFFER_SIZE];""".stripMargin)
+              case _ => Nil
+            }
+          ),
           addBlankPrefix(
             lines(
               s"""|//! The array elements
                   |ElementType elements[SIZE];"""
             )
           )
+        )
       )
     )
 

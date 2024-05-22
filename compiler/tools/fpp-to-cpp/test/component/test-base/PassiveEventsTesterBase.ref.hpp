@@ -12,6 +12,7 @@
 #include "Fw/Comp/PassiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "test-base/PassiveEventsComponentAc.hpp"
 
 //! \class PassiveEventsTesterBase
@@ -61,7 +62,7 @@ class PassiveEventsTesterBase :
         //! Push an item onto the history
         //!
         void push_back(
-            T entry //!< The item
+            const T& entry //!< The item
         )
         {
           FW_ASSERT(this->numEntries < this->maxSize);
@@ -71,7 +72,7 @@ class PassiveEventsTesterBase :
         //! Get an item at an index
         //!
         //! \return The item at index i
-        T at(
+        const T& at(
             const U32 i //!< The index
         ) const
         {
@@ -108,10 +109,20 @@ class PassiveEventsTesterBase :
 
     //! A history entry for port from_typedOut
     struct FromPortEntry_typedOut {
+      FromPortEntry_typedOut() :
+        u32(),
+        f32(),
+        b(),
+        str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer),
+        e(),
+        a(),
+        s()
+      {}
       U32 u32;
       F32 f32;
       bool b;
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1;
       E e;
       A a;
       S s;
@@ -119,10 +130,20 @@ class PassiveEventsTesterBase :
 
     //! A history entry for port from_typedReturnOut
     struct FromPortEntry_typedReturnOut {
+      FromPortEntry_typedReturnOut() :
+        u32(),
+        f32(),
+        b(),
+        str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer),
+        e(),
+        a(),
+        s()
+      {}
       U32 u32;
       F32 f32;
       bool b;
-      Ports::TypedReturnPortStrings::StringSize80 str2;
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str2;
       E e;
       A a;
       S s;
@@ -371,7 +392,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -383,7 +404,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -411,7 +432,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -423,7 +444,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -461,7 +482,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -473,7 +494,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -485,7 +506,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -497,7 +518,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -781,7 +802,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -792,7 +813,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -870,7 +891,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -883,7 +904,7 @@ class PassiveEventsTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
