@@ -21,6 +21,7 @@ Parameter-Specifiers.adoc
 Port-Instance-Specifiers.adoc
 Port-Matching-Specifiers.adoc
 Record-Specifiers.adoc
+State-Machine-Instance-Specifiers.adoc
 Telemetry-Channel-Specifiers.adoc
 Topology-Import-Specifiers.adoc
 "

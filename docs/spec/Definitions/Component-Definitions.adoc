@@ -64,6 +64,11 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
+* A <<Definitions_State-Machine-Definitions,state machine definition>>
+
+* A <<Specifiers_State-Machine-Instance-Specifiers,state machine instance specifier>>
+
+
 The command, event, parameter, telemetry, record, and container
 specifiers are collectively referred to as *dictionary specifiers*.
 The record and container specifiers are collectively referred to
@@ -253,15 +258,42 @@ active component CommandDispatcher {
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
 
-  # ----------------------------------------------------------------------
-  # Data products
-  # ----------------------------------------------------------------------
-
-  @ A container for images
-  product container Images
-
-  @ A record for holding an image
-  product record ImageRecord: Image
-
 }
+----
+
+
+[source,fpp]
+----
+@ A component that has a state machine and data products
+active component DeviceMgr {
+
+  # ----------------------------------------------------------------------
+  # State machines
+  # ----------------------------------------------------------------------
+
+  @ A state machine definition
+  state machine DeviceSM {
+    
+    event StartCmd
+    event OffCmd
+
+    initial IDLE
+    
+    state IDLE {
+      on StartCmd visit RUNNING
+    }
+
+    state RUNNING {
+      on OffCmd visit IDLE
+    }
+
+  }
+
+  @ state machine instance 1
+  state machine instance device1Machine: DeviceSM
+
+  @ state machine instance 2
+  state machine instance device2Machine: DeviceSM
+}
+
 ----
