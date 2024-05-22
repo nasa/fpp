@@ -11,10 +11,11 @@ module TestComp {
     async input port sched: Sched
 
     state machine Bar
+    state machine Bar
 
     state machine instance foo1: Foo
-    state machine instance foo2: Foo
-    state machine instance bar: Boo
+    state machine instance foo1: Foo
+    state machine instance bar: Blah
 
   }
 

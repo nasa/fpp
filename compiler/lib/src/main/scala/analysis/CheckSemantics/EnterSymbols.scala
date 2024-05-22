@@ -217,6 +217,32 @@ object EnterSymbols
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
+  // override def specStateMachineInstanceAnnotatedNode(
+  //   a: Analysis,
+  //   aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  // ) = { 
+  //   val (_, node, _) = aNode
+  //   val data = node.data
+  //   val name = data.name
+  //   val symbol = Symbol.StateMachineInstance(aNode)
+  //   val nestedScope = a.nestedScope
+  //   for (nestedScope <- nestedScope.put(NameGroup.Port)(name, symbol))
+  //     yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  // }
+
+  override def defStateMachineAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = { 
+    val (_, node, _) = aNode
+    val data = node.data
+    val name = data.name
+    val symbol = Symbol.StateMachine(aNode)
+    val nestedScope = a.nestedScope
+    for (nestedScope <- nestedScope.put(NameGroup.Port)(name, symbol))
+      yield updateMap(a, symbol).copy(nestedScope = nestedScope)
+  }
+
   override def defStructAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
