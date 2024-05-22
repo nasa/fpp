@@ -20,18 +20,6 @@ class S :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The type of x
-    using Type_of_x = U32;
-
-    //! The type of y
-    using Type_of_y = Fw::ExternalString;
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -129,13 +117,13 @@ class S :
     }
 
     //! Get member y
-    Type_of_y& gety()
+    Fw::ExternalString& gety()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const Type_of_y& gety() const
+    const Fw::ExternalString& gety() const
     {
       return this->m_y;
     }

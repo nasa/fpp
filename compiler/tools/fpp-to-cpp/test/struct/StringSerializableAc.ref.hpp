@@ -19,18 +19,6 @@ class String :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The type of s1
-    using Type_of_s1 = Fw::ExternalString;
-
-    //! The type of s2
-    using Type_of_s2 = Fw::ExternalString;
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -122,25 +110,25 @@ class String :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Type_of_s1& gets1()
+    Fw::ExternalString& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Type_of_s1& gets1() const
+    const Fw::ExternalString& gets1() const
     {
       return this->m_s1;
     }
 
     //! Get member s2
-    Type_of_s2& gets2()
+    Fw::ExternalString& gets2()
     {
       return this->m_s2;
     }
 
     //! Get member s2 (const)
-    const Type_of_s2& gets2() const
+    const Fw::ExternalString& gets2() const
     {
       return this->m_s2;
     }
