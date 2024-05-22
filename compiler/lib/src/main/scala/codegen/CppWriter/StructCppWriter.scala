@@ -152,34 +152,20 @@ case class StructCppWriter(
   /** Provide type aliases for array member types, to work
    *  around difficult C++ array syntax. */
   private def getTypeMembers: List[CppDoc.Class.Member] = {
-    lazy val members = List(
-      linesClassMember(
-        List.concat(
-          CppDocHppWriter.writeAccessTag("public"),
-          CppDocWriter.writeBannerComment("Types"),
-//          memberList.filter((n, _) => sizes.contains(n)).flatMap((n, tn) => {
-//            val mtn = getMemberTypeName(n)
-//            val size = sizes.get(n).get
-//            List(
-//              Line.blank,
-//              line(s"//! The type of $n"),
-//              line(s"using $mtn = $tn[$size];")
-//            )
-//          })
-          memberList.flatMap((n, tn) => {
-            val mtn = getMemberTypeName(n)
-            sizes.get(n) match {
-              case Some(size) =>
-                Line.blank ::
-                line(s"//! The type of $n") ::
-                lines(s"using $mtn = $tn[$size];")
-              case None => Nil
-            }
-          })
-        )
-      )
-    )
-    guardedList (!sizes.isEmpty) (members)
+    val typeAliases = memberList.flatMap((n, tn) => {
+      val mtn = getMemberTypeName(n)
+      sizes.get(n) match {
+        case Some(size) =>
+          Line.blank ::
+          line(s"//! The type of $n") ::
+          lines(s"using $mtn = $tn[$size];")
+        case None => Nil
+      }
+    })
+    val members = if typeAliases.isEmpty
+      then Nil
+      else List(linesClassMember(typeAliases))
+    addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
   }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
