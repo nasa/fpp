@@ -1,7 +1,5 @@
 module TestComp {
 
-  state machine Foo
-
   port Sched(
               context: U32
             )
@@ -10,13 +8,13 @@ module TestComp {
 
     async input port sched: Sched
 
-    state machine Bar
-    state machine Bar
-
+    state machine Foo
     state machine instance foo1: Foo
-    state machine instance foo1: Foo
-    state machine instance bar: Blah
 
   }
+
+  instance dev1: FooBar \
+      base id 0x100 \
+      queue size 10
 
 }

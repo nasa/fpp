@@ -9,6 +9,7 @@
 
 #include "EEnumAc.hpp"
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -22,8 +23,8 @@ class Enum :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef M::E Type_of_eArr[3];
+    //! The type of eArr
+    using Type_of_eArr = M::E[3];
 
   public:
 

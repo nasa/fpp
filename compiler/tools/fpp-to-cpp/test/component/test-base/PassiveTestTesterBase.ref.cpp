@@ -971,7 +971,7 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -986,7 +986,7 @@ F32 PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1028,7 +1028,7 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1057,7 +1057,7 @@ F32 PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1134,7 +1134,7 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1162,7 +1162,7 @@ F32 PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1190,7 +1190,7 @@ F32 PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -1218,7 +1218,7 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -1619,21 +1619,21 @@ void PassiveTestTesterBase ::
   sendCmd_CMD_SYNC_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -1835,21 +1835,21 @@ void PassiveTestTesterBase ::
   sendCmd_CMD_GUARDED_STRING(
       const FwEnumStoreType instance,
       U32 cmdSeq,
-      const Fw::CmdStringArg& str1,
-      const Fw::CmdStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Serialize arguments
   Fw::CmdArgBuffer buf;
   Fw::SerializeStatus _status;
 
-  _status = buf.serialize(str1);
+  _status = str1.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = buf.serialize(str2);
+  _status = str2.serialize(buf, FW_CMD_STRING_MAX_SIZE);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2329,8 +2329,8 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   logIn_COMMAND_EventCommand(
-      const Fw::LogStringArg& str1,
-      const Fw::LogStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   EventEntry_EventCommand _e = {
@@ -2548,7 +2548,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32Format(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32Format e = { timeTag, val };
@@ -2559,7 +2559,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelF32Format(
       const Fw::Time& timeTag,
-      const F32& val
+      const F32 val
   )
 {
   TlmEntry_ChannelF32Format e = { timeTag, val };
@@ -2570,7 +2570,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelStringFormat(
       const Fw::Time& timeTag,
-      const Fw::TlmString& val
+      const Fw::StringBase& val
   )
 {
   TlmEntry_ChannelStringFormat e = { timeTag, val };
@@ -2614,7 +2614,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32Limits(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32Limits e = { timeTag, val };
@@ -2625,7 +2625,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelF32Limits(
       const Fw::Time& timeTag,
-      const F32& val
+      const F32 val
   )
 {
   TlmEntry_ChannelF32Limits e = { timeTag, val };
@@ -2636,7 +2636,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelF64(
       const Fw::Time& timeTag,
-      const F64& val
+      const F64 val
   )
 {
   TlmEntry_ChannelF64 e = { timeTag, val };
@@ -2647,7 +2647,7 @@ void PassiveTestTesterBase ::
 void PassiveTestTesterBase ::
   tlmInput_ChannelU32OnChange(
       const Fw::Time& timeTag,
-      const U32& val
+      const U32 val
   )
 {
   TlmEntry_ChannelU32OnChange e = { timeTag, val };
@@ -2790,7 +2790,7 @@ void PassiveTestTesterBase ::
 
 void PassiveTestTesterBase ::
   paramSet_ParamString(
-      const Fw::ParamString& val,
+      const Fw::StringBase& val,
       Fw::ParamValid valid
   )
 {
@@ -3135,21 +3135,20 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
   )
 {
-  FromPortEntry_typedOut _e = {
-    u32,
-    f32,
-    b,
-    str1,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str1 = str1;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedOut->push_back(_e);
   this->fromPortHistorySize++;
 }
@@ -3159,21 +3158,20 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
   )
 {
-  FromPortEntry_typedReturnOut _e = {
-    u32,
-    f32,
-    b,
-    str2,
-    e,
-    a,
-    s
-  };
+  FromPortEntry_typedReturnOut _e;
+  _e.u32 = u32;
+  _e.f32 = f32;
+  _e.b = b;
+  _e.str2 = str2;
+  _e.e = e;
+  _e.a = a;
+  _e.s = s;
   this->fromPortHistory_typedReturnOut->push_back(_e);
   this->fromPortHistorySize++;
 }
@@ -3599,7 +3597,7 @@ void PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3626,7 +3624,7 @@ F32 PassiveTestTesterBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s

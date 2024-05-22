@@ -4,11 +4,7 @@
 // \brief  cpp file for Included struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "IncludedSerializableAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -117,16 +113,10 @@ void Included ::
     "x = %" PRIu32 ""
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_x
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

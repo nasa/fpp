@@ -378,7 +378,7 @@ case class ComponentDataProducts (
       // Get the parameter type
       // For strings this is a const reference to Fw::StringBase
       // For primitive types it is the type name
-      // For othe types it is a const reference to the type name
+      // For other types it is a const reference to the type name
       val paramType = t match {
         case Type.String(_) => "const Fw::StringBase&"
         case _ =>
@@ -389,13 +389,13 @@ case class ComponentDataProducts (
       // Generate the code for computing the size delta
       val computeSizeDelta = (t match {
         case ts: Type.String =>
-          val stringSize = StringCppWriter(s).getSize(ts).toString
+          val stringSize = writeStringSize(s, ts)
           s"""|const FwSizeType stringSize = $stringSize;
               |const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  elt.serializedTruncatedSize(stringSize);"""
         case _ =>
-          val serialSize = s.getSerializedSizeExpr(t, typeName)
+          val serialSize = writeSerializedSizeExpr(s, t, typeName)
           s"""|const FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +
               |  $serialSize;"""
@@ -451,7 +451,7 @@ case class ComponentDataProducts (
       // Generate the code for computing the size delta
       val computeSizeDelta = (t match {
         case ts: Type.String =>
-          val stringSize = StringCppWriter(s).getSize(ts).toString
+          val stringSize = writeStringSize(s, ts)
           s"""|const FwSizeType stringSize = $stringSize;
               |FwSizeType sizeDelta =
               |  sizeof(FwDpIdType) +

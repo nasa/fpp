@@ -967,7 +967,7 @@ detail to guide an implementation.
 It is primarily aimed at language implementers, although FPP users may also
 benefit from the level of precision and detail that it provides.
 It is recommended that FPP users read
-<a href="https://fprime-community.github.io/fpp/fpp-users-guide.html"><em>The FPP User&#8217;s Guide</em></a>
+<a href="https://nasa.github.io/fpp/fpp-users-guide.html"><em>The FPP User&#8217;s Guide</em></a>
 before consulting this document.</p>
 </div>
 </div>
@@ -1745,12 +1745,6 @@ values.</p>
 <li>
 <p>An <a href="#Specifiers_Internal-Port-Specifiers">internal port specifier</a></p>
 </li>
-<li>
-<p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
-</li>
-<li>
-<p>A <a href="#Specifiers_State-Machine-Instance-Specifiers">state machine instance specifier</a></p>
-</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -1928,18 +1922,6 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
-  @ Product get port
-  product get port productGetOut
-
-  @ Product request port
-  product request port productRequestOut
-
-  @ Product receive port
-  product recv port productRecvIn
-
-  @ Product send port
-  product send port productSendOut
-
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
@@ -1990,36 +1972,80 @@ active component CommandDispatcher {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ A component that has a state machine and data products
-active component DeviceMgr {
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Produces and sends images
+active component Imager {
 
   # ----------------------------------------------------------------------
-  # State machines
+  # Special ports
   # ----------------------------------------------------------------------
 
-  @ A state machine definition
-  state machine DeviceSM {
+  @ Command receive port
+  command recv port cmdIn
 
-    event StartCmd
-    event OffCmd
+  @ Command registration port
+  command reg port cmdRegOut
 
-    initial IDLE
+  @ Command response port
+  command resp cmdResponseOut
 
-    state IDLE {
-      on StartCmd visit RUNNING
-    }
+  @ Event port
+  event port eventOut
 
-    state RUNNING {
-      on OffCmd visit IDLE
-    }
+  @ Telemetry port
+  telemetry port tlmOut
 
-  }
+  @ Text event port
+  text event port textEventOut
 
-  @ state machine instance 1
-  state machine instance device1Machine: DeviceSM
+  @ Time get port
+  time get port timeGetOut
 
-  @ state machine instance 2
-  state machine instance device2Machine: DeviceSM
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvIn
+
+  @ Product send port
+  product send port productSendOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Take an image and send it as a data product
+  async command TAKE_IMAGE
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Image taken
+  event ImageTaken severity activity low format "Image taken"
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
+
+  @ Number of images taken
+  telemetry NumImagesTaken: U32 update on change
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Data products
+  # ----------------------------------------------------------------------
+
+  @ A container for images
+  product container ImageContainer
+
+  @ A record for holding an image
+  product record ImageRecord: Image
+
 }</code></pre>
 </div>
 </div>
@@ -9318,7 +9344,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-16 16:27:43 -0700
+Last updated 2024-05-22 16:44:49 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

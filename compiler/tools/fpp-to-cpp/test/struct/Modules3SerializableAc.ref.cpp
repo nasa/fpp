@@ -4,11 +4,7 @@
 // \brief  cpp file for Modules3 struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "Modules3SerializableAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -178,19 +174,13 @@ void Modules3 ::
     this->m_arr[i].toString(arrStr[i]);
   }
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     xStr.toChar(),
     arrStr[0].toChar(),
     arrStr[1].toChar(),
     arrStr[2].toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

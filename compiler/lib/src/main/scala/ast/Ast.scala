@@ -478,6 +478,9 @@ object Ast {
     case object Type extends Kind {
       override def toString = "type"
     }
+    case object StateMachine extends Kind {
+      override def toString = "statemachine"
+    }
   }
 
   /** Parameter specifier */

@@ -49,7 +49,7 @@ case class ComponentHistory(
            |    //! Push an item onto the history
            |    //!
            |    void push_back(
-           |        T entry //!< The item
+           |        const T& entry //!< The item
            |    )
            |    {
            |      FW_ASSERT(this->numEntries < this->maxSize);
@@ -59,7 +59,7 @@ case class ComponentHistory(
            |    //! Get an item at an index
            |    //!
            |    //! \return The item at index i
-           |    T at(
+           |    const T& at(
            |        const U32 i //!< The index
            |    ) const
            |    {
@@ -173,16 +173,30 @@ case class ComponentHistory(
         typedOutputPorts.flatMap(p => {
           val portName = testerPortName(p)
           val entryName = fromPortEntryName(p.getUnqualifiedName)
-          portParamTypeMap(p.getUnqualifiedName) match {
-            case Nil => Nil
-            case params =>
-              Line.blank ::
-              line(s"//! A history entry for port $portName") ::
-              wrapInScope(
-                s"struct $entryName {",
-                params.map((name, tn) => line(s"$tn $name;")),
-                "};"
-              )
+          val params = portParamTypeMap(p.getUnqualifiedName)
+          guardedList (params.size > 0) {
+            val constructor = wrapInScope(
+              s"$entryName() :",
+              lines(
+                params.map((n, tn, t) => {
+                  t match {
+                    case ts: Type.String =>
+                      val bufferName = getBufferName(n)
+                      s"$n($bufferName, sizeof $bufferName)"
+                    case _ => s"$n()"
+                  }
+                }).mkString(",\n")
+              ),
+              "{}"
+            )
+            val members = params.flatMap((n, tn, t) => lines(writeMemberDecl(s, tn, n, t)))
+            Line.blank ::
+            line(s"//! A history entry for port $portName") ::
+            wrapInScope(
+              s"struct $entryName {",
+              constructor ++ members,
+              "};"
+            )
           }
         })
       )
@@ -214,12 +228,9 @@ case class ComponentHistory(
       val entryName = fromPortEntryName(portName)
       val historyName = fromPortHistoryName(portName)
       List.concat(
-        wrapInScope(
-          s"$entryName _e = {",
-          lines(getPortParams(p).map(_._1).mkString(",\n")),
-          "};"
-        ),
-        lines(s"|this->$historyName->push_back(_e);")
+        lines(s"$entryName _e;"),
+        getPortParams(p).map((n, _, _) => line(s"_e.$n = $n;")),
+        lines(s"this->$historyName->push_back(_e);")
       )
     }
 
@@ -409,7 +420,7 @@ case class ComponentHistory(
       )
     val eventHistories = linesClassMember(
       sortedEvents.flatMap((id, event) =>
-        eventParamTypeMap(id) match {
+        getEventParamTypes(event, "Fw::LogStringArg") match {
           case Nil => Nil
           case params =>
             val eventName = event.getName
@@ -418,7 +429,7 @@ case class ComponentHistory(
             line(s"//! A history entry for event $eventName") ::
             wrapInScope(
               s"struct $entryName {",
-              params.map((name, tn) => line(s"$tn $name;")),
+              params.map((name, tn, _) => line(s"$tn $name;")),
               "};"
             )
         }
@@ -586,7 +597,7 @@ case class ComponentHistory(
       sortedChannels.flatMap((_, channel) => {
         val channelName = channel.getName
         val entryName = tlmEntryName(channelName)
-        val channelType = writeChannelType(channel.channelType)
+        val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
         Line.blank ::
         line(s"//! A history entry for telemetry channel $channelName") ::
         wrapInScope(

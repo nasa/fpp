@@ -4,11 +4,7 @@
 // \brief  cpp file for StringArray array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "StringArrayArrayAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -21,11 +17,11 @@ StringArray ::
 {
   // Construct using element-wise constructor
   *this = StringArray(
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef"),
-    String2("\"\\", "abc\ndef")
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef")),
+    String2(Fw::String("\"\\"), Fw::String("abc\ndef"))
   );
 }
 
@@ -151,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const StringArray& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus StringArray ::
@@ -206,10 +202,7 @@ void StringArray ::
   this->elements[3].toString(str3);
   this->elements[4].toString(str4);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
@@ -217,9 +210,6 @@ void StringArray ::
     str3.toChar(),
     str4.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

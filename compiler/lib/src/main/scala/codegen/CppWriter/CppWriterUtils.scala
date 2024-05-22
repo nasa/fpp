@@ -1,7 +1,19 @@
 package fpp.compiler.codegen
 
+import fpp.compiler.analysis._
+
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
+
+  /** Guards a value with a Boolean condition */
+  def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
+    if cond then value else default
+
+  /** Guards a list with a Boolean condition */
+  def guardedList[T] = guardedValue (Nil: List[T]) _
+
+  /** Guards an option type with a Boolean condition */
+  def guardedOption[T] = guardedValue (None: Option[T]) _
 
   /** Add an access tag and comment to a nonempty list of class members */
   def addAccessTagAndComment(
@@ -200,6 +212,65 @@ trait CppWriterUtils extends LineUtils {
       ");"
     )
   }
+
+  /** Write a variable declaration */
+  def writeVarDecl(s: CppWriterState, typeName: String, name: String, t: Type): String =
+    t match {
+      case st: Type.String =>
+        val bufferName = getBufferName(name)
+        val size = writeStringSize(s, st)
+        s"""|char ${bufferName}[Fw::StringBase::BUFFER_SIZE($size)];
+            |Fw::ExternalString $name($bufferName, sizeof $bufferName);""".stripMargin
+      case _ => s"$typeName $name;"
+    }
+
+  /** Write a member declaration */
+  def writeMemberDecl(
+    s: CppWriterState,
+    typeName: String,
+    name: String,
+    t: Type,
+    prefix: String = "",
+    arraySize: Option[String] = None
+  ): String = {
+    val arrayBrackets = arraySize.map(s => s"[$s]").getOrElse("")
+    t match {
+      case st: Type.String =>
+        val bufferName = getBufferName(name)
+        val size = writeStringSize(s, st)
+        s"""|char ${prefix}${bufferName}${arrayBrackets}[Fw::StringBase::BUFFER_SIZE($size)];
+            |Fw::ExternalString ${prefix}${name}${arrayBrackets};""".stripMargin
+      case _ => s"$typeName ${prefix}${name}${arrayBrackets};"
+    }
+  }
+
+  /** Get a buffer name */
+  def getBufferName(name: String) = s"__fprime_ac_${name}_buffer"
+
+  /** Write the size of a string type */
+  def writeStringSize(s: CppWriterState, t: Type.String): String =
+    t.size.map(node => ValueCppWriter.write(s, s.a.valueMap(node.id))).
+      getOrElse(s.defaultStringSize.toString)
+
+  /** Write a C++ expression for static serialized size */
+  def writeSerializedSizeExpr(s: CppWriterState, t: Type, typeName: String): String =
+    (t, s.isPrimitive(t, typeName))  match {
+      // sizeof(bool) is not defined in C++
+      // F Prime serializes bool as U8
+      case (Type.Boolean, _)=> "sizeof(U8)"
+      case (ts: Type.String, _) =>
+        lazy val stringSizeExpr = {
+          val serialSize = writeStringSize(s, ts)
+          s"Fw::StringBase::STATIC_SERIALIZED_SIZE($serialSize)"
+        }
+        typeName match {
+          case "Fw::StringBase" => stringSizeExpr
+          case "Fw::ExternalString" => stringSizeExpr
+          case _ => s"$typeName::SERIALIZED_SIZE"
+        }
+      case (_, true) => s"sizeof($typeName)"
+      case _ => s"$typeName::SERIALIZED_SIZE"
+    }
 
   def classMember(
     comment: Option[String],

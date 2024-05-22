@@ -4,11 +4,7 @@
 // \brief  cpp file for Struct1 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "Struct1ArrayAc.hpp"
 
 // ----------------------------------------------------------------------
@@ -21,11 +17,11 @@ Struct1 ::
 {
   // Construct using element-wise constructor
   *this = Struct1(
-    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, ""),
-    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, ""),
-    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, ""),
-    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, ""),
-    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, "")
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String("")),
+    M::S1(0.0f, 0.0, 0, 0, 0, 0, 0, 0, 0, 0, false, Fw::String(""))
   );
 }
 
@@ -151,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const Struct1& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Struct1 ::
@@ -206,10 +202,7 @@ void Struct1 ::
   this->elements[3].toString(str3);
   this->elements[4].toString(str4);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
@@ -217,9 +210,6 @@ void Struct1 ::
     str3.toChar(),
     str4.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

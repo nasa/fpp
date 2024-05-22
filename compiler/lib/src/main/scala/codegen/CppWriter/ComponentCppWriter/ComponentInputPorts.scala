@@ -94,7 +94,7 @@ case class ComponentInputPorts(
   def getHandlerBases(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     def writeAsyncInputPort(
       p: PortInstance,
-      params: List[(String, String)],
+      params: List[(String, String, Option[Type])],
       queueFull: Ast.QueueFull,
       priority: Option[BigInt]
     ) = {
@@ -106,7 +106,7 @@ case class ComponentInputPorts(
       intersperseBlankLines(
         List(
           p.getType.get match {
-            case PortInstance.Type.DefPort(_) => List(
+            case PortInstance.Type.DefPort(_) => List.concat(
               line("// Call pre-message hook") ::
                 writeFunctionCall(
                   s"${inputPortHookName(p.getUnqualifiedName)}",
@@ -118,7 +118,7 @@ case class ComponentInputPorts(
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |"""
               )
-            ).flatten
+            )
             case PortInstance.Type.Serial => lines(
               s"""|// Declare buffer for ${p.getUnqualifiedName}
                   |U8 msgBuff[this->m_msgSize];
@@ -146,15 +146,23 @@ case class ComponentInputPorts(
                 |"""
           ),
           intersperseBlankLines(
-            getPortParams(p).map((n, _) => lines(
+            getPortParams(p).map((n, _, tyOpt) => {
+              val serializeExpr = tyOpt match {
+                case Some(t: Type.String) =>
+                  val serialSize = writeStringSize(s, t)
+                  s"$n.serialize($bufferName, $serialSize)"
+                case _ => s"$bufferName.serialize($n)"
+              }
+              lines(
               s"""|// Serialize argument $n
-                  |_status = $bufferName.serialize($n);
+                  |_status = $serializeExpr;
                   |FW_ASSERT(
                   |  _status == Fw::FW_SERIALIZE_OK,
                   |  static_cast<FwAssertArgType>(_status)
                   |);
                   |"""
-            ))
+              )
+            })
           ),
           writeSendMessageLogic(bufferName, queueFull, priority)
         )

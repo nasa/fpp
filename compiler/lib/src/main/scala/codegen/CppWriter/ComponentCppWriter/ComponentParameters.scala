@@ -73,19 +73,19 @@ case class ComponentParameters (
       addAccessTagAndComment(
         "PRIVATE",
         "Parameter variables",
-        sortedParams.map((_, param) =>
+        sortedParams.map((_, param) => {
+          val paramType = writeParamType(param.paramType, "Fw::ParamString")
+          val paramVarName = paramVariableName(param.getName)
           linesClassMember(
             List.concat(
               addSeparatedPreComment(
                 s"Parameter ${param.getName}",
                 AnnotationCppWriter.asStringOpt(param.aNode)
               ),
-              lines(
-                s"${writeParamType(param.paramType)} ${paramVariableName(param.getName)};"
-              )
+              lines(s"$paramType $paramVarName;")
             )
           )
-        ),
+        }),
         CppDoc.Lines.Hpp
       )
     ).flatten
@@ -244,9 +244,9 @@ case class ComponentParameters (
               Some("Whether the parameter is valid")
             )
           ),
-          CppDoc.Type(writeParamType(param.paramType)),
+          CppDoc.Type(writeParamType(param.paramType, "Fw::ParamString")),
           lines(
-            s"""|${writeParamType(param.paramType)} _local;
+            s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local;
                 |this->m_paramLock.lock();
                 |valid = this->${paramValidityFlagName(param.getName)};
                 |_local = this->${paramVariableName(param.getName)};
@@ -281,7 +281,7 @@ case class ComponentParameters (
           ),
           CppDoc.Type("Fw::CmdResponse"),
           lines(
-            s"""|${writeParamType(param.paramType)} _local_val;
+            s"""|${writeParamType(param.paramType, "Fw::ParamString")} _local_val;
                 |Fw::SerializeStatus _stat = val.deserialize(_local_val);
                 |if (_stat != Fw::FW_SERIALIZE_OK) {
                 |  return Fw::CmdResponse::VALIDATION_ERROR;

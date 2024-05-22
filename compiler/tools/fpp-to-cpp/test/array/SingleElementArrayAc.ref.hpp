@@ -8,6 +8,7 @@
 #define SingleElementArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -23,7 +24,7 @@ class SingleElement :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef U32 ElementType;
+    using ElementType = U32;
 
   public:
 
@@ -34,8 +35,10 @@ class SingleElement :
     enum {
       //! The size of the array
       SIZE = 1,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = sizeof(U32),
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * sizeof(U32),
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -116,7 +119,7 @@ class SingleElement :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

@@ -8,6 +8,7 @@
 #define SSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -19,58 +20,6 @@ class S :
   public:
 
     // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-
-      public:
-
-        enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-        };
-
-        //! Default constructor
-        StringSize80();
-
-        //! Char array constructor
-        StringSize80(const char* src);
-
-        //! String base constructor
-        StringSize80(const Fw::StringBase& src);
-
-        //! Copy constructor
-        StringSize80(const StringSize80& src);
-
-        //! Destructor
-        ~StringSize80();
-
-        //! Copy assignment operator
-        StringSize80& operator=(const StringSize80& other);
-
-        //! String base assignment operator
-        StringSize80& operator=(const Fw::StringBase& other);
-
-        //! char* assignment operator
-        StringSize80& operator=(const char* other);
-
-        //! Retrieves char buffer of string
-        const char* toChar() const;
-
-        Fw::StringBase::SizeType getCapacity() const;
-
-      private:
-
-        char m_buf[80]; //!< Buffer for string storage
-
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -78,7 +27,7 @@ class S :
       //! The size of the serial representation
       SERIALIZED_SIZE =
         sizeof(U32) +
-        StringSize80::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
     };
 
   public:
@@ -93,7 +42,7 @@ class S :
     //! Member constructor
     S(
         U32 x,
-        const StringSize80& y
+        const Fw::StringBase& y
     );
 
     //! Copy constructor
@@ -168,13 +117,13 @@ class S :
     }
 
     //! Get member y
-    StringSize80& gety()
+    Fw::ExternalString& gety()
     {
       return this->m_y;
     }
 
     //! Get member y (const)
-    const StringSize80& gety() const
+    const Fw::ExternalString& gety() const
     {
       return this->m_y;
     }
@@ -186,14 +135,14 @@ class S :
     //! Set all members
     void set(
         U32 x,
-        const StringSize80& y
+        const Fw::StringBase& y
     );
 
     //! Set member x
     void setx(U32 x);
 
     //! Set member y
-    void sety(const StringSize80& y);
+    void sety(const Fw::StringBase& y);
 
   protected:
 
@@ -202,7 +151,8 @@ class S :
     // ----------------------------------------------------------------------
 
     U32 m_x;
-    StringSize80 m_y;
+    char m___fprime_ac_y_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    Fw::ExternalString m_y;
 
 };
 

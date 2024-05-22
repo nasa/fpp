@@ -59,10 +59,10 @@ object Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }
-  // final case class StateMachineInstance(node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) extends Symbol {
-  //   override def getNodeId = node._2.id
-  //   override def getUnqualifiedName = node._2.data.name
-  // }
+  final case class StateMachineInstance(node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) extends Symbol {
+    override def getNodeId = node._2.id
+    override def getUnqualifiedName = node._2.data.name
+  }
   final case class Struct(node: Ast.Annotated[AstNode[Ast.DefStruct]]) extends Symbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name

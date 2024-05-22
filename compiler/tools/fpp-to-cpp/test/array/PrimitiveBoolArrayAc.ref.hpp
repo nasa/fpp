@@ -8,6 +8,7 @@
 #define M_PrimitiveBoolArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -24,7 +25,7 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! The element type
-      typedef bool ElementType;
+      using ElementType = bool;
 
     public:
 
@@ -35,8 +36,10 @@ namespace M {
       enum {
         //! The size of the array
         SIZE = 3,
+        //! The serialized size of each element
+        ELEMENT_SERIALIZED_SIZE = sizeof(U8),
         //! The size of the serial representation
-        SERIALIZED_SIZE = SIZE * sizeof(U8),
+        SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
       };
 
     public:
@@ -124,7 +127,7 @@ namespace M {
     public:
 
       // ----------------------------------------------------------------------
-      // Member functions
+      // Public member functions
       // ----------------------------------------------------------------------
 
       //! Serialization

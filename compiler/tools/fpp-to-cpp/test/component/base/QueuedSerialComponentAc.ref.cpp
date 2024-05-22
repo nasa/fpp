@@ -4,9 +4,8 @@
 // \brief  cpp file for QueuedSerial component base class
 // ======================================================================
 
-#include <cstdio>
-
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #if FW_ENABLE_TEXT_LOGGING
 #include "Fw/Types/String.hpp"
 #endif
@@ -1650,13 +1649,13 @@ void QueuedSerialComponentBase ::
     if (stat != Fw::FW_SERIALIZE_OK) {
       this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
       // Set default value
-      this->m_ParamString = "default";
+      this->m_ParamString = Fw::String("default");
     }
   }
   else {
     // Set default value
     this->m_param_ParamString_valid = Fw::ParamValid::DEFAULT;
-    this->m_ParamString = "default";
+    this->m_ParamString = Fw::String("default");
   }
 
   this->m_paramLock.unLock();
@@ -2286,7 +2285,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2350,7 +2349,7 @@ void QueuedSerialComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2393,7 +2392,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2457,7 +2456,7 @@ void QueuedSerialComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2500,7 +2499,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2564,7 +2563,7 @@ void QueuedSerialComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2607,7 +2606,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2671,7 +2670,7 @@ void QueuedSerialComponentBase ::
   );
 
   // Serialize argument str1
-  _status = msg.serialize(str1);
+  _status = str1.serialize(msg, 80);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -2719,7 +2718,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -2756,7 +2755,7 @@ F32 QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2797,7 +2796,7 @@ F32 QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -2832,7 +2831,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3132,7 +3131,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3147,7 +3146,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3162,7 +3161,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3177,7 +3176,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3260,7 +3259,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -3287,7 +3286,7 @@ F32 QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -4643,11 +4642,8 @@ void QueuedSerialComponentBase ::
       "%s: Event Activity High occurred";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4655,9 +4651,6 @@ void QueuedSerialComponentBase ::
       "EventActivityHigh "
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -4774,11 +4767,8 @@ void QueuedSerialComponentBase ::
       "%s: Event Activity Low occurred with arguments: %" PRIu32 ", %f, %d";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4789,9 +4779,6 @@ void QueuedSerialComponentBase ::
       b
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -4804,8 +4791,8 @@ void QueuedSerialComponentBase ::
 
 void QueuedSerialComponentBase ::
   log_COMMAND_EventCommand(
-      const Fw::LogStringArg& str1,
-      const Fw::LogStringArg& str2
+      const Fw::StringBase& str1,
+      const Fw::StringBase& str2
   )
 {
   // Get the time
@@ -4832,13 +4819,13 @@ void QueuedSerialComponentBase ::
     );
 #endif
 
-    _status = str1.serialize(_logBuff, 80);
+    _status = str1.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = str2.serialize(_logBuff, 100);
+    _status = str2.serialize(_logBuff, FW_MIN(FW_LOG_STRING_MAX_SIZE, 100));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -4863,11 +4850,8 @@ void QueuedSerialComponentBase ::
       "%s: Event Command occurred with arguments: %s, %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4877,9 +4861,6 @@ void QueuedSerialComponentBase ::
       str2.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -4952,14 +4933,11 @@ void QueuedSerialComponentBase ::
       "%s: Event Diagnostic occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String eStr;
     e.toString(eStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -4968,9 +4946,6 @@ void QueuedSerialComponentBase ::
       eStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -5064,14 +5039,11 @@ void QueuedSerialComponentBase ::
       "%s: Event Fatal occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String aStr;
     a.toString(aStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -5080,9 +5052,6 @@ void QueuedSerialComponentBase ::
       aStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -5155,14 +5124,11 @@ void QueuedSerialComponentBase ::
       "%s: Event Warning High occurred with argument: %s";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
     Fw::String sStr;
     s.toString(sStr);
 
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -5171,9 +5137,6 @@ void QueuedSerialComponentBase ::
       sStr.toChar()
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -5238,11 +5201,8 @@ void QueuedSerialComponentBase ::
       "%s: Event Warning Low occurred";
 #endif
 
-    char _textBuffer[FW_LOG_TEXT_BUFFER_SIZE];
-
-    (void) snprintf(
-      _textBuffer,
-      FW_LOG_TEXT_BUFFER_SIZE,
+    Fw::TextLogString _logString;
+    _logString.format(
       _formatString,
 #if FW_OBJECT_NAMES == 1
       this->m_objName.toChar(),
@@ -5250,9 +5210,6 @@ void QueuedSerialComponentBase ::
       "EventWarningLowThrottled "
     );
 
-    // Null terminate
-    _textBuffer[FW_LOG_TEXT_BUFFER_SIZE-1] = 0;
-    Fw::TextLogString _logString = _textBuffer;
     this->m_textEventOut_OutputPort[0].invoke(
       _id,
       _logTime,
@@ -5360,7 +5317,7 @@ void QueuedSerialComponentBase ::
 
 void QueuedSerialComponentBase ::
   tlmWrite_ChannelStringFormat(
-      const Fw::TlmString& arg,
+      const Fw::StringBase& arg,
       Fw::Time _tlmTime
   )
 {
@@ -5373,7 +5330,7 @@ void QueuedSerialComponentBase ::
     }
 
     Fw::TlmBuffer _tlmBuff;
-    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, 80);
+    Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, 80));
     FW_ASSERT(
       _stat == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_stat)
@@ -5892,7 +5849,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -5964,7 +5922,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6036,7 +5995,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -6108,7 +6068,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedSerialComponentBase ::
       );
 
       // Deserialize argument str1
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer);
       deserStatus = msg.deserialize(str1);
       FW_ASSERT(
         deserStatus == Fw::FW_SERIALIZE_OK,
@@ -7028,7 +6989,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -7055,7 +7016,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -7082,7 +7043,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -7109,7 +7070,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -7136,7 +7097,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s
@@ -7163,7 +7124,7 @@ F32 QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -7190,7 +7151,7 @@ F32 QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedReturnPortStrings::StringSize80& str2,
+      const Fw::StringBase& str2,
       const E& e,
       const A& a,
       const S& s
@@ -7217,7 +7178,7 @@ void QueuedSerialComponentBase ::
       U32 u32,
       F32 f32,
       bool b,
-      const Ports::TypedPortStrings::StringSize80& str1,
+      const Fw::StringBase& str1,
       const E& e,
       const A& a,
       const S& s

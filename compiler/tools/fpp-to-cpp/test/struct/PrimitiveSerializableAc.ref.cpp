@@ -4,91 +4,8 @@
 // \brief  cpp file for Primitive struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
-
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 #include "PrimitiveSerializableAc.hpp"
-
-// ----------------------------------------------------------------------
-// StringSize80 class
-// ----------------------------------------------------------------------
-
-Primitive::StringSize80 ::
-  StringSize80() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-Primitive::StringSize80 ::
-  StringSize80(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-Primitive::StringSize80 ::
-  StringSize80(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-Primitive::StringSize80 ::
-  StringSize80(const StringSize80& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-Primitive::StringSize80 ::
-  ~StringSize80()
-{
-
-}
-
-Primitive::StringSize80& Primitive::StringSize80 ::
-  operator=(const StringSize80& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-Primitive::StringSize80& Primitive::StringSize80 ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-Primitive::StringSize80& Primitive::StringSize80 ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* Primitive::StringSize80 ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-Fw::StringBase::SizeType Primitive::StringSize80 ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
 
 // ----------------------------------------------------------------------
 // Constructors
@@ -107,7 +24,7 @@ Primitive ::
     m_mU64(0),
     m_mU8(0),
     m_m_bool(false),
-    m_m_string("")
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, Fw::String(""))
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = 0.0f;
@@ -127,7 +44,7 @@ Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   ) :
     Serializable(),
     m_mF64(mF64),
@@ -140,7 +57,7 @@ Primitive ::
     m_mU64(mU64),
     m_mU8(mU8),
     m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32[i];
@@ -160,7 +77,7 @@ Primitive ::
     m_mU64(obj.m_mU64),
     m_mU8(obj.m_mU8),
     m_m_bool(obj.m_m_bool),
-    m_m_string(obj.m_m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, obj.m_m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = obj.m_mF32[i];
@@ -180,7 +97,7 @@ Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   ) :
     Serializable(),
     m_mF64(mF64),
@@ -193,7 +110,7 @@ Primitive ::
     m_mU64(mU64),
     m_mU8(mU8),
     m_m_bool(m_bool),
-    m_m_string(m_string)
+    m_m_string(m___fprime_ac_m_string_buffer, sizeof m___fprime_ac_m_string_buffer, m_string)
 {
   for (FwSizeType i = 0; i < 3; i++) {
     this->m_mF32[i] = mF32;
@@ -409,10 +326,7 @@ void Primitive ::
     "m_string = %s"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_mF32[0],
     this->m_mF32[1],
@@ -429,9 +343,6 @@ void Primitive ::
     this->m_m_bool,
     this->m_m_string.toChar()
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif
@@ -453,7 +364,7 @@ void Primitive ::
       U64 mU64,
       U8 mU8,
       bool m_bool,
-      const StringSize80& m_string
+      const Fw::StringBase& m_string
   )
 {
   this->m_mF64 = mF64;
@@ -542,7 +453,7 @@ void Primitive ::
 }
 
 void Primitive ::
-  setm_string(const StringSize80& m_string)
+  setm_string(const Fw::StringBase& m_string)
 {
   this->m_m_string = m_string;
 }

@@ -64,11 +64,6 @@ values.
 
 * An <<Specifiers_Internal-Port-Specifiers,internal port specifier>>
 
-* A <<Definitions_State-Machine-Definitions,state machine definition>>
-
-* A <<Specifiers_State-Machine-Instance-Specifiers,state machine instance specifier>>
-
-
 The command, event, parameter, telemetry, record, and container
 specifiers are collectively referred to as *dictionary specifiers*.
 The record and container specifiers are collectively referred to
@@ -201,18 +196,6 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
-  @ Product get port
-  product get port productGetOut
-
-  @ Product request port
-  product request port productRequestOut
-
-  @ Product receive port
-  product recv port productRecvIn
-
-  @ Product send port
-  product send port productSendOut
-
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
@@ -261,39 +244,81 @@ active component CommandDispatcher {
 }
 ----
 
-
 [source,fpp]
 ----
-@ A component that has a state machine and data products
-active component DeviceMgr {
+@ Produces and sends images
+active component Imager {
 
   # ----------------------------------------------------------------------
-  # State machines
+  # Special ports
   # ----------------------------------------------------------------------
 
-  @ A state machine definition
-  state machine DeviceSM {
-    
-    event StartCmd
-    event OffCmd
+  @ Command receive port
+  command recv port cmdIn
 
-    initial IDLE
-    
-    state IDLE {
-      on StartCmd visit RUNNING
-    }
+  @ Command registration port
+  command reg port cmdRegOut
 
-    state RUNNING {
-      on OffCmd visit IDLE
-    }
+  @ Command response port
+  command resp cmdResponseOut
 
-  }
+  @ Event port
+  event port eventOut
 
-  @ state machine instance 1
-  state machine instance device1Machine: DeviceSM
+  @ Telemetry port
+  telemetry port tlmOut
 
-  @ state machine instance 2
-  state machine instance device2Machine: DeviceSM
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvIn
+
+  @ Product send port
+  product send port productSendOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Take an image and send it as a data product
+  async command TAKE_IMAGE
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Image taken
+  event ImageTaken severity activity low format "Image taken"
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
+
+  @ Number of images taken
+  telemetry NumImagesTaken: U32 update on change
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Data products
+  # ----------------------------------------------------------------------
+
+  @ A container for images
+  product container ImageContainer
+
+  @ A record for holding an image
+  product record ImageRecord: Image
+
 }
-
 ----

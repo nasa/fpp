@@ -8,6 +8,7 @@
 #define PrimitiveArrayArrayAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 #include "PrimitiveF64ArrayAc.hpp"
@@ -24,7 +25,7 @@ class PrimitiveArray :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef M::PrimitiveF64 ElementType;
+    using ElementType = M::PrimitiveF64;
 
   public:
 
@@ -35,8 +36,10 @@ class PrimitiveArray :
     enum {
       //! The size of the array
       SIZE = 5,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = M::PrimitiveF64::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * M::PrimitiveF64::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -126,7 +129,7 @@ class PrimitiveArray :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

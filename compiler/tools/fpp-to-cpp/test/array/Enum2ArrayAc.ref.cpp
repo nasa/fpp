@@ -4,12 +4,8 @@
 // \brief  cpp file for Enum2 array
 // ======================================================================
 
-#include <cstdio>
-#include <cstring>
-
 #include "Enum2ArrayAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
 
 // ----------------------------------------------------------------------
 // Constructors
@@ -151,7 +147,7 @@ std::ostream& operator<<(std::ostream& os, const Enum2& obj) {
 #endif
 
 // ----------------------------------------------------------------------
-// Member functions
+// Public member functions
 // ----------------------------------------------------------------------
 
 Fw::SerializeStatus Enum2 ::
@@ -206,10 +202,7 @@ void Enum2 ::
   this->elements[3].toString(str3);
   this->elements[4].toString(str4);
 
-  char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_ARRAY_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     str0.toChar(),
     str1.toChar(),
@@ -217,9 +210,6 @@ void Enum2 ::
     str3.toChar(),
     str4.toChar()
   );
-
-  outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif

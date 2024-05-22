@@ -55,16 +55,19 @@ case class ComponentTelemetry (
       addAccessTagAndComment(
         "PRIVATE",
         "Last value storage for telemetry channels",
-        updateOnChangeChannels.map((_, channel) =>
+        updateOnChangeChannels.map((_, channel) => {
+          val channelName = channel.getName
+          val channelType = writeChannelType(channel.channelType, "Fw::TlmString")
+          val channelStoreName = channelStorageName(channel.getName)
           linesClassMember(
             lines(
               s"""|
-                  |//! Records the last emitted value for channel ${channel.getName}
-                  |${writeChannelType(channel.channelType)} ${channelStorageName(channel.getName)};
+                  |//! Records the last emitted value for channel $channelName
+                  |$channelType $channelStoreName;
                   |"""
             )
           )
-        ),
+        }),
         CppDoc.Lines.Hpp
       )
     ).flatten
@@ -110,7 +113,8 @@ case class ComponentTelemetry (
             lines(
               channel.channelType match {
                 case t: Type.String =>
-                  s"Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, ${stringCppWriter.getSize(t)});"
+                  val serialSize = writeStringSize(s, t)
+                  s"Fw::SerializeStatus _stat = arg.serialize(_tlmBuff, FW_MIN(FW_TLM_STRING_MAX_SIZE, $serialSize));"
                 case _ =>
                   "Fw::SerializeStatus _stat = _tlmBuff.serialize(arg);"
               }
@@ -171,7 +175,6 @@ case class ComponentTelemetry (
 
   private def writeChannelParam(t: Type) = {
     val typeName = writeChannelType(t)
-
     t match {
       case t if s.isPrimitive(t, typeName) => typeName
       case _ => s"const $typeName&"

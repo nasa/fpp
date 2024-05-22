@@ -12,7 +12,7 @@ We focus on how to use the tools, and we summarize their most important
 features.
 We do not attempt to cover every feature of every tool.
 For more comprehensive coverage, see
-https://github.com/fprime-community/fpp/wiki/Tools[the FPP wiki].
+https://github.com/nasa/fpp/wiki/Tools[the FPP wiki].
 
 === Dividing Models into Files
 
@@ -861,3 +861,82 @@ whenever desired, and see the dependencies that way.
 
 As with `fpp-locate-defs`, you can use `-d` to specify a base directory
 for the location specifiers.
+
+=== Path Name Aliases
+
+Because FPP associates locations with symbols, and the locations
+are path names, care is required when using path names that are
+aliases of other path names, via symbolic links or hard links.
+There are two issues to consider:
+relative paths and unique locations.
+
+==== Relative Paths and Symbolic Links
+
+A *relative path* is a path that does not start with a slash and is
+relative to the current directory path, which is
+set by the environment in which an FPP tool is run.
+For example, the command sequence
+
+[source,bash]
+----
+% cd /home/user/dir
+% fpp-check file.fpp
+----
+
+sets the current directory path to `/home/user/dir` and then runs
+`fpp-check file.fpp`.
+In this case, the relative path `file.fpp` is resolved to
+`/home/user/dir/file.fpp`.
+An *absolute path* is a path that starts with a slash and specifies
+a complete path from the root of the file system, e.g.,
+`/home/user/dir/file.fpp`.
+
+Because FPP is implemented in Scala, relative paths are resolved by
+the Java Virtual Machine (JVM).
+When the current directory path contains a symbolic link,
+this resolution may not work in the way that you expect.
+For example, suppose the following:
+
+* _D_ is an absolute path to a directory.
+_D_ is a "`real`" path, i.e., none of the path elements in _D_ is a symbolic
+link to a directory.
+
+* _S_ is an absolute path in which one or more of the path elements is a symbolic
+link to a directory.
+After resolving all symbolic links, _S_ points to _D_.
+
+Suppose that _D_ contains a file `file.fpp`, and that the
+current directory path is _D_.
+In this case, when you run an FPP tool with `file.fpp` as input,
+any symbols defined in `file.fpp` will have location
+_D_ `/file.fpp`, as expected.
+
+Now suppose that the current directory path is _S_.
+In this case, when you run an FPP tool with `file.fpp` as input,
+the symbols defined in `file.fpp` again have location _D_ `/file.fpp`,
+when you might expect them to have location _S_ `/file.fpp`.
+This is because the JVM resolves all symbolic links before computing
+relative path names.
+
+This behavior can cause problems when using the `-p` (path prefix)
+option with FPP code generation tools, as described in the section on
+<<Analyzing-and-Translating-Models,analyzing and translating models>>.
+See that section for details, and for suggested workarounds.
+
+==== Unique Locations
+
+The FPP analyzers assume that each symbol _s_ has
+a unique path defining the location of the source file where
+_s_ is defined.
+If paths contain names that are aliased via symbolic links or hard links, then
+this may not be true:
+for example, _P~1~_ and _P~2~_ may be syntactically different
+absolute paths that represent the same physical location in the file system.
+In this case it may be possible for the tools to associate two different locations
+with the same FPP symbol definition.
+
+You must ensure that this doesn't happen.
+If you present the same file _F_ to the FPP tools several times,
+for example to locate definitions and to compute dependencies,
+you must ensure that the path describing _F_ is the same each
+time, after resolving relative paths as described above.

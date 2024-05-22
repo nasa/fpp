@@ -11,6 +11,9 @@ object MapUsesToLocs extends UseAnalyzer {
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.ComponentInstance, use)
 
+  override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    analyzeUse(a, Ast.SpecLoc.StateMachine, use)
+
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     analyzeUse(a, Ast.SpecLoc.Component, use)
 

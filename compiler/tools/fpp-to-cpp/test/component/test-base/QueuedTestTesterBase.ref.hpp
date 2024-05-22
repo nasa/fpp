@@ -13,6 +13,7 @@
 #include "Fw/Dp/test/util/DpContainerHeader.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Types/Assert.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "test-base/QueuedTestComponentAc.hpp"
 
 //! \class QueuedTestTesterBase
@@ -62,7 +63,7 @@ class QueuedTestTesterBase :
         //! Push an item onto the history
         //!
         void push_back(
-            T entry //!< The item
+            const T& entry //!< The item
         )
         {
           FW_ASSERT(this->numEntries < this->maxSize);
@@ -72,7 +73,7 @@ class QueuedTestTesterBase :
         //! Get an item at an index
         //!
         //! \return The item at index i
-        T at(
+        const T& at(
             const U32 i //!< The index
         ) const
         {
@@ -109,10 +110,20 @@ class QueuedTestTesterBase :
 
     //! A history entry for port from_typedOut
     struct FromPortEntry_typedOut {
+      FromPortEntry_typedOut() :
+        u32(),
+        f32(),
+        b(),
+        str1(__fprime_ac_str1_buffer, sizeof __fprime_ac_str1_buffer),
+        e(),
+        a(),
+        s()
+      {}
       U32 u32;
       F32 f32;
       bool b;
-      Ports::TypedPortStrings::StringSize80 str1;
+      char __fprime_ac_str1_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str1;
       E e;
       A a;
       S s;
@@ -120,10 +131,20 @@ class QueuedTestTesterBase :
 
     //! A history entry for port from_typedReturnOut
     struct FromPortEntry_typedReturnOut {
+      FromPortEntry_typedReturnOut() :
+        u32(),
+        f32(),
+        b(),
+        str2(__fprime_ac_str2_buffer, sizeof __fprime_ac_str2_buffer),
+        e(),
+        a(),
+        s()
+      {}
       U32 u32;
       F32 f32;
       bool b;
-      Ports::TypedReturnPortStrings::StringSize80 str2;
+      char __fprime_ac_str2_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString str2;
       E e;
       A a;
       S s;
@@ -507,7 +528,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -519,7 +540,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -547,7 +568,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -559,7 +580,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -602,7 +623,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -614,7 +635,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -626,7 +647,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -638,7 +659,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -650,7 +671,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -662,7 +683,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -674,7 +695,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -686,7 +707,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -997,8 +1018,8 @@ class QueuedTestTesterBase :
     void sendCmd_CMD_SYNC_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_SYNC_ENUM command
@@ -1041,8 +1062,8 @@ class QueuedTestTesterBase :
     void sendCmd_CMD_GUARDED_STRING(
         const FwEnumStoreType instance, //!< The instance number
         U32 cmdSeq, //!< The command sequence number
-        const Fw::CmdStringArg& str1, //!< A string
-        const Fw::CmdStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Send a CMD_GUARDED_ENUM command
@@ -1136,8 +1157,8 @@ class QueuedTestTesterBase :
 
     //! Handle event EventCommand
     virtual void logIn_COMMAND_EventCommand(
-        const Fw::LogStringArg& str1, //!< A string
-        const Fw::LogStringArg& str2 //!< Another string
+        const Fw::StringBase& str1, //!< A string
+        const Fw::StringBase& str2 //!< Another string
     );
 
     //! Handle event EventDiagnostic
@@ -1174,19 +1195,19 @@ class QueuedTestTesterBase :
     //! Handle channel ChannelU32Format
     void tlmInput_ChannelU32Format(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Format
     void tlmInput_ChannelF32Format(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelStringFormat
     void tlmInput_ChannelStringFormat(
         const Fw::Time& timeTag, //!< The time
-        const Fw::TlmString& val //!< The channel value
+        const Fw::StringBase& val //!< The channel value
     );
 
     //! Handle channel ChannelEnum
@@ -1210,25 +1231,25 @@ class QueuedTestTesterBase :
     //! Handle channel ChannelU32Limits
     void tlmInput_ChannelU32Limits(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelF32Limits
     void tlmInput_ChannelF32Limits(
         const Fw::Time& timeTag, //!< The time
-        const F32& val //!< The channel value
+        const F32 val //!< The channel value
     );
 
     //! Handle channel ChannelF64
     void tlmInput_ChannelF64(
         const Fw::Time& timeTag, //!< The time
-        const F64& val //!< The channel value
+        const F64 val //!< The channel value
     );
 
     //! Handle channel ChannelU32OnChange
     void tlmInput_ChannelU32OnChange(
         const Fw::Time& timeTag, //!< The time
-        const U32& val //!< The channel value
+        const U32 val //!< The channel value
     );
 
     //! Handle channel ChannelEnumOnChange
@@ -1281,7 +1302,7 @@ class QueuedTestTesterBase :
 
     //! Set parameter ParamString
     void paramSet_ParamString(
-        const Fw::ParamString& val, //!< The parameter value
+        const Fw::StringBase& val, //!< The parameter value
         Fw::ParamValid valid //!< The parameter valid flag
     );
 
@@ -1428,7 +1449,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1439,7 +1460,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1577,7 +1598,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedPortStrings::StringSize80& str1, //!< A string
+        const Fw::StringBase& str1, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct
@@ -1590,7 +1611,7 @@ class QueuedTestTesterBase :
         U32 u32, //!< A U32
         F32 f32, //!< An F32
         bool b, //!< A boolean
-        const Ports::TypedReturnPortStrings::StringSize80& str2, //!< A string
+        const Fw::StringBase& str2, //!< A string
         const E& e, //!< An enum
         const A& a, //!< An array
         const S& s //!< A struct

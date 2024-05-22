@@ -9,6 +9,7 @@
 
 #include "E1EnumAc.hpp"
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -24,7 +25,7 @@ class Enum1 :
     // ----------------------------------------------------------------------
 
     //! The element type
-    typedef M::E1 ElementType;
+    using ElementType = M::E1;
 
   public:
 
@@ -35,8 +36,10 @@ class Enum1 :
     enum {
       //! The size of the array
       SIZE = 2,
+      //! The serialized size of each element
+      ELEMENT_SERIALIZED_SIZE = M::E1::SERIALIZED_SIZE,
       //! The size of the serial representation
-      SERIALIZED_SIZE = SIZE * M::E1::SERIALIZED_SIZE,
+      SERIALIZED_SIZE = SIZE * ELEMENT_SERIALIZED_SIZE
     };
 
   public:
@@ -123,7 +126,7 @@ class Enum1 :
   public:
 
     // ----------------------------------------------------------------------
-    // Member functions
+    // Public member functions
     // ----------------------------------------------------------------------
 
     //! Serialization

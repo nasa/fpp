@@ -8,6 +8,7 @@
 #define M_S1SerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -16,58 +17,6 @@ namespace M {
   class S1 :
     public Fw::Serializable
   {
-
-    public:
-
-      // ----------------------------------------------------------------------
-      // StringSize80 class
-      // ----------------------------------------------------------------------
-
-      class StringSize80 :
-        public Fw::StringBase
-      {
-
-        public:
-
-          enum {
-            //! The size of the string length plus the size of the string buffer
-            SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-          };
-
-          //! Default constructor
-          StringSize80();
-
-          //! Char array constructor
-          StringSize80(const char* src);
-
-          //! String base constructor
-          StringSize80(const Fw::StringBase& src);
-
-          //! Copy constructor
-          StringSize80(const StringSize80& src);
-
-          //! Destructor
-          ~StringSize80();
-
-          //! Copy assignment operator
-          StringSize80& operator=(const StringSize80& other);
-
-          //! String base assignment operator
-          StringSize80& operator=(const Fw::StringBase& other);
-
-          //! char* assignment operator
-          StringSize80& operator=(const char* other);
-
-          //! Retrieves char buffer of string
-          const char* toChar() const;
-
-          Fw::StringBase::SizeType getCapacity() const;
-
-        private:
-
-          char m_buf[80]; //!< Buffer for string storage
-
-      };
 
     public:
 
@@ -89,7 +38,7 @@ namespace M {
           sizeof(U64) +
           sizeof(U8) +
           sizeof(U8) +
-          StringSize80::SERIALIZED_SIZE
+          Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
       };
 
     public:
@@ -114,7 +63,7 @@ namespace M {
           U64 mU64,
           U8 mU8,
           bool mBool,
-          const StringSize80& mString
+          const Fw::StringBase& mString
       );
 
       //! Copy constructor
@@ -249,13 +198,13 @@ namespace M {
       }
 
       //! Get member mString
-      StringSize80& getmString()
+      Fw::ExternalString& getmString()
       {
         return this->m_mString;
       }
 
       //! Get member mString (const)
-      const StringSize80& getmString() const
+      const Fw::ExternalString& getmString() const
       {
         return this->m_mString;
       }
@@ -277,7 +226,7 @@ namespace M {
           U64 mU64,
           U8 mU8,
           bool mBool,
-          const StringSize80& mString
+          const Fw::StringBase& mString
       );
 
       //! Set member mF32
@@ -314,7 +263,7 @@ namespace M {
       void setmBool(bool mBool);
 
       //! Set member mString
-      void setmString(const StringSize80& mString);
+      void setmString(const Fw::StringBase& mString);
 
     protected:
 
@@ -333,7 +282,8 @@ namespace M {
       U64 m_mU64;
       U8 m_mU8;
       bool m_mBool;
-      StringSize80 m_mString;
+      char m___fprime_ac_mString_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+      Fw::ExternalString m_mString;
 
   };
 

@@ -4,91 +4,8 @@
 // \brief  cpp file for Default struct
 // ======================================================================
 
-#include "cstdio"
-#include "cstring"
-
 #include "DefaultSerializableAc.hpp"
 #include "Fw/Types/Assert.hpp"
-#include "Fw/Types/StringUtils.hpp"
-
-// ----------------------------------------------------------------------
-// StringSize40 class
-// ----------------------------------------------------------------------
-
-Default::StringSize40 ::
-  StringSize40() :
-    StringBase()
-{
-  this->m_buf[0] = 0;
-}
-
-Default::StringSize40 ::
-  StringSize40(const char* src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src, sizeof(this->m_buf));
-}
-
-Default::StringSize40 ::
-  StringSize40(const Fw::StringBase& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-Default::StringSize40 ::
-  StringSize40(const StringSize40& src) :
-    StringBase()
-{
-  Fw::StringUtils::string_copy(this->m_buf, src.toChar(), sizeof(this->m_buf));
-}
-
-Default::StringSize40 ::
-  ~StringSize40()
-{
-
-}
-
-Default::StringSize40& Default::StringSize40 ::
-  operator=(const StringSize40& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-Default::StringSize40& Default::StringSize40 ::
-  operator=(const Fw::StringBase& other)
-{
-  if (this == &other) {
-    return *this;
-  }
-
-  Fw::StringUtils::string_copy(this->m_buf, other.toChar(), sizeof(this->m_buf));
-  return *this;
-}
-
-Default::StringSize40& Default::StringSize40 ::
-  operator=(const char* other)
-{
-  Fw::StringUtils::string_copy(this->m_buf, other, sizeof(this->m_buf));
-  return *this;
-}
-
-const char* Default::StringSize40 ::
-  toChar() const
-{
-  return this->m_buf;
-}
-
-Fw::StringBase::SizeType Default::StringSize40 ::
-  getCapacity() const
-{
-  return sizeof(this->m_buf);
-}
 
 // ----------------------------------------------------------------------
 // Constructors
@@ -98,7 +15,7 @@ Default ::
   Default() :
     Serializable(),
     m_mU32(54),
-    m_mS1("hello"),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, Fw::String("hello")),
     m_mF64(0.0)
 {
 
@@ -107,12 +24,12 @@ Default ::
 Default ::
   Default(
       U32 mU32,
-      const StringSize40& mS1,
+      const Fw::StringBase& mS1,
       F64 mF64
   ) :
     Serializable(),
     m_mU32(mU32),
-    m_mS1(mS1),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, mS1),
     m_mF64(mF64)
 {
 
@@ -122,7 +39,7 @@ Default ::
   Default(const Default& obj) :
     Serializable(),
     m_mU32(obj.m_mU32),
-    m_mS1(obj.m_mS1),
+    m_mS1(m___fprime_ac_mS1_buffer, sizeof m___fprime_ac_mS1_buffer, obj.m_mS1),
     m_mF64(obj.m_mF64)
 {
 
@@ -228,18 +145,12 @@ void Default ::
     "mF64 = %f"
     " )";
 
-  char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
-  (void) snprintf(
-    outputString,
-    FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,
+  sb.format(
     formatString,
     this->m_mU32,
     this->m_mS1.toChar(),
     this->m_mF64
   );
-
-  outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
-  sb = outputString;
 }
 
 #endif
@@ -251,7 +162,7 @@ void Default ::
 void Default ::
   set(
       U32 mU32,
-      const StringSize40& mS1,
+      const Fw::StringBase& mS1,
       F64 mF64
   )
 {
@@ -267,7 +178,7 @@ void Default ::
 }
 
 void Default ::
-  setmS1(const StringSize40& mS1)
+  setmS1(const Fw::StringBase& mS1)
 {
   this->m_mS1 = mS1;
 }

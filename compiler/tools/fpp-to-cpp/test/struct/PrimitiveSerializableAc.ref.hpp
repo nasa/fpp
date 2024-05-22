@@ -8,6 +8,7 @@
 #define PrimitiveSerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -20,63 +21,11 @@ class Primitive :
   public:
 
     // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-
-      public:
-
-        enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-        };
-
-        //! Default constructor
-        StringSize80();
-
-        //! Char array constructor
-        StringSize80(const char* src);
-
-        //! String base constructor
-        StringSize80(const Fw::StringBase& src);
-
-        //! Copy constructor
-        StringSize80(const StringSize80& src);
-
-        //! Destructor
-        ~StringSize80();
-
-        //! Copy assignment operator
-        StringSize80& operator=(const StringSize80& other);
-
-        //! String base assignment operator
-        StringSize80& operator=(const Fw::StringBase& other);
-
-        //! char* assignment operator
-        StringSize80& operator=(const char* other);
-
-        //! Retrieves char buffer of string
-        const char* toChar() const;
-
-        Fw::StringBase::SizeType getCapacity() const;
-
-      private:
-
-        char m_buf[80]; //!< Buffer for string storage
-
-    };
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Types
     // ----------------------------------------------------------------------
 
-    //! The array member types
-    typedef F32 Type_of_mF32[3];
+    //! The type of mF32
+    using Type_of_mF32 = F32[3];
 
   public:
 
@@ -98,7 +47,7 @@ class Primitive :
         sizeof(U64) +
         sizeof(U8) +
         sizeof(U8) +
-        StringSize80::SERIALIZED_SIZE
+        Fw::StringBase::STATIC_SERIALIZED_SIZE(80)
     };
 
   public:
@@ -123,7 +72,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
     //! Copy constructor
@@ -144,7 +93,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
   public:
@@ -280,13 +229,13 @@ class Primitive :
     }
 
     //! Get member m_string
-    StringSize80& getm_string()
+    Fw::ExternalString& getm_string()
     {
       return this->m_m_string;
     }
 
     //! Get member m_string (const)
-    const StringSize80& getm_string() const
+    const Fw::ExternalString& getm_string() const
     {
       return this->m_m_string;
     }
@@ -308,7 +257,7 @@ class Primitive :
         U64 mU64,
         U8 mU8,
         bool m_bool,
-        const StringSize80& m_string
+        const Fw::StringBase& m_string
     );
 
     //! Set member mF32
@@ -345,7 +294,7 @@ class Primitive :
     void setm_bool(bool m_bool);
 
     //! Set member m_string
-    void setm_string(const StringSize80& m_string);
+    void setm_string(const Fw::StringBase& m_string);
 
   protected:
 
@@ -364,7 +313,8 @@ class Primitive :
     U64 m_mU64;
     U8 m_mU8;
     bool m_m_bool;
-    StringSize80 m_m_string;
+    char m___fprime_ac_m_string_buffer[Fw::StringBase::BUFFER_SIZE(80)];
+    Fw::ExternalString m_m_string;
 
 };
 

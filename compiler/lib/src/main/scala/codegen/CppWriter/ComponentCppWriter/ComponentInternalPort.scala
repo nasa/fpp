@@ -71,7 +71,7 @@ case class ComponentInternalPort (
                     |"""
               ),
               intersperseBlankLines(
-                getPortParams(p).map((n, _) =>
+                getPortParams(p).map((n, _, _) =>
                   lines(
                     s"""|_status = msg.serialize($n);
                         |FW_ASSERT(

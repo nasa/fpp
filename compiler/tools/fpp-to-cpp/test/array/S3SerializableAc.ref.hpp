@@ -8,6 +8,7 @@
 #define S_S3SerializableAc_HPP
 
 #include "FpConfig.hpp"
+#include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
 
@@ -24,8 +25,8 @@ namespace S {
       // Types
       // ----------------------------------------------------------------------
 
-      //! The array member types
-      typedef U32 Type_of_mU32Array[3];
+      //! The type of mU32Array
+      using Type_of_mU32Array = U32[3];
 
     public:
 

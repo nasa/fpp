@@ -123,11 +123,9 @@ case class ComponentCppWriter (
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val systemHeaders = List(
-      "cstdio",
-    ).map(CppWriter.systemHeaderString).map(line)
     val userHeaders = List(
       "Fw/Types/Assert.hpp",
+      "Fw/Types/ExternalString.hpp",
       "Fw/Types/String.hpp",
       s"${s.getRelativePath(fileName).toString}.hpp"
     ).sorted.map(CppWriter.headerString).flatMap({
@@ -140,13 +138,7 @@ case class ComponentCppWriter (
         )
       case s => lines(s)
     })
-    linesMember(
-      List(
-        Line.blank :: systemHeaders,
-        Line.blank :: userHeaders
-      ).flatten,
-      CppDoc.Lines.Cpp
-    )
+    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
   }
 
   private def getStaticAssertion: List[CppDoc.Member] = {
@@ -324,7 +316,8 @@ case class ComponentCppWriter (
           s"BYTE ${p.getUnqualifiedName}IntIfSize[",
           lines(
             p.aNode._2.data.params.map(param =>
-              s.getSerializedSizeExpr(
+              writeSerializedSizeExpr(
+                s,
                 s.a.typeMap(param._2.data.typeName.id),
                 writeInternalPortParamType(param._2.data)
               )
@@ -551,10 +544,11 @@ case class ComponentCppWriter (
         case PortInstance.Type.DefPort(_) =>
           List(
             intersperseBlankLines(
-              portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+              portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => {
+                val varDecl = writeVarDecl(s, tn, n, t)
                 lines(
                   s"""|// Deserialize argument $n
-                      |$tn $n;
+                      |$varDecl
                       |deserStatus = msg.deserialize($n);
                       |FW_ASSERT(
                       |  deserStatus == Fw::FW_SERIALIZE_OK,
@@ -562,7 +556,7 @@ case class ComponentCppWriter (
                       |);
                       |"""
                 )
-              )
+              })
             ),
             line("// Call handler function") ::
               writeFunctionCall(
@@ -629,7 +623,7 @@ case class ComponentCppWriter (
                |"""
           ),
           intersperseBlankLines(
-            cmdParamTypeMap(opcode).map((n, tn) =>
+            cmdParamTypeMap(opcode).map((n, tn, _) =>
               lines(
                 s"""|// Deserialize argument $n
                     |$tn $n;
@@ -684,7 +678,7 @@ case class ComponentCppWriter (
       val body = intersperseBlankLines(
         List(
           intersperseBlankLines(
-            portParamTypeMap(p.getUnqualifiedName).map((n, tn) =>
+            portParamTypeMap(p.getUnqualifiedName).map((n, tn, _) =>
               lines(
                 s"""|$tn $n;
                     |deserStatus = msg.deserialize($n);

@@ -21,66 +21,6 @@
 
 namespace Ports {
 
-  namespace TypedReturnPortStrings {
-
-    // ----------------------------------------------------------------------
-    // StringSize80 class
-    // ----------------------------------------------------------------------
-
-    class StringSize80 :
-      public Fw::StringBase
-    {
-
-      public:
-
-        enum {
-          //! The size of the string length plus the size of the string buffer
-          SERIALIZED_SIZE = sizeof(FwBuffSizeType) + 80
-        };
-
-        //! Default constructor
-        StringSize80();
-
-        //! Char array constructor
-        StringSize80(const char* src);
-
-        //! String base constructor
-        StringSize80(const Fw::StringBase& src);
-
-        //! Copy constructor
-        StringSize80(const StringSize80& src);
-
-        //! Destructor
-        ~StringSize80();
-
-        //! Copy assignment operator
-        StringSize80& operator=(const StringSize80& other);
-
-        //! String base assignment operator
-        StringSize80& operator=(const Fw::StringBase& other);
-
-        //! char* assignment operator
-        StringSize80& operator=(const char* other);
-
-        //! Retrieves char buffer of string
-        const char* toChar() const;
-
-        Fw::StringBase::SizeType getCapacity() const;
-
-      private:
-
-        char m_buf[80]; //!< Buffer for string storage
-
-    };
-
-  }
-
-  // ----------------------------------------------------------------------
-  // String types for backwards compatibility
-  // ----------------------------------------------------------------------
-
-  typedef TypedReturnPortStrings::StringSize80 str2String;
-
   //! Input TypedReturn port
   //! A typed port with a return type
   class InputTypedReturnPort :
@@ -99,7 +39,7 @@ namespace Ports {
           sizeof(U32) +
           sizeof(F32) +
           sizeof(U8) +
-          TypedReturnPortStrings::StringSize80::SERIALIZED_SIZE +
+          Fw::StringBase::STATIC_SERIALIZED_SIZE(80) +
           E::SERIALIZED_SIZE +
           A::SERIALIZED_SIZE +
           S::SERIALIZED_SIZE
@@ -118,7 +58,7 @@ namespace Ports {
         U32 u32,
         F32 f32,
         bool b,
-        const TypedReturnPortStrings::StringSize80& str2,
+        const Fw::StringBase& str2,
         const E& e,
         const A& a,
         const S& s
@@ -147,7 +87,7 @@ namespace Ports {
           U32 u32, //!< A U32
           F32 f32, //!< An F32
           bool b, //!< A boolean
-          const TypedReturnPortStrings::StringSize80& str2, //!< A string
+          const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s //!< A struct
@@ -201,7 +141,7 @@ namespace Ports {
           U32 u32, //!< A U32
           F32 f32, //!< An F32
           bool b, //!< A boolean
-          const TypedReturnPortStrings::StringSize80& str2, //!< A string
+          const Fw::StringBase& str2, //!< A string
           const E& e, //!< An enum
           const A& a, //!< An array
           const S& s //!< A struct
