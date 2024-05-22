@@ -149,27 +149,24 @@ case class StructCppWriter(
       )
     )
 
-  /** Provide type aliases for member types. This helps make
-   *  the user code independent of string sizes. It also helps
-   *  with difficult C++ array syntax. */
-  private def getTypeMembers: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        List.concat(
-          CppDocHppWriter.writeAccessTag("public"),
-          CppDocWriter.writeBannerComment("Types"),
-          memberList.flatMap((n, tn) => {
-            val mtn = getMemberTypeName(n)
-            val maybeArraySuffix = sizes.get(n).map(s => s"[$s]").getOrElse("")
-            List(
-              Line.blank,
-              line(s"//! The type of $n"),
-              line(s"using $mtn = $tn$maybeArraySuffix;")
-            )
-          })
-        )
-      )
-    )
+  /** Provide type aliases for array member types, to work
+   *  around difficult C++ array syntax. */
+  private def getTypeMembers: List[CppDoc.Class.Member] = {
+    val typeAliases = memberList.flatMap((n, tn) => {
+      val mtn = getMemberTypeName(n)
+      sizes.get(n) match {
+        case Some(size) =>
+          Line.blank ::
+          line(s"//! The type of $n") ::
+          lines(s"using $mtn = $tn[$size];")
+        case None => Nil
+      }
+    })
+    val members = if typeAliases.isEmpty
+      then Nil
+      else List(linesClassMember(typeAliases))
+    addAccessTagAndComment("public", "Types", members, CppDoc.Lines.Hpp)
+  }
 
   private def getConstructorMembers: List[CppDoc.Class.Member] = {
     val defaultValues = getDefaultValues
@@ -608,8 +605,6 @@ case class StructCppWriter(
         CppDocWriter.writeBannerComment("Member variables") ++
           addBlankPrefix(memberList.flatMap((n, tn) => lines(
             writeMemberDecl(s, tn, n, typeMembers(n), "m_", sizes.get(n).map(_.toString))
-            //if sizes.contains(n) then line(s"$tn m_$n[${sizes(n)}];")
-            //else line(s"$tn m_$n;")
           )))
       )
     )
@@ -648,9 +643,12 @@ case class StructCppWriter(
         case StructCppWriter.NonConst => ""
       }
       (sizes.contains(n), typeMembers(n)) match {
-        case (false, _: Type.Enum) => s"$tn::T"
-        case (false, t) if s.isPrimitive(t, tn) => s"$tn"
-        case _ => s"$maybeConstStr${getMemberTypeName(n)}&"
+        case (true, _) => s"$maybeConstStr${getMemberTypeName(n)}&"
+        case (_, _: Type.Enum) => s"$tn::T"
+        case (_, _: Type.String) => s"${maybeConstStr}Fw::ExternalString&"
+        case (_, t) =>
+          if s.isPrimitive(t, tn) then tn
+          else s"$maybeConstStr$tn&"
       }
   }
 

@@ -19,21 +19,6 @@ class Default :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The type of mU32
-    using Type_of_mU32 = U32;
-
-    //! The type of mS1
-    using Type_of_mS1 = Fw::ExternalString;
-
-    //! The type of mF64
-    using Type_of_mF64 = F64;
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -133,13 +118,13 @@ class Default :
     }
 
     //! Get member mS1
-    Type_of_mS1& getmS1()
+    Fw::ExternalString& getmS1()
     {
       return this->m_mS1;
     }
 
     //! Get member mS1 (const)
-    const Type_of_mS1& getmS1() const
+    const Fw::ExternalString& getmS1() const
     {
       return this->m_mS1;
     }

@@ -20,15 +20,6 @@ class PrimitiveStruct :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The type of s1
-    using Type_of_s1 = Primitive;
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -116,13 +107,13 @@ class PrimitiveStruct :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Type_of_s1& gets1()
+    Primitive& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Type_of_s1& gets1() const
+    const Primitive& gets1() const
     {
       return this->m_s1;
     }
