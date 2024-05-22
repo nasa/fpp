@@ -2049,6 +2049,41 @@ active component Imager {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component that has a state machine
+active component DeviceMgr {
+
+  # ----------------------------------------------------------------------
+  # State machines
+  # ----------------------------------------------------------------------
+
+  @ A state machine definition
+  state machine DeviceSM {
+
+    event StartCmd
+    event OffCmd
+
+    initial IDLE
+
+    state IDLE {
+      on StartCmd visit RUNNING
+    }
+
+    state RUNNING {
+      on OffCmd visit IDLE
+    }
+
+  }
+
+  @ state machine instance 1
+  state machine instance device1Machine: DeviceSM
+
+  @ state machine instance 2
+  state machine instance device2Machine: DeviceSM
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -9344,7 +9379,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-22 16:44:49 -0700
+Last updated 2024-05-22 16:56:31 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
