@@ -213,7 +213,8 @@ case class ComponentCppWriter (
       cmdWriter.getConstantMembers,
       eventWriter.getConstantMembers,
       tlmWriter.getConstantMembers,
-      paramWriter.getConstantMembers
+      paramWriter.getConstantMembers,
+      dpWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil

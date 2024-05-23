@@ -99,6 +99,26 @@ class QueuedAsyncProductsComponentBase :
       NUM_TYPEDRETURNOUT_OUTPUT_PORTS = 1,
     };
 
+    //! Record sizes
+    static constexpr FwSizeType SIZE_OF_DataArrayRecord_RECORD(FwSizeType arraySize) {
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * QueuedAsyncProducts_Data::SERIALIZED_SIZE;
+    }
+    static constexpr FwSizeType SIZE_OF_DataRecord_RECORD =
+      sizeof(FwDpIdType) + QueuedAsyncProducts_Data::SERIALIZED_SIZE;
+    static constexpr FwSizeType SIZE_OF_StringArrayRecord_RECORD(FwSizeType arraySize) {
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * Fw::StringBase::STATIC_SERIALIZED_SIZE(80);
+    }
+    static constexpr FwSizeType SIZE_OF_StringRecord_RECORD =
+      sizeof(FwDpIdType) + Fw::StringBase::STATIC_SERIALIZED_SIZE(80);
+    static constexpr FwSizeType SIZE_OF_U32ArrayRecord_RECORD(FwSizeType arraySize) {
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U32);
+    }
+    static constexpr FwSizeType SIZE_OF_U32Record_RECORD =
+      sizeof(FwDpIdType) + sizeof(U32);
+    static constexpr FwSizeType SIZE_OF_U8ArrayRecord_RECORD(FwSizeType arraySize) {
+      return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * sizeof(U8);
+    }
+
   PROTECTED:
 
     // ----------------------------------------------------------------------
