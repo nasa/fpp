@@ -4011,22 +4011,19 @@ do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-    event PowerOn
+  event PowerOn
 
-    action getReady
+  action getReady
 
-    guard initComplete
+  guard initComplete
 
-    initial OFF
+  initial OFF
 
-    state OFF {
-        on PowerOn if initComplete visit ON do getReady
+  state OFF {
+    on PowerOn if initComplete visit ON do getReady
+  }
 
-    }
-
-    state ON {
-
-    }
+  state ON
 
 }</code></pre>
 </div>
@@ -9405,7 +9402,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-23 09:49:58 -0700
+Last updated 2024-05-23 09:53:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

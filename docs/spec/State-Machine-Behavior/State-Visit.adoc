@@ -21,23 +21,19 @@ _]_
 ----
 state machine Device {
 
-    event PowerOn
-    
-    action getReady
+  event PowerOn
+  
+  action getReady
 
-    guard initComplete
+  guard initComplete
 
-    initial OFF
+  initial OFF
 
-    state OFF {
-        on PowerOn if initComplete visit ON do getReady
+  state OFF {
+    on PowerOn if initComplete visit ON do getReady
+  }
 
-    }
-
-    state ON {
-
-    }
+  state ON
 
 }
-
 ----
