@@ -19,12 +19,10 @@ A *state machine instance specifier* instantiates a  <<Definitions_State-Machine
 
 [source,fpp]
 ----
-
 state machine MonitorSm {
 
 }
 
 @ state machine monitor1 is an instance of state machine model MonitorSm
 state machine instance monitor1 : MonitorSm
-
 ----
