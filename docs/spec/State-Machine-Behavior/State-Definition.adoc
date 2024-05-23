@@ -70,7 +70,7 @@ state machine MonitorSm {
 
         state CALIBRATING {
             on RTI do doCalibrate
-            on Fault go Idle do reportFault
+            on Fault visit Idle do reportFault
             on Complete visit IDLE
         }
 

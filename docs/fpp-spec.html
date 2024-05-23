@@ -3712,7 +3712,7 @@ A state member is one of the following</p>
 
         state CALIBRATING {
             on RTI do doCalibrate
-            on Fault go Idle do reportFault
+            on Fault visit Idle do reportFault
             on Complete visit IDLE
         }
 
@@ -9377,7 +9377,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-23 08:41:45 -0700
+Last updated 2024-05-23 08:43:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
