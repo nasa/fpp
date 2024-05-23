@@ -43,25 +43,24 @@ do` <<Lexical-Elements_Identifiers,_identifier_>>
 ----
 state machine Device {
 
-    event RTI
-    event PowerOn
-    
-    action performStuff
-    action getReady
+  event RTI
+  event PowerOn
+  
+  action performStuff
+  action getReady
 
-    guard initComplete
+  guard initComplete
 
-    initial OFF
+  initial OFF
 
-    state OFF
-        on PowerOn if initComplete visit ON do getReady
+  state OFF
+    on PowerOn if initComplete visit ON do getReady
 
-    }
+  }
 
-    state ON {
-        on RTI do performStuff
-
-    }
+  state ON {
+    on RTI do performStuff
+  }
 
 }
 

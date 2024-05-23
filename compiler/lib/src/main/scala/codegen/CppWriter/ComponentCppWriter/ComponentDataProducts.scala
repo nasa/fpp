@@ -10,6 +10,26 @@ case class ComponentDataProducts (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  def getConstantMembers: List[CppDoc.Class.Member] = {
+    def writeRecordSize(record: Record) = {
+      val data = record.aNode._2.data
+      val constantName = s"SIZE_OF_${data.name}_RECORD"
+      val typeName = TypeCppWriter.getName(s, record.recordType)
+      val eltSize = writeSerializedSizeExpr(s, record.recordType, typeName)
+      if record.isArray
+      then s"""|static constexpr FwSizeType $constantName(FwSizeType arraySize) {
+               |  return sizeof(FwDpIdType) + sizeof(FwSizeStoreType) + arraySize * $eltSize;
+               |}"""
+      else s"""|static constexpr FwSizeType $constantName =
+               |  sizeof(FwDpIdType) + $eltSize;"""
+    }
+    val sizes = recordsByName.map((_, record) => writeRecordSize(record)).flatMap(lines)
+    lazy val member = linesClassMember(
+      Line.blank :: line("//! Record sizes") :: sizes
+    )
+    guardedList (!sizes.isEmpty) (List(member))
+  }
+
   def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
@@ -102,6 +122,8 @@ case class ComponentDataProducts (
               |FW_ASSERT(packetSize <= buffer.getSize(), static_cast<FwAssertArgType>(packetSize),
               |    static_cast<FwAssertArgType>(buffer.getSize()));
               |buffer.setSize(static_cast<U32>(packetSize));
+              |// Invalidate the buffer in the container, so it can't be reused
+              |container.invalidateBuffer();
               |// Send the buffer
               |this->$invokeProductSend(0, container.getId(), buffer);"""
         )

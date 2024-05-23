@@ -30,5 +30,4 @@ event RTI
 
 # An event with data
 event Fault: FaultData
-
 ----
