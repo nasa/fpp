@@ -45,6 +45,18 @@ module DefinitionsAndSpecifiers {
     async product recv port productRecvIn priority 10 assert
     @< Async product receive port
 
+    @ State machine definition
+    state machine Foo
+    @< State machine definition
+
+    @ State machine instance 1
+    state machine instance foo1: Foo
+    @< State machine instance 1
+
+    @ State machine instance 2
+    state machine instance foo2: Foo
+    @< State machine instance 2
+
     output port p2: [10] P
     @ Port matching specifier
     match p1 with p2

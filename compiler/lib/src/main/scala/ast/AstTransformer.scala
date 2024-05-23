@@ -29,6 +29,7 @@ trait AstTransformer {
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
     Right(default(in), node)
 
+
   def defComponentInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
@@ -38,6 +39,16 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefConstant]]
   ): ResultAnnotatedNode[Ast.DefConstant] = Right(default(in), node)
+
+  def defStateMachineAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+
+  def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ): ResultAnnotatedNode[Ast.SpecStateMachineInstance] = Right(default(in), node)
 
   def defEnumAnnotatedNode(
     in: In,
@@ -212,6 +223,10 @@ trait AstTransformer {
         transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefEnum(_))
       case Ast.ComponentMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStruct(_))
+      case Ast.ComponentMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStateMachine(_))
+      case Ast.ComponentMember.SpecStateMachineInstance(node1) =>
+        transform(specStateMachineInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecStateMachineInstance(_))
       case Ast.ComponentMember.SpecCommand(node1) =>
         transform(specCommandAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecCommand(_))
       case Ast.ComponentMember.SpecContainer(node1) =>
@@ -268,6 +283,10 @@ trait AstTransformer {
         transform(defArrayAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefArray(_))
       case Ast.ModuleMember.DefComponent(node1) =>
         transform(defComponentAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponent(_))
+     
+      case Ast.ModuleMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
+
       case Ast.ModuleMember.DefComponentInstance(node1) =>
         transform(defComponentInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefComponentInstance(_))
       case Ast.ModuleMember.DefConstant(node1) =>

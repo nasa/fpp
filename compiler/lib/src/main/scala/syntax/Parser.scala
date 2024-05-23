@@ -28,6 +28,8 @@ object Parser extends Parsers {
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
     node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
+    node(defStateMachine) ^^ { case n => Ast.ComponentMember.DefStateMachine(n) } |
+    node(specStateMachineInstance) ^^ { case n => Ast.ComponentMember.SpecStateMachineInstance(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
     node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
@@ -76,6 +78,7 @@ object Parser extends Parsers {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
     }
   }
+
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
@@ -141,6 +144,18 @@ object Parser extends Parsers {
   def defPort: Parser[Ast.DefPort] = {
     (port ~>! ident) ~! formalParamList ~! opt(rarrow ~>! node(typeName)) ^^ {
       case ident ~ formalParamList ~ returnType => Ast.DefPort(ident, formalParamList, returnType)
+    }
+  }
+
+  def defStateMachine: Parser[Ast.DefStateMachine] = {
+    (state ~> (machine ~> ident)) ^^ {
+      case name => Ast.DefStateMachine(name)
+    }
+  }
+
+  def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
+    (state ~> machine ~> (instance ~> ident) ~ (colon ~>! node(qualIdent))) ^^ {
+      case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }
 
@@ -273,6 +288,7 @@ object Parser extends Parsers {
     node(defEnum) ^^ { case n => Ast.ModuleMember.DefEnum(n) } |
     node(defModule) ^^ { case n => Ast.ModuleMember.DefModule(n) } |
     node(defPort) ^^ { case n => Ast.ModuleMember.DefPort(n) } |
+    node(defStateMachine) ^^ { case n => Ast.ModuleMember.DefStateMachine(n) } |
     node(defStruct) ^^ { case n => Ast.ModuleMember.DefStruct(n) } |
     node(defTopology) ^^ { case n => Ast.ModuleMember.DefTopology(n) } |
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
@@ -810,6 +826,8 @@ object Parser extends Parsers {
 
   private def lparen = accept("(", { case t : Token.LPAREN => t })
 
+  private def machine = accept("machine", { case t : Token.MACHINE => t })
+
   private def minus = accept("-", { case t : Token.MINUS => t })
 
   private def module = accept("module", { case t : Token.MODULE => t })
@@ -887,6 +905,8 @@ object Parser extends Parsers {
   private def stack = accept("stack", { case t : Token.STACK => t })
 
   private def star = accept("*", { case t : Token.STAR => t  })
+
+  private def state = accept("state", { case t : Token.STATE => t })
 
   private def string = accept("string", { case t : Token.STRING => t })
 

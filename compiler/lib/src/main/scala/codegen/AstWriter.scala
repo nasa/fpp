@@ -12,6 +12,27 @@ object AstWriter extends AstVisitor with LineUtils {
 
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
 
+  override def defStateMachineAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (_, node, _) = aNode
+    lines("def state machine") ++ ident(node.data.name).map(indentIn)
+  }
+
+  override def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state machine instance") ++ 
+    List(
+      ident(node.data.name),
+      addPrefix("state machine", qualIdent) (data.statemachine.data),
+    ).flatten.map(indentIn)
+  }
+
   override def defAbsTypeAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefAbsType]]

@@ -56,6 +56,8 @@ object Ast {
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
     final case class DefStruct(node: AstNode[Ast.DefStruct]) extends Node
+    final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
+    final case class SpecStateMachineInstance(node: AstNode[Ast.SpecStateMachineInstance]) extends Node
     final case class SpecCommand(node: AstNode[Ast.SpecCommand]) extends Node
     final case class SpecContainer(node: AstNode[Ast.SpecContainer]) extends Node
     final case class SpecEvent(node: AstNode[Ast.SpecEvent]) extends Node
@@ -85,6 +87,17 @@ object Ast {
     kind: ComponentKind,
     name: Ident,
     members: List[ComponentMember]
+  )
+
+  /** State machine definition */
+  final case class DefStateMachine(
+    name: Ident
+  )
+
+  /** State machine instance spec */
+  final case class SpecStateMachineInstance(
+    name: Ident,
+    statemachine: AstNode[QualIdent]
   )
 
   /** Component instance definition */
@@ -131,6 +144,7 @@ object Ast {
     final case class DefAbsType(node: AstNode[Ast.DefAbsType]) extends Node
     final case class DefArray(node: AstNode[Ast.DefArray]) extends Node
     final case class DefComponent(node: AstNode[Ast.DefComponent]) extends Node
+    final case class DefStateMachine(node: AstNode[Ast.DefStateMachine]) extends Node
     final case class DefComponentInstance(node: AstNode[Ast.DefComponentInstance]) extends Node
     final case class DefConstant(node: AstNode[Ast.DefConstant]) extends Node
     final case class DefEnum(node: AstNode[Ast.DefEnum]) extends Node
@@ -463,6 +477,9 @@ object Ast {
     }
     case object Type extends Kind {
       override def toString = "type"
+    }
+    case object StateMachine extends Kind {
+      override def toString = "statemachine"
     }
   }
 
