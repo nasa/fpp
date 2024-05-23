@@ -30,5 +30,4 @@ guard noRecovery
 
 # A guard with data
 guard noRecovery: FaultData
-
 ----

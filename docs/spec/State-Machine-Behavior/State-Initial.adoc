@@ -20,7 +20,6 @@ _]_
 . An _initial_ specification is required at the top of every hierarchical state
  
 . The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
- 
 
 ==== Examples
 
@@ -28,16 +27,16 @@ _]_
 ----
 state machine Device {
 
-    action initDevices
+  action initDevices
 
-    initial ON
+  initial ON
 
-    state ON {
+  state ON {
 
-        initial POWERING_UP do initDevices
+    initial POWERING_UP do initDevices
 
-        state POWERING_UP {
+    state POWERING_UP {
 
-        }
     }
+  }
 ----

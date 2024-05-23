@@ -34,7 +34,6 @@ event RTI
 
 # An event with data
 event Fault: FaultData
-
 ----
 
 === State Actions
@@ -104,7 +103,6 @@ guard noRecovery
 
 # A guard with data
 guard noRecovery: FaultData
-
 ----
 
 === State Definition
@@ -141,54 +139,53 @@ A state member is one of the following
 
 . All _transitions_ that originate from a state are required to be specified inside that state
 
-
 ==== Examples
 
 [source,fpp]
 ----
 state machine MonitorSm {
 
-    event Complete
-    event Drive
-    event Calibrate
-    event RTI
-    event Stop
-    event Fault
-    
-    action init2
-    action doCalibrate
-    action motorControl
-    action reportFault
+  event Complete
+  event Drive
+  event Calibrate
+  event RTI
+  event Stop
+  event Fault
+  
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
 
-    guard calibrateReady
+  guard calibrateReady
 
-    initial DEVICE_ON
-    
-    state DEVICE_ON {
+  initial DEVICE_ON
+  
+  state DEVICE_ON {
 
-        initial INITIALIZING do init2
+    initial INITIALIZING do init2
 
-        state INITIALIZING {
-            on Complete visit IDLE
-        }
-
-        state IDLE {
-            on Drive visit DRIVING
-            on Calibrate if calibrateReady visit CALIBRATING
-        }
-
-        state CALIBRATING {
-            on RTI do doCalibrate
-            on Fault visit Idle do reportFault
-            on Complete visit IDLE
-        }
-
-        state DRIVING {
-            on RTI do motorControl
-            on Stop visit IDLE
-        }
-
+    state INITIALIZING {
+      on Complete visit IDLE
     }
+
+    state IDLE {
+      on Drive visit DRIVING
+      on Calibrate if calibrateReady visit CALIBRATING
+    }
+
+    state CALIBRATING {
+      on RTI do doCalibrate
+      on Fault visit Idle do reportFault
+      on Complete visit IDLE
+    }
+
+    state DRIVING {
+      on RTI do motorControl
+      on Stop visit IDLE
+    }
+
+  }
 
 }
 ----
@@ -215,7 +212,6 @@ _]_
 . An _initial_ specification is required at the top of every hierarchical state
  
 . The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
- 
 
 ==== Examples
 
@@ -223,18 +219,18 @@ _]_
 ----
 state machine Device {
 
-    action initDevices
+  action initDevices
 
-    initial ON
+  initial ON
 
-    state ON {
+  state ON {
 
-        initial POWERING_UP do initDevices
+    initial POWERING_UP do initDevices
 
-        state POWERING_UP {
+    state POWERING_UP {
 
-        }
     }
+  }
 ----
 
 === State Junction
@@ -267,26 +263,25 @@ A _junction_ is a type of psuedo state.  It serves as an intermediate point in a
 ----
 state machine Device {
 
-    action initPower
-    guard coldStart
+  action initPower
+  guard coldStart
 
-    initial J1
+  initial J1
 
-    junction J1 {
-            if coldStart visit OFF
-            else visit ON do initPower
-    }
+  junction J1 {
+    if coldStart visit OFF
+    else visit ON do initPower
+  }
 
-    state OFF {
+  state OFF {
 
-    }
+  }
 
-    state ON {
+  state ON {
 
-    }
+  }
 
 }
-
 ----
 
 === State Transition
@@ -334,25 +329,24 @@ do` <<Lexical-Elements_Identifiers,_identifier_>>
 ----
 state machine Device {
 
-    event RTI
-    event PowerOn
-    
-    action performStuff
-    action getReady
+  event RTI
+  event PowerOn
+  
+  action performStuff
+  action getReady
 
-    guard initComplete
+  guard initComplete
 
-    initial OFF
+  initial OFF
 
-    state OFF
-        on PowerOn if initComplete visit ON do getReady
+  state OFF
+    on PowerOn if initComplete visit ON do getReady
 
-    }
+  }
 
-    state ON {
-        on RTI do performStuff
-
-    }
+  state ON {
+    on RTI do performStuff
+  }
 
 }
 

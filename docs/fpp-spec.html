@@ -2049,36 +2049,65 @@ active component Imager {
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ A component that has a state machine
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component with state machines
 active component DeviceMgr {
 
   # ----------------------------------------------------------------------
   # State machines
   # ----------------------------------------------------------------------
 
-  @ A state machine definition
-  state machine DeviceSM {
+  @ A state machine representing a device
+  state machine Device {
 
-    event StartCmd
-    event OffCmd
+    @ Start the device
+    event Start
 
+    @ Stop the device
+    event Stop
+
+    @ Initial state is IDLE
     initial IDLE
 
+    @ The IDLE state
     state IDLE {
-      on StartCmd visit RUNNING
+      on Start visit RUNNING
     }
 
+    @ The RUNNING state
     state RUNNING {
-      on OffCmd visit IDLE
+      on Stop visit IDLE
     }
 
   }
 
-  @ state machine instance 1
-  state machine instance device1Machine: DeviceSM
+  @ State machine instance for device 1
+  state machine instance device1: Device
 
-  @ state machine instance 2
-  state machine instance device2Machine: DeviceSM
+  @ State machine instance for device 2
+  state machine instance device2: Device
+
+  # ----------------------------------------------------------------------
+  # Special ports
+  # ----------------------------------------------------------------------
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Send a Start event to the specified device
+  async command START(
+    @ The device number
+    deviceNum: U8
+  )
+
+  @ Send a Stop event to the specified device
+  async command STOP(
+    @ The device number
+    deviceNum: U8
+  )
+
 }</code></pre>
 </div>
 </div>
@@ -2768,47 +2797,47 @@ a hierarchical state machine.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-    event Complete
-    event Drive
-    event Calibrate
-    event RTI
-    event Stop
-    event Fault
+  event Complete
+  event Drive
+  event Calibrate
+  event RTI
+  event Stop
+  event Fault
 
-    action init2
-    action doCalibrate
-    action motorControl
-    action reportFault
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
 
-    guard calibrateReady
+  guard calibrateReady
 
-    initial DeviceOn
+  initial DeviceOn
 
-    state DeviceOn {
+  state DeviceOn {
 
-        initial Initializing do init2
+    initial Initializing do init2
 
-        state Initializing {
-            on Complete visit Idle
-        }
-
-        state Idle {
-            on Drive visit Driving
-            on Calibrate if calibrateReady visit Calibrating
-        }
-
-        state Calibrating {
-            on RTI do doCalibrate
-            on Fault go Idle do reportFault
-            on Complete visit Idle
-        }
-
-        state Driving {
-            on RTI do motorControl
-            on Stop visit Idle
-        }
-
+    state Initializing {
+      on Complete visit Idle
     }
+
+    state Idle {
+      on Drive visit Driving
+      on Calibrate if calibrateReady visit Calibrating
+    }
+
+    state Calibrating {
+      on RTI do doCalibrate
+      on Fault go Idle do reportFault
+      on Complete visit Idle
+    }
+
+    state Driving {
+      on RTI do motorControl
+      on Stop visit Idle
+    }
+
+  }
 
 }</code></pre>
 </div>
@@ -3681,47 +3710,47 @@ A state member is one of the following</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-    event Complete
-    event Drive
-    event Calibrate
-    event RTI
-    event Stop
-    event Fault
+  event Complete
+  event Drive
+  event Calibrate
+  event RTI
+  event Stop
+  event Fault
 
-    action init2
-    action doCalibrate
-    action motorControl
-    action reportFault
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
 
-    guard calibrateReady
+  guard calibrateReady
 
-    initial DEVICE_ON
+  initial DEVICE_ON
 
-    state DEVICE_ON {
+  state DEVICE_ON {
 
-        initial INITIALIZING do init2
+    initial INITIALIZING do init2
 
-        state INITIALIZING {
-            on Complete visit IDLE
-        }
-
-        state IDLE {
-            on Drive visit DRIVING
-            on Calibrate if calibrateReady visit CALIBRATING
-        }
-
-        state CALIBRATING {
-            on RTI do doCalibrate
-            on Fault visit Idle do reportFault
-            on Complete visit IDLE
-        }
-
-        state DRIVING {
-            on RTI do motorControl
-            on Stop visit IDLE
-        }
-
+    state INITIALIZING {
+      on Complete visit IDLE
     }
+
+    state IDLE {
+      on Drive visit DRIVING
+      on Calibrate if calibrateReady visit CALIBRATING
+    }
+
+    state CALIBRATING {
+      on RTI do doCalibrate
+      on Fault visit Idle do reportFault
+      on Complete visit IDLE
+    }
+
+    state DRIVING {
+      on RTI do motorControl
+      on Stop visit IDLE
+    }
+
+  }
 
 }</code></pre>
 </div>
@@ -3769,18 +3798,18 @@ A state member is one of the following</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-    action initDevices
+  action initDevices
 
-    initial ON
+  initial ON
 
-    state ON {
+  state ON {
 
-        initial POWERING_UP do initDevices
+    initial POWERING_UP do initDevices
 
-        state POWERING_UP {
+    state POWERING_UP {
 
-        }
-    }</code></pre>
+    }
+  }</code></pre>
 </div>
 </div>
 </div>
@@ -3827,23 +3856,23 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-    action initPower
-    guard coldStart
+  action initPower
+  guard coldStart
 
-    initial J1
+  initial J1
 
-    junction J1 {
-            if coldStart visit OFF
-            else visit ON do initPower
-    }
+  junction J1 {
+    if coldStart visit OFF
+    else visit ON do initPower
+  }
 
-    state OFF {
+  state OFF {
 
-    }
+  }
 
-    state ON {
+  state ON {
 
-    }
+  }
 
 }</code></pre>
 </div>
@@ -3925,25 +3954,24 @@ do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-    event RTI
-    event PowerOn
+  event RTI
+  event PowerOn
 
-    action performStuff
-    action getReady
+  action performStuff
+  action getReady
 
-    guard initComplete
+  guard initComplete
 
-    initial OFF
+  initial OFF
 
-    state OFF
-        on PowerOn if initComplete visit ON do getReady
+  state OFF
+    on PowerOn if initComplete visit ON do getReady
 
-    }
+  }
 
-    state ON {
-        on RTI do performStuff
-
-    }
+  state ON {
+    on RTI do performStuff
+  }
 
 }</code></pre>
 </div>
@@ -9377,7 +9405,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-23 08:43:23 -0700
+Last updated 2024-05-23 09:47:27 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -20,7 +20,6 @@ A state machine member is one of the following:
 * A <<State-Machine-Behavior_State-Definition,state definition>>
 * A <<State-Machine-Behavior_State-Junction,state junction>>
 
-
 ==== Semantics
 
 . The _identifier_ specifies the name of the state machine.
@@ -43,48 +42,47 @@ a hierarchical state machine.
 
 state machine MonitorSm {
 
-    event Complete
-    event Drive
-    event Calibrate
-    event RTI
-    event Stop
-    event Fault
-    
-    action init2
-    action doCalibrate
-    action motorControl
-    action reportFault
+  event Complete
+  event Drive
+  event Calibrate
+  event RTI
+  event Stop
+  event Fault
+  
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
 
-    guard calibrateReady
+  guard calibrateReady
 
-    initial DeviceOn
-    
-    state DeviceOn {
+  initial DeviceOn
+  
+  state DeviceOn {
 
-        initial Initializing do init2
+    initial Initializing do init2
 
-        state Initializing {
-            on Complete visit Idle
-        }
-
-        state Idle {
-            on Drive visit Driving
-            on Calibrate if calibrateReady visit Calibrating
-        }
-
-        state Calibrating {
-            on RTI do doCalibrate
-            on Fault go Idle do reportFault
-            on Complete visit Idle
-        }
-
-        state Driving {
-            on RTI do motorControl
-            on Stop visit Idle
-        }
-
+    state Initializing {
+      on Complete visit Idle
     }
 
-}
+    state Idle {
+      on Drive visit Driving
+      on Calibrate if calibrateReady visit Calibrating
+    }
 
+    state Calibrating {
+      on RTI do doCalibrate
+      on Fault go Idle do reportFault
+      on Complete visit Idle
+    }
+
+    state Driving {
+      on RTI do motorControl
+      on Stop visit Idle
+    }
+
+  }
+
+}
 ----

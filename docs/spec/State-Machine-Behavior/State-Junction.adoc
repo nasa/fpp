@@ -28,24 +28,23 @@ A _junction_ is a type of psuedo state.  It serves as an intermediate point in a
 ----
 state machine Device {
 
-    action initPower
-    guard coldStart
+  action initPower
+  guard coldStart
 
-    initial J1
+  initial J1
 
-    junction J1 {
-            if coldStart visit OFF
-            else visit ON do initPower
-    }
+  junction J1 {
+    if coldStart visit OFF
+    else visit ON do initPower
+  }
 
-    state OFF {
+  state OFF {
 
-    }
+  }
 
-    state ON {
+  state ON {
 
-    }
+  }
 
 }
-
 ----
