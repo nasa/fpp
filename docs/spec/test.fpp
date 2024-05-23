@@ -13,7 +13,7 @@ module TestComp {
 
   }
 
-  instance dev1: FooBar \
+  instance dev1: Device \
       base id 0x100 \
       queue size 10
 

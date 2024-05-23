@@ -239,7 +239,7 @@ object EnterSymbols
     val name = data.name
     val symbol = Symbol.StateMachine(aNode)
     val nestedScope = a.nestedScope
-    for (nestedScope <- nestedScope.put(NameGroup.Port)(name, symbol))
+    for (nestedScope <- nestedScope.put(NameGroup.StateMachine)(name, symbol))
       yield updateMap(a, symbol).copy(nestedScope = nestedScope)
   }
 
