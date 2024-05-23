@@ -11,7 +11,7 @@ _[_
 `]`
 
 ==== Semantics
-. The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
+. The _identifier_ specifies the guard name which is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
 
 . The _type-name_ specifies an optional data type associated with the guard and will be
 passed into the guard function when invoked.
