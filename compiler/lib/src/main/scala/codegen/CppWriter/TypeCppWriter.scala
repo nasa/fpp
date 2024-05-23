@@ -8,7 +8,7 @@ case class TypeCppWriter(
   /** CppWriterState */
   s: CppWriterState,
   /** The name to use for string types */
-  stringTypeName: String = "Fw::String"
+  stringTypeName: String = "Fw::StringBase"
 ) {
 
   private object NameVisitor extends TypeVisitor {
@@ -52,7 +52,7 @@ object TypeCppWriter {
   def getName(
     s: CppWriterState,
     t: Type,
-    stringTypeName: String = "Fw::String"
+    stringTypeName: String = "Fw::StringBase"
   ): String =
     TypeCppWriter(s, stringTypeName).write(t)
 
