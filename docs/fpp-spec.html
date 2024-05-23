@@ -1834,18 +1834,6 @@ active component CommandDispatcher {
   @ Time get port
   time get port timeGetOut
 
-  @ Product get port
-  product get port productGetOut
-
-  @ Product request port
-  product request port productRequestOut
-
-  @ Product receive port
-  product recv port productRecvIn
-
-  @ Product send port
-  product send port productSendOut
-
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
@@ -1891,12 +1879,81 @@ active component CommandDispatcher {
   @ Number of command errors
   telemetry CommandErrors: U32 update on change
 
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ Produces and sends images
+active component Imager {
+
+  # ----------------------------------------------------------------------
+  # Special ports
+  # ----------------------------------------------------------------------
+
+  @ Command receive port
+  command recv port cmdIn
+
+  @ Command registration port
+  command reg port cmdRegOut
+
+  @ Command response port
+  command resp cmdResponseOut
+
+  @ Event port
+  event port eventOut
+
+  @ Telemetry port
+  telemetry port tlmOut
+
+  @ Text event port
+  text event port textEventOut
+
+  @ Time get port
+  time get port timeGetOut
+
+  @ Product request port
+  product request port productRequestOut
+
+  @ Product receive port
+  product recv port productRecvIn
+
+  @ Product send port
+  product send port productSendOut
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Take an image and send it as a data product
+  async command TAKE_IMAGE
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Events
+  # ----------------------------------------------------------------------
+
+  @ Image taken
+  event ImageTaken severity activity low format "Image taken"
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Telemetry
+  # ----------------------------------------------------------------------
+
+  @ Number of images taken
+  telemetry NumImagesTaken: U32 update on change
+
+  ...
+
   # ----------------------------------------------------------------------
   # Data products
   # ----------------------------------------------------------------------
 
   @ A container for images
-  product container Images
+  product container ImageContainer
 
   @ A record for holding an image
   product record ImageRecord: Image
@@ -8494,7 +8551,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 17:51:42 -0700
+Last updated 2024-05-16 12:21:55 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -692,7 +692,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Translating-XML-to-FPP">13.5. Translating XML to FPP</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Formatting-FPP-Source">13.6. Formatting FPP Source</a></li>
 <li><a href="#Analyzing-and-Translating-Models_Visualizing-Topologies">13.7. Visualizing Topologies</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-JSON">13.8. Generating JSON</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">13.8. Generating Ground Dictionaries</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-JSON-Models">13.9. Generating JSON Models</a></li>
 </ul>
 </li>
 <li><a href="#Writing-C-Plus-Plus-Implementations">14. Writing C Plus Plus Implementations</a>
@@ -1772,7 +1773,7 @@ the annotatable element that precedes it.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Any whitespace immediately following the <code>@</code> or <code>@&lt;</code> characters is ignored.</p>
+<p>Any white space immediately following the <code>@</code> or <code>@&lt;</code> characters is ignored.</p>
 </li>
 <li>
 <p>The annotation goes to the end of the line.</p>
@@ -10128,7 +10129,7 @@ The usual procedure for running <code>fpp-to-xml</code> is as follows:</p>
 <p>If <em>D</em> is empty, then run <code>fpp-to-xml</code> <em>F</em>.</p>
 </li>
 <li>
-<p>Otherwise run <code>fpp-to-xml -i</code> <em>D1</em> <code>,</code> &#8230;&#8203; <code>,</code> <em>Dn</em> <em>F</em>, where <em>Di</em> are the
+<p>Otherwise run <code>fpp-to-xml -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
 names of the dependencies.</p>
 </li>
 </ol>
@@ -10451,7 +10452,7 @@ The usual procedure for running <code>fpp-to-cpp</code> is as follows:</p>
 <p>If <em>D</em> is empty, then run <code>fpp-to-cpp</code> <em>F</em>.</p>
 </li>
 <li>
-<p>Otherwise run <code>fpp-to-cpp -i</code> <em>D1</em> <code>,</code> &#8230;&#8203; <code>,</code> <em>Dn</em> <em>F</em>, where <em>Di</em> are the
+<p>Otherwise run <code>fpp-to-cpp -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
 names of the dependencies.</p>
 </li>
 </ol>
@@ -10613,6 +10614,11 @@ This is similar to the <code>-d</code> option for
 <p><code>-n</code> <em>file</em> : Write the names of the generated XML files
 to <em>file</em>.
 This is similar to the <code>-n</code> option for
+<a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
+</li>
+<li>
+<p><code>-s</code> <em>size</em> : Specify a default string size.
+This is similar to the <code>-s</code> option for
 <a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </li>
 </ul>
@@ -11494,7 +11500,111 @@ repository</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analyzing-and-Translating-Models_Generating-JSON">13.8. Generating JSON</h3>
+<h3 id="Analyzing-and-Translating-Models_Generating-Ground-Dictionaries">13.8. Generating Ground Dictionaries</h3>
+<div class="paragraph">
+<p>A <strong>ground dictionary</strong> specifies all the commands,
+events, telemetry, parameters, and data products in a FSW
+application.
+Typically a ground data system (GDS), such as the F Prime GDS,
+uses the ground dictionary to provide the operational
+interface to the application.
+The interface typically includes real-time commanding;
+real-time display of events and telemetry; logging of
+commands, events, and telemetry; uplink and downlink of files, including data
+products; and decoding of data products.
+This section explains how to generate ground dictionaries from
+FPP models.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool name:</strong> The tool for generating ground dictionaries is called
+<code>fpp-to-dict</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-dict</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-dict -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Except for the tool name, this procedure is identical to the one given for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> As with the tools described above, you can provide input to
+<code>fpp-to-dict</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-dict</code> writes a file
+<em>T</em> <code>TopologyDictionary.json</code>.
+The dictionary is specified in JavaScript Object Notation (JSON) format.
+The JSON format is specified in the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/fpp-json-dict.md">F Prime
+dictionary documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>Here is a common use case:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The input files <em>F</em> define a single topology <em>T</em>.
+<em>T</em> describes all the component instances and connections in a FSW
+application, and the generated dictionary <em>T</em> <code>TopologyDictionary.json</code>
+is the dictionary for the application.</p>
+</li>
+<li>
+<p>If <em>T</em> imports subtopologies, then those subtopologies are defined
+in the dependency files <em>D</em>.
+That way the subtopologies are part of the model, but no dictionaries
+are generated for them.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+<code>fpp-to-dict</code> provides the following options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>-d</code> and <code>-s</code> options work in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
+</li>
+<li>
+<p>You can use the <code>-f</code> and <code>-p</code> options to specify a framework version
+and project version for the dictionary.
+That way the dictionary is stamped with information that connects
+it to the FSW version for which it is intended to be used.</p>
+</li>
+<li>
+<p>You can use the <code>-l</code> option to specify library versions used
+in the project.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-dict">FPP wiki</a> for details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Analyzing-and-Translating-Models_Generating-JSON-Models">13.9. Generating JSON Models</h3>
 <div class="paragraph">
 <p>FPP provides a tool called <code>fpp-to-json</code> for converting FPP models to
 JavaScript Object Notation (JSON) format.
@@ -12250,7 +12360,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-04-23 17:52:25 -0700
+Last updated 2024-05-16 12:07:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

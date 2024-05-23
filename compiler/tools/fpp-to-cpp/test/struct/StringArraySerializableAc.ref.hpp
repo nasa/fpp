@@ -22,9 +22,6 @@ class StringArray :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The type of s1
-    using Type_of_s1 = Fw::ExternalString;
-
     //! The type of s2
     using Type_of_s2 = Fw::ExternalString[16];
 
@@ -128,13 +125,13 @@ class StringArray :
     // ----------------------------------------------------------------------
 
     //! Get member s1
-    Type_of_s1& gets1()
+    Fw::ExternalString& gets1()
     {
       return this->m_s1;
     }
 
     //! Get member s1 (const)
-    const Type_of_s1& gets1() const
+    const Fw::ExternalString& gets1() const
     {
       return this->m_s1;
     }

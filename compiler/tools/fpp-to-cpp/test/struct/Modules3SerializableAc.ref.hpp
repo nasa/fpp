@@ -23,9 +23,6 @@ class Modules3 :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The type of x
-    using Type_of_x = M::Modules2;
-
     //! The type of arr
     using Type_of_arr = M::Modules2[3];
 
@@ -129,13 +126,13 @@ class Modules3 :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    Type_of_x& getx()
+    M::Modules2& getx()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const Type_of_x& getx() const
+    const M::Modules2& getx() const
     {
       return this->m_x;
     }

@@ -23,9 +23,6 @@ class Enum :
     // Types
     // ----------------------------------------------------------------------
 
-    //! The type of e
-    using Type_of_e = M::E;
-
     //! The type of eArr
     using Type_of_eArr = M::E[3];
 

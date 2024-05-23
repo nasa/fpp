@@ -20,15 +20,6 @@ class Including :
   public:
 
     // ----------------------------------------------------------------------
-    // Types
-    // ----------------------------------------------------------------------
-
-    //! The type of x
-    using Type_of_x = Included;
-
-  public:
-
-    // ----------------------------------------------------------------------
     // Constants
     // ----------------------------------------------------------------------
 
@@ -116,13 +107,13 @@ class Including :
     // ----------------------------------------------------------------------
 
     //! Get member x
-    Type_of_x& getx()
+    Included& getx()
     {
       return this->m_x;
     }
 
     //! Get member x (const)
-    const Type_of_x& getx() const
+    const Included& getx() const
     {
       return this->m_x;
     }
