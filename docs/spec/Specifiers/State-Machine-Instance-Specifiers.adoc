@@ -1,0 +1,28 @@
+=== State Machine Instance Specifiers
+
+A *state machine instance specifier* instantiates a  <<Definitions_State-Machine-Definitions,state machine definition>>.
+
+==== Syntax
+
+`state machine instance`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`:`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+. The _identifier_ is the name of the instantiated state machine
+
+. The _qual-ident_ is the name of the state machine definition
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+}
+
+@ state machine monitor1 is an instance of state machine model MonitorSm
+state machine instance monitor1 : MonitorSm
+----

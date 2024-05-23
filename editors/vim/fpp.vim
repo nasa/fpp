@@ -8,6 +8,7 @@ setl cinwords=component,enum,module,struct,topology
 setl cindent
 
 " keywords
+syn keyword fppKeyword action
 syn keyword fppKeyword active
 syn keyword fppKeyword activity
 syn keyword fppKeyword always
@@ -26,24 +27,33 @@ syn keyword fppKeyword container
 syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
+syn keyword fppKeyword do
 syn keyword fppKeyword drop
+syn keyword fppKeyword else
+syn keyword fppKeyword entry
 syn keyword fppKeyword enum
 syn keyword fppKeyword event
+syn keyword fppKeyword exit
 syn keyword fppKeyword false
 syn keyword fppKeyword fatal
 syn keyword fppKeyword format
 syn keyword fppKeyword get
+syn keyword fppKeyword guard
 syn keyword fppKeyword guarded
 syn keyword fppKeyword health
 syn keyword fppKeyword high
 syn keyword fppKeyword id
+syn keyword fppKeyword if
 syn keyword fppKeyword import
 syn keyword fppKeyword include
+syn keyword fppKeyword initial
 syn keyword fppKeyword input
 syn keyword fppKeyword instance
 syn keyword fppKeyword internal
+syn keyword fppKeyword junction
 syn keyword fppKeyword locate
 syn keyword fppKeyword low
+syn keyword fppKeyword machine
 syn keyword fppKeyword match
 syn keyword fppKeyword module
 syn keyword fppKeyword on
@@ -73,6 +83,7 @@ syn keyword fppKeyword set
 syn keyword fppKeyword severity
 syn keyword fppKeyword size
 syn keyword fppKeyword stack
+syn keyword fppKeyword state
 syn keyword fppKeyword struct
 syn keyword fppKeyword sync
 syn keyword fppKeyword telemetry
@@ -83,6 +94,7 @@ syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
 syn keyword fppKeyword update
+syn keyword fppKeyword visit
 syn keyword fppKeyword warning
 syn keyword fppKeyword with
 syn keyword fppKeyword yellow

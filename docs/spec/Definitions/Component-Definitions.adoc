@@ -322,3 +322,67 @@ active component Imager {
 
 }
 ----
+
+[source,fpp]
+----
+@ A component with state machines
+active component DeviceMgr {
+
+  # ----------------------------------------------------------------------
+  # State machines
+  # ----------------------------------------------------------------------
+
+  @ A state machine representing a device
+  state machine Device {
+
+    @ Start the device
+    event Start
+
+    @ Stop the device
+    event Stop
+
+    @ Initial state is IDLE
+    initial IDLE
+
+    @ The IDLE state
+    state IDLE {
+      on Start visit RUNNING
+    }
+
+    @ The RUNNING state
+    state RUNNING {
+      on Stop visit IDLE
+    }
+
+  }
+
+  @ State machine instance for device 1
+  state machine instance device1: Device
+
+  @ State machine instance for device 2
+  state machine instance device2: Device
+
+  # ----------------------------------------------------------------------
+  # Special ports
+  # ----------------------------------------------------------------------
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+  
+  @ Send a Start event to the specified device
+  async command START(
+    @ The device number
+    deviceNum: U8
+  )
+
+  @ Send a Stop event to the specified device
+  async command STOP(
+    @ The device number
+    deviceNum: U8
+  )
+
+}
+----
