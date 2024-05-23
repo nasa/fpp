@@ -1,0 +1,90 @@
+=== State Machine Definitions
+
+A *state machine definion* defines a state machine  
+
+==== Syntax
+
+* `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
+`{` _state-machine-behavior_ `}` 
+
+_state-machine-behavior_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state machine member*,
+and the terminating punctuation is a semicolon.
+A state machine member is one of the following
+
+* A <<State-Machine-Behavior_State-Events,state events>>
+* A <<State-Machine-Behavior_State-Actions,state actions>>
+* A <<State-Machine-Behavior_State-Guards,state guards>>
+* A <<State-Machine-Behavior_State-Initial,state initial>>
+* A <<State-Machine-Behavior_State-Definition,state definition>>
+* A <<State-Machine-Behavior_State-Junction,state junction>>
+
+
+==== Semantics
+
+. The _identifier_ specifies the name of the state machine.
+
+. The _state-machine-behavior_ describes
+a hierarchical state machine.
+
+. _state_events_ specify all the _events_ that can be dispatched to this state machine.  An _event_ causes a state transition
+
+. _state actions_ specify all the actions that can be invoked by this state machine.  An _action_ is a function that's called on a state transition
+
+. _state guards_ specify all the guards that are used in transitions by this state machine.  A _guard_ is a predicate that indicates if a transition can occur
+
+. The state machine must have one _state initial_ that specifies the initial state
+
+==== Examples
+
+[source,fpp]
+----
+
+state machine MonitorSm {
+
+    event Complete
+    event Drive
+    event Calibrate
+    event RTI
+    event Stop
+    event Fault
+    
+    action init2
+    action doCalibrate
+    action motorControl
+    action reportFault
+
+    guard calibrateReady
+
+    initial DeviceOn
+    
+    state DeviceOn {
+
+        initial Initializing do init2
+
+        state Initializing {
+            on Complete visit Idle
+        }
+
+        state Idle {
+            on Drive visit Driving
+            on Calibrate if calibrateReady visit Calibrating
+        }
+
+        state Calibrating {
+            on RTI do doCalibrate
+            on Fault go Idle do reportFault
+            on Complete visit Idle
+        }
+
+        state Driving {
+            on RTI do motorControl
+            on Stop visit Idle
+        }
+
+    }
+
+}
+
+----

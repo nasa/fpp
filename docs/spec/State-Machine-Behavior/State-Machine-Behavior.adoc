@@ -1,0 +1,403 @@
+
+== State Machine Behavior
+
+
+=== State Events
+
+*state events* specifies _events_ that are dispatched to the state machine which causes the state machine to run to completion.
+When a state machine _runs to completion_ it means that it processes all pending events and transitions through its states until it reaches a stable state where no further transitions are immediately required.
+
+==== Syntax
+`event`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the event name.
+
+. If present, the optional _type-name_ names the type of the data carried by the event.  If _type-name_ is not present, then the event carries no data
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# An event without data
+event RTI
+
+# An event with data
+event Fault: FaultData
+
+----
+
+=== State Actions
+
+*state actions* specifies _actions_ that are invoked upon transitions.  Actions are functions that can carry data.
+
+==== Syntax
+`action`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the action name.
+
+. The _type-name_ specifies an optional data type associated with the action and will be
+passed into the action function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# An action without data
+action initPower
+
+# An action with data
+action reportFault: FaultData
+
+----
+
+=== State Guards
+
+*state guards* specifies _guards_ that are associated with transitions.  A _guard_ is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.
+
+==== Syntax
+`guard`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+`]`
+
+==== Semantics
+. The _identifier_ specifies the guard name wich is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.
+
+. The _type-name_ specifies an optional data type associated with the guard and will be
+passed into the guard function when invoked.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+    id: U32
+    data: U32
+}
+
+# A guard without data
+guard noRecovery
+
+# A guard with data
+guard noRecovery: FaultData
+
+----
+
+=== State Definition
+
+A *state definition* specifies a state in a 
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+`state` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `{` _state_sequence_ `}` _]_
+
+_state-sequence_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state member*,
+and the terminating punctuation is a semicolon.
+A state member is one of the following
+
+* A <<State-Machine-Behavior_State-Definition,state definition>>
+* A <<State-Machine-Behavior_State-Junction,state junction>>
+* A <<State-Machine-Behavior_State-Initial,state initial>>
+* A <<State-Machine-Behavior_State-Transition,state transition>>
+
+
+==== Semantics
+
+. The _identifier_ specifies the name of a state in the state machine
+
+. The state can be hierarchical, a state can be defined within another state
+
+. The state is required to have one _initial_ specification if it is a hierarchical state
+
+. The state can have _junctions_
+
+. All _transitions_ that originate from a state are required to be specified inside that state
+
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+    event Complete
+    event Drive
+    event Calibrate
+    event RTI
+    event Stop
+    event Fault
+    
+    action init2
+    action doCalibrate
+    action motorControl
+    action reportFault
+
+    guard calibrateReady
+
+    initial DEVICE_ON
+    
+    state DEVICE_ON {
+
+        initial INITIALIZING do init2
+
+        state INITIALIZING {
+            on Complete visit IDLE
+        }
+
+        state IDLE {
+            on Drive visit DRIVING
+            on Calibrate if calibrateReady visit CALIBRATING
+        }
+
+        state CALIBRATING {
+            on RTI do doCalibrate
+            on Fault go Idle do reportFault
+            on Complete visit IDLE
+        }
+
+        state DRIVING {
+            on RTI do motorControl
+            on Stop visit IDLE
+        }
+
+    }
+
+}
+----
+
+=== State Initial
+
+A *state initial* specifies an initial state transition  
+
+==== Syntax
+
+`initial` 
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`do`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+
+==== Semantics
+
+. The _qual-ident_ specifies the state or junction that will be visited when the state machine starts running.
+
+. An _initial_ specification is required at the top of the state machine
+
+. An _initial_ specification is required at the top of every hierarchical state
+ 
+. The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
+ 
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+    action initDevices
+
+    initial ON
+
+    state ON {
+
+        initial POWERING_UP do initDevices
+
+        state POWERING_UP {
+
+        }
+    }
+----
+
+=== State Junction
+
+A *state junction* specifies a state junction in a  
+<<Definitions_State-Machine-Definitions,state machine>>.  
+A _junction_ is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the _guard_ (predicate).  Other psuedo states in the state machine terminology are _initial_ and _final_
+
+==== Syntax
+
+`junction` <<Lexical-Elements_Identifiers,_identifier_>>
+`{`
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior_State-Visit,state visit>>
+`else` <<State-Machine-Behavior_State-Visit,state visit>>
+`}`
+
+==== Semantics
+
+. The _identifier_ after the keyword `junction` is the name of the _junction_. 
+
+. Each _junction_ requires a unique name.
+
+. The _identifier_ after the keyword `if` specifies the name of the _guard_
+
+. The _state visit_ specifies the state to enter with an optional action
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+    action initPower
+    guard coldStart
+
+    initial J1
+
+    junction J1 {
+            if coldStart visit OFF
+            else visit ON do initPower
+    }
+
+    state OFF {
+
+    }
+
+    state ON {
+
+    }
+
+}
+
+----
+
+=== State Transition
+
+A *state transition* specifies a state transition in a  
+<<Definitions_State-Machine-Definitions,state machine>>  
+
+==== Syntax
+
+A state transition is one of the following:
+
+* _regular_transtion_
+* _self_transition_
+
+_regular_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+<<State-Machine-Behavior_State-Visit,state visit>>
+
+_self_transition_ has the following syntax:
+
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+do` <<Lexical-Elements_Identifiers,_identifier_>>
+
+
+==== Semantics
+
+. The _identifier_ after the keyword `on` is the name of the _event_ that triggers this transition 
+
+. The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
+
+. The _identifier_ after the keyword `do` is the action performed
+
+. The _state visit_ specifies the name of the target state and the optional action performed
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+    event RTI
+    event PowerOn
+    
+    action performStuff
+    action getReady
+
+    guard initComplete
+
+    initial OFF
+
+    state OFF
+        on PowerOn if initComplete visit ON do getReady
+
+    }
+
+    state ON {
+        on RTI do performStuff
+
+    }
+
+}
+
+----
+
+=== State Visit
+
+A *state visit* specifies a visit or entry into another state with optional actions  
+
+==== Syntax
+
+`visit` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+
+==== Semantics
+
+. The _qual-ident_ after the keyword `visit` is the _state_ which is visited or entered 
+
+. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+    event PowerOn
+    
+    action getReady
+
+    guard initComplete
+
+    initial OFF
+
+    state OFF {
+        on PowerOn if initComplete visit ON do getReady
+
+    }
+
+    state ON {
+
+    }
+
+}
+
+----

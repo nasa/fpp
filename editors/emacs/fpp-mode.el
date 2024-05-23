@@ -35,7 +35,7 @@
 
 (defconst fpp-mode-definition-keywords
   '("type" "array" "component" "instance" "constant"
-    "enum" "module" "port" "struct" "topology")
+    "enum" "machine" "module" "port" "state" "struct" "topology")
   "FPP keywords for definitions.")
 
 (defconst fpp-mode-keywords

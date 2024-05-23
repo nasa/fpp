@@ -1,0 +1,54 @@
+
+@startuml
+
+state DeviceOff
+
+state DeviceOn {
+    [*] --> Initializing:/init2()
+
+    state Initializing
+
+    state Idle
+
+    state Calibrating {
+        Calibrating:Internal: RTI/doCalibrate()
+    }
+
+    state Driving {
+        Driving:Internal: RTI/motorControl()
+    }
+
+    Initializing --> Idle: Complete
+    Idle --> Driving: Drive
+    Idle --> Calibrating: Calibrate[calibrateReady()]
+    Calibrating --> Idle: Fault/reportFault()
+    Calibrating --> Idle: Complete
+    Driving --> Idle: Stop
+}
+
+state g1 <<choice>>
+
+[*] -> g1:/init1()
+g1 -> DeviceOff: [coldStart()]
+g1 -> DeviceOn:/initPower()
+
+state Recovery {
+    Recovery:Internal: RTI/doSafe()
+}
+
+state Diagnostics {
+    Diagnostics:Internal: RTI/doDiagnostics()
+}
+state g2 <<choice>>
+
+DeviceOff --> DeviceOn: PowerOn/setPower()
+DeviceOn --> DeviceOff: PowerOff
+DeviceOn --> g2: Fault
+g2 --> Recovery: /reportFault()
+g2 --> Diagnostics: [noRecovery()]
+Diagnostics --> DeviceOn: Resume
+Recovery --> Diagnostics: Complete
+DeviceOn --> DeviceOn: POR
+
+
+@enduml
