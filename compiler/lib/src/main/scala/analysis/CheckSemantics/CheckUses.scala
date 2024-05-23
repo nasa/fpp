@@ -7,17 +7,14 @@ import fpp.compiler.util._
 object CheckUses extends UseAnalyzer {
 
   override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-      println("**** componentInstanceUse")
       visitQualIdentNode (NameGroup.ComponentInstance) (a, node)
   }
 
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-    println("**** componentUse")
     visitQualIdentNode (NameGroup.Component) (a, node)
   }
 
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-    println("**** stateMachineUse")
     visitQualIdentNode (NameGroup.StateMachine) (a, node)
   }
 
@@ -116,7 +113,6 @@ object CheckUses extends UseAnalyzer {
   }
 
   override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-    println("** Port Use")
     visitQualIdentNode (NameGroup.Port) (a, node)
   }
 
@@ -187,10 +183,8 @@ object CheckUses extends UseAnalyzer {
     }
     val data = node.data
     data match {
-      case Ast.QualIdent.Unqualified(name) => println(s"*** visitUnQualIdentNode name = $name")
-                                              visitUnqualified(a, node, name)
-      case Ast.QualIdent.Qualified(qualifier, name) => println(s"*** visitQualifiedNode name = $name") 
-                                                       visitQualified(a, node, qualifier, name)
+      case Ast.QualIdent.Unqualified(name) => visitUnqualified(a, node, name)
+      case Ast.QualIdent.Qualified(qualifier, name) => visitQualified(a, node, qualifier, name)
     }
   }
 
