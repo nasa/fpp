@@ -1239,6 +1239,18 @@
               }
             }
           },
+          "StateMachine" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          },
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
