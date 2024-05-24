@@ -479,7 +479,7 @@ object Ast {
       override def toString = "type"
     }
     case object StateMachine extends Kind {
-      override def toString = "statemachine"
+      override def toString = "state machine"
     }
   }
 
