@@ -110,9 +110,8 @@ object CheckUses extends UseAnalyzer {
     yield a.copy(nestedScope = a.nestedScope.pop)
   }
 
-  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
+  override def portUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.Port) (a, node)
-  }
 
   override def topologyUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.Topology) (a, node)
