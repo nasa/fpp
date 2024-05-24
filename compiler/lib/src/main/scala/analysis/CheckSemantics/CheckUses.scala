@@ -6,13 +6,11 @@ import fpp.compiler.util._
 /** Match uses to their definitions */
 object CheckUses extends UseAnalyzer {
 
-  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
-      visitQualIdentNode (NameGroup.ComponentInstance) (a, node)
-  }
+  override def componentInstanceUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
+    visitQualIdentNode (NameGroup.ComponentInstance) (a, node)
 
-  override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
+  override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.Component) (a, node)
-  }
 
   override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
     visitQualIdentNode (NameGroup.StateMachine) (a, node)
