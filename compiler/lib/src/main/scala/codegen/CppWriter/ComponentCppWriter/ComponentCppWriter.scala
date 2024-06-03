@@ -27,6 +27,8 @@ case class ComponentCppWriter (
 
   private val paramWriter = ComponentParameters(s, aNode)
 
+  private val stateMachineWriter = ComponentStateMachines(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -202,6 +204,7 @@ case class ComponentCppWriter (
       eventWriter.getVariableMembers,
       tlmWriter.getVariableMembers,
       paramWriter.getVariableMembers,
+      stateMachineWriter.getVariableMembers,
       getMsgSizeVariableMember,
       getMutexVariableMembers,
     )
