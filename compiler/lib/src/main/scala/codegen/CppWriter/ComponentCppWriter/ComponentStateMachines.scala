@@ -18,7 +18,12 @@ case class ComponentStateMachines(
         case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
       }
     
-      println(s"SpecStateMachineInstance = ${instances}")
+      val smInstances = instances.map(_.data.name)
+
+      val smDefs = instances.map(_.data.statemachine.data.toIdentList).flatten
+
+      println(s"state machine instances = ${smInstances}")
+      println(s"smDefs = ${smDefs}")
 
       List(linesClassMember(List(Line("getVariableMembers"))))
   }
