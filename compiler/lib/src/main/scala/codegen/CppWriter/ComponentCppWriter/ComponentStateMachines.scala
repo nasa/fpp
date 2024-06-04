@@ -11,7 +11,8 @@ case class ComponentStateMachines(
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-          genInstantiations
+          genInstantiations ++
+          genEnumerations
   }
 
 
@@ -22,7 +23,7 @@ case class ComponentStateMachines(
       val instances = defComponent.data.members.collect {
         case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
       }
-    
+
       val smInstances = instances.map(_.data.name)
       val smDefs = instances.flatMap(_.data.statemachine.data.toIdentList)
 
@@ -31,12 +32,13 @@ case class ComponentStateMachines(
            Line(s"$definition   $instance;")
           }
 
-      val commentLine = List(line("// State machine instantiations"))
+      addAccessTagAndComment(
+        "PRIVATE",
+        s"State machine instantiations",
+        List(linesClassMember(smLines)),
+        CppDoc.Lines.Hpp
+      )
 
-      List(linesClassMember(
-        commentLine ++
-        smLines
-      ))
   }
 
   def genEnumerations: List[CppDoc.Class.Member] = {
@@ -46,18 +48,16 @@ case class ComponentStateMachines(
       val instances = defComponent.data.members.collect {
         case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
       }
-    
-      val smInstances = instances.map(_.data.name).map(_.toUpperCase).map(line)
-      // val smLines = smInstances.map(x => line(s"$x"))
-      // println(s"smLines = $smLines")
-      // println(s"smInstances = $smInstances")
 
-      val enumDecl = List(line("namespace StateMachine {"),
-                          line("typedef enum {")) ++ smInstances
+      val smInstances = instances.map(_.data.name).map(x => x.toUpperCase).map(x => line(x))
 
-      List(linesClassMember(
-        enumDecl
-      ))
+      addAccessTagAndComment(
+        "PRIVATE",
+        s"State machine Enumeration",
+        List(linesClassMember(smInstances)),
+        CppDoc.Lines.Hpp
+      )
+
   }
 
 }
