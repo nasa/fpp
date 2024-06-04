@@ -19,14 +19,23 @@ case class ComponentStateMachines(
       }
     
       val smInstances = instances.map(_.data.name)
+      val smDefs = instances.flatMap(_.data.statemachine.data.toIdentList)
 
-      val smDefs = instances.map(_.data.statemachine.data.toIdentList).flatten
+      val smLines: List[Line] = smInstances.zip(smDefs).map 
+          { case (instance, definition) =>
+           Line(s"$definition   $instance;")
+          }
 
-      println(s"state machine instances = ${smInstances}")
-      println(s"smDefs = ${smDefs}")
+      val commentLine = List(line("// State machine instantiations"))
 
-      List(linesClassMember(List(Line("getVariableMembers"))))
+      List(linesClassMember(
+        commentLine ++
+        smLines
+      ))
+
+
+
   }
 
 }
-
+ 
