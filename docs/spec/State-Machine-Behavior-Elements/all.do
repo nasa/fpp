@@ -4,4 +4,4 @@
 # all.do
 # ----------------------------------------------------------------------
 
-redo-ifchange State-Machine-Behavior.adoc
+redo-ifchange State-Machine-Behavior-Elements.adoc

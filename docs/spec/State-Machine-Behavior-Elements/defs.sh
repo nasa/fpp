@@ -8,10 +8,10 @@ redo-ifchange defs.sh
 
 export FILES="
 Introduction.adoc
-State-Events.adoc
-State-Actions.adoc
-State-Guards.adoc
+Action-Definitions.adoc
 State-Definition.adoc
+State-Event-Definitions.adoc
+State-Guards.adoc
 State-Initial.adoc
 State-Junction.adoc
 State-Transition.adoc
