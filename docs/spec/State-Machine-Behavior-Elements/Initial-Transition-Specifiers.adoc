@@ -1,4 +1,4 @@
-=== State Initial
+=== Initial Transition Specifiers
 
 A *state initial* specifies an initial state transition  
 

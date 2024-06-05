@@ -555,39 +555,39 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.2. State Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.2. Guard Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.2.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.2.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.2.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Event-Definitions">6.3. State Event Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.3. Initial Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Event-Definitions_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Event-Definitions_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Event-Definitions_Examples">6.3.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Guards">6.4. State Guards</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.4. State Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Guards_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Guards_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Guards_Examples">6.4.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Initial">6.5. State Initial</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Junction">6.5. State Junction</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Initial_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Initial_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Initial_Examples">6.5.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Junction_Syntax">6.5.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Junction_Semantics">6.5.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Junction_Examples">6.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Junction">6.6. State Junction</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">6.6. State Machine Event Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Junction_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Junction_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Junction_Examples">6.6.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_State-Transition">6.7. State Transition</a>
@@ -2767,19 +2767,19 @@ A state machine member is one of the following:</p>
 <p>An <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a></p>
 </li>
 <li>
+<p>A <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a></p>
+</li>
+<li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Event-Definitions">state event definition</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Guards">state guards</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Initial">state initial</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">state initial</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Junction">state junction</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">state machine event definition</a></p>
 </li>
 </ul>
 </div>
@@ -2801,7 +2801,7 @@ In this case, the state machine is externally defined.</p>
 </li>
 <li>
 <p>The state machine member sequence must contain exactly one
-<a href="#State-Machine-Behavior-Elements_State-Initial">state initial</a>.</p>
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.</p>
 </li>
 </ol>
 </div>
@@ -3550,7 +3550,7 @@ Actions may carry data.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The identifier specifies the action name.</p>
+<p>The identifier specifies the name of the action.</p>
 </li>
 <li>
 <p>If present, the optional type name specifies the type <em>T</em> associated
@@ -3568,12 +3568,12 @@ action.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-  id: U32
+  $id: U32
   data: U32
 }
 
 @ A state machine with action definitions
-state machine Actions {
+state machine ActionDefs {
 
   @ An action without data
   action initPower
@@ -3589,13 +3589,132 @@ state machine Actions {
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.2. State Definitions</h3>
+<h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.2. Guard Definitions</h3>
+<div class="paragraph">
+<p>A <strong>guard definition</strong> defines a guard, i.e., a
+function that returns a Boolean value.
+Guards are associated with transitions.
+If a transition has a guard, then the transition occurs
+if and only if the guard evaluates to <code>true</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.2.1. Syntax</h4>
+<div class="paragraph">
+<p><code>guard</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.2.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the name of the guard.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type <em>T</em> associated
+with the guard.
+A value of type <em>T</em> will be passed into the guard function when it is called.
+If <em>type-name</em> is not present, then there is no data associated with the
+guard.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.2.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with guard definitions
+state machine GuardDefs {
+
+  @ A guard without data
+  guard noRecovery
+
+  @ A guard with data
+  guard noRecovery: FaultData
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.3. Initial Transition Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>state initial</strong> specifies an initial state transition</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</h4>
+<div class="paragraph">
+<p><code>initial</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<em>[</em>
+<code>do</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.3.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <em>qual-ident</em> specifies the state or junction that will be visited when the state machine starts running.</p>
+</li>
+<li>
+<p>An <em>initial</em> specification is required at the top of the state machine</p>
+</li>
+<li>
+<p>An <em>initial</em> specification is required at the top of every hierarchical state</p>
+</li>
+<li>
+<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed before visiting the initial state</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.3.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initDevices
+
+  initial ON
+
+  state ON {
+
+    initial POWERING_UP do initDevices
+
+    state POWERING_UP {
+
+    }
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.4. State Definitions</h3>
 <div class="paragraph">
 <p>A <strong>state definition</strong> defines a state of a
 <a href="#Definitions_State-Machine-Definitions">state machine</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.2.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>state</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>{</code> <em>state_sequence</em> <code>}</code> <em>]</em></p>
@@ -3610,13 +3729,13 @@ A state definition member is one of the following</p>
 <div class="ulist">
 <ul>
 <li>
+<p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
+</li>
+<li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Junction">state junction</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Initial">state initial</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Transition">state transition</a></p>
@@ -3625,7 +3744,7 @@ A state definition member is one of the following</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.2.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.4.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3647,7 +3766,7 @@ A state definition member is one of the following</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.2.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.4.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -3700,173 +3819,14 @@ A state definition member is one of the following</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Event-Definitions">6.3. State Event Definitions</h3>
-<div class="paragraph">
-<p>A <strong>state event definition</strong> defines an event that may be dispatched
-to a state machine.
-Dispatched events are placed on a first-in first-out (FIFO) queue.
-When the state machine processes events, it runs to completion.
-This means that it means that there are no events in the queue,
-and no state transitions are immediately required.</p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Event-Definitions_Syntax">6.3.1. Syntax</h4>
-<div class="paragraph">
-<p><code>event</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>:</code>
-<a href="#Type-Names"><em>type-name</em></a>
-<em>]</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Event-Definitions_Semantics">6.3.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The identifier specifies the event name.</p>
-</li>
-<li>
-<p>If present, the optional type name specifies the type of the
-data carried by the event.
-If <em>type-name</em> is not present, then the event carries no data.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Event-Definitions_Examples">6.3.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-  id: U32
-  data: U32
-}
-
-# An event without data
-event RTI
-
-# An event with data
-event Fault: FaultData</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Guards">6.4. State Guards</h3>
-<div class="paragraph">
-<p><strong>state guards</strong> specifies <em>guards</em> that are associated with transitions.  A <em>guard</em> is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.</p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Guards_Syntax">6.4.1. Syntax</h4>
-<div class="paragraph">
-<p><code>guard</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>:</code>
-<a href="#Type-Names"><em>type-name</em></a>
-<code>]</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Guards_Semantics">6.4.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The <em>identifier</em> specifies the guard name which is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.</p>
-</li>
-<li>
-<p>The <em>type-name</em> specifies an optional data type associated with the guard and will be
-passed into the guard function when invoked.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Guards_Examples">6.4.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-    id: U32
-    data: U32
-}
-
-# A guard without data
-guard noRecovery
-
-# A guard with data
-guard noRecovery: FaultData</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Initial">6.5. State Initial</h3>
-<div class="paragraph">
-<p>A <strong>state initial</strong> specifies an initial state transition</p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Initial_Syntax">6.5.1. Syntax</h4>
-<div class="paragraph">
-<p><code>initial</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<em>[</em>
-<code>do</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Initial_Semantics">6.5.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The <em>qual-ident</em> specifies the state or junction that will be visited when the state machine starts running.</p>
-</li>
-<li>
-<p>An <em>initial</em> specification is required at the top of the state machine</p>
-</li>
-<li>
-<p>An <em>initial</em> specification is required at the top of every hierarchical state</p>
-</li>
-<li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed before visiting the initial state</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Initial_Examples">6.5.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
-
-  action initDevices
-
-  initial ON
-
-  state ON {
-
-    initial POWERING_UP do initDevices
-
-    state POWERING_UP {
-
-    }
-  }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Junction">6.6. State Junction</h3>
+<h3 id="State-Machine-Behavior-Elements_State-Junction">6.5. State Junction</h3>
 <div class="paragraph">
 <p>A <strong>state junction</strong> specifies a state junction in a
 <a href="#Definitions_State-Machine-Definitions">state machine</a>.
 A <em>junction</em> is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the <em>guard</em> (predicate).  Other psuedo states in the state machine terminology are <em>initial</em> and <em>final</em></p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Junction_Syntax">6.6.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Junction_Syntax">6.5.1. Syntax</h4>
 <div class="paragraph">
 <p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code>
@@ -3876,7 +3836,7 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Junction_Semantics">6.6.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Junction_Semantics">6.5.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3895,7 +3855,7 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Junction_Examples">6.6.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Junction_Examples">6.5.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -3919,6 +3879,72 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
   }
 
 }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions">6.6. State Machine Event Definitions</h3>
+<div class="paragraph">
+<p>A <strong>state machine event definition</strong> defines an event that may be
+sent to a state machine.
+Events are inputs to state machines that cause state transitions
+to occur.</p>
+</div>
+<div class="paragraph">
+<p>Events can be external or internal.
+An external event is sent to the state machine from outside,
+e.g., by a command to an F Prime component.
+An internal event is sent by the state machine implementation
+to itself.</p>
+</div>
+<div class="paragraph">
+<p>All events sent to a state machine (internal and external)
+are placed on a first-in first-out (FIFO) queue.
+The state machine dequeues and processes events when it is
+visiting a state, and after it has run the entry function
+for that state.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Syntax">6.6.1. Syntax</h4>
+<div class="paragraph">
+<p><code>event</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Semantics">6.6.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the event name.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type of the
+data carried by the event.
+If <em>type-name</em> is not present, then the event carries no data.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Examples">6.6.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  id: U32
+  data: U32
+}
+
+# An event without data
+event RTI
+
+# An event with data
+event Fault: FaultData</code></pre>
 </div>
 </div>
 </div>
@@ -9458,7 +9484,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-05 09:00:17 -0700
+Last updated 2024-06-05 09:57:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

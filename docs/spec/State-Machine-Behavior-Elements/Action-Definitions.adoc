@@ -14,7 +14,7 @@ _]_
 
 ==== Semantics
 
-. The identifier specifies the action name.
+. The identifier specifies the name of the action.
 
 . If present, the optional type name specifies the type _T_ associated
 with the action.
@@ -28,12 +28,12 @@ action.
 [source,fpp]
 ----
 struct FaultData {
-  id: U32
+  $id: U32
   data: U32
 }
 
 @ A state machine with action definitions
-state machine Actions {
+state machine ActionDefs {
 
   @ An action without data
   action initPower

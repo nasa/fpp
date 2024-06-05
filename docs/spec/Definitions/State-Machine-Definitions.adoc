@@ -29,11 +29,11 @@ and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
 * An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
+* A <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-* A <<State-Machine-Behavior-Elements_State-Event-Definitions,state event definition>>
-* A <<State-Machine-Behavior-Elements_State-Guards,state guards>>
-* A <<State-Machine-Behavior-Elements_State-Initial,state initial>>
+* A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,state initial>>
 * A <<State-Machine-Behavior-Elements_State-Junction,state junction>>
+* A <<State-Machine-Behavior-Elements_State-Machine-Event-Definitions,state machine event definition>>
 
 ==== Semantics
 
@@ -47,7 +47,7 @@ behavior is not specified in FPP.
 In this case, the state machine is externally defined.
 
 . The state machine member sequence must contain exactly one
-<<State-Machine-Behavior-Elements_State-Initial,state initial>>.
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 
 ==== Examples
 
