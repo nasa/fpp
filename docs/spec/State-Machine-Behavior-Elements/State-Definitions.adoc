@@ -6,9 +6,9 @@ A *state definition* defines a state of a
 ==== Syntax
 
 `state` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_ `{` _state_sequence_ `}` _]_
+_[_ `{` _state-definition-member-sequence_ `}` _]_
 
-_state-sequence_ is an 
+_state-definition-member-sequence_ is an 
 <<Element-Sequences,element sequence>> in
 which each element is a *state definition member*,
 and the terminating punctuation is a semicolon.
@@ -17,7 +17,7 @@ A state definition member is one of the following
 * A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-* A <<State-Machine-Behavior-Elements_Transition-Specifiers,transition specifiers>>
+* A <<State-Machine-Behavior-Elements_Transition-Specifiers,transition specifier>>
 
 
 ==== Semantics

@@ -1,6 +1,7 @@
 === Initial Transition Specifiers
 
-A *state initial* specifies an initial state transition  
+An *initial transition specifier* specifies an initial transition
+to a state or junction.
 
 ==== Syntax
 
@@ -13,13 +14,20 @@ _]_
 
 ==== Semantics
 
-. The _qual-ident_ specifies the state or junction that will be visited when the state machine starts running.
+. The qualified identifier must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a 
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+or a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
+It specifies the initial state or junction to visit.
 
-. An _initial_ specification is required at the top of the state machine
-
-. An _initial_ specification is required at the top of every hierarchical state
- 
-. The optional _identifier_ after the keyword `do` specifies the action performed before visiting the initial state
+. If present, the optional identifier after the keyword `do`
+must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to an 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+It specifies the action to perform when visiting the state or junction.
 
 ==== Examples
 
@@ -35,8 +43,9 @@ state machine Device {
 
     initial POWERING_UP do initDevices
 
-    state POWERING_UP {
+    state POWERING_UP
 
-    }
   }
+
+}
 ----

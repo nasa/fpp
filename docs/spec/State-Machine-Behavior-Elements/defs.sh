@@ -14,6 +14,6 @@ Initial-Transition-Specifiers.adoc
 Junction-Definitions.adoc
 State-Definitions.adoc
 State-Machine-Event-Definitions.adoc
-State-Visit.adoc
 Transition-Specifiers.adoc
+Visit-Expressions.adoc
 "

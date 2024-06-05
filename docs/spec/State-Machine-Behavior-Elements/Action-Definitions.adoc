@@ -1,7 +1,10 @@
 === Action Definitions
 
 An *action definition* defines an action, i.e., a function that is called when
-a state machine performs a state transition.
+a state machine performs a
+<<State-Machine-Behavior-Elements_Transition-Specifiers,transition>>
+or passes through a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
 Actions may carry data.
 
 ==== Syntax

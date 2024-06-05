@@ -1,4 +1,4 @@
-=== State Visit
+=== Visit Expressions
 
 A *state visit* specifies a visit or entry into another state with optional actions  
 

@@ -1,41 +1,42 @@
 === Transition Specifiers
 
-A *state transition* specifies a state transition in a  
-<<Definitions_State-Machine-Definitions,state machine>>  
+A *state transition* specifies a transition from a state in a 
+<<Definitions_State-Machine-Definitions,state machine>>.
 
 ==== Syntax
 
 A state transition is one of the following:
 
-* _regular_transtion_
-* _self_transition_
-
-_regular_transition_ has the following syntax:
+* `on` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`if` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+<<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
 
 * `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-<<State-Machine-Behavior-Elements_State-Visit,state visit>>
-
-_self_transition_ has the following syntax:
-
-* `on` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`if` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
-do` <<Lexical-Elements_Identifiers,_identifier_>>
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
 
 
 ==== Semantics
 
-. The _identifier_ after the keyword `on` is the name of the _event_ that triggers this transition 
+. The identifier after the keyword `on` must refer to a
+<<State-Machine-Behavior-Elements_State-Machine-Event-Definitions,state machine event definition>>.
+It names the event that causes the transition to occur.
 
-. The optional _identifier_ after the keyword `if` is the name of the _guard_ for this transition
+. If present, the optional identifier after the keyword `if` must refer to a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
+It specifies a guard for the transtition.
 
-. The _identifier_ after the keyword `do` is the action performed
+. The first form of the syntax specifies a target state and an optional action.
+The visit expression must be valid.
 
-. The _state visit_ specifies the name of the target state and the optional action performed
+. Second form of the syntax specifies an action to take while remaining
+in the same state.
+The keyword `do` must refer to an
+<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
 
 ==== Examples
 
@@ -55,7 +56,6 @@ state machine Device {
 
   state OFF
     on PowerOn if initComplete visit ON do getReady
-
   }
 
   state ON {

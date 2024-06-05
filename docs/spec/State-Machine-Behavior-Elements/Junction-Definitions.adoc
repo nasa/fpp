@@ -8,8 +8,8 @@ A _junction_ is a type of psuedo state.  It serves as an intermediate point in a
 
 `junction` <<Lexical-Elements_Identifiers,_identifier_>>
 `{`
-`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior-Elements_State-Visit,state visit>>
-`else` <<State-Machine-Behavior-Elements_State-Visit,state visit>>
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
+`else` <<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
 `}`
 
 ==== Semantics

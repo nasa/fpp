@@ -2,9 +2,12 @@
 
 A *guard definition* defines a guard, i.e., a
 function that returns a Boolean value.
-Guards are associated with transitions.
-If a transition has a guard, then the transition occurs
-if and only if the guard evaluates to `true`.
+Guards are associated with
+<<State-Machine-Behavior-Elements_Transition-Specifiers,transitions>>
+and 
+<<State-Machine-Behavior-Elements_Junction-Definitions,junctions>>.
+If the guard evaluates to `true`, then the transition occurs
+or the branch of the junction is taken.
 
 ==== Syntax
 `guard`
@@ -28,7 +31,10 @@ guard.
 
 [source,fpp]
 ----
+enum EnabledStatus { ENABLED, DISABLED }
+
 struct FaultData {
+  status: EnabledStatus
   $id: U32
   data: U32
 }
@@ -37,10 +43,10 @@ struct FaultData {
 state machine GuardDefs {
 
   @ A guard without data
-  guard noRecovery
+  guard powerIsEnabled
 
   @ A guard with data
-  guard noRecovery: FaultData
+  guard faultProtectionIsEnabled: FaultData
 
   ...
 
