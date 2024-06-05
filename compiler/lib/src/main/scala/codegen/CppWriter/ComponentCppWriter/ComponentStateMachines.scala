@@ -49,12 +49,14 @@ case class ComponentStateMachines(
         case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
       }
 
-      val smInstances = instances.map(_.data.name).map(x => x.toUpperCase).map(x => line(x))
+      val smInstances = instances.map(_.data.name.toUpperCase).map(x => indentIn(line(s"$x,")))
+
+      val smLines = wrapInNamespace("StateMachine", wrapInNamedEnum("SmId", smInstances))
 
       addAccessTagAndComment(
         "PRIVATE",
         s"State machine Enumeration",
-        List(linesClassMember(smInstances)),
+        List(linesClassMember(smLines)),
         CppDoc.Lines.Hpp
       )
 
