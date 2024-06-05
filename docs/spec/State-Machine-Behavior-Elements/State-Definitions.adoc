@@ -1,7 +1,12 @@
 === State Definitions
 
-A *state definition* defines a state of a 
-<<Definitions_State-Machine-Definitions,state machine>>.
+A *state definition* is part of a 
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It defines a state of a state machine.
+A state _S'_ defined inside a state _S_ expresses a hierarchy
+of states: _S'_ is a substate of _S_.
 
 ==== Syntax
 
@@ -12,9 +17,9 @@ _state-definition-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a *state definition member*,
 and the terminating punctuation is a semicolon.
-A state definition member is one of the following
+A state definition member is one of the following:
 
-* A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
+* An <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
@@ -24,10 +29,8 @@ A state definition member is one of the following
 
 . The identifier is the name of the state.
 
-. the state definition member sequence _S_ contains any state definitions,
+. If the state definition member sequence is present,
 then it must contain exactly one initial transition specifier _I_.
-The state definition or junction definition referred to in _I_
-must be an element of _S_.
 _I_ specifies the sub-state to enter on entry to the outer state.
 
 ==== Examples

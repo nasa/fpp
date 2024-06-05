@@ -37,8 +37,8 @@ It specifies a guard for the transtition.
 
 . The first form of the syntax specifies a target state and an optional action.
 The visit expression must be valid.
-The target state in the visit expression may be the same state; in
-this case the transition is called a *self transition*.
+The target state in the visit expression may be the same as the
+enclosing state; in this case the transition is called a *self transition*.
 When making a self transition, the state machine runs the code associated with
 exiting and then re-entering the state.
 
@@ -67,7 +67,7 @@ state machine Device {
 
   initial OFF
 
-  state OFF
+  state OFF {
     on PowerOn if initComplete visit ON do getReady
   }
 

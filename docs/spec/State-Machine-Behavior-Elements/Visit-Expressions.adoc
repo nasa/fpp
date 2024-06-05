@@ -1,6 +1,11 @@
 === Visit Expressions
 
-A *state visit* specifies a visit or entry into another state with optional actions  
+A *visit expression* specifies a transition as part of a
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>
+or
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+The transition visits a state or junction and optionally performs
+some action.
 
 ==== Syntax
 
@@ -11,9 +16,17 @@ _]_
 
 ==== Semantics
 
-. The _qual-ident_ after the keyword `visit` is the _state_ which is visited or entered 
+. The qualified identifier after the keyword `visit` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a 
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It is the state that is visited.
 
-. The optional _identifier_ after the keyword `do` specifies the action performed when the transition is taken
+. If present, the optional identifier after the keyword `do` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to an 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+It specifies an action to perform when making the transition.
 
 ==== Examples
 

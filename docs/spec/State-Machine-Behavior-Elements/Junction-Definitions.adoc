@@ -1,8 +1,11 @@
 === Junction Definitions
 
-A *state junction* specifies a state junction in a  
-<<Definitions_State-Machine-Definitions,state machine>>.  
-A _junction_ is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the _guard_ (predicate).  Other psuedo states in the state machine terminology are _initial_ and _final_
+A *junction definition* specifies a junction as part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+A junction is a branch point controlled by a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard>>.
 
 ==== Syntax
 
@@ -14,13 +17,17 @@ A _junction_ is a type of psuedo state.  It serves as an intermediate point in a
 
 ==== Semantics
 
-. The _identifier_ after the keyword `junction` is the name of the _junction_. 
+. The identifier after the keyword `junction` is the name of the junction. 
 
-. Each _junction_ requires a unique name.
+. The identifier after the keyword `if` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
+It specifies the guard that controls the branch.
 
-. The _identifier_ after the keyword `if` specifies the name of the _guard_
-
-. The _state visit_ specifies the state to enter with an optional action
+. Each of the visit expressions must be valid.
+The first visit expression is run if the guard evaluates to `true`;
+otherwise the second visit expression is run.
 
 ==== Examples
 
@@ -34,17 +41,13 @@ state machine Device {
   initial J1
 
   junction J1 {
-    if coldStart visit OFF
+    if coldStart visit OFF \
     else visit ON do initPower
   }
 
-  state OFF {
+  state OFF
 
-  }
-
-  state ON {
-
-  }
+  state ON
 
 }
 ----

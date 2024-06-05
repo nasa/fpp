@@ -2,21 +2,21 @@
 
 A *state machine definition* defines a state machine.
 
-There are two ways to define a state machine:
+There are two kinds of state machine definitions:
 
-. An *externally defined state machine* 
+. An *external state machine definition* 
 introduces a name and informs the FPP analyzer that
 a state machine implementation with that name will be provided to the
-build.
+FSW build.
 
-. An *internally defined state machine* 
+. An *internal state machine definition*
 specifies the behavior of a state machine and
 causes an implementation to be generated.
 
 *Implementation note:*
 Support for state machines will be implemented in two phases.
-Phase 1 will implement externally defined state machines only.
-Phase 2 will add support for internally defined state machines.
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.
 
 ==== Syntax
 
@@ -42,10 +42,10 @@ A state machine member is one of the following:
 
 . If present, the optional state machine member sequence defines the
 behavior of the state machine.
-In this case, the state machine is internally defined.
+In this case, the state machine definition is internal.
 If the state machine member sequence is absent, then the state machine
+definition is external, i.e., the state machine
 behavior is not specified in FPP.
-In this case, the state machine is externally defined.
 
 . If present, the optional state machine member sequence must contain
 exactly one

@@ -1,7 +1,12 @@
 === Initial Transition Specifiers
 
-An *initial transition specifier* specifies an initial transition
-to a state or junction.
+An *initial transition specifier* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or a
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.
 
 ==== Syntax
 
@@ -22,8 +27,8 @@ or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
 It specifies the initial state or junction to visit.
 The state definition or junction definition referred to must be part of
-the same brace-delimited scope where the initial transition specifier
-appears.
+the same state machine definition or state definition where the initial
+transition specifier appears.
 
 . If present, the optional identifier after the keyword `do`
 must
@@ -40,10 +45,12 @@ state machine Device {
 
   action initDevices
 
+  # When the state machine starts up, visit the ON state
   initial ON
 
   state ON {
 
+    # When entering the ON state, visit the POWERING_UP substate
     initial POWERING_UP do initDevices
 
     state POWERING_UP

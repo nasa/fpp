@@ -1,7 +1,8 @@
 === Guard Definitions
 
-A *guard definition* defines a guard, i.e., a
-function that returns a Boolean value.
+A *guard definition* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+It defines a guard, i.e., a function that returns a Boolean value.
 Guards are associated with
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transitions>>
 and 

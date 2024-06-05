@@ -2727,18 +2727,18 @@ port Port3(
 <p>A <strong>state machine definition</strong> defines a state machine.</p>
 </div>
 <div class="paragraph">
-<p>There are two ways to define a state machine:</p>
+<p>There are two kinds of state machine definitions:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <strong>externally defined state machine</strong>
+<p>An <strong>external state machine definition</strong>
 introduces a name and informs the FPP analyzer that
 a state machine implementation with that name will be provided to the
-build.</p>
+FSW build.</p>
 </li>
 <li>
-<p>An <strong>internally defined state machine</strong>
+<p>An <strong>internal state machine definition</strong>
 specifies the behavior of a state machine and
 causes an implementation to be generated.</p>
 </li>
@@ -2747,8 +2747,8 @@ causes an implementation to be generated.</p>
 <div class="paragraph">
 <p><strong>Implementation note:</strong>
 Support for state machines will be implemented in two phases.
-Phase 1 will implement externally defined state machines only.
-Phase 2 will add support for internally defined state machines.</p>
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
@@ -2796,10 +2796,10 @@ A state machine member is one of the following:</p>
 <li>
 <p>If present, the optional state machine member sequence defines the
 behavior of the state machine.
-In this case, the state machine is internally defined.
+In this case, the state machine definition is internal.
 If the state machine member sequence is absent, then the state machine
-behavior is not specified in FPP.
-In this case, the state machine is externally defined.</p>
+definition is external, i.e., the state machine
+behavior is not specified in FPP.</p>
 </li>
 <li>
 <p>If present, the optional state machine member sequence must contain
@@ -3607,8 +3607,10 @@ of state machine support in FPP.</p>
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Action-Definitions">6.1. Action Definitions</h3>
 <div class="paragraph">
-<p>An <strong>action definition</strong> defines an action, i.e., a function that is called when
-a state machine performs a
+<p>An <strong>action definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines an action, i.e., a function that is called when
+the enclosing state machine performs a
 <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">transition from a state</a>
 or passes through a
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
@@ -3671,8 +3673,9 @@ state machine ActionDefs {
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.2. Guard Definitions</h3>
 <div class="paragraph">
-<p>A <strong>guard definition</strong> defines a guard, i.e., a
-function that returns a Boolean value.
+<p>A <strong>guard definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines a guard, i.e., a function that returns a Boolean value.
 Guards are associated with
 <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transitions</a>
 and
@@ -3739,8 +3742,13 @@ state machine GuardDefs {
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.3. Initial Transition Specifiers</h3>
 <div class="paragraph">
-<p>An <strong>initial transition specifier</strong> specifies an initial transition
-to a state or junction.</p>
+<p>An <strong>initial transition specifier</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</h4>
@@ -3766,8 +3774,8 @@ or a
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
 It specifies the initial state or junction to visit.
 The state definition or junction definition referred to must be part of
-the same brace-delimited scope where the initial transition specifier
-appears.</p>
+the same state machine definition or state definition where the initial
+transition specifier appears.</p>
 </li>
 <li>
 <p>If present, the optional identifier after the keyword <code>do</code>
@@ -3788,10 +3796,12 @@ It specifies the action to perform when visiting the state or junction.</p>
 
   action initDevices
 
+  # When the state machine starts up, visit the ON state
   initial ON
 
   state ON {
 
+    # When entering the ON state, visit the POWERING_UP substate
     initial POWERING_UP do initDevices
 
     state POWERING_UP
@@ -3806,9 +3816,12 @@ It specifies the action to perform when visiting the state or junction.</p>
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Junction-Definitions">6.4. Junction Definitions</h3>
 <div class="paragraph">
-<p>A <strong>state junction</strong> specifies a state junction in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a>.
-A <em>junction</em> is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the <em>guard</em> (predicate).  Other psuedo states in the state machine terminology are <em>initial</em> and <em>final</em></p>
+<p>A <strong>junction definition</strong> specifies a junction as part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+A junction is a branch point controlled by a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.4.1. Syntax</h4>
@@ -3825,16 +3838,19 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> after the keyword <code>junction</code> is the name of the <em>junction</em>.</p>
+<p>The identifier after the keyword <code>junction</code> is the name of the junction.</p>
 </li>
 <li>
-<p>Each <em>junction</em> requires a unique name.</p>
+<p>The identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies the guard that controls the branch.</p>
 </li>
 <li>
-<p>The <em>identifier</em> after the keyword <code>if</code> specifies the name of the <em>guard</em></p>
-</li>
-<li>
-<p>The <em>state visit</em> specifies the state to enter with an optional action</p>
+<p>Each of the visit expressions must be valid.
+The first visit expression is run if the guard evaluates to <code>true</code>;
+otherwise the second visit expression is run.</p>
 </li>
 </ol>
 </div>
@@ -3851,17 +3867,13 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
   initial J1
 
   junction J1 {
-    if coldStart visit OFF
+    if coldStart visit OFF \
     else visit ON do initPower
   }
 
-  state OFF {
+  state OFF
 
-  }
-
-  state ON {
-
-  }
+  state ON
 
 }</code></pre>
 </div>
@@ -3871,8 +3883,13 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_State-Definitions">6.5. State Definitions</h3>
 <div class="paragraph">
-<p>A <strong>state definition</strong> defines a state of a
-<a href="#Definitions_State-Machine-Definitions">state machine</a>.</p>
+<p>A <strong>state definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It defines a state of a state machine.
+A state <em>S'</em> defined inside a state <em>S</em> expresses a hierarchy
+of states: <em>S'</em> is a substate of <em>S</em>.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.5.1. Syntax</h4>
@@ -3885,12 +3902,12 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 <a href="#Element-Sequences">element sequence</a> in
 which each element is a <strong>state definition member</strong>,
 and the terminating punctuation is a semicolon.
-A state definition member is one of the following</p>
+A state definition member is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
+<p>An <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
 </li>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
@@ -3912,10 +3929,8 @@ A state definition member is one of the following</p>
 <p>The identifier is the name of the state.</p>
 </li>
 <li>
-<p>the state definition member sequence <em>S</em> contains any state definitions,
+<p>If the state definition member sequence is present,
 then it must contain exactly one initial transition specifier <em>I</em>.
-The state definition or junction definition referred to in <em>I</em>
-must be an element of <em>S</em>.
 <em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
 </li>
 </ol>
@@ -3977,8 +3992,9 @@ must be an element of <em>S</em>.
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions">6.6. State Machine Event Definitions</h3>
 <div class="paragraph">
-<p>A <strong>state machine event definition</strong> defines an event that may be
-sent to a state machine.
+<p>A <strong>state machine event definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines an event that may be sent to the enclosing state machine.
 Events are inputs to state machines that cause state transitions
 to occur.</p>
 </div>
@@ -4031,11 +4047,18 @@ If <em>type-name</em> is not present, then the event carries no data.</p>
   data: U32
 }
 
-# An event without data
-event RTI
+@ A state machine with event definitions
+state machine EventDefs {
 
-# An event with data
-event Fault: FaultData</code></pre>
+  @ An event without data
+  event RTI
+
+  @ An event with data
+  event Fault: FaultData
+
+  ...
+
+}</code></pre>
 </div>
 </div>
 </div>
@@ -4092,8 +4115,8 @@ It specifies a guard for the transtition.</p>
 <li>
 <p>The first form of the syntax specifies a target state and an optional action.
 The visit expression must be valid.
-The target state in the visit expression may be the same state; in
-this case the transition is called a <strong>self transition</strong>.
+The target state in the visit expression may be the same as the
+enclosing state; in this case the transition is called a <strong>self transition</strong>.
 When making a self transition, the state machine runs the code associated with
 exiting and then re-entering the state.</p>
 </li>
@@ -4126,7 +4149,7 @@ to an
 
   initial OFF
 
-  state OFF
+  state OFF {
     on PowerOn if initComplete visit ON do getReady
   }
 
@@ -4142,7 +4165,12 @@ to an
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Visit-Expressions">6.8. Visit Expressions</h3>
 <div class="paragraph">
-<p>A <strong>state visit</strong> specifies a visit or entry into another state with optional actions</p>
+<p>A <strong>visit expression</strong> specifies a transition as part of a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>
+or
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+The transition visits a state or junction and optionally performs
+some action.</p>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_Visit-Expressions_Syntax">6.8.1. Syntax</h4>
@@ -4158,10 +4186,18 @@ to an
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>qual-ident</em> after the keyword <code>visit</code> is the <em>state</em> which is visited or entered</p>
+<p>The qualified identifier after the keyword <code>visit</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It is the state that is visited.</p>
 </li>
 <li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed when the transition is taken</p>
+<p>If present, the optional identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
+It specifies an action to perform when making the transition.</p>
 </li>
 </ol>
 </div>
@@ -9575,7 +9611,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-05 13:39:38 -0700
+Last updated 2024-06-05 15:45:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
