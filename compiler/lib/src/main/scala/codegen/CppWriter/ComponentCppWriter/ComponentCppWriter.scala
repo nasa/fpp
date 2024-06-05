@@ -168,6 +168,7 @@ case class ComponentCppWriter (
 
       // Anonymous namespace members
       getAnonymousNamespaceMembers,
+      stateMachineWriter.getInternalInterfaceHandler,
 
       // Types
       dpWriter.getTypeMembers,

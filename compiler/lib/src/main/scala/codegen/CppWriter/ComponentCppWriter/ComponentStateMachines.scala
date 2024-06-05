@@ -11,7 +11,44 @@ case class ComponentStateMachines(
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
           genInstantiations ++
-          genEnumerations
+          genEnumerations ++
+          genInternalInterfaceHandler
+  }
+
+
+  def getInternalInterfaceHandler: List[CppDoc.Class.Member] = {
+
+    List(
+      linesClassMember(
+              Line.blank :: 
+                lines(
+                  s"""|void ${className}ComponentBase :: 
+                      |  sendEvents_internalInterfaceHandler(const SMEvents& ev)
+                      |{
+                      |  U16 id = ev.getsmId();
+                      |  switch (id) {
+                      |
+                      |"""
+                ) ++
+
+                getInstances.map(_.data.name).map(x => 
+                lines(
+                  s"""|    case StateMachine::$x
+                      |      this->$x.update(&ev);
+                      |      break;
+                      |
+                      |"""
+                    )
+               ).flatten ++
+
+                lines(
+                  s"""| }
+                      |}
+                      | """
+                ),
+              CppDoc.Lines.Cpp
+              )
+        )
   }
 
 
@@ -48,6 +85,30 @@ case class ComponentStateMachines(
       )
   }
 
+  def genInternalInterfaceHandler: List[CppDoc.Class.Member] = {
+
+    val interfaceParam: CppDoc.Function.Param = CppDoc.Function.Param(
+      CppDoc.Type("const Svc::SMEvents&"),
+      "ev"
+    )
+
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"Internal interface handler for receiving state machine events",
+      List(
+        functionClassMember(
+          None,
+          internalInterfaceHandlerName("sendEvents"),
+          List(interfaceParam),
+          CppDoc.Type("void"),
+          lines("// Default: no-op")
+        )
+      ),
+      CppDoc.Lines.Cpp
+    )
+  }
+
+
   def getInstances: List[AstNode[Ast.SpecStateMachineInstance]] = {
 
       val (_, defComponent, _) = aNode // Extract the components of the tuple
@@ -57,6 +118,7 @@ case class ComponentStateMachines(
       }
 
   }
+
 
 }
  
