@@ -3,10 +3,10 @@
 A *guard definition* defines a guard, i.e., a
 function that returns a Boolean value.
 Guards are associated with
-<<State-Machine-Behavior-Elements_Transition-Specifiers,transitions>>
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transitions>>
 and 
 <<State-Machine-Behavior-Elements_Junction-Definitions,junctions>>.
-If the guard evaluates to `true`, then the transition occurs
+If the guard evaluates to `true`, then the state transition occurs
 or the branch of the junction is taken.
 
 ==== Syntax

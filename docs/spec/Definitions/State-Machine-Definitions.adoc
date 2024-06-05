@@ -4,13 +4,14 @@ A *state machine definition* defines a state machine.
 
 There are two ways to define a state machine:
 
-. An *externally defined state machine* is an FPP definition
-that introduces a name and informs the FPP analyzer that
-a state machine with that name will be provided to the
-implementation.
+. An *externally defined state machine* 
+introduces a name and informs the FPP analyzer that
+a state machine implementation with that name will be provided to the
+build.
 
-. An *internally defined state machine* is a state machine
-that is fully specified in FPP.
+. An *internally defined state machine* 
+specifies the behavior of a state machine and
+causes an implementation to be generated.
 
 *Implementation note:*
 Support for state machines will be implemented in two phases.

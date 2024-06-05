@@ -17,20 +17,18 @@ A state definition member is one of the following
 * A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-* A <<State-Machine-Behavior-Elements_Transition-Specifiers,transition specifier>>
+* A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
 
 
 ==== Semantics
 
-. The _identifier_ specifies the name of a state in the state machine
+. The identifier is the name of the state.
 
-. The state can be hierarchical, a state can be defined within another state
-
-. The state is required to have one _initial_ specification if it is a hierarchical state
-
-. The state can have _junctions_
-
-. All _transitions_ that originate from a state are required to be specified inside that state
+. the state definition member sequence _S_ contains any state definitions,
+then it must contain exactly one initial transition specifier _I_.
+The state definition or junction definition referred to in _I_
+must be an element of _S_.
+_I_ specifies the sub-state to enter on entry to the outer state.
 
 ==== Examples
 

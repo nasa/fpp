@@ -6,7 +6,7 @@ to a state or junction.
 ==== Syntax
 
 `initial` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+<<Scoping-of-Names_Qualified-Identifiers,_ident_>>
 _[_
 `do`
 <<Lexical-Elements_Identifiers,_identifier_>>
@@ -14,13 +14,16 @@ _]_
 
 ==== Semantics
 
-. The qualified identifier must
+. The identifier must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a 
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
 It specifies the initial state or junction to visit.
+The state definition or junction definition referred to must be part of
+the same brace-delimited scope where the initial transition specifier
+appears.
 
 . If present, the optional identifier after the keyword `do`
 must

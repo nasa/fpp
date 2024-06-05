@@ -591,11 +591,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Transition-Specifiers">6.7. Transition Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.7. State Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Transition-Specifiers_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Transition-Specifiers_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Transition-Specifiers_Examples">6.7.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_Visit-Expressions">6.8. Visit Expressions</a>
@@ -2732,14 +2732,15 @@ port Port3(
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <strong>externally defined state machine</strong> is an FPP definition
-that introduces a name and informs the FPP analyzer that
-a state machine with that name will be provided to the
-implementation.</p>
+<p>An <strong>externally defined state machine</strong>
+introduces a name and informs the FPP analyzer that
+a state machine implementation with that name will be provided to the
+build.</p>
 </li>
 <li>
-<p>An <strong>internally defined state machine</strong> is a state machine
-that is fully specified in FPP.</p>
+<p>An <strong>internally defined state machine</strong>
+specifies the behavior of a state machine and
+causes an implementation to be generated.</p>
 </li>
 </ol>
 </div>
@@ -3608,7 +3609,7 @@ of state machine support in FPP.</p>
 <div class="paragraph">
 <p>An <strong>action definition</strong> defines an action, i.e., a function that is called when
 a state machine performs a
-<a href="#State-Machine-Behavior-Elements_Transition-Specifiers">transition</a>
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">transition from a state</a>
 or passes through a
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
 Actions may carry data.</p>
@@ -3673,10 +3674,10 @@ state machine ActionDefs {
 <p>A <strong>guard definition</strong> defines a guard, i.e., a
 function that returns a Boolean value.
 Guards are associated with
-<a href="#State-Machine-Behavior-Elements_Transition-Specifiers">transitions</a>
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transitions</a>
 and
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junctions</a>.
-If the guard evaluates to <code>true</code>, then the transition occurs
+If the guard evaluates to <code>true</code>, then the state transition occurs
 or the branch of the junction is taken.</p>
 </div>
 <div class="sect3">
@@ -3745,7 +3746,7 @@ to a state or junction.</p>
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a>
 <em>[</em>
 <code>do</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -3757,13 +3758,16 @@ to a state or junction.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier must
+<p>The identifier must
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
 or a
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
-It specifies the initial state or junction to visit.</p>
+It specifies the initial state or junction to visit.
+The state definition or junction definition referred to must be part of
+the same brace-delimited scope where the initial transition specifier
+appears.</p>
 </li>
 <li>
 <p>If present, the optional identifier after the keyword <code>do</code>
@@ -3895,7 +3899,7 @@ A state definition member is one of the following</p>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_Transition-Specifiers">transition specifier</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a></p>
 </li>
 </ul>
 </div>
@@ -3905,19 +3909,14 @@ A state definition member is one of the following</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> specifies the name of a state in the state machine</p>
+<p>The identifier is the name of the state.</p>
 </li>
 <li>
-<p>The state can be hierarchical, a state can be defined within another state</p>
-</li>
-<li>
-<p>The state is required to have one <em>initial</em> specification if it is a hierarchical state</p>
-</li>
-<li>
-<p>The state can have <em>junctions</em></p>
-</li>
-<li>
-<p>All <em>transitions</em> that originate from a state are required to be specified inside that state</p>
+<p>the state definition member sequence <em>S</em> contains any state definitions,
+then it must contain exactly one initial transition specifier <em>I</em>.
+The state definition or junction definition referred to in <em>I</em>
+must be an element of <em>S</em>.
+<em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
 </li>
 </ol>
 </div>
@@ -4042,13 +4041,14 @@ event Fault: FaultData</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Transition-Specifiers">6.7. Transition Specifiers</h3>
+<h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.7. State Transition Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>state transition</strong> specifies a transition from a state in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a>.</p>
+<p>A <strong>state transition specifier</strong> is part of a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies a transition from the state in which it appears.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Transition-Specifiers_Syntax">6.7.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
 <p>A state transition is one of the following:</p>
 </div>
@@ -4072,34 +4072,46 @@ event Fault: FaultData</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Transition-Specifiers_Semantics">6.7.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.7.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The identifier after the keyword <code>on</code> must refer to a
+<p>The identifier after the keyword <code>on</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
 <a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">state machine event definition</a>.
 It names the event that causes the transition to occur.</p>
 </li>
 <li>
-<p>If present, the optional identifier after the keyword <code>if</code> must refer to a
+<p>If present, the optional identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
 It specifies a guard for the transtition.</p>
 </li>
 <li>
 <p>The first form of the syntax specifies a target state and an optional action.
-The visit expression must be valid.</p>
+The visit expression must be valid.
+The target state in the visit expression may be the same state; in
+this case the transition is called a <strong>self transition</strong>.
+When making a self transition, the state machine runs the code associated with
+exiting and then re-entering the state.</p>
 </li>
 <li>
-<p>Second form of the syntax specifies an action to take while remaining
+<p>Second form of the syntax specifies an
+<strong>internal transition</strong>, i.e., an action to take while remaining
 in the same state.
-The keyword <code>do</code> must refer to an
+When making an internal transition, the exit and re-entry code is not run.
+The identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
 <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Transition-Specifiers_Examples">6.7.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.7.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -9563,7 +9575,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-05 13:04:16 -0700
+Last updated 2024-06-05 13:39:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
