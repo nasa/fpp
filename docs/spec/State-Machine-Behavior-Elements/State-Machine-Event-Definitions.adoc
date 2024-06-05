@@ -39,7 +39,7 @@ If _type-name_ is not present, then the event carries no data.
 [source,fpp]
 ----
 struct FaultData {
-  id: U32
+  $id: U32
   data: U32
 }
 
