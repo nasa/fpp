@@ -9,7 +9,7 @@ redo-ifchange defs.sh
 export FILES="
 Introduction.adoc
 Action-Definitions.adoc
-State-Definition.adoc
+State-Definitions.adoc
 State-Event-Definitions.adoc
 State-Guards.adoc
 State-Initial.adoc

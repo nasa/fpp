@@ -16,7 +16,7 @@ _regular_transition_ has the following syntax:
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-<<State-Machine-Behavior_State-Visit,state visit>>
+<<State-Machine-Behavior-Elements_State-Visit,state visit>>
 
 _self_transition_ has the following syntax:
 

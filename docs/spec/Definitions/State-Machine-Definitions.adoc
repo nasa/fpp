@@ -2,6 +2,21 @@
 
 A *state machine definition* defines a state machine.
 
+There are two ways to define a state machine:
+
+. An *externally defined state machine* is an FPP definition
+that introduces a name and informs the FPP analyzer that
+a state machine with that name will be provided to the
+implementation.
+
+. An *internally defined state machine* is a state machine
+that is fully specified in FPP.
+
+*Implementation note:*
+Support for state machines will be implemented in two phases.
+Phase 1 will implement externally defined state machines only.
+Phase 2 will add support for internally defined state machines.
+
 ==== Syntax
 
 `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
@@ -13,12 +28,12 @@ which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
-* An <<State-Machine-Behavior_Action-Definitions,action definition>>
-* A <<State-Machine-Behavior_State-Definition,state definition>>
-* A <<State-Machine-Behavior_State-Event-Definitions,state event definition>>
-* A <<State-Machine-Behavior_State-Guards,state guards>>
-* A <<State-Machine-Behavior_State-Initial,state initial>>
-* A <<State-Machine-Behavior_State-Junction,state junction>>
+* An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
+* A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* A <<State-Machine-Behavior-Elements_State-Event-Definitions,state event definition>>
+* A <<State-Machine-Behavior-Elements_State-Guards,state guards>>
+* A <<State-Machine-Behavior-Elements_State-Initial,state initial>>
+* A <<State-Machine-Behavior-Elements_State-Junction,state junction>>
 
 ==== Semantics
 
@@ -26,17 +41,13 @@ A state machine member is one of the following:
 
 . If present, the optional state machine member sequence defines the
 behavior of the state machine.
-If the state machine member sequence is absent, then the behavior
-is externally defined.
+In this case, the state machine is internally defined.
+If the state machine member sequence is absent, then the state machine
+behavior is not specified in FPP.
+In this case, the state machine is externally defined.
 
-. The state machine must have one <<State-Machine-Behavior_State-Initial,state initial>>
-that specifies the transition to the initial state.
-
-==== Implementation Note
-
-Support for state machines will be implemented in two phases.
-Phase 1 will implement externally defined state machines only.
-Phase 2 will add support for state machines defined in FPP.
+. The state machine member sequence must contain exactly one
+<<State-Machine-Behavior-Elements_State-Initial,state initial>>.
 
 ==== Examples
 

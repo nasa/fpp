@@ -1,7 +1,7 @@
-=== State Definition
+=== State Definitions
 
-A *state definition* specifies a state in a 
-<<Definitions_State-Machine-Definitions,state machine>>  
+A *state definition* defines a state of a 
+<<Definitions_State-Machine-Definitions,state machine>>.
 
 ==== Syntax
 
@@ -10,14 +10,14 @@ _[_ `{` _state_sequence_ `}` _]_
 
 _state-sequence_ is an 
 <<Element-Sequences,element sequence>> in
-which each element is a *state member*,
+which each element is a *state definition member*,
 and the terminating punctuation is a semicolon.
-A state member is one of the following
+A state definition member is one of the following
 
-* A <<State-Machine-Behavior_State-Definition,state definition>>
-* A <<State-Machine-Behavior_State-Junction,state junction>>
-* A <<State-Machine-Behavior_State-Initial,state initial>>
-* A <<State-Machine-Behavior_State-Transition,state transition>>
+* A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* A <<State-Machine-Behavior-Elements_State-Junction,state junction>>
+* A <<State-Machine-Behavior-Elements_State-Initial,state initial>>
+* A <<State-Machine-Behavior-Elements_State-Transition,state transition>>
 
 
 ==== Semantics

@@ -32,18 +32,16 @@ struct FaultData {
   data: U32
 }
 
-@ A state machine with actions
+@ A state machine with action definitions
 state machine Actions {
 
-  # An action without data
+  @ An action without data
   action initPower
 
-  # An action with data
+  @ An action with data
   action reportFault: FaultData
 
-  initial S
-
-  state S
+  ...
 
 }
 ----
