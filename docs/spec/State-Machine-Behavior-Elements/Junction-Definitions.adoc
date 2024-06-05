@@ -1,4 +1,4 @@
-=== State Junction
+=== Junction Definitions
 
 A *state junction* specifies a state junction in a  
 <<Definitions_State-Machine-Definitions,state machine>>.  

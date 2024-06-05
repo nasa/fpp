@@ -1,4 +1,4 @@
-=== State Transition
+=== Transition Specifiers
 
 A *state transition* specifies a state transition in a  
 <<Definitions_State-Machine-Definitions,state machine>>  

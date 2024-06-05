@@ -11,9 +11,9 @@ Introduction.adoc
 Action-Definitions.adoc
 Guard-Definitions.adoc
 Initial-Transition-Specifiers.adoc
+Junction-Definitions.adoc
 State-Definitions.adoc
-State-Junction.adoc
 State-Machine-Event-Definitions.adoc
-State-Transition.adoc
 State-Visit.adoc
+Transition-Specifiers.adoc
 "
