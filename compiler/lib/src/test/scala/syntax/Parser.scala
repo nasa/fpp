@@ -631,8 +631,8 @@ class ParserSpec extends AnyWordSpec {
         "",
         """
         # Some newlines
-
-
+        
+        
         """,
         """
         active component C {}
