@@ -190,15 +190,6 @@ class ParserSpec extends AnyWordSpec {
     )
   }
 
-  "spec state machine instance specifier OK" should {
-    parseAllOK(
-      Parser.specStateMachineInstance,
-      List(
-        "state machine instance s: S",
-      )
-    )
-  }
-
   "def struct OK" should {
     parseAllOK(
       Parser.defStruct,
@@ -536,6 +527,15 @@ class ParserSpec extends AnyWordSpec {
         "product record R: U32",
         "product record R: U32 array",
         "product record R: U32 id 0x100"
+      )
+    )
+  }
+
+  "spec state machine instance OK" should {
+    parseAllOK(
+      Parser.specStateMachineInstance,
+      List(
+        "state machine instance s: S",
       )
     )
   }
