@@ -15,7 +15,7 @@ def module
   @< Array definition
   @ State machine outside a component
   def state machine
-    ident Bar
+    ident SO
   @ Component definition
   def component
     kind active
@@ -121,8 +121,8 @@ def module
     @ State machine instance 2
     @ State machine for outside definition
     spec state machine instance
-      ident bar
-      state machine qual ident Bar
+      ident so
+      state machine qual ident SO
     spec port instance general
       kind output
       ident p2

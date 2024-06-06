@@ -10,7 +10,7 @@ module DefinitionsAndSpecifiers {
   @< Array definition
 
   @ State machine outside a component
-  state machine Bar
+  state machine SO
 
   @ Component definition
   active component C {
@@ -61,7 +61,7 @@ module DefinitionsAndSpecifiers {
     @ State machine instance 2
 
     @ State machine for outside definition
-    state machine instance bar: Bar
+    state machine instance so: SO
 
     output port p2: [10] P
     @ Port matching specifier
