@@ -27,9 +27,8 @@ object Parser extends Parsers {
     node(defArray) ^^ { case n => Ast.ComponentMember.DefArray(n) } |
     node(defConstant) ^^ { case n => Ast.ComponentMember.DefConstant(n) } |
     node(defEnum) ^^ { case n => Ast.ComponentMember.DefEnum(n) } |
-    node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
     node(defStateMachine) ^^ { case n => Ast.ComponentMember.DefStateMachine(n) } |
-    node(specStateMachineInstance) ^^ { case n => Ast.ComponentMember.SpecStateMachineInstance(n) } |
+    node(defStruct) ^^ { case n => Ast.ComponentMember.DefStruct(n) } |
     node(specCommand) ^^ { case n => Ast.ComponentMember.SpecCommand(n) } |
     node(specContainer) ^^ { case n => Ast.ComponentMember.SpecContainer(n) } |
     node(specEvent) ^^ { case n => Ast.ComponentMember.SpecEvent(n) } |
@@ -39,6 +38,7 @@ object Parser extends Parsers {
     node(specPortMatching) ^^ { case n => Ast.ComponentMember.SpecPortMatching(n) } |
     node(specParam) ^^ { case n => Ast.ComponentMember.SpecParam(n) } |
     node(specRecord) ^^ { case n => Ast.ComponentMember.SpecRecord(n) } |
+    node(specStateMachineInstance) ^^ { case n => Ast.ComponentMember.SpecStateMachineInstance(n) } |
     node(specTlmChannel) ^^ { case n => Ast.ComponentMember.SpecTlmChannel(n) } |
     failure("component member expected")
   }
@@ -78,7 +78,6 @@ object Parser extends Parsers {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
     }
   }
-
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
@@ -150,12 +149,6 @@ object Parser extends Parsers {
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     (state ~> (machine ~> ident)) ^^ {
       case name => Ast.DefStateMachine(name)
-    }
-  }
-
-  def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
-    (state ~> machine ~> (instance ~> ident) ~ (colon ~>! node(qualIdent))) ^^ {
-      case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }
 
@@ -580,6 +573,12 @@ object Parser extends Parsers {
         arrayOpt,
         id
       )
+    }
+  }
+
+  def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
+    (state ~> machine ~> (instance ~> ident) ~ (colon ~>! node(qualIdent))) ^^ {
+      case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }
 
