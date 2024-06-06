@@ -160,6 +160,9 @@ case class CppWriterState(
           case Symbol.Port(node) => Some(
             ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
           )
+           case Symbol.StateMachine(node) => Some(
+            ComputeCppFiles.FileNames.getStateMachine(Symbol.StateMachine(node).getUnqualifiedName)
+          )
           case Symbol.Struct(node) => Some(
             ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))
           )
