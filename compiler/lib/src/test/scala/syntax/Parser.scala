@@ -75,7 +75,7 @@ class ParserSpec extends AnyWordSpec {
         "active component C { }",
         "passive component C { }",
         "queued component C { }",
-        """active component C { 
+        """active component C {
           constant a = 0
           struct S { x: U32 }
           async command C
@@ -132,7 +132,7 @@ class ParserSpec extends AnyWordSpec {
       List(
         "enum E { X, Y }",
         "enum E { X = 0, Y = 1 }",
-        """enum E { 
+        """enum E {
           @ Pre
           X = 0 @< Post
           @ Pre
@@ -147,7 +147,7 @@ class ParserSpec extends AnyWordSpec {
       Parser.defModule,
       List(
         "module M {}",
-        """module M { 
+        """module M {
           active component C {}
           instance i: C base id 0x100
           constant a = 0
@@ -208,7 +208,7 @@ class ParserSpec extends AnyWordSpec {
         "struct S { x: U32 format \"{} steps\", y: F32 format \"{} m/s\" }",
         "struct S { x: U32, y: F32 } default { x = 1, y = 2 }",
         "struct S { x: [3] U32 }",
-        """struct S { 
+        """struct S {
           @ Pre
           x: U32 @< Post
           @ Pre
@@ -631,8 +631,8 @@ class ParserSpec extends AnyWordSpec {
         "",
         """
         # Some newlines
-        
-        
+
+
         """,
         """
         active component C {}
@@ -687,7 +687,7 @@ class ParserSpec extends AnyWordSpec {
       )
     )
   }
-  
+
   def parseAllError[T](p: Parser.Parser[T], ss: List[String]): Unit = {
     ss.foreach { s => s"not parse $s" in parseError(p, s) }
   }
@@ -698,9 +698,9 @@ class ParserSpec extends AnyWordSpec {
 
   def parseError[T](p: Parser.Parser[T], s: String): Unit = {
     Parser.parseString(p)(s) match {
-      case Right(r) => { 
+      case Right(r) => {
         Console.err.println(s"parsed $r")
-        assert(false) 
+        assert(false)
       }
       case Left(_) => ()
     }
@@ -709,7 +709,7 @@ class ParserSpec extends AnyWordSpec {
   def parseOK[T](p: Parser.Parser[T], s: String): Unit = {
     Parser.parseString(p)(s) match {
       case Right(_) => ()
-      case Left(l) => { 
+      case Left(l) => {
         Console.err.println(s"failed with error $l")
         assert(false)
       }
