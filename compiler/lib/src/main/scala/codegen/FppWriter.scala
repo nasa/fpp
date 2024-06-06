@@ -708,7 +708,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "product",
     "queue",
     "queued",
-    "raw",
     "record",
     "recv",
     "red",
