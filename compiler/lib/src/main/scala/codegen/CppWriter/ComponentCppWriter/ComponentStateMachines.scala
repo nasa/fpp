@@ -18,39 +18,35 @@ case class ComponentStateMachines(
 
   def getInternalInterfaceHandler: List[CppDoc.Class.Member] = {
 
+    val handlerSpec = Line.blank :: 
+      lines(
+        s"""|void ${className} :: 
+            |  sendEvents_internalInterfaceHandler(const SMEvents& ev)
+            |{
+            |  U16 id = ev.getsmId();
+            |  
+            |"""
+      )
+
+
+    val swLines =  wrapInSwitch(
+      "id",
+      getInstances.map(_.data.name).flatMap(x =>
+        lines(
+          s"""| case StateMachine::$x
+              |   this->$x.update(&ev);
+              |   break;
+          """
+        )
+      )
+    )
+
     List(
       linesClassMember(
-              Line.blank :: 
-                lines(
-                  s"""|void ${className} :: 
-                      |  sendEvents_internalInterfaceHandler(const SMEvents& ev)
-                      |{
-                      |  U16 id = ev.getsmId();
-                      |  
-                      |  switch (id) {
-                      |   
-                      |"""
-                ) ++
-
-                getInstances.map(_.data.name).map(x => 
-                lines(
-                  s"""|    case StateMachine::$x
-                      |      this->$x.update(&ev);
-                      |      break;
-                      |   
-                      |"""
-                    )
-               ).flatten ++
-
-                lines(
-                  s"""| }
-                      |  
-                      |}
-                      | """
-                ),
-              CppDoc.Lines.Cpp
-              )
-        )
+        handlerSpec ++ swLines.map(indentIn) ++ lines("}"),
+        CppDoc.Lines.Cpp
+      ),
+    )
   }
 
 
