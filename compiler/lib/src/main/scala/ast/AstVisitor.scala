@@ -27,8 +27,6 @@ trait AstVisitor {
 
   def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out = default(in)
 
-  def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
-
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
@@ -80,6 +78,8 @@ trait AstVisitor {
   def specPortMatchingAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]): Out = default(in)
 
   def specRecordAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecRecord]]): Out = default(in)
+
+  def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
 
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
