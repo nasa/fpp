@@ -60,6 +60,7 @@ object Token {
   final case class LOCATE() extends Token
   final case class LOW() extends Token
   final case class LPAREN() extends Token
+  final case class MACHINE() extends Token
   final case class MATCH() extends Token
   final case class MINUS() extends Token
   final case class MODULE() extends Token
@@ -100,6 +101,7 @@ object Token {
   final case class SLASH() extends Token
   final case class STACK() extends Token
   final case class STAR() extends Token
+  final case class STATE() extends Token
   final case class STRING() extends Token
   final case class STRUCT() extends Token
   final case class SYNC() extends Token

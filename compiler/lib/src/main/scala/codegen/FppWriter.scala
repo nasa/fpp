@@ -166,6 +166,15 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.returnType) (" -> ") (typeNameNode)
   }
 
+  override def defStateMachineAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine ${ident(data.name)}")
+  }
+
   override def defStructAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefStruct]]
@@ -449,6 +458,16 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode)
   }
 
+  override def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine instance ${ident(data.name)}").
+      join(": ") (qualIdent(data.stateMachine.data))
+  }
+
   override def specTlmChannelAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
@@ -673,6 +692,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "internal",
     "locate",
     "low",
+    "machine",
     "match",
     "module",
     "on",
@@ -688,7 +708,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "product",
     "queue",
     "queued",
-    "raw",
     "record",
     "recv",
     "red",
@@ -703,6 +722,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "severity",
     "size",
     "stack",
+    "state",
     "string",
     "struct",
     "sync",
