@@ -22,12 +22,13 @@ case class ComponentStateMachines(
       linesClassMember(
               Line.blank :: 
                 lines(
-                  s"""|void ${className}ComponentBase :: 
+                  s"""|void ${className} :: 
                       |  sendEvents_internalInterfaceHandler(const SMEvents& ev)
                       |{
                       |  U16 id = ev.getsmId();
+                      |  
                       |  switch (id) {
-                      |
+                      |   
                       |"""
                 ) ++
 
@@ -36,13 +37,14 @@ case class ComponentStateMachines(
                   s"""|    case StateMachine::$x
                       |      this->$x.update(&ev);
                       |      break;
-                      |
+                      |   
                       |"""
                     )
                ).flatten ++
 
                 lines(
                   s"""| }
+                      |  
                       |}
                       | """
                 ),
