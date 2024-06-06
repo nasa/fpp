@@ -49,15 +49,15 @@ module DefinitionsAndSpecifiers {
     @< Async product receive port
 
     @ Internal Component State machine definition
-    state machine Foo
+    state machine S
     @< State machine definition
 
     @ State machine instance 1
-    state machine instance foo1: Foo
+    state machine instance s1: S
     @ State machine instance 1
 
     @ State machine instance 2
-    state machine instance foo2: Foo
+    state machine instance s2: S
     @ State machine instance 2
 
     @ State machine for outside definition
