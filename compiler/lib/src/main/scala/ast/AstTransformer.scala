@@ -29,7 +29,6 @@ trait AstTransformer {
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): ResultAnnotatedNode[Ast.DefComponent] =
     Right(default(in), node)
 
-
   def defComponentInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]

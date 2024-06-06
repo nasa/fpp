@@ -29,7 +29,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec state machine instance") ++ 
     List(
       ident(node.data.name),
-      addPrefix("state machine", qualIdent) (data.statemachine.data),
+      addPrefix("state machine", qualIdent) (data.stateMachine.data),
     ).flatten.map(indentIn)
   }
 

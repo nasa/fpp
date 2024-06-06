@@ -118,7 +118,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"state machine instance ${ident(data.name)}").
-      join(": ") (qualIdent(data.statemachine.data))
+      join(": ") (qualIdent(data.stateMachine.data))
   }
 
   override def defComponentInstanceAnnotatedNode(
