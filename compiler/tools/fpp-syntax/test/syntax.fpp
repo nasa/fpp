@@ -11,6 +11,7 @@ module DefinitionsAndSpecifiers {
 
   @ State machine outside a component
   state machine SO
+  @< State machine outside a component
 
   @ Component definition
   active component C {
@@ -54,14 +55,15 @@ module DefinitionsAndSpecifiers {
 
     @ State machine instance 1
     state machine instance s1: S
-    @ State machine instance 1
+    @< State machine instance 1
 
     @ State machine instance 2
     state machine instance s2: S
-    @ State machine instance 2
+    @< State machine instance 2
 
     @ State machine for outside definition
     state machine instance so: SO
+    @< State machine for outside definition
 
     output port p2: [10] P
     @ Port matching specifier
