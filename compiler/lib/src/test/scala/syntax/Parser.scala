@@ -87,6 +87,9 @@ class ParserSpec extends AnyWordSpec {
           event E severity activity low format "Event E"
           include "a.fpp"
           internal port P
+          state machine Foo
+          state machine instance foo1: Foo
+          state machine instance foo2: Foo
         }""",
         """active component C {
           @ Pre
@@ -174,6 +177,24 @@ class ParserSpec extends AnyWordSpec {
         "port P()",
         "port P(x: U32)",
         "port P(x: U32) -> U32",
+      )
+    )
+  }
+
+  "def state machine OK" should {
+    parseAllOK(
+      Parser.defStateMachine,
+      List(
+        "state machine Foo",
+      )
+    )
+  }
+
+  "spec state machine instance specifier OK" should {
+    parseAllOK(
+      Parser.specStateMachineInstance,
+      List(
+        "state machine instance foo: Foo",
       )
     )
   }
@@ -666,6 +687,9 @@ class ParserSpec extends AnyWordSpec {
       )
     )
   }
+  
+
+
 
   def parseAllError[T](p: Parser.Parser[T], ss: List[String]): Unit = {
     ss.foreach { s => s"not parse $s" in parseError(p, s) }
