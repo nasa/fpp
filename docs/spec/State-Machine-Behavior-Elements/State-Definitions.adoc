@@ -24,7 +24,6 @@ A state definition member is one of the following:
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
 
-
 ==== Semantics
 
 . The identifier is the name of the state.
