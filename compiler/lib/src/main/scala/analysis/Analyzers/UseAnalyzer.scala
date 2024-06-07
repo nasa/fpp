@@ -68,7 +68,7 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specStateMachineInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    qualIdentNode(stateMachineUse)(a, data.statemachine)
+    qualIdentNode(stateMachineUse)(a, data.stateMachine)
   }
 
 
