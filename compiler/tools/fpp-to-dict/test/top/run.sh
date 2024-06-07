@@ -13,3 +13,9 @@ dataProducts()
     validate_json_schema BasicDp && \
     diff_json BasicDp
 }
+
+duplicate()
+{
+  run_test '' duplicate && \
+    compare duplicate
+}
