@@ -484,7 +484,7 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          List(s"Fw::${kindStr}ComponentBase(compName)"),
+          s"Fw::${kindStr}ComponentBase(compName)" :: stateMachineWriter.getInstanceNames.map(x => s"$x(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(
