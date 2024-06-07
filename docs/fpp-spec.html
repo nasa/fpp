@@ -1773,12 +1773,13 @@ and internal port specifiers must be distinct.</p>
 <li>
 <p>No passive component may have an <code>async</code> general or special
 port specifier, an internal
-port specifier, or an <code>async</code> command specifier.</p>
+port specifier, an <code>async</code> command specifier, or a state machine instance
+specifier.</p>
 </li>
 <li>
 <p>Each active or queued component must have at least one <code>async</code> general
-or special port specifier, internal port specifier, or
-<code>async</code> command specifier.</p>
+or special port specifier, internal port specifier,
+<code>async</code> command specifier, or state machine instance specifier.</p>
 </li>
 <li>
 <p>Each component may have at most one of each special port kind.</p>
@@ -6081,7 +6082,10 @@ product record Record2: F64x3</code></pre>
 <div class="sect2">
 <h3 id="Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>state machine instance specifier</strong> instantiates a  <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+<p>A <strong>state machine instance specifier</strong> specifies an instantiated
+<a href="#Definitions_State-Machine-Definitions">state machine</a> as part
+of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</h4>
@@ -6097,10 +6101,13 @@ product record Record2: F64x3</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> is the name of the instantiated state machine</p>
+<p>The identifier names the state machine instance.</p>
 </li>
 <li>
-<p>The <em>qual-ident</em> is the name of the state machine definition</p>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -6109,12 +6116,15 @@ product record Record2: F64x3</code></pre>
 <h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
-
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+  initial S
+  state S
 }
 
-@ state machine monitor1 is an instance of state machine model MonitorSm
-state machine instance monitor1 : MonitorSm</code></pre>
+passive component C {
+  @ m is an instance of state machine M
+  state machine instance m: M
+}</code></pre>
 </div>
 </div>
 </div>
@@ -9620,7 +9630,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-07 15:17:14 -0700
+Last updated 2024-06-07 15:31:18 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

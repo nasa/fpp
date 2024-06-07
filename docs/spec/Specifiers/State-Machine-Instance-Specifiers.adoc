@@ -1,6 +1,9 @@
 === State Machine Instance Specifiers
 
-A *state machine instance specifier* instantiates a  <<Definitions_State-Machine-Definitions,state machine definition>>.
+A *state machine instance specifier* specifies an instantiated 
+<<Definitions_State-Machine-Definitions,state machine>> as part
+of a
+<<Definitions_Component-Definitions,component definition>>.
 
 ==== Syntax
 
@@ -11,18 +14,24 @@ A *state machine instance specifier* instantiates a  <<Definitions_State-Machine
 
 ==== Semantics
 
-. The _identifier_ is the name of the instantiated state machine
+. The identifier names the state machine instance.
 
-. The _qual-ident_ is the name of the state machine definition
+. The qualified identifier must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
 
 ==== Examples
 
 [source,fpp]
 ----
-state machine MonitorSm {
-
+state machine M {
+  initial S
+  state S
 }
 
-@ state machine monitor1 is an instance of state machine model MonitorSm
-state machine instance monitor1 : MonitorSm
+passive component C {
+  @ m is an instance of state machine M
+  state machine instance m: M
+}
 ----

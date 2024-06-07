@@ -83,11 +83,12 @@ and internal port specifiers must be distinct.
 
 . No passive component may have an `async` general or special
 port specifier, an internal
-port specifier, or an `async` command specifier.
+port specifier, an `async` command specifier, or a state machine instance
+specifier.
 
 . Each active or queued component must have at least one `async` general
-or special port specifier, internal port specifier, or
-`async` command specifier.
+or special port specifier, internal port specifier,
+`async` command specifier, or state machine instance specifier.
 
 . Each component may have at most one of each special port kind.
 
