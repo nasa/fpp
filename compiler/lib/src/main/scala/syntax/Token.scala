@@ -102,7 +102,6 @@ object Token {
   final case class STACK() extends Token
   final case class STAR() extends Token
   final case class STATE() extends Token
-  final case class SM() extends Token
   final case class STRING() extends Token
   final case class STRUCT() extends Token
   final case class SYNC() extends Token
