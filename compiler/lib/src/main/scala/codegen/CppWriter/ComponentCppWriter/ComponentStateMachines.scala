@@ -11,8 +11,7 @@ case class ComponentStateMachines(
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
           genInstantiations ++
-          genEnumerations ++
-          genInternalInterfaceHandler
+          genEnumerations
   }
 
 
@@ -31,9 +30,9 @@ case class ComponentStateMachines(
 
     val swLines =  wrapInSwitch(
       "id",
-      getInstances.map(_.data.name).flatMap(x =>
+      getInstanceNames.flatMap(x =>
         lines(
-          s"""| case StateMachine::$x
+          s"""| case StateMachine::${x.toUpperCase}
               |   this->$x.update(&ev);
               |   break;
           """
@@ -52,10 +51,9 @@ case class ComponentStateMachines(
 
   def genInstantiations: List[CppDoc.Class.Member] = {
 
-      val smInstances = getInstances.map(_.data.name)
-      val smDefs = getInstances.flatMap(_.data.statemachine.data.toIdentList)
+      val smDefs = getSmNode.map(_.data.statemachine.data.toIdentList).flatten
 
-      val smLines: List[Line] = smInstances.zip(smDefs).map 
+      val smLines: List[Line] = getInstanceNames.zip(smDefs).map 
           { case (instance, definition) =>
            Line(s"$definition   $instance;")
           }
@@ -71,9 +69,13 @@ case class ComponentStateMachines(
 
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-      val smInstances = getInstances.map(_.data.name.toUpperCase).map(x => line(s"$x,"))
-
-      val smLines = wrapInNamespace("StateMachine", wrapInNamedEnum("SmId", smInstances))
+      val smLines = wrapInNamespace(
+        "StateMachine", 
+        wrapInNamedEnum(
+          "SmId", 
+          getInstanceNames.map(x => line(x.toUpperCase + ","))
+        )
+      )
 
       addAccessTagAndComment(
         "PRIVATE",
@@ -83,31 +85,7 @@ case class ComponentStateMachines(
       )
   }
 
-  def genInternalInterfaceHandler: List[CppDoc.Class.Member] = {
-
-    val interfaceParam: CppDoc.Function.Param = CppDoc.Function.Param(
-      CppDoc.Type("const Svc::SMEvents&"),
-      "ev"
-    )
-
-    addAccessTagAndComment(
-      "PROTECTED",
-      s"Internal interface handler for receiving state machine events",
-      List(
-        functionClassMember(
-          None,
-          internalInterfaceHandlerName("sendEvents"),
-          List(interfaceParam),
-          CppDoc.Type("void"),
-          lines("// Default: no-op")
-        )
-      ),
-      CppDoc.Lines.Cpp
-    )
-  }
-
-
-  def getInstances: List[AstNode[Ast.SpecStateMachineInstance]] = {
+  def getSmNode: List[AstNode[Ast.SpecStateMachineInstance]] = {
 
       val (_, defComponent, _) = aNode // Extract the components of the tuple
 
@@ -117,6 +95,9 @@ case class ComponentStateMachines(
 
   }
 
+
+  def getInstanceNames: List[String] =
+       getSmNode.map(_.data.name)
 
 }
  
