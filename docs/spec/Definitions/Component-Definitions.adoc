@@ -46,6 +46,9 @@ values.
 All records specified in a component must have distinct names and identifier
 values.
 
+* A <<Specifiers_State-Machine-Instance-Specifiers,state machine instance specifier>>.
+All state machine instances specified in a component must have distinct names.
+
 * A <<Specifiers_Telemetry-Channel-Specifiers,telemetry channel specifier>>.
 All telemetry channels specified in a component must have distinct names and
 identifier values.
