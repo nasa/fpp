@@ -102,25 +102,6 @@ object FppWriter extends AstVisitor with LineUtils {
     List(Line.blank, line("}"))
   }
 
-  override def defStateMachineAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines(s"state machine ${ident(data.name)}")
-  }
-
-  override def specStateMachineInstanceAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines(s"state machine instance ${ident(data.name)}").
-      join(": ") (qualIdent(data.statemachine.data))
-  }
-
   override def defComponentInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponentInstance]]
@@ -183,6 +164,15 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
+  }
+
+  override def defStateMachineAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine ${ident(data.name)}")
   }
 
   override def defStructAnnotatedNode(
@@ -468,6 +458,16 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode)
   }
 
+  override def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine instance ${ident(data.name)}").
+      join(": ") (qualIdent(data.stateMachine.data))
+  }
+
   override def specTlmChannelAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
@@ -708,7 +708,6 @@ object FppWriter extends AstVisitor with LineUtils {
     "product",
     "queue",
     "queued",
-    "raw",
     "record",
     "recv",
     "red",

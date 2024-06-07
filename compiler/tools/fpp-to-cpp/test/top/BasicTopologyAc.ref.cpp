@@ -110,9 +110,9 @@ namespace M {
   }
 
   void freeThreads(const TopologyState& state) {
-    (void) active1.ActiveComponentBase::join(nullptr);
+    (void) active1.ActiveComponentBase::join();
     active2.freeSpecial();
-    (void) active3.ActiveComponentBase::join(nullptr);
+    (void) active3.ActiveComponentBase::join();
   }
 
   void tearDownComponents(const TopologyState& state) {
