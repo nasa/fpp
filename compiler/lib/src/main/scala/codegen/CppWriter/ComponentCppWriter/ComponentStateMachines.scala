@@ -10,8 +10,7 @@ case class ComponentStateMachines(
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   def getVariableMembers: List[CppDoc.Class.Member] = {
-          genInstantiations ++
-          genEnumerations
+          genInstantiations
   }
 
 
@@ -32,7 +31,7 @@ case class ComponentStateMachines(
       "id",
       getInstanceNames.flatMap(x =>
         lines(
-          s"""| case StateMachine::${x.toUpperCase}
+          s"""| case ${x.toUpperCase}:
               |   this->$x.update(&ev);
               |   break;
           """
@@ -69,13 +68,11 @@ case class ComponentStateMachines(
 
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-      val smLines = wrapInNamespace(
-        "StateMachine", 
+      val smLines =  
         wrapInNamedEnum(
           "SmId", 
           getInstanceNames.map(x => line(x.toUpperCase + ","))
         )
-      )
 
       addAccessTagAndComment(
         "PRIVATE",

@@ -67,7 +67,7 @@ case class ComponentCppWriter (
       ),
       className,
       Some(s"public Fw::$baseClassName"),
-      getClassMembers
+      stateMachineWriter.genEnumerations ++ getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
