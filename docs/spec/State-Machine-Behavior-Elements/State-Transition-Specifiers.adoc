@@ -20,7 +20,6 @@ _[_
 _]_
 `do` <<Lexical-Elements_Identifiers,_identifier_>>
 
-
 ==== Semantics
 
 . The identifier after the keyword `on` must
