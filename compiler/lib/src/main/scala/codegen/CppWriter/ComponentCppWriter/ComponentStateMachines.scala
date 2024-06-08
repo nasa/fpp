@@ -14,21 +14,96 @@ case class ComponentStateMachines(
   }
 
 
-  def getInternalInterfaceHandler: List[CppDoc.Class.Member] = {
-
-    val handlerSpec = Line.blank :: 
-      lines(
-        s"""|void ${className} :: 
-            |  sendEvents_internalInterfaceHandler(const SMEvents& ev)
-            |{
-            |  U16 id = ev.getsmId();
-            |  
-            |"""
+  def getFunctionMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      "State machine function to push events to the input queue",
+      List(
+        functionClassMember(
+          Some(
+            s"State machine base-class function for sendEvents"
+          ),
+          "stateMachineInvoke",
+          List(
+            CppDoc.Function.Param(
+                CppDoc.Type("const Svc::SMEvents&"),
+                "ev",
+                Some("The state machine event")
+            )
+          ),
+          CppDoc.Type("void"),
+          intersperseBlankLines(
+            List(
+              lines(
+                s"""|ComponentIpcSerializableBuffer msg;
+                    |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                    |
+                    |// Serialize the message ID
+                    |_status = msg.serialize(static_cast<FwEnumStoreType>(STATEMACHINE_SENDEVENTS));
+                    |FW_ASSERT (
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |// Fake port number to make message dequeue work
+                    |_status = msg.serialize(static_cast<FwIndexType>(0));
+                    |FW_ASSERT (
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |_status = msg.serialize(ev);
+                    |FW_ASSERT(
+                    |  _status == Fw::FW_SERIALIZE_OK,
+                    |  static_cast<FwAssertArgType>(_status)
+                    |);
+                    |
+                    |"""
+              ),
+              writeSendMessageLogic("msg", Ast.QueueFull.Assert, Option(1))
+            )
+          )
+        )
       )
+    )
+  }
+
+  def writeDispatch: List[Line] = {
+      val body = lines(
+        s"""|Svc::SMEvents ev;
+            |deserStatus = msg.deserialize(ev);
+            |
+            |FW_ASSERT(
+            |  Fw::FW_SERIALIZE_OK == deserStatus,
+            |  static_cast<FwAssertArgType>(deserStatus)
+            |);
+            |
+            |// Make sure there was no data left over.
+            |// That means the buffer size was incorrect.
+            |FW_ASSERT(
+            |  msg.getBuffLeft() == 0,
+            |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+            |);
+            |
+            |// Update the state machine with the event
+            |
+            |"""
+      ) ++ getInternalInterfaceHandler ++ List(line("break;"))
+
+      line(s"// Handle state machine events ") ::
+        wrapInScope(
+          s"case STATEMACHINE_SENDEVENTS: {",
+          body,
+          "}"
+        )
+  }
 
 
-    val swLines =  wrapInSwitch(
-      "id",
+
+  def getInternalInterfaceHandler: List[Line] = {
+
+    wrapInSwitch(
+      "ev.getsmId()",
       getInstanceNames.flatMap(x =>
         lines(
           s"""| case ${x.toUpperCase}:
@@ -39,12 +114,6 @@ case class ComponentStateMachines(
       )
     )
 
-    List(
-      linesClassMember(
-        handlerSpec ++ swLines.map(indentIn) ++ lines("}"),
-        CppDoc.Lines.Cpp
-      ),
-    )
   }
 
 

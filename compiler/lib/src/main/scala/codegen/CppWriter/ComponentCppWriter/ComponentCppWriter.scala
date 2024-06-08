@@ -168,7 +168,6 @@ case class ComponentCppWriter (
 
       // Anonymous namespace members
       getAnonymousNamespaceMembers,
-      stateMachineWriter.getInternalInterfaceHandler,
 
       // Types
       dpWriter.getTypeMembers,
@@ -183,6 +182,7 @@ case class ComponentCppWriter (
       getProtectedComponentFunctionMembers,
       portWriter.getProtectedFunctionMembers,
       internalPortWriter.getFunctionMembers,
+      stateMachineWriter.getFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
@@ -287,6 +287,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
+        guardedList (!stateMachineWriter.getInstanceNames.isEmpty) (List("STATEMACHINE_SENDEVENTS"))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -812,6 +813,7 @@ case class ComponentCppWriter (
                     intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
+                    stateMachineWriter.writeDispatch,
                     lines(
                       """|default:
                          |  return MSG_DISPATCH_ERROR;
