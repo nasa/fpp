@@ -26,7 +26,7 @@ case class ComponentStateMachines(
           "stateMachineInvoke",
           List(
             CppDoc.Function.Param(
-                CppDoc.Type("const Svc::SMEvents&"),
+                CppDoc.Type("const Fw::SMEvents&"),
                 "ev",
                 Some("The state machine event")
             )
@@ -39,7 +39,7 @@ case class ComponentStateMachines(
                     |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
                     |
                     |// Serialize the message ID
-                    |_status = msg.serialize(static_cast<FwEnumStoreType>(STATEMACHINE_SENDEVENTS));
+                    |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
                     |FW_ASSERT (
                     |  _status == Fw::FW_SERIALIZE_OK,
                     |  static_cast<FwAssertArgType>(_status)
@@ -70,7 +70,7 @@ case class ComponentStateMachines(
 
   def writeDispatch: List[Line] = {
       val body = lines(
-        s"""|Svc::SMEvents ev;
+        s"""|Fw::SMEvents ev;
             |deserStatus = msg.deserialize(ev);
             |
             |FW_ASSERT(
@@ -92,7 +92,7 @@ case class ComponentStateMachines(
 
       line(s"// Handle state machine events ") ::
         wrapInScope(
-          s"case STATEMACHINE_SENDEVENTS: {",
+          s"case $stateMachineCppConstantName: {",
           body,
           "}"
         )
@@ -119,9 +119,7 @@ case class ComponentStateMachines(
 
   def genInstantiations: List[CppDoc.Class.Member] = {
 
-      val smDefs = getSmNode.map(_.data.statemachine.data.toIdentList).flatten
-
-      val smLines: List[Line] = getInstanceNames.zip(smDefs).map 
+      val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map 
           { case (instance, definition) =>
            Line(s"$definition   $instance;")
           }
@@ -161,9 +159,17 @@ case class ComponentStateMachines(
 
   }
 
+  def getSmDefs: List[String] = 
+    getSmNode.map(_.data.statemachine.data.toIdentList).flatten
+
 
   def getInstanceNames: List[String] =
        getSmNode.map(_.data.name)
 
+
+  def getSmInterface: String =
+    getSmDefs.toSet.toList.map(x => s", public ${x}If").mkString
+
 }
+
  

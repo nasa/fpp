@@ -29,6 +29,9 @@ case class ComponentCppWriter (
 
   private val stateMachineWriter = ComponentStateMachines(s, aNode)
 
+  val hasStateMachines: Boolean = !stateMachineWriter.getInstanceNames.isEmpty
+
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -66,7 +69,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName"),
+      Some(s"public Fw::$baseClassName" + stateMachineWriter.getSmInterface),
       stateMachineWriter.genEnumerations ++ getClassMembers
     )
     List(
@@ -94,6 +97,8 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
+    val stateMachineEventHeaders = 
+      guardedList (hasStateMachines) (List("Fw/Types/SMEventsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -108,7 +113,8 @@ case class ComponentCppWriter (
       tlmStrHeaders,
       prmStrHeaders,
       logStrHeaders,
-      internalStrHeaders
+      internalStrHeaders,
+      stateMachineEventHeaders
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -287,7 +293,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
-        guardedList (!stateMachineWriter.getInstanceNames.isEmpty) (List("STATEMACHINE_SENDEVENTS"))
+        guardedList (hasStateMachines) (List(stateMachineCppConstantName))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -330,6 +336,15 @@ case class ComponentCppWriter (
             ).mkString(" +\n")
           ),
           "];"
+        )
+      ),
+      guardedList (hasStateMachines) (
+        lines(
+          s"""|// Size of statemachine sendEvents
+              |BYTE sendEventsStatemachineSize[
+              |  Fw::SMEvents::SERIALIZED_SIZE
+              |];
+              |"""
         )
       )
     )

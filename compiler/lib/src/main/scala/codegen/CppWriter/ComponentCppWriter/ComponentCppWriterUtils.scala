@@ -643,6 +643,9 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a command enumerated constant in cpp file */
   def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"
+  
+  /** Get the name for the state machine enumerated constant in cpp file */
+  def stateMachineCppConstantName = "STATEMACHINE_SENDEVENTS"
 
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =
