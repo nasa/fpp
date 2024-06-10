@@ -20,7 +20,7 @@ run_test()
   else
     outfile=$infile
   fi
-  $fpp_to_dict $args $infile.fpp 2>&1
+  $fpp_to_dict $args $infile.fpp 2>&1 | remove_author | remove_path_prefix > $outfile.out.txt
 }
 
 . ./tests.sh
@@ -31,7 +31,7 @@ do
   echo "
 $t()
 {
-  run_test $t
+  run_test '' $t
 }"
 done > default-tests.sh
 . ./default-tests.sh
