@@ -142,7 +142,7 @@ case class ComponentStateMachines(
         )
 
       addAccessTagAndComment(
-        "PRIVATE",
+        "PROTECTED",
         s"State machine Enumeration",
         List(linesClassMember(smLines)),
         CppDoc.Lines.Hpp
