@@ -19,6 +19,7 @@ passive component C2 {
   array C1_S_use = [3] C1.S
   array C1_T_use = [3] C1.T
   constant C1_E_use = C1.E.X
+  state machine instance led: M.LedSm
 }
 
 active component C3 {
