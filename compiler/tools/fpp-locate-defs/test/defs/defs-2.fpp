@@ -12,12 +12,16 @@ module M {
 
   port P
 
+  state machine LedSm
+
   passive component C {
     type T
     array A = [3] U32
     constant a = 0
     enum E { X, Y, Z }
     struct S { x: U32 }
+    state machine LedSm
+    state machine instance led1: LedSm
   }
 
   instance c: C base id 0x100
