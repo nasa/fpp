@@ -27,6 +27,8 @@ case class Component(
   paramMap: Map[Param.Id, Param] = Map(),
   /** The list of port matching specifiers */
   specPortMatchingList: List[Ast.Annotated[AstNode[Ast.SpecPortMatching]]] = Nil,
+  /** The map from state machine instance names to state machine instances */
+  //stateMachineInstanceMap: Map[Name.Unqualified, StateMachineInstance] = Map(),
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
@@ -112,6 +114,11 @@ case class Component(
       }
     }
     yield c
+
+
+  // def addStateMachineInstance(instance: String): Result.Result[Component] =
+  //   Right(this.copy(specStateMachineInstance = instance))
+
 
   /** Add a port instance to the port map */
   private def updatePortMap(instance: PortInstance):
@@ -403,10 +410,19 @@ case class Component(
             Left(SemanticError.PassiveAsync(command.getLoc))
           case _ => Right(())
         }
-      ) 
+      )
+      // def checkStateMachines() = Result.map(
+      //   this.commandMap.values.toList,
+      //   (command: Command) => command match {
+      //     case Command.NonParam(_, Command.NonParam.Async(_, _)) =>
+      //       Left(SemanticError.PassiveAsync(command.getLoc))
+      //     case _ => Right(())
+      //   }
+      // ) 
       for {
         _ <- checkPortInstances()
         _ <- checkCommands()
+        //_ <- checkStateMachines()
       }
       yield ()
     }
