@@ -42,6 +42,10 @@ Annotations can occur at the following syntax elements:
 
 * A <<Formal-Parameter-Lists,formal parameter>>.
 
+* A <<Definitions_State-Machine-Definitions_Syntax,state machine member>>.
+
+* A <<State-Machine-Behavior-Elements_State-Definitions_Syntax,state definition member>>.
+
 These elements are called the *annotatable elements* of an FPP model.
 
 ==== Kinds of Annotations

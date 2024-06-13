@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.0.2</title>
+<title>The F Prime Prime (FPP) Language Specification, State Machines</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.0.2</h1>
+<h1>The F Prime Prime (FPP) Language Specification, State Machines</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -527,7 +527,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
 <li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.3. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.3. Scoping of Names</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
@@ -546,62 +547,62 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior">6. State Machine Behavior</a>
+<li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
 <ul class="sectlevel2">
-<li><a href="#State-Machine-Behavior_State-Events">6.1. State Events</a>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions">6.1. Action Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Events_Syntax">6.1.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Events_Semantics">6.1.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Events_Examples">6.1.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Syntax">6.1.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Semantics">6.1.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Actions">6.2. State Actions</a>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.2. Guard Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Actions_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Actions_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Actions_Examples">6.2.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.2.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.2.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Guards">6.3. State Guards</a>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.3. Initial Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Guards_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Guards_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Guards_Examples">6.3.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Definition">6.4. State Definition</a>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions">6.4. Junction Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Definition_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Definition_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Definition_Examples">6.4.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Initial">6.5. State Initial</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.5. State Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Initial_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Initial_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Initial_Examples">6.5.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.5.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.5.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Junction">6.6. State Junction</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">6.6. State Machine Event Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Junction_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Junction_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Junction_Examples">6.6.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Transition">6.7. State Transition</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.7. State Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Transition_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Transition_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Transition_Examples">6.7.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior_State-Visit">6.8. State Visit</a>
+<li><a href="#State-Machine-Behavior-Elements_Visit-Expressions">6.8. Visit Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior_State-Visit_Syntax">6.8.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior_State-Visit_Semantics">6.8.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior_State-Visit_Examples">6.8.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Visit-Expressions_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Visit-Expressions_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Visit-Expressions_Examples">6.8.3. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -1719,6 +1720,10 @@ All records specified in a component must have distinct names and identifier
 values.</p>
 </li>
 <li>
+<p>A <a href="#Specifiers_State-Machine-Instance-Specifiers">state machine instance specifier</a>.
+All state machine instances specified in a component must have distinct names.</p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Telemetry-Channel-Specifiers">telemetry channel specifier</a>.
 All telemetry channels specified in a component must have distinct names and
 identifier values.</p>
@@ -1772,12 +1777,13 @@ and internal port specifiers must be distinct.</p>
 <li>
 <p>No passive component may have an <code>async</code> general or special
 port specifier, an internal
-port specifier, or an <code>async</code> command specifier.</p>
+port specifier, an <code>async</code> command specifier, or a state machine instance
+specifier.</p>
 </li>
 <li>
 <p>Each active or queued component must have at least one <code>async</code> general
-or special port specifier, internal port specifier, or
-<code>async</code> command specifier.</p>
+or special port specifier, internal port specifier,
+<code>async</code> command specifier, or state machine instance specifier.</p>
 </li>
 <li>
 <p>Each component may have at most one of each special port kind.</p>
@@ -2725,18 +2731,38 @@ port Port3(
 <div class="paragraph">
 <p>A <strong>state machine definition</strong> defines a state machine.</p>
 </div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
-<div class="ulist">
-<ul>
+<div class="paragraph">
+<p>There are two kinds of state machine definitions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>state machine</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code> <em>state-machine-behavior</em> <code>}</code></p>
+<p>An <strong>external state machine definition</strong>
+introduces a name and informs the FPP analyzer that
+a state machine implementation with that name will be provided to the
+FSW build.</p>
 </li>
-</ul>
+<li>
+<p>An <strong>internal state machine definition</strong>
+specifies the behavior of a state machine and
+causes an implementation to be generated.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p><em>state-machine-behavior</em> is an
+<p><strong>Implementation note:</strong>
+Support for state machines will be implemented in two phases.
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>state machine</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em> <code>{</code> <em>state-machine-member-sequence</em> <code>}</code> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>state-machine-member-sequence</em> is an
 <a href="#Element-Sequences">element sequence</a> in
 which each element is a <strong>state machine member</strong>,
 and the terminating punctuation is a semicolon.
@@ -2745,22 +2771,22 @@ A state machine member is one of the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Events">state events</a></p>
+<p>An <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Actions">state actions</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Guards">state guards</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Initial">state initial</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Definition">state definition</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior_State-Junction">state junction</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">state machine event definition</a></p>
 </li>
 </ul>
 </div>
@@ -2770,29 +2796,100 @@ A state machine member is one of the following:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> specifies the name of the state machine.</p>
+<p>The identifier is the name of the state machine.</p>
 </li>
 <li>
-<p>The <em>state-machine-behavior</em> describes
-a hierarchical state machine.</p>
+<p>If present, the optional state machine member sequence defines the
+behavior of the state machine.
+In this case, the state machine definition is internal.
+If the state machine member sequence is absent, then the state machine
+definition is external, i.e., the state machine
+behavior is not specified in FPP.</p>
 </li>
 <li>
-<p><em>state_events</em> specify all the <em>events</em> that can be dispatched to this state machine.  An <em>event</em> causes a state transition.</p>
-</li>
-<li>
-<p><em>state actions</em> specify all the actions that can be invoked by this state machine.  An <em>action</em> is a function that&#8217;s called on a state transition.</p>
-</li>
-<li>
-<p><em>state guards</em> specify all the guards that are used in transitions by this state machine.  A <em>guard</em> is a predicate that indicates if a transition can occur.</p>
-</li>
-<li>
-<p>The state machine must have one <em>state initial</em> that specifies the initial state.</p>
+<p>If present, the optional state machine member sequence must contain
+exactly one
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
+The initial transition occurs when the state machine starts up.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.3. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.3. Scoping of Names</h4>
+<div class="paragraph">
+<p>Inside the optional state machine member sequence, the following
+rules govern the assignment of names to definitions and the resolution
+of names in uses.</p>
+</div>
+<div class="paragraph">
+<p><strong>State machine member definitions:</strong>
+There are five kinds of <strong>state machine member definitions</strong>:
+Action definitions, guard definitions, junction definitions, state
+definitions, and state machine event definitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Qualified names:</strong>
+Each state machine member definition has an associated qualified
+name.
+Within a state machine member sequence,
+the association of names to state machine member definitions is
+the same as for <a href="#Scoping-of-Names_Names-of-Definitions">FPP definitions</a>,
+after replacing &#8220;definition&#8221; with &#8220;state machine member definition.&#8221;</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine S {
+
+  # Qualified name is A
+  action A
+
+  # Qualified name is S1
+  state S1 {
+
+    # Qualified name is S1.S2
+    state S2
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Conflicting names:</strong>
+No two state machine definitions of the same kind may have the
+same qualified name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resolution of names:</strong>
+Names are resolved in the ordinary way for
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">identifiers</a>
+and
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">qualified identifiers</a> in FPP,
+with the following modifications:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The top level is the state machine member sequence.</p>
+</li>
+<li>
+<p>The definitions are the state machine member definitions.</p>
+</li>
+<li>
+<p>Each kind of definition resides in its own name group.</p>
+</li>
+<li>
+<p>The brace-delimited definitions are state definitions.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -3500,212 +3597,352 @@ specifiers</a>:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="State-Machine-Behavior">6. State Machine Behavior</h2>
+<h2 id="State-Machine-Behavior-Elements">6. State Machine Behavior Elements</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="State-Machine-Behavior_State-Events">6.1. State Events</h3>
 <div class="paragraph">
-<p><strong>state events</strong> specifies <em>events</em> that are dispatched to the state machine which causes the state machine to run to completion.
-When a state machine <em>runs to completion</em> it means that it processes all pending events and transitions through its states until it reaches a stable state where no further transitions are immediately required.</p>
+<p>A <strong>state machine behavior element</strong> specifies an element of the behavior
+associated with a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Events_Syntax">6.1.1. Syntax</h4>
 <div class="paragraph">
-<p><code>event</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>:</code>
-<a href="#Type-Names"><em>type-name</em></a>
-<code>]</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Events_Semantics">6.1.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The <em>identifier</em> specifies the event name.</p>
-</li>
-<li>
-<p>If present, the optional <em>type-name</em> names the type of the data carried by the event.  If <em>type-name</em> is not present, then the event carries no data</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Events_Examples">6.1.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-    id: U32
-    data: U32
-}
-
-# An event without data
-event RTI
-
-# An event with data
-event Fault: FaultData</code></pre>
-</div>
-</div>
-</div>
+<p><strong>Implementation note:</strong>
+State machine behavior elements will not be implemented until Phase 2
+of state machine support in FPP.</p>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Actions">6.2. State Actions</h3>
+<h3 id="State-Machine-Behavior-Elements_Action-Definitions">6.1. Action Definitions</h3>
 <div class="paragraph">
-<p><strong>state actions</strong> specifies <em>actions</em> that are invoked upon transitions.  Actions are functions that can carry data.</p>
+<p>An <strong>action definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines an action, i.e., a function that is called when
+the enclosing state machine performs a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">transition from a state</a>
+or passes through a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+Actions may carry data.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Actions_Syntax">6.2.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Syntax">6.1.1. Syntax</h4>
 <div class="paragraph">
 <p><code>action</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>:</code>
 <a href="#Type-Names"><em>type-name</em></a>
-<code>]</code></p>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Actions_Semantics">6.2.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Semantics">6.1.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> specifies the action name.</p>
+<p>The identifier specifies the name of the action.</p>
 </li>
 <li>
-<p>The <em>type-name</em> specifies an optional data type associated with the action and will be
-passed into the action function when invoked.</p>
+<p>If present, the optional type name specifies the type <em>T</em> associated
+with the action.
+A value of type <em>T</em> will be passed into the function associated with
+the action when it is called.
+If <em>type-name</em> is not present, then there is no data associated with the
+action.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Actions_Examples">6.2.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-    id: U32
-    data: U32
+  $id: U32
+  data: U32
 }
 
-# An action without data
-action initPower
+@ A state machine with action definitions
+state machine ActionDefs {
 
-# An action with data
-action reportFault: FaultData</code></pre>
+  @ An action without data
+  action initPower
+
+  @ An action with data
+  action reportFault: FaultData
+
+  ...
+
+}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Guards">6.3. State Guards</h3>
+<h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.2. Guard Definitions</h3>
 <div class="paragraph">
-<p><strong>state guards</strong> specifies <em>guards</em> that are associated with transitions.  A <em>guard</em> is a predicate or function that returns a boolean.  Guards are placed on transitions.  When a guard evaluates to True the transition is taken, else the transition is not taken.</p>
+<p>A <strong>guard definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines a guard, i.e., a function that returns a Boolean value.
+Guards are associated with
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transitions</a>
+and
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junctions</a>.
+If the guard evaluates to <code>true</code>, then the state transition occurs
+or the branch of the junction is taken.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Guards_Syntax">6.3.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.2.1. Syntax</h4>
 <div class="paragraph">
 <p><code>guard</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>:</code>
 <a href="#Type-Names"><em>type-name</em></a>
-<code>]</code></p>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Guards_Semantics">6.3.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.2.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> specifies the guard name which is a function that returns a boolean.  When the guard is evaluated to True, it allows the transition to be invoked.</p>
+<p>The identifier specifies the name of the guard.</p>
 </li>
 <li>
-<p>The <em>type-name</em> specifies an optional data type associated with the guard and will be
-passed into the guard function when invoked.</p>
+<p>If present, the optional type name specifies the type <em>T</em> associated
+with the guard.
+A value of type <em>T</em> will be passed into the guard function when it is called.
+If <em>type-name</em> is not present, then there is no data associated with the
+guard.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Guards_Examples">6.3.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.2.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-    id: U32
-    data: U32
+<pre class="prettyprint highlight"><code data-lang="fpp">enum EnabledStatus { ENABLED, DISABLED }
+
+struct FaultData {
+  status: EnabledStatus
+  $id: U32
+  data: U32
 }
 
-# A guard without data
-guard noRecovery
+@ A state machine with guard definitions
+state machine GuardDefs {
 
-# A guard with data
-guard noRecovery: FaultData</code></pre>
+  @ A guard without data
+  guard powerIsEnabled
+
+  @ A guard with data
+  guard faultProtectionIsEnabled: FaultData
+
+  ...
+
+}</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Definition">6.4. State Definition</h3>
+<h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.3. Initial Transition Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>state definition</strong> specifies a state in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a></p>
+<p>An <strong>initial transition specifier</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Definition_Syntax">6.4.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.3.1. Syntax</h4>
 <div class="paragraph">
-<p><code>state</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em> <code>{</code> <em>state_sequence</em> <code>}</code> <em>]</em></p>
-</div>
-<div class="paragraph">
-<p><em>state-sequence</em> is an
-<a href="#Element-Sequences">element sequence</a> in
-which each element is a <strong>state member</strong>,
-and the terminating punctuation is a semicolon.
-A state member is one of the following</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A <a href="#State-Machine-Behavior_State-Definition">state definition</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior_State-Junction">state junction</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior_State-Initial">state initial</a></p>
-</li>
-<li>
-<p>A <a href="#State-Machine-Behavior_State-Transition">state transition</a></p>
-</li>
-</ul>
+<p><code>initial</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a>
+<em>[</em>
+<code>do</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Definition_Semantics">6.4.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.3.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> specifies the name of a state in the state machine</p>
+<p>The identifier must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
+It specifies the initial state or junction to visit.
+The state definition or junction definition referred to must be part of
+the same state machine definition or state definition where the initial
+transition specifier appears.</p>
 </li>
 <li>
-<p>The state can be hierarchical, a state can be defined within another state</p>
-</li>
-<li>
-<p>The state is required to have one <em>initial</em> specification if it is a hierarchical state</p>
-</li>
-<li>
-<p>The state can have <em>junctions</em></p>
-</li>
-<li>
-<p>All <em>transitions</em> that originate from a state are required to be specified inside that state</p>
+<p>If present, the optional identifier after the keyword <code>do</code>
+must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
+It specifies the action to perform when visiting the state or junction.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Definition_Examples">6.4.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.3.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initDevices
+
+  # When the state machine starts up, visit the ON state
+  initial ON
+
+  state ON {
+
+    # When entering the ON state, visit the POWERING_UP substate
+    initial POWERING_UP do initDevices
+
+    state POWERING_UP
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Junction-Definitions">6.4. Junction Definitions</h3>
+<div class="paragraph">
+<p>A <strong>junction definition</strong> specifies a junction as part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+A junction is a branch point controlled by a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.4.1. Syntax</h4>
+<div class="paragraph">
+<p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Visit-Expressions"><em>visit-expression</em></a>
+<code>else</code> <a href="#State-Machine-Behavior-Elements_Visit-Expressions"><em>visit-expression</em></a>
+<code>}</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.4.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier after the keyword <code>junction</code> is the name of the junction.</p>
+</li>
+<li>
+<p>The identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies the guard that controls the branch.</p>
+</li>
+<li>
+<p>Each of the visit expressions must be valid.
+The first visit expression is run if the guard evaluates to <code>true</code>;
+otherwise the second visit expression is run.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.4.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initPower
+  guard coldStart
+
+  initial J1
+
+  junction J1 {
+    if coldStart visit OFF \
+    else visit ON do initPower
+  }
+
+  state OFF
+
+  state ON
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.5. State Definitions</h3>
+<div class="paragraph">
+<p>A <strong>state definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It defines a state of a state machine.
+A state <em>S'</em> defined inside a state <em>S</em> expresses a hierarchy
+of states: <em>S'</em> is a substate of <em>S</em>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.5.1. Syntax</h4>
+<div class="paragraph">
+<p><code>state</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em> <code>{</code> <em>state-definition-member-sequence</em> <code>}</code> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>state-definition-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>state definition member</strong>,
+and the terminating punctuation is a semicolon.
+A state definition member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.5.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier is the name of the state.</p>
+</li>
+<li>
+<p>If the state definition member sequence is present,
+then it must contain exactly one initial transition specifier <em>I</em>.
+<em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.5.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -3758,121 +3995,73 @@ A state member is one of the following</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Initial">6.5. State Initial</h3>
+<h3 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions">6.6. State Machine Event Definitions</h3>
 <div class="paragraph">
-<p>A <strong>state initial</strong> specifies an initial state transition</p>
+<p>A <strong>state machine event definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines an event that may be sent to the enclosing state machine.
+Events are inputs to state machines that cause state transitions
+to occur.</p>
+</div>
+<div class="paragraph">
+<p>Events can be external or internal.
+An external event is sent to the state machine from outside,
+e.g., by a command to an F Prime component.
+An internal event is sent by the state machine implementation
+to itself.</p>
+</div>
+<div class="paragraph">
+<p>All events sent to a state machine (internal and external)
+are placed on a first-in first-out (FIFO) queue.
+The state machine dequeues and processes events when it is
+visiting a state, and after it has run the entry function
+for that state.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Initial_Syntax">6.5.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Syntax">6.6.1. Syntax</h4>
 <div class="paragraph">
-<p><code>initial</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
-<em>[</em>
-<code>do</code>
+<p><code>event</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
 <em>]</em></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Initial_Semantics">6.5.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Semantics">6.6.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>qual-ident</em> specifies the state or junction that will be visited when the state machine starts running.</p>
+<p>The identifier specifies the event name.</p>
 </li>
 <li>
-<p>An <em>initial</em> specification is required at the top of the state machine</p>
-</li>
-<li>
-<p>An <em>initial</em> specification is required at the top of every hierarchical state</p>
-</li>
-<li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed before visiting the initial state</p>
+<p>If present, the optional type name specifies the type of the
+data carried by the event.
+If <em>type-name</em> is not present, then the event carries no data.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Initial_Examples">6.5.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Machine-Event-Definitions_Examples">6.6.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  $id: U32
+  data: U32
+}
 
-  action initDevices
+@ A state machine with event definitions
+state machine EventDefs {
 
-  initial ON
+  @ An event without data
+  event RTI
 
-  state ON {
+  @ An event with data
+  event Fault: FaultData
 
-    initial POWERING_UP do initDevices
-
-    state POWERING_UP {
-
-    }
-  }</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="State-Machine-Behavior_State-Junction">6.6. State Junction</h3>
-<div class="paragraph">
-<p>A <strong>state junction</strong> specifies a state junction in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a>.
-A <em>junction</em> is a type of psuedo state.  It serves as an intermediate point in a transition path allowing a transtion to branch based on the returned value of the <em>guard</em> (predicate).  Other psuedo states in the state machine terminology are <em>initial</em> and <em>final</em></p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Junction_Syntax">6.6.1. Syntax</h4>
-<div class="paragraph">
-<p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<code>{</code>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior_State-Visit">state visit</a>
-<code>else</code> <a href="#State-Machine-Behavior_State-Visit">state visit</a>
-<code>}</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Junction_Semantics">6.6.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The <em>identifier</em> after the keyword <code>junction</code> is the name of the <em>junction</em>.</p>
-</li>
-<li>
-<p>Each <em>junction</em> requires a unique name.</p>
-</li>
-<li>
-<p>The <em>identifier</em> after the keyword <code>if</code> specifies the name of the <em>guard</em></p>
-</li>
-<li>
-<p>The <em>state visit</em> specifies the state to enter with an optional action</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior_State-Junction_Examples">6.6.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
-
-  action initPower
-  guard coldStart
-
-  initial J1
-
-  junction J1 {
-    if coldStart visit OFF
-    else visit ON do initPower
-  }
-
-  state OFF {
-
-  }
-
-  state ON {
-
-  }
+  ...
 
 }</code></pre>
 </div>
@@ -3880,76 +4069,77 @@ A <em>junction</em> is a type of psuedo state.  It serves as an intermediate poi
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Transition">6.7. State Transition</h3>
+<h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.7. State Transition Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>state transition</strong> specifies a state transition in a
-<a href="#Definitions_State-Machine-Definitions">state machine</a></p>
+<p>A <strong>state transition specifier</strong> is part of a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies a transition from the state in which it appears.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Transition_Syntax">6.7.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
 <p>A state transition is one of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><em>regular_transtion</em></p>
+<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em>
+<a href="#State-Machine-Behavior-Elements_Visit-Expressions"><em>visit-expression</em></a></p>
 </li>
-<li>
-<p><em>self_transition</em></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>regular_transition</em> has the following syntax:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>]</em>
-<a href="#State-Machine-Behavior_State-Visit">state visit</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><em>self_transition</em> has the following syntax:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Transition_Semantics">6.7.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.7.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> after the keyword <code>on</code> is the name of the <em>event</em> that triggers this transition</p>
+<p>The identifier after the keyword <code>on</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Machine-Event-Definitions">state machine event definition</a>.
+It names the event that causes the transition to occur.</p>
 </li>
 <li>
-<p>The optional <em>identifier</em> after the keyword <code>if</code> is the name of the <em>guard</em> for this transition</p>
+<p>If present, the optional identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies a guard for the transtition.</p>
 </li>
 <li>
-<p>The <em>identifier</em> after the keyword <code>do</code> is the action performed</p>
+<p>The first form of the syntax specifies a target state and an optional action.
+The visit expression must be valid.
+The target state in the visit expression may be the same as the
+enclosing state; in this case the transition is called a <strong>self transition</strong>.
+When making a self transition, the state machine runs the code associated with
+exiting and then re-entering the state.</p>
 </li>
 <li>
-<p>The <em>state visit</em> specifies the name of the target state and the optional action performed</p>
+<p>Second form of the syntax specifies an
+<strong>internal transition</strong>, i.e., an action to take while remaining
+in the same state.
+When making an internal transition, the exit and re-entry code is not run.
+The identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Transition_Examples">6.7.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.7.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -3964,9 +4154,8 @@ do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 
   initial OFF
 
-  state OFF
+  state OFF {
     on PowerOn if initComplete visit ON do getReady
-
   }
 
   state ON {
@@ -3979,12 +4168,17 @@ do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior_State-Visit">6.8. State Visit</h3>
+<h3 id="State-Machine-Behavior-Elements_Visit-Expressions">6.8. Visit Expressions</h3>
 <div class="paragraph">
-<p>A <strong>state visit</strong> specifies a visit or entry into another state with optional actions</p>
+<p>A <strong>visit expression</strong> specifies a transition as part of a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>
+or
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+The transition visits a state or junction and optionally performs
+some action.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Visit_Syntax">6.8.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Visit-Expressions_Syntax">6.8.1. Syntax</h4>
 <div class="paragraph">
 <p><code>visit</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <em>[</em>
@@ -3993,20 +4187,28 @@ do` <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Visit_Semantics">6.8.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Visit-Expressions_Semantics">6.8.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>qual-ident</em> after the keyword <code>visit</code> is the <em>state</em> which is visited or entered</p>
+<p>The qualified identifier after the keyword <code>visit</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It is the state that is visited.</p>
 </li>
 <li>
-<p>The optional <em>identifier</em> after the keyword <code>do</code> specifies the action performed when the transition is taken</p>
+<p>If present, the optional identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
+It specifies an action to perform when making the transition.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior_State-Visit_Examples">6.8.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Visit-Expressions_Examples">6.8.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -5083,6 +5285,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>state machine location specifier</strong> <code>locate</code> <code>state</code> <code>machine</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
@@ -5131,6 +5338,10 @@ as follows:</p>
 <li>
 <p>A topology location specifier refers to a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</li>
+<li>
+<p>A state machine location specifier refers to a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -5875,7 +6086,10 @@ product record Record2: F64x3</code></pre>
 <div class="sect2">
 <h3 id="Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</h3>
 <div class="paragraph">
-<p>A <strong>state machine instance specifier</strong> instantiates a  <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+<p>A <strong>state machine instance specifier</strong> specifies an instantiated
+<a href="#Definitions_State-Machine-Definitions">state machine</a> as part
+of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
 <h4 id="Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</h4>
@@ -5891,10 +6105,13 @@ product record Record2: F64x3</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> is the name of the instantiated state machine</p>
+<p>The identifier names the state machine instance.</p>
 </li>
 <li>
-<p>The <em>qual-ident</em> is the name of the state machine definition</p>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -5903,12 +6120,15 @@ product record Record2: F64x3</code></pre>
 <h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
-
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+  initial S
+  state S
 }
 
-@ state machine monitor1 is an instance of state machine model MonitorSm
-state machine instance monitor1 : MonitorSm</code></pre>
+passive component C {
+  @ m is an instance of state machine M
+  state machine instance m: M
+}</code></pre>
 </div>
 </div>
 </div>
@@ -7229,6 +7449,12 @@ is to include annotations as comments in generated code.</p>
 <li>
 <p>A <a href="#Formal-Parameter-Lists">formal parameter</a>.</p>
 </li>
+<li>
+<p>A <a href="#Definitions_State-Machine-Definitions_Syntax">state machine member</a>.</p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">state definition member</a>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -7544,6 +7770,9 @@ reside in the following <strong>name groups</strong>:</p>
 <p>The <strong>port name group</strong></p>
 </li>
 <li>
+<p>The <strong>state machine name group</strong></p>
+</li>
+<li>
 <p>The <strong>topology name group</strong></p>
 </li>
 <li>
@@ -7586,6 +7815,9 @@ the value name group, and the type name group.</p>
 </li>
 <li>
 <p>Port definitions reside in the port name group.</p>
+</li>
+<li>
+<p>State machine definitions reside in the state machine name group.</p>
 </li>
 <li>
 <p>Struct type definitions reside in the type name group.</p>
@@ -9402,7 +9634,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-23 09:53:38 -0700
+Last updated 2024-06-07 15:42:08 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
