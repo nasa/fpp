@@ -160,7 +160,7 @@ case class ComponentStateMachines(
   }
 
   def getSmDefs: List[String] = 
-    getSmNode.map(_.data.statemachine.data.toIdentList).flatten
+    getSmNode.map(_.data.stateMachine.data.toIdentList).flatten
 
 
   def getInstanceNames: List[String] =
