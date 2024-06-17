@@ -9,6 +9,10 @@ module Utils {
     @ Compressed output data
     output port bufferSendOut: Fw.BufferSend
 
+    state machine LedSm
+    state machine instance led1: LedSm
+    state machine instance led2: LedSm
+
   }
 
 }

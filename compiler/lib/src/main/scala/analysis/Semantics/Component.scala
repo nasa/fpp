@@ -28,7 +28,7 @@ case class Component(
   /** The list of port matching specifiers */
   specPortMatchingList: List[Ast.Annotated[AstNode[Ast.SpecPortMatching]]] = Nil,
   /** The map from state machine instance names to state machine instances */
-  //stateMachineInstanceMap: Map[Name.Unqualified, StateMachineInstance] = Map(),
+  stateMachineInstanceMap: Map[Name.Unqualified, StateMachineInstance] = Map(),
   /** The list of port matching constraints */
   portMatchingList: List[Component.PortMatching] = Nil,
   /** The next default parameter ID */
@@ -116,9 +116,31 @@ case class Component(
     yield c
 
 
-  // def addStateMachineInstance(instance: String): Result.Result[Component] =
-  //   Right(this.copy(specStateMachineInstance = instance))
+  def addStateMachineInstance(instance: StateMachineInstance): Result.Result[Component] =
+    for {
+      c <- updateStateMachineInstanceMap(instance)
+      c <- instance match {
+        case _ => Right(c)
+      }
+    }
+    yield c
 
+
+  /** Add a port instance to the port map */
+  private def updateStateMachineInstanceMap(instance: StateMachineInstance):
+  Result.Result[Component] = {
+    val name = instance.getUnqualifiedName
+    stateMachineInstanceMap.get(name) match {
+      case Some(prevInstance) =>
+        val loc = instance.getLoc
+        val prevLoc = prevInstance.getLoc
+        Left(SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc))
+      case None => 
+        val stateMachineInstanceMap = this.stateMachineInstanceMap + (name -> instance)
+        val component = this.copy(stateMachineInstanceMap = stateMachineInstanceMap)
+        Right(component)
+    }
+  }
 
   /** Add a port instance to the port map */
   private def updatePortMap(instance: PortInstance):
@@ -411,18 +433,18 @@ case class Component(
           case _ => Right(())
         }
       )
-      // def checkStateMachines() = Result.map(
-      //   this.commandMap.values.toList,
-      //   (command: Command) => command match {
-      //     case Command.NonParam(_, Command.NonParam.Async(_, _)) =>
-      //       Left(SemanticError.PassiveAsync(command.getLoc))
-      //     case _ => Right(())
-      //   }
-      // ) 
+      def checkStateMachines() = Result.map(
+        this.stateMachineInstanceMap.values.toList,
+        (instance: StateMachineInstance) => {
+          val loc = instance.getLoc
+          val error = SemanticError.PassiveStateMachine(loc)
+          Left(error)
+        }
+      ) 
       for {
         _ <- checkPortInstances()
         _ <- checkCommands()
-        //_ <- checkStateMachines()
+        _ <- checkStateMachines()
       }
       yield ()
     }

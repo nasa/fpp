@@ -127,18 +127,16 @@ object CheckComponentDefs
     yield a.copy(component = Some(component))
   }
 
-//   override def specStateMachineInstanceAnnotatedNode(
-//     a: Analysis,
-//     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-//   ) = {
-//     val data = aNode._2.data // Extract the data from aNode
-//     val stateMachineInstance = StateMachineInstance.fromSpecStateMachineInstance(a, aNode)
-//     for {
-//       idOpt <- a.getNonnegativeBigIntValueOpt(data.name) // Obtain the id (assuming similar structure as in specRecordAnnotatedNode)
-//       component <- a.component.get.addStateMachineInstance(idOpt, stateMachineInstance) // Add the stateMachineInstance to the component
-//     } yield a.copy(component = Some(component)) // Return the modified Analysis instance
-// }
-
+  override def specStateMachineInstanceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ) = {
+    val stateMachineInstance = StateMachineInstance.fromSpecStateMachine(a, aNode)
+    for {
+      component <- a.component.get.addStateMachineInstance(stateMachineInstance)
+    }
+    yield a.copy(component = Some(component))
+  }
 
 
   override def specTlmChannelAnnotatedNode(
