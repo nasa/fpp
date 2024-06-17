@@ -28,6 +28,7 @@ module M {
   enum E { X, Y }
   struct S { x: U32 }
   type T
+  state machine LedSm
 } 
 
 port P
@@ -39,6 +40,9 @@ active component C1 {
   enum E { X, Y }
   struct S { x: U32 }
   type T
+  state machine LedSm
+  state machine instance led1: LedSm
+  state machine instance led2: M.LedSm
 }
 
 instance c11: C1 \

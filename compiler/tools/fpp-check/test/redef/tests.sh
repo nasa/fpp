@@ -17,6 +17,7 @@ module_component_instance
 module_constant
 module_enum
 module_port
+module_statemachine
 module_topology
 module_type
 port

@@ -48,6 +48,9 @@ sealed trait Error {
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
+      case SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate name ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
         printPrevLoc(prevLoc)
@@ -206,6 +209,8 @@ sealed trait Error {
         System.err.println(loc2)
       case SemanticError.PassiveAsync(loc) =>
         Error.print (Some(loc)) ("passive component may not have async input")
+      case SemanticError.PassiveStateMachine(loc) =>
+        Error.print (Some(loc)) ("passive component may not have a state machine")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -328,6 +333,12 @@ object SemanticError {
   ) extends Error
   /** Duplicate port instance */
   final case class DuplicatePortInstance(
+    name: String,
+    loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Duplicate state machine instance */
+  final case class DuplicateStateMachineInstance(
     name: String,
     loc: Location,
     prevLoc: Location
@@ -483,6 +494,7 @@ object SemanticError {
   ) extends Error
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error
+  final case class PassiveStateMachine(loc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

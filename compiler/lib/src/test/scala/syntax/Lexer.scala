@@ -12,9 +12,7 @@ class LexerSpec extends AnyWordSpec {
       val reader = new FileReader(file)
       Lexer.parse(Lexer.tokens, reader) match {
         case Lexer.Success(_, _) => assert(false)
-        case Lexer.NoSuccess(msg, next) => ()
-        // Suppress false compiler warning
-        case _ => throw new InternalError("This cannot happen")
+        case _ => ()
       }
     }
     val dir = new File("lib/src/test/input/syntax/lexer/error")
