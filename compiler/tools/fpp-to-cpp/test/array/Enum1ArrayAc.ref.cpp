@@ -167,7 +167,7 @@ Fw::SerializeStatus Enum1 ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void Enum1 ::
   toString(Fw::StringBase& sb) const

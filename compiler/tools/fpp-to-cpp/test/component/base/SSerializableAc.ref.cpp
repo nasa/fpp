@@ -120,7 +120,7 @@ Fw::SerializeStatus S ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void S ::
   toString(Fw::StringBase& sb) const

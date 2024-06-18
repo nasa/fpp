@@ -98,7 +98,7 @@ class Default :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
     //! Convert struct to string
     void toString(

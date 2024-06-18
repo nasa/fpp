@@ -143,7 +143,7 @@ class String1 :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
     //! Convert array to string
     void toString(

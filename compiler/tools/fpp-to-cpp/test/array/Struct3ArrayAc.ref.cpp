@@ -170,7 +170,7 @@ Fw::SerializeStatus Struct3 ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void Struct3 ::
   toString(Fw::StringBase& sb) const

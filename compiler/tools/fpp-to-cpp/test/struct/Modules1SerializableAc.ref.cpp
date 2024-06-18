@@ -122,7 +122,7 @@ namespace M {
     return status;
   }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
   void Modules1 ::
     toString(Fw::StringBase& sb) const

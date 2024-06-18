@@ -170,7 +170,7 @@ Fw::SerializeStatus AbsType ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void AbsType ::
   toString(Fw::StringBase& sb) const

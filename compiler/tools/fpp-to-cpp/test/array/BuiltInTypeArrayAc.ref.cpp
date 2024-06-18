@@ -170,7 +170,7 @@ Fw::SerializeStatus BuiltInType ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void BuiltInType ::
   toString(Fw::StringBase& sb) const

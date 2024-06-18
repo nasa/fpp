@@ -315,7 +315,7 @@ Fw::SerializeStatus Format ::
   return status;
 }
 
-#if FW_SERIALIZABLE_TO_STRING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
 void Format ::
   toString(Fw::StringBase& sb) const
