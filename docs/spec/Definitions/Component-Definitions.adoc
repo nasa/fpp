@@ -81,6 +81,9 @@ The component members must satisfy the following rules:
 . All names appearing in any general port specifiers, special port specifiers,
 and internal port specifiers must be distinct.
 
+. All names appearing in any state machine instance specifier must
+be distinct.
+
 . No passive component may have an `async` general or special
 port specifier, an internal
 port specifier, or an `async` command specifier.
