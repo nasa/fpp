@@ -1,0 +1,55 @@
+=== Guard Definitions
+
+A *guard definition* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+It defines a guard, i.e., a function that returns a Boolean value.
+Guards are associated with
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transitions>>
+and 
+<<State-Machine-Behavior-Elements_Junction-Definitions,junctions>>.
+If the guard evaluates to `true`, then the state transition occurs
+or the branch of the junction is taken.
+
+==== Syntax
+`guard`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+_]_
+
+==== Semantics
+
+. The identifier specifies the name of the guard.
+
+. If present, the optional type name specifies the type _T_ associated
+with the guard.
+A value of type _T_ will be passed into the guard function when it is called.
+If _type-name_ is not present, then there is no data associated with the 
+guard.
+
+==== Examples
+
+[source,fpp]
+----
+enum EnabledStatus { ENABLED, DISABLED }
+
+struct FaultData {
+  status: EnabledStatus
+  $id: U32
+  data: U32
+}
+
+@ A state machine with guard definitions
+state machine GuardDefs {
+
+  @ A guard without data
+  guard powerIsEnabled
+
+  @ A guard with data
+  guard faultProtectionIsEnabled: FaultData
+
+  ...
+
+}
+----

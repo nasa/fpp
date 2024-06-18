@@ -2,38 +2,113 @@
 
 A *state machine definition* defines a state machine.
 
+There are two kinds of state machine definitions:
+
+. An *external state machine definition* 
+introduces a name and informs the FPP analyzer that
+a state machine implementation with that name will be provided to the
+FSW build.
+
+. An *internal state machine definition*
+specifies the behavior of a state machine and
+causes an implementation to be generated.
+
+*Implementation note:*
+Support for state machines will be implemented in two phases.
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.
+
 ==== Syntax
 
-* `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
-`{` _state-machine-behavior_ `}` 
+`state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
+_[_ `{` _state-machine-member-sequence_ `}` _]_
 
-_state-machine-behavior_ is an 
+_state-machine-member-sequence_ is an 
 <<Element-Sequences,element sequence>> in
 which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
-* A <<State-Machine-Behavior_State-Events,state events>>
-* A <<State-Machine-Behavior_State-Actions,state actions>>
-* A <<State-Machine-Behavior_State-Guards,state guards>>
-* A <<State-Machine-Behavior_State-Initial,state initial>>
-* A <<State-Machine-Behavior_State-Definition,state definition>>
-* A <<State-Machine-Behavior_State-Junction,state junction>>
+* An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
+* A <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>
+* A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
+* A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+* A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* A <<State-Machine-Behavior-Elements_State-Machine-Event-Definitions,state machine event definition>>
 
 ==== Semantics
 
-. The _identifier_ specifies the name of the state machine.
+. The identifier is the name of the state machine.
 
-. The _state-machine-behavior_ describes
-a hierarchical state machine.
+. If present, the optional state machine member sequence defines the
+behavior of the state machine.
+In this case, the state machine definition is internal.
+If the state machine member sequence is absent, then the state machine
+definition is external, i.e., the state machine
+behavior is not specified in FPP.
 
-. _state_events_ specify all the _events_ that can be dispatched to this state machine.  An _event_ causes a state transition.
+. If present, the optional state machine member sequence must contain
+exactly one
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
+The initial transition occurs when the state machine starts up.
 
-. _state actions_ specify all the actions that can be invoked by this state machine.  An _action_ is a function that's called on a state transition.
+==== Scoping of Names
 
-. _state guards_ specify all the guards that are used in transitions by this state machine.  A _guard_ is a predicate that indicates if a transition can occur.
+Inside the optional state machine member sequence, the following
+rules govern the assignment of names to definitions and the resolution
+of names in uses.
 
-. The state machine must have one _state initial_ that specifies the initial state.
+*State machine member definitions:*
+There are five kinds of *state machine member definitions*:
+Action definitions, guard definitions, junction definitions, state
+definitions, and state machine event definitions.
+
+*Qualified names:*
+Each state machine member definition has an associated qualified
+name.
+Within a state machine member sequence,
+the association of names to state machine member definitions is
+the same as for <<Scoping-of-Names_Names-of-Definitions,FPP definitions>>,
+after replacing "`definition`" with "`state machine member definition.`"
+
+For example:
+
+[source,fpp]
+----
+state machine S {
+
+  # Qualified name is A
+  action A
+
+  # Qualified name is S1
+  state S1 {
+
+    # Qualified name is S1.S2
+    state S2
+
+  }
+
+}
+----
+
+*Conflicting names:*
+No two state machine definitions of the same kind may have the
+same qualified name.
+
+*Resolution of names:*
+Names are resolved in the ordinary way for
+<<Scoping-of-Names_Resolution-of-Identifiers,identifiers>>
+and
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,qualified identifiers>> in FPP,
+with the following modifications:
+
+. The top level is the state machine member sequence.
+
+. The definitions are the state machine member definitions.
+
+. Each kind of definition resides in its own name group.
+
+. The brace-delimited definitions are state definitions.
 
 ==== Examples
 

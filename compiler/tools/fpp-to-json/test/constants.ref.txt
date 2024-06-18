@@ -333,15 +333,37 @@
                                 },
                                 "id" : 26
                               }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "z",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralBool" : {
+                                          "value" : {
+                                            "False" : {
+                                              
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 27
+                                    }
+                                  }
+                                },
+                                "id" : 28
+                              }
                             }
                           ]
                         }
                       },
-                      "id" : 27
+                      "id" : 29
                     }
                   }
                 },
-                "id" : 28
+                "id" : 30
               }
             }
           }
@@ -366,11 +388,11 @@
                           ]
                         }
                       },
-                      "id" : 29
+                      "id" : 31
                     }
                   }
                 },
-                "id" : 30
+                "id" : 32
               }
             }
           }
@@ -408,11 +430,11 @@
                                                     "value" : "1"
                                                   }
                                                 },
-                                                "id" : 31
+                                                "id" : 33
                                               }
                                             }
                                           },
-                                          "id" : 32
+                                          "id" : 34
                                         }
                                       },
                                       {
@@ -426,17 +448,17 @@
                                                     "value" : "2"
                                                   }
                                                 },
-                                                "id" : 33
+                                                "id" : 35
                                               }
                                             }
                                           },
-                                          "id" : 34
+                                          "id" : 36
                                         }
                                       }
                                     ]
                                   }
                                 },
-                                "id" : 35
+                                "id" : 37
                               }
                             },
                             {
@@ -455,27 +477,27 @@
                                                     "value" : "3"
                                                   }
                                                 },
-                                                "id" : 36
+                                                "id" : 38
                                               }
                                             }
                                           },
-                                          "id" : 37
+                                          "id" : 39
                                         }
                                       }
                                     ]
                                   }
                                 },
-                                "id" : 38
+                                "id" : 40
                               }
                             }
                           ]
                         }
                       },
-                      "id" : 39
+                      "id" : 41
                     }
                   }
                 },
-                "id" : 40
+                "id" : 42
               }
             }
           }
@@ -499,11 +521,11 @@
                           "value" : "1"
                         }
                       },
-                      "id" : 41
+                      "id" : 43
                     }
                   }
                 },
-                "id" : 42
+                "id" : 44
               }
             }
           }
@@ -527,11 +549,11 @@
                           "value" : "j"
                         }
                       },
-                      "id" : 43
+                      "id" : 45
                     }
                   }
                 },
-                "id" : 44
+                "id" : 46
               }
             }
           }
@@ -564,16 +586,16 @@
                                   "value" : "1"
                                 }
                               },
-                              "id" : 45
+                              "id" : 47
                             }
                           }
                         }
                       },
-                      "id" : 46
+                      "id" : 48
                     }
                   }
                 },
-                "id" : 47
+                "id" : 49
               }
             }
           }
@@ -601,7 +623,7 @@
                                   "value" : "1"
                                 }
                               },
-                              "id" : 48
+                              "id" : 50
                             }
                           },
                           "op" : {
@@ -616,16 +638,16 @@
                                   "value" : "2"
                                 }
                               },
-                              "id" : 49
+                              "id" : 51
                             }
                           }
                         }
                       },
-                      "id" : 50
+                      "id" : 52
                     }
                   }
                 },
-                "id" : 51
+                "id" : 53
               }
             }
           }
@@ -653,16 +675,80 @@
                                   "value" : "1"
                                 }
                               },
-                              "id" : 52
+                              "id" : 54
                             }
                           }
                         }
                       },
-                      "id" : 53
+                      "id" : 55
                     }
                   }
                 },
-                "id" : 54
+                "id" : 56
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "o",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralBool" : {
+                          "value" : {
+                            "True" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      "id" : 57
+                    }
+                  }
+                },
+                "id" : 58
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "p",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralBool" : {
+                          "value" : {
+                            "False" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      "id" : 59
+                    }
+                  }
+                },
+                "id" : 60
               }
             }
           }
@@ -680,7 +766,7 @@
             "node" : {
               "AstNode" : {
                 "data" : {
-                  "name" : "o",
+                  "name" : "q",
                   "value" : {
                     "AstNode" : {
                       "data" : {
@@ -688,11 +774,11 @@
                           "value" : "0"
                         }
                       },
-                      "id" : 57
+                      "id" : 63
                     }
                   }
                 },
-                "id" : 58
+                "id" : 64
               }
             }
           }
@@ -843,162 +929,192 @@
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "10.14",
+    "pos" : "10.38",
     "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "10.1",
+    "pos" : "10.34",
     "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "11.14",
+    "pos" : "10.14",
     "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "11.1",
+    "pos" : "10.1",
     "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.22",
+    "pos" : "11.14",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.18",
+    "pos" : "11.1",
     "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.29",
+    "pos" : "13.22",
     "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.25",
+    "pos" : "13.18",
     "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.16",
+    "pos" : "13.29",
     "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.40",
+    "pos" : "13.25",
     "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.36",
+    "pos" : "13.16",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.34",
+    "pos" : "13.40",
     "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.14",
+    "pos" : "13.36",
     "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "13.1",
+    "pos" : "13.34",
     "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "15.14",
+    "pos" : "13.14",
     "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "15.1",
+    "pos" : "13.1",
     "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "16.14",
+    "pos" : "15.14",
     "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "16.1",
+    "pos" : "15.1",
     "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "18.15",
+    "pos" : "16.14",
     "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "18.14",
+    "pos" : "16.1",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "18.1",
+    "pos" : "18.15",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "19.14",
+    "pos" : "18.14",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "19.18",
+    "pos" : "18.1",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "19.16",
+    "pos" : "19.14",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "19.1",
+    "pos" : "19.18",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "20.15",
+    "pos" : "19.16",
     "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "20.14",
+    "pos" : "19.1",
     "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "20.1",
+    "pos" : "20.15",
     "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "24.14",
+    "pos" : "20.14",
     "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "24.1",
+    "pos" : "20.1",
     "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "24.14",
+    "pos" : "22.14",
     "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
-    "pos" : "24.1",
+    "pos" : "22.1",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "23.14",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "23.1",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "27.14",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "27.1",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "27.14",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp",
+    "pos" : "27.1",
     "includingLoc" : "None"
   }
 }
@@ -1040,64 +1156,35 @@
         }
       }
     },
-    "22" : {
-      "AnonArray" : {
-        "size" : {
-          "Some" : 2
-        },
-        "eltType" : {
-          "AnonArray" : {
-            "size" : {
-              "Some" : 2
-            },
-            "eltType" : {
-              "Int" : {
-                "Integer" : {
-                  
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "50" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
     "5" : {
       "String" : {
         "size" : "None"
       }
     },
-    "10" : {
+    "42" : {
       "AnonArray" : {
         "size" : {
-          "Some" : 3
+          "Some" : 2
         },
         "eltType" : {
-          "Int" : {
-            "Integer" : {
-              
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
             }
           }
-        }
-      }
-    },
-    "57" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "42" : {
-      "Int" : {
-        "Integer" : {
-          
         }
       }
     },
@@ -1108,35 +1195,10 @@
         }
       }
     },
-    "3" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
     "52" : {
       "Int" : {
         "Integer" : {
           
-        }
-      }
-    },
-    "28" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          },
-          "y" : {
-            "String" : {
-              "size" : "None"
-            }
-          }
         }
       }
     },
@@ -1178,26 +1240,12 @@
       }
     },
     "40" : {
-      "AnonArray" : {
-        "size" : {
-          "Some" : 2
-        },
-        "eltType" : {
-          "AnonStruct" : {
-            "members" : {
-              "x" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              },
-              "y" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
               }
             }
           }
@@ -1246,6 +1294,68 @@
         }
       }
     },
+    "22" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "56" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "55" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "50" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "37" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
     "13" : {
       "AnonArray" : {
         "size" : {
@@ -1272,28 +1382,36 @@
       }
     },
     "35" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          },
-          "y" : {
-            "Int" : {
-              "Integer" : {
-                
-              }
-            }
-          }
+      "Int" : {
+        "Integer" : {
+          
         }
       }
     },
     "16" : {
       "Int" : {
         "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "59" : {
+      "Primitive" : {
+        "Boolean" : {
           
         }
       }
@@ -1340,6 +1458,20 @@
         }
       }
     },
+    "57" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "32" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
     "49" : {
       "Int" : {
         "Integer" : {
@@ -1354,44 +1486,10 @@
         }
       }
     },
-    "36" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
     "1" : {
       "Int" : {
         "Integer" : {
           
-        }
-      }
-    },
-    "39" : {
-      "AnonArray" : {
-        "size" : {
-          "Some" : 2
-        },
-        "eltType" : {
-          "AnonStruct" : {
-            "members" : {
-              "x" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              },
-              "y" : {
-                "Int" : {
-                  "Integer" : {
-                    
-                  }
-                }
-              }
-            }
-          }
         }
       }
     },
@@ -1412,6 +1510,13 @@
     "25" : {
       "String" : {
         "size" : "None"
+      }
+    },
+    "60" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
       }
     },
     "14" : {
@@ -1440,13 +1545,20 @@
       }
     },
     "31" : {
-      "Int" : {
-        "Integer" : {
+      "AnonStruct" : {
+        "members" : {
           
         }
       }
     },
     "58" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "64" : {
       "Int" : {
         "Integer" : {
           
@@ -1482,6 +1594,27 @@
       }
     },
     "27" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "38" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "30" : {
       "AnonStruct" : {
         "members" : {
           "x" : {
@@ -1495,34 +1628,14 @@
             "String" : {
               "size" : "None"
             }
-          }
-        }
-      }
-    },
-    "2" : {
-      "Int" : {
-        "Integer" : {
-          
-        }
-      }
-    },
-    "38" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Int" : {
-              "Integer" : {
+          },
+          "z" : {
+            "Primitive" : {
+              "Boolean" : {
                 
               }
             }
           }
-        }
-      }
-    },
-    "30" : {
-      "AnonStruct" : {
-        "members" : {
-          
         }
       }
     },
@@ -1536,11 +1649,63 @@
     "29" : {
       "AnonStruct" : {
         "members" : {
-          
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          },
+          "z" : {
+            "Primitive" : {
+              "Boolean" : {
+                
+              }
+            }
+          }
         }
       }
     },
     "41" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "63" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
       "Int" : {
         "Integer" : {
           
@@ -1549,9 +1714,9 @@
     }
   },
   "useDefMap" : {
-    "43" : {
+    "45" : {
       "Constant" : {
-        "nodeId" : 42,
+        "nodeId" : 44,
         "unqualifiedName" : "j"
       }
     }
@@ -1567,147 +1732,12 @@
         "value" : 3
       }
     },
-    "22" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "AnonArray" : {
-              "elements" : [
-                {
-                  "Integer" : {
-                    "value" : 1
-                  }
-                },
-                {
-                  "Integer" : {
-                    "value" : 2
-                  }
-                }
-              ]
-            }
-          },
-          {
-            "AnonArray" : {
-              "elements" : [
-                {
-                  "Integer" : {
-                    "value" : 3
-                  }
-                },
-                {
-                  "Integer" : {
-                    "value" : 4
-                  }
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
-    "50" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
     "5" : {
       "String" : {
         "value" : "This is a string."
       }
     },
-    "10" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "Integer" : {
-              "value" : 1
-            }
-          },
-          {
-            "Integer" : {
-              "value" : 2
-            }
-          },
-          {
-            "Integer" : {
-              "value" : 3
-            }
-          }
-        ]
-      }
-    },
-    "57" : {
-      "Integer" : {
-        "value" : 0
-      }
-    },
     "42" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "18" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "3" : {
-      "Integer" : {
-        "value" : 43981
-      }
-    },
-    "52" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "28" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Integer" : {
-              "value" : 1
-            }
-          },
-          "y" : {
-            "String" : {
-              "value" : "abc"
-            }
-          }
-        }
-      }
-    },
-    "12" : {
-      "Float" : {
-        "value" : 2.0,
-        "kind" : {
-          "F64" : {
-            
-          }
-        }
-      }
-    },
-    "51" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
-    "19" : {
-      "Integer" : {
-        "value" : 4
-      }
-    },
-    "23" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "4" : {
-      "String" : {
-        "value" : "This is a string."
-      }
-    },
-    "40" : {
       "AnonArray" : {
         "elements" : [
           {
@@ -1743,6 +1773,57 @@
             }
           }
         ]
+      }
+    },
+    "18" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "51" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "19" : {
+      "Integer" : {
+        "value" : 4
+      }
+    },
+    "23" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "4" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "40" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        }
       }
     },
     "15" : {
@@ -1783,7 +1864,76 @@
     },
     "33" : {
       "Integer" : {
-        "value" : 2
+        "value" : 1
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "56" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "55" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "50" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "37" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        }
       }
     },
     "13" : {
@@ -1814,23 +1964,12 @@
     },
     "46" : {
       "Integer" : {
-        "value" : -1
+        "value" : 1
       }
     },
     "35" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Integer" : {
-              "value" : 1
-            }
-          },
-          "y" : {
-            "Integer" : {
-              "value" : 2
-            }
-          }
-        }
+      "Integer" : {
+        "value" : 2
       }
     },
     "16" : {
@@ -1838,9 +1977,35 @@
         "value" : 2
       }
     },
+    "10" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "59" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
     "48" : {
       "Integer" : {
-        "value" : 1
+        "value" : -1
       }
     },
     "21" : {
@@ -1891,9 +2056,21 @@
         "value" : 1
       }
     },
+    "57" : {
+      "Boolean" : {
+        "value" : true
+      }
+    },
+    "32" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
     "49" : {
       "Integer" : {
-        "value" : 2
+        "value" : -1
       }
     },
     "6" : {
@@ -1901,17 +2078,174 @@
         "value" : 1
       }
     },
-    "36" : {
-      "Integer" : {
-        "value" : 3
-      }
-    },
     "1" : {
       "Integer" : {
         "value" : 1234
       }
     },
-    "39" : {
+    "17" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        ]
+      }
+    },
+    "25" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "60" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "47" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "31" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Boolean" : {
+        "value" : true
+      }
+    },
+    "64" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 4
+            }
+          }
+        ]
+      }
+    },
+    "27" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "38" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          },
+          "z" : {
+            "Boolean" : {
+              "value" : false
+            }
+          }
+        }
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          },
+          "z" : {
+            "Boolean" : {
+              "value" : false
+            }
+          }
+        }
+      }
+    },
+    "41" : {
       "AnonArray" : {
         "elements" : [
           {
@@ -1949,148 +2283,14 @@
         ]
       }
     },
-    "17" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "Integer" : {
-              "value" : 1
-            }
-          },
-          {
-            "Integer" : {
-              "value" : 2
-            }
-          }
-        ]
-      }
-    },
-    "25" : {
-      "String" : {
-        "value" : "abc"
-      }
-    },
-    "14" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "Float" : {
-              "value" : 1.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
-            }
-          },
-          {
-            "Float" : {
-              "value" : 2.0,
-              "kind" : {
-                "F64" : {
-                  
-                }
-              }
-            }
-          }
-        ]
-      }
-    },
-    "47" : {
-      "Integer" : {
-        "value" : -1
-      }
-    },
-    "31" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "58" : {
+    "63" : {
       "Integer" : {
         "value" : 0
       }
     },
-    "53" : {
-      "Integer" : {
-        "value" : 1
-      }
-    },
-    "0" : {
-      "Integer" : {
-        "value" : 1234
-      }
-    },
-    "20" : {
-      "AnonArray" : {
-        "elements" : [
-          {
-            "Integer" : {
-              "value" : 3
-            }
-          },
-          {
-            "Integer" : {
-              "value" : 4
-            }
-          }
-        ]
-      }
-    },
-    "27" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Integer" : {
-              "value" : 1
-            }
-          },
-          "y" : {
-            "String" : {
-              "value" : "abc"
-            }
-          }
-        }
-      }
-    },
-    "2" : {
+    "3" : {
       "Integer" : {
         "value" : 43981
-      }
-    },
-    "38" : {
-      "AnonStruct" : {
-        "members" : {
-          "x" : {
-            "Integer" : {
-              "value" : 3
-            }
-          }
-        }
-      }
-    },
-    "30" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
-    },
-    "7" : {
-      "Integer" : {
-        "value" : 2
-      }
-    },
-    "29" : {
-      "AnonStruct" : {
-        "members" : {
-          
-        }
-      }
-    },
-    "41" : {
-      "Integer" : {
-        "value" : 1
       }
     }
   }

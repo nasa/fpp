@@ -1,0 +1,61 @@
+=== Initial Transition Specifiers
+
+An *initial transition specifier* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or a
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.
+
+==== Syntax
+
+`initial` 
+<<Scoping-of-Names_Qualified-Identifiers,_ident_>>
+_[_
+`do`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+
+==== Semantics
+
+. The identifier must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a 
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+or a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
+It specifies the initial state or junction to visit.
+The state definition or junction definition referred to must be part of
+the same state machine definition or state definition where the initial
+transition specifier appears.
+
+. If present, the optional identifier after the keyword `do`
+must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to an 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+It specifies the action to perform when visiting the state or junction.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action initDevices
+
+  # When the state machine starts up, visit the ON state
+  initial ON
+
+  state ON {
+
+    # When entering the ON state, visit the POWERING_UP substate
+    initial POWERING_UP do initDevices
+
+    state POWERING_UP
+
+  }
+
+}
+----

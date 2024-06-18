@@ -4,4 +4,4 @@
 # clean.do
 # ----------------------------------------------------------------------
 
-rm -f State-Machine-Behavior.adoc *~ *.bak
+rm -f State-Machine-Behavior-Elements.adoc *~ *.bak

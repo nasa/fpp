@@ -24,6 +24,10 @@ A location specifier is one of the following:
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
 
+* A *state machine location specifier* `locate` `state` `machine`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+<<Expressions_String-Literals,_string-literal_>>
+
 * A *topology location specifier* `locate` `topology` 
 <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
 <<Expressions_String-Literals,_string-literal_>>
@@ -58,6 +62,9 @@ as follows:
 
 .. A topology location specifier refers to a 
 <<Definitions_Topology-Definitions,topology definition>>.
+
+.. A state machine location specifier refers to a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
 
 . When a location specifier appears inside a
 <<Definitions_Module-Definitions,module definition _M_>>,
