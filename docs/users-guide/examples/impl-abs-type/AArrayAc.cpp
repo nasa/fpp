@@ -166,13 +166,13 @@ void A::toString(Fw::StringBase& text) const {
 
     // declare strings to hold any serializable toString() arguments
 
-    char outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE];
-    (void)snprintf(outputString,FW_ARRAY_TO_STRING_BUFFER_SIZE,formatString
+    char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];
+    (void)snprintf(outputString,FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE,formatString
       ,str0.toChar()
       ,str1.toChar()
       ,str2.toChar()
     );
-    outputString[FW_ARRAY_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
+    outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE-1] = 0; // NULL terminate
 
     text = outputString;
 }
