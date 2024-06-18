@@ -121,15 +121,15 @@ case class ComponentStateMachines(
 
       val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map 
           { case (instance, definition) =>
-           Line(s"$definition   $instance;")
+           Line(s"$definition $instance;")
           }
 
-      addAccessTagAndComment(
-        "PRIVATE",
-        s"State machine instantiations",
-        List(linesClassMember(smLines)),
-        CppDoc.Lines.Hpp
-      )
+        addAccessTagAndComment(
+          "PRIVATE",
+          s"State machine instantiations",
+          smLines.map(x => linesClassMember(List(x))),
+          CppDoc.Lines.Hpp
+        )
 
   }
 
@@ -144,7 +144,7 @@ case class ComponentStateMachines(
       addAccessTagAndComment(
         "PROTECTED",
         s"State machine Enumeration",
-        List(linesClassMember(smLines)),
+        smLines.map(x => linesClassMember(List(x))),
         CppDoc.Lines.Hpp
       )
   }
