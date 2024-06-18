@@ -12,7 +12,7 @@ module M {
 
   port P
 
-  state machine LedSm
+  state machine S
 
   passive component C {
     type T
@@ -20,8 +20,8 @@ module M {
     constant a = 0
     enum E { X, Y, Z }
     struct S { x: U32 }
-    state machine LedSm
-    state machine instance led1: LedSm
+    state machine S
+    state machine instance s1: S
   }
 
   instance c: C base id 0x100

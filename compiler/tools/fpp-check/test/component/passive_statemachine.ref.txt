@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component/passive_statemachine.fpp:3.5
-    state machine instance led1: LedSm
-    ^
-error: passive component may not have a state machine

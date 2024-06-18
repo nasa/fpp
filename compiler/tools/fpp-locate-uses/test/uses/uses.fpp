@@ -32,7 +32,7 @@ active component C3 {
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut
-  state machine instance led: M.LedSm
+  state machine instance led: M.S
 }
 
 active component C4 {
