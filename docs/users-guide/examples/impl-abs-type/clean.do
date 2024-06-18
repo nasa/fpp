@@ -1,1 +1,1 @@
-rm -f a.out
+rm -f T.hpp T.hpp.gch
