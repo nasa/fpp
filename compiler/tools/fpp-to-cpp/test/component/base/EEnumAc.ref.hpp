@@ -139,7 +139,7 @@ class E :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#ifdef FW_SERIALIZABLE_TO_STRING || FW_ENABLE_TEXT_LOGGING
+#ifdef FW_SERIALIZABLE_TO_STRING
 
     //! Convert enum to string
     void toString(
