@@ -13,7 +13,7 @@
 #include <Fw/Types/Assert.hpp>
 #include <FpConfig.hpp>
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
     #include <Fw/Types/String.hpp>
 #endif
 #include <cstring>
@@ -160,7 +160,7 @@ Fw::SerializeStatus Buffer::deserialize(Fw::SerializeBufferBase& buffer) {
     return stat;
 }
 
-#ifdef FW_SERIALIZABLE_TO_STRING  || defined(BUILD_UT)
+#if FW_SERIALIZABLE_TO_STRING  || BUILD_UT
 void Buffer::toString(Fw::StringBase& text) const {
     static const char * formatString = "(data = %p, size = %u,context = %u)";
     char outputString[FW_SERIALIZABLE_TO_STRING_BUFFER_SIZE];

@@ -14,7 +14,7 @@
 
 #include <FpConfig.hpp>
 #include <Fw/Types/Serializable.hpp>
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
     #include <Fw/Types/StringType.hpp>
     #include <cstdio> // snprintf
     #ifdef BUILD_UT
@@ -148,7 +148,7 @@ public:
     //! \param context: user-specified context to track creation. Default: no context
     void set(U8* data, U32 size, U32 context=NO_CONTEXT);
 
-#ifdef FW_SERIALIZABLE_TO_STRING || defined(BUILD_UT)
+#if FW_SERIALIZABLE_TO_STRING || BUILD_UT
     //! Supports writing this buffer to a string representation
     void toString(Fw::StringBase& text) const;
 #endif
