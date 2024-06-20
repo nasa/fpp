@@ -34,7 +34,6 @@ object StateMachineInstance {
         }
     }
 
-
   private def createStateMachineInstance(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
