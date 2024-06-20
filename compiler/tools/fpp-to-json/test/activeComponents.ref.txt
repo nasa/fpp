@@ -1275,11 +1275,23 @@
         "s1" : {
           "aNode" : {
             "astNodeId" : 55
+          },
+          "specifier" : {
+            "name" : "s1",
+            "stateMachine" : {
+              "astNodeId" : 54
+            }
           }
         },
         "s2" : {
           "aNode" : {
             "astNodeId" : 64
+          },
+          "specifier" : {
+            "name" : "s2",
+            "stateMachine" : {
+              "astNodeId" : 63
+            }
           }
         }
       },
