@@ -360,7 +360,7 @@ case class EnumCppWriter(
           )
         ),
         wrapClassMembersInIfDirective(
-          "\n#if FW_SERIALIZABLE_TO_STRING || FW_ENABLE_TEXT_LOGGING",
+          "\n#if FW_SERIALIZABLE_TO_STRING",
           List(
             functionClassMember(
               Some(s"Convert enum to string"),
