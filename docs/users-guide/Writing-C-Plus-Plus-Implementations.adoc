@@ -110,10 +110,10 @@ all members are public by default.
 #ifndef T_HPP
 #define T_HPP
 
-// Include Fw/Types/Serializable.fpp from the F Prime framework
+// Include Fw/Types/Serializable.hpp from the F Prime framework
 #include "Fw/Types/Serializable.hpp"
 
-struct T : public Fw::Serializable { // Extend Fw::Serializable
+struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
   typedef Fw::SerializeStatus SS;
@@ -129,10 +129,10 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T& that) const { return this->x == that.x; }
 
   // Define the virtual serialize method
-  SS serialize(B& b) const { return b.serialize(x); }
+  SS serialize(B& b) const final { return b.serialize(x); }
 
   // Define the virtual deserialize method
-  SS deserialize(B& b) { return b.deserialize(x); }
+  SS deserialize(B& b) final { return b.deserialize(x); }
 
   // Provide some data
   U32 x;

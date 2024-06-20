@@ -170,7 +170,7 @@ Fw::SerializeStatus C_A ::
   return status;
 }
 
-#if FW_ARRAY_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
 void C_A ::
   toString(Fw::StringBase& sb) const
