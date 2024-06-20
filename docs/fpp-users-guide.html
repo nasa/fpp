@@ -11936,10 +11936,10 @@ all members are public by default.</p>
 #ifndef T_HPP
 #define T_HPP
 
-// Include Fw/Types/Serializable.fpp from the F Prime framework
+// Include Fw/Types/Serializable.hpp from the F Prime framework
 #include "Fw/Types/Serializable.hpp"
 
-struct T : public Fw::Serializable { // Extend Fw::Serializable
+struct T final : public Fw::Serializable { // Extend Fw::Serializable
 
   // Define some shorthand for F Prime types
   typedef Fw::SerializeStatus SS;
@@ -11955,10 +11955,10 @@ struct T : public Fw::Serializable { // Extend Fw::Serializable
   bool operator==(const T&amp; that) const { return this-&gt;x == that.x; }
 
   // Define the virtual serialize method
-  SS serialize(B&amp; b) const { return b.serialize(x); }
+  SS serialize(B&amp; b) const final { return b.serialize(x); }
 
   // Define the virtual deserialize method
-  SS deserialize(B&amp; b) { return b.deserialize(x); }
+  SS deserialize(B&amp; b) final { return b.deserialize(x); }
 
   // Provide some data
   U32 x;
@@ -12360,7 +12360,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-05-16 12:07:04 -0700
+Last updated 2024-06-20 11:08:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
