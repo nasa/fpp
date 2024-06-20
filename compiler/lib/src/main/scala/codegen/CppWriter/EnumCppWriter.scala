@@ -355,12 +355,12 @@ case class EnumCppWriter(
       List.concat(
         List(
           linesClassMember(
-            lines("\n#ifdef FW_SERIALIZABLE_TO_STRING"),
+            lines("\n#if FW_SERIALIZABLE_TO_STRING"),
             CppDoc.Lines.Cpp
           )
         ),
         wrapClassMembersInIfDirective(
-          "\n#ifdef FW_SERIALIZABLE_TO_STRING",
+          "\n#if FW_SERIALIZABLE_TO_STRING || FW_ENABLE_TEXT_LOGGING",
           List(
             functionClassMember(
               Some(s"Convert enum to string"),

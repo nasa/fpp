@@ -103,7 +103,7 @@ Fw::SerializeStatus Including ::
   return status;
 }
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
 void Including ::
   toString(Fw::StringBase& sb) const

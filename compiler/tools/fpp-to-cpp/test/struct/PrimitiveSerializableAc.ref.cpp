@@ -303,7 +303,7 @@ Fw::SerializeStatus Primitive ::
   return status;
 }
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
 void Primitive ::
   toString(Fw::StringBase& sb) const

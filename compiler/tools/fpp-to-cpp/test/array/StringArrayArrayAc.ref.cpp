@@ -176,7 +176,7 @@ Fw::SerializeStatus StringArray ::
   return status;
 }
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
 void StringArray ::
   toString(Fw::StringBase& sb) const

@@ -143,7 +143,7 @@ class Primitive :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
     //! Convert struct to string
     void toString(

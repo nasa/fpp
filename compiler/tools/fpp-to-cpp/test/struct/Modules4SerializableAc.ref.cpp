@@ -167,7 +167,7 @@ Fw::SerializeStatus Modules4 ::
   return status;
 }
 
-#ifdef FW_SERIALIZABLE_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
 void Modules4 ::
   toString(Fw::StringBase& sb) const
