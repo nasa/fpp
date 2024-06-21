@@ -142,7 +142,7 @@ class Struct1 :
         Fw::SerializeBufferBase& buffer //!< The serial buffer
     );
 
-#if FW_ARRAY_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
     //! Convert array to string
     void toString(

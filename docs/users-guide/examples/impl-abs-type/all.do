@@ -1,1 +1,1 @@
-redo-ifchange a.out
+redo check
