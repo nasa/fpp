@@ -1,5 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/component/passive_state_machine.fpp:3.5
-    state machine instance s1: S
-    ^
-error: passive component may not have a state machine instance
