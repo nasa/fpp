@@ -178,7 +178,7 @@ namespace M {
     return status;
   }
 
-#if FW_ARRAY_TO_STRING
+#if FW_SERIALIZABLE_TO_STRING
 
   void PrimitiveF64 ::
     toString(Fw::StringBase& sb) const
