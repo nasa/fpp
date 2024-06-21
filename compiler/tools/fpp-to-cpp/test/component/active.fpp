@@ -144,3 +144,9 @@ active component ActiveNoArgsPortsOnly {
   include "include/typed_ports_no_args.fppi"
 
 }
+
+@ An active component with state machines
+active component ActiveStateMachines {
+    include "include/state_machines.fppi"
+
+}
