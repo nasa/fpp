@@ -4,7 +4,6 @@ def_component_instance
 def_constant
 def_enum
 def_port
-def_state_machine
 def_struct
 direct
 enum_constant
@@ -44,6 +43,7 @@ spec_event
 spec_internal_port
 spec_param
 spec_record
+spec_state_machine_instance
 spec_tlm_channel
 spec_top_import
 special_ports
