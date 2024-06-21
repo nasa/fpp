@@ -68,3 +68,53 @@ module Components {
 
     }
 }
+
+module Main {
+    port P
+
+    passive component C {
+        sync input port pIn: P
+        output port pOut: P
+    }
+
+    instance g: C base id 0x100
+    instance h: C base id 0x200
+    instance i: C base id 0x300
+    instance j: C base id 0x400
+    instance k: C base id 0x500
+    instance l: C base id 0x600
+    instance m: C base id 0x700
+
+    topology b {
+        instance g
+        instance h
+        instance i
+        instance j
+        instance k
+        instance l
+        instance m
+
+        connections A {
+            g.pOut -> h.pIn
+            h.pOut -> i.pIn
+            i.pOut -> j.pIn
+            j.pOut -> k.pIn
+            k.pOut -> l.pIn
+            l.pOut -> m.pIn
+        }
+
+        command connections instance g
+
+        event connections instance h
+
+        param connections instance i
+
+        telemetry connections instance j
+
+        text event connections instance k
+
+        time connections instance l
+
+        health connections instance m 
+    }
+}

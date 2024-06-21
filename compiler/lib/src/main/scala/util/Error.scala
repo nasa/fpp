@@ -48,9 +48,6 @@ sealed trait Error {
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
-      case SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"duplicate name ${name}")
-        printPrevLoc(prevLoc)
       case SemanticError.DuplicateEnumValue(value, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate enum value ${value}")
         printPrevLoc(prevLoc)
@@ -92,6 +89,9 @@ sealed trait Error {
         Error.print (Some(loc)) (s"duplicate port instance ${name}")
         System.err.println("previous instance is here:")
         System.err.println(prevLoc)
+      case SemanticError.DuplicateStateMachineInstance(name, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate state machine instance name ${name}")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateStructMember(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate struct member ${name}")
         System.err.println("previous member is here:")
@@ -210,7 +210,7 @@ sealed trait Error {
       case SemanticError.PassiveAsync(loc) =>
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.PassiveStateMachine(loc) =>
-        Error.print (Some(loc)) ("passive component may not have a state machine")
+        Error.print (Some(loc)) ("passive component may not have a state machine instance")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")

@@ -1,0 +1,9 @@
+== State Machine Behavior Elements
+
+A *state machine behavior element* specifies an element of the behavior
+associated with a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+
+*Implementation note:*
+State machine behavior elements will not be implemented until Phase 2
+of state machine support in FPP.

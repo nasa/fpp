@@ -1,4 +1,4 @@
-locate state machine StateMachines.Bar at "StateMachines.fpp"
+locate state machine StateMachines.S at "StateMachines.fpp"
 
 module DefinitionsAndSpecifiers {
 
@@ -11,16 +11,12 @@ module DefinitionsAndSpecifiers {
 
     async input port dataIn: Port1
 
-    state machine Foo
+    state machine S
 
-    state machine instance foo1: Foo
+    state machine instance s1: S
 
-    state machine instance foo2: Foo
+    state machine instance s2: S
 
-    state machine instance bar: StateMachines.Bar
-
+    state machine instance s3: StateMachines.S
   }
-
 }
-
-  

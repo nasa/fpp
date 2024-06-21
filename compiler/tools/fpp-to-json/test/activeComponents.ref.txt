@@ -147,7 +147,7 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "name" : "LedSm"
+                                              "name" : "S"
                                             },
                                             "id" : 52
                                           }
@@ -165,12 +165,12 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "name" : "led1",
+                                              "name" : "s1",
                                               "stateMachine" : {
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "LedSm"
+                                                      "name" : "S"
                                                     }
                                                   },
                                                   "id" : 54
@@ -193,12 +193,12 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "name" : "led2",
+                                              "name" : "s2",
                                               "stateMachine" : {
                                                 "AstNode" : {
                                                   "data" : {
                                                     "Unqualified" : {
-                                                      "name" : "LedSm"
+                                                      "name" : "S"
                                                     }
                                                   },
                                                   "id" : 63
@@ -572,12 +572,12 @@
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "11" : {
@@ -587,12 +587,12 @@
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "14" : {
@@ -602,12 +602,12 @@
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "17" : {
@@ -617,12 +617,12 @@
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "20" : {
@@ -682,12 +682,12 @@
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "33" : {
@@ -697,12 +697,12 @@
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "36" : {
@@ -712,12 +712,12 @@
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "39" : {
@@ -727,12 +727,12 @@
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "42" : {
@@ -792,12 +792,12 @@
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "13.34",
+    "pos" : "13.32",
     "includingLoc" : "None"
   },
   "55" : {
@@ -807,12 +807,12 @@
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "58" : {
@@ -822,12 +822,12 @@
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "61" : {
@@ -837,12 +837,12 @@
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp",
-    "pos" : "14.34",
+    "pos" : "14.32",
     "includingLoc" : "None"
   },
   "64" : {
@@ -1272,14 +1272,26 @@
       "specPortMatchingList" : [
       ],
       "stateMachineInstanceMap" : {
-        "led1" : {
+        "s1" : {
           "aNode" : {
             "astNodeId" : 55
+          },
+          "specifier" : {
+            "name" : "s1",
+            "stateMachine" : {
+              "astNodeId" : 54
+            }
           }
         },
-        "led2" : {
+        "s2" : {
           "aNode" : {
             "astNodeId" : 64
+          },
+          "specifier" : {
+            "name" : "s2",
+            "stateMachine" : {
+              "astNodeId" : 63
+            }
           }
         }
       },
@@ -1396,10 +1408,10 @@
           "StateMachine" : {
             "NameSymbolMapImpl" : {
               "map" : {
-                "LedSm" : {
+                "S" : {
                   "StateMachine" : {
                     "nodeId" : 52,
-                    "unqualifiedName" : "LedSm"
+                    "unqualifiedName" : "S"
                   }
                 }
               }
@@ -1668,7 +1680,7 @@
     "54" : {
       "StateMachine" : {
         "nodeId" : 52,
-        "unqualifiedName" : "LedSm"
+        "unqualifiedName" : "S"
       }
     },
     "108" : {
@@ -1692,7 +1704,7 @@
     "63" : {
       "StateMachine" : {
         "nodeId" : 52,
-        "unqualifiedName" : "LedSm"
+        "unqualifiedName" : "S"
       }
     }
   },

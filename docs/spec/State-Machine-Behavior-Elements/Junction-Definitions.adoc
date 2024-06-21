@@ -1,0 +1,53 @@
+=== Junction Definitions
+
+A *junction definition* specifies a junction as part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+A junction is a branch point controlled by a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard>>.
+
+==== Syntax
+
+`junction` <<Lexical-Elements_Identifiers,_identifier_>>
+`{`
+`if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
+`else` <<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
+`}`
+
+==== Semantics
+
+. The identifier after the keyword `junction` is the name of the junction. 
+
+. The identifier after the keyword `if` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a
+<<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
+It specifies the guard that controls the branch.
+
+. Each of the visit expressions must be valid.
+The first visit expression is run if the guard evaluates to `true`;
+otherwise the second visit expression is run.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action initPower
+  guard coldStart
+
+  initial J1
+
+  junction J1 {
+    if coldStart visit OFF \
+    else visit ON do initPower
+  }
+
+  state OFF
+
+  state ON
+
+}
+----

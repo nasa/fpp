@@ -1,4 +1,5 @@
 tests="
 multipleTops
 dataProducts
+duplicate
 "

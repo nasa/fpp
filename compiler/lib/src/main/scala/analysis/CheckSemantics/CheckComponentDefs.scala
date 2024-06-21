@@ -130,12 +130,11 @@ object CheckComponentDefs
   override def specStateMachineInstanceAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-  ) = {
-    val stateMachineInstance = StateMachineInstance.fromSpecStateMachine(a, aNode)
+  ): Result.Result[Analysis] = {
     for {
+      stateMachineInstance <- StateMachineInstance.fromSpecStateMachine(a, aNode)
       component <- a.component.get.addStateMachineInstance(stateMachineInstance)
-    }
-    yield a.copy(component = Some(component))
+    } yield a.copy(component = Some(component))
   }
 
 

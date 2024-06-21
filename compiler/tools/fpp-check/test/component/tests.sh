@@ -12,7 +12,6 @@ enum_undef_constant
 enum_undef_type
 queued_no_async_input
 ok
-passive_statemachine
 struct_default_error
 struct_format_not_numeric
 struct_ok
