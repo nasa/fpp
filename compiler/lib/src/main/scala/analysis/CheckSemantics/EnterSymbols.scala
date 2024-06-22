@@ -49,6 +49,7 @@ object EnterSymbols
     val symbol = Symbol.Component(aNode)
     for {
       nestedScope <- a.nestedScope.put(NameGroup.Component)(name, symbol)
+      nestedScope <- nestedScope.put(NameGroup.StateMachine)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Type)(name, symbol)
       nestedScope <- nestedScope.put(NameGroup.Value)(name, symbol)
       a <- {

@@ -1375,6 +1375,18 @@
               }
             }
           },
+          "StateMachine" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : {
+                  "Component" : {
+                    "nodeId" : 65,
+                    "unqualifiedName" : "DataCompressor"
+                  }
+                }
+              }
+            }
+          },
           "Type" : {
             "NameSymbolMapImpl" : {
               "map" : {
