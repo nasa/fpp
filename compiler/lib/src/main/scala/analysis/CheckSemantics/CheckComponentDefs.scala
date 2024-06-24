@@ -127,6 +127,17 @@ object CheckComponentDefs
     yield a.copy(component = Some(component))
   }
 
+  override def specStateMachineInstanceAnnotatedNode(
+    a: Analysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ): Result.Result[Analysis] = {
+    for {
+      stateMachineInstance <- StateMachineInstance.fromSpecStateMachine(a, aNode)
+      component <- a.component.get.addStateMachineInstance(stateMachineInstance)
+    } yield a.copy(component = Some(component))
+  }
+
+
   override def specTlmChannelAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]

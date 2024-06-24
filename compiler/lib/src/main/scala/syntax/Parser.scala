@@ -471,6 +471,7 @@ object Parser extends Parsers {
       constant ^^ { case _ => Ast.SpecLoc.Constant } |
       instance ^^ { case _ => Ast.SpecLoc.ComponentInstance } |
       port ^^ { case _ => Ast.SpecLoc.Port } |
+      state ~! machine ^^ { case _ => Ast.SpecLoc.StateMachine } |
       topology ^^ { case _ => Ast.SpecLoc.Topology } |
       typeToken ^^ { case _ => Ast.SpecLoc.Type } |
       failure("location kind expected")
@@ -577,7 +578,7 @@ object Parser extends Parsers {
   }
 
   def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
-    (state ~> machine ~> (instance ~> ident) ~ (colon ~>! node(qualIdent))) ^^ {
+    (state ~> machine ~> (instance ~> ident) ~! (colon ~>! node(qualIdent))) ^^ {
       case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
     }
   }

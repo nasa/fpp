@@ -1029,6 +1029,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,
@@ -1086,6 +1089,18 @@
       "ScopeImpl" : {
         "map" : {
           "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 44,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "StateMachine" : {
             "NameSymbolMapImpl" : {
               "map" : {
                 "EngineTemp" : {

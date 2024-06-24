@@ -24,6 +24,9 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   /** A use of a type definition */
   def typeUse(a: Analysis, node: AstNode[Ast.TypeName], use: Name.Qualified): Result = default(a)
 
+  /** A use of a state machine definition*/
+  def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(a)
+
   override def defComponentInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
@@ -61,6 +64,13 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     val data = node1.data
     qualIdentNode (componentInstanceUse) (a, data.instance)
   }
+
+  override def specStateMachineInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
+    val (_, node1, _) = node
+    val data = node1.data
+    qualIdentNode(stateMachineUse)(a, data.stateMachine)
+  }
+
 
   override def specConnectionGraphAnnotatedNode(
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {

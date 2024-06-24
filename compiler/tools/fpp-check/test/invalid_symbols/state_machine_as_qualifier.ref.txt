@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/state_machine_as_qualifier.fpp:3.29
+  state machine instance s: S.s
+                            ^
+error: invalid symbol S: not a qualifier
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/state_machine_as_qualifier.fpp:1.1
+state machine S
+^

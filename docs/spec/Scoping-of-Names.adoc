@@ -75,7 +75,8 @@ Definitions reside in name groups as follows:
 * Array type definitions reside in the type name group.
 
 * Component definitions reside in the component name group,
-the value name group, and the type name group.
+the value name group, the type name group, and the
+state machine name group.
 
 * Component instance definitions reside in the component instance name group.
 

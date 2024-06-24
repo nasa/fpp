@@ -507,6 +507,9 @@
           "astNodeId" : 20
         }
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
         {
           "aNode" : {

@@ -5,10 +5,12 @@ component_array
 component_enum
 component_instance
 component_instance_module
+component_state_machine
 component_struct
 constant
 constant_in_module
 constant_module
+constant_state_machine
 enum
 enum_constant
 enum_module
@@ -17,10 +19,12 @@ module_component_instance
 module_constant
 module_enum
 module_port
+module_state_machine
 module_topology
 module_type
 port
 port_module
+state_machine
 struct
 topology
 topology_module

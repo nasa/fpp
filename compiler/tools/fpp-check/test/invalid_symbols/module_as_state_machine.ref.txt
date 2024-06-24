@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_state_machine.fpp:4.32
+    state machine instance s1: M 
+                               ^
+error: invalid symbol M: not a state machine symbol
+symbol is defined here:
+[ local path prefix ]/compiler/tools/fpp-check/test/invalid_symbols/module_as_state_machine.fpp:1.1
+module M {}
+^
