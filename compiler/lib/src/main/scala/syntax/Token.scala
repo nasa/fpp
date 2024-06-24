@@ -50,6 +50,7 @@ object Token {
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
   final case class INPUT() extends Token
+  final case class INITIAL() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token
   final case class LBRACE() extends Token

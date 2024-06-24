@@ -146,9 +146,10 @@ object Parser extends Parsers {
     }
   }
 
+
   def defStateMachine: Parser[Ast.DefStateMachine] = {
-    (state ~> (machine ~> ident)) ^^ {
-      case name => Ast.DefStateMachine(name)
+    (state ~> (machine ~> ident) ~! opt(lbrace ~>! defInit <~! rbrace)) ^^ {
+      case name ~ _ => Ast.DefStateMachine(name)
     }
   }
 
@@ -287,6 +288,12 @@ object Parser extends Parsers {
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
     failure("module member expected")
+  }
+
+  def defInit: Parser[Ast.Ident] = {
+    (initial ~> ident) ^^ {
+      case ident => ident
+    }
   }
 
   def moduleMembers: Parser[List[Ast.ModuleMember]] = annotatedElementSequence(moduleMemberNode, semi, Ast.ModuleMember(_))
@@ -796,6 +803,8 @@ object Parser extends Parsers {
 
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
+
+  private def initial = accept("initial", { case t : Token.INITIAL => t })
 
   private def importToken = accept("import", { case t : Token.IMPORT => t })
 
