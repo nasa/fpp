@@ -411,7 +411,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        stateMachineWriter.getInstanceNames.map(x => line(s"$x.init();")),
+        smInstancesByName.map((name, _) => line(s"$name.init();")),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -498,7 +498,7 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" :: stateMachineWriter.getInstanceNames.map(x => s"$x(this)"),
+          s"Fw::${kindStr}ComponentBase(compName)" :: smInstancesByName.map((name, _) => s"$name(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(

@@ -9,7 +9,20 @@ case class ComponentStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getVariableMembers: List[CppDoc.Class.Member] = genInstantiations
+  def getVariableMembers: List[CppDoc.Class.Member] =  {
+    val members = smInstancesByName.map(
+      (name, smi) => {
+        val typeName = s.writeSymbol(smi.symbol)
+        s"$typeName $name;"
+      }
+    ).map(s => linesClassMember(lines(s)))
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"State machine instantiations",
+      members,
+      CppDoc.Lines.Hpp
+    )
+  }
 
   def getFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -100,38 +113,22 @@ case class ComponentStateMachines(
   def getInternalInterfaceHandler: List[Line] =
     wrapInSwitch(
       "ev.getsmId()",
-      getInstanceNames.flatMap(x =>
+      smInstancesByName.flatMap((name, _) =>
         lines(
-          s"""| case ${x.toUpperCase}:
-              |   this->$x.update(&ev);
+          s"""| case ${name.toUpperCase}:
+              |   this->$name.update(&ev);
               |   break;
           """
         )
       )
     )
 
-  def genInstantiations: List[CppDoc.Class.Member] = {
-
-    val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map
-        { case (instance, definition) =>
-         Line(s"$definition $instance;")
-        }
-
-      addAccessTagAndComment(
-        "PRIVATE",
-        s"State machine instantiations",
-        smLines.map(x => linesClassMember(List(x))),
-        CppDoc.Lines.Hpp
-      )
-
-  }
-
   def genEnumerations: List[CppDoc.Class.Member] = {
 
     val smLines =
       wrapInNamedEnum(
         "SmId",
-        getInstanceNames.map(x => line(x.toUpperCase + ","))
+        smInstancesByName.map((name, _) => line(name.toUpperCase + ","))
       )
 
     addAccessTagAndComment(
@@ -143,19 +140,9 @@ case class ComponentStateMachines(
 
   }
 
-  /** Gets the state machine nodes from the component members */
-  def getSmNodes: List[AstNode[Ast.SpecStateMachineInstance]] =
-    aNode._2.data.members.collect {
-      case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
-    }
-
-  def getSmDefs: List[String] =
-    getSmNodes.flatMap(_.data.stateMachine.data.toIdentList)
-
-  def getInstanceNames: List[String] =
-    getSmNodes.map(_.data.name)
-
   def getSmInterface: String =
-    getSmDefs.toSet.map(x => s", public ${x}If").mkString
+    component.stateMachineInstanceMap.
+      map((_, smi) => s", public ${s.writeSymbol(smi.symbol)}If").
+      toList.sorted.toSet.mkString
 
 }

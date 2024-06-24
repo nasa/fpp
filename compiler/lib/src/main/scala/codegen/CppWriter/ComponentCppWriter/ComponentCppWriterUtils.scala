@@ -236,6 +236,8 @@ abstract class ComponentCppWriterUtils(
 
   val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
+  val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
