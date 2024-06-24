@@ -94,7 +94,7 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-    val stateMachineEventHeaders = 
+    val stateMachineEventHeaders =
       guardedList (hasStateMachineInstances) (List("Fw/Types/SMEventsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
