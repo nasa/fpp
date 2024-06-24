@@ -58,6 +58,7 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
+    val smInterface = stateMachineWriter.getSmInterface
     val cls = classMember(
       Some(
         addSeparatedString(
@@ -66,7 +67,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName" + stateMachineWriter.getSmInterface),
+      Some(s"public Fw::$baseClassName$smInterface"),
       stateMachineWriter.genEnumerations ++ getClassMembers
     )
     List(

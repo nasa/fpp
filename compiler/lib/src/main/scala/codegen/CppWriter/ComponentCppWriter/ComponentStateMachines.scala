@@ -164,7 +164,7 @@ case class ComponentStateMachines(
     getSmNodes.map(_.data.name)
 
   def getSmInterface: String =
-    getSmDefs.toSet.toList.map(x => s", public ${x}If").mkString
+    getSmDefs.toSet.map(x => s", public ${x}If").mkString
 
 }
 
