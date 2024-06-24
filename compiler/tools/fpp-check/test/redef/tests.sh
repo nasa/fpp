@@ -10,6 +10,7 @@ component_struct
 constant
 constant_in_module
 constant_module
+constant_state_machine
 enum
 enum_constant
 enum_module
