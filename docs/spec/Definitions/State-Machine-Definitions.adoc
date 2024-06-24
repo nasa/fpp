@@ -34,7 +34,7 @@ A state machine member is one of the following:
 * A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-* A <<State-Machine-Behavior-Elements_State-Machine-Event-Definitions,state machine event definition>>
+* A <<State-Machine-Behavior-Elements_State-Machine-Signal-Definitions,state machine signal definition>>
 
 ==== Semantics
 
@@ -61,7 +61,7 @@ of names in uses.
 *State machine member definitions:*
 There are five kinds of *state machine member definitions*:
 Action definitions, guard definitions, junction definitions, state
-definitions, and state machine event definitions.
+definitions, and state machine signal definitions.
 
 *Qualified names:*
 Each state machine member definition has an associated qualified
@@ -117,12 +117,12 @@ with the following modifications:
 
 state machine MonitorSm {
 
-  event Complete
-  event Drive
-  event Calibrate
-  event RTI
-  event Stop
-  event Fault
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
   
   action init2
   action doCalibrate
@@ -135,26 +135,26 @@ state machine MonitorSm {
   
   state DeviceOn {
 
-    initial Initializing do init2
+    initial do init2 Initializing
 
     state Initializing {
-      on Complete visit Idle
+      on Complete enter Idle
     }
 
     state Idle {
-      on Drive visit Driving
-      on Calibrate if calibrateReady visit Calibrating
+      on Drive enter Driving
+      on Calibrate if calibrateReady enter Calibrating
     }
 
     state Calibrating {
       on RTI do doCalibrate
-      on Fault go Idle do reportFault
-      on Complete visit Idle
+      on Fault do reportFault enter Idle
+      on Complete enter Idle
     }
 
     state Driving {
       on RTI do motorControl
-      on Stop visit Idle
+      on Stop enter Idle
     }
 
   }

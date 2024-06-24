@@ -1,26 +1,26 @@
-=== Visit Expressions
+=== Enter Expressions
 
-A *visit expression* specifies a transition as part of a
+A *enter expression* specifies a transition as part of a
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>
 or
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
-The transition visits a state or junction and optionally performs
+The transition enters a state or junction and optionally performs
 some action.
 
 ==== Syntax
 
-`visit` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `do` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
+`enter` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 ==== Semantics
 
-. The qualified identifier after the keyword `visit` must
+. The qualified identifier after the keyword `enter` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a 
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
-It is the state that is visited.
+It is the state that is entered.
 
 . If present, the optional identifier after the keyword `do` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
@@ -34,7 +34,7 @@ It specifies an action to perform when making the transition.
 ----
 state machine Device {
 
-  event PowerOn
+  signal PowerOn
   
   action getReady
 
@@ -43,7 +43,7 @@ state machine Device {
   initial OFF
 
   state OFF {
-    on PowerOn if initComplete visit ON do getReady
+    on PowerOn if initComplete do getReady enter ON
   }
 
   state ON
