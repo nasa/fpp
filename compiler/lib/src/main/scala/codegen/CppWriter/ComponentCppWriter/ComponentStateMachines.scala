@@ -157,23 +157,21 @@ case class ComponentStateMachines(
       )
   }
 
-  def getSmNode: List[AstNode[Ast.SpecStateMachineInstance]] = {
+  def getSmNodes: List[AstNode[Ast.SpecStateMachineInstance]] = {
 
-      val (_, defComponent, _) = aNode // Extract the components of the tuple
+    val (_, defComponent, _) = aNode // Extract the components of the tuple
 
-      defComponent.data.members.collect {
-        case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
-      }
+    defComponent.data.members.collect {
+      case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
+    }
 
   }
 
   def getSmDefs: List[String] = 
-    getSmNode.map(_.data.stateMachine.data.toIdentList).flatten
-
+    getSmNodes.flatMap(_.data.stateMachine.data.toIdentList)
 
   def getInstanceNames: List[String] =
-       getSmNode.map(_.data.name)
-
+    getSmNodes.map(_.data.name)
 
   def getSmInterface: String =
     getSmDefs.toSet.toList.map(x => s", public ${x}If").mkString

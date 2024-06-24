@@ -31,7 +31,6 @@ case class ComponentCppWriter (
 
   val hasStateMachines: Boolean = !stateMachineWriter.getInstanceNames.isEmpty
 
-
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
