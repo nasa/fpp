@@ -23,6 +23,7 @@ module_topology
 module_type
 port
 port_module
+state_machine
 struct
 topology
 topology_module

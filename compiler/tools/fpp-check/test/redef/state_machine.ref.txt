@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/state_machine.fpp:2.1
+state machine S
+^
+error: redefinition of symbol S
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/state_machine.fpp:1.1
+state machine S
+^
