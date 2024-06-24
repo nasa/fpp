@@ -1281,6 +1281,11 @@
             "stateMachine" : {
               "astNodeId" : 54
             }
+          },
+          "symbol" : {
+            "node" : {
+              "astNodeId" : 52
+            }
           }
         },
         "s2" : {
@@ -1291,6 +1296,11 @@
             "name" : "s2",
             "stateMachine" : {
               "astNodeId" : 63
+            }
+          },
+          "symbol" : {
+            "node" : {
+              "astNodeId" : 52
             }
           }
         }
