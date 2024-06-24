@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_statemachine.fpp:3.5
-    state machine A
-    ^
-error: redefinition of symbol A
-previous definition is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/redef/module_statemachine.fpp:2.5
-    state machine A
-    ^
