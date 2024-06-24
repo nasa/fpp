@@ -267,6 +267,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasContainers: Boolean = containersByName != Nil
 
+  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
+
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
   val hasProductRecvPort: Boolean = productRecvPort.isDefined

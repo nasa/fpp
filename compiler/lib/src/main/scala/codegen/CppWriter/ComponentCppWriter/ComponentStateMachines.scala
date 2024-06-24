@@ -9,18 +9,13 @@ case class ComponentStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  val hasStateMachines: Boolean = !getInstanceNames.isEmpty
-
-  def getVariableMembers: List[CppDoc.Class.Member] = {
-          genInstantiations
-  }
-
+  def getVariableMembers: List[CppDoc.Class.Member] = genInstantiations
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push events to the input queue",
-      guardedList (hasStateMachines) 
+      guardedList (hasStateMachineInstances)
         (List(
           functionClassMember(
             Some(
@@ -73,7 +68,7 @@ case class ComponentStateMachines(
   }
 
   def writeDispatch: List[Line] = {
-    if (hasStateMachines) {
+    if (hasStateMachineInstances) {
       val body = lines(
         s"""|Fw::SMEvents ev;
             |deserStatus = msg.deserialize(ev);
@@ -126,7 +121,7 @@ case class ComponentStateMachines(
 
   def genInstantiations: List[CppDoc.Class.Member] = {
 
-      val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map 
+      val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map
           { case (instance, definition) =>
            Line(s"$definition $instance;")
           }
@@ -142,9 +137,9 @@ case class ComponentStateMachines(
 
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-      val smLines =  
+      val smLines =
         wrapInNamedEnum(
-          "SmId", 
+          "SmId",
           getInstanceNames.map(x => line(x.toUpperCase + ","))
         )
 
@@ -162,7 +157,7 @@ case class ComponentStateMachines(
       case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
     }
 
-  def getSmDefs: List[String] = 
+  def getSmDefs: List[String] =
     getSmNodes.flatMap(_.data.stateMachine.data.toIdentList)
 
   def getInstanceNames: List[String] =
@@ -173,4 +168,4 @@ case class ComponentStateMachines(
 
 }
 
- 
+

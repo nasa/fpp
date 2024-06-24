@@ -29,8 +29,6 @@ case class ComponentCppWriter (
 
   private val stateMachineWriter = ComponentStateMachines(s, aNode)
 
-  val hasStateMachines: Boolean = !stateMachineWriter.getInstanceNames.isEmpty
-
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -97,7 +95,7 @@ case class ComponentCppWriter (
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
     val stateMachineEventHeaders = 
-      guardedList (hasStateMachines) (List("Fw/Types/SMEventsSerializableAc.hpp"))
+      guardedList (hasStateMachineInstances) (List("Fw/Types/SMEventsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -292,7 +290,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
-        guardedList (hasStateMachines) (List(stateMachineCppConstantName))
+        guardedList (hasStateMachineInstances) (List(stateMachineCppConstantName))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -337,7 +335,7 @@ case class ComponentCppWriter (
           "];"
         )
       ),
-      guardedList (hasStateMachines) (
+      guardedList (hasStateMachineInstances) (
         lines(
           s"""|// Size of statemachine sendEvents
               |BYTE sendEventsStatemachineSize[
