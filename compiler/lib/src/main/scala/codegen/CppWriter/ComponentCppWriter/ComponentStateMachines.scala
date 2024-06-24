@@ -124,7 +124,6 @@ case class ComponentStateMachines(
 
   }
 
-
   def genInstantiations: List[CppDoc.Class.Member] = {
 
       val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map 
@@ -157,15 +156,11 @@ case class ComponentStateMachines(
       )
   }
 
-  def getSmNodes: List[AstNode[Ast.SpecStateMachineInstance]] = {
-
-    val (_, defComponent, _) = aNode // Extract the components of the tuple
-
-    defComponent.data.members.collect {
+  /** Gets the state machine nodes from the component members */
+  def getSmNodes: List[AstNode[Ast.SpecStateMachineInstance]] =
+    aNode._2.data.members.collect {
       case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
     }
-
-  }
 
   def getSmDefs: List[String] = 
     getSmNodes.flatMap(_.data.stateMachine.data.toIdentList)
