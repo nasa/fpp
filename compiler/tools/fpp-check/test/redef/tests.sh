@@ -5,6 +5,7 @@ component_array
 component_enum
 component_instance
 component_instance_module
+component_state_machine
 component_struct
 constant
 constant_in_module
