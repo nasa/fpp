@@ -1100,6 +1100,18 @@
               }
             }
           },
+          "StateMachine" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 44,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
           "Type" : {
             "NameSymbolMapImpl" : {
               "map" : {

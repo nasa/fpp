@@ -12,9 +12,8 @@ object CheckUses extends UseAnalyzer {
   override def componentUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.Component) (a, node)
 
-  override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) = {
+  override def stateMachineUse(a: Analysis, node: AstNode[Ast.QualIdent], use: Name.Qualified) =
     visitQualIdentNode (NameGroup.StateMachine) (a, node)
-  }
 
   override def constantUse(a: Analysis, node: AstNode[Ast.Expr], use: Name.Qualified) = {
     def visitExprNode(a: Analysis, node: AstNode[Ast.Expr]): Result = {

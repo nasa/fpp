@@ -1,4 +1,3 @@
-
 passive component C {
 
   state machine S

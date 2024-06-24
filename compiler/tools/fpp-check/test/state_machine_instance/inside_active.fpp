@@ -1,4 +1,3 @@
-
 active component C {
 
   state machine S

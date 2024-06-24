@@ -21,7 +21,6 @@ module M {
     enum E { X, Y, Z }
     struct S { x: U32 }
     state machine S
-    state machine instance s1: S
   }
 
   instance c: C base id 0x100
