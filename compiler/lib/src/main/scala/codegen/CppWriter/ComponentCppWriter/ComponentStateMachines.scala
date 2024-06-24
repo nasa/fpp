@@ -11,7 +11,7 @@ case class ComponentStateMachines(
 
   def getVariableMembers: List[CppDoc.Class.Member] = genInstantiations
 
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
+  def getFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push events to the input queue",
@@ -65,10 +65,9 @@ case class ComponentStateMachines(
         )
       )
     )
-  }
 
-  def writeDispatch: List[Line] = {
-    if (hasStateMachineInstances) {
+  def writeDispatch: List[Line] =
+    guardedList (hasStateMachineInstances) ({
       val body = lines(
         s"""|Fw::SMEvents ev;
             |deserStatus = msg.deserialize(ev);
@@ -88,7 +87,7 @@ case class ComponentStateMachines(
             |// Update the state machine with the event
             |
             |"""
-      ) ++ getInternalInterfaceHandler ++ List(line("break;"))
+      ) ++ getInternalInterfaceHandler ++ lines("break;")
 
       line(s"// Handle state machine events ") ::
         wrapInScope(
@@ -96,15 +95,9 @@ case class ComponentStateMachines(
           body,
           "}"
         )
-    } else {
-      Nil
-    }
-  }
+    })
 
-
-
-  def getInternalInterfaceHandler: List[Line] = {
-
+  def getInternalInterfaceHandler: List[Line] =
     wrapInSwitch(
       "ev.getsmId()",
       getInstanceNames.flatMap(x =>
@@ -117,38 +110,37 @@ case class ComponentStateMachines(
       )
     )
 
-  }
-
   def genInstantiations: List[CppDoc.Class.Member] = {
 
-      val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map
-          { case (instance, definition) =>
-           Line(s"$definition $instance;")
-          }
+    val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map
+        { case (instance, definition) =>
+         Line(s"$definition $instance;")
+        }
 
-        addAccessTagAndComment(
-          "PRIVATE",
-          s"State machine instantiations",
-          smLines.map(x => linesClassMember(List(x))),
-          CppDoc.Lines.Hpp
-        )
+      addAccessTagAndComment(
+        "PRIVATE",
+        s"State machine instantiations",
+        smLines.map(x => linesClassMember(List(x))),
+        CppDoc.Lines.Hpp
+      )
 
   }
 
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-      val smLines =
-        wrapInNamedEnum(
-          "SmId",
-          getInstanceNames.map(x => line(x.toUpperCase + ","))
-        )
-
-      addAccessTagAndComment(
-        "PROTECTED",
-        s"State machine Enumeration",
-        smLines.map(x => linesClassMember(List(x))),
-        CppDoc.Lines.Hpp
+    val smLines =
+      wrapInNamedEnum(
+        "SmId",
+        getInstanceNames.map(x => line(x.toUpperCase + ","))
       )
+
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"State machine Enumeration",
+      smLines.map(x => linesClassMember(List(x))),
+      CppDoc.Lines.Hpp
+    )
+
   }
 
   /** Gets the state machine nodes from the component members */
@@ -167,5 +159,3 @@ case class ComponentStateMachines(
     getSmDefs.toSet.map(x => s", public ${x}If").mkString
 
 }
-
-
