@@ -7,13 +7,13 @@
 #ifndef ActiveStateMachinesComponentAc_HPP
 #define ActiveStateMachinesComponentAc_HPP
 
+#include "ActiveStateMachines_S1.hpp"
+#include "ActiveStateMachines_S2.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "Fw/Types/SMEventsSerializableAc.hpp"
-#include "S1.hpp"
-#include "S2.hpp"
 
 //! \class ActiveStateMachinesComponentBase
 //! \brief Auto-generated base for ActiveStateMachines component
