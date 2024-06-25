@@ -94,13 +94,13 @@ case class ComponentStateMachines(
             |);
             |
             |// Update the state machine with the event
-            |
             |"""
       ),
       getInternalInterfaceHandler,
-      lines("break;")
+      lines("\nbreak;")
     )
     lazy val caseStmt =
+      Line.blank ::
       line(s"// Handle state machine events ") ::
       wrapInScope(
         s"case $stateMachineCppConstantName: {",
@@ -133,14 +133,15 @@ case class ComponentStateMachines(
 
     addAccessTagAndComment(
       "PROTECTED",
-      s"State machine Enumeration",
+      s"State machine enumeration",
       guardedList (!smLines.isEmpty) (List(linesClassMember(smLines))),
       CppDoc.Lines.Hpp
     )
 
   }
 
-  def getSmInterface: String =
+  /** Gets the state machine interfaces */
+  def getSmInterfaces: String =
     smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}If").
       sorted.mkString
 

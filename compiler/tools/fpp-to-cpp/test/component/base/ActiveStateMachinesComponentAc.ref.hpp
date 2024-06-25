@@ -26,7 +26,7 @@ class ActiveStateMachinesComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // State machine Enumeration
+    // State machine enumeration
     // ----------------------------------------------------------------------
     enum SmId {
       SM1,

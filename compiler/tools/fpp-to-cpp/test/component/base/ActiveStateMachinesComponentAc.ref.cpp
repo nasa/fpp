@@ -194,6 +194,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
   );
 
   switch (msgType) {
+
     // Handle state machine events 
     case STATEMACHINE_SENDEVENTS: {
       Fw::SMEvents ev;
@@ -230,6 +231,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
           break;
                   
       }
+
       break;
     }
 
