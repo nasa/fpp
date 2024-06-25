@@ -20,7 +20,7 @@
 //!
 //! An active component with state machines
 class ActiveStateMachinesComponentBase :
-  public Fw::ActiveComponentBase, public ActiveStateMachines_S1If, public ActiveStateMachines_S2If
+  public Fw::ActiveComponentBase, public ActiveStateMachines_S1_Interface, public ActiveStateMachines_S2_Interface
 {
 
   PROTECTED:
@@ -29,10 +29,10 @@ class ActiveStateMachinesComponentBase :
     // State machine enumeration
     // ----------------------------------------------------------------------
     enum SmId {
-      SM1,
-      SM2,
-      SM3,
-      SM4,
+      STATE_MACHINE_SM1,
+      STATE_MACHINE_SM2,
+      STATE_MACHINE_SM3,
+      STATE_MACHINE_SM4,
     };
 
     // ----------------------------------------------------------------------
@@ -93,10 +93,10 @@ class ActiveStateMachinesComponentBase :
     // ----------------------------------------------------------------------
     // State machine instantiations
     // ----------------------------------------------------------------------
-    ActiveStateMachines_S1 sm1;
-    ActiveStateMachines_S1 sm2;
-    ActiveStateMachines_S2 sm3;
-    ActiveStateMachines_S2 sm4;
+    ActiveStateMachines_S1 m_stateMachine_sm1;
+    ActiveStateMachines_S1 m_stateMachine_sm2;
+    ActiveStateMachines_S2 m_stateMachine_sm3;
+    ActiveStateMachines_S2 m_stateMachine_sm4;
 
 };
 

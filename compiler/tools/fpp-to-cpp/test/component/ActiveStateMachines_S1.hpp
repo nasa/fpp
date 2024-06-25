@@ -13,7 +13,7 @@ namespace Fw {
   class SMEvents;
 }
 
-class ActiveStateMachines_S1If {
+class ActiveStateMachines_S1_Interface {
   public:
                                                                   
 };
@@ -21,11 +21,11 @@ class ActiveStateMachines_S1If {
 class ActiveStateMachines_S1 {
                                  
   private:
-    ActiveStateMachines_S1If *parent;
+    ActiveStateMachines_S1_Interface *parent;
                                  
   public:
                                  
-    ActiveStateMachines_S1(ActiveStateMachines_S1If* parent) : parent(parent) {}
+    ActiveStateMachines_S1(ActiveStateMachines_S1_Interface* parent) : parent(parent) {}
   
     enum ActiveStateMachines_S1States {
       OFF,

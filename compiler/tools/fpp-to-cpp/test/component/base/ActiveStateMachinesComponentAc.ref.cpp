@@ -74,10 +74,10 @@ void ActiveStateMachinesComponentBase ::
   // Initialize base class
   Fw::ActiveComponentBase::init(instance);
 
-  sm1.init();
-  sm2.init();
-  sm3.init();
-  sm4.init();
+  m_stateMachine_sm1.init();
+  m_stateMachine_sm2.init();
+  m_stateMachine_sm3.init();
+  m_stateMachine_sm4.init();
 
   Os::Queue::QueueStatus qStat = this->createQueue(
     queueDepth,
@@ -96,10 +96,10 @@ void ActiveStateMachinesComponentBase ::
 ActiveStateMachinesComponentBase ::
   ActiveStateMachinesComponentBase(const char* compName) :
     Fw::ActiveComponentBase(compName),
-    sm1(this),
-    sm2(this),
-    sm3(this),
-    sm4(this)
+    m_stateMachine_sm1(this),
+    m_stateMachine_sm2(this),
+    m_stateMachine_sm3(this),
+    m_stateMachine_sm4(this)
 {
 
 }
@@ -214,20 +214,20 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
 
       // Update the state machine with the event
       switch (ev.getsmId()) {
-        case SM1:
-          this->sm1.update(&ev);
+        case STATE_MACHINE_SM1:
+          this->m_stateMachine_sm1.update(&ev);
           break;
                   
-        case SM2:
-          this->sm2.update(&ev);
+        case STATE_MACHINE_SM2:
+          this->m_stateMachine_sm2.update(&ev);
           break;
                   
-        case SM3:
-          this->sm3.update(&ev);
+        case STATE_MACHINE_SM3:
+          this->m_stateMachine_sm3.update(&ev);
           break;
                   
-        case SM4:
-          this->sm4.update(&ev);
+        case STATE_MACHINE_SM4:
+          this->m_stateMachine_sm4.update(&ev);
           break;
                   
       }

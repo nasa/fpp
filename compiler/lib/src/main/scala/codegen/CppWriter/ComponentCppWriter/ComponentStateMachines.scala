@@ -13,7 +13,7 @@ case class ComponentStateMachines(
     val members = smInstancesByName.map(
       (name, smi) => {
         val typeName = s.writeSymbol(smi.symbol)
-        s"$typeName $name;"
+        s"$typeName m_stateMachine_$name;"
       }
     ).map(s => linesClassMember(lines(s)))
     addAccessTagAndComment(
@@ -115,8 +115,8 @@ case class ComponentStateMachines(
       "ev.getsmId()",
       smInstancesByName.flatMap((name, _) =>
         lines(
-          s"""|case ${name.toUpperCase}:
-              |  this->$name.update(&ev);
+          s"""|case STATE_MACHINE_${name.toUpperCase}:
+              |  this->m_stateMachine_$name.update(&ev);
               |  break;
           """
         )
@@ -128,7 +128,7 @@ case class ComponentStateMachines(
     lazy val smLines =
       wrapInNamedEnum(
         "SmId",
-        smInstancesByName.map((name, _) => line(s"${name.toUpperCase},"))
+        smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
       )
 
     addAccessTagAndComment(
@@ -142,7 +142,7 @@ case class ComponentStateMachines(
 
   /** Gets the state machine interfaces */
   def getSmInterfaces: String =
-    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}If").
+    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
       sorted.mkString
 
 }

@@ -14,7 +14,7 @@ namespace Fw {
 }
 
 
-class ActiveStateMachines_S2If {
+class ActiveStateMachines_S2_Interface {
   public:
                                                                   
 };
@@ -22,11 +22,11 @@ class ActiveStateMachines_S2If {
 class ActiveStateMachines_S2 {
                                  
   private:
-    ActiveStateMachines_S2If *parent;
+    ActiveStateMachines_S2_Interface *parent;
                                  
   public:
                                  
-    ActiveStateMachines_S2(ActiveStateMachines_S2If* parent) : parent(parent) {}
+    ActiveStateMachines_S2(ActiveStateMachines_S2_Interface* parent) : parent(parent) {}
   
     enum ActiveStateMachines_S2States {
       OFF,
