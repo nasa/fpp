@@ -6,7 +6,6 @@ import fpp.compiler.util._
 /** An FPP state machine instance */
 final case class StateMachineInstance(
   aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-  specifier: Ast.SpecStateMachineInstance,
   symbol: Symbol.StateMachine
 ) {
 
@@ -27,20 +26,7 @@ object StateMachineInstance {
                            aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
   ) :
     Result.Result[StateMachineInstance] = {
-      val node = aNode._2
-      val data = node.data
-      data match {
-          case specifier: Ast.SpecStateMachineInstance =>
-              createStateMachineInstance(a, aNode, specifier)
-        }
-    }
-
-  private def createStateMachineInstance(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-    specifier: Ast.SpecStateMachineInstance
-  ): Result.Result[StateMachineInstance] = {
-    val qid = specifier.stateMachine
+    val qid = aNode._2.data.stateMachine
     for {
       symbol <- a.useDefMap(qid.id) match {
         case symbol @ Symbol.StateMachine(_) => Right(symbol)
@@ -52,7 +38,7 @@ object StateMachineInstance {
         ))
       }
     }
-    yield StateMachineInstance(aNode, specifier, symbol)
+    yield StateMachineInstance(aNode, symbol)
   }
 
 }
