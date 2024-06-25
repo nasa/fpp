@@ -17,7 +17,7 @@ well-tailored to its purpose.
 * To provide semantic checking and error reporting for F Prime models.
 
 * To generate code in the various languages that F Prime uses, e.g.,
-{cpp}, Python, XML.
+{cpp}, JSON, and XML.
 In this document, we will call these languages the *target languages*.
 
 Developers may combine code generated from FPP with code written by hand to
@@ -37,21 +37,6 @@ A more detailed and precise description is available in
 https://fprime-community.github.io/fpp/fpp-spec.html[_The FPP Language
 Specification_].
 We recommend that you read this document before consulting that one.
-
-*XML limitations:*
-As of this writing, F Prime still uses an older XML format, e.g.,
-to support the Ground Data System (GDS).
-Some features of FPP are not supported in the XML representation.
-Where a feature is not supported in XML, we will call out this fact in a
-note marked *XML limitation*.
-As we phase out the XML code generation, we will phase in support
-for all the features described here.
-
-*GDS limitations:*
-It is currently possible to construct FPP models that are not
-fully supported by the F Prime Ground Data System (GDS).
-Where an FPP feature is not supported in the GDS, we will call out this
-fact in a note marked *GDS limitation.*
 
 *Overview:* The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.

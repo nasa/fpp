@@ -102,28 +102,3 @@ module M {
   constant a = 0
 }
 ----
-
-*XML limitation:* The F Prime XML format supports
-only one level of {cpp} namespaces.
-Therefore nested modules are not translated properly to {cpp}.
-As a workaround, you can use an underscore prefix.
-For example, instead of writing
-
-[source,fpp]
-----
-module A {
-  module B {
-
-  }
-}
-----
-
-you can write
-
-[source,fpp]
-
-----
-module A_B {
-
-}
-----

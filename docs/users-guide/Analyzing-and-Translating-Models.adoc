@@ -138,6 +138,10 @@ even though `c.Out` has two ports and only one of them is connected.
 
 === Generating XML
 
+The use of XML in F Prime is being phased out in favor of generating
+JSON and directly generating {cpp}.
+However, the F Prime XML representation is still used, e.g., in
+for specifying the layout of telemetry packets.
 This section describes how to generate XML from FPP.
 
 *XML file names:* The table <<xml-file-names>> shows how FPP definitions are
@@ -348,11 +352,6 @@ an automatic default of 80.
 you can provide FPP source on standard input, as described
 for <<Analyzing-and-Translating-Models_Checking-Models,`fpp-check`>>.
 
-*XML limitations:* The XML translation has several
-limitations.
-For more information, see the text marked *XML limitations* elsewhere
-in this manual.
-
 === Generating C Plus Plus
 
 This section describes how to generate {cpp} from FPP.
@@ -542,7 +541,7 @@ the output directory for writing files.
 This is similar to the `-d` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.
 
-* `-n` _file_ : Write the names of the generated XML files
+* `-n` _file_ : Write the names of the generated {cpp} files
 to _file_.
 This is similar to the `-n` option for
 <<Analyzing-and-Translating-Models_Generating-XML, `fpp-to-xml`>>.

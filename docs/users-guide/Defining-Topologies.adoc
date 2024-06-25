@@ -76,7 +76,7 @@ named `C1` and `C2`.
 As shown, to write an instance specifier, you write the
 keyword `instance` and the name of a component instance
 definition.
-In general the name may be a qualified name such as `A.B`
+In general the name may be a qualified name such as `A.B`.
 if the instance is defined inside a
 <<Defining-Modules,module>>; in this simple
 example it is not.
