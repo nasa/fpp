@@ -4,7 +4,7 @@ An FPP model may include one or more *type definitions*.
 These definitions describe named types that may be used elsewhere in the
 model and that may generate code in the target language.
 For example,
-an FPP type definition may become a class definition in {cpp} or Python.
+an FPP type definition may become a class definition in {cpp}.
 
 There are three kinds of type definitions:
 
