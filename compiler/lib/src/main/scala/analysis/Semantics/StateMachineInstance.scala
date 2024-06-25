@@ -24,8 +24,7 @@ object StateMachineInstance {
   /** Creates a state machine instance from a state machine instance specifier */
   def fromSpecStateMachine(a: Analysis, 
                            aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-  ) :
-    Result.Result[StateMachineInstance] = {
+  ) : Result.Result[StateMachineInstance] = {
     val qid = aNode._2.data.stateMachine
     for {
       symbol <- a.useDefMap(qid.id) match {
