@@ -1,43 +1,43 @@
 
 // ======================================================================
-// \title  S2.h
+// \title  ActiveStateMachines_S2.h
 // \author Auto-generated
-// \brief  header file for state machine S2
+// \brief  header file for state machine ActiveStateMachines_S2
 //
 // ======================================================================
            
-#ifndef S2_H_
-#define S2_H_
+#ifndef ActiveStateMachines_S2_H_
+#define ActiveStateMachines_S2_H_
 
 namespace Fw {
   class SMEvents;
 }
 
 
-class S2If {
+class ActiveStateMachines_S2If {
   public:
                                                                   
 };
 
-class S2 {
+class ActiveStateMachines_S2 {
                                  
   private:
-    S2If *parent;
+    ActiveStateMachines_S2If *parent;
                                  
   public:
                                  
-    S2(S2If* parent) : parent(parent) {}
+    ActiveStateMachines_S2(ActiveStateMachines_S2If* parent) : parent(parent) {}
   
-    enum S2States {
+    enum ActiveStateMachines_S2States {
       OFF,
       ON,
     };
 
-    enum S2Events {
+    enum ActiveStateMachines_S2Events {
       RTI_SIG,
     };
     
-    enum S2States state;
+    enum ActiveStateMachines_S2States state;
 
     void * extension;
 

@@ -6,7 +6,8 @@ import fpp.compiler.util._
 /** An FPP state machine instance */
 final case class StateMachineInstance(
   aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-  specifier: Ast.SpecStateMachineInstance
+  specifier: Ast.SpecStateMachineInstance,
+  symbol: Symbol.StateMachine
 ) {
 
   /** Gets the location of the state machine instance*/
@@ -40,16 +41,18 @@ object StateMachineInstance {
     specifier: Ast.SpecStateMachineInstance
   ): Result.Result[StateMachineInstance] = {
     val qid = specifier.stateMachine
-    a.useDefMap(qid.id) match {
-      case symbol @ Symbol.StateMachine(_) =>
-        Right(StateMachineInstance(aNode, specifier))
-      case symbol => Left(SemanticError.InvalidSymbol(
-        symbol.getUnqualifiedName,
-        Locations.get(qid.id),
-        "not a state machine symbol",
-        symbol.getLoc
-      ))
+    for {
+      symbol <- a.useDefMap(qid.id) match {
+        case symbol @ Symbol.StateMachine(_) => Right(symbol)
+        case symbol => Left(SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(qid.id),
+          "not a state machine symbol",
+          symbol.getLoc
+        ))
+      }
     }
+    yield StateMachineInstance(aNode, specifier, symbol)
   }
 
 }

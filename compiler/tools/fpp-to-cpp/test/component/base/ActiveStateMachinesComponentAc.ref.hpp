@@ -20,7 +20,7 @@
 //!
 //! An active component with state machines
 class ActiveStateMachinesComponentBase :
-  public Fw::ActiveComponentBase, public S1If, public S2If
+  public Fw::ActiveComponentBase, public ActiveStateMachines_S1If, public ActiveStateMachines_S2If
 {
 
   PROTECTED:
@@ -93,10 +93,10 @@ class ActiveStateMachinesComponentBase :
     // ----------------------------------------------------------------------
     // State machine instantiations
     // ----------------------------------------------------------------------
-    S1 sm1;
-    S1 sm2;
-    S2 sm3;
-    S2 sm4;
+    ActiveStateMachines_S1 sm1;
+    ActiveStateMachines_S1 sm2;
+    ActiveStateMachines_S2 sm3;
+    ActiveStateMachines_S2 sm4;
 
 };
 

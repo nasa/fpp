@@ -12,6 +12,8 @@ struct S2 { x: [3] U32 }
 enum E1 { X, Y }
 enum E2 { X, Y }
 
+state machine S
+
 module M {
 
   type a
@@ -28,5 +30,6 @@ module M {
   enum E1 { X, Y }
   enum E2 { X, Y }
 
-}
+  state machine S
 
+}

@@ -477,7 +477,7 @@ case class ArrayCppWriter (
     )
     ) ++
       wrapClassMembersInIfDirective(
-        "\n#if FW_ARRAY_TO_STRING",
+        "\n#if FW_SERIALIZABLE_TO_STRING",
         List(
           functionClassMember(
             Some("Convert array to string"),

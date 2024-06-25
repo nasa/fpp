@@ -40,20 +40,6 @@ active component C {
   telemetry port tlmOut
 
   state machine S
-  state machine instance s1: S
-  state machine instance s2: S
+  state machine instance s: S
 
-}
-
-queued component D {
-    state machine S
-    state machine instance s1: S
-    state machine instance s2: S
-}
-
-active component E {
-    sync input port p2: P
-    state machine S
-    state machine instance s1: S
-    state machine instance s2: S
 }

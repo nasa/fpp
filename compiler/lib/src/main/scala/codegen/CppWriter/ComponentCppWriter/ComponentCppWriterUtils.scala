@@ -236,6 +236,8 @@ abstract class ComponentCppWriterUtils(
 
   val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
+  val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
@@ -266,6 +268,8 @@ abstract class ComponentCppWriterUtils(
   val hasDataProducts: Boolean = component.hasDataProducts
 
   val hasContainers: Boolean = containersByName != Nil
+
+  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
@@ -643,7 +647,7 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for a command enumerated constant in cpp file */
   def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"
-  
+
   /** Get the name for the state machine enumerated constant in cpp file */
   def stateMachineCppConstantName = "STATEMACHINE_SENDEVENTS"
 

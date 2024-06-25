@@ -9,18 +9,26 @@ case class ComponentStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  val hasStateMachines: Boolean = !getInstanceNames.isEmpty
-
-  def getVariableMembers: List[CppDoc.Class.Member] = {
-          genInstantiations
+  def getVariableMembers: List[CppDoc.Class.Member] =  {
+    val members = smInstancesByName.map(
+      (name, smi) => {
+        val typeName = s.writeSymbol(smi.symbol)
+        s"$typeName $name;"
+      }
+    ).map(s => linesClassMember(lines(s)))
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"State machine instantiations",
+      members,
+      CppDoc.Lines.Hpp
+    )
   }
 
-
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
+  def getFunctionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push events to the input queue",
-      guardedList (hasStateMachines) 
+      guardedList (hasStateMachineInstances)
         (List(
           functionClassMember(
             Some(
@@ -70,10 +78,9 @@ case class ComponentStateMachines(
         )
       )
     )
-  }
 
-  def writeDispatch: List[Line] = {
-    if (hasStateMachines) {
+  def writeDispatch: List[Line] =
+    guardedList (hasStateMachineInstances) ({
       val body = lines(
         s"""|Fw::SMEvents ev;
             |deserStatus = msg.deserialize(ev);
@@ -93,7 +100,7 @@ case class ComponentStateMachines(
             |// Update the state machine with the event
             |
             |"""
-      ) ++ getInternalInterfaceHandler ++ List(line("break;"))
+      ) ++ getInternalInterfaceHandler ++ lines("break;")
 
       line(s"// Handle state machine events ") ::
         wrapInScope(
@@ -101,83 +108,41 @@ case class ComponentStateMachines(
           body,
           "}"
         )
-    } else {
-      Nil
-    }
-  }
+    })
 
-
-
-  def getInternalInterfaceHandler: List[Line] = {
-
+  def getInternalInterfaceHandler: List[Line] =
     wrapInSwitch(
       "ev.getsmId()",
-      getInstanceNames.flatMap(x =>
+      smInstancesByName.flatMap((name, _) =>
         lines(
-          s"""| case ${x.toUpperCase}:
-              |   this->$x.update(&ev);
+          s"""| case ${name.toUpperCase}:
+              |   this->$name.update(&ev);
               |   break;
           """
         )
       )
     )
 
-  }
-
-
-  def genInstantiations: List[CppDoc.Class.Member] = {
-
-      val smLines: List[Line] = getInstanceNames.zip(getSmDefs).map 
-          { case (instance, definition) =>
-           Line(s"$definition $instance;")
-          }
-
-        addAccessTagAndComment(
-          "PRIVATE",
-          s"State machine instantiations",
-          smLines.map(x => linesClassMember(List(x))),
-          CppDoc.Lines.Hpp
-        )
-
-  }
-
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-      val smLines =  
-        wrapInNamedEnum(
-          "SmId", 
-          getInstanceNames.map(x => line(x.toUpperCase + ","))
-        )
-
-      addAccessTagAndComment(
-        "PROTECTED",
-        s"State machine Enumeration",
-        smLines.map(x => linesClassMember(List(x))),
-        CppDoc.Lines.Hpp
+    val smLines =
+      wrapInNamedEnum(
+        "SmId",
+        smInstancesByName.map((name, _) => line(name.toUpperCase + ","))
       )
-  }
 
-  def getSmNode: List[AstNode[Ast.SpecStateMachineInstance]] = {
-
-      val (_, defComponent, _) = aNode // Extract the components of the tuple
-
-      defComponent.data.members.collect {
-        case Ast.ComponentMember((_, Ast.ComponentMember.SpecStateMachineInstance(node), _)) => node
-      }
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"State machine Enumeration",
+      smLines.map(x => linesClassMember(List(x))),
+      CppDoc.Lines.Hpp
+    )
 
   }
-
-  def getSmDefs: List[String] = 
-    getSmNode.map(_.data.stateMachine.data.toIdentList).flatten
-
-
-  def getInstanceNames: List[String] =
-       getSmNode.map(_.data.name)
-
 
   def getSmInterface: String =
-    getSmDefs.toSet.toList.map(x => s", public ${x}If").mkString
+    component.stateMachineInstanceMap.
+      map((_, smi) => s", public ${s.writeSymbol(smi.symbol)}If").
+      toList.sorted.toSet.mkString
 
 }
-
- 

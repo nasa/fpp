@@ -21,6 +21,7 @@ enum E { X, Y }
 enum Phases { setup, teardown }
 struct S { x: U32 }
 type T
+state machine S
 
 module M {
   array A = [3] U32
@@ -41,8 +42,6 @@ active component C1 {
   struct S { x: U32 }
   type T
   state machine S
-  state machine instance s1: S
-  state machine instance s2: M.S
 }
 
 instance c11: C1 \
@@ -63,6 +62,7 @@ module M {
     enum E { X, Y }
     struct S { x: U32 }
     type T
+    state machine S
   }
 
   instance c11: C1 base id 0x100

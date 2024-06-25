@@ -29,9 +29,6 @@ case class ComponentCppWriter (
 
   private val stateMachineWriter = ComponentStateMachines(s, aNode)
 
-  val hasStateMachines: Boolean = !stateMachineWriter.getInstanceNames.isEmpty
-
-
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -61,6 +58,7 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
+    val smInterface = stateMachineWriter.getSmInterface
     val cls = classMember(
       Some(
         addSeparatedString(
@@ -69,7 +67,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName" + stateMachineWriter.getSmInterface),
+      Some(s"public Fw::$baseClassName$smInterface"),
       stateMachineWriter.genEnumerations ++ getClassMembers
     )
     List(
@@ -97,8 +95,8 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-    val stateMachineEventHeaders = 
-      guardedList (hasStateMachines) (List("Fw/Types/SMEventsSerializableAc.hpp"))
+    val stateMachineEventHeaders =
+      guardedList (hasStateMachineInstances) (List("Fw/Types/SMEventsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -293,7 +291,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
-        guardedList (hasStateMachines) (List(stateMachineCppConstantName))
+        guardedList (hasStateMachineInstances) (List(stateMachineCppConstantName))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -338,7 +336,7 @@ case class ComponentCppWriter (
           "];"
         )
       ),
-      guardedList (hasStateMachines) (
+      guardedList (hasStateMachineInstances) (
         lines(
           s"""|// Size of statemachine sendEvents
               |BYTE sendEventsStatemachineSize[
@@ -413,7 +411,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        stateMachineWriter.getInstanceNames.map(x => line(s"$x.init();")),
+        smInstancesByName.map((name, _) => line(s"$name.init();")),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -500,7 +498,7 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" :: stateMachineWriter.getInstanceNames.map(x => s"$x(this)"),
+          s"Fw::${kindStr}ComponentBase(compName)" :: smInstancesByName.map((name, _) => s"$name(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(
