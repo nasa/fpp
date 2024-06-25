@@ -1945,32 +1945,6 @@ module M {
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML format supports
-only one level of C&#43;&#43; namespaces.
-Therefore nested modules are not translated properly to C&#43;&#43;.
-As a workaround, you can use an underscore prefix.
-For example, instead of writing</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module A {
-  module B {
-
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>you can write</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module A_B {
-
-}</code></pre>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -2576,13 +2550,6 @@ For example, this code is accepted:</p>
 <p>The member <code>x</code> of the struct <code>S</code> gets three copies of the value
 10 specified for <code>x</code> in the default value expression.</p>
 </div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong> The F Prime GDS does not properly handle
-member arrays.
-Therefore, if you plan to use the F Prime GDS, then you should avoid
-using a struct type with a member array in the flight-ground interface (i.e.,
-commands, events, telemetry, and parameters).</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.5. Member Format Strings</h4>
@@ -2996,15 +2963,6 @@ the enum name, separated from the name by a colon, like this:</p>
 <code>Small.A</code>, <code>Small.B</code>, and <code>Small.C</code>.
 Each of the enumerated constants is represented as a <code>U8</code> value
 in C&#43;&#43;.</p>
-</div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong>
-The F Prime GDS currently assumes that all enums use the default representation
-size of <code>I32</code>.
-Therefore, if you plan to use the F Prime GDS, then
-you should not use any enum with a specified representation
-type other than <code>I32</code> in the flight-ground interface (i.e., commands, events, telemetry,
-and parameters).</p>
 </div>
 </div>
 <div class="sect2">
@@ -5685,11 +5643,6 @@ has a numeric type; or (3) an array or struct type
 each of whose members satisfies condition (1) or
 condition (2).</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML representation does
-not allow limits for telemetry channels
-of array or struct type.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -6397,34 +6350,6 @@ active component Switch {
 when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.</p>
-</div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> In most cases, a qualified name such as <code>Switch.State</code>
-in FPP becomes a qualified name such as <code>Switch::State</code> when translating
-to C&#43;&#43;.
-However, the F Prime XML format does not support the definition
-of constants and types as members of C&#43;&#43; components.
-Therefore, when translating the previous example through XML to C&#43;&#43;,
-the following occurs:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The component <code>Switch</code> becomes an auto-generated C&#43;&#43; class
-<code>SwitchComponentBase</code>.</p>
-</li>
-<li>
-<p>The type <code>State</code> becomes a C&#43;&#43; class <code>Switch_State</code>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Similarly, the FPP constant <code>SerialSplitter.splitFactor</code>
-becomes a C&#43;&#43; constant <code>SerialSplitter_SplitFactor</code>.
-We will have more to say about this issue in the sections on
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>
-and
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">generating C&#43;&#43;</a>.</p>
 </div>
 </div>
 <div class="sect2">
