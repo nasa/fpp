@@ -10,6 +10,6 @@ generated code.
 
 For more information on FPP, see the following resources:
 
-* https://github.com/fprime-community/fpp[The FPP repository on GitHub].
+* https://github.com/nasa/fpp[The FPP repository on GitHub].
 
-* https://github.com/fprime-community/fpp/wiki[The FPP wiki].
+* https://github.com/nasa/fpp/wiki[The FPP wiki].
