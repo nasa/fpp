@@ -7,32 +7,32 @@
 #ifndef ActiveStateMachinesComponentAc_HPP
 #define ActiveStateMachinesComponentAc_HPP
 
+#include "ActiveStateMachines_S1.hpp"
+#include "ActiveStateMachines_S2.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "Fw/Types/SMEventsSerializableAc.hpp"
-#include "S1.hpp"
-#include "S2.hpp"
 
 //! \class ActiveStateMachinesComponentBase
 //! \brief Auto-generated base for ActiveStateMachines component
 //!
 //! An active component with state machines
 class ActiveStateMachinesComponentBase :
-  public Fw::ActiveComponentBase, public ActiveStateMachines_S1If, public ActiveStateMachines_S2If
+  public Fw::ActiveComponentBase, public ActiveStateMachines_S1_Interface, public ActiveStateMachines_S2_Interface
 {
 
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // State machine Enumeration
+    // State machine enumeration
     // ----------------------------------------------------------------------
     enum SmId {
-      SM1,
-      SM2,
-      SM3,
-      SM4,
+      STATE_MACHINE_SM1,
+      STATE_MACHINE_SM2,
+      STATE_MACHINE_SM3,
+      STATE_MACHINE_SM4,
     };
 
     // ----------------------------------------------------------------------
@@ -93,10 +93,10 @@ class ActiveStateMachinesComponentBase :
     // ----------------------------------------------------------------------
     // State machine instantiations
     // ----------------------------------------------------------------------
-    ActiveStateMachines_S1 sm1;
-    ActiveStateMachines_S1 sm2;
-    ActiveStateMachines_S2 sm3;
-    ActiveStateMachines_S2 sm4;
+    ActiveStateMachines_S1 m_stateMachine_sm1;
+    ActiveStateMachines_S1 m_stateMachine_sm2;
+    ActiveStateMachines_S2 m_stateMachine_sm3;
+    ActiveStateMachines_S2 m_stateMachine_sm4;
 
 };
 

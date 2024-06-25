@@ -58,7 +58,7 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
-    val smInterface = stateMachineWriter.getSmInterface
+    val smInterfaces = stateMachineWriter.getSmInterfaces
     val cls = classMember(
       Some(
         addSeparatedString(
@@ -67,7 +67,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName$smInterface"),
+      Some(s"public Fw::$baseClassName$smInterfaces"),
       stateMachineWriter.genEnumerations ++ getClassMembers
     )
     List(
@@ -411,7 +411,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, _) => line(s"$name.init();")),
+        smInstancesByName.map((name, _) => line(s"m_stateMachine_$name.init();")),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -498,7 +498,7 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" :: smInstancesByName.map((name, _) => s"$name(this)"),
+          s"Fw::${kindStr}ComponentBase(compName)" :: smInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(

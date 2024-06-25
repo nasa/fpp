@@ -13,7 +13,7 @@ case class ComponentStateMachines(
     val members = smInstancesByName.map(
       (name, smi) => {
         val typeName = s.writeSymbol(smi.symbol)
-        s"$typeName $name;"
+        s"$typeName m_stateMachine_$name;"
       }
     ).map(s => linesClassMember(lines(s)))
     addAccessTagAndComment(
@@ -24,64 +24,60 @@ case class ComponentStateMachines(
     )
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "State machine function to push events to the input queue",
-      guardedList (hasStateMachineInstances)
-        (List(
-          functionClassMember(
-            Some(
-              s"State machine base-class function for sendEvents"
-            ),
-            "stateMachineInvoke",
-            List(
-              CppDoc.Function.Param(
-                  CppDoc.Type("const Fw::SMEvents&"),
-                  "ev",
-                  Some("The state machine event")
-              )
-            ),
-            CppDoc.Type("void"),
-            intersperseBlankLines(
-              List(
-                lines(
-                  s"""|ComponentIpcSerializableBuffer msg;
-                      |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                      |
-                      |// Serialize the message ID
-                      |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
-                      |FW_ASSERT (
-                      |  _status == Fw::FW_SERIALIZE_OK,
-                      |  static_cast<FwAssertArgType>(_status)
-                      |);
-                      |
-                      |// Fake port number to make message dequeue work
-                      |_status = msg.serialize(static_cast<FwIndexType>(0));
-                      |FW_ASSERT (
-                      |  _status == Fw::FW_SERIALIZE_OK,
-                      |  static_cast<FwAssertArgType>(_status)
-                      |);
-                      |
-                      |_status = msg.serialize(ev);
-                      |FW_ASSERT(
-                      |  _status == Fw::FW_SERIALIZE_OK,
-                      |  static_cast<FwAssertArgType>(_status)
-                      |);
-                      |
-                      |"""
-                ),
-                writeSendMessageLogic("msg", Ast.QueueFull.Assert, Option(1))
-              )
-            )
-          )
+  def getFunctionMembers: List[CppDoc.Class.Member] = {
+    lazy val member = functionClassMember(
+      Some(s"State machine base-class function for sendEvents"),
+      "stateMachineInvoke",
+      List(
+        CppDoc.Function.Param(
+            CppDoc.Type("const Fw::SMEvents&"),
+            "ev",
+            Some("The state machine event")
+        )
+      ),
+      CppDoc.Type("void"),
+      intersperseBlankLines(
+        List(
+          lines(
+            s"""|ComponentIpcSerializableBuffer msg;
+                |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+                |
+                |// Serialize the message ID
+                |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
+                |FW_ASSERT (
+                |  _status == Fw::FW_SERIALIZE_OK,
+                |  static_cast<FwAssertArgType>(_status)
+                |);
+                |
+                |// Fake port number to make message dequeue work
+                |_status = msg.serialize(static_cast<FwIndexType>(0));
+                |FW_ASSERT (
+                |  _status == Fw::FW_SERIALIZE_OK,
+                |  static_cast<FwAssertArgType>(_status)
+                |);
+                |
+                |_status = msg.serialize(ev);
+                |FW_ASSERT(
+                |  _status == Fw::FW_SERIALIZE_OK,
+                |  static_cast<FwAssertArgType>(_status)
+                |);
+                |
+                |"""
+          ),
+          writeSendMessageLogic("msg", Ast.QueueFull.Assert, Option(1))
         )
       )
     )
+    addAccessTagAndComment(
+      "PROTECTED",
+      "State machine function to push events to the input queue",
+      guardedList (hasStateMachineInstances) (List(member))
+    )
+  }
 
-  def writeDispatch: List[Line] =
-    guardedList (hasStateMachineInstances) ({
-      val body = lines(
+  def writeDispatch: List[Line] = {
+    lazy val caseBody = List.concat(
+      lines(
         s"""|Fw::SMEvents ev;
             |deserStatus = msg.deserialize(ev);
             |
@@ -98,26 +94,30 @@ case class ComponentStateMachines(
             |);
             |
             |// Update the state machine with the event
-            |
             |"""
-      ) ++ getInternalInterfaceHandler ++ lines("break;")
-
+      ),
+      getInternalInterfaceHandler,
+      lines("\nbreak;")
+    )
+    lazy val caseStmt =
+      Line.blank ::
       line(s"// Handle state machine events ") ::
-        wrapInScope(
-          s"case $stateMachineCppConstantName: {",
-          body,
-          "}"
-        )
-    })
+      wrapInScope(
+        s"case $stateMachineCppConstantName: {",
+        caseBody,
+        "}"
+      )
+    guardedList (hasStateMachineInstances) (caseStmt)
+  }
 
   def getInternalInterfaceHandler: List[Line] =
     wrapInSwitch(
       "ev.getsmId()",
       smInstancesByName.flatMap((name, _) =>
         lines(
-          s"""| case ${name.toUpperCase}:
-              |   this->$name.update(&ev);
-              |   break;
+          s"""|case STATE_MACHINE_${name.toUpperCase}:
+              |  this->m_stateMachine_$name.update(&ev);
+              |  break;
           """
         )
       )
@@ -125,24 +125,24 @@ case class ComponentStateMachines(
 
   def genEnumerations: List[CppDoc.Class.Member] = {
 
-    val smLines =
+    lazy val smLines =
       wrapInNamedEnum(
         "SmId",
-        smInstancesByName.map((name, _) => line(name.toUpperCase + ","))
+        smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
       )
 
     addAccessTagAndComment(
       "PROTECTED",
-      s"State machine Enumeration",
-      smLines.map(x => linesClassMember(List(x))),
+      s"State machine enumeration",
+      guardedList (!smLines.isEmpty) (List(linesClassMember(smLines))),
       CppDoc.Lines.Hpp
     )
 
   }
 
-  def getSmInterface: String =
-    component.stateMachineInstanceMap.
-      map((_, smi) => s", public ${s.writeSymbol(smi.symbol)}If").
-      toList.sorted.toSet.mkString
+  /** Gets the state machine interfaces */
+  def getSmInterfaces: String =
+    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
+      sorted.mkString
 
 }
