@@ -2914,11 +2914,11 @@ with the following modifications:</p>
 
   guard calibrateReady
 
-  initial DeviceOn
+  initial enter DeviceOn
 
   state DeviceOn {
 
-    initial do init2 Initializing
+    initial do init2 enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -3733,7 +3733,7 @@ It specifies an action to perform when making the transition.</p>
 
   guard initComplete
 
-  initial OFF
+  initial enter OFF
 
   state OFF {
     on PowerOn if initComplete do getReady enter ON
@@ -3834,7 +3834,7 @@ substates.</p>
 <code>do</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>]</em>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a></p>
+enter <a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -3873,12 +3873,12 @@ It specifies the action to perform when entering the state or junction.</p>
   action initDevices
 
   # When the state machine starts up, enter the ON state
-  initial ON
+  initial enter ON
 
   state ON {
 
     # When entering the ON state, enter the POWERING_UP substate
-    initial do initDevices POWERING_UP
+    initial do initDevices enter POWERING_UP
 
     state POWERING_UP
 
@@ -4032,11 +4032,11 @@ then it must contain exactly one initial transition specifier <em>I</em>.
 
   guard calibrateReady
 
-  initial DEVICE_ON
+  initial enter DEVICE_ON
 
   state DEVICE_ON {
 
-    initial INITIALIZING do init2
+    initial do init2 enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE
@@ -4223,7 +4223,7 @@ to an
 
   guard initComplete
 
-  initial OFF
+  initial enter OFF
 
   state OFF {
     on PowerOn if initComplete do getReady enter ON
@@ -9641,7 +9641,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-24 16:47:33 -0700
+Last updated 2024-06-24 18:06:21 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

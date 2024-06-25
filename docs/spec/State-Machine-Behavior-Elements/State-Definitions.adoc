@@ -52,11 +52,11 @@ state machine MonitorSm {
 
   guard calibrateReady
 
-  initial DEVICE_ON
+  initial enter DEVICE_ON
   
   state DEVICE_ON {
 
-    initial INITIALIZING do init2
+    initial do init2 enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE

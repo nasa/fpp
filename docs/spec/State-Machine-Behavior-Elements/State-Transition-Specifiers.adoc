@@ -64,7 +64,7 @@ state machine Device {
 
   guard initComplete
 
-  initial OFF
+  initial enter OFF
 
   state OFF {
     on PowerOn if initComplete do getReady enter ON

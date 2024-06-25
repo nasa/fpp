@@ -15,7 +15,7 @@ _[_
 `do`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-<<Scoping-of-Names_Qualified-Identifiers,_ident_>>
+enter <<Scoping-of-Names_Qualified-Identifiers,_ident_>>
 
 ==== Semantics
 
@@ -46,12 +46,12 @@ state machine Device {
   action initDevices
 
   # When the state machine starts up, enter the ON state
-  initial ON
+  initial enter ON
 
   state ON {
 
     # When entering the ON state, enter the POWERING_UP substate
-    initial do initDevices POWERING_UP
+    initial do initDevices enter POWERING_UP
 
     state POWERING_UP
 
