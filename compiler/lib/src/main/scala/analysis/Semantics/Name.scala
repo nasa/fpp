@@ -24,7 +24,7 @@ object Name {
     }
 
     /** Convert a qualified name to an identifier list */
-    def toIdentList: List[Unqualified] = (base :: qualifier).reverse
+    def toIdentList: List[Unqualified] = qualifier :+ base
 
     /** Computes a short qualified name
      *  Deletes the longest prefix provided by the enclosing scope */
