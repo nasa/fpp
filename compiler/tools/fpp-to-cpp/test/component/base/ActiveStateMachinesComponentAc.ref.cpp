@@ -213,21 +213,21 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
 
       // Update the state machine with the event
       switch (ev.getsmId()) {
-         case SM1:
-           this->sm1.update(&ev);
-           break;
+        case SM1:
+          this->sm1.update(&ev);
+          break;
                   
-         case SM2:
-           this->sm2.update(&ev);
-           break;
+        case SM2:
+          this->sm2.update(&ev);
+          break;
                   
-         case SM3:
-           this->sm3.update(&ev);
-           break;
+        case SM3:
+          this->sm3.update(&ev);
+          break;
                   
-         case SM4:
-           this->sm4.update(&ev);
-           break;
+        case SM4:
+          this->sm4.update(&ev);
+          break;
                   
       }
       break;

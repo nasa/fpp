@@ -115,9 +115,9 @@ case class ComponentStateMachines(
       "ev.getsmId()",
       smInstancesByName.flatMap((name, _) =>
         lines(
-          s"""| case ${name.toUpperCase}:
-              |   this->$name.update(&ev);
-              |   break;
+          s"""|case ${name.toUpperCase}:
+              |  this->$name.update(&ev);
+              |  break;
           """
         )
       )
@@ -128,21 +128,20 @@ case class ComponentStateMachines(
     val smLines =
       wrapInNamedEnum(
         "SmId",
-        smInstancesByName.map((name, _) => line(name.toUpperCase + ","))
+        smInstancesByName.map((name, _) => line(s"${name.toUpperCase},"))
       )
 
     addAccessTagAndComment(
       "PROTECTED",
       s"State machine Enumeration",
-      smLines.map(x => linesClassMember(List(x))),
+      guardedList (!smLines.isEmpty) (List(linesClassMember(smLines))),
       CppDoc.Lines.Hpp
     )
 
   }
 
   def getSmInterface: String =
-    component.stateMachineInstanceMap.
-      map((_, smi) => s", public ${s.writeSymbol(smi.symbol)}If").
-      toList.sorted.toSet.mkString
+    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}If").
+      sorted.mkString
 
 }
