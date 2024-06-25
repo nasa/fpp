@@ -48,6 +48,6 @@ Section 12 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 13 explains how to analyze FPP models and how
-to translate FPP models to XML, to {cpp}, and from XML.
+to translate FPP models to and from XML, to {cpp}, and to JSON.
 Section 14 explains how to write a {cpp} implementation
 against the code generated from an FPP model.
