@@ -1079,6 +1079,7 @@ drop
 else
 entry
 enum
+enter
 event
 exit
 false
@@ -1128,6 +1129,7 @@ send
 serial
 set
 severity
+signal
 size
 stack
 state
@@ -1142,7 +1144,6 @@ topology
 true
 type
 update
-visit
 warning
 with
 yellow</code></pre>
@@ -2072,22 +2073,22 @@ active component DeviceMgr {
   state machine Device {
 
     @ Start the device
-    event Start
+    signal Start
 
     @ Stop the device
-    event Stop
+    signal Stop
 
     @ Initial state is IDLE
-    initial IDLE
+    initial enter IDLE
 
     @ The IDLE state
     state IDLE {
-      on Start visit RUNNING
+      on Start enter RUNNING
     }
 
     @ The RUNNING state
     state RUNNING {
-      on Stop visit IDLE
+      on Stop enter IDLE
     }
 
   }
@@ -3925,7 +3926,7 @@ It specifies the guard that controls the branch.</p>
 </li>
 <li>
 <p>Each of the enter expressions must be valid.
-The first tner expression is run if the guard evaluates to <code>true</code>;
+The first enter expression is run if the guard evaluates to <code>true</code>;
 otherwise the second enter expression is run.</p>
 </li>
 </ol>
@@ -3940,7 +3941,7 @@ otherwise the second enter expression is run.</p>
   action initPower
   guard coldStart
 
-  initial J1
+  initial enter J1
 
   junction J1 {
     if coldStart enter OFF \
@@ -4186,7 +4187,7 @@ It names the signal that causes the transition to occur.</p>
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
-It specifies a guard for the transtition.</p>
+It specifies a guard for the transition.</p>
 </li>
 <li>
 <p>The first form of the syntax specifies a target state and an optional action.
@@ -9641,7 +9642,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-24 18:06:21 -0700
+Last updated 2024-06-25 08:50:23 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
