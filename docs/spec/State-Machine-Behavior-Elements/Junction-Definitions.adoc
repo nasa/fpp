@@ -26,7 +26,7 @@ to a
 It specifies the guard that controls the branch.
 
 . Each of the enter expressions must be valid.
-The first tner expression is run if the guard evaluates to `true`;
+The first enter expression is run if the guard evaluates to `true`;
 otherwise the second enter expression is run.
 
 ==== Examples

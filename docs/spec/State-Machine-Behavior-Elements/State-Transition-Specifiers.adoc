@@ -32,7 +32,7 @@ It names the signal that causes the transition to occur.
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
-It specifies a guard for the transtition.
+It specifies a guard for the transition.
 
 . The first form of the syntax specifies a target state and an optional action.
 The enter expression must be valid.
