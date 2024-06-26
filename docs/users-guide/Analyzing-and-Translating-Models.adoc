@@ -138,7 +138,7 @@ even though `c.Out` has two ports and only one of them is connected.
 
 === Generating XML
 
-We are phasing out The use of XML in favor of generating
+We are phasing out the use of XML in favor of generating
 JSON and directly generating {cpp}.
 However, the F Prime XML representation is still used, e.g., in
 for specifying the layout of telemetry packets.
