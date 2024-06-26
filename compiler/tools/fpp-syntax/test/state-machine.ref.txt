@@ -1,0 +1,10 @@
+def module
+  ident M
+  def component
+    kind active
+    ident C
+    def state machine
+      ident S
+      initial enter Idle
+    def state machine
+      ident S1

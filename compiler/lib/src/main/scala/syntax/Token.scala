@@ -29,6 +29,7 @@ object Token {
   final case class DOT() extends Token
   final case class DROP() extends Token
   final case class ENUM() extends Token
+  final case class ENTER() extends Token
   final case class EOL() extends Token
   final case class EQUALS() extends Token
   final case class EVENT() extends Token

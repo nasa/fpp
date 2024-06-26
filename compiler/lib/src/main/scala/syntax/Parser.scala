@@ -589,7 +589,7 @@ object Parser extends Parsers {
   }
 
   def specInitial: Parser[Ast.SpecInitial] = {
-    (initial ~> ident) ^^ {
+    (initial ~> enter ~> ident) ^^ {
       case ident => Ast.SpecInitial(ident)
     }
   }
@@ -784,6 +784,8 @@ object Parser extends Parsers {
 
   private def elementSequence[E,S](elt: Parser[E], sep: Parser[S]): Parser[List[E]] =
     repsep(elt, sep | eol) <~ opt(sep)
+
+  private def enter = accept("enter", { case t : Token.ENTER => t })
 
   private def enumeration = accept("enum", { case t : Token.ENUM => t })
 

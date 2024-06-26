@@ -267,6 +267,7 @@ object Lexer extends RegexParsers {
     ("default", (u: Unit) => Token.DEFAULT()),
     ("diagnostic", (u: Unit) => Token.DIAGNOSTIC()),
     ("drop", (u: Unit) => Token.DROP()),
+    ("enter", (u: Unit) => Token.ENTER()),
     ("enum", (u: Unit) => Token.ENUM()),
     ("event", (u: Unit) => Token.EVENT()),
     ("false", (u: Unit) => Token.FALSE()),

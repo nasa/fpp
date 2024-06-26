@@ -147,7 +147,8 @@
                                         "node" : {
                                           "AstNode" : {
                                             "data" : {
-                                              "name" : "S"
+                                              "name" : "S",
+                                              "members" : "None"
                                             },
                                             "id" : 52
                                           }
