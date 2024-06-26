@@ -92,7 +92,7 @@ object Ast {
   /** State machine definition */
   final case class DefStateMachine(
     name: Ident,
-    members: List[StateMachineMember]
+    members: Option[List[StateMachineMember]]
   )
 
   /** State machine instance spec */

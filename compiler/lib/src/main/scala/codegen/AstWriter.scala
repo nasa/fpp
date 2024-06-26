@@ -130,7 +130,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def state machine") ++
     ( 
       ident(data.name) ++
-      data.members.map(stateMachineMember).flatten
+      linesOpt((members: List[Ast.StateMachineMember]) => members.flatMap(stateMachineMember), data.members)
     ).map(indentIn)
   }
 

@@ -88,7 +88,7 @@ object Parser extends Parsers {
   }
 
   def defStateMachine: Parser[Ast.DefStateMachine] = {
-    state ~> (machine ~> ident) ~! (lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
+    state ~> (machine ~> ident) ~! opt(lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefStateMachine(name, members)
     }
   }
