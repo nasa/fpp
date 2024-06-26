@@ -25,6 +25,8 @@ trait AstVisitor {
 
   def defPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefPort]]): Out = default(in)
 
+  def defStateAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefState]]): Out = default(in)
+
   def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out = default(in)
 
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
@@ -157,10 +159,18 @@ trait AstVisitor {
     }
   }
 
+  final def matchStateMember(in: In, member: Ast.StateMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
   final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Out = {
     val (pre, node, post) =  member.node
     node match {
       case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
     }
   }
 

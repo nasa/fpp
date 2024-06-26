@@ -120,6 +120,18 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
+  override def defStateAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state ${data.name}") ++
+    (
+      linesOpt((members: List[Ast.StateMember]) => members.flatMap(stateMember), data.members)
+    ).map(indentIn)
+  }
+
 
   override def defStateMachineAnnotatedNode(
     in: In,
@@ -350,6 +362,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
   }
+
 
   override def specInitialAnnotatedNode(
     in: In,
@@ -617,6 +630,12 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
 
   
+  private def stateMember(member: Ast.StateMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMember((), member)
+    annotate(a1, l, a2)
+  }
+
   private def stateMachineMember(member: Ast.StateMachineMember) = {
     val (a1, _, a2) = member.node
     val l = matchStateMachineMember((), member)

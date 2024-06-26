@@ -5,6 +5,8 @@ def module
     ident C
     def state machine
       ident S
-      initial enter Idle
+      initial enter IDLE
+      state IDLE
+        state RUNNING
     def state machine
       ident S1

@@ -43,13 +43,22 @@ object Parser extends Parsers {
     failure("component member expected")
   }
 
+  def stateMemberNode: Parser[Ast.StateMember.Node] = {
+    node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
+    failure("state member expected")
+  }
+
   def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
     node(specInitial) ^^ { case n => Ast.StateMachineMember.SpecInitial(n) } |
+    node(defState) ^^ { case n => Ast.StateMachineMember.DefState(n) } |
     failure("state machine member expected")
   }
 
   def componentMembers: Parser[List[Ast.ComponentMember]] =
     annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
+
+  def stateMembers: Parser[List[Ast.StateMember]] =
+    annotatedElementSequence(stateMemberNode, semi, Ast.StateMember(_))
 
   def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
     annotatedElementSequence(stateMachineMemberNode, semi, Ast.StateMachineMember(_))
@@ -84,6 +93,12 @@ object Parser extends Parsers {
   def defComponent: Parser[Ast.DefComponent] = {
     componentKind ~! (component ~>! ident) ~! (lbrace ~>! componentMembers <~! rbrace) ^^ {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
+    }
+  }
+
+  def defState: Parser[Ast.DefState] = {
+    state ~> ident ~! opt(lbrace ~>! stateMembers <~! rbrace) ^^ {
+      case ident ~ members => Ast.DefState(ident, members)
     }
   }
 
@@ -593,6 +608,7 @@ object Parser extends Parsers {
       case ident => Ast.SpecInitial(ident)
     }
   }
+
 
   def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
     (state ~> machine ~> (instance ~> ident) ~! (colon ~>! node(qualIdent))) ^^ {

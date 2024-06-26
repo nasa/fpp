@@ -170,6 +170,14 @@ object Ast {
   object StateMachineMember {
     sealed trait Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
+   }
+
+  /** State member */
+  final case class StateMember(node: Annotated[StateMember.Node])
+  object StateMember {
+    sealed trait Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
    }
 
   /** Struct definition */
@@ -599,6 +607,12 @@ object Ast {
   /** Initial state specifier */
   final case class SpecInitial(
     state: Ident
+  )
+
+  /** State specifier */
+  final case class DefState(
+    name: Ident,
+    members: Option[List[StateMember]]
   )
 
    /** Port matching specifier */
