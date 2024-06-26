@@ -21,6 +21,13 @@ object XmlTags extends LineUtils {
     "\"" ++ s2 ++ "\""
   }
 
+  def escaped(s: String): String = {
+    val replacements = List(
+      ("<", "&lt;")
+    )
+    replacements.foldLeft (s) ({ case (s, (a, b)) => s.replaceAll(a, b) })
+  }
+
   def taggedLines (tags: (String, String)) (ls: List[Line]): List[Line] = {
     val (openTag, closeTag) = tags
     (line(openTag) :: ls) :+ line(closeTag)
@@ -46,6 +53,6 @@ object XmlTags extends LineUtils {
   def tags(name: String, pairs: List[(String, String)] = Nil): (String, String) = (openTag(name, pairs), closeTag(name))
 
   private def openTagPrefix(name: String, pairs: List[(String, String)]) =
-    pairs.foldLeft(s"<$name")({ case (s, key -> value) => s ++ s" $key=${quoted(value)}" })
+    pairs.foldLeft(s"<$name")({ case (s, key -> value) => s ++ s" $key=${quoted(escaped(value))}" })
 
 }
