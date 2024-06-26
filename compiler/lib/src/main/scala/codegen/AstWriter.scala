@@ -120,12 +120,18 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
+
   override def defStateMachineAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ) = {
     val (_, node, _) = aNode
-    lines("def state machine") ++ ident(node.data.name).map(indentIn)
+    val data = node.data
+    lines("def state machine") ++
+    ( 
+      ident(data.name) ++
+      data.members.map(stateMachineMember).flatten
+    ).map(indentIn)
   }
 
   override def defStructAnnotatedNode(
@@ -345,6 +351,15 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
   }
 
+  override def specInitialAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitial]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"initial enter ${data.state}")
+  }
+
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -458,6 +473,7 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("id", exprNode), data.id)
     ).flatten.map(indentIn)
   }
+
 
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
@@ -592,12 +608,20 @@ object AstWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
     lines("def enum constant") ++
     List(
       ident(dec.name),
       linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
+
+  
+  private def stateMachineMember(member: Ast.StateMachineMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMachineMember((), member)
+    annotate(a1, l, a2)
+  }
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)

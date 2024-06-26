@@ -91,8 +91,8 @@ object Ast {
 
   /** State machine definition */
   final case class DefStateMachine(
-    name: Ident
-    // members: Ident
+    name: Ident,
+    members: List[StateMachineMember]
   )
 
   /** State machine instance spec */
@@ -157,15 +157,6 @@ object Ast {
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
 
-  // /** State machine member */
-  // final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
-  // object StateMachineMember {
-  //   sealed trait Node
-  //   final case class DefInit(node: AstNode[Ast.DefInit]) extends Node
-  // }
-
-   /** State machine Init */
-  final case class DefInit(state: Ident)
 
   /** Port definition */
   final case class DefPort(
@@ -173,6 +164,13 @@ object Ast {
     params: FormalParamList,
     returnType: Option[AstNode[TypeName]]
   )
+
+  /** State machine member */
+  final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
+  object StateMachineMember {
+    sealed trait Node
+    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+   }
 
   /** Struct definition */
   final case class DefStruct(
@@ -598,7 +596,12 @@ object Ast {
 
   }
 
-  /** Port matching specifier */
+  /** Initial state specifier */
+  final case class SpecInitial(
+    state: Ident
+  )
+
+   /** Port matching specifier */
   final case class SpecPortMatching(
     port1: AstNode[Ident],
     port2: AstNode[Ident]
@@ -611,6 +614,7 @@ object Ast {
     isArray: Boolean,
     id: Option[AstNode[Expr]]
   )
+
 
   /** Telemetry channel specifier */
   final case class SpecTlmChannel(

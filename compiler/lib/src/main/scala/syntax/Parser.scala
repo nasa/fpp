@@ -43,8 +43,16 @@ object Parser extends Parsers {
     failure("component member expected")
   }
 
+  def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
+    node(specInitial) ^^ { case n => Ast.StateMachineMember.SpecInitial(n) } |
+    failure("state machine member expected")
+  }
+
   def componentMembers: Parser[List[Ast.ComponentMember]] =
     annotatedElementSequence(componentMemberNode, semi, Ast.ComponentMember(_))
+
+  def stateMachineMembers: Parser[List[Ast.StateMachineMember]] =
+    annotatedElementSequence(stateMachineMemberNode, semi, Ast.StateMachineMember(_))
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionPort = node(portInstanceIdentifier) ~! opt(index)
@@ -78,6 +86,13 @@ object Parser extends Parsers {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
     }
   }
+
+  def defStateMachine: Parser[Ast.DefStateMachine] = {
+    state ~> (machine ~> ident) ~! (lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
+      case name ~ members => Ast.DefStateMachine(name, members)
+    }
+  }
+    
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
@@ -147,11 +162,6 @@ object Parser extends Parsers {
   }
 
 
-  def defStateMachine: Parser[Ast.DefStateMachine] = {
-    (state ~> (machine ~> ident) ~! opt(lbrace ~>! defInit <~! rbrace)) ^^ {
-      case name ~ _ => Ast.DefStateMachine(name)
-    }
-  }
 
   def defStruct: Parser[Ast.DefStruct] = {
     def id(x: Ast.Annotated[AstNode[Ast.StructTypeMember]]) = x
@@ -288,12 +298,6 @@ object Parser extends Parsers {
     node(specInclude) ^^ { case n => Ast.ModuleMember.SpecInclude(n) } |
     node(specLoc) ^^ { case n => Ast.ModuleMember.SpecLoc(n) } |
     failure("module member expected")
-  }
-
-  def defInit: Parser[Ast.Ident] = {
-    (initial ~> ident) ^^ {
-      case ident => ident
-    }
   }
 
   def moduleMembers: Parser[List[Ast.ModuleMember]] = annotatedElementSequence(moduleMemberNode, semi, Ast.ModuleMember(_))
@@ -581,6 +585,12 @@ object Parser extends Parsers {
         arrayOpt,
         id
       )
+    }
+  }
+
+  def specInitial: Parser[Ast.SpecInitial] = {
+    (initial ~> ident) ^^ {
+      case ident => Ast.SpecInitial(ident)
     }
   }
 

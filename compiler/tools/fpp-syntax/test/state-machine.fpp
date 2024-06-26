@@ -1,6 +1,7 @@
 module M {
- 
-    state machine S1 {initial s1} 
-    state machine S2
+
+    active component C { 
+        state machine S {initial Idle} 
+    }
 }
 

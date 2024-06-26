@@ -79,6 +79,8 @@ trait AstVisitor {
 
   def specRecordAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecRecord]]): Out = default(in)
 
+  def specInitialAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitial]]): Out = default(in)
+
   def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
 
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
@@ -120,6 +122,7 @@ trait AstVisitor {
     }
   }
 
+
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.data match {
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
@@ -151,6 +154,13 @@ trait AstVisitor {
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
+  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
     }
   }
 
