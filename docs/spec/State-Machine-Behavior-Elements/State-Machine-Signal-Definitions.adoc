@@ -44,7 +44,7 @@ struct FaultData {
 }
 
 @ A state machine with signal definitions
-state machine EventDefs {
+state machine SignalDefs {
 
   @ A signal without data
   signal RTI
