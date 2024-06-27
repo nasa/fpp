@@ -44,6 +44,7 @@ object Parser extends Parsers {
   }
 
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
+    node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
     failure("state member expected")
   }

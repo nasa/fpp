@@ -7,6 +7,7 @@ def module
       ident S
       initial enter IDLE
       state IDLE
+        initial enter RUNNING
         state RUNNING
     def state machine
       ident S1

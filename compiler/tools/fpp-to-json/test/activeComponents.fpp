@@ -9,7 +9,11 @@ module Utils {
     @ Compressed output data
     output port bufferSendOut: Fw.BufferSend
 
-    state machine S
+    state machine S {
+        initial enter IDLE
+        state IDLE
+    }
+
     state machine instance s1: S
     state machine instance s2: S
 

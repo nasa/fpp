@@ -4,6 +4,7 @@ module M {
         state machine S {
             initial enter IDLE
             state IDLE {
+                initial enter RUNNING
                 state RUNNING
             }
         } 

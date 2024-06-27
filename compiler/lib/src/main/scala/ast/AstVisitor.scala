@@ -162,6 +162,7 @@ trait AstVisitor {
   final def matchStateMember(in: In, member: Ast.StateMember): Out = {
     val (pre, node, post) =  member.node
     node match {
+      case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
     }
   }
