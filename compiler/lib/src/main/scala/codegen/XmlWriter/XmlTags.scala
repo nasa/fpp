@@ -10,20 +10,19 @@ object XmlTags extends LineUtils {
   def openTag(name: String, pairs: List[(String, String)] = Nil): String = openTagPrefix(name, pairs) ++ ">"
 
   def quoted(s: String): String = {
-    // If s represents a C++ literal string value, then remove the enclosing
-    // quotation marks from the value now. The F Prime autocoder will
-    // re-insert them during code gen. If s represents a non-string value, then
-    // the next line is a no-op.
-    val s1 = s.replaceAll("^\"", "").replaceAll("\"$", "")
-    // Escape any remaining quotation marks in the XML way
-    val s2 = s1.replaceAll("\"", "&quot;")
     // Add the enclosing quotation marks for the XML attribute
-    "\"" ++ s2 ++ "\""
+    val q = "\""
+    s"$q$s$q"
   }
 
   def escaped(s: String): String = {
+    // These are the characters that must be replaced in an XML attribute,
     val replacements = List(
-      ("<", "&lt;")
+      ("&", "&amp;"),
+      ("'", "&apos;"),
+      ("<", "&lt;"),
+      (">", "&gt;"),
+      ("\"", "&quot;"),
     )
     replacements.foldLeft (s) ({ case (s, (a, b)) => s.replaceAll(a, b) })
   }
