@@ -31,6 +31,7 @@ syn keyword fppKeyword do
 syn keyword fppKeyword drop
 syn keyword fppKeyword else
 syn keyword fppKeyword entry
+syn keyword fppKeyword enter
 syn keyword fppKeyword enum
 syn keyword fppKeyword event
 syn keyword fppKeyword exit
@@ -81,6 +82,7 @@ syn keyword fppKeyword send
 syn keyword fppKeyword serial
 syn keyword fppKeyword set
 syn keyword fppKeyword severity
+syn keyword fppKeyword signal
 syn keyword fppKeyword size
 syn keyword fppKeyword stack
 syn keyword fppKeyword state
@@ -94,7 +96,6 @@ syn keyword fppKeyword topology
 syn keyword fppKeyword true
 syn keyword fppKeyword type
 syn keyword fppKeyword update
-syn keyword fppKeyword visit
 syn keyword fppKeyword warning
 syn keyword fppKeyword with
 syn keyword fppKeyword yellow

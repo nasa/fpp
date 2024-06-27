@@ -427,6 +427,7 @@ var IN_GLOBAL_SCOPE = false;
           "do," +
           "drop," +
           "else," +
+          "enter" +
           "enum," +
           "event," +
           "fatal," +
@@ -488,7 +489,6 @@ var IN_GLOBAL_SCOPE = false;
           "topology," +
           "type," +
           "update," +
-          "visit," +
           "warning," +
           "with," +
           "yellow"

@@ -12,7 +12,7 @@ A state transition is one of the following:
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-<<State-Machine-Behavior-Elements_Visit-Expressions,_visit-expression_>>
+<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
 
 * `on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
@@ -25,18 +25,18 @@ _]_
 . The identifier after the keyword `on` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
-<<State-Machine-Behavior-Elements_State-Machine-Event-Definitions,state machine event definition>>.
-It names the event that causes the transition to occur.
+<<State-Machine-Behavior-Elements_State-Machine-Signal-Definitions,state machine signal definition>>.
+It names the signal that causes the transition to occur.
 
 . If present, the optional identifier after the keyword `if` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
-It specifies a guard for the transtition.
+It specifies a guard for the transition.
 
 . The first form of the syntax specifies a target state and an optional action.
-The visit expression must be valid.
-The target state in the visit expression may be the same as the
+The enter expression must be valid.
+The target state in the enter expression may be the same as the
 enclosing state; in this case the transition is called a *self transition*.
 When making a self transition, the state machine runs the code associated with
 exiting and then re-entering the state.
@@ -56,18 +56,18 @@ to an
 ----
 state machine Device {
 
-  event RTI
-  event PowerOn
+  signal RTI
+  signal PowerOn
   
   action performStuff
   action getReady
 
   guard initComplete
 
-  initial OFF
+  initial enter OFF
 
   state OFF {
-    on PowerOn if initComplete visit ON do getReady
+    on PowerOn if initComplete do getReady enter ON
   }
 
   state ON {

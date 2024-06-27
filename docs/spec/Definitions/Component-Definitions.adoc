@@ -343,22 +343,22 @@ active component DeviceMgr {
   state machine Device {
 
     @ Start the device
-    event Start
+    signal Start
 
     @ Stop the device
-    event Stop
+    signal Stop
 
     @ Initial state is IDLE
-    initial IDLE
+    initial enter IDLE
 
     @ The IDLE state
     state IDLE {
-      on Start visit RUNNING
+      on Start enter RUNNING
     }
 
     @ The RUNNING state
     state RUNNING {
-      on Stop visit IDLE
+      on Stop enter IDLE
     }
 
   }
