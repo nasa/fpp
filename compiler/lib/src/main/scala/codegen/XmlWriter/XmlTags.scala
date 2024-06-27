@@ -16,7 +16,7 @@ object XmlTags extends LineUtils {
   }
 
   def escaped(s: String): String = {
-    // These are the characters that must be replaced in an XML attribute,
+    // These are the characters that must be replaced in an XML attribute
     val replacements = List(
       ("&", "&amp;"),
       ("'", "&apos;"),
