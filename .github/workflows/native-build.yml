@@ -101,7 +101,7 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-11",
+                "runner": "macos-12",
                 "tag": "macosx_10_9_universal2"
               },
               {
