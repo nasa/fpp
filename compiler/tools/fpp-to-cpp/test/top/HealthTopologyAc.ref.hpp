@@ -19,17 +19,17 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      health = 0x100,
-      c1 = 0x200,
-      c2 = 0x300,
+      M_health = 0x100,
+      M_c1 = 0x200,
+      M_c2 = 0x300,
     };
   }
 
   namespace InstanceIds {
     enum {
-      c1,
-      c2,
-      health,
+      M_c1,
+      M_c2,
+      M_health,
     };
   }
 
@@ -39,7 +39,7 @@ namespace M {
 
   namespace ConfigObjects {
 
-    namespace health {
+    namespace M_health {
       //!< Number of entries in the pingEntryies array
       constexpr FwSizeType NUM_PING_ENTRIES = 2;
       //!< Ping entry configuration for Svc::Health
@@ -52,14 +52,14 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  //! c1
-  extern C c1;
+  //! M_c1
+  extern C M_c1;
 
-  //! c2
-  extern C c2;
+  //! M_c2
+  extern C M_c2;
 
-  //! health
-  extern Svc::Health health;
+  //! M_health
+  extern Svc::Health M_health;
 
   // ----------------------------------------------------------------------
   // Helper functions

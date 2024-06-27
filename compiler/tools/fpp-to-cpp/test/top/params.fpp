@@ -19,11 +19,11 @@ module M {
   instance c1: C base id 0x100 {
 
     phase Phases.readParameters """
-    c1.readParamFile();
+    M_c1.readParamFile();
     """
 
     phase Phases.loadParameters """
-    c1.loadParamsSpecial();
+    M_c1.loadParamsSpecial();
     """
 
   }

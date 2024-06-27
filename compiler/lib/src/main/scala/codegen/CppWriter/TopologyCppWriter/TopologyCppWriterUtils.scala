@@ -58,7 +58,7 @@ abstract class TopologyCppWriterUtils(
   }
 
   def getNameAsIdent(name: Name.Qualified): String =
-    CppWriter.identFromQualifiedName(getShortName(name))
+    CppWriter.identFromQualifiedName(name)
 
   def getNameAsQualIdent(name: Name.Qualified): String =
     CppWriter.writeQualifiedName(getShortName(name))

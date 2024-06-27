@@ -18,15 +18,15 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      c1 = 0x100,
-      c2 = 0x200,
+      M_c1 = 0x100,
+      M_c2 = 0x200,
     };
   }
 
   namespace InstanceIds {
     enum {
-      c1,
-      c2,
+      M_c1,
+      M_c2,
     };
   }
 
@@ -34,11 +34,11 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  //! c1
-  extern C c1;
+  //! M_c1
+  extern C M_c1;
 
-  //! c2
-  extern C c2;
+  //! M_c2
+  extern C M_c2;
 
   // ----------------------------------------------------------------------
   // Helper functions

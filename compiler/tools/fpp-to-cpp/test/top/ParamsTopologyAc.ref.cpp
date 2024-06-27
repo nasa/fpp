@@ -13,17 +13,17 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  C c1(FW_OPTIONAL_NAME("c1"));
+  C M_c1(FW_OPTIONAL_NAME("M_c1"));
 
-  C c2(FW_OPTIONAL_NAME("c2"));
+  C M_c2(FW_OPTIONAL_NAME("M_c2"));
 
   // ----------------------------------------------------------------------
   // Helper functions
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    c1.init(InstanceIds::c1);
-    c2.init(InstanceIds::c2);
+    M_c1.init(InstanceIds::M_c1);
+    M_c2.init(InstanceIds::M_c2);
   }
 
   void configComponents(const TopologyState& state) {
@@ -31,8 +31,8 @@ namespace M {
   }
 
   void setBaseIds() {
-    c1.setIdBase(BaseIds::c1);
-    c2.setIdBase(BaseIds::c2);
+    M_c1.setIdBase(BaseIds::M_c1);
+    M_c2.setIdBase(BaseIds::M_c2);
   }
 
   void connectComponents() {
@@ -40,17 +40,17 @@ namespace M {
   }
 
   void regCommands() {
-    c1.regCommands();
-    c2.regCommands();
+    M_c1.regCommands();
+    M_c2.regCommands();
   }
 
   void readParameters() {
-    c1.readParamFile();
+    M_c1.readParamFile();
   }
 
   void loadParameters() {
-    c1.loadParamsSpecial();
-    c2.loadParameters();
+    M_c1.loadParamsSpecial();
+    M_c2.loadParameters();
   }
 
   void startTasks(const TopologyState& state) {
