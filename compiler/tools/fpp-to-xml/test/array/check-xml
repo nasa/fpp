@@ -16,9 +16,4 @@ BuiltInTypeArray
 ArrayStruct1Array
 "
 
-for name in $skip_cpp_names
-do
-  export SKIP_CPP_FOR_$name=1
-done
-
 sh ../scripts/check-xml.sh
