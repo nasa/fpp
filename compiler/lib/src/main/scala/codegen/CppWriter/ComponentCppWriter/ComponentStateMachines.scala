@@ -95,12 +95,19 @@ case class ComponentStateMachines(
     val members = smInstancesByName.map(
       (name, smi) => {
         val typeName = s.writeSymbol(smi.symbol)
-        s"$typeName m_stateMachine_$name;"
+        linesClassMember(
+          Line.blank ::
+          lines(
+            s"""|//! State machine $name
+                |$typeName m_stateMachine_$name;
+                |"""
+          )
+        )
       }
-    ).map(s => linesClassMember(lines(s)))
+    )
     addAccessTagAndComment(
       "PRIVATE",
-      s"State machine instantiations",
+      s"State machine instances",
       members,
       CppDoc.Lines.Hpp
     )

@@ -93,11 +93,19 @@ class ActiveStateMachinesComponentBase :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // State machine instantiations
+    // State machine instances
     // ----------------------------------------------------------------------
+
+    //! State machine sm1
     ActiveStateMachines_S1 m_stateMachine_sm1;
+
+    //! State machine sm2
     ActiveStateMachines_S1 m_stateMachine_sm2;
+
+    //! State machine sm3
     ActiveStateMachines_S2 m_stateMachine_sm3;
+
+    //! State machine sm4
     ActiveStateMachines_S2 m_stateMachine_sm4;
 
 };
