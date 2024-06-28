@@ -68,7 +68,7 @@ case class ComponentCppWriter (
       ),
       className,
       Some(s"public Fw::$baseClassName$smInterfaces"),
-      stateMachineWriter.genEnumerations ++ getClassMembers
+      getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
@@ -222,7 +222,8 @@ case class ComponentCppWriter (
       eventWriter.getConstantMembers,
       tlmWriter.getConstantMembers,
       paramWriter.getConstantMembers,
-      dpWriter.getConstantMembers
+      dpWriter.getConstantMembers,
+      stateMachineWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil

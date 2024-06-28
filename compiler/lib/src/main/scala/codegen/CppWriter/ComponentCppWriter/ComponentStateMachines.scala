@@ -123,21 +123,17 @@ case class ComponentStateMachines(
       )
     )
 
-  def genEnumerations: List[CppDoc.Class.Member] = {
-
-    lazy val smLines =
-      wrapInNamedEnum(
-        "SmId",
-        smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
+  def getConstantMembers: List[CppDoc.Class.Member] = {
+    lazy val lcm = linesClassMember(
+      List.concat(
+        Line.blank :: lines(s"//! State machine identifiers"),
+        wrapInNamedEnum(
+          "SmId",
+          smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
+        )
       )
-
-    addAccessTagAndComment(
-      "PROTECTED",
-      s"State machine enumeration",
-      guardedList (!smLines.isEmpty) (List(linesClassMember(smLines))),
-      CppDoc.Lines.Hpp
     )
-
+    guardedList (hasStateMachineInstances) (List(lcm))
   }
 
   /** Gets the state machine interfaces */

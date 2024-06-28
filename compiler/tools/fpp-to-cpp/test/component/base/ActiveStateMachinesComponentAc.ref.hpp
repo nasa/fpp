@@ -23,24 +23,26 @@ class ActiveStateMachinesComponentBase :
   public Fw::ActiveComponentBase, public ActiveStateMachines_S1_Interface, public ActiveStateMachines_S2_Interface
 {
 
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
-    // State machine enumeration
-    // ----------------------------------------------------------------------
-    enum SmId {
-      STATE_MACHINE_SM1,
-      STATE_MACHINE_SM2,
-      STATE_MACHINE_SM3,
-      STATE_MACHINE_SM4,
-    };
-
     // ----------------------------------------------------------------------
     // Friend classes
     // ----------------------------------------------------------------------
 
     //! Friend class for white-box testing
     friend class ActiveStateMachinesComponentBaseFriend;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Constants
+    // ----------------------------------------------------------------------
+
+    //! State machine identifiers
+    enum SmId {
+      STATE_MACHINE_SM1,
+      STATE_MACHINE_SM2,
+      STATE_MACHINE_SM3,
+      STATE_MACHINE_SM4,
+    };
 
   public:
 
