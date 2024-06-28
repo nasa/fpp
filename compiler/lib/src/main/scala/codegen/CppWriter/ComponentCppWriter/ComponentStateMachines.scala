@@ -9,19 +9,17 @@ case class ComponentStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getVariableMembers: List[CppDoc.Class.Member] =  {
-    val members = smInstancesByName.map(
-      (name, smi) => {
-        val typeName = s.writeSymbol(smi.symbol)
-        s"$typeName m_stateMachine_$name;"
-      }
-    ).map(s => linesClassMember(lines(s)))
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"State machine instantiations",
-      members,
-      CppDoc.Lines.Hpp
+  def getConstantMembers: List[CppDoc.Class.Member] = {
+    lazy val lcm = linesClassMember(
+      List.concat(
+        Line.blank :: lines(s"//! State machine identifiers"),
+        wrapInNamedEnum(
+          "SmId",
+          smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
+        )
+      )
     )
+    guardedList (hasStateMachineInstances) (List(lcm))
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
@@ -75,6 +73,39 @@ case class ComponentStateMachines(
     )
   }
 
+  def getInternalInterfaceHandler: List[Line] =
+    wrapInSwitch(
+      "ev.getsmId()",
+      smInstancesByName.flatMap((name, _) =>
+        lines(
+          s"""|case STATE_MACHINE_${name.toUpperCase}:
+              |  this->m_stateMachine_$name.update(&ev);
+              |  break;
+          """
+        )
+      )
+    )
+
+  /** Gets the state machine interfaces */
+  def getSmInterfaces: String =
+    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
+      sorted.mkString
+
+  def getVariableMembers: List[CppDoc.Class.Member] =  {
+    val members = smInstancesByName.map(
+      (name, smi) => {
+        val typeName = s.writeSymbol(smi.symbol)
+        s"$typeName m_stateMachine_$name;"
+      }
+    ).map(s => linesClassMember(lines(s)))
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"State machine instantiations",
+      members,
+      CppDoc.Lines.Hpp
+    )
+  }
+
   def writeDispatch: List[Line] = {
     lazy val caseBody = List.concat(
       lines(
@@ -109,36 +140,5 @@ case class ComponentStateMachines(
       )
     guardedList (hasStateMachineInstances) (caseStmt)
   }
-
-  def getInternalInterfaceHandler: List[Line] =
-    wrapInSwitch(
-      "ev.getsmId()",
-      smInstancesByName.flatMap((name, _) =>
-        lines(
-          s"""|case STATE_MACHINE_${name.toUpperCase}:
-              |  this->m_stateMachine_$name.update(&ev);
-              |  break;
-          """
-        )
-      )
-    )
-
-  def getConstantMembers: List[CppDoc.Class.Member] = {
-    lazy val lcm = linesClassMember(
-      List.concat(
-        Line.blank :: lines(s"//! State machine identifiers"),
-        wrapInNamedEnum(
-          "SmId",
-          smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
-        )
-      )
-    )
-    guardedList (hasStateMachineInstances) (List(lcm))
-  }
-
-  /** Gets the state machine interfaces */
-  def getSmInterfaces: String =
-    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
-      sorted.mkString
 
 }
