@@ -13,7 +13,7 @@
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
-#include "Fw/Types/SMEventsSerializableAc.hpp"
+#include "Fw/Types/SMSignalsSerializableAc.hpp"
 
 //! \class ActiveStateMachinesComponentBase
 //! \brief Auto-generated base for ActiveStateMachines component
@@ -73,12 +73,12 @@ class ActiveStateMachinesComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // State machine function to push events to the input queue
+    // State machine function to push signals to the input queue
     // ----------------------------------------------------------------------
 
-    //! State machine base-class function for sendEvents
+    //! State machine base-class function for sendSignals
     void stateMachineInvoke(
-        const Fw::SMEvents& ev //!< The state machine event
+        const Fw::SMSignals& ev //!< The state machine signal
     );
 
   PRIVATE:

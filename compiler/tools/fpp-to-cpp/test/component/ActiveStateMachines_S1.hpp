@@ -10,7 +10,7 @@
 #define ActiveStateMachines_S1_H_
 
 namespace Fw {
-  class SMEvents;
+  class SMSignals;
 }
 
 class ActiveStateMachines_S1_Interface {
@@ -41,7 +41,7 @@ class ActiveStateMachines_S1 {
     void * extension;
 
     void init();
-    void update(const Fw::SMEvents *e);
+    void update(const Fw::SMSignals *e);
 
 };
 

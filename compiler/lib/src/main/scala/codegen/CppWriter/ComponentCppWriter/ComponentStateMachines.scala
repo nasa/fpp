@@ -24,13 +24,13 @@ case class ComponentStateMachines(
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     lazy val member = functionClassMember(
-      Some(s"State machine base-class function for sendEvents"),
+      Some(s"State machine base-class function for sendSignals"),
       "stateMachineInvoke",
       List(
         CppDoc.Function.Param(
-            CppDoc.Type("const Fw::SMEvents&"),
+            CppDoc.Type("const Fw::SMSignals&"),
             "ev",
-            Some("The state machine event")
+            Some("The state machine signal")
         )
       ),
       CppDoc.Type("void"),
@@ -68,7 +68,7 @@ case class ComponentStateMachines(
     )
     addAccessTagAndComment(
       "PROTECTED",
-      "State machine function to push events to the input queue",
+      "State machine function to push signals to the input queue",
       guardedList (hasStateMachineInstances) (List(member))
     )
   }
@@ -116,7 +116,7 @@ case class ComponentStateMachines(
   def writeDispatch: List[Line] = {
     lazy val caseBody = List.concat(
       lines(
-        s"""|Fw::SMEvents ev;
+        s"""|Fw::SMSignals ev;
             |deserStatus = msg.deserialize(ev);
             |
             |FW_ASSERT(
@@ -131,7 +131,7 @@ case class ComponentStateMachines(
             |  static_cast<FwAssertArgType>(msg.getBuffLeft())
             |);
             |
-            |// Update the state machine with the event
+            |// Update the state machine with the signal
             |"""
       ),
       getInternalInterfaceHandler,
@@ -139,7 +139,7 @@ case class ComponentStateMachines(
     )
     lazy val caseStmt =
       Line.blank ::
-      line(s"// Handle state machine events ") ::
+      line(s"// Handle state machine signals ") ::
       wrapInScope(
         s"case $stateMachineCppConstantName: {",
         caseBody,
