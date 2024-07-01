@@ -132,7 +132,7 @@ object Parser extends Parsers {
   }
 
   def defTransition: Parser[Ast.DefTransition] = {
-    (on ~> ident) ~! opt(ifGuard ~> ident) ~! (doAction ~> ident) ~! (enter ~> ident) ^^ {
+    (on ~> ident) ~! opt(ifGuard ~> ident) ~! opt(doAction ~> ident) ~! opt(enter ~> ident) ^^ {
       case signal ~ guard ~ action ~ state => Ast.DefTransition(signal, guard, action, state)
     }
   }

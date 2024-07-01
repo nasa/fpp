@@ -9,6 +9,8 @@ module M {
             state IDLE {
                 initial enter RUNNING
                 state RUNNING
+                on RTI do a1
+                on RTI enter SAFING
                 on RTI do a1 enter SAFING
                 on RTI if g1 do a1 enter SAFING
             }

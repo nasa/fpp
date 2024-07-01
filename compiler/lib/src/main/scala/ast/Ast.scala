@@ -640,8 +640,8 @@ object Ast {
   final case class DefTransition(
     signal: Ident,
     guard: Option[Ident],
-    action: Ident,
-    state: Ident
+    action: Option[Ident],
+    state: Option[Ident]
   )
 
    /** Port matching specifier */
