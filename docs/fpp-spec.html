@@ -2817,6 +2817,36 @@ exactly one
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
 The initial transition occurs when the state machine starts up.</p>
 </li>
+<li>
+<p>In the optional state machine member sequence,
+the set of <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> induces a directed graph called the <strong>transition graph</strong>.
+In this graph, each enter expression <em>e</em>
+represents an arc from the state definition or junction immediately
+enclosing <em>e</em> to the state definition or junction
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
+after the keyword <code>enter</code>.
+We say that the first state definition or junction is the <strong>initial node</strong>
+of the arc, and the second state definition or junction is the
+<strong>terminal node</strong> of the arc.
+A <strong>path</strong> in the transition graph is a finite sequence of arcs
+such that, for each arc <em>A</em> in the sequence, either (1) <em>A</em>
+is the last arc in the sequence, or (2)
+the terminal node of <em>A</em> is the initial node of the arc following
+<em>A</em> in the sequence.
+The transition graph must satisfy the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Each junction must be the terminal node of exactly one arc.</p>
+</li>
+<li>
+<p>For any path <em>P</em> that passes only through junctions (i.e., such that
+the initial and terminal node of each arc in <em>P</em>
+is a junction), <em>P</em> may not contain any cycle.</p>
+</li>
+</ol>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -9640,7 +9670,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-01 09:24:45 -0700
+Last updated 2024-07-01 10:32:56 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

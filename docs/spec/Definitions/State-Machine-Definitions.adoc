@@ -52,6 +52,30 @@ exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
 
+. In the optional state machine member sequence,
+the set of <<State-Machine-Behavior-Elements_Enter-Expressions,
+enter expressions>> induces a directed graph called the *transition graph*.
+In this graph, each enter expression _e_
+represents an arc from the state definition or junction immediately
+enclosing _e_ to the state definition or junction
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
+after the keyword `enter`.
+We say that the first state definition or junction is the *initial node*
+of the arc, and the second state definition or junction is the
+*terminal node* of the arc.
+A *path* in the transition graph is a finite sequence of arcs
+such that, for each arc _A_ in the sequence, either (1) _A_
+is the last arc in the sequence, or (2)
+the terminal node of _A_ is the initial node of the arc following
+_A_ in the sequence.
+The transition graph must satisfy the following rules:
+
+.. Each junction must be the terminal node of exactly one arc.
+
+..  For any path _P_ that passes only through junctions (i.e., such that
+the initial and terminal node of each arc in _P_
+is a junction), _P_ may not contain any cycle.
+
 ==== Scoping of Names
 
 Inside the optional state machine member sequence, the following
