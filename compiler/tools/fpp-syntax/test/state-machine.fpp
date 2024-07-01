@@ -2,6 +2,7 @@ module M {
 
     active component C { 
         state machine S {
+            signal RTI
             initial enter IDLE
             state IDLE {
                 initial enter RUNNING

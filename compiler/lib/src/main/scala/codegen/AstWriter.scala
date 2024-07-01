@@ -120,6 +120,15 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
+  override def defSignalAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefSignal]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"signal ${data.name}")
+  }
+
   override def defStateAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]

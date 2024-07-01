@@ -99,6 +99,7 @@ object Token {
   final case class SERIAL() extends Token
   final case class SET() extends Token
   final case class SEVERITY() extends Token
+  final case class SIGNAL() extends Token
   final case class SIZE() extends Token
   final case class SLASH() extends Token
   final case class STACK() extends Token

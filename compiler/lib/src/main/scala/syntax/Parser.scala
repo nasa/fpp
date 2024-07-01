@@ -52,6 +52,7 @@ object Parser extends Parsers {
   def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
     node(specInitial) ^^ { case n => Ast.StateMachineMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMachineMember.DefState(n) } |
+    node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     failure("state machine member expected")
   }
 
@@ -100,6 +101,12 @@ object Parser extends Parsers {
   def defState: Parser[Ast.DefState] = {
     state ~> ident ~! opt(lbrace ~>! stateMembers <~! rbrace) ^^ {
       case ident ~ members => Ast.DefState(ident, members)
+    }
+  }
+
+  def defSignal: Parser[Ast.DefSignal] = {
+    signal ~> ident ^^ {
+      case ident => Ast.DefSignal(ident)
     }
   }
 
@@ -935,6 +942,8 @@ object Parser extends Parsers {
   private def set = accept("set", { case t : Token.SET => t })
 
   private def severity = accept("severity", { case t : Token.SEVERITY => t })
+
+  private def signal = accept("signal", { case t : Token.SIGNAL => t })
 
   private def size = accept("size", { case t : Token.SIZE => t })
 

@@ -314,6 +314,7 @@ object Lexer extends RegexParsers {
     ("serial", (u: Unit) => Token.SERIAL()),
     ("severity", (u: Unit) => Token.SEVERITY()),
     ("set", (u: Unit) => Token.SET()),
+    ("signal", (u: Unit) => Token.SIGNAL()),
     ("size", (u: Unit) => Token.SIZE()),
     ("stack", (u: Unit) => Token.STACK()),
     ("state", (u: Unit) => Token.STATE()),

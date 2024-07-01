@@ -171,6 +171,7 @@ object Ast {
     sealed trait Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
    }
 
   /** State member */
@@ -605,15 +606,20 @@ object Ast {
 
   }
 
-  /** Initial state specifier */
+  /** Initial state Specifier */
   final case class SpecInitial(
     state: Ident
   )
 
-  /** State specifier */
+  /** State definition */
   final case class DefState(
     name: Ident,
     members: Option[List[StateMember]]
+  )
+
+  /** Signal definition */
+  final case class DefSignal(
+    name: Ident
   )
 
    /** Port matching specifier */
