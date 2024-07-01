@@ -53,6 +53,7 @@ object Parser extends Parsers {
     node(specInitial) ^^ { case n => Ast.StateMachineMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMachineMember.DefState(n) } |
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
+    node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
     failure("state machine member expected")
   }
 
@@ -81,6 +82,12 @@ object Parser extends Parsers {
 
   def defAbsType: Parser[Ast.DefAbsType] = {
     (typeToken ~>! ident) ^^ { case id => Ast.DefAbsType(id) }
+  }
+
+  def defAction: Parser[Ast.DefAction] = {
+    action ~> ident ^^ {
+      case ident => Ast.DefAction(ident)
+    }
   }
 
   def defArray: Parser[Ast.DefArray] = {
@@ -765,6 +772,8 @@ object Parser extends Parsers {
     }
     (rep(eol) ~> elts) ^^ { elts => elts.map(constructor) }
   }
+
+  private def action = accept("action", { case t : Token.ACTION => t })
 
   private def array = accept("array", { case t : Token.ARRAY => t })
 

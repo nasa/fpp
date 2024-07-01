@@ -172,6 +172,7 @@ object Ast {
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
+    final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
    }
 
   /** State member */
@@ -615,6 +616,11 @@ object Ast {
   final case class DefState(
     name: Ident,
     members: Option[List[StateMember]]
+  )
+
+  /** Action definition */
+  final case class DefAction(
+    name: Ident
   )
 
   /** Signal definition */

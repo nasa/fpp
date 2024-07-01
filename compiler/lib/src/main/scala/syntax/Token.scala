@@ -5,6 +5,7 @@ import scala.util.parsing.input.Positional
 sealed trait Token extends Positional
 
 object Token {
+  final case class ACTION() extends Token
   final case class ACTIVE() extends Token
   final case class ACTIVITY() extends Token
   final case class ALWAYS() extends Token

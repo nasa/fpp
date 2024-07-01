@@ -13,6 +13,8 @@ trait AstVisitor {
 
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
 
+  def defActionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAction]]): Out = default(in)
+
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Out = default(in)
 
   def defComponentInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponentInstance]]): Out = default(in)
@@ -175,6 +177,7 @@ trait AstVisitor {
       case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefAction(node1) => defActionAnnotatedNode(in, (pre, node1, post))
     }
   }
 

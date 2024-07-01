@@ -20,6 +20,15 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def abs type") ++ ident(node.data.name).map(indentIn)
   }
 
+  override def defActionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefAction]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"action ${data.name}")
+  }
+
   override def defArrayAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefArray]]

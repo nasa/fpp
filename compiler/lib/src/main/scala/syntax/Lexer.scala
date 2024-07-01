@@ -247,6 +247,7 @@ object Lexer extends RegexParsers {
     ("U32", (u: Unit) => Token.U32()),
     ("U64", (u: Unit) => Token.U64()),
     ("U8", (u: Unit) => Token.U8()),
+    ("action", (u: Unit) => Token.ACTION()),
     ("active", (u: Unit) => Token.ACTIVE()),
     ("activity", (u: Unit) => Token.ACTIVITY()),
     ("always", (u: Unit) => Token.ALWAYS()),
