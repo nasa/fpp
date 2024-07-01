@@ -15,7 +15,7 @@ substates.
 
 ==== Semantics
 
-. The state definition or junction definition referred to in the
+The state definition or junction definition referred to in the
 enter expression must be part of the same 
 state machine definition or state definition in which the initial
 transition specifier appears.

@@ -54,34 +54,44 @@ The initial transition occurs when the state machine starts up.
 
 . In the optional state machine member sequence,
 the set of <<State-Machine-Behavior-Elements_Enter-Expressions,
-enter expressions>> _e_ appearing in
-<<State-Machine-Behavior-Elements_State-Transition-Specifiers,
-state transition specifiers>> and
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction definitions>>
+enter expressions>>
 induces a directed graph called the *transition graph*.
-In this graph, _e_
+In this graph, each enter expression _e_
 represents an arc from an *initial node* to a *terminal node*.
-If _e_ appears in a state transition specifier _S_, then the initial
+The initial node is defined as follows:
+
+.. If _e_ appears in an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
+initial transition specifier>> _I_, then the initial node
+is _I_.
+
+.. If _e_ appears in a
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,
+state transition specifier>> _T_, then the initial
 node is the
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-immediately enclosing _S_.
-If _e_ appears in a junction definition _J_, then the initial node is _J_.
-In either case, 
+immediately enclosing _T_.
+
+.. If _e_ appears in a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+_J_, then the initial node is _J_.
+
++
+In any case, 
 the terminal node is the state definition or junction definition
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
-after the keyword `enter`.
+in _e_ after the keyword `enter`.
 A *path* in the transition graph is a finite sequence of arcs
 such that, for each arc _A_ in the sequence, either (a) _A_
 is the last arc in the sequence, or (b)
-the terminal node of _A_ is the initial node of the arc following
-_A_ in the sequence.
+the terminal node of _A_ is the initial node of the arc that
+follows _A_ in the sequence.
 The transition graph must satisfy the following rules:
 
 .. Each junction must be the terminal node of exactly one arc.
 
-..  For any path _P_ that passes only through junctions (i.e., such that
-the initial and terminal node of each arc in _P_
-is a junction), _P_ may not contain any cycle.
+.. For any path _P_, either (a) _P_ contains no cycle or (b)
+some initial or terminal node of some arc in _P_ is a state definition.
 
 ==== Scoping of Names
 
