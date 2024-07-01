@@ -114,6 +114,15 @@ object AstWriter extends AstVisitor with LineUtils {
     lines(s"guard ${data.name}")
   }
 
+  override def defTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"transition signal = ${data.signal}, guard = ${data.guard}, action = ${data.action}, state = ${data.state}")
+  }
+
   override def defModuleAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]

@@ -182,6 +182,8 @@ object Ast {
     sealed trait Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class DefTransition(node: AstNode[Ast.DefTransition]) extends Node
+
    }
 
   /** Struct definition */
@@ -632,6 +634,14 @@ object Ast {
   /** Signal definition */
   final case class DefSignal(
     name: Ident
+  )
+
+  /** Transition definition */
+  final case class DefTransition(
+    signal: Ident,
+    guard: Option[Ident],
+    action: Ident,
+    state: Ident
   )
 
    /** Port matching specifier */

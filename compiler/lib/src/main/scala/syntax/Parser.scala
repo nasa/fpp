@@ -46,6 +46,7 @@ object Parser extends Parsers {
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
     node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
+    node(defTransition) ^^ { case n => Ast.StateMember.DefTransition(n) } |
     failure("state member expected")
   }
 
@@ -127,6 +128,12 @@ object Parser extends Parsers {
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     state ~> (machine ~> ident) ~! opt(lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefStateMachine(name, members)
+    }
+  }
+
+  def defTransition: Parser[Ast.DefTransition] = {
+    (on ~> ident) ~! opt(ifGuard ~> ident) ~! (doAction ~> ident) ~! (enter ~> ident) ^^ {
+      case signal ~ guard ~ action ~ state => Ast.DefTransition(signal, guard, action, state)
     }
   }
     
@@ -816,6 +823,8 @@ object Parser extends Parsers {
 
   private def diagnostic = accept("diagnostic", { case t : Token.DIAGNOSTIC => t })
 
+  private def doAction = accept("do", { case t : Token.DO => t })
+
   private def event = accept("event", { case t : Token.EVENT => t })
 
   private def dot = accept(".", { case t : Token.DOT => t })
@@ -857,6 +866,8 @@ object Parser extends Parsers {
 
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
+
+  private def ifGuard = accept("if", { case t : Token.IF => t })
 
   private def initial = accept("initial", { case t : Token.INITIAL => t })
 

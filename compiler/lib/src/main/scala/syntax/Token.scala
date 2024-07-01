@@ -27,6 +27,7 @@ object Token {
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
+  final case class DO() extends Token
   final case class DOT() extends Token
   final case class DROP() extends Token
   final case class ENUM() extends Token
@@ -49,6 +50,7 @@ object Token {
   final case class I64() extends Token
   final case class I8() extends Token
   final case class ID() extends Token
+  final case class IF() extends Token
   final case class IDENTIFIER(str: String) extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
