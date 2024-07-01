@@ -22,7 +22,7 @@ namespace {
   union BuffUnion {
     // Size of statemachine sendEvents
     BYTE sendEventsStatemachineSize[
-      Fw::SMEvents::SERIALIZED_SIZE
+      Fw::SMSignals::SERIALIZED_SIZE
     ];
   };
 
@@ -111,11 +111,11 @@ ActiveStateMachinesComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// State machine function to push events to the input queue
+// State machine function to push signals to the input queue
 // ----------------------------------------------------------------------
 
 void ActiveStateMachinesComponentBase ::
-  stateMachineInvoke(const Fw::SMEvents& ev)
+  stateMachineInvoke(const Fw::SMSignals& ev)
 {
   ComponentIpcSerializableBuffer msg;
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -195,9 +195,9 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
 
   switch (msgType) {
 
-    // Handle state machine events 
+    // Handle state machine signals 
     case STATEMACHINE_SENDEVENTS: {
-      Fw::SMEvents ev;
+      Fw::SMSignals ev;
       deserStatus = msg.deserialize(ev);
 
       FW_ASSERT(
@@ -212,7 +212,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
         static_cast<FwAssertArgType>(msg.getBuffLeft())
       );
 
-      // Update the state machine with the event
+      // Update the state machine with the signal
       switch (ev.getsmId()) {
         case STATE_MACHINE_SM1:
           this->m_stateMachine_sm1.update(&ev);

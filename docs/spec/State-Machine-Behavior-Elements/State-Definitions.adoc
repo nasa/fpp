@@ -38,12 +38,12 @@ _I_ specifies the sub-state to enter on entry to the outer state.
 ----
 state machine MonitorSm {
 
-  event Complete
-  event Drive
-  event Calibrate
-  event RTI
-  event Stop
-  event Fault
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
   
   action init2
   action doCalibrate
@@ -52,30 +52,30 @@ state machine MonitorSm {
 
   guard calibrateReady
 
-  initial DEVICE_ON
+  initial enter DEVICE_ON
   
   state DEVICE_ON {
 
-    initial INITIALIZING do init2
+    initial do init2 enter INITIALIZING
 
     state INITIALIZING {
-      on Complete visit IDLE
+      on Complete enter IDLE
     }
 
     state IDLE {
-      on Drive visit DRIVING
-      on Calibrate if calibrateReady visit CALIBRATING
+      on Drive enter DRIVING
+      on Calibrate if calibrateReady enter CALIBRATING
     }
 
     state CALIBRATING {
       on RTI do doCalibrate
-      on Fault visit Idle do reportFault
-      on Complete visit IDLE
+      on Fault do reportFault enter Idle
+      on Complete enter IDLE
     }
 
     state DRIVING {
       on RTI do motorControl
-      on Stop visit IDLE
+      on Stop enter IDLE
     }
 
   }

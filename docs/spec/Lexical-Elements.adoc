@@ -66,6 +66,7 @@ drop
 else
 entry
 enum
+enter
 event
 exit
 false
@@ -115,6 +116,7 @@ send
 serial
 set
 severity
+signal
 size
 stack
 state
@@ -129,7 +131,6 @@ topology
 true
 type
 update
-visit
 warning
 with
 yellow

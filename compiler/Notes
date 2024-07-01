@@ -1,6 +1,0 @@
-How I installed Scala:
-
-curl -s "https://get.sdkman.io" | bash
-source "$HOME/.sdkman/bin/sdkman-init.sh"
-source "/home/watney/.sdkman/bin/sdkman-init.sh"
-sdk install scala

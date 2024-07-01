@@ -147,6 +147,7 @@ active component ActiveNoArgsPortsOnly {
 
 @ An active component with state machines
 active component ActiveStateMachines {
-    include "include/state_machines.fppi"
+
+  include "include/state_machines.fppi"
 
 }

@@ -68,7 +68,7 @@ case class ComponentCppWriter (
       ),
       className,
       Some(s"public Fw::$baseClassName$smInterfaces"),
-      stateMachineWriter.genEnumerations ++ getClassMembers
+      getClassMembers
     )
     List(
       List(hppIncludes, cppIncludes),
@@ -96,7 +96,7 @@ case class ComponentCppWriter (
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
     val stateMachineEventHeaders =
-      guardedList (hasStateMachineInstances) (List("Fw/Types/SMEventsSerializableAc.hpp"))
+      guardedList (hasStateMachineInstances) (List("Fw/Types/SMSignalsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -222,7 +222,8 @@ case class ComponentCppWriter (
       eventWriter.getConstantMembers,
       tlmWriter.getConstantMembers,
       paramWriter.getConstantMembers,
-      dpWriter.getConstantMembers
+      dpWriter.getConstantMembers,
+      stateMachineWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil
@@ -340,7 +341,7 @@ case class ComponentCppWriter (
         lines(
           s"""|// Size of statemachine sendEvents
               |BYTE sendEventsStatemachineSize[
-              |  Fw::SMEvents::SERIALIZED_SIZE
+              |  Fw::SMSignals::SERIALIZED_SIZE
               |];
               |"""
         )
