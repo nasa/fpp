@@ -4,79 +4,99 @@
 // \brief  hpp file for NestedNamespaces topology
 // ======================================================================
 
-#ifndef A_B_NestedNamespacesTopologyAc_HPP
-#define A_B_NestedNamespacesTopologyAc_HPP
+#ifndef M_NestedNamespacesTopologyAc_HPP
+#define M_NestedNamespacesTopologyAc_HPP
 
+#include "C.hpp"
 #include "NestedNamespacesTopologyDefs.hpp"
 
-namespace A {
+namespace M {
 
-  namespace B {
+  // ----------------------------------------------------------------------
+  // Constants
+  // ----------------------------------------------------------------------
 
-    // ----------------------------------------------------------------------
-    // Helper functions
-    // ----------------------------------------------------------------------
-
-    //! Initialize components
-    void initComponents(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Configure components
-    void configComponents(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Set component base Ids
-    void setBaseIds();
-
-    //! Connect components
-    void connectComponents();
-
-    //! Register commands
-    void regCommands();
-
-    //! Read parameters
-    void readParameters();
-
-    //! Load parameters
-    void loadParameters();
-
-    //! Start tasks
-    void startTasks(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Stop tasks
-    void stopTasks(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Free threads
-    void freeThreads(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Tear down components
-    void tearDownComponents(
-        const TopologyState& state //!< The topology state
-    );
-
-    // ----------------------------------------------------------------------
-    // Setup and teardown functions
-    // ----------------------------------------------------------------------
-
-    //! Set up the topology
-    void setup(
-        const TopologyState& state //!< The topology state
-    );
-
-    //! Tear down the topology
-    void teardown(
-        const TopologyState& state //!< The topology state
-    );
-
+  namespace BaseIds {
+    enum {
+      c = 0x100,
+    };
   }
+
+  namespace InstanceIds {
+    enum {
+      c,
+    };
+  }
+
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+
+  //! c
+  extern N::O::C c;
+
+  // ----------------------------------------------------------------------
+  // Helper functions
+  // ----------------------------------------------------------------------
+
+  //! Initialize components
+  void initComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Configure components
+  void configComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Set component base Ids
+  void setBaseIds();
+
+  //! Connect components
+  void connectComponents();
+
+  //! Register commands
+  void regCommands();
+
+  //! Read parameters
+  void readParameters();
+
+  //! Load parameters
+  void loadParameters();
+
+  //! Start tasks
+  void startTasks(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Stop tasks
+  void stopTasks(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Free threads
+  void freeThreads(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Tear down components
+  void tearDownComponents(
+      const TopologyState& state //!< The topology state
+  );
+
+  // ----------------------------------------------------------------------
+  // Setup and teardown functions
+  // ----------------------------------------------------------------------
+
+  //! Set up the topology
+  void setup(
+      const TopologyState& state //!< The topology state
+  );
+
+  //! Tear down the topology
+  void teardown(
+      const TopologyState& state //!< The topology state
+  );
 
 }
 

@@ -4,7 +4,7 @@ An FPP model may include one or more *type definitions*.
 These definitions describe named types that may be used elsewhere in the
 model and that may generate code in the target language.
 For example,
-an FPP type definition may become a class definition in {cpp} or Python.
+an FPP type definition may become a class definition in {cpp}.
 
 There are three kinds of type definitions:
 
@@ -476,12 +476,6 @@ struct S {
 
 The member `x` of the struct `S` gets three copies of the value
 10 specified for `x` in the default value expression.
-
-*GDS limitation:* The F Prime GDS does not properly handle
-member arrays.
-Therefore, if you plan to use the F Prime GDS, then you should avoid
-using a struct type with a member array in the flight-ground interface (i.e.,
-commands, events, telemetry, and parameters).
 
 ==== Member Format Strings
 

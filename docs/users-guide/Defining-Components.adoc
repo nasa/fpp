@@ -1850,10 +1850,6 @@ has a numeric type; or (3) an array or struct type
 each of whose members satisfies condition (1) or
 condition (2).
 
-*XML limitation:* The F Prime XML representation does
-not allow limits for telemetry channels
-of array or struct type.
-
 === Parameters
 
 When defining an F Prime component, you may specify one or more
@@ -2508,12 +2504,12 @@ when the definition logically belongs to the component.
 The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.
 
-*XML limitation:* In most cases, a qualified name such as `Switch.State`
+In most cases, a qualified name such as `Switch.State`
 in FPP becomes a qualified name such as `Switch::State` when translating
 to {cpp}.
 However, the F Prime XML format does not support the definition
 of constants and types as members of {cpp} components.
-Therefore, when translating the previous example through XML to {cpp},
+Therefore, when translating the previous example to {cpp},
 the following occurs:
 
 . The component `Switch` becomes an auto-generated {cpp} class

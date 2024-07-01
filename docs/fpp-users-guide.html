@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, State Machines</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, State Machines, Phase 1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, State Machines</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, State Machines, Phase 1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -739,7 +739,7 @@ well-tailored to its purpose.</p>
 </li>
 <li>
 <p>To generate code in the various languages that F Prime uses, e.g.,
-C&#43;&#43;, Python, XML.
+C&#43;&#43;, JSON, and XML.
 In this document, we will call these languages the <strong>target languages</strong>.</p>
 </li>
 </ul>
@@ -766,23 +766,6 @@ Specification</em></a>.
 We recommend that you read this document before consulting that one.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitations:</strong>
-As of this writing, F Prime still uses an older XML format, e.g.,
-to support the Ground Data System (GDS).
-Some features of FPP are not supported in the XML representation.
-Where a feature is not supported in XML, we will call out this fact in a
-note marked <strong>XML limitation</strong>.
-As we phase out the XML code generation, we will phase in support
-for all the features described here.</p>
-</div>
-<div class="paragraph">
-<p><strong>GDS limitations:</strong>
-It is currently possible to construct FPP models that are not
-fully supported by the F Prime Ground Data System (GDS).
-Where an FPP feature is not supported in the GDS, we will call out this
-fact in a note marked <strong>GDS limitation.</strong></p>
-</div>
-<div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
 Sections 3 through 11 describe the elements of an FPP
@@ -793,7 +776,7 @@ Section 12 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
 Section 13 explains how to analyze FPP models and how
-to translate FPP models to XML, to C&#43;&#43;, and from XML.
+to translate FPP models to and from XML, to C&#43;&#43;, and to JSON.
 Section 14 explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
 </div>
@@ -1945,32 +1928,6 @@ module M {
 }</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML format supports
-only one level of C&#43;&#43; namespaces.
-Therefore nested modules are not translated properly to C&#43;&#43;.
-As a workaround, you can use an underscore prefix.
-For example, instead of writing</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module A {
-  module B {
-
-  }
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>you can write</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">module A_B {
-
-}</code></pre>
-</div>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -1981,7 +1938,7 @@ For example, instead of writing</p>
 These definitions describe named types that may be used elsewhere in the
 model and that may generate code in the target language.
 For example,
-an FPP type definition may become a class definition in C&#43;&#43; or Python.</p>
+an FPP type definition may become a class definition in C&#43;&#43;.</p>
 </div>
 <div class="paragraph">
 <p>There are three kinds of type definitions:</p>
@@ -2576,13 +2533,6 @@ For example, this code is accepted:</p>
 <p>The member <code>x</code> of the struct <code>S</code> gets three copies of the value
 10 specified for <code>x</code> in the default value expression.</p>
 </div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong> The F Prime GDS does not properly handle
-member arrays.
-Therefore, if you plan to use the F Prime GDS, then you should avoid
-using a struct type with a member array in the flight-ground interface (i.e.,
-commands, events, telemetry, and parameters).</p>
-</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-Types_Struct-Type-Definitions_Member-Format-Strings">6.2.5. Member Format Strings</h4>
@@ -2996,15 +2946,6 @@ the enum name, separated from the name by a colon, like this:</p>
 <code>Small.A</code>, <code>Small.B</code>, and <code>Small.C</code>.
 Each of the enumerated constants is represented as a <code>U8</code> value
 in C&#43;&#43;.</p>
-</div>
-<div class="paragraph">
-<p><strong>GDS limitation:</strong>
-The F Prime GDS currently assumes that all enums use the default representation
-size of <code>I32</code>.
-Therefore, if you plan to use the F Prime GDS, then
-you should not use any enum with a specified representation
-type other than <code>I32</code> in the flight-ground interface (i.e., commands, events, telemetry,
-and parameters).</p>
 </div>
 </div>
 <div class="sect2">
@@ -5685,11 +5626,6 @@ has a numeric type; or (3) an array or struct type
 each of whose members satisfies condition (1) or
 condition (2).</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitation:</strong> The F Prime XML representation does
-not allow limits for telemetry channels
-of array or struct type.</p>
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -6399,12 +6335,12 @@ The name scoping mechanism emphasizes the hierarchical relationship
 and prevents name clashes.</p>
 </div>
 <div class="paragraph">
-<p><strong>XML limitation:</strong> In most cases, a qualified name such as <code>Switch.State</code>
+<p>In most cases, a qualified name such as <code>Switch.State</code>
 in FPP becomes a qualified name such as <code>Switch::State</code> when translating
 to C&#43;&#43;.
 However, the F Prime XML format does not support the definition
 of constants and types as members of C&#43;&#43; components.
-Therefore, when translating the previous example through XML to C&#43;&#43;,
+Therefore, when translating the previous example to C&#43;&#43;,
 the following occurs:</p>
 </div>
 <div class="olist arabic">
@@ -7533,7 +7469,7 @@ named <code>C1</code> and <code>C2</code>.</p>
 <p>As shown, to write an instance specifier, you write the
 keyword <code>instance</code> and the name of a component instance
 definition.
-In general the name may be a qualified name such as <code>A.B</code>
+In general the name may be a qualified name such as <code>A.B</code>.
 if the instance is defined inside a
 <a href="#Defining-Modules">module</a>; in this simple
 example it is not.
@@ -10022,7 +9958,11 @@ even though <code>c.Out</code> has two ports and only one of them is connected.<
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-XML">13.2. Generating XML</h3>
 <div class="paragraph">
-<p>This section describes how to generate XML from FPP.</p>
+<p>We are phasing out the use of XML in favor of generating
+JSON and directly generating C&#43;&#43;.
+However, the F Prime XML representation is still used, e.g., in
+for specifying the layout of telemetry packets.
+This section describes how to generate XML from FPP.</p>
 </div>
 <div class="paragraph">
 <p><strong>XML file names:</strong> The table <a href="#xml-file-names">XML File Names</a> shows how FPP definitions are
@@ -10329,12 +10269,6 @@ an automatic default of 80.</p>
 you can provide FPP source on standard input, as described
 for <a href="#Analyzing-and-Translating-Models_Checking-Models"><code>fpp-check</code></a>.</p>
 </div>
-<div class="paragraph">
-<p><strong>XML limitations:</strong> The XML translation has several
-limitations.
-For more information, see the text marked <strong>XML limitations</strong> elsewhere
-in this manual.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus">13.3. Generating C Plus Plus</h3>
@@ -10611,7 +10545,7 @@ This is similar to the <code>-d</code> option for
 <a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
 </li>
 <li>
-<p><code>-n</code> <em>file</em> : Write the names of the generated XML files
+<p><code>-n</code> <em>file</em> : Write the names of the generated C&#43;&#43; files
 to <em>file</em>.
 This is similar to the <code>-n</code> option for
 <a href="#Analyzing-and-Translating-Models_Generating-XML"><code>fpp-to-xml</code></a>.</p>
@@ -12360,7 +12294,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-24 18:03:37 -0700
+Last updated 2024-07-01 09:25:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
