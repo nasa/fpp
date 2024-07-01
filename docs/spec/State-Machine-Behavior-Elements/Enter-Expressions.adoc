@@ -1,9 +1,10 @@
 === Enter Expressions
 
-An *enter expression* specifies a transition as part of a
-<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>
+An *enter expression* specifies a transition as part of an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition>>,
+a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>,
 or
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+a <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
 The transition enters a state or junction and optionally performs
 some action.
 
