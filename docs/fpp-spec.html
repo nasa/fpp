@@ -2819,18 +2819,24 @@ The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
 <p>In the optional state machine member sequence,
-the set of <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> induces a directed graph called the <strong>transition graph</strong>.
-In this graph, each enter expression <em>e</em>
-represents an arc from the state definition or junction immediately
-enclosing <em>e</em> to the state definition or junction
+the set of <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> appearing in
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifiers</a> and
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definitions</a>
+induces a directed graph called the <strong>transition graph</strong>.
+In this graph, <em>e</em>
+represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+If <em>e</em> appears in a state transition specifier <em>S</em>, then the initial
+node is the
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+immediately enclosing <em>S</em>.
+If <em>e</em> appears in a junction definition <em>J</em>, then the initial node is <em>J</em>.
+In either case,
+the terminal node is the state definition or junction definition
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
 after the keyword <code>enter</code>.
-We say that the first state definition or junction is the <strong>initial node</strong>
-of the arc, and the second state definition or junction is the
-<strong>terminal node</strong> of the arc.
 A <strong>path</strong> in the transition graph is a finite sequence of arcs
-such that, for each arc <em>A</em> in the sequence, either (1) <em>A</em>
-is the last arc in the sequence, or (2)
+such that, for each arc <em>A</em> in the sequence, either (a) <em>A</em>
+is the last arc in the sequence, or (b)
 the terminal node of <em>A</em> is the initial node of the arc following
 <em>A</em> in the sequence.
 The transition graph must satisfy the following rules:</p>
@@ -3713,10 +3719,11 @@ state machine ActionDefs {
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</h3>
 <div class="paragraph">
-<p>An <strong>enter expression</strong> specifies a transition as part of a
-<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>
+<p>An <strong>enter expression</strong> specifies a transition as part of an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
 or
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
 The transition enters a state or junction and optionally performs
 some action.</p>
 </div>
@@ -3859,11 +3866,7 @@ substates.</p>
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
-<em>[</em>
-<code>do</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-enter <a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a></p>
+<a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
@@ -3871,24 +3874,10 @@ enter <a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a></p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The identifier must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to a
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
-or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
-It specifies the initial state or junction to enter.
-The state definition or junction definition referred to must be part of
-the same state machine definition or state definition where the initial
+<p>The state definition or junction definition referred to in the
+enter expression must be part of the same
+state machine definition or state definition in which the initial
 transition specifier appears.</p>
-</li>
-<li>
-<p>If present, the optional identifier after the keyword <code>do</code>
-must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to an
-<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
-It specifies the action to perform when entering the state or junction.</p>
 </li>
 </ol>
 </div>
@@ -9670,7 +9659,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-01 10:32:56 -0700
+Last updated 2024-07-01 10:57:14 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -11,31 +11,14 @@ substates.
 ==== Syntax
 
 `initial` 
-_[_
-`do`
-<<Lexical-Elements_Identifiers,_identifier_>>
-_]_
-enter <<Scoping-of-Names_Qualified-Identifiers,_ident_>>
+<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
 
 ==== Semantics
 
-. The identifier must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to a 
-<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
-or a
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
-It specifies the initial state or junction to enter.
-The state definition or junction definition referred to must be part of
-the same state machine definition or state definition where the initial
+. The state definition or junction definition referred to in the
+enter expression must be part of the same 
+state machine definition or state definition in which the initial
 transition specifier appears.
-
-. If present, the optional identifier after the keyword `do`
-must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to an 
-<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
-It specifies the action to perform when entering the state or junction.
 
 ==== Examples
 

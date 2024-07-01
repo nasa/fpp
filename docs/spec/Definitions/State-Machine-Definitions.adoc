@@ -54,18 +54,25 @@ The initial transition occurs when the state machine starts up.
 
 . In the optional state machine member sequence,
 the set of <<State-Machine-Behavior-Elements_Enter-Expressions,
-enter expressions>> induces a directed graph called the *transition graph*.
-In this graph, each enter expression _e_
-represents an arc from the state definition or junction immediately
-enclosing _e_ to the state definition or junction
+enter expressions>> _e_ appearing in
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,
+state transition specifiers>> and
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definitions>>
+induces a directed graph called the *transition graph*.
+In this graph, _e_
+represents an arc from an *initial node* to a *terminal node*.
+If _e_ appears in a state transition specifier _S_, then the initial
+node is the
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+immediately enclosing _S_.
+If _e_ appears in a junction definition _J_, then the initial node is _J_.
+In either case, 
+the terminal node is the state definition or junction definition
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
 after the keyword `enter`.
-We say that the first state definition or junction is the *initial node*
-of the arc, and the second state definition or junction is the
-*terminal node* of the arc.
 A *path* in the transition graph is a finite sequence of arcs
-such that, for each arc _A_ in the sequence, either (1) _A_
-is the last arc in the sequence, or (2)
+such that, for each arc _A_ in the sequence, either (a) _A_
+is the last arc in the sequence, or (b)
 the terminal node of _A_ is the initial node of the arc following
 _A_ in the sequence.
 The transition graph must satisfy the following rules:
