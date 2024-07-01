@@ -105,6 +105,15 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
+  override def defGuardAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefGuard]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"guard ${data.name}")
+  }
+
   override def defModuleAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]

@@ -40,6 +40,7 @@ object Token {
   final case class FATAL() extends Token
   final case class FORMAT() extends Token
   final case class GET() extends Token
+  final case class GUARD() extends Token
   final case class GUARDED() extends Token
   final case class HEALTH() extends Token
   final case class HIGH() extends Token

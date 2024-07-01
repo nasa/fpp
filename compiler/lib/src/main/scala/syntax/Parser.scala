@@ -54,6 +54,7 @@ object Parser extends Parsers {
     node(defState) ^^ { case n => Ast.StateMachineMember.DefState(n) } |
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
+    node(defGuard) ^^ { case n => Ast.StateMachineMember.DefGuard(n) } |
     failure("state machine member expected")
   }
 
@@ -114,6 +115,12 @@ object Parser extends Parsers {
   def defSignal: Parser[Ast.DefSignal] = {
     signal ~> ident ^^ {
       case ident => Ast.DefSignal(ident)
+    }
+  }
+
+  def defGuard: Parser[Ast.DefGuard] = {
+    guard ~> ident ^^ {
+      case ident => Ast.DefGuard(ident)
     }
   }
 
@@ -837,6 +844,8 @@ object Parser extends Parsers {
   private def fppWith = accept("with", { case t : Token.WITH => t })
 
   private def get = accept("get", { case t : Token.GET => t })
+
+  private def guard = accept("guard", { case t : Token.GUARD => t })
 
   private def guarded = accept("guarded", { case t : Token.GUARDED => t })
 

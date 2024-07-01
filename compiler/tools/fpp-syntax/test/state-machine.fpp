@@ -4,6 +4,7 @@ module M {
         state machine S {
             signal RTI
             action foobar
+            guard g1
             initial enter IDLE
             state IDLE {
                 initial enter RUNNING

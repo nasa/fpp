@@ -173,6 +173,7 @@ object Ast {
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
    }
 
   /** State member */
@@ -620,6 +621,11 @@ object Ast {
 
   /** Action definition */
   final case class DefAction(
+    name: Ident
+  )
+
+  /** Guard definition */
+  final case class DefGuard(
     name: Ident
   )
 
