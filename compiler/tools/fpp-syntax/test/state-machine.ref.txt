@@ -5,9 +5,19 @@ def module
     ident C
     def state machine
       ident S
+      signal RTI
+      action a1
+      action a2
+      guard g1
       initial enter IDLE
       state IDLE
         initial enter RUNNING
+        transition signal = RTI, guard = None, action = Some(a1), state = None
+        transition signal = RTI, guard = None, action = None, state = Some(SAFING)
+        transition signal = RTI, guard = None, action = Some(a1), state = Some(SAFING)
+        transition signal = RTI, guard = Some(g1), action = Some(a1), state = Some(SAFING)
         state RUNNING
+      state SAFING
+        transition signal = RTI, guard = None, action = Some(a2), state = None
     def state machine
       ident S1
