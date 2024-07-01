@@ -45,6 +45,7 @@ active()
   move_cpp ActiveGetProductsComponent
   move_cpp ActiveGuardedProductsComponent
   move_cpp ActiveNoArgsPortsOnlyComponent
+  move_cpp ActiveStateMachinesComponent
   move_cpp ActiveParamsComponent
   move_cpp ActiveSerialComponent
   move_cpp ActiveSyncProductsComponent
