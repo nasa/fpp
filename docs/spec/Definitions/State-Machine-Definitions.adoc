@@ -90,8 +90,8 @@ The transition graph must satisfy the following rules:
 
 .. Each junction must be the terminal node of exactly one arc.
 
-.. For any path _P_, either (a) _P_ contains no cycle or (b)
-some initial or terminal node of some arc in _P_ is a state definition.
+.. For any cyclic path _P_ some initial or terminal node of some arc
+in _P_ must be a state definition.
 
 ==== Scoping of Names
 
