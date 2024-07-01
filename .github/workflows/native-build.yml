@@ -102,7 +102,7 @@ jobs:
             "run": [
               {
                 "runner": "macos-12",
-                "tag": "macosx_10_9_universal2"
+                "tag": "macosx_12_0_universal2"
               },
               {
                 "runner": "ubuntu-latest",
