@@ -174,6 +174,7 @@ object Ast {
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
+    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
    }
 
   /** State member */
@@ -183,7 +184,6 @@ object Ast {
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class DefTransition(node: AstNode[Ast.DefTransition]) extends Node
-
    }
 
   /** Struct definition */
@@ -629,6 +629,24 @@ object Ast {
   /** Guard definition */
   final case class DefGuard(
     name: Ident
+  )
+
+  /** Junction definition */
+  final case class DefJunction(
+    name: Ident,
+    ifPart: IfPart,
+    elsePart: ElsePart
+  )
+
+  final case class IfPart(
+    guard: Ident,
+    action: Option[Ident],
+    state: Ident
+  )
+
+  final case class ElsePart(
+    action: Option[Ident],
+    state: Ident
   )
 
   /** Signal definition */

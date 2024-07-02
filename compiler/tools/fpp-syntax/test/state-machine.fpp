@@ -8,6 +8,8 @@ module M {
             action a2
             guard g1
             initial enter IDLE
+            junction j1 {if g1 do a1 enter SAFING \
+                         else do a2 enter RUNNING}
             state IDLE {
                 initial enter RUNNING
                 on RTI do a1

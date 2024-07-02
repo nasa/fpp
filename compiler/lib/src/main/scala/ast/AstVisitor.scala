@@ -25,6 +25,8 @@ trait AstVisitor {
 
   def defGuardAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefGuard]]): Out = default(in)
 
+  def defJunctionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefJunction]]): Out = default(in)
+
   def defModuleAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefModule]]): Out = default(in)
 
   def defPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefPort]]): Out = default(in)
@@ -184,6 +186,7 @@ trait AstVisitor {
       case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefAction(node1) => defActionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefGuard(node1) => defGuardAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
     }
   }
 

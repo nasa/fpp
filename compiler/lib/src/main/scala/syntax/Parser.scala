@@ -56,6 +56,7 @@ object Parser extends Parsers {
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
     node(defGuard) ^^ { case n => Ast.StateMachineMember.DefGuard(n) } |
+    node(defJunction) ^^ { case n => Ast.StateMachineMember.DefJunction(n) } |
     failure("state machine member expected")
   }
 
@@ -125,6 +126,24 @@ object Parser extends Parsers {
     }
   }
 
+  def defJunction: Parser[Ast.DefJunction] = {
+    (junction ~> ident) ~! (lbrace ~> ifPart) ~! (elsePart <~ rbrace) ^^ {
+      case ident ~ ifPart ~ elsePart => Ast.DefJunction(ident, ifPart, elsePart)
+    }
+  }
+
+  def ifPart: Parser[Ast.IfPart] = {
+    (ifGuard ~> ident) ~! opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
+      case guard ~ action ~ state => Ast.IfPart(guard, action, state)
+    }
+  }
+
+  def elsePart: Parser[Ast.ElsePart] = {
+    elseJunction ~> opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
+      case action ~ state => Ast.ElsePart(action, state)
+    }
+  }
+
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     state ~> (machine ~> ident) ~! opt(lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefStateMachine(name, members)
@@ -136,7 +155,6 @@ object Parser extends Parsers {
       case signal ~ guard ~ action ~ state => Ast.DefTransition(signal, guard, action, state)
     }
   }
-    
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
@@ -825,6 +843,8 @@ object Parser extends Parsers {
 
   private def doAction = accept("do", { case t : Token.DO => t })
 
+  private def elseJunction = accept("else", { case t : Token.ELSE => t })
+
   private def event = accept("event", { case t : Token.EVENT => t })
 
   private def dot = accept(".", { case t : Token.DOT => t })
@@ -870,6 +890,8 @@ object Parser extends Parsers {
   private def ifGuard = accept("if", { case t : Token.IF => t })
 
   private def initial = accept("initial", { case t : Token.INITIAL => t })
+
+  private def junction = accept("junction", { case t : Token.JUNCTION => t })
 
   private def importToken = accept("import", { case t : Token.IMPORT => t })
 

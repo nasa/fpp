@@ -34,6 +34,7 @@ object Token {
   final case class ENTER() extends Token
   final case class EOL() extends Token
   final case class EQUALS() extends Token
+  final case class ELSE() extends Token
   final case class EVENT() extends Token
   final case class F32() extends Token
   final case class F64() extends Token
@@ -58,6 +59,7 @@ object Token {
   final case class INITIAL() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token
+  final case class JUNCTION() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token

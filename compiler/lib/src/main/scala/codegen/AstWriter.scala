@@ -114,6 +114,17 @@ object AstWriter extends AstVisitor with LineUtils {
     lines(s"guard ${data.name}")
   }
 
+  override def defJunctionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val ifPart = data.ifPart
+    val elsePart = data.elsePart
+    lines(s"junction ${data.name} ${ifPart} ${elsePart}")
+  }
+
   override def defTransitionAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefTransition]]
