@@ -339,8 +339,8 @@ case class ComponentCppWriter (
       ),
       guardedList (hasStateMachineInstances) (
         lines(
-          s"""|// Size of statemachine sendEvents
-              |BYTE sendEventsStatemachineSize[
+          s"""|// Size of statemachine sendSignals
+              |BYTE sendSignalsStatemachineSize[
               |  Fw::SMSignals::SERIALIZED_SIZE
               |];
               |"""

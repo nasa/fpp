@@ -20,8 +20,8 @@ namespace {
   // Get the max size by constructing a union of the async input, command, and
   // internal port serialization sizes
   union BuffUnion {
-    // Size of statemachine sendEvents
-    BYTE sendEventsStatemachineSize[
+    // Size of statemachine sendSignals
+    BYTE sendSignalsStatemachineSize[
       Fw::SMSignals::SERIALIZED_SIZE
     ];
   };
