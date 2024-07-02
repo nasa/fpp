@@ -417,7 +417,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"initial enter ${data.state}")
+    lines(s"initial do ${data.action} enter ${data.state}")
   }
 
   override def specInternalPortAnnotatedNode(

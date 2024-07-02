@@ -613,6 +613,7 @@ object Ast {
 
   /** Initial state Specifier */
   final case class SpecInitial(
+    action: Option[Ident],
     state: Ident
   )
 

@@ -40,10 +40,10 @@ state machine Device {
     guard calibrateReady
 
 # Specify states and junctions
-    initial j1 do init1
+    initial do init1 enter j1
 
     junction j1 {
-        if coldStart enter DEVICE_OFF
+        if coldStart enter DEVICE_OFF \
         else do initPower enter DEVICE_ON
     }
 
@@ -53,7 +53,7 @@ state machine Device {
 
     state DEVICE_ON {
 
-        initial INITIALIZING do init2
+        initial do init2 enter INITIALIZING
 
         state INITIALIZING {
             on Complete enter IDLE
@@ -81,7 +81,7 @@ state machine Device {
     }
 
     junction j2 {
-        if noRecovery enter DIAGNOSTICS
+        if noRecovery enter DIAGNOSTICS \
         else do reportFault enter RECOVERY
     }
 

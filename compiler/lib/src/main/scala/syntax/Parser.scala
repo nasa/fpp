@@ -651,8 +651,8 @@ object Parser extends Parsers {
   }
 
   def specInitial: Parser[Ast.SpecInitial] = {
-    (initial ~> enter ~> ident) ^^ {
-      case ident => Ast.SpecInitial(ident)
+    initial ~> opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
+      case action ~ state => Ast.SpecInitial(action, state)
     }
   }
 

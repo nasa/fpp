@@ -1,0 +1,65 @@
+def struct
+  ident FaultData
+  struct type member
+    ident id
+    type name U32
+  struct type member
+    ident data
+    type name U32
+def struct
+  ident PowerData
+  struct type member
+    ident level
+    type name F32
+def state machine
+  ident Device
+  signal RTI, None
+  signal Complete, None
+  signal Calibrate, None
+  signal Fault, Some(Unqualified(FaultData))
+  signal Drive, None
+  signal Stop, None
+  signal Resume, None
+  signal POR, None
+  signal PowerOn, Some(Unqualified(PowerData))
+  signal PowerOff, None
+  action init1, None
+  action init2, None
+  action setPower, Some(Unqualified(PowerData))
+  action initPower, None
+  action reportFault, Some(Unqualified(FaultData))
+  action motorControl, None
+  action doCalibrate, None
+  action doSafe, None
+  action doDiagnostics, None
+  guard coldStart, None
+  guard noRecovery, Some(Unqualified(FaultData))
+  guard calibrateReady, None
+  initial do Some(init1) enter j1
+  junction j1 IfPart(coldStart,None,DEVICE_OFF) ElsePart(Some(initPower),DEVICE_ON)
+  state DEVICE_OFF
+    transition signal = PowerOn, guard = None, action = Some(setPower), state = Some(DEVICE_ON)
+  state DEVICE_ON
+    initial do Some(init2) enter INITIALIZING
+    state INITIALIZING
+      transition signal = Complete, guard = None, action = None, state = Some(IDLE)
+    state IDLE
+      transition signal = Drive, guard = None, action = None, state = Some(DRIVING)
+      transition signal = Calibrate, guard = Some(calibrateReady), action = None, state = Some(CALIBRATING)
+    state Calibrating
+      transition signal = RTI, guard = None, action = Some(doCalibrate), state = None
+      transition signal = Fault, guard = None, action = Some(reportFault), state = Some(IDLE)
+      transition signal = Complete, guard = None, action = None, state = Some(IDLE)
+    state DRIVING
+      transition signal = RTI, guard = None, action = Some(motorControl), state = None
+      transition signal = Stop, guard = None, action = None, state = Some(IDLE)
+    transition signal = POR, guard = None, action = None, state = Some(DEVICE_ON)
+    transition signal = Fault, guard = None, action = None, state = Some(j2)
+    transition signal = PowerOff, guard = None, action = None, state = Some(DEVICE_OFF)
+  junction j2 IfPart(noRecovery,None,DIAGNOSTICS) ElsePart(Some(reportFault),RECOVERY)
+  state Recovery
+    transition signal = RTI, guard = None, action = Some(doSafe), state = None
+    transition signal = Complete, guard = None, action = None, state = Some(DIAGNOSTICS)
+  state DIAGNOSTICS
+    transition signal = RTI, guard = None, action = Some(doDiagnostics), state = None
+    transition signal = Resume, guard = None, action = None, state = Some(DEVICE_ON)

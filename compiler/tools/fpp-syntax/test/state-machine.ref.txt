@@ -19,10 +19,10 @@ def module
       action a2, None
       guard g1, Some(Unqualified(StateData))
       guard g2, None
-      initial enter IDLE
+      initial do None enter IDLE
       junction j1 IfPart(g1,Some(a1),SAFING) ElsePart(Some(a2),RUNNING)
       state IDLE
-        initial enter RUNNING
+        initial do None enter RUNNING
         transition signal = RTI, guard = None, action = Some(a1), state = None
         transition signal = RTI, guard = None, action = None, state = Some(SAFING)
         transition signal = RTI, guard = None, action = Some(a1), state = Some(SAFING)
