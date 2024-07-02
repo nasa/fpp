@@ -1,6 +1,7 @@
 package fpp.compiler.ast
 
 import fpp.compiler.util._
+import fpp.compiler.ast.Ast.QualIdent
 
 object Ast {
 
@@ -623,12 +624,14 @@ object Ast {
 
   /** Action definition */
   final case class DefAction(
-    name: Ident
+    name: Ident,
+    typeName: Option[QualIdent]
   )
 
   /** Guard definition */
   final case class DefGuard(
-    name: Ident
+    name: Ident,
+    typeName: Option[QualIdent]
   )
 
   /** Junction definition */
@@ -651,7 +654,8 @@ object Ast {
 
   /** Signal definition */
   final case class DefSignal(
-    name: Ident
+    name: Ident,
+    typeName: Option[QualIdent]
   )
 
   /** Transition definition */

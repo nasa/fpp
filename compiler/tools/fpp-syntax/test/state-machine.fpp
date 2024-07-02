@@ -1,12 +1,19 @@
 module M {
 
+    struct StateData {
+        a: U32
+        b: F32
+    }
+
     active component C { 
 
         state machine S {
             signal RTI
-            action a1
+            signal EV1: StateData
+            action a1: StateData
             action a2
-            guard g1
+            guard g1: StateData
+            guard g2
             initial enter IDLE
             junction j1 {if g1 do a1 enter SAFING \
                          else do a2 enter RUNNING}
@@ -16,6 +23,7 @@ module M {
                 on RTI enter SAFING
                 on RTI do a1 enter SAFING
                 on RTI if g1 do a1 enter SAFING
+                on RTI if g2 do a2 enter RUNNING
                 state RUNNING
             }
              state SAFING {

@@ -26,7 +26,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"action ${data.name}")
+    lines(s"action ${data.name}, ${data.typeName}")
   }
 
   override def defArrayAnnotatedNode(
@@ -111,7 +111,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"guard ${data.name}")
+    lines(s"guard ${data.name}, ${data.typeName}")
   }
 
   override def defJunctionAnnotatedNode(
@@ -164,7 +164,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"signal ${data.name}")
+    lines(s"signal ${data.name}, ${data.typeName}")
   }
 
   override def defStateAnnotatedNode(
