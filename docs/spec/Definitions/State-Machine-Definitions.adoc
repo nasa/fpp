@@ -86,12 +86,15 @@ such that, for each arc _A_ in the sequence, either (a) _A_
 is the last arc in the sequence, or (b)
 the terminal node of _A_ is the initial node of the arc that
 follows _A_ in the sequence.
+A path _P_ in the transition graph is a *cycle* if the terminal
+node of the last arc in _P_ coincides with the initial
+node of the first arc in _P_.
 The transition graph must satisfy the following rules:
 
 .. Each junction must be the terminal node of exactly one arc.
 
-.. For any cyclic path _P_, some initial or terminal node of some
-arc in _P_ must be a state definition.
+.. For any path _P_ that is a cycle, some initial or terminal node of
+some arc in _P_ must be a state definition.
 
 ==== Scoping of Names
 

@@ -2855,6 +2855,9 @@ such that, for each arc <em>A</em> in the sequence, either (a) <em>A</em>
 is the last arc in the sequence, or (b)
 the terminal node of <em>A</em> is the initial node of the arc that
 follows <em>A</em> in the sequence.
+A path <em>P</em> in the transition graph is a <strong>cycle</strong> if the terminal
+node of the last arc in <em>P</em> coincides with the initial
+node of the first arc in <em>P</em>.
 The transition graph must satisfy the following rules:</p>
 </div>
 <div class="olist loweralpha">
@@ -2863,8 +2866,8 @@ The transition graph must satisfy the following rules:</p>
 <p>Each junction must be the terminal node of exactly one arc.</p>
 </li>
 <li>
-<p>For any cyclic path <em>P</em>, some initial or terminal node of some
-arc in <em>P</em> must be a state definition.</p>
+<p>For any path <em>P</em> that is a cycle, some initial or terminal node of
+some arc in <em>P</em> must be a state definition.</p>
 </li>
 </ol>
 </div>
@@ -9671,7 +9674,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-01 11:55:48 -0700
+Last updated 2024-07-02 08:35:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
