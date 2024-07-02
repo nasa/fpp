@@ -52,6 +52,50 @@ exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
 
+. In the optional state machine member sequence,
+the set of <<State-Machine-Behavior-Elements_Enter-Expressions,
+enter expressions>>
+induces a directed graph called the *transition graph*.
+In this graph, each enter expression _e_
+represents an arc from an *initial node* to a *terminal node*.
+The initial node is defined as follows:
+
+.. If _e_ appears in an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
+initial transition specifier>> _I_, then the initial node
+is _I_.
+
+.. If _e_ appears in a
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,
+state transition specifier>> _T_, then the initial
+node is the
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+immediately enclosing _T_.
+
+.. If _e_ appears in a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+_J_, then the initial node is _J_.
+
++
+In any case, 
+the terminal node is the state definition or junction definition
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
+in _e_ after the keyword `enter`.
+A *path* in the transition graph is a finite sequence of arcs
+such that, for each arc _A_ in the sequence, either (a) _A_
+is the last arc in the sequence, or (b)
+the terminal node of _A_ is the initial node of the arc that
+follows _A_ in the sequence.
+A path _P_ in the transition graph is a *cycle* if the terminal
+node of the last arc in _P_ coincides with the initial
+node of the first arc in _P_.
+The transition graph must satisfy the following rules:
+
+.. Each junction must be the terminal node of exactly one arc.
+
+.. For any path _P_ that is a cycle, some initial or terminal node of
+some arc in _P_ must be a state definition.
+
 ==== Scoping of Names
 
 Inside the optional state machine member sequence, the following
