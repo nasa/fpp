@@ -39,6 +39,7 @@ update "" activeComponents
 update "" commands
 update "" constTypesComponents
 update "" constants
+update "" deviceStateMachine
 update "" enums
 update "" events
 update "" importedTopologies

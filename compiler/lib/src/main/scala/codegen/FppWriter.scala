@@ -269,10 +269,14 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val members = data.members.getOrElse(List.empty)
-    List(line(s"state machine ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (stateMachineMember) (members)).map(indentIn) ++
-    List(Line.blank, line("}"))
+    data.members match {
+        case Some(members) if members.nonEmpty =>
+            List(line(s"state machine ${ident(data.name)} {"), Line.blank) ++
+            (Line.blankSeparated(stateMachineMember)(members)).map(indentIn) ++
+            List(Line.blank, line("}"))
+        case _ =>
+            List(line(s"state machine ${ident(data.name)}"))
+    }
   }
 
   override def defStructAnnotatedNode(

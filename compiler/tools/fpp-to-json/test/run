@@ -55,6 +55,11 @@ constants()
   run_test "" constants
 }
 
+deviceStateMachine()
+{
+  run_test "" deviceStateMachine
+}
+
 modules()
 {
   run_test "" modules
@@ -143,6 +148,7 @@ activeComponents
 commands
 constTypesComponents
 constants
+deviceStateMachine
 enums
 events
 importedTopologies

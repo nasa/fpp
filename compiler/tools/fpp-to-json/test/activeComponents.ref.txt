@@ -158,6 +158,7 @@
                                                         "node" : {
                                                           "AstNode" : {
                                                             "data" : {
+                                                              "action" : "None",
                                                               "state" : "IDLE"
                                                             },
                                                             "id" : 60
