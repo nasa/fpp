@@ -1,0 +1,265 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "Number of health ping ports"
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "numPingPorts",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "10"
+                        }
+                      },
+                      "id" : 0
+                    }
+                  }
+                },
+                "id" : 1
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Queued" : {
+                      
+                    }
+                  },
+                  "name" : "Health",
+                  "members" : [
+                    [
+                      [
+                        "Ping output port"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "pingOut",
+                                  "size" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "numPingPorts"
+                                          }
+                                        },
+                                        "id" : 2
+                                      }
+                                    }
+                                  },
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Svc"
+                                                  }
+                                                },
+                                                "id" : 3
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Ping",
+                                                "id" : 4
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 5
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 6
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Ping input port"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "AsyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "pingIn",
+                                  "size" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "ExprIdent" : {
+                                            "value" : "numPingPorts"
+                                          }
+                                        },
+                                        "id" : 7
+                                      }
+                                    }
+                                  },
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Svc"
+                                                  }
+                                                },
+                                                "id" : 8
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Ping",
+                                                "id" : 9
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 10
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Corresponding port numbers of pingOut and pingIn must match"
+                      ],
+                      {
+                        "SpecPortMatching" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "port1" : {
+                                  "AstNode" : {
+                                    "data" : "pingOut",
+                                    "id" : 18
+                                  }
+                                },
+                                "port2" : {
+                                  "AstNode" : {
+                                    "data" : "pingIn",
+                                    "id" : 19
+                                  }
+                                }
+                              },
+                              "id" : 20
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 21
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Svc",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Ping",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 24
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 25
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

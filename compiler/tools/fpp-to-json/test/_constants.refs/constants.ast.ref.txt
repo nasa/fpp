@@ -1,0 +1,793 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "a",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1234"
+                        }
+                      },
+                      "id" : 0
+                    }
+                  }
+                },
+                "id" : 1
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "b",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0xABCD"
+                        }
+                      },
+                      "id" : 2
+                    }
+                  }
+                },
+                "id" : 3
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralString" : {
+                          "value" : "This is a string."
+                        }
+                      },
+                      "id" : 4
+                    }
+                  }
+                },
+                "id" : 5
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "d",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
+                                },
+                                "id" : 6
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "2"
+                                  }
+                                },
+                                "id" : 7
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "3"
+                                  }
+                                },
+                                "id" : 8
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 9
+                    }
+                  }
+                },
+                "id" : 10
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "e",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralInt" : {
+                                    "value" : "1"
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprLiteralFloat" : {
+                                    "value" : "2.0"
+                                  }
+                                },
+                                "id" : 12
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 13
+                    }
+                  }
+                },
+                "id" : 14
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "f",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "1"
+                                            }
+                                          },
+                                          "id" : 15
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "2"
+                                            }
+                                          },
+                                          "id" : 16
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 17
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprArray" : {
+                                    "elts" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "3"
+                                            }
+                                          },
+                                          "id" : 18
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "ExprLiteralInt" : {
+                                              "value" : "4"
+                                            }
+                                          },
+                                          "id" : 19
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 20
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 21
+                    }
+                  }
+                },
+                "id" : 22
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "g",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "x",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "1"
+                                        }
+                                      },
+                                      "id" : 23
+                                    }
+                                  }
+                                },
+                                "id" : 24
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "y",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralString" : {
+                                          "value" : "abc"
+                                        }
+                                      },
+                                      "id" : 25
+                                    }
+                                  }
+                                },
+                                "id" : 26
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "name" : "z",
+                                  "value" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralBool" : {
+                                          "value" : {
+                                            "False" : {
+                                              
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 27
+                                    }
+                                  }
+                                },
+                                "id" : 28
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 29
+                    }
+                  }
+                },
+                "id" : 30
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "h",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprStruct" : {
+                          "members" : [
+                          ]
+                        }
+                      },
+                      "id" : 31
+                    }
+                  }
+                },
+                "id" : 32
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "i",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprArray" : {
+                          "elts" : [
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 33
+                                              }
+                                            }
+                                          },
+                                          "id" : 34
+                                        }
+                                      },
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "y",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 35
+                                              }
+                                            }
+                                          },
+                                          "id" : 36
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 37
+                              }
+                            },
+                            {
+                              "AstNode" : {
+                                "data" : {
+                                  "ExprStruct" : {
+                                    "members" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : {
+                                            "name" : "x",
+                                            "value" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 38
+                                              }
+                                            }
+                                          },
+                                          "id" : 39
+                                        }
+                                      }
+                                    ]
+                                  }
+                                },
+                                "id" : 40
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      "id" : 41
+                    }
+                  }
+                },
+                "id" : 42
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "j",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "1"
+                        }
+                      },
+                      "id" : 43
+                    }
+                  }
+                },
+                "id" : 44
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "k",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprIdent" : {
+                          "value" : "j"
+                        }
+                      },
+                      "id" : 45
+                    }
+                  }
+                },
+                "id" : 46
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "l",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprUnop" : {
+                          "op" : {
+                            "Minus" : {
+                              
+                            }
+                          },
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 47
+                            }
+                          }
+                        }
+                      },
+                      "id" : 48
+                    }
+                  }
+                },
+                "id" : 49
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "m",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprBinop" : {
+                          "e1" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 50
+                            }
+                          },
+                          "op" : {
+                            "Add" : {
+                              
+                            }
+                          },
+                          "e2" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "2"
+                                }
+                              },
+                              "id" : 51
+                            }
+                          }
+                        }
+                      },
+                      "id" : 52
+                    }
+                  }
+                },
+                "id" : 53
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "n",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprParen" : {
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 54
+                            }
+                          }
+                        }
+                      },
+                      "id" : 55
+                    }
+                  }
+                },
+                "id" : 56
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "o",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralBool" : {
+                          "value" : {
+                            "True" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      "id" : 57
+                    }
+                  }
+                },
+                "id" : 58
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "p",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralBool" : {
+                          "value" : {
+                            "False" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      "id" : 59
+                    }
+                  }
+                },
+                "id" : 60
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "This is a pre annotation.",
+          "It has two lines."
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "q",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0"
+                        }
+                      },
+                      "id" : 63
+                    }
+                  }
+                },
+                "id" : 64
+              }
+            }
+          }
+        },
+        [
+          "This is a post annotation.",
+          "It also has two lines."
+        ]
+      ]
+    ]
+  }
+]

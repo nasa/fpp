@@ -1,0 +1,598 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    "19" : {
+      "aNode" : {
+        "astNodeId" : 19
+      },
+      "portMap" : {
+        "eventOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 0
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "Event" : {
+                  
+                }
+              },
+              "name" : "eventOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "Log"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "textEventOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 1
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TextEvent" : {
+                  
+                }
+              },
+              "name" : "textEventOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "LogText"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 2
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
+              "name" : "timeGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        }
+      },
+      "specialPortMap" : {
+        "event" : {
+          "aNode" : {
+            "astNodeId" : 0
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "Event" : {
+                
+              }
+            },
+            "name" : "eventOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 33,
+              "unqualifiedName" : "Log"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "text event" : {
+          "aNode" : {
+            "astNodeId" : 1
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TextEvent" : {
+                
+              }
+            },
+            "name" : "textEventOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 34,
+              "unqualifiedName" : "LogText"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "time get" : {
+          "aNode" : {
+            "astNodeId" : 2
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
+            "name" : "timeGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 37,
+              "unqualifiedName" : "Time"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        "16" : {
+          "aNode" : {
+            "astNodeId" : 5
+          },
+          "format" : {
+            "prefix" : "Event 1 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : "None"
+        },
+        "17" : {
+          "aNode" : {
+            "astNodeId" : 12
+          },
+          "format" : {
+            "prefix" : "The count is ",
+            "fields" : [
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                ""
+              ]
+            ]
+          },
+          "throttle" : "None"
+        },
+        "18" : {
+          "aNode" : {
+            "astNodeId" : 18
+          },
+          "format" : {
+            "prefix" : "Event 3 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : "None"
+        }
+      },
+      "defaultEventId" : 19,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    },
+    "32" : {
+      "aNode" : {
+        "astNodeId" : 32
+      },
+      "portMap" : {
+        "eventOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 20
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "Event" : {
+                  
+                }
+              },
+              "name" : "eventOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 33,
+                "unqualifiedName" : "Log"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "textEventOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 21
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TextEvent" : {
+                  
+                }
+              },
+              "name" : "textEventOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 34,
+                "unqualifiedName" : "LogText"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 22
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
+              "name" : "timeGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        }
+      },
+      "specialPortMap" : {
+        "event" : {
+          "aNode" : {
+            "astNodeId" : 20
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "Event" : {
+                
+              }
+            },
+            "name" : "eventOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 33,
+              "unqualifiedName" : "Log"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "text event" : {
+          "aNode" : {
+            "astNodeId" : 21
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TextEvent" : {
+                
+              }
+            },
+            "name" : "textEventOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 34,
+              "unqualifiedName" : "LogText"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "time get" : {
+          "aNode" : {
+            "astNodeId" : 22
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
+            "name" : "timeGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 37,
+              "unqualifiedName" : "Time"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 31
+          },
+          "format" : {
+            "prefix" : "Event 1 occurred",
+            "fields" : [
+            ]
+          },
+          "throttle" : {
+            "Some" : 10
+          }
+        }
+      },
+      "defaultEventId" : 1,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/events.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "33" : {
+      "Module" : {
+        "nodeId" : 38,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "34" : {
+      "Module" : {
+        "nodeId" : 38,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "37" : {
+      "Module" : {
+        "nodeId" : 38,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "19" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "32" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "38" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Log" : {
+                  "Port" : {
+                    "nodeId" : 33,
+                    "unqualifiedName" : "Log"
+                  }
+                },
+                "LogText" : {
+                  "Port" : {
+                    "nodeId" : 34,
+                    "unqualifiedName" : "LogText"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 37,
+                    "unqualifiedName" : "Time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "8" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "30" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "22" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "21" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "1" : {
+      "Port" : {
+        "nodeId" : 34,
+        "unqualifiedName" : "LogText"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 37,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "0" : {
+      "Port" : {
+        "nodeId" : 33,
+        "unqualifiedName" : "Log"
+      }
+    },
+    "20" : {
+      "Port" : {
+        "nodeId" : 33,
+        "unqualifiedName" : "Log"
+      }
+    }
+  },
+  "valueMap" : {
+    "3" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "10" : {
+      "Integer" : {
+        "value" : 17
+      }
+    },
+    "30" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
+  }
+}

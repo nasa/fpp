@@ -1,0 +1,222 @@
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "2.1",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.42",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.3",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.42",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.3",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.30",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.27",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.42",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "9.3",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp",
+    "pos" : "6.1",
+    "includingLoc" : "None"
+  }
+}

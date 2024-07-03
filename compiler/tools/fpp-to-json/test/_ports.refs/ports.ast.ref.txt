@@ -1,0 +1,570 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P",
+                  "params" : [
+                  ],
+                  "returnType" : "None"
+                },
+                "id" : 0
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P1",
+                  "params" : [
+                  ],
+                  "returnType" : "None"
+                },
+                "id" : 1
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P2",
+                  "params" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "a",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 6
+                              }
+                            }
+                          },
+                          "id" : 7
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : "None"
+                },
+                "id" : 8
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P3",
+                  "params" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "a",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : {
+                                      "I32" : {
+                                        
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 9
+                              }
+                            }
+                          },
+                          "id" : 10
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "b",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameFloat" : {
+                                    "name" : {
+                                      "F32" : {
+                                        
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 11
+                              }
+                            }
+                          },
+                          "id" : 12
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "c",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameString" : {
+                                    "size" : "None"
+                                  }
+                                },
+                                "id" : 17
+                              }
+                            }
+                          },
+                          "id" : 18
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : "None"
+                },
+                "id" : 19
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "E",
+                  "typeName" : "None",
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "A",
+                            "value" : "None"
+                          },
+                          "id" : 20
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "B",
+                            "value" : "None"
+                          },
+                          "id" : 23
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : "None"
+                },
+                "id" : 24
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefAbsType" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "T"
+                },
+                "id" : 25
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P4",
+                  "params" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "e",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "E"
+                                          }
+                                        },
+                                        "id" : 27
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 28
+                              }
+                            }
+                          },
+                          "id" : 29
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Value" : {
+                                
+                              }
+                            },
+                            "name" : "t",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "T"
+                                          }
+                                        },
+                                        "id" : 31
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 32
+                              }
+                            }
+                          },
+                          "id" : 33
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Ref" : {
+                                
+                              }
+                            },
+                            "name" : "c",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameQualIdent" : {
+                                    "name" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Unqualified" : {
+                                            "name" : "T"
+                                          }
+                                        },
+                                        "id" : 43
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 44
+                              }
+                            }
+                          },
+                          "id" : 45
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : {
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameQualIdent" : {
+                            "name" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "T"
+                                  }
+                                },
+                                "id" : 47
+                              }
+                            }
+                          }
+                        },
+                        "id" : 48
+                      }
+                    }
+                  }
+                },
+                "id" : 49
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Status",
+                  "typeName" : "None",
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "SUCCEED",
+                            "value" : "None"
+                          },
+                          "id" : 50
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "FAIL",
+                            "value" : "None"
+                          },
+                          "id" : 53
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : "None"
+                },
+                "id" : 54
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "Pre annotation for port P5"
+        ],
+        {
+          "DefPort" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "P5",
+                  "params" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "kind" : {
+                              "Ref" : {
+                                
+                              }
+                            },
+                            "name" : "result",
+                            "typeName" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "TypeNameInt" : {
+                                    "name" : {
+                                      "U32" : {
+                                        
+                                      }
+                                    }
+                                  }
+                                },
+                                "id" : 59
+                              }
+                            }
+                          },
+                          "id" : 60
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "returnType" : {
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameQualIdent" : {
+                            "name" : {
+                              "AstNode" : {
+                                "data" : {
+                                  "Unqualified" : {
+                                    "name" : "Status"
+                                  }
+                                },
+                                "id" : 62
+                              }
+                            }
+                          }
+                        },
+                        "id" : 63
+                      }
+                    }
+                  }
+                },
+                "id" : 64
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

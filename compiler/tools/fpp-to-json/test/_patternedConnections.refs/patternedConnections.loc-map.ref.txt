@@ -1,0 +1,5377 @@
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.28",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.31",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.28",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.5",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.32",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.35",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.32",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.5",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.37",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.40",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.37",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.5",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "5.1",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "12.1",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.27",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.31",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.27",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.5",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.31",
+    "includingLoc" : "None"
+  },
+  "69" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.34",
+    "includingLoc" : "None"
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.31",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.5",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "76" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "79" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "80" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "81" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "83" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "21.1",
+    "includingLoc" : "None"
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "86" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "88" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "89" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "90" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "91" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "92" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "93" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "94" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "95" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "96" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "26.1",
+    "includingLoc" : "None"
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "100" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "101" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "106" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "108" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "109" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "110" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "30.1",
+    "includingLoc" : "None"
+  },
+  "111" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.14",
+    "includingLoc" : "None"
+  },
+  "112" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.14",
+    "includingLoc" : "None"
+  },
+  "113" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.27",
+    "includingLoc" : "None"
+  },
+  "114" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.1",
+    "includingLoc" : "None"
+  },
+  "115" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.14",
+    "includingLoc" : "None"
+  },
+  "116" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.14",
+    "includingLoc" : "None"
+  },
+  "117" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.30",
+    "includingLoc" : "None"
+  },
+  "118" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.1",
+    "includingLoc" : "None"
+  },
+  "119" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.14",
+    "includingLoc" : "None"
+  },
+  "120" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.14",
+    "includingLoc" : "None"
+  },
+  "121" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.28",
+    "includingLoc" : "None"
+  },
+  "122" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.1",
+    "includingLoc" : "None"
+  },
+  "123" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.14",
+    "includingLoc" : "None"
+  },
+  "124" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.14",
+    "includingLoc" : "None"
+  },
+  "125" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.29",
+    "includingLoc" : "None"
+  },
+  "126" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.1",
+    "includingLoc" : "None"
+  },
+  "127" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.14",
+    "includingLoc" : "None"
+  },
+  "128" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.14",
+    "includingLoc" : "None"
+  },
+  "129" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.28",
+    "includingLoc" : "None"
+  },
+  "130" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.1",
+    "includingLoc" : "None"
+  },
+  "131" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.14",
+    "includingLoc" : "None"
+  },
+  "132" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.14",
+    "includingLoc" : "None"
+  },
+  "133" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.32",
+    "includingLoc" : "None"
+  },
+  "134" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.1",
+    "includingLoc" : "None"
+  },
+  "135" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.14",
+    "includingLoc" : "None"
+  },
+  "136" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.14",
+    "includingLoc" : "None"
+  },
+  "137" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.32",
+    "includingLoc" : "None"
+  },
+  "138" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.1",
+    "includingLoc" : "None"
+  },
+  "139" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "140" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "141" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "142" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "143" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "144" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "145" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "146" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "147" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "148" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "149" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "150" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "151" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "152" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "153" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "154" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "155" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "156" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "157" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "158" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "159" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "160" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "161" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "162" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "163" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "164" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "165" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "166" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "167" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "168" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "169" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "170" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "171" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "172" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "173" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "174" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "175" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "176" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "177" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "178" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "179" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "180" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "181" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "182" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "183" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "184" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "185" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "186" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "187" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "188" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "189" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "190" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "191" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "192" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "193" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "194" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "195" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "196" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "197" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "198" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "199" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "200" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "201" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "202" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "203" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "204" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "205" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "206" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "207" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "208" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "209" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "210" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "211" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "212" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "213" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "214" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "215" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "216" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "217" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "218" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "219" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "220" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "221" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "222" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "223" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "224" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "225" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "226" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "227" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "228" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "229" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "230" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "231" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "232" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "233" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "234" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "235" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "236" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "237" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "238" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "239" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "240" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "241" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "242" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "243" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "244" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "245" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "246" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "247" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "248" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "249" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "250" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "251" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "252" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "253" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "254" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "255" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "256" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "257" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "258" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "259" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "260" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "261" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "262" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "263" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "264" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "265" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "266" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "267" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "268" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "269" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "270" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "271" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "272" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "273" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "274" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "275" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "276" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "277" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "278" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "279" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "280" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "281" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "282" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "283" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "284" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "285" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "286" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "287" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "288" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "289" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "290" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "291" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "292" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "293" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "294" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "295" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "296" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "297" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "298" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "299" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "300" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "301" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "302" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "303" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "304" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "305" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "306" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "307" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "308" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "309" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "310" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "311" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "312" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "313" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "314" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "315" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.28",
+    "includingLoc" : "None"
+  },
+  "316" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "317" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.25",
+    "includingLoc" : "None"
+  },
+  "318" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.14",
+    "includingLoc" : "None"
+  },
+  "319" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "320" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "321" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "14.3",
+    "includingLoc" : "None"
+  },
+  "322" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "15.3",
+    "includingLoc" : "None"
+  },
+  "323" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "324" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "325" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "326" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.16",
+    "includingLoc" : "None"
+  },
+  "327" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "328" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "329" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.24",
+    "includingLoc" : "None"
+  },
+  "330" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "19.16",
+    "includingLoc" : "None"
+  },
+  "331" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "332" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "333" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "334" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "335" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.13",
+    "includingLoc" : "None"
+  },
+  "336" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "337" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "338" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.21",
+    "includingLoc" : "None"
+  },
+  "339" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "24.13",
+    "includingLoc" : "None"
+  },
+  "340" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "25.21",
+    "includingLoc" : "None"
+  },
+  "341" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "25.13",
+    "includingLoc" : "None"
+  },
+  "342" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "25.21",
+    "includingLoc" : "None"
+  },
+  "343" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "25.13",
+    "includingLoc" : "None"
+  },
+  "344" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "345" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "346" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "347" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.13",
+    "includingLoc" : "None"
+  },
+  "348" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "349" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "350" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.23",
+    "includingLoc" : "None"
+  },
+  "351" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "26.13",
+    "includingLoc" : "None"
+  },
+  "352" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "23.3",
+    "includingLoc" : "None"
+  },
+  "353" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "31.10",
+    "includingLoc" : "None"
+  },
+  "354" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "355" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "31.10",
+    "includingLoc" : "None"
+  },
+  "356" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "357" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "32.22",
+    "includingLoc" : "None"
+  },
+  "358" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "359" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "32.22",
+    "includingLoc" : "None"
+  },
+  "360" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "32.5",
+    "includingLoc" : "None"
+  },
+  "361" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "33.24",
+    "includingLoc" : "None"
+  },
+  "362" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "33.5",
+    "includingLoc" : "None"
+  },
+  "363" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "33.24",
+    "includingLoc" : "None"
+  },
+  "364" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "33.5",
+    "includingLoc" : "None"
+  },
+  "365" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "34.20",
+    "includingLoc" : "None"
+  },
+  "366" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "34.5",
+    "includingLoc" : "None"
+  },
+  "367" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "34.20",
+    "includingLoc" : "None"
+  },
+  "368" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "34.5",
+    "includingLoc" : "None"
+  },
+  "369" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "35.23",
+    "includingLoc" : "None"
+  },
+  "370" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "35.5",
+    "includingLoc" : "None"
+  },
+  "371" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "35.23",
+    "includingLoc" : "None"
+  },
+  "372" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "35.5",
+    "includingLoc" : "None"
+  },
+  "373" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "36.12",
+    "includingLoc" : "None"
+  },
+  "374" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "36.5",
+    "includingLoc" : "None"
+  },
+  "375" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "36.12",
+    "includingLoc" : "None"
+  },
+  "376" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "36.5",
+    "includingLoc" : "None"
+  },
+  "377" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "30.3",
+    "includingLoc" : "None"
+  },
+  "378" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "379" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "380" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "381" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "382" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "383" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "384" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "385" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "386" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "387" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "388" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "389" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "390" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "391" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "392" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "393" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "394" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "395" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "396" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "397" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "398" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "40.3",
+    "includingLoc" : "None"
+  },
+  "399" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "400" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "401" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "402" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "403" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "404" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "405" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "406" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "407" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "408" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "409" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "410" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "411" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "412" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "413" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "414" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "415" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "416" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "417" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "418" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "419" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "40.3",
+    "includingLoc" : "None"
+  },
+  "420" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "421" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "422" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "423" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "424" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "425" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "426" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.29",
+    "includingLoc" : "None"
+  },
+  "427" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "41.21",
+    "includingLoc" : "None"
+  },
+  "428" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "429" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "430" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.29",
+    "includingLoc" : "None"
+  },
+  "431" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "42.21",
+    "includingLoc" : "None"
+  },
+  "432" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "433" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "434" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "435" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "436" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "437" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "438" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.31",
+    "includingLoc" : "None"
+  },
+  "439" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "43.21",
+    "includingLoc" : "None"
+  },
+  "440" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "40.3",
+    "includingLoc" : "None"
+  },
+  "441" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "12.1",
+    "includingLoc" : "None"
+  },
+  "442" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "50.3",
+    "includingLoc" : "None"
+  },
+  "443" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "51.3",
+    "includingLoc" : "None"
+  },
+  "444" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "52.3",
+    "includingLoc" : "None"
+  },
+  "445" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "56.13",
+    "includingLoc" : "None"
+  },
+  "446" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "447" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "56.13",
+    "includingLoc" : "None"
+  },
+  "448" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "449" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "57.18",
+    "includingLoc" : "None"
+  },
+  "450" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "451" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "57.18",
+    "includingLoc" : "None"
+  },
+  "452" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "453" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "58.18",
+    "includingLoc" : "None"
+  },
+  "454" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "58.5",
+    "includingLoc" : "None"
+  },
+  "455" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "58.18",
+    "includingLoc" : "None"
+  },
+  "456" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "58.5",
+    "includingLoc" : "None"
+  },
+  "457" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "59.15",
+    "includingLoc" : "None"
+  },
+  "458" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "59.5",
+    "includingLoc" : "None"
+  },
+  "459" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "59.15",
+    "includingLoc" : "None"
+  },
+  "460" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "59.5",
+    "includingLoc" : "None"
+  },
+  "461" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "60.19",
+    "includingLoc" : "None"
+  },
+  "462" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "60.5",
+    "includingLoc" : "None"
+  },
+  "463" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "60.19",
+    "includingLoc" : "None"
+  },
+  "464" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "60.5",
+    "includingLoc" : "None"
+  },
+  "465" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "61.19",
+    "includingLoc" : "None"
+  },
+  "466" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "61.5",
+    "includingLoc" : "None"
+  },
+  "467" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "61.19",
+    "includingLoc" : "None"
+  },
+  "468" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "61.5",
+    "includingLoc" : "None"
+  },
+  "469" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "62.18",
+    "includingLoc" : "None"
+  },
+  "470" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "62.5",
+    "includingLoc" : "None"
+  },
+  "471" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "62.18",
+    "includingLoc" : "None"
+  },
+  "472" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "62.5",
+    "includingLoc" : "None"
+  },
+  "473" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "55.3",
+    "includingLoc" : "None"
+  },
+  "474" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "475" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "476" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "477" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.13",
+    "includingLoc" : "None"
+  },
+  "478" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "479" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "480" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.18",
+    "includingLoc" : "None"
+  },
+  "481" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "67.13",
+    "includingLoc" : "None"
+  },
+  "482" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "483" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.29",
+    "includingLoc" : "None"
+  },
+  "484" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "485" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "486" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.13",
+    "includingLoc" : "None"
+  },
+  "487" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "488" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.29",
+    "includingLoc" : "None"
+  },
+  "489" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "490" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.26",
+    "includingLoc" : "None"
+  },
+  "491" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "68.13",
+    "includingLoc" : "None"
+  },
+  "492" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "493" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "494" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "495" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.13",
+    "includingLoc" : "None"
+  },
+  "496" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "497" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "498" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.24",
+    "includingLoc" : "None"
+  },
+  "499" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "69.13",
+    "includingLoc" : "None"
+  },
+  "500" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "501" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "502" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "503" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.13",
+    "includingLoc" : "None"
+  },
+  "504" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "505" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "506" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.23",
+    "includingLoc" : "None"
+  },
+  "507" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "70.13",
+    "includingLoc" : "None"
+  },
+  "508" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "66.3",
+    "includingLoc" : "None"
+  },
+  "509" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "510" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "511" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "512" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "513" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "514" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "515" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "516" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "517" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "518" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "519" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "520" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "521" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "522" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "523" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "524" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "525" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "526" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "527" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "528" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "529" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "530" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "531" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "532" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "533" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "534" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "535" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "536" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "537" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "538" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "539" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "540" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "541" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "542" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "543" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "544" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "545" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "76.3",
+    "includingLoc" : "None"
+  },
+  "546" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "547" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "548" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "549" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "550" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "551" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "552" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "553" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "554" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "555" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "556" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "557" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "558" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "559" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "560" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "561" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "562" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "563" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "564" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "565" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "566" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "567" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "568" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "569" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "570" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "571" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "572" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "573" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "574" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "575" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "576" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "577" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "578" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "579" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "580" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "581" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "582" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "76.3",
+    "includingLoc" : "None"
+  },
+  "583" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "584" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "585" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "586" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "587" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "588" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "589" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.22",
+    "includingLoc" : "None"
+  },
+  "590" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "77.17",
+    "includingLoc" : "None"
+  },
+  "591" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "592" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "593" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "594" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "595" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "596" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "597" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.33",
+    "includingLoc" : "None"
+  },
+  "598" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "599" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.30",
+    "includingLoc" : "None"
+  },
+  "600" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "78.17",
+    "includingLoc" : "None"
+  },
+  "601" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "602" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "603" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "604" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "605" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "606" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "607" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.28",
+    "includingLoc" : "None"
+  },
+  "608" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "79.17",
+    "includingLoc" : "None"
+  },
+  "609" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "610" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "611" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "612" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "613" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "614" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "615" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.31",
+    "includingLoc" : "None"
+  },
+  "616" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "617" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.28",
+    "includingLoc" : "None"
+  },
+  "618" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "80.17",
+    "includingLoc" : "None"
+  },
+  "619" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "76.3",
+    "includingLoc" : "None"
+  },
+  "620" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "48.1",
+    "includingLoc" : "None"
+  },
+  "621" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "622" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "623" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "624" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "625" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "88.3",
+    "includingLoc" : "None"
+  },
+  "626" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "627" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "628" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "629" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "630" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "88.3",
+    "includingLoc" : "None"
+  },
+  "631" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "632" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "633" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.19",
+    "includingLoc" : "None"
+  },
+  "634" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "89.14",
+    "includingLoc" : "None"
+  },
+  "635" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "88.3",
+    "includingLoc" : "None"
+  },
+  "636" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "85.1",
+    "includingLoc" : "None"
+  },
+  "637" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "96.3",
+    "includingLoc" : "None"
+  },
+  "638" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "97.3",
+    "includingLoc" : "None"
+  },
+  "639" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "101.14",
+    "includingLoc" : "None"
+  },
+  "640" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "101.5",
+    "includingLoc" : "None"
+  },
+  "641" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "102.13",
+    "includingLoc" : "None"
+  },
+  "642" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "102.5",
+    "includingLoc" : "None"
+  },
+  "643" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "103.15",
+    "includingLoc" : "None"
+  },
+  "644" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "103.5",
+    "includingLoc" : "None"
+  },
+  "645" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.15",
+    "includingLoc" : "None"
+  },
+  "646" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.5",
+    "includingLoc" : "None"
+  },
+  "647" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.15",
+    "includingLoc" : "None"
+  },
+  "648" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.5",
+    "includingLoc" : "None"
+  },
+  "649" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.15",
+    "includingLoc" : "None"
+  },
+  "650" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "104.5",
+    "includingLoc" : "None"
+  },
+  "651" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "100.3",
+    "includingLoc" : "None"
+  },
+  "652" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "653" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "654" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "655" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.16",
+    "includingLoc" : "None"
+  },
+  "656" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "657" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "658" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.21",
+    "includingLoc" : "None"
+  },
+  "659" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "109.16",
+    "includingLoc" : "None"
+  },
+  "660" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "661" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "662" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "663" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.16",
+    "includingLoc" : "None"
+  },
+  "664" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "665" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "666" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.25",
+    "includingLoc" : "None"
+  },
+  "667" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "110.16",
+    "includingLoc" : "None"
+  },
+  "668" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "111.19",
+    "includingLoc" : "None"
+  },
+  "669" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "111.19",
+    "includingLoc" : "None"
+  },
+  "670" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "111.19",
+    "includingLoc" : "None"
+  },
+  "671" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "108.3",
+    "includingLoc" : "None"
+  },
+  "672" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "673" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "674" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "675" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "676" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "677" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "678" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "679" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "680" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "681" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "682" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "683" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "684" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "685" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "686" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "687" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "688" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "114.3",
+    "includingLoc" : "None"
+  },
+  "689" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "690" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "691" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "692" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "693" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "694" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "695" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "696" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "697" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "698" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "699" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "700" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "701" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "702" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "703" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "704" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "705" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "114.3",
+    "includingLoc" : "None"
+  },
+  "706" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "707" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "708" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "709" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "710" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "711" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "712" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.21",
+    "includingLoc" : "None"
+  },
+  "713" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "115.16",
+    "includingLoc" : "None"
+  },
+  "714" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "715" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "716" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "717" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "718" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "719" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "720" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.25",
+    "includingLoc" : "None"
+  },
+  "721" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "116.16",
+    "includingLoc" : "None"
+  },
+  "722" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "114.3",
+    "includingLoc" : "None"
+  },
+  "723" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "94.1",
+    "includingLoc" : "None"
+  },
+  "724" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "123.3",
+    "includingLoc" : "None"
+  },
+  "725" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "124.3",
+    "includingLoc" : "None"
+  },
+  "726" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "727" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "728" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "729" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "730" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "731" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "732" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "733" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "734" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "735" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "736" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "737" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "738" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "739" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "740" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "741" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "742" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "743" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "744" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "745" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "746" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "747" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "748" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "749" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "750" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "751" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "752" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "127.3",
+    "includingLoc" : "None"
+  },
+  "753" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "754" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "755" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "756" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "757" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "758" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "759" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "760" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "761" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "762" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "763" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "764" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "765" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "766" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "767" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "768" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "769" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "770" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "771" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "772" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "773" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "774" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "775" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "776" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "777" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "778" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "779" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "780" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "781" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "782" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "783" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "784" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "785" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "786" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "787" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "788" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "789" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "790" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "791" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "792" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "793" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "794" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "795" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "796" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "797" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "798" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "799" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "800" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "801" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "802" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "803" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "804" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "805" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "806" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "807" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "808" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "809" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "810" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "811" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "812" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "813" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "814" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "815" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "816" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "817" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "818" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "819" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "820" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "821" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "822" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "823" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "824" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "825" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "826" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "827" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "828" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "829" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "830" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "831" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "832" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "833" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "834" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "835" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "836" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "837" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "838" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "839" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "840" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "121.1",
+    "includingLoc" : "None"
+  },
+  "841" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "123.3",
+    "includingLoc" : "None"
+  },
+  "842" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "124.3",
+    "includingLoc" : "None"
+  },
+  "843" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "844" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "845" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "846" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "847" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "848" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "849" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "850" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "851" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "852" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "853" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "854" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "855" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "856" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "857" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "858" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "859" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "860" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "861" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "862" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "863" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "864" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "865" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "866" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "867" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "868" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "869" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "127.3",
+    "includingLoc" : "None"
+  },
+  "870" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "871" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "872" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "873" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "874" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "875" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "876" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "877" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "878" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "879" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "880" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "881" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "882" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "883" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "884" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "885" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "886" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "887" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "888" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "889" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "890" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "891" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "892" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "893" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "894" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "895" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "896" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "897" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "898" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "899" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "900" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "901" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "902" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "903" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "904" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "905" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "906" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "907" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "908" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "909" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "910" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "911" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "912" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "913" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "914" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "915" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "916" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "917" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "918" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "919" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "920" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "921" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "922" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "923" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "924" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "925" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "926" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "927" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "928" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "929" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "930" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "931" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "932" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "933" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "934" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "935" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "936" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "937" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "938" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "939" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "940" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "941" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "942" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "943" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "944" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "945" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "946" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "947" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "948" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "949" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "950" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "951" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "952" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "953" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "954" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "955" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "956" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "957" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "121.1",
+    "includingLoc" : "None"
+  },
+  "958" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "123.3",
+    "includingLoc" : "None"
+  },
+  "959" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "124.3",
+    "includingLoc" : "None"
+  },
+  "960" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "961" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "962" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "963" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "964" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "965" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "966" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.18",
+    "includingLoc" : "None"
+  },
+  "967" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "128.13",
+    "includingLoc" : "None"
+  },
+  "968" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "969" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "970" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "971" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "972" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "973" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "974" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.29",
+    "includingLoc" : "None"
+  },
+  "975" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "976" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.26",
+    "includingLoc" : "None"
+  },
+  "977" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "129.13",
+    "includingLoc" : "None"
+  },
+  "978" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "979" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "980" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "981" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "982" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "983" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "984" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.22",
+    "includingLoc" : "None"
+  },
+  "985" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "130.13",
+    "includingLoc" : "None"
+  },
+  "986" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "127.3",
+    "includingLoc" : "None"
+  },
+  "987" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "988" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "989" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "990" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "991" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "992" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "993" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "994" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "995" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "996" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "997" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "998" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "999" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1000" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1001" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "1002" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1003" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1004" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1005" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1006" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1007" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1008" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1009" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1010" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1011" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1012" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1013" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1014" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1015" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "1016" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1017" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1018" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1019" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "1020" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1021" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1022" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1023" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "1024" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1025" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "1026" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1027" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1028" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1029" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1030" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "1031" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1032" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1033" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1034" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1035" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1036" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1037" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1038" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1039" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1040" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1041" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1042" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1043" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1044" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "1045" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1046" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1047" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1048" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "1049" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1050" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1051" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.21",
+    "includingLoc" : "None"
+  },
+  "1052" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "135.16",
+    "includingLoc" : "None"
+  },
+  "1053" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1054" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "1055" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1056" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1057" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1058" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1059" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.32",
+    "includingLoc" : "None"
+  },
+  "1060" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1061" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.29",
+    "includingLoc" : "None"
+  },
+  "1062" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "136.16",
+    "includingLoc" : "None"
+  },
+  "1063" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1064" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1065" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1066" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1067" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1068" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1069" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.28",
+    "includingLoc" : "None"
+  },
+  "1070" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1071" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.25",
+    "includingLoc" : "None"
+  },
+  "1072" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "137.16",
+    "includingLoc" : "None"
+  },
+  "1073" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "134.3",
+    "includingLoc" : "None"
+  },
+  "1074" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "121.1",
+    "includingLoc" : "None"
+  }
+}

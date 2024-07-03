@@ -1,0 +1,555 @@
+{
+  "componentInstanceMap" : {
+    "102" : {
+      "aNode" : {
+        "astNodeId" : 102
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+          "FSW"
+        ],
+        "base" : "dataCompressor"
+      },
+      "component" : {
+        "astNodeId" : 50
+      },
+      "baseId" : 256,
+      "maxId" : 255,
+      "file" : "None",
+      "queueSize" : {
+        "Some" : 10
+      },
+      "stackSize" : {
+        "Some" : 10240
+      },
+      "priority" : {
+        "Some" : 30
+      },
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    }
+  },
+  "componentMap" : {
+    "50" : {
+      "aNode" : {
+        "astNodeId" : 50
+      },
+      "portMap" : {
+        "bufferSendIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 37
+            },
+            "specifier" : {
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
+              "name" : "bufferSendIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 36
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "AsyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "bufferSendOut" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 49
+            },
+            "specifier" : {
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
+              "name" : "bufferSendOut",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 48
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "Output",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/activeComponents.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "66" : {
+      "Module" : {
+        "nodeId" : 103,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "50" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Utils"
+      }
+    },
+    "65" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
+    "106" : {
+      "Module" : {
+        "nodeId" : 107,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "102" : {
+      "Module" : {
+        "nodeId" : 103,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "53" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "50" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "107" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "BufferSend" : {
+                  "Port" : {
+                    "nodeId" : 106,
+                    "unqualifiedName" : "BufferSend"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "103" : {
+      "ScopeImpl" : {
+        "map" : {
+          "ComponentInstance" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                },
+                "dataCompressor" : {
+                  "ComponentInstance" : {
+                    "nodeId" : 102,
+                    "unqualifiedName" : "dataCompressor"
+                  }
+                }
+              }
+            }
+          },
+          "Topology" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          },
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          },
+          "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          },
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Default" : {
+                  "Module" : {
+                    "nodeId" : 66,
+                    "unqualifiedName" : "Default"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "66" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "queueSize" : {
+                  "Constant" : {
+                    "nodeId" : 53,
+                    "unqualifiedName" : "queueSize"
+                  }
+                },
+                "stackSize" : {
+                  "Constant" : {
+                    "nodeId" : 65,
+                    "unqualifiedName" : "stackSize"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "51" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : {
+                  "Component" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "DataCompressor"
+                  }
+                }
+              }
+            }
+          },
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : {
+                  "Component" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "DataCompressor"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "DataCompressor" : {
+                  "Component" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "DataCompressor"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "94" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "65" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "63" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "100" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "62" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "64" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "101" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "97" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "100" : {
+      "Constant" : {
+        "nodeId" : 65,
+        "unqualifiedName" : "stackSize"
+      }
+    },
+    "46" : {
+      "Module" : {
+        "nodeId" : 107,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "48" : {
+      "Port" : {
+        "nodeId" : 106,
+        "unqualifiedName" : "BufferSend"
+      }
+    },
+    "36" : {
+      "Port" : {
+        "nodeId" : 106,
+        "unqualifiedName" : "BufferSend"
+      }
+    },
+    "95" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
+    "97" : {
+      "Constant" : {
+        "nodeId" : 53,
+        "unqualifiedName" : "queueSize"
+      }
+    },
+    "91" : {
+      "Module" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "Utils"
+      }
+    },
+    "98" : {
+      "Module" : {
+        "nodeId" : 66,
+        "unqualifiedName" : "Default"
+      }
+    },
+    "34" : {
+      "Module" : {
+        "nodeId" : 107,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "93" : {
+      "Component" : {
+        "nodeId" : 50,
+        "unqualifiedName" : "DataCompressor"
+      }
+    }
+  },
+  "valueMap" : {
+    "94" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "65" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "63" : {
+      "Integer" : {
+        "value" : 1024
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "100" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "62" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "64" : {
+      "Integer" : {
+        "value" : 10240
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 10
+      }
+    },
+    "101" : {
+      "Integer" : {
+        "value" : 30
+      }
+    },
+    "97" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
+  }
+}

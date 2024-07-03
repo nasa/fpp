@@ -1,0 +1,2306 @@
+{
+  "componentInstanceMap" : {
+    "17" : {
+      "aNode" : {
+        "astNodeId" : 17
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+        ],
+        "base" : "c1"
+      },
+      "component" : {
+        "astNodeId" : 13
+      },
+      "baseId" : 256,
+      "maxId" : 255,
+      "file" : "None",
+      "queueSize" : "None",
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    },
+    "21" : {
+      "aNode" : {
+        "astNodeId" : 21
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+        ],
+        "base" : "c2"
+      },
+      "component" : {
+        "astNodeId" : 13
+      },
+      "baseId" : 512,
+      "maxId" : 511,
+      "file" : "None",
+      "queueSize" : "None",
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    }
+  },
+  "componentMap" : {
+    "13" : {
+      "aNode" : {
+        "astNodeId" : 13
+      },
+      "portMap" : {
+        "pIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 3
+            },
+            "specifier" : {
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
+              "name" : "pIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 2
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "SyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pOut" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 12
+            },
+            "specifier" : {
+              "kind" : {
+                "Output" : {
+                  
+                }
+              },
+              "name" : "pOut",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 11
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "Output",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 0,
+                    "unqualifiedName" : "P"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    "13" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    "64" : {
+      "aNode" : {
+        "astNodeId" : 64
+      },
+      "directImportMap" : {
+        
+      },
+      "transitiveImportSet" : [
+      ],
+      "instanceMap" : [
+        [
+          {
+            "aNode" : {
+              "astNodeId" : 17
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c1"
+            },
+            "component" : {
+              "astNodeId" : 13
+            },
+            "baseId" : 256,
+            "maxId" : 255,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          [
+            {
+              "Public" : {
+                
+              }
+            },
+            {
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+              "pos" : "15.3",
+              "includingLoc" : "None"
+            }
+          ]
+        ],
+        [
+          {
+            "aNode" : {
+              "astNodeId" : 21
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 13
+            },
+            "baseId" : 512,
+            "maxId" : 511,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          [
+            {
+              "Public" : {
+                
+              }
+            },
+            {
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+              "pos" : "17.3",
+              "includingLoc" : "None"
+            }
+          ]
+        ]
+      ],
+      "patternMap" : {
+        
+      },
+      "connectionMap" : {
+        "C1" : [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          }
+        ],
+        "C2" : [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          }
+        ]
+      },
+      "localConnectionMap" : {
+        "C1" : [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          }
+        ],
+        "C2" : [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          }
+        ]
+      },
+      "outputConnectionMap" : [
+        [
+          {
+            "componentInstance" : {
+              "aNode" : {
+                "astNodeId" : 17
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "component" : {
+                "astNodeId" : 13
+              },
+              "baseId" : 256,
+              "maxId" : 255,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 12
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "pOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 11
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          [
+            {
+              "from" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "21.5",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
+                        "name" : "pOut",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 11
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              },
+              "to" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "21.16",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
+                        "name" : "pIn",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 2
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              }
+            }
+          ]
+        ],
+        [
+          {
+            "componentInstance" : {
+              "aNode" : {
+                "astNodeId" : 21
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c2"
+              },
+              "component" : {
+                "astNodeId" : 13
+              },
+              "baseId" : 512,
+              "maxId" : 511,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 12
+                },
+                "specifier" : {
+                  "kind" : {
+                    "Output" : {
+                      
+                    }
+                  },
+                  "name" : "pOut",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 11
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "Output",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          [
+            {
+              "from" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "26.5",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
+                        "name" : "pOut",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 11
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              },
+              "to" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "26.16",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
+                        "name" : "pIn",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 2
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              }
+            }
+          ]
+        ]
+      ],
+      "inputConnectionMap" : [
+        [
+          {
+            "componentInstance" : {
+              "aNode" : {
+                "astNodeId" : 21
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c2"
+              },
+              "component" : {
+                "astNodeId" : 13
+              },
+              "baseId" : 512,
+              "maxId" : 511,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 3
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "pIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 2
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          [
+            {
+              "from" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "21.5",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
+                        "name" : "pOut",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 11
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              },
+              "to" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "21.16",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
+                        "name" : "pIn",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 2
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              }
+            }
+          ]
+        ],
+        [
+          {
+            "componentInstance" : {
+              "aNode" : {
+                "astNodeId" : 17
+              },
+              "qualifiedName" : {
+                "qualifier" : [
+                ],
+                "base" : "c1"
+              },
+              "component" : {
+                "astNodeId" : 13
+              },
+              "baseId" : 256,
+              "maxId" : 255,
+              "file" : "None",
+              "queueSize" : "None",
+              "stackSize" : "None",
+              "priority" : "None",
+              "cpu" : "None",
+              "initSpecifierMap" : {
+                
+              }
+            },
+            "portInstance" : {
+              "General" : {
+                "aNode" : {
+                  "astNodeId" : 3
+                },
+                "specifier" : {
+                  "kind" : {
+                    "SyncInput" : {
+                      
+                    }
+                  },
+                  "name" : "pIn",
+                  "size" : "None",
+                  "port" : {
+                    "Some" : {
+                      "astNodeId" : 2
+                    }
+                  },
+                  "priority" : "None",
+                  "queueFull" : "None"
+                },
+                "kind" : "SyncInput",
+                "size" : 1,
+                "ty" : {
+                  "DefPort" : {
+                    "symbol" : {
+                      "Port" : {
+                        "nodeId" : 0,
+                        "unqualifiedName" : "P"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          [
+            {
+              "from" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "26.5",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 21
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c2"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 512,
+                    "maxId" : 511,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 12
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "Output" : {
+                            
+                          }
+                        },
+                        "name" : "pOut",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 11
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "Output",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              },
+              "to" : {
+                "loc" : {
+                  "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                  "pos" : "26.16",
+                  "includingLoc" : "None"
+                },
+                "port" : {
+                  "componentInstance" : {
+                    "aNode" : {
+                      "astNodeId" : 17
+                    },
+                    "qualifiedName" : {
+                      "qualifier" : [
+                      ],
+                      "base" : "c1"
+                    },
+                    "component" : {
+                      "astNodeId" : 13
+                    },
+                    "baseId" : 256,
+                    "maxId" : 255,
+                    "file" : "None",
+                    "queueSize" : "None",
+                    "stackSize" : "None",
+                    "priority" : "None",
+                    "cpu" : "None",
+                    "initSpecifierMap" : {
+                      
+                    }
+                  },
+                  "portInstance" : {
+                    "General" : {
+                      "aNode" : {
+                        "astNodeId" : 3
+                      },
+                      "specifier" : {
+                        "kind" : {
+                          "SyncInput" : {
+                            
+                          }
+                        },
+                        "name" : "pIn",
+                        "size" : "None",
+                        "port" : {
+                          "Some" : {
+                            "astNodeId" : 2
+                          }
+                        },
+                        "priority" : "None",
+                        "queueFull" : "None"
+                      },
+                      "kind" : "SyncInput",
+                      "size" : 1,
+                      "ty" : {
+                        "DefPort" : {
+                          "symbol" : {
+                            "Port" : {
+                              "nodeId" : 0,
+                              "unqualifiedName" : "P"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "portNumber" : "None"
+              }
+            }
+          ]
+        ]
+      ],
+      "fromPortNumberMap" : [
+        [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          },
+          0
+        ],
+        [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          },
+          0
+        ]
+      ],
+      "toPortNumberMap" : [
+        [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "26.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          },
+          0
+        ],
+        [
+          {
+            "from" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.5",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 17
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c1"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 256,
+                  "maxId" : 255,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 12
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "Output" : {
+                          
+                        }
+                      },
+                      "name" : "pOut",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 11
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "Output",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            },
+            "to" : {
+              "loc" : {
+                "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/simpleTopology.fpp",
+                "pos" : "21.16",
+                "includingLoc" : "None"
+              },
+              "port" : {
+                "componentInstance" : {
+                  "aNode" : {
+                    "astNodeId" : 21
+                  },
+                  "qualifiedName" : {
+                    "qualifier" : [
+                    ],
+                    "base" : "c2"
+                  },
+                  "component" : {
+                    "astNodeId" : 13
+                  },
+                  "baseId" : 512,
+                  "maxId" : 511,
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecifierMap" : {
+                    
+                  }
+                },
+                "portInstance" : {
+                  "General" : {
+                    "aNode" : {
+                      "astNodeId" : 3
+                    },
+                    "specifier" : {
+                      "kind" : {
+                        "SyncInput" : {
+                          
+                        }
+                      },
+                      "name" : "pIn",
+                      "size" : "None",
+                      "port" : {
+                        "Some" : {
+                          "astNodeId" : 2
+                        }
+                      },
+                      "priority" : "None",
+                      "queueFull" : "None"
+                    },
+                    "kind" : "SyncInput",
+                    "size" : 1,
+                    "ty" : {
+                      "DefPort" : {
+                        "symbol" : {
+                          "Port" : {
+                            "nodeId" : 0,
+                            "unqualifiedName" : "P"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "portNumber" : "None"
+            }
+          },
+          0
+        ]
+      ],
+      "unconnectedPortSet" : [
+      ]
+    }
+  },
+  "typeMap" : {
+    "16" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "34" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "26" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "61" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "57" : {
+      "ComponentInstance" : {
+        "nodeId" : 21,
+        "unqualifiedName" : "c2"
+      }
+    },
+    "2" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    },
+    "30" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "19" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "23" : {
+      "ComponentInstance" : {
+        "nodeId" : 17,
+        "unqualifiedName" : "c1"
+      }
+    },
+    "15" : {
+      "Component" : {
+        "nodeId" : 13,
+        "unqualifiedName" : "C"
+      }
+    },
+    "11" : {
+      "Port" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "P"
+      }
+    }
+  },
+  "valueMap" : {
+    "16" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "20" : {
+      "Integer" : {
+        "value" : 512
+      }
+    }
+  }
+}

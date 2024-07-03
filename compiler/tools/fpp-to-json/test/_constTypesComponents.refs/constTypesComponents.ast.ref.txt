@@ -1,0 +1,325 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "A switch with on and off state"
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
+                  "name" : "Switch",
+                  "members" : [
+                    [
+                      [
+                        "The state enumeration"
+                      ],
+                      {
+                        "DefEnum" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "State",
+                                "typeName" : "None",
+                                "constants" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "OFF",
+                                          "value" : "None"
+                                        },
+                                        "id" : 1
+                                      }
+                                    },
+                                    [
+                                      "The off state"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "ON",
+                                          "value" : "None"
+                                        },
+                                        "id" : 3
+                                      }
+                                    },
+                                    [
+                                      "The on state"
+                                    ]
+                                  ]
+                                ],
+                                "default" : "None"
+                              },
+                              "id" : 4
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command registration"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "CommandReg" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdRegOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 5
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command input"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "CommandRecv" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdIn",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 6
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command response"
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Special" : {
+                                  "inputKind" : "None",
+                                  "kind" : {
+                                    "CommandResp" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdResponseOut",
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 7
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Set the state"
+                      ],
+                      {
+                        "SpecCommand" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Async" : {
+                                    
+                                  }
+                                },
+                                "name" : "SET_STATE",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "state",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "State"
+                                                        }
+                                                      },
+                                                      "id" : 31
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 32
+                                            }
+                                          }
+                                        },
+                                        "id" : 33
+                                      }
+                                    },
+                                    [
+                                      "The new state"
+                                    ]
+                                  ]
+                                ],
+                                "opcode" : "None",
+                                "priority" : "None",
+                                "queueFull" : "None"
+                              },
+                              "id" : 34
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 35
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Cmd",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 36
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdReg",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 37
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 40
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 41
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

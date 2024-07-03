@@ -1,0 +1,521 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/ports.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "20" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "23" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "50" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "53" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "24" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "A" : {
+                  "EnumConstant" : {
+                    "nodeId" : 20,
+                    "unqualifiedName" : "A"
+                  }
+                },
+                "B" : {
+                  "EnumConstant" : {
+                    "nodeId" : 23,
+                    "unqualifiedName" : "B"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "54" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "SUCCEED" : {
+                  "EnumConstant" : {
+                    "nodeId" : 50,
+                    "unqualifiedName" : "SUCCEED"
+                  }
+                },
+                "FAIL" : {
+                  "EnumConstant" : {
+                    "nodeId" : 53,
+                    "unqualifiedName" : "FAIL"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "23" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 24
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : "None"
+      }
+    },
+    "44" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 25
+        }
+      }
+    },
+    "50" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : "None"
+      }
+    },
+    "24" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 24
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "value" : [
+              "A",
+              0
+            ],
+            "t" : {
+              "node" : {
+                "astNodeId" : 24
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        }
+      }
+    },
+    "59" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "48" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 25
+        }
+      }
+    },
+    "54" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "value" : [
+              "SUCCEED",
+              0
+            ],
+            "t" : {
+              "node" : {
+                "astNodeId" : 54
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        }
+      }
+    },
+    "32" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 25
+        }
+      }
+    },
+    "6" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "53" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : "None"
+      }
+    },
+    "20" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 24
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : "None"
+      }
+    },
+    "63" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 54
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "value" : [
+              "SUCCEED",
+              0
+            ],
+            "t" : {
+              "node" : {
+                "astNodeId" : 54
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        }
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "node" : {
+          "astNodeId" : 24
+        },
+        "repType" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "value" : [
+              "A",
+              0
+            ],
+            "t" : {
+              "node" : {
+                "astNodeId" : 24
+              },
+              "repType" : {
+                "kind" : {
+                  "I32" : {
+                    
+                  }
+                }
+              },
+              "default" : "None"
+            }
+          }
+        }
+      }
+    },
+    "11" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "9" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "I32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "17" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "25" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 25
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "62" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "44" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "48" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "43" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "32" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "27" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "63" : {
+      "Enum" : {
+        "nodeId" : 54,
+        "unqualifiedName" : "Status"
+      }
+    },
+    "28" : {
+      "Enum" : {
+        "nodeId" : 24,
+        "unqualifiedName" : "E"
+      }
+    },
+    "47" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    },
+    "31" : {
+      "AbsType" : {
+        "nodeId" : 25,
+        "unqualifiedName" : "T"
+      }
+    }
+  },
+  "valueMap" : {
+    "20" : {
+      "EnumConstant" : {
+        "value" : [
+          "A",
+          0
+        ],
+        "t" : {
+          "node" : {
+            "astNodeId" : 24
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    },
+    "23" : {
+      "EnumConstant" : {
+        "value" : [
+          "B",
+          1
+        ],
+        "t" : {
+          "node" : {
+            "astNodeId" : 24
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    },
+    "50" : {
+      "EnumConstant" : {
+        "value" : [
+          "SUCCEED",
+          0
+        ],
+        "t" : {
+          "node" : {
+            "astNodeId" : 54
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    },
+    "53" : {
+      "EnumConstant" : {
+        "value" : [
+          "FAIL",
+          1
+        ],
+        "t" : {
+          "node" : {
+            "astNodeId" : 54
+          },
+          "repType" : {
+            "kind" : {
+              "I32" : {
+                
+              }
+            }
+          },
+          "default" : "None"
+        }
+      }
+    }
+  }
+}

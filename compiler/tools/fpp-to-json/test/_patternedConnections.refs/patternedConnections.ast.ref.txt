@@ -1,0 +1,3893 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Time",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "timeGetPort",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 8
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Time",
+                                                "id" : 9
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 10
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 11
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 12
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Command",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdIn",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 13
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Cmd",
+                                                "id" : 14
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 15
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 16
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdRegOut",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 17
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "CmdReg",
+                                                "id" : 18
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 19
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 20
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdResponseOut",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 21
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "CmdResponse",
+                                                "id" : 22
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 23
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 24
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "cmdSend",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 33
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Cmd",
+                                                "id" : 34
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 35
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 36
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 37
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Event",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "eventLog",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 46
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Log",
+                                                "id" : 47
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 48
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 49
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 50
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Health",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "Output" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "PingSend",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Svc"
+                                                  }
+                                                },
+                                                "id" : 51
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Ping",
+                                                "id" : 52
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 53
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 54
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "PingReturn",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Svc"
+                                                  }
+                                                },
+                                                "id" : 63
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Ping",
+                                                "id" : 64
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 65
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 66
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 67
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Param",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "paramGet",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 68
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "PrmGet",
+                                                "id" : 69
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 70
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 71
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "paramSet",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 80
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "PrmSet",
+                                                "id" : 81
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 82
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 83
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 84
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "Telemetry",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "tlm",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 93
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "Tlm",
+                                                "id" : 94
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 95
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 96
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 97
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Passive" : {
+                      
+                    }
+                  },
+                  "name" : "TextEvent",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecPortInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "General" : {
+                                  "kind" : {
+                                    "SyncInput" : {
+                                      
+                                    }
+                                  },
+                                  "name" : "textEventLog",
+                                  "size" : "None",
+                                  "port" : {
+                                    "Some" : {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "Qualified" : {
+                                            "qualifier" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "Unqualified" : {
+                                                    "name" : "Fw"
+                                                  }
+                                                },
+                                                "id" : 106
+                                              }
+                                            },
+                                            "name" : {
+                                              "AstNode" : {
+                                                "data" : "LogText",
+                                                "id" : 107
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 108
+                                      }
+                                    }
+                                  },
+                                  "priority" : "None",
+                                  "queueFull" : "None"
+                                }
+                              },
+                              "id" : 109
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 110
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c1",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Time"
+                        }
+                      },
+                      "id" : 112
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x100"
+                        }
+                      },
+                      "id" : 113
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 114
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c2",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Command"
+                        }
+                      },
+                      "id" : 116
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x200"
+                        }
+                      },
+                      "id" : 117
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 118
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c3",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Event"
+                        }
+                      },
+                      "id" : 120
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x300"
+                        }
+                      },
+                      "id" : 121
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 122
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c4",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Health"
+                        }
+                      },
+                      "id" : 124
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x400"
+                        }
+                      },
+                      "id" : 125
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 126
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c5",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Param"
+                        }
+                      },
+                      "id" : 128
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x500"
+                        }
+                      },
+                      "id" : 129
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 130
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c6",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "Telemetry"
+                        }
+                      },
+                      "id" : 132
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x600"
+                        }
+                      },
+                      "id" : 133
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 134
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefComponentInstance" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c7",
+                  "component" : {
+                    "AstNode" : {
+                      "data" : {
+                        "Unqualified" : {
+                          "name" : "TextEvent"
+                        }
+                      },
+                      "id" : 136
+                    }
+                  },
+                  "baseId" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprLiteralInt" : {
+                          "value" : "0x700"
+                        }
+                      },
+                      "id" : 137
+                    }
+                  },
+                  "implType" : "None",
+                  "file" : "None",
+                  "queueSize" : "None",
+                  "stackSize" : "None",
+                  "priority" : "None",
+                  "cpu" : "None",
+                  "initSpecs" : [
+                  ]
+                },
+                "id" : 138
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefTopology" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "T",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c1"
+                                      }
+                                    },
+                                    "id" : 238
+                                  }
+                                }
+                              },
+                              "id" : 239
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c2"
+                                      }
+                                    },
+                                    "id" : 241
+                                  }
+                                }
+                              },
+                              "id" : 242
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c3"
+                                      }
+                                    },
+                                    "id" : 244
+                                  }
+                                }
+                              },
+                              "id" : 245
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c4"
+                                      }
+                                    },
+                                    "id" : 247
+                                  }
+                                }
+                              },
+                              "id" : 248
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c5"
+                                      }
+                                    },
+                                    "id" : 250
+                                  }
+                                }
+                              },
+                              "id" : 251
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c6"
+                                      }
+                                    },
+                                    "id" : 253
+                                  }
+                                }
+                              },
+                              "id" : 254
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecCompInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "visibility" : {
+                                  "Public" : {
+                                    
+                                  }
+                                },
+                                "instance" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Unqualified" : {
+                                        "name" : "c7"
+                                      }
+                                    },
+                                    "id" : 256
+                                  }
+                                }
+                              },
+                              "id" : 257
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Time" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c1"
+                                        }
+                                      },
+                                      "id" : 259
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 260
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Command" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c2"
+                                        }
+                                      },
+                                      "id" : 262
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 263
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Event" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c3"
+                                        }
+                                      },
+                                      "id" : 265
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 266
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Health" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c4"
+                                        }
+                                      },
+                                      "id" : 268
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 269
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Param" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c5"
+                                        }
+                                      },
+                                      "id" : 271
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 272
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "Telemetry" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c6"
+                                        }
+                                      },
+                                      "id" : 274
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 275
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "SpecConnectionGraph" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "Pattern" : {
+                                  "kind" : {
+                                    "TextEvent" : {
+                                      
+                                    }
+                                  },
+                                  "source" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "Unqualified" : {
+                                          "name" : "c7"
+                                        }
+                                      },
+                                      "id" : 283
+                                    }
+                                  },
+                                  "targets" : [
+                                  ]
+                                }
+                              },
+                              "id" : 284
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 285
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  },
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Time"
+                              },
+                              "id" : 286
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Time port"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Time",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "time",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 314
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Time",
+                                                              "id" : 315
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 316
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 317
+                                            }
+                                          }
+                                        },
+                                        "id" : 318
+                                      }
+                                    },
+                                    [
+                                      "The U32 cmd argument"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 319
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 320
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdArgBuffer"
+                              },
+                              "id" : 321
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FwOpcodeType"
+                              },
+                              "id" : 322
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Command registration port"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdReg",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "opCode",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwOpcodeType"
+                                                        }
+                                                      },
+                                                      "id" : 328
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 329
+                                            }
+                                          }
+                                        },
+                                        "id" : 330
+                                      }
+                                    },
+                                    [
+                                      "Command Op Code"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 331
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for sending commands"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Cmd",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "opCode",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwOpcodeType"
+                                                        }
+                                                      },
+                                                      "id" : 337
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 338
+                                            }
+                                          }
+                                        },
+                                        "id" : 339
+                                      }
+                                    },
+                                    [
+                                      "Command Op Code"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "cmdSeq",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameInt" : {
+                                                  "name" : {
+                                                    "U32" : {
+                                                      
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 342
+                                            }
+                                          }
+                                        },
+                                        "id" : 343
+                                      }
+                                    },
+                                    [
+                                      "Command Sequence"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "args",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "CmdArgBuffer"
+                                                        }
+                                                      },
+                                                      "id" : 349
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 350
+                                            }
+                                          }
+                                        },
+                                        "id" : 351
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing arguments"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 352
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Enum representing a command response"
+                      ],
+                      {
+                        "DefEnum" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "typeName" : "None",
+                                "constants" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "OK",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "0"
+                                                  }
+                                                },
+                                                "id" : 355
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 356
+                                      }
+                                    },
+                                    [
+                                      "Command successfully executed"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "INVALID_OPCODE",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 359
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 360
+                                      }
+                                    },
+                                    [
+                                      "Invalid opcode dispatched"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "VALIDATION_ERROR",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 363
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 364
+                                      }
+                                    },
+                                    [
+                                      "Command failed validation"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "FORMAT_ERROR",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 367
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 368
+                                      }
+                                    },
+                                    [
+                                      "Command failed to deserialize"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "EXECUTION_ERROR",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "4"
+                                                  }
+                                                },
+                                                "id" : 371
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 372
+                                      }
+                                    },
+                                    [
+                                      "Command had execution error"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "BUSY",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "5"
+                                                  }
+                                                },
+                                                "id" : 375
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 376
+                                      }
+                                    },
+                                    [
+                                      "Component busy"
+                                    ]
+                                  ]
+                                ],
+                                "default" : "None"
+                              },
+                              "id" : 377
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for sending command responses"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "CmdResponse",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "opCode",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwOpcodeType"
+                                                        }
+                                                      },
+                                                      "id" : 425
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 426
+                                            }
+                                          }
+                                        },
+                                        "id" : 427
+                                      }
+                                    },
+                                    [
+                                      "Command Op Code"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "cmdSeq",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameInt" : {
+                                                  "name" : {
+                                                    "U32" : {
+                                                      
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 430
+                                            }
+                                          }
+                                        },
+                                        "id" : 431
+                                      }
+                                    },
+                                    [
+                                      "Command Sequence"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "response",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "CmdResponse"
+                                                        }
+                                                      },
+                                                      "id" : 437
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 438
+                                            }
+                                          }
+                                        },
+                                        "id" : 439
+                                      }
+                                    },
+                                    [
+                                      "The command response argument"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 440
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 441
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "LogBuffer"
+                              },
+                              "id" : 442
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "TextLogString"
+                              },
+                              "id" : 443
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FwEventIdType"
+                              },
+                              "id" : 444
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Enum representing event severity"
+                      ],
+                      {
+                        "DefEnum" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "LogSeverity",
+                                "typeName" : "None",
+                                "constants" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "FATAL",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 447
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 448
+                                      }
+                                    },
+                                    [
+                                      "A fatal non-recoverable event"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "WARNING_HI",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 451
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 452
+                                      }
+                                    },
+                                    [
+                                      "A serious but recoverable event"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "WARNING_LO",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 455
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 456
+                                      }
+                                    },
+                                    [
+                                      "A less serious but recoverable event"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "COMMAND",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "4"
+                                                  }
+                                                },
+                                                "id" : 459
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 460
+                                      }
+                                    },
+                                    [
+                                      "An activity related to commanding"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "ACTIVITY_HI",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "5"
+                                                  }
+                                                },
+                                                "id" : 463
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 464
+                                      }
+                                    },
+                                    [
+                                      "Important informational events"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "ACTIVITY_LO",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "6"
+                                                  }
+                                                },
+                                                "id" : 467
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 468
+                                      }
+                                    },
+                                    [
+                                      "Less important informational events"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "DIAGNOSTIC",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "7"
+                                                  }
+                                                },
+                                                "id" : 471
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 472
+                                      }
+                                    },
+                                    [
+                                      "Software diagnostic events"
+                                    ]
+                                  ]
+                                ],
+                                "default" : "None"
+                              },
+                              "id" : 473
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Event log port"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Log",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwEventIdType"
+                                                        }
+                                                      },
+                                                      "id" : 479
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 480
+                                            }
+                                          }
+                                        },
+                                        "id" : 481
+                                      }
+                                    },
+                                    [
+                                      "Log ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "timeTag",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 487
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Time",
+                                                              "id" : 488
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 489
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 490
+                                            }
+                                          }
+                                        },
+                                        "id" : 491
+                                      }
+                                    },
+                                    [
+                                      "Time Tag"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "severity",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "LogSeverity"
+                                                        }
+                                                      },
+                                                      "id" : 497
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 498
+                                            }
+                                          }
+                                        },
+                                        "id" : 499
+                                      }
+                                    },
+                                    [
+                                      "The severity argument"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "args",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "LogBuffer"
+                                                        }
+                                                      },
+                                                      "id" : 505
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 506
+                                            }
+                                          }
+                                        },
+                                        "id" : 507
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing serialized log entry"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 508
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Text event log port",
+                        "Use for development and debugging, turn off for flight"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "LogText",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwEventIdType"
+                                                        }
+                                                      },
+                                                      "id" : 588
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 589
+                                            }
+                                          }
+                                        },
+                                        "id" : 590
+                                      }
+                                    },
+                                    [
+                                      "Log ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "timeTag",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 596
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Time",
+                                                              "id" : 597
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 598
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 599
+                                            }
+                                          }
+                                        },
+                                        "id" : 600
+                                      }
+                                    },
+                                    [
+                                      "Time Tag"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "severity",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "LogSeverity"
+                                                        }
+                                                      },
+                                                      "id" : 606
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 607
+                                            }
+                                          }
+                                        },
+                                        "id" : 608
+                                      }
+                                    },
+                                    [
+                                      "The severity argument"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "text",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 614
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "TextLogString",
+                                                              "id" : 615
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 616
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 617
+                                            }
+                                          }
+                                        },
+                                        "id" : 618
+                                      }
+                                    },
+                                    [
+                                      "Text of log message"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 619
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 620
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Svc",
+                  "members" : [
+                    [
+                      [
+                        "Port for pinging active components"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Ping",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "key",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameInt" : {
+                                                  "name" : {
+                                                    "U32" : {
+                                                      
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 633
+                                            }
+                                          }
+                                        },
+                                        "id" : 634
+                                      }
+                                    },
+                                    [
+                                      "Value to return to pinger"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 635
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 636
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "ParamBuffer"
+                              },
+                              "id" : 637
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FwPrmIdType"
+                              },
+                              "id" : 638
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Enum representing parameter validity"
+                      ],
+                      {
+                        "DefEnum" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "ParamValid",
+                                "typeName" : "None",
+                                "constants" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "UNINIT",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "0"
+                                                  }
+                                                },
+                                                "id" : 639
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 640
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "VALID",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "1"
+                                                  }
+                                                },
+                                                "id" : 641
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 642
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "INVALID",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "2"
+                                                  }
+                                                },
+                                                "id" : 643
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 644
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "name" : "DEFAULT",
+                                          "value" : {
+                                            "Some" : {
+                                              "AstNode" : {
+                                                "data" : {
+                                                  "ExprLiteralInt" : {
+                                                    "value" : "3"
+                                                  }
+                                                },
+                                                "id" : 649
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "id" : 650
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "default" : "None"
+                              },
+                              "id" : 651
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for getting a parameter"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "PrmGet",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwPrmIdType"
+                                                        }
+                                                      },
+                                                      "id" : 657
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 658
+                                            }
+                                          }
+                                        },
+                                        "id" : 659
+                                      }
+                                    },
+                                    [
+                                      "Parameter ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "val",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "ParamBuffer"
+                                                        }
+                                                      },
+                                                      "id" : 665
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 666
+                                            }
+                                          }
+                                        },
+                                        "id" : 667
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing serialized parameter value"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "TypeNameQualIdent" : {
+                                          "name" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "Unqualified" : {
+                                                  "name" : "ParamValid"
+                                                }
+                                              },
+                                              "id" : 669
+                                            }
+                                          }
+                                        }
+                                      },
+                                      "id" : 670
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 671
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for setting a parameter"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "PrmSet",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwPrmIdType"
+                                                        }
+                                                      },
+                                                      "id" : 711
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 712
+                                            }
+                                          }
+                                        },
+                                        "id" : 713
+                                      }
+                                    },
+                                    [
+                                      "Parameter ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "val",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "ParamBuffer"
+                                                        }
+                                                      },
+                                                      "id" : 719
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 720
+                                            }
+                                          }
+                                        },
+                                        "id" : 721
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing serialized parameter value"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 722
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 723
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "TlmBuffer"
+                              },
+                              "id" : 958
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefAbsType" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "FwChanIdType"
+                              },
+                              "id" : 959
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for sending telemetry"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Tlm",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwChanIdType"
+                                                        }
+                                                      },
+                                                      "id" : 965
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 966
+                                            }
+                                          }
+                                        },
+                                        "id" : 967
+                                      }
+                                    },
+                                    [
+                                      "Telemetry Channel ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "timeTag",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 973
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Time",
+                                                              "id" : 974
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 975
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 976
+                                            }
+                                          }
+                                        },
+                                        "id" : 977
+                                      }
+                                    },
+                                    [
+                                      "Time Tag"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "val",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "TlmBuffer"
+                                                        }
+                                                      },
+                                                      "id" : 983
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 984
+                                            }
+                                          }
+                                        },
+                                        "id" : 985
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing serialized telemetry value"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 986
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "Port for getting telemetry"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "TlmGet",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "id",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "FwChanIdType"
+                                                        }
+                                                      },
+                                                      "id" : 1050
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 1051
+                                            }
+                                          }
+                                        },
+                                        "id" : 1052
+                                      }
+                                    },
+                                    [
+                                      "Telemetry Channel ID"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "timeTag",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 1058
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Time",
+                                                              "id" : 1059
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 1060
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 1061
+                                            }
+                                          }
+                                        },
+                                        "id" : 1062
+                                      }
+                                    },
+                                    [
+                                      "Time Tag"
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Ref" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "val",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Fw"
+                                                                }
+                                                              },
+                                                              "id" : 1068
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "TlmBuffer",
+                                                              "id" : 1069
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 1070
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 1071
+                                            }
+                                          }
+                                        },
+                                        "id" : 1072
+                                      }
+                                    },
+                                    [
+                                      "Buffer containing serialized telemetry value"
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 1073
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 1074
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

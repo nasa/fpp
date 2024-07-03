@@ -1,0 +1,1193 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    "44" : {
+      "aNode" : {
+        "astNodeId" : 44
+      },
+      "portMap" : {
+        "cmdIn" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 3
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "CommandRecv" : {
+                  
+                }
+              },
+              "name" : "cmdIn",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 47,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "prmGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 6
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "ParamGet" : {
+                  
+                }
+              },
+              "name" : "prmGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 45,
+                "unqualifiedName" : "PrmGet"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "cmdResponseOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 5
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "CommandResp" : {
+                  
+                }
+              },
+              "name" : "cmdResponseOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 51,
+                "unqualifiedName" : "CmdResponse"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "prmSetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 7
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "ParamSet" : {
+                  
+                }
+              },
+              "name" : "prmSetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 46,
+                "unqualifiedName" : "PrmSet"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "cmdRegOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 4
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "CommandReg" : {
+                  
+                }
+              },
+              "name" : "cmdRegOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 48,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        }
+      },
+      "specialPortMap" : {
+        "param set" : {
+          "aNode" : {
+            "astNodeId" : 7
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "ParamSet" : {
+                
+              }
+            },
+            "name" : "prmSetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 46,
+              "unqualifiedName" : "PrmSet"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "command recv" : {
+          "aNode" : {
+            "astNodeId" : 3
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "CommandRecv" : {
+                
+              }
+            },
+            "name" : "cmdIn",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 47,
+              "unqualifiedName" : "Cmd"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "command reg" : {
+          "aNode" : {
+            "astNodeId" : 4
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "CommandReg" : {
+                
+              }
+            },
+            "name" : "cmdRegOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 48,
+              "unqualifiedName" : "CmdReg"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "command resp" : {
+          "aNode" : {
+            "astNodeId" : 5
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "CommandResp" : {
+                
+              }
+            },
+            "name" : "cmdResponseOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 51,
+              "unqualifiedName" : "CmdResponse"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "param get" : {
+          "aNode" : {
+            "astNodeId" : 6
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "ParamGet" : {
+                
+              }
+            },
+            "name" : "prmGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 45,
+              "unqualifiedName" : "PrmGet"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        }
+      },
+      "commandMap" : {
+        "16" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 16
+            },
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        },
+        "32" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 43
+            },
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "1" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 10
+            },
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "17" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 16
+            },
+            "kind" : {
+              "Save" : {
+                
+              }
+            }
+          }
+        },
+        "0" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 10
+            },
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        },
+        "18" : {
+          "Param" : {
+            "aNode" : {
+              "astNodeId" : 43
+            },
+            "kind" : {
+              "Set" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "defaultOpcode" : 33,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 10
+          },
+          "paramType" : {
+            "Int" : {
+              "PrimitiveInt" : {
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "PrimitiveInt" : {
+                "value" : 1,
+                "kind" : {
+                  "U32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "setOpcode" : 0,
+          "saveOpcode" : 1
+        },
+        "16" : {
+          "aNode" : {
+            "astNodeId" : 16
+          },
+          "paramType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "default" : {
+            "Some" : {
+              "Float" : {
+                "value" : 2.0,
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "setOpcode" : 16,
+          "saveOpcode" : 17
+        },
+        "17" : {
+          "aNode" : {
+            "astNodeId" : 43
+          },
+          "paramType" : {
+            "Array" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : {
+                "Some" : {
+                  "anonArray" : {
+                    "elements" : [
+                      {
+                        "Float" : {
+                          "value" : 0.0,
+                          "kind" : {
+                            "F64" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Float" : {
+                          "value" : 0.0,
+                          "kind" : {
+                            "F64" : {
+                              
+                            }
+                          }
+                        }
+                      },
+                      {
+                        "Float" : {
+                          "value" : 0.0,
+                          "kind" : {
+                            "F64" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    ]
+                  },
+                  "t" : {
+                    "node" : {
+                      "astNodeId" : 2
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "Primitive" : {
+                          "Float" : {
+                            "kind" : {
+                              "F64" : {
+                                
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None"
+                  }
+                }
+              },
+              "format" : "None"
+            }
+          },
+          "default" : {
+            "Some" : {
+              "Array" : {
+                "anonArray" : {
+                  "elements" : [
+                    {
+                      "Float" : {
+                        "value" : 1.0,
+                        "kind" : {
+                          "F64" : {
+                            
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Float" : {
+                        "value" : 2.0,
+                        "kind" : {
+                          "F64" : {
+                            
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "Float" : {
+                        "value" : 3.0,
+                        "kind" : {
+                          "F64" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  ]
+                },
+                "t" : {
+                  "node" : {
+                    "astNodeId" : 2
+                  },
+                  "anonArray" : {
+                    "size" : {
+                      "Some" : 3
+                    },
+                    "eltType" : {
+                      "Primitive" : {
+                        "Float" : {
+                          "kind" : {
+                            "F64" : {
+                              
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "default" : {
+                    "Some" : {
+                      "anonArray" : {
+                        "elements" : [
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "Float" : {
+                              "value" : 0.0,
+                              "kind" : {
+                                "F64" : {
+                                  
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "t" : {
+                        "node" : {
+                          "astNodeId" : 2
+                        },
+                        "anonArray" : {
+                          "size" : {
+                            "Some" : 3
+                          },
+                          "eltType" : {
+                            "Primitive" : {
+                              "Float" : {
+                                "kind" : {
+                                  "F64" : {
+                                    
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "default" : "None",
+                        "format" : "None"
+                      }
+                    }
+                  },
+                  "format" : "None"
+                }
+              }
+            }
+          },
+          "setOpcode" : 18,
+          "saveOpcode" : 32
+        }
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 18,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/parameters.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "45" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "51" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "46" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "48" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "47" : {
+      "Module" : {
+        "nodeId" : 52,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "44" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "CmdReg" : {
+                  "Port" : {
+                    "nodeId" : 48,
+                    "unqualifiedName" : "CmdReg"
+                  }
+                },
+                "PrmGet" : {
+                  "Port" : {
+                    "nodeId" : 45,
+                    "unqualifiedName" : "PrmGet"
+                  }
+                },
+                "PrmSet" : {
+                  "Port" : {
+                    "nodeId" : 46,
+                    "unqualifiedName" : "PrmSet"
+                  }
+                },
+                "Cmd" : {
+                  "Port" : {
+                    "nodeId" : 47,
+                    "unqualifiedName" : "Cmd"
+                  }
+                },
+                "CmdResponse" : {
+                  "Port" : {
+                    "nodeId" : 51,
+                    "unqualifiedName" : "CmdResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "12" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "8" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "40" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "37" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 2
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
+            }
+          }
+        },
+        "format" : "None"
+      }
+    },
+    "13" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "42" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "41" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "11" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "9" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "39" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 2
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F64" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                },
+                {
+                  "Float" : {
+                    "value" : 0.0,
+                    "kind" : {
+                      "F64" : {
+                        
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 2
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Primitive" : {
+                    "Float" : {
+                      "kind" : {
+                        "F64" : {
+                          
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
+            }
+          }
+        },
+        "format" : "None"
+      }
+    },
+    "38" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "4" : {
+      "Port" : {
+        "nodeId" : 48,
+        "unqualifiedName" : "CmdReg"
+      }
+    },
+    "37" : {
+      "Array" : {
+        "nodeId" : 2,
+        "unqualifiedName" : "F64x3"
+      }
+    },
+    "5" : {
+      "Port" : {
+        "nodeId" : 51,
+        "unqualifiedName" : "CmdResponse"
+      }
+    },
+    "7" : {
+      "Port" : {
+        "nodeId" : 46,
+        "unqualifiedName" : "PrmSet"
+      }
+    },
+    "3" : {
+      "Port" : {
+        "nodeId" : 47,
+        "unqualifiedName" : "Cmd"
+      }
+    },
+    "6" : {
+      "Port" : {
+        "nodeId" : 45,
+        "unqualifiedName" : "PrmGet"
+      }
+    },
+    "36" : {
+      "Array" : {
+        "nodeId" : 2,
+        "unqualifiedName" : "F64x3"
+      }
+    }
+  },
+  "valueMap" : {
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "40" : {
+      "Float" : {
+        "value" : 3.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "13" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "39" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "14" : {
+      "Integer" : {
+        "value" : 16
+      }
+    },
+    "42" : {
+      "Integer" : {
+        "value" : 32
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "38" : {
+      "Float" : {
+        "value" : 1.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "41" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 3.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 17
+      }
+    },
+    "9" : {
+      "Integer" : {
+        "value" : 1
+      }
+    }
+  }
+}

@@ -1,0 +1,570 @@
+{
+  "componentInstanceMap" : {
+    "79" : {
+      "aNode" : {
+        "astNodeId" : 79
+      },
+      "qualifiedName" : {
+        "qualifier" : [
+          "FSW"
+        ],
+        "base" : "engineTemp"
+      },
+      "component" : {
+        "astNodeId" : 60
+      },
+      "baseId" : 256,
+      "maxId" : 257,
+      "file" : "None",
+      "queueSize" : {
+        "Some" : 10
+      },
+      "stackSize" : "None",
+      "priority" : "None",
+      "cpu" : "None",
+      "initSpecifierMap" : {
+        
+      }
+    }
+  },
+  "componentMap" : {
+    "60" : {
+      "aNode" : {
+        "astNodeId" : 60
+      },
+      "portMap" : {
+        "schedIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 46
+            },
+            "specifier" : {
+              "kind" : {
+                "SyncInput" : {
+                  
+                }
+              },
+              "name" : "schedIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 45
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "SyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 83,
+                    "unqualifiedName" : "Sched"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "calibrationIn" : {
+          "General" : {
+            "aNode" : {
+              "astNodeId" : 49
+            },
+            "specifier" : {
+              "kind" : {
+                "AsyncInput" : {
+                  
+                }
+              },
+              "name" : "calibrationIn",
+              "size" : "None",
+              "port" : {
+                "Some" : {
+                  "astNodeId" : 48
+                }
+              },
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "kind" : "AsyncInput",
+            "size" : 1,
+            "ty" : {
+              "DefPort" : {
+                "symbol" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "Calibration"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tlmOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 50
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "Telemetry" : {
+                  
+                }
+              },
+              "name" : "tlmOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 85,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        },
+        "timeGetOut" : {
+          "Special" : {
+            "aNode" : {
+              "astNodeId" : 51
+            },
+            "specifier" : {
+              "inputKind" : "None",
+              "kind" : {
+                "TimeGet" : {
+                  
+                }
+              },
+              "name" : "timeGetOut",
+              "priority" : "None",
+              "queueFull" : "None"
+            },
+            "symbol" : {
+              "Port" : {
+                "nodeId" : 88,
+                "unqualifiedName" : "Time"
+              }
+            },
+            "priority" : "None",
+            "queueFull" : "None"
+          }
+        }
+      },
+      "specialPortMap" : {
+        "telemetry" : {
+          "aNode" : {
+            "astNodeId" : 50
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "Telemetry" : {
+                
+              }
+            },
+            "name" : "tlmOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 85,
+              "unqualifiedName" : "Tlm"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        },
+        "time get" : {
+          "aNode" : {
+            "astNodeId" : 51
+          },
+          "specifier" : {
+            "inputKind" : "None",
+            "kind" : {
+              "TimeGet" : {
+                
+              }
+            },
+            "name" : "timeGetOut",
+            "priority" : "None",
+            "queueFull" : "None"
+          },
+          "symbol" : {
+            "Port" : {
+              "nodeId" : 88,
+              "unqualifiedName" : "Time"
+            }
+          },
+          "priority" : "None",
+          "queueFull" : "None"
+        }
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        "0" : {
+          "aNode" : {
+            "astNodeId" : 53
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        },
+        "1" : {
+          "aNode" : {
+            "astNodeId" : 59
+          },
+          "channelType" : {
+            "Primitive" : {
+              "Float" : {
+                "kind" : {
+                  "F32" : {
+                    
+                  }
+                }
+              }
+            }
+          },
+          "update" : {
+            "Always" : {
+              
+            }
+          },
+          "format" : "None",
+          "lowLimits" : {
+            
+          },
+          "highLimits" : {
+            
+          }
+        }
+      },
+      "defaultTlmChannelId" : 2,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/queuedComponents.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    "88" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    },
+    "83" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "79" : {
+      "Module" : {
+        "nodeId" : 80,
+        "unqualifiedName" : "FSW"
+      }
+    },
+    "6" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "60" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "85" : {
+      "Module" : {
+        "nodeId" : 89,
+        "unqualifiedName" : "Fw"
+      }
+    }
+  },
+  "symbolScopeMap" : {
+    "89" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Tlm" : {
+                  "Port" : {
+                    "nodeId" : 85,
+                    "unqualifiedName" : "Tlm"
+                  }
+                },
+                "Time" : {
+                  "Port" : {
+                    "nodeId" : 88,
+                    "unqualifiedName" : "Time"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "84" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Sched" : {
+                  "Port" : {
+                    "nodeId" : 83,
+                    "unqualifiedName" : "Sched"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "61" : {
+      "ScopeImpl" : {
+        "map" : {
+          "Port" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "Calibration" : {
+                  "Port" : {
+                    "nodeId" : 6,
+                    "unqualifiedName" : "Calibration"
+                  }
+                }
+              }
+            }
+          },
+          "Component" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "Type" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "80" : {
+      "ScopeImpl" : {
+        "map" : {
+          "ComponentInstance" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "engineTemp" : {
+                  "ComponentInstance" : {
+                    "nodeId" : 79,
+                    "unqualifiedName" : "engineTemp"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "60" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "78" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "52" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "4" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "77" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "45" : {
+      "Port" : {
+        "nodeId" : 83,
+        "unqualifiedName" : "Sched"
+      }
+    },
+    "51" : {
+      "Port" : {
+        "nodeId" : 88,
+        "unqualifiedName" : "Time"
+      }
+    },
+    "50" : {
+      "Port" : {
+        "nodeId" : 85,
+        "unqualifiedName" : "Tlm"
+      }
+    },
+    "43" : {
+      "Module" : {
+        "nodeId" : 84,
+        "unqualifiedName" : "Svc"
+      }
+    },
+    "74" : {
+      "Module" : {
+        "nodeId" : 61,
+        "unqualifiedName" : "Sensors"
+      }
+    },
+    "48" : {
+      "Port" : {
+        "nodeId" : 6,
+        "unqualifiedName" : "Calibration"
+      }
+    },
+    "76" : {
+      "Component" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "EngineTemp"
+      }
+    }
+  },
+  "valueMap" : {
+    "77" : {
+      "Integer" : {
+        "value" : 256
+      }
+    },
+    "78" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
+  }
+}

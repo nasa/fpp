@@ -1,0 +1,126 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    "43" : {
+      "aNode" : {
+        "astNodeId" : 43
+      },
+      "portMap" : {
+        "pInternal" : {
+          "Internal" : {
+            "aNode" : {
+              "astNodeId" : 42
+            },
+            "priority" : {
+              "Some" : 10
+            },
+            "queueFull" : {
+              "Drop" : {
+                
+              }
+            }
+          }
+        }
+      },
+      "specialPortMap" : {
+        
+      },
+      "commandMap" : {
+        
+      },
+      "defaultOpcode" : 0,
+      "tlmChannelMap" : {
+        
+      },
+      "defaultTlmChannelId" : 0,
+      "eventMap" : {
+        
+      },
+      "defaultEventId" : 0,
+      "paramMap" : {
+        
+      },
+      "specPortMatchingList" : [
+      ],
+      "portMatchingList" : [
+      ],
+      "defaultParamId" : 0,
+      "containerMap" : {
+        
+      },
+      "defaultContainerId" : 0,
+      "recordMap" : {
+        
+      },
+      "defaultRecordId" : 0
+    }
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/internalPorts.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    "43" : {
+      "ScopeImpl" : {
+        "map" : {
+          
+        }
+      }
+    }
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "0" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 0
+        }
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 0
+        }
+      }
+    },
+    "41" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "38" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    },
+    "39" : {
+      "AbsType" : {
+        "nodeId" : 0,
+        "unqualifiedName" : "T"
+      }
+    }
+  },
+  "valueMap" : {
+    "41" : {
+      "Integer" : {
+        "value" : 10
+      }
+    }
+  }
+}

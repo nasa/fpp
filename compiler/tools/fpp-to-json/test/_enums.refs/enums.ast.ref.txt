@@ -1,0 +1,376 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Decision",
+                  "typeName" : "None",
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "YES",
+                            "value" : "None"
+                          },
+                          "id" : 0
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "NO",
+                            "value" : "None"
+                          },
+                          "id" : 1
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "MAYBE",
+                            "value" : "None"
+                          },
+                          "id" : 4
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : "None"
+                },
+                "id" : 5
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "initialState",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprDot" : {
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprIdent" : {
+                                  "value" : "Decision"
+                                }
+                              },
+                              "id" : 6
+                            }
+                          },
+                          "id" : {
+                            "AstNode" : {
+                              "data" : "MAYBE",
+                              "id" : 7
+                            }
+                          }
+                        }
+                      },
+                      "id" : 8
+                    }
+                  }
+                },
+                "id" : 9
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "E",
+                  "typeName" : "None",
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "A",
+                            "value" : {
+                              "Some" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "1"
+                                    }
+                                  },
+                                  "id" : 10
+                                }
+                              }
+                            }
+                          },
+                          "id" : 11
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "B",
+                            "value" : {
+                              "Some" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "2"
+                                    }
+                                  },
+                                  "id" : 12
+                                }
+                              }
+                            }
+                          },
+                          "id" : 13
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "C",
+                            "value" : {
+                              "Some" : {
+                                "AstNode" : {
+                                  "data" : {
+                                    "ExprLiteralInt" : {
+                                      "value" : "3"
+                                    }
+                                  },
+                                  "id" : 18
+                                }
+                              }
+                            }
+                          },
+                          "id" : 19
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : "None"
+                },
+                "id" : 20
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprBinop" : {
+                          "e1" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprDot" : {
+                                  "e" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprIdent" : {
+                                          "value" : "E"
+                                        }
+                                      },
+                                      "id" : 21
+                                    }
+                                  },
+                                  "id" : {
+                                    "AstNode" : {
+                                      "data" : "A",
+                                      "id" : 22
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 23
+                            }
+                          },
+                          "op" : {
+                            "Add" : {
+                              
+                            }
+                          },
+                          "e2" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprLiteralInt" : {
+                                  "value" : "1"
+                                }
+                              },
+                              "id" : 24
+                            }
+                          }
+                        }
+                      },
+                      "id" : 25
+                    }
+                  }
+                },
+                "id" : 26
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefEnum" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Small",
+                  "typeName" : {
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "TypeNameInt" : {
+                            "name" : {
+                              "U8" : {
+                                
+                              }
+                            }
+                          }
+                        },
+                        "id" : 27
+                      }
+                    }
+                  },
+                  "constants" : [
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "A",
+                            "value" : "None"
+                          },
+                          "id" : 28
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "B",
+                            "value" : "None"
+                          },
+                          "id" : 29
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "AstNode" : {
+                          "data" : {
+                            "name" : "C",
+                            "value" : "None"
+                          },
+                          "id" : 32
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ],
+                  "default" : {
+                    "Some" : {
+                      "AstNode" : {
+                        "data" : {
+                          "ExprIdent" : {
+                            "value" : "B"
+                          }
+                        },
+                        "id" : 33
+                      }
+                    }
+                  }
+                },
+                "id" : 34
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

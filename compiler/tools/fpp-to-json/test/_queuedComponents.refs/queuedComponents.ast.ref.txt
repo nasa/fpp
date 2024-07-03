@@ -1,0 +1,538 @@
+[
+  {
+    "members" : [
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Sensors",
+                  "members" : [
+                    [
+                      [
+                        "A port for calibration input"
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Calibration",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "cal",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameFloat" : {
+                                                  "name" : {
+                                                    "F32" : {
+                                                      
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 4
+                                            }
+                                          }
+                                        },
+                                        "id" : 5
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 6
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                        "A component for sensing engine temperature"
+                      ],
+                      {
+                        "DefComponent" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "kind" : {
+                                  "Queued" : {
+                                    
+                                  }
+                                },
+                                "name" : "EngineTemp",
+                                "members" : [
+                                  [
+                                    [
+                                      "Schedule input port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "General" : {
+                                                "kind" : {
+                                                  "SyncInput" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "schedIn",
+                                                "size" : "None",
+                                                "port" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Qualified" : {
+                                                          "qualifier" : {
+                                                            "AstNode" : {
+                                                              "data" : {
+                                                                "Unqualified" : {
+                                                                  "name" : "Svc"
+                                                                }
+                                                              },
+                                                              "id" : 43
+                                                            }
+                                                          },
+                                                          "name" : {
+                                                            "AstNode" : {
+                                                              "data" : "Sched",
+                                                              "id" : 44
+                                                            }
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 45
+                                                    }
+                                                  }
+                                                },
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 46
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Calibration input"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "General" : {
+                                                "kind" : {
+                                                  "AsyncInput" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "calibrationIn",
+                                                "size" : "None",
+                                                "port" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "Calibration"
+                                                        }
+                                                      },
+                                                      "id" : 48
+                                                    }
+                                                  }
+                                                },
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 49
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Telemetry port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "Telemetry" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "tlmOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 50
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Time get port"
+                                    ],
+                                    {
+                                      "SpecPortInstance" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Special" : {
+                                                "inputKind" : "None",
+                                                "kind" : {
+                                                  "TimeGet" : {
+                                                    
+                                                  }
+                                                },
+                                                "name" : "timeGetOut",
+                                                "priority" : "None",
+                                                "queueFull" : "None"
+                                              }
+                                            },
+                                            "id" : 51
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Impulse engine temperature"
+                                    ],
+                                    {
+                                      "SpecTlmChannel" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "ImpulseTemp",
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameFloat" : {
+                                                      "name" : {
+                                                        "F32" : {
+                                                          
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 52
+                                                }
+                                              },
+                                              "id" : "None",
+                                              "update" : "None",
+                                              "format" : "None",
+                                              "low" : [
+                                              ],
+                                              "high" : [
+                                              ]
+                                            },
+                                            "id" : 53
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ],
+                                  [
+                                    [
+                                      "Warp core temperature"
+                                    ],
+                                    {
+                                      "SpecTlmChannel" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "WarpTemp",
+                                              "typeName" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "TypeNameFloat" : {
+                                                      "name" : {
+                                                        "F32" : {
+                                                          
+                                                        }
+                                                      }
+                                                    }
+                                                  },
+                                                  "id" : 58
+                                                }
+                                              },
+                                              "id" : "None",
+                                              "update" : "None",
+                                              "format" : "None",
+                                              "low" : [
+                                              ],
+                                              "high" : [
+                                              ]
+                                            },
+                                            "id" : 59
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
+                              },
+                              "id" : 60
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 61
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "FSW",
+                  "members" : [
+                    [
+                      [
+                        "Engine temperature sensor"
+                      ],
+                      {
+                        "DefComponentInstance" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "engineTemp",
+                                "component" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "Qualified" : {
+                                        "qualifier" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "Sensors"
+                                              }
+                                            },
+                                            "id" : 74
+                                          }
+                                        },
+                                        "name" : {
+                                          "AstNode" : {
+                                            "data" : "EngineTemp",
+                                            "id" : 75
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 76
+                                  }
+                                },
+                                "baseId" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "0x100"
+                                      }
+                                    },
+                                    "id" : 77
+                                  }
+                                },
+                                "implType" : "None",
+                                "file" : "None",
+                                "queueSize" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "10"
+                                        }
+                                      },
+                                      "id" : 78
+                                    }
+                                  }
+                                },
+                                "stackSize" : "None",
+                                "priority" : "None",
+                                "cpu" : "None",
+                                "initSpecs" : [
+                                ]
+                              },
+                              "id" : 79
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 80
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Svc",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Sched",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 83
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 84
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "Fw",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Tlm",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 85
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "Time",
+                                "params" : [
+                                ],
+                                "returnType" : "None"
+                              },
+                              "id" : 88
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 89
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

@@ -1,0 +1,391 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "This is module M1"
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "M1",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefConstant" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "a",
+                                "value" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 0
+                                  }
+                                }
+                              },
+                              "id" : 1
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefConstant" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "b",
+                                "value" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprIdent" : {
+                                        "value" : "a"
+                                      }
+                                    },
+                                    "id" : 2
+                                  }
+                                }
+                              },
+                              "id" : 3
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ],
+                    [
+                      [
+                      ],
+                      {
+                        "DefConstant" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "c",
+                                "value" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprDot" : {
+                                        "e" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "ExprIdent" : {
+                                                "value" : "M1"
+                                              }
+                                            },
+                                            "id" : 12
+                                          }
+                                        },
+                                        "id" : {
+                                          "AstNode" : {
+                                            "data" : "b",
+                                            "id" : 13
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "id" : 14
+                                  }
+                                }
+                              },
+                              "id" : 15
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 16
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "a",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprDot" : {
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprIdent" : {
+                                  "value" : "M1"
+                                }
+                              },
+                              "id" : 17
+                            }
+                          },
+                          "id" : {
+                            "AstNode" : {
+                              "data" : "a",
+                              "id" : 18
+                            }
+                          }
+                        }
+                      },
+                      "id" : 19
+                    }
+                  }
+                },
+                "id" : 20
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "M2",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefConstant" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "a",
+                                "value" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "0"
+                                      }
+                                    },
+                                    "id" : 25
+                                  }
+                                }
+                              },
+                              "id" : 26
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 27
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "M2",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefConstant" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "b",
+                                "value" : {
+                                  "AstNode" : {
+                                    "data" : {
+                                      "ExprLiteralInt" : {
+                                        "value" : "1"
+                                      }
+                                    },
+                                    "id" : 32
+                                  }
+                                }
+                              },
+                              "id" : 33
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 34
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefModule" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "A",
+                  "members" : [
+                    [
+                      [
+                      ],
+                      {
+                        "DefModule" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "B",
+                                "members" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "DefConstant" : {
+                                        "node" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "name" : "c",
+                                              "value" : {
+                                                "AstNode" : {
+                                                  "data" : {
+                                                    "ExprLiteralInt" : {
+                                                      "value" : "0"
+                                                    }
+                                                  },
+                                                  "id" : 53
+                                                }
+                                              }
+                                            },
+                                            "id" : 54
+                                          }
+                                        }
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ]
+                              },
+                              "id" : 55
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 56
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+        ],
+        {
+          "DefConstant" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "c",
+                  "value" : {
+                    "AstNode" : {
+                      "data" : {
+                        "ExprDot" : {
+                          "e" : {
+                            "AstNode" : {
+                              "data" : {
+                                "ExprDot" : {
+                                  "e" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprIdent" : {
+                                          "value" : "A"
+                                        }
+                                      },
+                                      "id" : 57
+                                    }
+                                  },
+                                  "id" : {
+                                    "AstNode" : {
+                                      "data" : "B",
+                                      "id" : 58
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 60
+                            }
+                          },
+                          "id" : {
+                            "AstNode" : {
+                              "data" : "c",
+                              "id" : 59
+                            }
+                          }
+                        }
+                      },
+                      "id" : 61
+                    }
+                  }
+                },
+                "id" : 62
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]

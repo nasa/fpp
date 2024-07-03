@@ -1,0 +1,1200 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/types.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "34" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "8" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "String" : {
+            "size" : "None"
+          }
+        }
+      }
+    },
+    "33" : {
+      "Struct" : {
+        "node" : {
+          "astNodeId" : 33
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonStruct" : {
+              "members" : {
+                "x" : {
+                  "PrimitiveInt" : {
+                    "value" : 0,
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                },
+                "y" : {
+                  "String" : {
+                    "value" : ""
+                  }
+                }
+              }
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 33
+              },
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "size" : "None"
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "sizes" : {
+                
+              },
+              "formats" : {
+                
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        }
+      }
+    },
+    "56" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "50" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "5" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "48" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    },
+    "65" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 65
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "AbsType" : {
+              "node" : {
+                "astNodeId" : 60
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "AbsType" : {
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 60
+                      }
+                    }
+                  }
+                },
+                {
+                  "AbsType" : {
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 60
+                      }
+                    }
+                  }
+                },
+                {
+                  "AbsType" : {
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 60
+                      }
+                    }
+                  }
+                }
+              ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 65
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "AbsType" : {
+                    "node" : {
+                      "astNodeId" : 60
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
+            }
+          }
+        },
+        "format" : "None"
+      }
+    },
+    "31" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "7" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "4" : {
+      "String" : {
+        "size" : {
+          "Some" : {
+            "astNodeId" : 3
+          }
+        }
+      }
+    },
+    "40" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U8" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "15" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 15
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "Array" : {
+              "node" : {
+                "astNodeId" : 10
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "String" : {
+                    "size" : {
+                      "Some" : {
+                        "astNodeId" : 3
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : {
+                "Some" : {
+                  "anonArray" : {
+                    "elements" : [
+                      {
+                        "String" : {
+                          "value" : "1"
+                        }
+                      },
+                      {
+                        "String" : {
+                          "value" : "2"
+                        }
+                      },
+                      {
+                        "String" : {
+                          "value" : "3"
+                        }
+                      }
+                    ]
+                  },
+                  "t" : {
+                    "node" : {
+                      "astNodeId" : 10
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "String" : {
+                          "size" : {
+                            "Some" : {
+                              "astNodeId" : 3
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "default" : "None",
+                    "format" : "None"
+                  }
+                }
+              },
+              "format" : {
+                "Some" : {
+                  "prefix" : "",
+                  "fields" : [
+                    [
+                      {
+                        "Default" : {
+                          
+                        }
+                      },
+                      " RPM"
+                    ]
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "Array" : {
+                    "anonArray" : {
+                      "elements" : [
+                        {
+                          "String" : {
+                            "value" : "1"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "2"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "3"
+                          }
+                        }
+                      ]
+                    },
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 10
+                      },
+                      "anonArray" : {
+                        "size" : {
+                          "Some" : 3
+                        },
+                        "eltType" : {
+                          "String" : {
+                            "size" : {
+                              "Some" : {
+                                "astNodeId" : 3
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default" : "None",
+                      "format" : "None"
+                    }
+                  }
+                },
+                {
+                  "Array" : {
+                    "anonArray" : {
+                      "elements" : [
+                        {
+                          "String" : {
+                            "value" : "1"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "2"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "3"
+                          }
+                        }
+                      ]
+                    },
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 10
+                      },
+                      "anonArray" : {
+                        "size" : {
+                          "Some" : 3
+                        },
+                        "eltType" : {
+                          "String" : {
+                            "size" : {
+                              "Some" : {
+                                "astNodeId" : 3
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default" : "None",
+                      "format" : "None"
+                    }
+                  }
+                },
+                {
+                  "Array" : {
+                    "anonArray" : {
+                      "elements" : [
+                        {
+                          "String" : {
+                            "value" : "1"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "2"
+                          }
+                        },
+                        {
+                          "String" : {
+                            "value" : "3"
+                          }
+                        }
+                      ]
+                    },
+                    "t" : {
+                      "node" : {
+                        "astNodeId" : 10
+                      },
+                      "anonArray" : {
+                        "size" : {
+                          "Some" : 3
+                        },
+                        "eltType" : {
+                          "String" : {
+                            "size" : {
+                              "Some" : {
+                                "astNodeId" : 3
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "default" : "None",
+                      "format" : "None"
+                    }
+                  }
+                }
+              ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 15
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "Array" : {
+                    "node" : {
+                      "astNodeId" : 10
+                    },
+                    "anonArray" : {
+                      "size" : {
+                        "Some" : 3
+                      },
+                      "eltType" : {
+                        "String" : {
+                          "size" : {
+                            "Some" : {
+                              "astNodeId" : 3
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "default" : {
+                      "Some" : {
+                        "anonArray" : {
+                          "elements" : [
+                            {
+                              "String" : {
+                                "value" : "1"
+                              }
+                            },
+                            {
+                              "String" : {
+                                "value" : "2"
+                              }
+                            },
+                            {
+                              "String" : {
+                                "value" : "3"
+                              }
+                            }
+                          ]
+                        },
+                        "t" : {
+                          "node" : {
+                            "astNodeId" : 10
+                          },
+                          "anonArray" : {
+                            "size" : {
+                              "Some" : 3
+                            },
+                            "eltType" : {
+                              "String" : {
+                                "size" : {
+                                  "Some" : {
+                                    "astNodeId" : 3
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          "default" : "None",
+                          "format" : "None"
+                        }
+                      }
+                    },
+                    "format" : {
+                      "Some" : {
+                        "prefix" : "",
+                        "fields" : [
+                          [
+                            {
+                              "Default" : {
+                                
+                              }
+                            },
+                            " RPM"
+                          ]
+                        ]
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
+            }
+          }
+        },
+        "format" : "None"
+      }
+    },
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "61" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "46" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "10" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 10
+        },
+        "anonArray" : {
+          "size" : {
+            "Some" : 3
+          },
+          "eltType" : {
+            "String" : {
+              "size" : {
+                "Some" : {
+                  "astNodeId" : 3
+                }
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonArray" : {
+              "elements" : [
+                {
+                  "String" : {
+                    "value" : "1"
+                  }
+                },
+                {
+                  "String" : {
+                    "value" : "2"
+                  }
+                },
+                {
+                  "String" : {
+                    "value" : "3"
+                  }
+                }
+              ]
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 10
+              },
+              "anonArray" : {
+                "size" : {
+                  "Some" : 3
+                },
+                "eltType" : {
+                  "String" : {
+                    "size" : {
+                      "Some" : {
+                        "astNodeId" : 3
+                      }
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "format" : "None"
+            }
+          }
+        },
+        "format" : {
+          "Some" : {
+            "prefix" : "",
+            "fields" : [
+              [
+                {
+                  "Default" : {
+                    
+                  }
+                },
+                " RPM"
+              ]
+            ]
+          }
+        }
+      }
+    },
+    "59" : {
+      "Struct" : {
+        "node" : {
+          "astNodeId" : 59
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U32" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonStruct" : {
+              "members" : {
+                "x" : {
+                  "PrimitiveInt" : {
+                    "value" : 1,
+                    "kind" : {
+                      "U32" : {
+                        
+                      }
+                    }
+                  }
+                },
+                "y" : {
+                  "String" : {
+                    "value" : "abc"
+                  }
+                }
+              }
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 59
+              },
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U32" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "size" : "None"
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "sizes" : {
+                
+              },
+              "formats" : {
+                
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Struct" : {
+        "node" : {
+          "astNodeId" : 49
+        },
+        "anonStruct" : {
+          "members" : {
+            "x" : {
+              "Int" : {
+                "PrimitiveInt" : {
+                  "kind" : {
+                    "U8" : {
+                      
+                    }
+                  }
+                }
+              }
+            },
+            "y" : {
+              "String" : {
+                "size" : "None"
+              }
+            }
+          }
+        },
+        "default" : {
+          "Some" : {
+            "anonStruct" : {
+              "members" : {
+                "x" : {
+                  "PrimitiveInt" : {
+                    "value" : 1,
+                    "kind" : {
+                      "U8" : {
+                        
+                      }
+                    }
+                  }
+                },
+                "y" : {
+                  "String" : {
+                    "value" : "abc"
+                  }
+                }
+              }
+            },
+            "t" : {
+              "node" : {
+                "astNodeId" : 49
+              },
+              "anonStruct" : {
+                "members" : {
+                  "x" : {
+                    "Int" : {
+                      "PrimitiveInt" : {
+                        "kind" : {
+                          "U8" : {
+                            
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "y" : {
+                    "String" : {
+                      "size" : "None"
+                    }
+                  }
+                }
+              },
+              "default" : "None",
+              "sizes" : {
+                
+              },
+              "formats" : {
+                
+              }
+            }
+          }
+        },
+        "sizes" : {
+          
+        },
+        "formats" : {
+          
+        }
+      }
+    },
+    "6" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "36" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "39" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    },
+    "60" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 60
+        }
+      }
+    },
+    "14" : {
+      "Array" : {
+        "node" : {
+          "astNodeId" : 10
+        },
+        "anonArray" : {
+          "size" : "None",
+          "eltType" : {
+            "String" : {
+              "size" : {
+                "Some" : {
+                  "astNodeId" : 3
+                }
+              }
+            }
+          }
+        },
+        "default" : "None",
+        "format" : "None"
+      }
+    },
+    "58" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    },
+    "64" : {
+      "AbsType" : {
+        "node" : {
+          "astNodeId" : 60
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "27" : {
+      "Int" : {
+        "PrimitiveInt" : {
+          "kind" : {
+            "U32" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          }
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "13" : {
+      "Array" : {
+        "nodeId" : 10,
+        "unqualifiedName" : "A"
+      }
+    },
+    "48" : {
+      "Constant" : {
+        "nodeId" : 39,
+        "unqualifiedName" : "s"
+      }
+    },
+    "14" : {
+      "Array" : {
+        "nodeId" : 10,
+        "unqualifiedName" : "A"
+      }
+    },
+    "2" : {
+      "Constant" : {
+        "nodeId" : 1,
+        "unqualifiedName" : "numElements"
+      }
+    },
+    "63" : {
+      "AbsType" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "T"
+      }
+    },
+    "58" : {
+      "Constant" : {
+        "nodeId" : 39,
+        "unqualifiedName" : "s"
+      }
+    },
+    "64" : {
+      "AbsType" : {
+        "nodeId" : 60,
+        "unqualifiedName" : "T"
+      }
+    }
+  },
+  "valueMap" : {
+    "34" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "8" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "String" : {
+              "value" : "1"
+            }
+          },
+          {
+            "String" : {
+              "value" : "2"
+            }
+          },
+          {
+            "String" : {
+              "value" : "3"
+            }
+          }
+        ]
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "61" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "5" : {
+      "String" : {
+        "value" : "1"
+      }
+    },
+    "48" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "58" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "7" : {
+      "String" : {
+        "value" : "3"
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 40
+      }
+    },
+    "6" : {
+      "String" : {
+        "value" : "2"
+      }
+    },
+    "36" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "39" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "38" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          }
+        }
+      }
+    }
+  }
+}

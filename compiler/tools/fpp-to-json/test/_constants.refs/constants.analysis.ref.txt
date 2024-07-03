@@ -1,0 +1,1177 @@
+{
+  "componentInstanceMap" : {
+    
+  },
+  "componentMap" : {
+    
+  },
+  "includedFileSet" : [
+  ],
+  "inputFileSet" : [
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/constants.fpp"
+  ],
+  "locationSpecifierMap" : [
+  ],
+  "parentSymbolMap" : {
+    
+  },
+  "symbolScopeMap" : {
+    
+  },
+  "topologyMap" : {
+    
+  },
+  "typeMap" : {
+    "45" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "8" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "5" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "42" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "18" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "52" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "12" : {
+      "Primitive" : {
+        "Float" : {
+          "kind" : {
+            "F64" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "51" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "19" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "23" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "4" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "40" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "15" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "11" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "9" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "44" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "33" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "56" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "55" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "50" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "37" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "13" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "46" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "35" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "16" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 3
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "59" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "48" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "21" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonArray" : {
+            "size" : {
+              "Some" : 2
+            },
+            "eltType" : {
+              "Int" : {
+                "Integer" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "54" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "43" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "57" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "32" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "6" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "1" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "25" : {
+      "String" : {
+        "size" : "None"
+      }
+    },
+    "60" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Primitive" : {
+            "Float" : {
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "47" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "31" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "64" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "53" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "0" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "Int" : {
+            "Integer" : {
+              
+            }
+          }
+        }
+      }
+    },
+    "27" : {
+      "Primitive" : {
+        "Boolean" : {
+          
+        }
+      }
+    },
+    "2" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "38" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          },
+          "z" : {
+            "Primitive" : {
+              "Boolean" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "7" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Int" : {
+              "Integer" : {
+                
+              }
+            }
+          },
+          "y" : {
+            "String" : {
+              "size" : "None"
+            }
+          },
+          "z" : {
+            "Primitive" : {
+              "Boolean" : {
+                
+              }
+            }
+          }
+        }
+      }
+    },
+    "41" : {
+      "AnonArray" : {
+        "size" : {
+          "Some" : 2
+        },
+        "eltType" : {
+          "AnonStruct" : {
+            "members" : {
+              "x" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              },
+              "y" : {
+                "Int" : {
+                  "Integer" : {
+                    
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "63" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    },
+    "3" : {
+      "Int" : {
+        "Integer" : {
+          
+        }
+      }
+    }
+  },
+  "useDefMap" : {
+    "45" : {
+      "Constant" : {
+        "nodeId" : 44,
+        "unqualifiedName" : "j"
+      }
+    }
+  },
+  "valueMap" : {
+    "45" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "8" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "5" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "42" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "18" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "52" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "12" : {
+      "Float" : {
+        "value" : 2.0,
+        "kind" : {
+          "F64" : {
+            
+          }
+        }
+      }
+    },
+    "51" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "19" : {
+      "Integer" : {
+        "value" : 4
+      }
+    },
+    "23" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "4" : {
+      "String" : {
+        "value" : "This is a string."
+      }
+    },
+    "40" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        }
+      }
+    },
+    "15" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "11" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "9" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "44" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "33" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "22" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "56" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "55" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "50" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "37" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        }
+      }
+    },
+    "13" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "46" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "35" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "16" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "10" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          }
+        ]
+      }
+    },
+    "59" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
+    "48" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "21" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "AnonArray" : {
+              "elements" : [
+                {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                {
+                  "Integer" : {
+                    "value" : 4
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "54" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "43" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "57" : {
+      "Boolean" : {
+        "value" : true
+      }
+    },
+    "32" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "49" : {
+      "Integer" : {
+        "value" : -1
+      }
+    },
+    "6" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "1" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "17" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 2
+            }
+          }
+        ]
+      }
+    },
+    "25" : {
+      "String" : {
+        "value" : "abc"
+      }
+    },
+    "60" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
+    "14" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Float" : {
+              "value" : 1.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          },
+          {
+            "Float" : {
+              "value" : 2.0,
+              "kind" : {
+                "F64" : {
+                  
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "47" : {
+      "Integer" : {
+        "value" : 1
+      }
+    },
+    "31" : {
+      "AnonStruct" : {
+        "members" : {
+          
+        }
+      }
+    },
+    "58" : {
+      "Boolean" : {
+        "value" : true
+      }
+    },
+    "64" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "53" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "0" : {
+      "Integer" : {
+        "value" : 1234
+      }
+    },
+    "20" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "Integer" : {
+              "value" : 3
+            }
+          },
+          {
+            "Integer" : {
+              "value" : 4
+            }
+          }
+        ]
+      }
+    },
+    "27" : {
+      "Boolean" : {
+        "value" : false
+      }
+    },
+    "2" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    },
+    "38" : {
+      "Integer" : {
+        "value" : 3
+      }
+    },
+    "30" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          },
+          "z" : {
+            "Boolean" : {
+              "value" : false
+            }
+          }
+        }
+      }
+    },
+    "7" : {
+      "Integer" : {
+        "value" : 2
+      }
+    },
+    "29" : {
+      "AnonStruct" : {
+        "members" : {
+          "x" : {
+            "Integer" : {
+              "value" : 1
+            }
+          },
+          "y" : {
+            "String" : {
+              "value" : "abc"
+            }
+          },
+          "z" : {
+            "Boolean" : {
+              "value" : false
+            }
+          }
+        }
+      }
+    },
+    "41" : {
+      "AnonArray" : {
+        "elements" : [
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 1
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 2
+                  }
+                }
+              }
+            }
+          },
+          {
+            "AnonStruct" : {
+              "members" : {
+                "x" : {
+                  "Integer" : {
+                    "value" : 3
+                  }
+                },
+                "y" : {
+                  "Integer" : {
+                    "value" : 0
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "63" : {
+      "Integer" : {
+        "value" : 0
+      }
+    },
+    "3" : {
+      "Integer" : {
+        "value" : 43981
+      }
+    }
+  }
+}

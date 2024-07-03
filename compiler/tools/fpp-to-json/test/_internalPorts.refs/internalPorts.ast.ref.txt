@@ -1,0 +1,130 @@
+[
+  {
+    "members" : [
+      [
+        [
+          "A data type T"
+        ],
+        {
+          "DefAbsType" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "name" : "T"
+                },
+                "id" : 0
+              }
+            }
+          }
+        },
+        [
+        ]
+      ],
+      [
+        [
+          "A component that sends data to itself on an internal port,",
+          "with priority and queue full behavior"
+        ],
+        {
+          "DefComponent" : {
+            "node" : {
+              "AstNode" : {
+                "data" : {
+                  "kind" : {
+                    "Active" : {
+                      
+                    }
+                  },
+                  "name" : "InternalSelfMessage",
+                  "members" : [
+                    [
+                      [
+                        "An internal port for sending data of type T"
+                      ],
+                      {
+                        "SpecInternalPort" : {
+                          "node" : {
+                            "AstNode" : {
+                              "data" : {
+                                "name" : "pInternal",
+                                "params" : [
+                                  [
+                                    [
+                                    ],
+                                    {
+                                      "AstNode" : {
+                                        "data" : {
+                                          "kind" : {
+                                            "Value" : {
+                                              
+                                            }
+                                          },
+                                          "name" : "t",
+                                          "typeName" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "TypeNameQualIdent" : {
+                                                  "name" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "T"
+                                                        }
+                                                      },
+                                                      "id" : 38
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 39
+                                            }
+                                          }
+                                        },
+                                        "id" : 40
+                                      }
+                                    },
+                                    [
+                                    ]
+                                  ]
+                                ],
+                                "priority" : {
+                                  "Some" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "ExprLiteralInt" : {
+                                          "value" : "10"
+                                        }
+                                      },
+                                      "id" : 41
+                                    }
+                                  }
+                                },
+                                "queueFull" : {
+                                  "Some" : {
+                                    "Drop" : {
+                                      
+                                    }
+                                  }
+                                }
+                              },
+                              "id" : 42
+                            }
+                          }
+                        }
+                      },
+                      [
+                      ]
+                    ]
+                  ]
+                },
+                "id" : 43
+              }
+            }
+          }
+        },
+        [
+        ]
+      ]
+    ]
+  }
+]
