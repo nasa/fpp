@@ -14,26 +14,27 @@ update()
   else
     outfile=$infile
   fi
-  echo "updating $outfile.ref.txt"
-  $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.ref.txt
+  echo "updating ref files for $outfile"
+
+  refs_folder=_$outfile.refs
+  mkdir -p $refs_folder
+
+  $fpp_to_json $infile.fpp $args 2>&1
   
-  remove_path_prefix < fpp-ast.json >> $outfile.ref.txt
-  remove_path_prefix < fpp-loc-map.json >> $outfile.ref.txt
+  remove_path_prefix < fpp-ast.json > $refs_folder/$outfile.ast.ref.txt
+  remove_path_prefix < fpp-loc-map.json > $refs_folder/$outfile.loc-map.ref.txt
 
   if [ "$args" = "-s" ]; then
     rm fpp-ast.json fpp-loc-map.json
   
   else
-    remove_path_prefix < fpp-analysis.json >> $outfile.ref.txt
+    remove_path_prefix < fpp-analysis.json > $refs_folder/$outfile.analysis.ref.txt
     # Delete the JSON files
     rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
   fi
 }
 
-for file in `find . -name '*.ref.txt'`
-do
-  rm $file
-done
+rm -rf *.refs
 
 update "" activeComponents
 update "" commands
@@ -47,6 +48,7 @@ update "" matchedPorts
 update "" modules
 update "" parameters
 update "" passiveComponent
+update "Fw/symbols.fpp" patternedConnections
 update "" ports
 update "" queuedComponents
 update "" simpleComponents

@@ -16,12 +16,14 @@ run_test()
     outfile=$infile
   fi
 
+  refs_folder=_$infile.refs
+
 
   {
     # Run fpp_to_json and concatenate the output files
-    $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $outfile.out.txt && \
-    remove_path_prefix < fpp-ast.json >> $outfile.out.txt && \
-    remove_path_prefix < fpp-loc-map.json >> $outfile.out.txt
+    $fpp_to_json $infile.fpp $args 2>&1 && \
+    remove_path_prefix < fpp-ast.json >> $refs_folder/$outfile.ast.out.txt && \
+    remove_path_prefix < fpp-loc-map.json >> $refs_folder/$outfile.loc-map.out.txt
   } && \
   {
     # Validate the location map
@@ -38,14 +40,16 @@ run_test()
     if [ "$args" = "-s" ]; then
       rm fpp-ast.json fpp-loc-map.json
     else
-      remove_path_prefix < fpp-analysis.json >> $outfile.out.txt
+      remove_path_prefix < fpp-analysis.json >> $refs_folder/$outfile.analysis.out.txt
       # Delete the JSON files
       rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
+      diff -u $refs_folder/$outfile.analysis.ref.txt $refs_folder/$outfile.analysis.out.txt > $refs_folder/$outfile.analysis.diff.txt 2>&1
     fi
   } && \
   {
     # Compare the output
-    diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+    diff -u $refs_folder/$outfile.ast.ref.txt $refs_folder/$outfile.ast.out.txt > $refs_folder/$outfile.ast.diff.txt 2>&1
+    diff -u $refs_folder/$outfile.loc-map.ref.txt $refs_folder/$outfile.loc-map.out.txt > $refs_folder/$outfile.loc-map.diff.txt 2>&1
   }
 }
 
@@ -138,6 +142,10 @@ syntaxOnly(){
   run_test "-s" syntaxOnly 
 }
 
+patternedConnections(){
+  run_test "Fw/symbols.fpp" patternedConnections
+}
+
 tests="
 activeComponents
 commands
@@ -151,6 +159,7 @@ matchedPorts
 modules
 parameters
 passiveComponent
+patternedConnections
 ports
 queuedComponents
 simpleComponents
