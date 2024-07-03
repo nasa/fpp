@@ -3,6 +3,8 @@ package fpp.compiler.codegen
 import fpp.compiler.ast._
 import fpp.compiler.util._
 import scala.language.implicitConversions
+import fpp.compiler.ast.Ast.Annotated
+import fpp.compiler.ast.Ast.DefTransition
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -55,6 +57,12 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def stateMember(member: Ast.StateMember): Out = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMember((), member)
+    annotate(a1, l, a2)
+  }
+
   def stateMachineMember(member: Ast.StateMachineMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchStateMachineMember((), member)
@@ -95,6 +103,17 @@ object FppWriter extends AstVisitor with LineUtils {
     join (" enter ") (identAsLines(data.state))
   }
 
+  override def defTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"on ${ident(data.signal)}")
+    .joinOpt(data.guard)(" if ")(identAsLines)
+    .joinOpt(data.action)(" do ")(identAsLines)
+    .joinOpt(data.state)(" enter ")(identAsLines)
+  }
 
   override def defStateAnnotatedNode(
     in: In,
@@ -102,8 +121,10 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"state ${ident(data.name)}")
-
+    val members = data.members.getOrElse(List.empty)
+    List(line(s"state ${ident(data.name)} {"), Line.blank) ++
+    (Line.blankSeparated (stateMember) (members)).map(indentIn) ++
+    List(Line.blank, line("}"))
   }
 
 
@@ -143,10 +164,15 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"junction ${ident(data.name)}")
-
+     lines(s"junction ${ident(data.name)} {") ++
+      lines(s"if ${data.ifPart.guard}").map(indentIn)
+      .joinOpt(data.ifPart.action)(" do ")(identAsLines)
+      .join(" enter ")(identAsLines(data.ifPart.state))
+      .joinWithBreak("else ")(lines(""))
+      .joinOpt(data.elsePart.action)("do ")(identAsLines)
+      .join(" enter ")(identAsLines(data.elsePart.state)) ++
+    lines("}")
   }
-
 
   override def defArrayAnnotatedNode(
     in: In,

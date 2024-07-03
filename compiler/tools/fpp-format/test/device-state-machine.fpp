@@ -24,6 +24,7 @@ state machine Device {
     signal PowerOff
 
 # Specify actions
+    action a1
     action init1
     action init2
     action setPower: PowerData
@@ -43,7 +44,7 @@ state machine Device {
     initial do init1 enter j1
 
     junction j1 {
-        if coldStart enter DEVICE_OFF \
+        if coldStart do a1 enter DEVICE_OFF \
         else do initPower enter DEVICE_ON
     }
 
