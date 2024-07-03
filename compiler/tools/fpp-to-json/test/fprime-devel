@@ -1,0 +1,75 @@
+#!/bin/sh -e
+
+. ../../../scripts/test-utils.sh
+
+fprime_repo=https://github.com/nasa/fprime
+fpp_to_json=../../../bin/fpp-to-json
+
+clone_fprime()
+{
+  if [ -d fprime ]; then
+    echo "[warn] using existing F Prime directory"
+    return
+  fi
+    
+    echo "cloning F Prime repository..."
+    git clone -b devel $fprime_repo > /dev/null 2>&1
+
+    if [ $? -ne 0 ]; then
+        echo "[err] failed to clone F Prime repository"
+        exit 1
+    fi
+}
+
+get_all_fpp_files()
+{
+    echo "getting all FPP files from F Prime repository..."
+
+    fpp_files_ref=$(find fprime -name "*.fpp" | grep -v "RPI")
+    fpp_files_rpi=$(find fprime -name "*.fpp" | grep -v "Ref")
+
+
+    if [ -z "$fpp_files_ref" ]; then
+        echo "[err] no FPP files found in F Prime repository"
+        exit 1
+    fi
+
+    if [ -z "$fpp_files_rpi" ]; then
+        echo "[err] no FPP files found in F Prime repository"
+        exit 1
+    fi
+
+    echo "running fpp-to-json with the Ref project..."
+
+    $fpp_to_json $fpp_files_ref
+
+    if [ $? -ne 0 ]; then
+        echo "[err] failed to convert FPP files to JSON (with Ref)"
+        exit 1
+    fi
+
+    echo "ref succeeded! running fpp-to-json with the RPI project..."
+
+    $fpp_to_json $fpp_files_rpi
+
+    if [ $? -ne 0 ]; then
+        echo "[err] failed to convert FPP files to JSON (with RPI)"
+        exit 1
+    fi
+
+    echo "rpi succeeded!"
+
+    rm fpp-ast.json fpp-loc-map.json fpp-analysis.json
+}
+
+clean_fprime()
+{
+  if [ -d fprime ]; then
+    echo "cleaning F Prime repository..."
+    rm -rf fprime
+  fi
+}
+
+clone_fprime
+get_all_fpp_files
+clean_fprime
