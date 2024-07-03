@@ -14,7 +14,7 @@
 namespace {
   enum MsgTypeEnum {
     ACTIVESTATEMACHINES_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-    STATEMACHINE_SENDEVENTS,
+    STATEMACHINE_SENDSIGNALS,
   };
 
   // Get the max size by constructing a union of the async input, command, and
@@ -121,7 +121,7 @@ void ActiveStateMachinesComponentBase ::
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
   // Serialize the message ID
-  _status = msg.serialize(static_cast<FwEnumStoreType>(STATEMACHINE_SENDEVENTS));
+  _status = msg.serialize(static_cast<FwEnumStoreType>(STATEMACHINE_SENDSIGNALS));
   FW_ASSERT (
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
@@ -196,7 +196,7 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
   switch (msgType) {
 
     // Handle state machine signals 
-    case STATEMACHINE_SENDEVENTS: {
+    case STATEMACHINE_SENDSIGNALS: {
       Fw::SMSignals ev;
       deserStatus = msg.deserialize(ev);
 
