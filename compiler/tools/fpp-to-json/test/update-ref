@@ -16,10 +16,10 @@ update()
   fi
   echo "updating ref files for $outfile"
 
-  refs_folder=_$outfile.refs
+  refs_folder=$outfile.outs
   mkdir -p $refs_folder
 
-  $fpp_to_json $infile.fpp $args 2>&1
+  $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $refs_folder/$outfile.ref.txt
   
   remove_path_prefix < fpp-ast.json > $refs_folder/$outfile.ast.ref.txt
   remove_path_prefix < fpp-loc-map.json > $refs_folder/$outfile.loc-map.ref.txt
@@ -34,7 +34,7 @@ update()
   fi
 }
 
-rm -rf *.refs
+rm -rf *.outs
 
 update "" activeComponents
 update "" commands

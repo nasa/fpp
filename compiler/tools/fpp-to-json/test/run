@@ -16,14 +16,14 @@ run_test()
     outfile=$infile
   fi
 
-  refs_folder=_$infile.refs
+  refs_folder=$infile.outs
 
 
   {
     # Run fpp_to_json and concatenate the output files
-    $fpp_to_json $infile.fpp $args 2>&1 && \
-    remove_path_prefix < fpp-ast.json >> $refs_folder/$outfile.ast.out.txt && \
-    remove_path_prefix < fpp-loc-map.json >> $refs_folder/$outfile.loc-map.out.txt
+    $fpp_to_json $infile.fpp $args 2>&1 | remove_path_prefix > $refs_folder/$outfile.out.txt && \
+    remove_path_prefix < fpp-ast.json > $refs_folder/$outfile.ast.out.txt && \
+    remove_path_prefix < fpp-loc-map.json > $refs_folder/$outfile.loc-map.out.txt
   } && \
   {
     # Validate the location map
@@ -48,6 +48,7 @@ run_test()
   } && \
   {
     # Compare the output
+    diff -u $refs_folder/$outfile.ref.txt $refs_folder/$outfile.ref.txt > $refs_folder/$outfile.diff.txt 2>&1
     diff -u $refs_folder/$outfile.ast.ref.txt $refs_folder/$outfile.ast.out.txt > $refs_folder/$outfile.ast.diff.txt 2>&1
     diff -u $refs_folder/$outfile.loc-map.ref.txt $refs_folder/$outfile.loc-map.out.txt > $refs_folder/$outfile.loc-map.diff.txt 2>&1
   }

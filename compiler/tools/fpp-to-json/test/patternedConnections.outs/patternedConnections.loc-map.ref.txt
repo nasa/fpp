@@ -1,0 +1,1557 @@
+{
+  "0" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "1" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "2" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "3" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "4" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "5" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "6" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "7" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "8" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "9" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.37",
+    "includingLoc" : "None"
+  },
+  "10" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.34",
+    "includingLoc" : "None"
+  },
+  "11" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "2.5",
+    "includingLoc" : "None"
+  },
+  "12" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "13" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.28",
+    "includingLoc" : "None"
+  },
+  "14" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.31",
+    "includingLoc" : "None"
+  },
+  "15" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.28",
+    "includingLoc" : "None"
+  },
+  "16" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "6.5",
+    "includingLoc" : "None"
+  },
+  "17" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.32",
+    "includingLoc" : "None"
+  },
+  "18" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.35",
+    "includingLoc" : "None"
+  },
+  "19" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.32",
+    "includingLoc" : "None"
+  },
+  "20" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "7.5",
+    "includingLoc" : "None"
+  },
+  "21" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.37",
+    "includingLoc" : "None"
+  },
+  "22" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.40",
+    "includingLoc" : "None"
+  },
+  "23" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.37",
+    "includingLoc" : "None"
+  },
+  "24" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "8.5",
+    "includingLoc" : "None"
+  },
+  "25" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "26" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "27" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "28" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "29" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "30" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "31" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "32" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "33" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "34" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.29",
+    "includingLoc" : "None"
+  },
+  "35" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.26",
+    "includingLoc" : "None"
+  },
+  "36" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "9.5",
+    "includingLoc" : "None"
+  },
+  "37" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "5.1",
+    "includingLoc" : "None"
+  },
+  "38" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "39" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "40" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "41" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "42" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "43" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "44" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "45" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "46" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "47" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.34",
+    "includingLoc" : "None"
+  },
+  "48" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.31",
+    "includingLoc" : "None"
+  },
+  "49" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "13.5",
+    "includingLoc" : "None"
+  },
+  "50" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "12.1",
+    "includingLoc" : "None"
+  },
+  "51" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.27",
+    "includingLoc" : "None"
+  },
+  "52" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.31",
+    "includingLoc" : "None"
+  },
+  "53" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.27",
+    "includingLoc" : "None"
+  },
+  "54" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "17.5",
+    "includingLoc" : "None"
+  },
+  "55" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "56" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "57" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "58" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "59" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "60" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "61" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "62" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "63" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "64" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.37",
+    "includingLoc" : "None"
+  },
+  "65" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.33",
+    "includingLoc" : "None"
+  },
+  "66" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "18.5",
+    "includingLoc" : "None"
+  },
+  "67" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "68" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.31",
+    "includingLoc" : "None"
+  },
+  "69" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.34",
+    "includingLoc" : "None"
+  },
+  "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.31",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "22.5",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "74" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "75" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "76" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "77" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "78" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "79" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "80" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "81" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.34",
+    "includingLoc" : "None"
+  },
+  "82" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.31",
+    "includingLoc" : "None"
+  },
+  "83" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "23.5",
+    "includingLoc" : "None"
+  },
+  "84" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "21.1",
+    "includingLoc" : "None"
+  },
+  "85" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "86" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "87" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "88" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "89" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "90" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "91" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "92" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "93" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "94" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.29",
+    "includingLoc" : "None"
+  },
+  "95" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.26",
+    "includingLoc" : "None"
+  },
+  "96" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "27.5",
+    "includingLoc" : "None"
+  },
+  "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "26.1",
+    "includingLoc" : "None"
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "100" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "101" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "106" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.38",
+    "includingLoc" : "None"
+  },
+  "108" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.35",
+    "includingLoc" : "None"
+  },
+  "109" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "31.5",
+    "includingLoc" : "None"
+  },
+  "110" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "30.1",
+    "includingLoc" : "None"
+  },
+  "111" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.14",
+    "includingLoc" : "None"
+  },
+  "112" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.14",
+    "includingLoc" : "None"
+  },
+  "113" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.27",
+    "includingLoc" : "None"
+  },
+  "114" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "34.1",
+    "includingLoc" : "None"
+  },
+  "115" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.14",
+    "includingLoc" : "None"
+  },
+  "116" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.14",
+    "includingLoc" : "None"
+  },
+  "117" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.30",
+    "includingLoc" : "None"
+  },
+  "118" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "35.1",
+    "includingLoc" : "None"
+  },
+  "119" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.14",
+    "includingLoc" : "None"
+  },
+  "120" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.14",
+    "includingLoc" : "None"
+  },
+  "121" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.28",
+    "includingLoc" : "None"
+  },
+  "122" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "36.1",
+    "includingLoc" : "None"
+  },
+  "123" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.14",
+    "includingLoc" : "None"
+  },
+  "124" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.14",
+    "includingLoc" : "None"
+  },
+  "125" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.29",
+    "includingLoc" : "None"
+  },
+  "126" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "37.1",
+    "includingLoc" : "None"
+  },
+  "127" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.14",
+    "includingLoc" : "None"
+  },
+  "128" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.14",
+    "includingLoc" : "None"
+  },
+  "129" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.28",
+    "includingLoc" : "None"
+  },
+  "130" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "38.1",
+    "includingLoc" : "None"
+  },
+  "131" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.14",
+    "includingLoc" : "None"
+  },
+  "132" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.14",
+    "includingLoc" : "None"
+  },
+  "133" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.32",
+    "includingLoc" : "None"
+  },
+  "134" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "39.1",
+    "includingLoc" : "None"
+  },
+  "135" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.14",
+    "includingLoc" : "None"
+  },
+  "136" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.14",
+    "includingLoc" : "None"
+  },
+  "137" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.32",
+    "includingLoc" : "None"
+  },
+  "138" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "40.1",
+    "includingLoc" : "None"
+  },
+  "139" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "140" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "141" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "142" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "143" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "144" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "145" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "146" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "147" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "148" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "149" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "150" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "151" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "152" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "153" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "154" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "155" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "156" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "157" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "158" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "159" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "160" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "161" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "162" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "163" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "164" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "165" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "166" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "167" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "168" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "169" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "170" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "171" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "172" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "173" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "174" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "175" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "176" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "177" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "178" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "179" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "180" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "181" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "182" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "183" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "184" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "185" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "186" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "187" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "188" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "189" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "190" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "191" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "192" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "193" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "194" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "195" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "196" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "197" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "198" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "199" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "200" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "201" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "202" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "203" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "204" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "205" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "206" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "207" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "208" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "209" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "210" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "211" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "212" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "213" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "214" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "215" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "216" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "217" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "218" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "219" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "220" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "221" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "222" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "223" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "224" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "225" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "226" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "227" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "228" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "229" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "230" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "231" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "232" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "233" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "234" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "235" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "236" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "237" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "238" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.14",
+    "includingLoc" : "None"
+  },
+  "239" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "43.5",
+    "includingLoc" : "None"
+  },
+  "240" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "241" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.14",
+    "includingLoc" : "None"
+  },
+  "242" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "44.5",
+    "includingLoc" : "None"
+  },
+  "243" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "244" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.14",
+    "includingLoc" : "None"
+  },
+  "245" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "45.5",
+    "includingLoc" : "None"
+  },
+  "246" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "247" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.14",
+    "includingLoc" : "None"
+  },
+  "248" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "46.5",
+    "includingLoc" : "None"
+  },
+  "249" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "250" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.14",
+    "includingLoc" : "None"
+  },
+  "251" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "47.5",
+    "includingLoc" : "None"
+  },
+  "252" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "253" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.14",
+    "includingLoc" : "None"
+  },
+  "254" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "48.5",
+    "includingLoc" : "None"
+  },
+  "255" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "256" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.14",
+    "includingLoc" : "None"
+  },
+  "257" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "49.5",
+    "includingLoc" : "None"
+  },
+  "258" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "259" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.31",
+    "includingLoc" : "None"
+  },
+  "260" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "51.5",
+    "includingLoc" : "None"
+  },
+  "261" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "262" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.34",
+    "includingLoc" : "None"
+  },
+  "263" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "52.5",
+    "includingLoc" : "None"
+  },
+  "264" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "265" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.32",
+    "includingLoc" : "None"
+  },
+  "266" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "53.5",
+    "includingLoc" : "None"
+  },
+  "267" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "268" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.33",
+    "includingLoc" : "None"
+  },
+  "269" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "270" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "271" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.32",
+    "includingLoc" : "None"
+  },
+  "272" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "55.5",
+    "includingLoc" : "None"
+  },
+  "273" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "274" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.36",
+    "includingLoc" : "None"
+  },
+  "275" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "56.5",
+    "includingLoc" : "None"
+  },
+  "276" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "277" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "278" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "279" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "280" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "281" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "282" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "283" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.37",
+    "includingLoc" : "None"
+  },
+  "284" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "57.5",
+    "includingLoc" : "None"
+  },
+  "285" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+    "pos" : "42.1",
+    "includingLoc" : "None"
+  },
+  "286" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "3.3",
+    "includingLoc" : "None"
+  },
+  "287" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "4.3",
+    "includingLoc" : "None"
+  },
+  "288" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "5.3",
+    "includingLoc" : "None"
+  },
+  "289" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "6.3",
+    "includingLoc" : "None"
+  },
+  "290" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "7.3",
+    "includingLoc" : "None"
+  },
+  "291" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "8.3",
+    "includingLoc" : "None"
+  },
+  "292" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "9.3",
+    "includingLoc" : "None"
+  },
+  "293" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "10.3",
+    "includingLoc" : "None"
+  },
+  "294" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "11.3",
+    "includingLoc" : "None"
+  },
+  "295" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "12.3",
+    "includingLoc" : "None"
+  },
+  "296" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "12.3",
+    "includingLoc" : "None"
+  },
+  "297" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "12.3",
+    "includingLoc" : "None"
+  },
+  "298" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "1.1",
+    "includingLoc" : "None"
+  },
+  "299" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "300" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "301" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "302" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "303" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "304" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "305" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "306" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  },
+  "307" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "308" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "309" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "18.3",
+    "includingLoc" : "None"
+  },
+  "310" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "pos" : "16.1",
+    "includingLoc" : "None"
+  }
+}
