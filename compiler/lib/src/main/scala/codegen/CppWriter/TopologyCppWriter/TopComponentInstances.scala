@@ -12,10 +12,7 @@ case class TopComponentInstances(
 
   private val bannerComment = "Component instances"
 
-  def getHppLines: List[Line] = addBannerComment(
-    bannerComment,
-    getDeclLines
-  )
+  def getHppLines: List[(List[String], List[Line])] = getDeclLines
 
   def getCppLines: List[Line] = addBannerComment(
     bannerComment,
@@ -23,16 +20,21 @@ case class TopComponentInstances(
   )
 
   private def getDeclLines = {
-    def getCode(ci: ComponentInstance): List[Line] = {
+    def getCode(ci: ComponentInstance): (List[String], List[Line]) = {
       val implType = getImplType(ci)
       val instanceName = getNameAsIdent(ci.qualifiedName)
-      Line.addPrefixLine (line(s"//! $instanceName")) (
+      val instLines = Line.addPrefixLine (line(s"//! $instanceName")) (
         lines(
           s"extern $implType $instanceName;"
         )
       )
+      val qualIdentList = instanceName contains "::" match {
+        case true => instanceName.substring(0, instanceName.lastIndexOf("::")).split("::").toList
+        case false => List()
+      }
+      (qualIdentList, addBannerComment(bannerComment, instLines))
     }
-    flattenWithBlankPrefix(instances.map(getCode))
+    instances.map(getCode)
   }
 
   private def getDefLines = {
