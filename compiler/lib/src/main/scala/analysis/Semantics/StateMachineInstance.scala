@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP state machine instance */
 final case class StateMachineInstance(
   aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-  specifier: Ast.SpecStateMachineInstance
+  symbol: Symbol.StateMachine
 ) {
 
   /** Gets the location of the state machine instance*/
@@ -24,32 +24,20 @@ object StateMachineInstance {
   /** Creates a state machine instance from a state machine instance specifier */
   def fromSpecStateMachine(a: Analysis, 
                            aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
-  ) :
-    Result.Result[StateMachineInstance] = {
-      val node = aNode._2
-      val data = node.data
-      data match {
-          case specifier: Ast.SpecStateMachineInstance =>
-              createStateMachineInstance(a, aNode, specifier)
-        }
+  ) : Result.Result[StateMachineInstance] = {
+    val qid = aNode._2.data.stateMachine
+    for {
+      symbol <- a.useDefMap(qid.id) match {
+        case symbol @ Symbol.StateMachine(_) => Right(symbol)
+        case symbol => Left(SemanticError.InvalidSymbol(
+          symbol.getUnqualifiedName,
+          Locations.get(qid.id),
+          "not a state machine symbol",
+          symbol.getLoc
+        ))
+      }
     }
-
-  private def createStateMachineInstance(
-    a: Analysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-    specifier: Ast.SpecStateMachineInstance
-  ): Result.Result[StateMachineInstance] = {
-    val qid = specifier.stateMachine
-    a.useDefMap(qid.id) match {
-      case symbol @ Symbol.StateMachine(_) =>
-        Right(StateMachineInstance(aNode, specifier))
-      case symbol => Left(SemanticError.InvalidSymbol(
-        symbol.getUnqualifiedName,
-        Locations.get(qid.id),
-        "not a state machine symbol",
-        symbol.getLoc
-      ))
-    }
+    yield StateMachineInstance(aNode, symbol)
   }
 
 }

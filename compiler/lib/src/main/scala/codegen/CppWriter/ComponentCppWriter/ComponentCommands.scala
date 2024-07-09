@@ -14,7 +14,7 @@ case class ComponentCommands (
     if !(hasCommands || hasParameters) then Nil
     else List(
       linesClassMember(
-        List(
+        List.concat(
           Line.blank :: lines(s"//! Command opcodes"),
           wrapInEnum(
             sortedCmds.flatMap((opcode, cmd) =>
@@ -31,7 +31,7 @@ case class ComponentCommands (
               )
             )
           )
-        ).flatten
+        )
       )
     )
   }
