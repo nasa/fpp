@@ -22,14 +22,15 @@ case class TopComponentInstances(
   private def getDeclLines = {
     def getCode(ci: ComponentInstance): (List[String], List[Line]) = {
       val implType = getImplType(ci)
-      val instanceName = getNameAsIdent(ci.qualifiedName)
+      val instanceName = ci.getUnqualifiedName
+      val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
       val instLines = Line.addPrefixLine (line(s"//! $instanceName")) (
         lines(
           s"extern $implType $instanceName;"
         )
       )
-      val qualIdentList = instanceName contains "::" match {
-        case true => instanceName.substring(0, instanceName.lastIndexOf("::")).split("::").toList
+      val qualIdentList = cppQualifiedName contains "::" match {
+        case true => cppQualifiedName.substring(0, cppQualifiedName.lastIndexOf("::")).split("::").toList
         case false => List()
       }
       (qualIdentList, addBannerComment(bannerComment, instLines))
@@ -40,7 +41,7 @@ case class TopComponentInstances(
   private def getDefLines = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
-      val instanceName = getNameAsIdent(ci.qualifiedName)
+      val instanceName = getNameAsCppQualified(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
         lines(
           s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"

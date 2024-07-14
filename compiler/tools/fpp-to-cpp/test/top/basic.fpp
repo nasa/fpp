@@ -33,31 +33,31 @@ module M {
     """
 
     phase Phases.instances """
-    Active M_active2;
+    Active M::active2;
     """
 
     phase Phases.initComponents """
-    M_active2.initSpecial();
+    M::active2.initSpecial();
     """
 
     phase Phases.configComponents """
-    M_active2.config();
+    M::active2.config();
     """
 
     phase Phases.startTasks """
-    M_active2.startSpecial();
+    M::active2.startSpecial();
     """
 
     phase Phases.stopTasks """
-    M_active2.stopSpecial();
+    M::active2.stopSpecial();
     """
 
     phase Phases.freeThreads """
-    M_active2.freeSpecial();
+    M::active2.freeSpecial();
     """
 
     phase Phases.tearDownComponents """
-    M_active2.tearDown();
+    M::active2.tearDown();
     """
 
   }

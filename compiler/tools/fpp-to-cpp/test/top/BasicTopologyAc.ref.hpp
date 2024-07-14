@@ -14,90 +14,121 @@
 namespace M {
 
   // ----------------------------------------------------------------------
-  // Constants
+  // Component instances
   // ----------------------------------------------------------------------
+  //! active1
+  extern Active active1;
 
-  namespace ConfigConstants {
-    namespace M_active2 {
-      enum {
-        X = 0,
-        Y = 1
-      };
-    }
-  }
+}
 
-  namespace BaseIds {
-    enum {
-      M_active1 = 0x100,
-      M_active2 = 0x200,
-      M_active3 = 0x300,
-      M_passive1 = 0x300,
-      M_passive2 = 0x400,
-    };
-  }
-
-  namespace CPUs {
-    enum {
-      M_active1 = 0,
-    };
-  }
-
-  namespace InstanceIds {
-    enum {
-      M_active1,
-      M_active2,
-      M_active3,
-      M_passive1,
-      M_passive2,
-    };
-  }
-
-  namespace Priorities {
-    enum {
-      M_active1 = 1,
-    };
-  }
-
-  namespace QueueSizes {
-    enum {
-      M_active1 = 10,
-      M_active2 = 10,
-      M_active3 = 10,
-    };
-  }
-
-  namespace StackSizes {
-    enum {
-      M_active1 = 1024,
-    };
-  }
-
-  namespace TaskIds {
-    enum {
-      M_active1,
-      M_active2,
-      M_active3,
-    };
-  }
+namespace M {
 
   // ----------------------------------------------------------------------
   // Component instances
   // ----------------------------------------------------------------------
+  //! active2
+  extern Active active2;
 
-  //! M_active1
-  extern Active M_active1;
+}
 
-  //! M_active2
-  extern Active M_active2;
+namespace M {
 
-  //! M_active3
-  extern Active M_active3;
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+  //! active3
+  extern Active active3;
 
-  //! M_passive1
-  extern Passive M_passive1;
+}
 
-  //! M_passive2
-  extern ConcretePassive M_passive2;
+namespace M {
+
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+  //! passive1
+  extern Passive passive1;
+
+}
+
+namespace M {
+
+  // ----------------------------------------------------------------------
+  // Component instances
+  // ----------------------------------------------------------------------
+  //! passive2
+  extern ConcretePassive passive2;
+
+}
+
+// ----------------------------------------------------------------------
+// Constants
+// ----------------------------------------------------------------------
+
+namespace ConfigConstants {
+  namespace M_active2 {
+    enum {
+      X = 0,
+      Y = 1
+    };
+  }
+}
+
+namespace BaseIds {
+  enum {
+    M_active1 = 0x100,
+    M_active2 = 0x200,
+    M_active3 = 0x300,
+    M_passive1 = 0x300,
+    M_passive2 = 0x400,
+  };
+}
+
+namespace CPUs {
+  enum {
+    M_active1 = 0,
+  };
+}
+
+namespace InstanceIds {
+  enum {
+    M_active1,
+    M_active2,
+    M_active3,
+    M_passive1,
+    M_passive2,
+  };
+}
+
+namespace Priorities {
+  enum {
+    M_active1 = 1,
+  };
+}
+
+namespace QueueSizes {
+  enum {
+    M_active1 = 10,
+    M_active2 = 10,
+    M_active3 = 10,
+  };
+}
+
+namespace StackSizes {
+  enum {
+    M_active1 = 1024,
+  };
+}
+
+namespace TaskIds {
+  enum {
+    M_active1,
+    M_active2,
+    M_active3,
+  };
+}
+
+namespace M {
 
   // ----------------------------------------------------------------------
   // Helper functions

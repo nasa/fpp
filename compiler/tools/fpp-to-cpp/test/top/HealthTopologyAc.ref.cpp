@@ -37,20 +37,20 @@ namespace M {
   // Component instances
   // ----------------------------------------------------------------------
 
-  C M_c1(FW_OPTIONAL_NAME("M_c1"));
+  C M::c1(FW_OPTIONAL_NAME("M::c1"));
 
-  C M_c2(FW_OPTIONAL_NAME("M_c2"));
+  C M::c2(FW_OPTIONAL_NAME("M::c2"));
 
-  Svc::Health M_health(FW_OPTIONAL_NAME("M_health"));
+  Svc::Health M::health(FW_OPTIONAL_NAME("M::health"));
 
   // ----------------------------------------------------------------------
   // Helper functions
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    M_c1.init(InstanceIds::M_c1);
-    M_c2.init(InstanceIds::M_c2);
-    M_health.init(InstanceIds::M_health);
+    M::c1.init(InstanceIds::M_c1);
+    M::c2.init(InstanceIds::M_c2);
+    M::health.init(InstanceIds::M_health);
   }
 
   void configComponents(const TopologyState& state) {
@@ -58,29 +58,29 @@ namespace M {
   }
 
   void setBaseIds() {
-    M_health.setIdBase(BaseIds::M_health);
-    M_c1.setIdBase(BaseIds::M_c1);
-    M_c2.setIdBase(BaseIds::M_c2);
+    M::health.setIdBase(BaseIds::M_health);
+    M::c1.setIdBase(BaseIds::M_c1);
+    M::c2.setIdBase(BaseIds::M_c2);
   }
 
   void connectComponents() {
 
     // Health
-    M_c1.set_pingOut_OutputPort(
+    M::c1.set_pingOut_OutputPort(
         0,
-        M_health.get_pingIn_InputPort(0)
+        M::health.get_pingIn_InputPort(0)
     );
-    M_c2.set_pingOut_OutputPort(
+    M::c2.set_pingOut_OutputPort(
         0,
-        M_health.get_pingIn_InputPort(1)
+        M::health.get_pingIn_InputPort(1)
     );
-    M_health.set_pingOut_OutputPort(
+    M::health.set_pingOut_OutputPort(
         0,
-        M_c1.get_pingIn_InputPort(0)
+        M::c1.get_pingIn_InputPort(0)
     );
-    M_health.set_pingOut_OutputPort(
+    M::health.set_pingOut_OutputPort(
         1,
-        M_c2.get_pingIn_InputPort(0)
+        M::c2.get_pingIn_InputPort(0)
     );
   }
 
