@@ -138,6 +138,10 @@ syntaxOnly(){
   run_test "-s" syntaxOnly 
 }
 
+patternedConnections(){
+  run_test "Fw/symbols.fpp" patternedConnections
+}
+
 tests="
 activeComponents
 commands
@@ -151,6 +155,7 @@ matchedPorts
 modules
 parameters
 passiveComponent
+patternedConnections
 ports
 queuedComponents
 simpleComponents
