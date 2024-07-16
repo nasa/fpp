@@ -1676,7 +1676,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "Time",
+                                "name" : "Cmd",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1718,7 +1718,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "Cmd",
+                                "name" : "CmdResponse",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1739,7 +1739,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "CmdResponse",
+                                "name" : "Log",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1760,7 +1760,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "Log",
+                                "name" : "LogText",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1781,7 +1781,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "LogText",
+                                "name" : "PrmGet",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1802,7 +1802,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "PrmGet",
+                                "name" : "PrmSet",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1823,7 +1823,7 @@
                           "node" : {
                             "AstNode" : {
                               "data" : {
-                                "name" : "PrmSet",
+                                "name" : "Time",
                                 "params" : [
                                 ],
                                 "returnType" : "None"
@@ -1911,7 +1911,7 @@
                                 ],
                                 "returnType" : "None"
                               },
-                              "id" : 309
+                              "id" : 301
                             }
                           }
                         }
@@ -1921,7 +1921,7 @@
                     ]
                   ]
                 },
-                "id" : 310
+                "id" : 302
               }
             }
           }
@@ -3364,127 +3364,87 @@
     "includingLoc" : "None"
   },
   "286" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "4.3",
     "includingLoc" : "None"
   },
   "287" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "5.3",
     "includingLoc" : "None"
   },
   "288" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "6.3",
     "includingLoc" : "None"
   },
   "289" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "7.3",
     "includingLoc" : "None"
   },
   "290" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "8.3",
     "includingLoc" : "None"
   },
   "291" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "9.3",
     "includingLoc" : "None"
   },
   "292" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "10.3",
     "includingLoc" : "None"
   },
   "293" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "11.3",
     "includingLoc" : "None"
   },
   "294" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "12.3",
     "includingLoc" : "None"
   },
   "295" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "13.3",
     "includingLoc" : "None"
   },
   "296" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "13.3",
     "includingLoc" : "None"
   },
   "297" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "13.3",
     "includingLoc" : "None"
   },
   "298" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "3.1",
     "includingLoc" : "None"
   },
   "299" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "17.3",
     "includingLoc" : "None"
   },
   "300" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "17.3",
     "includingLoc" : "None"
   },
   "301" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "17.3",
     "includingLoc" : "None"
   },
   "302" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "16.1",
-    "includingLoc" : "None"
-  },
-  "303" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "304" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "305" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "306" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "16.1",
-    "includingLoc" : "None"
-  },
-  "307" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "308" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "309" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
-    "pos" : "17.3",
-    "includingLoc" : "None"
-  },
-  "310" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "pos" : "16.1",
     "includingLoc" : "None"
   }
@@ -3686,7 +3646,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 309,
+                    "nodeId" : 301,
                     "unqualifiedName" : "Ping"
                   }
                 }
@@ -3721,7 +3681,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 309,
+                    "nodeId" : 301,
                     "unqualifiedName" : "Ping"
                   }
                 }
@@ -3794,7 +3754,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 286,
+                    "nodeId" : 293,
                     "unqualifiedName" : "Time"
                   }
                 }
@@ -3867,7 +3827,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 292,
+                    "nodeId" : 291,
                     "unqualifiedName" : "PrmGet"
                   }
                 }
@@ -3902,7 +3862,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 293,
+                    "nodeId" : 292,
                     "unqualifiedName" : "PrmSet"
                   }
                 }
@@ -3975,7 +3935,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 291,
+                    "nodeId" : 290,
                     "unqualifiedName" : "LogText"
                   }
                 }
@@ -4121,7 +4081,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 290,
+                    "nodeId" : 289,
                     "unqualifiedName" : "Log"
                   }
                 }
@@ -4194,7 +4154,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 288,
+                    "nodeId" : 286,
                     "unqualifiedName" : "Cmd"
                   }
                 }
@@ -4264,7 +4224,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 289,
+                    "nodeId" : 288,
                     "unqualifiedName" : "CmdResponse"
                   }
                 }
@@ -4299,7 +4259,7 @@
               "DefPort" : {
                 "symbol" : {
                   "Port" : {
-                    "nodeId" : 288,
+                    "nodeId" : 286,
                     "unqualifiedName" : "Cmd"
                   }
                 }
@@ -4344,7 +4304,7 @@
   "includedFileSet" : [
   ],
   "inputFileSet" : [
-    "[ local path prefix ]/compiler/tools/fpp-to-json/test/Fw/symbols.fpp",
+    "[ local path prefix ]/compiler/tools/fpp-to-json/test/fprime/defs.fpp",
     "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp"
   ],
   "locationSpecifierMap" : [
@@ -4380,12 +4340,6 @@
         "unqualifiedName" : "Fw"
       }
     },
-    "309" : {
-      "Module" : {
-        "nodeId" : 310,
-        "unqualifiedName" : "Svc"
-      }
-    },
     "293" : {
       "Module" : {
         "nodeId" : 298,
@@ -4402,6 +4356,12 @@
       "Module" : {
         "nodeId" : 298,
         "unqualifiedName" : "Fw"
+      }
+    },
+    "301" : {
+      "Module" : {
+        "nodeId" : 302,
+        "unqualifiedName" : "Svc"
       }
     },
     "286" : {
@@ -4459,43 +4419,43 @@
                 },
                 "PrmGet" : {
                   "Port" : {
-                    "nodeId" : 292,
+                    "nodeId" : 291,
                     "unqualifiedName" : "PrmGet"
                   }
                 },
                 "LogText" : {
                   "Port" : {
-                    "nodeId" : 291,
+                    "nodeId" : 290,
                     "unqualifiedName" : "LogText"
                   }
                 },
                 "Cmd" : {
                   "Port" : {
-                    "nodeId" : 288,
+                    "nodeId" : 286,
                     "unqualifiedName" : "Cmd"
                   }
                 },
                 "Log" : {
                   "Port" : {
-                    "nodeId" : 290,
+                    "nodeId" : 289,
                     "unqualifiedName" : "Log"
                   }
                 },
                 "CmdResponse" : {
                   "Port" : {
-                    "nodeId" : 289,
+                    "nodeId" : 288,
                     "unqualifiedName" : "CmdResponse"
                   }
                 },
                 "Time" : {
                   "Port" : {
-                    "nodeId" : 286,
+                    "nodeId" : 293,
                     "unqualifiedName" : "Time"
                   }
                 },
                 "PrmSet" : {
                   "Port" : {
-                    "nodeId" : 293,
+                    "nodeId" : 292,
                     "unqualifiedName" : "PrmSet"
                   }
                 },
@@ -4525,7 +4485,7 @@
         }
       }
     },
-    "310" : {
+    "302" : {
       "ScopeImpl" : {
         "map" : {
           "Port" : {
@@ -4533,7 +4493,7 @@
               "map" : {
                 "Ping" : {
                   "Port" : {
-                    "nodeId" : 309,
+                    "nodeId" : 301,
                     "unqualifiedName" : "Ping"
                   }
                 }
@@ -4646,18 +4606,18 @@
         [
           {
             "aNode" : {
-              "astNodeId" : 138
+              "astNodeId" : 130
             },
             "qualifiedName" : {
               "qualifier" : [
               ],
-              "base" : "c7"
+              "base" : "c5"
             },
             "component" : {
-              "astNodeId" : 110
+              "astNodeId" : 84
             },
-            "baseId" : 1792,
-            "maxId" : 1791,
+            "baseId" : 1280,
+            "maxId" : 1279,
             "file" : "None",
             "queueSize" : "None",
             "stackSize" : "None",
@@ -4675,7 +4635,44 @@
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "49.5",
+              "pos" : "47.5",
+              "includingLoc" : "None"
+            }
+          ]
+        ],
+        [
+          {
+            "aNode" : {
+              "astNodeId" : 122
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c3"
+            },
+            "component" : {
+              "astNodeId" : 50
+            },
+            "baseId" : 768,
+            "maxId" : 767,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          [
+            {
+              "Public" : {
+                
+              }
+            },
+            {
+              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
+              "pos" : "45.5",
               "includingLoc" : "None"
             }
           ]
@@ -4720,43 +4717,6 @@
         [
           {
             "aNode" : {
-              "astNodeId" : 130
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c5"
-            },
-            "component" : {
-              "astNodeId" : 84
-            },
-            "baseId" : 1280,
-            "maxId" : 1279,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          [
-            {
-              "Public" : {
-                
-              }
-            },
-            {
-              "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "47.5",
-              "includingLoc" : "None"
-            }
-          ]
-        ],
-        [
-          {
-            "aNode" : {
               "astNodeId" : 126
             },
             "qualifiedName" : {
@@ -4794,18 +4754,18 @@
         [
           {
             "aNode" : {
-              "astNodeId" : 122
+              "astNodeId" : 138
             },
             "qualifiedName" : {
               "qualifier" : [
               ],
-              "base" : "c3"
+              "base" : "c7"
             },
             "component" : {
-              "astNodeId" : 50
+              "astNodeId" : 110
             },
-            "baseId" : 768,
-            "maxId" : 767,
+            "baseId" : 1792,
+            "maxId" : 1791,
             "file" : "None",
             "queueSize" : "None",
             "stackSize" : "None",
@@ -4823,7 +4783,7 @@
             },
             {
               "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/patternedConnections.fpp",
-              "pos" : "45.5",
+              "pos" : "49.5",
               "includingLoc" : "None"
             }
           ]
@@ -5192,246 +5152,6 @@
         {
           "componentInstance" : {
             "aNode" : {
-              "astNodeId" : 118
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c2"
-            },
-            "component" : {
-              "astNodeId" : 37
-            },
-            "baseId" : 512,
-            "maxId" : 511,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 36
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "cmdSend",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 35
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 288,
-                      "unqualifiedName" : "Cmd"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 130
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c5"
-            },
-            "component" : {
-              "astNodeId" : 84
-            },
-            "baseId" : 1280,
-            "maxId" : 1279,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 83
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
-                },
-                "name" : "paramSet",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 82
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 293,
-                      "unqualifiedName" : "PrmSet"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 130
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c5"
-            },
-            "component" : {
-              "astNodeId" : 84
-            },
-            "baseId" : 1280,
-            "maxId" : 1279,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 71
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
-                },
-                "name" : "paramGet",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 70
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 292,
-                      "unqualifiedName" : "PrmGet"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 118
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c2"
-            },
-            "component" : {
-              "astNodeId" : 37
-            },
-            "baseId" : 512,
-            "maxId" : 511,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 24
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
-                },
-                "name" : "cmdResponseOut",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 23
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 289,
-                      "unqualifiedName" : "CmdResponse"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
               "astNodeId" : 126
             },
             "qualifiedName" : {
@@ -5480,67 +5200,7 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 309,
-                      "unqualifiedName" : "Ping"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 126
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c4"
-            },
-            "component" : {
-              "astNodeId" : 67
-            },
-            "baseId" : 1024,
-            "maxId" : 1023,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 54
-              },
-              "specifier" : {
-                "kind" : {
-                  "Output" : {
-                    
-                  }
-                },
-                "name" : "PingSend",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 53
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "Output",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 309,
+                      "nodeId" : 301,
                       "unqualifiedName" : "Ping"
                     }
                   }
@@ -5600,8 +5260,248 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 286,
+                      "nodeId" : 293,
                       "unqualifiedName" : "Time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 118
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 37
+            },
+            "baseId" : 512,
+            "maxId" : 511,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 24
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "cmdResponseOut",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 23
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 288,
+                      "unqualifiedName" : "CmdResponse"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 118
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 37
+            },
+            "baseId" : 512,
+            "maxId" : 511,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 16
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "cmdIn",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 15
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 286,
+                      "unqualifiedName" : "Cmd"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 126
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c4"
+            },
+            "component" : {
+              "astNodeId" : 67
+            },
+            "baseId" : 1024,
+            "maxId" : 1023,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 54
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "PingSend",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 53
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 301,
+                      "unqualifiedName" : "Ping"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 130
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c5"
+            },
+            "component" : {
+              "astNodeId" : 84
+            },
+            "baseId" : 1280,
+            "maxId" : 1279,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 71
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "paramGet",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 70
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 291,
+                      "unqualifiedName" : "PrmGet"
                     }
                   }
                 }
@@ -5660,8 +5560,128 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 291,
+                      "nodeId" : 290,
                       "unqualifiedName" : "LogText"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 118
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c2"
+            },
+            "component" : {
+              "astNodeId" : 37
+            },
+            "baseId" : 512,
+            "maxId" : 511,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 36
+              },
+              "specifier" : {
+                "kind" : {
+                  "Output" : {
+                    
+                  }
+                },
+                "name" : "cmdSend",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 35
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "Output",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 286,
+                      "unqualifiedName" : "Cmd"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "componentInstance" : {
+            "aNode" : {
+              "astNodeId" : 122
+            },
+            "qualifiedName" : {
+              "qualifier" : [
+              ],
+              "base" : "c3"
+            },
+            "component" : {
+              "astNodeId" : 50
+            },
+            "baseId" : 768,
+            "maxId" : 767,
+            "file" : "None",
+            "queueSize" : "None",
+            "stackSize" : "None",
+            "priority" : "None",
+            "cpu" : "None",
+            "initSpecifierMap" : {
+              
+            }
+          },
+          "portInstance" : {
+            "General" : {
+              "aNode" : {
+                "astNodeId" : 49
+              },
+              "specifier" : {
+                "kind" : {
+                  "SyncInput" : {
+                    
+                  }
+                },
+                "name" : "eventLog",
+                "size" : "None",
+                "port" : {
+                  "Some" : {
+                    "astNodeId" : 48
+                  }
+                },
+                "priority" : "None",
+                "queueFull" : "None"
+              },
+              "kind" : "SyncInput",
+              "size" : 1,
+              "ty" : {
+                "DefPort" : {
+                  "symbol" : {
+                    "Port" : {
+                      "nodeId" : 289,
+                      "unqualifiedName" : "Log"
                     }
                   }
                 }
@@ -5732,18 +5752,18 @@
         {
           "componentInstance" : {
             "aNode" : {
-              "astNodeId" : 122
+              "astNodeId" : 130
             },
             "qualifiedName" : {
               "qualifier" : [
               ],
-              "base" : "c3"
+              "base" : "c5"
             },
             "component" : {
-              "astNodeId" : 50
+              "astNodeId" : 84
             },
-            "baseId" : 768,
-            "maxId" : 767,
+            "baseId" : 1280,
+            "maxId" : 1279,
             "file" : "None",
             "queueSize" : "None",
             "stackSize" : "None",
@@ -5756,7 +5776,7 @@
           "portInstance" : {
             "General" : {
               "aNode" : {
-                "astNodeId" : 49
+                "astNodeId" : 83
               },
               "specifier" : {
                 "kind" : {
@@ -5764,11 +5784,11 @@
                     
                   }
                 },
-                "name" : "eventLog",
+                "name" : "paramSet",
                 "size" : "None",
                 "port" : {
                   "Some" : {
-                    "astNodeId" : 48
+                    "astNodeId" : 82
                   }
                 },
                 "priority" : "None",
@@ -5780,8 +5800,8 @@
                 "DefPort" : {
                   "symbol" : {
                     "Port" : {
-                      "nodeId" : 290,
-                      "unqualifiedName" : "Log"
+                      "nodeId" : 292,
+                      "unqualifiedName" : "PrmSet"
                     }
                   }
                 }
@@ -5848,66 +5868,6 @@
               }
             }
           }
-        },
-        {
-          "componentInstance" : {
-            "aNode" : {
-              "astNodeId" : 118
-            },
-            "qualifiedName" : {
-              "qualifier" : [
-              ],
-              "base" : "c2"
-            },
-            "component" : {
-              "astNodeId" : 37
-            },
-            "baseId" : 512,
-            "maxId" : 511,
-            "file" : "None",
-            "queueSize" : "None",
-            "stackSize" : "None",
-            "priority" : "None",
-            "cpu" : "None",
-            "initSpecifierMap" : {
-              
-            }
-          },
-          "portInstance" : {
-            "General" : {
-              "aNode" : {
-                "astNodeId" : 16
-              },
-              "specifier" : {
-                "kind" : {
-                  "SyncInput" : {
-                    
-                  }
-                },
-                "name" : "cmdIn",
-                "size" : "None",
-                "port" : {
-                  "Some" : {
-                    "astNodeId" : 15
-                  }
-                },
-                "priority" : "None",
-                "queueFull" : "None"
-              },
-              "kind" : "SyncInput",
-              "size" : 1,
-              "ty" : {
-                "DefPort" : {
-                  "symbol" : {
-                    "Port" : {
-                      "nodeId" : 288,
-                      "unqualifiedName" : "Cmd"
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
       ]
     }
@@ -5966,7 +5926,7 @@
   "useDefMap" : {
     "51" : {
       "Module" : {
-        "nodeId" : 310,
+        "nodeId" : 302,
         "unqualifiedName" : "Svc"
       }
     },
@@ -5996,13 +5956,13 @@
     },
     "53" : {
       "Port" : {
-        "nodeId" : 309,
+        "nodeId" : 301,
         "unqualifiedName" : "Ping"
       }
     },
     "70" : {
       "Port" : {
-        "nodeId" : 292,
+        "nodeId" : 291,
         "unqualifiedName" : "PrmGet"
       }
     },
@@ -6020,7 +5980,7 @@
     },
     "63" : {
       "Module" : {
-        "nodeId" : 310,
+        "nodeId" : 302,
         "unqualifiedName" : "Svc"
       }
     },
@@ -6068,13 +6028,13 @@
     },
     "23" : {
       "Port" : {
-        "nodeId" : 289,
+        "nodeId" : 288,
         "unqualifiedName" : "CmdResponse"
       }
     },
     "15" : {
       "Port" : {
-        "nodeId" : 288,
+        "nodeId" : 286,
         "unqualifiedName" : "Cmd"
       }
     },
@@ -6128,7 +6088,7 @@
     },
     "35" : {
       "Port" : {
-        "nodeId" : 288,
+        "nodeId" : 286,
         "unqualifiedName" : "Cmd"
       }
     },
@@ -6146,7 +6106,7 @@
     },
     "10" : {
       "Port" : {
-        "nodeId" : 286,
+        "nodeId" : 293,
         "unqualifiedName" : "Time"
       }
     },
@@ -6164,7 +6124,7 @@
     },
     "48" : {
       "Port" : {
-        "nodeId" : 290,
+        "nodeId" : 289,
         "unqualifiedName" : "Log"
       }
     },
@@ -6182,13 +6142,13 @@
     },
     "65" : {
       "Port" : {
-        "nodeId" : 309,
+        "nodeId" : 301,
         "unqualifiedName" : "Ping"
       }
     },
     "108" : {
       "Port" : {
-        "nodeId" : 291,
+        "nodeId" : 290,
         "unqualifiedName" : "LogText"
       }
     },
@@ -6212,7 +6172,7 @@
     },
     "82" : {
       "Port" : {
-        "nodeId" : 293,
+        "nodeId" : 292,
         "unqualifiedName" : "PrmSet"
       }
     },

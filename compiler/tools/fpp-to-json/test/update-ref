@@ -47,7 +47,7 @@ update "" matchedPorts
 update "" modules
 update "" parameters
 update "" passiveComponent
-update "Fw/symbols.fpp" patternedConnections
+update "fprime/defs.fpp" patternedConnections
 update "" ports
 update "" queuedComponents
 update "" simpleComponents

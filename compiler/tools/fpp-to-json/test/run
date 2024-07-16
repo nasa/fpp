@@ -139,7 +139,7 @@ syntaxOnly(){
 }
 
 patternedConnections(){
-  run_test "Fw/symbols.fpp" patternedConnections
+  run_test "fprime/defs.fpp" patternedConnections
 }
 
 tests="
