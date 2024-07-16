@@ -51,8 +51,8 @@ case class TopHelperFns(
 
   private def getInitComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
-      val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
-      val name = getNameAsIdent(ci.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.initComponents) (ci).getOrElse(
         ci.component.aNode._2.data.kind match {
           case Ast.ComponentKind.Passive => 
@@ -74,7 +74,7 @@ case class TopHelperFns(
 
   private def getConfigComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
-      val name = getNameAsIdent(ci.qualifiedName)
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.configComponents) (ci).getOrElse(Nil)
     }
     val name = "configComponents"
@@ -90,8 +90,8 @@ case class TopHelperFns(
   private def getSetBaseIdsFn = {
     val name = "setBaseIds"
     val body = instancesByBaseId.map(ci => {
-      val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
-      val name = getNameAsIdent(ci.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       line(s"$cppQualifiedName.setIdBase(BaseIds::$name);")
     })
     val memberOpt = getFnMemberOpt(
@@ -105,7 +105,7 @@ case class TopHelperFns(
 
   private def getConnectComponentsFn = {
     def getPortInfo(pii: PortInstanceIdentifier, c: Connection) = {
-      val cppQualifiedName = getNameAsCppQualified(pii.componentInstance.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(pii.componentInstance.qualifiedName)
       val portName = pii.portInstance.getUnqualifiedName
       val portNumber = t.getPortNumber(pii.portInstance, c).get
       (cppQualifiedName, portName, portNumber)
@@ -142,7 +142,7 @@ case class TopHelperFns(
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.regCommands) (ci).getOrElse(
         if (hasCommands(ci)) {
-          val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
+          val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
           lines(s"$cppQualifiedName.regCommands();")
         }
         else Nil
@@ -175,7 +175,7 @@ case class TopHelperFns(
     def getCode(ci: ComponentInstance): List[Line] = {
       getCodeLinesForPhase (CppWriter.Phases.loadParameters) (ci).getOrElse(
         if (hasParams(ci)) {
-          val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
+          val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
           lines(s"$cppQualifiedName.loadParameters();")
         }
         else Nil
@@ -195,8 +195,8 @@ case class TopHelperFns(
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.startTasks) (ci).getOrElse {
         if (isActive(ci)) {
-          val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
-          val name = getNameAsIdent(ci.qualifiedName)
+          val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
+          val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
           val priority = ci.priority match {
             case Some(_) => s"static_cast<Os::Task::ParamType>(Priorities::$name),"
             case None => "Os::Task::TASK_DEFAULT, // Default priority"
@@ -238,7 +238,7 @@ case class TopHelperFns(
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.stopTasks) (ci).getOrElse {
         if (isActive(ci)) {
-          val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
+          val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
           lines(s"$cppQualifiedName.exit();")
         }
         else Nil
@@ -257,7 +257,7 @@ case class TopHelperFns(
     def getCode(ci: ComponentInstance): List[Line] =
       getCodeLinesForPhase (CppWriter.Phases.freeThreads) (ci).getOrElse {
         if (isActive(ci)) {
-          val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
+          val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
           lines(s"(void) $cppQualifiedName.ActiveComponentBase::join();")
         }
         else Nil
@@ -274,7 +274,7 @@ case class TopHelperFns(
 
   private def getTearDownComponentsFn = {
     def getCode(ci: ComponentInstance): List[Line] = {
-      val name = getNameAsIdent(ci.qualifiedName)
+      val name = CppWriter.identFromQualifiedName(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.tearDownComponents) (ci).getOrElse(Nil)
     }
     val name = "tearDownComponents"

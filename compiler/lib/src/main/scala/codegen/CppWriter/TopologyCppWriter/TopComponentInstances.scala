@@ -12,18 +12,23 @@ case class TopComponentInstances(
 
   private val bannerComment = "Component instances"
 
-  def getHppLines: List[(List[String], List[Line])] = getDeclLines
+  def getHppMembers: List[CppDoc.Member] = {
+    getDeclMembers match {
+      case Nil => List()
+      case l => linesMember(CppDocWriter.writeBannerComment(bannerComment)) :: l
+    }
+  }
 
   def getCppLines: List[Line] = addBannerComment(
     bannerComment,
     getDefLines
   )
 
-  private def getDeclLines = {
-    def getCode(ci: ComponentInstance): (List[String], List[Line]) = {
+  private def getDeclMembers = {
+    def getCode(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
-      val cppQualifiedName = getNameAsCppQualified(ci.qualifiedName)
+      val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
       val instLines = Line.addPrefixLine (line(s"//! $instanceName")) (
         lines(
           s"extern $implType $instanceName;"
@@ -33,15 +38,16 @@ case class TopComponentInstances(
         case true => cppQualifiedName.substring(0, cppQualifiedName.lastIndexOf("::")).split("::").toList
         case false => List()
       }
-      (qualIdentList, addBannerComment(bannerComment, instLines))
+
+      wrapInNamespaces(qualIdentList, List(linesMember(Line.blank :: instLines)))
     }
-    instances.map(getCode)
+    instances.flatMap(getCode)
   }
 
   private def getDefLines = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
-      val instanceName = getNameAsCppQualified(ci.qualifiedName)
+      val instanceName = CppWriter.writeQualifiedName(ci.qualifiedName)
       getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
         lines(
           s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"

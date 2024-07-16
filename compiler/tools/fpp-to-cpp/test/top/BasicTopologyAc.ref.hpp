@@ -11,11 +11,12 @@
 #include "BasicTopologyDefs.hpp"
 #include "Passive.hpp"
 
+// ----------------------------------------------------------------------
+// Component instances
+// ----------------------------------------------------------------------
+
 namespace M {
 
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
   //! active1
   extern Active active1;
 
@@ -23,9 +24,6 @@ namespace M {
 
 namespace M {
 
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
   //! active2
   extern Active active2;
 
@@ -33,9 +31,6 @@ namespace M {
 
 namespace M {
 
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
   //! active3
   extern Active active3;
 
@@ -43,9 +38,6 @@ namespace M {
 
 namespace M {
 
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
   //! passive1
   extern Passive passive1;
 
@@ -53,82 +45,79 @@ namespace M {
 
 namespace M {
 
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
   //! passive2
   extern ConcretePassive passive2;
 
 }
 
-// ----------------------------------------------------------------------
-// Constants
-// ----------------------------------------------------------------------
+namespace M {
 
-namespace ConfigConstants {
-  namespace M_active2 {
+  // ----------------------------------------------------------------------
+  // Constants
+  // ----------------------------------------------------------------------
+
+  namespace ConfigConstants {
+    namespace M_active2 {
+      enum {
+        X = 0,
+        Y = 1
+      };
+    }
+  }
+
+  namespace BaseIds {
     enum {
-      X = 0,
-      Y = 1
+      M_active1 = 0x100,
+      M_active2 = 0x200,
+      M_active3 = 0x300,
+      M_passive1 = 0x300,
+      M_passive2 = 0x400,
     };
   }
-}
 
-namespace BaseIds {
-  enum {
-    M_active1 = 0x100,
-    M_active2 = 0x200,
-    M_active3 = 0x300,
-    M_passive1 = 0x300,
-    M_passive2 = 0x400,
-  };
-}
+  namespace CPUs {
+    enum {
+      M_active1 = 0,
+    };
+  }
 
-namespace CPUs {
-  enum {
-    M_active1 = 0,
-  };
-}
+  namespace InstanceIds {
+    enum {
+      M_active1,
+      M_active2,
+      M_active3,
+      M_passive1,
+      M_passive2,
+    };
+  }
 
-namespace InstanceIds {
-  enum {
-    M_active1,
-    M_active2,
-    M_active3,
-    M_passive1,
-    M_passive2,
-  };
-}
+  namespace Priorities {
+    enum {
+      M_active1 = 1,
+    };
+  }
 
-namespace Priorities {
-  enum {
-    M_active1 = 1,
-  };
-}
+  namespace QueueSizes {
+    enum {
+      M_active1 = 10,
+      M_active2 = 10,
+      M_active3 = 10,
+    };
+  }
 
-namespace QueueSizes {
-  enum {
-    M_active1 = 10,
-    M_active2 = 10,
-    M_active3 = 10,
-  };
-}
+  namespace StackSizes {
+    enum {
+      M_active1 = 1024,
+    };
+  }
 
-namespace StackSizes {
-  enum {
-    M_active1 = 1024,
-  };
-}
-
-namespace TaskIds {
-  enum {
-    M_active1,
-    M_active2,
-    M_active3,
-  };
-}
-
-namespace M {
+  namespace TaskIds {
+    enum {
+      M_active1,
+      M_active2,
+      M_active3,
+    };
+  }
 
   // ----------------------------------------------------------------------
   // Helper functions
