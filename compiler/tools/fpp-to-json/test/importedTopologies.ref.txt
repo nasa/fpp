@@ -1719,10 +1719,8 @@
   },
   "symbolScopeMap" : {
     "13" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     }
   },

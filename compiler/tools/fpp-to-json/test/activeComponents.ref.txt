@@ -1182,24 +1182,18 @@
   },
   "symbolScopeMap" : {
     "50" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "107" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "BufferSend" : {
-                  "Port" : {
-                    "nodeId" : 106,
-                    "unqualifiedName" : "BufferSend"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "BufferSend" : {
+              "Port" : {
+                "nodeId" : 106,
+                "unqualifiedName" : "BufferSend"
               }
             }
           }
@@ -1207,83 +1201,69 @@
       }
     },
     "103" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                },
-                "dataCompressor" : {
-                  "ComponentInstance" : {
-                    "nodeId" : 102,
-                    "unqualifiedName" : "dataCompressor"
-                  }
-                }
+      "map" : {
+        "ComponentInstance" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
+              }
+            },
+            "dataCompressor" : {
+              "ComponentInstance" : {
+                "nodeId" : 102,
+                "unqualifiedName" : "dataCompressor"
               }
             }
-          },
-          "Topology" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Topology" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Port" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Component" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Default"
               }
             }
           }
@@ -1291,23 +1271,19 @@
       }
     },
     "66" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "queueSize" : {
-                  "Constant" : {
-                    "nodeId" : 53,
-                    "unqualifiedName" : "queueSize"
-                  }
-                },
-                "stackSize" : {
-                  "Constant" : {
-                    "nodeId" : 65,
-                    "unqualifiedName" : "stackSize"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "queueSize" : {
+              "Constant" : {
+                "nodeId" : 53,
+                "unqualifiedName" : "queueSize"
+              }
+            },
+            "stackSize" : {
+              "Constant" : {
+                "nodeId" : 65,
+                "unqualifiedName" : "stackSize"
               }
             }
           }
@@ -1315,41 +1291,33 @@
       }
     },
     "51" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 50,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+      "map" : {
+        "Component" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 50,
+                "unqualifiedName" : "DataCompressor"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 50,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 50,
+                "unqualifiedName" : "DataCompressor"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 50,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 50,
+                "unqualifiedName" : "DataCompressor"
               }
             }
           }
