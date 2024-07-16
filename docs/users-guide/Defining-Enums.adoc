@@ -168,14 +168,6 @@ This code defines an enum `Small` with three enumerated constants
 Each of the enumerated constants is represented as a `U8` value
 in {cpp}.
 
-*GDS limitation:*
-The F Prime GDS currently assumes that all enums use the default representation
-size of `I32`.
-Therefore, if you plan to use the F Prime GDS, then
-you should not use any enum with a specified representation
-type other than `I32` in the flight-ground interface (i.e., commands, events, telemetry,
-and parameters).
-
 === The Default Value
 
 Every type in FPP has an associated default value.

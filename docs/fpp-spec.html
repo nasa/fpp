@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) Language Specification, State Machines</title>
+<title>The F Prime Prime (FPP) Language Specification, State Machines, Phase 1</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, State Machines</h1>
+<h1>The F Prime Prime (FPP) Language Specification, State Machines, Phase 1</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -2817,6 +2817,61 @@ exactly one
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
 The initial transition occurs when the state machine starts up.</p>
 </li>
+<li>
+<p>In the optional state machine member sequence,
+the set of <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a>
+induces a directed graph called the <strong>transition graph</strong>.
+In this graph, each enter expression <em>e</em>
+represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+The initial node is defined as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>e</em> appears in an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
+is <em>I</em>.</p>
+</li>
+<li>
+<p>If <em>e</em> appears in a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a> <em>T</em>, then the initial
+node is the
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+immediately enclosing <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>e</em> appears in a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+<em>J</em>, then the initial node is <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In any case,
+the terminal node is the state definition or junction definition
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
+in <em>e</em> after the keyword <code>enter</code>.
+A <strong>path</strong> in the transition graph is a finite sequence of arcs
+such that, for each arc <em>A</em> in the sequence, either (a) <em>A</em>
+is the last arc in the sequence, or (b)
+the terminal node of <em>A</em> is the initial node of the arc that
+follows <em>A</em> in the sequence.
+A path <em>P</em> in the transition graph is a <strong>cycle</strong> if the terminal
+node of the last arc in <em>P</em> coincides with the initial
+node of the first arc in <em>P</em>.
+The transition graph must satisfy the following rules:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Each junction must be the terminal node of exactly one arc.</p>
+</li>
+<li>
+<p>For any path <em>P</em> that is a cycle, some initial or terminal node of
+some arc in <em>P</em> must be a state definition.</p>
+</li>
+</ol>
+</div>
+</li>
 </ol>
 </div>
 </div>
@@ -3683,10 +3738,11 @@ state machine ActionDefs {
 <div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</h3>
 <div class="paragraph">
-<p>An <strong>enter expression</strong> specifies a transition as part of a
-<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>
+<p>An <strong>enter expression</strong> specifies a transition as part of an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
 or
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
 The transition enters a state or junction and optionally performs
 some action.</p>
 </div>
@@ -3829,38 +3885,16 @@ substates.</p>
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
-<em>[</em>
-<code>do</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-enter <a href="#Scoping-of-Names_Qualified-Identifiers"><em>ident</em></a></p>
+<a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.4.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The identifier must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to a
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
-or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
-It specifies the initial state or junction to enter.
-The state definition or junction definition referred to must be part of
-the same state machine definition or state definition where the initial
+<div class="paragraph">
+<p>The state definition or junction definition referred to in the
+enter expression must be a member of the same
+state machine definition or state definition in which the initial
 transition specifier appears.</p>
-</li>
-<li>
-<p>If present, the optional identifier after the keyword <code>do</code>
-must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to an
-<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
-It specifies the action to perform when entering the state or junction.</p>
-</li>
-</ol>
 </div>
 </div>
 <div class="sect3">
@@ -9640,7 +9674,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-06-26 17:49:52 -0700
+Last updated 2024-07-02 08:50:21 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
