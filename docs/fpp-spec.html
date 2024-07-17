@@ -584,18 +584,18 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.6. State Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.6.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions">6.7. State Machine Signal Definitions</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.7. State Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Examples">6.7.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</a>
@@ -2788,10 +2788,10 @@ A state machine member is one of the following:</p>
 <p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a></p>
 </li>
 <li>
-<p>A <a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions">state machine signal definition</a></p>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
 </li>
 </ul>
 </div>
@@ -3990,7 +3990,81 @@ otherwise the second enter expression is run.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.6. State Definitions</h3>
+<h3 id="State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</h3>
+<div class="paragraph">
+<p>A <strong>signal definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines a signal that may be sent to the enclosing state machine.
+Signals are inputs to state machines that cause state transitions
+to occur.</p>
+</div>
+<div class="paragraph">
+<p>Signals can be external or internal.
+An external signal is sent to the state machine from outside,
+e.g., by a command to an F Prime component.
+An internal signal is sent by the state machine implementation
+to itself.</p>
+</div>
+<div class="paragraph">
+<p>All signals sent to a state machine (internal and external)
+are placed on a first-in first-out (FIFO) queue.
+The state machine dequeues and processes signals when it is
+entering a state, and after it has run the entry function
+for that state.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Syntax">6.6.1. Syntax</h4>
+<div class="paragraph">
+<p><code>signal</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Semantics">6.6.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the signal name.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type of the
+data carried by the signal.
+If <em>type-name</em> is not present, then the signal carries no data.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Examples">6.6.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with signal definitions
+state machine SignalDefs {
+
+  @ A signal without data
+  signal RTI
+
+  @ A signal with data
+  signal Fault: FaultData
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.7. State Definitions</h3>
 <div class="paragraph">
 <p>A <strong>state definition</strong> is part of a
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>
@@ -4001,7 +4075,7 @@ A state <em>S'</em> defined inside a state <em>S</em> expresses a hierarchy
 of states: <em>S'</em> is a substate of <em>S</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.6.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.7.1. Syntax</h4>
 <div class="paragraph">
 <p><code>state</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em> <code>{</code> <em>state-definition-member-sequence</em> <code>}</code> <em>]</em></p>
@@ -4031,7 +4105,7 @@ A state definition member is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.6.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4046,7 +4120,7 @@ then it must contain exactly one initial transition specifier <em>I</em>.
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.6.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -4099,80 +4173,6 @@ then it must contain exactly one initial transition specifier <em>I</em>.
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Machine-Signal-Definitions">6.7. State Machine Signal Definitions</h3>
-<div class="paragraph">
-<p>A <strong>state machine signal definition</strong> is part of a
-<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
-It defines a signal that may be sent to the enclosing state machine.
-Signals are inputs to state machines that cause state transitions
-to occur.</p>
-</div>
-<div class="paragraph">
-<p>Signals can be external or internal.
-An external signal is sent to the state machine from outside,
-e.g., by a command to an F Prime component.
-An internal signal is sent by the state machine implementation
-to itself.</p>
-</div>
-<div class="paragraph">
-<p>All signals sent to a state machine (internal and external)
-are placed on a first-in first-out (FIFO) queue.
-The state machine dequeues and processes signals when it is
-entering a state, and after it has run the entry function
-for that state.</p>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Syntax">6.7.1. Syntax</h4>
-<div class="paragraph">
-<p><code>signal</code>
-<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>:</code>
-<a href="#Type-Names"><em>type-name</em></a>
-<em>]</em></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Semantics">6.7.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The identifier specifies the signal name.</p>
-</li>
-<li>
-<p>If present, the optional type name specifies the type of the
-data carried by the signal.
-If <em>type-name</em> is not present, then the signal carries no data.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Machine-Signal-Definitions_Examples">6.7.3. Examples</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
-  $id: U32
-  data: U32
-}
-
-@ A state machine with signal definitions
-state machine SignalDefs {
-
-  @ A signal without data
-  signal RTI
-
-  @ A signal with data
-  signal Fault: FaultData
-
-  ...
-
-}</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>state transition specifier</strong> is part of a
@@ -4211,7 +4211,7 @@ It specifies a transition from the state in which it appears.</p>
 <p>The identifier after the keyword <code>on</code> must
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to a
-<a href="#State-Machine-Behavior-Elements_State-Machine-Signal-Definitions">state machine signal definition</a>.
+<a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a>.
 It names the signal that causes the transition to occur.</p>
 </li>
 <li>
@@ -9674,7 +9674,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-02 08:50:21 -0700
+Last updated 2024-07-17 09:45:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
