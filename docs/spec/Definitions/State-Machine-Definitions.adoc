@@ -13,11 +13,6 @@ FSW build.
 specifies the behavior of a state machine and
 causes an implementation to be generated.
 
-*Implementation note:*
-Support for state machines will be implemented in two phases.
-Phase 1 will implement external state machine definitions only.
-Phase 2 will add support for internal state machine definitions.
-
 ==== Syntax
 
 `state machine` <<Lexical-Elements_Identifiers,_identifier_>> 

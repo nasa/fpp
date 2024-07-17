@@ -2,4 +2,4 @@
 # The FPP version
 # ----------------------------------------------------------------------
 
-export VERSION="State Machines, Phase 1"
+export VERSION="State Machines"
