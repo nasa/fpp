@@ -137,9 +137,9 @@ state machine S {
 ----
 
 *Conflicting names:*
-Each kind of definition resides in its own namespace, except
-that states and junctions both reside in the state namespace.
-No two state machine definitions that reside in the same namespace
+Each kind of definition resides in its own name group, except
+that states and junctions both reside in the state name group.
+No two state machine definitions that reside in the same name group
 may have the same qualified name.
 
 *Resolution of names:*
