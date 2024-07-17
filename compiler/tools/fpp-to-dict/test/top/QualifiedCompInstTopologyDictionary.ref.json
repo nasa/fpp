@@ -38,7 +38,7 @@
   ],
   "commands" : [
     {
-      "name" : "M.c1.P_PARAM_SET",
+      "name" : "M.I1.P_PARAM_SET",
       "commandKind" : "set",
       "opcode" : 256,
       "formalParams" : [
@@ -53,51 +53,21 @@
       ]
     },
     {
-      "name" : "M.c1.P_PARAM_SAVE",
+      "name" : "M.I1.P_PARAM_SAVE",
       "commandKind" : "save",
       "opcode" : 257,
-      "formalParams" : [
-      ]
-    },
-    {
-      "name" : "M.c2.P_PARAM_SET",
-      "commandKind" : "set",
-      "opcode" : 512,
-      "formalParams" : [
-        {
-          "name" : "val",
-          "type" : {
-            "name" : "M.E1",
-            "kind" : "qualifiedIdentifier"
-          },
-          "ref" : false
-        }
-      ]
-    },
-    {
-      "name" : "M.c2.P_PARAM_SAVE",
-      "commandKind" : "save",
-      "opcode" : 513,
       "formalParams" : [
       ]
     }
   ],
   "parameters" : [
     {
-      "name" : "M.c1.P",
+      "name" : "M.I1.P",
       "type" : {
         "name" : "M.E1",
         "kind" : "qualifiedIdentifier"
       },
       "id" : 256
-    },
-    {
-      "name" : "M.c2.P",
-      "type" : {
-        "name" : "M.E1",
-        "kind" : "qualifiedIdentifier"
-      },
-      "id" : 512
     }
   ],
   "events" : [
