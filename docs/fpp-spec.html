@@ -2818,14 +2818,27 @@ exactly one
 The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
-<p>In the optional state machine member sequence,
-the set of <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a>
-induces a directed graph called the <strong>transition graph</strong>.
-In this graph, each enter expression <em>e</em>
-represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
-The initial node is defined as follows:</p>
+<p>If the optional state machine member sequence <em>M</em> is present,
+then the <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
+</li>
+<li>
+<p>If present, the optional state machine member sequence <em>M</em>
+induces a directed graph called the <strong>transition graph</strong>, defined as
+follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
+<li>
+<p>The nodes of the transition graph are the initial transition specifiers,
+state definitions, and
+junction definitions that are transitive members of <em>M</em>.</p>
+</li>
+<li>
+<p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
+Each enter expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+The initial node is defined as follows:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
 <li>
 <p>If <em>e</em> appears in an
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
@@ -2845,29 +2858,30 @@ immediately enclosing <em>T</em>.</p>
 </li>
 </ol>
 </div>
+</li>
+</ol>
+</div>
 <div class="paragraph">
 <p>In any case,
 the terminal node is the state definition or junction definition
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
-in <em>e</em> after the keyword <code>enter</code>.
-A <strong>path</strong> in the transition graph is a finite sequence of arcs
-such that, for each arc <em>A</em> in the sequence, either (a) <em>A</em>
-is the last arc in the sequence, or (b)
-the terminal node of <em>A</em> is the initial node of the arc that
-follows <em>A</em> in the sequence.
-A path <em>P</em> in the transition graph is a <strong>cycle</strong> if the terminal
-node of the last arc in <em>P</em> coincides with the initial
-node of the first arc in <em>P</em>.
-The transition graph must satisfy the following rules:</p>
+in <em>e</em> after the keyword <code>enter</code>.</p>
 </div>
+</li>
+<li>
+<p>If the optional state machine member sequence is present, then
+the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Each junction must be the terminal node of exactly one arc.</p>
+<p>Each state machine definition and each junction definition in
+<em>T</em> must be the terminal node of at least one arc.</p>
 </li>
 <li>
-<p>For any path <em>P</em> that is a cycle, some initial or terminal node of
-some arc in <em>P</em> must be a state definition.</p>
+<p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
+and only the junction definitions and the arcs whose initial
+and terminal nodes are junction definitions.
+There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
 </div>
@@ -2920,8 +2934,10 @@ after replacing &#8220;definition&#8221; with &#8220;state machine member defini
 </div>
 <div class="paragraph">
 <p><strong>Conflicting names:</strong>
-No two state machine definitions of the same kind may have the
-same qualified name.</p>
+Each kind of definition resides in its own namespace, except
+that states and junctions both reside in the state namespace.
+No two state machine definitions that reside in the same namespace
+may have the same qualified name.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resolution of names:</strong>
@@ -3760,18 +3776,20 @@ some action.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The qualified identifier after the keyword <code>enter</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to a
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
-It is the state that is entered.</p>
-</li>
-<li>
 <p>If present, the optional identifier after the keyword <code>do</code> must
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to an
 <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
 It specifies an action to perform when making the transition.</p>
+</li>
+<li>
+<p>The qualified identifier after the keyword <code>enter</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+It is the state or junction that is entered.</p>
 </li>
 </ol>
 </div>
@@ -4182,25 +4200,24 @@ It specifies a transition from the state in which it appears.</p>
 <div class="sect3">
 <h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.8.1. Syntax</h4>
 <div class="paragraph">
-<p>A state transition is one of the following:</p>
+<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em>
+<em>enter-or-do</em></p>
 </div>
-<div class="ulist">
-<ul>
+<div class="paragraph">
+<p><em>enter-or-do</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-<a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
+<p><a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
 </li>
 <li>
-<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>[</em>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
 </li>
-</ul>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -9674,7 +9691,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-17 09:45:52 -0700
+Last updated 2024-07-17 13:30:50 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

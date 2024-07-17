@@ -52,27 +52,36 @@ exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
 
-. In the optional state machine member sequence,
-the set of <<State-Machine-Behavior-Elements_Enter-Expressions,
-enter expressions>>
-induces a directed graph called the *transition graph*.
-In this graph, each enter expression _e_
-represents an arc from an *initial node* to a *terminal node*.
+. If the optional state machine member sequence _M_ is present,
+then the *transitive members* of _M_ are (i) the elements of _M_ and (ii)
+the members of any state definition that is a transitive member of _M_.
+
+. If present, the optional state machine member sequence _M_
+induces a directed graph called the *transition graph*, defined as
+follows:
+
+.. The nodes of the transition graph are the initial transition specifiers,
+state definitions, and
+junction definitions that are transitive members of _M_.
+
+.. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Enter-Expressions,
+enter expressions>> _e_ that are parts of transitive members of _M_.
+Each enter expression represents an arc from an *initial node* to a *terminal node*.
 The initial node is defined as follows:
 
-.. If _e_ appears in an
+... If _e_ appears in an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
 initial transition specifier>> _I_, then the initial node
 is _I_.
 
-.. If _e_ appears in a
+... If _e_ appears in a
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,
 state transition specifier>> _T_, then the initial
 node is the
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 immediately enclosing _T_.
 
-.. If _e_ appears in a
+... If _e_ appears in a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 _J_, then the initial node is _J_.
 
@@ -81,20 +90,17 @@ In any case,
 the terminal node is the state definition or junction definition
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
 in _e_ after the keyword `enter`.
-A *path* in the transition graph is a finite sequence of arcs
-such that, for each arc _A_ in the sequence, either (a) _A_
-is the last arc in the sequence, or (b)
-the terminal node of _A_ is the initial node of the arc that
-follows _A_ in the sequence.
-A path _P_ in the transition graph is a *cycle* if the terminal
-node of the last arc in _P_ coincides with the initial
-node of the first arc in _P_.
-The transition graph must satisfy the following rules:
 
-.. Each junction must be the terminal node of exactly one arc.
+. If the optional state machine member sequence is present, then
+the transition graph _T_ must satisfy the following rules:
 
-.. For any path _P_ that is a cycle, some initial or terminal node of
-some arc in _P_ must be a state definition.
+.. Each state machine definition and each junction definition in
+_T_ must be the terminal node of at least one arc.
+
+.. Let _S_ be the subgraph of _T_ consisting of all
+and only the junction definitions and the arcs whose initial
+and terminal nodes are junction definitions.
+There must be no cycles in _S_.
 
 ==== Scoping of Names
 
@@ -136,8 +142,10 @@ state machine S {
 ----
 
 *Conflicting names:*
-No two state machine definitions of the same kind may have the
-same qualified name.
+Each kind of definition resides in its own namespace, except
+that states and junctions both reside in the state namespace.
+No two state machine definitions that reside in the same namespace
+may have the same qualified name.
 
 *Resolution of names:*
 Names are resolved in the ordinary way for
