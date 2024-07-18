@@ -26,7 +26,11 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"action ${data.name}, ${data.typeName}")
+    lines("def action") ++
+    (
+      ident(data.name) ++
+      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+    ).map(indentIn)
   }
 
   override def defArrayAnnotatedNode(
@@ -111,7 +115,11 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"guard ${data.name}, ${data.typeName}")
+    lines("def guard") ++
+    (
+      ident(data.name) ++
+      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+    ).map(indentIn)
   }
 
   override def defJunctionAnnotatedNode(
@@ -120,18 +128,25 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val ifPart = data.ifPart
-    val elsePart = data.elsePart
-    lines(s"junction ${data.name} ${ifPart} ${elsePart}")
+    val guard = data.guard
+    lines("def junction") ++
+    (ident(data.name) ++
+    addPrefix("guard", ident) (data.guard) ++
+    enterExpression(data.ifExpr) ++
+    enterExpression(data.elseExpr)).map(indentIn)
   }
 
-  override def defTransitionAnnotatedNode(
+
+  override def specTransitionAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"transition signal = ${data.signal}, guard = ${data.guard}, action = ${data.action}, state = ${data.state}")
+    lines("spec transition") ++
+    (addPrefix("signal", ident) (data.signal) ++
+    linesOpt(addPrefix("guard", ident), data.guard) ++
+    linesOpt(enterExpression, data.enterOrDo.enter)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
@@ -164,7 +179,11 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"signal ${data.name}, ${data.typeName}")
+    lines("def signal") ++
+    (
+      ident(data.name) ++
+      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+    ).map(indentIn)
   }
 
   override def defStateAnnotatedNode(
@@ -173,8 +192,9 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"state ${data.name}") ++
+    lines("def state") ++
     (
+      ident(data.name) ++
       linesOpt((members: List[Ast.StateMember]) => members.flatMap(stateMember), data.members)
     ).map(indentIn)
   }
@@ -417,9 +437,19 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"initial do ${data.action} enter ${data.state}")
+    lines("spec initial") ++
+    enterExpression(data.enterExpr).map(indentIn)
   }
 
+  def enterExpression(
+    enterExpr: Ast.EnterExpr
+  ) = {
+    List(
+      linesOpt(addPrefix("action", ident), enterExpr.action),
+      addPrefix("state", qualIdent) (enterExpr.state)
+    ).flatten
+  }
+  
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]

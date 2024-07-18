@@ -2,6 +2,7 @@ package fpp.compiler.ast
 
 import fpp.compiler.util._
 import fpp.compiler.ast.Ast.QualIdent
+import fpp.compiler.ast.Ast.QualIdent
 
 object Ast {
 
@@ -184,7 +185,7 @@ object Ast {
     sealed trait Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class DefTransition(node: AstNode[Ast.DefTransition]) extends Node
+    final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
    }
 
   /** Struct definition */
@@ -613,8 +614,7 @@ object Ast {
 
   /** Initial state Specifier */
   final case class SpecInitial(
-    action: Option[Ident],
-    state: Ident
+    enterExpr: EnterExpr
   )
 
   /** State definition */
@@ -638,19 +638,14 @@ object Ast {
   /** Junction definition */
   final case class DefJunction(
     name: Ident,
-    ifPart: IfPart,
-    elsePart: ElsePart
-  )
-
-  final case class IfPart(
     guard: Ident,
-    action: Option[Ident],
-    state: Ident
+    ifExpr: EnterExpr,
+    elseExpr: EnterExpr
   )
 
-  final case class ElsePart(
+  final case class EnterExpr(
     action: Option[Ident],
-    state: Ident
+    state: QualIdent
   )
 
   /** Signal definition */
@@ -660,11 +655,15 @@ object Ast {
   )
 
   /** Transition definition */
-  final case class DefTransition(
+  final case class SpecTransition(
     signal: Ident,
     guard: Option[Ident],
-    action: Option[Ident],
-    state: Option[Ident]
+    enterOrDo: EnterOrDo
+  )
+
+  final case class EnterOrDo(
+    enter: Option[EnterExpr],
+    action: Option[Ident]
   )
 
    /** Port matching specifier */

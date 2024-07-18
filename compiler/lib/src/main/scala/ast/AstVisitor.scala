@@ -41,7 +41,7 @@ trait AstVisitor {
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
 
-  def defTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTransition]]): Out = default(in)
+  def specTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTransition]]): Out = default(in)
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
@@ -174,7 +174,7 @@ trait AstVisitor {
     node match {
       case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.DefTransition(node1) => defTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
     }
   }
 

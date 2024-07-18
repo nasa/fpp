@@ -46,7 +46,7 @@ object Parser extends Parsers {
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
     node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
-    node(defTransition) ^^ { case n => Ast.StateMember.DefTransition(n) } |
+    node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
     failure("state member expected")
   }
 
@@ -127,22 +127,16 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifPart) ~! (elsePart <~ rbrace) ^^ {
-      case ident ~ ifPart ~ elsePart => Ast.DefJunction(ident, ifPart, elsePart)
+    (junction ~> ident) ~! (lbrace ~> ifGuard ~> ident) ~! enterExpr ~! (elseJunction ~> enterExpr) <~! rbrace ^^ {
+      case ident ~ guard ~ ifExpr ~ elseExpr => Ast.DefJunction(ident, guard, ifExpr, elseExpr)
     }
   }
 
-  def ifPart: Parser[Ast.IfPart] = {
-    (ifGuard ~> ident) ~! opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
-      case guard ~ action ~ state => Ast.IfPart(guard, action, state)
+  def enterExpr: Parser[Ast.EnterExpr] =
+    opt(doAction ~> ident) ~ (enter ~> qualIdent) ^^ {
+      case ident ~ state => 
+        Ast.EnterExpr(ident, state)
     }
-  }
-
-  def elsePart: Parser[Ast.ElsePart] = {
-    elseJunction ~> opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
-      case action ~ state => Ast.ElsePart(action, state)
-    }
-  }
 
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     state ~> (machine ~> ident) ~! opt(lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
@@ -150,11 +144,19 @@ object Parser extends Parsers {
     }
   }
 
-  def defTransition: Parser[Ast.DefTransition] = {
-    (on ~> ident) ~! opt(ifGuard ~> ident) ~! opt(doAction ~> ident) ~! opt(enter ~> ident) ^^ {
-      case signal ~ guard ~ action ~ state => Ast.DefTransition(signal, guard, action, state)
+  def specTransition: Parser[Ast.SpecTransition] = {
+    (on ~> ident) ~! opt(ifGuard ~> ident) ~ enterOrDo ^^ {
+      case signal ~ guard ~ enterOrDo => 
+        Ast.SpecTransition(signal, guard, enterOrDo)
     }
   }
+
+  def enterOrDo: Parser[Ast.EnterOrDo] =
+    opt(enterExpr) ~ opt(doAction ~> ident) ^^ {
+      case enterExpr ~ action => 
+        Ast.EnterOrDo(enterExpr, action)
+    }
+
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {
@@ -651,8 +653,8 @@ object Parser extends Parsers {
   }
 
   def specInitial: Parser[Ast.SpecInitial] = {
-    initial ~> opt(doAction ~> ident) ~! (enter ~> ident) ^^ {
-      case action ~ state => Ast.SpecInitial(action, state)
+    initial ~> enterExpr ^^ {
+      case enterExpr => Ast.SpecInitial(enterExpr)
     }
   }
 

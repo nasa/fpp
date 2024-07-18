@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 import fpp.compiler.ast.Ast.Annotated
-import fpp.compiler.ast.Ast.DefTransition
+import fpp.compiler.ast.Ast.SpecTransition
 
 /** Write out FPP source */
 object FppWriter extends AstVisitor with LineUtils {
@@ -91,29 +91,43 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"type ${ident(data.name)}")
   }
 
-
   override def specInitialAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitial]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"initial ").
-    joinOpt (data.action) ("do ") (identAsLines).
-    join (" enter ") (identAsLines(data.state))
+    lines("initial").
+    join("")(doEnterExpression(data.enterExpr))
   }
 
-  override def defTransitionAnnotatedNode(
+  def doEnterExpression(
+    enterExpr: Ast.EnterExpr
+  ): Out = {
+    lines("").
+    joinOpt (enterExpr.action) (" do ") (identAsLines).
+    join (" enter ")(qualIdent(enterExpr.state))
+  }
+
+  override def specTransitionAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"on ${ident(data.signal)}")
-    .joinOpt(data.guard)(" if ")(identAsLines)
-    .joinOpt(data.action)(" do ")(identAsLines)
-    .joinOpt(data.state)(" enter ")(identAsLines)
+    lines(s"on ${ident(data.signal)}").
+    joinOpt(data.guard)(" if ")(identAsLines).
+    join("")(enterOrDo(data.enterOrDo))
   }
+
+  def enterOrDo(
+    enterOrDo: Ast.EnterOrDo
+  ): Out = {
+    lines("").
+    joinOpt(enterOrDo.enter)("")(doEnterExpression).
+    joinOpt(enterOrDo.action) (" do ") (identAsLines)
+  }
+
 
   override def defStateAnnotatedNode(
     in: In,
@@ -164,13 +178,11 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-     lines(s"junction ${ident(data.name)} {") ++
-      lines(s"if ${data.ifPart.guard}").map(indentIn)
-      .joinOpt(data.ifPart.action)(" do ")(identAsLines)
-      .join(" enter ")(identAsLines(data.ifPart.state))
-      .joinWithBreak("else ")(lines(""))
-      .joinOpt(data.elsePart.action)("do ")(identAsLines)
-      .join(" enter ")(identAsLines(data.elsePart.state)) ++
+    lines(s"junction ${ident(data.name)} {") ++
+    lines(s"if ${data.guard}").map(indentIn).
+      join("")(doEnterExpression(data.ifExpr)) ++
+    lines("else").map(indentIn).
+      join("")(doEnterExpression(data.elseExpr)) ++
     lines("}")
   }
 
