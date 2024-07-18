@@ -13,23 +13,58 @@ def module
     ident C
     def state machine
       ident S
-      signal RTI, None
-      signal EV1, Some(Unqualified(StateData))
-      action a1, Some(Unqualified(StateData))
-      action a2, None
-      guard g1, Some(Unqualified(StateData))
-      guard g2, None
-      initial do None enter IDLE
-      junction j1 IfPart(g1,Some(a1),SAFING) ElsePart(Some(a2),RUNNING)
-      state IDLE
-        initial do None enter RUNNING
-        transition signal = RTI, guard = None, action = Some(a1), state = None
-        transition signal = RTI, guard = None, action = None, state = Some(SAFING)
-        transition signal = RTI, guard = None, action = Some(a1), state = Some(SAFING)
-        transition signal = RTI, guard = Some(g1), action = Some(a1), state = Some(SAFING)
-        transition signal = RTI, guard = Some(g2), action = Some(a2), state = Some(RUNNING)
-        state RUNNING
-      state SAFING
-        transition signal = RTI, guard = None, action = Some(a2), state = None
+      def signal
+        ident RTI
+      def signal
+        ident EV1
+        typeName qual ident StateData
+      def action
+        ident a1
+        typeName qual ident StateData
+      def action
+        ident a2
+      def guard
+        ident g1
+        typeName qual ident StateData
+      def guard
+        ident g2
+      spec initial
+        state qual ident IDLE
+      def junction
+        ident j1
+        guard ident g1
+        action ident a1
+        state qual ident SAFING
+        action ident a2
+        state qual ident RUNNING
+      def state
+        ident IDLE
+        spec initial
+          state qual ident RUNNING
+        spec transition
+          signal ident RTI
+        spec transition
+          signal ident RTI
+          state qual ident SAFING
+        spec transition
+          signal ident RTI
+          action ident a1
+          state qual ident SAFING
+        spec transition
+          signal ident RTI
+          guard ident g1
+          action ident a1
+          state qual ident SAFING
+        spec transition
+          signal ident RTI
+          guard ident g2
+          action ident a2
+          state qual ident RUNNING
+        def state
+          ident RUNNING
+      def state
+        ident SAFING
+        spec transition
+          signal ident RTI
     def state machine
       ident S1

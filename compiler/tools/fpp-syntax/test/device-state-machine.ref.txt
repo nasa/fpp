@@ -13,53 +13,133 @@ def struct
     type name F32
 def state machine
   ident Device
-  signal RTI, None
-  signal Complete, None
-  signal Calibrate, None
-  signal Fault, Some(Unqualified(FaultData))
-  signal Drive, None
-  signal Stop, None
-  signal Resume, None
-  signal POR, None
-  signal PowerOn, Some(Unqualified(PowerData))
-  signal PowerOff, None
-  action init1, None
-  action init2, None
-  action setPower, Some(Unqualified(PowerData))
-  action initPower, None
-  action reportFault, Some(Unqualified(FaultData))
-  action motorControl, None
-  action doCalibrate, None
-  action doSafe, None
-  action doDiagnostics, None
-  guard coldStart, None
-  guard noRecovery, Some(Unqualified(FaultData))
-  guard calibrateReady, None
-  initial do Some(init1) enter j1
-  junction j1 IfPart(coldStart,None,DEVICE_OFF) ElsePart(Some(initPower),DEVICE_ON)
-  state DEVICE_OFF
-    transition signal = PowerOn, guard = None, action = Some(setPower), state = Some(DEVICE_ON)
-  state DEVICE_ON
-    initial do Some(init2) enter INITIALIZING
-    state INITIALIZING
-      transition signal = Complete, guard = None, action = None, state = Some(IDLE)
-    state IDLE
-      transition signal = Drive, guard = None, action = None, state = Some(DRIVING)
-      transition signal = Calibrate, guard = Some(calibrateReady), action = None, state = Some(CALIBRATING)
-    state Calibrating
-      transition signal = RTI, guard = None, action = Some(doCalibrate), state = None
-      transition signal = Fault, guard = None, action = Some(reportFault), state = Some(IDLE)
-      transition signal = Complete, guard = None, action = None, state = Some(IDLE)
-    state DRIVING
-      transition signal = RTI, guard = None, action = Some(motorControl), state = None
-      transition signal = Stop, guard = None, action = None, state = Some(IDLE)
-    transition signal = POR, guard = None, action = None, state = Some(DEVICE_ON)
-    transition signal = Fault, guard = None, action = None, state = Some(j2)
-    transition signal = PowerOff, guard = None, action = None, state = Some(DEVICE_OFF)
-  junction j2 IfPart(noRecovery,None,DIAGNOSTICS) ElsePart(Some(reportFault),RECOVERY)
-  state Recovery
-    transition signal = RTI, guard = None, action = Some(doSafe), state = None
-    transition signal = Complete, guard = None, action = None, state = Some(DIAGNOSTICS)
-  state DIAGNOSTICS
-    transition signal = RTI, guard = None, action = Some(doDiagnostics), state = None
-    transition signal = Resume, guard = None, action = None, state = Some(DEVICE_ON)
+  def signal
+    ident RTI
+  def signal
+    ident Complete
+  def signal
+    ident Calibrate
+  def signal
+    ident Fault
+    typeName qual ident FaultData
+  def signal
+    ident Drive
+  def signal
+    ident Stop
+  def signal
+    ident Resume
+  def signal
+    ident POR
+  def signal
+    ident PowerOn
+    typeName qual ident PowerData
+  def signal
+    ident PowerOff
+  def action
+    ident init1
+  def action
+    ident init2
+  def action
+    ident setPower
+    typeName qual ident PowerData
+  def action
+    ident initPower
+  def action
+    ident reportFault
+    typeName qual ident FaultData
+  def action
+    ident motorControl
+  def action
+    ident doCalibrate
+  def action
+    ident doSafe
+  def action
+    ident doDiagnostics
+  def guard
+    ident coldStart
+  def guard
+    ident noRecovery
+    typeName qual ident FaultData
+  def guard
+    ident calibrateReady
+  spec initial
+    action ident init1
+    state qual ident j1
+  def junction
+    ident j1
+    guard ident coldStart
+    state qual ident DEVICE_OFF
+    action ident initPower
+    state qual ident DEVICE_ON
+  def state
+    ident DEVICE_OFF
+    spec transition
+      signal ident PowerOn
+      action ident setPower
+      state qual ident DEVICE_ON
+  def state
+    ident DEVICE_ON
+    spec initial
+      action ident init2
+      state qual ident INITIALIZING
+    def state
+      ident INITIALIZING
+      spec transition
+        signal ident Complete
+        state qual ident IDLE
+    def state
+      ident IDLE
+      spec transition
+        signal ident Drive
+        state qual ident DRIVING
+      spec transition
+        signal ident Calibrate
+        guard ident calibrateReady
+        state qual ident CALIBRATING
+    def state
+      ident Calibrating
+      spec transition
+        signal ident RTI
+      spec transition
+        signal ident Fault
+        action ident reportFault
+        state qual ident IDLE
+      spec transition
+        signal ident Complete
+        state qual ident IDLE
+    def state
+      ident DRIVING
+      spec transition
+        signal ident RTI
+      spec transition
+        signal ident Stop
+        state qual ident IDLE
+    spec transition
+      signal ident POR
+      state qual ident DEVICE_ON
+    spec transition
+      signal ident Fault
+      state qual ident j2
+    spec transition
+      signal ident PowerOff
+      state qual ident DEVICE_OFF
+  def junction
+    ident j2
+    guard ident noRecovery
+    state qual ident DIAGNOSTICS
+    action ident reportFault
+    state qual ident RECOVERY
+  def state
+    ident Recovery
+    spec transition
+      signal ident RTI
+    spec transition
+      signal ident Complete
+      state qual ident DIAGNOSTICS
+  def state
+    ident DIAGNOSTICS
+    spec transition
+      signal ident RTI
+    spec transition
+      signal ident Resume
+      state qual ident DEVICE_ON

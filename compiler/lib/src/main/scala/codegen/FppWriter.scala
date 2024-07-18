@@ -180,9 +180,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
     lines(s"if ${data.guard}").map(indentIn).
-      join("")(doEnterExpression(data.ifExpr)) ++
-    lines("else").map(indentIn).
-      join("")(doEnterExpression(data.elseExpr)) ++
+    join("")(doEnterExpression(data.ifExpr)).
+    joinWithBreak("")(lines("else")).map(indentIn).
+    join("")(doEnterExpression(data.elseExpr)) ++
     lines("}")
   }
 
