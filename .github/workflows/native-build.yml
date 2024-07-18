@@ -101,8 +101,8 @@ jobs:
           matrix = {
             "run": [
               {
-                "runner": "macos-11",
-                "tag": "macosx_10_9_universal2"
+                "runner": "macos-12",
+                "tag": "macosx_12_0_universal2"
               },
               {
                 "runner": "ubuntu-latest",
@@ -131,6 +131,13 @@ jobs:
     container:
       image:  ${{ matrix.run.container || '' }}
     steps:
+      - name: "Fix environment"
+        run: |
+          # https://github.com/actions/checkout/issues/1809
+          # https://github.blog/changelog/2024-03-07-github-actions-all-actions-will-run-on-node20-instead-of-node16-by-default/
+          echo "ACTIONS_RUNNER_FORCED_INTERNAL_NODE_VERSION=node16" >> $GITHUB_ENV
+          echo "ACTIONS_RUNNER_FORCE_ACTIONS_NODE_VERSION=node16" >> $GITHUB_ENV
+          echo "ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true" >> $GITHUB_ENV
       - name: "Checkout repository"
         uses: actions/checkout@v3
         with:
