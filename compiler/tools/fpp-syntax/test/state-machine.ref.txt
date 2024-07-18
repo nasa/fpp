@@ -43,6 +43,7 @@ def module
           state qual ident RUNNING
         spec transition
           signal ident RTI
+          action ident a1
         spec transition
           signal ident RTI
           state qual ident SAFING
@@ -66,5 +67,6 @@ def module
         ident SAFING
         spec transition
           signal ident RTI
+          action ident a2
     def state machine
       ident S1

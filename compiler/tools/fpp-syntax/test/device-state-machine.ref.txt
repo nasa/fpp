@@ -100,6 +100,7 @@ def state machine
       ident Calibrating
       spec transition
         signal ident RTI
+        action ident doCalibrate
       spec transition
         signal ident Fault
         action ident reportFault
@@ -111,6 +112,7 @@ def state machine
       ident DRIVING
       spec transition
         signal ident RTI
+        action ident motorControl
       spec transition
         signal ident Stop
         state qual ident IDLE
@@ -133,6 +135,7 @@ def state machine
     ident Recovery
     spec transition
       signal ident RTI
+      action ident doSafe
     spec transition
       signal ident Complete
       state qual ident DIAGNOSTICS
@@ -140,6 +143,7 @@ def state machine
     ident DIAGNOSTICS
     spec transition
       signal ident RTI
+      action ident doDiagnostics
     spec transition
       signal ident Resume
       state qual ident DEVICE_ON

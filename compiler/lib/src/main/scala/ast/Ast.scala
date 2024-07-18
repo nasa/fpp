@@ -661,10 +661,10 @@ object Ast {
     enterOrDo: EnterOrDo
   )
 
-  final case class EnterOrDo(
-    enter: Option[EnterExpr],
-    action: Option[Ident]
-  )
+  sealed trait EnterOrDo
+  
+  final case class Enter(enter: EnterExpr) extends EnterOrDo
+  final case class Do(action: Ident) extends EnterOrDo
 
    /** Port matching specifier */
   final case class SpecPortMatching(

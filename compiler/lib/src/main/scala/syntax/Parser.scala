@@ -138,6 +138,7 @@ object Parser extends Parsers {
         Ast.EnterExpr(ident, state)
     }
 
+
   def defStateMachine: Parser[Ast.DefStateMachine] = {
     state ~> (machine ~> ident) ~! opt(lbrace ~>! stateMachineMembers <~! rbrace) ^^ {
       case name ~ members => Ast.DefStateMachine(name, members)
@@ -151,12 +152,11 @@ object Parser extends Parsers {
     }
   }
 
-  def enterOrDo: Parser[Ast.EnterOrDo] =
-    opt(enterExpr) ~ opt(doAction ~> ident) ^^ {
-      case enterExpr ~ action => 
-        Ast.EnterOrDo(enterExpr, action)
-    }
-
+  def enterOrDo: Parser[Ast.EnterOrDo] = {
+    def enterParser: Parser[Ast.Enter] = enterExpr ^^ { case e => Ast.Enter(e) }
+    def doParser: Parser[Ast.Do] = doAction ~>! ident ^^ { case ident => Ast.Do(ident)}
+    enterParser | doParser 
+  }
 
   def defComponentInstance: Parser[Ast.DefComponentInstance] = {
     def initSpecSequence = {

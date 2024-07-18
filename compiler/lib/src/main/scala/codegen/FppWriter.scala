@@ -98,10 +98,10 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("initial").
-    join("")(doEnterExpression(data.enterExpr))
+    join("")(enterExpression(data.enterExpr))
   }
 
-  def doEnterExpression(
+  def enterExpression(
     enterExpr: Ast.EnterExpr
   ): Out = {
     lines("").
@@ -122,12 +122,12 @@ object FppWriter extends AstVisitor with LineUtils {
 
   def enterOrDo(
     enterOrDo: Ast.EnterOrDo
-  ): Out = {
-    lines("").
-    joinOpt(enterOrDo.enter)("")(doEnterExpression).
-    joinOpt(enterOrDo.action) (" do ") (identAsLines)
+  ) = {
+    enterOrDo match {
+      case Ast.Enter(enterExpr) => enterExpression(enterExpr)
+      case Ast.Do(action) => lines(s" do ${ident(action)}")
+    }
   }
-
 
   override def defStateAnnotatedNode(
     in: In,
@@ -180,9 +180,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
     (lines(s"if ${data.guard}").
-    join("")(doEnterExpression(data.ifExpr))).map(indentIn).
+    join("")(enterExpression(data.ifExpr))).map(indentIn).
     joinWithBreak("")(lines("else")).
-    join("")(doEnterExpression(data.elseExpr)) ++
+    join("")(enterExpression(data.elseExpr)) ++
     lines("}")
   }
 

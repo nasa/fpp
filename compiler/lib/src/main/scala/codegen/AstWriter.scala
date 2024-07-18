@@ -146,7 +146,16 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec transition") ++
     (addPrefix("signal", ident) (data.signal) ++
     linesOpt(addPrefix("guard", ident), data.guard) ++
-    linesOpt(enterExpression, data.enterOrDo.enter)).map(indentIn)
+    enterOrDo(data.enterOrDo)).map(indentIn)
+  }
+
+  def enterOrDo(
+    enterOrDo: Ast.EnterOrDo
+  ) = {
+    enterOrDo match {
+      case Ast.Enter(enterExpr) => enterExpression(enterExpr)
+      case Ast.Do(action) => addPrefix("action", ident) (action)
+    }
   }
 
   override def defModuleAnnotatedNode(

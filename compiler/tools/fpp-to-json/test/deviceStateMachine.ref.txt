@@ -678,8 +678,8 @@
                                                   "signal" : "PowerOn",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : {
                                                           "Some" : "setPower"
                                                         },
@@ -689,8 +689,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 53
@@ -772,8 +771,8 @@
                                                                   "signal" : "Complete",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : "None",
                                                                         "state" : {
                                                                           "Unqualified" : {
@@ -781,8 +780,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 62
@@ -826,8 +824,8 @@
                                                                   "signal" : "Drive",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : "None",
                                                                         "state" : {
                                                                           "Unqualified" : {
@@ -835,8 +833,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 65
@@ -860,8 +857,8 @@
                                                                     "Some" : "calibrateReady"
                                                                   },
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : "None",
                                                                         "state" : {
                                                                           "Unqualified" : {
@@ -869,8 +866,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 71
@@ -914,9 +910,8 @@
                                                                   "signal" : "RTI",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : "None",
-                                                                    "action" : {
-                                                                      "Some" : "doCalibrate"
+                                                                    "Do" : {
+                                                                      "action" : "doCalibrate"
                                                                     }
                                                                   }
                                                                 },
@@ -939,8 +934,8 @@
                                                                   "signal" : "Fault",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : {
                                                                           "Some" : "reportFault"
                                                                         },
@@ -950,8 +945,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 75
@@ -973,8 +967,8 @@
                                                                   "signal" : "Complete",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : "None",
                                                                         "state" : {
                                                                           "Unqualified" : {
@@ -982,8 +976,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 81
@@ -1027,9 +1020,8 @@
                                                                   "signal" : "RTI",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : "None",
-                                                                    "action" : {
-                                                                      "Some" : "motorControl"
+                                                                    "Do" : {
+                                                                      "action" : "motorControl"
                                                                     }
                                                                   }
                                                                 },
@@ -1052,8 +1044,8 @@
                                                                   "signal" : "Stop",
                                                                   "guard" : "None",
                                                                   "enterOrDo" : {
-                                                                    "enter" : {
-                                                                      "Some" : {
+                                                                    "Enter" : {
+                                                                      "enter" : {
                                                                         "action" : "None",
                                                                         "state" : {
                                                                           "Unqualified" : {
@@ -1061,8 +1053,7 @@
                                                                           }
                                                                         }
                                                                       }
-                                                                    },
-                                                                    "action" : "None"
+                                                                    }
                                                                   }
                                                                 },
                                                                 "id" : 89
@@ -1095,8 +1086,8 @@
                                                   "signal" : "POR",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : "None",
                                                         "state" : {
                                                           "Unqualified" : {
@@ -1104,8 +1095,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 92
@@ -1127,8 +1117,8 @@
                                                   "signal" : "Fault",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : "None",
                                                         "state" : {
                                                           "Unqualified" : {
@@ -1136,8 +1126,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 94
@@ -1159,8 +1148,8 @@
                                                   "signal" : "PowerOff",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : "None",
                                                         "state" : {
                                                           "Unqualified" : {
@@ -1168,8 +1157,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 100
@@ -1250,9 +1238,8 @@
                                                   "signal" : "RTI",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : "None",
-                                                    "action" : {
-                                                      "Some" : "doSafe"
+                                                    "Do" : {
+                                                      "action" : "doSafe"
                                                     }
                                                   }
                                                 },
@@ -1275,8 +1262,8 @@
                                                   "signal" : "Complete",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : "None",
                                                         "state" : {
                                                           "Unqualified" : {
@@ -1284,8 +1271,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 111
@@ -1329,9 +1315,8 @@
                                                   "signal" : "RTI",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : "None",
-                                                    "action" : {
-                                                      "Some" : "doDiagnostics"
+                                                    "Do" : {
+                                                      "action" : "doDiagnostics"
                                                     }
                                                   }
                                                 },
@@ -1354,8 +1339,8 @@
                                                   "signal" : "Resume",
                                                   "guard" : "None",
                                                   "enterOrDo" : {
-                                                    "enter" : {
-                                                      "Some" : {
+                                                    "Enter" : {
+                                                      "enter" : {
                                                         "action" : "None",
                                                         "state" : {
                                                           "Unqualified" : {
@@ -1363,8 +1348,7 @@
                                                           }
                                                         }
                                                       }
-                                                    },
-                                                    "action" : "None"
+                                                    }
                                                   }
                                                 },
                                                 "id" : 135
