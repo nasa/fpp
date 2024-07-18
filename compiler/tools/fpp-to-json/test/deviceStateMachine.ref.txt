@@ -600,12 +600,18 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "action" : {
-                                    "Some" : "init1"
-                                  },
-                                  "state" : "j1"
+                                  "enterExpr" : {
+                                    "action" : {
+                                      "Some" : "init1"
+                                    },
+                                    "state" : {
+                                      "Unqualified" : {
+                                        "name" : "j1"
+                                      }
+                                    }
+                                  }
                                 },
-                                "id" : 43
+                                "id" : 44
                               }
                             }
                           }
@@ -622,19 +628,27 @@
                               "AstNode" : {
                                 "data" : {
                                   "name" : "j1",
-                                  "ifPart" : {
-                                    "guard" : "coldStart",
+                                  "guard" : "coldStart",
+                                  "ifExpr" : {
                                     "action" : "None",
-                                    "state" : "DEVICE_OFF"
+                                    "state" : {
+                                      "Unqualified" : {
+                                        "name" : "DEVICE_OFF"
+                                      }
+                                    }
                                   },
-                                  "elsePart" : {
+                                  "elseExpr" : {
                                     "action" : {
                                       "Some" : "initPower"
                                     },
-                                    "state" : "DEVICE_ON"
+                                    "state" : {
+                                      "Unqualified" : {
+                                        "name" : "DEVICE_ON"
+                                      }
+                                    }
                                   }
                                 },
-                                "id" : 44
+                                "id" : 47
                               }
                             }
                           }
@@ -657,20 +671,29 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "PowerOn",
                                                   "guard" : "None",
-                                                  "action" : {
-                                                    "Some" : "setPower"
-                                                  },
-                                                  "state" : {
-                                                    "Some" : "DEVICE_ON"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : {
+                                                          "Some" : "setPower"
+                                                        },
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "DEVICE_ON"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 47
+                                                "id" : 53
                                               }
                                             }
                                           }
@@ -681,7 +704,7 @@
                                     ]
                                   }
                                 },
-                                "id" : 48
+                                "id" : 54
                               }
                             }
                           }
@@ -708,12 +731,18 @@
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
-                                                  "action" : {
-                                                    "Some" : "init2"
-                                                  },
-                                                  "state" : "INITIALIZING"
+                                                  "enterExpr" : {
+                                                    "action" : {
+                                                      "Some" : "init2"
+                                                    },
+                                                    "state" : {
+                                                      "Unqualified" : {
+                                                        "name" : "INITIALIZING"
+                                                      }
+                                                    }
+                                                  }
                                                 },
-                                                "id" : 49
+                                                "id" : 56
                                               }
                                             }
                                           }
@@ -736,18 +765,27 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "Complete",
                                                                   "guard" : "None",
-                                                                  "action" : "None",
-                                                                  "state" : {
-                                                                    "Some" : "IDLE"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : "None",
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "IDLE"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 52
+                                                                "id" : 62
                                                               }
                                                             }
                                                           }
@@ -758,7 +796,7 @@
                                                     ]
                                                   }
                                                 },
-                                                "id" : 53
+                                                "id" : 63
                                               }
                                             }
                                           }
@@ -781,18 +819,27 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "Drive",
                                                                   "guard" : "None",
-                                                                  "action" : "None",
-                                                                  "state" : {
-                                                                    "Some" : "DRIVING"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : "None",
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "DRIVING"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 54
+                                                                "id" : 65
                                                               }
                                                             }
                                                           }
@@ -804,7 +851,7 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
@@ -812,12 +859,21 @@
                                                                   "guard" : {
                                                                     "Some" : "calibrateReady"
                                                                   },
-                                                                  "action" : "None",
-                                                                  "state" : {
-                                                                    "Some" : "CALIBRATING"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : "None",
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "CALIBRATING"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 57
+                                                                "id" : 71
                                                               }
                                                             }
                                                           }
@@ -828,7 +884,7 @@
                                                     ]
                                                   }
                                                 },
-                                                "id" : 58
+                                                "id" : 72
                                               }
                                             }
                                           }
@@ -851,18 +907,20 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "RTI",
                                                                   "guard" : "None",
-                                                                  "action" : {
-                                                                    "Some" : "doCalibrate"
-                                                                  },
-                                                                  "state" : "None"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : "None",
+                                                                    "action" : {
+                                                                      "Some" : "doCalibrate"
+                                                                    }
+                                                                  }
                                                                 },
-                                                                "id" : 59
+                                                                "id" : 73
                                                               }
                                                             }
                                                           }
@@ -874,20 +932,29 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "Fault",
                                                                   "guard" : "None",
-                                                                  "action" : {
-                                                                    "Some" : "reportFault"
-                                                                  },
-                                                                  "state" : {
-                                                                    "Some" : "IDLE"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : {
+                                                                          "Some" : "reportFault"
+                                                                        },
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "IDLE"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 60
+                                                                "id" : 75
                                                               }
                                                             }
                                                           }
@@ -899,18 +966,27 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "Complete",
                                                                   "guard" : "None",
-                                                                  "action" : "None",
-                                                                  "state" : {
-                                                                    "Some" : "IDLE"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : "None",
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "IDLE"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 63
+                                                                "id" : 81
                                                               }
                                                             }
                                                           }
@@ -921,7 +997,7 @@
                                                     ]
                                                   }
                                                 },
-                                                "id" : 64
+                                                "id" : 82
                                               }
                                             }
                                           }
@@ -944,18 +1020,20 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "RTI",
                                                                   "guard" : "None",
-                                                                  "action" : {
-                                                                    "Some" : "motorControl"
-                                                                  },
-                                                                  "state" : "None"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : "None",
+                                                                    "action" : {
+                                                                      "Some" : "motorControl"
+                                                                    }
+                                                                  }
                                                                 },
-                                                                "id" : 65
+                                                                "id" : 83
                                                               }
                                                             }
                                                           }
@@ -967,18 +1045,27 @@
                                                         [
                                                         ],
                                                         {
-                                                          "DefTransition" : {
+                                                          "SpecTransition" : {
                                                             "node" : {
                                                               "AstNode" : {
                                                                 "data" : {
                                                                   "signal" : "Stop",
                                                                   "guard" : "None",
-                                                                  "action" : "None",
-                                                                  "state" : {
-                                                                    "Some" : "IDLE"
+                                                                  "enterOrDo" : {
+                                                                    "enter" : {
+                                                                      "Some" : {
+                                                                        "action" : "None",
+                                                                        "state" : {
+                                                                          "Unqualified" : {
+                                                                            "name" : "IDLE"
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "action" : "None"
                                                                   }
                                                                 },
-                                                                "id" : 68
+                                                                "id" : 89
                                                               }
                                                             }
                                                           }
@@ -989,7 +1076,7 @@
                                                     ]
                                                   }
                                                 },
-                                                "id" : 69
+                                                "id" : 90
                                               }
                                             }
                                           }
@@ -1001,18 +1088,27 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "POR",
                                                   "guard" : "None",
-                                                  "action" : "None",
-                                                  "state" : {
-                                                    "Some" : "DEVICE_ON"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : "None",
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "DEVICE_ON"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 70
+                                                "id" : 92
                                               }
                                             }
                                           }
@@ -1024,18 +1120,27 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "Fault",
                                                   "guard" : "None",
-                                                  "action" : "None",
-                                                  "state" : {
-                                                    "Some" : "j2"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : "None",
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "j2"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 71
+                                                "id" : 94
                                               }
                                             }
                                           }
@@ -1047,18 +1152,27 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "PowerOff",
                                                   "guard" : "None",
-                                                  "action" : "None",
-                                                  "state" : {
-                                                    "Some" : "DEVICE_OFF"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : "None",
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "DEVICE_OFF"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 74
+                                                "id" : 100
                                               }
                                             }
                                           }
@@ -1069,7 +1183,7 @@
                                     ]
                                   }
                                 },
-                                "id" : 75
+                                "id" : 101
                               }
                             }
                           }
@@ -1086,19 +1200,27 @@
                               "AstNode" : {
                                 "data" : {
                                   "name" : "j2",
-                                  "ifPart" : {
-                                    "guard" : "noRecovery",
+                                  "guard" : "noRecovery",
+                                  "ifExpr" : {
                                     "action" : "None",
-                                    "state" : "DIAGNOSTICS"
+                                    "state" : {
+                                      "Unqualified" : {
+                                        "name" : "DIAGNOSTICS"
+                                      }
+                                    }
                                   },
-                                  "elsePart" : {
+                                  "elseExpr" : {
                                     "action" : {
                                       "Some" : "reportFault"
                                     },
-                                    "state" : "RECOVERY"
+                                    "state" : {
+                                      "Unqualified" : {
+                                        "name" : "RECOVERY"
+                                      }
+                                    }
                                   }
                                 },
-                                "id" : 76
+                                "id" : 104
                               }
                             }
                           }
@@ -1121,18 +1243,20 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "RTI",
                                                   "guard" : "None",
-                                                  "action" : {
-                                                    "Some" : "doSafe"
-                                                  },
-                                                  "state" : "None"
+                                                  "enterOrDo" : {
+                                                    "enter" : "None",
+                                                    "action" : {
+                                                      "Some" : "doSafe"
+                                                    }
+                                                  }
                                                 },
-                                                "id" : 77
+                                                "id" : 105
                                               }
                                             }
                                           }
@@ -1144,18 +1268,27 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "Complete",
                                                   "guard" : "None",
-                                                  "action" : "None",
-                                                  "state" : {
-                                                    "Some" : "DIAGNOSTICS"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : "None",
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "DIAGNOSTICS"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 80
+                                                "id" : 111
                                               }
                                             }
                                           }
@@ -1166,7 +1299,7 @@
                                     ]
                                   }
                                 },
-                                "id" : 81
+                                "id" : 112
                               }
                             }
                           }
@@ -1189,18 +1322,20 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "RTI",
                                                   "guard" : "None",
-                                                  "action" : {
-                                                    "Some" : "doDiagnostics"
-                                                  },
-                                                  "state" : "None"
+                                                  "enterOrDo" : {
+                                                    "enter" : "None",
+                                                    "action" : {
+                                                      "Some" : "doDiagnostics"
+                                                    }
+                                                  }
                                                 },
-                                                "id" : 92
+                                                "id" : 129
                                               }
                                             }
                                           }
@@ -1212,18 +1347,27 @@
                                         [
                                         ],
                                         {
-                                          "DefTransition" : {
+                                          "SpecTransition" : {
                                             "node" : {
                                               "AstNode" : {
                                                 "data" : {
                                                   "signal" : "Resume",
                                                   "guard" : "None",
-                                                  "action" : "None",
-                                                  "state" : {
-                                                    "Some" : "DEVICE_ON"
+                                                  "enterOrDo" : {
+                                                    "enter" : {
+                                                      "Some" : {
+                                                        "action" : "None",
+                                                        "state" : {
+                                                          "Unqualified" : {
+                                                            "name" : "DEVICE_ON"
+                                                          }
+                                                        }
+                                                      }
+                                                    },
+                                                    "action" : "None"
                                                   }
                                                 },
-                                                "id" : 95
+                                                "id" : 135
                                               }
                                             }
                                           }
@@ -1234,7 +1378,7 @@
                                     ]
                                   }
                                 },
-                                "id" : 96
+                                "id" : 136
                               }
                             }
                           }
@@ -1245,7 +1389,7 @@
                     ]
                   }
                 },
-                "id" : 97
+                "id" : 137
               }
             }
           }
@@ -1474,275 +1618,475 @@
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "43.5",
+    "pos" : "43.28",
     "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "45.5",
+    "pos" : "43.5",
     "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "51.9",
+    "pos" : "46.28",
     "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "51.9",
+    "pos" : "47.33",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "51.9",
+    "pos" : "45.5",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "50.5",
+    "pos" : "51.38",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "56.9",
+    "pos" : "51.9",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "59.13",
+    "pos" : "51.38",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "59.13",
+    "pos" : "51.9",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "59.13",
+    "pos" : "51.38",
     "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "58.9",
+    "pos" : "51.9",
     "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "63.13",
+    "pos" : "50.5",
     "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "64.13",
+    "pos" : "56.32",
     "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "64.13",
+    "pos" : "56.9",
     "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "64.13",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "62.9",
+    "pos" : "59.13",
     "includingLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "68.13",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "69.13",
+    "pos" : "59.13",
     "includingLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "70.13",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "70.13",
+    "pos" : "59.13",
     "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "70.13",
+    "pos" : "58.9",
     "includingLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "67.9",
+    "pos" : "63.28",
     "includingLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "74.13",
+    "pos" : "63.13",
     "includingLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "75.13",
+    "pos" : "64.50",
     "includingLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "75.13",
+    "pos" : "64.13",
     "includingLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "75.13",
+    "pos" : "64.50",
     "includingLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "73.9",
+    "pos" : "64.13",
     "includingLoc" : "None"
   },
   "70" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "78.9",
+    "pos" : "64.50",
     "includingLoc" : "None"
   },
   "71" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "79.9",
+    "pos" : "64.13",
     "includingLoc" : "None"
   },
   "72" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "80.9",
+    "pos" : "62.9",
     "includingLoc" : "None"
   },
   "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "80.9",
+    "pos" : "68.13",
     "includingLoc" : "None"
   },
   "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "80.9",
+    "pos" : "69.43",
     "includingLoc" : "None"
   },
   "75" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "54.5",
+    "pos" : "69.13",
     "includingLoc" : "None"
   },
   "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "83.5",
+    "pos" : "70.31",
     "includingLoc" : "None"
   },
   "77" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "89.9",
+    "pos" : "70.13",
     "includingLoc" : "None"
   },
   "78" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "90.9",
+    "pos" : "70.31",
     "includingLoc" : "None"
   },
   "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "90.9",
+    "pos" : "70.13",
     "includingLoc" : "None"
   },
   "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "90.9",
+    "pos" : "70.31",
     "includingLoc" : "None"
   },
   "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "88.5",
+    "pos" : "70.13",
     "includingLoc" : "None"
   },
   "82" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "94.9",
+    "pos" : "67.9",
     "includingLoc" : "None"
   },
   "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "74.13",
     "includingLoc" : "None"
   },
   "84" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "75.27",
     "includingLoc" : "None"
   },
   "85" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "75.13",
     "includingLoc" : "None"
   },
   "86" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "93.5",
+    "pos" : "75.27",
     "includingLoc" : "None"
   },
   "87" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "94.9",
+    "pos" : "75.13",
     "includingLoc" : "None"
   },
   "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "75.27",
     "includingLoc" : "None"
   },
   "89" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "75.13",
     "includingLoc" : "None"
   },
   "90" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "73.9",
     "includingLoc" : "None"
   },
   "91" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "93.5",
+    "pos" : "78.22",
     "includingLoc" : "None"
   },
   "92" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "94.9",
+    "pos" : "78.9",
     "includingLoc" : "None"
   },
   "93" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "79.24",
     "includingLoc" : "None"
   },
   "94" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "79.9",
     "includingLoc" : "None"
   },
   "95" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "95.9",
+    "pos" : "80.27",
     "includingLoc" : "None"
   },
   "96" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
-    "pos" : "93.5",
+    "pos" : "80.9",
     "includingLoc" : "None"
   },
   "97" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "80.27",
+    "includingLoc" : "None"
+  },
+  "98" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "80.9",
+    "includingLoc" : "None"
+  },
+  "99" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "80.27",
+    "includingLoc" : "None"
+  },
+  "100" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "80.9",
+    "includingLoc" : "None"
+  },
+  "101" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "54.5",
+    "includingLoc" : "None"
+  },
+  "102" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "84.29",
+    "includingLoc" : "None"
+  },
+  "103" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "85.35",
+    "includingLoc" : "None"
+  },
+  "104" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "83.5",
+    "includingLoc" : "None"
+  },
+  "105" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "89.9",
+    "includingLoc" : "None"
+  },
+  "106" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.27",
+    "includingLoc" : "None"
+  },
+  "107" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "108" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.27",
+    "includingLoc" : "None"
+  },
+  "109" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "110" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.27",
+    "includingLoc" : "None"
+  },
+  "111" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "90.9",
+    "includingLoc" : "None"
+  },
+  "112" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "88.5",
+    "includingLoc" : "None"
+  },
+  "113" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "94.9",
+    "includingLoc" : "None"
+  },
+  "114" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "115" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "116" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "117" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "118" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "119" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "120" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "93.5",
+    "includingLoc" : "None"
+  },
+  "121" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "94.9",
+    "includingLoc" : "None"
+  },
+  "122" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "123" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "124" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "125" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "126" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "127" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "128" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "93.5",
+    "includingLoc" : "None"
+  },
+  "129" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "94.9",
+    "includingLoc" : "None"
+  },
+  "130" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "131" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "132" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "133" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "134" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.25",
+    "includingLoc" : "None"
+  },
+  "135" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "95.9",
+    "includingLoc" : "None"
+  },
+  "136" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
+    "pos" : "93.5",
+    "includingLoc" : "None"
+  },
+  "137" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/deviceStateMachine.fpp",
     "pos" : "12.1",
     "includingLoc" : "None"
