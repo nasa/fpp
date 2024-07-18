@@ -13,10 +13,11 @@ case class TopComponentInstances(
   private val bannerComment = "Component instances"
 
   def getHppMembers: List[CppDoc.Member] = {
-    getDeclMembers match {
-      case Nil => List()
-      case l => linesMember(CppDocWriter.writeBannerComment(bannerComment)) :: l
-    }
+    val declMembers = getDeclMembers
+    lazy val commentMember =
+      linesMember(CppDocWriter.writeBannerComment(bannerComment))
+    lazy val members = commentMember :: declMembers
+    guardedList (!declMembers.isEmpty) (members)
   }
 
   def getCppLines: List[Line] = addBannerComment(
@@ -28,18 +29,12 @@ case class TopComponentInstances(
     def getCode(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
-      val cppQualifiedName = CppWriter.writeQualifiedName(ci.qualifiedName)
-      val instLines = Line.addPrefixLine (line(s"//! $instanceName")) (
-        lines(
-          s"extern $implType $instanceName;"
-        )
+      val instLines = lines(
+        s"""|
+            |//! $instanceName
+            |extern $implType $instanceName;"""
       )
-      val qualIdentList = cppQualifiedName contains "::" match {
-        case true => cppQualifiedName.substring(0, cppQualifiedName.lastIndexOf("::")).split("::").toList
-        case false => List()
-      }
-
-      wrapInNamespaces(qualIdentList, List(linesMember(Line.blank :: instLines)))
+      wrapInNamespaces(ci.qualifiedName.qualifier, List(linesMember(instLines)))
     }
     instances.flatMap(getCode)
   }
