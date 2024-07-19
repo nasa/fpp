@@ -136,28 +136,6 @@ object AstWriter extends AstVisitor with LineUtils {
     enterExpression(data.elseExpr)).map(indentIn)
   }
 
-
-  override def specTransitionAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec transition") ++
-    (addPrefix("signal", applyToData(ident)) (data.signal) ++
-    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
-    enterOrDo(data.enterOrDo)).map(indentIn)
-  }
-
-  def enterOrDo(
-    enterOrDo: Ast.EnterOrDo
-  ) = {
-    enterOrDo match {
-      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
-    }
-  }
-
   override def defModuleAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefModule]]
@@ -207,7 +185,6 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt((members: List[Ast.StateMember]) => members.flatMap(stateMember), data.members)
     ).map(indentIn)
   }
-
 
   override def defStateMachineAnnotatedNode(
     in: In,
@@ -439,7 +416,6 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec include") ++ fileString(data.file.data).map(indentIn)
   }
 
-
   override def specInitialAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitial]]
@@ -450,15 +426,6 @@ object AstWriter extends AstVisitor with LineUtils {
     enterExpression(data.enterExpr).map(indentIn)
   }
 
-  def enterExpression(
-    enterExpr: Ast.EnterExpr
-  ) = {
-    List(
-      linesOpt(addPrefix("action", applyToData(ident)), enterExpr.action),
-      addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
-    ).flatten
-  }
-  
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -573,7 +540,6 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
-
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
@@ -626,6 +592,18 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("spec top import") ++
     qualIdent(data.top.data).map(indentIn)
+  }
+
+  override def specTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec transition") ++
+    (addPrefix("signal", applyToData(ident)) (data.signal) ++
+    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
+    enterOrDo(data.enterOrDo)).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =
@@ -707,7 +685,6 @@ object AstWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
-
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
     lines("def enum constant") ++
     List(
@@ -715,17 +692,22 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
 
-  
-  private def stateMember(member: Ast.StateMember) = {
-    val (a1, _, a2) = member.node
-    val l = matchStateMember((), member)
-    annotate(a1, l, a2)
+  private def enterExpression(
+    enterExpr: Ast.EnterExpr
+  ) = {
+    List(
+      linesOpt(addPrefix("action", applyToData(ident)), enterExpr.action),
+      addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
+    ).flatten
   }
 
-  private def stateMachineMember(member: Ast.StateMachineMember) = {
-    val (a1, _, a2) = member.node
-    val l = matchStateMachineMember((), member)
-    annotate(a1, l, a2)
+  private def enterOrDo(
+    enterOrDo: Ast.EnterOrDo
+  ) = {
+    enterOrDo match {
+      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
+      case Ast.EnterOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
+    }
   }
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
@@ -786,6 +768,18 @@ object AstWriter extends AstVisitor with LineUtils {
       addPrefix("phase", exprNode) (si.phase),
       addPrefix("code", string) (si.code)
     ).flatten.map(indentIn)
+  }
+
+  private def stateMachineMember(member: Ast.StateMachineMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMachineMember((), member)
+    annotate(a1, l, a2)
+  }
+
+  private def stateMember(member: Ast.StateMember) = {
+    val (a1, _, a2) = member.node
+    val l = matchStateMember((), member)
+    annotate(a1, l, a2)
   }
 
   private def string(s: String) = s.split('\n').map(line).toList
