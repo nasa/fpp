@@ -39,6 +39,13 @@ def module
         state qual ident RUNNING
       def state
         ident IDLE
+        def junction
+          ident j2
+          guard ident g2
+          action ident a2
+          state qual ident SAFING
+          action ident a1
+          state qual ident RUNNING
         spec initial
           state qual ident RUNNING
         spec transition

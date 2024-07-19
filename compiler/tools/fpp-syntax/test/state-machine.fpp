@@ -18,6 +18,10 @@ module M {
             junction j1 {if g1 do a1 enter SAFING \
                          else do a2 enter RUNNING}
             state IDLE {
+                junction j2 {
+                    if g2 do a2 enter SAFING \
+                    else do a1 enter RUNNING
+                }
                 initial enter RUNNING
                 on RTI do a1
                 on RTI enter SAFING

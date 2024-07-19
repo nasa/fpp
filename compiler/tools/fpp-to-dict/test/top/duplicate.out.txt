@@ -1,0 +1,9 @@
+fpp-to-dict
+[ local path prefix ]/tools/fpp-to-dict/test/top/duplicate.fpp:7.1
+topology Duplicate { 
+^
+error: duplicate JSON file DuplicateTopologyDictionary.json
+previous file would be generated here:
+[ local path prefix ]/tools/fpp-to-dict/test/top/duplicate.fpp:3.3
+  topology Duplicate { 
+  ^

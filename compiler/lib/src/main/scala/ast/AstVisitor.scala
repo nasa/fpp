@@ -175,6 +175,7 @@ trait AstVisitor {
       case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
     }
   }
 

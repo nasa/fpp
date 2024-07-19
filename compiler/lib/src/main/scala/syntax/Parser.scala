@@ -47,6 +47,7 @@ object Parser extends Parsers {
     node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
     node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
+    node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
     failure("state member expected")
   }
 

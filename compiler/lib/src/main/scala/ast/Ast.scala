@@ -212,6 +212,7 @@ object Ast {
   final case class StateMember(node: Annotated[StateMember.Node])
   object StateMember {
     sealed trait Node
+    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
