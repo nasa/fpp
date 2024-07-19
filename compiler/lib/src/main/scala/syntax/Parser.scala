@@ -88,7 +88,7 @@ object Parser extends Parsers {
   }
 
   def defAction: Parser[Ast.DefAction] = {
-    (action ~> ident) ~! opt(colon ~> qualIdent) ^^ {
+    (action ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefAction(ident, qualIdent)
     }
   }
@@ -115,25 +115,25 @@ object Parser extends Parsers {
   }
 
   def defSignal: Parser[Ast.DefSignal] = {
-    (signal ~> ident) ~! opt(colon ~> qualIdent) ^^ {
+    (signal ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefSignal(ident, qualIdent)
     }
   }
 
   def defGuard: Parser[Ast.DefGuard] = {
-    (guard ~> ident) ~! opt(colon ~> qualIdent) ^^ {
+    (guard ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefGuard(ident, qualIdent)
     }
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifGuard ~> ident) ~! enterExpr ~! (elseJunction ~> enterExpr) <~! rbrace ^^ {
+    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! enterExpr ~! (elseJunction ~> enterExpr) <~! rbrace ^^ {
       case ident ~ guard ~ ifExpr ~ elseExpr => Ast.DefJunction(ident, guard, ifExpr, elseExpr)
     }
   }
 
   def enterExpr: Parser[Ast.EnterExpr] =
-    opt(doAction ~> ident) ~ (enter ~> qualIdent) ^^ {
+    opt(doAction ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
       case ident ~ state => 
         Ast.EnterExpr(ident, state)
     }
@@ -146,7 +146,7 @@ object Parser extends Parsers {
   }
 
   def specTransition: Parser[Ast.SpecTransition] = {
-    (on ~> ident) ~! opt(ifGuard ~> ident) ~ enterOrDo ^^ {
+    (on ~> node(ident)) ~! opt(ifGuard ~> node(ident)) ~ enterOrDo ^^ {
       case signal ~ guard ~ enterOrDo => 
         Ast.SpecTransition(signal, guard, enterOrDo)
     }
@@ -156,7 +156,7 @@ object Parser extends Parsers {
     def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
       case e => Ast.EnterOrDo.Enter(e)
     }
-    def doParser: Parser[Ast.EnterOrDo.Do] = doAction ~>! ident ^^ {
+    def doParser: Parser[Ast.EnterOrDo.Do] = doAction ~>! node(ident) ^^ {
       case ident => Ast.EnterOrDo.Do(ident)
     }
     enterParser | doParser 

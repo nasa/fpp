@@ -29,7 +29,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def action") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
     ).map(indentIn)
   }
 
@@ -118,7 +118,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def guard") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
     ).map(indentIn)
   }
 
@@ -131,7 +131,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val guard = data.guard
     lines("def junction") ++
     (ident(data.name) ++
-    addPrefix("guard", ident) (data.guard) ++
+    addPrefix("guard", applyToData(ident)) (data.guard) ++
     enterExpression(data.ifExpr) ++
     enterExpression(data.elseExpr)).map(indentIn)
   }
@@ -144,8 +144,8 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec transition") ++
-    (addPrefix("signal", ident) (data.signal) ++
-    linesOpt(addPrefix("guard", ident), data.guard) ++
+    (addPrefix("signal", applyToData(ident)) (data.signal) ++
+    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
     enterOrDo(data.enterOrDo)).map(indentIn)
   }
 
@@ -154,7 +154,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     enterOrDo match {
       case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => addPrefix("action", ident) (action)
+      case Ast.EnterOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
     }
   }
 
@@ -191,7 +191,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def signal") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", qualIdent), data.typeName)
+      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
     ).map(indentIn)
   }
 
@@ -454,8 +454,8 @@ object AstWriter extends AstVisitor with LineUtils {
     enterExpr: Ast.EnterExpr
   ) = {
     List(
-      linesOpt(addPrefix("action", ident), enterExpr.action),
-      addPrefix("state", qualIdent) (enterExpr.state)
+      linesOpt(addPrefix("action", applyToData(ident)), enterExpr.action),
+      addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
     ).flatten
   }
   

@@ -105,8 +105,8 @@ object FppWriter extends AstVisitor with LineUtils {
     enterExpr: Ast.EnterExpr
   ): Out = {
     lines("").
-    joinOpt (enterExpr.action) (" do ") (identAsLines).
-    join (" enter ")(qualIdent(enterExpr.state))
+    joinOpt (enterExpr.action) (" do ") (nodeIdentAsLines).
+    join (" enter ")(qualIdent(enterExpr.state.data))
   }
 
   override def specTransitionAnnotatedNode(
@@ -115,8 +115,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines(s"on ${ident(data.signal)}").
-    joinOpt(data.guard)(" if ")(identAsLines).
+    lines(s"on ${ident(data.signal.data)}").
+    joinOpt(data.guard)(" if ")(nodeIdentAsLines).
     join("")(enterOrDo(data.enterOrDo))
   }
 
@@ -125,7 +125,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     enterOrDo match {
       case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => lines(s" do ${ident(action)}")
+      case Ast.EnterOrDo.Do(action) => lines(s" do ${ident(action.data)}")
     }
   }
 
@@ -149,7 +149,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"signal ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (qualIdent)
+    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
   }
 
   override def defActionAnnotatedNode(
@@ -159,7 +159,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"action ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (qualIdent)
+    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
   }
 
   override def defGuardAnnotatedNode(
@@ -169,7 +169,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"guard ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (qualIdent)
+    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
   }
 
   override def defJunctionAnnotatedNode(
@@ -179,7 +179,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
-    (lines(s"if ${data.guard}").
+    (lines(s"if ${data.guard.data}").
     join("")(enterExpression(data.ifExpr))).map(indentIn).
     joinWithBreak("")(lines("else")).
     join("")(enterExpression(data.elseExpr)) ++
@@ -697,6 +697,8 @@ object FppWriter extends AstVisitor with LineUtils {
     if (keywords.contains(id)) "$" ++ id else id
 
   private def identAsLines = lines compose ident
+
+  private def nodeIdentAsLines = lines compose applyToData(ident)
 
   private def formalParam(fp: Ast.FormalParam) = {
     val prefix = fp.kind match {

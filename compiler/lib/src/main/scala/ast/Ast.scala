@@ -173,33 +173,33 @@ object Ast {
   /** Action definition */
   final case class DefAction(
     name: Ident,
-    typeName: Option[QualIdent]
+    typeName: Option[AstNode[QualIdent]]
   )
 
   /** Guard definition */
   final case class DefGuard(
     name: Ident,
-    typeName: Option[QualIdent]
+    typeName: Option[AstNode[QualIdent]]
   )
 
   /** Junction definition */
   final case class DefJunction(
     name: Ident,
-    guard: Ident,
+    guard: AstNode[Ident],
     ifExpr: EnterExpr,
     elseExpr: EnterExpr
   )
 
   /** Enter expression */
   final case class EnterExpr(
-    action: Option[Ident],
-    state: QualIdent
+    action: Option[AstNode[Ident]],
+    state: AstNode[QualIdent]
   )
 
   /** Signal definition */
   final case class DefSignal(
     name: Ident,
-    typeName: Option[QualIdent]
+    typeName: Option[AstNode[QualIdent]]
   )
 
   /** State definition */
@@ -224,8 +224,8 @@ object Ast {
 
   /** Transition specifier */
   final case class SpecTransition(
-    signal: Ident,
-    guard: Option[Ident],
+    signal: AstNode[Ident],
+    guard: Option[AstNode[Ident]],
     enterOrDo: EnterOrDo
   )
 
@@ -233,7 +233,7 @@ object Ast {
   sealed trait EnterOrDo
   object EnterOrDo {
     final case class Enter(enter: EnterExpr) extends EnterOrDo
-    final case class Do(action: Ident) extends EnterOrDo
+    final case class Do(action: AstNode[Ident]) extends EnterOrDo
   }
 
   /** Struct definition */
