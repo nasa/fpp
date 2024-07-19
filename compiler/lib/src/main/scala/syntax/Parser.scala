@@ -153,8 +153,12 @@ object Parser extends Parsers {
   }
 
   def enterOrDo: Parser[Ast.EnterOrDo] = {
-    def enterParser: Parser[Ast.Enter] = enterExpr ^^ { case e => Ast.Enter(e) }
-    def doParser: Parser[Ast.Do] = doAction ~>! ident ^^ { case ident => Ast.Do(ident)}
+    def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
+      case e => Ast.EnterOrDo.Enter(e)
+    }
+    def doParser: Parser[Ast.EnterOrDo.Do] = doAction ~>! ident ^^ {
+      case ident => Ast.EnterOrDo.Do(ident)
+    }
     enterParser | doParser 
   }
 

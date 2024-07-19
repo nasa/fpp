@@ -124,8 +124,8 @@ object FppWriter extends AstVisitor with LineUtils {
     enterOrDo: Ast.EnterOrDo
   ) = {
     enterOrDo match {
-      case Ast.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.Do(action) => lines(s" do ${ident(action)}")
+      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
+      case Ast.EnterOrDo.Do(action) => lines(s" do ${ident(action)}")
     }
   }
 

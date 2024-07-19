@@ -157,7 +157,6 @@ object Ast {
     final case class SpecLoc(node: AstNode[Ast.SpecLoc]) extends Node
   }
 
-
   /** Port definition */
   final case class DefPort(
     name: Ident,
@@ -641,6 +640,7 @@ object Ast {
     elseExpr: EnterExpr
   )
 
+  /** Enter expression */
   final case class EnterExpr(
     action: Option[Ident],
     state: QualIdent
@@ -659,10 +659,12 @@ object Ast {
     enterOrDo: EnterOrDo
   )
 
+  /** Enter or do within transition definition */
   sealed trait EnterOrDo
-  
-  final case class Enter(enter: EnterExpr) extends EnterOrDo
-  final case class Do(action: Ident) extends EnterOrDo
+  object EnterOrDo {
+    final case class Enter(enter: EnterExpr) extends EnterOrDo
+    final case class Do(action: Ident) extends EnterOrDo
+  }
 
    /** Port matching specifier */
   final case class SpecPortMatching(
@@ -677,7 +679,6 @@ object Ast {
     isArray: Boolean,
     id: Option[AstNode[Expr]]
   )
-
 
   /** Telemetry channel specifier */
   final case class SpecTlmChannel(

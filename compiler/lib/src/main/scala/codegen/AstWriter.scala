@@ -153,8 +153,8 @@ object AstWriter extends AstVisitor with LineUtils {
     enterOrDo: Ast.EnterOrDo
   ) = {
     enterOrDo match {
-      case Ast.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.Do(action) => addPrefix("action", ident) (action)
+      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
+      case Ast.EnterOrDo.Do(action) => addPrefix("action", ident) (action)
     }
   }
 
