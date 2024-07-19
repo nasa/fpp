@@ -1,8 +1,6 @@
 package fpp.compiler.ast
 
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.QualIdent
-import fpp.compiler.ast.Ast.QualIdent
 
 object Ast {
 
@@ -177,7 +175,7 @@ object Ast {
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
     final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
-   }
+  }
 
   /** State member */
   final case class StateMember(node: Annotated[StateMember.Node])
@@ -186,7 +184,7 @@ object Ast {
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
-   }
+  }
 
   /** Struct definition */
   final case class DefStruct(
