@@ -65,7 +65,7 @@ object Parser extends Parsers {
   }
 
   def defAction: Parser[Ast.DefAction] = {
-    (action ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
+    (action ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefAction(ident, qualIdent)
     }
   }
@@ -141,7 +141,7 @@ object Parser extends Parsers {
   }
 
   def defGuard: Parser[Ast.DefGuard] = {
-    (guard ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
+    (guard ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefGuard(ident, qualIdent)
     }
   }
@@ -165,7 +165,7 @@ object Parser extends Parsers {
   }
 
   def defSignal: Parser[Ast.DefSignal] = {
-    (signal ~> ident) ~! opt(colon ~> node(qualIdent)) ^^ {
+    (signal ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
       case ident ~ qualIdent => Ast.DefSignal(ident, qualIdent)
     }
   }
@@ -197,7 +197,7 @@ object Parser extends Parsers {
   }
 
   def enterExpr: Parser[Ast.EnterExpr] =
-    opt(doAction ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
+    opt(doToken ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
       case ident ~ state =>
         Ast.EnterExpr(ident, state)
     }
@@ -206,7 +206,7 @@ object Parser extends Parsers {
     def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
       case e => Ast.EnterOrDo.Enter(e)
     }
-    def doParser: Parser[Ast.EnterOrDo.Do] = doAction ~>! node(ident) ^^ {
+    def doParser: Parser[Ast.EnterOrDo.Do] = doToken ~>! node(ident) ^^ {
       case ident => Ast.EnterOrDo.Do(ident)
     }
     enterParser | doParser
@@ -844,7 +844,7 @@ object Parser extends Parsers {
 
   private def diagnostic = accept("diagnostic", { case t : Token.DIAGNOSTIC => t })
 
-  private def doAction = accept("do", { case t : Token.DO => t })
+  private def doToken = accept("do", { case t : Token.DO => t })
 
   private def dot = accept(".", { case t : Token.DOT => t })
 
