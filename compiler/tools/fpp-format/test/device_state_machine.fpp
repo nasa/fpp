@@ -8,6 +8,7 @@ struct FaultData {
 struct PowerData {
   level: F32
 }
+
 @ Device state machine
 state machine Device {
 
@@ -107,7 +108,10 @@ state machine Device {
 
   @ DEVICE_OFF state
   state DEVICE_OFF {
+
+    @ Transition to DEVICE_ON
     on PowerOn do setPower enter DEVICE_ON
+
   }
 
   @ DEVICE_ON state
@@ -118,26 +122,46 @@ state machine Device {
 
     @ INITIALIZING state
     state INITIALIZING {
+
+      @ Transition to IDLE
       on Complete enter IDLE
+
     }
 
     @ IDLE state
     state IDLE {
+
+      @ Transition to DRIVING
       on Drive enter DRIVING
+
+      @ Transition to CALIBRATING
       on Calibrate if calibrateReady enter CALIBRATING
+
     }
 
     @ CALIBRATING state
     state CALIBRATING {
+
+      @ Internal transition
       on RTI do doCalibrate
+
+      @ Transition to IDLE
       on Fault do reportFault enter IDLE
+
+      @ Transition to IDLE
       on Complete enter IDLE
+
     }
 
     @ DRIVING state
     state DRIVING {
+
+      @ Internal transition
       on RTI do motorControl
+
+      @ Transition to IDLE
       on Stop enter IDLE
+
     }
 
     @ Transition to DEVICE_ON
@@ -158,14 +182,24 @@ state machine Device {
 
   @ RECOVERY state
   state RECOVERY {
+
+    @ Internal transtition
     on RTI do doSafe
+
+    @ Transition to DIAGNOSTICS
     on Complete enter DIAGNOSTICS
+
   }
 
   @ DIAGNOSTICS state
   state DIAGNOSTICS {
+
+    @ Internal transition
     on RTI do doDiagnostics
+
+    @ Transition to DEVICE_ON
     on Resume enter DEVICE_ON
+
   }
 
 }
