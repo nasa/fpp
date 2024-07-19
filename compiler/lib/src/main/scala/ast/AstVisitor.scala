@@ -11,9 +11,9 @@ trait AstVisitor {
 
   def defAbsTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAbsType]]): Out = default(in)
 
-  def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
-
   def defActionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAction]]): Out = default(in)
+
+  def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
 
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Out = default(in)
 
@@ -40,8 +40,6 @@ trait AstVisitor {
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
 
   def defTopologyAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefTopology]]): Out = default(in)
-
-  def specTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTransition]]): Out = default(in)
 
   def exprArrayNode(in: In, node: AstNode[Ast.Expr], e: Ast.ExprArray): Out = default(in)
 
@@ -79,6 +77,8 @@ trait AstVisitor {
 
   def specInitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInit]]): Out = default(in)
 
+  def specInitialAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitial]]): Out = default(in)
+
   def specInternalPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Out = default(in)
 
   def specLocAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecLoc]]): Out = default(in)
@@ -91,13 +91,13 @@ trait AstVisitor {
 
   def specRecordAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecRecord]]): Out = default(in)
 
-  def specInitialAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitial]]): Out = default(in)
-
   def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
 
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
+
+  def specTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTransition]]): Out = default(in)
 
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
