@@ -661,12 +661,6 @@ object Ast {
 
   }
 
-  /** State machine instance spec */
-  final case class SpecStateMachineInstance(
-    name: Ident,
-    stateMachine: AstNode[QualIdent]
-  )
-
    /** Port matching specifier */
   final case class SpecPortMatching(
     port1: AstNode[Ident],
@@ -679,6 +673,12 @@ object Ast {
     recordType: AstNode[TypeName],
     isArray: Boolean,
     id: Option[AstNode[Expr]]
+  )
+
+  /** State machine instance spec */
+  final case class SpecStateMachineInstance(
+    name: Ident,
+    stateMachine: AstNode[QualIdent]
   )
 
   /** Telemetry channel specifier */
