@@ -661,7 +661,7 @@ object Ast {
 
   }
 
-   /** Port matching specifier */
+  /** Port matching specifier */
   final case class SpecPortMatching(
     port1: AstNode[Ident],
     port2: AstNode[Ident]
