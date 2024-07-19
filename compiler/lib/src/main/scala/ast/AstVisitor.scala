@@ -134,7 +134,6 @@ trait AstVisitor {
     }
   }
 
-
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.data match {
       case e : Ast.ExprBinop => exprBinopNode(in, node, e)
@@ -169,25 +168,25 @@ trait AstVisitor {
     }
   }
 
-  final def matchStateMember(in: In, member: Ast.StateMember): Out = {
-    val (pre, node, post) =  member.node
-    node match {
-      case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
-    }
-  }
-
   final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Out = {
     val (pre, node, post) =  member.node
     node match {
-      case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefAction(node1) => defActionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefGuard(node1) => defGuardAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMachineMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
+  final def matchStateMember(in: In, member: Ast.StateMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
     }
   }
 
