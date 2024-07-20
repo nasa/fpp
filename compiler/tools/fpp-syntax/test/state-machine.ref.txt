@@ -1,79 +1,86 @@
-def module
+@ State machine M
+def state machine
   ident M
-  def struct
-    ident StateData
-    struct type member
-      ident a
-      type name U32
-    struct type member
-      ident b
-      type name F32
-  def component
-    kind active
-    ident C
-    def state machine
-      ident S
-      def signal
-        ident RTI
-      def signal
-        ident EV1
-        typeName qual ident StateData
-      def action
-        ident a1
-        typeName qual ident StateData
-      def action
-        ident a2
-      def guard
-        ident g1
-        typeName qual ident StateData
-      def guard
-        ident g2
-      spec initial
-        state qual ident IDLE
-      def junction
-        ident j1
-        guard ident g1
-        action ident a1
-        state qual ident SAFING
-        action ident a2
-        state qual ident RUNNING
-      def state
-        ident IDLE
-        def junction
-          ident j2
-          guard ident g2
-          action ident a2
-          state qual ident SAFING
-          action ident a1
-          state qual ident RUNNING
-        spec initial
-          state qual ident RUNNING
-        spec transition
-          signal ident RTI
-          action ident a1
-        spec transition
-          signal ident RTI
-          state qual ident SAFING
-        spec transition
-          signal ident RTI
-          action ident a1
-          state qual ident SAFING
-        spec transition
-          signal ident RTI
-          guard ident g1
-          action ident a1
-          state qual ident SAFING
-        spec transition
-          signal ident RTI
-          guard ident g2
-          action ident a2
-          state qual ident RUNNING
-        def state
-          ident RUNNING
-      def state
-        ident SAFING
-        spec transition
-          signal ident RTI
-          action ident a2
-    def state machine
-      ident S1
+  @ Action a1
+  def action
+    ident a1
+    typeName type name U32
+  @ Action a2
+  def action
+    ident a2
+  @ Guard g1
+  def guard
+    ident g1
+    typeName type name U32
+  @ Guard g2
+  def guard
+    ident g2
+  @ Initial transition
+  spec initial
+    action ident a1
+    state qual ident J
+  @ Junction J
+  def junction
+    ident J
+    guard ident g1
+    state qual ident S1
+    state qual ident S2
+  @ State S1
+  def state
+    ident S1
+  @ State S2
+  def state
+    ident S2
+    @ Initial transition
+    spec initial
+      action ident a1
+      state qual ident S3
+    @ Junction J
+    def junction
+      ident J
+      guard ident g1
+      state qual ident S1
+      state qual ident S2.S3
+    @ State S3
+    def state
+      ident S3
+    @ Transition to S1
+    spec transition
+      signal ident s1
+      guard ident g1
+      action ident a1
+      state qual ident S1
+    @ Transition to S1
+    spec transition
+      signal ident s2
+      guard ident g1
+      state qual ident S1
+    @ Transition to S1
+    spec transition
+      signal ident s3
+      state qual ident S1
+    @ Internal transition
+    spec transition
+      signal ident s4
+      guard ident g1
+      action ident a1
+    @ Internal transition
+    spec transition
+      signal ident s5
+      action ident a1
+  @ Signal s1
+  def signal
+    ident s1
+    typeName type name U32
+  @ Signal s2
+  def signal
+    ident s2
+  @ Signal s3
+  def signal
+    ident s3
+  @ Signal s4
+  def signal
+    ident s4
+  @ Signal s5
+  def signal
+    ident s5

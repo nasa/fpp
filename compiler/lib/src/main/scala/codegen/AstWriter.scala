@@ -29,7 +29,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def action") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
+      linesOpt(addPrefix("typeName", typeNameNode), data.typeName)
     ).map(indentIn)
   }
 
@@ -118,7 +118,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def guard") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
+      linesOpt(addPrefix("typeName", typeNameNode), data.typeName)
     ).map(indentIn)
   }
 
@@ -169,7 +169,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def signal") ++
     (
       ident(data.name) ++
-      linesOpt(addPrefix("typeName", applyToData(qualIdent)), data.typeName)
+      linesOpt(addPrefix("typeName", typeNameNode), data.typeName)
     ).map(indentIn)
   }
 

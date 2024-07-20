@@ -29,7 +29,6 @@ update "" illegal-character
 update "" parse-error
 update "" syntax
 update "" syntax-kwd-names
-update -a device_state_machine
 update -a state-machine
 update -a empty
 update -a escaped-strings

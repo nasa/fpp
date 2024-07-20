@@ -1,41 +1,69 @@
-module M {
+@ State machine M
+state machine M {
 
-    struct StateData {
-        a: U32
-        b: F32
-    }
+  @ Action a1
+  action a1: U32
 
-    active component C { 
+  @ Action a2
+  action a2
 
-        state machine S {
-            signal RTI
-            signal EV1: StateData
-            action a1: StateData
-            action a2
-            guard g1: StateData
-            guard g2
-            initial enter IDLE
-            junction j1 {if g1 do a1 enter SAFING \
-                         else do a2 enter RUNNING}
-            state IDLE {
-                junction j2 {
-                    if g2 do a2 enter SAFING \
-                    else do a1 enter RUNNING
-                }
-                initial enter RUNNING
-                on RTI do a1
-                on RTI enter SAFING
-                on RTI do a1 enter SAFING
-                on RTI if g1 do a1 enter SAFING
-                on RTI if g2 do a2 enter RUNNING
-                state RUNNING
-            }
-             state SAFING {
-                on RTI do a2
-             }   
-        }
+  @ Guard g1
+  guard g1: U32
 
-        state machine S1
-    }
+  @ Guard g2
+  guard g2
+
+  @ Initial transition
+  initial do a1 enter J
+
+  @ Junction J
+  junction J { if g1 enter S1 else enter S2 }
+
+  @ State S1
+  state S1
+
+  @ State S2
+  state S2 {
+
+    @ Initial transition
+    initial do a1 enter S3
+
+    @ Junction J
+    junction J { if g1 enter S1 else enter S2.S3 }
+
+    @ State S3
+    state S3
+
+    @ Transition to S1
+    on s1 if g1 do a1 enter S1
+
+    @ Transition to S1
+    on s2 if g1 enter S1
+
+    @ Transition to S1
+    on s3 enter S1
+
+    @ Internal transition
+    on s4 if g1 do a1
+
+    @ Internal transition
+    on s5 do a1
+
+  }
+
+  @ Signal s1
+  signal s1: U32
+
+  @ Signal s2
+  signal s2
+
+  @ Signal s3
+  signal s3
+
+  @ Signal s4
+  signal s4
+
+  @ Signal s5
+  signal s5
+
 }
-

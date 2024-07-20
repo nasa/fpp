@@ -113,7 +113,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"action ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
+    joinOpt (data.typeName) (": ") (typeNameNode)
   }
 
   override def defArrayAnnotatedNode(
@@ -190,7 +190,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"guard ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
+    joinOpt (data.typeName) (": ") (typeNameNode)
   }
 
   override def defJunctionAnnotatedNode(
@@ -236,7 +236,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"signal ${ident(data.name)}").
-    joinOpt (data.typeName) (": ") (applyToData(qualIdent))
+    joinOpt (data.typeName) (": ") (typeNameNode)
   }
 
   override def defStateAnnotatedNode(

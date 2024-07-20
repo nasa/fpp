@@ -103,11 +103,6 @@ state_machine()
   run_test -a state-machine
 }
 
-device_state_machine()
-{
-  run_test -a device_state_machine 
-}
-
 syntax()
 {
   run_test "" syntax
@@ -142,7 +137,6 @@ two_input_files()
 
 tests="
 comments
-device_state_machine
 embedded_tab
 empty
 escaped_strings

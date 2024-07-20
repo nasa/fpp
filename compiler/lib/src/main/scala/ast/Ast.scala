@@ -173,13 +173,13 @@ object Ast {
   /** Action definition */
   final case class DefAction(
     name: Ident,
-    typeName: Option[AstNode[QualIdent]]
+    typeName: Option[AstNode[TypeName]]
   )
 
   /** Guard definition */
   final case class DefGuard(
     name: Ident,
-    typeName: Option[AstNode[QualIdent]]
+    typeName: Option[AstNode[TypeName]]
   )
 
   /** Junction definition */
@@ -199,7 +199,7 @@ object Ast {
   /** Signal definition */
   final case class DefSignal(
     name: Ident,
-    typeName: Option[AstNode[QualIdent]]
+    typeName: Option[AstNode[TypeName]]
   )
 
   /** State definition */

@@ -65,8 +65,8 @@ object Parser extends Parsers {
   }
 
   def defAction: Parser[Ast.DefAction] = {
-    (action ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
-      case ident ~ qualIdent => Ast.DefAction(ident, qualIdent)
+    (action ~> ident) ~! opt(colon ~>! node(typeName)) ^^ {
+      case ident ~ typeName => Ast.DefAction(ident, typeName)
     }
   }
 
@@ -141,8 +141,8 @@ object Parser extends Parsers {
   }
 
   def defGuard: Parser[Ast.DefGuard] = {
-    (guard ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
-      case ident ~ qualIdent => Ast.DefGuard(ident, qualIdent)
+    (guard ~> ident) ~! opt(colon ~>! node(typeName)) ^^ {
+      case ident ~ typeName => Ast.DefGuard(ident, typeName)
     }
   }
 
@@ -165,8 +165,8 @@ object Parser extends Parsers {
   }
 
   def defSignal: Parser[Ast.DefSignal] = {
-    (signal ~> ident) ~! opt(colon ~>! node(qualIdent)) ^^ {
-      case ident ~ qualIdent => Ast.DefSignal(ident, qualIdent)
+    (signal ~> ident) ~! opt(colon ~>! node(typeName)) ^^ {
+      case ident ~ typeName => Ast.DefSignal(ident, typeName)
     }
   }
 
