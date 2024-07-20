@@ -55,11 +55,6 @@ constants()
   run_test "" constants
 }
 
-deviceStateMachine()
-{
-  run_test "" deviceStateMachine
-}
-
 modules()
 {
   run_test "" modules
@@ -88,6 +83,11 @@ simpleComponents()
 specialPorts()
 {
   run_test "" specialPorts
+}
+
+stateMachine()
+{
+  run_test "" ../../fpp-syntax/test/state-machine stateMachine
 }
 
 internalPorts()
@@ -148,7 +148,6 @@ activeComponents
 commands
 constTypesComponents
 constants
-deviceStateMachine
 enums
 events
 importedTopologies
@@ -162,6 +161,7 @@ queuedComponents
 simpleComponents
 simpleTopology
 specialPorts
+stateMachine
 syntaxOnly
 telemetry
 types
