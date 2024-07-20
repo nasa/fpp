@@ -105,7 +105,7 @@ state_machine()
 
 device_state_machine()
 {
-  run_test -a device-state-machine 
+  run_test -a device_state_machine 
 }
 
 syntax()
