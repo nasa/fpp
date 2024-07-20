@@ -48,9 +48,8 @@ object FPPtoJson {
   }
 
   def writeAst (options: Options) (tul: List[Ast.TransUnit]):
-    Result.Result[Unit] = {
+    Result.Result[Unit] =
       writeJson(options, "fpp-ast.json", AstJsonEncoder.astToJson(tul))
-    }
 
   def writeLocMap (options: Options): Result.Result[Unit] =
     writeJson(options, "fpp-loc-map.json", LocMapJsonEncoder.locMapToJson)
