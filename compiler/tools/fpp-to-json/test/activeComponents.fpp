@@ -1,3 +1,11 @@
+module Fw {
+  port BufferSend
+}
+
+module Svc {
+  port Sched
+}
+
 module Utils {
 
   @ A component for compressing data
@@ -9,9 +17,32 @@ module Utils {
     @ Compressed output data
     output port bufferSendOut: Fw.BufferSend
 
-    state machine S
-    state machine instance s1: S
-    state machine instance s2: S
+  }
+
+}
+
+module M {
+
+  @ A component with state machines
+  active component StateMachines {
+
+    @ Sched in port
+    async input port schedIn: Svc.Sched
+
+    @ State machine S1
+    state machine S1
+
+    @ State machine S2
+    state machine S2 {
+        initial enter IDLE
+        state IDLE
+    }
+
+    @ State machine instance s1
+    state machine instance s1: S1
+
+    @ State machine instance s2
+    state machine instance s2: S2
 
   }
 
@@ -32,8 +63,10 @@ module FSW {
     stack size Default.stackSize \
     priority 30
 
-}
+  @ State machines instance
+  instance stateMachines: M.StateMachines base id 0x200 \
+    queue size Default.queueSize \
+    stack size Default.stackSize \
+    priority 40
 
-module Fw {
-  port BufferSend
 }

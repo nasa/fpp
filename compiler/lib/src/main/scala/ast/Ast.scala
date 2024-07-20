@@ -89,17 +89,6 @@ object Ast {
     members: List[ComponentMember]
   )
 
-  /** State machine definition */
-  final case class DefStateMachine(
-    name: Ident
-  )
-
-  /** State machine instance spec */
-  final case class SpecStateMachineInstance(
-    name: Ident,
-    stateMachine: AstNode[QualIdent]
-  )
-
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
@@ -162,6 +151,91 @@ object Ast {
     params: FormalParamList,
     returnType: Option[AstNode[TypeName]]
   )
+
+  /** State machine definition */
+  final case class DefStateMachine(
+    name: Ident,
+    members: Option[List[StateMachineMember]]
+  )
+
+  /** State machine member */
+  final case class StateMachineMember(node: Annotated[StateMachineMember.Node])
+  object StateMachineMember {
+    sealed trait Node
+    final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
+    final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
+    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
+    final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+  }
+
+  /** Action definition */
+  final case class DefAction(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** Guard definition */
+  final case class DefGuard(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** Junction definition */
+  final case class DefJunction(
+    name: Ident,
+    guard: AstNode[Ident],
+    ifExpr: EnterExpr,
+    elseExpr: EnterExpr
+  )
+
+  /** Enter expression */
+  final case class EnterExpr(
+    action: Option[AstNode[Ident]],
+    state: AstNode[QualIdent]
+  )
+
+  /** Signal definition */
+  final case class DefSignal(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
+  )
+
+  /** State definition */
+  final case class DefState(
+    name: Ident,
+    members: Option[List[StateMember]]
+  )
+
+  /** State member */
+  final case class StateMember(node: Annotated[StateMember.Node])
+  object StateMember {
+    sealed trait Node
+    final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
+    final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+    final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
+  }
+
+  /** Initial state specifier */
+  final case class SpecInitial(
+    enterExpr: EnterExpr
+  )
+
+  /** Transition specifier */
+  final case class SpecTransition(
+    signal: AstNode[Ident],
+    guard: Option[AstNode[Ident]],
+    enterOrDo: EnterOrDo
+  )
+
+  /** Enter or do within transition specifier */
+  sealed trait EnterOrDo
+  object EnterOrDo {
+    final case class Enter(enter: EnterExpr) extends EnterOrDo
+    final case class Do(action: AstNode[Ident]) extends EnterOrDo
+  }
 
   /** Struct definition */
   final case class DefStruct(
@@ -599,6 +673,12 @@ object Ast {
     recordType: AstNode[TypeName],
     isArray: Boolean,
     id: Option[AstNode[Expr]]
+  )
+
+  /** State machine instance spec */
+  final case class SpecStateMachineInstance(
+    name: Ident,
+    stateMachine: AstNode[QualIdent]
   )
 
   /** Telemetry channel specifier */

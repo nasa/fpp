@@ -11,6 +11,8 @@ trait AstVisitor {
 
   def defAbsTypeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAbsType]]): Out = default(in)
 
+  def defActionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefAction]]): Out = default(in)
+
   def defArrayAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefArray]]): Out = default(in)
 
   def defComponentAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefComponent]]): Out = default(in)
@@ -21,9 +23,17 @@ trait AstVisitor {
 
   def defEnumAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefEnum]]): Out = default(in)
 
+  def defGuardAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefGuard]]): Out = default(in)
+
+  def defJunctionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefJunction]]): Out = default(in)
+
   def defModuleAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefModule]]): Out = default(in)
 
   def defPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefPort]]): Out = default(in)
+
+  def defSignalAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefSignal]]): Out = default(in)
+
+  def defStateAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefState]]): Out = default(in)
 
   def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out = default(in)
 
@@ -67,6 +77,8 @@ trait AstVisitor {
 
   def specInitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInit]]): Out = default(in)
 
+  def specInitialAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInitial]]): Out = default(in)
+
   def specInternalPortAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInternalPort]]): Out = default(in)
 
   def specLocAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecLoc]]): Out = default(in)
@@ -84,6 +96,8 @@ trait AstVisitor {
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
+
+  def specTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTransition]]): Out = default(in)
 
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
@@ -151,6 +165,28 @@ trait AstVisitor {
       case Ast.ModuleMember.DefTopology(node1) => defTopologyAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecInclude(node1) => specIncludeAnnotatedNode(in, (pre, node1, post))
       case Ast.ModuleMember.SpecLoc(node1) => specLocAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
+  final def matchStateMachineMember(in: In, member: Ast.StateMachineMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMachineMember.DefAction(node1) => defActionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefGuard(node1) => defGuardAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefSignal(node1) => defSignalAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMachineMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
+    }
+  }
+
+  final def matchStateMember(in: In, member: Ast.StateMember): Out = {
+    val (pre, node, post) =  member.node
+    node match {
+      case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
     }
   }
 

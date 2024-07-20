@@ -53,6 +53,7 @@ update "" queuedComponents
 update "" simpleComponents
 update "" simpleTopology
 update "" specialPorts
+update "" ../../fpp-syntax/test/state-machine stateMachine
 update "" telemetry
 update "" types
 update "-s" syntaxOnly

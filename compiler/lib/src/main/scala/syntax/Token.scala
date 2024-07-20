@@ -5,6 +5,7 @@ import scala.util.parsing.input.Positional
 sealed trait Token extends Positional
 
 object Token {
+  final case class ACTION() extends Token
   final case class ACTIVE() extends Token
   final case class ACTIVITY() extends Token
   final case class ALWAYS() extends Token
@@ -26,8 +27,11 @@ object Token {
   final case class CPU() extends Token
   final case class DEFAULT() extends Token
   final case class DIAGNOSTIC() extends Token
+  final case class DO() extends Token
   final case class DOT() extends Token
   final case class DROP() extends Token
+  final case class ELSE() extends Token
+  final case class ENTER() extends Token
   final case class ENUM() extends Token
   final case class EOL() extends Token
   final case class EQUALS() extends Token
@@ -38,6 +42,7 @@ object Token {
   final case class FATAL() extends Token
   final case class FORMAT() extends Token
   final case class GET() extends Token
+  final case class GUARD() extends Token
   final case class GUARDED() extends Token
   final case class HEALTH() extends Token
   final case class HIGH() extends Token
@@ -47,11 +52,14 @@ object Token {
   final case class I8() extends Token
   final case class ID() extends Token
   final case class IDENTIFIER(str: String) extends Token
+  final case class IF() extends Token
   final case class IMPORT() extends Token
   final case class INCLUDE() extends Token
+  final case class INITIAL() extends Token
   final case class INPUT() extends Token
   final case class INSTANCE() extends Token
   final case class INTERNAL() extends Token
+  final case class JUNCTION() extends Token
   final case class LBRACE() extends Token
   final case class LBRACKET() extends Token
   final case class LITERAL_FLOAT(str: String) extends Token
@@ -97,6 +105,7 @@ object Token {
   final case class SERIAL() extends Token
   final case class SET() extends Token
   final case class SEVERITY() extends Token
+  final case class SIGNAL() extends Token
   final case class SIZE() extends Token
   final case class SLASH() extends Token
   final case class STACK() extends Token

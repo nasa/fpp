@@ -98,6 +98,11 @@ parse_error()
   run_test "" parse-error
 }
 
+state_machine()
+{
+  run_test -a state-machine
+}
+
 syntax()
 {
   run_test "" syntax
@@ -147,6 +152,7 @@ include_parse_error
 include_subdir
 include_topology
 parse_error
+state_machine
 syntax
 syntax_ast
 syntax_include_ast

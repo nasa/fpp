@@ -1,0 +1,86 @@
+@ State machine M
+def state machine
+  ident M
+  @ Action a1
+  def action
+    ident a1
+    typeName type name U32
+  @ Action a2
+  def action
+    ident a2
+  @ Guard g1
+  def guard
+    ident g1
+    typeName type name U32
+  @ Guard g2
+  def guard
+    ident g2
+  @ Initial transition
+  spec initial
+    action ident a1
+    state qual ident J
+  @ Junction J
+  def junction
+    ident J
+    guard ident g1
+    state qual ident S1
+    state qual ident S2
+  @ State S1
+  def state
+    ident S1
+  @ State S2
+  def state
+    ident S2
+    @ Initial transition
+    spec initial
+      action ident a1
+      state qual ident S3
+    @ Junction J
+    def junction
+      ident J
+      guard ident g1
+      state qual ident S1
+      state qual ident S2.S3
+    @ State S3
+    def state
+      ident S3
+    @ Transition to S1
+    spec transition
+      signal ident s1
+      guard ident g1
+      action ident a1
+      state qual ident S1
+    @ Transition to S1
+    spec transition
+      signal ident s2
+      guard ident g1
+      state qual ident S1
+    @ Transition to S1
+    spec transition
+      signal ident s3
+      state qual ident S1
+    @ Internal transition
+    spec transition
+      signal ident s4
+      guard ident g1
+      action ident a1
+    @ Internal transition
+    spec transition
+      signal ident s5
+      action ident a1
+  @ Signal s1
+  def signal
+    ident s1
+    typeName type name U32
+  @ Signal s2
+  def signal
+    ident s2
+  @ Signal s3
+  def signal
+    ident s3
+  @ Signal s4
+  def signal
+    ident s4
+  @ Signal s5
+  def signal
+    ident s5
