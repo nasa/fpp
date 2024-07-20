@@ -55,6 +55,11 @@ kwd_names()
   update '' kwd_names
 }
 
+state_machine()
+{
+  update '' ../../fpp-syntax/test/state-machine state_machine
+}
+
 for t in $tests
 do
   echo "updating ref output for $t"
