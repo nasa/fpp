@@ -17,17 +17,19 @@ _]_
 
 ==== Semantics
 
-. The qualified identifier after the keyword `enter` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to a 
-<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
-It is the state that is entered.
-
 . If present, the optional identifier after the keyword `do` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to an 
 <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
 It specifies an action to perform when making the transition.
+
+. The qualified identifier after the keyword `enter` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a 
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+or a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+It is the state or junction that is entered.
 
 ==== Examples
 

@@ -6,26 +6,24 @@ It specifies a transition from the state in which it appears.
 
 ==== Syntax
 
-A state transition is one of the following:
-
-* `on` <<Lexical-Elements_Identifiers,_identifier_>>
+`on` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `if` <<Lexical-Elements_Identifiers,_identifier_>>
 _]_
-<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
+_enter-or-do_
 
-* `on` <<Lexical-Elements_Identifiers,_identifier_>>
-_[_
-`if` <<Lexical-Elements_Identifiers,_identifier_>>
-_]_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_enter-or-do_ is one of the following:
+
+.  <<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
+
+.  `do` <<Lexical-Elements_Identifiers,_identifier_>>
 
 ==== Semantics
 
 . The identifier after the keyword `on` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
-<<State-Machine-Behavior-Elements_State-Machine-Signal-Definitions,state machine signal definition>>.
+<<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
 It names the signal that causes the transition to occur.
 
 . If present, the optional identifier after the keyword `if` must

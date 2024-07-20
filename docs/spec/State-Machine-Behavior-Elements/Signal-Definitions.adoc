@@ -1,6 +1,6 @@
-=== State Machine Signal Definitions
+=== Signal Definitions
 
-A *state machine signal definition* is part of a
+A *signal definition* is part of a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
 It defines a signal that may be sent to the enclosing state machine.
 Signals are inputs to state machines that cause state transitions

@@ -13,7 +13,7 @@ Enter-Expressions.adoc
 Guard-Definitions.adoc
 Initial-Transition-Specifiers.adoc
 Junction-Definitions.adoc
+Signal-Definitions.adoc
 State-Definitions.adoc
-State-Machine-Signal-Definitions.adoc
 State-Transition-Specifiers.adoc
 "
