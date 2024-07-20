@@ -2218,53 +2218,43 @@
   },
   "symbolScopeMap" : {
     "135" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "StateMachines" : {
-                  "Component" : {
-                    "nodeId" : 134,
-                    "unqualifiedName" : "StateMachines"
-                  }
-                }
+      "map" : {
+        "Component" : {
+          "map" : {
+            "StateMachines" : {
+              "Component" : {
+                "nodeId" : 134,
+                "unqualifiedName" : "StateMachines"
               }
             }
-          },
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "StateMachines" : {
-                  "Component" : {
-                    "nodeId" : 134,
-                    "unqualifiedName" : "StateMachines"
-                  }
-                }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "StateMachines" : {
+              "Component" : {
+                "nodeId" : 134,
+                "unqualifiedName" : "StateMachines"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "StateMachines" : {
-                  "Component" : {
-                    "nodeId" : 134,
-                    "unqualifiedName" : "StateMachines"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "StateMachines" : {
+              "Component" : {
+                "nodeId" : 134,
+                "unqualifiedName" : "StateMachines"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "StateMachines" : {
-                  "Component" : {
-                    "nodeId" : 134,
-                    "unqualifiedName" : "StateMachines"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "StateMachines" : {
+              "Component" : {
+                "nodeId" : 134,
+                "unqualifiedName" : "StateMachines"
               }
             }
           }
@@ -2272,23 +2262,19 @@
       }
     },
     "134" : {
-      "ScopeImpl" : {
-        "map" : {
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "S1" : {
-                  "StateMachine" : {
-                    "nodeId" : 114,
-                    "unqualifiedName" : "S1"
-                  }
-                },
-                "S2" : {
-                  "StateMachine" : {
-                    "nodeId" : 121,
-                    "unqualifiedName" : "S2"
-                  }
-                }
+      "map" : {
+        "StateMachine" : {
+          "map" : {
+            "S1" : {
+              "StateMachine" : {
+                "nodeId" : 114,
+                "unqualifiedName" : "S1"
+              }
+            },
+            "S2" : {
+              "StateMachine" : {
+                "nodeId" : 121,
+                "unqualifiedName" : "S2"
               }
             }
           }
@@ -2296,24 +2282,18 @@
       }
     },
     "58" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "7" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Sched" : {
-                  "Port" : {
-                    "nodeId" : 6,
-                    "unqualifiedName" : "Sched"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Sched" : {
+              "Port" : {
+                "nodeId" : 6,
+                "unqualifiedName" : "Sched"
               }
             }
           }
@@ -2321,101 +2301,85 @@
       }
     },
     "199" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                },
-                "dataCompressor" : {
-                  "ComponentInstance" : {
-                    "nodeId" : 162,
-                    "unqualifiedName" : "dataCompressor"
-                  }
-                },
-                "stateMachines" : {
-                  "ComponentInstance" : {
-                    "nodeId" : 198,
-                    "unqualifiedName" : "stateMachines"
-                  }
-                }
+      "map" : {
+        "ComponentInstance" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
+              }
+            },
+            "dataCompressor" : {
+              "ComponentInstance" : {
+                "nodeId" : 162,
+                "unqualifiedName" : "dataCompressor"
+              }
+            },
+            "stateMachines" : {
+              "ComponentInstance" : {
+                "nodeId" : 198,
+                "unqualifiedName" : "stateMachines"
               }
             }
-          },
-          "Topology" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Topology" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Port" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Component" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Default" : {
-                  "Module" : {
-                    "nodeId" : 150,
-                    "unqualifiedName" : "Default"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "Default" : {
+              "Module" : {
+                "nodeId" : 150,
+                "unqualifiedName" : "Default"
               }
             }
           }
@@ -2423,53 +2387,43 @@
       }
     },
     "59" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 58,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+      "map" : {
+        "Component" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 58,
+                "unqualifiedName" : "DataCompressor"
               }
             }
-          },
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 58,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 58,
+                "unqualifiedName" : "DataCompressor"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 58,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 58,
+                "unqualifiedName" : "DataCompressor"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "DataCompressor" : {
-                  "Component" : {
-                    "nodeId" : 58,
-                    "unqualifiedName" : "DataCompressor"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "DataCompressor" : {
+              "Component" : {
+                "nodeId" : 58,
+                "unqualifiedName" : "DataCompressor"
               }
             }
           }
@@ -2477,23 +2431,19 @@
       }
     },
     "150" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "queueSize" : {
-                  "Constant" : {
-                    "nodeId" : 137,
-                    "unqualifiedName" : "queueSize"
-                  }
-                },
-                "stackSize" : {
-                  "Constant" : {
-                    "nodeId" : 149,
-                    "unqualifiedName" : "stackSize"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "queueSize" : {
+              "Constant" : {
+                "nodeId" : 137,
+                "unqualifiedName" : "queueSize"
+              }
+            },
+            "stackSize" : {
+              "Constant" : {
+                "nodeId" : 149,
+                "unqualifiedName" : "stackSize"
               }
             }
           }
@@ -2501,17 +2451,13 @@
       }
     },
     "3" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "BufferSend" : {
-                  "Port" : {
-                    "nodeId" : 2,
-                    "unqualifiedName" : "BufferSend"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "BufferSend" : {
+              "Port" : {
+                "nodeId" : 2,
+                "unqualifiedName" : "BufferSend"
               }
             }
           }

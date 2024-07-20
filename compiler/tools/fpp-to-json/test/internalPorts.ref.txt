@@ -424,10 +424,8 @@
   },
   "symbolScopeMap" : {
     "43" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     }
   },

@@ -981,36 +981,30 @@
   },
   "symbolScopeMap" : {
     "45" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "51" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 46,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 47,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 50,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Cmd" : {
+              "Port" : {
+                "nodeId" : 46,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "CmdReg" : {
+              "Port" : {
+                "nodeId" : 47,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "CmdResponse" : {
+              "Port" : {
+                "nodeId" : 50,
+                "unqualifiedName" : "CmdResponse"
               }
             }
           }

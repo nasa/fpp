@@ -1086,53 +1086,43 @@
   },
   "symbolScopeMap" : {
     "45" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Component" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 44,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
+      "map" : {
+        "Component" : {
+          "map" : {
+            "EngineTemp" : {
+              "Component" : {
+                "nodeId" : 44,
+                "unqualifiedName" : "EngineTemp"
               }
             }
-          },
-          "StateMachine" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 44,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
+          }
+        },
+        "StateMachine" : {
+          "map" : {
+            "EngineTemp" : {
+              "Component" : {
+                "nodeId" : 44,
+                "unqualifiedName" : "EngineTemp"
               }
             }
-          },
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 44,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
+          }
+        },
+        "Type" : {
+          "map" : {
+            "EngineTemp" : {
+              "Component" : {
+                "nodeId" : 44,
+                "unqualifiedName" : "EngineTemp"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 44,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "EngineTemp" : {
+              "Component" : {
+                "nodeId" : 44,
+                "unqualifiedName" : "EngineTemp"
               }
             }
           }
@@ -1140,24 +1130,18 @@
       }
     },
     "44" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "61" : {
-      "ScopeImpl" : {
-        "map" : {
-          "ComponentInstance" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "engineTemp" : {
-                  "ComponentInstance" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "engineTemp"
-                  }
-                }
+      "map" : {
+        "ComponentInstance" : {
+          "map" : {
+            "engineTemp" : {
+              "ComponentInstance" : {
+                "nodeId" : 60,
+                "unqualifiedName" : "engineTemp"
               }
             }
           }
@@ -1165,17 +1149,13 @@
       }
     },
     "65" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Sched" : {
-                  "Port" : {
-                    "nodeId" : 64,
-                    "unqualifiedName" : "Sched"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Sched" : {
+              "Port" : {
+                "nodeId" : 64,
+                "unqualifiedName" : "Sched"
               }
             }
           }
@@ -1183,23 +1163,19 @@
       }
     },
     "70" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Tlm" : {
-                  "Port" : {
-                    "nodeId" : 66,
-                    "unqualifiedName" : "Tlm"
-                  }
-                },
-                "Time" : {
-                  "Port" : {
-                    "nodeId" : 69,
-                    "unqualifiedName" : "Time"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Tlm" : {
+              "Port" : {
+                "nodeId" : 66,
+                "unqualifiedName" : "Tlm"
+              }
+            },
+            "Time" : {
+              "Port" : {
+                "nodeId" : 69,
+                "unqualifiedName" : "Time"
               }
             }
           }

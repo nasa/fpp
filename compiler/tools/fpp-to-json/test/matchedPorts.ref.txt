@@ -619,24 +619,18 @@
   },
   "symbolScopeMap" : {
     "21" : {
-      "ScopeImpl" : {
-        "map" : {
-          
-        }
+      "map" : {
+        
       }
     },
     "25" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Ping" : {
-                  "Port" : {
-                    "nodeId" : 24,
-                    "unqualifiedName" : "Ping"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Ping" : {
+              "Port" : {
+                "nodeId" : 24,
+                "unqualifiedName" : "Ping"
               }
             }
           }

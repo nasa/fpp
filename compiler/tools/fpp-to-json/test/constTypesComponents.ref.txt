@@ -794,23 +794,19 @@
   },
   "symbolScopeMap" : {
     "4" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "OFF" : {
-                  "EnumConstant" : {
-                    "nodeId" : 1,
-                    "unqualifiedName" : "OFF"
-                  }
-                },
-                "ON" : {
-                  "EnumConstant" : {
-                    "nodeId" : 3,
-                    "unqualifiedName" : "ON"
-                  }
-                }
+      "map" : {
+        "Value" : {
+          "map" : {
+            "OFF" : {
+              "EnumConstant" : {
+                "nodeId" : 1,
+                "unqualifiedName" : "OFF"
+              }
+            },
+            "ON" : {
+              "EnumConstant" : {
+                "nodeId" : 3,
+                "unqualifiedName" : "ON"
               }
             }
           }
@@ -818,29 +814,23 @@
       }
     },
     "35" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "State" : {
-                  "Enum" : {
-                    "nodeId" : 4,
-                    "unqualifiedName" : "State"
-                  }
-                }
+      "map" : {
+        "Type" : {
+          "map" : {
+            "State" : {
+              "Enum" : {
+                "nodeId" : 4,
+                "unqualifiedName" : "State"
               }
             }
-          },
-          "Value" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "State" : {
-                  "Enum" : {
-                    "nodeId" : 4,
-                    "unqualifiedName" : "State"
-                  }
-                }
+          }
+        },
+        "Value" : {
+          "map" : {
+            "State" : {
+              "Enum" : {
+                "nodeId" : 4,
+                "unqualifiedName" : "State"
               }
             }
           }
@@ -848,29 +838,25 @@
       }
     },
     "41" : {
-      "ScopeImpl" : {
-        "map" : {
-          "Port" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "Cmd" : {
-                  "Port" : {
-                    "nodeId" : 36,
-                    "unqualifiedName" : "Cmd"
-                  }
-                },
-                "CmdReg" : {
-                  "Port" : {
-                    "nodeId" : 37,
-                    "unqualifiedName" : "CmdReg"
-                  }
-                },
-                "CmdResponse" : {
-                  "Port" : {
-                    "nodeId" : 40,
-                    "unqualifiedName" : "CmdResponse"
-                  }
-                }
+      "map" : {
+        "Port" : {
+          "map" : {
+            "Cmd" : {
+              "Port" : {
+                "nodeId" : 36,
+                "unqualifiedName" : "Cmd"
+              }
+            },
+            "CmdReg" : {
+              "Port" : {
+                "nodeId" : 37,
+                "unqualifiedName" : "CmdReg"
+              }
+            },
+            "CmdResponse" : {
+              "Port" : {
+                "nodeId" : 40,
+                "unqualifiedName" : "CmdResponse"
               }
             }
           }
