@@ -1,0 +1,8 @@
+#!/bin/sh
+
+for cmd in `find . -name $1`
+do
+  dir=`dirname $cmd`
+  echo "[ doing $1 in $dir ]"
+  (cd $dir; ./$1)
+done
