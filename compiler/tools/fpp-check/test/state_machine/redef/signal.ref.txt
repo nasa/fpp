@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/signal.fpp:3.3
+  signal s
+  ^
+error: redefinition of symbol s
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/signal.fpp:2.3
+  signal s
+  ^

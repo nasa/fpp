@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/guard.fpp:3.3
+  guard g
+  ^
+error: redefinition of symbol g
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/guard.fpp:2.3
+  guard g
+  ^
