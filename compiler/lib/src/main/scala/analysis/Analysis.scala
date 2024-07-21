@@ -63,6 +63,8 @@ case class Analysis(
   topologyMap: Map[Symbol.Topology, Topology] = Map(),
   /** The topology under construction */
   topology: Option[Topology] = None,
+  /** The map from state machine symbols to state machines */
+  stateMachineMap: Map[Symbol.StateMachine, StateMachine] = Map(),
 ) {
 
   /** Gets the qualified name of a symbol */
