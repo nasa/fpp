@@ -7,4 +7,5 @@ nested_state
 ok
 signal
 state
+state_junction
 "

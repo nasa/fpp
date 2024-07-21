@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/state_junction.fpp:4.3
+  junction S { if g enter S else enter S }
+  ^
+error: redefinition of symbol S
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/state_junction.fpp:3.3
+  state S
+  ^
