@@ -1,7 +1,7 @@
 package fpp.compiler.analysis
 
 /** A state machine name group */
-sealed trait StateMachineNameGroup 
+sealed trait StateMachineNameGroup
 
 object StateMachineNameGroup {
   case object Action extends StateMachineNameGroup

@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** Enter state machine symbols into their scopes */
-object EnterStateMachineSymbols 
+object EnterStateMachineSymbols
   extends StateMachineAnalysisVisitor
   with StateAnalyzer
 {
