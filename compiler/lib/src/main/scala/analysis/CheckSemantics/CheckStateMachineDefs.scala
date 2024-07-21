@@ -13,10 +13,18 @@ object CheckStateMachineDefs
   override def defStateMachineAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-  ) = Right(a)
-  // TODO
-  //{
-  //  CheckStateMachineSemantics.checkStateMachineSemantics(a, aNode)
-  //}
+  ) = {
+    for {
+      sma <- CheckStateMachineSemantics.defStateMachineAnnotatedNode(
+        StateMachineAnalysis(),
+        aNode
+      )
+    }
+    yield {
+      val sym = Symbol.StateMachine(aNode)
+      val stateMachine = StateMachine(aNode, sma)
+      a.copy(stateMachineMap = a.stateMachineMap + (sym -> stateMachine))
+    }
+  }
 
 }

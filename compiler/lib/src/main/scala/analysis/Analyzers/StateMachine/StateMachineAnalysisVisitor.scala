@@ -14,7 +14,16 @@ trait StateMachineAnalysisVisitor extends AstStateVisitor {
       case None => Right(a)
     }
 
-  override def transUnit(a: StateMachineAnalysis, tu: Ast.TransUnit) =
-    visitList(a, tu.members, matchTuMember)
+  override def defStateMachineAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (_, node, _) = aNode
+    node.data match {
+      case Ast.DefStateMachine(_, Some(members)) =>
+        visitList(sma, members, matchStateMachineMember)
+      case _ => Right(sma)
+    }
+  }
 
 }
