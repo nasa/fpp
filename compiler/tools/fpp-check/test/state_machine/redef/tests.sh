@@ -8,4 +8,5 @@ ok
 signal
 state
 state_junction
+state_shadow_ok
 "

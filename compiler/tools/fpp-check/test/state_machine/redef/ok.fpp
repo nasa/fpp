@@ -3,4 +3,5 @@ state machine M {
   guard a
   signal a
   state a
+  initial enter a
 }
