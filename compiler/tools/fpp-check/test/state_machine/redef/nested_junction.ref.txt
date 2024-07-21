@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_junction.fpp:6.5
+    junction J { if g enter S else enter S }
+    ^
+error: redefinition of symbol J
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/redef/nested_junction.fpp:5.5
+    junction J { if g enter S else enter S }
+    ^

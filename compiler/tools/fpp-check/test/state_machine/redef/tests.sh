@@ -2,7 +2,9 @@ tests="
 action
 guard
 junction
+nested_junction
+nested_state
+ok
 signal
 state
-ok
 "

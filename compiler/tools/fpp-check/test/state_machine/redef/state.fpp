@@ -1,4 +1,4 @@
 state machine M {
-  state s
-  state s
+  state S
+  state S
 }
