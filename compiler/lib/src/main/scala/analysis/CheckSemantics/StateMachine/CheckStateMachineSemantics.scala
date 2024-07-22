@@ -14,6 +14,7 @@ object CheckStateMachineSemantics {
       sma <- EnterStateMachineSymbols.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check state machine uses
       // TODO: Check initial transitions
+      // TODO: Check signal uses
       // TODO: Check transition graph
     }
     yield sma
