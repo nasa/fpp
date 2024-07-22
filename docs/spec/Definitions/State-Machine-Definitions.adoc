@@ -54,13 +54,7 @@ satisfy the following rules:
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
 
-.. No two
-<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifiers>>
-may
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to the same signal definition.
-
-.. _M_ must statisfy the rules described
+.. _M_ must satisfy the rules described
 <<Definitions_State-Machine-Definitions_The-Transition-Graph,below>>
 for the induced transition graph.
 
