@@ -9,6 +9,9 @@ trait StateMachineUseAnalyzer
   with StateAnalyzer
 {
 
+  /** A use of an action definition */
+  def actionUse(sma: StateMachineAnalysis, node: AstNode[Ast.Ident], use: Name.Unqualified): Result = default(sma)
+
   /** A use of a guard definition */
   def guardUse(sma: StateMachineAnalysis, node: AstNode[Ast.Ident], use: Name.Unqualified): Result = default(sma)
 
@@ -18,15 +21,12 @@ trait StateMachineUseAnalyzer
   /** A use of a state definition or junction definition */
   def stateOrJunctionUse(sma: StateMachineAnalysis, node: AstNode[Ast.QualIdent], use: Name.Qualified): Result = default(sma)
 
-  /** A use of an action definition */
-  def actionUse(sma: StateMachineAnalysis, node: AstNode[Ast.Ident], use: Name.Unqualified): Result = default(sma)
-
-  override def specInitialAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecInitial]]) =
-    enterExpr(sma, node._2.data.enterExpr)
-
   override def defJunctionAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.DefJunction]]) =
     // TODO
     default(sma)
+
+  override def specInitialAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecInitial]]) =
+    enterExpr(sma, node._2.data.enterExpr)
 
   override def specTransitionAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecTransition]]) =
     // TODO
