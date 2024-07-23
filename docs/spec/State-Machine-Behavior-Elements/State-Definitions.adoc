@@ -28,9 +28,16 @@ A state definition member is one of the following:
 
 . The identifier is the name of the state.
 
-. If the state definition member sequence is present,
-then it must contain exactly one initial transition specifier _I_.
+. If the state definition member sequence _M_ is present,
+then it must obey the following rules:
+
+.. _M_ must contain exactly one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
+
+.. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
+transition specifiers>> that are members of _M_ may
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>> to the same
+signal definition.
 
 ==== Examples
 

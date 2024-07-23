@@ -4,7 +4,7 @@ A *state machine definition* defines a state machine.
 
 There are two kinds of state machine definitions:
 
-. An *external state machine definition* 
+. An *external state machine definition*
 introduces a name and informs the FPP analyzer that
 a state machine implementation with that name will be provided to the
 FSW build.
@@ -20,10 +20,10 @@ Phase 2 will add support for internal state machine definitions.
 
 ==== Syntax
 
-`state machine` <<Lexical-Elements_Identifiers,_identifier_>> 
+`state machine` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `{` _state-machine-member-sequence_ `}` _]_
 
-_state-machine-member-sequence_ is an 
+_state-machine-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
@@ -47,57 +47,64 @@ If the state machine member sequence is absent, then the state machine
 definition is external, i.e., the state machine
 behavior is not specified in FPP.
 
-. If present, the optional state machine member sequence must contain
-exactly one
+. If present, the optional state machine member sequence _M_ must
+satisfy the following rules:
+
+.. _M_ must contain exactly one
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>.
 The initial transition occurs when the state machine starts up.
 
-. If the optional state machine member sequence _M_ is present,
-then the *transitive members* of _M_ are (i) the elements of _M_ and (ii)
-the members of any state definition that is a transitive member of _M_.
+.. _M_ must satisfy the rules described
+<<Definitions_State-Machine-Definitions_The-Transition-Graph,below>>
+for the induced transition graph.
 
-. If present, the optional state machine member sequence _M_
+==== The Transition Graph
+
+If present, the optional state machine member sequence _M_
 induces a directed graph called the *transition graph*, defined as
 follows:
 
-.. The nodes of the transition graph are the initial transition specifiers,
+. The nodes of the transition graph are the initial transition specifiers,
 state definitions, and
 junction definitions that are transitive members of _M_.
 
-.. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Enter-Expressions,
+. The *transitive members* of _M_ are (i) the elements of _M_ and (ii)
+the members of any state definition that is a transitive member of _M_.
+
+. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Enter-Expressions,
 enter expressions>> _e_ that are parts of transitive members of _M_.
 Each enter expression represents an arc from an *initial node* to a *terminal node*.
 The initial node is defined as follows:
 
-... If _e_ appears in an
+.. If _e_ appears in an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
 initial transition specifier>> _I_, then the initial node
 is _I_.
 
-... If _e_ appears in a
+.. If _e_ appears in a
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,
 state transition specifier>> _T_, then the initial
 node is the
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 immediately enclosing _T_.
 
-... If _e_ appears in a
+.. If _e_ appears in a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 _J_, then the initial node is _J_.
 
 +
-In any case, 
+In any case,
 the terminal node is the state definition or junction definition
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
 in _e_ after the keyword `enter`.
 
-. If the optional state machine member sequence is present, then
+If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-.. Each state machine definition and each junction definition in
+. Each state machine definition and each junction definition in
 _T_ must be the terminal node of at least one arc.
 
-.. Let _S_ be the subgraph of _T_ consisting of all
+. Let _S_ be the subgraph of _T_ consisting of all
 and only the junction definitions and the arcs whose initial
 and terminal nodes are junction definitions.
 There must be no cycles in _S_.
@@ -175,7 +182,7 @@ state machine MonitorSm {
   signal RTI
   signal Stop
   signal Fault
-  
+
   action init2
   action doCalibrate
   action motorControl
@@ -184,7 +191,7 @@ state machine MonitorSm {
   guard calibrateReady
 
   initial enter DeviceOn
-  
+
   state DeviceOn {
 
     initial do init2 enter Initializing
