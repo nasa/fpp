@@ -18,6 +18,7 @@ Defining-Modules.adoc
 Defining-Types.adoc
 Defining-Enums.adoc
 Defining-Ports.adoc
+Defining-State-Machines.adoc
 Defining-Components.adoc
 Defining-Component-Instances.adoc
 Defining-Topologies.adoc

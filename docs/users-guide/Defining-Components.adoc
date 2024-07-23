@@ -2404,10 +2404,15 @@ an array of elements of type `Data`.
 The number of elements is unspecified in the model;
 it is provided when the record is serialized into a container.
 
-=== Constants and Types
+=== State Machine Instances
 
-You can write a <<Defining-Constants,constant definition>>
-or <<Defining-Types,type definition>>
+TODO
+
+=== Constants, Types, and State Machines
+
+You can write a <<Defining-Constants,constant definition>>,
+<<Defining-Types,type definition>>, or
+<<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
 the name of the constant or type, similarly to the way that a
