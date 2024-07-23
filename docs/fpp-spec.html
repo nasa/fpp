@@ -527,8 +527,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
 <li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.3. Scoping of Names</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
@@ -2806,33 +2807,50 @@ definition is external, i.e., the state machine
 behavior is not specified in FPP.</p>
 </li>
 <li>
-<p>If present, the optional state machine member sequence must contain
-exactly one
+<p>If present, the optional state machine member sequence <em>M</em> must
+satisfy the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>M</em> must contain exactly one
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
 The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
-<p>If the optional state machine member sequence <em>M</em> is present,
-then the <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
-the members of any state definition that is a transitive member of <em>M</em>.</p>
+<p><em>M</em> must satisfy the rules described
+<a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">below</a>
+for the induced transition graph.</p>
 </li>
-<li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</h4>
+<div class="paragraph">
 <p>If present, the optional state machine member sequence <em>M</em>
 induces a directed graph called the <strong>transition graph</strong>, defined as
 follows:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>The nodes of the transition graph are the initial transition specifiers,
 state definitions, and
 junction definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
+<p>The <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
+</li>
+<li>
 <p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
 Each enter expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
 The initial node is defined as follows:</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
 <p>If <em>e</em> appears in an
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
@@ -2852,9 +2870,6 @@ immediately enclosing <em>T</em>.</p>
 </li>
 </ol>
 </div>
-</li>
-</ol>
-</div>
 <div class="paragraph">
 <p>In any case,
 the terminal node is the state definition or junction definition
@@ -2862,11 +2877,14 @@ the terminal node is the state definition or junction definition
 in <em>e</em> after the keyword <code>enter</code>.</p>
 </div>
 </li>
-<li>
+</ol>
+</div>
+<div class="paragraph">
 <p>If the optional state machine member sequence is present, then
 the transition graph <em>T</em> must satisfy the following rules:</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Each state machine definition and each junction definition in
 <em>T</em> must be the terminal node of at least one arc.</p>
@@ -2879,12 +2897,9 @@ There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
 </div>
-</li>
-</ol>
-</div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.3. Scoping of Names</h4>
+<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</h4>
 <div class="paragraph">
 <p>Inside the optional state machine member sequence, the following
 rules govern the assignment of names to definitions and the resolution
@@ -2959,7 +2974,7 @@ with the following modifications:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -4124,9 +4139,22 @@ A state definition member is one of the following:</p>
 <p>The identifier is the name of the state.</p>
 </li>
 <li>
-<p>If the state definition member sequence is present,
-then it must contain exactly one initial transition specifier <em>I</em>.
+<p>If the state definition member sequence <em>M</em> is present,
+then it must obey the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>M</em> must contain exactly one initial transition specifier <em>I</em>.
 <em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
+</li>
+<li>
+<p>No two <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state
+transition specifiers</a> that are members of <em>M</em> may
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a> to the same
+signal definition.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -9685,7 +9713,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-19 21:57:55 -0700
+Last updated 2024-07-22 17:04:17 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
