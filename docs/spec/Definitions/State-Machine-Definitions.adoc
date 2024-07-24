@@ -88,15 +88,28 @@ immediately enclosing _T_.
 _J_, then the initial node is _J_.
 
 +
-In any case,
-the terminal node is the state definition or junction definition
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,referred to>>
-in _e_ after the keyword `enter`.
+The terminal node is defined as follows:
+
+.. If _e_ 
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refers to>>
+a junction definition _J_ after the keyword `enter`, then the
+terminal node is _J_.
+
+.. Otherwise _e_ refers to a state definition _S_ after the keyword `enter`.
+
+... If _S_ is a <<State-Machine-Behavior-Elements_State-Definitions_Semantics,
+leaf state definition>>,
+then the terminal node is _S_.
+
+... Otherwise the terminal node is the transitive substate
+of _S_ found by following 
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
+initial transition specifiers>> to a leaf state definition.
 
 If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-. Each state machine definition and each junction definition in
+. Each leaf state state definition and each junction definition in
 _T_ must be the terminal node of at least one arc.
 
 . Let _S_ be the subgraph of _T_ consisting of all

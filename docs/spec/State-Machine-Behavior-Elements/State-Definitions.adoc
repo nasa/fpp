@@ -39,6 +39,10 @@ transition specifiers>> that are members of _M_ may
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>> to the same
 signal definition.
 
+. If the state definition member sequence _M_ is present, then the
+state definition is called an *inner state definition*.
+Otherwise it is called a *leaf state definition*.
+
 ==== Examples
 
 [source,fpp]

@@ -2871,10 +2871,33 @@ immediately enclosing <em>T</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>In any case,
-the terminal node is the state definition or junction definition
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
-in <em>e</em> after the keyword <code>enter</code>.</p>
+<p>The terminal node is defined as follows:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>e</em>
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refers to</a>
+a junction definition <em>J</em> after the keyword <code>enter</code>, then the
+terminal node is <em>J</em>.</p>
+</li>
+<li>
+<p>Otherwise <em>e</em> refers to a state definition <em>S</em> after the keyword <code>enter</code>.</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If <em>S</em> is a <a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">leaf state definition</a>,
+then the terminal node is <em>S</em>.</p>
+</li>
+<li>
+<p>Otherwise the terminal node is the transitive substate
+of <em>S</em> found by following
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifiers</a> to a leaf state definition.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 </li>
 </ol>
@@ -2886,7 +2909,7 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each state machine definition and each junction definition in
+<p>Each leaf state state definition and each junction definition in
 <em>T</em> must be the terminal node of at least one arc.</p>
 </li>
 <li>
@@ -4155,6 +4178,11 @@ signal definition.</p>
 </li>
 </ol>
 </div>
+</li>
+<li>
+<p>If the state definition member sequence <em>M</em> is present, then the
+state definition is called an <strong>inner state definition</strong>.
+Otherwise it is called a <strong>leaf state definition</strong>.</p>
 </li>
 </ol>
 </div>
@@ -9713,7 +9741,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-23 09:17:26 -0700
+Last updated 2024-07-24 13:27:19 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
