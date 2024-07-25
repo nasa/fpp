@@ -116,6 +116,18 @@ The order of the members is not significant.
 For example, `{ a: U32, b: F32 }` represents the same
 type as `{ b : F32, a: U32 }`.
 
+=== Displayable Types
+
+A type is a **displayable type** if it is one of the following:
+
+* A <<Types_Primitive-Integer-Types,primitive integer type>>.
+* A <<Types_Floating-Point-Types,floating-point type>>.
+* A <<Types_The-Boolean-Type,boolean type>>.
+* A <<Types_String-Types,string type>>.
+* A <<Types_Enum-Types,enum type>>.
+* An <<Types_Array-Types,array type>> whose member type is a displayable type.
+* A <<Types_Struct-Types,struct type>> whose member types are all displayable types.
+
 === Types with Numeric Members
 
 A type *has numeric members* if it is one of the following:
