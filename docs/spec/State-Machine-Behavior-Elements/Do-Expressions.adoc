@@ -1,0 +1,45 @@
+=== Do Expressions
+
+An *do expression* specifies a list of actions as part of an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition>>,
+a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>,
+a <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry>>,
+a <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit>>,
+or
+a <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+
+==== Syntax
+
+`do` {_action-sequence_}
+
+_action-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is an <<Lexical-Elements_Identifiers,_identifier_>>
+and the terminating punctuation is a comma.
+
+==== Semantics
+. The _action-sequence_ after the keyword `do` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a list of 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definitions>>.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action powerActuator
+  action powerGyro
+  action powerGimbal
+
+  state ON {
+    enter do {
+      powerActuator
+      powerGyro
+      powerGimbal
+    }
+  }
+
+}
+----

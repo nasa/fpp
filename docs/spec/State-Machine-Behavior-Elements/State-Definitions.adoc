@@ -23,6 +23,8 @@ A state definition member is one of the following:
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
+* A <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>
+* A <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>
 
 ==== Semantics
 
@@ -56,10 +58,16 @@ state machine MonitorSm {
   signal Stop
   signal Fault
   
+  action init1
   action init2
   action doCalibrate
   action motorControl
   action reportFault
+  action heaterOff
+  action monitorOff
+  action heaterOn
+  action monitorOn
+  action stopMotor
 
   guard calibrateReady
 
@@ -67,26 +75,48 @@ state machine MonitorSm {
   
   state DEVICE_ON {
 
-    initial do init2 enter INITIALIZING
+    initial do {
+      init1
+      init2
+     } 
+     enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE
     }
 
     state IDLE {
+      entry do {
+        heaterOff
+        monitorOff
+      }
+      exit do {
+        heaterOn
+        monitorOn
+      }
       on Drive enter DRIVING
       on Calibrate if calibrateReady enter CALIBRATING
     }
 
     state CALIBRATING {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do {
+        doCalibrate
+      }
+      on Fault do {
+        reportFault
+       }
+      enter Idle
       on Complete enter IDLE
     }
 
     state DRIVING {
-      on RTI do motorControl
-      on Stop enter IDLE
+      on RTI do {
+        motorControl
+      }
+      on Stop do {
+        stopMotor
+      }
+      enter IDLE
     }
 
   }

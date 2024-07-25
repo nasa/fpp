@@ -26,7 +26,8 @@ transition specifier appears.
 ----
 state machine Device {
 
-  action initDevices
+  action initDev1
+  action initDev2
 
   # When the state machine starts up, enter the ON state
   initial enter ON
@@ -34,7 +35,11 @@ state machine Device {
   state ON {
 
     # When entering the ON state, enter the POWERING_UP substate
-    initial do initDevices enter POWERING_UP
+    initial do {
+      initDev1
+      initDev2
+    }
+    enter POWERING_UP
 
     state POWERING_UP
 

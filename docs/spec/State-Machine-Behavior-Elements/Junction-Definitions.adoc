@@ -42,7 +42,10 @@ state machine Device {
 
   junction J1 {
     if coldStart enter OFF \
-    else do initPower enter ON
+    else do {
+      initPower
+    } 
+    enter ON
   }
 
   state OFF

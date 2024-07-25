@@ -16,11 +16,16 @@ _enter-or-do_ is one of the following:
 
 .  <<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
 
-.  `do` <<Lexical-Elements_Identifiers,_identifier_>>
+.  <<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
+
+_action-sequence_ is an
+<<Element-Sequences,element sequence>> in
+which each element is an <<Lexical-Elements_Identifiers,_identifier_>>
+and the terminating punctuation is a comma.
 
 ==== Semantics
 
-. The identifier after the keyword `on` must
+. The _identifier_ after the keyword `on` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
@@ -40,13 +45,13 @@ When making a self transition, the state machine runs the code associated with
 exiting and then re-entering the state.
 
 . Second form of the syntax specifies an
-*internal transition*, i.e., an action to take while remaining
+*internal transition*, i.e., a list of actions to take while remaining
 in the same state.
 When making an internal transition, the exit and re-entry code is not run.
-The identifier after the keyword `do` must
+The list of actions specified in the _do-expression) must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to an
-<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+to a list of 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definitions>>.
 
 ==== Examples
 
@@ -58,14 +63,19 @@ state machine Device {
   signal PowerOn
   
   action performStuff
-  action getReady
+  action powerHeater
+  action powerSensor
 
   guard initComplete
 
   initial enter OFF
 
   state OFF {
-    on PowerOn if initComplete do getReady enter ON
+    on PowerOn if initComplete do {
+      powerHeater
+      powerSensor
+    }
+    enter ON
   }
 
   state ON {

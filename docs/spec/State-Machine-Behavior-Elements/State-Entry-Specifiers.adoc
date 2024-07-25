@@ -1,0 +1,31 @@
+=== State Entry Specifiers
+
+A *state entry specifier* is part of a
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It specifies the state's entry actions
+
+==== Syntax
+
+`entry` <<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
+
+==== Semantics
+
+. The _do-expression_ specifies a list of entry actions that get executed
+when entering a state
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action heaterOn
+  action monitorOn
+
+  state RUNNING {
+    entry do {
+      heaterOn
+      monitorOn
+    }
+}
+----
