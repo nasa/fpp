@@ -17,7 +17,7 @@ namespace M {
 }
 
 namespace M {
-  Active M::active2;
+  Active active2;
 
 }
 
