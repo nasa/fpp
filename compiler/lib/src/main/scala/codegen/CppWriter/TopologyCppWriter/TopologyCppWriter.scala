@@ -50,13 +50,11 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
+    val cppComponentInstanceMembers = TopComponentInstances(s, aNode).getCppMembers
     val cppLines = linesMember(
       Line.blank ::
-      List.concat(
-        addBlankPostfix(
-          TopConfigObjects(s, aNode).getCppLines,
-        ),
-        TopComponentInstances(s, aNode).getCppLines
+      addBlankPostfix(
+        TopConfigObjects(s, aNode).getCppLines,
       ),
       CppDoc.Lines.Cpp
     )
@@ -67,6 +65,7 @@ case class TopologyCppWriter(
     List(
       List(hppIncludes, cppIncludes),
       hppComponentInstanceMembers,
+      cppComponentInstanceMembers,
       wrapInNamespaces(namespaceIdentList, defs)
     ).flatten
   }

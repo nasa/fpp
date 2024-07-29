@@ -6,6 +6,39 @@
 
 #include "BasicTopologyAc.hpp"
 
+// ----------------------------------------------------------------------
+// Component instances
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  Active active1(FW_OPTIONAL_NAME("active1"));
+
+}
+
+namespace M {
+  Active M::active2;
+
+}
+
+namespace M {
+
+  Active active3(FW_OPTIONAL_NAME("active3"));
+
+}
+
+namespace M {
+
+  Passive passive1(FW_OPTIONAL_NAME("passive1"));
+
+}
+
+namespace M {
+
+  ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
+
+}
+
 namespace M {
 
 
@@ -21,20 +54,6 @@ namespace M {
 
   }
 
-
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
-
-  Active M::active1(FW_OPTIONAL_NAME("M::active1"));
-
-  Active M::active2;
-
-  Active M::active3(FW_OPTIONAL_NAME("M::active3"));
-
-  Passive M::passive1(FW_OPTIONAL_NAME("M::passive1"));
-
-  ConcretePassive M::passive2(FW_OPTIONAL_NAME("M::passive2"));
 
   // ----------------------------------------------------------------------
   // Helper functions

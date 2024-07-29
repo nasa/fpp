@@ -6,6 +6,28 @@
 
 #include "HealthTopologyAc.hpp"
 
+// ----------------------------------------------------------------------
+// Component instances
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  C c1(FW_OPTIONAL_NAME("c1"));
+
+}
+
+namespace M {
+
+  C c2(FW_OPTIONAL_NAME("c2"));
+
+}
+
+namespace M {
+
+  Svc::Health health(FW_OPTIONAL_NAME("health"));
+
+}
+
 namespace M {
 
 
@@ -32,16 +54,6 @@ namespace M {
 
   }
 
-
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
-
-  C M::c1(FW_OPTIONAL_NAME("M::c1"));
-
-  C M::c2(FW_OPTIONAL_NAME("M::c2"));
-
-  Svc::Health M::health(FW_OPTIONAL_NAME("M::health"));
 
   // ----------------------------------------------------------------------
   // Helper functions
