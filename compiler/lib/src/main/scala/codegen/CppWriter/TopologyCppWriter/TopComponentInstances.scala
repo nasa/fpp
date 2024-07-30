@@ -12,49 +12,41 @@ case class TopComponentInstances(
 
   private val bannerComment = "Component instances"
 
-  def getHppMembers: List[CppDoc.Member] = {
-    val declMembers = getDeclMembers
-    lazy val commentMember =
-      linesMember(CppDocWriter.writeBannerComment(bannerComment))
-    lazy val members = commentMember :: declMembers
-    guardedList (!declMembers.isEmpty) (members)
-  }
+  def getHppLines: List[Line] = addBannerComment(
+    bannerComment,
+    getDeclLines
+  )
 
-  def getCppMembers: List[CppDoc.Member] = {
-    val defMembers = getDefMembers
-    lazy val commentMember = 
-      linesMember(CppDocWriter.writeBannerComment(bannerComment), CppDoc.Lines.Cpp)
-    lazy val members = commentMember :: defMembers
-    guardedList(!defMembers.isEmpty) (members)
-  }
+  def getCppLines: List[Line] = addBannerComment(
+    bannerComment,
+    getDefLines
+  )
 
-  private def getDeclMembers = {
-    def getCode(ci: ComponentInstance): List[CppDoc.Member] = {
+  private def getDeclLines = {
+    def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
       val instLines = lines(
-        s"""|
-            |//! $instanceName
+        s"""|//! $instanceName
             |extern $implType $instanceName;"""
       )
-      wrapInNamespaces(ci.qualifiedName.qualifier, List(linesMember(instLines)))
+      wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
     }
-    instances.flatMap(getCode)
+    flattenWithBlankPrefix(instances.map(getCode))
   }
 
-  private def getDefMembers = {
-    def getCode(ci: ComponentInstance): List[CppDoc.Member] = {
+  private def getDefLines = {
+    def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
       val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
         lines(
-          s"""|
-              |$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"""
+          s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
         )
       )
-      wrapInNamespaces(ci.qualifiedName.qualifier, List(linesMember(instLines, CppDoc.Lines.Cpp)))
+      wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
     }
-    instances.flatMap(getCode)
+    flattenWithBlankPrefix(instances.map(getCode))
   }
 
   private def getImplType(ci: ComponentInstance) = {

@@ -413,6 +413,15 @@ trait CppWriterUtils extends LineUtils {
       List(namespaceMember(head, wrapInNamespaces(tail, members)))
   }
 
+  def wrapInNamespaceLines(
+    namespaceNames: List[String],
+    ll: List[Line]
+  ): List[Line] = namespaceNames match {
+    case Nil => ll
+    case head :: tail =>
+      wrapInScope(s"namespace $head {", wrapInNamespaceLines(tail, ll), "}")
+  }
+
 }
 
 object CppWriterUtils {

@@ -16,38 +16,28 @@
 // ----------------------------------------------------------------------
 
 namespace M {
-
   //! active1
   extern Active active1;
-
 }
 
 namespace M {
-
   //! active2
   extern Active active2;
-
 }
 
 namespace M {
-
   //! active3
   extern Active active3;
-
 }
 
 namespace M {
-
   //! passive1
   extern Passive passive1;
-
 }
 
 namespace M {
-
   //! passive2
   extern ConcretePassive passive2;
-
 }
 
 namespace M {
