@@ -527,9 +527,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
 <li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
@@ -887,44 +885,55 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Values">19. Values</a>
+<li><a href="#Type-Options">19. Type Options</a>
 <ul class="sectlevel2">
-<li><a href="#Values_Primitive-Integer-Values">19.1. Primitive Integer Values</a></li>
-<li><a href="#Values_Integer-Values">19.2. Integer Values</a></li>
-<li><a href="#Values_Floating-Point-Values">19.3. Floating-Point Values</a></li>
-<li><a href="#Values_Boolean-Values">19.4. Boolean Values</a></li>
-<li><a href="#Values_String-Values">19.5. String Values</a></li>
-<li><a href="#Values_Abstract-Type-Values">19.6. Abstract Type Values</a></li>
-<li><a href="#Values_Anonymous-Array-Values">19.7. Anonymous Array Values</a></li>
-<li><a href="#Values_Array-Values">19.8. Array Values</a></li>
-<li><a href="#Values_Enumeration-Values">19.9. Enumeration Values</a></li>
-<li><a href="#Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</a></li>
-<li><a href="#Values_Struct-Values">19.11. Struct Values</a></li>
-<li><a href="#Values_Serialized-Sizes">19.12. Serialized Sizes</a></li>
-</ul>
-</li>
-<li><a href="#Evaluation">20. Evaluation</a>
-<ul class="sectlevel2">
-<li><a href="#Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</a></li>
-<li><a href="#Evaluation_Type-Conversion">20.2. Type Conversion</a>
+<li><a href="#Type-Options_Conversion-of-Type-Options">19.1. Conversion of Type Options</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option">19.2. Computing a Common Type Option</a>
 <ul class="sectlevel3">
-<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option_Pairs-of-Type-Options">19.2.1. Pairs of Type Options</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">19.2.2. Lists of Type Options</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Analysis-and-Translation">21. Analysis and Translation</a>
+<li><a href="#Values">20. Values</a>
 <ul class="sectlevel2">
-<li><a href="#Analysis-and-Translation_Analysis">21.1. Analysis</a></li>
-<li><a href="#Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</a></li>
-<li><a href="#Analysis-and-Translation_Translation">21.3. Translation</a></li>
-<li><a href="#Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</a></li>
+<li><a href="#Values_Primitive-Integer-Values">20.1. Primitive Integer Values</a></li>
+<li><a href="#Values_Integer-Values">20.2. Integer Values</a></li>
+<li><a href="#Values_Floating-Point-Values">20.3. Floating-Point Values</a></li>
+<li><a href="#Values_Boolean-Values">20.4. Boolean Values</a></li>
+<li><a href="#Values_String-Values">20.5. String Values</a></li>
+<li><a href="#Values_Abstract-Type-Values">20.6. Abstract Type Values</a></li>
+<li><a href="#Values_Anonymous-Array-Values">20.7. Anonymous Array Values</a></li>
+<li><a href="#Values_Array-Values">20.8. Array Values</a></li>
+<li><a href="#Values_Enumeration-Values">20.9. Enumeration Values</a></li>
+<li><a href="#Values_Anonymous-Struct-Values">20.10. Anonymous Struct Values</a></li>
+<li><a href="#Values_Struct-Values">20.11. Struct Values</a></li>
+<li><a href="#Values_Serialized-Sizes">20.12. Serialized Sizes</a></li>
+</ul>
+</li>
+<li><a href="#Evaluation">21. Evaluation</a>
+<ul class="sectlevel2">
+<li><a href="#Evaluation_Evaluating-Expressions">21.1. Evaluating Expressions</a></li>
+<li><a href="#Evaluation_Type-Conversion">21.2. Type Conversion</a>
+<ul class="sectlevel3">
+<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">21.2.2. Signed Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Analysis-and-Translation">22. Analysis and Translation</a>
+<ul class="sectlevel2">
+<li><a href="#Analysis-and-Translation_Analysis">22.1. Analysis</a></li>
+<li><a href="#Analysis-and-Translation_Analysis-Tools">22.2. Analysis Tools</a></li>
+<li><a href="#Analysis-and-Translation_Translation">22.3. Translation</a></li>
+<li><a href="#Analysis-and-Translation_Translation-Tools">22.4. Translation Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -2790,6 +2799,11 @@ A state machine member is one of the following:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The <strong>transitive members</strong> of a state machine definition <em>M</em> are
+(1) the elements of <em>M</em> and (2)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</h4>
@@ -2818,17 +2832,21 @@ The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
 <p><em>M</em> must satisfy the rules described
-<a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">below</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_The-Transition-Graph">below</a>
 for the induced transition graph.</p>
 </li>
+<li>
+<p><em>M</em> must satisfy the rules described
+<a href="#Definitions_State-Machine-Definitions_Semantics_Typed-Elements">below</a>
+for typed elements.</p>
+</li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</h4>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Semantics_The-Transition-Graph">The Transition Graph</h5>
 <div class="paragraph">
 <p>If present, the optional state machine member sequence <em>M</em>
 induces a directed graph called the <strong>transition graph</strong>, defined as
@@ -2840,10 +2858,6 @@ follows:</p>
 <p>The nodes of the transition graph are the initial transition specifiers,
 state definitions, and
 junction definitions that are transitive members of <em>M</em>.</p>
-</li>
-<li>
-<p>The <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
-the members of any state definition that is a transitive member of <em>M</em>.</p>
 </li>
 <li>
 <p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
@@ -2877,7 +2891,7 @@ immediately enclosing <em>T</em>.</p>
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>e</em>
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refers to</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refers to</a>
 a junction definition <em>J</em> after the keyword <code>enter</code>, then the
 terminal node is <em>J</em>.</p>
 </li>
@@ -2921,8 +2935,79 @@ There must be no cycles in <em>S</em>.</p>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</h4>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Semantics_Typed-Elements">Typed Elements</h5>
+<div class="paragraph">
+<p>A <strong>typed element</strong> <em>e</em> is an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
+a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a>,
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
+A typed element <em>e</em> <strong>points to</strong> a junction <em>J</em> if</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>e</em> is an initial transition specifier, and its enter expression
+refers to <em>J</em>; or</p>
+</li>
+<li>
+<p><em>e</em> is a state transition specifier with an enter expression that refers to
+<em>J</em>; or</p>
+</li>
+<li>
+<p><em>e</em> is a junction, and at least one of its enter expressions
+refers to <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It must be possible to assign <a href="#Type-Options">type options</a>
+to all the typed elements in a state machine definition in
+the following way.
+If not, an error results.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The type option of each initial transition specifier is <em>None</em>.</p>
+</li>
+<li>
+<p>The type option of each state transition specifier <em>S</em> is the type
+option specified in the definition of the signal specified in <em>S</em>
+after the keyword <code>on</code>.</p>
+</li>
+<li>
+<p>The type option of a junction <em>J</em> is the
+<a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">common type option</a> of the type options of the typed elements
+that point to <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For each typed element <em>e</em></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>O</em> be the type option assigned to <em>e</em> as described above.</p>
+</li>
+<li>
+<p>For every action <em>A</em> appearing in the list of <code>do</code> actions specified in <em>e</em>,
+<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
+the type option specified in <em>A</em>.</p>
+</li>
+<li>
+<p>For every guard <em>G</em> appearing in an <code>if</code> construct in <em>e</em>,
+<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
+the type option specified in <em>G</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">Scoping of Names</h5>
 <div class="paragraph">
 <p>Inside the optional state machine member sequence, the following
 rules govern the assignment of names to definitions and the resolution
@@ -2996,8 +3081,9 @@ with the following modifications:</p>
 </ol>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
@@ -3809,14 +3895,14 @@ some action.</p>
 <ol class="arabic">
 <li>
 <p>If present, the optional identifier after the keyword <code>do</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to an
 <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
 It specifies an action to perform when making the transition.</p>
 </li>
 <li>
 <p>The qualified identifier after the keyword <code>enter</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
 or a
@@ -4001,7 +4087,7 @@ A junction is a branch point controlled by a
 </li>
 <li>
 <p>The identifier after the keyword <code>if</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
 It specifies the guard that controls the branch.</p>
@@ -4173,7 +4259,7 @@ then it must obey the following rules:</p>
 <li>
 <p>No two <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state
 transition specifiers</a> that are members of <em>M</em> may
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a> to the same
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a> to the same
 signal definition.</p>
 </li>
 </ol>
@@ -4276,14 +4362,14 @@ It specifies a transition from the state in which it appears.</p>
 <ol class="arabic">
 <li>
 <p>The identifier after the keyword <code>on</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a>.
 It names the signal that causes the transition to occur.</p>
 </li>
 <li>
 <p>If present, the optional identifier after the keyword <code>if</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
 It specifies a guard for the transition.</p>
@@ -4302,7 +4388,7 @@ exiting and then re-entering the state.</p>
 in the same state.
 When making an internal transition, the exit and re-entry code is not run.
 The identifier after the keyword <code>do</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refer</a>
 to an
 <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
 </li>
@@ -9139,24 +9225,14 @@ whose member types are the corresponding common types.</p>
 <p>Check that \$n &gt; 0\$. If not, then throw an error.</p>
 </li>
 <li>
-<p>Compute the type \$T_1\$ of \$e_1\$.</p>
+<p>Let \$T'_1\$ be \$T_1\$.</p>
 </li>
 <li>
-<p>For each \$i in [2,n\$]</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Compute the type \$T\$ of \$e_i\$.</p>
+<p>For each \$i in [2,n\$], compute the
+<a href="#Type-Options_Computing-a-Common-Type-Option">common type option</a> \$T'_i\$ of \$T'_(i-1)\$ and \$T_i\$.</p>
 </li>
 <li>
-<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type">common type</a>
-\$T_i\$ of \$T_(i-1)\$ and \$T\$.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Use \$T_n\$ as the common type of the list.</p>
+<p>Use \$T'_n\$ as the common type option of the list.</p>
 </li>
 </ol>
 </div>
@@ -9165,7 +9241,103 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Values">19. Values</h2>
+<h2 id="Type-Options">19. Type Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>type option</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>Some</em> \$T\$, representing a value of type \$T\$.</p>
+</li>
+<li>
+<p><em>None</em>, representing no value.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Type options are used to specify the optional types associated with
+signals, actions, and guards in <a href="#Definitions_State-Machine-Definitions">state
+machine definitions</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Type-Options_Conversion-of-Type-Options">19.1. Conversion of Type Options</h3>
+<div class="paragraph">
+<p>We say that a type option \$O_1\$ <strong>may be converted to</strong> another type option
+\$O_2\$ if one of the following holds:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>\$O_2\$ is <em>None</em>.</p>
+</li>
+<li>
+<p>\$O_1\$ is <em>Some</em> \$T_1\$, \$O_2\$ is <em>Some</em> \$T_2\$,
+and \$T_1\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
+\$T_2\$.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Options_Computing-a-Common-Type-Option">19.2. Computing a Common Type Option</h3>
+<div class="sect3">
+<h4 id="Type-Options_Computing-a-Common-Type-Option_Pairs-of-Type-Options">19.2.1. Pairs of Type Options</h4>
+<div class="paragraph">
+<p>Here are the rules for resolving two type options \$O_1\$ and \$O_2\$ to
+a common type option \$O\$:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If either or both of \$O_1\$ and \$O_2\$ is <em>None</em>, then
+let \$O\$ be <em>None</em>.</p>
+</li>
+<li>
+<p>Otherwise if (a) \$O_1\$ is <em>Some</em> \$T_1\$ and (b)
+\$O_2\$ is <em>Some</em> \$T_2\$ and (c) \$T_1\$ and \$T_2\$
+have the
+<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$T\$,
+then let \$O\$ be <em>Some</em> \$T\$.</p>
+</li>
+<li>
+<p>Otherwise the attempted resolution is invalid.
+Throw an error.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">19.2.2. Lists of Type Options</h4>
+<div class="paragraph">
+<p>To compute a common type for a list of type options
+\$O_1, ... , O_n\$, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that \$n &gt; 0\$. If not, then throw an error.</p>
+</li>
+<li>
+<p>Let \$O'_1\$ be \$O_1\$.</p>
+</li>
+<li>
+<p>For each \$i in [2,n\$], compute the
+<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$O'_i\$ of
+\$O'_(i-1)\$ and \$O_i\$.</p>
+</li>
+<li>
+<p>Use \$O'_n\$ as the common type of the list.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Values">20. Values</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>value</strong> is one of the following:</p>
@@ -9211,7 +9383,7 @@ whose member types are the corresponding common types.</p>
 <p>Every value belongs to exactly one type.</p>
 </div>
 <div class="sect2">
-<h3 id="Values_Primitive-Integer-Values">19.1. Primitive Integer Values</h3>
+<h3 id="Values_Primitive-Integer-Values">20.1. Primitive Integer Values</h3>
 <div class="paragraph">
 <p>A <strong>primitive integer value</strong> is an ordinary (mathematical) integer value
 together with a
@@ -9241,7 +9413,7 @@ U32</code> is distinct from the value <code>1: U8</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Integer-Values">19.2. Integer Values</h3>
+<h3 id="Values_Integer-Values">20.2. Integer Values</h3>
 <div class="paragraph">
 <p>An <strong>integer value</strong> is an ordinary (mathematical) integer value.
 It has type <em>Integer</em>.
@@ -9250,7 +9422,7 @@ For example, <code>1</code> is an integer value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Floating-Point-Values">19.3. Floating-Point Values</h3>
+<h3 id="Values_Floating-Point-Values">20.3. Floating-Point Values</h3>
 <div class="paragraph">
 <p>A <strong>floating-point value</strong> is an IEEE floating-point value of 4- or 8-byte
 width. Formally, the set of floating-point values is the disjoint union
@@ -9272,14 +9444,14 @@ example, we write the value 1.0 at type <code>F32</code> as <code>1.0: F32</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Boolean-Values">19.4. Boolean Values</h3>
+<h3 id="Values_Boolean-Values">20.4. Boolean Values</h3>
 <div class="paragraph">
 <p>A <strong>Boolean value</strong> is one of the values <code>true</code> and <code>false</code>.
 Its type is <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_String-Values">19.5. String Values</h3>
+<h3 id="Values_String-Values">20.5. String Values</h3>
 <div class="paragraph">
 <p>A <strong>string value</strong> is a sequence of characters that can be
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
@@ -9289,7 +9461,7 @@ Its type is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Abstract-Type-Values">19.6. Abstract Type Values</h3>
+<h3 id="Values_Abstract-Type-Values">20.6. Abstract Type Values</h3>
 <div class="paragraph">
 <p>An <strong>abstract type value</strong> is a value associated with an abstract
 type.
@@ -9298,7 +9470,7 @@ We write the value <code>value of type</code> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Array-Values">19.7. Anonymous Array Values</h3>
+<h3 id="Values_Anonymous-Array-Values">20.7. Anonymous Array Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
@@ -9311,7 +9483,7 @@ The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Array-Values">19.8. Array Values</h3>
+<h3 id="Values_Array-Values">20.8. Array Values</h3>
 <div class="paragraph">
 <p>An <strong>array value</strong> is a value associated with an array type.
 We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
@@ -9342,7 +9514,7 @@ with member type \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Enumeration-Values">19.9. Enumeration Values</h3>
+<h3 id="Values_Enumeration-Values">20.9. Enumeration Values</h3>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -9354,7 +9526,7 @@ the enumerated constant definition appears.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</h3>
+<h3 id="Values_Anonymous-Struct-Values">20.10. Anonymous Struct Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous struct value</strong> is a value associated with an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct
@@ -9369,7 +9541,7 @@ The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <e
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Struct-Values">19.11. Struct Values</h3>
+<h3 id="Values_Struct-Values">20.11. Struct Values</h3>
 <div class="paragraph">
 <p>A <strong>struct value</strong> is a value associated with a
 <a href="#Types_Struct-Types">struct type</a>.
@@ -9401,7 +9573,7 @@ that refers to a
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Serialized-Sizes">19.12. Serialized Sizes</h3>
+<h3 id="Values_Serialized-Sizes">20.12. Serialized Sizes</h3>
 <div class="paragraph">
 <p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
 <strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
@@ -9453,7 +9625,7 @@ is up to the implementer of <em>T</em> to provide the serialized size.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Evaluation">20. Evaluation</h2>
+<h2 id="Evaluation">21. Evaluation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
@@ -9463,7 +9635,7 @@ In FPP, all evaluation happens during
 in resolving expressions to compile-time constant values.</p>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</h3>
+<h3 id="Evaluation_Evaluating-Expressions">21.1. Evaluating Expressions</h3>
 <div class="paragraph">
 <p>Evaluation of expressions occurs as stated in the
 <a href="#Expressions">expression descriptions</a>. Evaluation of integer
@@ -9474,14 +9646,14 @@ arithmetic.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Type-Conversion">20.2. Type Conversion</h3>
+<h3 id="Evaluation_Type-Conversion">21.2. Type Conversion</h3>
 <div class="paragraph">
 <p>The following rules govern the conversion of a value \$v_1\$ of type
 \$T_1\$
 to a value \$v_2\$ of type \$T_2\$.</p>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9503,7 +9675,7 @@ converting <code>0x12: U8</code> to <code>U16</code> yields <code>0x12: U16</cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">21.2.2. Signed Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9523,7 +9695,7 @@ example, converting <code>-0x12: I8</code> to <code>I16</code> yields <code>-0x1
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</h4>
 <div class="paragraph">
 <p>If \$T_1\$ and \$T_2\$ are primitive integer types with one signed and
 one unsigned,
@@ -9548,7 +9720,7 @@ then do the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
 proceed as if \$T_1\$ were a signed primitive integer
@@ -9563,7 +9735,7 @@ at type <em>Integer</em>. For example, converting
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</h4>
+<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
@@ -9571,7 +9743,7 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -9599,7 +9771,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -9633,10 +9805,10 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analysis-and-Translation">21. Analysis and Translation</h2>
+<h2 id="Analysis-and-Translation">22. Analysis and Translation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis">21.1. Analysis</h3>
+<h3 id="Analysis-and-Translation_Analysis">22.1. Analysis</h3>
 <div class="paragraph">
 <p><strong>Analysis</strong> is the process of checking a source model.
 It usually involves the following steps:</p>
@@ -9653,7 +9825,7 @@ It usually involves the following steps:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</h3>
+<h3 id="Analysis-and-Translation_Analysis-Tools">22.2. Analysis Tools</h3>
 <div class="paragraph">
 <p>An <strong>analysis tool</strong> is a tool that reads in and analyzes FPP
 source files, but does not generate any code.
@@ -9677,7 +9849,7 @@ The command <code>cat file1.fpp file2.fpp | analyze</code> is functionally equiv
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation">21.3. Translation</h3>
+<h3 id="Analysis-and-Translation_Translation">22.3. Translation</h3>
 <div class="paragraph">
 <p><strong>Translation</strong> is the process of performing analysis and
 generating code.</p>
@@ -9702,7 +9874,7 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</h3>
+<h3 id="Analysis-and-Translation_Translation-Tools">22.4. Translation Tools</h3>
 <div class="paragraph">
 <p>A <strong>translation tool</strong> is a tool that translates FPP source files.
 A translation tool typically accepts the following two kinds of
@@ -9741,7 +9913,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-24 13:27:19 -0700
+Last updated 2024-07-30 09:03:45 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

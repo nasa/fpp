@@ -476,6 +476,7 @@ var IN_GLOBAL_SCOPE = false;
           "serial," +
           "set," +
           "severity," +
+          "signal," +
           "size," +
           "stack," +
           "state," +
