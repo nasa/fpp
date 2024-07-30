@@ -14,7 +14,7 @@ state machine M {
   guard g2
 
   @ Initial transition
-  initial do a1 enter J
+  initial do {a1} enter J
 
   @ Junction J
   junction J { if g1 enter S1 else enter S2 }
@@ -26,7 +26,7 @@ state machine M {
   state S2 {
 
     @ Initial transition
-    initial do a1 enter S3
+    initial do {a1, a2} enter S3
 
     @ Junction J
     junction J { if g1 enter S1 else enter S2.S3 }
@@ -35,7 +35,7 @@ state machine M {
     state S3
 
     @ Transition to S1
-    on s1 if g1 do a1 enter S1
+    on s1 if g1 do {a1} enter S1
 
     @ Transition to S1
     on s2 if g1 enter S1
@@ -44,10 +44,10 @@ state machine M {
     on s3 enter S1
 
     @ Internal transition
-    on s4 if g1 do a1
+    on s4 if g1 do {a1}
 
     @ Internal transition
-    on s5 do a1
+    on s5 do {a1}
 
   }
 

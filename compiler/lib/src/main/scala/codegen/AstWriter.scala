@@ -692,13 +692,20 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
 
+
   private def enterExpression(
     enterExpr: Ast.EnterExpr
   ) = {
     List(
-      linesOpt(addPrefix("action", applyToData(ident)), enterExpr.action),
+      enterExpr.action.map(doExpression).getOrElse(List.empty),
       addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
     ).flatten
+  }
+
+  private def doExpression(doExpr: Ast.DoExpr): List[Line] = {
+    doExpr.actions.map { identNode =>
+        line(s"action ident ${identNode.data}")
+    }
   }
 
   private def enterOrDo(
@@ -706,7 +713,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     enterOrDo match {
       case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
+      case Ast.EnterOrDo.Do(actions) => doExpression(actions)
     }
   }
 

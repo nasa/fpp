@@ -49,12 +49,21 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def doExpression(
+    doExpr: Ast.DoExpr
+  ) = {
+    doExpr.actions.map{ identNode =>
+      Line(identNode.data)
+    }
+  }
+
   def enterExpression(
     enterExpr: Ast.EnterExpr
-  ): Out = {
-    lines("").
-    joinOpt (enterExpr.action) (" do ") (nodeIdentAsLines).
-    join (" enter ")(qualIdent(enterExpr.state.data))
+  ) = {
+    List(
+      enterExpr.action.map(doExpression).getOrElse(List.empty).
+      join (" enter ")(qualIdent(enterExpr.state.data))
+    ).flatten
   }
 
   def moduleMember(member: Ast.ModuleMember): Out = {
@@ -93,7 +102,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     enterOrDo match {
       case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => lines(s" do ${ident(action.data)}")
+      case Ast.EnterOrDo.Do(doExpr) => doExpression(doExpr)
     }
   }
 
