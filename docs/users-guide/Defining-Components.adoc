@@ -2409,11 +2409,9 @@ it is provided when the record is serialized into a container.
 
 === State Machine Instances
 
-A *state machine instance* is a component member that specifies
-a named instance of an FPP
-<<Defining-State-Machines,state machine>>.
-It says that the state machine instance is part
-of the component implementation.
+A *state machine instance* is a component member that instantiates
+an FPP <<Defining-State-Machines,state machine>>.
+The state machine instance is part of the component implementation.
 
 For example, here is a simple async component that has
 one state machine instance and one async input port
@@ -2436,18 +2434,17 @@ active component StateMachine {
 }
 ----
 
-A state machine instance _m_ inside a component _C_
-processes *signals* as it runs.
+When a state machine instance _m_ is a member of a component _C_,
+each instance _c_ of _C_ sends _m_ *signals* to process as it runs.
 Signals occur in response to commands or port
-input to _C_, and they tell _m_ when to change state.
-The command handlers and input handlers of _C_ put signals on 
-the queue of _C_,
-and _m_ dispatches them off the queue.
-Therefore, a component with a state machine instance
-member must have a queue, i.e., it must be active or queued.
+invocations received by _c_, and they tell _m_ when to change state.
+_c_ puts the signals on its queue, and _m_ dispatches them.
+Therefore, if a component _C_ has a state machine instance member _m_,
+then its instances _c_ must have queues, i.e., _C_ must be active or queued.
 
 As with <<Defining-Components_Internal-Ports,internal ports>>,
-you may specify priority and queue full behavior.
+you may specify priority and queue full behavior associated
+with the signals dispatched by a state machine instance.
 For example, we can revise the example above as follows:
 
 [source,fpp]
