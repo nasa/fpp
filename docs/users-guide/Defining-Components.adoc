@@ -189,8 +189,11 @@ Try presenting this code to `fpp-check` and observe what happens.
 
 Second, an active or queued component _must_ have asynchronous input.
 That means it must have at least one async input port;
-or it must have an internal port (described below);
-or it must have at least one async command (also described below).
+or it must have an internal port;
+or it must have at least one async command; or it must have
+at least one state machine instance.
+Internal ports, async commands, and state machine instances
+are described below.
 As an example, if we modify the input ports of our `ActiveF32Adder`
 to make them `sync`, we get an error, because
 there is no async input.
@@ -2406,7 +2409,63 @@ it is provided when the record is serialized into a container.
 
 === State Machine Instances
 
-TODO
+A *state machine instance* is a component member that specifies
+a named instance of an FPP
+<<Defining-State-Machines,state machine>>.
+It says that the state machine instance is part
+of the component implementation.
+
+For example, here is a simple async component that has
+one state machine instance and one async input port
+for driving the state machine:
+
+[source,fpp]
+----
+@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M
+
+}
+----
+
+A state machine instance _m_ inside a component _C_
+processes *signals* as it runs.
+Signals occur in response to commands or port
+input to _C_, and they tell _m_ when to change state.
+The command handlers and input handlers of _C_ put signals on 
+the queue of _C_,
+and _m_ dispatches them off the queue.
+Therefore, a component with a state machine instance
+member must have a queue, i.e., it must be active or queued.
+
+As with <<Defining-Components_Internal-Ports,internal ports>>,
+you may specify priority and queue full behavior.
+For example, we can revise the example above as follows:
+
+[source,fpp]
+--------
+@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M priority 10 drop
+
+}
+--------
 
 === Constants, Types, Enums, and State Machines
 
