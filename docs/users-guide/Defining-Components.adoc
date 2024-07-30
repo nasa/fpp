@@ -2295,7 +2295,7 @@ Here is an example:
 @ A struct type defining some data
 struct Data { a: U32, b: F32 }
 
-@ A component for illustrating data product 
+@ A component for illustrating data product identifiers
 passive component DataProductIdentifiers {
 
   # ----------------------------------------------------------------------
@@ -2408,10 +2408,12 @@ it is provided when the record is serialized into a container.
 
 TODO
 
-=== Constants, Types, and State Machines
+=== Constants, Types, Enums, and State Machines
 
 You can write a <<Defining-Constants,constant definition>>,
-<<Defining-Types,type definition>>, or
+<<Defining-Types,type definition>>, 
+<<Defining-Enums,enum definition>>, 
+or
 <<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
