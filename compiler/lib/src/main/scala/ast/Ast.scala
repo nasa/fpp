@@ -192,8 +192,12 @@ object Ast {
 
   /** Enter expression */
   final case class EnterExpr(
-    action: Option[AstNode[Ident]],
+    action: Option[DoExpr],
     state: AstNode[QualIdent]
+  )
+
+  final case class DoExpr(
+    actions: List[AstNode[Ident]]
   )
 
   /** Signal definition */
@@ -234,7 +238,7 @@ object Ast {
   sealed trait EnterOrDo
   object EnterOrDo {
     final case class Enter(enter: EnterExpr) extends EnterOrDo
-    final case class Do(action: AstNode[Ident]) extends EnterOrDo
+    final case class Do(action: DoExpr) extends EnterOrDo
   }
 
   /** Struct definition */

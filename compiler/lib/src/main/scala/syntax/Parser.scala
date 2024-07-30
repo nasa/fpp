@@ -197,17 +197,28 @@ object Parser extends Parsers {
   }
 
   def enterExpr: Parser[Ast.EnterExpr] =
-    opt(doToken ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
-      case ident ~ state =>
-        Ast.EnterExpr(ident, state)
+    opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
+      case doList ~ state =>
+        Ast.EnterExpr(doList, state)
     }
+
+
+  def doExpr: Parser[Ast.DoExpr] = {
+    def id(x: Ast.Annotated[AstNode[Ast.Ident]]) = x
+    def members = annotatedElementSequence(node(ident), comma, id)
+    doToken ~> lbrace ~>! members <~! rbrace ^^ {
+      case members =>
+        val transformedMembers = members.map { case (_, elt, _) => elt }
+        Ast.DoExpr(transformedMembers)
+    }
+  }
 
   def enterOrDo: Parser[Ast.EnterOrDo] = {
     def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
       case e => Ast.EnterOrDo.Enter(e)
     }
-    def doParser: Parser[Ast.EnterOrDo.Do] = doToken ~>! node(ident) ^^ {
-      case ident => Ast.EnterOrDo.Do(ident)
+    def doParser: Parser[Ast.EnterOrDo.Do] = doExpr ^^ {
+      case doList => Ast.EnterOrDo.Do(doList)
     }
     enterParser | doParser
   }
