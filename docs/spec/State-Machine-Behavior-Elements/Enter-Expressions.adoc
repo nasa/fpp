@@ -17,7 +17,7 @@ _]_
 
 
 ==== Semantics
-. If present, the _do-expression_ specifies the list of actions to be performed
+. If present, the do-expression specifies the list of actions to be performed
 
 . The qualified identifier after the keyword `enter` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
@@ -39,7 +39,7 @@ state machine Device {
   initial do {
     initDev1
     initDev2
-  }
+  } \
   enter OFF
 
   state OFF {

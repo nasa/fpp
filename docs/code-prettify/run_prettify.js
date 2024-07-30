@@ -428,8 +428,10 @@ var IN_GLOBAL_SCOPE = false;
           "drop," +
           "else," +
           "enter" +
+          "entry" +
           "enum," +
           "event," +
+          "exit," +
           "fatal," +
           "format," +
           "get," +

@@ -10,7 +10,7 @@ It specifies the state's entry actions
 
 ==== Semantics
 
-. The _do-expression_ specifies a list of entry actions that get executed
+. The do expression specifies a list of entry actions that get executed
 when entering a state
 
 ==== Examples

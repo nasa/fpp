@@ -3043,7 +3043,7 @@ with the following modifications:</p>
 
   state DeviceOn {
 
-    initial do init2 enter Initializing
+    initial do {init2} enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -3055,13 +3055,13 @@ with the following modifications:</p>
     }
 
     state Calibrating {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do {doCalibrate}
+      on Fault do {reportFault} enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do motorControl
+      on RTI do {motorControl}
       on Stop enter Idle
     }
 
@@ -3853,7 +3853,7 @@ to a list of
   action powerGimbal
 
   state ON {
-    enter do {
+    entry do {
       powerActuator
       powerGyro
       powerGimbal
@@ -3890,7 +3890,7 @@ some action.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If present, the <em>do-expression</em> specifies the list of actions to be performed</p>
+<p>If present, the do-expression specifies the list of actions to be performed</p>
 </li>
 <li>
 <p>The qualified identifier after the keyword <code>enter</code> must
@@ -3916,7 +3916,7 @@ It is the state or junction that is entered.</p>
   initial do {
     initDev1
     initDev2
-  }
+  } \
   enter OFF
 
   state OFF {
@@ -4041,7 +4041,7 @@ transition specifier appears.</p>
     initial do {
       initDev1
       initDev2
-    }
+    } \
     enter POWERING_UP
 
     state POWERING_UP
@@ -4110,7 +4110,7 @@ otherwise the second enter expression is run.</p>
     if coldStart enter OFF \
     else do {
       initPower
-    }
+    } \
     enter ON
   }
 
@@ -4310,7 +4310,7 @@ Otherwise it is called a <strong>leaf state definition</strong>.</p>
     initial do {
       init1
       init2
-     }
+     } \
      enter INITIALIZING
 
     state INITIALIZING {
@@ -4336,7 +4336,7 @@ Otherwise it is called a <strong>leaf state definition</strong>.</p>
       }
       on Fault do {
         reportFault
-       }
+       } \
       enter Idle
       on Complete enter IDLE
     }
@@ -4347,7 +4347,7 @@ Otherwise it is called a <strong>leaf state definition</strong>.</p>
       }
       on Stop do {
         stopMotor
-      }
+      } \
       enter IDLE
     }
 
@@ -4376,7 +4376,7 @@ It specifies the state&#8217;s entry actions</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>do-expression</em> specifies a list of entry actions that get executed
+<p>The do expression specifies a list of entry actions that get executed
 when entering a state</p>
 </li>
 </ol>
@@ -4419,7 +4419,7 @@ It specifies the state&#8217;s exit actions</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>do-expression</em> specifies a list of exit actions that get executed
+<p>The do expression specifies a list of exit actions that get executed
 when exiting a state</p>
 </li>
 </ol>
@@ -4485,7 +4485,7 @@ and the terminating punctuation is a comma.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <em>identifier</em> after the keyword <code>on</code> must
+<p>The identifier after the keyword <code>on</code> must
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a>.
@@ -4511,7 +4511,7 @@ exiting and then re-entering the state.</p>
 <strong>internal transition</strong>, i.e., a list of actions to take while remaining
 in the same state.
 When making an internal transition, the exit and re-entry code is not run.
-The list of actions specified in the _do-expression) must
+The list of actions specified in the do expression must
 <a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
 to a list of
 <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definitions</a>.</p>
@@ -4540,7 +4540,7 @@ to a list of
     on PowerOn if initComplete do {
       powerHeater
       powerSensor
-    }
+    } \
     enter ON
   }
 
@@ -9956,7 +9956,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-25 11:25:24 -0700
+Last updated 2024-07-30 13:35:14 -0700
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">

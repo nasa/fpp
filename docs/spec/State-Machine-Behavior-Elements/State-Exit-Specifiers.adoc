@@ -10,7 +10,7 @@ It specifies the state's exit actions
 
 ==== Semantics
 
-. The _do-expression_ specifies a list of exit actions that get executed
+. The do expression specifies a list of exit actions that get executed
 when exiting a state
 
 ==== Examples

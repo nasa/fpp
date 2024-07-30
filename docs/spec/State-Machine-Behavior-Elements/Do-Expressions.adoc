@@ -34,7 +34,7 @@ state machine Device {
   action powerGimbal
 
   state ON {
-    enter do {
+    entry do {
       powerActuator
       powerGyro
       powerGimbal
