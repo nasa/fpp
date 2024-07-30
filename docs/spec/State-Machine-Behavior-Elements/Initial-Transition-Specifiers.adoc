@@ -38,7 +38,7 @@ state machine Device {
     initial do {
       initDev1
       initDev2
-    }
+    } \
     enter POWERING_UP
 
     state POWERING_UP

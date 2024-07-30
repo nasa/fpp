@@ -25,7 +25,7 @@ and the terminating punctuation is a comma.
 
 ==== Semantics
 
-. The _identifier_ after the keyword `on` must
+. The identifier after the keyword `on` must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
@@ -48,7 +48,7 @@ exiting and then re-entering the state.
 *internal transition*, i.e., a list of actions to take while remaining
 in the same state.
 When making an internal transition, the exit and re-entry code is not run.
-The list of actions specified in the _do-expression) must
+The list of actions specified in the do expression must
 <<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
 to a list of 
 <<State-Machine-Behavior-Elements_Action-Definitions,action definitions>>.
@@ -74,7 +74,7 @@ state machine Device {
     on PowerOn if initComplete do {
       powerHeater
       powerSensor
-    }
+    } \
     enter ON
   }
 

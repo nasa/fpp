@@ -44,7 +44,7 @@ state machine Device {
     if coldStart enter OFF \
     else do {
       initPower
-    } 
+    } \ 
     enter ON
   }
 

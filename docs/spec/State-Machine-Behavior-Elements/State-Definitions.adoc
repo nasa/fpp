@@ -78,7 +78,7 @@ state machine MonitorSm {
     initial do {
       init1
       init2
-     } 
+     } \
      enter INITIALIZING
 
     state INITIALIZING {
@@ -104,7 +104,7 @@ state machine MonitorSm {
       }
       on Fault do {
         reportFault
-       }
+       } \
       enter Idle
       on Complete enter IDLE
     }
@@ -115,7 +115,7 @@ state machine MonitorSm {
       }
       on Stop do {
         stopMotor
-      }
+      } \
       enter IDLE
     }
 
