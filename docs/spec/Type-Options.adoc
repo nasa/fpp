@@ -1,0 +1,56 @@
+== Type Options
+
+A *type option* is one of the following:
+
+. _Some_ stem:[T], representing a value of type stem:[T].
+
+. _None_, representing no value.
+
+Type options are used to specify the optional types associated with
+signals, actions, and guards in <<Definitions_State-Machine-Definitions,state 
+machine definitions>>.
+
+=== Conversion of Type Options
+
+We say that a type option stem:[O_1] *may be converted to* another type option
+stem:[O_2] if one of the following holds:
+
+. stem:[O_2] is _None_.
+
+. stem:[O_1] is _Some_ stem:[T_1], stem:[O_2] is _Some_ stem:[T_2],
+and stem:[T_1] <<Type-Checking_Type-Conversion,may be converted to>>
+stem:[T_2].
+
+=== Computing a Common Type Option
+
+==== Pairs of Type Options
+
+Here are the rules for resolving two type options stem:[O_1] and stem:[O_2] to 
+a common type option stem:[O]:
+
+. If either or both of stem:[O_1] and stem:[O_2] is _None_, then
+let stem:[O] be _None_.
+
+. Otherwise if (a) stem:[O_1] is _Some_ stem:[T_1] and (b)
+stem:[O_2] is _Some_ stem:[T_2] and (c) stem:[T_1] and stem:[T_2]
+have the
+<<Type-Checking_Computing-a-Common-Type,common type>> stem:[T],
+then let stem:[O] be _Some_ stem:[T].
+
+. Otherwise the attempted resolution is invalid.
+Throw an error.
+
+==== Lists of Type Options
+
+To compute a common type for a list of type options
+stem:[O_1, ... , O_n], do the following:
+
+.  Check that stem:[n > 0]. If not, then throw an error.
+
+. Let stem:[O'_1] be stem:[O_1].
+
+.  For each stem:[i in [2,n]], compute the
+<<Type-Checking_Computing-a-Common-Type,common type>> stem:[O'_i] of
+stem:[O'_(i-1)] and stem:[O_i].
+
+.  Use stem:[O'_n] as the common type of the list.
