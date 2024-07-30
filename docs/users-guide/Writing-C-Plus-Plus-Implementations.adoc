@@ -176,7 +176,19 @@ You don't have to define header files for these types.
 
 === Implementing External State Machines
 
-TODO
+An <<Defining-State-Machines_External-State-Machines,
+external state machine>> refers to a state machine implementation
+supplied outside the FPP model.
+To implement an external state machine, you can use 
+the https://github.com/JPLOpenSource/STARS/tree/main[State Autocoding for 
+Real-Time Systems (STARS)]
+tool.
+STARS provides several ways to specify state machines, and it
+provides several {cpp} back ends.
+The F Prime back end is designed to work with FPP code generation.
+
+For an example of an external state machine implemented in STARS,
+see `FppTest/state_machine` in the F Prime repository.
 
 === Implementing Deployments
 

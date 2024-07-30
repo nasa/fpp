@@ -21,15 +21,15 @@ In FPP there are two ways to define a state machine:
 an <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>:
 it tells the analyzer that a state machine exists with a specified
 name, but it says nothing about the state machine behavior.
-The state machine implementation must be provided by an
-external tool.
+An external tool must provide the state machine implementation.
 
 . An *internal* state machine definition is similar to an
 <<Defining-Types_Array-Type-Definitions,array type definition>>
 or
 <<Defining-Types_Struct-Type-Definitions,struct type definition>>:
-it provides a complete specification of the state machine behavior,
-which the FPP back end can use to generate code.
+it provides a complete specification in FPP of the state machine behavior.
+The FPP back end uses this specification to generate code;
+no external tool is required.
 
 As of the current version of FPP, only external state machines
 are implemented.
@@ -54,7 +54,7 @@ state machine M
 This code defines an external state machine with name `M`.
 You can then
 <<Defining-Components_State-Machine-Instances,instantiate>>
-the state machine `M` inside a component definition.
+the state machine `M` in a component definition.
 
 When you define an external state machine `M`, you must provide
 an implementation for `M`, as discussed in the section
