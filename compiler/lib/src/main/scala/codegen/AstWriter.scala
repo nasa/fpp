@@ -603,7 +603,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec transition") ++
     (addPrefix("signal", applyToData(ident)) (data.signal) ++
     linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
-    enterOrDo(data.enterOrDo)).map(indentIn)
+    transitionOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =
@@ -701,10 +701,10 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten
   }
 
-  private def enterOrDo(
-    enterOrDo: Ast.TransitionOrDo
+  private def transitionOrDo(
+    transitionOrDo: Ast.TransitionOrDo
   ) = {
-    enterOrDo match {
+    transitionOrDo match {
       case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
       case Ast.TransitionOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
     }

@@ -227,7 +227,7 @@ object Ast {
   final case class SpecTransition(
     signal: AstNode[Ident],
     guard: Option[AstNode[Ident]],
-    enterOrDo: TransitionOrDo
+    transitionOrDo: TransitionOrDo
   )
 
   /** Transition or do within transition specifier */

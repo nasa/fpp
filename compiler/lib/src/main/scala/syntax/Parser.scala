@@ -202,7 +202,7 @@ object Parser extends Parsers {
         Ast.TransitionExpr(ident, state)
     }
 
-  def enterOrDo: Parser[Ast.TransitionOrDo] = {
+  def transitionOrDo: Parser[Ast.TransitionOrDo] = {
     def enterParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
       case e => Ast.TransitionOrDo.Transition(e)
     }
@@ -677,9 +677,9 @@ object Parser extends Parsers {
     importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
   def specTransition: Parser[Ast.SpecTransition] = {
-    (on ~> node(ident)) ~! opt(ifGuard ~> node(ident)) ~ enterOrDo ^^ {
-      case signal ~ guard ~ enterOrDo =>
-        Ast.SpecTransition(signal, guard, enterOrDo)
+    (on ~> node(ident)) ~! opt(ifGuard ~> node(ident)) ~ transitionOrDo ^^ {
+      case signal ~ guard ~ transitionOrDo =>
+        Ast.SpecTransition(signal, guard, transitionOrDo)
     }
   }
 

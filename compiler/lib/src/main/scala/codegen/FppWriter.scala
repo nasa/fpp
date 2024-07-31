@@ -88,10 +88,10 @@ object FppWriter extends AstVisitor with LineUtils {
   def tuMemberList(tuml: List[Ast.TUMember]): Out =
     Line.blankSeparated (tuMember) (tuml)
 
-  def enterOrDo(
-    enterOrDo: Ast.TransitionOrDo
+  def transitionOrDo(
+    transitionOrDo: Ast.TransitionOrDo
   ) = {
-    enterOrDo match {
+    transitionOrDo match {
       case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
       case Ast.TransitionOrDo.Do(action) => lines(s" do ${ident(action.data)}")
     }
@@ -612,7 +612,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"on ${ident(data.signal.data)}").
     joinOpt(data.guard)(" if ")(nodeIdentAsLines).
-    join("")(enterOrDo(data.enterOrDo))
+    join("")(transitionOrDo(data.transitionOrDo))
   }
 
   override def transUnit(
