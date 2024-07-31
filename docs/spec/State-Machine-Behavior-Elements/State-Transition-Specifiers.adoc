@@ -52,15 +52,15 @@ The do expression must be valid.
 ----
 state machine Device {
 
-  signal RTI
-  signal PowerOn
-  
   action performStuff
   action powerHeater
   action powerSensor
 
   guard initComplete
 
+  signal PowerOn
+  signal RTI
+  
   initial enter OFF
 
   state OFF {

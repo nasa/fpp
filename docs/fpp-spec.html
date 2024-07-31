@@ -3023,19 +3023,19 @@ with the following modifications:</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-
-  action init2
   action doCalibrate
+  action init2
   action motorControl
   action reportFault
 
   guard calibrateReady
+
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
 
   initial enter DeviceOn
 
@@ -4251,8 +4251,10 @@ then it must obey the following rules:</p>
 <em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
 </li>
 <li>
-<p><em>M</em> may not contain more than one state entry specifier or more
-than one one state exit specifier.</p>
+<p><em>M</em> may not contain more than one state entry specifier.</p>
+</li>
+<li>
+<p><em>M</em> may not contain more than one state exit specifier.</p>
 </li>
 <li>
 <p>No two <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state
@@ -4277,13 +4279,6 @@ Otherwise it is called a <strong>leaf state definition</strong>.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-  signal Calibrate
-  signal Complete
-  signal Drive
-  signal Fault
-  signal RTI
-  signal Stop
-
   action doCalibrate
   action heaterOff
   action heaterOn
@@ -4296,6 +4291,13 @@ Otherwise it is called a <strong>leaf state definition</strong>.</p>
   action stopMotor
 
   guard calibrateReady
+
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
 
   initial enter DEVICE_ON
 
@@ -4497,14 +4499,14 @@ The do expression must be valid.</p>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-  signal RTI
-  signal PowerOn
-
   action performStuff
   action powerHeater
   action powerSensor
 
   guard initComplete
+
+  signal PowerOn
+  signal RTI
 
   initial enter OFF
 
@@ -9928,7 +9930,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-31 11:40:03 -0700
+Last updated 2024-07-31 11:56:35 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

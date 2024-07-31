@@ -36,8 +36,9 @@ then it must obey the following rules:
 .. _M_ must contain exactly one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
 
-.. _M_ may not contain more than one state entry specifier or more
-than one one state exit specifier.
+.. _M_ may not contain more than one state entry specifier.
+
+.. _M_ may not contain more than one state exit specifier.
 
 .. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
 transition specifiers>> that are members of _M_ may
@@ -54,13 +55,6 @@ Otherwise it is called a *leaf state definition*.
 ----
 state machine MonitorSm {
 
-  signal Calibrate
-  signal Complete
-  signal Drive
-  signal Fault
-  signal RTI
-  signal Stop
-  
   action doCalibrate
   action heaterOff
   action heaterOn
@@ -74,6 +68,13 @@ state machine MonitorSm {
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+  
   initial enter DEVICE_ON
   
   state DEVICE_ON {
