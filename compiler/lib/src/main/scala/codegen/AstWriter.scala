@@ -132,8 +132,8 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def junction") ++
     (ident(data.name) ++
     addPrefix("guard", applyToData(ident)) (data.guard) ++
-    enterExpression(data.ifExpr) ++
-    enterExpression(data.elseExpr)).map(indentIn)
+    transitionExpression(data.ifExpr) ++
+    transitionExpression(data.elseExpr)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
@@ -423,7 +423,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec initial") ++
-    enterExpression(data.enterExpr).map(indentIn)
+    transitionExpression(data.transitionExpr).map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(
@@ -692,21 +692,21 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(exprNode, dec.value)
     ).flatten.map(indentIn)
 
-  private def enterExpression(
-    enterExpr: Ast.EnterExpr
+  private def transitionExpression(
+    transitionExpr: Ast.TransitionExpr
   ) = {
     List(
-      linesOpt(addPrefix("action", applyToData(ident)), enterExpr.action),
-      addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
+      linesOpt(addPrefix("action", applyToData(ident)), transitionExpr.action),
+      addPrefix("state", applyToData(qualIdent)) (transitionExpr.state)
     ).flatten
   }
 
   private def enterOrDo(
-    enterOrDo: Ast.EnterOrDo
+    enterOrDo: Ast.TransitionOrDo
   ) = {
     enterOrDo match {
-      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
+      case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
+      case Ast.TransitionOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
     }
   }
 

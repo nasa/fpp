@@ -186,12 +186,12 @@ object Ast {
   final case class DefJunction(
     name: Ident,
     guard: AstNode[Ident],
-    ifExpr: EnterExpr,
-    elseExpr: EnterExpr
+    ifExpr: TransitionExpr,
+    elseExpr: TransitionExpr
   )
 
-  /** Enter expression */
-  final case class EnterExpr(
+  /** Transition expression */
+  final case class TransitionExpr(
     action: Option[AstNode[Ident]],
     state: AstNode[QualIdent]
   )
@@ -220,21 +220,21 @@ object Ast {
 
   /** Initial state specifier */
   final case class SpecInitial(
-    enterExpr: EnterExpr
+    transitionExpr: TransitionExpr
   )
 
   /** Transition specifier */
   final case class SpecTransition(
     signal: AstNode[Ident],
     guard: Option[AstNode[Ident]],
-    enterOrDo: EnterOrDo
+    enterOrDo: TransitionOrDo
   )
 
-  /** Enter or do within transition specifier */
-  sealed trait EnterOrDo
-  object EnterOrDo {
-    final case class Enter(enter: EnterExpr) extends EnterOrDo
-    final case class Do(action: AstNode[Ident]) extends EnterOrDo
+  /** Transition or do within transition specifier */
+  sealed trait TransitionOrDo
+  object TransitionOrDo {
+    final case class Transition(enter: TransitionExpr) extends TransitionOrDo
+    final case class Do(action: AstNode[Ident]) extends TransitionOrDo
   }
 
   /** Struct definition */

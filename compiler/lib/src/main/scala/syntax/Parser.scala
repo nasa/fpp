@@ -147,7 +147,7 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! enterExpr ~! (elseJunction ~> enterExpr) <~! rbrace ^^ {
+    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! transitionExpr ~! (elseJunction ~> transitionExpr) <~! rbrace ^^ {
       case ident ~ guard ~ ifExpr ~ elseExpr => Ast.DefJunction(ident, guard, ifExpr, elseExpr)
     }
   }
@@ -196,18 +196,18 @@ object Parser extends Parsers {
     }
   }
 
-  def enterExpr: Parser[Ast.EnterExpr] =
+  def transitionExpr: Parser[Ast.TransitionExpr] =
     opt(doToken ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
       case ident ~ state =>
-        Ast.EnterExpr(ident, state)
+        Ast.TransitionExpr(ident, state)
     }
 
-  def enterOrDo: Parser[Ast.EnterOrDo] = {
-    def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
-      case e => Ast.EnterOrDo.Enter(e)
+  def enterOrDo: Parser[Ast.TransitionOrDo] = {
+    def enterParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
+      case e => Ast.TransitionOrDo.Transition(e)
     }
-    def doParser: Parser[Ast.EnterOrDo.Do] = doToken ~>! node(ident) ^^ {
-      case ident => Ast.EnterOrDo.Do(ident)
+    def doParser: Parser[Ast.TransitionOrDo.Do] = doToken ~>! node(ident) ^^ {
+      case ident => Ast.TransitionOrDo.Do(ident)
     }
     enterParser | doParser
   }
@@ -503,8 +503,8 @@ object Parser extends Parsers {
   }
 
   def specInitial: Parser[Ast.SpecInitial] = {
-    initial ~> enterExpr ^^ {
-      case enterExpr => Ast.SpecInitial(enterExpr)
+    initial ~> transitionExpr ^^ {
+      case transitionExpr => Ast.SpecInitial(transitionExpr)
     }
   }
 

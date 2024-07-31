@@ -132,7 +132,7 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "enterExpr" : {
+                                  "transitionExpr" : {
                                     "action" : {
                                       "Some" : {
                                         "AstNode" : {
@@ -253,7 +253,7 @@
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
-                                                "enterExpr" : {
+                                                "transitionExpr" : {
                                                   "action" : {
                                                     "Some" : {
                                                       "AstNode" : {
@@ -393,7 +393,7 @@
                                                   }
                                                 },
                                                 "enterOrDo" : {
-                                                  "Enter" : {
+                                                  "Transition" : {
                                                     "enter" : {
                                                       "action" : {
                                                         "Some" : {
@@ -449,7 +449,7 @@
                                                   }
                                                 },
                                                 "enterOrDo" : {
-                                                  "Enter" : {
+                                                  "Transition" : {
                                                     "enter" : {
                                                       "action" : "None",
                                                       "state" : {
@@ -491,7 +491,7 @@
                                                 },
                                                 "guard" : "None",
                                                 "enterOrDo" : {
-                                                  "Enter" : {
+                                                  "Transition" : {
                                                     "enter" : {
                                                       "action" : "None",
                                                       "state" : {

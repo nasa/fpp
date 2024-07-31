@@ -26,13 +26,13 @@ trait StateMachineUseAnalyzer
     default(sma)
 
   override def specInitialAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecInitial]]) =
-    enterExpr(sma, node._2.data.enterExpr)
+    transitionExpr(sma, node._2.data.transitionExpr)
 
   override def specTransitionAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecTransition]]) =
     // TODO
     default(sma)
 
-  private def enterExpr(sma: StateMachineAnalysis, e: Ast.EnterExpr): Result = {
+  private def transitionExpr(sma: StateMachineAnalysis, e: Ast.TransitionExpr): Result = {
     for {
       sma <- opt(identNode(actionUse))(sma, e.action)
       sma <- qualIdentNode(stateOrJunctionUse)(sma, e.state)

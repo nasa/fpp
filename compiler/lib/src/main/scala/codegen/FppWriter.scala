@@ -49,12 +49,12 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
-  def enterExpression(
-    enterExpr: Ast.EnterExpr
+  def transitionExpression(
+    transitionExpr: Ast.TransitionExpr
   ): Out = {
     lines("").
-    joinOpt (enterExpr.action) (" do ") (nodeIdentAsLines).
-    join (" enter ")(qualIdent(enterExpr.state.data))
+    joinOpt (transitionExpr.action) (" do ") (nodeIdentAsLines).
+    join (" enter ")(qualIdent(transitionExpr.state.data))
   }
 
   def moduleMember(member: Ast.ModuleMember): Out = {
@@ -89,11 +89,11 @@ object FppWriter extends AstVisitor with LineUtils {
     Line.blankSeparated (tuMember) (tuml)
 
   def enterOrDo(
-    enterOrDo: Ast.EnterOrDo
+    enterOrDo: Ast.TransitionOrDo
   ) = {
     enterOrDo match {
-      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(action) => lines(s" do ${ident(action.data)}")
+      case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
+      case Ast.TransitionOrDo.Do(action) => lines(s" do ${ident(action.data)}")
     }
   }
 
@@ -201,9 +201,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
     (lines(s"if ${data.guard.data}").
-    join("")(enterExpression(data.ifExpr))).map(indentIn).
+    join("")(transitionExpression(data.ifExpr))).map(indentIn).
     joinWithBreak("")(lines("else")).
-    join("")(enterExpression(data.elseExpr)) ++
+    join("")(transitionExpression(data.elseExpr)) ++
     lines("}")
   }
 
@@ -455,7 +455,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("initial").
-    join("")(enterExpression(data.enterExpr))
+    join("")(transitionExpression(data.transitionExpr))
   }
 
   override def specInternalPortAnnotatedNode(
