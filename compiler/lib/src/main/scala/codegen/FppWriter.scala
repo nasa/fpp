@@ -245,9 +245,8 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    val members = data.members.getOrElse(List.empty)
     List(line(s"state ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (stateMember) (members)).map(indentIn) ++
+    (Line.blankSeparated (stateMember) (data.members)).map(indentIn) ++
     List(Line.blank, line("}"))
   }
 

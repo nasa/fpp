@@ -182,7 +182,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def state") ++
     (
       ident(data.name) ++
-      linesOpt((members: List[Ast.StateMember]) => members.flatMap(stateMember), data.members)
+      data.members.flatMap(stateMember)
     ).map(indentIn)
   }
 

@@ -394,7 +394,8 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "name" : "IDLE",
-                                                              "members" : "None"
+                                                              "members" : [
+                                                              ]
                                                             },
                                                             "id" : 120
                                                           }
