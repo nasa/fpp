@@ -202,7 +202,7 @@ state machine MonitorSm {
 
   state DeviceOn {
 
-    initial do {init2} enter Initializing
+    initial do { init2 } enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -214,13 +214,13 @@ state machine MonitorSm {
     }
 
     state Calibrating {
-      on RTI do {doCalibrate}
-      on Fault do {reportFault} enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do {motorControl}
+      on RTI do { motorControl }
       on Stop enter Idle
     }
 

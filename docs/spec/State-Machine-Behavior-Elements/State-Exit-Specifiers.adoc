@@ -2,7 +2,7 @@
 
 A *state exit specifier* is part of a
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
-It specifies the state's exit actions
+It specifies the actions to take when exiting the state.
 
 ==== Syntax
 
@@ -10,8 +10,7 @@ It specifies the state's exit actions
 
 ==== Semantics
 
-. The do expression specifies a list of exit actions that get executed
-when exiting a state
+The do expression must be valid.
 
 ==== Examples
 
@@ -27,5 +26,6 @@ state machine Device {
       heaterOff
       monitorOff
     }
+
 }
 ----
