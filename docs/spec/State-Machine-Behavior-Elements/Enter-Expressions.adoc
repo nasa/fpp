@@ -42,8 +42,7 @@ state machine Device {
   } \
   enter OFF
 
-  state OFF {
+  state OFF
 
-  }
 }
 ----
