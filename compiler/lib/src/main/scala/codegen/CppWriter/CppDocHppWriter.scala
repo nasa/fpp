@@ -62,7 +62,7 @@ object CppDocHppWriter extends CppDocWriter {
     val commentLines = CppDocWriter.writeDoxygenCommentOpt(c.comment)
     val openLines = c.superclassDecls match {
       case Some(d) => List(
-        line(s"class $name :"), 
+        line(s"class $name :"),
         indentIn(line(d)),
         line("{")
       )
@@ -175,7 +175,7 @@ object CppDocHppWriter extends CppDocWriter {
     val startLines = List(Line.blank, line(s"namespace $name {"))
     val outputLines = namespace.members.flatMap(visitNamespaceMember(in, _))
     val endLines = List(Line.blank, line("}"))
-    startLines ++ outputLines.map(indentIn(_)) ++ endLines    
+    startLines ++ outputLines.map(indentIn(_)) ++ endLines
   }
 
 }
