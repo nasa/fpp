@@ -12,17 +12,21 @@ case class TopComponentInstances(
 
   private val bannerComment = "Component instances"
 
-  def getHppLines: List[Line] = addBannerComment(
-    bannerComment,
-    getDeclLines
-  )
+  def getMembers: List[CppDoc.Member] = {
+    val hppLines = getHppLines
+    lazy val cppLines = getCppLines
+    lazy val comment = CppDocWriter.writeBannerComment(bannerComment)
+    hppLines match {
+      case Nil => Nil
+      case _ => List(
+        linesMember(comment, CppDoc.Lines.Both),
+        linesMember(hppLines, CppDoc.Lines.Hpp),
+        linesMember(cppLines, CppDoc.Lines.Cpp)
+      )
+    }
+  }
 
-  def getCppLines: List[Line] = addBannerComment(
-    bannerComment,
-    getDefLines
-  )
-
-  private def getDeclLines = {
+  private def getHppLines = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
@@ -35,7 +39,7 @@ case class TopComponentInstances(
     flattenWithBlankPrefix(instances.map(getCode))
   }
 
-  private def getDefLines = {
+  private def getCppLines = {
     def getCode(ci: ComponentInstance): List[Line] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName

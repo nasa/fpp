@@ -31,6 +31,9 @@ case class TopologyCppWriter(
       getTopologyMembers
     )
 
+  private def getComponentInstanceMembers =
+    TopComponentInstances(s, aNode).getMembers
+
   private def getIncludeMembers: List[CppDoc.Member] = {
     val hpp = {
       val strings = (
@@ -51,15 +54,6 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
-    List(hpp, cpp)
-  }
-
-  private def getComponentInstanceMembers: List[CppDoc.Member] = {
-    val hpp = linesMember(TopComponentInstances(s, aNode).getHppLines)
-    val cpp = linesMember(
-      TopComponentInstances(s, aNode).getCppLines,
-      CppDoc.Lines.Cpp
-    )
     List(hpp, cpp)
   }
 
