@@ -30,44 +30,26 @@ case class TopComponentInstances(
     def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
-      val hpp = {
-        val instLines = lines(
-          s"""|//! $instanceName
+      val hpp = linesMember(
+        lines(
+          s"""|
+              |//! $instanceName
               |extern $implType $instanceName;"""
-        )
-        linesMember(
-          Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines),
-          CppDoc.Lines.Hpp
-        )
-      }
+        ),
+        CppDoc.Lines.Hpp
+      )
       val cpp = {
         val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
           lines(
-            s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
+            s"""|
+                |$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"""
           )
         )
-        linesMember(
-          Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines),
-          CppDoc.Lines.Cpp
-        )
+        linesMember(instLines, CppDoc.Lines.Cpp)
       }
-      List(hpp, cpp)
+      wrapInNamespaces(ci.qualifiedName.qualifier, List(hpp, cpp))
     }
     instances.flatMap(getMembers)
-  }
-
-  private def getCppLines = {
-    def getCode(ci: ComponentInstance): List[Line] = {
-      val implType = getImplType(ci)
-      val instanceName = ci.getUnqualifiedName
-      val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
-        lines(
-          s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
-        )
-      )
-      Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
-    }
-    instances.flatMap(getCode)
   }
 
   private def getImplType(ci: ComponentInstance) = {

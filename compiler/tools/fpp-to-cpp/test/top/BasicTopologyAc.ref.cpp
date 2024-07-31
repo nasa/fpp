@@ -11,23 +11,32 @@
 // ----------------------------------------------------------------------
 
 namespace M {
+
   Active active1(FW_OPTIONAL_NAME("active1"));
+
 }
 
 namespace M {
   Active active2;
+
 }
 
 namespace M {
+
   Active active3(FW_OPTIONAL_NAME("active3"));
+
 }
 
 namespace M {
+
   Passive passive1(FW_OPTIONAL_NAME("passive1"));
+
 }
 
 namespace M {
+
   ConcretePassive passive2(FW_OPTIONAL_NAME("passive2"));
+
 }
 
 namespace M {
