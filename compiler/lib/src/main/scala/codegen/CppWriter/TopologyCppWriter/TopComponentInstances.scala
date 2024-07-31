@@ -16,14 +16,13 @@ case class TopComponentInstances(
     val hppLines = getHppLines
     lazy val cppLines = getCppLines
     lazy val comment = CppDocWriter.writeBannerComment(bannerComment)
-    hppLines match {
-      case Nil => Nil
-      case _ => List(
+    guardedList (!hppLines.isEmpty) (
+      List(
         linesMember(comment, CppDoc.Lines.Both),
         linesMember(hppLines, CppDoc.Lines.Hpp),
         linesMember(cppLines, CppDoc.Lines.Cpp)
       )
-    }
+    )
   }
 
   private def getHppLines = {
@@ -34,9 +33,9 @@ case class TopComponentInstances(
         s"""|//! $instanceName
             |extern $implType $instanceName;"""
       )
-      wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
+      Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
     }
-    flattenWithBlankPrefix(instances.map(getCode))
+    instances.flatMap(getCode)
   }
 
   private def getCppLines = {
@@ -48,9 +47,9 @@ case class TopComponentInstances(
           s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
         )
       )
-      wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
+      Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
     }
-    flattenWithBlankPrefix(instances.map(getCode))
+    instances.flatMap(getCode)
   }
 
   private def getImplType(ci: ComponentInstance) = {
