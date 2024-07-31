@@ -29,7 +29,7 @@ case class TopComponentInstances(
     def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
-      val hpp = linesMember(
+      val hppMember = linesMember(
         lines(
           s"""|
               |//! $instanceName
@@ -37,7 +37,7 @@ case class TopComponentInstances(
         ),
         CppDoc.Lines.Hpp
       )
-      val cpp = {
+      val cppMember = {
         val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
           lines(
             s"""|
@@ -46,7 +46,7 @@ case class TopComponentInstances(
         )
         linesMember(instLines, CppDoc.Lines.Cpp)
       }
-      wrapInNamespaces(ci.qualifiedName.qualifier, List(hpp, cpp))
+      wrapInNamespaces(ci.qualifiedName.qualifier, List(hppMember, cppMember))
     }
     instances.flatMap(getMembers)
   }
