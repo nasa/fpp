@@ -27,5 +27,7 @@ state machine Device {
       monitorOff
     }
 
+  }
+
 }
 ----
