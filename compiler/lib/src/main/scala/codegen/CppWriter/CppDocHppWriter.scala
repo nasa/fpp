@@ -170,12 +170,4 @@ object CppDocHppWriter extends CppDocWriter {
     }
   }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
-    val name = namespace.name
-    val startLines = List(Line.blank, line(s"namespace $name {"))
-    val outputLines = namespace.members.flatMap(visitNamespaceMember(in, _))
-    val endLines = List(Line.blank, line("}"))
-    startLines ++ outputLines.map(indentIn(_)) ++ endLines
-  }
-
 }

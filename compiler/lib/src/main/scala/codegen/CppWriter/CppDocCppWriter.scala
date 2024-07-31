@@ -159,11 +159,4 @@ object CppDocCppWriter extends CppDocWriter {
       case _ => writeSelectedLines(in, lines.cppFileNameBaseOpt, lines.content)
     }
 
-  override def visitNamespace(in: Input, namespace: CppDoc.Namespace) = {
-      val name = namespace.name
-      List(Line.blank, line(s"namespace $name {")) ++
-      namespace.members.flatMap(visitNamespaceMember(in, _)).map(indentIn(_)) ++
-      List(Line.blank, line("}"))
-  }
-
 }
