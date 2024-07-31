@@ -395,13 +395,10 @@ stem:[T_1, ... , T_n], do the following:
 
 .  Check that stem:[n > 0]. If not, then throw an error.
 
-.  Compute the type stem:[T_1] of stem:[e_1].
+. Let stem:[T'_1] be stem:[T_1].
 
-.  For each stem:[i in [2,n]]
+.  For each stem:[i in [2,n]], compute the
+<<Type-Options_Computing-a-Common-Type-Option,
+common type option>> stem:[T'_i] of stem:[T'_(i-1)] and stem:[T_i].
 
-   ..  Compute the type stem:[T] of stem:[e_i].
-
-   ..  Compute the <<Type-Checking_Computing-a-Common-Type,common type>>
-stem:[T_i] of stem:[T_(i-1)] and stem:[T].
-
-.  Use stem:[T_n] as the common type of the list.
+.  Use stem:[T'_n] as the common type option of the list.

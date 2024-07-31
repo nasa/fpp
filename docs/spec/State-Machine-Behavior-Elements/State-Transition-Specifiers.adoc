@@ -21,13 +21,13 @@ _enter-or-do_ is one of the following:
 ==== Semantics
 
 . The identifier after the keyword `on` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
 It names the signal that causes the transition to occur.
 
 . If present, the optional identifier after the keyword `if` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
 It specifies a guard for the transition.

@@ -28,6 +28,7 @@ Scoping-of-Names.adoc
 Definitions-and-Uses.adoc
 Types.adoc
 Type-Checking.adoc
+Type-Options.adoc
 Values.adoc
 Evaluation.adoc
 Analysis-and-Translation.adoc
