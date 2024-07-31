@@ -38,7 +38,6 @@ case class TopologyCppWriter(
       TopConstants(s, aNode).getLines ++
       TopConfigObjects(s, aNode).getHppLines
     )
-    val hppConstantLines = linesMember(TopConstants(s, aNode).getLines)
     val cppIncludes = {
       val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
       linesMember(
