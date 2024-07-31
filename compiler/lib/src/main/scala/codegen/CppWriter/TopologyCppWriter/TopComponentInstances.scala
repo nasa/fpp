@@ -13,8 +13,7 @@ case class TopComponentInstances(
   private val bannerComment = "Component instances"
 
   def getMembers: List[CppDoc.Member] = {
-    val hppLinesMembers = getHppLinesMembers
-    val cppLinesMembers = List(linesMember(getCppLines, CppDoc.Lines.Cpp))
+    val instanceMembers = getInstanceMembers
     lazy val commentMembers = List(
       linesMember(
         CppDocWriter.writeBannerComment(bannerComment),
@@ -22,24 +21,39 @@ case class TopComponentInstances(
       )
     )
     List.concat(
-      guardedList (!hppLinesMembers.isEmpty) (commentMembers),
-      hppLinesMembers,
-      cppLinesMembers
+      guardedList (!instanceMembers.isEmpty) (commentMembers),
+      instanceMembers
     )
   }
 
-  private def getHppLinesMembers = {
-    def getCode(ci: ComponentInstance): List[Line] = {
+  private def getInstanceMembers = {
+    def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
       val instanceName = ci.getUnqualifiedName
-      val instLines = lines(
-        s"""|//! $instanceName
-            |extern $implType $instanceName;"""
-      )
-      Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines)
+      val hpp = {
+        val instLines = lines(
+          s"""|//! $instanceName
+              |extern $implType $instanceName;"""
+        )
+        linesMember(
+          Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines),
+          CppDoc.Lines.Hpp
+        )
+      }
+      val cpp = {
+        val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
+          lines(
+            s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
+          )
+        )
+        linesMember(
+          Line.blank :: wrapInNamespaceLines(ci.qualifiedName.qualifier, instLines),
+          CppDoc.Lines.Cpp
+        )
+      }
+      List(hpp, cpp)
     }
-    val hppLines = instances.flatMap(getCode)
-    guardedList (!hppLines.isEmpty) (List(linesMember(hppLines, CppDoc.Lines.Hpp)))
+    instances.flatMap(getMembers)
   }
 
   private def getCppLines = {
