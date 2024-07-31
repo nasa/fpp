@@ -24,8 +24,15 @@ case class TopologyCppWriter(
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = {
+  private def getMembers: List[CppDoc.Member] =
+    List.concat(
+      getIncludeMembers,
+      getComponentInstanceMembers,
+      getTopologyMembers
+    )
+
+  private def getIncludeMembers: List[CppDoc.Member] = {
+    val hpp = {
       val strings = (
         TopComponentIncludes(s, aNode).getHeaderStrings :+
         CppWriter.headerString(
@@ -34,11 +41,7 @@ case class TopologyCppWriter(
       ).sorted
       linesMember(Line.blank :: strings.map(line))
     }
-    val hppLines = linesMember(
-      TopConstants(s, aNode).getLines ++
-      TopConfigObjects(s, aNode).getHppLines
-    )
-    val cppIncludes = {
+    val cpp = {
       val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
       linesMember(
         List(
@@ -48,25 +51,32 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
+    List(hpp, cpp)
+  }
+
+  private def getComponentInstanceMembers: List[CppDoc.Member] = {
+    val hpp = linesMember(TopComponentInstances(s, aNode).getHppLines)
+    val cpp = linesMember(
+      TopComponentInstances(s, aNode).getCppLines,
+      CppDoc.Lines.Cpp
+    )
+    List(hpp, cpp)
+  }
+
+  private def getTopologyMembers: List[CppDoc.Member] = {
+    val hppLines = linesMember(
+      TopConstants(s, aNode).getLines ++
+      TopConfigObjects(s, aNode).getHppLines
+    )
     val cppLines = linesMember(
-      Line.blank ::
-      addBlankPostfix(
-        TopConfigObjects(s, aNode).getCppLines,
-      ),
+      Line.blank :: addBlankPostfix(TopConfigObjects(s, aNode).getCppLines),
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers
-    val setupTeardownFns = TopSetupTeardownFns(s, aNode, helperFnNames).
-      getMembers
+    val setupTeardownFns =
+      TopSetupTeardownFns(s, aNode, helperFnNames).getMembers
     val defs = hppLines :: cppLines :: (helperFns ++ setupTeardownFns)
-    List(
-      List(hppIncludes, cppIncludes),
-      List(
-        linesMember(TopComponentInstances(s, aNode).getHppLines), 
-        linesMember(TopComponentInstances(s, aNode).getCppLines, CppDoc.Lines.Cpp)
-      ),
-      wrapInNamespaces(namespaceIdentList, defs)
-    ).flatten
+    wrapInNamespaces(namespaceIdentList, defs)
   }
 
 }
