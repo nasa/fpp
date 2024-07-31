@@ -10,21 +10,20 @@ case class TopComponentInstances(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  private val bannerComment = "Component instances"
-
   def getMembers: List[CppDoc.Member] = {
     val instanceMembers = getInstanceMembers
-    lazy val commentMembers = List(
-      linesMember(
-        CppDocWriter.writeBannerComment(bannerComment),
-        CppDoc.Lines.Both
-      )
-    )
     List.concat(
-      guardedList (!instanceMembers.isEmpty) (commentMembers),
+      guardedList (!instanceMembers.isEmpty) (List(getCommentMember)),
       instanceMembers
     )
   }
+
+  private val bannerComment = "Component instances"
+
+  private def getCommentMember = linesMember(
+    CppDocWriter.writeBannerComment(bannerComment),
+    CppDoc.Lines.Both
+  )
 
   private def getInstanceMembers = {
     def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
