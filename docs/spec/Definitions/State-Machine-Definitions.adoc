@@ -236,25 +236,25 @@ with the following modifications:
 
 state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-
-  action init2
   action doCalibrate
+  action init2
   action motorControl
   action reportFault
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+
   initial enter DeviceOn
 
   state DeviceOn {
 
-    initial do init2 enter Initializing
+    initial do { init2 } enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -266,13 +266,13 @@ state machine MonitorSm {
     }
 
     state Calibrating {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do motorControl
+      on RTI do { motorControl }
       on Stop enter Idle
     }
 

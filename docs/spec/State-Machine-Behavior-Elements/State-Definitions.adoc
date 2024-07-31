@@ -23,6 +23,8 @@ A state definition member is one of the following:
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
+* A <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>
+* A <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>
 
 ==== Semantics
 
@@ -33,6 +35,10 @@ then it must obey the following rules:
 
 .. _M_ must contain exactly one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
+
+.. _M_ may not contain more than one state entry specifier.
+
+.. _M_ may not contain more than one state exit specifier.
 
 .. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
 transition specifiers>> that are members of _M_ may
@@ -49,44 +55,62 @@ Otherwise it is called a *leaf state definition*.
 ----
 state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-  
-  action init2
   action doCalibrate
+  action heaterOff
+  action heaterOn
+  action init1
+  action init2
+  action monitorOff
+  action monitorOn
   action motorControl
   action reportFault
+  action stopMotor
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+  
   initial enter DEVICE_ON
   
   state DEVICE_ON {
 
-    initial do init2 enter INITIALIZING
+    initial do {
+      init1
+      init2
+     } \
+     enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE
     }
 
     state IDLE {
+      entry do {
+        heaterOff
+        monitorOff
+      }
+      exit do {
+        heaterOn
+        monitorOn
+      }
       on Drive enter DRIVING
       on Calibrate if calibrateReady enter CALIBRATING
     }
 
     state CALIBRATING {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter IDLE
     }
 
     state DRIVING {
-      on RTI do motorControl
-      on Stop enter IDLE
+      on RTI do { motorControl }
+      on Stop do { stopMotor } enter IDLE
     }
 
   }
