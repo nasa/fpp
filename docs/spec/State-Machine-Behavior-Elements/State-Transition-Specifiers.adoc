@@ -71,7 +71,7 @@ state machine Device {
   }
 
   state ON {
-    on RTI do performStuff
+    on RTI do { performStuff }
   }
 
 }
