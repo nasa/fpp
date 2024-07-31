@@ -16,37 +16,35 @@ _enter-or-do_ is one of the following:
 
 .  <<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
 
-.  `do` <<Lexical-Elements_Identifiers,_identifier_>>
+.  <<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
 
 ==== Semantics
 
 . The identifier after the keyword `on` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
 It names the signal that causes the transition to occur.
 
 . If present, the optional identifier after the keyword `if` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
 It specifies a guard for the transition.
 
-. The first form of the syntax specifies a target state and an optional action.
-The enter expression must be valid.
+. The first form of the _enter-or-do_ syntax specifies an optional
+list of actions and a target state.
+The do expression, if it appears, and the enter expression must be valid.
 The target state in the enter expression may be the same as the
 enclosing state; in this case the transition is called a *self transition*.
 When making a self transition, the state machine runs the code associated with
 exiting and then re-entering the state.
 
-. Second form of the syntax specifies an
-*internal transition*, i.e., an action to take while remaining
+. Second form of the _enter-or-do_ syntax specifies an
+*internal transition*, i.e., a list of actions to take while remaining
 in the same state.
 When making an internal transition, the exit and re-entry code is not run.
-The identifier after the keyword `do` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to an
-<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+The do expression must be valid.
 
 ==== Examples
 
@@ -54,18 +52,23 @@ to an
 ----
 state machine Device {
 
-  signal RTI
-  signal PowerOn
-  
   action performStuff
-  action getReady
+  action powerHeater
+  action powerSensor
 
   guard initComplete
 
+  signal PowerOn
+  signal RTI
+  
   initial enter OFF
 
   state OFF {
-    on PowerOn if initComplete do getReady enter ON
+    on PowerOn if initComplete do {
+      powerHeater
+      powerSensor
+    } \
+    enter ON
   }
 
   state ON {

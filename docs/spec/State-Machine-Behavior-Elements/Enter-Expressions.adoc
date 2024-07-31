@@ -11,20 +11,18 @@ some action.
 ==== Syntax
 
 _[_
-`do` <<Lexical-Elements_Identifiers,_identifier_>>
+<<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
 _]_
 `enter` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
+
 ==== Semantics
 
-. If present, the optional identifier after the keyword `do` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
-to an 
-<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
-It specifies an action to perform when making the transition.
+. If present, the do-expression specifies the list of actions to be
+performed when making the transition.
 
 . The qualified identifier after the keyword `enter` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a 
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
@@ -37,19 +35,16 @@ It is the state or junction that is entered.
 ----
 state machine Device {
 
-  signal PowerOn
-  
-  action getReady
+  action initDev1
+  action initDev2
 
-  guard initComplete
+  initial do {
+    initDev1
+    initDev2
+  } \
+  enter OFF
 
-  initial enter OFF
-
-  state OFF {
-    on PowerOn if initComplete do getReady enter ON
-  }
-
-  state ON
+  state OFF
 
 }
 ----
