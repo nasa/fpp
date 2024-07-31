@@ -426,6 +426,26 @@ object AstWriter extends AstVisitor with LineUtils {
     enterExpression(data.enterExpr).map(indentIn)
   }
 
+  override def specEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec entry") ++
+    doExpression(data.doExpr).map(indentIn)
+  }
+
+  override def specExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec exit") ++
+    doExpression(data.doExpr).map(indentIn)
+  }
+
   override def specInternalPortAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecInternalPort]]
@@ -697,7 +717,7 @@ object AstWriter extends AstVisitor with LineUtils {
     enterExpr: Ast.EnterExpr
   ) = {
     List(
-      enterExpr.action.map(doExpression).getOrElse(List.empty),
+      linesOpt(doExpression, enterExpr.action),
       addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
     ).flatten
   }

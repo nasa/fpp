@@ -220,6 +220,8 @@ object Ast {
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
+    final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
+    final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
   }
 
   /** Initial state specifier */
@@ -232,9 +234,21 @@ object Ast {
     signal: AstNode[Ident],
     guard: Option[AstNode[Ident]],
     enterOrDo: EnterOrDo
+    // TODO replace EnterOrDo with actions and optional enterExpr
+  )
+
+  /** State Entry specifier */
+  final case class SpecEntry(
+    doExpr: DoExpr
+  )
+
+  /** State Exit specifier */
+  final case class SpecExit(
+    doExpr: DoExpr
   )
 
   /** Enter or do within transition specifier */
+  // TODO Remove
   sealed trait EnterOrDo
   object EnterOrDo {
     final case class Enter(enter: EnterExpr) extends EnterOrDo

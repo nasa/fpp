@@ -71,6 +71,10 @@ trait AstVisitor {
 
   def specContainerAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecContainer]]): Out = default(in)
 
+  def specEntryAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEntry]]): Out = default(in)
+
+  def specExitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecExit]]): Out = default(in)
+
   def specEventAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEvent]]): Out = default(in)
 
   def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
@@ -187,6 +191,8 @@ trait AstVisitor {
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecInitial(node1) => specInitialAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecEntry(node1) => specEntryAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecExit(node1) => specExitAnnotatedNode(in, (pre, node1, post))
     }
   }
 

@@ -52,17 +52,21 @@ object FppWriter extends AstVisitor with LineUtils {
   def doExpression(
     doExpr: Ast.DoExpr
   ) = {
-    doExpr.actions.map{ identNode =>
-      Line(identNode.data)
-    }
+    List(
+      lines("do {") ++
+      (doExpr.actions.map(identNode => lines(s"${identNode.data}").map(indentIn))).flatten ++
+      lines("} ")
+    ).flatten
   }
+
 
   def enterExpression(
     enterExpr: Ast.EnterExpr
   ) = {
     List(
-      enterExpr.action.map(doExpression).getOrElse(List.empty).
-      join (" enter ")(qualIdent(enterExpr.state.data))
+      enterExpr.action.map(doExpression).getOrElse(lines("")).
+      //linesOpt(doExpression, enterExpr.action).
+      join ("enter ")(qualIdent(enterExpr.state.data))
     ).flatten
   }
 
@@ -210,9 +214,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
     (lines(s"if ${data.guard.data}").
-    join("")(enterExpression(data.ifExpr))).map(indentIn).
+    join(" ")(enterExpression(data.ifExpr))).map(indentIn).
     joinWithBreak("")(lines("else")).
-    join("")(enterExpression(data.elseExpr)) ++
+    join(" ")(enterExpression(data.elseExpr)) ++
     lines("}")
   }
 
@@ -464,8 +468,28 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    lines("initial").
+    lines("initial ").
     join("")(enterExpression(data.enterExpr))
+  }
+
+  override def specEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("entry ").
+    join("")(doExpression(data.doExpr))
+  }
+
+  override def specExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("exit ").
+    join("")(doExpression(data.doExpr))
   }
 
   override def specInternalPortAnnotatedNode(
@@ -622,7 +646,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"on ${ident(data.signal.data)}").
     joinOpt(data.guard)(" if ")(nodeIdentAsLines).
-    join("")(enterOrDo(data.enterOrDo))
+    join(" ")(enterOrDo(data.enterOrDo))
   }
 
   override def transUnit(

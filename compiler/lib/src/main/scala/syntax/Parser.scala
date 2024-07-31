@@ -519,6 +519,18 @@ object Parser extends Parsers {
     }
   }
 
+  def specEntry: Parser[Ast.SpecEntry] = {
+    entry ~> doExpr ^^ {
+      case doExpr => Ast.SpecEntry(doExpr)
+    }
+  }
+
+  def specExit: Parser[Ast.SpecExit] = {
+    exit ~> doExpr ^^ {
+      case doExpr => Ast.SpecExit(doExpr)
+    }
+  }
+
   def specInternalPort: Parser[Ast.SpecInternalPort] = {
     (internal ~! port ~>! ident) ~! formalParamList ~!
     opt(priority ~>! exprNode) ~!
@@ -712,6 +724,8 @@ object Parser extends Parsers {
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
     node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
     node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
+    node(specEntry) ^^ { case n => Ast.StateMember.SpecEntry(n) } |
+    node(specExit) ^^ { case n => Ast.StateMember.SpecExit(n) } |
     failure("state member expected")
   }
 
@@ -867,6 +881,10 @@ object Parser extends Parsers {
   private def elseJunction = accept("else", { case t : Token.ELSE => t })
 
   private def enter = accept("enter", { case t : Token.ENTER => t })
+
+  private def entry = accept("entry", { case t : Token.ENTRY => t })
+
+  private def exit = accept("exit", { case t : Token.EXIT => t })
 
   private def enumeration = accept("enum", { case t : Token.ENUM => t })
 
