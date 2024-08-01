@@ -63,6 +63,15 @@ trait CppWriterUtils extends LineUtils {
   def wrapInNamespace(namespace: String, ll: List[Line]): List[Line] =
     wrapInScope(s"namespace $namespace {", ll, "}")
 
+  def wrapInNamespaceLines(
+    namespaceNames: List[String],
+    ll: List[Line]
+  ): List[Line] = namespaceNames match {
+    case Nil => ll
+    case head :: tail =>
+      wrapInNamespace(head, wrapInNamespaceLines(tail, ll))
+  }
+
   def wrapInNamedEnum(name: String, ll: List[Line]): List[Line] =
     wrapInScope(s"enum $name {", ll, "};")
 

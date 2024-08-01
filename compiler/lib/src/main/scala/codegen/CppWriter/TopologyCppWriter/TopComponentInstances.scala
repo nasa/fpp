@@ -10,42 +10,45 @@ case class TopComponentInstances(
   aNode: Ast.Annotated[AstNode[Ast.DefTopology]]
 ) extends TopologyCppWriterUtils(s, aNode) {
 
-  private val bannerComment = "Component instances"
-
-  def getHppLines: List[Line] = addBannerComment(
-    bannerComment,
-    getDeclLines
-  )
-
-  def getCppLines: List[Line] = addBannerComment(
-    bannerComment,
-    getDefLines
-  )
-
-  private def getDeclLines = {
-    def getCode(ci: ComponentInstance): List[Line] = {
-      val implType = getImplType(ci)
-      val instanceName = getNameAsIdent(ci.qualifiedName)
-      Line.addPrefixLine (line(s"//! $instanceName")) (
-        lines(
-          s"extern $implType $instanceName;"
-        )
-      )
-    }
-    flattenWithBlankPrefix(instances.map(getCode))
+  def getMembers: List[CppDoc.Member] = {
+    val instanceMembers = getInstanceMembers
+    List.concat(
+      guardedList (!instanceMembers.isEmpty) (List(getCommentMember)),
+      instanceMembers
+    )
   }
 
-  private def getDefLines = {
-    def getCode(ci: ComponentInstance): List[Line] = {
+  private val bannerComment = "Component instances"
+
+  private def getCommentMember = linesMember(
+    CppDocWriter.writeBannerComment(bannerComment),
+    CppDoc.Lines.Both
+  )
+
+  private def getInstanceMembers = {
+    def getMembers(ci: ComponentInstance): List[CppDoc.Member] = {
       val implType = getImplType(ci)
-      val instanceName = getNameAsIdent(ci.qualifiedName)
-      getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
+      val instanceName = ci.getUnqualifiedName
+      val hppMember = linesMember(
         lines(
-          s"$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"
-        )
+          s"""|
+              |//! $instanceName
+              |extern $implType $instanceName;"""
+        ),
+        CppDoc.Lines.Hpp
       )
+      val cppMember = {
+        val instLines = getCodeLinesForPhase (CppWriter.Phases.instances) (ci).getOrElse(
+          lines(
+            s"""|
+                |$implType $instanceName(FW_OPTIONAL_NAME($q$instanceName$q));"""
+          )
+        )
+        linesMember(instLines, CppDoc.Lines.Cpp)
+      }
+      wrapInNamespaces(ci.qualifiedName.qualifier, List(hppMember, cppMember))
     }
-    flattenWithBlankPrefix(instances.map(getCode))
+    instances.flatMap(getMembers)
   }
 
   private def getImplType(ci: ComponentInstance) = {

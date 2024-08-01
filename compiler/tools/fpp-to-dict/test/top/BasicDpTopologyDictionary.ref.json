@@ -70,7 +70,7 @@
   ],
   "records" : [
     {
-      "name" : "c2.DataArrayRecord",
+      "name" : "FppTest.c2.DataArrayRecord",
       "type" : {
         "name" : "FppTest.DpTestComponent.Data",
         "kind" : "qualifiedIdentifier"
@@ -80,7 +80,7 @@
       "annotation" : "Record 5"
     },
     {
-      "name" : "c2.U32Record",
+      "name" : "FppTest.c2.U32Record",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -92,7 +92,7 @@
       "annotation" : "Record 1"
     },
     {
-      "name" : "c2.ComplexRecord",
+      "name" : "FppTest.c2.ComplexRecord",
       "type" : {
         "name" : "FppTest.DpTestComponent.Complex",
         "kind" : "qualifiedIdentifier"
@@ -102,7 +102,7 @@
       "annotation" : "Record 2"
     },
     {
-      "name" : "c2.U32ArrayRecord",
+      "name" : "FppTest.c2.U32ArrayRecord",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -114,7 +114,7 @@
       "annotation" : "Record 4"
     },
     {
-      "name" : "c1.U32Record",
+      "name" : "FppTest.c1.U32Record",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -126,7 +126,7 @@
       "annotation" : "Record 1"
     },
     {
-      "name" : "c2.U8ArrayRecord",
+      "name" : "FppTest.c2.U8ArrayRecord",
       "type" : {
         "name" : "U8",
         "kind" : "integer",
@@ -138,7 +138,7 @@
       "annotation" : "Record 3"
     },
     {
-      "name" : "c1.ComplexRecord2",
+      "name" : "FppTest.c1.ComplexRecord2",
       "type" : {
         "name" : "FppTest.DpTestComponent.Complex",
         "kind" : "qualifiedIdentifier"
@@ -148,7 +148,7 @@
       "annotation" : "Record 6"
     },
     {
-      "name" : "c1.DataArrayRecord",
+      "name" : "FppTest.c1.DataArrayRecord",
       "type" : {
         "name" : "FppTest.DpTestComponent.Data",
         "kind" : "qualifiedIdentifier"
@@ -158,7 +158,7 @@
       "annotation" : "Record 5"
     },
     {
-      "name" : "c2.ComplexRecord2",
+      "name" : "FppTest.c2.ComplexRecord2",
       "type" : {
         "name" : "FppTest.DpTestComponent.Complex",
         "kind" : "qualifiedIdentifier"
@@ -168,7 +168,7 @@
       "annotation" : "Record 6"
     },
     {
-      "name" : "c1.U32ArrayRecord",
+      "name" : "FppTest.c1.U32ArrayRecord",
       "type" : {
         "name" : "U32",
         "kind" : "integer",
@@ -180,7 +180,7 @@
       "annotation" : "Record 4"
     },
     {
-      "name" : "c1.U8ArrayRecord",
+      "name" : "FppTest.c1.U8ArrayRecord",
       "type" : {
         "name" : "U8",
         "kind" : "integer",
@@ -192,7 +192,7 @@
       "annotation" : "Record 3"
     },
     {
-      "name" : "c1.ComplexRecord",
+      "name" : "FppTest.c1.ComplexRecord",
       "type" : {
         "name" : "FppTest.DpTestComponent.Complex",
         "kind" : "qualifiedIdentifier"
@@ -204,61 +204,61 @@
   ],
   "containers" : [
     {
-      "name" : "c2.Container5",
+      "name" : "FppTest.c2.Container5",
       "id" : 6268,
       "defaultPriority" : 50,
       "annotation" : "Container 5"
     },
     {
-      "name" : "c2.Container1",
+      "name" : "FppTest.c2.Container1",
       "id" : 5868,
       "defaultPriority" : 10,
       "annotation" : "Container 1"
     },
     {
-      "name" : "c2.Container2",
+      "name" : "FppTest.c2.Container2",
       "id" : 5968,
       "defaultPriority" : 20,
       "annotation" : "Container 2"
     },
     {
-      "name" : "c2.Container4",
+      "name" : "FppTest.c2.Container4",
       "id" : 6168,
       "defaultPriority" : 40,
       "annotation" : "Container 4"
     },
     {
-      "name" : "c1.Container4",
+      "name" : "FppTest.c1.Container4",
       "id" : 5400,
       "defaultPriority" : 40,
       "annotation" : "Container 4"
     },
     {
-      "name" : "c1.Container1",
+      "name" : "FppTest.c1.Container1",
       "id" : 5100,
       "defaultPriority" : 10,
       "annotation" : "Container 1"
     },
     {
-      "name" : "c2.Container3",
+      "name" : "FppTest.c2.Container3",
       "id" : 6068,
       "defaultPriority" : 30,
       "annotation" : "Container 3"
     },
     {
-      "name" : "c1.Container5",
+      "name" : "FppTest.c1.Container5",
       "id" : 5500,
       "defaultPriority" : 50,
       "annotation" : "Container 5"
     },
     {
-      "name" : "c1.Container3",
+      "name" : "FppTest.c1.Container3",
       "id" : 5300,
       "defaultPriority" : 30,
       "annotation" : "Container 3"
     },
     {
-      "name" : "c1.Container2",
+      "name" : "FppTest.c1.Container2",
       "id" : 5200,
       "defaultPriority" : 20,
       "annotation" : "Container 2"

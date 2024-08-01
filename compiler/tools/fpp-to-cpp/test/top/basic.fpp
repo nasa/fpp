@@ -37,27 +37,27 @@ module M {
     """
 
     phase Phases.initComponents """
-    active2.initSpecial();
+    M::active2.initSpecial();
     """
 
     phase Phases.configComponents """
-    active2.config();
+    M::active2.config();
     """
 
     phase Phases.startTasks """
-    active2.startSpecial();
+    M::active2.startSpecial();
     """
 
     phase Phases.stopTasks """
-    active2.stopSpecial();
+    M::active2.stopSpecial();
     """
 
     phase Phases.freeThreads """
-    active2.freeSpecial();
+    M::active2.freeSpecial();
     """
 
     phase Phases.tearDownComponents """
-    active2.tearDown();
+    M::active2.tearDown();
     """
 
   }

@@ -314,8 +314,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, CommandEntry)): Json = {
             val opcode = entry._1
             val command  = entry._2.command
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${command.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${command.getName}"
             command match {
                 case Command.NonParam(aNode, kind) => {
                     val (preA, node, postA) = aNode
@@ -365,8 +364,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, ParamEntry)): Json = {
             val numIdentifier = entry._1
             val param = entry._2.param
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${param.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${param.getName}"
             val (preA, node, postA) = param.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -386,8 +384,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, EventEntry)): Json = {
             val event = entry._2.event
             val numIdentifier = entry._1
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${event.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${event.getName}"
             val (preA, node, postA) = event.aNode
             val severityStr = node.data.severity match {
                 case Ast.SpecEvent.ActivityHigh => "ACTIVITY_HI"
@@ -423,8 +420,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, TlmChannelEntry)): Json = {
             val channel = entry._2.tlmChannel
             val numIdentifier = entry._1
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${channel.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${channel.getName}"
             val (preA, node, postA) = channel.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -456,8 +452,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, RecordEntry)): Json = {
             val record = entry._2.record
             val numIdentifier = entry._1
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${record.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${record.getName}"
             val (preA, node, postA) = record.aNode
             val json = Json.obj(
                 "name" -> name.asJson,
@@ -477,8 +472,7 @@ case class DictionaryJsonEncoder(
         override def apply(entry: (BigInt, ContainerEntry)): Json = {
             val container = entry._2.container
             val numIdentifier = entry._1
-            val componentInstUnqualName = entry._2.componentInstance.getUnqualifiedName
-            val name = s"${componentInstUnqualName}.${container.getName}"
+            val name = s"${entry._2.componentInstance.toString}.${container.getName}"
             val (preA, node, postA) = container.aNode
             val json = Json.obj(
                 "name" -> name.asJson,

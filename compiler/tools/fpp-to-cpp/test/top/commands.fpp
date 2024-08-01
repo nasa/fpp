@@ -15,7 +15,7 @@ module M {
   instance c1: C base id 0x100 {
 
     phase Phases.regCommands """
-    c1.regCommandsSpecial();
+    M::c1.regCommandsSpecial();
     """
 
   }
