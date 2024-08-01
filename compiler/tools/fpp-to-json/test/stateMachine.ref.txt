@@ -132,7 +132,7 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "transitionExpr" : {
+                                  "transition" : {
                                     "actions" : [
                                       {
                                         "AstNode" : {
@@ -177,36 +177,46 @@
                                       "id" : 10
                                     }
                                   },
-                                  "ifExpr" : {
-                                    "actions" : [
-                                    ],
-                                    "destination" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "S1"
+                                  "ifTransition" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "actions" : [
+                                        ],
+                                        "destination" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "S1"
+                                              }
+                                            },
+                                            "id" : 12
                                           }
-                                        },
-                                        "id" : 12
-                                      }
+                                        }
+                                      },
+                                      "id" : 13
                                     }
                                   },
-                                  "elseExpr" : {
-                                    "actions" : [
-                                    ],
-                                    "destination" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "S2"
+                                  "elseTransition" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "actions" : [
+                                        ],
+                                        "destination" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "S2"
+                                              }
+                                            },
+                                            "id" : 15
                                           }
-                                        },
-                                        "id" : 14
-                                      }
+                                        }
+                                      },
+                                      "id" : 16
                                     }
                                   }
                                 },
-                                "id" : 15
+                                "id" : 17
                               }
                             }
                           }
@@ -227,7 +237,7 @@
                                   "members" : [
                                   ]
                                 },
-                                "id" : 16
+                                "id" : 18
                               }
                             }
                           }
@@ -255,12 +265,12 @@
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
-                                                "transitionExpr" : {
+                                                "transition" : {
                                                   "actions" : [
                                                     {
                                                       "AstNode" : {
                                                         "data" : "a1",
-                                                        "id" : 17
+                                                        "id" : 19
                                                       }
                                                     }
                                                   ],
@@ -271,12 +281,12 @@
                                                           "name" : "S3"
                                                         }
                                                       },
-                                                      "id" : 19
+                                                      "id" : 21
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 20
+                                              "id" : 22
                                             }
                                           }
                                         }
@@ -297,54 +307,64 @@
                                                 "guard" : {
                                                   "AstNode" : {
                                                     "data" : "g1",
-                                                    "id" : 21
+                                                    "id" : 23
                                                   }
                                                 },
-                                                "ifExpr" : {
-                                                  "actions" : [
-                                                  ],
-                                                  "destination" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "Unqualified" : {
-                                                          "name" : "S1"
-                                                        }
-                                                      },
-                                                      "id" : 23
-                                                    }
-                                                  }
-                                                },
-                                                "elseExpr" : {
-                                                  "actions" : [
-                                                  ],
-                                                  "destination" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "Qualified" : {
-                                                          "qualifier" : {
-                                                            "AstNode" : {
-                                                              "data" : {
-                                                                "Unqualified" : {
-                                                                  "name" : "S2"
-                                                                }
-                                                              },
-                                                              "id" : 24
+                                                "ifTransition" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
                                                             }
                                                           },
-                                                          "name" : {
-                                                            "AstNode" : {
-                                                              "data" : "S3",
-                                                              "id" : 25
-                                                            }
-                                                          }
+                                                          "id" : 25
                                                         }
-                                                      },
-                                                      "id" : 26
-                                                    }
+                                                      }
+                                                    },
+                                                    "id" : 26
+                                                  }
+                                                },
+                                                "elseTransition" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Qualified" : {
+                                                              "qualifier" : {
+                                                                "AstNode" : {
+                                                                  "data" : {
+                                                                    "Unqualified" : {
+                                                                      "name" : "S2"
+                                                                    }
+                                                                  },
+                                                                  "id" : 27
+                                                                }
+                                                              },
+                                                              "name" : {
+                                                                "AstNode" : {
+                                                                  "data" : "S3",
+                                                                  "id" : 28
+                                                                }
+                                                              }
+                                                            }
+                                                          },
+                                                          "id" : 29
+                                                        }
+                                                      }
+                                                    },
+                                                    "id" : 30
                                                   }
                                                 }
                                               },
-                                              "id" : 27
+                                              "id" : 31
                                             }
                                           }
                                         }
@@ -365,7 +385,7 @@
                                                 "members" : [
                                                 ]
                                               },
-                                              "id" : 28
+                                              "id" : 32
                                             }
                                           }
                                         }
@@ -385,25 +405,25 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s1",
-                                                    "id" : 29
+                                                    "id" : 33
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 30
+                                                      "id" : 34
                                                     }
                                                   }
                                                 },
                                                 "transitionOrDo" : {
                                                   "Transition" : {
-                                                    "enter" : {
+                                                    "transition" : {
                                                       "actions" : [
                                                         {
                                                           "AstNode" : {
                                                             "data" : "a1",
-                                                            "id" : 31
+                                                            "id" : 35
                                                           }
                                                         }
                                                       ],
@@ -414,14 +434,14 @@
                                                               "name" : "S1"
                                                             }
                                                           },
-                                                          "id" : 33
+                                                          "id" : 37
                                                         }
                                                       }
                                                     }
                                                   }
                                                 }
                                               },
-                                              "id" : 34
+                                              "id" : 38
                                             }
                                           }
                                         }
@@ -441,63 +461,20 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s2",
-                                                    "id" : 35
+                                                    "id" : 39
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 36
+                                                      "id" : 40
                                                     }
                                                   }
                                                 },
                                                 "transitionOrDo" : {
                                                   "Transition" : {
-                                                    "enter" : {
-                                                      "actions" : [
-                                                      ],
-                                                      "destination" : {
-                                                        "AstNode" : {
-                                                          "data" : {
-                                                            "Unqualified" : {
-                                                              "name" : "S1"
-                                                            }
-                                                          },
-                                                          "id" : 38
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              },
-                                              "id" : 39
-                                            }
-                                          }
-                                        }
-                                      },
-                                      [
-                                      ]
-                                    ],
-                                    [
-                                      [
-                                        "Transition to S1"
-                                      ],
-                                      {
-                                        "SpecTransition" : {
-                                          "node" : {
-                                            "AstNode" : {
-                                              "data" : {
-                                                "signal" : {
-                                                  "AstNode" : {
-                                                    "data" : "s3",
-                                                    "id" : 40
-                                                  }
-                                                },
-                                                "guard" : "None",
-                                                "transitionOrDo" : {
-                                                  "Transition" : {
-                                                    "enter" : {
+                                                    "transition" : {
                                                       "actions" : [
                                                       ],
                                                       "destination" : {
@@ -524,6 +501,49 @@
                                     ],
                                     [
                                       [
+                                        "Transition to S1"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s3",
+                                                    "id" : 44
+                                                  }
+                                                },
+                                                "guard" : "None",
+                                                "transitionOrDo" : {
+                                                  "Transition" : {
+                                                    "transition" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
+                                                            }
+                                                          },
+                                                          "id" : 46
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 47
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
                                         "Internal transition"
                                       ],
                                       {
@@ -534,14 +554,14 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s4",
-                                                    "id" : 44
+                                                    "id" : 48
                                                   }
                                                 },
                                                 "guard" : {
                                                   "Some" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 45
+                                                      "id" : 49
                                                     }
                                                   }
                                                 },
@@ -551,14 +571,14 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 47
+                                                          "id" : 51
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 }
                                               },
-                                              "id" : 48
+                                              "id" : 52
                                             }
                                           }
                                         }
@@ -578,7 +598,7 @@
                                                 "signal" : {
                                                   "AstNode" : {
                                                     "data" : "s5",
-                                                    "id" : 57
+                                                    "id" : 61
                                                   }
                                                 },
                                                 "guard" : "None",
@@ -588,14 +608,14 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 59
+                                                          "id" : 63
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 }
                                               },
-                                              "id" : 60
+                                              "id" : 64
                                             }
                                           }
                                         }
@@ -605,7 +625,7 @@
                                     ]
                                   ]
                                 },
-                                "id" : 61
+                                "id" : 65
                               }
                             }
                           }
@@ -635,12 +655,12 @@
                                             }
                                           }
                                         },
-                                        "id" : 62
+                                        "id" : 66
                                       }
                                     }
                                   }
                                 },
-                                "id" : 63
+                                "id" : 67
                               }
                             }
                           }
@@ -660,7 +680,7 @@
                                   "name" : "s2",
                                   "typeName" : "None"
                                 },
-                                "id" : 64
+                                "id" : 68
                               }
                             }
                           }
@@ -680,7 +700,7 @@
                                   "name" : "s3",
                                   "typeName" : "None"
                                 },
-                                "id" : 65
+                                "id" : 69
                               }
                             }
                           }
@@ -700,7 +720,7 @@
                                   "name" : "s4",
                                   "typeName" : "None"
                                 },
-                                "id" : 66
+                                "id" : 70
                               }
                             }
                           }
@@ -720,7 +740,7 @@
                                   "name" : "s5",
                                   "typeName" : "None"
                                 },
-                                "id" : 69
+                                "id" : 73
                               }
                             }
                           }
@@ -731,7 +751,7 @@
                     ]
                   }
                 },
-                "id" : 70
+                "id" : 74
               }
             }
           }
@@ -810,7 +830,7 @@
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "20.42",
+    "pos" : "20.22",
     "includingLoc" : "None"
   },
   "14" : {
@@ -820,192 +840,192 @@
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "20.3",
+    "pos" : "20.42",
     "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "23.3",
+    "pos" : "20.36",
     "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "29.16",
+    "pos" : "20.3",
     "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "29.25",
+    "pos" : "23.3",
     "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "29.25",
+    "pos" : "29.16",
     "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "29.5",
+    "pos" : "29.25",
     "includingLoc" : "None"
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.21",
+    "pos" : "29.25",
     "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.30",
+    "pos" : "29.5",
     "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.30",
+    "pos" : "32.21",
     "includingLoc" : "None"
   },
   "24" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.44",
+    "pos" : "32.30",
     "includingLoc" : "None"
   },
   "25" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.47",
+    "pos" : "32.30",
     "includingLoc" : "None"
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.44",
+    "pos" : "32.24",
     "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.5",
+    "pos" : "32.44",
     "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "35.5",
+    "pos" : "32.47",
     "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.8",
+    "pos" : "32.44",
     "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.14",
+    "pos" : "32.38",
     "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.20",
+    "pos" : "32.5",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.29",
+    "pos" : "35.5",
     "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.29",
+    "pos" : "38.8",
     "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "38.5",
+    "pos" : "38.14",
     "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.8",
+    "pos" : "38.20",
     "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.14",
+    "pos" : "38.29",
     "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.23",
+    "pos" : "38.29",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.23",
+    "pos" : "38.5",
     "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.5",
+    "pos" : "41.8",
     "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.8",
+    "pos" : "41.14",
     "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.17",
+    "pos" : "41.23",
     "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.17",
+    "pos" : "41.23",
     "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.5",
+    "pos" : "41.5",
     "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "47.8",
+    "pos" : "44.8",
     "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "47.14",
+    "pos" : "44.17",
     "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "47.20",
+    "pos" : "44.17",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "47.20",
+    "pos" : "44.5",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "47.5",
+    "pos" : "47.8",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.8",
+    "pos" : "47.14",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.14",
+    "pos" : "47.20",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.14",
+    "pos" : "47.20",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.5",
+    "pos" : "47.5",
     "includingLoc" : "None"
   },
   "53" : {
@@ -1050,50 +1070,70 @@
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "26.3",
+    "pos" : "50.8",
     "includingLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "55.14",
+    "pos" : "50.14",
     "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "55.3",
+    "pos" : "50.14",
     "includingLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "58.3",
+    "pos" : "50.5",
     "includingLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "61.3",
+    "pos" : "26.3",
     "includingLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "64.3",
+    "pos" : "55.14",
     "includingLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "67.3",
+    "pos" : "55.3",
     "includingLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "67.3",
+    "pos" : "58.3",
     "includingLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "67.3",
+    "pos" : "61.3",
     "includingLoc" : "None"
   },
   "70" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "64.3",
+    "includingLoc" : "None"
+  },
+  "71" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "67.3",
+    "includingLoc" : "None"
+  },
+  "72" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "67.3",
+    "includingLoc" : "None"
+  },
+  "73" : {
+    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
+    "pos" : "67.3",
+    "includingLoc" : "None"
+  },
+  "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "2.1",
     "includingLoc" : "None"
@@ -1145,7 +1185,7 @@
         }
       }
     },
-    "62" : {
+    "66" : {
       "Int" : {
         "PrimitiveInt" : {
           "kind" : {

@@ -363,7 +363,7 @@
                                                         "node" : {
                                                           "AstNode" : {
                                                             "data" : {
-                                                              "transitionExpr" : {
+                                                              "transition" : {
                                                                 "actions" : [
                                                                 ],
                                                                 "destination" : {
