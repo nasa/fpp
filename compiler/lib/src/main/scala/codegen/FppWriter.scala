@@ -54,10 +54,10 @@ object FppWriter extends AstVisitor with LineUtils {
   ): Out = {
     (
       transitionExpr.actions match {
-        case Nil => Nil
-        case head :: _ => lines(s"do $head")
+        case Nil => lines("")
+        case head :: _ => lines(s"do ${ident(head.data)} ")
       }
-    ).join (" enter ")(qualIdent(transitionExpr.destination.data))
+    ).join ("enter ") (qualIdent(transitionExpr.destination.data))
   }
 
   def moduleMember(member: Ast.ModuleMember): Out = {
@@ -91,7 +91,8 @@ object FppWriter extends AstVisitor with LineUtils {
       case Ast.TransitionOrDo.Transition(transitionExpr) =>
         transitionExpression(transitionExpr)
       case Ast.TransitionOrDo.Do(Nil) => Nil
-      case Ast.TransitionOrDo.Do(actions) => lines(s" do ${ident(actions.head.data)}")
+      case Ast.TransitionOrDo.Do(head :: _) =>
+        lines(s"do ${ident(head.data)}")
     }
   }
 
@@ -205,9 +206,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
-    (lines(s"if ${data.guard.data}").
+    (lines(s"if ${data.guard.data} ").
     join("")(transitionExpression(data.ifExpr))).map(indentIn).
-    joinWithBreak("")(lines("else")).
+    joinWithBreak("")(lines("else ")).
     join("")(transitionExpression(data.elseExpr)) ++
     lines("}")
   }
@@ -460,7 +461,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("initial").
-    join("")(transitionExpression(data.transitionExpr))
+    join(" ")(transitionExpression(data.transitionExpr))
   }
 
   override def specInternalPortAnnotatedNode(
@@ -617,7 +618,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"on ${ident(data.signal.data)}").
     joinOpt(data.guard)(" if ")(nodeIdentAsLines).
-    join("")(transitionOrDo(data.transitionOrDo))
+    join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
   override def transUnit(
