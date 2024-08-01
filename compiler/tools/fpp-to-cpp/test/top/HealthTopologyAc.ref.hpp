@@ -16,18 +16,24 @@
 // ----------------------------------------------------------------------
 
 namespace M {
+
   //! c1
   extern C c1;
+
 }
 
 namespace M {
+
   //! c2
   extern C c2;
+
 }
 
 namespace M {
+
   //! health
   extern Svc::Health health;
+
 }
 
 namespace M {
