@@ -186,8 +186,8 @@ object Ast {
   final case class DefJunction(
     name: Ident,
     guard: AstNode[Ident],
-    ifTransition: TransitionExpr,
-    elseTransition: TransitionExpr
+    ifTransition: AstNode[TransitionExpr],
+    elseTransition: AstNode[TransitionExpr]
   )
 
   /** Transition expression */

@@ -147,7 +147,8 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! transitionExpr ~! (elseJunction ~> transitionExpr) <~! rbrace ^^ {
+    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~!
+    node(transitionExpr) ~! (elseJunction ~> node(transitionExpr)) <~! rbrace ^^ {
       case ident ~ guard ~ ifTransition ~ elseTransition =>
         Ast.DefJunction(ident, guard, ifTransition, elseTransition)
     }
