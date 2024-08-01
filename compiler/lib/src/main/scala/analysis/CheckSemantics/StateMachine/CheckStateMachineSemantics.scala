@@ -12,10 +12,14 @@ object CheckStateMachineSemantics {
   ): Result.Result[StateMachineAnalysis] = {
     for {
       sma <- EnterStateMachineSymbols.defStateMachineAnnotatedNode(sma, aNode)
-      // TODO: Check state machine uses
+      sma <- CheckStateMachineUses.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check initial transitions
       // TODO: Check signal uses
       // TODO: Check transition graph
+      // TODO: Check typed elements
+      // TODO: Compute flattened initial transition
+      // TODO: Compute flattened state transition map
+      // TODO: Compute flattened junction transition map
     }
     yield sma
   }
