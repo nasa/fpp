@@ -186,11 +186,11 @@ object Ast {
   final case class DefJunction(
     name: Ident,
     guard: AstNode[Ident],
-    ifExpr: TransitionExpr,
-    elseExpr: TransitionExpr
+    ifTransition: TransitionExpr,
+    elseTransition: TransitionExpr
   )
 
-  /** Enter expression */
+  /** Transition expression */
   final case class TransitionExpr(
     action: DoExpr,
     state: AstNode[QualIdent]

@@ -219,9 +219,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"junction ${ident(data.name)} {") ++
     (lines(s"if ${data.guard.data}").
-    join(" ")(transitionExpression(data.ifExpr))).map(indentIn).
+    join(" ")(transitionExpression(data.ifTransition))).map(indentIn).
     joinWithBreak("")(lines("else")).
-    join(" ")(transitionExpression(data.elseExpr)) ++
+    join(" ")(transitionExpression(data.elseTransition)) ++
     lines("}")
   }
 

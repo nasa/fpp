@@ -132,8 +132,8 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def junction") ++
     (ident(data.name) ++
     addPrefix("guard", applyToData(ident)) (data.guard) ++
-    transExpression(data.ifExpr) ++
-    transExpression(data.elseExpr)).map(indentIn)
+    transExpression(data.ifTransition) ++
+    transExpression(data.elseTransition)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
