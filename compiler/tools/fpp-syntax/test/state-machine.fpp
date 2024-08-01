@@ -41,13 +41,16 @@ state machine M {
   state S2 {
 
     entry do {a1,a2}
-    exit do {a1, a2}
+    exit do {
+        a1
+        a2
+    }
 
     @ Initial transition
     initial do {a1, a2} enter S3
 
     @ Junction J
-    junction J { if g1 enter S1 else enter S2.S3 }
+    junction J { if g1 do {a1, a2} enter S1 else do {a2, a3} enter S2.S3 }
 
     @ State S3
     state S3

@@ -15,6 +15,22 @@ def state machine
   @ Guard g2
   def guard
     ident g2
+  @ Signal s1
+  def signal
+    ident s1
+    typeName type name U32
+  @ Signal s2
+  def signal
+    ident s2
+  @ Signal s3
+  def signal
+    ident s3
+  @ Signal s4
+  def signal
+    ident s4
+  @ Signal s5
+  def signal
+    ident s5
   @ Initial transition
   spec initial
     action ident a1
@@ -31,15 +47,26 @@ def state machine
   @ State S2
   def state
     ident S2
+    spec entry
+      action ident a1
+      action ident a2
+    spec exit
+      action ident a1
+      action ident a2
     @ Initial transition
     spec initial
       action ident a1
+      action ident a2
       state qual ident S3
     @ Junction J
     def junction
       ident J
       guard ident g1
+      action ident a1
+      action ident a2
       state qual ident S1
+      action ident a2
+      action ident a3
       state qual ident S2.S3
     @ State S3
     def state
@@ -49,6 +76,10 @@ def state machine
       signal ident s1
       guard ident g1
       action ident a1
+      state qual ident S1
+    spec transition
+      signal ident s1
+      guard ident g1
       state qual ident S1
     @ Transition to S1
     spec transition
@@ -68,19 +99,3 @@ def state machine
     spec transition
       signal ident s5
       action ident a1
-  @ Signal s1
-  def signal
-    ident s1
-    typeName type name U32
-  @ Signal s2
-  def signal
-    ident s2
-  @ Signal s3
-  def signal
-    ident s3
-  @ Signal s4
-  def signal
-    ident s4
-  @ Signal s5
-  def signal
-    ident s5

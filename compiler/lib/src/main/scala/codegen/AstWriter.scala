@@ -132,8 +132,8 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def junction") ++
     (ident(data.name) ++
     addPrefix("guard", applyToData(ident)) (data.guard) ++
-    enterExpression(data.ifExpr) ++
-    enterExpression(data.elseExpr)).map(indentIn)
+    transExpression(data.ifExpr) ++
+    transExpression(data.elseExpr)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
@@ -423,7 +423,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec initial") ++
-    enterExpression(data.enterExpr).map(indentIn)
+    transExpression(data.transitionExpr).map(indentIn)
   }
 
   override def specEntryAnnotatedNode(
@@ -623,7 +623,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec transition") ++
     (addPrefix("signal", applyToData(ident)) (data.signal) ++
     linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
-    enterOrDo(data.enterOrDo)).map(indentIn)
+    enterOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =
@@ -713,13 +713,13 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
 
 
-  private def enterExpression(
-    enterExpr: Ast.EnterExpr
+  private def transExpression(
+    transitionExpr: Ast.TransitionExpr
   ) = {
-    List(
-      linesOpt(doExpression, enterExpr.action),
-      addPrefix("state", applyToData(qualIdent)) (enterExpr.state)
-    ).flatten
+    List.concat(
+      doExpression(transitionExpr.action),
+      addPrefix("state", applyToData(qualIdent)) (transitionExpr.state)
+    )
   }
 
   private def doExpression(doExpr: Ast.DoExpr): List[Line] = {
@@ -729,11 +729,11 @@ object AstWriter extends AstVisitor with LineUtils {
   }
 
   private def enterOrDo(
-    enterOrDo: Ast.EnterOrDo
+    enterOrDo: Ast.TransitionOrDo
   ) = {
     enterOrDo match {
-      case Ast.EnterOrDo.Enter(enterExpr) => enterExpression(enterExpr)
-      case Ast.EnterOrDo.Do(actions) => doExpression(actions)
+      case Ast.TransitionOrDo.Transition(transitionExpr) => transExpression(transitionExpr)
+      case Ast.TransitionOrDo.Do(actions) => doExpression(actions)
     }
   }
 

@@ -147,7 +147,7 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! enterExpr ~! (elseJunction ~> enterExpr) <~! rbrace ^^ {
+    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~! transitionExpr ~! (elseJunction ~> transitionExpr) <~! rbrace ^^ {
       case ident ~ guard ~ ifExpr ~ elseExpr => Ast.DefJunction(ident, guard, ifExpr, elseExpr)
     }
   }
@@ -196,10 +196,13 @@ object Parser extends Parsers {
     }
   }
 
-  def enterExpr: Parser[Ast.EnterExpr] =
+  def transitionExpr: Parser[Ast.TransitionExpr] =
     opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
-      case doList ~ state =>
-        Ast.EnterExpr(doList, state)
+      case Some(doList) ~ state =>
+        Ast.TransitionExpr(doList, state)
+      case None ~ state => 
+        val myExpr = Ast.DoExpr(List())
+        Ast.TransitionExpr(myExpr, state)
     }
 
 
@@ -213,12 +216,12 @@ object Parser extends Parsers {
     }
   }
 
-  def enterOrDo: Parser[Ast.EnterOrDo] = {
-    def enterParser: Parser[Ast.EnterOrDo.Enter] = enterExpr ^^ {
-      case e => Ast.EnterOrDo.Enter(e)
+  def enterOrDo: Parser[Ast.TransitionOrDo] = {
+    def enterParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
+      case e => Ast.TransitionOrDo.Transition(e)
     }
-    def doParser: Parser[Ast.EnterOrDo.Do] = doExpr ^^ {
-      case doList => Ast.EnterOrDo.Do(doList)
+    def doParser: Parser[Ast.TransitionOrDo.Do] = doExpr ^^ {
+      case doList => Ast.TransitionOrDo.Do(doList)
     }
     enterParser | doParser
   }
@@ -514,8 +517,8 @@ object Parser extends Parsers {
   }
 
   def specInitial: Parser[Ast.SpecInitial] = {
-    initial ~> enterExpr ^^ {
-      case enterExpr => Ast.SpecInitial(enterExpr)
+    initial ~> transitionExpr ^^ {
+      case transitionExpr => Ast.SpecInitial(transitionExpr)
     }
   }
 
