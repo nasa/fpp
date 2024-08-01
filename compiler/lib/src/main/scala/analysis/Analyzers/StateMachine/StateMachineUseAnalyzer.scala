@@ -26,7 +26,7 @@ trait StateMachineUseAnalyzer
     default(sma)
 
   override def specInitialAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecInitial]]) =
-    transitionExpr(sma, node._2.data.transitionExpr)
+    transitionExpr(sma, node._2.data.transition)
 
   override def specTransitionAnnotatedNode(sma: StateMachineAnalysis, node: Ast.Annotated[AstNode[Ast.SpecTransition]]) =
     // TODO

@@ -132,8 +132,8 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def junction") ++
     (ident(data.name) ++
     addPrefix("guard", applyToData(ident)) (data.guard) ++
-    transitionExpression(data.ifExpr) ++
-    transitionExpression(data.elseExpr)).map(indentIn)
+    transitionExpression(data.ifTransition) ++
+    transitionExpression(data.elseTransition)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(
@@ -423,7 +423,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec initial") ++
-    transitionExpression(data.transitionExpr).map(indentIn)
+    transitionExpression(data.transition).map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(

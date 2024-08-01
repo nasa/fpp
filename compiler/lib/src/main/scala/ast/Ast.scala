@@ -186,8 +186,8 @@ object Ast {
   final case class DefJunction(
     name: Ident,
     guard: AstNode[Ident],
-    ifExpr: TransitionExpr,
-    elseExpr: TransitionExpr
+    ifTransition: TransitionExpr,
+    elseTransition: TransitionExpr
   )
 
   /** Transition expression */
@@ -219,9 +219,7 @@ object Ast {
   }
 
   /** Initial state specifier */
-  final case class SpecInitial(
-    transitionExpr: TransitionExpr
-  )
+  final case class SpecInitial(transition: TransitionExpr)
 
   /** Transition specifier */
   final case class SpecTransition(
@@ -233,7 +231,9 @@ object Ast {
   /** Transition or do within transition specifier */
   sealed trait TransitionOrDo
   object TransitionOrDo {
-    final case class Transition(enter: TransitionExpr) extends TransitionOrDo
+    final case class Transition(
+      transition: TransitionExpr
+    ) extends TransitionOrDo
     final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }
 
