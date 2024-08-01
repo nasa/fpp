@@ -695,10 +695,13 @@ object AstWriter extends AstVisitor with LineUtils {
   private def transitionExpression(
     transitionExpr: Ast.TransitionExpr
   ) = {
-    List(
-      linesOpt(addPrefix("action", applyToData(ident)), transitionExpr.action),
-      addPrefix("state", applyToData(qualIdent)) (transitionExpr.state)
-    ).flatten
+    List.concat(
+      transitionExpr.actions match {
+        case Nil => Nil
+        case head :: _ => addPrefix("action", applyToData(ident)) (head)
+      },
+      addPrefix("state", applyToData(qualIdent)) (transitionExpr.destination)
+    )
   }
 
   private def transitionOrDo(
@@ -706,7 +709,9 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     transitionOrDo match {
       case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
-      case Ast.TransitionOrDo.Do(action) => addPrefix("action", applyToData(ident)) (action)
+      case Ast.TransitionOrDo.Do(Nil) => Nil
+      case Ast.TransitionOrDo.Do(actions) =>
+        addPrefix("action", applyToData(ident)) (actions.head)
     }
   }
 

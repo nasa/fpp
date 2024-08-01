@@ -34,8 +34,8 @@ trait StateMachineUseAnalyzer
 
   private def transitionExpr(sma: StateMachineAnalysis, e: Ast.TransitionExpr): Result = {
     for {
-      sma <- opt(identNode(actionUse))(sma, e.action)
-      sma <- qualIdentNode(stateOrJunctionUse)(sma, e.state)
+      sma <- Result.foldLeft (e.actions) (sma) (identNode(actionUse))
+      sma <- qualIdentNode(stateOrJunctionUse)(sma, e.destination)
     }
     yield sma
   }

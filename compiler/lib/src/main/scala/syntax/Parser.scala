@@ -198,18 +198,20 @@ object Parser extends Parsers {
 
   def transitionExpr: Parser[Ast.TransitionExpr] =
     opt(doToken ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
-      case ident ~ state =>
-        Ast.TransitionExpr(ident, state)
+      case actions ~ destination =>
+        // TODO: Parse the list of actions
+        Ast.TransitionExpr(actions.map(List(_)).getOrElse(Nil), destination)
     }
 
   def transitionOrDo: Parser[Ast.TransitionOrDo] = {
-    def enterParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
+    def transitionParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
       case e => Ast.TransitionOrDo.Transition(e)
     }
     def doParser: Parser[Ast.TransitionOrDo.Do] = doToken ~>! node(ident) ^^ {
-      case ident => Ast.TransitionOrDo.Do(ident)
+      // TODO: Parse the list of actions
+      case actions => Ast.TransitionOrDo.Do(List(actions))
     }
-    enterParser | doParser
+    transitionParser | doParser
   }
 
   def exprNode: Parser[AstNode[Ast.Expr]] = {

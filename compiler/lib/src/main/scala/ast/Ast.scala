@@ -192,8 +192,8 @@ object Ast {
 
   /** Transition expression */
   final case class TransitionExpr(
-    action: Option[AstNode[Ident]],
-    state: AstNode[QualIdent]
+    actions: List[AstNode[Ident]],
+    destination: AstNode[QualIdent]
   )
 
   /** Signal definition */
@@ -234,7 +234,7 @@ object Ast {
   sealed trait TransitionOrDo
   object TransitionOrDo {
     final case class Transition(enter: TransitionExpr) extends TransitionOrDo
-    final case class Do(action: AstNode[Ident]) extends TransitionOrDo
+    final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }
 
   /** Struct definition */

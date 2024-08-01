@@ -364,8 +364,9 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "transitionExpr" : {
-                                                                "action" : "None",
-                                                                "state" : {
+                                                                "actions" : [
+                                                                ],
+                                                                "destination" : {
                                                                   "AstNode" : {
                                                                     "data" : {
                                                                       "Unqualified" : {

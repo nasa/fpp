@@ -52,9 +52,12 @@ object FppWriter extends AstVisitor with LineUtils {
   def transitionExpression(
     transitionExpr: Ast.TransitionExpr
   ): Out = {
-    lines("").
-    joinOpt (transitionExpr.action) (" do ") (nodeIdentAsLines).
-    join (" enter ")(qualIdent(transitionExpr.state.data))
+    (
+      transitionExpr.actions match {
+        case Nil => Nil
+        case head :: _ => lines(s"do $head")
+      }
+    ).join (" enter ")(qualIdent(transitionExpr.destination.data))
   }
 
   def moduleMember(member: Ast.ModuleMember): Out = {
@@ -81,21 +84,23 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
+  def transitionOrDo(
+    transitionOrDo: Ast.TransitionOrDo
+  ) = {
+    transitionOrDo match {
+      case Ast.TransitionOrDo.Transition(transitionExpr) =>
+        transitionExpression(transitionExpr)
+      case Ast.TransitionOrDo.Do(Nil) => Nil
+      case Ast.TransitionOrDo.Do(actions) => lines(s" do ${ident(actions.head.data)}")
+    }
+  }
+
   def transUnit(tu: Ast.TransUnit): Out = transUnit((), tu)
 
   def tuMember(tum: Ast.TUMember): Out = moduleMember(tum)
 
   def tuMemberList(tuml: List[Ast.TUMember]): Out =
     Line.blankSeparated (tuMember) (tuml)
-
-  def transitionOrDo(
-    transitionOrDo: Ast.TransitionOrDo
-  ) = {
-    transitionOrDo match {
-      case Ast.TransitionOrDo.Transition(transitionExpr) => transitionExpression(transitionExpr)
-      case Ast.TransitionOrDo.Do(action) => lines(s" do ${ident(action.data)}")
-    }
-  }
 
   override def defAbsTypeAnnotatedNode(
     in: In,

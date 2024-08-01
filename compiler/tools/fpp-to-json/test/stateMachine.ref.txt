@@ -133,15 +133,15 @@
                               "AstNode" : {
                                 "data" : {
                                   "transitionExpr" : {
-                                    "action" : {
-                                      "Some" : {
+                                    "actions" : [
+                                      {
                                         "AstNode" : {
                                           "data" : "a1",
                                           "id" : 6
                                         }
                                       }
-                                    },
-                                    "state" : {
+                                    ],
+                                    "destination" : {
                                       "AstNode" : {
                                         "data" : {
                                           "Unqualified" : {
@@ -178,8 +178,9 @@
                                     }
                                   },
                                   "ifExpr" : {
-                                    "action" : "None",
-                                    "state" : {
+                                    "actions" : [
+                                    ],
+                                    "destination" : {
                                       "AstNode" : {
                                         "data" : {
                                           "Unqualified" : {
@@ -191,8 +192,9 @@
                                     }
                                   },
                                   "elseExpr" : {
-                                    "action" : "None",
-                                    "state" : {
+                                    "actions" : [
+                                    ],
+                                    "destination" : {
                                       "AstNode" : {
                                         "data" : {
                                           "Unqualified" : {
@@ -254,15 +256,15 @@
                                             "AstNode" : {
                                               "data" : {
                                                 "transitionExpr" : {
-                                                  "action" : {
-                                                    "Some" : {
+                                                  "actions" : [
+                                                    {
                                                       "AstNode" : {
                                                         "data" : "a1",
                                                         "id" : 17
                                                       }
                                                     }
-                                                  },
-                                                  "state" : {
+                                                  ],
+                                                  "destination" : {
                                                     "AstNode" : {
                                                       "data" : {
                                                         "Unqualified" : {
@@ -299,8 +301,9 @@
                                                   }
                                                 },
                                                 "ifExpr" : {
-                                                  "action" : "None",
-                                                  "state" : {
+                                                  "actions" : [
+                                                  ],
+                                                  "destination" : {
                                                     "AstNode" : {
                                                       "data" : {
                                                         "Unqualified" : {
@@ -312,8 +315,9 @@
                                                   }
                                                 },
                                                 "elseExpr" : {
-                                                  "action" : "None",
-                                                  "state" : {
+                                                  "actions" : [
+                                                  ],
+                                                  "destination" : {
                                                     "AstNode" : {
                                                       "data" : {
                                                         "Qualified" : {
@@ -395,15 +399,15 @@
                                                 "transitionOrDo" : {
                                                   "Transition" : {
                                                     "enter" : {
-                                                      "action" : {
-                                                        "Some" : {
+                                                      "actions" : [
+                                                        {
                                                           "AstNode" : {
                                                             "data" : "a1",
                                                             "id" : 31
                                                           }
                                                         }
-                                                      },
-                                                      "state" : {
+                                                      ],
+                                                      "destination" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Unqualified" : {
@@ -451,8 +455,9 @@
                                                 "transitionOrDo" : {
                                                   "Transition" : {
                                                     "enter" : {
-                                                      "action" : "None",
-                                                      "state" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Unqualified" : {
@@ -493,8 +498,9 @@
                                                 "transitionOrDo" : {
                                                   "Transition" : {
                                                     "enter" : {
-                                                      "action" : "None",
-                                                      "state" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Unqualified" : {
@@ -541,12 +547,14 @@
                                                 },
                                                 "transitionOrDo" : {
                                                   "Do" : {
-                                                    "action" : {
-                                                      "AstNode" : {
-                                                        "data" : "a1",
-                                                        "id" : 47
+                                                    "actions" : [
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a1",
+                                                          "id" : 47
+                                                        }
                                                       }
-                                                    }
+                                                    ]
                                                   }
                                                 }
                                               },
@@ -576,12 +584,14 @@
                                                 "guard" : "None",
                                                 "transitionOrDo" : {
                                                   "Do" : {
-                                                    "action" : {
-                                                      "AstNode" : {
-                                                        "data" : "a1",
-                                                        "id" : 59
+                                                    "actions" : [
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a1",
+                                                          "id" : 59
+                                                        }
                                                       }
-                                                    }
+                                                    ]
                                                   }
                                                 }
                                               },
