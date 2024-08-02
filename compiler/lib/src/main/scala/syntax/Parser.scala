@@ -147,8 +147,8 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifGuard ~> node(ident)) ~!
-    node(transitionExpr) ~! (elseJunction ~> node(transitionExpr)) <~! rbrace ^^ {
+    (junction ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
+      (elseJunction ~> node(transitionExpr)) <~! rbrace ^^ {
       case ident ~ guard ~ ifTransition ~ elseTransition =>
         Ast.DefJunction(ident, guard, ifTransition, elseTransition)
     }
@@ -698,7 +698,7 @@ object Parser extends Parsers {
     importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
   def specTransition: Parser[Ast.SpecTransition] = {
-    (on ~> node(ident)) ~! opt(ifGuard ~> node(ident)) ~ enterOrDo ^^ {
+    (on ~> node(ident)) ~! opt(ifToken ~> node(ident)) ~ enterOrDo ^^ {
       case signal ~ guard ~ enterOrDo =>
         Ast.SpecTransition(signal, guard, enterOrDo)
     }
@@ -917,7 +917,7 @@ object Parser extends Parsers {
   private def ident: Parser[Ast.Ident] =
     accept("identifier", { case Token.IDENTIFIER(s) => s })
 
-  private def ifGuard = accept("if", { case t : Token.IF => t })
+  private def ifToken = accept("if", { case t : Token.IF => t })
 
   private def importToken = accept("import", { case t : Token.IMPORT => t })
 
