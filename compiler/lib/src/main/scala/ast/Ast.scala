@@ -196,10 +196,6 @@ object Ast {
     destination: AstNode[QualIdent]
   )
 
-  final case class DoExpr(
-    actions: List[AstNode[Ident]]
-  )
-
   /** Signal definition */
   final case class DefSignal(
     name: Ident,
@@ -249,8 +245,10 @@ object Ast {
   /** Transition or do within transition specifier */
   sealed trait TransitionOrDo
   object TransitionOrDo {
-    final case class Transition(trans: TransitionExpr) extends TransitionOrDo
-    final case class Do(action: DoExpr) extends TransitionOrDo
+    final case class Transition(
+      transition: TransitionExpr
+    ) extends TransitionOrDo
+    final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }
 
   /** Struct definition */

@@ -722,12 +722,6 @@ object AstWriter extends AstVisitor with LineUtils {
     )
   }
 
-  private def doExpression(doExpr: Ast.DoExpr): List[Line] = {
-    doExpr.actions.map { identNode =>
-        line(s"action ident ${identNode.data}")
-    }
-  }
-
   private def doExpressionAsList(actions: List[AstNode[Ast.Ident]]): List[Line] =
     actions.map(node => line(s"action ident ${node.data}"))
 
@@ -736,7 +730,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) = {
     enterOrDo match {
       case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
-      case Ast.TransitionOrDo.Do(actions) => doExpression(actions)
+      case Ast.TransitionOrDo.Do(actions) => doExpressionAsList(actions)
     }
   }
 

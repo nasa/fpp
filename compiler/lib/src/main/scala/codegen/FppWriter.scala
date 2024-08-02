@@ -49,22 +49,6 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
-  def doExpression(
-    doExpr: Ast.DoExpr
-  ) = {
-    doExpr.actions match {
-      case Nil => List(
-        lines("")
-      ).flatten
-      case actions => 
-        List(
-          lines("do {") ++
-          (doExpr.actions.map(identNode => lines(s"${identNode.data}").map(indentIn))).flatten ++
-          lines("} ")
-        ).flatten
-    }
-  }
-
   def doExpressionAsList(actions: List[AstNode[Ast.Ident]]) = {
     actions match {
       case Nil => lines("")
@@ -123,7 +107,7 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     transOrDo match {
       case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
-      case Ast.TransitionOrDo.Do(doExpr) => doExpression(doExpr)
+      case Ast.TransitionOrDo.Do(actions) => doExpressionAsList(actions)
     }
   }
 
