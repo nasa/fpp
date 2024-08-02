@@ -363,7 +363,7 @@
                                                         "node" : {
                                                           "AstNode" : {
                                                             "data" : {
-                                                              "transitionExpr" : {
+                                                              "transition" : {
                                                                 "actions" : [
                                                                 ],
                                                                 "destination" : {
@@ -395,7 +395,8 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "name" : "IDLE",
-                                                              "members" : "None"
+                                                              "members" : [
+                                                              ]
                                                             },
                                                             "id" : 120
                                                           }

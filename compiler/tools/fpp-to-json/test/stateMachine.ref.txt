@@ -247,7 +247,7 @@
                             "node" : {
                               "AstNode" : {
                                 "data" : {
-                                  "transitionExpr" : {
+                                  "transition" : {
                                     "actions" : [
                                       {
                                         "AstNode" : {
@@ -349,7 +349,8 @@
                               "AstNode" : {
                                 "data" : {
                                   "name" : "S1",
-                                  "members" : "None"
+                                  "members" : [
+                                  ]
                                 },
                                 "id" : 24
                               }
@@ -369,525 +370,516 @@
                               "AstNode" : {
                                 "data" : {
                                   "name" : "S2",
-                                  "members" : {
-                                    "Some" : [
+                                  "members" : [
+                                    [
                                       [
-                                        [
-                                        ],
-                                        {
-                                          "SpecEntry" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "doExpr" : {
-                                                    "actions" : [
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a1",
-                                                          "id" : 151
-                                                        }
-                                                      },
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a2",
-                                                          "id" : 152
-                                                        }
-                                                      }
-                                                    ]
+                                      ],
+                                      {
+                                        "SpecEntry" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "actions" : [
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : "a1",
+                                                      "id" : 151
+                                                    }
+                                                  },
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : "a2",
+                                                      "id" : 152
+                                                    }
                                                   }
-                                                },
-                                                "id" : 153
-                                              }
+                                                ]
+                                              },
+                                              "id" : 153
                                             }
                                           }
-                                        },
-                                        [
-                                        ]
-                                      ],
+                                        }
+                                      },
                                       [
-                                        [
-                                        ],
-                                        {
-                                          "SpecExit" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "doExpr" : {
-                                                    "actions" : [
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a1",
-                                                          "id" : 154
-                                                        }
-                                                      },
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a2",
-                                                          "id" : 155
-                                                        }
-                                                      }
-                                                    ]
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                      ],
+                                      {
+                                        "SpecExit" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "actions" : [
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : "a1",
+                                                      "id" : 154
+                                                    }
+                                                  },
+                                                  {
+                                                    "AstNode" : {
+                                                      "data" : "a2",
+                                                      "id" : 155
+                                                    }
                                                   }
-                                                },
-                                                "id" : 156
-                                              }
+                                                ]
+                                              },
+                                              "id" : 156
                                             }
                                           }
-                                        },
-                                        [
-                                        ]
-                                      ],
+                                        }
+                                      },
                                       [
-                                        [
-                                          "Initial transition"
-                                        ],
-                                        {
-                                          "SpecInitial" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "transitionExpr" : {
-                                                    "actions" : [
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a1",
-                                                          "id" : 157
-                                                        }
-                                                      },
-                                                      {
-                                                        "AstNode" : {
-                                                          "data" : "a2",
-                                                          "id" : 158
-                                                        }
-                                                      }
-                                                    ],
-                                                    "destination" : {
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Initial transition"
+                                      ],
+                                      {
+                                        "SpecInitial" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "transition" : {
+                                                  "actions" : [
+                                                    {
                                                       "AstNode" : {
-                                                        "data" : {
-                                                          "Unqualified" : {
-                                                            "name" : "S3"
+                                                        "data" : "a1",
+                                                        "id" : 157
+                                                      }
+                                                    },
+                                                    {
+                                                      "AstNode" : {
+                                                        "data" : "a2",
+                                                        "id" : 158
+                                                      }
+                                                    }
+                                                  ],
+                                                  "destination" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "Unqualified" : {
+                                                          "name" : "S3"
+                                                        }
+                                                      },
+                                                      "id" : 160
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 161
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Junction J"
+                                      ],
+                                      {
+                                        "DefJunction" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "J",
+                                                "guard" : {
+                                                  "AstNode" : {
+                                                    "data" : "g1",
+                                                    "id" : 162
+                                                  }
+                                                },
+                                                "ifTransition" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "actions" : [
+                                                        {
+                                                          "AstNode" : {
+                                                            "data" : "a1",
+                                                            "id" : 163
                                                           }
                                                         },
-                                                        "id" : 160
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 161
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "Junction J"
-                                        ],
-                                        {
-                                          "DefJunction" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "name" : "J",
-                                                  "guard" : {
-                                                    "AstNode" : {
-                                                      "data" : "g1",
-                                                      "id" : 162
-                                                    }
-                                                  },
-                                                  "ifTransition" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "actions" : [
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a1",
-                                                              "id" : 163
-                                                            }
-                                                          },
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a2",
-                                                              "id" : 164
-                                                            }
-                                                          }
-                                                        ],
-                                                        "destination" : {
+                                                        {
                                                           "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "S1"
-                                                              }
-                                                            },
-                                                            "id" : 166
+                                                            "data" : "a2",
+                                                            "id" : 164
                                                           }
                                                         }
-                                                      },
-                                                      "id" : 167
-                                                    }
-                                                  },
-                                                  "elseTransition" : {
-                                                    "AstNode" : {
-                                                      "data" : {
-                                                        "actions" : [
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a2",
-                                                              "id" : 168
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
                                                             }
                                                           },
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a3",
-                                                              "id" : 169
-                                                            }
-                                                          }
-                                                        ],
-                                                        "destination" : {
+                                                          "id" : 166
+                                                        }
+                                                      }
+                                                    },
+                                                    "id" : 167
+                                                  }
+                                                },
+                                                "elseTransition" : {
+                                                  "AstNode" : {
+                                                    "data" : {
+                                                      "actions" : [
+                                                        {
                                                           "AstNode" : {
-                                                            "data" : {
-                                                              "Qualified" : {
-                                                                "qualifier" : {
-                                                                  "AstNode" : {
-                                                                    "data" : {
-                                                                      "Unqualified" : {
-                                                                        "name" : "S2"
-                                                                      }
-                                                                    },
-                                                                    "id" : 170
-                                                                  }
-                                                                },
-                                                                "name" : {
-                                                                  "AstNode" : {
-                                                                    "data" : "S3",
-                                                                    "id" : 171
-                                                                  }
+                                                            "data" : "a2",
+                                                            "id" : 168
+                                                          }
+                                                        },
+                                                        {
+                                                          "AstNode" : {
+                                                            "data" : "a3",
+                                                            "id" : 169
+                                                          }
+                                                        }
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Qualified" : {
+                                                              "qualifier" : {
+                                                                "AstNode" : {
+                                                                  "data" : {
+                                                                    "Unqualified" : {
+                                                                      "name" : "S2"
+                                                                    }
+                                                                  },
+                                                                  "id" : 170
+                                                                }
+                                                              },
+                                                              "name" : {
+                                                                "AstNode" : {
+                                                                  "data" : "S3",
+                                                                  "id" : 171
                                                                 }
                                                               }
-                                                            },
-                                                            "id" : 172
-                                                          }
-                                                        }
-                                                      },
-                                                      "id" : 173
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 174
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "State S3"
-                                        ],
-                                        {
-                                          "DefState" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "name" : "S3",
-                                                  "members" : "None"
-                                                },
-                                                "id" : 175
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "Transition to S1"
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
-                                                    "AstNode" : {
-                                                      "data" : "s1",
-                                                      "id" : 176
-                                                    }
-                                                  },
-                                                  "guard" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : "g1",
-                                                        "id" : 177
-                                                      }
-                                                    }
-                                                  },
-                                                  "transitionOrDo" : {
-                                                    "Transition" : {
-                                                      "trans" : {
-                                                        "actions" : [
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a1",
-                                                              "id" : 178
                                                             }
-                                                          }
-                                                        ],
-                                                        "destination" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "S1"
-                                                              }
-                                                            },
-                                                            "id" : 180
-                                                          }
+                                                          },
+                                                          "id" : 172
                                                         }
                                                       }
+                                                    },
+                                                    "id" : 173
+                                                  }
+                                                }
+                                              },
+                                              "id" : 174
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "State S3"
+                                      ],
+                                      {
+                                        "DefState" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "name" : "S3",
+                                                "members" : [
+                                                ]
+                                              },
+                                              "id" : 175
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Transition to S1"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s1",
+                                                    "id" : 176
+                                                  }
+                                                },
+                                                "guard" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : "g1",
+                                                      "id" : 177
                                                     }
                                                   }
                                                 },
-                                                "id" : 181
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
-                                                    "AstNode" : {
-                                                      "data" : "s1",
-                                                      "id" : 182
-                                                    }
-                                                  },
-                                                  "guard" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : "g1",
-                                                        "id" : 183
-                                                      }
-                                                    }
-                                                  },
-                                                  "transitionOrDo" : {
-                                                    "Transition" : {
-                                                      "trans" : {
-                                                        "actions" : [
-                                                        ],
-                                                        "destination" : {
+                                                "transitionOrDo" : {
+                                                  "Transition" : {
+                                                    "transition" : {
+                                                      "actions" : [
+                                                        {
                                                           "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "S1"
-                                                              }
-                                                            },
-                                                            "id" : 185
+                                                            "data" : "a1",
+                                                            "id" : 178
                                                           }
                                                         }
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 186
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "Transition to S1"
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
-                                                    "AstNode" : {
-                                                      "data" : "s2",
-                                                      "id" : 187
-                                                    }
-                                                  },
-                                                  "guard" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : "g1",
-                                                        "id" : 188
-                                                      }
-                                                    }
-                                                  },
-                                                  "transitionOrDo" : {
-                                                    "Transition" : {
-                                                      "trans" : {
-                                                        "actions" : [
-                                                        ],
-                                                        "destination" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "S1"
-                                                              }
-                                                            },
-                                                            "id" : 190
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 191
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "Transition to S1"
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
-                                                    "AstNode" : {
-                                                      "data" : "s3",
-                                                      "id" : 192
-                                                    }
-                                                  },
-                                                  "guard" : "None",
-                                                  "transitionOrDo" : {
-                                                    "Transition" : {
-                                                      "trans" : {
-                                                        "actions" : [
-                                                        ],
-                                                        "destination" : {
-                                                          "AstNode" : {
-                                                            "data" : {
-                                                              "Unqualified" : {
-                                                                "name" : "S1"
-                                                              }
-                                                            },
-                                                            "id" : 194
-                                                          }
-                                                        }
-                                                      }
-                                                    }
-                                                  }
-                                                },
-                                                "id" : 195
-                                              }
-                                            }
-                                          }
-                                        },
-                                        [
-                                        ]
-                                      ],
-                                      [
-                                        [
-                                          "Internal transition"
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
-                                                    "AstNode" : {
-                                                      "data" : "s4",
-                                                      "id" : 196
-                                                    }
-                                                  },
-                                                  "guard" : {
-                                                    "Some" : {
-                                                      "AstNode" : {
-                                                        "data" : "g1",
-                                                        "id" : 197
-                                                      }
-                                                    }
-                                                  },
-                                                  "transitionOrDo" : {
-                                                    "Do" : {
-                                                      "action" : {
-                                                        "actions" : [
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a1",
-                                                              "id" : 199
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
                                                             }
-                                                          }
-                                                        ]
+                                                          },
+                                                          "id" : 180
+                                                        }
                                                       }
                                                     }
                                                   }
-                                                },
-                                                "id" : 200
-                                              }
+                                                }
+                                              },
+                                              "id" : 181
                                             }
                                           }
-                                        },
-                                        [
-                                        ]
-                                      ],
+                                        }
+                                      },
                                       [
-                                        [
-                                          "Internal transition"
-                                        ],
-                                        {
-                                          "SpecTransition" : {
-                                            "node" : {
-                                              "AstNode" : {
-                                                "data" : {
-                                                  "signal" : {
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s1",
+                                                    "id" : 182
+                                                  }
+                                                },
+                                                "guard" : {
+                                                  "Some" : {
                                                     "AstNode" : {
-                                                      "data" : "s5",
-                                                      "id" : 209
-                                                    }
-                                                  },
-                                                  "guard" : "None",
-                                                  "transitionOrDo" : {
-                                                    "Do" : {
-                                                      "action" : {
-                                                        "actions" : [
-                                                          {
-                                                            "AstNode" : {
-                                                              "data" : "a1",
-                                                              "id" : 211
-                                                            }
-                                                          }
-                                                        ]
-                                                      }
+                                                      "data" : "g1",
+                                                      "id" : 183
                                                     }
                                                   }
                                                 },
-                                                "id" : 212
-                                              }
+                                                "transitionOrDo" : {
+                                                  "Transition" : {
+                                                    "transition" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
+                                                            }
+                                                          },
+                                                          "id" : 185
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 186
                                             }
                                           }
-                                        },
-                                        [
-                                        ]
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Transition to S1"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s2",
+                                                    "id" : 187
+                                                  }
+                                                },
+                                                "guard" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : "g1",
+                                                      "id" : 188
+                                                    }
+                                                  }
+                                                },
+                                                "transitionOrDo" : {
+                                                  "Transition" : {
+                                                    "transition" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
+                                                            }
+                                                          },
+                                                          "id" : 190
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 191
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Transition to S1"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s3",
+                                                    "id" : 192
+                                                  }
+                                                },
+                                                "guard" : "None",
+                                                "transitionOrDo" : {
+                                                  "Transition" : {
+                                                    "transition" : {
+                                                      "actions" : [
+                                                      ],
+                                                      "destination" : {
+                                                        "AstNode" : {
+                                                          "data" : {
+                                                            "Unqualified" : {
+                                                              "name" : "S1"
+                                                            }
+                                                          },
+                                                          "id" : 194
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              },
+                                              "id" : 195
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Internal transition"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s4",
+                                                    "id" : 196
+                                                  }
+                                                },
+                                                "guard" : {
+                                                  "Some" : {
+                                                    "AstNode" : {
+                                                      "data" : "g1",
+                                                      "id" : 197
+                                                    }
+                                                  }
+                                                },
+                                                "transitionOrDo" : {
+                                                  "Do" : {
+                                                    "actions" : [
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a1",
+                                                          "id" : 199
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "id" : 200
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
+                                      ]
+                                    ],
+                                    [
+                                      [
+                                        "Internal transition"
+                                      ],
+                                      {
+                                        "SpecTransition" : {
+                                          "node" : {
+                                            "AstNode" : {
+                                              "data" : {
+                                                "signal" : {
+                                                  "AstNode" : {
+                                                    "data" : "s5",
+                                                    "id" : 209
+                                                  }
+                                                },
+                                                "guard" : "None",
+                                                "transitionOrDo" : {
+                                                  "Do" : {
+                                                    "actions" : [
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a1",
+                                                          "id" : 211
+                                                        }
+                                                      }
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "id" : 212
+                                            }
+                                          }
+                                        }
+                                      },
+                                      [
                                       ]
                                     ]
-                                  }
+                                  ]
                                 },
                                 "id" : 213
                               }
