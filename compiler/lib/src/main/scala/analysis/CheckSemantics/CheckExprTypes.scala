@@ -210,6 +210,16 @@ object CheckExprTypes extends UseAnalyzer {
     yield a
   }
 
+  override def specStateMachineInstanceAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    for {
+      a <- opt(exprNode)(a, data.priority)
+      _ <- convertNodeToNumericOpt(a, data.priority)
+    }
+    yield a
+  }
+
   override def specParamAnnotatedNode(a: Analysis, aNode: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node, _) = aNode
     val data = node.data

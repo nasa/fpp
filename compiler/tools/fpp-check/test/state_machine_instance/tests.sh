@@ -5,4 +5,5 @@ outside_passive
 inside_active
 inside_passive
 undef_state_machine
+bad_priority
 "

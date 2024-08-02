@@ -130,6 +130,11 @@ two_input_files()
   diff -u two-input-files.ref.txt two-input-files.out.txt > two-input-files.diff.txt 2>&1
 }
 
+state_machine_error()
+{
+  run_test "" state-machine-error
+}
+
 tests="
 comments
 embedded_tab
@@ -147,6 +152,7 @@ include_parse_error
 include_subdir
 include_topology
 parse_error
+state_machine_error
 syntax
 syntax_ast
 syntax_include_ast
