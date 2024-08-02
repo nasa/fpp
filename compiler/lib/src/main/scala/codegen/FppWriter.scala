@@ -496,7 +496,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("entry ").
-    join("")(doExpression(data.doExpr))
+    join("")(doExpressionAsList(data.actions))
   }
 
   override def specExitAnnotatedNode(
@@ -506,7 +506,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("exit ").
-    join("")(doExpression(data.doExpr))
+    join("")(doExpressionAsList(data.actions))
   }
 
   override def specInternalPortAnnotatedNode(

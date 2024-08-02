@@ -218,15 +218,25 @@ object Ast {
     sealed trait Node
     final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
-    final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
     final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
     final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
+    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+    final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
   }
 
   /** Initial state specifier */
   final case class SpecInitial(
     transitionExpr: TransitionExpr
+  )
+
+  /** State entry specifier */
+  final case class SpecEntry(
+    actions: List[AstNode[Ident]]
+  )
+
+  /** State exit specifier */
+  final case class SpecExit(
+    actions: List[AstNode[Ident]]
   )
 
   /** Transition specifier */
@@ -236,17 +246,7 @@ object Ast {
     transitionOrDo: TransitionOrDo
   )
 
-  /** State Entry specifier */
-  final case class SpecEntry(
-    doExpr: DoExpr
-  )
-
-  /** State Exit specifier */
-  final case class SpecExit(
-    doExpr: DoExpr
-  )
-
-  /** Transition or Do within transition specifier */
+  /** Transition or do within transition specifier */
   sealed trait TransitionOrDo
   object TransitionOrDo {
     final case class Transition(trans: TransitionExpr) extends TransitionOrDo

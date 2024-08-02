@@ -433,7 +433,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec entry") ++
-    doExpression(data.doExpr).map(indentIn)
+    doExpressionAsList(data.actions).map(indentIn)
   }
 
   override def specExitAnnotatedNode(
@@ -443,7 +443,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec exit") ++
-    doExpression(data.doExpr).map(indentIn)
+    doExpressionAsList(data.actions).map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(

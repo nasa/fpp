@@ -522,14 +522,14 @@ object Parser extends Parsers {
   }
 
   def specEntry: Parser[Ast.SpecEntry] = {
-    entry ~> doExpr ^^ {
-      case doExpr => Ast.SpecEntry(doExpr)
+    entry ~> doExprAsList ^^ {
+      case actions => Ast.SpecEntry(actions)
     }
   }
 
   def specExit: Parser[Ast.SpecExit] = {
-    exit ~> doExpr ^^ {
-      case doExpr => Ast.SpecExit(doExpr)
+    exit ~> doExprAsList ^^ {
+      case actions => Ast.SpecExit(actions)
     }
   }
 
