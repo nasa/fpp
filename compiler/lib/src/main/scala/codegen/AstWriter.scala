@@ -717,8 +717,8 @@ object AstWriter extends AstVisitor with LineUtils {
     transitionExpr: Ast.TransitionExpr
   ) = {
     List.concat(
-      doExpression(transitionExpr.action),
-      addPrefix("state", applyToData(qualIdent)) (transitionExpr.state)
+      doExpressionAsList(transitionExpr.actions),
+      addPrefix("state", applyToData(qualIdent)) (transitionExpr.destination)
     )
   }
 
@@ -727,6 +727,9 @@ object AstWriter extends AstVisitor with LineUtils {
         line(s"action ident ${identNode.data}")
     }
   }
+
+  private def doExpressionAsList(actions: List[AstNode[Ast.Ident]]): List[Line] =
+    actions.map(node => line(s"action ident ${node.data}"))
 
   private def enterOrDo(
     enterOrDo: Ast.TransitionOrDo

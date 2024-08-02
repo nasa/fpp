@@ -199,23 +199,20 @@ object Parser extends Parsers {
   }
 
   def transitionExpr: Parser[Ast.TransitionExpr] =
-    opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
-      case Some(doList) ~ state =>
-        Ast.TransitionExpr(doList, state)
-      case None ~ state => 
-        val myExpr = Ast.DoExpr(List())
-        Ast.TransitionExpr(myExpr, state)
+    opt(doExprAsList) ~ (enter ~> node(qualIdent)) ^^ {
+      case actions ~ state => Ast.TransitionExpr(actions.getOrElse(Nil), state)
     }
-
 
   def doExpr: Parser[Ast.DoExpr] = {
-    def id(x: Ast.Annotated[AstNode[Ast.Ident]]) = x
-    def members = annotatedElementSequence(node(ident), comma, id)
+    val members = elementSequence(node(ident), comma)
     doToken ~> lbrace ~>! members <~! rbrace ^^ {
-      case members =>
-        val transformedMembers = members.map { case (_, elt, _) => elt }
-        Ast.DoExpr(transformedMembers)
+      case members => Ast.DoExpr(members)
     }
+  }
+
+  def doExprAsList: Parser[List[AstNode[Ast.Ident]]] = {
+    def elts = elementSequence(node(ident), comma)
+    doToken ~> lbrace ~>! elts <~! rbrace ^^ { case elts => elts }
   }
 
   def enterOrDo: Parser[Ast.TransitionOrDo] = {

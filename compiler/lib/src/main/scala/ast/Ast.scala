@@ -192,8 +192,8 @@ object Ast {
 
   /** Transition expression */
   final case class TransitionExpr(
-    action: DoExpr,
-    state: AstNode[QualIdent]
+    actions: List[AstNode[Ident]],
+    destination: AstNode[QualIdent]
   )
 
   final case class DoExpr(

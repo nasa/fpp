@@ -248,29 +248,27 @@
                               "AstNode" : {
                                 "data" : {
                                   "transitionExpr" : {
-                                    "action" : {
-                                      "actions" : [
-                                        {
-                                          "AstNode" : {
-                                            "data" : "a1",
-                                            "id" : 14
-                                          }
+                                    "actions" : [
+                                      {
+                                        "AstNode" : {
+                                          "data" : "a1",
+                                          "id" : 12
                                         }
-                                      ]
-                                    },
-                                    "state" : {
+                                      }
+                                    ],
+                                    "destination" : {
                                       "AstNode" : {
                                         "data" : {
                                           "Unqualified" : {
                                             "name" : "J"
                                           }
                                         },
-                                        "id" : 16
+                                        "id" : 14
                                       }
                                     }
                                   }
                                 },
-                                "id" : 17
+                                "id" : 15
                               }
                             }
                           }
@@ -291,39 +289,45 @@
                                   "guard" : {
                                     "AstNode" : {
                                       "data" : "g1",
-                                      "id" : 18
+                                      "id" : 16
                                     }
                                   },
-                                  "ifExpr" : {
-                                    "action" : {
-                                      "actions" : [
-                                      ]
-                                    },
-                                    "state" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "S1"
+                                  "ifTransition" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "actions" : [
+                                        ],
+                                        "destination" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "S1"
+                                              }
+                                            },
+                                            "id" : 18
                                           }
-                                        },
-                                        "id" : 20
-                                      }
+                                        }
+                                      },
+                                      "id" : 19
                                     }
                                   },
-                                  "elseExpr" : {
-                                    "action" : {
-                                      "actions" : [
-                                      ]
-                                    },
-                                    "state" : {
-                                      "AstNode" : {
-                                        "data" : {
-                                          "Unqualified" : {
-                                            "name" : "S2"
+                                  "elseTransition" : {
+                                    "AstNode" : {
+                                      "data" : {
+                                        "actions" : [
+                                        ],
+                                        "destination" : {
+                                          "AstNode" : {
+                                            "data" : {
+                                              "Unqualified" : {
+                                                "name" : "S2"
+                                              }
+                                            },
+                                            "id" : 21
                                           }
-                                        },
-                                        "id" : 22
-                                      }
+                                        }
+                                      },
+                                      "id" : 22
                                     }
                                   }
                                 },
@@ -380,19 +384,19 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 203
+                                                          "id" : 151
                                                         }
                                                       },
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a2",
-                                                          "id" : 206
+                                                          "id" : 152
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 },
-                                                "id" : 207
+                                                "id" : 153
                                               }
                                             }
                                           }
@@ -413,19 +417,19 @@
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a1",
-                                                          "id" : 208
+                                                          "id" : 154
                                                         }
                                                       },
                                                       {
                                                         "AstNode" : {
                                                           "data" : "a2",
-                                                          "id" : 211
+                                                          "id" : 155
                                                         }
                                                       }
                                                     ]
                                                   }
                                                 },
-                                                "id" : 212
+                                                "id" : 156
                                               }
                                             }
                                           }
@@ -443,35 +447,33 @@
                                               "AstNode" : {
                                                 "data" : {
                                                   "transitionExpr" : {
-                                                    "action" : {
-                                                      "actions" : [
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a1",
-                                                            "id" : 213
-                                                          }
-                                                        },
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a2",
-                                                            "id" : 216
-                                                          }
+                                                    "actions" : [
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a1",
+                                                          "id" : 157
                                                         }
-                                                      ]
-                                                    },
-                                                    "state" : {
+                                                      },
+                                                      {
+                                                        "AstNode" : {
+                                                          "data" : "a2",
+                                                          "id" : 158
+                                                        }
+                                                      }
+                                                    ],
+                                                    "destination" : {
                                                       "AstNode" : {
                                                         "data" : {
                                                           "Unqualified" : {
                                                             "name" : "S3"
                                                           }
                                                         },
-                                                        "id" : 218
+                                                        "id" : 160
                                                       }
                                                     }
                                                   }
                                                 },
-                                                "id" : 219
+                                                "id" : 161
                                               }
                                             }
                                           }
@@ -492,82 +494,88 @@
                                                   "guard" : {
                                                     "AstNode" : {
                                                       "data" : "g1",
-                                                      "id" : 220
+                                                      "id" : 162
                                                     }
                                                   },
-                                                  "ifExpr" : {
-                                                    "action" : {
-                                                      "actions" : [
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a1",
-                                                            "id" : 221
-                                                          }
-                                                        },
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a2",
-                                                            "id" : 224
-                                                          }
-                                                        }
-                                                      ]
-                                                    },
-                                                    "state" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "Unqualified" : {
-                                                            "name" : "S1"
-                                                          }
-                                                        },
-                                                        "id" : 226
-                                                      }
-                                                    }
-                                                  },
-                                                  "elseExpr" : {
-                                                    "action" : {
-                                                      "actions" : [
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a2",
-                                                            "id" : 227
-                                                          }
-                                                        },
-                                                        {
-                                                          "AstNode" : {
-                                                            "data" : "a3",
-                                                            "id" : 230
-                                                          }
-                                                        }
-                                                      ]
-                                                    },
-                                                    "state" : {
-                                                      "AstNode" : {
-                                                        "data" : {
-                                                          "Qualified" : {
-                                                            "qualifier" : {
-                                                              "AstNode" : {
-                                                                "data" : {
-                                                                  "Unqualified" : {
-                                                                    "name" : "S2"
-                                                                  }
-                                                                },
-                                                                "id" : 231
-                                                              }
-                                                            },
-                                                            "name" : {
-                                                              "AstNode" : {
-                                                                "data" : "S3",
-                                                                "id" : 232
-                                                              }
+                                                  "ifTransition" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a1",
+                                                              "id" : 163
+                                                            }
+                                                          },
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a2",
+                                                              "id" : 164
                                                             }
                                                           }
-                                                        },
-                                                        "id" : 233
-                                                      }
+                                                        ],
+                                                        "destination" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "Unqualified" : {
+                                                                "name" : "S1"
+                                                              }
+                                                            },
+                                                            "id" : 166
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 167
+                                                    }
+                                                  },
+                                                  "elseTransition" : {
+                                                    "AstNode" : {
+                                                      "data" : {
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a2",
+                                                              "id" : 168
+                                                            }
+                                                          },
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a3",
+                                                              "id" : 169
+                                                            }
+                                                          }
+                                                        ],
+                                                        "destination" : {
+                                                          "AstNode" : {
+                                                            "data" : {
+                                                              "Qualified" : {
+                                                                "qualifier" : {
+                                                                  "AstNode" : {
+                                                                    "data" : {
+                                                                      "Unqualified" : {
+                                                                        "name" : "S2"
+                                                                      }
+                                                                    },
+                                                                    "id" : 170
+                                                                  }
+                                                                },
+                                                                "name" : {
+                                                                  "AstNode" : {
+                                                                    "data" : "S3",
+                                                                    "id" : 171
+                                                                  }
+                                                                }
+                                                              }
+                                                            },
+                                                            "id" : 172
+                                                          }
+                                                        }
+                                                      },
+                                                      "id" : 173
                                                     }
                                                   }
                                                 },
-                                                "id" : 234
+                                                "id" : 174
                                               }
                                             }
                                           }
@@ -587,7 +595,7 @@
                                                   "name" : "S3",
                                                   "members" : "None"
                                                 },
-                                                "id" : 235
+                                                "id" : 175
                                               }
                                             }
                                           }
@@ -607,45 +615,43 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s1",
-                                                      "id" : 236
+                                                      "id" : 176
                                                     }
                                                   },
                                                   "guard" : {
                                                     "Some" : {
                                                       "AstNode" : {
                                                         "data" : "g1",
-                                                        "id" : 237
+                                                        "id" : 177
                                                       }
                                                     }
                                                   },
                                                   "transitionOrDo" : {
                                                     "Transition" : {
                                                       "trans" : {
-                                                        "action" : {
-                                                          "actions" : [
-                                                            {
-                                                              "AstNode" : {
-                                                                "data" : "a1",
-                                                                "id" : 240
-                                                              }
+                                                        "actions" : [
+                                                          {
+                                                            "AstNode" : {
+                                                              "data" : "a1",
+                                                              "id" : 178
                                                             }
-                                                          ]
-                                                        },
-                                                        "state" : {
+                                                          }
+                                                        ],
+                                                        "destination" : {
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
                                                                 "name" : "S1"
                                                               }
                                                             },
-                                                            "id" : 242
+                                                            "id" : 180
                                                           }
                                                         }
                                                       }
                                                     }
                                                   }
                                                 },
-                                                "id" : 243
+                                                "id" : 181
                                               }
                                             }
                                           }
@@ -664,39 +670,37 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s1",
-                                                      "id" : 244
+                                                      "id" : 182
                                                     }
                                                   },
                                                   "guard" : {
                                                     "Some" : {
                                                       "AstNode" : {
                                                         "data" : "g1",
-                                                        "id" : 245
+                                                        "id" : 183
                                                       }
                                                     }
                                                   },
                                                   "transitionOrDo" : {
                                                     "Transition" : {
                                                       "trans" : {
-                                                        "action" : {
-                                                          "actions" : [
-                                                          ]
-                                                        },
-                                                        "state" : {
+                                                        "actions" : [
+                                                        ],
+                                                        "destination" : {
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
                                                                 "name" : "S1"
                                                               }
                                                             },
-                                                            "id" : 247
+                                                            "id" : 185
                                                           }
                                                         }
                                                       }
                                                     }
                                                   }
                                                 },
-                                                "id" : 248
+                                                "id" : 186
                                               }
                                             }
                                           }
@@ -716,39 +720,37 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s2",
-                                                      "id" : 249
+                                                      "id" : 187
                                                     }
                                                   },
                                                   "guard" : {
                                                     "Some" : {
                                                       "AstNode" : {
                                                         "data" : "g1",
-                                                        "id" : 250
+                                                        "id" : 188
                                                       }
                                                     }
                                                   },
                                                   "transitionOrDo" : {
                                                     "Transition" : {
                                                       "trans" : {
-                                                        "action" : {
-                                                          "actions" : [
-                                                          ]
-                                                        },
-                                                        "state" : {
+                                                        "actions" : [
+                                                        ],
+                                                        "destination" : {
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
                                                                 "name" : "S1"
                                                               }
                                                             },
-                                                            "id" : 252
+                                                            "id" : 190
                                                           }
                                                         }
                                                       }
                                                     }
                                                   }
                                                 },
-                                                "id" : 253
+                                                "id" : 191
                                               }
                                             }
                                           }
@@ -768,32 +770,30 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s3",
-                                                      "id" : 254
+                                                      "id" : 192
                                                     }
                                                   },
                                                   "guard" : "None",
                                                   "transitionOrDo" : {
                                                     "Transition" : {
                                                       "trans" : {
-                                                        "action" : {
-                                                          "actions" : [
-                                                          ]
-                                                        },
-                                                        "state" : {
+                                                        "actions" : [
+                                                        ],
+                                                        "destination" : {
                                                           "AstNode" : {
                                                             "data" : {
                                                               "Unqualified" : {
                                                                 "name" : "S1"
                                                               }
                                                             },
-                                                            "id" : 256
+                                                            "id" : 194
                                                           }
                                                         }
                                                       }
                                                     }
                                                   }
                                                 },
-                                                "id" : 257
+                                                "id" : 195
                                               }
                                             }
                                           }
@@ -813,14 +813,14 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s4",
-                                                      "id" : 258
+                                                      "id" : 196
                                                     }
                                                   },
                                                   "guard" : {
                                                     "Some" : {
                                                       "AstNode" : {
                                                         "data" : "g1",
-                                                        "id" : 259
+                                                        "id" : 197
                                                       }
                                                     }
                                                   },
@@ -831,7 +831,7 @@
                                                           {
                                                             "AstNode" : {
                                                               "data" : "a1",
-                                                              "id" : 265
+                                                              "id" : 199
                                                             }
                                                           }
                                                         ]
@@ -839,7 +839,7 @@
                                                     }
                                                   }
                                                 },
-                                                "id" : 266
+                                                "id" : 200
                                               }
                                             }
                                           }
@@ -859,7 +859,7 @@
                                                   "signal" : {
                                                     "AstNode" : {
                                                       "data" : "s5",
-                                                      "id" : 283
+                                                      "id" : 209
                                                     }
                                                   },
                                                   "guard" : "None",
@@ -870,7 +870,7 @@
                                                           {
                                                             "AstNode" : {
                                                               "data" : "a1",
-                                                              "id" : 289
+                                                              "id" : 211
                                                             }
                                                           }
                                                         ]
@@ -878,7 +878,7 @@
                                                     }
                                                   }
                                                 },
-                                                "id" : 290
+                                                "id" : 212
                                               }
                                             }
                                           }
@@ -889,7 +889,7 @@
                                     ]
                                   }
                                 },
-                                "id" : 291
+                                "id" : 213
                               }
                             }
                           }
@@ -900,7 +900,7 @@
                     ]
                   }
                 },
-                "id" : 292
+                "id" : 214
               }
             }
           }
@@ -979,42 +979,42 @@
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.15",
+    "pos" : "32.25",
     "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.15",
+    "pos" : "32.25",
     "includingLoc" : "None"
   },
   "15" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.25",
+    "pos" : "32.3",
     "includingLoc" : "None"
   },
   "16" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.25",
+    "pos" : "35.19",
     "includingLoc" : "None"
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "32.3",
+    "pos" : "35.28",
     "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "35.19",
+    "pos" : "35.28",
     "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "35.28",
+    "pos" : "35.22",
     "includingLoc" : "None"
   },
   "20" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "35.28",
+    "pos" : "35.42",
     "includingLoc" : "None"
   },
   "21" : {
@@ -1024,7 +1024,7 @@
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "35.42",
+    "pos" : "35.36",
     "includingLoc" : "None"
   },
   "23" : {
@@ -1049,1330 +1049,940 @@
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "43.5",
     "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "45.9",
     "includingLoc" : "None"
   },
   "29" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.5",
+    "pos" : "46.9",
     "includingLoc" : "None"
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "45.9",
+    "pos" : "44.5",
     "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "50.17",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "50.21",
     "includingLoc" : "None"
   },
   "33" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "34" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.5",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "35" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.17",
+    "pos" : "50.5",
     "includingLoc" : "None"
   },
   "36" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "53.21",
     "includingLoc" : "None"
   },
   "37" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "53.28",
     "includingLoc" : "None"
   },
   "38" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "53.32",
     "includingLoc" : "None"
   },
   "39" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "40" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "41" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.5",
+    "pos" : "53.24",
     "includingLoc" : "None"
   },
   "42" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.21",
+    "pos" : "53.54",
     "includingLoc" : "None"
   },
   "43" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.28",
+    "pos" : "53.58",
     "includingLoc" : "None"
   },
   "44" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "45" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "53.71",
     "includingLoc" : "None"
   },
   "46" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "47" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
+    "pos" : "53.50",
     "includingLoc" : "None"
   },
   "48" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
+    "pos" : "53.5",
     "includingLoc" : "None"
   },
   "49" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.54",
+    "pos" : "56.5",
     "includingLoc" : "None"
   },
   "50" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "59.8",
     "includingLoc" : "None"
   },
   "51" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "59.14",
     "includingLoc" : "None"
   },
   "52" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "59.21",
     "includingLoc" : "None"
   },
   "53" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "54" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.71",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "55" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
+    "pos" : "59.5",
     "includingLoc" : "None"
   },
   "56" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.5",
+    "pos" : "60.8",
     "includingLoc" : "None"
   },
   "57" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.5",
+    "pos" : "60.14",
     "includingLoc" : "None"
   },
   "58" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.8",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "59" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.14",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "60" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "60.5",
     "includingLoc" : "None"
   },
   "61" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "63.8",
     "includingLoc" : "None"
   },
   "62" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "63.14",
     "includingLoc" : "None"
   },
   "63" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "64" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "65" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
+    "pos" : "63.5",
     "includingLoc" : "None"
   },
   "66" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.8",
+    "pos" : "66.8",
     "includingLoc" : "None"
   },
   "67" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.14",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "68" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "69" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
+    "pos" : "66.5",
     "includingLoc" : "None"
   },
   "70" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.5",
+    "pos" : "69.8",
     "includingLoc" : "None"
   },
   "71" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.8",
+    "pos" : "69.14",
     "includingLoc" : "None"
   },
   "72" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.14",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "73" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "74" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
+    "pos" : "69.5",
     "includingLoc" : "None"
   },
   "75" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.5",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "76" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "77" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "78" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "79" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "80" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "81" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "82" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "83" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "84" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "85" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "86" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "87" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "41.3",
     "includingLoc" : "None"
   },
   "88" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
+    "pos" : "43.15",
     "includingLoc" : "None"
   },
   "89" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "43.18",
     "includingLoc" : "None"
   },
   "90" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "43.5",
     "includingLoc" : "None"
   },
   "91" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "45.9",
     "includingLoc" : "None"
   },
   "92" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "46.9",
     "includingLoc" : "None"
   },
   "93" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "44.5",
     "includingLoc" : "None"
   },
   "94" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "50.17",
     "includingLoc" : "None"
   },
   "95" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "50.21",
     "includingLoc" : "None"
   },
   "96" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "97" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "98" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "50.5",
     "includingLoc" : "None"
   },
   "99" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.21",
     "includingLoc" : "None"
   },
   "100" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.28",
     "includingLoc" : "None"
   },
   "101" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.32",
     "includingLoc" : "None"
   },
   "102" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "103" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "104" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "53.24",
     "includingLoc" : "None"
   },
   "105" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "53.54",
     "includingLoc" : "None"
   },
   "106" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.58",
     "includingLoc" : "None"
   },
   "107" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "108" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.71",
     "includingLoc" : "None"
   },
   "109" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "110" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.50",
     "includingLoc" : "None"
   },
   "111" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "53.5",
     "includingLoc" : "None"
   },
   "112" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "56.5",
     "includingLoc" : "None"
   },
   "113" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.3",
+    "pos" : "59.8",
     "includingLoc" : "None"
   },
   "114" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.15",
+    "pos" : "59.14",
     "includingLoc" : "None"
   },
   "115" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "59.21",
     "includingLoc" : "None"
   },
   "116" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "117" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "118" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.5",
+    "pos" : "59.5",
     "includingLoc" : "None"
   },
   "119" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "45.9",
+    "pos" : "60.8",
     "includingLoc" : "None"
   },
   "120" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "60.14",
     "includingLoc" : "None"
   },
   "121" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "122" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "123" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.5",
+    "pos" : "60.5",
     "includingLoc" : "None"
   },
   "124" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.17",
+    "pos" : "63.8",
     "includingLoc" : "None"
   },
   "125" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "63.14",
     "includingLoc" : "None"
   },
   "126" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "127" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "128" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
+    "pos" : "63.5",
     "includingLoc" : "None"
   },
   "129" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
+    "pos" : "66.8",
     "includingLoc" : "None"
   },
   "130" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.5",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "131" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.21",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "132" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.28",
+    "pos" : "66.5",
     "includingLoc" : "None"
   },
   "133" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "69.8",
     "includingLoc" : "None"
   },
   "134" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "69.14",
     "includingLoc" : "None"
   },
   "135" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "136" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "137" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
+    "pos" : "69.5",
     "includingLoc" : "None"
   },
   "138" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.54",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "139" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "140" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "141" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "142" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "143" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.71",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "144" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "145" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.5",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "146" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.5",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "147" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.8",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "148" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.14",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "149" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "150" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "41.3",
     "includingLoc" : "None"
   },
   "151" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
+    "pos" : "43.15",
     "includingLoc" : "None"
   },
   "152" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
+    "pos" : "43.18",
     "includingLoc" : "None"
   },
   "153" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
+    "pos" : "43.5",
     "includingLoc" : "None"
   },
   "154" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
+    "pos" : "45.9",
     "includingLoc" : "None"
   },
   "155" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.8",
+    "pos" : "46.9",
     "includingLoc" : "None"
   },
   "156" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.14",
+    "pos" : "44.5",
     "includingLoc" : "None"
   },
   "157" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
+    "pos" : "50.17",
     "includingLoc" : "None"
   },
   "158" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
+    "pos" : "50.21",
     "includingLoc" : "None"
   },
   "159" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.5",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "160" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.8",
+    "pos" : "50.31",
     "includingLoc" : "None"
   },
   "161" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.14",
+    "pos" : "50.5",
     "includingLoc" : "None"
   },
   "162" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
+    "pos" : "53.21",
     "includingLoc" : "None"
   },
   "163" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
+    "pos" : "53.28",
     "includingLoc" : "None"
   },
   "164" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.5",
+    "pos" : "53.32",
     "includingLoc" : "None"
   },
   "165" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "166" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
+    "pos" : "53.42",
     "includingLoc" : "None"
   },
   "167" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
+    "pos" : "53.24",
     "includingLoc" : "None"
   },
   "168" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
+    "pos" : "53.54",
     "includingLoc" : "None"
   },
   "169" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
+    "pos" : "53.58",
     "includingLoc" : "None"
   },
   "170" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "171" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "53.71",
     "includingLoc" : "None"
   },
   "172" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "53.68",
     "includingLoc" : "None"
   },
   "173" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "53.50",
     "includingLoc" : "None"
   },
   "174" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "53.5",
     "includingLoc" : "None"
   },
   "175" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "56.5",
     "includingLoc" : "None"
   },
   "176" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
+    "pos" : "59.8",
     "includingLoc" : "None"
   },
   "177" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
+    "pos" : "59.14",
     "includingLoc" : "None"
   },
   "178" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "59.21",
     "includingLoc" : "None"
   },
   "179" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "180" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "59.31",
     "includingLoc" : "None"
   },
   "181" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "59.5",
     "includingLoc" : "None"
   },
   "182" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "60.8",
     "includingLoc" : "None"
   },
   "183" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "60.14",
     "includingLoc" : "None"
   },
   "184" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "185" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "60.23",
     "includingLoc" : "None"
   },
   "186" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "60.5",
     "includingLoc" : "None"
   },
   "187" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "63.8",
     "includingLoc" : "None"
   },
   "188" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "63.14",
     "includingLoc" : "None"
   },
   "189" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "190" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "63.23",
     "includingLoc" : "None"
   },
   "191" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "63.5",
     "includingLoc" : "None"
   },
   "192" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "66.8",
     "includingLoc" : "None"
   },
   "193" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "194" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
+    "pos" : "66.17",
     "includingLoc" : "None"
   },
   "195" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "66.5",
     "includingLoc" : "None"
   },
   "196" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "69.8",
     "includingLoc" : "None"
   },
   "197" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "69.14",
     "includingLoc" : "None"
   },
   "198" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "199" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "69.21",
     "includingLoc" : "None"
   },
   "200" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
+    "pos" : "69.5",
     "includingLoc" : "None"
   },
   "201" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "202" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "41.3",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "203" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.15",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "204" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "205" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "206" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.18",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "207" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "43.5",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "208" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "45.9",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "209" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "72.8",
     "includingLoc" : "None"
   },
   "210" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "211" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "46.9",
+    "pos" : "72.15",
     "includingLoc" : "None"
   },
   "212" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "44.5",
+    "pos" : "72.5",
     "includingLoc" : "None"
   },
   "213" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.17",
-    "includingLoc" : "None"
-  },
-  "214" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
-    "includingLoc" : "None"
-  },
-  "215" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
-    "includingLoc" : "None"
-  },
-  "216" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.21",
-    "includingLoc" : "None"
-  },
-  "217" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
-    "includingLoc" : "None"
-  },
-  "218" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.31",
-    "includingLoc" : "None"
-  },
-  "219" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "50.5",
-    "includingLoc" : "None"
-  },
-  "220" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.21",
-    "includingLoc" : "None"
-  },
-  "221" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.28",
-    "includingLoc" : "None"
-  },
-  "222" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
-    "includingLoc" : "None"
-  },
-  "223" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
-    "includingLoc" : "None"
-  },
-  "224" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.32",
-    "includingLoc" : "None"
-  },
-  "225" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
-    "includingLoc" : "None"
-  },
-  "226" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.42",
-    "includingLoc" : "None"
-  },
-  "227" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.54",
-    "includingLoc" : "None"
-  },
-  "228" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
-    "includingLoc" : "None"
-  },
-  "229" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
-    "includingLoc" : "None"
-  },
-  "230" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.58",
-    "includingLoc" : "None"
-  },
-  "231" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
-    "includingLoc" : "None"
-  },
-  "232" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.71",
-    "includingLoc" : "None"
-  },
-  "233" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.68",
-    "includingLoc" : "None"
-  },
-  "234" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "53.5",
-    "includingLoc" : "None"
-  },
-  "235" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "56.5",
-    "includingLoc" : "None"
-  },
-  "236" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.8",
-    "includingLoc" : "None"
-  },
-  "237" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.14",
-    "includingLoc" : "None"
-  },
-  "238" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
-    "includingLoc" : "None"
-  },
-  "239" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
-    "includingLoc" : "None"
-  },
-  "240" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.21",
-    "includingLoc" : "None"
-  },
-  "241" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
-    "includingLoc" : "None"
-  },
-  "242" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.31",
-    "includingLoc" : "None"
-  },
-  "243" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "59.5",
-    "includingLoc" : "None"
-  },
-  "244" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.8",
-    "includingLoc" : "None"
-  },
-  "245" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.14",
-    "includingLoc" : "None"
-  },
-  "246" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
-    "includingLoc" : "None"
-  },
-  "247" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.23",
-    "includingLoc" : "None"
-  },
-  "248" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "60.5",
-    "includingLoc" : "None"
-  },
-  "249" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.8",
-    "includingLoc" : "None"
-  },
-  "250" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.14",
-    "includingLoc" : "None"
-  },
-  "251" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
-    "includingLoc" : "None"
-  },
-  "252" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.23",
-    "includingLoc" : "None"
-  },
-  "253" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "63.5",
-    "includingLoc" : "None"
-  },
-  "254" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.8",
-    "includingLoc" : "None"
-  },
-  "255" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
-    "includingLoc" : "None"
-  },
-  "256" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.17",
-    "includingLoc" : "None"
-  },
-  "257" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "66.5",
-    "includingLoc" : "None"
-  },
-  "258" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.8",
-    "includingLoc" : "None"
-  },
-  "259" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.14",
-    "includingLoc" : "None"
-  },
-  "260" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "261" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "262" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "263" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "264" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "265" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.21",
-    "includingLoc" : "None"
-  },
-  "266" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "69.5",
-    "includingLoc" : "None"
-  },
-  "267" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
-  },
-  "268" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "269" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "270" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "271" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "272" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "273" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "274" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
-  },
-  "275" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
-  },
-  "276" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "277" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "278" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "279" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "280" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "281" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "282" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
-  },
-  "283" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.8",
-    "includingLoc" : "None"
-  },
-  "284" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "285" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "286" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "287" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "288" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "289" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.15",
-    "includingLoc" : "None"
-  },
-  "290" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
-    "pos" : "72.5",
-    "includingLoc" : "None"
-  },
-  "291" : {
-    "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "41.3",
     "includingLoc" : "None"
   },
-  "292" : {
+  "214" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine.fpp",
     "pos" : "2.1",
     "includingLoc" : "None"

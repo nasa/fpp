@@ -65,13 +65,25 @@ object FppWriter extends AstVisitor with LineUtils {
     }
   }
 
+  def doExpressionAsList(actions: List[AstNode[Ast.Ident]]) = {
+    actions match {
+      case Nil => lines("")
+      case actions => 
+        List.concat(
+          lines("do {") ++
+          (actions.flatMap(identNode => lines(s"${identNode.data}").map(indentIn))) ++
+          lines("} ")
+        )
+    }
+  }
+
 
   def transitionExpression(
     transitionExpr: Ast.TransitionExpr
   ) = {
     List(
-      doExpression(transitionExpr.action).
-      join("enter ")(qualIdent(transitionExpr.state.data))
+      doExpressionAsList(transitionExpr.actions).
+      join("enter ")(qualIdent(transitionExpr.destination.data))
     ).flatten
   }
 
