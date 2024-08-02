@@ -517,7 +517,7 @@ object Parser extends Parsers {
 
   def specInitial: Parser[Ast.SpecInitial] = {
     initial ~> transitionExpr ^^ {
-      case transitionExpr => Ast.SpecInitial(transitionExpr)
+      case transition => Ast.SpecInitial(transition)
     }
   }
 

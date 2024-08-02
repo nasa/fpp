@@ -226,7 +226,7 @@ object Ast {
 
   /** Initial state specifier */
   final case class SpecInitial(
-    transitionExpr: TransitionExpr
+    transition: TransitionExpr
   )
 
   /** State entry specifier */
