@@ -114,6 +114,8 @@ def module
     spec state machine instance
       ident s1
       state machine qual ident S
+      priority literal int 1
+      queue full drop
     @< State machine instance 1
     @ State machine instance 2
     spec state machine instance
