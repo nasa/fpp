@@ -174,7 +174,7 @@ object Parser extends Parsers {
 
   def defState: Parser[Ast.DefState] = {
     state ~> ident ~! opt(lbrace ~>! stateMembers <~! rbrace) ^^ {
-      case ident ~ members => Ast.DefState(ident, members)
+      case ident ~ members => Ast.DefState(ident, members.getOrElse(Nil))
     }
   }
 

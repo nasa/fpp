@@ -209,7 +209,7 @@ object Ast {
   /** State definition */
   final case class DefState(
     name: Ident,
-    members: Option[List[StateMember]]
+    members: List[StateMember]
   )
 
   /** State member */
