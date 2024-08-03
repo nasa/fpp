@@ -342,6 +342,8 @@ object Lexer extends RegexParsers {
     ("yellow", (u: Unit) => Token.YELLOW()),
   )
 
+  val reservedWordSet = reservedWords.map(_._1).toSet
+
   val symbols: List[(Parser[Unit], String, Unit => Token, Parser[Unit])] = List(
     (newlinesOpt, ")", (u: Unit) => Token.RPAREN(), nothing),
     (newlinesOpt, "]", (u: Unit) => Token.RBRACKET(), nothing),
