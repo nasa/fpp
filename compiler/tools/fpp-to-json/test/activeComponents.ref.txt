@@ -363,9 +363,10 @@
                                                         "node" : {
                                                           "AstNode" : {
                                                             "data" : {
-                                                              "enterExpr" : {
-                                                                "action" : "None",
-                                                                "state" : {
+                                                              "transition" : {
+                                                                "actions" : [
+                                                                ],
+                                                                "destination" : {
                                                                   "AstNode" : {
                                                                     "data" : {
                                                                       "Unqualified" : {
@@ -394,7 +395,8 @@
                                                           "AstNode" : {
                                                             "data" : {
                                                               "name" : "IDLE",
-                                                              "members" : "None"
+                                                              "members" : [
+                                                              ]
                                                             },
                                                             "id" : 120
                                                           }

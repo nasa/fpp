@@ -186,14 +186,14 @@ object Ast {
   final case class DefJunction(
     name: Ident,
     guard: AstNode[Ident],
-    ifExpr: EnterExpr,
-    elseExpr: EnterExpr
+    ifTransition: AstNode[TransitionExpr],
+    elseTransition: AstNode[TransitionExpr]
   )
 
-  /** Enter expression */
-  final case class EnterExpr(
-    action: Option[AstNode[Ident]],
-    state: AstNode[QualIdent]
+  /** Transition expression */
+  final case class TransitionExpr(
+    actions: List[AstNode[Ident]],
+    destination: AstNode[QualIdent]
   )
 
   /** Signal definition */
@@ -205,7 +205,7 @@ object Ast {
   /** State definition */
   final case class DefState(
     name: Ident,
-    members: Option[List[StateMember]]
+    members: List[StateMember]
   )
 
   /** State member */
@@ -214,27 +214,41 @@ object Ast {
     sealed trait Node
     final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
+    final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
+    final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
     final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
     final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
   }
 
   /** Initial state specifier */
   final case class SpecInitial(
-    enterExpr: EnterExpr
+    transition: TransitionExpr
+  )
+
+  /** State entry specifier */
+  final case class SpecEntry(
+    actions: List[AstNode[Ident]]
+  )
+
+  /** State exit specifier */
+  final case class SpecExit(
+    actions: List[AstNode[Ident]]
   )
 
   /** Transition specifier */
   final case class SpecTransition(
     signal: AstNode[Ident],
     guard: Option[AstNode[Ident]],
-    enterOrDo: EnterOrDo
+    transitionOrDo: TransitionOrDo
   )
 
-  /** Enter or do within transition specifier */
-  sealed trait EnterOrDo
-  object EnterOrDo {
-    final case class Enter(enter: EnterExpr) extends EnterOrDo
-    final case class Do(action: AstNode[Ident]) extends EnterOrDo
+  /** Transition or do within transition specifier */
+  sealed trait TransitionOrDo
+  object TransitionOrDo {
+    final case class Transition(
+      transition: TransitionExpr
+    ) extends TransitionOrDo
+    final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }
 
   /** Struct definition */

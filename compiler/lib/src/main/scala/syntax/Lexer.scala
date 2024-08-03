@@ -271,8 +271,10 @@ object Lexer extends RegexParsers {
     ("drop", (u: Unit) => Token.DROP()),
     ("else", (u: Unit) => Token.ELSE()),
     ("enter", (u: Unit) => Token.ENTER()),
+    ("entry", (u: Unit) => Token.ENTRY()),
     ("enum", (u: Unit) => Token.ENUM()),
     ("event", (u: Unit) => Token.EVENT()),
+    ("exit", (u: Unit) => Token.EXIT()),
     ("false", (u: Unit) => Token.FALSE()),
     ("fatal", (u: Unit) => Token.FATAL()),
     ("format", (u: Unit) => Token.FORMAT()),
@@ -339,6 +341,8 @@ object Lexer extends RegexParsers {
     ("with", (u: Unit) => Token.WITH()),
     ("yellow", (u: Unit) => Token.YELLOW()),
   )
+
+  val reservedWordSet = reservedWords.map(_._1).toSet
 
   val symbols: List[(Parser[Unit], String, Unit => Token, Parser[Unit])] = List(
     (newlinesOpt, ")", (u: Unit) => Token.RPAREN(), nothing),
