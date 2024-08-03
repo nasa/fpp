@@ -29,7 +29,7 @@ state machine M {
   signal s5
 
   @ Initial transition
-  initial do {a1} enter J
+  initial do { a1 } enter J
 
   @ Junction J
   junction J { if g1 enter S1 else enter S2 }
@@ -40,23 +40,20 @@ state machine M {
   @ State S2
   state S2 {
 
-    entry do {a1,a2}
-    exit do {
-        a1
-        a2
-    }
+    entry do { a1, a2 }
+    exit do { a1, a2 }
 
     @ Initial transition
-    initial do {a1, a2} enter S3
+    initial do { a1, a2 } enter S3
 
     @ Junction J
-    junction J { if g1 do {a1, a2} enter S1 else do {a2, a3} enter S2.S3 }
+    junction J { if g1 do { a1, a2 } enter S1 else do { a2, a3 } enter S2.S3 }
 
     @ State S3
     state S3
 
     @ Transition to S1
-    on s1 if g1 do {a1} enter S1
+    on s1 if g1 do { a1 } enter S1
     on s1 if g1 enter S1
 
     @ Transition to S1
@@ -66,10 +63,10 @@ state machine M {
     on s3 enter S1
 
     @ Internal transition
-    on s4 if g1 do {a1}
+    on s4 if g1 do { a1 }
 
     @ Internal transition
-    on s5 do {a1}
+    on s5 do { a1 }
 
   }
 
