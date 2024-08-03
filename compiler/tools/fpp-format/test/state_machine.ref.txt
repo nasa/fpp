@@ -7,6 +7,9 @@ state machine M {
   @ Action a2
   action a2
 
+  @ Action a3
+  action a3
+
   @ Guard g1
   guard g1: U32
 

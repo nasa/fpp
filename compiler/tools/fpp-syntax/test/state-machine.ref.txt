@@ -8,6 +8,9 @@ def state machine
   @ Action a2
   def action
     ident a2
+  @ Action a3
+  def action
+    ident a3
   @ Guard g1
   def guard
     ident g1
