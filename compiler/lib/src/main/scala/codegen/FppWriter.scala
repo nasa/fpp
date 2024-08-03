@@ -43,33 +43,29 @@ object FppWriter extends AstVisitor with LineUtils {
 
   private implicit def lift(ls: Out): JoinOps = JoinOps(ls)
 
+  def actionList(actions: List[AstNode[Ast.Ident]]) = {
+    actions match {
+      case Nil => lines("")
+      case _ =>
+        List.concat(
+          lines("do {") ++
+          (actions.flatMap(applyToData(identAsLines)).map(indentIn)) ++
+          lines("} ")
+        )
+    }
+  }
+
   def componentMember(member: Ast.ComponentMember): Out = {
     val (a1, _, a2) = member.node
     val l = matchComponentMember((), member)
     annotate(a1, l, a2)
   }
 
-  def doExpressionAsList(actions: List[AstNode[Ast.Ident]]) = {
-    actions match {
-      case Nil => lines("")
-      case actions => 
-        List.concat(
-          lines("do {") ++
-          (actions.flatMap(identNode => lines(s"${identNode.data}").map(indentIn))) ++
-          lines("} ")
-        )
-    }
-  }
-
-
   def transitionExpr(
     transition: Ast.TransitionExpr
-  ) = {
-    List(
-      doExpressionAsList(transition.actions).
-      join("enter ")(qualIdent(transition.destination.data))
-    ).flatten
-  }
+  ) =
+    actionList(transition.actions).
+    join("enter ")(qualIdent(transition.destination.data))
 
   def moduleMember(member: Ast.ModuleMember): Out = {
     val (a1, _, a2) = member.node
@@ -102,12 +98,12 @@ object FppWriter extends AstVisitor with LineUtils {
   def tuMemberList(tuml: List[Ast.TUMember]): Out =
     Line.blankSeparated (tuMember) (tuml)
 
-  def transOrDo(
-    transOrDo: Ast.TransitionOrDo
+  def transitionOrDo(
+    transitionOrDo: Ast.TransitionOrDo
   ) = {
-    transOrDo match {
+    transitionOrDo match {
       case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
-      case Ast.TransitionOrDo.Do(actions) => doExpressionAsList(actions)
+      case Ast.TransitionOrDo.Do(actions) => actionList(actions)
     }
   }
 
@@ -480,7 +476,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("entry ").
-    join("")(doExpressionAsList(data.actions))
+    join("")(actionList(data.actions))
   }
 
   override def specExitAnnotatedNode(
@@ -490,7 +486,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("exit ").
-    join("")(doExpressionAsList(data.actions))
+    join("")(actionList(data.actions))
   }
 
   override def specInternalPortAnnotatedNode(
@@ -647,7 +643,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines(s"on ${ident(data.signal.data)}").
     joinOpt(data.guard)(" if ")(nodeIdentAsLines).
-    join(" ")(transOrDo(data.transitionOrDo))
+    join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
   override def transUnit(
