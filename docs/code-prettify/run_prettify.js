@@ -427,8 +427,8 @@ var IN_GLOBAL_SCOPE = false;
           "do," +
           "drop," +
           "else," +
-          "enter" +
-          "entry" +
+          "enter," +
+          "entry," +
           "enum," +
           "event," +
           "exit," +

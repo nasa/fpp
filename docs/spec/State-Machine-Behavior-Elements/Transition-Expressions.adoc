@@ -1,12 +1,12 @@
-=== Enter Expressions
+=== Transition Expressions
 
-An *enter expression* specifies a transition as part of an
+An *transition expression* specifies a transition as part of an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition>>,
 a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>,
 or
 a <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
-The transition enters a state or junction and optionally performs
-some action.
+The transition performs zero or more actions and then
+enters a state or junction.
 
 ==== Syntax
 
@@ -18,8 +18,9 @@ _]_
 
 ==== Semantics
 
-. If present, the do-expression specifies the list of actions to be
+. The do expression specifies the list of actions to be
 performed when making the transition.
+If there are no actions, the do expression may be omitted.
 
 . The qualified identifier after the keyword `enter` must
 <<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
@@ -27,7 +28,7 @@ to a
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
-It is the state or junction that is entered.
+It is the state or junction that is entered in the transition.
 
 ==== Examples
 

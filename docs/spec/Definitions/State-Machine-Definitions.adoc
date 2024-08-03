@@ -71,9 +71,9 @@ follows:
 state definitions, and
 junction definitions that are transitive members of _M_.
 
-. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Enter-Expressions,
-enter expressions>> _e_ that are parts of transitive members of _M_.
-Each enter expression represents an arc from an *initial node* to a *terminal node*.
+. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Transition-Expressions,
+transition expressions>> _e_ that are parts of transitive members of _M_.
+Each transition expression represents an arc from an *initial node* to a *terminal node*.
 The initial node is defined as follows:
 
 .. If _e_ appears in an
@@ -132,13 +132,13 @@ or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
 A typed element _e_ *points to* a junction _J_ if
 
-. _e_ is an initial transition specifier, and its enter expression
+. _e_ is an initial transition specifier, and its transition expression
 refers to _J_; or
 
-. _e_ is a state transition specifier with an enter expression that refers to
+. _e_ is a state transition specifier with a transition expression that refers to
 _J_; or
 
-. _e_ is a junction, and at least one of its enter expressions
+. _e_ is a junction, and at least one of its transition expressions
 refers to _J_.
 
 It must be possible to assign <<Type-Options,type options>>
