@@ -203,9 +203,6 @@ object Parser extends Parsers {
     doToken ~>! lbrace ~>! elts <~! rbrace ^^ { case elts => elts }
   }
 
-  def doExprOpt: Parser[List[AstNode[Ast.Ident]]] =
-    opt(doExpr) ^^ { case elts => elts.getOrElse(Nil) }
-
   def exprNode: Parser[AstNode[Ast.Expr]] = {
     def leftAssoc(e: AstNode[Ast.Expr], es: List[Token ~ AstNode[Ast.Expr]]) = {
       def f(e1: AstNode[Ast.Expr], op_e2: Token ~ AstNode[Ast.Expr]) = {
@@ -503,13 +500,13 @@ object Parser extends Parsers {
   }
 
   def specEntry: Parser[Ast.SpecEntry] = {
-    entry ~> doExprOpt ^^ {
+    entry ~> doExpr ^^ {
       case actions => Ast.SpecEntry(actions)
     }
   }
 
   def specExit: Parser[Ast.SpecExit] = {
-    exit ~> doExprOpt ^^ {
+    exit ~> doExpr ^^ {
       case actions => Ast.SpecExit(actions)
     }
   }
@@ -737,8 +734,11 @@ object Parser extends Parsers {
   }
 
   def transitionExpr: Parser[Ast.TransitionExpr] =
-    doExprOpt ~ (enter ~> node(qualIdent)) ^^ {
-      case actions ~ destination => Ast.TransitionExpr(actions, destination)
+    opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
+      case actionsOpt ~ destination => Ast.TransitionExpr(
+        actionsOpt.getOrElse(Nil),
+        destination
+      )
     }
 
   def transitionOrDo: Parser[Ast.TransitionOrDo] = {
