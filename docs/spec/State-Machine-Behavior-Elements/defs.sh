@@ -10,7 +10,6 @@ export FILES="
 Introduction.adoc
 Action-Definitions.adoc
 Do-Expressions.adoc
-Enter-Expressions.adoc
 Guard-Definitions.adoc
 Initial-Transition-Specifiers.adoc
 Junction-Definitions.adoc
@@ -19,4 +18,5 @@ State-Definitions.adoc
 State-Entry-Specifiers.adoc
 State-Exit-Specifiers.adoc
 State-Transition-Specifiers.adoc
+Transition-Expressions.adoc
 "

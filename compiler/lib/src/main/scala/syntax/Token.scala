@@ -32,10 +32,12 @@ object Token {
   final case class DROP() extends Token
   final case class ELSE() extends Token
   final case class ENTER() extends Token
+  final case class ENTRY() extends Token
   final case class ENUM() extends Token
   final case class EOL() extends Token
   final case class EQUALS() extends Token
   final case class EVENT() extends Token
+  final case class EXIT() extends Token
   final case class F32() extends Token
   final case class F64() extends Token
   final case class FALSE() extends Token

@@ -198,22 +198,9 @@ object Parser extends Parsers {
     }
   }
 
-  def transitionExpr: Parser[Ast.TransitionExpr] =
-    opt(doToken ~> node(ident)) ~ (enter ~> node(qualIdent)) ^^ {
-      case actions ~ destination =>
-        // TODO: Parse the list of actions
-        Ast.TransitionExpr(actions.map(List(_)).getOrElse(Nil), destination)
-    }
-
-  def transitionOrDo: Parser[Ast.TransitionOrDo] = {
-    def transitionParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
-      case e => Ast.TransitionOrDo.Transition(e)
-    }
-    def doParser: Parser[Ast.TransitionOrDo.Do] = doToken ~>! node(ident) ^^ {
-      // TODO: Parse the list of actions
-      case actions => Ast.TransitionOrDo.Do(List(actions))
-    }
-    transitionParser | doParser
+  def doExpr: Parser[List[AstNode[Ast.Ident]]] = {
+    def elts = elementSequence(node(ident), comma)
+    doToken ~>! lbrace ~>! elts <~! rbrace ^^ { case elts => elts }
   }
 
   def exprNode: Parser[AstNode[Ast.Expr]] = {
@@ -508,7 +495,19 @@ object Parser extends Parsers {
 
   def specInitial: Parser[Ast.SpecInitial] = {
     initial ~> transitionExpr ^^ {
-      case transitionExpr => Ast.SpecInitial(transitionExpr)
+      case transition => Ast.SpecInitial(transition)
+    }
+  }
+
+  def specEntry: Parser[Ast.SpecEntry] = {
+    entry ~> doExpr ^^ {
+      case actions => Ast.SpecEntry(actions)
+    }
+  }
+
+  def specExit: Parser[Ast.SpecExit] = {
+    exit ~> doExpr ^^ {
+      case actions => Ast.SpecExit(actions)
     }
   }
 
@@ -701,10 +700,12 @@ object Parser extends Parsers {
     annotatedElementSequence(stateMachineMemberNode, semi, Ast.StateMachineMember(_))
 
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
-    node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
-    node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
-    node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
     node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
+    node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
+    node(specEntry) ^^ { case n => Ast.StateMember.SpecEntry(n) } |
+    node(specExit) ^^ { case n => Ast.StateMember.SpecExit(n) } |
+    node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
+    node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
     failure("state member expected")
   }
 
@@ -730,6 +731,24 @@ object Parser extends Parsers {
 
   def transUnit: Parser[Ast.TransUnit] = {
     tuMembers ^^ { case members => Ast.TransUnit(members) }
+  }
+
+  def transitionExpr: Parser[Ast.TransitionExpr] =
+    opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
+      case actionsOpt ~ destination => Ast.TransitionExpr(
+        actionsOpt.getOrElse(Nil),
+        destination
+      )
+    }
+
+  def transitionOrDo: Parser[Ast.TransitionOrDo] = {
+    def transitionParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
+      case e => Ast.TransitionOrDo.Transition(e)
+    }
+    def doParser: Parser[Ast.TransitionOrDo.Do] = doExpr ^^ {
+      case actions => Ast.TransitionOrDo.Do(actions)
+    }
+    transitionParser | doParser
   }
 
   def tuMembers = moduleMembers
@@ -861,6 +880,8 @@ object Parser extends Parsers {
 
   private def enter = accept("enter", { case t : Token.ENTER => t })
 
+  private def entry = accept("entry", { case t : Token.ENTRY => t })
+
   private def enumeration = accept("enum", { case t : Token.ENUM => t })
 
   private def eol = accept("end of line", { case t : Token.EOL => t })
@@ -868,6 +889,8 @@ object Parser extends Parsers {
   private def equals = accept("=", { case t : Token.EQUALS => t })
 
   private def event = accept("event", { case t : Token.EVENT => t })
+
+  private def exit = accept("exit", { case t : Token.EXIT => t })
 
   private def falseToken = accept("false", { case t : Token.FALSE => t })
 
