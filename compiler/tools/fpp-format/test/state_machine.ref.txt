@@ -51,12 +51,12 @@ state machine M {
     entry do {
             a1
             a2
-          } 
+          }
 
     exit do {
            a1
            a2
-         } 
+         }
 
     @ Initial transition
     initial do {
@@ -98,12 +98,12 @@ state machine M {
     @ Internal transition
     on s4 if g1 do {
                   a1
-                } 
+                }
 
     @ Internal transition
     on s5 do {
             a1
-          } 
+          }
 
   }
 

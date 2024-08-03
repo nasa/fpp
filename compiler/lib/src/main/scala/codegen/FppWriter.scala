@@ -51,7 +51,7 @@ object FppWriter extends AstVisitor with LineUtils {
         List.concat(
           lines("do {") ++
           (actions.flatMap(applyToData(identAsLines)).map(indentIn)) ++
-          lines("} ")
+          lines("}")
         )
     }
 
@@ -61,9 +61,11 @@ object FppWriter extends AstVisitor with LineUtils {
     annotate(a1, l, a2)
   }
 
-  def transitionExpr(transition: Ast.TransitionExpr): Out =
+  def transitionExpr(transition: Ast.TransitionExpr): Out = {
+    val sep = if transition.actions.isEmpty then "enter " else " enter "
     actionList(transition.actions).
-    join("enter ")(qualIdent(transition.destination.data))
+    join(sep)(qualIdent(transition.destination.data))
+  }
 
   def moduleMember(member: Ast.ModuleMember): Out = {
     val (a1, _, a2) = member.node
