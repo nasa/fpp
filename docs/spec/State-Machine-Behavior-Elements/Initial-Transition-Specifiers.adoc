@@ -11,12 +11,12 @@ substates.
 ==== Syntax
 
 `initial` 
-<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
+<<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
 
 ==== Semantics
 
 The state definition or junction definition referred to in the
-enter expression must be a member of the same 
+transition expression must be a member of the same 
 state machine definition or state definition in which the initial
 transition specifier appears.
 
