@@ -31,6 +31,10 @@ A state machine member is one of the following:
 * A <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 
+The *transitive members* of a state machine definition _M_ are
+(1) the elements of _M_ and (2)
+the members of any state definition that is a transitive member of _M_.
+
 ==== Semantics
 
 . The identifier is the name of the state machine.
@@ -50,10 +54,14 @@ satisfy the following rules:
 The initial transition occurs when the state machine starts up.
 
 .. _M_ must satisfy the rules described
-<<Definitions_State-Machine-Definitions_The-Transition-Graph,below>>
+<<Definitions_State-Machine-Definitions_Semantics_The-Transition-Graph,below>>
 for the induced transition graph.
 
-==== The Transition Graph
+.. _M_ must satisfy the rules described
+<<Definitions_State-Machine-Definitions_Semantics_Typed-Elements,below>>
+for typed elements.
+
+===== The Transition Graph
 
 If present, the optional state machine member sequence _M_
 induces a directed graph called the *transition graph*, defined as
@@ -62,9 +70,6 @@ follows:
 . The nodes of the transition graph are the initial transition specifiers,
 state definitions, and
 junction definitions that are transitive members of _M_.
-
-. The *transitive members* of _M_ are (i) the elements of _M_ and (ii)
-the members of any state definition that is a transitive member of _M_.
 
 . The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Enter-Expressions,
 enter expressions>> _e_ that are parts of transitive members of _M_.
@@ -91,7 +96,7 @@ _J_, then the initial node is _J_.
 The terminal node is defined as follows:
 
 .. If _e_ 
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refers to>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refers to>>
 a junction definition _J_ after the keyword `enter`, then the
 terminal node is _J_.
 
@@ -117,7 +122,54 @@ and only the junction definitions and the arcs whose initial
 and terminal nodes are junction definitions.
 There must be no cycles in _S_.
 
-==== Scoping of Names
+===== Typed Elements
+
+A *typed element* _e_ is an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>,
+a
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>,
+or a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
+A typed element _e_ *points to* a junction _J_ if
+
+. _e_ is an initial transition specifier, and its enter expression
+refers to _J_; or
+
+. _e_ is a state transition specifier with an enter expression that refers to
+_J_; or
+
+. _e_ is a junction, and at least one of its enter expressions
+refers to _J_.
+
+It must be possible to assign <<Type-Options,type options>>
+to all the typed elements in a state machine definition in
+the following way.
+If not, an error results.
+
+. The type option of each initial transition specifier is _None_.
+
+. The type option of each state transition specifier _S_ is the type
+option specified in the definition of the signal specified in _S_
+after the keyword `on`.
+
+. The type option of a junction _J_ is the
+<<Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options,
+common type option>> of the type options of the typed elements
+that point to _J_.
+
+For each typed element _e_
+
+. Let _O_ be the type option assigned to _e_ as described above.
+
+. For every action _A_ appearing in the list of `do` actions specified in _e_,
+_O_ must be <<Type-Options_Conversion-of-Type-Options,convertible to>>
+the type option specified in _A_.
+
+. For every guard _G_ appearing in an `if` construct in _e_,
+_O_ must be <<Type-Options_Conversion-of-Type-Options,convertible to>>
+the type option specified in _G_.
+
+===== Scoping of Names
 
 Inside the optional state machine member sequence, the following
 rules govern the assignment of names to definitions and the resolution
@@ -184,25 +236,25 @@ with the following modifications:
 
 state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-
-  action init2
   action doCalibrate
+  action init2
   action motorControl
   action reportFault
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+
   initial enter DeviceOn
 
   state DeviceOn {
 
-    initial do {init2} enter Initializing
+    initial do { init2 } enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -214,13 +266,13 @@ state machine MonitorSm {
     }
 
     state Calibrating {
-      on RTI do {doCalibrate}
-      on Fault do {reportFault} enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do {motorControl}
+      on RTI do { motorControl }
       on Stop enter Idle
     }
 

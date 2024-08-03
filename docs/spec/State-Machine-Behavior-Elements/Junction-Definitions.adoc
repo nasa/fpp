@@ -20,7 +20,7 @@ A junction is a branch point controlled by a
 . The identifier after the keyword `junction` is the name of the junction. 
 
 . The identifier after the keyword `if` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
 It specifies the guard that controls the branch.
@@ -42,10 +42,7 @@ state machine Device {
 
   junction J1 {
     if coldStart enter OFF \
-    else do {
-      initPower
-    } \ 
-    enter ON
+    else do { initPower } enter ON
   }
 
   state OFF

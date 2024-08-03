@@ -2,7 +2,7 @@
 
 A *state entry specifier* is part of a
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
-It specifies the state's entry actions
+It specifies the actions to take when entering the state.
 
 ==== Syntax
 
@@ -10,8 +10,7 @@ It specifies the state's entry actions
 
 ==== Semantics
 
-. The do expression specifies a list of entry actions that get executed
-when entering a state
+The do expression must be valid.
 
 ==== Examples
 
@@ -27,5 +26,8 @@ state machine Device {
       heaterOn
       monitorOn
     }
+
+  }
+
 }
 ----

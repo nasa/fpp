@@ -17,10 +17,12 @@ _]_
 
 
 ==== Semantics
-. If present, the do-expression specifies the list of actions to be performed
+
+. If present, the do-expression specifies the list of actions to be
+performed when making the transition.
 
 . The qualified identifier after the keyword `enter` must
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
 to a 
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
@@ -42,8 +44,7 @@ state machine Device {
   } \
   enter OFF
 
-  state OFF {
+  state OFF
 
-  }
 }
 ----
