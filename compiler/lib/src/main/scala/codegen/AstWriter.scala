@@ -390,6 +390,16 @@ object AstWriter extends AstVisitor with LineUtils {
     ).flatten.map(indentIn)
   }
 
+  override def specEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec entry") ++
+    doExpressionAsList(data.actions).map(indentIn)
+  }
+
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -405,6 +415,16 @@ object AstWriter extends AstVisitor with LineUtils {
       addPrefix("format", string) (data.format.data),
       linesOpt(addPrefix("throttle", exprNode), data.throttle),
     ).flatten.map(indentIn)
+  }
+
+  override def specExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec exit") ++
+    doExpressionAsList(data.actions).map(indentIn)
   }
 
   override def specIncludeAnnotatedNode(
@@ -424,26 +444,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("spec initial") ++
     transitionExpr(data.transition).map(indentIn)
-  }
-
-  override def specEntryAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec entry") ++
-    doExpressionAsList(data.actions).map(indentIn)
-  }
-
-  override def specExitAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec exit") ++
-    doExpressionAsList(data.actions).map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(
@@ -623,7 +623,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("spec transition") ++
     (addPrefix("signal", applyToData(ident)) (data.signal) ++
     linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
-    enterOrDo(data.transitionOrDo)).map(indentIn)
+    transitionOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =
@@ -725,14 +725,11 @@ object AstWriter extends AstVisitor with LineUtils {
   private def doExpressionAsList(actions: List[AstNode[Ast.Ident]]): List[Line] =
     actions.map(node => line(s"action ident ${node.data}"))
 
-  private def enterOrDo(
-    enterOrDo: Ast.TransitionOrDo
-  ) = {
-    enterOrDo match {
+  private def transitionOrDo(tod: Ast.TransitionOrDo) =
+    tod match {
       case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
       case Ast.TransitionOrDo.Do(actions) => doExpressionAsList(actions)
     }
-  }
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)
