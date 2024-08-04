@@ -48,9 +48,9 @@ trait StateMachineUseAnalyzer
 
   override def defJunctionAnnotatedNode(
     sma: StateMachineAnalysis,
-    node: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
   ) = {
-    val data = node._2.data
+    val data = aNode._2.data
     for {
       sma <- identNode(guardUse)(sma, data.guard)
       sma <- transitionExpr(sma, data.ifTransition.data)
@@ -59,16 +59,26 @@ trait StateMachineUseAnalyzer
     yield sma
   }
 
+  override def specEntryAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) = actions(sma, aNode._2.data.actions)
+
+  override def specExitAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) = actions(sma, aNode._2.data.actions)
+
   override def specInitialAnnotatedNode(
     sma: StateMachineAnalysis,
-    node: Ast.Annotated[AstNode[Ast.SpecInitial]]
-  ) = transitionExpr(sma, node._2.data.transition)
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitial]]
+  ) = transitionExpr(sma, aNode._2.data.transition)
 
   override def specTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
-    node: Ast.Annotated[AstNode[Ast.SpecTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
   ) = {
-    val data = node._2.data
+    val data = aNode._2.data
     for {
       sma <- identNode(signalUse)(sma, data.signal)
       sma <- opt(identNode(guardUse))(sma, data.guard)
