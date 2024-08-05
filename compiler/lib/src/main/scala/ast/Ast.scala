@@ -692,7 +692,9 @@ object Ast {
   /** State machine instance spec */
   final case class SpecStateMachineInstance(
     name: Ident,
-    stateMachine: AstNode[QualIdent]
+    stateMachine: AstNode[QualIdent],
+    priority: Option[AstNode[Expr]],
+    queueFull: Option[QueueFull]
   )
 
   /** Telemetry channel specifier */

@@ -570,6 +570,8 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       ident(node.data.name),
       addPrefix("state machine", qualIdent) (data.stateMachine.data),
+      linesOpt(addPrefix("priority", exprNode), data.priority),
+      linesOpt(queueFull, data.queueFull)
     ).map(indentIn)
   }
 

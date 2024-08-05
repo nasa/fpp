@@ -594,7 +594,9 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"state machine instance ${ident(data.name)}").
-      join(": ") (qualIdent(data.stateMachine.data))
+      join(": ") (qualIdent(data.stateMachine.data)).
+      joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.queueFull) ("") (queueFull)
   }
 
   override def specTlmChannelAnnotatedNode(
