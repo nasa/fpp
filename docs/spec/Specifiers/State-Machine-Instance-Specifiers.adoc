@@ -19,7 +19,7 @@ _queue-full-behavior_
 _]_
 
 _queue-full-behavior_ has the same syntax as for 
-<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>.
+<<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
 
 ==== Semantics
 
@@ -31,7 +31,8 @@ a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
 
 . The optional priority and queue full behavior have the same semantics as in 
-<<Specifiers_Port-Instance-Specifiers,async input port instance specifiers>>.
+<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
+specifiers>>.
 
 ==== Examples
 
