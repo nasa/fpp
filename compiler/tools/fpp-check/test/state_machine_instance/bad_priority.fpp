@@ -3,5 +3,5 @@ module M {
 }
 
 active component C {
-  state machine instance s1: M.S priority "abc"
+  state machine instance s: M.S priority "abc"
 }
