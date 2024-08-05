@@ -5297,7 +5297,7 @@ to itself.</p>
 </div>
 <div class="paragraph">
 <p><em>queue-full-behavior</em> has the same syntax as for
-<a href="#Specifiers_Port-Instance-Specifiers">port instance specifiers</a>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers_Syntax">port instance specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5312,7 +5312,8 @@ No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 <div class="paragraph">
 <p>The optional priority and queue full behavior have the same semantics as in
-<a href="#Specifiers_Port-Instance-Specifiers">async input port instance specifiers</a>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers_Semantics">async input port instance
+specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6181,7 +6182,17 @@ of a
 <p><code>state machine instance</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code>
-<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<em>queue-full-behavior</em>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>queue-full-behavior</em> has the same syntax as for
+<a href="#Specifiers_Port-Instance-Specifiers_Syntax">port instance specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -6197,6 +6208,11 @@ of a
 a
 <a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
+<li>
+<p>The optional priority and queue full behavior have the same semantics as in
+<a href="#Specifiers_Port-Instance-Specifiers_Semantics">async input port instance
+specifiers</a>.</p>
+</li>
 </ol>
 </div>
 </div>
@@ -6210,8 +6226,13 @@ a
 }
 
 passive component C {
-  @ m is an instance of state machine M
-  state machine instance m: M
+
+  @ m1 is an instance of state machine M
+  state machine instance m1: M
+
+  @ m2 is an instance of state machine M
+  state machine instance m2: M priority 10 drop
+
 }</code></pre>
 </div>
 </div>
@@ -9719,7 +9740,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-23 09:04:45 -0700
+Last updated 2024-08-05 09:51:25 -0600
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
