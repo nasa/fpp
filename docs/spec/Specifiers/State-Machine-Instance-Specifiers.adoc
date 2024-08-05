@@ -18,6 +18,9 @@ _[_
 _queue-full-behavior_
 _]_
 
+_queue-full-behavior_ has the same syntax as for 
+<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>.
+
 ==== Semantics
 
 . The identifier names the state machine instance.
@@ -27,7 +30,7 @@ _]_
 a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
 
-The optional priority and queue full behavior have the same semantics as in 
+. The optional priority and queue full behavior have the same semantics as in 
 <<Specifiers_Port-Instance-Specifiers,async input port instance specifiers>>.
 
 ==== Examples
@@ -40,7 +43,12 @@ state machine M {
 }
 
 passive component C {
-  @ m is an instance of state machine M
-  state machine instance m: M priority 1 drop
+
+  @ m1 is an instance of state machine M
+  state machine instance m1: M
+
+  @ m2 is an instance of state machine M
+  state machine instance m2: M priority 10 drop
+
 }
 ----
