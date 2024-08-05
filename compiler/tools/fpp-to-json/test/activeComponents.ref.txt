@@ -175,7 +175,9 @@
                                                   },
                                                   "id" : 54
                                                 }
-                                              }
+                                              },
+                                              "priority" : "None",
+                                              "queueFull" : "None"
                                             },
                                             "id" : 55
                                           }
@@ -203,7 +205,9 @@
                                                   },
                                                   "id" : 63
                                                 }
-                                              }
+                                              },
+                                              "priority" : "None",
+                                              "queueFull" : "None"
                                             },
                                             "id" : 64
                                           }

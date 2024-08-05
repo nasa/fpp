@@ -578,8 +578,11 @@ object Parser extends Parsers {
   }
 
   def specStateMachineInstance: Parser[Ast.SpecStateMachineInstance] = {
-    (state ~> machine ~> (instance ~> ident) ~! (colon ~>! node(qualIdent))) ^^ {
-      case name ~ statemachine => Ast.SpecStateMachineInstance(name, statemachine)
+    (state ~> machine ~> (instance ~>! ident) ~! (colon ~>! node(qualIdent)) ~!
+    opt(priority ~>! exprNode) ~!
+    opt(queueFull)) ^^ {
+      case name ~ statemachine ~ priority ~ queueFull => 
+        Ast.SpecStateMachineInstance(name, statemachine, priority, queueFull)
     }
   }
 
