@@ -54,7 +54,7 @@ module DefinitionsAndSpecifiers {
     @< State machine definition
 
     @ State machine instance 1
-    state machine instance s1: S
+    state machine instance s1: S priority 10 drop
     @< State machine instance 1
 
     @ State machine instance 2

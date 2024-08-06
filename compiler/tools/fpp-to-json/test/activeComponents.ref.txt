@@ -436,7 +436,9 @@
                                                   },
                                                   "id" : 123
                                                 }
-                                              }
+                                              },
+                                              "priority" : "None",
+                                              "queueFull" : "None"
                                             },
                                             "id" : 124
                                           }
@@ -465,7 +467,9 @@
                                                   },
                                                   "id" : 132
                                                 }
-                                              }
+                                              },
+                                              "priority" : "None",
+                                              "queueFull" : "None"
                                             },
                                             "id" : 133
                                           }

@@ -195,7 +195,7 @@ object AstWriter extends AstVisitor with LineUtils {
     lines("def state machine") ++
     ( 
       ident(data.name) ++
-      linesOpt((members: List[Ast.StateMachineMember]) => members.flatMap(stateMachineMember), data.members)
+      data.members.getOrElse(Nil).flatMap(stateMachineMember)
     ).map(indentIn)
   }
 
@@ -570,6 +570,8 @@ object AstWriter extends AstVisitor with LineUtils {
     List.concat(
       ident(node.data.name),
       addPrefix("state machine", qualIdent) (data.stateMachine.data),
+      linesOpt(addPrefix("priority", exprNode), data.priority),
+      linesOpt(queueFull, data.queueFull)
     ).map(indentIn)
   }
 
