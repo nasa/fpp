@@ -89,17 +89,6 @@ object Ast {
     members: List[ComponentMember]
   )
 
-  /** State machine definition */
-  final case class DefStateMachine(
-    name: Ident
-  )
-
-  /** State machine instance spec */
-  final case class SpecStateMachineInstance(
-    name: Ident,
-    stateMachine: AstNode[QualIdent]
-  )
-
   /** Component instance definition */
   final case class DefComponentInstance(
     name: Ident,
@@ -161,6 +150,11 @@ object Ast {
     name: Ident,
     params: FormalParamList,
     returnType: Option[AstNode[TypeName]]
+  )
+
+  /** State machine definition */
+  final case class DefStateMachine(
+    name: Ident
   )
 
   /** Struct definition */
@@ -599,6 +593,14 @@ object Ast {
     recordType: AstNode[TypeName],
     isArray: Boolean,
     id: Option[AstNode[Expr]]
+  )
+
+  /** State machine instance spec */
+  final case class SpecStateMachineInstance(
+    name: Ident,
+    stateMachine: AstNode[QualIdent],
+    priority: Option[AstNode[Expr]],
+    queueFull: Option[QueueFull]
   )
 
   /** Telemetry channel specifier */

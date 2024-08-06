@@ -2448,7 +2448,7 @@ with the signals dispatched by a state machine instance.
 For example, we can revise the example above as follows:
 
 [source,fpp]
---------
+----
 @ An external state machine
 state machine M
 
@@ -2462,7 +2462,7 @@ active component StateMachine {
   state machine instance m: M priority 10 drop
 
 }
---------
+----
 
 === Constants, Types, Enums, and State Machines
 

@@ -466,10 +466,12 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec state machine instance") ++
-    List(
+    List.concat(
       ident(node.data.name),
       addPrefix("state machine", qualIdent) (data.stateMachine.data),
-    ).flatten.map(indentIn)
+      linesOpt(addPrefix("priority", exprNode), data.priority),
+      linesOpt(queueFull, data.queueFull)
+    ).map(indentIn)
   }
 
   override def specTlmChannelAnnotatedNode(

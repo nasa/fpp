@@ -518,7 +518,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Ports_Annotating-a-Port-Definition">8.7. Annotating a Port Definition</a></li>
 </ul>
 </li>
-<li><a href="#Defining-State-Machines">9. Defining State Machines</a></li>
+<li><a href="#Defining-State-Machines">9. Defining State Machines</a>
+<ul class="sectlevel2">
+<li><a href="#Defining-State-Machines_External-State-Machines">9.1. External State Machines</a></li>
+<li><a href="#Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</a></li>
+</ul>
+</li>
 <li><a href="#Defining-Components">10. Defining Components</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-Components_Component-Definitions">10.1. Component Definitions</a></li>
@@ -584,7 +589,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </li>
 <li><a href="#Defining-Components_State-Machine-Instances">10.10. State Machine Instances</a></li>
-<li><a href="#Defining-Components_Constants-Types-and-State-Machines">10.11. Constants, Types, and State Machines</a></li>
+<li><a href="#Defining-Components_Constants-Types-Enums-and-State-Machines">10.11. Constants, Types, Enums, and State Machines</a></li>
 <li><a href="#Defining-Components_Include-Specifiers">10.12. Include Specifiers</a></li>
 <li><a href="#Defining-Components_Matched-Ports">10.13. Matched Ports</a></li>
 </ul>
@@ -701,11 +706,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Writing-C-Plus-Plus-Implementations">15. Writing C Plus Plus Implementations</a>
 <ul class="sectlevel2">
 <li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">15.2. Implementing Deployments</a>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">15.2. Implementing External State Machines</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">15.3. Implementing Deployments</a>
 <ul class="sectlevel3">
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">15.2.1. Application-Specific Definitions</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">15.2.2. The Main Function</a></li>
-<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.2.3. Public Symbols</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">15.3.1. Application-Specific Definitions</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">15.3.2. The Main Function</a></li>
+<li><a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.3.3. Public Symbols</a></li>
 </ul>
 </li>
 </ul>
@@ -2738,7 +2744,7 @@ value is the zero-argument constructor <code>T()</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Built-in types:</strong>
-When translating to XML, there are a few special types that are abstract
+When translating FPP to C&#43;&#43;, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don&#8217;t have to define C&#43;&#43; classes for these types.
 We will discuss these types further in the section on
@@ -3498,7 +3504,95 @@ port P(
 <h2 id="Defining-State-Machines">9. Defining State Machines</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>hierarchical state machine</strong> (state machine for short)
+specifies the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A set of <strong>states</strong> that a system can be in.
+The states can be arranged in a hierarchy (i.e.,
+states may have substates).</p>
+</li>
+<li>
+<p>A set of <strong>transitions</strong> from one state to another that
+occur under specified conditions.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>State machines are important in embedded programming.
+For example, F Prime components often have a concept of state
+that changes as the system runs, and it is useful to model
+these state changes as a state machine.</p>
+</div>
+<div class="paragraph">
+<p>In FPP there are two ways to define a state machine:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An <strong>external</strong> state machine definition is similar to
+an <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>:
+it tells the analyzer that a state machine exists with a specified
+name, but it says nothing about the state machine behavior.
+An external tool must provide the state machine implementation.</p>
+</li>
+<li>
+<p>An <strong>internal</strong> state machine definition is similar to an
+<a href="#Defining-Types_Array-Type-Definitions">array type definition</a>
+or
+<a href="#Defining-Types_Struct-Type-Definitions">struct type definition</a>:
+it provides a complete specification in FPP of the state machine behavior.
+The FPP back end uses this specification to generate code;
+no external tool is required.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As of the current version of FPP, only external state machines
+are implemented.
+Support for internal state machines is in development.</p>
+</div>
+<div class="paragraph">
+<p>State machine definitions may appear at the top level or inside a
+<a href="#Defining-Modules">module definition</a>.
+A state machine definition is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_External-State-Machines">9.1. External State Machines</h3>
+<div class="paragraph">
+<p>To define an external state machine, you write the keywords
+<code>state</code> <code>machine</code> followed by an identifier, which is the
+name of the state machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This code defines an external state machine with name <code>M</code>.
+You can then
+<a href="#Defining-Components_State-Machine-Instances">instantiate</a>
+the state machine <code>M</code> in a component definition.</p>
+</div>
+<div class="paragraph">
+<p>When you define an external state machine <code>M</code>, you must provide
+an implementation for <code>M</code>, as discussed in the section
+on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">implementing external state machines</a>.
+The external implementation must have a header file <code>M.hpp</code>
+located in the same directory as the FPP file where
+the state machine <code>M</code> is defined.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</h3>
+<div class="paragraph">
+<p>Support for internal state machines is in development.
+It will be available in a future release of FPP.</p>
+</div>
 </div>
 </div>
 </div>
@@ -3732,8 +3826,11 @@ passive component ErroneousF32Adder {
 <div class="paragraph">
 <p>Second, an active or queued component <em>must</em> have asynchronous input.
 That means it must have at least one async input port;
-or it must have an internal port (described below);
-or it must have at least one async command (also described below).
+or it must have an internal port;
+or it must have at least one async command; or it must have
+at least one state machine instance.
+Internal ports, async commands, and state machine instances
+are described below.
 As an example, if we modify the input ports of our <code>ActiveF32Adder</code>
 to make them <code>sync</code>, we get an error, because
 there is no async input.</p>
@@ -6120,7 +6217,7 @@ Here is an example:</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">@ A struct type defining some data
 struct Data { a: U32, b: F32 }
 
-@ A component for illustrating data product
+@ A component for illustrating data product identifiers
 passive component DataProductIdentifiers {
 
   # ----------------------------------------------------------------------
@@ -6238,14 +6335,72 @@ it is provided when the record is serialized into a container.</p>
 <div class="sect2">
 <h3 id="Defining-Components_State-Machine-Instances">10.10. State Machine Instances</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>A <strong>state machine instance</strong> is a component member that instantiates
+an FPP <a href="#Defining-State-Machines">state machine</a>.
+The state machine instance becomes part of the component implementation.</p>
+</div>
+<div class="paragraph">
+<p>For example, here is a simple async component that has
+one state machine instance and one async input port
+for driving the state machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When a state machine instance <em>m</em> is part of a component <em>C</em>,
+each instance <em>c</em> of <em>C</em> sends <em>m</em> <strong>signals</strong> to process as it runs.
+Signals occur in response to commands or port
+invocations received by <em>c</em>, and they tell <em>m</em> when to change state.
+<em>c</em> puts the signals on its queue, and <em>m</em> dispatches them.
+Therefore, if a component <em>C</em> has a state machine instance member <em>m</em>,
+then its instances <em>c</em> must have queues, i.e., <em>C</em> must be active or queued.</p>
+</div>
+<div class="paragraph">
+<p>As with <a href="#Defining-Components_Internal-Ports">internal ports</a>,
+you may specify priority and queue full behavior associated
+with the signals dispatched by a state machine instance.
+For example, we can revise the example above as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M priority 10 drop
+
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-Components_Constants-Types-and-State-Machines">10.11. Constants, Types, and State Machines</h3>
+<h3 id="Defining-Components_Constants-Types-Enums-and-State-Machines">10.11. Constants, Types, Enums, and State Machines</h3>
 <div class="paragraph">
 <p>You can write a <a href="#Defining-Constants">constant definition</a>,
-<a href="#Defining-Types">type definition</a>, or
+<a href="#Defining-Types">type definition</a>,
+<a href="#Defining-Enums">enum definition</a>,
+or
 <a href="#Defining-State-Machines">state machine definition</a>
 as a component member.
 When you do this, the component qualifies
@@ -10501,7 +10656,7 @@ Notice how the FPP annotations are translated to comments.
 <div class="paragraph">
 <p><strong>Constants defined inside components:</strong>
 As noted in the section on
-<a href="#Defining-Components_Constants-Types-and-State-Machines">defining components</a>,
+<a href="#Defining-Components_Constants-Types-Enums-and-State-Machines">defining components</a>,
 when you define a constant <code>c</code> inside a component <code>C</code>,
 the name of the corresponding constant in the generated C&#43;&#43;
 code is <code>C_c</code>.
@@ -11956,7 +12111,25 @@ You don&#8217;t have to define header files for these types.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">15.2. Implementing Deployments</h3>
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">15.2. Implementing External State Machines</h3>
+<div class="paragraph">
+<p>An <a href="#Defining-State-Machines_External-State-Machines">external state machine</a> refers to a state machine implementation
+supplied outside the FPP model.
+To implement an external state machine, you can use
+the <a href="https://github.com/JPLOpenSource/STARS/tree/main">State Autocoding for
+Real-Time Systems (STARS)</a>
+tool.
+STARS provides several ways to specify state machines, and it
+provides several C&#43;&#43; back ends.
+The F Prime back end is designed to work with FPP code generation.</p>
+</div>
+<div class="paragraph">
+<p>For an example of an external state machine implemented in STARS,
+see <code>FppTest/state_machine</code> in the F Prime repository.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">15.3. Implementing Deployments</h3>
 <div class="paragraph">
 <p>At the highest level of an F Prime implementation, you write
 two units of C&#43;&#43; code:</p>
@@ -11977,7 +12150,7 @@ topology code.</p>
 <p>We describe each of these code units below.</p>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">15.2.1. Application-Specific Definitions</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Application-Specific-Definitions">15.3.1. Application-Specific Definitions</h4>
 <div class="paragraph">
 <p>As discussed in the section on
 <a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">generating C&#43;&#43; topology definitions</a>, when you translate an FPP
@@ -12159,7 +12332,7 @@ The corresponding link-time symbol is defined in <code>SystemReferenceTopologyDe
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">15.2.2. The Main Function</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_The-Main-Function">15.3.2. The Main Function</h4>
 <div class="paragraph">
 <p>You must write a main function that performs application-specific
 and system-specific tasks such as parsing command-line arguments,
@@ -12243,7 +12416,7 @@ F Prime system reference repository.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.2.3. Public Symbols</h4>
+<h4 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments_Public-Symbols">15.3.3. Public Symbols</h4>
 <div class="paragraph">
 <p>The header file <em>T</em> <code>TopologyAc.hpp</code> declares several public
 symbols that you can use when writing your main function.</p>
@@ -12310,7 +12483,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-23 09:52:50 -0700
+Last updated 2024-08-05 22:45:56 -0600
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
