@@ -14,5 +14,6 @@ missing_ports
 negative_id
 negative_save_opcode
 negative_set_opcode
+not_displayable
 ok
 "

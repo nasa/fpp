@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:18.3
+  async command C(a1: S)
+  ^
+error: command parameters need to be displayable type

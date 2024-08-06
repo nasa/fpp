@@ -25,6 +25,9 @@ sealed trait Type {
   /** Is this type promotable to an array type? */
   def isPromotableToArray: Boolean = isNumeric
 
+  /** Is this type displayable? */
+  def isDisplayable: Boolean = false
+
   /** Is this type a float type? */
   def isFloat: Boolean = false
 
@@ -55,6 +58,7 @@ object Type {
   /** Primitive types */
   sealed trait Primitive extends Type {
     override def isPrimitive = true
+    override def isDisplayable = true
   }
 
   /** Primitive integer types */
@@ -99,6 +103,7 @@ object Type {
   case class Float(kind: Float.Kind) extends Type with Primitive {
     override def getDefaultValue = Some(Value.Float(0, kind))
     override def isFloat = true
+    override def isDisplayable = true
     override def toString = kind match {
       case Float.F32 => "F32"
       case Float.F64 => "F64"
@@ -119,6 +124,7 @@ object Type {
     override def getDefaultValue = Some(Value.Boolean(false))
     override def toString = "bool"
     override def isPromotableToArray = true
+    override def isDisplayable = true
   }
 
   /** The type of a string */
@@ -126,6 +132,7 @@ object Type {
     override def getDefaultValue = Some(Value.String(""))
     override def toString = "string"
     override def isPromotableToArray = true
+    override def isDisplayable = true
   }
 
   /** The type of arbitrary-width integers */
@@ -142,6 +149,7 @@ object Type {
     override def getDefaultValue = Some(Value.AbsType(this))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
+    override def isDisplayable = false
   }
 
   /** A named array type */
@@ -161,6 +169,7 @@ object Type {
     override def getArraySize = anonArray.getArraySize
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
+    override def isDisplayable = anonArray.isDisplayable
     override def toString = "array " ++ node._2.data.name
   }
 
@@ -198,6 +207,7 @@ object Type {
     override def getDefNodeId = Some(node._2.id)
     override def isConvertibleToNumeric = true
     override def isPromotableToArray = true
+    override def isDisplayable = true
     override def toString = "enum " ++ node._2.data.name
   }
 
@@ -217,6 +227,7 @@ object Type {
     override def getDefaultValue: Option[Value.Struct] = default
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
+    override def isDisplayable = anonStruct.isDisplayable
     override def toString = "struct " ++ node._2.data.name
   }
 
@@ -267,6 +278,7 @@ object Type {
     }
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
+    override def isDisplayable = eltType.isDisplayable
     override def toString = size match {
       case Some(n) => "[" ++ n.toString ++ "] " ++ eltType.toString
       case None => "array of " ++ eltType.toString
@@ -303,6 +315,8 @@ object Type {
         case _ => "{ " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
+    override def isDisplayable =
+      members.values.forall(_.isDisplayable)
   }
 
   /** Check for type identity */

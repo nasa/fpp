@@ -35,8 +35,23 @@ object Event {
         )
         else Right(())
       }
+      def checkDisplayableParams(params: Ast.FormalParamList) = {
+        if(!params.forall(aNode => {
+          val id = aNode._2.data.typeName.id
+          val paramType = a.typeMap(id)
+          paramType.isDisplayable
+        })) {
+          Left(
+            SemanticError.InvalidCommand(
+              loc, 
+              "event parameters need to be displayable type")
+          )
+        }
+        else Right(())
+      }
       for {
         _ <- checkRefParams(data.params)
+        _ <- checkDisplayableParams(data.params)
         format <- Analysis.computeFormat(
           data.format,
           data.params.map(aNode => a.typeMap(aNode._2.data.typeName.id))
