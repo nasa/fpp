@@ -193,7 +193,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("def state machine") ++
-    ( 
+    (
       ident(data.name) ++
       data.members.getOrElse(Nil).flatMap(stateMachineMember)
     ).map(indentIn)
