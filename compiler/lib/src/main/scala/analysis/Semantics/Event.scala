@@ -42,7 +42,7 @@ object Event {
           paramType.isDisplayable
         })) {
           Left(
-            SemanticError.InvalidCommand(
+            SemanticError.InvalidEvent(
               loc, 
               "event parameters need to be displayable type")
           )

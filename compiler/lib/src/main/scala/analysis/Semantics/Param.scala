@@ -47,7 +47,7 @@ object Param {
         val loc = Locations.get(data.typeName.id)
         if (paramType.isDisplayable) Right(())
         else Left(
-            SemanticError.InvalidCommand(
+            SemanticError.InvalidType(
               loc, 
               "parameters need to be displayable type")
           )

@@ -38,7 +38,7 @@ object TlmChannel {
         val loc = Locations.get(data.typeName.id)
         if (channelType.isDisplayable) Right(())
         else Left(
-            SemanticError.InvalidCommand(
+            SemanticError.InvalidType(
               loc, 
               "telemetry channels need to be displayable type")
           )
