@@ -310,8 +310,8 @@ object Lexer extends RegexParsers {
     ("save", (u: Unit) => Token.SAVE()),
     ("send", (u: Unit) => Token.SEND()),
     ("serial", (u: Unit) => Token.SERIAL()),
-    ("severity", (u: Unit) => Token.SEVERITY()),
     ("set", (u: Unit) => Token.SET()),
+    ("severity", (u: Unit) => Token.SEVERITY()),
     ("size", (u: Unit) => Token.SIZE()),
     ("stack", (u: Unit) => Token.STACK()),
     ("state", (u: Unit) => Token.STATE()),
@@ -330,6 +330,8 @@ object Lexer extends RegexParsers {
     ("with", (u: Unit) => Token.WITH()),
     ("yellow", (u: Unit) => Token.YELLOW()),
   )
+
+  val reservedWordSet = reservedWords.map(_._1).toSet
 
   val symbols: List[(Parser[Unit], String, Unit => Token, Parser[Unit])] = List(
     (newlinesOpt, ")", (u: Unit) => Token.RPAREN(), nothing),
