@@ -54,7 +54,7 @@ case class ComponentPorts(
       inputPortWriter.getHandlerBases(typedInputPorts),
       inputPortWriter.getHandlers(serialInputPorts),
       inputPortWriter.getHandlerBases(serialInputPorts),
-      inputPortWriter.getPreMsgHooks(dataProductInputPorts),
+      inputPortWriter.getPreMsgHooks(dataProductAsyncInputPorts),
       inputPortWriter.getPreMsgHooks(typedAsyncInputPorts),
       inputPortWriter.getPreMsgHooks(serialAsyncInputPorts),
       outputPortWriter.getInvokers(dataProductOutputPorts),

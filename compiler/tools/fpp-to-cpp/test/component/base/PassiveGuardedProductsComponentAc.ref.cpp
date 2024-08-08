@@ -1856,25 +1856,6 @@ void PassiveGuardedProductsComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Pre-message hooks for special async input ports
-//
-// Each of these functions is invoked just before processing a message
-// on the corresponding port. By default, they do nothing. You can
-// override them to provide specific pre-message behavior.
-// ----------------------------------------------------------------------
-
-void PassiveGuardedProductsComponentBase ::
-  productRecvIn_preMsgHook(
-      FwIndexType portNum,
-      FwDpIdType id,
-      const Fw::Buffer& buffer,
-      const Fw::Success& status
-  )
-{
-  // Default: no-op
-}
-
-// ----------------------------------------------------------------------
 // Invocation functions for special output ports
 // ----------------------------------------------------------------------
 
