@@ -68,10 +68,13 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
   override def specStateMachineInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
     val (_, node1, _) = node
     val data = node1.data
-    qualIdentNode(stateMachineUse)(a, data.stateMachine)
+    for {
+      a <- opt(exprNode)(a, data.priority)
+      a <- qualIdentNode(stateMachineUse)(a, data.stateMachine)
+    } yield a
   }
 
-
+  
   override def specConnectionGraphAnnotatedNode(
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {
