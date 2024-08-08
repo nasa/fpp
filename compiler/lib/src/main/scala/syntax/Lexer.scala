@@ -276,6 +276,7 @@ object Lexer extends RegexParsers {
     ("guarded", (u: Unit) => Token.GUARDED()),
     ("health", (u: Unit) => Token.HEALTH()),
     ("high", (u: Unit) => Token.HIGH()),
+    ("hook", (u: Unit) => Token.HOOK()),
     ("id", (u: Unit) => Token.ID()),
     ("import", (u: Unit) => Token.IMPORT()),
     ("include", (u: Unit) => Token.INCLUDE()),
