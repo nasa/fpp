@@ -1,5 +1,0 @@
-fpp-syntax
-[ local path prefix ]/compiler/tools/fpp-syntax/test/state-machine-error.fpp:11.45
-    state machine instance s: SO priority 1 blah
-                                            ^
-error: } expected

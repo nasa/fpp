@@ -122,14 +122,14 @@ trait AstVisitor {
 
   final def matchExprNode(in: In, node: AstNode[Ast.Expr]): Out =
     node.data match {
-      case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprArray => exprArrayNode(in, node, e)
+      case e : Ast.ExprBinop => exprBinopNode(in, node, e)
       case e : Ast.ExprDot => exprDotNode(in, node, e)
       case e : Ast.ExprIdent => exprIdentNode(in, node, e)
-      case e : Ast.ExprLiteralInt => exprLiteralIntNode(in, node, e)
-      case e : Ast.ExprLiteralFloat => exprLiteralFloatNode(in, node, e)
-      case e : Ast.ExprLiteralString => exprLiteralStringNode(in, node, e)
       case e : Ast.ExprLiteralBool => exprLiteralBoolNode(in, node, e)
+      case e : Ast.ExprLiteralFloat => exprLiteralFloatNode(in, node, e)
+      case e : Ast.ExprLiteralInt => exprLiteralIntNode(in, node, e)
+      case e : Ast.ExprLiteralString => exprLiteralStringNode(in, node, e)
       case e : Ast.ExprParen => exprParenNode(in, node, e)
       case e : Ast.ExprStruct => exprStructNode(in, node, e)
       case e : Ast.ExprUnop => exprUnopNode(in, node, e)
