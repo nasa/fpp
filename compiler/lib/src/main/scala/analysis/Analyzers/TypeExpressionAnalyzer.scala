@@ -184,14 +184,6 @@ trait TypeExpressionAnalyzer
     } yield a
   }
 
-  // override def specStateMachineInstanceAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]) = {
-  //   val (_, node1, _) = node
-  //   val data = node1.data
-  //   for {
-  //     a <- opt(exprNode)(a, data.priority)
-  //   } yield a
-  // }
-
   override def specParamAnnotatedNode(a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecParam]]) = {
     val (_, node1, _) = node
     val data = node1.data
