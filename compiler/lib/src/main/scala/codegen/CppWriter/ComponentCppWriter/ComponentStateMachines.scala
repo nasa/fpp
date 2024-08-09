@@ -22,20 +22,19 @@ case class ComponentStateMachines(
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
-    lazy val member = functionClassMember(
-      Some(s"State machine base-class function for sendSignals"),
-      "stateMachineInvoke",
-      List(
-        CppDoc.Function.Param(
-            CppDoc.Type("const Fw::SMSignals&"),
-            "ev",
-            Some("The state machine signal")
-        )
-      ),
-      CppDoc.Type("void"),
-      intersperseBlankLines(
-        List(
+  def getFunctionMembers: List[CppDoc.Class.Member] = {    
+    val writeMessages = stateMachineInstances.flatMap{sm =>
+          lines(
+            s"""|
+                |case STATE_MACHINE_${sm.getUnqualifiedName.toUpperCase}: {
+            """
+          ) ++
+          writeSendMessageLogic("msg", sm.queueFull, sm.priority).map(indentIn) ++
+          List(Line("break;")).map(indentIn) ++
+          List(Line("}"))
+    }
+
+    val serializeCode = 
           lines(
             s"""|ComponentIpcSerializableBuffer msg;
                 |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -60,12 +59,30 @@ case class ComponentStateMachines(
                 |  static_cast<FwAssertArgType>(_status)
                 |);
                 |
+                |switch (ev.getsmId()) {
                 |"""
-          ),
-          writeSendMessageLogic("msg", Ast.QueueFull.Assert, Option(1))
+          )
+        
+    val member = functionClassMember(
+      Some(s"State machine base-class function for sendSignals"),
+      "stateMachineInvoke",
+      List(
+        CppDoc.Function.Param(
+            CppDoc.Type("const Fw::SMSignals&"),
+            "ev",
+            Some("The state machine signal")
+        )
+      ),
+      CppDoc.Type("void"),
+      intersperseBlankLines(
+        List(
+          serializeCode ++
+          writeMessages.map(indentIn) ++
+          lines("}")
         )
       )
     )
+
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push signals to the input queue",

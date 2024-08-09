@@ -78,6 +78,8 @@ void ActiveStateMachinesComponentBase ::
   m_stateMachine_sm2.init();
   m_stateMachine_sm3.init();
   m_stateMachine_sm4.init();
+  m_stateMachine_sm5.init();
+  m_stateMachine_sm6.init();
 
   Os::Queue::QueueStatus qStat = this->createQueue(
     queueDepth,
@@ -99,7 +101,9 @@ ActiveStateMachinesComponentBase ::
     m_stateMachine_sm1(this),
     m_stateMachine_sm2(this),
     m_stateMachine_sm3(this),
-    m_stateMachine_sm4(this)
+    m_stateMachine_sm4(this),
+    m_stateMachine_sm5(this),
+    m_stateMachine_sm6(this)
 {
 
 }
@@ -140,14 +144,91 @@ void ActiveStateMachinesComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 1, _block);
+  switch (ev.getsmId()) {
 
-  FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
-    static_cast<FwAssertArgType>(qStatus)
-  );
+    case STATE_MACHINE_SM2: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 2, _block);
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+
+    case STATE_MACHINE_SM3: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 3, _block);
+
+      if (qStatus == Os::Queue::QUEUE_FULL) {
+        this->incNumMsgDropped();
+        return;
+      }
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+
+    case STATE_MACHINE_SM6: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+
+    case STATE_MACHINE_SM5: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+
+    case STATE_MACHINE_SM1: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 1, _block);
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+
+    case STATE_MACHINE_SM4: {
+                
+      // Send message
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
+      Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 4, _block);
+
+      FW_ASSERT(
+        qStatus == Os::Queue::QUEUE_OK,
+        static_cast<FwAssertArgType>(qStatus)
+      );
+      break;
+    }
+  }
 }
 
 // ----------------------------------------------------------------------
@@ -228,6 +309,14 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
                   
         case STATE_MACHINE_SM4:
           this->m_stateMachine_sm4.update(&ev);
+          break;
+                  
+        case STATE_MACHINE_SM5:
+          this->m_stateMachine_sm5.update(&ev);
+          break;
+                  
+        case STATE_MACHINE_SM6:
+          this->m_stateMachine_sm6.update(&ev);
           break;
                   
       }
