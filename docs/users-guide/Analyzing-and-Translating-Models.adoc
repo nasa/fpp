@@ -490,7 +490,8 @@ Notice how the FPP annotations are translated to comments.
 
 *Constants defined inside components:*
 As noted in the section on
-<<Defining-Components_Constants-and-Types,defining components>>,
+<<Defining-Components_Constants-Types-Enums-and-State-Machines,
+defining components>>,
 when you define a constant `c` inside a component `C`,
 the name of the corresponding constant in the generated {cpp}
 code is `C_c`.
