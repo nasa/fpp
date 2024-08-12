@@ -135,3 +135,71 @@ void QueuedOverflow ::
 {
   // TODO
 }
+
+// ----------------------------------------------------------------------
+// Overflow hook implementations for 'hook' input ports
+// ----------------------------------------------------------------------
+
+void QueuedOverflow ::
+  hookAsync_overflowHook(
+      FwIndexType portNum,
+      U32 u32,
+      F32 f32,
+      bool b,
+      const Fw::StringBase& str1,
+      const E& e,
+      const A& a,
+      const S& s
+  )
+{
+  // TODO
+}
+
+void QueuedOverflow ::
+  serialAsyncHook_overflowHook(
+      FwIndexType portNum,
+      Fw::SerializeBufferBase& buffer
+  )
+{
+  // TODO
+}
+
+void QueuedOverflow ::
+  productRecvInHook_overflowHook(
+      FwIndexType portNum,
+      FwDpIdType id,
+      const Fw::Buffer& buffer,
+      const Fw::Success& status
+  )
+{
+  // TODO
+}
+
+void QueuedOverflow ::
+  internalHookDrop_overflowHook(FwIndexType portNum)
+{
+  // TODO
+}
+
+// ----------------------------------------------------------------------
+// Overflow hook implementations for 'hook' commands
+// ----------------------------------------------------------------------
+
+void QueuedOverflow ::
+  CMD_HOOK_overflowHook(
+      FwOpcodeType opCode,
+      U32 cmdSeq
+  )
+{
+  // TODO
+}
+
+void QueuedOverflow ::
+  CMD_PARAMS_PRIORITY_HOOK_overflowHook(
+      FwOpcodeType opCode,
+      U32 cmdSeq,
+      U32 u32
+  )
+{
+  // TODO
+}

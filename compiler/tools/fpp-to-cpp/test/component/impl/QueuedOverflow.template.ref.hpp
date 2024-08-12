@@ -137,6 +137,62 @@ class QueuedOverflow :
     //! An internal port with hook queue full behavior
     void internalHookDrop_internalInterfaceHandler() override;
 
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Overflow hook implementations for 'hook' input ports
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook implementation for hookAsync
+    void hookAsync_overflowHook(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const Fw::StringBase& str1, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    ) override;
+
+    //! Overflow hook implementation for serialAsyncHook
+    void serialAsyncHook_overflowHook(
+        FwIndexType portNum, //!< The port number
+        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+    ) override;
+
+    //! Overflow hook implementation for productRecvInHook
+    void productRecvInHook_overflowHook(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    ) override;
+
+    //! Overflow hook implementation for internalHookDrop
+    void internalHookDrop_overflowHook(
+        FwIndexType portNum //!< The port number
+    ) override;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Overflow hook implementations for 'hook' commands
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook implementation for CMD_HOOK
+    void CMD_HOOK_overflowHook(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq //!< The command sequence number
+    ) override;
+
+    //! Overflow hook implementation for CMD_PARAMS_PRIORITY_HOOK
+    void CMD_PARAMS_PRIORITY_HOOK_overflowHook(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        U32 u32
+    ) override;
+
 };
 
 #endif
