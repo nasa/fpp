@@ -110,6 +110,10 @@ abstract class ComponentCppWriterUtils(
   /** List of serial output ports */
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
 
+  /** List of state machine instances */
+  val stateMachineInstances: List[StateMachineInstance] =
+    component.stateMachineInstanceMap.toList.map((_, sm) => sm).sortBy(_.getName)
+
   /** List of internal port instances sorted by name */
   val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.Internal => Some(i)

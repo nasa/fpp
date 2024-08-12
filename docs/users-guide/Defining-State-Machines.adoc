@@ -1,0 +1,70 @@
+== Defining State Machines
+
+A *hierarchical state machine* (state machine for short)
+specifies the following:
+
+* A set of *states* that a system can be in.
+The states can be arranged in a hierarchy (i.e.,
+states may have substates).
+
+* A set of *transitions* from one state to another that
+occur under specified conditions.
+
+State machines are important in embedded programming.
+For example, F Prime components often have a concept of state
+that changes as the system runs, and it is useful to model
+these state changes as a state machine.
+
+In FPP there are two ways to define a state machine:
+
+. An *external* state machine definition is similar to
+an <<Defining-Types_Abstract-Type-Definitions,abstract type definition>>:
+it tells the analyzer that a state machine exists with a specified
+name, but it says nothing about the state machine behavior.
+An external tool must provide the state machine implementation.
+
+. An *internal* state machine definition is similar to an
+<<Defining-Types_Array-Type-Definitions,array type definition>>
+or
+<<Defining-Types_Struct-Type-Definitions,struct type definition>>:
+it provides a complete specification in FPP of the state machine behavior.
+The FPP back end uses this specification to generate code;
+no external tool is required.
+
+As of the current version of FPP, only external state machines
+are implemented.
+Support for internal state machines is in development.
+
+State machine definitions may appear at the top level or inside a
+<<Defining-Modules,module definition>>.
+A state machine definition is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+
+=== External State Machines
+
+To define an external state machine, you write the keywords
+`state` `machine` followed by an identifier, which is the
+name of the state machine:
+
+[source,fpp]
+----
+state machine M
+----
+
+This code defines an external state machine with name `M`.
+You can then
+<<Defining-Components_State-Machine-Instances,instantiate>>
+the state machine `M` in a component definition.
+
+When you define an external state machine `M`, you must provide
+an implementation for `M`, as discussed in the section
+on <<Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines,
+implementing external state machines>>.
+The external implementation must have a header file `M.hpp`
+located in the same directory as the FPP file where
+the state machine `M` is defined.
+
+=== Internal State Machines
+
+Support for internal state machines is in development.
+It will be available in a future release of FPP.
