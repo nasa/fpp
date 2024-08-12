@@ -57,10 +57,7 @@ case class ComponentStateMachines(
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
                 |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |switch (ev.getsmId()) {
-                |"""
+                |);"""
           )
         
     val member = functionClassMember(
@@ -74,11 +71,10 @@ case class ComponentStateMachines(
         )
       ),
       CppDoc.Type("void"),
-      intersperseBlankLines(
+      Line.blank :: intersperseBlankLines(
         List(
-          serializeCode ++
-          writeMessages.map(indentIn) ++
-          lines("}")
+          serializeCode,
+          wrapInSwitch("ev.getsmId()", writeMessages)
         )
       )
     )

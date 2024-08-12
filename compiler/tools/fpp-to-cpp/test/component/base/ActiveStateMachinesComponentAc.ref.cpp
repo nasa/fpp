@@ -121,6 +121,7 @@ ActiveStateMachinesComponentBase ::
 void ActiveStateMachinesComponentBase ::
   stateMachineInvoke(const Fw::SMSignals& ev)
 {
+
   ComponentIpcSerializableBuffer msg;
   Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
