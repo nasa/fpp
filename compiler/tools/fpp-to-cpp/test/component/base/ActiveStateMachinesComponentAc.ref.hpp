@@ -42,6 +42,8 @@ class ActiveStateMachinesComponentBase :
       STATE_MACHINE_SM2,
       STATE_MACHINE_SM3,
       STATE_MACHINE_SM4,
+      STATE_MACHINE_SM5,
+      STATE_MACHINE_SM6,
     };
 
   public:
@@ -107,6 +109,12 @@ class ActiveStateMachinesComponentBase :
 
     //! State machine sm4
     ActiveStateMachines_S2 m_stateMachine_sm4;
+
+    //! State machine sm5
+    ActiveStateMachines_S2 m_stateMachine_sm5;
+
+    //! State machine sm6
+    ActiveStateMachines_S2 m_stateMachine_sm6;
 
 };
 

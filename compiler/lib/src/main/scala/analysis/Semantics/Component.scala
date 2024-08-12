@@ -132,7 +132,7 @@ case class Component(
   /** Add a port instance to the port map */
   private def updateStateMachineInstanceMap(instance: StateMachineInstance):
   Result.Result[Component] = {
-    val name = instance.getUnqualifiedName
+    val name = instance.getName
     stateMachineInstanceMap.get(name) match {
       case Some(prevInstance) =>
         val loc = instance.getLoc

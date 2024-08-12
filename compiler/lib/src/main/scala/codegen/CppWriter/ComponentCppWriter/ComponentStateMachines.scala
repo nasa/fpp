@@ -22,20 +22,8 @@ case class ComponentStateMachines(
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
-    lazy val member = functionClassMember(
-      Some(s"State machine base-class function for sendSignals"),
-      "stateMachineInvoke",
-      List(
-        CppDoc.Function.Param(
-            CppDoc.Type("const Fw::SMSignals&"),
-            "ev",
-            Some("The state machine signal")
-        )
-      ),
-      CppDoc.Type("void"),
-      intersperseBlankLines(
-        List(
+  def getFunctionMembers: List[CppDoc.Class.Member] = {    
+    val serializeCode = 
           lines(
             s"""|ComponentIpcSerializableBuffer msg;
                 |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -58,14 +46,56 @@ case class ComponentStateMachines(
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
                 |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |"""
+                |);"""
+          )
+        
+
+    val switchCode = List.concat(
+      lines("const U32 smId = ev.getsmId();"),
+      wrapInSwitch(
+        "smId",
+        List.concat(
+          stateMachineInstances.flatMap(
+            smi => {
+              Line.blank ::
+              wrapInScope(
+                s"case STATE_MACHINE_${smi.getName.toUpperCase}: {",
+                List.concat(
+                  writeSendMessageLogic("msg", smi.queueFull, smi.priority),
+                  lines("break;")
+                ),
+                "}"
+              )
+            }
           ),
-          writeSendMessageLogic("msg", Ast.QueueFull.Assert, Option(1))
+          lines(
+            """|
+               |default:
+               |  FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+               |  break;
+               |"""
+          )
+
         )
       )
     )
+
+    val member = functionClassMember(
+      Some(s"State machine base-class function for sendSignals"),
+      "stateMachineInvoke",
+      List(
+        CppDoc.Function.Param(
+            CppDoc.Type("const Fw::SMSignals&"),
+            "ev",
+            Some("The state machine signal")
+        )
+      ),
+      CppDoc.Type("void"),
+      Line.blank :: intersperseBlankLines(
+        List(serializeCode, switchCode)
+      )
+    )
+
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push signals to the input queue",

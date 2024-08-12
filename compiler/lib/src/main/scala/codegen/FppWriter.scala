@@ -641,7 +641,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines(s"on ${ident(data.signal.data)}").
-    joinOpt(data.guard)(" if ")(nodeIdentAsLines).
+    joinOpt(data.guard)(" if ")(applyToData(identAsLines)).
     join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
@@ -747,8 +747,6 @@ object FppWriter extends AstVisitor with LineUtils {
     if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
 
   private def identAsLines = lines compose ident
-
-  private def nodeIdentAsLines = lines compose applyToData(ident)
 
   private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
     qualIdent(pii.componentInstance.data).
