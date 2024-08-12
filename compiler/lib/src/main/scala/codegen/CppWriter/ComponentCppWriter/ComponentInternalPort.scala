@@ -9,9 +9,10 @@ case class ComponentInternalPort (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
-
+  private val inputPortWriter = ComponentInputPorts(s, aNode)
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     List(
+      inputPortWriter.getDropHooks(internalHookPorts),
       getHandlers,
       getHandlerBases
     ).flatten
@@ -82,7 +83,7 @@ case class ComponentInternalPort (
                   )
                 )
               ),
-              writeSendMessageLogic("msg", p.queueFull, p.priority)
+              writeSendMessageLogic("msg", p.queueFull, p.priority, p.getUnqualifiedName, getPortParams(p).map((n, _, _) => n))
             )
           )
         )

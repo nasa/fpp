@@ -725,6 +725,77 @@ class ActiveOverflowComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // Hooks for special async input ports
+    //
+    // Each of these functions is invoked just before dropping a message
+    // on the corresponding port. You should override them to provide
+    // specific drop behavior.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for async input port productRecvInHook
+    virtual void productRecvInHook_overflowHook(
+        FwIndexType portNum, //!< The port number
+        FwDpIdType id, //!< The container ID
+        const Fw::Buffer& buffer, //!< The buffer
+        const Fw::Success& status //!< The status
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Hooks for typed async input ports
+    //
+    // Each of these functions is invoked just before dropping a message
+    // on the corresponding port. You should override them to provide
+    // specific drop behavior.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for async input port hookAsync
+    virtual void hookAsync_overflowHook(
+        FwIndexType portNum, //!< The port number
+        U32 u32, //!< A U32
+        F32 f32, //!< An F32
+        bool b, //!< A boolean
+        const Fw::StringBase& str1, //!< A string
+        const E& e, //!< An enum
+        const A& a, //!< An array
+        const S& s //!< A struct
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Hooks for serial async input ports
+    //
+    // Each of these functions is invoked just before dropping a message
+    // on the corresponding port. You should override them to provide
+    // specific drop behavior.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for async input port serialAsyncHook
+    virtual void serialAsyncHook_overflowHook(
+        FwIndexType portNum, //!< The port number
+        Fw::SerializeBufferBase& buffer //!< The serialization buffer
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Hooks for internal async input ports
+    //
+    // Each of these functions is invoked just before dropping a message
+    // on the corresponding port. You should override them to provide
+    // specific drop behavior.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for async input port internalHookDrop
+    virtual void internalHookDrop_overflowHook(
+        FwIndexType portNum //!< The port number
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // Internal interface handlers
     // ----------------------------------------------------------------------
 
@@ -823,6 +894,29 @@ class ActiveOverflowComponentBase :
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     );
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
+    // Overflow hooks for async commands marked 'hook'
+    //
+    // Each of these functions is invoked after an overflow event
+    // on a queue when the command is marked with 'hook' overflow
+    // behavior.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for command CMD_HOOK
+    virtual void CMD_HOOK_overflowHook(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq //!< The command sequence number
+    ) = 0;
+
+    //! Overflow hook for command CMD_PARAMS_PRIORITY_HOOK
+    virtual void CMD_PARAMS_PRIORITY_HOOK_overflowHook(
+        FwOpcodeType opCode, //!< The opcode
+        U32 cmdSeq, //!< The command sequence number
+        U32 u32
+    ) = 0;
 
   PROTECTED:
 

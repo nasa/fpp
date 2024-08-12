@@ -1053,6 +1053,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->productRecvInHook_overflowHook(id,buffer,status);
+    return;
+  }
+
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
     static_cast<FwAssertArgType>(qStatus)
@@ -1492,6 +1497,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->hookAsync_overflowHook(u32,f32,b,str1,e,a,s);
+    return;
+  }
+
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
     static_cast<FwAssertArgType>(qStatus)
@@ -1547,6 +1557,11 @@ void QueuedOverflowComponentBase ::
   // Send message
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 0, _block);
+
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->serialAsyncHook_overflowHook(buffer);
+    return;
+  }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
@@ -1659,6 +1674,38 @@ void QueuedOverflowComponentBase ::
 }
 
 // ----------------------------------------------------------------------
+// Hooks for special async input ports
+//
+// Each of these functions is invoked just before dropping a message
+// on the corresponding port. You should override them to provide
+// specific drop behavior.
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+// Hooks for typed async input ports
+//
+// Each of these functions is invoked just before dropping a message
+// on the corresponding port. You should override them to provide
+// specific drop behavior.
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+// Hooks for serial async input ports
+//
+// Each of these functions is invoked just before dropping a message
+// on the corresponding port. You should override them to provide
+// specific drop behavior.
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
+// Hooks for internal async input ports
+//
+// Each of these functions is invoked just before dropping a message
+// on the corresponding port. You should override them to provide
+// specific drop behavior.
+// ----------------------------------------------------------------------
+
+// ----------------------------------------------------------------------
 // Internal interface base-class functions
 // ----------------------------------------------------------------------
 
@@ -1685,6 +1732,11 @@ void QueuedOverflowComponentBase ::
   // Send message
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->internalHookDrop_overflowHook();
+    return;
+  }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
@@ -1766,6 +1818,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->CMD_HOOK_overflowHook();
+    return;
+  }
+
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
     static_cast<FwAssertArgType>(qStatus)
@@ -1825,6 +1882,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    this->CMD_PARAMS_PRIORITY_HOOK_overflowHook(u32);
+    return;
+  }
+
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
     static_cast<FwAssertArgType>(qStatus)
@@ -1860,6 +1922,14 @@ void QueuedOverflowComponentBase ::
   (void) opCode;
   (void) cmdSeq;
 }
+
+// ----------------------------------------------------------------------
+// Overflow hooks for async commands marked 'hook'
+//
+// Each of these functions is invoked after an overflow event
+// on a queue when the command is marked with 'hook' overflow
+// behavior.
+// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 // Time
