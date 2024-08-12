@@ -23,17 +23,6 @@ case class ComponentStateMachines(
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {    
-    val writeMessages = stateMachineInstances.flatMap{sm =>
-          lines(
-            s"""|
-                |case STATE_MACHINE_${sm.getUnqualifiedName.toUpperCase}: {
-            """
-          ) ++
-          writeSendMessageLogic("msg", sm.queueFull, sm.priority).map(indentIn) ++
-          List(Line("break;")).map(indentIn) ++
-          List(Line("}"))
-    }
-
     val serializeCode = 
           lines(
             s"""|ComponentIpcSerializableBuffer msg;
@@ -60,6 +49,37 @@ case class ComponentStateMachines(
                 |);"""
           )
         
+
+    val switchCode = List.concat(
+      lines("const U32 smId = ev.getsmId();"),
+      wrapInSwitch(
+        "smId",
+        List.concat(
+          stateMachineInstances.flatMap(
+            smi => {
+              Line.blank ::
+              wrapInScope(
+                s"case STATE_MACHINE_${smi.getName.toUpperCase}: {",
+                List.concat(
+                  writeSendMessageLogic("msg", smi.queueFull, smi.priority),
+                  lines("break;")
+                ),
+                "}"
+              )
+            }
+          ),
+          lines(
+            """|
+               |default:
+               |  FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+               |  break;
+               |"""
+          )
+
+        )
+      )
+    )
+
     val member = functionClassMember(
       Some(s"State machine base-class function for sendSignals"),
       "stateMachineInvoke",
@@ -72,10 +92,7 @@ case class ComponentStateMachines(
       ),
       CppDoc.Type("void"),
       Line.blank :: intersperseBlankLines(
-        List(
-          serializeCode,
-          wrapInSwitch("ev.getsmId()", writeMessages)
-        )
+        List(serializeCode, switchCode)
       )
     )
 

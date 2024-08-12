@@ -16,8 +16,8 @@ final case class StateMachineInstance(
 
   def getNodeId = aNode._2.id
 
-  /** Gets the unqualified name of the state machine instance */
-  def getUnqualifiedName = aNode._2.data.name
+  /** Gets the name of the state machine instance */
+  def getName = aNode._2.data.name
 
 }
 
