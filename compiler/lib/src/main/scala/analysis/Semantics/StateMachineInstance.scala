@@ -2,11 +2,6 @@ package fpp.compiler.analysis
 
 import fpp.compiler.ast._
 import fpp.compiler.util._
-import fpp.compiler.ast.Ast.ExprLiteralInt
-import fpp.compiler.ast.Ast.QueueFull.Assert
-import fpp.compiler.ast.Ast.QueueFull.Block
-import fpp.compiler.ast.Ast.QueueFull.Drop
-import fpp.compiler.ast.Ast.QueueFull
 
 /** An FPP state machine instance */
 final case class StateMachineInstance(
