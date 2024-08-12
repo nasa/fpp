@@ -6,7 +6,9 @@ import fpp.compiler.util._
 /** An FPP state machine instance */
 final case class StateMachineInstance(
   aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]],
-  symbol: Symbol.StateMachine
+  symbol: Symbol.StateMachine,
+  priority: Option[BigInt],
+  queueFull: Ast.QueueFull
 ) {
 
   /** Gets the location of the state machine instance*/
@@ -14,8 +16,8 @@ final case class StateMachineInstance(
 
   def getNodeId = aNode._2.id
 
-  /** Gets the unqualified name of the state machine instance */
-  def getUnqualifiedName = aNode._2.data.name
+  /** Gets the name of the state machine instance */
+  def getName = aNode._2.data.name
 
 }
 
@@ -25,7 +27,12 @@ object StateMachineInstance {
   def fromSpecStateMachine(a: Analysis, 
                            aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
   ) : Result.Result[StateMachineInstance] = {
-    val qid = aNode._2.data.stateMachine
+    val data = aNode._2.data
+    val qid = data.stateMachine
+    val priorityNode = data.priority
+    val priority = a.getBigIntValueOpt(priorityNode)
+    val queueFull = Analysis.getQueueFull(data.queueFull)
+
     for {
       symbol <- a.useDefMap(qid.id) match {
         case symbol @ Symbol.StateMachine(_) => Right(symbol)
@@ -37,7 +44,7 @@ object StateMachineInstance {
         ))
       }
     }
-    yield StateMachineInstance(aNode, symbol)
+    yield StateMachineInstance(aNode, symbol, priority, queueFull)
   }
 
 }
