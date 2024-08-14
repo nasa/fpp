@@ -11,6 +11,45 @@
 #include "BasicTopologyDefs.hpp"
 #include "Passive.hpp"
 
+// ----------------------------------------------------------------------
+// Component instances
+// ----------------------------------------------------------------------
+
+namespace M {
+
+  //! active1
+  extern Active active1;
+
+}
+
+namespace M {
+
+  //! active2
+  extern Active active2;
+
+}
+
+namespace M {
+
+  //! active3
+  extern Active active3;
+
+}
+
+namespace M {
+
+  //! passive1
+  extern Passive passive1;
+
+}
+
+namespace M {
+
+  //! passive2
+  extern ConcretePassive passive2;
+
+}
+
 namespace M {
 
   // ----------------------------------------------------------------------
@@ -18,7 +57,7 @@ namespace M {
   // ----------------------------------------------------------------------
 
   namespace ConfigConstants {
-    namespace active2 {
+    namespace M_active2 {
       enum {
         X = 0,
         Y = 1
@@ -28,76 +67,57 @@ namespace M {
 
   namespace BaseIds {
     enum {
-      active1 = 0x100,
-      active2 = 0x200,
-      active3 = 0x300,
-      passive1 = 0x300,
-      passive2 = 0x400,
+      M_active1 = 0x100,
+      M_active2 = 0x200,
+      M_active3 = 0x300,
+      M_passive1 = 0x300,
+      M_passive2 = 0x400,
     };
   }
 
   namespace CPUs {
     enum {
-      active1 = 0,
+      M_active1 = 0,
     };
   }
 
   namespace InstanceIds {
     enum {
-      active1,
-      active2,
-      active3,
-      passive1,
-      passive2,
+      M_active1,
+      M_active2,
+      M_active3,
+      M_passive1,
+      M_passive2,
     };
   }
 
   namespace Priorities {
     enum {
-      active1 = 1,
+      M_active1 = 1,
     };
   }
 
   namespace QueueSizes {
     enum {
-      active1 = 10,
-      active2 = 10,
-      active3 = 10,
+      M_active1 = 10,
+      M_active2 = 10,
+      M_active3 = 10,
     };
   }
 
   namespace StackSizes {
     enum {
-      active1 = 1024,
+      M_active1 = 1024,
     };
   }
 
   namespace TaskIds {
     enum {
-      active1,
-      active2,
-      active3,
+      M_active1,
+      M_active2,
+      M_active3,
     };
   }
-
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
-
-  //! active1
-  extern Active active1;
-
-  //! active2
-  extern Active active2;
-
-  //! active3
-  extern Active active3;
-
-  //! passive1
-  extern Passive passive1;
-
-  //! passive2
-  extern ConcretePassive passive2;
 
   // ----------------------------------------------------------------------
   // Helper functions

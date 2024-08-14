@@ -6,24 +6,32 @@
 
 #include "CommandsTopologyAc.hpp"
 
+// ----------------------------------------------------------------------
+// Component instances
+// ----------------------------------------------------------------------
+
 namespace M {
-
-
-  // ----------------------------------------------------------------------
-  // Component instances
-  // ----------------------------------------------------------------------
 
   C c1(FW_OPTIONAL_NAME("c1"));
 
+}
+
+namespace M {
+
   C c2(FW_OPTIONAL_NAME("c2"));
+
+}
+
+namespace M {
+
 
   // ----------------------------------------------------------------------
   // Helper functions
   // ----------------------------------------------------------------------
 
   void initComponents(const TopologyState& state) {
-    c1.init(InstanceIds::c1);
-    c2.init(InstanceIds::c2);
+    M::c1.init(InstanceIds::M_c1);
+    M::c2.init(InstanceIds::M_c2);
   }
 
   void configComponents(const TopologyState& state) {
@@ -31,8 +39,8 @@ namespace M {
   }
 
   void setBaseIds() {
-    c1.setIdBase(BaseIds::c1);
-    c2.setIdBase(BaseIds::c2);
+    M::c1.setIdBase(BaseIds::M_c1);
+    M::c2.setIdBase(BaseIds::M_c2);
   }
 
   void connectComponents() {
@@ -40,8 +48,8 @@ namespace M {
   }
 
   void regCommands() {
-    c1.regCommandsSpecial();
-    c2.regCommands();
+    M::c1.regCommandsSpecial();
+    M::c2.regCommands();
   }
 
   void readParameters() {

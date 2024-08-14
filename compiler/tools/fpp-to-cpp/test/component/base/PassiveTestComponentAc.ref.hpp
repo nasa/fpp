@@ -1060,24 +1060,6 @@ class PassiveTestComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Pre-message hooks for special async input ports
-    //
-    // Each of these functions is invoked just before processing a message
-    // on the corresponding port. By default, they do nothing. You can
-    // override them to provide specific pre-message behavior.
-    // ----------------------------------------------------------------------
-
-    //! Pre-message hook for async input port productRecvIn
-    virtual void productRecvIn_preMsgHook(
-        FwIndexType portNum, //!< The port number
-        FwDpIdType id, //!< The container ID
-        const Fw::Buffer& buffer, //!< The buffer
-        const Fw::Success& status //!< The status
-    );
-
-  PROTECTED:
-
-    // ----------------------------------------------------------------------
     // Invocation functions for special output ports
     // ----------------------------------------------------------------------
 

@@ -24,8 +24,18 @@ case class TopologyCppWriter(
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = {
+  private def getMembers: List[CppDoc.Member] =
+    List.concat(
+      getIncludeMembers,
+      getComponentInstanceMembers,
+      getTopologyMembers
+    )
+
+  private def getComponentInstanceMembers =
+    TopComponentInstances(s, aNode).getMembers
+
+  private def getIncludeMembers: List[CppDoc.Member] = {
+    val hpp = {
       val strings = (
         TopComponentIncludes(s, aNode).getHeaderStrings :+
         CppWriter.headerString(
@@ -34,12 +44,7 @@ case class TopologyCppWriter(
       ).sorted
       linesMember(Line.blank :: strings.map(line))
     }
-    val hppLines = linesMember(
-      TopConstants(s, aNode).getLines ++
-      TopConfigObjects(s, aNode).getHppLines ++
-      TopComponentInstances(s, aNode).getHppLines
-    )
-    val cppIncludes = {
+    val cpp = {
       val fileName = s"${ComputeCppFiles.FileNames.getTopology(name)}.hpp"
       linesMember(
         List(
@@ -49,24 +54,23 @@ case class TopologyCppWriter(
         CppDoc.Lines.Cpp
       )
     }
+    List(hpp, cpp)
+  }
+
+  private def getTopologyMembers: List[CppDoc.Member] = {
+    val hppLines = linesMember(
+      TopConstants(s, aNode).getLines ++
+      TopConfigObjects(s, aNode).getHppLines
+    )
     val cppLines = linesMember(
-      Line.blank ::
-      List.concat(
-        addBlankPostfix(
-          TopConfigObjects(s, aNode).getCppLines,
-        ),
-        TopComponentInstances(s, aNode).getCppLines
-      ),
+      Line.blank :: addBlankPostfix(TopConfigObjects(s, aNode).getCppLines),
       CppDoc.Lines.Cpp
     )
     val (helperFnNames, helperFns) = TopHelperFns(s, aNode).getMembers
-    val setupTeardownFns = TopSetupTeardownFns(s, aNode, helperFnNames).
-      getMembers
+    val setupTeardownFns =
+      TopSetupTeardownFns(s, aNode, helperFnNames).getMembers
     val defs = hppLines :: cppLines :: (helperFns ++ setupTeardownFns)
-    List(
-      List(hppIncludes, cppIncludes),
-      wrapInNamespaces(namespaceIdentList, defs)
-    ).flatten
+    wrapInNamespaces(namespaceIdentList, defs)
   }
 
 }
