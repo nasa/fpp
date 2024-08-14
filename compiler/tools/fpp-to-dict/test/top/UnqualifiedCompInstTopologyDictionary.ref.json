@@ -1,0 +1,81 @@
+{
+  "metadata" : {
+    "deploymentName" : "UnqualifiedCompInst",
+    "projectVersion" : "1.0.0",
+    "frameworkVersion" : "3.4.3",
+    "libraryVersions" : [
+      "lib1-1.0.0",
+      "lib2-2.0.0"
+    ],
+    "dictionarySpecVersion" : "1.0.0"
+  },
+  "typeDefinitions" : [
+    {
+      "kind" : "enum",
+      "qualifiedName" : "M.E1",
+      "representationType" : {
+        "name" : "U32",
+        "kind" : "integer",
+        "size" : 32,
+        "signed" : false
+      },
+      "enumeratedConstants" : [
+        {
+          "name" : "X",
+          "value" : 0
+        },
+        {
+          "name" : "Y",
+          "value" : 1
+        },
+        {
+          "name" : "Z",
+          "value" : 2
+        }
+      ],
+      "default" : "M.E1.X"
+    }
+  ],
+  "commands" : [
+    {
+      "name" : "I2.P_PARAM_SET",
+      "commandKind" : "set",
+      "opcode" : 768,
+      "formalParams" : [
+        {
+          "name" : "val",
+          "type" : {
+            "name" : "M.E1",
+            "kind" : "qualifiedIdentifier"
+          },
+          "ref" : false
+        }
+      ]
+    },
+    {
+      "name" : "I2.P_PARAM_SAVE",
+      "commandKind" : "save",
+      "opcode" : 769,
+      "formalParams" : [
+      ]
+    }
+  ],
+  "parameters" : [
+    {
+      "name" : "I2.P",
+      "type" : {
+        "name" : "M.E1",
+        "kind" : "qualifiedIdentifier"
+      },
+      "id" : 768
+    }
+  ],
+  "events" : [
+  ],
+  "telemetryChannels" : [
+  ],
+  "records" : [
+  ],
+  "containers" : [
+  ]
+}
