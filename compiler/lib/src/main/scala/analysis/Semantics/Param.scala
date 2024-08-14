@@ -42,7 +42,7 @@ object Param {
         intOpt match {
           case Some(i) => (i, defaultOpcode)
           case None => (defaultOpcode, defaultOpcode + 1)
-        }     
+        }
       for {
         default <- Result.mapOpt(data.default, computeDefaultValue)
         setOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.setOpcode)
