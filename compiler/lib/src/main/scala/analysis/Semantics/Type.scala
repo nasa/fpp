@@ -58,7 +58,6 @@ object Type {
   /** Primitive types */
   sealed trait Primitive extends Type {
     override def isPrimitive = true
-    override def isDisplayable = true
   }
 
   /** Primitive integer types */
@@ -66,6 +65,7 @@ object Type {
     extends Type with Primitive with Int
   {
     override def getDefaultValue = Some(Value.PrimitiveInt(0, kind))
+    override def isDisplayable = true
     override def toString = kind match {
       case PrimitiveInt.I8 => "I8"
       case PrimitiveInt.I16 => "I16"
@@ -149,7 +149,6 @@ object Type {
     override def getDefaultValue = Some(Value.AbsType(this))
     override def getDefNodeId = Some(node._2.id)
     override def toString = node._2.data.name
-    override def isDisplayable = false
   }
 
   /** A named array type */
@@ -169,7 +168,7 @@ object Type {
     override def getArraySize = anonArray.getArraySize
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonArray.hasNumericMembers
-    override def isDisplayable = anonArray.isDisplayable
+    override def isDisplayable = anonArray.eltType.isDisplayable
     override def toString = "array " ++ node._2.data.name
   }
 
@@ -227,7 +226,7 @@ object Type {
     override def getDefaultValue: Option[Value.Struct] = default
     override def getDefNodeId = Some(node._2.id)
     override def hasNumericMembers = anonStruct.hasNumericMembers
-    override def isDisplayable = anonStruct.isDisplayable
+    override def isDisplayable = anonStruct.members.values.forall(_.isDisplayable)
     override def toString = "struct " ++ node._2.data.name
   }
 
@@ -278,7 +277,6 @@ object Type {
     }
     override def getArraySize = size
     override def hasNumericMembers = eltType.hasNumericMembers
-    override def isDisplayable = eltType.isDisplayable
     override def toString = size match {
       case Some(n) => "[" ++ n.toString ++ "] " ++ eltType.toString
       case None => "array of " ++ eltType.toString
@@ -315,8 +313,6 @@ object Type {
         case _ => "{ " ++ members.map(memberToString).mkString(", ") ++ " }"
       }
     }
-    override def isDisplayable =
-      members.values.forall(_.isDisplayable)
   }
 
   /** Check for type identity */

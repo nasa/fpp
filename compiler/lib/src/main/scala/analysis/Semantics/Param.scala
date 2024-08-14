@@ -42,21 +42,12 @@ object Param {
         intOpt match {
           case Some(i) => (i, defaultOpcode)
           case None => (defaultOpcode, defaultOpcode + 1)
-        }
-      def checkDisplayableType = {
-        val loc = Locations.get(data.typeName.id)
-        if (paramType.isDisplayable) Right(())
-        else Left(
-            SemanticError.InvalidType(
-              loc, 
-              "parameters need to be displayable type")
-          )
-      }
+        }     
       for {
         default <- Result.mapOpt(data.default, computeDefaultValue)
         setOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.setOpcode)
         saveOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.saveOpcode)
-        _ <- checkDisplayableType
+        _ <- a.checkDisplayableType(data.typeName.id, "parameters need to be displayable type")
       }
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)

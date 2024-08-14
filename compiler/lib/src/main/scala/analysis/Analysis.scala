@@ -341,6 +341,21 @@ case class Analysis(
     }
   }
 
+  /** Checks to see if a type is displayable */
+  def checkDisplayableType(id: AstNode.Id, errorMsg: String): Result.Result[Unit] = {
+    val loc = Locations.get(id)
+    val t = this.typeMap(id)
+    if (t.isDisplayable) Right(())
+    else Left(SemanticError.InvalidType(loc, errorMsg))
+  }
+
+  /** Checks all parameters in a formal param list to see if they are displayable */
+  def checkDisplayableParams(nodes: Ast.FormalParamList, errorMsg: String): Result.Result[Unit] = {
+    Result.foldLeft (nodes) (()) ((result, aNode) => {
+      checkDisplayableType(aNode._2.data.typeName.id, errorMsg)
+    })
+  }
+  
 }
 
 object Analysis {

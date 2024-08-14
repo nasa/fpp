@@ -78,20 +78,6 @@ object Command {
         )
         else Right(())
       }
-      def checkDisplayableParams(params: Ast.FormalParamList) = {
-        if(!params.forall(aNode => {
-          val id = aNode._2.data.typeName.id
-          val paramType = a.typeMap(id)
-          paramType.isDisplayable
-        })) {
-          Left(
-            SemanticError.InvalidCommand(
-              loc, 
-              "command parameters need to be displayable type")
-          )
-        }
-        else Right(())
-      }
       for {
         _ <- (data.kind, data.priority) match {
           case (Ast.SpecCommand.Async, _) => Right(())
@@ -110,7 +96,7 @@ object Command {
         priority <- Right(a.getBigIntValueOpt(data.priority))
         _ <- Analysis.checkForDuplicateParameter(data.params)
         _ <- checkRefParams(data.params)
-        _ <- checkDisplayableParams(data.params)
+        _ <- a.checkDisplayableParams(data.params, "command parameters need to be displayable type")
       }
       yield {
         val kind = data.kind match {

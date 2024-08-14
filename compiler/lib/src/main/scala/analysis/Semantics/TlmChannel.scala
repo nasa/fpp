@@ -34,15 +34,6 @@ object TlmChannel {
       val data = node.data
       val channelType = a.typeMap(data.typeName.id)
       val update = data.update.getOrElse(Ast.SpecTlmChannel.Always)
-      def checkDisplayableType = {
-        val loc = Locations.get(data.typeName.id)
-        if (channelType.isDisplayable) Right(())
-        else Left(
-            SemanticError.InvalidType(
-              loc, 
-              "telemetry channels need to be displayable type")
-          )
-      }
       for {
         format <- Result.mapOpt(
           data.format, 
@@ -50,7 +41,7 @@ object TlmChannel {
         )
         lowLimits <- computeLimits(a, data.low)
         highLimits <- computeLimits(a, data.high)
-        _ <- checkDisplayableType
+        _ <- a.checkDisplayableType(data.typeName.id, "telemetry channels need to be displayable type")
       }
       yield TlmChannel(aNode, channelType, update, format, lowLimits, highLimits)
    }
