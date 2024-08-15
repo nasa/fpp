@@ -906,13 +906,13 @@ class ActiveOverflowComponentBase :
     // ----------------------------------------------------------------------
 
     //! Overflow hook for command CMD_HOOK
-    virtual void CMD_HOOK_overflowHook(
+    virtual void CMD_HOOK_cmdOverflowHook(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq //!< The command sequence number
     ) = 0;
 
     //! Overflow hook for command CMD_PARAMS_PRIORITY_HOOK
-    virtual void CMD_PARAMS_PRIORITY_HOOK_overflowHook(
+    virtual void CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(
         FwOpcodeType opCode, //!< The opcode
         U32 cmdSeq, //!< The command sequence number
         U32 u32

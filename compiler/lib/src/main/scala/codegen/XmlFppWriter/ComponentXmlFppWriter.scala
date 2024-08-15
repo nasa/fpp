@@ -105,7 +105,6 @@ object ComponentXmlFppWriter extends LineUtils {
           case Some("assert") => Right(Some(Ast.QueueFull.Assert))
           case Some("block") => Right(Some(Ast.QueueFull.Block))
           case Some("drop") => Right(Some(Ast.QueueFull.Drop))
-          case Some("hook") => Right(Some(Ast.QueueFull.Hook))
           case Some(xmlQueueFull) =>
             Left(file.semanticError(s"invalid queue full behavior $xmlQueueFull"))
           case None => Right(None)

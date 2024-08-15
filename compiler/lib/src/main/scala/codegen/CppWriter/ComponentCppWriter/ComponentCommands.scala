@@ -186,7 +186,7 @@ case class ComponentCommands (
                     )
                   )
                 ),
-                writeSendMessageLogic("msg", queueFull, priority, cmd.getName, cmdParamTypeMap(opcode).map((n, tn, _) => n))
+                writeSendMessageLogic("msg", queueFull, priority, MessageType.Command, cmd.getName, cmdParamTypeMap(opcode).map((n, _, _) => n))
               )
             )
             case _ => intersperseBlankLines(
@@ -331,11 +331,8 @@ case class ComponentCommands (
       hookCmds.map((opcode, cmd) =>
         functionClassMember(
           Some(s"Overflow hook for command ${cmd.getName}"),
-          inputOverflowHookName(cmd.getName),
-          List(
-            opcodeParam,
-            cmdSeqParam
-          ) ++ cmdParamMap(opcode),
+          inputOverflowHookName(cmd.getName, MessageType.Command),
+          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual

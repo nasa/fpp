@@ -42,7 +42,7 @@
   '("active" "activity" "always"  "assert"
     "at" "base" "block" "change" "command"
     "connections"  "cpu" "default" "diagnostic"
-    "drop" "event" "false" "fatal" "format" "get"
+    "drop" "hook" "event" "false" "fatal" "format" "get"
     "guarded" "health" "high" "id" "import"
     "include" "input" "internal" "locate" "low"
     "match"  "on"  "opcode" "orange" "output"

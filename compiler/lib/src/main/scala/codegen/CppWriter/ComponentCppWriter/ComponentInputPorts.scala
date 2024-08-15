@@ -164,7 +164,7 @@ case class ComponentInputPorts(
               )
             })
           ),
-          writeSendMessageLogic(bufferName, queueFull, priority, p.getUnqualifiedName, getPortParamNames(p))
+          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, getPortParamNames(p))
         )
       )
     }
@@ -421,7 +421,7 @@ case class ComponentInputPorts(
       ports.map(p =>
         functionClassMember(
           Some(s"Overflow hook for async input port ${p.getUnqualifiedName}"),
-          inputOverflowHookName(p.getUnqualifiedName),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
           portNumParam :: getPortFunctionParams(p),
           CppDoc.Type("void"),
           Nil,

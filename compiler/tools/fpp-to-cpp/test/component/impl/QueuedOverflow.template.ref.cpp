@@ -186,7 +186,7 @@ void QueuedOverflow ::
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::
-  CMD_HOOK_overflowHook(
+  CMD_HOOK_cmdOverflowHook(
       FwOpcodeType opCode,
       U32 cmdSeq
   )
@@ -195,7 +195,7 @@ void QueuedOverflow ::
 }
 
 void QueuedOverflow ::
-  CMD_PARAMS_PRIORITY_HOOK_overflowHook(
+  CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(
       FwOpcodeType opCode,
       U32 cmdSeq,
       U32 u32

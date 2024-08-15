@@ -432,6 +432,7 @@ var IN_GLOBAL_SCOPE = false;
           "guarded," +
           "health," +
           "high," +
+          "hook," +
           "id," +
           "import," +
           "include," +

@@ -4,6 +4,13 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
 
+/** Message type for message send logic */
+sealed trait MessageType
+object MessageType {
+  case object Command extends MessageType
+  case object Port extends MessageType
+}
+
 /** Utilities for writing C++ component definitions */
 abstract class ComponentCppWriterUtils(
   s: CppWriterState,
@@ -482,7 +489,7 @@ abstract class ComponentCppWriterUtils(
       case Some(PortInstance.Type.Serial) => List(
         "buffer"
       )
-      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => n)
+      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, _, _) => n)
     }
 
   /** Get port params as CppDoc Function Params */
@@ -603,6 +610,7 @@ abstract class ComponentCppWriterUtils(
     bufferName: String,
     queueFull: Ast.QueueFull,
     priority: Option[BigInt],
+    messageType: MessageType,
     name: String,
     arguments: List[String]
   ): List[Line] = {
@@ -634,7 +642,7 @@ abstract class ComponentCppWriterUtils(
           )
           case Ast.QueueFull.Hook => lines(
             s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name)}(${arguments.mkString(",")});
+               |  this->${inputOverflowHookName(name, messageType)}(${arguments.mkString(",")});
                |  return;
                |}
                |"""
@@ -721,8 +729,11 @@ abstract class ComponentCppWriterUtils(
     s"${name}_preMsgHook"
   
   /** Get the name for an async input port overflow hook function */
-  def inputOverflowHookName(name: String) =
-    s"${name}_overflowHook"
+  def inputOverflowHookName(name: String, messageType: MessageType) =
+    messageType match {
+      case MessageType.Port => s"${name}_overflowHook"
+      case MessageType.Command => s"${name}_cmdOverflowHook"
+    }
 
   // Get the name for an output port connector function
   def outputPortConnectorName(name: String) =

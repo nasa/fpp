@@ -1819,7 +1819,7 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_HOOK_overflowHook();
+    this->CMD_HOOK_cmdOverflowHook();
     return;
   }
 
@@ -1883,7 +1883,7 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_PARAMS_PRIORITY_HOOK_overflowHook(u32);
+    this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(u32);
     return;
   }
 

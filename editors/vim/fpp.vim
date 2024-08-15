@@ -27,6 +27,7 @@ syn keyword fppKeyword cpu
 syn keyword fppKeyword default
 syn keyword fppKeyword diagnostic
 syn keyword fppKeyword drop
+syn keyword fppKeyword hook
 syn keyword fppKeyword enum
 syn keyword fppKeyword event
 syn keyword fppKeyword false

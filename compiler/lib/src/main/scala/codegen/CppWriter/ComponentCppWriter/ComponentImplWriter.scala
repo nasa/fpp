@@ -182,10 +182,12 @@ case class ComponentImplWriter(
 private def getOverflowHooks: List[CppDoc.Class.Member] = {
   List.concat(
     getPortOverflowHooks(
-      typedHookPorts ++
-      serialHookPorts ++
-      dataProductHookPorts ++
-      internalHookPorts
+      List.concat(
+        typedHookPorts,
+        serialHookPorts,
+        dataProductHookPorts,
+        internalHookPorts
+      )
     ),
     addAccessTagAndComment(
       "PRIVATE",
@@ -193,11 +195,8 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
       hookCmds.map((opcode, cmd) => {
         functionClassMember(
           Some(s"Overflow hook implementation for ${cmd.getName}"),
-          inputOverflowHookName(cmd.getName),
-          List(
-            opcodeParam,
-            cmdSeqParam
-          ) ++ cmdParamMap(opcode),
+          inputOverflowHookName(cmd.getName, MessageType.Command),
+          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override
@@ -214,7 +213,7 @@ private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.M
       ports.map(p => {
         functionClassMember(
           Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
-          inputOverflowHookName(p.getUnqualifiedName),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
           portNumParam :: getPortFunctionParams(p),
           CppDoc.Type("void"),
           lines("// TODO"),

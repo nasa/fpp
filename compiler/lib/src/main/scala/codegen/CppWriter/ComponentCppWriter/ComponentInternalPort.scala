@@ -83,7 +83,7 @@ case class ComponentInternalPort (
                   )
                 )
               ),
-              writeSendMessageLogic("msg", p.queueFull, p.priority, p.getUnqualifiedName, getPortParams(p).map((n, _, _) => n))
+              writeSendMessageLogic("msg", p.queueFull, p.priority, MessageType.Port, p.getUnqualifiedName, getPortParams(p).map((n, _, _) => n))
             )
           )
         )
