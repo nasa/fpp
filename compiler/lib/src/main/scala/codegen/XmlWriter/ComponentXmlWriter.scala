@@ -216,6 +216,9 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
           case _ => Nil
         }
         val queueFull = general.kind match {
+          // Hook queue full option becomes drop in XML
+          case Kind.AsyncInput(_, Ast.QueueFull.Hook) => 
+            List(("full", Ast.QueueFull.Drop.toString))
           case Kind.AsyncInput(_, queueFull) => 
             List(("full", queueFull.toString))
           case _ => Nil
