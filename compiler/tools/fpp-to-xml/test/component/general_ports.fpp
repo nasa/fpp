@@ -15,6 +15,7 @@ module M {
     sync input port p7: serial
     output port p8: [10] serial
 
+    async input port p9: P hook
   }
 
   @ Component GeneralPorts2
