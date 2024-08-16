@@ -781,17 +781,15 @@ class ActiveOverflowComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Hooks for internal async input ports
+    // Hooks for internal ports
     //
     // Each of these functions is invoked just before dropping a message
-    // on the corresponding port. You should override them to provide
+    // on the corresponding internal port. You should override them to provide
     // specific drop behavior.
     // ----------------------------------------------------------------------
 
     //! Overflow hook for async input port internalHookDrop
-    virtual void internalHookDrop_overflowHook(
-        FwIndexType portNum //!< The port number
-    ) = 0;
+    virtual void internalHookDrop_overflowHook() = 0;
 
   PROTECTED:
 

@@ -164,7 +164,7 @@ case class ComponentInputPorts(
               )
             })
           ),
-          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, getPortParamNames(p))
+          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, portNumParam :: getPortFunctionParams(p))
         )
       )
     }

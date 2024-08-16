@@ -1054,7 +1054,7 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->productRecvInHook_overflowHook(id,buffer,status);
+    this->productRecvInHook_overflowHook(portNum, id, buffer, status);
     return;
   }
 
@@ -1498,7 +1498,7 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->hookAsync_overflowHook(u32,f32,b,str1,e,a,s);
+    this->hookAsync_overflowHook(portNum, u32, f32, b, str1, e, a, s);
     return;
   }
 
@@ -1559,7 +1559,7 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 0, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->serialAsyncHook_overflowHook(buffer);
+    this->serialAsyncHook_overflowHook(portNum, buffer);
     return;
   }
 
@@ -1698,10 +1698,10 @@ void ActiveOverflowComponentBase ::
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
-// Hooks for internal async input ports
+// Hooks for internal ports
 //
 // Each of these functions is invoked just before dropping a message
-// on the corresponding port. You should override them to provide
+// on the corresponding internal port. You should override them to provide
 // specific drop behavior.
 // ----------------------------------------------------------------------
 
@@ -1819,7 +1819,8 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_HOOK_cmdOverflowHook();
+    // TODO: Deserialize command arguments and call the hook
+    // this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
     return;
   }
 
@@ -1883,7 +1884,8 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
   if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(u32);
+    // TODO: Deserialize command arguments and call the hook
+    // this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
     return;
   }
 

@@ -110,7 +110,7 @@ abstract class ComponentCppWriterUtils(
 
   /** List of serial async input ports */
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
-  
+
   /** List of typed overflow hook ports */
   val typedHookPorts: List[PortInstance.General] = filterOverflowHookPorts(typedAsyncInputPorts)
 
@@ -482,15 +482,6 @@ abstract class ComponentCppWriterUtils(
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
-  
-  /** Get port params as a list of names */
-  def getPortParamNames(p: PortInstance): List[String] =
-    p.getType match {
-      case Some(PortInstance.Type.Serial) => List(
-        "buffer"
-      )
-      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, _, _) => n)
-    }
 
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
@@ -612,7 +603,7 @@ abstract class ComponentCppWriterUtils(
     priority: Option[BigInt],
     messageType: MessageType,
     name: String,
-    arguments: List[String]
+    arguments: List[CppDoc.Function.Param]
   ): List[Line] = {
     val queueBlocking = queueFull match {
       case Ast.QueueFull.Block => "QUEUE_BLOCKING"
@@ -640,13 +631,27 @@ abstract class ComponentCppWriterUtils(
                |}
                |"""
           )
-          case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name, messageType)}(${arguments.mkString(",")});
-               |  return;
-               |}
-               |"""
-          )
+          case Ast.QueueFull.Hook => {
+            messageType match {
+              case MessageType.Command =>
+                lines(
+                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                      |  // TODO: Deserialize command arguments and call the hook
+                      |  // this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
+                      |  return;
+                      |}
+                      |"""
+                )
+              case _ =>
+                lines(
+                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                      |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
+                      |  return;
+                      |}
+                      |"""
+                )
+            }
+          }
           case _ => Nil
         }
         ,
@@ -727,7 +732,7 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
-  
+
   /** Get the name for an async input port overflow hook function */
   def inputOverflowHookName(name: String, messageType: MessageType) =
     messageType match {
@@ -885,7 +890,7 @@ abstract class ComponentCppWriterUtils(
         case _ => false
       }
     )
-  
+
   private def filterOverflowHookPorts(ports: List[PortInstance.General]) =
     ports.filter(p =>
       p.kind match {
@@ -895,13 +900,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   private def filterAsyncSpecialPorts(ports: List[PortInstance.Special]) =
-    ports.filter(p =>
-      p.specifier.inputKind match {
-        case Some(Ast.SpecPortInstance.Async) => true
-        case _ => false
-      }
-    )
-
+    ports.filter(_.specifier.inputKind == Some(Ast.SpecPortInstance.Async))
 
 }
 

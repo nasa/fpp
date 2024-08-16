@@ -186,8 +186,21 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
         typedHookPorts,
         serialHookPorts,
         dataProductHookPorts,
-        internalHookPorts
       )
+    ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for internal ports",
+      internalHookPorts.map(p => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      })
     ),
     addAccessTagAndComment(
       "PRIVATE",
