@@ -129,8 +129,8 @@ case class ComponentStateMachines(
       CppDoc.Lines.Hpp
     )
 
-  private def getSignalSendMember: List[CppDoc.Class.Member] = {    
-    lazy val serializeCode = 
+  private def getSignalSendMember: List[CppDoc.Class.Member] = {
+    lazy val serializeCode =
           lines(
             s"""|ComponentIpcSerializableBuffer msg;
                 |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -155,7 +155,7 @@ case class ComponentStateMachines(
                 |  static_cast<FwAssertArgType>(_status)
                 |);"""
           )
-        
+
 
     lazy val switchCode = List.concat(
       lines("const U32 smId = sig.getsmId();"),

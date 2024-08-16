@@ -413,7 +413,7 @@ case class ComponentInputPorts(
   }
 
   val getOverflowHooks = getPortOverflowHooks
-  
+
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =
     s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"

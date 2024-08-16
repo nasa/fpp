@@ -117,7 +117,7 @@ abstract class ComponentCppWriterUtils(
 
   /** List of serial async input ports */
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
-  
+
   /** List of typed overflow hook ports */
   val typedHookPorts: List[PortInstance.General] = filterOverflowHookPorts(typedAsyncInputPorts)
 
@@ -499,7 +499,7 @@ abstract class ComponentCppWriterUtils(
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
-  
+
   /** Get port params as a list of names */
   def getPortParamNames(p: PortInstance): List[String] =
     p.getType match {
@@ -747,7 +747,7 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
-  
+
   /** Get the name for an async input port overflow hook function */
   def inputOverflowHookName(name: String, messageType: MessageType) =
     messageType match {
@@ -877,7 +877,7 @@ abstract class ComponentCppWriterUtils(
       ports.map(
         p => getOverflowHook(
           p.getUnqualifiedName,
-          MessageType.Port, 
+          MessageType.Port,
           portNumParam :: getPortFunctionParams(p)
         )
       ),
@@ -938,7 +938,7 @@ abstract class ComponentCppWriterUtils(
         case _ => false
       }
     )
-  
+
   private def filterOverflowHookPorts(ports: List[PortInstance.General]) =
     ports.filter(p =>
       p.kind match {
