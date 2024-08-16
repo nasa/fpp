@@ -36,6 +36,7 @@ active()
   move_template ActiveNoArgsPortsOnly
   move_template ActiveParams
   move_template ActiveSerial
+  move_template ActiveStateMachines
   move_template ActiveSyncProducts
   move_template ActiveTelemetry
   move_template ActiveTest

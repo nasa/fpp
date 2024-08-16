@@ -75,7 +75,7 @@ class ActiveStateMachinesComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Overflow hooks for state machine instances marked 'hook'
+    // Overflow hooks for state machine instances
     //
     // When sending a signal to a state machine instance, if
     // the queue overflows and the instance is marked with 'hook' behavior,

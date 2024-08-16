@@ -182,7 +182,7 @@ case class ComponentImplWriter(
 
   private def getOverflowHooks: List[CppDoc.Class.Member] = {
     List.concat(
-      getOverflowHooks(
+      getPortOverflowHookImpls(
         List.concat(
           typedHookPorts,
           serialHookPorts,
@@ -192,7 +192,7 @@ case class ComponentImplWriter(
       ),
       addAccessTagAndComment(
         "PRIVATE",
-        s"Overflow hook implementations for 'hook' commands",
+        "Overflow hook implementations for commands",
         hookCmds.map((opcode, cmd) => {
           functionClassMember(
             Some(s"Overflow hook implementation for ${cmd.getName}"),
@@ -203,11 +203,31 @@ case class ComponentImplWriter(
             CppDoc.Function.Override
           )
         })
+      ),
+      addAccessTagAndComment(
+        "PRIVATE",
+        "Overflow hook implementations for state machines",
+        stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+          smi => functionClassMember(
+            Some(s"Overflow hook implementation for ${smi.getName}"),
+            inputOverflowHookName(smi.getName, MessageType.StateMachine),
+            List(
+              CppDoc.Function.Param(
+                CppDoc.Type("const Fw::SMSignals&"),
+                "sig",
+                Some("The signal data")
+              )
+            ),
+            CppDoc.Type("void"),
+            lines("// TODO"),
+            CppDoc.Function.Override
+          )
+        )
       )
     )
   }
 
-  private def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
+  private def getPortOverflowHookImpls(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
       s"Overflow hook implementations for 'hook' input ports",

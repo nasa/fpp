@@ -182,7 +182,7 @@ void ActiveOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Overflow hook implementations for 'hook' commands
+// Overflow hook implementations for commands
 // ----------------------------------------------------------------------
 
 void ActiveOverflow ::

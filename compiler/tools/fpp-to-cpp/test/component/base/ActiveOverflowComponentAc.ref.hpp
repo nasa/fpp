@@ -898,7 +898,7 @@ class ActiveOverflowComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Overflow hooks for async commands marked 'hook'
+    // Overflow hooks for async commands
     //
     // Each of these functions is invoked after an overflow event
     // on a queue when the command is marked with 'hook' overflow

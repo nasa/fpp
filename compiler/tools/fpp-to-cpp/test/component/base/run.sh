@@ -46,9 +46,9 @@ active()
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveNoArgsPortsOnlyComponent && \
-  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
+  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent

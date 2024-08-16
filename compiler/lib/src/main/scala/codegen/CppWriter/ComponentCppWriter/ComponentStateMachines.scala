@@ -107,13 +107,13 @@ case class ComponentStateMachines(
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      """|Overflow hooks for state machine instances marked 'hook'
+      """|Overflow hooks for state machine instances
          |
          |When sending a signal to a state machine instance, if
          |the queue overflows and the instance is marked with 'hook' behavior,
          |the corresponding function here is called.
          |""",
-      stateMachineInstances.filter(smi => smi.queueFull == Ast.QueueFull.Hook).map(
+      stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => getOverflowHook(
           smi.getName,
           MessageType.StateMachine,
