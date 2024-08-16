@@ -3984,11 +3984,14 @@ There are three possible behaviors:</p>
 <li>
 <p><code>drop</code>: Drop the incoming message and proceed.</p>
 </li>
+<li>
+<p><code>hook</code>: Call a user-specified function and proceed.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
 <p>To specify queue full behavior, you write one of the keywords <code>assert</code>,
-<code>block</code>, or <code>drop</code> after the port type and after the priority
+<code>block</code>, <code>drop</code>, or <code>hook</code> after the port type and after the priority
 (if any).
 As an example, here is the <code>ActiveF32Adder</code> updated with explicit
 queue full behavior.</p>
@@ -4007,6 +4010,9 @@ active component ActiveF32Adder {
 
   @ Input 2: Drop on queue full
   async input port f32ValueIn2: F32Value drop
+
+  @ Input 3: Call hook function on queue full
+  async input port f32ValueIn3: F32Value hook
 
   @ Output
   output port f32ValueOut: F32Value
@@ -12483,7 +12489,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-05 22:45:56 -0600
+Last updated 2024-08-16 10:03:59 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
