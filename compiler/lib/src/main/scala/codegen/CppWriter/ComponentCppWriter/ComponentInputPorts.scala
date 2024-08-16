@@ -164,7 +164,7 @@ case class ComponentInputPorts(
               )
             })
           ),
-          writeSendMessageLogic(bufferName, queueFull, priority)
+          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, getPortParamNames(p))
         )
       )
     }
@@ -404,6 +404,28 @@ case class ComponentInputPorts(
           CppDoc.Type("void"),
           lines("// Default: no-op"),
           CppDoc.Function.Virtual
+        )
+      )
+    )
+  }
+  
+  def getDropHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked just before dropping a message
+          |on the corresponding port. You should override them to provide
+          |specific drop behavior.
+          |""",
+      ports.map(p =>
+        functionClassMember(
+          Some(s"Overflow hook for async input port ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
         )
       )
     )

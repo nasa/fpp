@@ -16,6 +16,16 @@ queued component QueuedTest {
 
 }
 
+@ An active component with overflow behavior
+queued component QueuedOverflow {
+  include "include/special_ports.fppi"
+  include "include/overflow_commands.fppi"
+  include "include/overflow_typed_ports.fppi"
+  include "include/overflow_product_ports.fppi"
+  include "include/overflow_serial_ports.fppi"
+  include "include/overflow_internal_ports.fppi"
+}
+
 @ A queued component with serial ports
 queued component QueuedSerial {
 
