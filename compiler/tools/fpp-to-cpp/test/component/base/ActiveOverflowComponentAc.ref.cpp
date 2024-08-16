@@ -1818,12 +1818,11 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
-  // TODO: This does not work yet
-  // Command arguments need to be deserialized
-  // if (qStatus == Os::Queue::QUEUE_FULL) {
-  //   this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
-  //   return;
-  // }
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    // TODO: Deserialize command arguments and call the hook
+    // this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
+    return;
+  }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
@@ -1884,12 +1883,11 @@ void ActiveOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
-  // TODO: This does not work yet
-  // Command arguments need to be deserialized
-  // if (qStatus == Os::Queue::QUEUE_FULL) {
-  //   this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
-  //   return;
-  // }
+  if (qStatus == Os::Queue::QUEUE_FULL) {
+    // TODO: Deserialize command arguments and call the hook
+    // this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
+    return;
+  }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
