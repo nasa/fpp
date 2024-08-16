@@ -483,15 +483,6 @@ abstract class ComponentCppWriterUtils(
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
 
-  /** Get port params as a list of names */
-  def getPortParamNames(p: PortInstance): List[String] =
-    p.getType match {
-      case Some(PortInstance.Type.Serial) => List(
-        "buffer"
-      )
-      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, _, _) => n)
-    }
-
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType match {
