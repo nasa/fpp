@@ -171,7 +171,7 @@ case class ComponentImplWriter(
             )
           ),
           inputPortHandlerName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
+          getPortCompleteFormalParams(p),
           getPortReturnTypeAsCppDocType(p),
           lines(todoMsg),
           CppDoc.Function.Override
@@ -196,7 +196,7 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
         functionClassMember(
           Some(s"Overflow hook implementation for ${cmd.getName}"),
           inputOverflowHookName(cmd.getName, MessageType.Command),
-          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+          getCommandCompleteFormalParams(opcode),
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override
@@ -214,7 +214,7 @@ private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.M
         functionClassMember(
           Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
           inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
-          portNumParam :: getPortFunctionParams(p),
+          getPortCompleteFormalParams(p),
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override

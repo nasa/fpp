@@ -138,7 +138,7 @@ case class ComponentOutputPorts(
         functionClassMember(
           Some(s"Invoke output port ${p.getUnqualifiedName}"),
           outputPortInvokerName(p),
-          portNumParam :: getPortFunctionParams(p),
+          getPortCompleteFormalParams(p),
           getReturnType(p),
           List.concat(
             lines(

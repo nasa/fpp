@@ -381,6 +381,12 @@ abstract class ComponentCppWriterUtils(
       })
     )).toMap
 
+  def getPortCompleteFormalParams(port: PortInstance): List[CppDoc.Function.Param] =
+    portNumParam :: getPortFunctionParams(port)
+
+  def getCommandCompleteFormalParams(opcode: Command.Opcode): List[CppDoc.Function.Param] =
+    opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
+
   def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase"):
   List[(String, String, Type)] =
     event.aNode._2.data.params.map(param => {
@@ -612,7 +618,7 @@ abstract class ComponentCppWriterUtils(
     priority: Option[BigInt],
     messageType: MessageType,
     name: String,
-    arguments: List[String]
+    arguments: List[CppDoc.Function.Param]
   ): List[Line] = {
     val queueBlocking = queueFull match {
       case Ast.QueueFull.Block => "QUEUE_BLOCKING"
@@ -642,7 +648,7 @@ abstract class ComponentCppWriterUtils(
           )
           case Ast.QueueFull.Hook => lines(
             s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name, messageType)}(${arguments.mkString(",")});
+               |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(",")});
                |  return;
                |}
                |"""
