@@ -865,7 +865,7 @@ abstract class ComponentCppWriterUtils(
     )
   }
 
-  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       s"""|Hooks for ${getPortListTypeString(ports)} async input ports

@@ -55,7 +55,7 @@ case class ComponentCommands (
       getHandlers,
       getHandlerBases,
       getPreMsgHooks,
-      getCmdOverflowHooks,
+      getOverflowHooks,
     ).flatten
   }
 
@@ -319,7 +319,7 @@ case class ComponentCommands (
     )
   }
 
-  private def getCmdOverflowHooks: List[CppDoc.Class.Member] = {
+  private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       """|Overflow hooks for async commands marked 'hook'
@@ -337,6 +337,5 @@ case class ComponentCommands (
       ),
       CppDoc.Lines.Hpp
     )
-  }
 
 }

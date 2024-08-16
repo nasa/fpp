@@ -75,6 +75,21 @@ class ActiveStateMachinesComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
+    // Overflow hooks for state machine instances marked 'hook'
+    //
+    // When sending a signal to a state machine instance, if
+    // the queue overflows and the instance is marked with 'hook' behavior,
+    // the corresponding function here is called.
+    // ----------------------------------------------------------------------
+
+    //! Overflow hook for state machine sm5
+    virtual void sm5_stateMachineOverflowHook(
+        const Fw::SMSignals& sig //!< The signal data
+    ) = 0;
+
+  PROTECTED:
+
+    // ----------------------------------------------------------------------
     // State machine function to push signals to the input queue
     // ----------------------------------------------------------------------
 

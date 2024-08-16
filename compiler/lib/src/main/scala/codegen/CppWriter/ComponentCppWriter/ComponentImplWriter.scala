@@ -179,34 +179,35 @@ case class ComponentImplWriter(
       })
     )
   }
-private def getOverflowHooks: List[CppDoc.Class.Member] = {
-  List.concat(
-    getPortOverflowHooks(
-      List.concat(
-        typedHookPorts,
-        serialHookPorts,
-        dataProductHookPorts,
-        internalHookPorts
-      )
-    ),
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"Overflow hook implementations for 'hook' commands",
-      hookCmds.map((opcode, cmd) => {
-        functionClassMember(
-          Some(s"Overflow hook implementation for ${cmd.getName}"),
-          inputOverflowHookName(cmd.getName, MessageType.Command),
-          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
-          CppDoc.Type("void"),
-          lines("// TODO"),
-          CppDoc.Function.Override
-        )
-      })
-    )
-  )
-}
 
-private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  private def getOverflowHooks: List[CppDoc.Class.Member] = {
+    List.concat(
+      getOverflowHooks(
+        List.concat(
+          typedHookPorts,
+          serialHookPorts,
+          dataProductHookPorts,
+          internalHookPorts
+        )
+      ),
+      addAccessTagAndComment(
+        "PRIVATE",
+        s"Overflow hook implementations for 'hook' commands",
+        hookCmds.map((opcode, cmd) => {
+          functionClassMember(
+            Some(s"Overflow hook implementation for ${cmd.getName}"),
+            inputOverflowHookName(cmd.getName, MessageType.Command),
+            opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+            CppDoc.Type("void"),
+            lines("// TODO"),
+            CppDoc.Function.Override
+          )
+        })
+      )
+    )
+  }
+
+  private def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
       s"Overflow hook implementations for 'hook' input ports",
@@ -221,6 +222,5 @@ private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.M
         )
       })
     )
-  }
 
 }
