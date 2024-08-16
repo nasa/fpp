@@ -781,17 +781,15 @@ class QueuedOverflowComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Hooks for internal async input ports
+    // Hooks for internal ports
     //
-    // Each of these functions is invoked when placing a message on the
-    // queue would cause the queue to overlow. You should override them to provide
-    // specific overflow behavior.
+    // Each of these functions is invoked just before dropping a message
+    // on the corresponding internal port. You should override them to provide
+    // specific drop behavior.
     // ----------------------------------------------------------------------
 
     //! Overflow hook for async input port internalHookDrop
-    virtual void internalHookDrop_overflowHook(
-        FwIndexType portNum //!< The port number
-    ) = 0;
+    virtual void internalHookDrop_overflowHook() = 0;
 
   PROTECTED:
 

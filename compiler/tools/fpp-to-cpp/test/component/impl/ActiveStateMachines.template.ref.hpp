@@ -35,7 +35,7 @@ class ActiveStateMachines :
 
     //! Overflow hook implementation for sm5
     void sm5_stateMachineOverflowHook(
-        const Fw::SMSignals& sig //!< The signal data
+        const Fw::SMSignals& sig //!< The state machine signal
     ) override;
 
 };

@@ -500,15 +500,6 @@ abstract class ComponentCppWriterUtils(
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
 
-  /** Get port params as a list of names */
-  def getPortParamNames(p: PortInstance): List[String] =
-    p.getType match {
-      case Some(PortInstance.Type.Serial) => List(
-        "buffer"
-      )
-      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, _, _) => n)
-    }
-
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
     p.getType match {
@@ -623,13 +614,14 @@ abstract class ComponentCppWriterUtils(
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
     TypeCppWriter.getName(s, t, stringRep)
 
+  /** Write send message logic */
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
     priority: Option[BigInt],
     messageType: MessageType,
     name: String,
-    arguments: List[String]
+    arguments: List[CppDoc.Function.Param]
   ): List[Line] = {
     val queueBlocking = queueFull match {
       case Ast.QueueFull.Block => "QUEUE_BLOCKING"
@@ -657,13 +649,28 @@ abstract class ComponentCppWriterUtils(
                |}
                |"""
           )
-          case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name, messageType)}(${arguments.mkString(",")});
-               |  return;
-               |}
-               |"""
-          )
+          case Ast.QueueFull.Hook => {
+            val hookCall = s"this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")})"
+            messageType match {
+              case MessageType.Command =>
+                lines(
+                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                      |  // TODO: Deserialize command arguments and call the hook
+                      |  // $hookCall;
+                      |  return;
+                      |}
+                      |"""
+                )
+              case _ =>
+                lines(
+                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                      |  $hookCall;
+                      |  return;
+                      |}
+                      |"""
+                )
+            }
+          }
           case _ => Nil
         }
         ,
@@ -854,7 +861,11 @@ abstract class ComponentCppWriterUtils(
       }
     )
 
-  def getOverflowHook(name: String, msgType: MessageType, params: List[CppDoc.Function.Param]) = {
+  def getVirtualOverflowHook(
+    name: String,
+    msgType: MessageType,
+    params: List[CppDoc.Function.Param]
+  ) = {
     functionClassMember(
       Some(s"Overflow hook for $msgType $name"),
       inputOverflowHookName(name, msgType),
@@ -862,26 +873,6 @@ abstract class ComponentCppWriterUtils(
       CppDoc.Type("void"),
       Nil,
       CppDoc.Function.PureVirtual
-    )
-  }
-
-  def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "PROTECTED",
-      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
-          |
-          |Each of these functions is invoked when placing a message on the
-          |queue would cause the queue to overlow. You should override them to provide
-          |specific overflow behavior.
-          |""",
-      ports.map(
-        p => getOverflowHook(
-          p.getUnqualifiedName,
-          MessageType.Port,
-          portNumParam :: getPortFunctionParams(p)
-        )
-      ),
-      CppDoc.Lines.Hpp
     )
   }
 
@@ -948,13 +939,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   private def filterAsyncSpecialPorts(ports: List[PortInstance.Special]) =
-    ports.filter(p =>
-      p.specifier.inputKind match {
-        case Some(Ast.SpecPortInstance.Async) => true
-        case _ => false
-      }
-    )
-
+    ports.filter(_.specifier.inputKind == Some(Ast.SpecPortInstance.Async))
 
 }
 

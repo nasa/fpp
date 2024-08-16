@@ -165,8 +165,12 @@ case class ComponentInputPorts(
             })
           ),
           writeSendMessageLogic(
-            bufferName, queueFull, priority, MessageType.Port,
-            p.getUnqualifiedName, getPortParamNames(p)
+            bufferName,
+            queueFull,
+            priority,
+            MessageType.Port,
+            p.getUnqualifiedName,
+            portNumParam :: getPortFunctionParams(p)
           )
         )
       )
@@ -412,7 +416,25 @@ case class ComponentInputPorts(
     )
   }
 
-  val getOverflowHooks = getPortOverflowHooks
+  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked when placing a message on the
+          |queue would cause the queue to overlow. You should override them to provide
+          |specific overflow behavior.
+          |""",
+      ports.map(
+        p => getVirtualOverflowHook(
+          p.getUnqualifiedName,
+          MessageType.Port,
+          portNumParam :: getPortFunctionParams(p)
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
 
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =

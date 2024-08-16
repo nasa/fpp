@@ -186,7 +186,14 @@ case class ComponentCommands (
                     )
                   )
                 ),
-                writeSendMessageLogic("msg", queueFull, priority, MessageType.Command, cmd.getName, cmdParamTypeMap(opcode).map((n, _, _) => n))
+                writeSendMessageLogic(
+                  "msg",
+                  queueFull,
+                  priority,
+                  MessageType.Command,
+                  cmd.getName,
+                  opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
+                )
               )
             )
             case _ => intersperseBlankLines(
@@ -329,7 +336,7 @@ case class ComponentCommands (
          |behavior.
          |""",
       hookCmds.map(
-        (opcode, cmd) => getOverflowHook(
+        (opcode, cmd) => getVirtualOverflowHook(
           cmd.getName,
           MessageType.Command,
           opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),

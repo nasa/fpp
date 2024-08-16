@@ -84,7 +84,7 @@ class ActiveStateMachinesComponentBase :
 
     //! Overflow hook for state machine sm5
     virtual void sm5_stateMachineOverflowHook(
-        const Fw::SMSignals& sig //!< The signal data
+        const Fw::SMSignals& sig //!< The state machine signal
     ) = 0;
 
   PROTECTED:

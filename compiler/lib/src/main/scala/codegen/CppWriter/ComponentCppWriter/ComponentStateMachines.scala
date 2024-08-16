@@ -114,16 +114,10 @@ case class ComponentStateMachines(
          |the corresponding function here is called.
          |""",
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-        smi => getOverflowHook(
+        smi => getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const Fw::SMSignals&"),
-              "sig",
-              Some("The signal data")
-            )
-          )
+          ComponentStateMachines.signalParams
         )
       ),
       CppDoc.Lines.Hpp
@@ -170,7 +164,8 @@ case class ComponentStateMachines(
                 List.concat(
                   writeSendMessageLogic(
                     "msg", smi.queueFull, smi.priority,
-                    MessageType.StateMachine, smi.getName, List("sig")
+                    MessageType.StateMachine, smi.getName,
+                    ComponentStateMachines.signalParams
                   ),
                   lines("break;")
                 ),
@@ -193,13 +188,7 @@ case class ComponentStateMachines(
     lazy val member = functionClassMember(
       Some(s"State machine base-class function for sendSignals"),
       "stateMachineInvoke",
-      List(
-        CppDoc.Function.Param(
-            CppDoc.Type("const Fw::SMSignals&"),
-            "sig",
-            Some("The state machine signal")
-        )
-      ),
+      ComponentStateMachines.signalParams,
       CppDoc.Type("void"),
       Line.blank :: intersperseBlankLines(
         List(serializeCode, switchCode)
@@ -212,5 +201,17 @@ case class ComponentStateMachines(
       guardedList (hasStateMachineInstances) (List(member))
     )
   }
+
+}
+
+object ComponentStateMachines {
+
+  val signalParams = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("const Fw::SMSignals&"),
+      "sig",
+       Some("The state machine signal")
+    )
+  )
 
 }

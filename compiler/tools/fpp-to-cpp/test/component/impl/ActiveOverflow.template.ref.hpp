@@ -169,10 +169,14 @@ class ActiveOverflow :
         const Fw::Success& status //!< The status
     ) override;
 
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Overflow hook implementations for internal ports
+    // ----------------------------------------------------------------------
+
     //! Overflow hook implementation for internalHookDrop
-    void internalHookDrop_overflowHook(
-        FwIndexType portNum //!< The port number
-    ) override;
+    void internalHookDrop_overflowHook() override;
 
   PRIVATE:
 
