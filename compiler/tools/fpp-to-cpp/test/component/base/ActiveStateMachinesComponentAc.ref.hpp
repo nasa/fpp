@@ -80,7 +80,7 @@ class ActiveStateMachinesComponentBase :
 
     //! State machine base-class function for sendSignals
     void stateMachineInvoke(
-        const Fw::SMSignals& ev //!< The state machine signal
+        const Fw::SMSignals& sig //!< The state machine signal
     );
 
   PRIVATE:

@@ -9,9 +9,9 @@ case class ComponentInternalPort (
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
-
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     List(
+      getOverflowHooks(internalHookPorts),
       getHandlers,
       getHandlerBases
     ).flatten
@@ -82,7 +82,7 @@ case class ComponentInternalPort (
                   )
                 )
               ),
-              writeSendMessageLogic("msg", p.queueFull, p.priority)
+              writeSendMessageLogic("msg", p.queueFull, p.priority, MessageType.Port, p.getUnqualifiedName, getPortParams(p).map((n, _, _) => n))
             )
           )
         )

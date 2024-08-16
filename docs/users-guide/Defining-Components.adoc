@@ -330,9 +330,10 @@ There are three possible behaviors:
 . `assert`: Fail a FSW assertion (the default behavior).
 . `block`: Block the sender until the queue is available.
 . `drop`: Drop the incoming message and proceed.
+. `hook`: Call a user function to respond to the queue overflow.
 
 To specify queue full behavior, you write one of the keywords `assert`,
-`block`, or `drop` after the port type and after the priority
+`block`, `drop`, or `hook` after the port type and after the priority
 (if any).
 As an example, here is the `ActiveF32Adder` updated with explicit
 queue full behavior.
@@ -351,6 +352,9 @@ active component ActiveF32Adder {
 
   @ Input 2: Drop on queue full
   async input port f32ValueIn2: F32Value drop
+  
+  @ Input 3: Call hook function on queue full
+  async input port f32ValueIn3: F32Value hook
 
   @ Output
   output port f32ValueOut: F32Value

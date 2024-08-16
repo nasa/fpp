@@ -41,6 +41,7 @@ active()
   move_cpp ActiveAsyncProductPortsOnlyComponent
   move_cpp ActiveAsyncProductsComponent
   move_cpp ActiveCommandsComponent
+  move_cpp ActiveOverflowComponent
   move_cpp ActiveEventsComponent
   move_cpp ActiveGetProductsComponent
   move_cpp ActiveGuardedProductsComponent
@@ -59,6 +60,7 @@ queued()
   move_cpp QueuedAsyncProductPortsOnlyComponent
   move_cpp QueuedAsyncProductsComponent
   move_cpp QueuedCommandsComponent
+  move_cpp QueuedOverflowComponent
   move_cpp QueuedEventsComponent
   move_cpp QueuedGetProductsComponent
   move_cpp QueuedGuardedProductsComponent

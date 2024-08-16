@@ -358,6 +358,7 @@ object Parser extends Parsers {
     assert ^^ { case _ => Ast.QueueFull.Assert } |
     block ^^ { case _ => Ast.QueueFull.Block } |
     drop ^^ { case _ => Ast.QueueFull.Drop } |
+    hook ^^ { case _ => Ast.QueueFull.Hook } |
     failure("queue full expected")
   }
 
@@ -794,6 +795,8 @@ object Parser extends Parsers {
   private def health = accept("health", { case t : Token.HEALTH => t })
 
   private def high = accept("high", { case t : Token.HIGH => t })
+
+  private def hook = accept("hook", { case t : Token.HOOK => t })
 
   private def id = accept("id", { case t : Token.ID => t })
 

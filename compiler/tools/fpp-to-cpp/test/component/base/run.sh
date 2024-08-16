@@ -41,6 +41,7 @@ active()
   diff_cpp ActiveAsyncProductPortsOnlyComponent && \
   diff_cpp ActiveAsyncProductsComponent && \
   diff_cpp ActiveCommandsComponent && \
+  diff_cpp ActiveOverflowComponent && \
   diff_cpp ActiveEventsComponent && \
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
@@ -59,6 +60,7 @@ queued()
   diff_cpp QueuedAsyncProductPortsOnlyComponent && \
   diff_cpp QueuedAsyncProductsComponent && \
   diff_cpp QueuedCommandsComponent && \
+  diff_cpp QueuedOverflowComponent && \
   diff_cpp QueuedEventsComponent && \
   diff_cpp QueuedGetProductsComponent && \
   diff_cpp QueuedGuardedProductsComponent && \

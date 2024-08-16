@@ -307,6 +307,9 @@ object Ast {
     case object Drop extends QueueFull {
       override def toString = "drop"
     }
+    case object Hook extends QueueFull {
+      override def toString = "hook"
+    }
   }
 
   /** Command specifier */

@@ -164,7 +164,10 @@ case class ComponentInputPorts(
               )
             })
           ),
-          writeSendMessageLogic(bufferName, queueFull, priority)
+          writeSendMessageLogic(
+            bufferName, queueFull, priority, MessageType.Port,
+            p.getUnqualifiedName, getPortParamNames(p)
+          )
         )
       )
     }
@@ -408,7 +411,7 @@ case class ComponentInputPorts(
       )
     )
   }
-
+  
   // Get the name for a param command handler function
   private def paramCmdHandlerName(cmd: Command.Param) =
     s"param${getCmdParamKindString(cmd.kind).capitalize}_${cmd.getName}"

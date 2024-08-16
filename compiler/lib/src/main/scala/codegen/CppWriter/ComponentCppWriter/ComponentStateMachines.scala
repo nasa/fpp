@@ -42,7 +42,7 @@ case class ComponentStateMachines(
                 |  static_cast<FwAssertArgType>(_status)
                 |);
                 |
-                |_status = msg.serialize(ev);
+                |_status = msg.serialize(sig);
                 |FW_ASSERT(
                 |  _status == Fw::FW_SERIALIZE_OK,
                 |  static_cast<FwAssertArgType>(_status)
@@ -51,7 +51,7 @@ case class ComponentStateMachines(
         
 
     val switchCode = List.concat(
-      lines("const U32 smId = ev.getsmId();"),
+      lines("const U32 smId = sig.getsmId();"),
       wrapInSwitch(
         "smId",
         List.concat(
@@ -61,7 +61,10 @@ case class ComponentStateMachines(
               wrapInScope(
                 s"case STATE_MACHINE_${smi.getName.toUpperCase}: {",
                 List.concat(
-                  writeSendMessageLogic("msg", smi.queueFull, smi.priority),
+                  writeSendMessageLogic(
+                    "msg", smi.queueFull, smi.priority,
+                    MessageType.StateMachine, smi.getName, List("sig")
+                  ),
                   lines("break;")
                 ),
                 "}"
@@ -86,7 +89,7 @@ case class ComponentStateMachines(
       List(
         CppDoc.Function.Param(
             CppDoc.Type("const Fw::SMSignals&"),
-            "ev",
+            "sig",
             Some("The state machine signal")
         )
       ),
@@ -105,11 +108,11 @@ case class ComponentStateMachines(
 
   def getInternalInterfaceHandler: List[Line] =
     wrapInSwitch(
-      "ev.getsmId()",
+      "sig.getsmId()",
       smInstancesByName.flatMap((name, _) =>
         lines(
           s"""|case STATE_MACHINE_${name.toUpperCase}:
-              |  this->m_stateMachine_$name.update(&ev);
+              |  this->m_stateMachine_$name.update(&sig);
               |  break;
           """
         )
@@ -146,8 +149,8 @@ case class ComponentStateMachines(
   def writeDispatch: List[Line] = {
     lazy val caseBody = List.concat(
       lines(
-        s"""|Fw::SMSignals ev;
-            |deserStatus = msg.deserialize(ev);
+        s"""|Fw::SMSignals sig;
+            |deserStatus = msg.deserialize(sig);
             |
             |FW_ASSERT(
             |  Fw::FW_SERIALIZE_OK == deserStatus,

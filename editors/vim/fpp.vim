@@ -43,6 +43,7 @@ syn keyword fppKeyword guard
 syn keyword fppKeyword guarded
 syn keyword fppKeyword health
 syn keyword fppKeyword high
+syn keyword fppKeyword hook
 syn keyword fppKeyword id
 syn keyword fppKeyword if
 syn keyword fppKeyword import

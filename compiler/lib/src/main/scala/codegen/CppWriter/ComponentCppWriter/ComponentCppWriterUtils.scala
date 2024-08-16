@@ -4,6 +4,20 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
 
+/** Message type for message send logic */
+sealed trait MessageType
+object MessageType {
+  case object Command extends MessageType {
+    override def toString = "command"
+  }
+  case object Port extends MessageType {
+    override def toString = "async input port"
+  }
+  case object StateMachine extends MessageType {
+    override def toString = "state machine"
+  }
+}
+
 /** Utilities for writing C++ component definitions */
 abstract class ComponentCppWriterUtils(
   s: CppWriterState,
@@ -103,6 +117,21 @@ abstract class ComponentCppWriterUtils(
 
   /** List of serial async input ports */
   val serialAsyncInputPorts: List[PortInstance.General] = filterAsyncInputPorts(serialInputPorts)
+  
+  /** List of typed overflow hook ports */
+  val typedHookPorts: List[PortInstance.General] = filterOverflowHookPorts(typedAsyncInputPorts)
+
+  /** List of serial overflow hook ports */
+  val serialHookPorts: List[PortInstance.General] = filterOverflowHookPorts(serialInputPorts)
+
+  /** List of serial overflow hook ports */
+  val dataProductHookPorts: List[PortInstance.Special] =
+    dataProductAsyncInputPorts.filter(p =>
+      p.queueFull match {
+        case Some(Ast.QueueFull.Hook) => true
+        case _ => false
+      }
+    )
 
   /** List of typed output ports */
   val typedOutputPorts: List[PortInstance.General] = filterTypedPorts(outputPorts)
@@ -120,6 +149,15 @@ abstract class ComponentCppWriterUtils(
     case _ => None
   }).filter(_.isDefined).map(_.get).sortBy(_.getUnqualifiedName)
 
+  /** List of internal overflow hook ports */
+  val internalHookPorts: List[PortInstance.Internal] =
+    internalPorts.filter(p =>
+      p.queueFull match {
+        case Ast.QueueFull.Hook => true
+        case _ => false
+      }
+    )
+
   /** List of commands sorted by opcode */
   val sortedCmds: List[(Command.Opcode, Command)] = component.commandMap.toList.sortBy(_._1)
 
@@ -132,6 +170,12 @@ abstract class ComponentCppWriterUtils(
   /** List of async commands */
   val asyncCmds: List[(Command.Opcode, Command.NonParam)] = nonParamCmds.filter((_, cmd) => cmd.kind match {
     case Command.NonParam.Async(_, _) => true
+    case _ => false
+  })
+
+  /** List of async commands */
+  val hookCmds: List[(Command.Opcode, Command.NonParam)] = nonParamCmds.filter((_, cmd) => cmd.kind match {
+    case Command.NonParam.Async(_, Ast.QueueFull.Hook) => true
     case _ => false
   })
 
@@ -455,6 +499,15 @@ abstract class ComponentCppWriterUtils(
       )
       case _ => portParamTypeMap(p.getUnqualifiedName).map((n, tn, t) => (n, tn, Some(t)))
     }
+  
+  /** Get port params as a list of names */
+  def getPortParamNames(p: PortInstance): List[String] =
+    p.getType match {
+      case Some(PortInstance.Type.Serial) => List(
+        "buffer"
+      )
+      case _ => portParamTypeMap(p.getUnqualifiedName).map((n, _, _) => n)
+    }
 
   /** Get port params as CppDoc Function Params */
   def getPortFunctionParams(p: PortInstance): List[CppDoc.Function.Param] =
@@ -573,7 +626,10 @@ abstract class ComponentCppWriterUtils(
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
-    priority: Option[BigInt]
+    priority: Option[BigInt],
+    messageType: MessageType,
+    name: String,
+    arguments: List[String]
   ): List[Line] = {
     val queueBlocking = queueFull match {
       case Ast.QueueFull.Block => "QUEUE_BLOCKING"
@@ -597,6 +653,13 @@ abstract class ComponentCppWriterUtils(
           case Ast.QueueFull.Drop => lines(
             """|if (qStatus == Os::Queue::QUEUE_FULL) {
                |  this->incNumMsgDropped();
+               |  return;
+               |}
+               |"""
+          )
+          case Ast.QueueFull.Hook => lines(
+            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+               |  this->${inputOverflowHookName(name, messageType)}(${arguments.mkString(",")});
                |  return;
                |}
                |"""
@@ -684,6 +747,14 @@ abstract class ComponentCppWriterUtils(
   /** Get the name for an async input port pre-message hook function */
   def inputPortHookName(name: String) =
     s"${name}_preMsgHook"
+  
+  /** Get the name for an async input port overflow hook function */
+  def inputOverflowHookName(name: String, messageType: MessageType) =
+    messageType match {
+      case MessageType.Port => s"${name}_overflowHook"
+      case MessageType.Command => s"${name}_cmdOverflowHook"
+      case MessageType.StateMachine => s"${name}_stateMachineOverflowHook"
+    }
 
   // Get the name for an output port connector function
   def outputPortConnectorName(name: String) =
@@ -782,6 +853,38 @@ abstract class ComponentCppWriterUtils(
         case _ => CppDoc.Function.Override
       }
     )
+
+  def getOverflowHook(name: String, msgType: MessageType, params: List[CppDoc.Function.Param]) = {
+    functionClassMember(
+      Some(s"Overflow hook for $msgType $name"),
+      inputOverflowHookName(name, msgType),
+      params,
+      CppDoc.Type("void"),
+      Nil,
+      CppDoc.Function.PureVirtual
+    )
+  }
+
+  def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"""|Hooks for ${getPortListTypeString(ports)} async input ports
+          |
+          |Each of these functions is invoked when placing a message on the
+          |queue would cause the queue to overlow. You should override them to provide
+          |specific overflow behavior.
+          |""",
+      ports.map(
+        p => getOverflowHook(
+          p.getUnqualifiedName,
+          MessageType.Port, 
+          portNumParam :: getPortFunctionParams(p)
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+  }
+
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {
@@ -832,6 +935,14 @@ abstract class ComponentCppWriterUtils(
     ports.filter(p =>
       p.kind match {
         case PortInstance.General.Kind.AsyncInput(_, _) => true
+        case _ => false
+      }
+    )
+  
+  private def filterOverflowHookPorts(ports: List[PortInstance.General]) =
+    ports.filter(p =>
+      p.kind match {
+        case PortInstance.General.Kind.AsyncInput(_, Ast.QueueFull.Hook) => true
         case _ => false
       }
     )
