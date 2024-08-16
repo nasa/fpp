@@ -1819,6 +1819,7 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
   // TODO: This does not work yet
+  // Command arguments need to be deserialized
   // if (qStatus == Os::Queue::QUEUE_FULL) {
   //   this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
   //   return;
@@ -1884,6 +1885,7 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
   // TODO: This does not work yet
+  // Command arguments need to be deserialized
   // if (qStatus == Os::Queue::QUEUE_FULL) {
   //   this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
   //   return;

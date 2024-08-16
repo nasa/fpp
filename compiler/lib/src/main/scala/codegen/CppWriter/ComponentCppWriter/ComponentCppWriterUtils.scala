@@ -651,6 +651,7 @@ abstract class ComponentCppWriterUtils(
             messageType match {
               case MessageType.Command =>
                 line("// TODO: This does not work yet") ::
+                line("// Command arguments need to be deserialized") ::
                 code.map(ln => Line(s"// ${ln.string}", ln.indent))
               case _ => code
             }
