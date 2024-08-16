@@ -1818,10 +1818,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
-    return;
-  }
+  // TODO: This does not work yet
+  // if (qStatus == Os::Queue::QUEUE_FULL) {
+  //   this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
+  //   return;
+  // }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,
@@ -1882,10 +1883,11 @@ void QueuedOverflowComponentBase ::
   Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
   Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
-    this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
-    return;
-  }
+  // TODO: This does not work yet
+  // if (qStatus == Os::Queue::QUEUE_FULL) {
+  //   this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq, u32);
+  //   return;
+  // }
 
   FW_ASSERT(
     qStatus == Os::Queue::QUEUE_OK,

@@ -381,12 +381,6 @@ abstract class ComponentCppWriterUtils(
       })
     )).toMap
 
-  def getAllPortParams(port: PortInstance): List[CppDoc.Function.Param] =
-    portNumParam :: getPortFunctionParams(port)
-
-  def getAllCommandParams(opcode: Command.Opcode): List[CppDoc.Function.Param] =
-    opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
-
   def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase"):
   List[(String, String, Type)] =
     event.aNode._2.data.params.map(param => {
@@ -646,13 +640,21 @@ abstract class ComponentCppWriterUtils(
                |}
                |"""
           )
-          case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
-               |  return;
-               |}
-               |"""
-          )
+          case Ast.QueueFull.Hook => {
+            val code = lines(
+              s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                  |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
+                  |  return;
+                  |}
+                  |""".stripMargin
+            )
+            messageType match {
+              case MessageType.Command =>
+                line("// TODO: This does not work yet") ::
+                code.map(ln => Line(s"// ${ln.string}", ln.indent))
+              case _ => code
+            }
+          }
           case _ => Nil
         }
         ,
