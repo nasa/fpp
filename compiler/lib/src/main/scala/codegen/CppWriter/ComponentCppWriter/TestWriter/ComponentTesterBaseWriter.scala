@@ -395,7 +395,7 @@ case class ComponentTesterBaseWriter(
     functionClassMember(
       Some(s"Default handler implementation for $fromPortName"),
       fromPortHandlerName(portName),
-      getPortCompleteFormalParams(pi),
+      getAllPortParams(pi),
       getPortReturnTypeAsCppDocType(pi),
       body,
       CppDoc.Function.Virtual
@@ -423,7 +423,7 @@ case class ComponentTesterBaseWriter(
             Some(s"Handler base-class function for $portName")
           },
           fromPortHandlerBaseName(p.getUnqualifiedName),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           getPortReturnTypeAsCppDocType(p),
           List.concat(
             lines(
@@ -463,7 +463,7 @@ case class ComponentTesterBaseWriter(
         functionClassMember(
           Some(s"Invoke the to port connected to ${p.getUnqualifiedName}"),
           toPortInvokerName(p.getUnqualifiedName),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           getPortReturnTypeAsCppDocType(p),
           List.concat(
             lines(

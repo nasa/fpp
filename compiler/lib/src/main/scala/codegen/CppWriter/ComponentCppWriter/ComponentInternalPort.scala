@@ -12,10 +12,32 @@ case class ComponentInternalPort (
   private val inputPortWriter = ComponentInputPorts(s, aNode)
   def getFunctionMembers: List[CppDoc.Class.Member] = {
     List(
-      inputPortWriter.getDropHooks(internalHookPorts),
+      getOverflowHooks(internalHookPorts),
       getHandlers,
       getHandlerBases
     ).flatten
+  }
+
+  private def getOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      s"""|Hooks for internal ports
+          |
+          |Each of these functions is invoked just before dropping a message
+          |on the corresponding internal port. You should override them to provide
+          |specific drop behavior.
+          |""",
+      ports.map(p =>
+        functionClassMember(
+          Some(s"Overflow hook for async input port ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          Nil,
+          CppDoc.Function.PureVirtual
+        )
+      )
+    )
   }
 
   private def getHandlers: List[CppDoc.Class.Member] = {
@@ -83,7 +105,14 @@ case class ComponentInternalPort (
                   )
                 )
               ),
-              writeSendMessageLogic("msg", p.queueFull, p.priority, MessageType.Port, p.getUnqualifiedName, getPortCompleteFormalParams(p))
+              writeSendMessageLogic(
+                "msg",
+                p.queueFull,
+                p.priority,
+                MessageType.Port,
+                p.getUnqualifiedName,
+                getPortFunctionParams(p)
+              )
             )
           )
         )

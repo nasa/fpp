@@ -381,10 +381,10 @@ abstract class ComponentCppWriterUtils(
       })
     )).toMap
 
-  def getPortCompleteFormalParams(port: PortInstance): List[CppDoc.Function.Param] =
+  def getAllPortParams(port: PortInstance): List[CppDoc.Function.Param] =
     portNumParam :: getPortFunctionParams(port)
 
-  def getCommandCompleteFormalParams(opcode: Command.Opcode): List[CppDoc.Function.Param] =
+  def getAllCommandParams(opcode: Command.Opcode): List[CppDoc.Function.Param] =
     opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
 
   def getEventParamTypes(event: Event, stringRep: String = "Fw::StringBase"):
@@ -648,7 +648,7 @@ abstract class ComponentCppWriterUtils(
           )
           case Ast.QueueFull.Hook => lines(
             s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-               |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(",")});
+               |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
                |  return;
                |}
                |"""
@@ -901,13 +901,7 @@ abstract class ComponentCppWriterUtils(
     )
 
   private def filterAsyncSpecialPorts(ports: List[PortInstance.Special]) =
-    ports.filter(p =>
-      p.specifier.inputKind match {
-        case Some(Ast.SpecPortInstance.Async) => true
-        case _ => false
-      }
-    )
-
+    ports.filter(_.specifier.inputKind == Some(Ast.SpecPortInstance.Async))
 
 }
 

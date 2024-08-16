@@ -186,7 +186,14 @@ case class ComponentCommands (
                     )
                   )
                 ),
-                writeSendMessageLogic("msg", queueFull, priority, MessageType.Command, cmd.getName, getCommandCompleteFormalParams(opcode))
+                writeSendMessageLogic(
+                  "msg",
+                  queueFull,
+                  priority,
+                  MessageType.Command,
+                  cmd.getName,
+                  getAllCommandParams(opcode)
+                )
               )
             )
             case _ => intersperseBlankLines(
@@ -332,7 +339,7 @@ case class ComponentCommands (
         functionClassMember(
           Some(s"Overflow hook for command ${cmd.getName}"),
           inputOverflowHookName(cmd.getName, MessageType.Command),
-          getCommandCompleteFormalParams(opcode),
+          getAllCommandParams(opcode),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual

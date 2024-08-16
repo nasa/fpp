@@ -171,7 +171,7 @@ case class ComponentImplWriter(
             )
           ),
           inputPortHandlerName(p.getUnqualifiedName),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           getPortReturnTypeAsCppDocType(p),
           lines(todoMsg),
           CppDoc.Function.Override
@@ -186,8 +186,21 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
         typedHookPorts,
         serialHookPorts,
         dataProductHookPorts,
-        internalHookPorts
       )
+    ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for internal ports",
+      internalHookPorts.map(p => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      })
     ),
     addAccessTagAndComment(
       "PRIVATE",
@@ -196,7 +209,7 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
         functionClassMember(
           Some(s"Overflow hook implementation for ${cmd.getName}"),
           inputOverflowHookName(cmd.getName, MessageType.Command),
-          getCommandCompleteFormalParams(opcode),
+          getAllCommandParams(opcode),
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override
@@ -214,7 +227,7 @@ private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.M
         functionClassMember(
           Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
           inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override

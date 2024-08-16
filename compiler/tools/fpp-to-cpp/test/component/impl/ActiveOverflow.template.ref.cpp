@@ -175,8 +175,12 @@ void ActiveOverflow ::
   // TODO
 }
 
+// ----------------------------------------------------------------------
+// Overflow hook implementations for internal ports
+// ----------------------------------------------------------------------
+
 void ActiveOverflow ::
-  internalHookDrop_overflowHook(FwIndexType portNum)
+  internalHookDrop_overflowHook()
 {
   // TODO
 }

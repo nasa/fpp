@@ -19,7 +19,7 @@ case class ComponentInputPorts(
       functionClassMember(
         Some(s"Handler for input port ${portName(p.getUnqualifiedName)}"),
         handlerName(p.getUnqualifiedName),
-        getPortCompleteFormalParams(p),
+        getAllPortParams(p),
         getPortReturnTypeAsCppDocType(p),
         Nil,
         CppDoc.Function.PureVirtual
@@ -164,7 +164,7 @@ case class ComponentInputPorts(
               )
             })
           ),
-          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, getPortCompleteFormalParams(p))
+          writeSendMessageLogic(bufferName, queueFull, priority, MessageType.Port, p.getUnqualifiedName, getAllPortParams(p))
         )
       )
     }
@@ -210,7 +210,7 @@ case class ComponentInputPorts(
         functionClassMember(
           Some(s"Handler base-class function for input port ${p.getUnqualifiedName}"),
           inputPortHandlerBaseName(p.getUnqualifiedName),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           getPortReturnTypeAsCppDocType(p),
           intersperseBlankLines(
             List(
@@ -400,7 +400,7 @@ case class ComponentInputPorts(
         functionClassMember(
           Some(s"Pre-message hook for async input port ${p.getUnqualifiedName}"),
           inputPortHookName(p.getUnqualifiedName),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           CppDoc.Type("void"),
           lines("// Default: no-op"),
           CppDoc.Function.Virtual
@@ -422,7 +422,7 @@ case class ComponentInputPorts(
         functionClassMember(
           Some(s"Overflow hook for async input port ${p.getUnqualifiedName}"),
           inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
-          getPortCompleteFormalParams(p),
+          getAllPortParams(p),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual
