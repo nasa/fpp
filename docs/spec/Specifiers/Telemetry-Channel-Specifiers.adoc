@@ -45,8 +45,8 @@ A telemetry limit is one of the following:
 
 . The identifier names the telemetry channel.
 
-. The type name specifies the type of the telemetry channel. The type
-must be a <<Types_Displayable-Types,displayable type>>.
+. The type name specifies the type _T_ of the telemetry channel.
+_T_ must be a <<Types_Displayable-Types,displayable type>>.
 
 . The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the channel.

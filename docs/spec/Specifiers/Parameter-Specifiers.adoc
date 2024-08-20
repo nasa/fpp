@@ -24,7 +24,7 @@ _]_
 
 * The identifier names the parameter.
 
-* The type name specifies the type _T_ of the parameter. The type 
+* The type name specifies the type _T_ of the parameter.
 _T_ must be a <<Types_Displayable-Types,displayable type>>.
 
 * The optional expression _e_ following the keyword `default`

@@ -351,9 +351,9 @@ case class Analysis(
 
   /** Checks all parameters in a formal param list to see if they are displayable */
   def checkDisplayableParams(nodes: Ast.FormalParamList, errorMsg: String): Result.Result[Unit] = {
-    Result.foldLeft (nodes) (()) ((result, aNode) => {
+    Result.foldLeft (nodes) (()) ((result, aNode) =>
       checkDisplayableType(aNode._2.data.typeName.id, errorMsg)
-    })
+    )
   }
   
 }

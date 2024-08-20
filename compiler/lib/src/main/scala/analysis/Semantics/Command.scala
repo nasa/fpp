@@ -96,7 +96,7 @@ object Command {
         priority <- Right(a.getBigIntValueOpt(data.priority))
         _ <- Analysis.checkForDuplicateParameter(data.params)
         _ <- checkRefParams(data.params)
-        _ <- a.checkDisplayableParams(data.params, "command parameters need to be displayable type")
+        _ <- a.checkDisplayableParams(data.params, "command parameter type must be displayable")
       }
       yield {
         val kind = data.kind match {

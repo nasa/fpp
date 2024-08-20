@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:13.16
   telemetry T: A
                ^
-error: telemetry channels need to be displayable type
+error: telemetry channel type must be displayable
