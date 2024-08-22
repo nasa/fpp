@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) User&#8217;s Guide, v2.1.0</title>
+<title>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.1.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) User&#8217;s Guide, v2.1.0</h1>
+<h1>The F Prime Prime (FPP) User&#8217;s Guide, Unreleased, after v2.1.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -3877,11 +3877,14 @@ There are three possible behaviors:</p>
 <li>
 <p><code>drop</code>: Drop the incoming message and proceed.</p>
 </li>
+<li>
+<p><code>hook</code>: Call a user function to respond to the queue overflow.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
 <p>To specify queue full behavior, you write one of the keywords <code>assert</code>,
-<code>block</code>, or <code>drop</code> after the port type and after the priority
+<code>block</code>, <code>drop</code>, or <code>hook</code> after the port type and after the priority
 (if any).
 As an example, here is the <code>ActiveF32Adder</code> updated with explicit
 queue full behavior.</p>
@@ -3900,6 +3903,9 @@ active component ActiveF32Adder {
 
   @ Input 2: Drop on queue full
   async input port f32ValueIn2: F32Value drop
+
+  @ Input 3: Call hook function on queue full
+  async input port f32ValueIn3: F32Value hook
 
   @ Output
   output port f32ValueOut: F32Value
@@ -12293,7 +12299,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-07-22 17:45:06 -0700
+Last updated 2024-08-22 08:49:17 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

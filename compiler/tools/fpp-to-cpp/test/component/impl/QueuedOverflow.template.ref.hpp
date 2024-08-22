@@ -193,8 +193,7 @@ class QueuedOverflow :
     //! Overflow hook implementation for CMD_PARAMS_PRIORITY_HOOK
     void CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(
         FwOpcodeType opCode, //!< The opcode
-        U32 cmdSeq, //!< The command sequence number
-        U32 u32
+        U32 cmdSeq //!< The command sequence number
     ) override;
 
 };

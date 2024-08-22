@@ -209,7 +209,7 @@ private def getOverflowHooks: List[CppDoc.Class.Member] = {
         functionClassMember(
           Some(s"Overflow hook implementation for ${cmd.getName}"),
           inputOverflowHookName(cmd.getName, MessageType.Command),
-          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+          opcodeParam :: cmdSeqParam :: Nil,
           CppDoc.Type("void"),
           lines("// TODO"),
           CppDoc.Function.Override
