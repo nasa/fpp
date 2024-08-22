@@ -2736,7 +2736,7 @@ value is the zero-argument constructor <code>T()</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Built-in types:</strong>
-When translating to XML, there are a few special types that are abstract
+When translating to C&#43;&#43;, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don&#8217;t have to define C&#43;&#43; classes for these types.
 We will discuss these types further in the section on
@@ -11973,6 +11973,14 @@ in the FPP model; for a typical F Prime project, these
 definitions are located at <code>config/FpConfig.fpp</code>.
 You don&#8217;t have to define header files for these types.</p>
 </div>
+<div class="paragraph">
+<p>Because the built-in types are encoded in the FPP model as abstract types,
+they are not <a href="#Defining-Components_Commands_Formal-Parameters">displayable types</a>.
+In a future version of FPP, we plan to encode these types as
+explicit aliases of primitive integer types.
+When we do this, the definitions will be known to FPP,
+and the types will be displayable.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Deployments">14.2. Implementing Deployments</h3>
@@ -12329,7 +12337,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-22 14:27:08 -0700
+Last updated 2024-08-22 14:46:04 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
