@@ -48,6 +48,7 @@ object Token {
   final case class GUARDED() extends Token
   final case class HEALTH() extends Token
   final case class HIGH() extends Token
+  final case class HOOK() extends Token
   final case class I16() extends Token
   final case class I32() extends Token
   final case class I64() extends Token

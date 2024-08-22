@@ -1,5 +1,6 @@
 # ----------------------------------------------------------------------
-# The FPP version
+# Internal ports
 # ----------------------------------------------------------------------
 
-export VERSION="Unreleased, after v2.1.0"
+@ An internal port with hook queue full behavior
+internal port internalHookDrop hook

@@ -1,5 +1,5 @@
 # ----------------------------------------------------------------------
-# The FPP version
+# Data product ports (async receive)
 # ----------------------------------------------------------------------
-
-export VERSION="Unreleased, after v2.1.0"
+@ Data product receive port with overflow hook
+async product recv port productRecvInHook hook

@@ -29,12 +29,14 @@ active()
   diff_template ActiveAsyncProductPortsOnly && \
   diff_template ActiveAsyncProducts && \
   diff_template ActiveCommands && \
+  diff_template ActiveOverflow && \
   diff_template ActiveEvents && \
   diff_template ActiveGetProducts && \
   diff_template ActiveGuardedProducts && \
   diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
   diff_template ActiveSerial && \
+  diff_template ActiveStateMachines && \
   diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
   diff_template ActiveTest
@@ -46,6 +48,7 @@ queued()
   diff_template QueuedAsyncProductPortsOnly && \
   diff_template QueuedAsyncProducts && \
   diff_template QueuedCommands && \
+  diff_template QueuedOverflow && \
   diff_template QueuedEvents && \
   diff_template QueuedGetProducts && \
   diff_template QueuedGuardedProducts && \
