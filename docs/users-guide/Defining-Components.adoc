@@ -1235,6 +1235,24 @@ Priority and queue full behavior are allowed only for
 Try changing one of the commands in the previous example
 to `sync` and see what `fpp-check` has to say about it.
 
+==== Displayable Types
+Displayable types are those that contain all the information that 
+the Ground Data System requires to display the type. 
+When defining a command, telemetry channel, event, or parameter,
+ensure that any types appearing in the specifier are displayable. 
+For more information about displayable types, see the https://nasa.github.io/fpp/fpp-spec.html[_The FPP Language Specification_].
+
+In the event a non-displayable type is used in a command, telemetry channel, event, or parameter, the FPP compiler will produce an error such as:
+
+----
+% fpp-check
+  async command C(a1: S)
+                      ^
+error: command parameter type must be displayable
+----
+In this example, the command formal parameter `a1` is not a displayable type. 
+
+
 === Events
 
 When defining an F Prime component, you may specify one or more events.
@@ -1521,6 +1539,10 @@ emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the
 https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F Prime User's Guide].
+
+==== Displayable Types
+For more information, see the section on 
+<<Defining-Components_Commands_Displayable-Types, displayable types>>.
 
 === Telemetry
 
@@ -1850,6 +1872,11 @@ has a numeric type; or (3) an array or struct type
 each of whose members satisfies condition (1) or
 condition (2).
 
+==== Displayable Types
+For more information, see the section on 
+<<Defining-Components_Commands_Displayable-Types, displayable types>>.
+
+
 === Parameters
 
 When defining an F Prime component, you may specify one or more
@@ -2158,6 +2185,11 @@ passive component ParamOpcodes {
 
 }
 ----
+
+==== Displayable Types
+For more information, see the section on 
+<<Defining-Components_Commands_Displayable-Types, displayable types>>.
+
 
 === Data Products
 

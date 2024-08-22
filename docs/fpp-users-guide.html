@@ -549,6 +549,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Commands_Formal-Parameters">9.5.2. Formal Parameters</a></li>
 <li><a href="#Defining-Components_Commands_Opcodes">9.5.3. Opcodes</a></li>
 <li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.4. Priority and Queue Full Behavior</a></li>
+<li><a href="#Defining-Components_Commands_Displayable-Types">9.5.5. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Events">9.6. Events</a>
@@ -557,6 +558,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</a></li>
 <li><a href="#Defining-Components_Events_Identifiers">9.6.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Events_Throttling">9.6.4. Throttling</a></li>
+<li><a href="#Defining-Components_Events_Displayable-Types">9.6.5. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a>
@@ -566,6 +568,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</a></li>
 <li><a href="#Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</a></li>
 <li><a href="#Defining-Components_Telemetry_Limits">9.7.5. Limits</a></li>
+<li><a href="#Defining-Components_Telemetry_Displayable-Types">9.7.6. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a>
@@ -574,6 +577,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Parameters_Default-Values">9.8.2. Default Values</a></li>
 <li><a href="#Defining-Components_Parameters_Identifiers">9.8.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</a></li>
+<li><a href="#Defining-Components_Parameters_Displayable-Types">9.8.5. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Data-Products">9.9. Data Products</a>
@@ -4951,6 +4955,30 @@ Try changing one of the commands in the previous example
 to <code>sync</code> and see what <code>fpp-check</code> has to say about it.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Displayable-Types">9.5.5. Displayable Types</h4>
+<div class="paragraph">
+<p>Displayable types are those that contain all the information that
+the Ground Data System requires to display the type.
+When defining a command, telemetry channel, event, or parameter,
+ensure that any types appearing in the specifier are displayable.
+For more information about displayable types, see the <a href="https://nasa.github.io/fpp/fpp-spec.html"><em>The FPP Language Specification</em></a>.</p>
+</div>
+<div class="paragraph">
+<p>In the event a non-displayable type is used in a command, telemetry channel, event, or parameter, the FPP compiler will produce an error such as:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>% fpp-check
+  async command C(a1: S)
+                      ^
+error: command parameter type must be displayable</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the command formal parameter <code>a1</code> is not a displayable type.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Events">9.6. Events</h3>
@@ -5265,6 +5293,13 @@ emit the event until the throttling is canceled.
 Typically, the canceling happens via a FSW command.
 For details, see the
 <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Events_Displayable-Types">9.6.5. Displayable Types</h4>
+<div class="paragraph">
+<p>For more information, see the section on
+<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
 </div>
 </div>
 </div>
@@ -5627,6 +5662,13 @@ each of whose members satisfies condition (1) or
 condition (2).</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="Defining-Components_Telemetry_Displayable-Types">9.7.6. Displayable Types</h4>
+<div class="paragraph">
+<p>For more information, see the section on
+<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Parameters">9.8. Parameters</h3>
@@ -5957,6 +5999,13 @@ passive component ParamOpcodes {
 
 }</code></pre>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Parameters_Displayable-Types">9.8.5. Displayable Types</h4>
+<div class="paragraph">
+<p>For more information, see the section on
+<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
 </div>
 </div>
 </div>
@@ -12294,7 +12343,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-19 18:15:30 -0700
+Last updated 2024-08-22 10:32:23 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
