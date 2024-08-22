@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,7 +162,6 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
-body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -328,7 +327,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -547,9 +546,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-Components_Commands_Basic-Commands">9.5.1. Basic Commands</a></li>
 <li><a href="#Defining-Components_Commands_Formal-Parameters">9.5.2. Formal Parameters</a></li>
-<li><a href="#Defining-Components_Commands_Opcodes">9.5.3. Opcodes</a></li>
-<li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.4. Priority and Queue Full Behavior</a></li>
-<li><a href="#Defining-Components_Commands_Displayable-Types">9.5.5. Displayable Types</a></li>
+<li><a href="#Defining-Components_Commands_Command-Ports">9.5.3. Command Ports</a></li>
+<li><a href="#Defining-Components_Commands_Opcodes">9.5.4. Opcodes</a></li>
+<li><a href="#Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.5. Priority and Queue Full Behavior</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Events">9.6. Events</a>
@@ -558,7 +557,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Events_Formal-Parameters">9.6.2. Formal Parameters</a></li>
 <li><a href="#Defining-Components_Events_Identifiers">9.6.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Events_Throttling">9.6.4. Throttling</a></li>
-<li><a href="#Defining-Components_Events_Displayable-Types">9.6.5. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Telemetry">9.7. Telemetry</a>
@@ -568,7 +566,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Telemetry_Update-Frequency">9.7.3. Update Frequency</a></li>
 <li><a href="#Defining-Components_Telemetry_Format-Strings">9.7.4. Format Strings</a></li>
 <li><a href="#Defining-Components_Telemetry_Limits">9.7.5. Limits</a></li>
-<li><a href="#Defining-Components_Telemetry_Displayable-Types">9.7.6. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Parameters">9.8. Parameters</a>
@@ -577,7 +574,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Components_Parameters_Default-Values">9.8.2. Default Values</a></li>
 <li><a href="#Defining-Components_Parameters_Identifiers">9.8.3. Identifiers</a></li>
 <li><a href="#Defining-Components_Parameters_Set-and-Save-Opcodes">9.8.4. Set and Save Opcodes</a></li>
-<li><a href="#Defining-Components_Parameters_Displayable-Types">9.8.5. Displayable Types</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Components_Data-Products">9.9. Data Products</a>
@@ -4746,9 +4742,26 @@ argument values.</p>
 <div class="paragraph">
 <p>The formal parameters of a command are the same
 as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
-that none of the parameters may be a
-<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.
-As an example, here is a <code>Switch</code> component that has
+for the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>None of the parameters may be a
+<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
+</li>
+<li>
+<p>Each parameter must have a <strong>displayable type</strong>, i.e., a
+type that the FPP ground data system knows how to display.
+For example, the type may not be an
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
+Nor may it be an array or struct type that has an abstract type
+as a member type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As an example, here is a <code>Switch</code> component that has
 two states, <code>ON</code> and <code>OFF</code>.
 The component has a <code>SET_STATE</code> command for
 setting the state.
@@ -4791,9 +4804,23 @@ active component Switch {
 }</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>In this example, the enum type <code>State</code> is a displayable type because
+its definition is known to FPP.
+Try replacing the enum definition with the
+abstract type definition <code>type S</code> and see what happens when
+you run the model through <code>fpp-check</code>.
+Remember to <a href="#Defining-Components_Special-Port-Instances_Command-Ports">provide
+stubs for the special command ports</a> that are required by
+<code>fpp-check</code>.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Opcodes">9.5.3. Opcodes</h4>
+<h4 id="Defining-Components_Commands_Command-Ports">9.5.3. Command Ports</h4>
+
+</div>
+<div class="sect3">
+<h4 id="Defining-Components_Commands_Opcodes">9.5.4. Opcodes</h4>
 <div class="paragraph">
 <p>Every command in an F Prime FSW application has an <strong>opcode</strong>.
 The opcode is a number that uniquely identifies the command.
@@ -4903,7 +4930,7 @@ active component DuplicateOpcode {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.4. Priority and Queue Full Behavior</h4>
+<h4 id="Defining-Components_Commands_Priority-and-Queue-Full-Behavior">9.5.5. Priority and Queue Full Behavior</h4>
 <div class="paragraph">
 <p>When specifying an async command, you may specify
 <a href="#Defining-Components_Port-Instances_Priority">priority</a> and
@@ -4953,30 +4980,6 @@ active component PriorityQueueFull {
 <code>async</code> commands.
 Try changing one of the commands in the previous example
 to <code>sync</code> and see what <code>fpp-check</code> has to say about it.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Defining-Components_Commands_Displayable-Types">9.5.5. Displayable Types</h4>
-<div class="paragraph">
-<p>Displayable types are those that contain all the information that
-the Ground Data System requires to display the type.
-When defining a command, telemetry channel, event, or parameter,
-ensure that any types appearing in the specifier are displayable.
-For more information about displayable types, see the <a href="https://nasa.github.io/fpp/fpp-spec.html"><em>The FPP Language Specification</em></a>.</p>
-</div>
-<div class="paragraph">
-<p>In the event a non-displayable type is used in a command, telemetry channel, event, or parameter, the FPP compiler will produce an error such as:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>% fpp-check
-  async command C(a1: S)
-                      ^
-error: command parameter type must be displayable</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this example, the command formal parameter <code>a1</code> is not a displayable type.</p>
 </div>
 </div>
 </div>
@@ -5094,10 +5097,9 @@ The argument values appear in the formatted text
 that describes the event.</p>
 </div>
 <div class="paragraph">
-<p>The formal parameters of an event are the same
-as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
-that none of the parameters may be a
-<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.
+<p>You specify the formal parameters of an event in the same
+way as for a <a href="#Defining-Components_Commands_Formal-Parameters">command
+specifier</a>.
 For each formal parameter, there must be a corresponding
 replacement field in the format string.
 The replacement fields for event format strings are the same as for
@@ -5295,13 +5297,6 @@ For details, see the
 <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F Prime User&#8217;s Guide</a>.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Defining-Components_Events_Displayable-Types">9.6.5. Displayable Types</h4>
-<div class="paragraph">
-<p>For more information, see the section on
-<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Telemetry">9.7. Telemetry</h3>
@@ -5329,7 +5324,9 @@ Here we concentrate on how to specify telemetry channels in FPP.</p>
 <p>The simplest telemetry channel consists of the keyword <code>telemetry</code>,
 a name, and a data type.
 The name is the name of the channel.
-The data type is the type of data carried on the channel.</p>
+The data type is the type of data carried on the channel.
+The data type must be a
+<a href="#Defining-Components_Commands_Formal-Parameters">displayable type</a>.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is an active component called <code>BasicTelemetry</code>
@@ -5662,13 +5659,6 @@ each of whose members satisfies condition (1) or
 condition (2).</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Defining-Components_Telemetry_Displayable-Types">9.7.6. Displayable Types</h4>
-<div class="paragraph">
-<p>For more information, see the section on
-<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="Defining-Components_Parameters">9.8. Parameters</h3>
@@ -5694,7 +5684,9 @@ Here we concentrate on how to specify parameters in FPP.</p>
 <p>The simplest parameter consists of the keyword <code>param</code>,
 a name, and a data type.
 The name is the name of the parameter.
-The data type is the type of data stored in the parameter.</p>
+The data type is the type of data stored in the parameter.
+The data type must be a
+<a href="#Defining-Components_Commands_Formal-Parameters">displayable type</a>.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is an active component called <code>BasicParams</code>
@@ -5999,13 +5991,6 @@ passive component ParamOpcodes {
 
 }</code></pre>
 </div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Defining-Components_Parameters_Displayable-Types">9.8.5. Displayable Types</h4>
-<div class="paragraph">
-<p>For more information, see the section on
-<a href="#Defining-Components_Commands_Displayable-Types">displayable types</a>.</p>
 </div>
 </div>
 </div>
@@ -12343,7 +12328,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-22 10:32:23 -0700
+Last updated 2024-08-22 14:10:20 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

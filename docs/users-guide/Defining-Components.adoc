@@ -1036,8 +1036,18 @@ argument values.
 
 The formal parameters of a command are the same
 as for a <<Defining-Ports_Formal-Parameters,port definition>>, except
-that none of the parameters may be a
+for the following:
+
+. None of the parameters may be a
 <<Defining-Ports_Reference-Parameters,reference parameter>>.
+
+. Each parameter must have a *displayable type*, i.e., a
+type that the FPP ground data system knows how to display.
+For example, the type may not be an 
+<<Defining-Types_Abstract-Type-Definitions,abstract type>>.
+Nor may it be an array or struct type that has an abstract type
+as a member type.
+
 As an example, here is a `Switch` component that has
 two states, `ON` and `OFF`.
 The component has a `SET_STATE` command for
@@ -1080,6 +1090,17 @@ active component Switch {
 
 }
 ----
+
+In this example, the enum type `State` is a displayable type because
+its definition is known to FPP.
+Try replacing the enum definition with the
+abstract type definition `type S` and see what happens when
+you run the model through `fpp-check`.
+Remember to <<Defining-Components_Special-Port-Instances_Command-Ports,provide 
+stubs for the special command ports>> that are required by
+`fpp-check`.
+
+==== Command Ports
 
 ==== Opcodes
 
@@ -1235,24 +1256,6 @@ Priority and queue full behavior are allowed only for
 Try changing one of the commands in the previous example
 to `sync` and see what `fpp-check` has to say about it.
 
-==== Displayable Types
-Displayable types are those that contain all the information that 
-the Ground Data System requires to display the type. 
-When defining a command, telemetry channel, event, or parameter,
-ensure that any types appearing in the specifier are displayable. 
-For more information about displayable types, see the https://nasa.github.io/fpp/fpp-spec.html[_The FPP Language Specification_].
-
-In the event a non-displayable type is used in a command, telemetry channel, event, or parameter, the FPP compiler will produce an error such as:
-
-----
-% fpp-check
-  async command C(a1: S)
-                      ^
-error: command parameter type must be displayable
-----
-In this example, the command formal parameter `a1` is not a displayable type. 
-
-
 === Events
 
 When defining an F Prime component, you may specify one or more events.
@@ -1349,10 +1352,9 @@ instance emits the event.
 The argument values appear in the formatted text
 that describes the event.
 
-The formal parameters of an event are the same
-as for a <<Defining-Ports_Formal-Parameters,port definition>>, except
-that none of the parameters may be a
-<<Defining-Ports_Reference-Parameters,reference parameter>>.
+You specify the formal parameters of an event in the same
+way as for a <<Defining-Components_Commands_Formal-Parameters,command 
+specifier>>.
 For each formal parameter, there must be a corresponding
 replacement field in the format string.
 The replacement fields for event format strings are the same as for
@@ -1540,10 +1542,6 @@ Typically, the canceling happens via a FSW command.
 For details, see the
 https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md[F Prime User's Guide].
 
-==== Displayable Types
-For more information, see the section on 
-<<Defining-Components_Commands_Displayable-Types, displayable types>>.
-
 === Telemetry
 
 When defining an F Prime component, you may specify one or more
@@ -1568,6 +1566,8 @@ The simplest telemetry channel consists of the keyword `telemetry`,
 a name, and a data type.
 The name is the name of the channel.
 The data type is the type of data carried on the channel.
+The data type must be a 
+<<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is an active component called `BasicTelemetry`
 with a few basic events.
@@ -1872,11 +1872,6 @@ has a numeric type; or (3) an array or struct type
 each of whose members satisfies condition (1) or
 condition (2).
 
-==== Displayable Types
-For more information, see the section on 
-<<Defining-Components_Commands_Displayable-Types, displayable types>>.
-
-
 === Parameters
 
 When defining an F Prime component, you may specify one or more
@@ -1899,6 +1894,8 @@ The simplest parameter consists of the keyword `param`,
 a name, and a data type.
 The name is the name of the parameter.
 The data type is the type of data stored in the parameter.
+The data type must be a 
+<<Defining-Components_Commands_Formal-Parameters,displayable type>>.
 
 As an example, here is an active component called `BasicParams`
 with a few basic parameters.
@@ -2185,11 +2182,6 @@ passive component ParamOpcodes {
 
 }
 ----
-
-==== Displayable Types
-For more information, see the section on 
-<<Defining-Components_Commands_Displayable-Types, displayable types>>.
-
 
 === Data Products
 
