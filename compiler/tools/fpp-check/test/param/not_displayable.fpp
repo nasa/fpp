@@ -15,5 +15,4 @@ active component Comp {
 
   param set port prmSetOut
 
-
 }
