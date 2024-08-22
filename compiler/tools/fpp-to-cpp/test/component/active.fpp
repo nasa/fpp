@@ -20,6 +20,16 @@ module M {
 
 }
 
+@ An active component with overflow behavior
+active component ActiveOverflow {
+  include "include/special_ports.fppi"
+  include "include/overflow_commands.fppi"
+  include "include/overflow_typed_ports.fppi"
+  include "include/overflow_product_ports.fppi"
+  include "include/overflow_serial_ports.fppi"
+  include "include/overflow_internal_ports.fppi"
+}
+
 @ An active component with serial ports
 active component ActiveSerial {
 

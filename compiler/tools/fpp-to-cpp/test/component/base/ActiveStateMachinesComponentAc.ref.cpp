@@ -119,7 +119,7 @@ ActiveStateMachinesComponentBase ::
 // ----------------------------------------------------------------------
 
 void ActiveStateMachinesComponentBase ::
-  stateMachineInvoke(const Fw::SMSignals& ev)
+  stateMachineInvoke(const Fw::SMSignals& sig)
 {
 
   ComponentIpcSerializableBuffer msg;
@@ -139,13 +139,13 @@ void ActiveStateMachinesComponentBase ::
     static_cast<FwAssertArgType>(_status)
   );
 
-  _status = msg.serialize(ev);
+  _status = msg.serialize(sig);
   FW_ASSERT(
     _status == Fw::FW_SERIALIZE_OK,
     static_cast<FwAssertArgType>(_status)
   );
 
-  const U32 smId = ev.getsmId();
+  const U32 smId = sig.getsmId();
   switch (smId) {
 
     case STATE_MACHINE_SM1: {
@@ -203,8 +203,13 @@ void ActiveStateMachinesComponentBase ::
 
     case STATE_MACHINE_SM5: {
       // Send message
-      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
+      Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
       Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+
+      if (qStatus == Os::Queue::QUEUE_FULL) {
+        this->sm5_stateMachineOverflowHook(sig);
+        return;
+      }
 
       FW_ASSERT(
         qStatus == Os::Queue::QUEUE_OK,
@@ -278,8 +283,8 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
 
     // Handle state machine signals 
     case STATEMACHINE_SENDSIGNALS: {
-      Fw::SMSignals ev;
-      deserStatus = msg.deserialize(ev);
+      Fw::SMSignals sig;
+      deserStatus = msg.deserialize(sig);
 
       FW_ASSERT(
         Fw::FW_SERIALIZE_OK == deserStatus,
@@ -294,29 +299,29 @@ Fw::QueuedComponentBase::MsgDispatchStatus ActiveStateMachinesComponentBase ::
       );
 
       // Update the state machine with the signal
-      switch (ev.getsmId()) {
+      switch (sig.getsmId()) {
         case STATE_MACHINE_SM1:
-          this->m_stateMachine_sm1.update(&ev);
+          this->m_stateMachine_sm1.update(&sig);
           break;
                   
         case STATE_MACHINE_SM2:
-          this->m_stateMachine_sm2.update(&ev);
+          this->m_stateMachine_sm2.update(&sig);
           break;
                   
         case STATE_MACHINE_SM3:
-          this->m_stateMachine_sm3.update(&ev);
+          this->m_stateMachine_sm3.update(&sig);
           break;
                   
         case STATE_MACHINE_SM4:
-          this->m_stateMachine_sm4.update(&ev);
+          this->m_stateMachine_sm4.update(&sig);
           break;
                   
         case STATE_MACHINE_SM5:
-          this->m_stateMachine_sm5.update(&ev);
+          this->m_stateMachine_sm5.update(&sig);
           break;
                   
         case STATE_MACHINE_SM6:
-          this->m_stateMachine_sm6.update(&ev);
+          this->m_stateMachine_sm6.update(&sig);
           break;
                   
       }

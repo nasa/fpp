@@ -41,13 +41,14 @@ active()
   diff_cpp ActiveAsyncProductPortsOnlyComponent && \
   diff_cpp ActiveAsyncProductsComponent && \
   diff_cpp ActiveCommandsComponent && \
+  diff_cpp ActiveOverflowComponent && \
   diff_cpp ActiveEventsComponent && \
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveNoArgsPortsOnlyComponent && \
-  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
+  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent
@@ -59,6 +60,7 @@ queued()
   diff_cpp QueuedAsyncProductPortsOnlyComponent && \
   diff_cpp QueuedAsyncProductsComponent && \
   diff_cpp QueuedCommandsComponent && \
+  diff_cpp QueuedOverflowComponent && \
   diff_cpp QueuedEventsComponent && \
   diff_cpp QueuedGetProductsComponent && \
   diff_cpp QueuedGuardedProductsComponent && \

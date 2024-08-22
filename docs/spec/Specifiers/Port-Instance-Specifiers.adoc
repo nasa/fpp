@@ -54,6 +54,8 @@ _queue-full-behavior_ is one of the following:
 
 . `drop`
 
+. `hook`
+
 _special-port-input-kind_ is one of the following:
 
 . `async`
@@ -149,6 +151,8 @@ message is received and the queue is full:
 space on the queue for the message.
 
 .. `drop` means that the message is dropped.
+
+.. `hook` means that the message is passed to a user-supplied hook function.
 
 +
 This specifier is valid only for `async input` ports.

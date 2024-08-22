@@ -2,4 +2,4 @@
 # The FPP version
 # ----------------------------------------------------------------------
 
-export VERSION="State Machines"
+export VERSION="Unreleased, after v2.1.0"

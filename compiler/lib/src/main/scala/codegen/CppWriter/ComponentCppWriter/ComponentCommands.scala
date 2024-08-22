@@ -54,7 +54,8 @@ case class ComponentCommands (
     List(
       getHandlers,
       getHandlerBases,
-      getPreMsgHooks
+      getPreMsgHooks,
+      getOverflowHooks,
     ).flatten
   }
 
@@ -185,7 +186,14 @@ case class ComponentCommands (
                     )
                   )
                 ),
-                writeSendMessageLogic("msg", queueFull, priority)
+                writeSendMessageLogic(
+                  "msg",
+                  queueFull,
+                  priority,
+                  MessageType.Command,
+                  cmd.getName,
+                  opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
+                )
               )
             )
             case _ => intersperseBlankLines(
@@ -317,5 +325,24 @@ case class ComponentCommands (
       )
     )
   }
+
+  private def getOverflowHooks: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      """|Overflow hooks for async commands
+         |
+         |Each of these functions is invoked after an overflow event
+         |on a queue when the command is marked with 'hook' overflow
+         |behavior.
+         |""",
+      hookCmds.map(
+        (opcode, cmd) => getVirtualOverflowHook(
+          cmd.getName,
+          MessageType.Command,
+          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
 
 }

@@ -44,7 +44,7 @@
     "connections" "cpu" "default" "diagnostic" "do"
     "drop" "else" "entry" "event" "exit"
     "false" "fatal" "format" "get" "guard"
-    "guarded" "health" "high" "id" "if" "import"
+    "guarded" "health" "high" "hook" "id" "if" "import"
     "include" "initial" "input" "internal" "junction"
     "locate" "low" "match"  "on"  "opcode" "orange"
     "output" "param" "passive" "phase"  "priority"

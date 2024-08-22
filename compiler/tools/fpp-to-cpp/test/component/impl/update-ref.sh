@@ -29,12 +29,14 @@ active()
   move_template ActiveAsyncProductPortsOnly
   move_template ActiveAsyncProducts
   move_template ActiveCommands
+  move_template ActiveOverflow
   move_template ActiveEvents
   move_template ActiveGetProducts
   move_template ActiveGuardedProducts
   move_template ActiveNoArgsPortsOnly
   move_template ActiveParams
   move_template ActiveSerial
+  move_template ActiveStateMachines
   move_template ActiveSyncProducts
   move_template ActiveTelemetry
   move_template ActiveTest
@@ -46,6 +48,7 @@ queued()
   move_template QueuedAsyncProductPortsOnly
   move_template QueuedAsyncProducts
   move_template QueuedCommands
+  move_template QueuedOverflow
   move_template QueuedEvents
   move_template QueuedGetProducts
   move_template QueuedGuardedProducts
