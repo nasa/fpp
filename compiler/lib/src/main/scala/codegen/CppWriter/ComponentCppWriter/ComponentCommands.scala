@@ -192,7 +192,7 @@ case class ComponentCommands (
                   priority,
                   MessageType.Command,
                   cmd.getName,
-                  opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
+                  opcodeParam :: cmdSeqParam :: Nil
                 )
               )
             )
@@ -339,7 +339,7 @@ case class ComponentCommands (
         functionClassMember(
           Some(s"Overflow hook for command ${cmd.getName}"),
           inputOverflowHookName(cmd.getName, MessageType.Command),
-          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+          opcodeParam :: cmdSeqParam :: Nil,
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual

@@ -631,27 +631,13 @@ abstract class ComponentCppWriterUtils(
                |}
                |"""
           )
-          case Ast.QueueFull.Hook => {
-            messageType match {
-              case MessageType.Command =>
-                lines(
-                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-                      |  // TODO: Deserialize command arguments and call the hook
-                      |  // this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
-                      |  return;
-                      |}
-                      |"""
-                )
-              case _ =>
-                lines(
-                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-                      |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
-                      |  return;
-                      |}
-                      |"""
-                )
-            }
-          }
+          case Ast.QueueFull.Hook => lines(
+            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
+                |  return;
+                |}
+                |"""
+          )
           case _ => Nil
         }
         ,
