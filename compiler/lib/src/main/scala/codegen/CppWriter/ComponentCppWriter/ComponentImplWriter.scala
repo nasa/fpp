@@ -61,7 +61,8 @@ case class ComponentImplWriter(
   private def getClassMembers: List[CppDoc.Class.Member] = {
     List.concat(
       getPublicMembers,
-      getHandlers
+      getHandlers,
+      getOverflowHooks
     )
   }
 
@@ -173,6 +174,62 @@ case class ComponentImplWriter(
           portNumParam :: getPortFunctionParams(p),
           getPortReturnTypeAsCppDocType(p),
           lines(todoMsg),
+          CppDoc.Function.Override
+        )
+      })
+    )
+  }
+private def getOverflowHooks: List[CppDoc.Class.Member] = {
+  List.concat(
+    getPortOverflowHooks(
+      List.concat(
+        typedHookPorts,
+        serialHookPorts,
+        dataProductHookPorts,
+      )
+    ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for internal ports",
+      internalHookPorts.map(p => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      })
+    ),
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for 'hook' commands",
+      hookCmds.map((opcode, cmd) => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${cmd.getName}"),
+          inputOverflowHookName(cmd.getName, MessageType.Command),
+          opcodeParam :: cmdSeqParam :: Nil,
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      })
+    )
+  )
+}
+
+private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for 'hook' input ports",
+      ports.map(p => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// TODO"),
           CppDoc.Function.Override
         )
       })

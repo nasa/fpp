@@ -665,6 +665,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "guarded",
     "health",
     "high",
+    "hook",
     "id",
     "import",
     "include",

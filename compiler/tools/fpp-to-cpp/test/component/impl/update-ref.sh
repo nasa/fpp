@@ -29,6 +29,7 @@ active()
   move_template ActiveAsyncProductPortsOnly
   move_template ActiveAsyncProducts
   move_template ActiveCommands
+  move_template ActiveOverflow
   move_template ActiveEvents
   move_template ActiveGetProducts
   move_template ActiveGuardedProducts
@@ -46,6 +47,7 @@ queued()
   move_template QueuedAsyncProductPortsOnly
   move_template QueuedAsyncProducts
   move_template QueuedCommands
+  move_template QueuedOverflow
   move_template QueuedEvents
   move_template QueuedGetProducts
   move_template QueuedGuardedProducts

@@ -44,7 +44,7 @@ case class TopConfigObjects(
         flattenWithBlankPrefix(
           pairs.map {
             case (ci, code) => wrapInNamespace(
-              getNameAsIdent(ci.qualifiedName),
+              CppWriter.identFromQualifiedName(ci.qualifiedName),
               code
             )
           }
@@ -77,7 +77,7 @@ case class TopConfigObjects(
         flattenWithBlankPrefix(
           pairs.map {
             case (ci, code) => wrapInNamespace(
-              getNameAsIdent(ci.qualifiedName),
+              CppWriter.identFromQualifiedName(ci.qualifiedName),
               code
             )
           }
@@ -99,7 +99,7 @@ case class TopConfigObjects(
         // Entry for connected port
         case Some(ci) =>
           val name = ci.qualifiedName
-          val ident = getNameAsIdent(name)
+          val ident = CppWriter.identFromQualifiedName(name)
           List(
             s"PingEntries::$ident::WARN,",
             s"PingEntries::$ident::FATAL,",

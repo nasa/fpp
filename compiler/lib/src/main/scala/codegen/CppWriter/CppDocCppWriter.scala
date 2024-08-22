@@ -161,6 +161,9 @@ object CppDocCppWriter extends CppDocWriter {
 
   override def visitNamespace(in: Input, namespace: CppDoc.Namespace) =
     namespace.members.flatMap(visitNamespaceMember(in, _)) match {
+      // If the namespace has no members, then don't write it out.
+      // This can happen where a namespace member has members
+      // that write code to some cpp files and not others.
       case Nil => Nil
       case outputLines =>
         val name = namespace.name
