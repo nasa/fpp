@@ -1104,8 +1104,6 @@ Remember to <<Defining-Components_Special-Port-Instances_Command-Ports,provide
 stubs for the special command ports>> that are required by
 `fpp-check`.
 
-==== Command Ports
-
 ==== Opcodes
 
 Every command in an F Prime FSW application has an *opcode*.
