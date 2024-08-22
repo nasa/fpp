@@ -37,7 +37,7 @@ object Event {
       }
       for {
         _ <- checkRefParams(data.params)
-        _ <- a.checkDisplayableParams(data.params, "event parameter type must be displayable")
+        _ <- a.checkDisplayableParams(data.params, "type of event parameter must be displayable")
         format <- Analysis.computeFormat(
           data.format,
           data.params.map(aNode => a.typeMap(aNode._2.data.typeName.id))

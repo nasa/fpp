@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/param/not_displayable.fpp:12.12
   param P: A
            ^
-error: parameter type must be displayable
+error: type of parameter must be displayable

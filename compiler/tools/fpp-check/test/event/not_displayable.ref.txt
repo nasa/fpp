@@ -2,4 +2,4 @@ fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/event/not_displayable.fpp:12.14
   event E(x: A) \
              ^
-error: event parameter type must be displayable
+error: type of event parameter must be displayable
