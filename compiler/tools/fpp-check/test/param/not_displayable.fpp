@@ -3,7 +3,7 @@ module Fw {
   port PrmSet
 }
 
-type A
+type T
 
 active component Comp {
 
@@ -11,6 +11,6 @@ active component Comp {
 
   param set port prmSetOut
 
-  param P: A
+  param P: T
 
 }

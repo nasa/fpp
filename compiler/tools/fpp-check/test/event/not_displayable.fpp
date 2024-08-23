@@ -4,7 +4,7 @@ module Fw {
   port Time
 }
 
-type A
+type T
 
 active component C {
 
@@ -12,6 +12,6 @@ active component C {
   event port logOut
   text event port logTextOut
 
-  event E(x: A) severity activity low format "{}"
+  event E(x: T) severity activity low format "{}"
 
 }

@@ -4,10 +4,10 @@ module Fw {
   port CmdResponse
 }
 
-type A
+type T
 
 struct S {
-  x: A
+  x: T
   y: U32
 } default { y = 1 }
 

@@ -5,11 +5,11 @@ fpp-check
 error: type of command parameter is not displayable
 
 [ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:10.6
-  x: A
+  x: T
      ^
 because this type is not displayable
 
 [ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:7.1
-type A
+type T
 ^
 Type is defined here
