@@ -341,7 +341,7 @@ case class Analysis(
     }
   }
 
-  /** Gets the reason for a non-displayable type 
+  /** Gets the reason for a non-displayable type at an AST node id
    *
    *  The id must identify an AST node with a non-displayable type,
    *  or the function will intentionally crash. */
