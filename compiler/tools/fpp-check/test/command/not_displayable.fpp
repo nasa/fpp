@@ -1,9 +1,7 @@
 module Fw {
-
   port Cmd
   port CmdReg
   port CmdResponse
-
 }
 
 type A
@@ -15,10 +13,10 @@ struct S {
 
 active component Comp {
 
-  async command C(a1: S)
-
   command recv port cmdIn
   command reg port cmdRegOut
   command resp port cmdResponseOut
+
+  async command C(a1: S)
 
 }

@@ -1,5 +1,10 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/param/not_displayable.fpp:12.12
+[ local path prefix ]/compiler/tools/fpp-check/test/param/not_displayable.fpp:14.12
   param P: A
            ^
-error: type of parameter must be displayable
+error: type of parameter is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/param/not_displayable.fpp:6.1
+type A
+^
+Type is defined here
