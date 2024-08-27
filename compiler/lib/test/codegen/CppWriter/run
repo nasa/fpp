@@ -16,6 +16,7 @@ tests="
 cpp_doc_ok
 "
 
+scala --version
 echo 'compiling Scala source'
 if ./build > build_log.txt 2>&1
 then
