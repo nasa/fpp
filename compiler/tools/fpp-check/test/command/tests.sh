@@ -10,6 +10,7 @@ duplicate_opcode_implicit
 duplicate_param
 missing_ports
 negative_opcode
+not_displayable
 ok
 ref_params
 sync_priority

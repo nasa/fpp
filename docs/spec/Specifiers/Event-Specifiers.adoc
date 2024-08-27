@@ -36,6 +36,8 @@ _severity_ is one of the following:
 * _severity_ specifies the severity of the event.
 
 * The parameter list specifies the event parameters.
+If there are event parameters, each parameter must be
+a <<Types_Displayable-Types,displayable type>>.
 If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 

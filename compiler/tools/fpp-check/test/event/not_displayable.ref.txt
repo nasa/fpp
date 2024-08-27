@@ -1,0 +1,10 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/event/not_displayable.fpp:15.14
+  event E(x: T) severity activity low format "{}"
+             ^
+error: type of event is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/event/not_displayable.fpp:7.1
+type T
+^
+Type is defined here
