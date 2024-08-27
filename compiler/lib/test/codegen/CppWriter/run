@@ -14,19 +14,21 @@ tests="
 cpp_doc_ok
 "
 
-# As of scala 3.5.0, the runner has changed
-if scala --version 2>&1 | grep -q 'Scala code runner version:'
+echo 'compiling Scala source'
+if ! ./build > build_log.txt 2>&1
 then
-  echo 'installed scala version is incompatible with this test'
+  echo 'compilation failed'
+  echo 'scalac version 2.13.1 or greater required'
+  echo 'see build_log.txt' for details
   exit 0
 fi
 
-echo 'compiling Scala source'
-if ./build > build_log.txt 2>&1
+if ! ./hpp > hpp_log.txt 2>&1
 then
-  run_suite $tests
-else
-  echo 'compilation failed'
-  echo 'scalac version 2.13.1 or greater required'
-  echo 'see build_log.txt for details'
+  echo 'cannot run hpp'
+  echo 'scala version 3.4 or earlier is required'
+  echo 'see hpp_log.txt' for details
+  exit 0
 fi
+
+run_suite $tests
