@@ -15,7 +15,7 @@ case class CheckUsesHelpers[A,NG,S <: SymbolInterface](
 
   /** Get the symbol for a name from the environment */
   def getSymbolForName
-    (mapping: Name.Unqualified => Option[S]) 
+    (mapping: Name.Unqualified => Option[S])
     (id: AstNode.Id, name: Name.Unqualified): Result.Result[S] =
     mapping(name).map(Right(_)).getOrElse({
       val loc = Locations.get(id)
