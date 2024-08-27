@@ -1,12 +1,14 @@
 #!/bin/sh
 
+cd `dirname $0`
+
 . ../../../../scripts/test-utils.sh
 
 cpp_doc_ok()
 {
-  ./hpp > C.hpp && \
-  ./cpp > C.cpp && \
-  ./otherCpp > Other.cpp && \
+  ./gen_hpp > C.hpp && \
+  ./gen_cpp > C.cpp && \
+  ./gen_otherCpp > Other.cpp && \
   gcc -c C.cpp Other.cpp
 }
 
