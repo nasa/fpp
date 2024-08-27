@@ -4854,9 +4854,26 @@ argument values.</p>
 <div class="paragraph">
 <p>The formal parameters of a command are the same
 as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
-that none of the parameters may be a
-<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.
-As an example, here is a <code>Switch</code> component that has
+for the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>None of the parameters may be a
+<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.</p>
+</li>
+<li>
+<p>Each parameter must have a <strong>displayable type</strong>, i.e., a
+type that the F Prime ground data system knows how to display.
+For example, the type may not be an
+<a href="#Defining-Types_Abstract-Type-Definitions">abstract type</a>.
+Nor may it be an array or struct type that has an abstract type
+as a member type.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As an example, here is a <code>Switch</code> component that has
 two states, <code>ON</code> and <code>OFF</code>.
 The component has a <code>SET_STATE</code> command for
 setting the state.
@@ -4898,6 +4915,16 @@ active component Switch {
 
 }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>In this example, the enum type <code>State</code> is a displayable type because
+its definition is known to FPP.
+Try replacing the enum definition with the
+abstract type definition <code>type S</code> and see what happens when
+you run the model through <code>fpp-check</code>.
+Remember to <a href="#Defining-Components_Special-Port-Instances_Command-Ports">provide
+stubs for the special command ports</a> that are required by
+<code>fpp-check</code>.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5178,10 +5205,9 @@ The argument values appear in the formatted text
 that describes the event.</p>
 </div>
 <div class="paragraph">
-<p>The formal parameters of an event are the same
-as for a <a href="#Defining-Ports_Formal-Parameters">port definition</a>, except
-that none of the parameters may be a
-<a href="#Defining-Ports_Reference-Parameters">reference parameter</a>.
+<p>You specify the formal parameters of an event in the same
+way as for a <a href="#Defining-Components_Commands_Formal-Parameters">command
+specifier</a>.
 For each formal parameter, there must be a corresponding
 replacement field in the format string.
 The replacement fields for event format strings are the same as for
@@ -5406,7 +5432,9 @@ Here we concentrate on how to specify telemetry channels in FPP.</p>
 <p>The simplest telemetry channel consists of the keyword <code>telemetry</code>,
 a name, and a data type.
 The name is the name of the channel.
-The data type is the type of data carried on the channel.</p>
+The data type is the type of data carried on the channel.
+The data type must be a
+<a href="#Defining-Components_Commands_Formal-Parameters">displayable type</a>.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is an active component called <code>BasicTelemetry</code>
@@ -5764,7 +5792,9 @@ Here we concentrate on how to specify parameters in FPP.</p>
 <p>The simplest parameter consists of the keyword <code>param</code>,
 a name, and a data type.
 The name is the name of the parameter.
-The data type is the type of data stored in the parameter.</p>
+The data type is the type of data stored in the parameter.
+The data type must be a
+<a href="#Defining-Components_Commands_Formal-Parameters">displayable type</a>.</p>
 </div>
 <div class="paragraph">
 <p>As an example, here is an active component called <code>BasicParams</code>
@@ -11915,6 +11945,9 @@ These are types that are named in the FPP model but are defined
 directly in C&#43;&#43;.</p>
 </li>
 <li>
+<p>Implementations of <a href="#Defining-State-Machines_External-State-Machines">external state machines</a>.</p>
+</li>
+<li>
 <p>Implementations of
 <a href="#Defining-Components">components</a>.</p>
 </li>
@@ -12114,6 +12147,14 @@ It also provides the corresponding abstract type definitions
 in the FPP model; for a typical F Prime project, these
 definitions are located at <code>config/FpConfig.fpp</code>.
 You don&#8217;t have to define header files for these types.</p>
+</div>
+<div class="paragraph">
+<p>Because the built-in types are encoded in the FPP model as abstract types,
+they are not <a href="#Defining-Components_Commands_Formal-Parameters">displayable types</a>.
+In a future version of FPP, we plan to encode these types as
+explicit aliases of primitive integer types.
+When we do this, the definitions will be known to FPP,
+and the types will be displayable.</p>
 </div>
 </div>
 <div class="sect2">
@@ -12489,7 +12530,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-22 12:52:19 -0700
+Last updated 2024-08-27 14:20:30 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

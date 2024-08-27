@@ -860,8 +860,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Types_Internal-Types_Anonymous-Struct-Types">17.11.5. Anonymous Struct Types</a></li>
 </ul>
 </li>
-<li><a href="#Types_Types-with-Numeric-Members">17.12. Types with Numeric Members</a></li>
-<li><a href="#Types_Default-Values">17.13. Default Values</a></li>
+<li><a href="#Types_Displayable-Types">17.12. Displayable Types</a></li>
+<li><a href="#Types_Types-with-Numeric-Members">17.13. Types with Numeric Members</a></li>
+<li><a href="#Types_Default-Values">17.14. Default Values</a></li>
 </ul>
 </li>
 <li><a href="#Type-Checking">18. Type Checking</a>
@@ -4388,6 +4389,8 @@ on the same port can have different kinds.</p>
 </li>
 <li>
 <p>The parameter list specifies the command parameters.
+If there are command parameters, each parameter must be
+a <a href="#Types_Displayable-Types">displayable type</a>.
 If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
@@ -4998,6 +5001,8 @@ product container Container2 default priority 10</code></pre>
 </li>
 <li>
 <p>The parameter list specifies the event parameters.
+If there are event parameters, each parameter must be
+a <a href="#Types_Displayable-Types">displayable type</a>.
 If there are no parameters, the list may be omitted.
 <code>ref</code> may not appear in any of the parameters.</p>
 </li>
@@ -5549,7 +5554,8 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 <p>The identifier names the parameter.</p>
 </li>
 <li>
-<p>The type name specifies the type <em>T</em> of the parameter.</p>
+<p>The type name specifies the type <em>T</em> of the parameter.
+<em>T</em> must be a <a href="#Types_Displayable-Types">displayable type</a>.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> following the keyword <code>default</code>
@@ -6314,7 +6320,8 @@ A telemetry limit is one of the following:</p>
 <p>The identifier names the telemetry channel.</p>
 </li>
 <li>
-<p>The type name specifies the type of the telemetry channel.</p>
+<p>The type name specifies the type <em>T</em> of the telemetry channel.
+<em>T</em> must be a <a href="#Types_Displayable-Types">displayable type</a>.</p>
 </li>
 <li>
 <p>The optional expression <em>e</em> after the keyword <code>id</code> specifies the
@@ -8510,7 +8517,38 @@ type as <code>{ b : F32, a: U32 }</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Types-with-Numeric-Members">17.12. Types with Numeric Members</h3>
+<h3 id="Types_Displayable-Types">17.12. Displayable Types</h3>
+<div class="paragraph">
+<p>A type is a <strong>displayable type</strong> if it is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A <a href="#Types_Primitive-Integer-Types">primitive integer type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_Floating-Point-Types">floating-point type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_The-Boolean-Type">boolean type</a>.</p>
+</li>
+<li>
+<p>A <a href="#Types_String-Types">string type</a>.</p>
+</li>
+<li>
+<p>An <a href="#Types_Enum-Types">enum type</a>.</p>
+</li>
+<li>
+<p>An <a href="#Types_Array-Types">array type</a> whose member type is a displayable type.</p>
+</li>
+<li>
+<p>A <a href="#Types_Struct-Types">struct type</a> whose member types are all displayable types.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Types_Types-with-Numeric-Members">17.13. Types with Numeric Members</h3>
 <div class="paragraph">
 <p>A type <strong>has numeric members</strong> if it is one of the following:</p>
 </div>
@@ -8533,7 +8571,7 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Default-Values">17.13. Default Values</h3>
+<h3 id="Types_Default-Values">17.14. Default Values</h3>
 <div class="paragraph">
 <p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
@@ -9747,7 +9785,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-22 12:51:42 -0700
+Last updated 2024-08-27 14:18:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
