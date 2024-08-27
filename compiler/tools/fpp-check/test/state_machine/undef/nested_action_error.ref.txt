@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_action_error.fpp:4.18
+    initial do { a } enter T
+                 ^
+error: undefined symbol a

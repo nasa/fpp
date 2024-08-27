@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/guard_error.fpp:4.19
+  junction J { if g enter S else enter S }
+                  ^
+error: undefined symbol g

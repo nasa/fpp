@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/signal_error.fpp:3.16
+  state S { on s enter S }
+               ^
+error: undefined symbol s

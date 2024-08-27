@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/junction_error.fpp:3.17
+  initial enter J
+                ^
+error: undefined symbol J

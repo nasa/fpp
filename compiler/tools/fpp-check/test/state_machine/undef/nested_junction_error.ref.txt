@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/nested_junction_error.fpp:6.19
+    initial enter J
+                  ^
+error: undefined symbol J
