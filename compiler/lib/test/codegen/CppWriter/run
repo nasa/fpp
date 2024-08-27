@@ -14,13 +14,6 @@ tests="
 cpp_doc_ok
 "
 
-# As of scala 3.5.0, the runner has changed
-if scala --version 2>&1 | grep -q 'Scala code runner version:'
-then
-  echo 'installed scala version is incompatible with this test'
-  exit 0
-fi
-
 echo 'compiling Scala source'
 if ./build > build_log.txt 2>&1
 then
