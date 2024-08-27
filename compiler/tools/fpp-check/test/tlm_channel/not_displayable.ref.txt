@@ -1,0 +1,30 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:19.16
+  telemetry C: S1
+               ^
+error: type of telemetry channel is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:6.16
+struct S1 { x: S2 }
+               ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:8.16
+struct S2 { x: A1 }
+               ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:10.16
+array A1 = [3] A2
+               ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:12.16
+array A2 = [3] T
+               ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/tlm_channel/not_displayable.fpp:14.1
+type T
+^
+Type is defined here

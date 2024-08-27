@@ -343,6 +343,55 @@ case class Analysis(
     }
   }
 
+  /** Gets the reason for a non-displayable type at an AST node id
+   *
+   *  The id must identify an AST node with a non-displayable type,
+   *  or the function will intentionally crash. */
+  def getReasonForNonDisplayableTypeAt(id: AstNode.Id): String = {
+    def getElementReason(id: AstNode.Id): String = {
+      val reason = getReasonForNonDisplayableTypeAt(id)
+      s"\n\n${Locations.get(id)}\nbecause this type is not displayable$reason"
+    }
+    this.typeMap(id) match {
+      case a: Type.Array =>
+        val id = a.node._2.data.eltType.id
+        getElementReason(id)
+      case s: Type.Struct =>
+        val idOpt = s.node._2.data.members.map(_._2.data.typeName.id).find(
+          id => !this.typeMap(id).isDisplayable
+        )
+        idOpt.map(getElementReason).getOrElse(
+          throw new InternalError(
+            "a non-displayable struct type must have a non-displayable member type"
+          )
+        )
+      case t =>
+        t.getDefNodeId.map(id => s"\n\n${Locations.get(id)}\nType is defined here").getOrElse(
+          throw new InternalError(
+            "a non-displayable type at an AST node ID must have a definition"
+          )
+        )
+    }
+  }
+
+  /** Checks for a displayable type */
+  def checkDisplayableType(id: AstNode.Id, errorMsg: String): Result.Result[Unit] = {
+    val loc = Locations.get(id)
+    val t = this.typeMap(id)
+    if (t.isDisplayable) Right(())
+    else {
+      val reason = getReasonForNonDisplayableTypeAt(id)
+      Left(SemanticError.InvalidType(loc, s"$errorMsg$reason"))
+    }
+  }
+
+  /** Checks that all parameters in a formal param list are displayable */
+  def checkDisplayableParams(nodes: Ast.FormalParamList, errorMsg: String): Result.Result[Unit] = {
+    Result.foldLeft (nodes) (()) ((result, aNode) =>
+      checkDisplayableType(aNode._2.data.typeName.id, errorMsg)
+    )
+  }
+  
 }
 
 object Analysis {

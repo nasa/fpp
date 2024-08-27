@@ -12,5 +12,6 @@ format_too_many_repls
 limit_not_numeric
 missing_ports
 negative_id
+not_displayable
 ok
 "

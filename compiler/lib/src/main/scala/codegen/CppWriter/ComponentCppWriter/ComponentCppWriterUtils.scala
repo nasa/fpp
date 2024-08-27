@@ -639,8 +639,7 @@ abstract class ComponentCppWriterUtils(
               |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
               |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
               |"""
-        )
-        ,
+        ),
         queueFull match {
           case Ast.QueueFull.Drop => lines(
             """|if (qStatus == Os::Queue::QUEUE_FULL) {
@@ -649,31 +648,15 @@ abstract class ComponentCppWriterUtils(
                |}
                |"""
           )
-          case Ast.QueueFull.Hook => {
-            val hookCall = s"this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")})"
-            messageType match {
-              case MessageType.Command =>
-                lines(
-                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-                      |  // TODO: Deserialize command arguments and call the hook
-                      |  // $hookCall;
-                      |  return;
-                      |}
-                      |"""
-                )
-              case _ =>
-                lines(
-                  s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
-                      |  $hookCall;
-                      |  return;
-                      |}
-                      |"""
-                )
-            }
-          }
+          case Ast.QueueFull.Hook => lines(
+            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+                |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
+                |  return;
+                |}
+                |"""
+          )
           case _ => Nil
-        }
-        ,
+        },
         lines(
           """|FW_ASSERT(
              |  qStatus == Os::Queue::QUEUE_OK,

@@ -184,4 +184,36 @@ class TypeSpec extends AnyWordSpec {
     }
   }
 
+  "displayable type" should {
+    val displayable = List(
+      I32,
+      F32,
+      Boolean,
+      String(None),
+      defaultEnum,
+      defaultArray,
+      defaultStruct,
+      array("A1", AnonArray(None, array("A2", AnonArray(None, I32)))),
+      struct("S1", AnonStruct(Map("x" -> I32)))
+    )
+    val notDisplayable = List(
+      Integer,
+      AnonArray(None, I32),
+      AnonStruct(Map()),
+      defaultAbsType,
+      array("A3", AnonArray(None, defaultAbsType)),
+      array("A4", AnonArray(None, array("A5", AnonArray(None, defaultAbsType)))),
+      struct("S2", AnonStruct(Map("x" -> defaultAbsType))),
+      struct("S3", AnonStruct(Map("x" -> struct("S4", AnonStruct(Map("x" -> defaultAbsType))))))
+    )
+    displayable.foreach {
+      ty => s"be true for $ty" in
+      assert(ty.isDisplayable)
+    }
+    notDisplayable.foreach {
+      ty => s"be false for $ty" in
+      assert(!ty.isDisplayable)
+    }
+  }
+
 }
