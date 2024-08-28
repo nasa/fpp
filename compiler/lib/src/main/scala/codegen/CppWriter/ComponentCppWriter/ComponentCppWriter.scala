@@ -412,7 +412,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, _) => line(s"m_stateMachine_$name.init();")),
+        smInstancesByName.map((name, _) => line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),

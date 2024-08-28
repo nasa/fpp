@@ -1,0 +1,16 @@
+
+@startuml
+
+[*] --> ON
+
+state ON {
+    ON:Entry: turnLedOn()
+}
+
+state OFF {
+    OFF:Entry: turnLedOff()
+}
+
+ON --> OFF : RTI
+OFF --> ON : RTI
+@enduml

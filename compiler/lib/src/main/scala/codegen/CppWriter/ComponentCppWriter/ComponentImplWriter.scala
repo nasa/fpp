@@ -221,14 +221,17 @@ case class ComponentImplWriter(
         "PRIVATE",
         "Overflow hook implementations for state machines",
         stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-          smi => functionClassMember(
+          smi => {
+            val smName = smi.symbol.getUnqualifiedName
+            functionClassMember(
             Some(s"Overflow hook implementation for ${smi.getName}"),
             inputOverflowHookName(smi.getName, MessageType.StateMachine),
-            ComponentStateMachines.signalParams,
+            ComponentStateMachines.signalParams(smName),
             CppDoc.Type("void"),
             lines("// TODO"),
             CppDoc.Function.Override
           )
+          }
         )
       )
     )

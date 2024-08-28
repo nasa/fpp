@@ -29,7 +29,10 @@ ActiveStateMachines ::
 // ----------------------------------------------------------------------
 
 void ActiveStateMachines ::
-  sm5_stateMachineOverflowHook(const Fw::SMSignals& sig)
+  sm5_stateMachineOverflowHook(
+      const S2_Interface::S2Events signal,
+      const Fw::SMSignalBuffer& data
+  )
 {
   // TODO
 }
