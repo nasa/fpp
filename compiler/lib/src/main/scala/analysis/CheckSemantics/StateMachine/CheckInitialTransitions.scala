@@ -37,7 +37,7 @@ object CheckInitialTransitions
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) = {
-    // Check that aNode leads to a state machine or junction 
+    // Check that aNode leads to a state machine or junction
     // with the same parent symbol as sma
     val destId = aNode._2.data.transition.destination.id
     val destSymbol = sma.useDefMap(destId)
@@ -141,7 +141,7 @@ object CheckInitialTransitions
         // Recursively check junction destinations
         visitedSymbols <- destSymbol match {
           // Junction: check it
-          case StateMachineSymbol.Junction(aNode) => 
+          case StateMachineSymbol.Junction(aNode) =>
             for {
               // Recursively check the if transition
               visitedSymbols <- {
