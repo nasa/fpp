@@ -46,22 +46,13 @@ object CheckInitialTransitions
     then Right(sma)
     else {
       val loc = Locations.get(aNode._2.id)
-      val context = sma.parentSymbol match {
-        case Some(symbol) => (
-          s"in state ${symbol.getUnqualifiedName}",
-          "in same state"
-        )
-        case None => (
-          s"at top level of state machine",
-          "at top level"
-        )
+      val msg = sma.parentSymbol match {
+        case Some(symbol) =>
+          s"initial transition of state must go to state or junction defined in the same state"
+        case None =>
+          s"initial transition of state machine may not go to a state or junction defined in a substate"
       }
-      Left(
-        SemanticError.StateMachine.InvalidInitialTransition(
-          loc,
-          s"initial transition ${context._1} must go to state or junction defined ${context._2}",
-        )
-      )
+      Left(SemanticError.StateMachine.InvalidInitialTransition(loc, msg))
     }
   }
 
@@ -87,7 +78,7 @@ object CheckInitialTransitions
           checkOneInitialTransition(
             initialTransitions,
             Locations.get(aNode._2.id),
-            "state"
+            "state with substates"
           )
         }
         // Visit the members
@@ -110,14 +101,14 @@ object CheckInitialTransitions
       case Nil => Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
-          s"$defKind definition must have at least one initial transition"
+          s"$defKind must have at least one initial transition"
         )
       )
       case head :: Nil => Right(())
       case _ => Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
-          s"$defKind definition has ${transitions.size} initial transitions; only one is allowed"
+          s"$defKind has ${transitions.size} initial transitions; only one is allowed"
         )
       )
     }
