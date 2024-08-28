@@ -16,12 +16,11 @@ object CheckInitialTransitions
   ) = for {
     // Check that there is exactly one initial transition specifier
     _ <- {
-      val numInitialTransitions = members.map(_.node._2).count {
-        case _: Ast.StateMachineMember.SpecInitialTransition => true
-        case _ => false
+      val initialTransitions = members.map(_.node._2).collect {
+        case _: Ast.StateMachineMember.SpecInitialTransition => ()
       }
       checkOneInitialTransition(
-        numInitialTransitions,
+        initialTransitions,
         Locations.get(aNode._2.id),
         "state machine"
       )
@@ -70,25 +69,23 @@ object CheckInitialTransitions
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    // Count the number of substates
-    val numSubStates = aNode._2.data.members.map(_.node._2).count {
-      case _: Ast.StateMember.DefState => true
-      case _ => false
+    // Get the substates
+    val subStates = aNode._2.data.members.map(_.node._2).collect {
+      case _: Ast.StateMember.DefState => ()
     }
-    numSubStates match {
+    subStates match {
       // Leaf state: nothing to do
-      case 0 => Right(sma)
+      case Nil => Right(sma)
       // Inner state: check semantics
       case _ => for {
         _ <- {
           // Check that there is exactly one initial transition specifier
-          val numInitialTransitions =
-            aNode._2.data.members.map(_.node._2).count {
-              case _: Ast.StateMember.SpecInitialTransition => true
-              case _ => false
+          val initialTransitions =
+            aNode._2.data.members.map(_.node._2).collect {
+              case _: Ast.StateMember.SpecInitialTransition => ()
             }
           checkOneInitialTransition(
-            numInitialTransitions,
+            initialTransitions,
             Locations.get(aNode._2.id),
             "state"
           )
@@ -104,23 +101,23 @@ object CheckInitialTransitions
   }
 
   // Checks that there is exactly one initial transition specifier
-  private def checkOneInitialTransition(
-    n: Int,
+  private def checkOneInitialTransition[T](
+    transitions: List[T],
     loc: Location,
     defKind: String
   ): Result.Result[Unit] =
-    n match {
-      case 0 => Left(
+    transitions match {
+      case Nil => Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
           s"$defKind definition must have at least one initial transition"
         )
       )
-      case 1 => Right(())
-      case n => Left(
+      case head :: Nil => Right(())
+      case _ => Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
-          s"$defKind definition has $n initial transitions; only one is allowed"
+          s"$defKind definition has ${transitions.size} initial transitions; only one is allowed"
         )
       )
     }
