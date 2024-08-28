@@ -13,7 +13,7 @@ object CheckStateMachineSemantics {
     for {
       sma <- EnterStateMachineSymbols.defStateMachineAnnotatedNode(sma, aNode)
       sma <- CheckStateMachineUses.defStateMachineAnnotatedNode(sma, aNode)
-      // TODO: Check initial transitions
+      sma <- CheckInitialTransitions.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check signal uses
       // TODO: Check transition graph
       // TODO: Check typed elements
