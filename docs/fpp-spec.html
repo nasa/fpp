@@ -4274,7 +4274,8 @@ then it must obey the following rules:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>M</em> must contain exactly one initial transition specifier <em>I</em>.
+<p>If <em>M</em> contains at least one state definition, then <em>M</em> must contain exactly
+one initial transition specifier <em>I</em>.
 <em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
 </li>
 <li>
@@ -4293,7 +4294,8 @@ signal definition.</p>
 </div>
 </li>
 <li>
-<p>If the state definition member sequence <em>M</em> is present, then the
+<p>If the state definition member sequence <em>M</em> is present and <em>M</em>
+contains at least one state definition, then the
 state definition is called an <strong>inner state definition</strong>.
 Otherwise it is called a <strong>leaf state definition</strong>.</p>
 </li>
@@ -10169,7 +10171,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-27 14:28:08 -0700
+Last updated 2024-08-27 19:38:10 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

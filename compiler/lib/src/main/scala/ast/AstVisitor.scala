@@ -33,9 +33,43 @@ trait AstVisitor {
 
   def defSignalAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefSignal]]): Out = default(in)
 
-  def defStateAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefState]]): Out = default(in)
+  def defStateAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefState]]): Out = {
+    val states = node._2.data.members.collect {
+      case Ast.StateMember((a1, Ast.StateMember.DefState(node), a2)) => (a1, node, a2)
+    }
+    states match {
+      case Nil => defStateAnnotatedNodeLeaf(in, node)
+      case _ => defStateAnnotatedNodeInner(in, node, states)
+    }
+  }
 
-  def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out = default(in)
+  def defStateAnnotatedNodeInner(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefState]],
+    states: List[Ast.Annotated[AstNode[Ast.DefState]]]
+  ): Out = default(in)
+
+  def defStateAnnotatedNodeLeaf(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefState]]
+  ): Out = default(in)
+
+  def defStateMachineAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStateMachine]]): Out =
+    node._2.data.members match {
+      case Some(members) => defStateMachineAnnotatedNodeInternal(in, node, members)
+      case None => defStateMachineAnnotatedNodeExternal(in, node)
+    }
+
+  def defStateMachineAnnotatedNodeExternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): Out = default(in)
+
+  def defStateMachineAnnotatedNodeInternal(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]],
+    members: List[Ast.StateMachineMember]
+  ): Out = default(in)
 
   def defStructAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.DefStruct]]): Out = default(in)
 
