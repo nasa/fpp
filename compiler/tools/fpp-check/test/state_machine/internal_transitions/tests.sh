@@ -1,3 +1,4 @@
 tests="
-internal_state_machine
+external_state_machine
+ok
 "
