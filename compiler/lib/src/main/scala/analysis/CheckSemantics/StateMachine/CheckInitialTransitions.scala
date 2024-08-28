@@ -26,7 +26,7 @@ object CheckInitialTransitions
         "state machine"
       )
     }
-    // Visit the state machine members
+    // Visit the members
     _ <- super.defStateMachineAnnotatedNodeInternal(
       sma.copy(parentSymbol = None),
       aNode,
@@ -46,19 +46,21 @@ object CheckInitialTransitions
     if destParentSymbol == sma.parentSymbol
     then Right(sma)
     else {
-      System.out.println(destParentSymbol)
-      System.out.println(sma.parentSymbol)
       val loc = Locations.get(aNode._2.id)
-      val destDefLoc = Locations.get(destSymbol.getNodeId)
-      val requiredDestDefLoc = sma.parentSymbol match {
-        case Some(symbol) => s"in state ${symbol.getUnqualifiedName}"
-        case None => "at top level of state machine"
+      val context = sma.parentSymbol match {
+        case Some(symbol) => (
+          s"in state ${symbol.getUnqualifiedName}",
+          "in same state"
+        )
+        case None => (
+          "at top level of state machine",
+          "at top level"
+        )
       }
       Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
-          s"initial transition must go to state or junction $requiredDestDefLoc",
-          Some(destDefLoc)
+          s"initial transition ${context._1} must go to state or junction defined ${context._2}",
         )
       )
     }
@@ -79,6 +81,7 @@ object CheckInitialTransitions
       // Inner state: check semantics
       case _ => for {
         _ <- {
+          // Check that there is exactly one initial transition specifier
           val numInitialTransitions =
             aNode._2.data.members.map(_.node._2).count {
               case _: Ast.StateMember.SpecInitialTransition => true
@@ -90,6 +93,7 @@ object CheckInitialTransitions
             "state"
           )
         }
+        // Visit the members
         _ <- super.defStateAnnotatedNode(
           sma.copy(parentSymbol = Some(StateMachineSymbol.State(aNode))),
           aNode

@@ -19,7 +19,13 @@ case class StateMachineAnalysis(
   useDefMap: Map[AstNode.Id, StateMachineSymbol] = Map(),
   /** The transition graph */
   // TODO
-)
+) {
+
+  /** Gets the qualified name of a symbol */
+  val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
+
+}
+
 
 object StateMachineAnalysis {
   val empty: StateMachineAnalysis = StateMachineAnalysis()

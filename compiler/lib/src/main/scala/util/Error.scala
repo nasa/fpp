@@ -215,13 +215,8 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
-      case SemanticError.StateMachine.InvalidInitialTransition(loc, msg, destDefLoc) => {
+      case SemanticError.StateMachine.InvalidInitialTransition(loc, msg) =>
         Error.print (Some(loc)) (msg)
-        destDefLoc.map(loc => {
-          System.err.println("destination is defined here")
-          System.err.println(loc)
-        }).getOrElse(())
-      }
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
         System.err.println("for this component instance:")
@@ -513,8 +508,7 @@ object SemanticError {
     /** Invalid initial transition specifier */
     final case class InvalidInitialTransition(
       loc: Location,
-      msg: String,
-      destDefLoc: Option[Location] = None
+      msg: String
     ) extends Error
   }
   /** Too many output ports */
