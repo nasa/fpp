@@ -1,10 +1,15 @@
 tests="
 external_state_machine
+junction_cycle
 no_substates
 ok
+sm_junction_bad_parent_else
+sm_junction_bad_parent_if
 sm_mismatched_parents
 sm_multiple_transitions
 sm_no_transition
+state_junction_bad_parent_else
+state_junction_bad_parent_if
 state_mismatched_parents
 state_multiple_transitions
 state_no_transition

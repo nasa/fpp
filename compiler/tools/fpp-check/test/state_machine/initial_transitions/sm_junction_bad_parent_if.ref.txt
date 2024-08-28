@@ -1,0 +1,17 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_junction_bad_parent_if.fpp:7.3
+  initial enter J1
+  ^
+error: initial transition of state machine may not go to a state or junction defined in a substate
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_junction_bad_parent_if.fpp:8.3
+  junction J1 { if g enter J2 else enter S }
+  ^
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_junction_bad_parent_if.fpp:9.3
+  junction J2 { if g enter S.T else enter S }
+  ^
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_junction_bad_parent_if.fpp:5.5
+    state T
+    ^

@@ -1,0 +1,17 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_junction_bad_parent_if.fpp:9.5
+    initial enter J1
+    ^
+error: initial transition of state must go to state or junction defined in the same state
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_junction_bad_parent_if.fpp:10.5
+    junction J1 { if g enter J2 else enter T }
+    ^
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_junction_bad_parent_if.fpp:11.5
+    junction J2 { if g enter T.U else enter T }
+    ^
+transition path goes here:
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_junction_bad_parent_if.fpp:7.7
+      state U
+      ^

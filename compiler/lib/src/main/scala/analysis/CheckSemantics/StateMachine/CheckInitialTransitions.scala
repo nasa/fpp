@@ -37,8 +37,8 @@ object CheckInitialTransitions
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) = {
-    // Check that the state machine or junction referred to in aNode
-    // has the same parent symbol as sma
+    // Check that aNode leads to a state machine or junction 
+    // with the same parent symbol as sma
     val destId = aNode._2.data.transition.destination.id
     val destSymbol = sma.useDefMap(destId)
     checkForDestOutsideParent(
@@ -46,73 +46,22 @@ object CheckInitialTransitions
       destSymbol,
       sma.parentSymbol
     ) match {
-      case Right(_) => Right(sma)
-      case Left(defSymbol) =>
+      case Left(symbols) =>
         val loc = Locations.get(aNode._2.id)
-        val defLoc = Locations.get(defSymbol.getNodeId)
-        val msg = sma.parentSymbol match {
+        val msgHead = sma.parentSymbol match {
           case Some(symbol) =>
             s"initial transition of state must go to state or junction defined in the same state"
           case None =>
             s"initial transition of state machine may not go to a state or junction defined in a substate"
         }
-        Left(SemanticError.StateMachine.InvalidInitialTransition(loc, msg, Some(defLoc)))
+        val msgPaths = symbols.reverse.map(
+          s => s"\ntransition path goes here:\n${Locations.get(s.getNodeId)}"
+        ).mkString
+        val msg = s"$msgHead$msgPaths"
+        Left(SemanticError.StateMachine.InvalidInitialTransition(loc, msg))
+      case _ => Right(sma)
     }
   }
-
-  // Checks for a transition destination outside the parent
-  // Returns the symbol (error) or the set of visited symbols
-  private def checkForDestOutsideParent(
-    sma: StateMachineAnalysis,
-    destSymbol: StateMachineSymbol,
-    parentSymbol: Option[StateMachineSymbol],
-    visitedSymbols: Set[StateMachineSymbol] = Set()
-  ): Either[StateMachineSymbol, Set[StateMachineSymbol]] =
-    if (visitedSymbols.contains(destSymbol))
-    // We have visited this symbol already: nothing to do
-    then Right(visitedSymbols)
-    // We haven't visited the symbol
-    else {
-      val destParentSymbol = sma.parentSymbolMap.get(destSymbol)
-      for {
-        // Check that the symbol is defined in the parent
-        visitedSymbols <- if (destParentSymbol == parentSymbol)
-                          then Right(visitedSymbols + destSymbol)
-                          else Left(destSymbol)
-        // Recursively check junction destinations
-        visitedSymbols <- destSymbol match {
-          // Junction
-          case StateMachineSymbol.Junction(aNode) => 
-            for {
-              // Recursively check if transition
-              visitedSymbols <- {
-                val ifTransitionId = aNode._2.data.ifTransition.id
-                val ifTransitionSymbol = sma.useDefMap(ifTransitionId)
-                checkForDestOutsideParent(
-                  sma,
-                  ifTransitionSymbol,
-                  parentSymbol,
-                  visitedSymbols
-                )
-              }
-              // Recursively check else transition
-              visitedSymbols <- {
-                val elseTransitionId = aNode._2.data.elseTransition.id
-                val elseTransitionSymbol = sma.useDefMap(elseTransitionId)
-                checkForDestOutsideParent(
-                  sma,
-                  elseTransitionSymbol,
-                  parentSymbol,
-                  visitedSymbols
-                )
-              }
-            } yield visitedSymbols
-          // Not a junction: nothing to do
-          case _ => Right(visitedSymbols)
-        }
-      }
-      yield visitedSymbols
-    }
 
   override def defStateAnnotatedNode(
     sma: StateMachineAnalysis,
@@ -174,6 +123,63 @@ object CheckInitialTransitions
           s"$defKind has ${transitions.size} initial transitions; only one is allowed"
         )
       )
+    }
+
+  // Checks for a transition destination outside the parent
+  // Returns the symbol path (error) or the set of visited symbols
+  private def checkForDestOutsideParent(
+    sma: StateMachineAnalysis,
+    destSymbol: StateMachineSymbol,
+    parentSymbol: Option[StateMachineSymbol],
+    errorSymbols: List[StateMachineSymbol] = List(),
+    visitedSymbols: Set[StateMachineSymbol] = Set()
+  ): Either[List[StateMachineSymbol], Set[StateMachineSymbol]] =
+    if (visitedSymbols.contains(destSymbol))
+    // We have visited this symbol already: nothing to do
+    then Right(visitedSymbols)
+    // We haven't visited the symbol
+    else {
+      val destParentSymbol = sma.parentSymbolMap.get(destSymbol)
+      for {
+        // Check that the symbol is defined in the parent
+        visitedSymbols <- if (destParentSymbol == parentSymbol)
+                          then Right(visitedSymbols + destSymbol)
+                          else Left(destSymbol :: errorSymbols)
+        // Recursively check junction destinations
+        visitedSymbols <- destSymbol match {
+          // Junction: check it
+          case StateMachineSymbol.Junction(aNode) => 
+            for {
+              // Recursively check the if transition
+              visitedSymbols <- {
+                val ifDest = aNode._2.data.ifTransition.data.destination
+                val ifDestSymbol = sma.useDefMap(ifDest.id)
+                checkForDestOutsideParent(
+                  sma,
+                  ifDestSymbol,
+                  parentSymbol,
+                  destSymbol :: errorSymbols,
+                  visitedSymbols
+                )
+              }
+              // Recursively check the else transition
+              visitedSymbols <- {
+                val elseDest = aNode._2.data.elseTransition.data.destination
+                val elseDestSymbol = sma.useDefMap(elseDest.id)
+                checkForDestOutsideParent(
+                  sma,
+                  elseDestSymbol,
+                  parentSymbol,
+                  destSymbol :: errorSymbols,
+                  visitedSymbols
+                )
+              }
+            } yield visitedSymbols
+          // Not a junction: nothing to do
+          case _ => Right(visitedSymbols)
+        }
+      }
+      yield visitedSymbols
     }
 
 }

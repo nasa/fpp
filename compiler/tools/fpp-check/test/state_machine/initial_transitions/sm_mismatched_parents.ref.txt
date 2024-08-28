@@ -3,7 +3,7 @@ fpp-check
   initial enter S.T
   ^
 error: initial transition of state machine may not go to a state or junction defined in a substate
-destination is defined here:
+transition path goes here:
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/sm_mismatched_parents.fpp:5.5
     state T
     ^
