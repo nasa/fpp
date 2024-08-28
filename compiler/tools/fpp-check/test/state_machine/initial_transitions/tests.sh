@@ -1,8 +1,11 @@
 tests="
 external_state_machine
+no_substates
 ok
 sm_mismatched_parents
 sm_multiple_transitions
+sm_no_transition
 state_mismatched_parents
 state_multiple_transitions
+state_no_transition
 "

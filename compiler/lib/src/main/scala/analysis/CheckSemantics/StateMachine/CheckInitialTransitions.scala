@@ -60,27 +60,32 @@ object CheckInitialTransitions
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    // Get the substates
-    val subStates = aNode._2.data.members.map(_.node._2).collect {
+    val loc = Locations.get(aNode._2.id)
+    val members = aNode._2.data.members.map(_.node._2)
+    val subStates = members.collect {
       case _: Ast.StateMember.DefState => ()
     }
-    subStates match {
-      // Leaf state: nothing to do
-      case Nil => Right(sma)
-      // Inner state: check semantics
+    val initialTransitions = members.collect {
+      case _: Ast.StateMember.SpecInitialTransition => ()
+    }
+    (subStates, initialTransitions) match {
+      // No substates, no initial transition: OK
+      case (Nil, Nil) => Right(sma)
+      // No substates, initial transition: Error
+      case (Nil, _) => Left(
+        SemanticError.StateMachine.InvalidInitialTransition(
+          loc,
+          "state with no substates may not have an initial transition"
+        )
+      )
+      // Substates: check semantics
       case _ => for {
-        _ <- {
-          // Check that there is exactly one initial transition specifier
-          val initialTransitions =
-            aNode._2.data.members.map(_.node._2).collect {
-              case _: Ast.StateMember.SpecInitialTransition => ()
-            }
-          checkOneInitialTransition(
-            initialTransitions,
-            Locations.get(aNode._2.id),
-            "state with substates"
-          )
-        }
+        // Check for exactly one initial transition
+        _ <- checkOneInitialTransition(
+          initialTransitions,
+          loc,
+          "state with substates"
+        )
         // Visit the members
         _ <- super.defStateAnnotatedNode(
           sma.copy(parentSymbol = Some(StateMachineSymbol.State(aNode))),
@@ -101,7 +106,7 @@ object CheckInitialTransitions
       case Nil => Left(
         SemanticError.StateMachine.InvalidInitialTransition(
           loc,
-          s"$defKind must have at least one initial transition"
+          s"$defKind must have initial transition"
         )
       )
       case head :: Nil => Right(())

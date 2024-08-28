@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_mismatched_parents.fpp:4.5
+    initial enter S
+    ^
+error: initial transition of state must go to state or junction defined in the same state

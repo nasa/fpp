@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/state_no_transition.fpp:3.3
+  state S {
+  ^
+error: state with substates must have initial transition
