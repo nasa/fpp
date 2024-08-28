@@ -3,6 +3,7 @@ state machine M {
   initial enter S
   state S {
     initial enter J
-    junction J { if g enter S else enter S }
+    junction J { if g enter T else enter T }
+    state T
   }
 }

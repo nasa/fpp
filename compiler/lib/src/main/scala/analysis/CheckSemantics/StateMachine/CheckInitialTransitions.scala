@@ -78,7 +78,7 @@ object CheckInitialTransitions
           "state with no substates may not have an initial transition"
         )
       )
-      // Substates: check semantics
+      // Substates: Check semantics
       case _ => for {
         // Check for exactly one initial transition
         _ <- checkOneInitialTransition(

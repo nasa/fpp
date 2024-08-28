@@ -16,9 +16,17 @@ substates.
 ==== Semantics
 
 The state definition or junction definition referred to in the
-transition expression must be a member of the same 
+transition expression must *lead to a member* of the same 
 state machine definition or state definition in which the initial
 transition specifier appears.
+
+. A state definition _D_ leads to a member of a state machine definition _M_
+(respectively a state _S_) if _D_ is a member of _M_ (respectively _S_).
+
+. A junction definition _D_ leads to a member of a state machine definition _M_
+(respectively as state _S_) if it is a member of _M_ (respectively _S_)
+and the state or junction definitions referred to in _D_ lead to members of
+_M_ (respectively _S_).
 
 ==== Examples
 
