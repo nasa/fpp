@@ -8,6 +8,9 @@ four kinds of implementations you have to write:
 These are types that are named in the FPP model but are defined
 directly in {cpp}.
 
+. Implementations of <<Defining-State-Machines_External-State-Machines,
+external state machines>>.
+
 . Implementations of
 <<Defining-Components,components>>.
 
@@ -173,6 +176,14 @@ It also provides the corresponding abstract type definitions
 in the FPP model; for a typical F Prime project, these
 definitions are located at `config/FpConfig.fpp`.
 You don't have to define header files for these types.
+
+Because the built-in types are encoded in the FPP model as abstract types,
+they are not <<Defining-Components_Commands_Formal-Parameters,
+displayable types>>.
+In a future version of FPP, we plan to encode these types as
+explicit aliases of primitive integer types.
+When we do this, the definitions will be known to FPP,
+and the types will be displayable.
 
 === Implementing External State Machines
 

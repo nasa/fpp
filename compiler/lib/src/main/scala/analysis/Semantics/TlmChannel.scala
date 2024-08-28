@@ -41,6 +41,7 @@ object TlmChannel {
         )
         lowLimits <- computeLimits(a, data.low)
         highLimits <- computeLimits(a, data.high)
+        _ <- a.checkDisplayableType(data.typeName.id, "type of telemetry channel is not displayable")
       }
       yield TlmChannel(aNode, channelType, update, format, lowLimits, highLimits)
    }

@@ -109,13 +109,7 @@ case class ComponentCommands (
             )
           ),
           commandHandlerName(cmd.getName),
-          List(
-            List(
-              opcodeParam,
-              cmdSeqParam,
-            ),
-            cmdParamMap(opcode)
-          ).flatten,
+          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual
@@ -192,7 +186,7 @@ case class ComponentCommands (
                   priority,
                   MessageType.Command,
                   cmd.getName,
-                  opcodeParam :: cmdSeqParam :: cmdParamMap(opcode)
+                  opcodeParam :: cmdSeqParam :: Nil
                 )
               )
             )
@@ -339,7 +333,7 @@ case class ComponentCommands (
         (opcode, cmd) => getVirtualOverflowHook(
           cmd.getName,
           MessageType.Command,
-          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
+          opcodeParam :: cmdSeqParam :: Nil,
         )
       ),
       CppDoc.Lines.Hpp
