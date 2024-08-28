@@ -97,11 +97,11 @@ trait AstVisitor {
 
   def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
 
+  def specStateTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateTransition]]): Out = default(in)
+
   def specTlmChannelAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]): Out = default(in)
 
   def specTopImportAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTopImport]]): Out = default(in)
-
-  def specTransitionAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecTransition]]): Out = default(in)
 
   def transUnit(in: In, tu: Ast.TransUnit): Out = default(in)
 
@@ -190,7 +190,7 @@ trait AstVisitor {
       case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.SpecTransition(node1) => specTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecStateTransition(node1) => specStateTransitionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecEntry(node1) => specEntryAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecExit(node1) => specExitAnnotatedNode(in, (pre, node1, post))
     }

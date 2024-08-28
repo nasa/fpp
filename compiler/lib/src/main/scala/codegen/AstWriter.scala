@@ -616,9 +616,9 @@ object AstWriter extends AstVisitor with LineUtils {
     qualIdent(data.top.data).map(indentIn)
   }
 
-  override def specTransitionAnnotatedNode(
+  override def specStateTransitionAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data

@@ -634,9 +634,9 @@ object FppWriter extends AstVisitor with LineUtils {
     Line.addPrefix("import ", qualIdent(data.top.data))
   }
 
-  override def specTransitionAnnotatedNode(
+  override def specStateTransitionAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data

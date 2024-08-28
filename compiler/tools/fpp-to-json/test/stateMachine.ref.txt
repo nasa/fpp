@@ -625,7 +625,7 @@
                                         "Transition to S1"
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -680,7 +680,7 @@
                                       [
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -730,7 +730,7 @@
                                         "Transition to S1"
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -780,7 +780,7 @@
                                         "Transition to S1"
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -823,7 +823,7 @@
                                         "Internal transition"
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -867,7 +867,7 @@
                                         "Internal transition"
                                       ],
                                       {
-                                        "SpecTransition" : {
+                                        "SpecStateTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {

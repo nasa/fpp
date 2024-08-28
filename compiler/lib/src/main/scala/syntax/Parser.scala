@@ -683,10 +683,10 @@ object Parser extends Parsers {
   def specTopImport: Parser[Ast.SpecTopImport] =
     importToken ~>! node(qualIdent) ^^ { case top => Ast.SpecTopImport(top) }
 
-  def specTransition: Parser[Ast.SpecTransition] = {
+  def specStateTransition: Parser[Ast.SpecStateTransition] = {
     (on ~> node(ident)) ~! opt(ifToken ~> node(ident)) ~ transitionOrDo ^^ {
       case signal ~ guard ~ transitionOrDo =>
-        Ast.SpecTransition(signal, guard, transitionOrDo)
+        Ast.SpecStateTransition(signal, guard, transitionOrDo)
     }
   }
 
@@ -709,7 +709,7 @@ object Parser extends Parsers {
     node(specEntry) ^^ { case n => Ast.StateMember.SpecEntry(n) } |
     node(specExit) ^^ { case n => Ast.StateMember.SpecExit(n) } |
     node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
-    node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
+    node(specStateTransition) ^^ { case n => Ast.StateMember.SpecStateTransition(n) } |
     failure("state member expected")
   }
 

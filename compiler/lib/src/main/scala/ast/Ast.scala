@@ -217,7 +217,7 @@ object Ast {
     final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
     final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
-    final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
+    final case class SpecStateTransition(node: AstNode[Ast.SpecStateTransition]) extends Node
   }
 
   /** Initial state specifier */
@@ -236,7 +236,7 @@ object Ast {
   )
 
   /** Transition specifier */
-  final case class SpecTransition(
+  final case class SpecStateTransition(
     signal: AstNode[Ident],
     guard: Option[AstNode[Ident]],
     transitionOrDo: TransitionOrDo

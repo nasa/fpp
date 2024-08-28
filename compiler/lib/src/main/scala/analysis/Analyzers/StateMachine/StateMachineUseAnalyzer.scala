@@ -74,9 +74,9 @@ trait StateMachineUseAnalyzer
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) = transitionExpr(sma, aNode._2.data.transition)
 
-  override def specTransitionAnnotatedNode(
+  override def specStateTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecTransition]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
   ) = {
     val data = aNode._2.data
     for {
