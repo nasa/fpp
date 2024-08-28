@@ -4,6 +4,6 @@ state machine M {
   state S {
     state T
     initial enter J
-    junction J { if g enter S else enter T }
+    junction J { if g enter T else enter T }
   }
 }
