@@ -78,14 +78,7 @@ object CheckInitialTransitions
     (subStates, initialTransitions) match {
       // No substates, no initial transition: OK
       case (Nil, Nil) => Right(sma)
-      // No substates, initial transition: Error
-      case (Nil, _) => Left(
-        SemanticError.StateMachine.InvalidInitialTransition(
-          loc,
-          "state with no substates may not have an initial transition"
-        )
-      )
-      // Substates: Check semantics
+      // Substates or initial transitions: Check semantics
       case _ => for {
         // Check for exactly one initial transition
         _ <- checkOneInitialTransition(

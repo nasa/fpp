@@ -37,9 +37,6 @@ then it must obey the following rules:
 one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
 
-.. If _M_ contains no state definition, then _M_ may not contain
-any initial transition specifiers.
-
 .. _M_ may not contain more than one state entry specifier.
 
 .. _M_ may not contain more than one state exit specifier.
