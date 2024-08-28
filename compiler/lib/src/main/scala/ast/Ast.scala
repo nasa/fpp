@@ -167,7 +167,7 @@ object Ast {
     final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
   }
 
   /** Action definition */
@@ -216,12 +216,12 @@ object Ast {
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
     final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
-    final case class SpecInitial(node: AstNode[Ast.SpecInitial]) extends Node
+    final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
     final case class SpecTransition(node: AstNode[Ast.SpecTransition]) extends Node
   }
 
   /** Initial state specifier */
-  final case class SpecInitial(
+  final case class SpecInitialTransition(
     transition: TransitionExpr
   )
 

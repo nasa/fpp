@@ -494,9 +494,9 @@ object Parser extends Parsers {
     }
   }
 
-  def specInitial: Parser[Ast.SpecInitial] = {
+  def specInitialTransition: Parser[Ast.SpecInitialTransition] = {
     initial ~> transitionExpr ^^ {
-      case transition => Ast.SpecInitial(transition)
+      case transition => Ast.SpecInitialTransition(transition)
     }
   }
 
@@ -691,7 +691,7 @@ object Parser extends Parsers {
   }
 
   def stateMachineMemberNode: Parser[Ast.StateMachineMember.Node] = {
-    node(specInitial) ^^ { case n => Ast.StateMachineMember.SpecInitial(n) } |
+    node(specInitialTransition) ^^ { case n => Ast.StateMachineMember.SpecInitialTransition(n) } |
     node(defState) ^^ { case n => Ast.StateMachineMember.DefState(n) } |
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
@@ -708,7 +708,7 @@ object Parser extends Parsers {
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
     node(specEntry) ^^ { case n => Ast.StateMember.SpecEntry(n) } |
     node(specExit) ^^ { case n => Ast.StateMember.SpecExit(n) } |
-    node(specInitial) ^^ { case n => Ast.StateMember.SpecInitial(n) } |
+    node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specTransition) ^^ { case n => Ast.StateMember.SpecTransition(n) } |
     failure("state member expected")
   }

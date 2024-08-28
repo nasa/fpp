@@ -9,6 +9,12 @@ object CheckInitialTransitions
   with StateAnalyzer
 {
 
-  // TODO
+  override def defStateMachineAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    // TODO
+    super.defStateMachineAnnotatedNode(sma, aNode)
+  }
 
 }

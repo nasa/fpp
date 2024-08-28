@@ -263,7 +263,7 @@
                           "Initial transition"
                         ],
                         {
-                          "SpecInitial" : {
+                          "SpecInitialTransition" : {
                             "node" : {
                               "AstNode" : {
                                 "data" : {
@@ -458,7 +458,7 @@
                                         "Initial transition"
                                       ],
                                       {
-                                        "SpecInitial" : {
+                                        "SpecInitialTransition" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {

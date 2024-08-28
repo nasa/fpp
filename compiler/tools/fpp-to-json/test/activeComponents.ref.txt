@@ -359,7 +359,7 @@
                                                     [
                                                     ],
                                                     {
-                                                      "SpecInitial" : {
+                                                      "SpecInitialTransition" : {
                                                         "node" : {
                                                           "AstNode" : {
                                                             "data" : {
