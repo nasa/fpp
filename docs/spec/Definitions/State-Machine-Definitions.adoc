@@ -71,9 +71,11 @@ follows:
 state definitions, and
 junction definitions that are transitive members of _M_.
 
-. The arcs of the transition graph are given by the <<State-Machine-Behavior-Elements_Transition-Expressions,
+. The arcs of the transition graph are given by the 
+<<State-Machine-Behavior-Elements_Transition-Expressions,
 transition expressions>> _e_ that are parts of transitive members of _M_.
-Each transition expression represents an arc from an *initial node* to a *terminal node*.
+Each transition expression represents an arc from an *initial node* to a 
+*terminal node*.
 The initial node is defined as follows:
 
 .. If _e_ appears in an
@@ -93,28 +95,14 @@ immediately enclosing _T_.
 _J_, then the initial node is _J_.
 
 +
-The terminal node is defined as follows:
-
-.. If _e_ 
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refers to>>
-a junction definition _J_ after the keyword `enter`, then the
-terminal node is _J_.
-
-.. Otherwise _e_ refers to a state definition _S_ after the keyword `enter`.
-
-... If _S_ is a <<State-Machine-Behavior-Elements_State-Definitions_Semantics,
-leaf state definition>>,
-then the terminal node is _S_.
-
-... Otherwise the terminal node is the transitive substate
-of _S_ found by following 
-<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
-initial transition specifiers>> to a leaf state definition.
+The terminal node is the state or junction definition
+<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,referred to>>
+in _e_.
 
 If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-. Each leaf state state definition and each junction definition in
+. Each state definition and each junction definition in
 _T_ must be the terminal node of at least one arc.
 
 . Let _S_ be the subgraph of _T_ consisting of all

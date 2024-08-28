@@ -2883,8 +2883,10 @@ state definitions, and
 junction definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
-<p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
-Each transition expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+<p>The arcs of the transition graph are given by the
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
+Each transition expression represents an arc from an <strong>initial node</strong> to a
+<strong>terminal node</strong>.
 The initial node is defined as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
@@ -2908,33 +2910,9 @@ immediately enclosing <em>T</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The terminal node is defined as follows:</p>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>If <em>e</em>
-<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">refers to</a>
-a junction definition <em>J</em> after the keyword <code>enter</code>, then the
-terminal node is <em>J</em>.</p>
-</li>
-<li>
-<p>Otherwise <em>e</em> refers to a state definition <em>S</em> after the keyword <code>enter</code>.</p>
-<div class="olist lowerroman">
-<ol class="lowerroman" type="i">
-<li>
-<p>If <em>S</em> is a <a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">leaf state definition</a>,
-then the terminal node is <em>S</em>.</p>
-</li>
-<li>
-<p>Otherwise the terminal node is the transitive substate
-of <em>S</em> found by following
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifiers</a> to a leaf state definition.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
+<p>The terminal node is the state or junction definition
+<a href="#Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names">referred to</a>
+in <em>e</em>.</p>
 </div>
 </li>
 </ol>
@@ -2946,7 +2924,7 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each leaf state state definition and each junction definition in
+<p>Each state definition and each junction definition in
 <em>T</em> must be the terminal node of at least one arc.</p>
 </li>
 <li>
@@ -10185,7 +10163,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-28 14:05:22 -0700
+Last updated 2024-08-28 15:57:55 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
