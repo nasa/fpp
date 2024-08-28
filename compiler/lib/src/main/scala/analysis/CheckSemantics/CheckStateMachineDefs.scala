@@ -14,14 +14,14 @@ object CheckStateMachineDefs
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ) = {
+    val sym = Symbol.StateMachine(aNode)
     for {
       sma <- CheckStateMachineSemantics.defStateMachineAnnotatedNode(
-        StateMachineAnalysis(),
+        StateMachineAnalysis(a, sym),
         aNode
       )
     }
     yield {
-      val sym = Symbol.StateMachine(aNode)
       val stateMachine = StateMachine(aNode, sma)
       a.copy(stateMachineMap = a.stateMachineMap + (sym -> stateMachine))
     }

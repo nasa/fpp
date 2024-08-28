@@ -5,6 +5,10 @@ import fpp.compiler.util._
 
 /** The state machine analysis data structure */
 case class StateMachineAnalysis(
+  /** The analysis so far */
+  a: Analysis,
+  /** The state machine symbol */
+  symbol: Symbol.StateMachine,
   /** A list of unqualified names representing the enclosing scope names, **/
   scopeNameList: List[Name.Unqualified] = List(),
   /** The current state machine nested scope for symbol lookup */
@@ -26,7 +30,3 @@ case class StateMachineAnalysis(
 
 }
 
-
-object StateMachineAnalysis {
-  val empty: StateMachineAnalysis = StateMachineAnalysis()
-}

@@ -53,7 +53,7 @@ object CheckInitialTransitions
           "in same state"
         )
         case None => (
-          "at top level of state machine",
+          s"at top level of state machine",
           "at top level"
         )
       }
