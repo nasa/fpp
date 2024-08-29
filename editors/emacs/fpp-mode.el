@@ -50,7 +50,7 @@
     "queue"  "queued" "raw" "recv" "red" "ref" "reg"
     "resp" "save" "serial" "set" "severity" "size"
     "stack" "sync" "telemetry" "text" "throttle"
-    "time" "true"  "update" "warning" "with" "yellow")
+    "time" "true" "unmatched" "update" "warning" "with" "yellow")
   "All non-definition keywords for FPP.")
 
 (defconst fpp-mode-types
