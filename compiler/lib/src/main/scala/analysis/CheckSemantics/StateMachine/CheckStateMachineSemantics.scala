@@ -17,7 +17,6 @@ object CheckStateMachineSemantics {
       // TODO: Check signal uses
       // TODO: Check transition graph
       // TODO: Check typed elements
-      // TODO: Compute flattened initial transition
       // TODO: Compute flattened state transition map
       // TODO: Compute flattened junction transition map
     }
