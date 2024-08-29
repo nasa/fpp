@@ -4,41 +4,45 @@
 // \brief  hpp file for ActiveStateMachines component implementation class
 // ======================================================================
 
-#ifndef ActiveStateMachines_HPP
-#define ActiveStateMachines_HPP
+#ifndef M_ActiveStateMachines_HPP
+#define M_ActiveStateMachines_HPP
 
 #include "ActiveStateMachinesComponentAc.hpp"
 
-class ActiveStateMachines :
-  public ActiveStateMachinesComponentBase
-{
+namespace M {
 
-  public:
+  class ActiveStateMachines :
+    public ActiveStateMachinesComponentBase
+  {
 
-    // ----------------------------------------------------------------------
-    // Component construction and destruction
-    // ----------------------------------------------------------------------
+    public:
 
-    //! Construct ActiveStateMachines object
-    ActiveStateMachines(
-        const char* const compName //!< The component name
-    );
+      // ----------------------------------------------------------------------
+      // Component construction and destruction
+      // ----------------------------------------------------------------------
 
-    //! Destroy ActiveStateMachines object
-    ~ActiveStateMachines();
+      //! Construct ActiveStateMachines object
+      ActiveStateMachines(
+          const char* const compName //!< The component name
+      );
 
-  PRIVATE:
+      //! Destroy ActiveStateMachines object
+      ~ActiveStateMachines();
 
-    // ----------------------------------------------------------------------
-    // Overflow hook implementations for state machines
-    // ----------------------------------------------------------------------
+    PRIVATE:
 
-    //! Overflow hook implementation for sm5
-    void sm5_stateMachineOverflowHook(
-        const S2_Interface::S2Events signal, //!< The state machine signal
-        const Fw::SMSignalBuffer& data //!< The state machine data
-    ) override;
+      // ----------------------------------------------------------------------
+      // Overflow hook implementations for state machines
+      // ----------------------------------------------------------------------
 
-};
+      //! Overflow hook implementation for sm5
+      void sm5_stateMachineOverflowHook(
+          const S2_Interface::S2_Signals signal, //!< The state machine signal
+          const Fw::SMSignalBuffer& data //!< The state machine data
+      ) override;
+
+  };
+
+}
 
 #endif

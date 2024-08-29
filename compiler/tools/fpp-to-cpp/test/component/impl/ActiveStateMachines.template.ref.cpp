@@ -7,32 +7,36 @@
 #include "ActiveStateMachines.hpp"
 #include "FpConfig.hpp"
 
-// ----------------------------------------------------------------------
-// Component construction and destruction
-// ----------------------------------------------------------------------
+namespace M {
 
-ActiveStateMachines ::
-  ActiveStateMachines(const char* const compName) :
-    ActiveStateMachinesComponentBase(compName)
-{
+  // ----------------------------------------------------------------------
+  // Component construction and destruction
+  // ----------------------------------------------------------------------
 
-}
+  ActiveStateMachines ::
+    ActiveStateMachines(const char* const compName) :
+      ActiveStateMachinesComponentBase(compName)
+  {
 
-ActiveStateMachines ::
-  ~ActiveStateMachines()
-{
+  }
 
-}
+  ActiveStateMachines ::
+    ~ActiveStateMachines()
+  {
 
-// ----------------------------------------------------------------------
-// Overflow hook implementations for state machines
-// ----------------------------------------------------------------------
+  }
 
-void ActiveStateMachines ::
-  sm5_stateMachineOverflowHook(
-      const S2_Interface::S2Events signal,
-      const Fw::SMSignalBuffer& data
-  )
-{
-  // TODO
+  // ----------------------------------------------------------------------
+  // Overflow hook implementations for state machines
+  // ----------------------------------------------------------------------
+
+  void ActiveStateMachines ::
+    sm5_stateMachineOverflowHook(
+        const S2_Interface::S2_Signals signal,
+        const Fw::SMSignalBuffer& data
+    )
+  {
+    // TODO
+  }
+
 }

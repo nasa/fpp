@@ -34,7 +34,9 @@ case class ComponentStateMachines(
     wrapInSwitch(
       "stateMachineId",
       stateMachineInstances.flatMap((smi) => {
-        val smName = smi.symbol.getUnqualifiedName
+        val smName = s.writeSymbol(smi.symbol)
+        val enumName = smName.replaceFirst(".*::", "")
+
         lines(
           s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
               |   // Deserialize the state machine signal
@@ -44,7 +46,7 @@ case class ComponentStateMachines(
               |     deserStatus == Fw::FW_SERIALIZE_OK,
               |     static_cast<FwAssertArgType>(deserStatus)
               |   );
-              |   ${smName}_Interface::${smName}Events signal = static_cast<${smName}_Interface::${smName}Events>(desMsg);
+              |   ${smName}_Interface::${enumName}_Signals signal = static_cast<${smName}_Interface::${enumName}_Signals>(desMsg);
               |
               |   // Deserialize the state machine data
               |   Fw::SMSignalBuffer data;
@@ -136,11 +138,12 @@ case class ComponentStateMachines(
          |""",
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => {
-          val smName = smi.symbol.getUnqualifiedName
+          val smName = s.writeSymbol(smi.symbol)
+          val enumName = smName.replaceFirst(".*::", "")
           getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
-          ComponentStateMachines.signalParams(smName)
+          ComponentStateMachines.signalParams(smName, enumName)
         )
         }
       ),
@@ -149,7 +152,9 @@ case class ComponentStateMachines(
 
   private def getSignalSendMember: List[CppDoc.Class.Member] = {
        lazy val members = stateMachineInstances.map { smi =>
-        val smName = smi.symbol.getUnqualifiedName
+        val smName = s.writeSymbol(smi.symbol)
+        val enumName = smName.replaceFirst(".*::", "")
+
         val serializeCode = 
           lines(
             s"""|ComponentIpcSerializableBuffer msg;
@@ -192,16 +197,15 @@ case class ComponentStateMachines(
       writeSendMessageLogic(
         "msg", smi.queueFull, smi.priority,
         MessageType.StateMachine, smi.getName,
-        ComponentStateMachines.signalParams(smName)
+        ComponentStateMachines.signalParams(smName, enumName)
       )
     )
 
 
-   
     lazy val member = functionClassMember(
       Some(s"State machine base-class function for sendSignals"),
       s"${smi.getName}_stateMachineInvoke",
-      ComponentStateMachines.signalParams(smName),
+      ComponentStateMachines.signalParams(smName, enumName),
       CppDoc.Type("void"),
       Line.blank :: intersperseBlankLines(
         List(serializeCode, sendLogicCode)
@@ -221,11 +225,10 @@ case class ComponentStateMachines(
 
 object ComponentStateMachines {
 
-   def signalParams(stateMachineName: String) = {
-
+   def signalParams(stateMachineName: String, enumName: String) = {
     List(
       CppDoc.Function.Param(
-        CppDoc.Type(s"const ${stateMachineName}_Interface::${stateMachineName}Events"),
+        CppDoc.Type(s"const ${stateMachineName}_Interface::${enumName}_Signals"),
         "signal",
         Some("The state machine signal")
       ),

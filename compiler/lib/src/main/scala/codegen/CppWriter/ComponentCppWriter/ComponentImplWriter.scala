@@ -223,10 +223,12 @@ case class ComponentImplWriter(
         stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
           smi => {
             val smName = smi.symbol.getUnqualifiedName
+            val enumName = smName.replaceFirst(".*::", "")
+            
             functionClassMember(
             Some(s"Overflow hook implementation for ${smi.getName}"),
             inputOverflowHookName(smi.getName, MessageType.StateMachine),
-            ComponentStateMachines.signalParams(smName),
+            ComponentStateMachines.signalParams(smName, enumName),
             CppDoc.Type("void"),
             lines("// TODO"),
             CppDoc.Function.Override

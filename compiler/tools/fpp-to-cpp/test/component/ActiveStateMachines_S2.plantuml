@@ -1,7 +1,7 @@
 
 @startuml
 
-[*] --> ON
+[*] --> ON :/initLed()
 
 state ON {
     ON:Entry: turnLedOn()
@@ -11,6 +11,6 @@ state OFF {
     OFF:Entry: turnLedOff()
 }
 
-ON --> OFF : RTI
-OFF --> ON : RTI
+ON --> OFF : RTI [g1()]/a1()
+OFF --> ON : RTI [g2(e)]/a2(e)
 @enduml
