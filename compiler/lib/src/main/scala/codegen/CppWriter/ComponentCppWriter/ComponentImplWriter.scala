@@ -221,19 +221,14 @@ case class ComponentImplWriter(
         "PRIVATE",
         "Overflow hook implementations for state machines",
         stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-          smi => {
-            val smName = s.writeSymbol(smi.symbol)
-            val enumName = s.getName(smi.symbol)
-
-            functionClassMember(
+          smi => functionClassMember(
             Some(s"Overflow hook implementation for ${smi.getName}"),
             inputOverflowHookName(smi.getName, MessageType.StateMachine),
-            ComponentStateMachines.signalParams(smName, enumName),
+            ComponentStateMachines.signalParams(s, smi.symbol),
             CppDoc.Type("void"),
             lines("// TODO"),
             CppDoc.Function.Override
           )
-          }
         )
       )
     )

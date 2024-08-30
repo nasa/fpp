@@ -138,83 +138,75 @@ case class ComponentStateMachines(
          |""",
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => {
-          val smName = s.writeSymbol(smi.symbol)
-          val enumName = s.getName(smi.symbol)
-
-
           getVirtualOverflowHook(
-          smi.getName,
-          MessageType.StateMachine,
-          ComponentStateMachines.signalParams(smName, enumName)
-        )
+            smi.getName,
+            MessageType.StateMachine,
+            ComponentStateMachines.signalParams(s, smi.symbol)
+          )
         }
       ),
       CppDoc.Lines.Hpp
     )
 
   private def getSignalSendMember: List[CppDoc.Class.Member] = {
-       lazy val members = stateMachineInstances.map { smi =>
-        val smName = s.writeSymbol(smi.symbol)
-        val enumName = s.getName(smi.symbol)
+    lazy val members = stateMachineInstances.map { smi =>
 
+      val serializeCode = 
+        lines(
+          s"""|ComponentIpcSerializableBuffer msg;
+              |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
+              |
+              |// Serialize the message ID
+              |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
+              |FW_ASSERT (
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |// Fake port number to make message dequeue work
+              |_status = msg.serialize(static_cast<FwIndexType>(0));
+              |FW_ASSERT (
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |_status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_${smi.getName.toUpperCase}));
+              |FW_ASSERT(
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |_status = msg.serialize(static_cast<FwEnumStoreType>(signal));
+              |FW_ASSERT(
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);
+              |
+              |_status = msg.serialize(data);
+              |FW_ASSERT(
+              |  _status == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(_status)
+              |);"""
+        )
 
-        val serializeCode = 
-          lines(
-            s"""|ComponentIpcSerializableBuffer msg;
-                |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
-                |
-                |// Serialize the message ID
-                |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
-                |FW_ASSERT (
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |// Fake port number to make message dequeue work
-                |_status = msg.serialize(static_cast<FwIndexType>(0));
-                |FW_ASSERT (
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |_status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_${smi.getName.toUpperCase}));
-                |FW_ASSERT(
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |_status = msg.serialize(static_cast<FwEnumStoreType>(signal));
-                |FW_ASSERT(
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);
-                |
-                |_status = msg.serialize(data);
-                |FW_ASSERT(
-                |  _status == Fw::FW_SERIALIZE_OK,
-                |  static_cast<FwAssertArgType>(_status)
-                |);"""
-          )
-
-    val sendLogicCode = List.concat(
-      writeSendMessageLogic(
-        "msg", smi.queueFull, smi.priority,
-        MessageType.StateMachine, smi.getName,
-        ComponentStateMachines.signalParams(smName, enumName)
+      val sendLogicCode = List.concat(
+        writeSendMessageLogic(
+          "msg", smi.queueFull, smi.priority,
+          MessageType.StateMachine, smi.getName,
+          ComponentStateMachines.signalParams(s, smi.symbol)
+        )
       )
-    )
 
-
-    lazy val member = functionClassMember(
-      Some(s"State machine base-class function for sendSignals"),
-      s"${smi.getName}_stateMachineInvoke",
-      ComponentStateMachines.signalParams(smName, enumName),
-      CppDoc.Type("void"),
-      Line.blank :: intersperseBlankLines(
-        List(serializeCode, sendLogicCode)
+      functionClassMember(
+        Some(s"State machine base-class function for sendSignals"),
+        s"${smi.getName}_stateMachineInvoke",
+        ComponentStateMachines.signalParams(s, smi.symbol),
+        CppDoc.Type("void"),
+        Line.blank :: intersperseBlankLines(
+          List(serializeCode, sendLogicCode)
+        )
       )
-    )
-    member
+
     }
    
     addAccessTagAndComment(
@@ -228,10 +220,12 @@ case class ComponentStateMachines(
 
 object ComponentStateMachines {
 
-   def signalParams(stateMachineName: String, enumName: String) = {
+   def signalParams(s: CppWriterState, sym: Symbol.StateMachine) = {
+    val smName = s.writeSymbol(sym)
+    val enumName = s.getName(sym)
     List(
       CppDoc.Function.Param(
-        CppDoc.Type(s"const ${stateMachineName}_Interface::${enumName}_Signals"),
+        CppDoc.Type(s"const ${smName}_Interface::${enumName}_Signals"),
         "signal",
         Some("The state machine signal")
       ),
