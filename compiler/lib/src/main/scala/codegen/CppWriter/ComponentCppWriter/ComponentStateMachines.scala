@@ -35,7 +35,7 @@ case class ComponentStateMachines(
       "stateMachineId",
       stateMachineInstances.flatMap((smi) => {
         val smName = s.writeSymbol(smi.symbol)
-        val enumName = smName.replaceFirst(".*::", "")
+        val enumName = s.getName(smi.symbol)
 
         lines(
           s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
@@ -139,7 +139,9 @@ case class ComponentStateMachines(
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => {
           val smName = s.writeSymbol(smi.symbol)
-          val enumName = smName.replaceFirst(".*::", "")
+          val enumName = s.getName(smi.symbol)
+
+
           getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
@@ -153,7 +155,8 @@ case class ComponentStateMachines(
   private def getSignalSendMember: List[CppDoc.Class.Member] = {
        lazy val members = stateMachineInstances.map { smi =>
         val smName = s.writeSymbol(smi.symbol)
-        val enumName = smName.replaceFirst(".*::", "")
+        val enumName = s.getName(smi.symbol)
+
 
         val serializeCode = 
           lines(

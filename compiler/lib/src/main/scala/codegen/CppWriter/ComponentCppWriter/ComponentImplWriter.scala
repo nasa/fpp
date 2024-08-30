@@ -223,8 +223,8 @@ case class ComponentImplWriter(
         stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
           smi => {
             val smName = s.writeSymbol(smi.symbol)
-            val enumName = smName.replaceFirst(".*::", "")
-            
+            val enumName = s.getName(smi.symbol)
+
             functionClassMember(
             Some(s"Overflow hook implementation for ${smi.getName}"),
             inputOverflowHookName(smi.getName, MessageType.StateMachine),
