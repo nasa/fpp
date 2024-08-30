@@ -37,7 +37,7 @@ namespace M {
 
       //! Overflow hook implementation for sm5
       void sm5_stateMachineOverflowHook(
-          const S2_Interface::S2_Signals signal, //!< The state machine signal
+          const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SMSignalBuffer& data //!< The state machine data
       ) override;
 

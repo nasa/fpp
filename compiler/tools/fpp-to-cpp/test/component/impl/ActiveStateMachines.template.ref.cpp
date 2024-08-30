@@ -32,7 +32,7 @@ namespace M {
 
   void ActiveStateMachines ::
     sm5_stateMachineOverflowHook(
-        const S2_Interface::S2_Signals signal,
+        const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
         const Fw::SMSignalBuffer& data
     )
   {
