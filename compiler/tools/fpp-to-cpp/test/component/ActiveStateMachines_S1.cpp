@@ -5,12 +5,9 @@
 // \brief  cpp file for state machine ActiveStateMachines_S1
 //
 // ======================================================================            
-    
-#include "stdio.h"
-#include "assert.h"
-#include "Fw/Types/SMSignalsSerializableAc.hpp"
-#include "ActiveStateMachines_S1.hpp"
 
+#include "ActiveStateMachines_S1.hpp"
+#include "Fw/Types/Assert.hpp"
 
 void M::ActiveStateMachines_S1::init(const FwEnumStoreType stateMachineId)
 {
@@ -98,6 +95,6 @@ void M::ActiveStateMachines_S1::update(
             break;
     
         default:
-        assert(0);
+            FW_ASSERT(0);
     }
 }
