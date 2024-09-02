@@ -39,32 +39,33 @@ case class ComponentStateMachines(
 
         lines(
           s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
-              |   // Deserialize the state machine signal
-              |   FwEnumStoreType desMsg = 0;
-              |   Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-              |   FW_ASSERT(
-              |     deserStatus == Fw::FW_SERIALIZE_OK,
-              |     static_cast<FwAssertArgType>(deserStatus)
-              |   );
-              |   ${smName}_Interface::${enumName}_Signals signal = static_cast<${smName}_Interface::${enumName}_Signals>(desMsg);
+              |  // Deserialize the state machine signal
+              |  FwEnumStoreType desMsg = 0;
+              |  Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+              |  FW_ASSERT(
+              |    deserStatus == Fw::FW_SERIALIZE_OK,
+              |    static_cast<FwAssertArgType>(deserStatus)
+              |  );
+              |  ${smName}_Interface::${enumName}_Signals signal =
+              |    static_cast<${smName}_Interface::${enumName}_Signals>(desMsg);
               |
-              |   // Deserialize the state machine data
-              |   Fw::SMSignalBuffer data;
-              |   deserStatus = msg.deserialize(data);
-              |   FW_ASSERT(
-              |     Fw::FW_SERIALIZE_OK == deserStatus,
-              |     static_cast<FwAssertArgType>(deserStatus)
-              |   );
+              |  // Deserialize the state machine data
+              |  Fw::SMSignalBuffer data;
+              |  deserStatus = msg.deserialize(data);
+              |  FW_ASSERT(
+              |    Fw::FW_SERIALIZE_OK == deserStatus,
+              |    static_cast<FwAssertArgType>(deserStatus)
+              |  );
               |
-              |   // Make sure there was no data left over.
-              |   // That means the buffer size was incorrect.
-              |   FW_ASSERT(
-              |     msg.getBuffLeft() == 0,
-              |     static_cast<FwAssertArgType>(msg.getBuffLeft())
-              |   );
+              |  // Make sure there was no data left over.
+              |  // That means the buffer size was incorrect.
+              |  FW_ASSERT(
+              |    msg.getBuffLeft() == 0,
+              |    static_cast<FwAssertArgType>(msg.getBuffLeft())
+              |  );
               |
-              |   this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
-              |   break;
+              |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
+              |  break;
               |}
           """
         )

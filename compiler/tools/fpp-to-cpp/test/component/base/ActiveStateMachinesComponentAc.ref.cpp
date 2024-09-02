@@ -499,177 +499,183 @@ namespace M {
         SmId stateMachineId = static_cast<SmId>(desMsg);
         switch (stateMachineId) {
           case STATE_MACHINE_SM1: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal = static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal =
+              static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm1.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm1.update(stateMachineId, signal, data);
+            break;
           }
                     
           case STATE_MACHINE_SM2: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal = static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal =
+              static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm2.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm2.update(stateMachineId, signal, data);
+            break;
           }
                     
           case STATE_MACHINE_SM3: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal = static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
+              static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm3.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm3.update(stateMachineId, signal, data);
+            break;
           }
                     
           case STATE_MACHINE_SM4: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal = static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
+              static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm4.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm4.update(stateMachineId, signal, data);
+            break;
           }
                     
           case STATE_MACHINE_SM5: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal = static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
+              static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm5.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm5.update(stateMachineId, signal, data);
+            break;
           }
                     
           case STATE_MACHINE_SM6: {
-             // Deserialize the state machine signal
-             FwEnumStoreType desMsg = 0;
-             Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-             FW_ASSERT(
-               deserStatus == Fw::FW_SERIALIZE_OK,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
-             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal = static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
+            // Deserialize the state machine signal
+            FwEnumStoreType desMsg = 0;
+            Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            FW_ASSERT(
+              deserStatus == Fw::FW_SERIALIZE_OK,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
+            M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
+              static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
-             // Deserialize the state machine data
-             Fw::SMSignalBuffer data;
-             deserStatus = msg.deserialize(data);
-             FW_ASSERT(
-               Fw::FW_SERIALIZE_OK == deserStatus,
-               static_cast<FwAssertArgType>(deserStatus)
-             );
+            // Deserialize the state machine data
+            Fw::SMSignalBuffer data;
+            deserStatus = msg.deserialize(data);
+            FW_ASSERT(
+              Fw::FW_SERIALIZE_OK == deserStatus,
+              static_cast<FwAssertArgType>(deserStatus)
+            );
 
-             // Make sure there was no data left over.
-             // That means the buffer size was incorrect.
-             FW_ASSERT(
-               msg.getBuffLeft() == 0,
-               static_cast<FwAssertArgType>(msg.getBuffLeft())
-             );
+            // Make sure there was no data left over.
+            // That means the buffer size was incorrect.
+            FW_ASSERT(
+              msg.getBuffLeft() == 0,
+              static_cast<FwAssertArgType>(msg.getBuffLeft())
+            );
 
-             this->m_stateMachine_sm6.update(stateMachineId, signal, data);
-             break;
+            this->m_stateMachine_sm6.update(stateMachineId, signal, data);
+            break;
           }
                     
         }
