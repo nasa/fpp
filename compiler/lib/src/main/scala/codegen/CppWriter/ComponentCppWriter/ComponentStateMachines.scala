@@ -137,13 +137,11 @@ case class ComponentStateMachines(
          |the corresponding function here is called.
          |""",
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-        smi => {
-          getVirtualOverflowHook(
-            smi.getName,
-            MessageType.StateMachine,
-            ComponentStateMachines.signalParams(s, smi.symbol)
-          )
-        }
+        smi => getVirtualOverflowHook(
+          smi.getName,
+          MessageType.StateMachine,
+          ComponentStateMachines.signalParams(s, smi.symbol)
+        )
       ),
       CppDoc.Lines.Hpp
     )
