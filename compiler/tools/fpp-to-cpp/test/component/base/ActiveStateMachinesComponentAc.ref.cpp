@@ -490,13 +490,13 @@ namespace M {
       // Handle state machine signals 
       case STATEMACHINE_SENDSIGNALS: {
 
-         FwEnumStoreType desMsg = 0;
-         Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-         FW_ASSERT(
-           deserStatus == Fw::FW_SERIALIZE_OK,
-           static_cast<FwAssertArgType>(deserStatus)
-         );
-         SmId stateMachineId = static_cast<SmId>(desMsg);
+        FwEnumStoreType desMsg = 0;
+        Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+        FW_ASSERT(
+          deserStatus == Fw::FW_SERIALIZE_OK,
+          static_cast<FwAssertArgType>(deserStatus)
+        );
+        SmId stateMachineId = static_cast<SmId>(desMsg);
         switch (stateMachineId) {
           case STATE_MACHINE_SM1: {
              // Deserialize the state machine signal

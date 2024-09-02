@@ -103,15 +103,13 @@ case class ComponentStateMachines(
     lazy val caseBody = List.concat(
       lines(
         s"""|
-            | FwEnumStoreType desMsg = 0;
-            | Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-            | FW_ASSERT(
-            |   deserStatus == Fw::FW_SERIALIZE_OK,
-            |   static_cast<FwAssertArgType>(deserStatus)
-            | );
-            | SmId stateMachineId = static_cast<SmId>(desMsg);
-            |
-            |"""
+            |FwEnumStoreType desMsg = 0;
+            |Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+            |FW_ASSERT(
+            |  deserStatus == Fw::FW_SERIALIZE_OK,
+            |  static_cast<FwAssertArgType>(deserStatus)
+            |);
+            |SmId stateMachineId = static_cast<SmId>(desMsg);"""
       ),
       getInternalInterfaceHandler,
       lines("\nbreak;")
