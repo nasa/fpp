@@ -220,7 +220,7 @@ case class ComponentStateMachines(
 
 object ComponentStateMachines {
 
-   def signalParams(s: CppWriterState, sym: Symbol.StateMachine) = {
+  def signalParams(s: CppWriterState, sym: Symbol.StateMachine) = {
     val smName = s.writeSymbol(sym)
     val enumName = s.getName(sym)
     List(
