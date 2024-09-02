@@ -95,8 +95,6 @@ case class ComponentCppWriter (
       guardedList (hasEvents) (List("Fw/Log/LogString.hpp"))
     val internalStrHeaders =
       guardedList (hasInternalPorts) (List("Fw/Types/InternalInterfaceString.hpp"))
-    val stateMachineEventHeaders =
-      guardedList (hasStateMachineInstances) (List("Fw/Types/SMSignalsSerializableAc.hpp"))
 
     val standardHeaders = List.concat(
       List(
@@ -111,8 +109,7 @@ case class ComponentCppWriter (
       tlmStrHeaders,
       prmStrHeaders,
       logStrHeaders,
-      internalStrHeaders,
-      stateMachineEventHeaders
+      internalStrHeaders
     ).map(CppWriter.headerString)
     val symbolHeaders = writeIncludeDirectives
     val headers = standardHeaders ++ symbolHeaders
@@ -341,7 +338,7 @@ case class ComponentCppWriter (
         lines(
           s"""|// Size of statemachine sendSignals
               |BYTE sendSignalsStatemachineSize[
-              |  Fw::SMSignals::SERIALIZED_SIZE
+              |  2 * sizeof(FwEnumStoreType) + Fw::SMSignalBuffer::SERIALIZED_SIZE
               |];
               |"""
         )

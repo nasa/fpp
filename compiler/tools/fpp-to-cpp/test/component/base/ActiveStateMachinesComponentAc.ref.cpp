@@ -24,7 +24,7 @@ namespace M {
     union BuffUnion {
       // Size of statemachine sendSignals
       BYTE sendSignalsStatemachineSize[
-        Fw::SMSignals::SERIALIZED_SIZE
+        2 * sizeof(FwEnumStoreType) + Fw::SMSignalBuffer::SERIALIZED_SIZE
       ];
     };
 

@@ -13,7 +13,6 @@
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
-#include "Fw/Types/SMSignalsSerializableAc.hpp"
 
 namespace M {
 
