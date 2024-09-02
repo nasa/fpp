@@ -151,7 +151,7 @@ case class ComponentStateMachines(
   private def getSignalSendMember: List[CppDoc.Class.Member] = {
     lazy val members = stateMachineInstances.map { smi =>
 
-      val serializeCode = 
+      val serializeCode =
         lines(
           s"""|ComponentIpcSerializableBuffer msg;
               |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
@@ -208,7 +208,7 @@ case class ComponentStateMachines(
       )
 
     }
-   
+
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push signals to the input queue",
