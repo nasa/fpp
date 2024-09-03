@@ -6,8 +6,7 @@
 //
 // ======================================================================            
     
-#include "stdio.h"
-#include "assert.h"
+#include <Fw/Types/Assert.hpp>
 #include "ActiveStateMachines_S2.hpp"
 
 
@@ -71,6 +70,6 @@ void M::ActiveStateMachines_S2::update(
             break;
     
         default:
-        assert(0);
+        FW_ASSERT(0);
     }
 }
