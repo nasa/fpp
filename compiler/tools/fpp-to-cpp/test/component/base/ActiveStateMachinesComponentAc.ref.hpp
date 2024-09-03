@@ -86,7 +86,7 @@ namespace M {
       //! Overflow hook for state machine sm5
       virtual void sm5_stateMachineOverflowHook(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       ) = 0;
 
     PROTECTED:
@@ -98,37 +98,37 @@ namespace M {
       //! State machine base-class function for sendSignals
       void sm1_stateMachineInvoke(
           const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
       //! State machine base-class function for sendSignals
       void sm2_stateMachineInvoke(
           const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
       //! State machine base-class function for sendSignals
       void sm3_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
       //! State machine base-class function for sendSignals
       void sm4_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
       //! State machine base-class function for sendSignals
       void sm5_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
       //! State machine base-class function for sendSignals
       void sm6_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
-          const Fw::SMSignalBuffer& data //!< The state machine data
+          const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
     PRIVATE:

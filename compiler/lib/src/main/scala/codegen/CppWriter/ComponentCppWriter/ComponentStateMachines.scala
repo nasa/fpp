@@ -50,7 +50,7 @@ case class ComponentStateMachines(
               |    static_cast<${smName}_Interface::${enumName}_Signals>(desMsg);
               |
               |  // Deserialize the state machine data
-              |  Fw::SMSignalBuffer data;
+              |  Fw::SmSignalBuffer data;
               |  deserStatus = msg.deserialize(data);
               |  FW_ASSERT(
               |    Fw::FW_SERIALIZE_OK == deserStatus,
@@ -227,7 +227,7 @@ object ComponentStateMachines {
         Some("The state machine signal")
       ),
       CppDoc.Function.Param(
-        CppDoc.Type("const Fw::SMSignalBuffer&"),
+        CppDoc.Type("const Fw::SmSignalBuffer&"),
         "data",
         Some("The state machine data")
       )

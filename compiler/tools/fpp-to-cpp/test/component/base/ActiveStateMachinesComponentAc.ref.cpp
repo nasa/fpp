@@ -24,7 +24,7 @@ namespace M {
     union BuffUnion {
       // Size of statemachine sendSignals
       BYTE sendSignalsStatemachineSize[
-        2 * sizeof(FwEnumStoreType) + Fw::SMSignalBuffer::SERIALIZED_SIZE
+        2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
       ];
     };
 
@@ -123,7 +123,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm1_stateMachineInvoke(
         const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -175,7 +175,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm2_stateMachineInvoke(
         const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -227,7 +227,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm3_stateMachineInvoke(
         const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -284,7 +284,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm4_stateMachineInvoke(
         const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -336,7 +336,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm5_stateMachineInvoke(
         const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -393,7 +393,7 @@ namespace M {
   void ActiveStateMachinesComponentBase ::
     sm6_stateMachineInvoke(
         const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
-        const Fw::SMSignalBuffer& data
+        const Fw::SmSignalBuffer& data
     )
   {
 
@@ -510,7 +510,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
@@ -540,7 +540,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
@@ -570,7 +570,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
@@ -600,7 +600,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
@@ -630,7 +630,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
@@ -660,7 +660,7 @@ namespace M {
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(desMsg);
 
             // Deserialize the state machine data
-            Fw::SMSignalBuffer data;
+            Fw::SmSignalBuffer data;
             deserStatus = msg.deserialize(data);
             FW_ASSERT(
               Fw::FW_SERIALIZE_OK == deserStatus,
