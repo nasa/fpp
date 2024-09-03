@@ -47,10 +47,12 @@ object FppWriter extends AstVisitor with LineUtils {
   def actionList(actions: List[AstNode[Ast.Ident]]) =
     actions match {
       case Nil => lines("")
-      case _ => List.concat(
-        lines("do {"),
-        (actions.flatMap(applyToData(identAsLines)).map(indentIn)),
-        lines("}")
+      case _ => lines("do").join (" ") (
+        List.concat(
+          lines("{"),
+          actions.flatMap(applyToData(identAsLines)).map(indentIn),
+          lines("}")
+        )
       )
     }
 
