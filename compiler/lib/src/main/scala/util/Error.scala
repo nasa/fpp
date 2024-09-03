@@ -215,6 +215,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+      case SemanticError.StateMachine.DuplicateSignal(sigName, stateName, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"duplicate use of signal $sigName in state $stateName")
+        System.err.println("previous use is here:")
+        System.err.println(prevLoc)
       case SemanticError.StateMachine.InvalidInitialTransition(loc, msg, destLoc) =>
         Error.print (Some(loc)) (msg)
         destLoc.map(loc => {
@@ -509,6 +513,13 @@ object SemanticError {
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {
+    /** Duplicate signal */
+    final case class DuplicateSignal(
+      sigName: String,
+      stateName: String,
+      loc: Location,
+      prevLoc: Location
+    ) extends Error
     /** Invalid initial transition specifier */
     final case class InvalidInitialTransition(
       loc: Location,
