@@ -47,12 +47,11 @@ object FppWriter extends AstVisitor with LineUtils {
   def actionList(actions: List[AstNode[Ast.Ident]]) =
     actions match {
       case Nil => lines("")
-      case _ =>
-        List.concat(
-          lines("do {") ++
-          (actions.flatMap(applyToData(identAsLines)).map(indentIn)) ++
-          lines("}")
-        )
+      case _ => List.concat(
+        lines("do {"),
+        (actions.flatMap(applyToData(identAsLines)).map(indentIn)),
+        lines("}")
+      )
     }
 
   def componentMember(member: Ast.ComponentMember): Out = {
@@ -253,9 +252,14 @@ object FppWriter extends AstVisitor with LineUtils {
   ) = {
     val (_, node, _) = aNode
     val data = node.data
-    List(line(s"state ${ident(data.name)} {"), Line.blank) ++
-    (Line.blankSeparated (stateMember) (data.members)).map(indentIn) ++
-    List(Line.blank, line("}"))
+    val name = ident(data.name)
+    data.members match {
+      case Nil => lines(s"state $name")
+      case _ =>
+        List(line(s"state $name {"), Line.blank) ++
+        (Line.blankSeparated (stateMember) (data.members)).map(indentIn) ++
+        List(Line.blank, line("}"))
+    }
   }
 
   override def defStateMachineAnnotatedNode(

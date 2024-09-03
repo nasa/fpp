@@ -46,10 +46,7 @@ state machine M {
   }
 
   @ State S1
-  state S1 {
-
-
-  }
+  state S1
 
   @ State S2
   state S2 {
@@ -83,10 +80,7 @@ state machine M {
     }
 
     @ State S3
-    state S3 {
-
-
-    }
+    state S3
 
     @ Transition to S1
     on s1 if g1 do {
