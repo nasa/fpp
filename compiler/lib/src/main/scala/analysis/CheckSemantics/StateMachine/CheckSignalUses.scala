@@ -13,22 +13,23 @@ object CheckSignalUses
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    val initialMap = Map[StateMachineSymbol, AstNode[Ast.SpecStateTransition]]()
+    val initialMap = Map[StateMachineSymbol, Ast.SpecStateTransition]()
     for {
       _ <- Result.foldLeft (aNode._2.data.members) (initialMap) (
         (map, member) => member.node._2 match {
           case Ast.StateMember.SpecStateTransition(node) =>
-            val sym = sma.useDefMap(node.data.signal.id)
+            val st = node.data
+            val sym = sma.useDefMap(st.signal.id)
             map.get(sym) match {
-              case Some(prevNode) => Left(
+              case Some(prevSt) => Left(
                 SemanticError.StateMachine.DuplicateSignal(
                   sym.getUnqualifiedName,
                   aNode._2.data.name,
-                  Locations.get(node.data.signal.id),
-                  Locations.get(prevNode.data.signal.id)
+                  Locations.get(st.signal.id),
+                  Locations.get(prevSt.signal.id)
                 )
               )
-              case None => Right(map + (sym -> node))
+              case None => Right(map + (sym -> st))
             }
           case _ => Right(map)
         }
