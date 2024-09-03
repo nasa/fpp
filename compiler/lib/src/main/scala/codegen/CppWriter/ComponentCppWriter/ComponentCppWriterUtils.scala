@@ -848,16 +848,14 @@ abstract class ComponentCppWriterUtils(
     name: String,
     msgType: MessageType,
     params: List[CppDoc.Function.Param]
-  ) = {
-    functionClassMember(
-      Some(s"Overflow hook for $msgType $name"),
-      inputOverflowHookName(name, msgType),
-      params,
-      CppDoc.Type("void"),
-      Nil,
-      CppDoc.Function.PureVirtual
-    )
-  }
+  ) = functionClassMember(
+    Some(s"Overflow hook for $msgType $name"),
+    inputOverflowHookName(name, msgType),
+    params,
+    CppDoc.Type("void"),
+    Nil,
+    CppDoc.Function.PureVirtual
+  )
 
   private def getPortTypeBaseName(
     p: PortInstance,
