@@ -31,6 +31,9 @@ state machine M {
   @ Signal s5
   signal s5
 
+  @ Signal s6
+  signal s6
+
   @ Initial transition
   initial do { a1 } enter J
 
@@ -57,19 +60,19 @@ state machine M {
 
     @ Transition to S1
     on s1 if g1 do { a1 } enter S1
-    on s1 if g1 enter S1
-
-    @ Transition to S1
     on s2 if g1 enter S1
 
     @ Transition to S1
-    on s3 enter S1
+    on s3 if g1 enter S1
+
+    @ Transition to S1
+    on s4 enter S1
 
     @ Internal transition
-    on s4 if g1 do { a1 }
+    on s5 if g1 do { a1 }
 
     @ Internal transition
-    on s5 do { a1 }
+    on s6 do { a1 }
 
   }
 

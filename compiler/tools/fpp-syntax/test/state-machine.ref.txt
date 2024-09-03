@@ -34,6 +34,9 @@ def state machine
   @ Signal s5
   def signal
     ident s5
+  @ Signal s6
+  def signal
+    ident s6
   @ Initial transition
   spec initial
     action ident a1
@@ -81,24 +84,24 @@ def state machine
       action ident a1
       destination qual ident S1
     spec transition
-      signal ident s1
-      guard ident g1
-      destination qual ident S1
-    @ Transition to S1
-    spec transition
       signal ident s2
       guard ident g1
       destination qual ident S1
     @ Transition to S1
     spec transition
       signal ident s3
+      guard ident g1
+      destination qual ident S1
+    @ Transition to S1
+    spec transition
+      signal ident s4
       destination qual ident S1
     @ Internal transition
     spec transition
-      signal ident s4
+      signal ident s5
       guard ident g1
       action ident a1
     @ Internal transition
     spec transition
-      signal ident s5
+      signal ident s6
       action ident a1
