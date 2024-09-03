@@ -74,7 +74,6 @@ trait UseAnalyzer extends TypeExpressionAnalyzer {
     } yield a
   }
 
-
   override def specConnectionGraphAnnotatedNode(
     a: Analysis, node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]) = {
     def connection(a: Analysis, connection: Ast.SpecConnectionGraph.Connection): Result = {

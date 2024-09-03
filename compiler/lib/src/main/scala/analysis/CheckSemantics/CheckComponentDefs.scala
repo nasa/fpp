@@ -137,7 +137,6 @@ object CheckComponentDefs
     } yield a.copy(component = Some(component))
   }
 
-
   override def specTlmChannelAnnotatedNode(
     a: Analysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]

@@ -118,19 +118,8 @@ case class Component(
     }
     yield c
 
-
-  def addStateMachineInstance(instance: StateMachineInstance): Result.Result[Component] =
-    for {
-      c <- updateStateMachineInstanceMap(instance)
-      c <- instance match {
-        case _ => Right(c)
-      }
-    }
-    yield c
-
-
-  /** Add a port instance to the port map */
-  private def updateStateMachineInstanceMap(instance: StateMachineInstance):
+  /** Add a state machine instance */
+  def addStateMachineInstance(instance: StateMachineInstance):
   Result.Result[Component] = {
     val name = instance.getName
     stateMachineInstanceMap.get(name) match {
