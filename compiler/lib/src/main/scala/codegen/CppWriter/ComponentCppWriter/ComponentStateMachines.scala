@@ -37,6 +37,7 @@ case class ComponentStateMachines(
         val smName = s.writeSymbol(smi.symbol)
         val enumName = s.getName(smi.symbol)
 
+        Line.blank ::
         lines(
           s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
               |  // Deserialize the state machine signal
@@ -66,8 +67,7 @@ case class ComponentStateMachines(
               |
               |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
               |  break;
-              |}
-          """
+              |}"""
         )
       }
       )
@@ -100,6 +100,7 @@ case class ComponentStateMachines(
     )
   }
 
+  /** Writes the dispatch case, if any, for state machine instances */
   def writeDispatch: List[Line] = {
     lazy val caseBody = List.concat(
       lines(
@@ -117,7 +118,7 @@ case class ComponentStateMachines(
     )
     lazy val caseStmt =
       Line.blank ::
-      line(s"// Handle state machine signals ") ::
+      line(s"// Handle state machine signals") ::
       wrapInScope(
         s"case $stateMachineCppConstantName: {",
         caseBody,

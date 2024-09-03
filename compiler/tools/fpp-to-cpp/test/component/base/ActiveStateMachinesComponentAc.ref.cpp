@@ -487,7 +487,7 @@ namespace M {
 
     switch (msgType) {
 
-      // Handle state machine signals 
+      // Handle state machine signals
       case STATEMACHINE_SENDSIGNALS: {
 
         FwEnumStoreType desMsg = 0;
@@ -498,6 +498,7 @@ namespace M {
         );
         SmId stateMachineId = static_cast<SmId>(desMsg);
         switch (stateMachineId) {
+
           case STATE_MACHINE_SM1: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -527,7 +528,7 @@ namespace M {
             this->m_stateMachine_sm1.update(stateMachineId, signal, data);
             break;
           }
-                    
+
           case STATE_MACHINE_SM2: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -557,7 +558,7 @@ namespace M {
             this->m_stateMachine_sm2.update(stateMachineId, signal, data);
             break;
           }
-                    
+
           case STATE_MACHINE_SM3: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -587,7 +588,7 @@ namespace M {
             this->m_stateMachine_sm3.update(stateMachineId, signal, data);
             break;
           }
-                    
+
           case STATE_MACHINE_SM4: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -617,7 +618,7 @@ namespace M {
             this->m_stateMachine_sm4.update(stateMachineId, signal, data);
             break;
           }
-                    
+
           case STATE_MACHINE_SM5: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -647,7 +648,7 @@ namespace M {
             this->m_stateMachine_sm5.update(stateMachineId, signal, data);
             break;
           }
-                    
+
           case STATE_MACHINE_SM6: {
             // Deserialize the state machine signal
             FwEnumStoreType desMsg = 0;
@@ -677,7 +678,6 @@ namespace M {
             this->m_stateMachine_sm6.update(stateMachineId, signal, data);
             break;
           }
-                    
         }
 
         break;
