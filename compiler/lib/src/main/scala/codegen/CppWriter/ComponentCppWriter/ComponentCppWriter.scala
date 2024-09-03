@@ -499,7 +499,8 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          s"Fw::${kindStr}ComponentBase(compName)" :: smInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
+          s"Fw::${kindStr}ComponentBase(compName)" ::
+            smInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(
