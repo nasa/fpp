@@ -402,6 +402,9 @@ case class ComponentCppWriter (
         (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
       )
 
+    def writeStateMachineInit(name: String) =
+      line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
+
     val body = intersperseBlankLines(
       List(
         lines(
@@ -409,7 +412,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, _) => line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")),
+        smInstancesByName.map((name, _) => writeStateMachineInit(name)),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
