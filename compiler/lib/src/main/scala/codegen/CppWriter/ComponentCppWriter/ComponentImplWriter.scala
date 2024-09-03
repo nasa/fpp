@@ -224,7 +224,7 @@ case class ComponentImplWriter(
           smi => functionClassMember(
             Some(s"Overflow hook implementation for ${smi.getName}"),
             inputOverflowHookName(smi.getName, MessageType.StateMachine),
-            ComponentStateMachines.signalParams,
+            ComponentStateMachines.signalParams(s, smi.symbol),
             CppDoc.Type("void"),
             lines("// TODO"),
             CppDoc.Function.Override

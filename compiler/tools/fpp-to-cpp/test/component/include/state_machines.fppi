@@ -1,9 +1,10 @@
 # ----------------------------------------------------------------------
 # State machine definitions
 # ----------------------------------------------------------------------
-
-@ State machine definition S
+@ State machine definition S1
 state machine S1
+
+@ State machine definition S2
 state machine S2
 
 # ----------------------------------------------------------------------

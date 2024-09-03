@@ -52,7 +52,7 @@ object ConstantCppWriter extends CppWriterUtils {
       val node = aNode._2
       val data = node.data
       val value = s.a.valueMap(node.id)
-      val name = s.addComponentNamePrefix(Symbol.Constant(aNode))
+      val name = s.getName(Symbol.Constant(aNode))
       val (hppLines, cppLines) = value match {
         case Value.Boolean(b) => writeBooleanConstant(name, b.toString)
         case Value.EnumConstant(e, _) => writeIntConstant(name, e._2.toString)
