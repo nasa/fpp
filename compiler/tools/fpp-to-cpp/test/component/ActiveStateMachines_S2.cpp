@@ -6,8 +6,8 @@
 //
 // ======================================================================            
     
+#include <Fw/Types/Assert.hpp>
 #include "ActiveStateMachines_S2.hpp"
-#include "Fw/Types/Assert.hpp"
 
 
 void M::ActiveStateMachines_S2::init(const FwEnumStoreType stateMachineId)
@@ -70,6 +70,6 @@ void M::ActiveStateMachines_S2::update(
             break;
     
         default:
-            FW_ASSERT(0);
+        FW_ASSERT(0);
     }
 }

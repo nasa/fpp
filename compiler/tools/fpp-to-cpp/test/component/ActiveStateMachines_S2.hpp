@@ -9,7 +9,7 @@
 #ifndef ACTIVESTATEMACHINES_S2_H_
 #define ACTIVESTATEMACHINES_S2_H_
                                 
-#include <Fw/SMSignal/SMSignalBuffer.hpp>
+#include <Fw/Sm/SMSignalBuffer.hpp>
 #include <config/FpConfig.hpp>
                                  
 namespace M {

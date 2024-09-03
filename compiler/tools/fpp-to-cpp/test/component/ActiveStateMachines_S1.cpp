@@ -5,9 +5,10 @@
 // \brief  cpp file for state machine ActiveStateMachines_S1
 //
 // ======================================================================            
-
+    
+#include <Fw/Types/Assert.hpp>
 #include "ActiveStateMachines_S1.hpp"
-#include "Fw/Types/Assert.hpp"
+
 
 void M::ActiveStateMachines_S1::init(const FwEnumStoreType stateMachineId)
 {
@@ -95,6 +96,6 @@ void M::ActiveStateMachines_S1::update(
             break;
     
         default:
-            FW_ASSERT(0);
+        FW_ASSERT(0);
     }
 }
