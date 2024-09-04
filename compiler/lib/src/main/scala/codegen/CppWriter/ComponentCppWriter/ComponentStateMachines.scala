@@ -31,6 +31,8 @@ case class ComponentStateMachines(
   }
 
   def getInternalInterfaceHandler: List[Line] =
+    Line.blank ::
+    line("// Call the state machine update function") ::
     wrapInSwitch(
       "stateMachineId",
       stateMachineInstances.flatMap((smi) => {
@@ -40,37 +42,13 @@ case class ComponentStateMachines(
         Line.blank ::
         lines(
           s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
-              |  // Deserialize the state machine signal
-              |  FwEnumStoreType desMsg = 0;
-              |  Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
-              |  FW_ASSERT(
-              |    deserStatus == Fw::FW_SERIALIZE_OK,
-              |    static_cast<FwAssertArgType>(deserStatus)
-              |  );
               |  ${smName}_Interface::${enumName}_Signals signal =
-              |    static_cast<${smName}_Interface::${enumName}_Signals>(desMsg);
-              |
-              |  // Deserialize the state machine data
-              |  Fw::SmSignalBuffer data;
-              |  deserStatus = msg.deserialize(data);
-              |  FW_ASSERT(
-              |    Fw::FW_SERIALIZE_OK == deserStatus,
-              |    static_cast<FwAssertArgType>(deserStatus)
-              |  );
-              |
-              |  // Make sure there was no data left over.
-              |  // That means the buffer size was incorrect.
-              |  FW_ASSERT(
-              |    msg.getBuffLeft() == 0,
-              |    static_cast<FwAssertArgType>(msg.getBuffLeft())
-              |  );
-              |
+              |    static_cast<${smName}_Interface::${enumName}_Signals>(enumStoreSmSignal);
               |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
               |  break;
               |}"""
         )
-      }
-      )
+      })
     )
 
   /** Gets the state machine interfaces */
@@ -104,14 +82,37 @@ case class ComponentStateMachines(
   def writeDispatch: List[Line] = {
     lazy val caseBody = List.concat(
       lines(
-        s"""|
-            |FwEnumStoreType desMsg = 0;
-            |Fw::SerializeStatus deserStatus = msg.deserialize(desMsg);
+        s"""|// Deserialize the state machine ID
+            |FwEnumStoreType enumStoreSmId = 0;
+            |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
             |FW_ASSERT(
             |  deserStatus == Fw::FW_SERIALIZE_OK,
             |  static_cast<FwAssertArgType>(deserStatus)
             |);
-            |SmId stateMachineId = static_cast<SmId>(desMsg);"""
+            |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
+            |
+            |// Deserialize the state machine signal
+            |FwEnumStoreType enumStoreSmSignal = 0;
+            |deserStatus = msg.deserialize(enumStoreSmSignal);
+            |FW_ASSERT(
+            |  deserStatus == Fw::FW_SERIALIZE_OK,
+            |  static_cast<FwAssertArgType>(deserStatus)
+            |);
+            |
+            |// Deserialize the state machine data
+            |Fw::SmSignalBuffer data;
+            |deserStatus = msg.deserialize(data);
+            |FW_ASSERT(
+            |  Fw::FW_SERIALIZE_OK == deserStatus,
+            |  static_cast<FwAssertArgType>(deserStatus)
+            |);
+            |
+            |// Make sure there was no data left over.
+            |// That means the buffer size was incorrect.
+            |FW_ASSERT(
+            |  msg.getBuffLeft() == 0,
+            |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+            |);"""
       ),
       getInternalInterfaceHandler,
       lines("\nbreak;")
