@@ -30,27 +30,6 @@ case class ComponentStateMachines(
     )
   }
 
-  def getInternalInterfaceHandler: List[Line] =
-    Line.blank ::
-    line("// Call the state machine update function") ::
-    wrapInSwitch(
-      "stateMachineId",
-      stateMachineInstances.flatMap((smi) => {
-        val smName = s.writeSymbol(smi.symbol)
-        val enumName = s.getName(smi.symbol)
-
-        Line.blank ::
-        lines(
-          s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
-              |  ${smName}_Interface::${enumName}_Signals signal =
-              |    static_cast<${smName}_Interface::${enumName}_Signals>(enumStoreSmSignal);
-              |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
-              |  break;
-              |}"""
-        )
-      })
-    )
-
   /** Gets the state machine interfaces */
   def getSmInterfaces: String =
     smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
@@ -80,43 +59,45 @@ case class ComponentStateMachines(
 
   /** Writes the dispatch case, if any, for state machine instances */
   def writeDispatch: List[Line] = {
-    lazy val caseBody = List.concat(
-      lines(
-        s"""|// Deserialize the state machine ID
-            |FwEnumStoreType enumStoreSmId = 0;
-            |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
-            |FW_ASSERT(
-            |  deserStatus == Fw::FW_SERIALIZE_OK,
-            |  static_cast<FwAssertArgType>(deserStatus)
-            |);
-            |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
-            |
-            |// Deserialize the state machine signal
-            |FwEnumStoreType enumStoreSmSignal = 0;
-            |deserStatus = msg.deserialize(enumStoreSmSignal);
-            |FW_ASSERT(
-            |  deserStatus == Fw::FW_SERIALIZE_OK,
-            |  static_cast<FwAssertArgType>(deserStatus)
-            |);
-            |
-            |// Deserialize the state machine data
-            |Fw::SmSignalBuffer data;
-            |deserStatus = msg.deserialize(data);
-            |FW_ASSERT(
-            |  Fw::FW_SERIALIZE_OK == deserStatus,
-            |  static_cast<FwAssertArgType>(deserStatus)
-            |);
-            |
-            |// Make sure there was no data left over.
-            |// That means the buffer size was incorrect.
-            |FW_ASSERT(
-            |  msg.getBuffLeft() == 0,
-            |  static_cast<FwAssertArgType>(msg.getBuffLeft())
-            |);"""
-      ),
-      getInternalInterfaceHandler,
-      lines("\nbreak;")
-    )
+    lazy val caseBody = 
+      Line.blank ::
+      List.concat(
+        lines(
+          s"""|// Deserialize the state machine ID
+              |FwEnumStoreType enumStoreSmId = 0;
+              |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
+              |FW_ASSERT(
+              |  deserStatus == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(deserStatus)
+              |);
+              |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
+              |
+              |// Deserialize the state machine signal
+              |FwEnumStoreType enumStoreSmSignal = 0;
+              |deserStatus = msg.deserialize(enumStoreSmSignal);
+              |FW_ASSERT(
+              |  deserStatus == Fw::FW_SERIALIZE_OK,
+              |  static_cast<FwAssertArgType>(deserStatus)
+              |);
+              |
+              |// Deserialize the state machine data
+              |Fw::SmSignalBuffer data;
+              |deserStatus = msg.deserialize(data);
+              |FW_ASSERT(
+              |  Fw::FW_SERIALIZE_OK == deserStatus,
+              |  static_cast<FwAssertArgType>(deserStatus)
+              |);
+              |
+              |// Make sure there was no data left over.
+              |// That means the buffer size was incorrect.
+              |FW_ASSERT(
+              |  msg.getBuffLeft() == 0,
+              |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+              |);"""
+        ),
+        writeStateMachineUpdate,
+        lines("\nbreak;")
+      )
     lazy val caseStmt =
       Line.blank ::
       line(s"// Handle state machine signals") ::
@@ -214,6 +195,33 @@ case class ComponentStateMachines(
       guardedList (hasStateMachineInstances) (members)
     )
   }
+
+  private def writeStateMachineUpdate: List[Line] =
+    Line.blank ::
+    line("// Call the state machine update function") ::
+    wrapInSwitch(
+      "stateMachineId",
+      List.concat(
+        stateMachineInstances.flatMap((smi) => {
+          val smName = s.writeSymbol(smi.symbol)
+          val enumName = s.getName(smi.symbol)
+          Line.blank ::
+          lines(
+            s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
+                |  ${smName}_Interface::${enumName}_Signals signal =
+                |    static_cast<${smName}_Interface::${enumName}_Signals>(enumStoreSmSignal);
+                |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
+                |  break;
+                |}"""
+          )
+        }),
+        Line.blank :: lines(
+          s"""|default:
+              |  FW_ASSERT(0, static_cast<FwAssertArgType>(stateMachineId));
+              |  break;"""
+        )
+      )
+    )
 
 }
 

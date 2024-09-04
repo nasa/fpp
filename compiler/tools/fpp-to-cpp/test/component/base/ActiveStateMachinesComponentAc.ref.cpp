@@ -489,6 +489,7 @@ namespace M {
 
       // Handle state machine signals
       case STATEMACHINE_SENDSIGNALS: {
+
         // Deserialize the state machine ID
         FwEnumStoreType enumStoreSmId = 0;
         Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
@@ -565,6 +566,10 @@ namespace M {
             this->m_stateMachine_sm6.update(stateMachineId, signal, data);
             break;
           }
+
+          default:
+            FW_ASSERT(0, static_cast<FwAssertArgType>(stateMachineId));
+            break;
         }
 
         break;
