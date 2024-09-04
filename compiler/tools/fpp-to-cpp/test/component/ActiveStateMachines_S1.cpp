@@ -22,7 +22,7 @@ void M::ActiveStateMachines_S1::init(const FwEnumStoreType stateMachineId)
 void M::ActiveStateMachines_S1::update(
     const FwEnumStoreType stateMachineId, 
     const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
-    const Fw::SMSignalBuffer &data
+    const Fw::SmSignalBuffer &data
 )
 {
     switch (this->state) {

@@ -9,7 +9,7 @@
 #ifndef ACTIVESTATEMACHINES_S2_H_
 #define ACTIVESTATEMACHINES_S2_H_
                                 
-#include <Fw/Sm/SMSignalBuffer.hpp>
+#include <Fw/Sm/SmSignalBuffer.hpp>
 #include <config/FpConfig.hpp>
                                  
 namespace M {
@@ -27,7 +27,7 @@ class ActiveStateMachines_S2_Interface {
     virtual bool ActiveStateMachines_S2_g2(
         const FwEnumStoreType stateMachineId, 
         const ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, 
-        const Fw::SMSignalBuffer &data) = 0;
+        const Fw::SmSignalBuffer &data) = 0;
                                  
                                  
     virtual void ActiveStateMachines_S2_initLed(const FwEnumStoreType stateMachineId) = 0;
@@ -45,7 +45,7 @@ class ActiveStateMachines_S2_Interface {
     virtual  void ActiveStateMachines_S2_a2(
         const FwEnumStoreType stateMachineId, 
         const ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, 
-        const Fw::SMSignalBuffer &data) = 0;
+        const Fw::SmSignalBuffer &data) = 0;
                                  
                                                                   
 };
@@ -70,7 +70,7 @@ class ActiveStateMachines_S2 {
     void update(
         const FwEnumStoreType stateMachineId, 
         const ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, 
-        const Fw::SMSignalBuffer &data
+        const Fw::SmSignalBuffer &data
     );
 };
 
