@@ -31,8 +31,8 @@ object TransitionGraph {
 
   case class Arc(
     initialNode: InitialNode,
-    transitionExpr: Ast.TransitionExpr,
-    terminalnalNode: TerminalNode
+    transitionExprNode: AstNode[Ast.TransitionExpr],
+    terminalNode: TerminalNode
   )
 
 }
