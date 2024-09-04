@@ -2924,8 +2924,9 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each state definition and each junction definition in
-<em>T</em> must be the terminal node of at least one arc.</p>
+<p>Let <em>D</em> be the destination of the initial transition in <em>T</em>.
+Each state definition and each junction definition in
+<em>T</em> must be reachable from <em>T</em> in the transition graph.</p>
 </li>
 <li>
 <p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
@@ -10163,7 +10164,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-29 15:05:06 -0700
+Last updated 2024-09-04 09:47:28 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

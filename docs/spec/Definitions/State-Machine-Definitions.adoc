@@ -102,8 +102,9 @@ in _e_.
 If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-. Each state definition and each junction definition in
-_T_ must be the terminal node of at least one arc.
+. Let _D_ be the destination of the initial transition in _T_.
+Each state definition and each junction definition in
+_T_ must be reachable from _T_ in the transition graph.
 
 . Let _S_ be the subgraph of _T_ consisting of all
 and only the junction definitions and the arcs whose initial
