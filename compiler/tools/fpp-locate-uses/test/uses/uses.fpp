@@ -32,6 +32,10 @@ active component C3 {
   telemetry port tlmOut
   text event port textEventOut
   time get port timeGetOut
+  state machine instance S_use: S
+  state machine instance M_S_use: M.S
+  state machine instance C1_S_use: C1.S
+  state machine instance M_C1_S_use: M.C1.S
 }
 
 active component C4 {

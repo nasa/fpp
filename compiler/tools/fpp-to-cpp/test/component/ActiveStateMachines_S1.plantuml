@@ -1,0 +1,22 @@
+
+@startuml
+
+[*] --> ON : /initLed()
+
+state ON {
+    ON:Entry: turnLedOn()
+}
+
+state OFF {
+    OFF:Entry: turnLedOff()
+}
+
+state WAITING {
+    WAITING:Entry: blinkLed()
+}
+
+ON --> OFF : RTI [g1()]/a1()
+OFF --> ON : RTI [g2(e)]/a2(e)
+ON --> WAITING : WAIT /a3(e)
+OFF --> WAITING : WAIT /a4(e)
+@enduml

@@ -1,0 +1,52 @@
+=== Action Definitions
+
+An *action definition* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+It defines an action, i.e., a function that is called when
+the enclosing state machine performs a
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers,transition from a state>>
+or passes through a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+Actions may carry data.
+
+==== Syntax
+`action`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+_]_
+
+==== Semantics
+
+. The identifier specifies the name of the action.
+
+. If present, the optional type name specifies the type _T_ associated
+with the action.
+A value of type _T_ will be passed into the function associated with
+the action when it is called.
+If _type-name_ is not present, then there is no data associated with the 
+action.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with action definitions
+state machine ActionDefs {
+
+  @ An action without data
+  action initPower
+
+  @ An action with data
+  action reportFault: FaultData
+
+  ...
+
+}
+----

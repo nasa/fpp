@@ -523,333 +523,409 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_Port-Definitions_Examples">5.9.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Struct-Definitions">5.10. Struct Definitions</a>
+<li><a href="#Definitions_State-Machine-Definitions">5.10. State Machine Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Struct-Definitions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Definitions_Struct-Definitions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Definitions_Struct-Definitions_Examples">5.10.3. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Definitions_Topology-Definitions">5.11. Topology Definitions</a>
+<li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Definitions_Topology-Definitions_Syntax">5.11.1. Syntax</a></li>
-<li><a href="#Definitions_Topology-Definitions_Semantics">5.11.2. Semantics</a></li>
-<li><a href="#Definitions_Topology-Definitions_Examples">5.11.3. Examples</a></li>
+<li><a href="#Definitions_Struct-Definitions_Syntax">5.11.1. Syntax</a></li>
+<li><a href="#Definitions_Struct-Definitions_Semantics">5.11.2. Semantics</a></li>
+<li><a href="#Definitions_Struct-Definitions_Examples">5.11.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Definitions_Topology-Definitions">5.12. Topology Definitions</a>
+<ul class="sectlevel3">
+<li><a href="#Definitions_Topology-Definitions_Syntax">5.12.1. Syntax</a></li>
+<li><a href="#Definitions_Topology-Definitions_Semantics">5.12.2. Semantics</a></li>
+<li><a href="#Definitions_Topology-Definitions_Examples">5.12.3. Examples</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Specifiers">6. Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements">6. State Machine Behavior Elements</a>
 <ul class="sectlevel2">
-<li><a href="#Specifiers_Command-Specifiers">6.1. Command Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions">6.1. Action Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Command-Specifiers_Syntax">6.1.1. Syntax</a></li>
-<li><a href="#Specifiers_Command-Specifiers_Semantics">6.1.2. Semantics</a></li>
-<li><a href="#Specifiers_Command-Specifiers_Examples">6.1.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Syntax">6.1.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Semantics">6.1.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Component-Instance-Specifiers">6.2. Component Instance Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Component-Instance-Specifiers_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#Specifiers_Component-Instance-Specifiers_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#Specifiers_Component-Instance-Specifiers_Example">6.2.3. Example</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Semantics">6.2.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Examples">6.2.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Connection-Graph-Specifiers">6.3. Connection Graph Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.3. Guard Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Connection-Graph-Specifiers_Syntax">6.3.1. Syntax</a></li>
-<li><a href="#Specifiers_Connection-Graph-Specifiers_Semantics">6.3.2. Semantics</a></li>
-<li><a href="#Specifiers_Connection-Graph-Specifiers_Example">6.3.3. Example</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.3.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.3.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.3.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Container-Specifiers">6.4. Container Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.4. Initial Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Container-Specifiers_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#Specifiers_Container-Specifiers_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#Specifiers_Container-Specifiers_Examples">6.4.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.4.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Event-Specifiers">6.5. Event Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions">6.5. Junction Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Event-Specifiers_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#Specifiers_Event-Specifiers_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#Specifiers_Event-Specifiers_Examples">6.5.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.5.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.5.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Include-Specifiers">6.6. Include Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Include-Specifiers_Syntax">6.6.1. Syntax</a></li>
-<li><a href="#Specifiers_Include-Specifiers_Semantics">6.6.2. Semantics</a></li>
-<li><a href="#Specifiers_Include-Specifiers_Examples">6.6.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Syntax">6.6.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Semantics">6.6.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Signal-Definitions_Examples">6.6.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Init-Specifiers">6.7. Init Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.7. State Definitions</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Init-Specifiers_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#Specifiers_Init-Specifiers_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#Specifiers_Init-Specifiers_Example">6.7.3. Example</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.7.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Specifiers_Internal-Port-Specifiers">6.8. Internal Port Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">6.8.1. Syntax</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">6.8.2. Semantics</a></li>
-<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">6.8.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Location-Specifiers">6.9. Location Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Location-Specifiers_Syntax">6.9.1. Syntax</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Semantics">6.9.2. Semantics</a></li>
-<li><a href="#Specifiers_Location-Specifiers_Examples">6.9.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Parameter-Specifiers">6.10. Parameter Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Parameter-Specifiers_Syntax">6.10.1. Syntax</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Semantics">6.10.2. Semantics</a></li>
-<li><a href="#Specifiers_Parameter-Specifiers_Examples">6.10.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Port-Instance-Specifiers">6.11. Port Instance Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">6.11.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">6.11.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">6.11.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Port-Matching-Specifiers">6.12. Port Matching Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">6.12.1. Syntax</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">6.12.2. Semantics</a></li>
-<li><a href="#Specifiers_Port-Matching-Specifiers_Example">6.12.3. Example</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Record-Specifiers">6.13. Record Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</a></li>
-<li><a href="#Specifiers_Record-Specifiers_Semantics">6.13.2. Semantics</a></li>
-<li><a href="#Specifiers_Record-Specifiers_Examples">6.13.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers">6.14. Telemetry Channel Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">6.14.1. Syntax</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">6.14.2. Semantics</a></li>
-<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">6.14.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Specifiers_Topology-Import-Specifiers">6.15. Topology Import Specifiers</a>
-<ul class="sectlevel3">
-<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">6.15.1. Syntax</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">6.15.2. Semantics</a></li>
-<li><a href="#Specifiers_Topology-Import-Specifiers_Example">6.15.3. Example</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.8.3. Examples</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Port-Instance-Identifiers">7. Port Instance Identifiers</a>
+<li><a href="#Specifiers">7. Specifiers</a>
 <ul class="sectlevel2">
-<li><a href="#Port-Instance-Identifiers_Syntax">7.1. Syntax</a></li>
-<li><a href="#Port-Instance-Identifiers_Semantics">7.2. Semantics</a></li>
-<li><a href="#Port-Instance-Identifiers_Examples">7.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Type-Names">8. Type Names</a>
-<ul class="sectlevel2">
-<li><a href="#Type-Names_Primitive-Integer-Type-Names">8.1. Primitive Integer Type Names</a></li>
-<li><a href="#Type-Names_Floating-Point-Type-Names">8.2. Floating-Point Type Names</a></li>
-<li><a href="#Type-Names_The-Boolean-Type-Name">8.3. The Boolean Type Name</a></li>
-<li><a href="#Type-Names_String-Type-Names">8.4. String Type Names</a></li>
-<li><a href="#Type-Names_Qualified-Identifier-Type-Names">8.5. Qualified Identifier Type Names</a></li>
-</ul>
-</li>
-<li><a href="#Expressions">9. Expressions</a>
-<ul class="sectlevel2">
-<li><a href="#Expressions_Arithmetic-Expressions">9.1. Arithmetic Expressions</a></li>
-<li><a href="#Expressions_Array-Expressions">9.2. Array Expressions</a>
+<li><a href="#Specifiers_Command-Specifiers">7.1. Command Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Array-Expressions_Syntax">9.2.1. Syntax</a></li>
-<li><a href="#Expressions_Array-Expressions_Semantics">9.2.2. Semantics</a></li>
-<li><a href="#Expressions_Array-Expressions_Example">9.2.3. Example</a></li>
+<li><a href="#Specifiers_Command-Specifiers_Syntax">7.1.1. Syntax</a></li>
+<li><a href="#Specifiers_Command-Specifiers_Semantics">7.1.2. Semantics</a></li>
+<li><a href="#Specifiers_Command-Specifiers_Examples">7.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Boolean-Literals">9.3. Boolean Literals</a></li>
-<li><a href="#Expressions_Dot-Expressions">9.4. Dot Expressions</a>
+<li><a href="#Specifiers_Component-Instance-Specifiers">7.2. Component Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Dot-Expressions_Syntax">9.4.1. Syntax</a></li>
-<li><a href="#Expressions_Dot-Expressions_Semantics">9.4.2. Semantics</a></li>
-<li><a href="#Expressions_Dot-Expressions_Examples">9.4.3. Examples</a></li>
+<li><a href="#Specifiers_Component-Instance-Specifiers_Syntax">7.2.1. Syntax</a></li>
+<li><a href="#Specifiers_Component-Instance-Specifiers_Semantics">7.2.2. Semantics</a></li>
+<li><a href="#Specifiers_Component-Instance-Specifiers_Example">7.2.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Floating-Point-Literals">9.5. Floating-Point Literals</a></li>
-<li><a href="#Expressions_Identifier-Expressions">9.6. Identifier Expressions</a></li>
-<li><a href="#Expressions_Integer-Literals">9.7. Integer Literals</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions">9.8. Parenthesis Expressions</a>
+<li><a href="#Specifiers_Connection-Graph-Specifiers">7.3. Connection Graph Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Parenthesis-Expressions_Syntax">9.8.1. Syntax</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Semantics">9.8.2. Semantics</a></li>
-<li><a href="#Expressions_Parenthesis-Expressions_Example">9.8.3. Example</a></li>
+<li><a href="#Specifiers_Connection-Graph-Specifiers_Syntax">7.3.1. Syntax</a></li>
+<li><a href="#Specifiers_Connection-Graph-Specifiers_Semantics">7.3.2. Semantics</a></li>
+<li><a href="#Specifiers_Connection-Graph-Specifiers_Example">7.3.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_String-Literals">9.9. String Literals</a>
+<li><a href="#Specifiers_Container-Specifiers">7.4. Container Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</a></li>
-<li><a href="#Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Syntax">7.4.1. Syntax</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Semantics">7.4.2. Semantics</a></li>
+<li><a href="#Specifiers_Container-Specifiers_Examples">7.4.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Struct-Expressions">9.10. Struct Expressions</a>
+<li><a href="#Specifiers_Event-Specifiers">7.5. Event Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Expressions_Struct-Expressions_Syntax">9.10.1. Syntax</a></li>
-<li><a href="#Expressions_Struct-Expressions_Semantics">9.10.2. Semantics</a></li>
-<li><a href="#Expressions_Struct-Expressions_Example">9.10.3. Example</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Syntax">7.5.1. Syntax</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Semantics">7.5.2. Semantics</a></li>
+<li><a href="#Specifiers_Event-Specifiers_Examples">7.5.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Expressions_Precedence-and-Associativity">9.11. Precedence and Associativity</a></li>
-</ul>
-</li>
-<li><a href="#Formal-Parameter-Lists">10. Formal Parameter Lists</a>
-<ul class="sectlevel2">
-<li><a href="#Formal-Parameter-Lists_Syntax">10.1. Syntax</a></li>
-<li><a href="#Formal-Parameter-Lists_Semantics">10.2. Semantics</a></li>
-<li><a href="#Formal-Parameter-Lists_Examples">10.3. Examples</a></li>
-</ul>
-</li>
-<li><a href="#Format-Strings">11. Format Strings</a></li>
-<li><a href="#Comments-and-Annotations">12. Comments and Annotations</a>
-<ul class="sectlevel2">
-<li><a href="#Comments-and-Annotations_Comments">12.1. Comments</a></li>
-<li><a href="#Comments-and-Annotations_Annotations">12.2. Annotations</a>
+<li><a href="#Specifiers_Include-Specifiers">7.6. Include Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">12.2.1. Where Annotations Can Occur</a></li>
-<li><a href="#Comments-and-Annotations_Annotations_Kinds-of-Annotations">12.2.2. Kinds of Annotations</a></li>
-<li><a href="#Comments-and-Annotations_Annotations_Multiline-Annotations">12.2.3. Multiline Annotations</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Syntax">7.6.1. Syntax</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Semantics">7.6.2. Semantics</a></li>
+<li><a href="#Specifiers_Include-Specifiers_Examples">7.6.3. Examples</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#Translation-Units-and-Models">13. Translation Units and Models</a>
-<ul class="sectlevel2">
-<li><a href="#Translation-Units-and-Models_Translation-Units">13.1. Translation Units</a>
+<li><a href="#Specifiers_Init-Specifiers">7.7. Init Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Translation-Units-and-Models_Translation-Units_Syntax">13.1.1. Syntax</a></li>
-<li><a href="#Translation-Units-and-Models_Translation-Units_Example">13.1.2. Example</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Syntax">7.7.1. Syntax</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Semantics">7.7.2. Semantics</a></li>
+<li><a href="#Specifiers_Init-Specifiers_Example">7.7.3. Example</a></li>
 </ul>
 </li>
-<li><a href="#Translation-Units-and-Models_Models">13.2. Models</a></li>
-<li><a href="#Translation-Units-and-Models_Locations">13.3. Locations</a></li>
-</ul>
-</li>
-<li><a href="#Scoping-of-Names">14. Scoping of Names</a>
-<ul class="sectlevel2">
-<li><a href="#Scoping-of-Names_Qualified-Identifiers">14.1. Qualified Identifiers</a></li>
-<li><a href="#Scoping-of-Names_Names-of-Definitions">14.2. Names of Definitions</a></li>
-<li><a href="#Scoping-of-Names_Name-Groups">14.3. Name Groups</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">14.4. Multiple Definitions with the Same Qualified Name</a>
+<li><a href="#Specifiers_Internal-Port-Specifiers">7.8. Internal Port Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">14.4.1. Different Name Groups</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">14.4.2. Module Definitions</a></li>
-<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">14.4.3. Conflicting Definitions</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Syntax">7.8.1. Syntax</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Semantics">7.8.2. Semantics</a></li>
+<li><a href="#Specifiers_Internal-Port-Specifiers_Examples">7.8.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">14.5. Resolution of Identifiers</a></li>
-<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">14.6. Resolution of Qualified Identifiers</a></li>
-</ul>
-</li>
-<li><a href="#Definitions-and-Uses">15. Definitions and Uses</a>
-<ul class="sectlevel2">
-<li><a href="#Definitions-and-Uses_Uses">15.1. Uses</a></li>
-<li><a href="#Definitions-and-Uses_Use-Def-Graph">15.2. Use-Def Graph</a></li>
-<li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">15.3. Order of Definitions and Uses</a></li>
-</ul>
-</li>
-<li><a href="#Types">16. Types</a>
-<ul class="sectlevel2">
-<li><a href="#Types_Primitive-Integer-Types">16.1. Primitive Integer Types</a></li>
-<li><a href="#Types_Floating-Point-Types">16.2. Floating-Point Types</a></li>
-<li><a href="#Types_Primitive-Numeric-Types">16.3. Primitive Numeric Types</a></li>
-<li><a href="#Types_The-Boolean-Type">16.4. The Boolean Type</a></li>
-<li><a href="#Types_Primitive-Types">16.5. Primitive Types</a></li>
-<li><a href="#Types_String-Types">16.6. String Types</a></li>
-<li><a href="#Types_Array-Types">16.7. Array Types</a></li>
-<li><a href="#Types_Enum-Types">16.8. Enum Types</a></li>
-<li><a href="#Types_Struct-Types">16.9. Struct Types</a></li>
-<li><a href="#Types_Abstract-Types">16.10. Abstract Types</a></li>
-<li><a href="#Types_Internal-Types">16.11. Internal Types</a>
+<li><a href="#Specifiers_Location-Specifiers">7.9. Location Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Types_Internal-Types_Integer">16.11.1. Integer</a></li>
-<li><a href="#Types_Internal-Types_Integer-Types">16.11.2. Integer Types</a></li>
-<li><a href="#Types_Internal-Types_Numeric-Types">16.11.3. Numeric Types</a></li>
-<li><a href="#Types_Internal-Types_Anonymous-Array-Types">16.11.4. Anonymous Array Types</a></li>
-<li><a href="#Types_Internal-Types_Anonymous-Struct-Types">16.11.5. Anonymous Struct Types</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Syntax">7.9.1. Syntax</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Semantics">7.9.2. Semantics</a></li>
+<li><a href="#Specifiers_Location-Specifiers_Examples">7.9.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#Types_Displayable-Types">16.12. Displayable Types</a></li>
-<li><a href="#Types_Types-with-Numeric-Members">16.13. Types with Numeric Members</a></li>
-<li><a href="#Types_Default-Values">16.14. Default Values</a></li>
-</ul>
-</li>
-<li><a href="#Type-Checking">17. Type Checking</a>
-<ul class="sectlevel2">
-<li><a href="#Type-Checking_Integer-Literals">17.1. Integer Literals</a></li>
-<li><a href="#Type-Checking_Floating-Point-Literals">17.2. Floating-Point Literals</a></li>
-<li><a href="#Type-Checking_Boolean-Literals">17.3. Boolean Literals</a></li>
-<li><a href="#Type-Checking_String-Literals">17.4. String Literals</a></li>
-<li><a href="#Type-Checking_Identifier-Expressions">17.5. Identifier Expressions</a></li>
-<li><a href="#Type-Checking_Dot-Expressions">17.6. Dot Expressions</a></li>
-<li><a href="#Type-Checking_Array-Expressions">17.7. Array Expressions</a></li>
-<li><a href="#Type-Checking_Struct-Expressions">17.8. Struct Expressions</a></li>
-<li><a href="#Type-Checking_Unary-Negation-Expressions">17.9. Unary Negation Expressions</a></li>
-<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">17.10. Binary Arithmetic Expressions</a></li>
-<li><a href="#Type-Checking_Parenthesis-Expressions">17.11. Parenthesis Expressions</a></li>
-<li><a href="#Type-Checking_Identical-Types">17.12. Identical Types</a></li>
-<li><a href="#Type-Checking_Type-Conversion">17.13. Type Conversion</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type">17.14. Computing a Common Type</a>
+<li><a href="#Specifiers_Parameter-Specifiers">7.10. Parameter Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.14.1. Pairs of Types</a></li>
-<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.14.2. Lists of Types</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</a></li>
+<li><a href="#Specifiers_Parameter-Specifiers_Examples">7.10.3. Examples</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li><a href="#Values">18. Values</a>
-<ul class="sectlevel2">
-<li><a href="#Values_Primitive-Integer-Values">18.1. Primitive Integer Values</a></li>
-<li><a href="#Values_Integer-Values">18.2. Integer Values</a></li>
-<li><a href="#Values_Floating-Point-Values">18.3. Floating-Point Values</a></li>
-<li><a href="#Values_Boolean-Values">18.4. Boolean Values</a></li>
-<li><a href="#Values_String-Values">18.5. String Values</a></li>
-<li><a href="#Values_Abstract-Type-Values">18.6. Abstract Type Values</a></li>
-<li><a href="#Values_Anonymous-Array-Values">18.7. Anonymous Array Values</a></li>
-<li><a href="#Values_Array-Values">18.8. Array Values</a></li>
-<li><a href="#Values_Enumeration-Values">18.9. Enumeration Values</a></li>
-<li><a href="#Values_Anonymous-Struct-Values">18.10. Anonymous Struct Values</a></li>
-<li><a href="#Values_Struct-Values">18.11. Struct Values</a></li>
-<li><a href="#Values_Serialized-Sizes">18.12. Serialized Sizes</a></li>
-</ul>
-</li>
-<li><a href="#Evaluation">19. Evaluation</a>
-<ul class="sectlevel2">
-<li><a href="#Evaluation_Evaluating-Expressions">19.1. Evaluating Expressions</a></li>
-<li><a href="#Evaluation_Type-Conversion">19.2. Type Conversion</a>
+<li><a href="#Specifiers_Port-Instance-Specifiers">7.11. Port Instance Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">19.2.1. Unsigned Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">19.2.2. Signed Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">19.2.3. Primitive Integer Values of Mixed Sign</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">19.2.4. Primitive and Non-Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">19.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">19.2.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">19.2.7. Structure Values</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Syntax">7.11.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Port-Matching-Specifiers">7.12. Port Matching Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Port-Matching-Specifiers_Syntax">7.12.1. Syntax</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Semantics">7.12.2. Semantics</a></li>
+<li><a href="#Specifiers_Port-Matching-Specifiers_Example">7.12.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Record-Specifiers">7.13. Record Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Record-Specifiers_Syntax">7.13.1. Syntax</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Semantics">7.13.2. Semantics</a></li>
+<li><a href="#Specifiers_Record-Specifiers_Examples">7.13.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Semantics">7.14.2. Semantics</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers">7.15. Telemetry Channel Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Syntax">7.15.1. Syntax</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Semantics">7.15.2. Semantics</a></li>
+<li><a href="#Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Specifiers_Topology-Import-Specifiers">7.16. Topology Import Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#Specifiers_Topology-Import-Specifiers_Syntax">7.16.1. Syntax</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Semantics">7.16.2. Semantics</a></li>
+<li><a href="#Specifiers_Topology-Import-Specifiers_Example">7.16.3. Example</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Analysis-and-Translation">20. Analysis and Translation</a>
+<li><a href="#Port-Instance-Identifiers">8. Port Instance Identifiers</a>
 <ul class="sectlevel2">
-<li><a href="#Analysis-and-Translation_Analysis">20.1. Analysis</a></li>
-<li><a href="#Analysis-and-Translation_Analysis-Tools">20.2. Analysis Tools</a></li>
-<li><a href="#Analysis-and-Translation_Translation">20.3. Translation</a></li>
-<li><a href="#Analysis-and-Translation_Translation-Tools">20.4. Translation Tools</a></li>
+<li><a href="#Port-Instance-Identifiers_Syntax">8.1. Syntax</a></li>
+<li><a href="#Port-Instance-Identifiers_Semantics">8.2. Semantics</a></li>
+<li><a href="#Port-Instance-Identifiers_Examples">8.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Type-Names">9. Type Names</a>
+<ul class="sectlevel2">
+<li><a href="#Type-Names_Primitive-Integer-Type-Names">9.1. Primitive Integer Type Names</a></li>
+<li><a href="#Type-Names_Floating-Point-Type-Names">9.2. Floating-Point Type Names</a></li>
+<li><a href="#Type-Names_The-Boolean-Type-Name">9.3. The Boolean Type Name</a></li>
+<li><a href="#Type-Names_String-Type-Names">9.4. String Type Names</a></li>
+<li><a href="#Type-Names_Qualified-Identifier-Type-Names">9.5. Qualified Identifier Type Names</a></li>
+</ul>
+</li>
+<li><a href="#Expressions">10. Expressions</a>
+<ul class="sectlevel2">
+<li><a href="#Expressions_Arithmetic-Expressions">10.1. Arithmetic Expressions</a></li>
+<li><a href="#Expressions_Array-Expressions">10.2. Array Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Array-Expressions_Syntax">10.2.1. Syntax</a></li>
+<li><a href="#Expressions_Array-Expressions_Semantics">10.2.2. Semantics</a></li>
+<li><a href="#Expressions_Array-Expressions_Example">10.2.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Boolean-Literals">10.3. Boolean Literals</a></li>
+<li><a href="#Expressions_Dot-Expressions">10.4. Dot Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</a></li>
+<li><a href="#Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</a></li>
+<li><a href="#Expressions_Dot-Expressions_Examples">10.4.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</a></li>
+<li><a href="#Expressions_Identifier-Expressions">10.6. Identifier Expressions</a></li>
+<li><a href="#Expressions_Integer-Literals">10.7. Integer Literals</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</a></li>
+<li><a href="#Expressions_Parenthesis-Expressions_Example">10.8.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_String-Literals">10.9. String Literals</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</a></li>
+<li><a href="#Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Struct-Expressions">10.10. Struct Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</a></li>
+<li><a href="#Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</a></li>
+<li><a href="#Expressions_Struct-Expressions_Example">10.10.3. Example</a></li>
+</ul>
+</li>
+<li><a href="#Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</a></li>
+</ul>
+</li>
+<li><a href="#Formal-Parameter-Lists">11. Formal Parameter Lists</a>
+<ul class="sectlevel2">
+<li><a href="#Formal-Parameter-Lists_Syntax">11.1. Syntax</a></li>
+<li><a href="#Formal-Parameter-Lists_Semantics">11.2. Semantics</a></li>
+<li><a href="#Formal-Parameter-Lists_Examples">11.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#Format-Strings">12. Format Strings</a></li>
+<li><a href="#Comments-and-Annotations">13. Comments and Annotations</a>
+<ul class="sectlevel2">
+<li><a href="#Comments-and-Annotations_Comments">13.1. Comments</a></li>
+<li><a href="#Comments-and-Annotations_Annotations">13.2. Annotations</a>
+<ul class="sectlevel3">
+<li><a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">13.2.1. Where Annotations Can Occur</a></li>
+<li><a href="#Comments-and-Annotations_Annotations_Kinds-of-Annotations">13.2.2. Kinds of Annotations</a></li>
+<li><a href="#Comments-and-Annotations_Annotations_Multiline-Annotations">13.2.3. Multiline Annotations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Translation-Units-and-Models">14. Translation Units and Models</a>
+<ul class="sectlevel2">
+<li><a href="#Translation-Units-and-Models_Translation-Units">14.1. Translation Units</a>
+<ul class="sectlevel3">
+<li><a href="#Translation-Units-and-Models_Translation-Units_Syntax">14.1.1. Syntax</a></li>
+<li><a href="#Translation-Units-and-Models_Translation-Units_Example">14.1.2. Example</a></li>
+</ul>
+</li>
+<li><a href="#Translation-Units-and-Models_Models">14.2. Models</a></li>
+<li><a href="#Translation-Units-and-Models_Locations">14.3. Locations</a></li>
+</ul>
+</li>
+<li><a href="#Scoping-of-Names">15. Scoping of Names</a>
+<ul class="sectlevel2">
+<li><a href="#Scoping-of-Names_Qualified-Identifiers">15.1. Qualified Identifiers</a></li>
+<li><a href="#Scoping-of-Names_Names-of-Definitions">15.2. Names of Definitions</a></li>
+<li><a href="#Scoping-of-Names_Name-Groups">15.3. Name Groups</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">15.4. Multiple Definitions with the Same Qualified Name</a>
+<ul class="sectlevel3">
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">15.4.1. Different Name Groups</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">15.4.2. Module Definitions</a></li>
+<li><a href="#Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">15.4.3. Conflicting Definitions</a></li>
+</ul>
+</li>
+<li><a href="#Scoping-of-Names_Resolution-of-Identifiers">15.5. Resolution of Identifiers</a></li>
+<li><a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">15.6. Resolution of Qualified Identifiers</a></li>
+</ul>
+</li>
+<li><a href="#Definitions-and-Uses">16. Definitions and Uses</a>
+<ul class="sectlevel2">
+<li><a href="#Definitions-and-Uses_Uses">16.1. Uses</a></li>
+<li><a href="#Definitions-and-Uses_Use-Def-Graph">16.2. Use-Def Graph</a></li>
+<li><a href="#Definitions-and-Uses_Order-of-Definitions-and-Uses">16.3. Order of Definitions and Uses</a></li>
+</ul>
+</li>
+<li><a href="#Types">17. Types</a>
+<ul class="sectlevel2">
+<li><a href="#Types_Primitive-Integer-Types">17.1. Primitive Integer Types</a></li>
+<li><a href="#Types_Floating-Point-Types">17.2. Floating-Point Types</a></li>
+<li><a href="#Types_Primitive-Numeric-Types">17.3. Primitive Numeric Types</a></li>
+<li><a href="#Types_The-Boolean-Type">17.4. The Boolean Type</a></li>
+<li><a href="#Types_Primitive-Types">17.5. Primitive Types</a></li>
+<li><a href="#Types_String-Types">17.6. String Types</a></li>
+<li><a href="#Types_Array-Types">17.7. Array Types</a></li>
+<li><a href="#Types_Enum-Types">17.8. Enum Types</a></li>
+<li><a href="#Types_Struct-Types">17.9. Struct Types</a></li>
+<li><a href="#Types_Abstract-Types">17.10. Abstract Types</a></li>
+<li><a href="#Types_Internal-Types">17.11. Internal Types</a>
+<ul class="sectlevel3">
+<li><a href="#Types_Internal-Types_Integer">17.11.1. Integer</a></li>
+<li><a href="#Types_Internal-Types_Integer-Types">17.11.2. Integer Types</a></li>
+<li><a href="#Types_Internal-Types_Numeric-Types">17.11.3. Numeric Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Array-Types">17.11.4. Anonymous Array Types</a></li>
+<li><a href="#Types_Internal-Types_Anonymous-Struct-Types">17.11.5. Anonymous Struct Types</a></li>
+</ul>
+</li>
+<li><a href="#Types_Displayable-Types">17.12. Displayable Types</a></li>
+<li><a href="#Types_Types-with-Numeric-Members">17.13. Types with Numeric Members</a></li>
+<li><a href="#Types_Default-Values">17.14. Default Values</a></li>
+</ul>
+</li>
+<li><a href="#Type-Checking">18. Type Checking</a>
+<ul class="sectlevel2">
+<li><a href="#Type-Checking_Integer-Literals">18.1. Integer Literals</a></li>
+<li><a href="#Type-Checking_Floating-Point-Literals">18.2. Floating-Point Literals</a></li>
+<li><a href="#Type-Checking_Boolean-Literals">18.3. Boolean Literals</a></li>
+<li><a href="#Type-Checking_String-Literals">18.4. String Literals</a></li>
+<li><a href="#Type-Checking_Identifier-Expressions">18.5. Identifier Expressions</a></li>
+<li><a href="#Type-Checking_Dot-Expressions">18.6. Dot Expressions</a></li>
+<li><a href="#Type-Checking_Array-Expressions">18.7. Array Expressions</a></li>
+<li><a href="#Type-Checking_Struct-Expressions">18.8. Struct Expressions</a></li>
+<li><a href="#Type-Checking_Unary-Negation-Expressions">18.9. Unary Negation Expressions</a></li>
+<li><a href="#Type-Checking_Binary-Arithmetic-Expressions">18.10. Binary Arithmetic Expressions</a></li>
+<li><a href="#Type-Checking_Parenthesis-Expressions">18.11. Parenthesis Expressions</a></li>
+<li><a href="#Type-Checking_Identical-Types">18.12. Identical Types</a></li>
+<li><a href="#Type-Checking_Type-Conversion">18.13. Type Conversion</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type">18.14. Computing a Common Type</a>
+<ul class="sectlevel3">
+<li><a href="#Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.14.1. Pairs of Types</a></li>
+<li><a href="#Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.14.2. Lists of Types</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Values">19. Values</a>
+<ul class="sectlevel2">
+<li><a href="#Values_Primitive-Integer-Values">19.1. Primitive Integer Values</a></li>
+<li><a href="#Values_Integer-Values">19.2. Integer Values</a></li>
+<li><a href="#Values_Floating-Point-Values">19.3. Floating-Point Values</a></li>
+<li><a href="#Values_Boolean-Values">19.4. Boolean Values</a></li>
+<li><a href="#Values_String-Values">19.5. String Values</a></li>
+<li><a href="#Values_Abstract-Type-Values">19.6. Abstract Type Values</a></li>
+<li><a href="#Values_Anonymous-Array-Values">19.7. Anonymous Array Values</a></li>
+<li><a href="#Values_Array-Values">19.8. Array Values</a></li>
+<li><a href="#Values_Enumeration-Values">19.9. Enumeration Values</a></li>
+<li><a href="#Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</a></li>
+<li><a href="#Values_Struct-Values">19.11. Struct Values</a></li>
+<li><a href="#Values_Serialized-Sizes">19.12. Serialized Sizes</a></li>
+</ul>
+</li>
+<li><a href="#Evaluation">20. Evaluation</a>
+<ul class="sectlevel2">
+<li><a href="#Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</a></li>
+<li><a href="#Evaluation_Type-Conversion">20.2. Type Conversion</a>
+<ul class="sectlevel3">
+<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Analysis-and-Translation">21. Analysis and Translation</a>
+<ul class="sectlevel2">
+<li><a href="#Analysis-and-Translation_Analysis">21.1. Analysis</a></li>
+<li><a href="#Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</a></li>
+<li><a href="#Analysis-and-Translation_Translation">21.3. Translation</a></li>
+<li><a href="#Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -978,6 +1054,7 @@ U16
 U32
 U64
 U8
+action
 active
 activity
 always
@@ -997,25 +1074,35 @@ container
 cpu
 default
 diagnostic
+do
 drop
+else
+entry
 enum
+enter
 event
+exit
 false
 fatal
 format
 get
+guard
 guarded
 health
 high
 hook
 id
+if
 import
 include
+initial
 input
 instance
 internal
+junction
 locate
 low
+machine
 match
 module
 on
@@ -1043,8 +1130,10 @@ send
 serial
 set
 severity
+signal
 size
 stack
+state
 string
 struct
 sync
@@ -1635,6 +1724,10 @@ All records specified in a component must have distinct names and identifier
 values.</p>
 </li>
 <li>
+<p>A <a href="#Specifiers_State-Machine-Instance-Specifiers">state machine instance specifier</a>.
+All state machine instances specified in a component must have distinct names.</p>
+</li>
+<li>
 <p>A <a href="#Specifiers_Telemetry-Channel-Specifiers">telemetry channel specifier</a>.
 All telemetry channels specified in a component must have distinct names and
 identifier values.</p>
@@ -1686,14 +1779,19 @@ qualified with the component name, as for
 and internal port specifiers must be distinct.</p>
 </li>
 <li>
+<p>All names appearing in any state machine instance specifier must
+be distinct.</p>
+</li>
+<li>
 <p>No passive component may have an <code>async</code> general or special
 port specifier, an internal
-port specifier, or an <code>async</code> command specifier.</p>
+port specifier, an <code>async</code> command specifier, or a state machine instance
+specifier.</p>
 </li>
 <li>
 <p>Each active or queued component must have at least one <code>async</code> general
-or special port specifier, internal port specifier, or
-<code>async</code> command specifier.</p>
+or special port specifier, internal port specifier,
+<code>async</code> command specifier, or state machine instance specifier.</p>
 </li>
 <li>
 <p>Each component may have at most one of each special port kind.</p>
@@ -1959,6 +2057,70 @@ active component Imager {
 
   @ A record for holding an image
   product record ImageRecord: Image
+
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A component with state machines
+active component DeviceMgr {
+
+  # ----------------------------------------------------------------------
+  # State machines
+  # ----------------------------------------------------------------------
+
+  @ A state machine representing a device
+  state machine Device {
+
+    @ Start the device
+    signal Start
+
+    @ Stop the device
+    signal Stop
+
+    @ Initial state is IDLE
+    initial enter IDLE
+
+    @ The IDLE state
+    state IDLE {
+      on Start enter RUNNING
+    }
+
+    @ The RUNNING state
+    state RUNNING {
+      on Stop enter IDLE
+    }
+
+  }
+
+  @ State machine instance for device 1
+  state machine instance device1: Device
+
+  @ State machine instance for device 2
+  state machine instance device2: Device
+
+  # ----------------------------------------------------------------------
+  # Special ports
+  # ----------------------------------------------------------------------
+
+  ...
+
+  # ----------------------------------------------------------------------
+  # Commands
+  # ----------------------------------------------------------------------
+
+  @ Send a Start event to the specified device
+  async command START(
+    @ The device number
+    deviceNum: U8
+  )
+
+  @ Send a Stop event to the specified device
+  async command STOP(
+    @ The device number
+    deviceNum: U8
+  )
 
 }</code></pre>
 </div>
@@ -2462,6 +2624,9 @@ A module member is one of the following:</p>
 <li>
 <p>An <a href="#Specifiers_Include-Specifiers">include specifier</a></p>
 </li>
+<li>
+<p>A <a href="#Definitions_State-Machine-Definitions">state machine definition</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -2570,13 +2735,313 @@ port Port3(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Struct-Definitions">5.10. Struct Definitions</h3>
+<h3 id="Definitions_State-Machine-Definitions">5.10. State Machine Definitions</h3>
+<div class="paragraph">
+<p>A <strong>state machine definition</strong> defines a state machine.</p>
+</div>
+<div class="paragraph">
+<p>There are two kinds of state machine definitions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>An <strong>external state machine definition</strong>
+introduces a name and informs the FPP analyzer that
+a state machine implementation with that name will be provided to the
+FSW build.</p>
+</li>
+<li>
+<p>An <strong>internal state machine definition</strong>
+specifies the behavior of a state machine and
+causes an implementation to be generated.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Implementation note:</strong>
+Support for state machines will be implemented in two phases.
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.</p>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
+<div class="paragraph">
+<p><code>state machine</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em> <code>{</code> <em>state-machine-member-sequence</em> <code>}</code> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>state-machine-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>state machine member</strong>,
+and the terminating punctuation is a semicolon.
+A state machine member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier is the name of the state machine.</p>
+</li>
+<li>
+<p>If present, the optional state machine member sequence defines the
+behavior of the state machine.
+In this case, the state machine definition is internal.
+If the state machine member sequence is absent, then the state machine
+definition is external, i.e., the state machine
+behavior is not specified in FPP.</p>
+</li>
+<li>
+<p>If present, the optional state machine member sequence <em>M</em> must
+satisfy the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>M</em> must contain exactly one
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>.
+The initial transition occurs when the state machine starts up.</p>
+</li>
+<li>
+<p><em>M</em> must satisfy the rules described
+<a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">below</a>
+for the induced transition graph.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</h4>
+<div class="paragraph">
+<p>If present, the optional state machine member sequence <em>M</em>
+induces a directed graph called the <strong>transition graph</strong>, defined as
+follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The nodes of the transition graph are the initial transition specifiers,
+state definitions, and
+junction definitions that are transitive members of <em>M</em>.</p>
+</li>
+<li>
+<p>The <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
+</li>
+<li>
+<p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
+Each enter expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+The initial node is defined as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <em>e</em> appears in an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
+is <em>I</em>.</p>
+</li>
+<li>
+<p>If <em>e</em> appears in a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a> <em>T</em>, then the initial
+node is the
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+immediately enclosing <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>e</em> appears in a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+<em>J</em>, then the initial node is <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In any case,
+the terminal node is the state definition or junction definition
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
+in <em>e</em> after the keyword <code>enter</code>.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If the optional state machine member sequence is present, then
+the transition graph <em>T</em> must satisfy the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each state machine definition and each junction definition in
+<em>T</em> must be the terminal node of at least one arc.</p>
+</li>
+<li>
+<p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
+and only the junction definitions and the arcs whose initial
+and terminal nodes are junction definitions.
+There must be no cycles in <em>S</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</h4>
+<div class="paragraph">
+<p>Inside the optional state machine member sequence, the following
+rules govern the assignment of names to definitions and the resolution
+of names in uses.</p>
+</div>
+<div class="paragraph">
+<p><strong>State machine member definitions:</strong>
+There are five kinds of <strong>state machine member definitions</strong>:
+Action definitions, guard definitions, junction definitions, state
+definitions, and state machine signal definitions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Qualified names:</strong>
+Each state machine member definition has an associated qualified
+name.
+Within a state machine member sequence,
+the association of names to state machine member definitions is
+the same as for <a href="#Scoping-of-Names_Names-of-Definitions">FPP definitions</a>,
+after replacing &#8220;definition&#8221; with &#8220;state machine member definition.&#8221;</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine S {
+
+  # Qualified name is A
+  action A
+
+  # Qualified name is S1
+  state S1 {
+
+    # Qualified name is S1.S2
+    state S2
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Conflicting names:</strong>
+Each kind of definition resides in its own name group, except
+that states and junctions both reside in the state name group.
+No two state machine definitions that reside in the same name group
+may have the same qualified name.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resolution of names:</strong>
+Names are resolved in the ordinary way for
+<a href="#Scoping-of-Names_Resolution-of-Identifiers">identifiers</a>
+and
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">qualified identifiers</a> in FPP,
+with the following modifications:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The top level is the state machine member sequence.</p>
+</li>
+<li>
+<p>The definitions are the state machine member definitions.</p>
+</li>
+<li>
+<p>Each kind of definition resides in its own name group.</p>
+</li>
+<li>
+<p>The brace-delimited definitions are state definitions.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
+
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
+
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
+
+  guard calibrateReady
+
+  initial enter DeviceOn
+
+  state DeviceOn {
+
+    initial do init2 enter Initializing
+
+    state Initializing {
+      on Complete enter Idle
+    }
+
+    state Idle {
+      on Drive enter Driving
+      on Calibrate if calibrateReady enter Calibrating
+    }
+
+    state Calibrating {
+      on RTI do doCalibrate
+      on Fault do reportFault enter Idle
+      on Complete enter Idle
+    }
+
+    state Driving {
+      on RTI do motorControl
+      on Stop enter Idle
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Definitions_Struct-Definitions">5.11. Struct Definitions</h3>
 <div class="paragraph">
 <p>A <strong>struct definition</strong> defines a new structure type and associates a name
 with it.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Syntax">5.10.1. Syntax</h4>
+<h4 id="Definitions_Struct-Definitions_Syntax">5.11.1. Syntax</h4>
 <div class="paragraph">
 <p><code>struct</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code> <em>struct-type-member-sequence</em> <code>}</code>
@@ -2600,7 +3065,7 @@ A <strong>struct type member</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Semantics">5.10.2. Semantics</h4>
+<h4 id="Definitions_Struct-Definitions_Semantics">5.11.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name <em>N</em> of the type.  The definition associates the name
 <em>N</em> with a
@@ -2638,7 +3103,7 @@ greater than one, then the value is applied to each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Struct-Definitions_Examples">5.10.3. Examples</h4>
+<h4 id="Definitions_Struct-Definitions_Examples">5.11.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># Defines a struct type A with members x and y
@@ -2673,7 +3138,7 @@ struct D {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions_Topology-Definitions">5.11. Topology Definitions</h3>
+<h3 id="Definitions_Topology-Definitions">5.12. Topology Definitions</h3>
 <div class="paragraph">
 <p>A <strong>topology definition</strong> defines an F Prime topology,
 that is, a set of component instances and the connections
@@ -2687,7 +3152,7 @@ function, such as commanding and telemetry.</p>
 The connections are merged graph by graph.</p>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Syntax">5.11.1. Syntax</h4>
+<h4 id="Definitions_Topology-Definitions_Syntax">5.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>topology</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -2719,7 +3184,7 @@ instance specifier</a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Semantics">5.11.2. Semantics</h4>
+<h4 id="Definitions_Topology-Definitions_Semantics">5.12.2. Semantics</h4>
 <div class="paragraph">
 <p>A topology definition <em>D</em> must be resolvable to a topology <em>T</em>,
 according to the following algorithm:</p>
@@ -3026,7 +3491,7 @@ then \$c_1\$ is less than (respectively greater than) \$c_2\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_Topology-Definitions_Examples">5.11.3. Examples</h4>
+<h4 id="Definitions_Topology-Definitions_Examples">5.12.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -3225,7 +3690,638 @@ specifiers</a>:</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Specifiers">6. Specifiers</h2>
+<h2 id="State-Machine-Behavior-Elements">6. State Machine Behavior Elements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>state machine behavior element</strong> specifies an element of the behavior
+associated with a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Implementation note:</strong>
+State machine behavior elements will not be implemented until Phase 2
+of state machine support in FPP.</p>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Action-Definitions">6.1. Action Definitions</h3>
+<div class="paragraph">
+<p>An <strong>action definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines an action, i.e., a function that is called when
+the enclosing state machine performs a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">transition from a state</a>
+or passes through a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+Actions may carry data.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Syntax">6.1.1. Syntax</h4>
+<div class="paragraph">
+<p><code>action</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Semantics">6.1.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the name of the action.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type <em>T</em> associated
+with the action.
+A value of type <em>T</em> will be passed into the function associated with
+the action when it is called.
+If <em>type-name</em> is not present, then there is no data associated with the
+action.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with action definitions
+state machine ActionDefs {
+
+  @ An action without data
+  action initPower
+
+  @ An action with data
+  action reportFault: FaultData
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</h3>
+<div class="paragraph">
+<p>An <strong>enter expression</strong> specifies a transition as part of an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
+or
+a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+The transition enters a state or junction and optionally performs
+some action.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Syntax">6.2.1. Syntax</h4>
+<div class="paragraph">
+<p><em>[</em>
+<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em>
+<code>enter</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Semantics">6.2.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If present, the optional identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
+It specifies an action to perform when making the transition.</p>
+</li>
+<li>
+<p>The qualified identifier after the keyword <code>enter</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+It is the state or junction that is entered.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Examples">6.2.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  signal PowerOn
+
+  action getReady
+
+  guard initComplete
+
+  initial enter OFF
+
+  state OFF {
+    on PowerOn if initComplete do getReady enter ON
+  }
+
+  state ON
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Guard-Definitions">6.3. Guard Definitions</h3>
+<div class="paragraph">
+<p>A <strong>guard definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines a guard, i.e., a function that returns a Boolean value.
+Guards are associated with
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transitions</a>
+and
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junctions</a>.
+If the guard evaluates to <code>true</code>, then the state transition occurs
+or the branch of the junction is taken.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Syntax">6.3.1. Syntax</h4>
+<div class="paragraph">
+<p><code>guard</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Semantics">6.3.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the name of the guard.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type <em>T</em> associated
+with the guard.
+A value of type <em>T</em> will be passed into the guard function when it is called.
+If <em>type-name</em> is not present, then there is no data associated with the
+guard.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Guard-Definitions_Examples">6.3.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">enum EnabledStatus { ENABLED, DISABLED }
+
+struct FaultData {
+  status: EnabledStatus
+  $id: U32
+  data: U32
+}
+
+@ A state machine with guard definitions
+state machine GuardDefs {
+
+  @ A guard without data
+  guard powerIsEnabled
+
+  @ A guard with data
+  guard faultProtectionIsEnabled: FaultData
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.4. Initial Transition Specifiers</h3>
+<div class="paragraph">
+<p>An <strong>initial transition specifier</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</h4>
+<div class="paragraph">
+<p><code>initial</code>
+<a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.4.2. Semantics</h4>
+<div class="paragraph">
+<p>The state definition or junction definition referred to in the
+enter expression must be a member of the same
+state machine definition or state definition in which the initial
+transition specifier appears.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initDevices
+
+  # When the state machine starts up, enter the ON state
+  initial enter ON
+
+  state ON {
+
+    # When entering the ON state, enter the POWERING_UP substate
+    initial do initDevices enter POWERING_UP
+
+    state POWERING_UP
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Junction-Definitions">6.5. Junction Definitions</h3>
+<div class="paragraph">
+<p>A <strong>junction definition</strong> specifies a junction as part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+A junction is a branch point controlled by a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.5.1. Syntax</h4>
+<div class="paragraph">
+<p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>{</code>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a>
+<code>else</code> <a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a>
+<code>}</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.5.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier after the keyword <code>junction</code> is the name of the junction.</p>
+</li>
+<li>
+<p>The identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies the guard that controls the branch.</p>
+</li>
+<li>
+<p>Each of the enter expressions must be valid.
+The first enter expression is run if the guard evaluates to <code>true</code>;
+otherwise the second enter expression is run.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initPower
+  guard coldStart
+
+  initial enter J1
+
+  junction J1 {
+    if coldStart enter OFF \
+    else do initPower enter ON
+  }
+
+  state OFF
+
+  state ON
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</h3>
+<div class="paragraph">
+<p>A <strong>signal definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.
+It defines a signal that may be sent to the enclosing state machine.
+Signals are inputs to state machines that cause state transitions
+to occur.</p>
+</div>
+<div class="paragraph">
+<p>Signals can be external or internal.
+An external signal is sent to the state machine from outside,
+e.g., by a command to an F Prime component.
+An internal signal is sent by the state machine implementation
+to itself.</p>
+</div>
+<div class="paragraph">
+<p>All signals sent to a state machine (internal and external)
+are placed on a first-in first-out (FIFO) queue.
+The state machine dequeues and processes signals when it is
+entering a state, and after it has run the entry function
+for that state.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Syntax">6.6.1. Syntax</h4>
+<div class="paragraph">
+<p><code>signal</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>:</code>
+<a href="#Type-Names"><em>type-name</em></a>
+<em>]</em></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Semantics">6.6.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier specifies the signal name.</p>
+</li>
+<li>
+<p>If present, the optional type name specifies the type of the
+data carried by the signal.
+If <em>type-name</em> is not present, then the signal carries no data.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Signal-Definitions_Examples">6.6.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with signal definitions
+state machine SignalDefs {
+
+  @ A signal without data
+  signal RTI
+
+  @ A signal with data
+  signal Fault: FaultData
+
+  ...
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Definitions">6.7. State Definitions</h3>
+<div class="paragraph">
+<p>A <strong>state definition</strong> is part of a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>
+or
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It defines a state of a state machine.
+A state <em>S'</em> defined inside a state <em>S</em> expresses a hierarchy
+of states: <em>S'</em> is a substate of <em>S</em>.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Syntax">6.7.1. Syntax</h4>
+<div class="paragraph">
+<p><code>state</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em> <code>{</code> <em>state-definition-member-sequence</em> <code>}</code> <em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>state-definition-member-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is a <strong>state definition member</strong>,
+and the terminating punctuation is a semicolon.
+A state definition member is one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier is the name of the state.</p>
+</li>
+<li>
+<p>If the state definition member sequence <em>M</em> is present,
+then it must obey the following rules:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>M</em> must contain exactly one initial transition specifier <em>I</em>.
+<em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
+</li>
+<li>
+<p>No two <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state
+transition specifiers</a> that are members of <em>M</em> may
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a> to the same
+signal definition.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
+
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
+
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
+
+  guard calibrateReady
+
+  initial enter DEVICE_ON
+
+  state DEVICE_ON {
+
+    initial do init2 enter INITIALIZING
+
+    state INITIALIZING {
+      on Complete enter IDLE
+    }
+
+    state IDLE {
+      on Drive enter DRIVING
+      on Calibrate if calibrateReady enter CALIBRATING
+    }
+
+    state CALIBRATING {
+      on RTI do doCalibrate
+      on Fault do reportFault enter Idle
+      on Complete enter IDLE
+    }
+
+    state DRIVING {
+      on RTI do motorControl
+      on Stop enter IDLE
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>state transition specifier</strong> is part of a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies a transition from the state in which it appears.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>[</em>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<em>]</em>
+<em>enter-or-do</em></p>
+</div>
+<div class="paragraph">
+<p><em>enter-or-do</em> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
+</li>
+<li>
+<p><code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.8.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier after the keyword <code>on</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a>.
+It names the signal that causes the transition to occur.</p>
+</li>
+<li>
+<p>If present, the optional identifier after the keyword <code>if</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
+It specifies a guard for the transition.</p>
+</li>
+<li>
+<p>The first form of the syntax specifies a target state and an optional action.
+The enter expression must be valid.
+The target state in the enter expression may be the same as the
+enclosing state; in this case the transition is called a <strong>self transition</strong>.
+When making a self transition, the state machine runs the code associated with
+exiting and then re-entering the state.</p>
+</li>
+<li>
+<p>Second form of the syntax specifies an
+<strong>internal transition</strong>, i.e., an action to take while remaining
+in the same state.
+When making an internal transition, the exit and re-entry code is not run.
+The identifier after the keyword <code>do</code> must
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+to an
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.8.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  signal RTI
+  signal PowerOn
+
+  action performStuff
+  action getReady
+
+  guard initComplete
+
+  initial enter OFF
+
+  state OFF {
+    on PowerOn if initComplete do getReady enter ON
+  }
+
+  state ON {
+    on RTI do performStuff
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Specifiers">7. Specifiers</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>specifier</strong> is a unit of syntax that specifies some information
@@ -3236,13 +4332,13 @@ create a
 <a href="#Scoping-of-Names_Names-of-Definitions">globally unique qualified name</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Command-Specifiers">6.1. Command Specifiers</h3>
+<h3 id="Specifiers_Command-Specifiers">7.1. Command Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>command specifier</strong> specifies a command as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Command-Specifiers_Syntax">6.1.1. Syntax</h4>
+<h4 id="Specifiers_Command-Specifiers_Syntax">7.1.1. Syntax</h4>
 <div class="paragraph">
 <p><em>command-kind</em> <code>command</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
@@ -3280,7 +4376,7 @@ create a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Command-Specifiers_Semantics">6.1.2. Semantics</h4>
+<h4 id="Specifiers_Command-Specifiers_Semantics">7.1.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3324,7 +4420,7 @@ If no specifier appears, then the default behavior is <code>assert</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Command-Specifiers_Examples">6.1.3. Examples</h4>
+<h4 id="Specifiers_Command-Specifiers_Examples">7.1.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ A sync command with no parameters
@@ -3361,7 +4457,7 @@ async command AsyncPriorityDrop(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Component-Instance-Specifiers">6.2. Component Instance Specifiers</h3>
+<h3 id="Specifiers_Component-Instance-Specifiers">7.2. Component Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>component instance specifier</strong>
 specifies that a
@@ -3370,7 +4466,7 @@ is part of a
 <a href="#Definitions_Topology-Definitions">topology</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Component-Instance-Specifiers_Syntax">6.2.1. Syntax</h4>
+<h4 id="Specifiers_Component-Instance-Specifiers_Syntax">7.2.1. Syntax</h4>
 <div class="paragraph">
 <p><em>[</em> <code>private</code> <em>]</em>
 <code>instance</code>
@@ -3378,7 +4474,7 @@ is part of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Component-Instance-Specifiers_Semantics">6.2.2. Semantics</h4>
+<h4 id="Specifiers_Component-Instance-Specifiers_Semantics">7.2.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3407,7 +4503,7 @@ appears in each topology <em>T'</em> into which <em>T</em> is
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Component-Instance-Specifiers_Example">6.2.3. Example</h4>
+<h4 id="Specifiers_Component-Instance-Specifiers_Example">7.2.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">component A { ... }
@@ -3441,7 +4537,7 @@ Topology T {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Connection-Graph-Specifiers">6.3. Connection Graph Specifiers</h3>
+<h3 id="Specifiers_Connection-Graph-Specifiers">7.3. Connection Graph Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>connection graph specifier</strong> specifies one or more <strong>connection graphs</strong>
 as part of a
@@ -3455,7 +4551,7 @@ to an
 another.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Connection-Graph-Specifiers_Syntax">6.3.1. Syntax</h4>
+<h4 id="Specifiers_Connection-Graph-Specifiers_Syntax">7.3.1. Syntax</h4>
 <div class="paragraph">
 <p>A connection graph specifier is one of the following:</p>
 </div>
@@ -3534,7 +4630,7 @@ and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Connection-Graph-Specifiers_Semantics">6.3.2. Semantics</h4>
+<h4 id="Specifiers_Connection-Graph-Specifiers_Semantics">7.3.2. Semantics</h4>
 <div class="paragraph">
 <p><strong>Direct graph specifiers.</strong>
 A direct graph specifier directly specifies a named connection graph.</p>
@@ -3711,7 +4807,7 @@ a time get output port.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Connection-Graph-Specifiers_Example">6.3.3. Example</h4>
+<h4 id="Specifiers_Connection-Graph-Specifiers_Example">7.3.3. Example</h4>
 <div class="paragraph">
 <p>Assume the following instances are available in the enclosing topology,
 and all have command ports:</p>
@@ -3774,7 +4870,7 @@ definitions</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Container-Specifiers">6.4. Container Specifiers</h3>
+<h3 id="Specifiers_Container-Specifiers">7.4. Container Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>container specifier</strong> specifies a data product container as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -3782,7 +4878,7 @@ Containers are units of data that can be downlinked and then deleted.
 They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Container-Specifiers_Syntax">6.4.1. Syntax</h4>
+<h4 id="Specifiers_Container-Specifiers_Syntax">7.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>product</code> <code>container</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
@@ -3794,7 +4890,7 @@ They hold <a href="#Specifiers_Record-Specifiers">data product records</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Container-Specifiers_Semantics">6.4.2. Semantics</h4>
+<h4 id="Specifiers_Container-Specifiers_Semantics">7.4.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3824,7 +4920,7 @@ to a nonnegative integer.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Container-Specifiers_Examples">6.4.3. Examples</h4>
+<h4 id="Specifiers_Container-Specifiers_Examples">7.4.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Container 0
@@ -3842,13 +4938,13 @@ product container Container2 default priority 10</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Event-Specifiers">6.5. Event Specifiers</h3>
+<h3 id="Specifiers_Event-Specifiers">7.5. Event Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>event specifier</strong> specifies an event report as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Syntax">6.5.1. Syntax</h4>
+<h4 id="Specifiers_Event-Specifiers_Syntax">7.5.1. Syntax</h4>
 <div class="paragraph">
 <p><code>event</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -3894,7 +4990,7 @@ product container Container2 default priority 10</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Semantics">6.5.2. Semantics</h4>
+<h4 id="Specifiers_Event-Specifiers_Semantics">7.5.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3938,7 +5034,7 @@ in the range [0,2<sup>31</sup>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Event-Specifiers_Examples">6.5.3. Examples</h4>
+<h4 id="Specifiers_Event-Specifiers_Examples">7.5.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -3977,20 +5073,20 @@ event Event2(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Include-Specifiers">6.6. Include Specifiers</h3>
+<h3 id="Specifiers_Include-Specifiers">7.6. Include Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>include specifier</strong> specifies that a file
 should be included in a
 <a href="#Translation-Units-and-Models_Translation-Units">translation unit</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Syntax">6.6.1. Syntax</h4>
+<h4 id="Specifiers_Include-Specifiers_Syntax">7.6.1. Syntax</h4>
 <div class="paragraph">
 <p><code>include</code> <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Semantics">6.6.2. Semantics</h4>
+<h4 id="Specifiers_Include-Specifiers_Semantics">7.6.2. Semantics</h4>
 <div class="paragraph">
 <p>The string literal specifies a file path relative to the
 <a href="#Translation-Units-and-Models_Locations">location</a> of the include specifier.</p>
@@ -4019,7 +5115,7 @@ from files presented directly for analysis or translation.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Include-Specifiers_Examples">6.6.3. Examples</h4>
+<h4 id="Specifiers_Include-Specifiers_Examples">7.6.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1.</strong></p>
 </div>
@@ -4081,7 +5177,7 @@ b = M.a</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Init-Specifiers">6.7. Init Specifiers</h3>
+<h3 id="Specifiers_Init-Specifiers">7.7. Init Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>init specifier</strong> associates some code with a
 <a href="#Definitions_Component-Instance-Definitions">component instance</a>.
@@ -4089,14 +5185,14 @@ Usually this is initialization code, hence the name.
 It may also serve another purpose (e.g., teardown).</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Syntax">6.7.1. Syntax</h4>
+<h4 id="Specifiers_Init-Specifiers_Syntax">7.7.1. Syntax</h4>
 <div class="paragraph">
 <p><code>phase</code> <a href="#Expressions"><em>expression</em></a>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Semantics">6.7.2. Semantics</h4>
+<h4 id="Specifiers_Init-Specifiers_Semantics">7.7.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4120,7 +5216,7 @@ on the translation context.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Init-Specifiers_Example">6.7.3. Example</h4>
+<h4 id="Specifiers_Init-Specifiers_Example">7.7.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Phases of initialization
@@ -4180,7 +5276,7 @@ phase to remove the instance ID from the arguments of the <code>init</code> meth
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Internal-Port-Specifiers">6.8. Internal Port Specifiers</h3>
+<h3 id="Specifiers_Internal-Port-Specifiers">7.8. Internal Port Specifiers</h3>
 <div class="paragraph">
 <p>An <strong>internal port specifier</strong> specifies
 a single-use port for use in handlers of the enclosing
@@ -4189,7 +5285,7 @@ A component can use an internal port to send a message
 to itself.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">6.8.1. Syntax</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Syntax">7.8.1. Syntax</h4>
 <div class="paragraph">
 <p><code>internal</code> <code>port</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -4207,11 +5303,11 @@ to itself.</p>
 </div>
 <div class="paragraph">
 <p><em>queue-full-behavior</em> has the same syntax as for
-<a href="#Specifiers_Port-Instance-Specifiers">port instance specifiers</a>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers_Syntax">port instance specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">6.8.2. Semantics</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Semantics">7.8.2. Semantics</h4>
 <div class="paragraph">
 <p>The identifier is the name of the port.
 The parameter list specifies the formal parameters of the
@@ -4222,11 +5318,12 @@ No formal parameter may be a <code>ref</code> parameter.</p>
 </div>
 <div class="paragraph">
 <p>The optional priority and queue full behavior have the same semantics as in
-<a href="#Specifiers_Port-Instance-Specifiers">async input port instance specifiers</a>.</p>
+<a href="#Specifiers_Port-Instance-Specifiers_Semantics">async input port instance
+specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Internal-Port-Specifiers_Examples">6.8.3. Examples</h4>
+<h4 id="Specifiers_Internal-Port-Specifiers_Examples">7.8.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Port 1
@@ -4245,14 +5342,14 @@ internal port Port2(
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Location-Specifiers">6.9. Location Specifiers</h3>
+<h3 id="Specifiers_Location-Specifiers">7.9. Location Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>location specifier</strong> specifies the
 <a href="#Translation-Units-and-Models_Locations">location</a>
 of a <a href="#Definitions">definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Syntax">6.9.1. Syntax</h4>
+<h4 id="Specifiers_Location-Specifiers_Syntax">7.9.1. Syntax</h4>
 <div class="paragraph">
 <p>A location specifier is one of the following:</p>
 </div>
@@ -4279,6 +5376,11 @@ of a <a href="#Definitions">definition</a>.</p>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
 </li>
 <li>
+<p>A <strong>state machine location specifier</strong> <code>locate</code> <code>state</code> <code>machine</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
+<a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
+</li>
+<li>
 <p>A <strong>topology location specifier</strong> <code>locate</code> <code>topology</code>
 <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a> <code>at</code>
 <a href="#Expressions_String-Literals"><em>string-literal</em></a></p>
@@ -4292,7 +5394,7 @@ of a <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Semantics">6.9.2. Semantics</h4>
+<h4 id="Specifiers_Location-Specifiers_Semantics">7.9.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4327,6 +5429,10 @@ as follows:</p>
 <li>
 <p>A topology location specifier refers to a
 <a href="#Definitions_Topology-Definitions">topology definition</a>.</p>
+</li>
+<li>
+<p>A state machine location specifier refers to a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
 </li>
 </ol>
 </div>
@@ -4363,7 +5469,7 @@ consistent.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Location-Specifiers_Examples">6.9.3. Examples</h4>
+<h4 id="Specifiers_Location-Specifiers_Examples">7.9.3. Examples</h4>
 <div class="paragraph">
 <p><strong>Example 1:</strong></p>
 </div>
@@ -4416,13 +5522,13 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Parameter-Specifiers">6.10. Parameter Specifiers</h3>
+<h3 id="Specifiers_Parameter-Specifiers">7.10. Parameter Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>parameter specifier</strong> specifies a parameter as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Syntax">6.10.1. Syntax</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Syntax">7.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>param</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -4441,7 +5547,7 @@ The second location specifier refers to the constant <code>M.b</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Semantics">6.10.2. Semantics</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Semantics">7.10.2. Semantics</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4497,7 +5603,7 @@ plus one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Parameter-Specifiers_Examples">6.10.3. Examples</h4>
+<h4 id="Specifiers_Parameter-Specifiers_Examples">7.10.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ Parameter 1
@@ -4517,7 +5623,7 @@ param Parameter2: F64 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Instance-Specifiers">6.11. Port Instance Specifiers</h3>
+<h3 id="Specifiers_Port-Instance-Specifiers">7.11. Port Instance Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port instance specifier</strong> specifies an instantiated
 <a href="#Definitions_Port-Definitions">port</a> as part
@@ -4525,7 +5631,7 @@ of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">6.11.1. Syntax</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Syntax">7.11.1. Syntax</h4>
 <div class="paragraph">
 <p>A port instance specifier is one of the following:</p>
 </div>
@@ -4687,7 +5793,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">6.11.2. Semantics</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Semantics">7.11.2. Semantics</h4>
 <div class="paragraph">
 <p><strong>General port instances:</strong></p>
 </div>
@@ -4866,7 +5972,7 @@ These ports are defined by the F Prime framework.</p>
 </table>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Instance-Specifiers_Examples">6.11.3. Examples</h4>
+<h4 id="Specifiers_Port-Instance-Specifiers_Examples">7.11.3. Examples</h4>
 <div class="paragraph">
 <p><strong>General ports:</strong></p>
 </div>
@@ -4935,7 +6041,7 @@ product send port productSendOut</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Port-Matching-Specifiers">6.12. Port Matching Specifiers</h3>
+<h3 id="Specifiers_Port-Matching-Specifiers">7.12. Port Matching Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>port matching specifier</strong> is part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -4948,7 +6054,7 @@ to its ping output port at port number <em>n</em> should also be connected
 to its ping input port at the same port number <em>n</em>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">6.12.1. Syntax</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Syntax">7.12.1. Syntax</h4>
 <div class="paragraph">
 <p><code>match</code>
 <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
@@ -4957,7 +6063,7 @@ to its ping input port at the same port number <em>n</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">6.12.2. Semantics</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Semantics">7.12.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4973,7 +6079,7 @@ array size.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Port-Matching-Specifiers_Example">6.12.3. Example</h4>
+<h4 id="Specifiers_Port-Matching-Specifiers_Example">7.12.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">queued component Health {
@@ -4996,7 +6102,7 @@ array size.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Record-Specifiers">6.13. Record Specifiers</h3>
+<h3 id="Specifiers_Record-Specifiers">7.13. Record Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>record specifier</strong> specifies a data product record as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.
@@ -5004,7 +6110,7 @@ A record is a unit of data that is stored in a
 <a href="#Specifiers_Container-Specifiers">container</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Syntax">6.13.1. Syntax</h4>
+<h4 id="Specifiers_Record-Specifiers_Syntax">7.13.1. Syntax</h4>
 <div class="paragraph">
 <p><code>product</code> <code>record</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -5017,7 +6123,7 @@ A record is a unit of data that is stored in a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Semantics">6.13.2. Semantics</h4>
+<h4 id="Specifiers_Record-Specifiers_Semantics">7.13.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5055,7 +6161,7 @@ component) or the previous record identifier plus one.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Record-Specifiers_Examples">6.13.3. Examples</h4>
+<h4 id="Specifiers_Record-Specifiers_Examples">7.13.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -5076,13 +6182,83 @@ product record Record2: F64x3</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Telemetry-Channel-Specifiers">6.14. Telemetry Channel Specifiers</h3>
+<h3 id="Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>state machine instance specifier</strong> specifies an instantiated
+<a href="#Definitions_State-Machine-Definitions">state machine</a> as part
+of a
+<a href="#Definitions_Component-Definitions">component definition</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</h4>
+<div class="paragraph">
+<p><code>state machine instance</code>
+<a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+<code>:</code>
+<a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
+<em>[</em>
+<code>priority</code> <a href="#Expressions"><em>expression</em></a>
+<em>]</em>
+<em>[</em>
+<em>queue-full-behavior</em>
+<em>]</em></p>
+</div>
+<div class="paragraph">
+<p><em>queue-full-behavior</em> has the same syntax as for
+<a href="#Specifiers_Port-Instance-Specifiers_Syntax">port instance specifiers</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Semantics">7.14.2. Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The identifier names the state machine instance.</p>
+</li>
+<li>
+<p>The qualified identifier must
+<a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
+a
+<a href="#Definitions_State-Machine-Definitions">state machine definition</a>.</p>
+</li>
+<li>
+<p>The optional priority and queue full behavior have the same semantics as in
+<a href="#Specifiers_Port-Instance-Specifiers_Semantics">async input port instance
+specifiers</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+  initial S
+  state S
+}
+
+passive component C {
+
+  @ m1 is an instance of state machine M
+  state machine instance m1: M
+
+  @ m2 is an instance of state machine M
+  state machine instance m2: M priority 10 drop
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Specifiers_Telemetry-Channel-Specifiers">7.15. Telemetry Channel Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>telemetry channel definition</strong> defines a telemetry channel as part of a
 <a href="#Definitions_Component-Definitions">component definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">6.14.1. Syntax</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Syntax">7.15.1. Syntax</h4>
 <div class="paragraph">
 <p><code>telemetry</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>:</code> <a href="#Type-Names"><em>type-name</em></a>
@@ -5137,7 +6313,7 @@ A telemetry limit is one of the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">6.14.2. Semantics</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Semantics">7.15.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5208,7 +6384,7 @@ value of <em>v</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">6.14.3. Examples</h4>
+<h4 id="Specifiers_Telemetry-Channel-Specifiers_Examples">7.15.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">@ An array of 3 F64 values
@@ -5237,18 +6413,18 @@ telemetry Channel3: F64x3 \
 </div>
 </div>
 <div class="sect2">
-<h3 id="Specifiers_Topology-Import-Specifiers">6.15. Topology Import Specifiers</h3>
+<h3 id="Specifiers_Topology-Import-Specifiers">7.16. Topology Import Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>topology import specifier</strong> imports one topology into another one.</p>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">6.15.1. Syntax</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Syntax">7.16.1. Syntax</h4>
 <div class="paragraph">
 <p><code>import</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">6.15.2. Semantics</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Semantics">7.16.2. Semantics</h4>
 <div class="paragraph">
 <p>The qualified identifier must
 <a href="#Scoping-of-Names_Resolution-of-Qualified-Identifiers">refer to</a>
@@ -5339,7 +6515,7 @@ and connections \$C''_i\$.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_Topology-Import-Specifiers_Example">6.15.3. Example</h4>
+<h4 id="Specifiers_Topology-Import-Specifiers_Example">7.16.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">topology A {
@@ -5429,7 +6605,7 @@ of its connections appear in topology <code>B</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Port-Instance-Identifiers">7. Port Instance Identifiers</h2>
+<h2 id="Port-Instance-Identifiers">8. Port Instance Identifiers</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>port instance identifier</strong> identifies a port instance
@@ -5438,7 +6614,7 @@ Port instance identifiers appear in
 <a href="#Specifiers_Connection-Graph-Specifiers">connection graph specifiers</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Port-Instance-Identifiers_Syntax">7.1. Syntax</h3>
+<h3 id="Port-Instance-Identifiers_Syntax">8.1. Syntax</h3>
 <div class="paragraph">
 <p><a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a>
 <code>.</code>
@@ -5446,7 +6622,7 @@ Port instance identifiers appear in
 </div>
 </div>
 <div class="sect2">
-<h3 id="Port-Instance-Identifiers_Semantics">7.2. Semantics</h3>
+<h3 id="Port-Instance-Identifiers_Semantics">8.2. Semantics</h3>
 <div class="paragraph">
 <p>For each port instance identifier <em>Q</em> <code>.</code> <em>P</em>:</p>
 </div>
@@ -5475,7 +6651,7 @@ of <em>C</em>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Port-Instance-Identifiers_Examples">7.3. Examples</h3>
+<h3 id="Port-Instance-Identifiers_Examples">8.3. Examples</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a.b
@@ -5492,7 +6668,7 @@ port instance.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Type-Names">8. Type Names</h2>
+<h2 id="Type-Names">9. Type Names</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Type names</strong> are the syntactic names of
@@ -5504,7 +6680,7 @@ For example, depending on the enclosing scope, the name
 <code>a.b</code> and the name <code>b</code> may refer to the same array type.</p>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_Primitive-Integer-Type-Names">8.1. Primitive Integer Type Names</h3>
+<h3 id="Type-Names_Primitive-Integer-Type-Names">9.1. Primitive Integer Type Names</h3>
 <div class="paragraph">
 <p><strong>Primitive integer type names</strong> are the names of the
 <a href="#Types_Primitive-Integer-Types">primitive integer types</a>.
@@ -5529,7 +6705,7 @@ representation of a signed integer.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_Floating-Point-Type-Names">8.2. Floating-Point Type Names</h3>
+<h3 id="Type-Names_Floating-Point-Type-Names">9.2. Floating-Point Type Names</h3>
 <div class="paragraph">
 <p>The <strong>floating-point type names</strong> are <code>F32</code> and <code>F64</code>. These refer to the types
 of IEEE
@@ -5537,14 +6713,14 @@ floating-point values of width 32 and 64 bits, respectively.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_The-Boolean-Type-Name">8.3. The Boolean Type Name</h3>
+<h3 id="Type-Names_The-Boolean-Type-Name">9.3. The Boolean Type Name</h3>
 <div class="paragraph">
 <p>The type name <code>bool</code> represents the type of the two Boolean values <code>true</code> and
 <code>false</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_String-Type-Names">8.4. String Type Names</h3>
+<h3 id="Type-Names_String-Type-Names">9.4. String Type Names</h3>
 <div class="paragraph">
 <p>A <strong>string type name</strong> consists of the keyword <code>string</code> optionally
 followed by the keyword <code>size</code> and an
@@ -5568,7 +6744,7 @@ not present, then the translator uses a default maximum string length.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Names_Qualified-Identifier-Type-Names">8.5. Qualified Identifier Type Names</h3>
+<h3 id="Type-Names_Qualified-Identifier-Type-Names">9.5. Qualified Identifier Type Names</h3>
 <div class="paragraph">
 <p>A <strong>qualified identifier type name</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified
@@ -5627,10 +6803,10 @@ It names the
 </div>
 </div>
 <div class="sect1">
-<h2 id="Expressions">9. Expressions</h2>
+<h2 id="Expressions">10. Expressions</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Expressions_Arithmetic-Expressions">9.1. Arithmetic Expressions</h3>
+<h3 id="Expressions_Arithmetic-Expressions">10.1. Arithmetic Expressions</h3>
 <div class="paragraph">
 <p>FPP includes the following <strong>arithmetic expressions</strong>:</p>
 </div>
@@ -5686,12 +6862,12 @@ constant c = a * b</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Array-Expressions">9.2. Array Expressions</h3>
+<h3 id="Expressions_Array-Expressions">10.2. Array Expressions</h3>
 <div class="paragraph">
 <p>An <strong>array expression</strong> is an expression that represents an array value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Expressions_Syntax">9.2.1. Syntax</h4>
+<h4 id="Expressions_Array-Expressions_Syntax">10.2.1. Syntax</h4>
 <div class="paragraph">
 <p><code>[</code> <em>array-element-sequence</em> <code>]</code></p>
 </div>
@@ -5704,7 +6880,7 @@ is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Expressions_Semantics">9.2.2. Semantics</h4>
+<h4 id="Expressions_Array-Expressions_Semantics">10.2.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -5723,7 +6899,7 @@ elements to the common type.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Array-Expressions_Example">9.2.3. Example</h4>
+<h4 id="Expressions_Array-Expressions_Example">10.2.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = [ 0, 1, 2 ] # a is an array value with elements 0, 1, 2</code></pre>
@@ -5732,13 +6908,13 @@ elements to the common type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Boolean-Literals">9.3. Boolean Literals</h3>
+<h3 id="Expressions_Boolean-Literals">10.3. Boolean Literals</h3>
 <div class="paragraph">
 <p>A <strong>Boolean literal expression</strong> is one of the values <code>true</code> and <code>false</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Dot-Expressions">9.4. Dot Expressions</h3>
+<h3 id="Expressions_Dot-Expressions">10.4. Dot Expressions</h3>
 <div class="paragraph">
 <p>A <strong>dot expression</strong> is a
 <a href="#Definitions-and-Uses_Uses">use</a>
@@ -5748,7 +6924,7 @@ or
 <a href="#Definitions_Constant-Definitions">enumerated constant definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Syntax">9.4.1. Syntax</h4>
+<h4 id="Expressions_Dot-Expressions_Syntax">10.4.1. Syntax</h4>
 <div class="paragraph">
 <p><a href="#Expressions"><em>expression</em></a>
 <code>.</code>
@@ -5756,7 +6932,7 @@ or
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Semantics">9.4.2. Semantics</h4>
+<h4 id="Expressions_Dot-Expressions_Semantics">10.4.2. Semantics</h4>
 <div class="paragraph">
 <p>The following rules give the meaning of a dot expression \$e\$<code>.x</code>:</p>
 </div>
@@ -5778,7 +6954,7 @@ stored in the corresponding <a href="#Definitions">definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Dot-Expressions_Examples">9.4.3. Examples</h4>
+<h4 id="Expressions_Dot-Expressions_Examples">10.4.3. Examples</h4>
 <div class="sect4">
 <h5 id="Expressions_Dot-Expressions_Examples_Example-1">Example 1</h5>
 <div class="listingblock">
@@ -5802,7 +6978,7 @@ constant a = E.X # E.X evaluates to 0</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Floating-Point-Literals">9.5. Floating-Point Literals</h3>
+<h3 id="Expressions_Floating-Point-Literals">10.5. Floating-Point Literals</h3>
 <div class="paragraph">
 <p>A <strong>floating-point literal expression</strong> is a C-style representation of an
 IEEE floating-point number.</p>
@@ -5820,7 +6996,7 @@ IEEE floating-point number.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Identifier-Expressions">9.6. Identifier Expressions</h3>
+<h3 id="Expressions_Identifier-Expressions">10.6. Identifier Expressions</h3>
 <div class="paragraph">
 <p>An <strong>identifier expression</strong> is an
 <a href="#Lexical-Elements_Identifiers">identifier</a>
@@ -5842,7 +7018,7 @@ constant b = a # a is an identifier expression</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Integer-Literals">9.7. Integer Literals</h3>
+<h3 id="Expressions_Integer-Literals">10.7. Integer Literals</h3>
 <div class="paragraph">
 <p>An <strong>integer literal expression</strong> is one of the following:</p>
 </div>
@@ -5877,14 +7053,14 @@ less than or equal to 64 bits.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Parenthesis-Expressions">9.8. Parenthesis Expressions</h3>
+<h3 id="Expressions_Parenthesis-Expressions">10.8. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>A <strong>parenthesis expression</strong> is an expression surrounded
 by parentheses in order to group subexpressions and to
 force evaluation order.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Syntax">9.8.1. Syntax</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Syntax">10.8.1. Syntax</h4>
 <div class="paragraph">
 <p><code>(</code>
 <a href="#Expressions"><em>expression</em></a>
@@ -5892,13 +7068,13 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Semantics">9.8.2. Semantics</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Semantics">10.8.2. Semantics</h4>
 <div class="paragraph">
 <p>The type and value of the expression are the type and value of the subexpression.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Parenthesis-Expressions_Example">9.8.3. Example</h4>
+<h4 id="Expressions_Parenthesis-Expressions_Example">10.8.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">constant a = (1 + 2) * 3</code></pre>
@@ -5911,7 +7087,7 @@ force evaluation order.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_String-Literals">9.9. String Literals</h3>
+<h3 id="Expressions_String-Literals">10.9. String Literals</h3>
 <div class="paragraph">
 <p>A <strong>string literal expression</strong> is a single-line string literal
 or a multiline string literal.
@@ -5941,7 +7117,7 @@ optionally preceded by a CR character (ASCII code 0x0D).</p>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Single-Line-String-Literals">9.9.1. Single-Line String Literals</h4>
+<h4 id="Expressions_String-Literals_Single-Line-String-Literals">10.9.1. Single-Line String Literals</h4>
 <div class="paragraph">
 <p>A <strong>single-line string literal</strong> is a sequence of <strong>single-line literal characters</strong>
 enclosed in double
@@ -5997,7 +7173,7 @@ unmatched double quote character.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_String-Literals_Multiline-String-Literals">9.9.2. Multiline String Literals</h4>
+<h4 id="Expressions_String-Literals_Multiline-String-Literals">10.9.2. Multiline String Literals</h4>
 <div class="paragraph">
 <p>A <strong>multiline string literal</strong> is a sequence of <strong>multiline literal characters</strong> enclosed
 in sequences <code>"""</code> of three double quote characters.
@@ -6083,12 +7259,12 @@ The value of the string constant <code>s</code> is <code>"""</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Struct-Expressions">9.10. Struct Expressions</h3>
+<h3 id="Expressions_Struct-Expressions">10.10. Struct Expressions</h3>
 <div class="paragraph">
 <p>An <strong>struct expression</strong> is an expression that represents a struct value.</p>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Syntax">9.10.1. Syntax</h4>
+<h4 id="Expressions_Struct-Expressions_Syntax">10.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>{</code> <em>struct-element-sequence</em> <code>}</code></p>
 </div>
@@ -6103,7 +7279,7 @@ A <strong>struct element</strong> has the following syntax:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Semantics">9.10.2. Semantics</h4>
+<h4 id="Expressions_Struct-Expressions_Semantics">10.10.2. Semantics</h4>
 <div class="paragraph">
 <p>The following must be true of the struct element sequence <em>S</em>:</p>
 </div>
@@ -6124,7 +7300,7 @@ corresponding member names and values.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Expressions_Struct-Expressions_Example">9.10.3. Example</h4>
+<h4 id="Expressions_Struct-Expressions_Example">10.10.3. Example</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp"># s is a struct value with members x = 0, y = 1
@@ -6137,7 +7313,7 @@ constant s = {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Expressions_Precedence-and-Associativity">9.11. Precedence and Associativity</h3>
+<h3 id="Expressions_Precedence-and-Associativity">10.11. Precedence and Associativity</h3>
 <div class="paragraph">
 <p>Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
@@ -6179,7 +7355,7 @@ associativity for resolving expressions with equal precedence.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Formal-Parameter-Lists">10. Formal Parameter Lists</h2>
+<h2 id="Formal-Parameter-Lists">11. Formal Parameter Lists</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>formal parameter list</strong> is an
@@ -6194,7 +7370,7 @@ Formal parameters appear, for example, in
 <a href="#Definitions_Port-Definitions">port definitions</a>.</p>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Syntax">10.1. Syntax</h3>
+<h3 id="Formal-Parameter-Lists_Syntax">11.1. Syntax</h3>
 <div class="paragraph">
 <p>Formal parameters have the following syntax:</p>
 </div>
@@ -6206,7 +7382,7 @@ Formal parameters appear, for example, in
 </div>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Semantics">10.2. Semantics</h3>
+<h3 id="Formal-Parameter-Lists_Semantics">11.2. Semantics</h3>
 <div class="paragraph">
 <p>If present, the keyword <code>ref</code> specifies that the value
 bound to the formal parameter is to be passed by reference
@@ -6222,7 +7398,7 @@ may have the same name.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Formal-Parameter-Lists_Examples">10.3. Examples</h3>
+<h3 id="Formal-Parameter-Lists_Examples">11.3. Examples</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">a: U32
@@ -6234,7 +7410,7 @@ ref c: Fw.Com</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Format-Strings">11. Format Strings</h2>
+<h2 id="Format-Strings">12. Format Strings</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>format string</strong> is a string that specifies the display format
@@ -6336,10 +7512,10 @@ No other use of <code>{</code> or <code>}</code> is allowed, except in the escap
 </div>
 </div>
 <div class="sect1">
-<h2 id="Comments-and-Annotations">12. Comments and Annotations</h2>
+<h2 id="Comments-and-Annotations">13. Comments and Annotations</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Comments-and-Annotations_Comments">12.1. Comments</h3>
+<h3 id="Comments-and-Annotations_Comments">13.1. Comments</h3>
 <div class="paragraph">
 <p>A <strong>comment</strong> is model text that is ignored by the translator. It
 provides information to human readers of the source model.</p>
@@ -6364,7 +7540,7 @@ example:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Comments-and-Annotations_Annotations">12.2. Annotations</h3>
+<h3 id="Comments-and-Annotations_Annotations">13.2. Annotations</h3>
 <div class="paragraph">
 <p>An <strong>annotation</strong> is similar to a
 <a href="#Comments-and-Annotations_Comments">comment</a>, but it is attached to a
@@ -6374,7 +7550,7 @@ annotations depends on the translator. A typical use
 is to include annotations as comments in generated code.</p>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">12.2.1. Where Annotations Can Occur</h4>
+<h4 id="Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">13.2.1. Where Annotations Can Occur</h4>
 <div class="paragraph">
 <p>Annotations can occur at the following syntax elements:</p>
 </div>
@@ -6392,6 +7568,12 @@ is to include annotations as comments in generated code.</p>
 <li>
 <p>A <a href="#Formal-Parameter-Lists">formal parameter</a>.</p>
 </li>
+<li>
+<p>A <a href="#Definitions_State-Machine-Definitions_Syntax">state machine member</a>.</p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">state definition member</a>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -6399,7 +7581,7 @@ is to include annotations as comments in generated code.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Kinds-of-Annotations">12.2.2. Kinds of Annotations</h4>
+<h4 id="Comments-and-Annotations_Annotations_Kinds-of-Annotations">13.2.2. Kinds of Annotations</h4>
 <div class="paragraph">
 <p>There are two kinds of annotations: <strong>pre-annotations</strong> and
 <strong>post-annotations</strong>.</p>
@@ -6440,7 +7622,7 @@ module M {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Comments-and-Annotations_Annotations_Multiline-Annotations">12.2.3. Multiline Annotations</h4>
+<h4 id="Comments-and-Annotations_Annotations_Multiline-Annotations">13.2.3. Multiline Annotations</h4>
 <div class="paragraph">
 <p>You can write several pre-annotations in a row before an
 <a href="#Comments-and-Annotations_Annotations_Where-Annotations-Can-Occur">annotatable element</a> <em>e</em>.
@@ -6481,10 +7663,10 @@ module M {
 </div>
 </div>
 <div class="sect1">
-<h2 id="Translation-Units-and-Models">13. Translation Units and Models</h2>
+<h2 id="Translation-Units-and-Models">14. Translation Units and Models</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Translation-Units-and-Models_Translation-Units">13.1. Translation Units</h3>
+<h3 id="Translation-Units-and-Models_Translation-Units">14.1. Translation Units</h3>
 <div class="paragraph">
 <p>A <strong>translation unit</strong> forms part of a <a href="#Translation-Units-and-Models_Models">model</a>
 at the top level.
@@ -6493,7 +7675,7 @@ However, translation units may be specified in other ways,
 e.g., on standard input.</p>
 </div>
 <div class="sect3">
-<h4 id="Translation-Units-and-Models_Translation-Units_Syntax">13.1.1. Syntax</h4>
+<h4 id="Translation-Units-and-Models_Translation-Units_Syntax">14.1.1. Syntax</h4>
 <div class="paragraph">
 <p>A translation unit is an
 <a href="#Element-Sequences">element sequence</a> in which each
@@ -6504,7 +7686,7 @@ A translation unit member is syntactically identical to a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Translation-Units-and-Models_Translation-Units_Example">13.1.2. Example</h4>
+<h4 id="Translation-Units-and-Models_Translation-Units_Example">14.1.2. Example</h4>
 <div class="paragraph">
 <p>Here is a translation unit:</p>
 </div>
@@ -6539,7 +7721,7 @@ the following section.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Translation-Units-and-Models_Models">13.2. Models</h3>
+<h3 id="Translation-Units-and-Models_Models">14.2. Models</h3>
 <div class="paragraph">
 <p>A <strong>model</strong> is a collection of one or more
 <a href="#Translation-Units-and-Models_Translation-Units">translation
@@ -6595,7 +7777,7 @@ unit 2 is not a valid model.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Translation-Units-and-Models_Locations">13.3. Locations</h3>
+<h3 id="Translation-Units-and-Models_Locations">14.3. Locations</h3>
 <div class="paragraph">
 <p>Every syntactic element <em>E</em> in a source model has an associated
 <strong>location</strong> <em>L</em>.
@@ -6620,10 +7802,10 @@ directory in the environment where the analysis occurs.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Scoping-of-Names">14. Scoping of Names</h2>
+<h2 id="Scoping-of-Names">15. Scoping of Names</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Scoping-of-Names_Qualified-Identifiers">14.1. Qualified Identifiers</h3>
+<h3 id="Scoping-of-Names_Qualified-Identifiers">15.1. Qualified Identifiers</h3>
 <div class="paragraph">
 <p>A <strong>qualified identifier</strong> is one of the following:</p>
 </div>
@@ -6651,7 +7833,7 @@ a.b.c</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Names-of-Definitions">14.2. Names of Definitions</h3>
+<h3 id="Scoping-of-Names_Names-of-Definitions">15.2. Names of Definitions</h3>
 <div class="paragraph">
 <p>Every
 <a href="#Definitions">definition</a>
@@ -6690,7 +7872,7 @@ the identifier appearing in <em>D</em>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Name-Groups">14.3. Name Groups</h3>
+<h3 id="Scoping-of-Names_Name-Groups">15.3. Name Groups</h3>
 <div class="paragraph">
 <p>The qualified names of definitions and
 reside in the following <strong>name groups</strong>:</p>
@@ -6705,6 +7887,9 @@ reside in the following <strong>name groups</strong>:</p>
 </li>
 <li>
 <p>The <strong>port name group</strong></p>
+</li>
+<li>
+<p>The <strong>state machine name group</strong></p>
 </li>
 <li>
 <p>The <strong>topology name group</strong></p>
@@ -6730,7 +7915,8 @@ reside in the following <strong>name groups</strong>:</p>
 </li>
 <li>
 <p>Component definitions reside in the component name group,
-the value name group, and the type name group.</p>
+the value name group, the type name group, and the
+state machine name group.</p>
 </li>
 <li>
 <p>Component instance definitions reside in the component instance name group.</p>
@@ -6751,6 +7937,9 @@ the value name group, and the type name group.</p>
 <p>Port definitions reside in the port name group.</p>
 </li>
 <li>
+<p>State machine definitions reside in the state machine name group.</p>
+</li>
+<li>
 <p>Struct type definitions reside in the type name group.</p>
 </li>
 <li>
@@ -6766,9 +7955,9 @@ enclose constant definitions.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">14.4. Multiple Definitions with the Same Qualified Name</h3>
+<h3 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name">15.4. Multiple Definitions with the Same Qualified Name</h3>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">14.4.1. Different Name Groups</h4>
+<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Different-Name-Groups">15.4.1. Different Name Groups</h4>
 <div class="paragraph">
 <p>Two definitions with the same qualified name are allowed if they are in
 different name groups. For example:</p>
@@ -6781,7 +7970,7 @@ constant s = 0 # Defines s in the value name group</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">14.4.2. Module Definitions</h4>
+<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions">15.4.2. Module Definitions</h4>
 <div class="paragraph">
 <p>Multiple syntactic module definitions with the same qualified name are
 allowed. The semantic analysis combines all such definitions into a
@@ -6823,7 +8012,7 @@ module M { constant b = 1 }</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">14.4.3. Conflicting Definitions</h4>
+<h4 id="Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Conflicting-Definitions">15.4.3. Conflicting Definitions</h4>
 <div class="paragraph">
 <p>Within the same name group, two definitions with the same
 qualified name are not allowed, unless they are both module definitions
@@ -6852,7 +8041,7 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Identifiers">14.5. Resolution of Identifiers</h3>
+<h3 id="Scoping-of-Names_Resolution-of-Identifiers">15.5. Resolution of Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of identifiers, i.e.,
 associating identifiers with definitions:</p>
@@ -6953,7 +8142,7 @@ module M {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">14.6. Resolution of Qualified Identifiers</h3>
+<h3 id="Scoping-of-Names_Resolution-of-Qualified-Identifiers">15.6. Resolution of Qualified Identifiers</h3>
 <div class="paragraph">
 <p>The following rules govern the resolution of
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifiers</a>, i.e.,
@@ -7023,10 +8212,10 @@ If there is none, issue an error.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Definitions-and-Uses">15. Definitions and Uses</h2>
+<h2 id="Definitions-and-Uses">16. Definitions and Uses</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Definitions-and-Uses_Uses">15.1. Uses</h3>
+<h3 id="Definitions-and-Uses_Uses">16.1. Uses</h3>
 <div class="paragraph">
 <p>A <strong>use</strong> is a
 <a href="#Scoping-of-Names_Qualified-Identifiers">qualified identifier</a>
@@ -7066,7 +8255,7 @@ of the module <code>M</code>. It qualifies the use <code>M.a</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions-and-Uses_Use-Def-Graph">15.2. Use-Def Graph</h3>
+<h3 id="Definitions-and-Uses_Use-Def-Graph">16.2. Use-Def Graph</h3>
 <div class="paragraph">
 <p>The set of definitions and
 <a href="#Definitions-and-Uses_Uses">non-qualifying uses</a>
@@ -7133,7 +8322,7 @@ However, it is a qualifying use.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Definitions-and-Uses_Order-of-Definitions-and-Uses">15.3. Order of Definitions and Uses</h3>
+<h3 id="Definitions-and-Uses_Order-of-Definitions-and-Uses">16.3. Order of Definitions and Uses</h3>
 <div class="paragraph">
 <p>So long as the
 <a href="#Definitions-and-Uses_Use-Def-Graph">use-def graph</a> is acyclic, there is no
@@ -7176,10 +8365,10 @@ translator does not matter.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Types">16. Types</h2>
+<h2 id="Types">17. Types</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Types_Primitive-Integer-Types">16.1. Primitive Integer Types</h3>
+<h3 id="Types_Primitive-Integer-Types">17.1. Primitive Integer Types</h3>
 <div class="paragraph">
 <p>The <strong>primitive integer types</strong> correspond to the
 <a href="#Type-Names_Primitive-Integer-Type-Names">primitive integer type names</a>
@@ -7187,7 +8376,7 @@ and are written in the same way, e.g., <code>U32</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Floating-Point-Types">16.2. Floating-Point Types</h3>
+<h3 id="Types_Floating-Point-Types">17.2. Floating-Point Types</h3>
 <div class="paragraph">
 <p>The <strong>floating-point types</strong> correspond to the
 <a href="#Type-Names_Floating-Point-Type-Names">floating-point type names</a>
@@ -7195,7 +8384,7 @@ and are written in the same way, e.g., <code>F64</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Primitive-Numeric-Types">16.3. Primitive Numeric Types</h3>
+<h3 id="Types_Primitive-Numeric-Types">17.3. Primitive Numeric Types</h3>
 <div class="paragraph">
 <p>The <a href="#Types_Primitive-Integer-Types">primitive integer types</a>
 together with the <a href="#Types_Floating-Point-Types">floating-point types</a> are
@@ -7203,7 +8392,7 @@ called the <strong>primitive numeric types</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_The-Boolean-Type">16.4. The Boolean Type</h3>
+<h3 id="Types_The-Boolean-Type">17.4. The Boolean Type</h3>
 <div class="paragraph">
 <p>The <strong>Boolean type</strong> corresponds to the
 <a href="#Type-Names_The-Boolean-Type-Name">Boolean type name</a>.
@@ -7211,7 +8400,7 @@ It is written <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Primitive-Types">16.5. Primitive Types</h3>
+<h3 id="Types_Primitive-Types">17.5. Primitive Types</h3>
 <div class="paragraph">
 <p>Together, the <a href="#Types_Primitive-Numeric-Types">primitive numeric types</a>
 and the
@@ -7220,7 +8409,7 @@ are called the <strong>primitive types</strong>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_String-Types">16.6. String Types</h3>
+<h3 id="Types_String-Types">17.6. String Types</h3>
 <div class="paragraph">
 <p>The <strong>string types</strong> correspond to the
 <a href="#Type-Names_String-Type-Names">string type names</a>.
@@ -7231,7 +8420,7 @@ for each legal value of <em>n</em>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Array-Types">16.7. Array Types</h3>
+<h3 id="Types_Array-Types">17.7. Array Types</h3>
 <div class="paragraph">
 <p>An <strong>array type</strong> is a type associated with an
 <a href="#Definitions_Array-Definitions">array definition</a>.
@@ -7244,7 +8433,7 @@ name</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Enum-Types">16.8. Enum Types</h3>
+<h3 id="Types_Enum-Types">17.8. Enum Types</h3>
 <div class="paragraph">
 <p>An <strong>enum type</strong> is a type associated with an
 <a href="#Definitions_Enum-Definitions">enum definition</a>.
@@ -7255,7 +8444,7 @@ name</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Struct-Types">16.9. Struct Types</h3>
+<h3 id="Types_Struct-Types">17.9. Struct Types</h3>
 <div class="paragraph">
 <p>A <strong>struct type</strong> is a type associated with a
 <a href="#Definitions_Struct-Definitions">struct definition</a>.
@@ -7266,7 +8455,7 @@ name</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Abstract-Types">16.10. Abstract Types</h3>
+<h3 id="Types_Abstract-Types">17.10. Abstract Types</h3>
 <div class="paragraph">
 <p>An <strong>abstract type</strong> is a type associated with an
 <a href="#Definitions_Abstract-Type-Definitions">abstract type definition</a>.
@@ -7277,20 +8466,20 @@ name</a>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Internal-Types">16.11. Internal Types</h3>
+<h3 id="Types_Internal-Types">17.11. Internal Types</h3>
 <div class="paragraph">
 <p><strong>Internal types</strong> do not have syntactic names in FPP source models.
 The compiler assigns these types to expressions during type checking.</p>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Integer">16.11.1. Integer</h4>
+<h4 id="Types_Internal-Types_Integer">17.11.1. Integer</h4>
 <div class="paragraph">
 <p>The type <em>Integer</em> represents all integer values, without regard
 to bit width.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Integer-Types">16.11.2. Integer Types</h4>
+<h4 id="Types_Internal-Types_Integer-Types">17.11.2. Integer Types</h4>
 <div class="paragraph">
 <p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
 <a href="#Types_Primitive-Integer-Types">primitive integer types</a> are called
@@ -7298,7 +8487,7 @@ the <strong>integer types</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Numeric-Types">16.11.3. Numeric Types</h4>
+<h4 id="Types_Internal-Types_Numeric-Types">17.11.3. Numeric Types</h4>
 <div class="paragraph">
 <p><a href="#Types_Internal-Types_Integer"><em>Integer</em></a> together with the
 <a href="#Types_Primitive-Numeric-Types">primitive numeric types</a> are called
@@ -7306,7 +8495,7 @@ the <strong>numeric types</strong>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Anonymous-Array-Types">16.11.4. Anonymous Array Types</h4>
+<h4 id="Types_Internal-Types_Anonymous-Array-Types">17.11.4. Anonymous Array Types</h4>
 <div class="paragraph">
 <p>The type <em>[</em> <em>n</em> <em>]</em> <em>T</em>, where <em>n</em>
 is an integer and <em>T</em> is a type, represents an array of <em>n</em> elements,
@@ -7314,7 +8503,7 @@ each of type <em>T</em>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Types_Internal-Types_Anonymous-Struct-Types">16.11.5. Anonymous Struct Types</h4>
+<h4 id="Types_Internal-Types_Anonymous-Struct-Types">17.11.5. Anonymous Struct Types</h4>
 <div class="paragraph">
 <p>The type <em>{</em> \$m_1\$ <em>:</em> \$T_1, ...,\$ \$m_n\$ <em>:</em> \$T_n\$ <em>}</em>,
 where each \$m_i\$ is an identifier and each \$T_i\$ is a type,
@@ -7328,7 +8517,7 @@ type as <code>{ b : F32, a: U32 }</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Displayable-Types">16.12. Displayable Types</h3>
+<h3 id="Types_Displayable-Types">17.12. Displayable Types</h3>
 <div class="paragraph">
 <p>A type is a <strong>displayable type</strong> if it is one of the following:</p>
 </div>
@@ -7359,7 +8548,7 @@ type as <code>{ b : F32, a: U32 }</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Types-with-Numeric-Members">16.13. Types with Numeric Members</h3>
+<h3 id="Types_Types-with-Numeric-Members">17.13. Types with Numeric Members</h3>
 <div class="paragraph">
 <p>A type <strong>has numeric members</strong> if it is one of the following:</p>
 </div>
@@ -7382,7 +8571,7 @@ member types all have numeric members.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Types_Default-Values">16.14. Default Values</h3>
+<h3 id="Types_Default-Values">17.14. Default Values</h3>
 <div class="paragraph">
 <p>Every type <em>T</em> with a syntactic name in FPP has an associated <strong>default
 value</strong>.
@@ -7444,7 +8633,7 @@ of <em>T</em> must provide a concrete value.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Type-Checking">17. Type Checking</h2>
+<h2 id="Type-Checking">18. Type Checking</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>In this section, we explain the rules used to assign types to
@@ -7472,7 +8661,7 @@ type \$T\$ is <a href="#Evaluation_Evaluating-Expressions">evaluated</a>,
 the result is a value of type \$T\$.</p>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Integer-Literals">17.1. Integer Literals</h3>
+<h3 id="Type-Checking_Integer-Literals">18.1. Integer Literals</h3>
 <div class="paragraph">
 <p>To type an
 <a href="#Expressions_Integer-Literals">integer
@@ -7502,7 +8691,7 @@ constant e = 0x100000000 # Type is Integer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Floating-Point-Literals">17.2. Floating-Point Literals</h3>
+<h3 id="Type-Checking_Floating-Point-Literals">18.2. Floating-Point Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_Floating-Point-Literals">floating-point
@@ -7510,7 +8699,7 @@ literal expression</a> is <code>F64</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Boolean-Literals">17.3. Boolean Literals</h3>
+<h3 id="Type-Checking_Boolean-Literals">18.3. Boolean Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_Boolean-Literals">boolean
@@ -7518,7 +8707,7 @@ literal expression</a> is <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_String-Literals">17.4. String Literals</h3>
+<h3 id="Type-Checking_String-Literals">18.4. String Literals</h3>
 <div class="paragraph">
 <p>The type of a
 <a href="#Expressions_String-Literals">string
@@ -7526,7 +8715,7 @@ literal expression</a> is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Identifier-Expressions">17.5. Identifier Expressions</h3>
+<h3 id="Type-Checking_Identifier-Expressions">18.5. Identifier Expressions</h3>
 <div class="paragraph">
 <p>To type an <a href="#Expressions_Identifier-Expressions">identifier
 expression</a> \$e\$, the semantic analyzer
@@ -7544,7 +8733,7 @@ constant b = a # The expression a refers to the constant a and has type Integer<
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Dot-Expressions">17.6. Dot Expressions</h3>
+<h3 id="Type-Checking_Dot-Expressions">18.6. Dot Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Dot-Expressions">dot
@@ -7580,7 +8769,7 @@ constant b = M.a # Expression M.a represents a use of the definition M.a.
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Array-Expressions">17.7. Array Expressions</h3>
+<h3 id="Type-Checking_Array-Expressions">18.7. Array Expressions</h3>
 <div class="paragraph">
 <p>To type an
 <a href="#Expressions_Array-Expressions">array expression</a>
@@ -7612,7 +8801,7 @@ constant b = [ 1, 2, 3.0 ] # Type is [3] F64</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Struct-Expressions">17.8. Struct Expressions</h3>
+<h3 id="Type-Checking_Struct-Expressions">18.8. Struct Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Struct-Expressions">struct expression</a>
@@ -7644,7 +8833,7 @@ constant b = { x = 1, x = 2 } # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Unary-Negation-Expressions">17.9. Unary Negation Expressions</h3>
+<h3 id="Type-Checking_Unary-Negation-Expressions">18.9. Unary Negation Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">unary
@@ -7683,7 +8872,7 @@ constant f = -true # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Binary-Arithmetic-Expressions">17.10. Binary Arithmetic Expressions</h3>
+<h3 id="Type-Checking_Binary-Arithmetic-Expressions">18.10. Binary Arithmetic Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Arithmetic-Expressions">binary
@@ -7722,7 +8911,7 @@ constant e = true + "abcd" # Error</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Parenthesis-Expressions">17.11. Parenthesis Expressions</h3>
+<h3 id="Type-Checking_Parenthesis-Expressions">18.11. Parenthesis Expressions</h3>
 <div class="paragraph">
 <p>To type a
 <a href="#Expressions_Parenthesis-Expressions">parenthesis
@@ -7752,7 +8941,7 @@ constant e = ([ 1, 2, 3]) # Type is [3] Integer</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Identical-Types">17.12. Identical Types</h3>
+<h3 id="Type-Checking_Identical-Types">18.12. Identical Types</h3>
 <div class="paragraph">
 <p>We say that types \$T_1\$ and \$T_2\$ are <strong>identical</strong> if one
 of the following holds:</p>
@@ -7788,7 +8977,7 @@ and both types refer to the same definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Type-Conversion">17.13. Type Conversion</h3>
+<h3 id="Type-Checking_Type-Conversion">18.13. Type Conversion</h3>
 <div class="paragraph">
 <p>We say that a type \$T_1\$ <strong>may be converted to</strong> another type \$T_2\$ if
 every <a href="#Values">value</a> represented by type \$T_1\$ can be
@@ -7884,9 +9073,9 @@ may be converted to \$T_3\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Type-Checking_Computing-a-Common-Type">17.14. Computing a Common Type</h3>
+<h3 id="Type-Checking_Computing-a-Common-Type">18.14. Computing a Common Type</h3>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">17.14.1. Pairs of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Pairs-of-Types">18.14.1. Pairs of Types</h4>
 <div class="paragraph">
 <p>Here are the rules for resolving two types \$T_1\$ and \$T_2\$
 (e.g., the
@@ -7983,7 +9172,7 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">17.14.2. Lists of Types</h4>
+<h4 id="Type-Checking_Computing-a-Common-Type_Lists-of-Types">18.14.2. Lists of Types</h4>
 <div class="paragraph">
 <p>To compute a common type for a list of types
 \$T_1, ... , T_n\$, do the following:</p>
@@ -8020,7 +9209,7 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Values">18. Values</h2>
+<h2 id="Values">19. Values</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>value</strong> is one of the following:</p>
@@ -8066,7 +9255,7 @@ whose member types are the corresponding common types.</p>
 <p>Every value belongs to exactly one type.</p>
 </div>
 <div class="sect2">
-<h3 id="Values_Primitive-Integer-Values">18.1. Primitive Integer Values</h3>
+<h3 id="Values_Primitive-Integer-Values">19.1. Primitive Integer Values</h3>
 <div class="paragraph">
 <p>A <strong>primitive integer value</strong> is an ordinary (mathematical) integer value
 together with a
@@ -8096,7 +9285,7 @@ U32</code> is distinct from the value <code>1: U8</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Integer-Values">18.2. Integer Values</h3>
+<h3 id="Values_Integer-Values">19.2. Integer Values</h3>
 <div class="paragraph">
 <p>An <strong>integer value</strong> is an ordinary (mathematical) integer value.
 It has type <em>Integer</em>.
@@ -8105,7 +9294,7 @@ For example, <code>1</code> is an integer value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Floating-Point-Values">18.3. Floating-Point Values</h3>
+<h3 id="Values_Floating-Point-Values">19.3. Floating-Point Values</h3>
 <div class="paragraph">
 <p>A <strong>floating-point value</strong> is an IEEE floating-point value of 4- or 8-byte
 width. Formally, the set of floating-point values is the disjoint union
@@ -8127,14 +9316,14 @@ example, we write the value 1.0 at type <code>F32</code> as <code>1.0: F32</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Boolean-Values">18.4. Boolean Values</h3>
+<h3 id="Values_Boolean-Values">19.4. Boolean Values</h3>
 <div class="paragraph">
 <p>A <strong>Boolean value</strong> is one of the values <code>true</code> and <code>false</code>.
 Its type is <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_String-Values">18.5. String Values</h3>
+<h3 id="Values_String-Values">19.5. String Values</h3>
 <div class="paragraph">
 <p>A <strong>string value</strong> is a sequence of characters that can be
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
@@ -8144,7 +9333,7 @@ Its type is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Abstract-Type-Values">18.6. Abstract Type Values</h3>
+<h3 id="Values_Abstract-Type-Values">19.6. Abstract Type Values</h3>
 <div class="paragraph">
 <p>An <strong>abstract type value</strong> is a value associated with an abstract
 type.
@@ -8153,7 +9342,7 @@ We write the value <code>value of type</code> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Array-Values">18.7. Anonymous Array Values</h3>
+<h3 id="Values_Anonymous-Array-Values">19.7. Anonymous Array Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
@@ -8166,7 +9355,7 @@ The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Array-Values">18.8. Array Values</h3>
+<h3 id="Values_Array-Values">19.8. Array Values</h3>
 <div class="paragraph">
 <p>An <strong>array value</strong> is a value associated with an array type.
 We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
@@ -8197,7 +9386,7 @@ with member type \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Enumeration-Values">18.9. Enumeration Values</h3>
+<h3 id="Values_Enumeration-Values">19.9. Enumeration Values</h3>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -8209,7 +9398,7 @@ the enumerated constant definition appears.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Struct-Values">18.10. Anonymous Struct Values</h3>
+<h3 id="Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous struct value</strong> is a value associated with an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct
@@ -8224,7 +9413,7 @@ The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <e
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Struct-Values">18.11. Struct Values</h3>
+<h3 id="Values_Struct-Values">19.11. Struct Values</h3>
 <div class="paragraph">
 <p>A <strong>struct value</strong> is a value associated with a
 <a href="#Types_Struct-Types">struct type</a>.
@@ -8256,7 +9445,7 @@ that refers to a
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Serialized-Sizes">18.12. Serialized Sizes</h3>
+<h3 id="Values_Serialized-Sizes">19.12. Serialized Sizes</h3>
 <div class="paragraph">
 <p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
 <strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
@@ -8308,7 +9497,7 @@ is up to the implementer of <em>T</em> to provide the serialized size.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Evaluation">19. Evaluation</h2>
+<h2 id="Evaluation">20. Evaluation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
@@ -8318,7 +9507,7 @@ In FPP, all evaluation happens during
 in resolving expressions to compile-time constant values.</p>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Evaluating-Expressions">19.1. Evaluating Expressions</h3>
+<h3 id="Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</h3>
 <div class="paragraph">
 <p>Evaluation of expressions occurs as stated in the
 <a href="#Expressions">expression descriptions</a>. Evaluation of integer
@@ -8329,14 +9518,14 @@ arithmetic.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Type-Conversion">19.2. Type Conversion</h3>
+<h3 id="Evaluation_Type-Conversion">20.2. Type Conversion</h3>
 <div class="paragraph">
 <p>The following rules govern the conversion of a value \$v_1\$ of type
 \$T_1\$
 to a value \$v_2\$ of type \$T_2\$.</p>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">19.2.1. Unsigned Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -8358,7 +9547,7 @@ converting <code>0x12: U8</code> to <code>U16</code> yields <code>0x12: U16</cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">19.2.2. Signed Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -8378,7 +9567,7 @@ example, converting <code>-0x12: I8</code> to <code>I16</code> yields <code>-0x1
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">19.2.3. Primitive Integer Values of Mixed Sign</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</h4>
 <div class="paragraph">
 <p>If \$T_1\$ and \$T_2\$ are primitive integer types with one signed and
 one unsigned,
@@ -8403,7 +9592,7 @@ then do the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">19.2.4. Primitive and Non-Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
 proceed as if \$T_1\$ were a signed primitive integer
@@ -8418,7 +9607,7 @@ at type <em>Integer</em>. For example, converting
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">19.2.5. Floating-Point Values</h4>
+<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
@@ -8426,7 +9615,7 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">19.2.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -8454,7 +9643,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">19.2.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -8488,10 +9677,10 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analysis-and-Translation">20. Analysis and Translation</h2>
+<h2 id="Analysis-and-Translation">21. Analysis and Translation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis">20.1. Analysis</h3>
+<h3 id="Analysis-and-Translation_Analysis">21.1. Analysis</h3>
 <div class="paragraph">
 <p><strong>Analysis</strong> is the process of checking a source model.
 It usually involves the following steps:</p>
@@ -8508,7 +9697,7 @@ It usually involves the following steps:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis-Tools">20.2. Analysis Tools</h3>
+<h3 id="Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</h3>
 <div class="paragraph">
 <p>An <strong>analysis tool</strong> is a tool that reads in and analyzes FPP
 source files, but does not generate any code.
@@ -8532,7 +9721,7 @@ The command <code>cat file1.fpp file2.fpp | analyze</code> is functionally equiv
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation">20.3. Translation</h3>
+<h3 id="Analysis-and-Translation_Translation">21.3. Translation</h3>
 <div class="paragraph">
 <p><strong>Translation</strong> is the process of performing analysis and
 generating code.</p>
@@ -8557,7 +9746,7 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation-Tools">20.4. Translation Tools</h3>
+<h3 id="Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</h3>
 <div class="paragraph">
 <p>A <strong>translation tool</strong> is a tool that translates FPP source files.
 A translation tool typically accepts the following two kinds of
@@ -8596,7 +9785,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-22 14:11:05 -0700
+Last updated 2024-08-27 14:18:25 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1160,6 +1160,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,
@@ -1303,6 +1306,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,
@@ -1462,6 +1468,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,
@@ -1556,6 +1565,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,

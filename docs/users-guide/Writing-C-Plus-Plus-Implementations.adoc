@@ -8,6 +8,9 @@ four kinds of implementations you have to write:
 These are types that are named in the FPP model but are defined
 directly in {cpp}.
 
+. Implementations of <<Defining-State-Machines_External-State-Machines,
+external state machines>>.
+
 . Implementations of
 <<Defining-Components,components>>.
 
@@ -181,6 +184,22 @@ In a future version of FPP, we plan to encode these types as
 explicit aliases of primitive integer types.
 When we do this, the definitions will be known to FPP,
 and the types will be displayable.
+
+=== Implementing External State Machines
+
+An <<Defining-State-Machines_External-State-Machines,
+external state machine>> refers to a state machine implementation
+supplied outside the FPP model.
+To implement an external state machine, you can use 
+the https://github.com/JPLOpenSource/STARS/tree/main[State Autocoding for 
+Real-Time Systems (STARS)]
+tool.
+STARS provides several ways to specify state machines, and it
+provides several {cpp} back ends.
+The F Prime back end is designed to work with FPP code generation.
+
+For an example of an external state machine implemented in STARS,
+see `FppTest/state_machine` in the F Prime repository.
 
 === Implementing Deployments
 

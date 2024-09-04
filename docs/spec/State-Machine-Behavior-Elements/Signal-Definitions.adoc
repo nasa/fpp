@@ -1,0 +1,58 @@
+=== Signal Definitions
+
+A *signal definition* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+It defines a signal that may be sent to the enclosing state machine.
+Signals are inputs to state machines that cause state transitions
+to occur.
+
+Signals can be external or internal.
+An external signal is sent to the state machine from outside,
+e.g., by a command to an F Prime component.
+An internal signal is sent by the state machine implementation
+to itself.
+
+All signals sent to a state machine (internal and external)
+are placed on a first-in first-out (FIFO) queue.
+The state machine dequeues and processes signals when it is
+entering a state, and after it has run the entry function
+for that state.
+
+==== Syntax
+`signal`
+<<Lexical-Elements_Identifiers,_identifier_>>
+_[_
+`:` 
+<<Type-Names,_type-name_>>
+_]_
+
+==== Semantics
+
+. The identifier specifies the signal name.
+
+. If present, the optional type name specifies the type of the
+data carried by the signal.
+If _type-name_ is not present, then the signal carries no data.
+
+==== Examples
+
+[source,fpp]
+----
+struct FaultData {
+  $id: U32
+  data: U32
+}
+
+@ A state machine with signal definitions
+state machine SignalDefs {
+
+  @ A signal without data
+  signal RTI
+
+  @ A signal with data
+  signal Fault: FaultData
+
+  ...
+
+}
+----

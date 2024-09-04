@@ -1674,30 +1674,6 @@ void ActiveOverflowComponentBase ::
 }
 
 // ----------------------------------------------------------------------
-// Hooks for special async input ports
-//
-// Each of these functions is invoked just before dropping a message
-// on the corresponding port. You should override them to provide
-// specific drop behavior.
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
-// Hooks for typed async input ports
-//
-// Each of these functions is invoked just before dropping a message
-// on the corresponding port. You should override them to provide
-// specific drop behavior.
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
-// Hooks for serial async input ports
-//
-// Each of these functions is invoked just before dropping a message
-// on the corresponding port. You should override them to provide
-// specific drop behavior.
-// ----------------------------------------------------------------------
-
-// ----------------------------------------------------------------------
 // Hooks for internal ports
 //
 // Each of these functions is invoked just before dropping a message
@@ -1922,14 +1898,6 @@ void ActiveOverflowComponentBase ::
   (void) opCode;
   (void) cmdSeq;
 }
-
-// ----------------------------------------------------------------------
-// Overflow hooks for async commands marked 'hook'
-//
-// Each of these functions is invoked after an overflow event
-// on a queue when the command is marked with 'hook' overflow
-// behavior.
-// ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 // Time

@@ -43,6 +43,7 @@ spec_event
 spec_internal_port
 spec_param
 spec_record
+spec_state_machine_instance
 spec_tlm_channel
 spec_top_import
 special_ports

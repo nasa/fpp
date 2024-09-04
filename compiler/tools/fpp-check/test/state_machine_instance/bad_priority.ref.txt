@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine_instance/bad_priority.fpp:6.42
+  state machine instance s: M.S priority "abc"
+                                         ^
+error: cannot convert string to a numeric type

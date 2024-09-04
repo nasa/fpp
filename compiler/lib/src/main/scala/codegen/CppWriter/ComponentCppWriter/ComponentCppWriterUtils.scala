@@ -7,8 +7,15 @@ import fpp.compiler.codegen._
 /** Message type for message send logic */
 sealed trait MessageType
 object MessageType {
-  case object Command extends MessageType
-  case object Port extends MessageType
+  case object Command extends MessageType {
+    override def toString = "command"
+  }
+  case object Port extends MessageType {
+    override def toString = "async input port"
+  }
+  case object StateMachine extends MessageType {
+    override def toString = "state machine"
+  }
 }
 
 /** Utilities for writing C++ component definitions */
@@ -131,6 +138,10 @@ abstract class ComponentCppWriterUtils(
 
   /** List of serial output ports */
   val serialOutputPorts: List[PortInstance.General] = filterSerialPorts(outputPorts)
+
+  /** List of state machine instances */
+  val stateMachineInstances: List[StateMachineInstance] =
+    component.stateMachineInstanceMap.toList.map((_, sm) => sm).sortBy(_.getName)
 
   /** List of internal port instances sorted by name */
   val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
@@ -273,6 +284,10 @@ abstract class ComponentCppWriterUtils(
 
   val recordsByName = component.recordMap.toList.sortBy(_._2.getName)
 
+  val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
+
+  val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList
+
   // Component properties
 
   val hasGuardedInputPorts: Boolean = generalInputPorts.exists(p =>
@@ -303,6 +318,8 @@ abstract class ComponentCppWriterUtils(
   val hasDataProducts: Boolean = component.hasDataProducts
 
   val hasContainers: Boolean = containersByName != Nil
+
+  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
@@ -597,6 +614,7 @@ abstract class ComponentCppWriterUtils(
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
     TypeCppWriter.getName(s, t, stringRep)
 
+  /** Write send message logic */
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
@@ -621,8 +639,7 @@ abstract class ComponentCppWriterUtils(
               |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
               |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
               |"""
-        )
-        ,
+        ),
         queueFull match {
           case Ast.QueueFull.Drop => lines(
             """|if (qStatus == Os::Queue::QUEUE_FULL) {
@@ -639,8 +656,7 @@ abstract class ComponentCppWriterUtils(
                 |"""
           )
           case _ => Nil
-        }
-        ,
+        },
         lines(
           """|FW_ASSERT(
              |  qStatus == Os::Queue::QUEUE_OK,
@@ -691,6 +707,9 @@ abstract class ComponentCppWriterUtils(
   def commandCppConstantName(cmd: Command) =
     s"CMD_${cmd.getName.toUpperCase}"
 
+  /** Get the name for the state machine enumerated constant in cpp file */
+  def stateMachineCppConstantName = "STATEMACHINE_SENDSIGNALS"
+
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =
     s"getNum_${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Ports"
@@ -724,6 +743,7 @@ abstract class ComponentCppWriterUtils(
     messageType match {
       case MessageType.Port => s"${name}_overflowHook"
       case MessageType.Command => s"${name}_cmdOverflowHook"
+      case MessageType.StateMachine => s"${name}_stateMachineOverflowHook"
     }
 
   // Get the name for an output port connector function
@@ -823,6 +843,20 @@ abstract class ComponentCppWriterUtils(
         case _ => CppDoc.Function.Override
       }
     )
+
+  def getVirtualOverflowHook(
+    name: String,
+    msgType: MessageType,
+    params: List[CppDoc.Function.Param]
+  ) = functionClassMember(
+    Some(s"Overflow hook for $msgType $name"),
+    inputOverflowHookName(name, msgType),
+    params,
+    CppDoc.Type("void"),
+    Nil,
+    CppDoc.Function.PureVirtual
+  )
+
   private def getPortTypeBaseName(
     p: PortInstance,
   ): String = {

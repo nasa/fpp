@@ -35,22 +35,24 @@
 
 (defconst fpp-mode-definition-keywords
   '("type" "array" "component" "instance" "constant"
-    "enum" "module" "port" "struct" "topology")
+    "enum" "machine" "module" "port" "state" "struct" "topology")
   "FPP keywords for definitions.")
 
 (defconst fpp-mode-keywords
-  '("active" "activity" "always"  "assert"
+  '("action" "active" "activity" "always"  "assert"
     "at" "base" "block" "change" "command"
-    "connections"  "cpu" "default" "diagnostic"
-    "drop" "hook" "event" "false" "fatal" "format" "get"
-    "guarded" "health" "high" "id" "import"
-    "include" "input" "internal" "locate" "low"
-    "match"  "on"  "opcode" "orange" "output"
-    "param" "passive" "phase"  "priority" "private"
-    "queue"  "queued" "raw" "recv" "red" "ref" "reg"
-    "resp" "save" "serial" "set" "severity" "size"
-    "stack" "sync" "telemetry" "text" "throttle"
-    "time" "true"  "update" "warning" "with" "yellow")
+    "connections" "cpu" "default" "diagnostic" "do"
+    "drop" "else" "entry" "event" "exit"
+    "false" "fatal" "format" "get" "guard"
+    "guarded" "health" "high" "hook" "id" "if" "import"
+    "include" "initial" "input" "internal" "junction"
+    "locate" "low" "match"  "on"  "opcode" "orange"
+    "output" "param" "passive" "phase"  "priority"
+    "private" "queue"  "queued" "raw" "recv" "red"
+    "ref" "reg" "resp" "save" "signal" "serial" "set" "severity"
+    "size" "stack" "sync" "telemetry" "text" "throttle"
+    "time" "true"  "update" "enter" "warning" "with"
+    "yellow")
   "All non-definition keywords for FPP.")
 
 (defconst fpp-mode-types

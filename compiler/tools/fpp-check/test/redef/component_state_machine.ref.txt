@@ -1,0 +1,9 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_state_machine.fpp:3.1
+state machine C
+^
+error: redefinition of symbol C
+previous definition is here:
+[ local path prefix ]/compiler/tools/fpp-check/test/redef/component_state_machine.fpp:1.1
+passive component C { }
+^

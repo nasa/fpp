@@ -727,9 +727,9 @@ class QueuedOverflowComponentBase :
     // ----------------------------------------------------------------------
     // Hooks for special async input ports
     //
-    // Each of these functions is invoked just before dropping a message
-    // on the corresponding port. You should override them to provide
-    // specific drop behavior.
+    // Each of these functions is invoked when placing a message on the
+    // queue would cause the queue to overlow. You should override them to provide
+    // specific overflow behavior.
     // ----------------------------------------------------------------------
 
     //! Overflow hook for async input port productRecvInHook
@@ -745,9 +745,9 @@ class QueuedOverflowComponentBase :
     // ----------------------------------------------------------------------
     // Hooks for typed async input ports
     //
-    // Each of these functions is invoked just before dropping a message
-    // on the corresponding port. You should override them to provide
-    // specific drop behavior.
+    // Each of these functions is invoked when placing a message on the
+    // queue would cause the queue to overlow. You should override them to provide
+    // specific overflow behavior.
     // ----------------------------------------------------------------------
 
     //! Overflow hook for async input port hookAsync
@@ -767,9 +767,9 @@ class QueuedOverflowComponentBase :
     // ----------------------------------------------------------------------
     // Hooks for serial async input ports
     //
-    // Each of these functions is invoked just before dropping a message
-    // on the corresponding port. You should override them to provide
-    // specific drop behavior.
+    // Each of these functions is invoked when placing a message on the
+    // queue would cause the queue to overlow. You should override them to provide
+    // specific overflow behavior.
     // ----------------------------------------------------------------------
 
     //! Overflow hook for async input port serialAsyncHook
@@ -896,7 +896,7 @@ class QueuedOverflowComponentBase :
   PROTECTED:
 
     // ----------------------------------------------------------------------
-    // Overflow hooks for async commands marked 'hook'
+    // Overflow hooks for async commands
     //
     // Each of these functions is invoked after an overflow event
     // on a queue when the command is marked with 'hook' overflow

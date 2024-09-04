@@ -366,17 +366,17 @@
   },
   "8" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "9" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "10" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "11" : {
@@ -386,17 +386,17 @@
   },
   "12" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "13" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "14" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "15" : {
@@ -411,17 +411,17 @@
   },
   "17" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "18" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "19" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "20" : {
@@ -431,17 +431,17 @@
   },
   "21" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "22" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "23" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "24" : {
@@ -456,17 +456,17 @@
   },
   "26" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "27" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "28" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "29" : {
@@ -476,17 +476,17 @@
   },
   "30" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "31" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "32" : {
     "file" : "[ local path prefix ]/compiler/tools/fpp-to-json/test/constTypesComponents.fpp",
-    "pos" : "33.12",
+    "pos" : "33.13",
     "includingLoc" : "None"
   },
   "33" : {
@@ -731,6 +731,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,

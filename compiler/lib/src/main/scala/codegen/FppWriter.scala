@@ -1,6 +1,7 @@
 package fpp.compiler.codegen
 
 import fpp.compiler.ast._
+import fpp.compiler.syntax._
 import fpp.compiler.util._
 import scala.language.implicitConversions
 
@@ -164,6 +165,15 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"port ${ident(data.name)}").
       join ("") (formalParamList(data.params)).
       joinOpt (data.returnType) (" -> ") (typeNameNode)
+  }
+
+  override def defStateMachineAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine ${ident(data.name)}")
   }
 
   override def defStructAnnotatedNode(
@@ -449,6 +459,18 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode)
   }
 
+  override def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"state machine instance ${ident(data.name)}").
+      join(": ") (qualIdent(data.stateMachine.data)).
+      joinOptWithBreak (data.priority) ("priority ") (exprNode).
+      joinOptWithBreak (data.queueFull) ("") (queueFull)
+  }
+
   override def specTlmChannelAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecTlmChannel]]
@@ -552,14 +574,17 @@ object FppWriter extends AstVisitor with LineUtils {
   private def bracketExprNode(en: AstNode[Ast.Expr]) =
     Line.addPrefixAndSuffix("[", exprNode(en), "]")
 
+  private def connection(c: Ast.SpecConnectionGraph.Connection) =
+    portInstanceId(c.fromPort.data).
+    joinOpt (c.fromIndex) ("") (bracketExprNode).
+    join (" -> ") (portInstanceId(c.toPort.data)).
+    joinOpt (c.toIndex) ("") (bracketExprNode)
+
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
     lines(ident(dec.name)).joinOpt (dec.value) (" = ") (exprNode)
 
   private def exprNode(node: AstNode[Ast.Expr]): Out =
     matchExprNode((), node)
-
-  private def ident(id: Ast.Ident) =
-    if (keywords.contains(id)) "$" ++ id else id
 
   private def formalParam(fp: Ast.FormalParam) = {
     val prefix = fp.kind match {
@@ -578,6 +603,13 @@ object FppWriter extends AstVisitor with LineUtils {
         fpl.flatMap(annotateNode(formalParam)).map(indentIn) ++
         lines(")")
     }
+
+  private def ident(id: Ast.Ident) =
+    if (Lexer.reservedWordSet.contains(id)) "$" ++ id else id
+
+  private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
+    qualIdent(pii.componentInstance.data).
+    addSuffix(s".${ident(pii.portName.data)}")
 
   private def qualIdent(qid: Ast.QualIdent): Out =
     lines(qualIdentString(qid))
@@ -612,112 +644,8 @@ object FppWriter extends AstVisitor with LineUtils {
       join (" ") (typeNameNode(member.typeName)).
       joinOpt (member.format) (" format ") (applyToData(string))
 
-  private def portInstanceId(pii: Ast.PortInstanceIdentifier) =
-    qualIdent(pii.componentInstance.data).
-    addSuffix(s".${ident(pii.portName.data)}")
-
-  private def connection(c: Ast.SpecConnectionGraph.Connection) =
-    portInstanceId(c.fromPort.data).
-    joinOpt (c.fromIndex) ("") (bracketExprNode).
-    join (" -> ") (portInstanceId(c.toPort.data)).
-    joinOpt (c.toIndex) ("") (bracketExprNode)
-
   private def typeNameNode(node: AstNode[Ast.TypeName]) = matchTypeNameNode((), node)
 
   private def unop(op: Ast.Unop) = op.toString
-
-  val keywords: Set[String] = Set(
-    "F32",
-    "F64",
-    "I16",
-    "I32",
-    "I64",
-    "I8",
-    "U16",
-    "U32",
-    "U64",
-    "U8",
-    "active",
-    "activity",
-    "always",
-    "array",
-    "assert",
-    "async",
-    "at",
-    "base",
-    "block",
-    "bool",
-    "change",
-    "command",
-    "component",
-    "connections",
-    "constant",
-    "container",
-    "default",
-    "diagnostic",
-    "drop",
-    "enum",
-    "event",
-    "false",
-    "fatal",
-    "format",
-    "get",
-    "guarded",
-    "health",
-    "high",
-    "hook",
-    "id",
-    "import",
-    "include",
-    "input",
-    "instance",
-    "internal",
-    "locate",
-    "low",
-    "match",
-    "module",
-    "on",
-    "opcode",
-    "orange",
-    "output",
-    "param",
-    "passive",
-    "phase",
-    "port",
-    "priority",
-    "private",
-    "product",
-    "queue",
-    "queued",
-    "raw",
-    "record",
-    "recv",
-    "red",
-    "ref",
-    "reg",
-    "request",
-    "resp",
-    "save",
-    "send",
-    "serial",
-    "set",
-    "severity",
-    "size",
-    "stack",
-    "string",
-    "struct",
-    "sync",
-    "telemetry",
-    "text",
-    "throttle",
-    "time",
-    "topology",
-    "true",
-    "type",
-    "update",
-    "warning",
-    "with",
-    "yellow",
-  )
 
 }

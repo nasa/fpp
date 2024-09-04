@@ -1,0 +1,55 @@
+=== Enter Expressions
+
+An *enter expression* specifies a transition as part of an
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition>>,
+a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition>>,
+or
+a <<State-Machine-Behavior-Elements_Junction-Definitions,junction>>.
+The transition enters a state or junction and optionally performs
+some action.
+
+==== Syntax
+
+_[_
+`do` <<Lexical-Elements_Identifiers,_identifier_>>
+_]_
+`enter` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+
+==== Semantics
+
+. If present, the optional identifier after the keyword `do` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to an 
+<<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
+It specifies an action to perform when making the transition.
+
+. The qualified identifier after the keyword `enter` must
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>>
+to a 
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+or a
+<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+It is the state or junction that is entered.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  signal PowerOn
+  
+  action getReady
+
+  guard initComplete
+
+  initial enter OFF
+
+  state OFF {
+    on PowerOn if initComplete do getReady enter ON
+  }
+
+  state ON
+
+}
+----

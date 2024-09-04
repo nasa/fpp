@@ -23,7 +23,7 @@ _queue-full-behavior_
 _]_
 
 _queue-full-behavior_ has the same syntax as for 
-<<Specifiers_Port-Instance-Specifiers,port instance specifiers>>.
+<<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
 
 ==== Semantics
 
@@ -35,7 +35,8 @@ The names of the formal parameters must be distinct.
 No formal parameter may be a `ref` parameter.
 
 The optional priority and queue full behavior have the same semantics as in 
-<<Specifiers_Port-Instance-Specifiers,async input port instance specifiers>>.
+<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
+specifiers>>.
 
 ==== Examples
 

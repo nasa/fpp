@@ -15,6 +15,7 @@ Syntax-Notation.adoc
 Lexical-Elements.adoc
 Element-Sequences.adoc
 Definitions/Definitions.adoc
+State-Machine-Behavior-Elements/State-Machine-Behavior-Elements.adoc
 Specifiers/Specifiers.adoc
 Port-Instance-Identifiers.adoc
 Type-Names.adoc

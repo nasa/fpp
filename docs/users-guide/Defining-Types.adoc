@@ -642,7 +642,7 @@ In particular, when the target language is {cpp}, the default
 value is the zero-argument constructor `T()`.
 
 *Built-in types:*
-When translating to {cpp}, there are a few special types that are abstract
+When translating FPP to {cpp}, there are a few special types that are abstract
 in the model, but that are known to the translator.
 You don't have to define {cpp} classes for these types.
 We will discuss these types further in the section on

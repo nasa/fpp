@@ -864,6 +864,18 @@
               }
             }
           },
+          "StateMachine" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "B" : {
+                  "Module" : {
+                    "nodeId" : 55,
+                    "unqualifiedName" : "B"
+                  }
+                }
+              }
+            }
+          },
           "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {

@@ -186,7 +186,7 @@ void QueuedOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Overflow hook implementations for 'hook' commands
+// Overflow hook implementations for commands
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::

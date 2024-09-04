@@ -181,7 +181,7 @@ class ActiveOverflow :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Overflow hook implementations for 'hook' commands
+    // Overflow hook implementations for commands
     // ----------------------------------------------------------------------
 
     //! Overflow hook implementation for CMD_HOOK

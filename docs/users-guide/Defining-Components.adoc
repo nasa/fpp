@@ -189,8 +189,11 @@ Try presenting this code to `fpp-check` and observe what happens.
 
 Second, an active or queued component _must_ have asynchronous input.
 That means it must have at least one async input port;
-or it must have an internal port (described below);
-or it must have at least one async command (also described below).
+or it must have an internal port;
+or it must have at least one async command; or it must have
+at least one state machine instance.
+Internal ports, async commands, and state machine instances
+are described below.
 As an example, if we modify the input ports of our `ActiveF32Adder`
 to make them `sync`, we get an error, because
 there is no async input.
@@ -327,7 +330,7 @@ There are three possible behaviors:
 . `assert`: Fail a FSW assertion (the default behavior).
 . `block`: Block the sender until the queue is available.
 . `drop`: Drop the incoming message and proceed.
-. `hook`: Call a user function to respond to the queue overflow.
+. `hook`: Call a user-specified function and proceed.
 
 To specify queue full behavior, you write one of the keywords `assert`,
 `block`, `drop`, or `hook` after the port type and after the priority
@@ -1089,7 +1092,7 @@ active component Switch {
 
   @ Set the state
   async command SET_STATE(
-    state: State @< The new state
+    $state: State @< The new state
   )
 
 }
@@ -2321,7 +2324,7 @@ Here is an example:
 @ A struct type defining some data
 struct Data { a: U32, b: F32 }
 
-@ A component for illustrating data product 
+@ A component for illustrating data product identifiers
 passive component DataProductIdentifiers {
 
   # ----------------------------------------------------------------------
@@ -2430,10 +2433,70 @@ an array of elements of type `Data`.
 The number of elements is unspecified in the model;
 it is provided when the record is serialized into a container.
 
-=== Constants and Types
+=== State Machine Instances
 
-You can write a <<Defining-Constants,constant definition>>
-or <<Defining-Types,type definition>>
+A *state machine instance* is a component member that instantiates
+an FPP <<Defining-State-Machines,state machine>>.
+The state machine instance becomes part of the component implementation.
+
+For example, here is a simple async component that has
+one state machine instance and one async input port
+for driving the state machine:
+
+[source,fpp]
+----
+@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M
+
+}
+----
+
+When a state machine instance _m_ is part of a component _C_,
+each instance _c_ of _C_ sends _m_ *signals* to process as it runs.
+Signals occur in response to commands or port
+invocations received by _c_, and they tell _m_ when to change state.
+_c_ puts the signals on its queue, and _m_ dispatches them.
+Therefore, if a component _C_ has a state machine instance member _m_,
+then its instances _c_ must have queues, i.e., _C_ must be active or queued.
+
+As with <<Defining-Components_Internal-Ports,internal ports>>,
+you may specify priority and queue full behavior associated
+with the signals dispatched by a state machine instance.
+For example, we can revise the example above as follows:
+
+[source,fpp]
+----
+@ An external state machine
+state machine M
+
+@ A component with a state machine
+active component StateMachine {
+
+  @ A port for driving the state machine
+  async input port schedIn: Svc.Sched
+
+  @ An instance of state machine M
+  state machine instance m: M priority 10 drop
+
+}
+----
+
+=== Constants, Types, Enums, and State Machines
+
+You can write a <<Defining-Constants,constant definition>>,
+<<Defining-Types,type definition>>, 
+<<Defining-Enums,enum definition>>, 
+or
+<<Defining-State-Machines,state machine definition>>
 as a component member.
 When you do this, the component qualifies
 the name of the constant or type, similarly to the way that a
@@ -2519,7 +2582,7 @@ active component Switch {
 
   @ Set the state
   async command SET_STATE(
-    state: State @< The new state
+    $state: State @< The new state
   )
 
 }

@@ -36,6 +36,7 @@ active()
   diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
   diff_template ActiveSerial && \
+  diff_template ActiveStateMachines && \
   diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
   diff_template ActiveTest

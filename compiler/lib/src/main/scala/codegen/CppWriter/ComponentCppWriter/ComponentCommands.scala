@@ -14,7 +14,7 @@ case class ComponentCommands (
     if !(hasCommands || hasParameters) then Nil
     else List(
       linesClassMember(
-        List(
+        List.concat(
           Line.blank :: lines(s"//! Command opcodes"),
           wrapInEnum(
             sortedCmds.flatMap((opcode, cmd) =>
@@ -31,7 +31,7 @@ case class ComponentCommands (
               )
             )
           )
-        ).flatten
+        )
       )
     )
   }
@@ -109,13 +109,7 @@ case class ComponentCommands (
             )
           ),
           commandHandlerName(cmd.getName),
-          List(
-            List(
-              opcodeParam,
-              cmdSeqParam,
-            ),
-            cmdParamMap(opcode)
-          ).flatten,
+          opcodeParam :: cmdSeqParam :: cmdParamMap(opcode),
           CppDoc.Type("void"),
           Nil,
           CppDoc.Function.PureVirtual
@@ -326,26 +320,23 @@ case class ComponentCommands (
     )
   }
 
-  private def getOverflowHooks: List[CppDoc.Class.Member] = {
+  private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      """|Overflow hooks for async commands marked 'hook'
+      """|Overflow hooks for async commands
          |
          |Each of these functions is invoked after an overflow event
          |on a queue when the command is marked with 'hook' overflow
          |behavior.
          |""",
-      hookCmds.map((opcode, cmd) =>
-        functionClassMember(
-          Some(s"Overflow hook for command ${cmd.getName}"),
-          inputOverflowHookName(cmd.getName, MessageType.Command),
+      hookCmds.map(
+        (opcode, cmd) => getVirtualOverflowHook(
+          cmd.getName,
+          MessageType.Command,
           opcodeParam :: cmdSeqParam :: Nil,
-          CppDoc.Type("void"),
-          Nil,
-          CppDoc.Function.PureVirtual
         )
-      )
+      ),
+      CppDoc.Lines.Hpp
     )
-  }
 
 }
