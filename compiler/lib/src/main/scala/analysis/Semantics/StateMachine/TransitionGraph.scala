@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** An FPP transition graph */
 case class TransitionGraph(
-  map: Map[TransitionGraph.InitialNode, Set[TransitionGraph.Arc]]
+  map: Map[TransitionGraph.InitialNode, Set[TransitionGraph.Arc]] = Map()
 ) {
 
   /** Adds an arc to the graph */
