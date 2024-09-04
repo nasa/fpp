@@ -338,7 +338,7 @@ case class ComponentCppWriter (
         lines(
           s"""|// Size of statemachine sendSignals
               |BYTE sendSignalsStatemachineSize[
-              |  2 * sizeof(FwEnumStoreType) + Fw::SMSignalBuffer::SERIALIZED_SIZE
+              |  2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
               |];
               |"""
         )
