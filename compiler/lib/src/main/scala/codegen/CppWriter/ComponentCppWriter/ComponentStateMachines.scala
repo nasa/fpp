@@ -63,16 +63,19 @@ case class ComponentStateMachines(
       Line.blank ::
       List.concat(
         lines(
-          s"""|// Deserialize the state machine ID
+          s"""|// Deserialize the state machine ID to an FwEnumStoreType
               |FwEnumStoreType enumStoreSmId = 0;
               |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
               |FW_ASSERT(
               |  deserStatus == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(deserStatus)
               |);
+              |// Cast it to the correct type
               |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
               |
-              |// Deserialize the state machine signal
+              |// Deserialize the state machine signal to an FwEnumStoreType.
+              |// This value will be cast to the correct type in the
+              |// switch statement that calls the state machine update function.
               |FwEnumStoreType enumStoreSmSignal = 0;
               |deserStatus = msg.deserialize(enumStoreSmSignal);
               |FW_ASSERT(
@@ -217,8 +220,7 @@ case class ComponentStateMachines(
         }),
         Line.blank :: lines(
           s"""|default:
-              |  FW_ASSERT(0, static_cast<FwAssertArgType>(stateMachineId));
-              |  break;"""
+              |  return MSG_DISPATCH_ERROR;"""
         )
       )
     )
