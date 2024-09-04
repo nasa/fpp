@@ -34,6 +34,8 @@ object CheckSignalUses
           case _ => Right(map)
         }
       )
+      // Visit members
+      _ <- super.defStateAnnotatedNode(sma, aNode)
     }
     yield sma
   }
