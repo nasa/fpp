@@ -39,7 +39,7 @@ object CheckInitialTransitions
   ) = {
     // Check that aNode leads to a state machine or junction
     // with the same parent symbol as sma
-    val destId = aNode._2.data.transition.destination.id
+    val destId = aNode._2.data.transition.data.destination.id
     val destSymbol = sma.useDefMap(destId)
     checkForDestOutsideParent(
       sma,

@@ -222,7 +222,7 @@ object Ast {
 
   /** Initial state specifier */
   final case class SpecInitialTransition(
-    transition: TransitionExpr
+    transition: AstNode[TransitionExpr]
   )
 
   /** State entry specifier */
@@ -246,7 +246,7 @@ object Ast {
   sealed trait TransitionOrDo
   object TransitionOrDo {
     final case class Transition(
-      transition: TransitionExpr
+      transition: AstNode[TransitionExpr]
     ) extends TransitionOrDo
     final case class Do(actions: List[AstNode[Ident]]) extends TransitionOrDo
   }

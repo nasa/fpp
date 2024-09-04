@@ -443,7 +443,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("spec initial") ++
-    transitionExpr(data.transition).map(indentIn)
+    transitionExpr(data.transition.data).map(indentIn)
   }
 
   override def specInternalPortAnnotatedNode(
@@ -822,7 +822,8 @@ object AstWriter extends AstVisitor with LineUtils {
 
   private def transitionOrDo(tod: Ast.TransitionOrDo) =
     tod match {
-      case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
+      case Ast.TransitionOrDo.Transition(transition) =>
+        transitionExpr(transition.data)
       case Ast.TransitionOrDo.Do(actions) => actionList(actions)
     }
 

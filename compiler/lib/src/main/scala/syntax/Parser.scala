@@ -495,7 +495,7 @@ object Parser extends Parsers {
   }
 
   def specInitialTransition: Parser[Ast.SpecInitialTransition] = {
-    initial ~> transitionExpr ^^ {
+    initial ~> node(transitionExpr) ^^ {
       case transition => Ast.SpecInitialTransition(transition)
     }
   }
@@ -746,7 +746,7 @@ object Parser extends Parsers {
     }
 
   def transitionOrDo: Parser[Ast.TransitionOrDo] = {
-    def transitionParser: Parser[Ast.TransitionOrDo.Transition] = transitionExpr ^^ {
+    def transitionParser: Parser[Ast.TransitionOrDo.Transition] = node(transitionExpr) ^^ {
       case e => Ast.TransitionOrDo.Transition(e)
     }
     def doParser: Parser[Ast.TransitionOrDo.Do] = doExpr ^^ {

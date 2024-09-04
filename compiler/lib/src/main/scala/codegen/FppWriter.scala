@@ -101,7 +101,8 @@ object FppWriter extends AstVisitor with LineUtils {
 
   def transitionOrDo(tod: Ast.TransitionOrDo): Out =
     tod match {
-      case Ast.TransitionOrDo.Transition(transition) => transitionExpr(transition)
+      case Ast.TransitionOrDo.Transition(transition) =>
+        transitionExpr(transition.data)
       case Ast.TransitionOrDo.Do(actions) => actionList(actions)
     }
 
@@ -489,7 +490,7 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     lines("initial ").
-    join("")(transitionExpr(data.transition))
+    join("")(transitionExpr(data.transition.data))
   }
 
   override def specInternalPortAnnotatedNode(

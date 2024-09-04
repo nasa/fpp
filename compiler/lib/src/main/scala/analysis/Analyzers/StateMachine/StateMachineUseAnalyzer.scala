@@ -72,7 +72,7 @@ trait StateMachineUseAnalyzer
   override def specInitialTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
-  ) = transitionExpr(sma, aNode._2.data.transition)
+  ) = transitionExpr(sma, aNode._2.data.transition.data)
 
   override def specStateTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
@@ -108,7 +108,7 @@ trait StateMachineUseAnalyzer
     sma: StateMachineAnalysis,
     tod: Ast.TransitionOrDo
   ): Result = tod match {
-    case Ast.TransitionOrDo.Transition(e) => transitionExpr(sma, e)
+    case Ast.TransitionOrDo.Transition(e) => transitionExpr(sma, e.data)
     case Ast.TransitionOrDo.Do(as) => actions(sma, as)
   }
 
