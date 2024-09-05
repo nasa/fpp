@@ -1,4 +1,5 @@
 tests="
 ok_cycle
-unreachable_node
+unreachable_junction
+unreachable_state
 "

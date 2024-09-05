@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/unreachable_state.fpp:5.3
+  state T
+  ^
+error: state T is unreachable
