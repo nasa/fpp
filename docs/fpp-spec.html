@@ -2878,22 +2878,31 @@ follows:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The nodes of the transition graph are the initial transition specifiers,
-state definitions, and
+<p>The nodes of the transition graph are the state definitions and
 junction definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
+<p>The <strong>initial node</strong> of the transition graph is the state definition
+or junction definition referred to in the unique initial transition specifier
+that is an element of <em>M</em>.</p>
+</li>
+<li>
 <p>The arcs of the transition graph are given by the
-<a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
-Each transition expression represents an arc from an <strong>initial node</strong> to a
-<strong>terminal node</strong>.
-The initial node is defined as follows:</p>
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that appear in (1) initial transition specifiers
+that are members of states that are transitive members of <em>M</em> and (2)
+state transition specifiers that are transitive members of <em>M</em> and (3)
+junction definitions that are transitive members of <em>M</em>.
+Each transition expression represents an arc from a <strong>start node</strong> to an
+<strong>end node</strong>.
+The start node is defined as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>e</em> appears in an
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
-is <em>I</em>.</p>
+node is the
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+immediately enclosing <em>I</em>.</p>
 </li>
 <li>
 <p>If <em>e</em> appears in a
@@ -2924,14 +2933,13 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Let <em>D</em> be the destination of the initial transition in <em>T</em>.
-Each state definition and each junction definition in
-<em>T</em> must be reachable from <em>T</em> in the transition graph.</p>
+<p>Each state definition and each junction definition in
+<em>T</em> must be reachable from the initial node of <em>T</em>.</p>
 </li>
 <li>
 <p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
-and only the junction definitions and the arcs whose initial
-and terminal nodes are junction definitions.
+and only the junction definitions and the arcs whose start
+and end nodes are junction definitions.
 There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
@@ -10164,7 +10172,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-04 09:47:28 -0700
+Last updated 2024-09-04 21:18:57 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

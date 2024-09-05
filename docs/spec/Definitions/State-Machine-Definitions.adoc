@@ -67,21 +67,29 @@ If present, the optional state machine member sequence _M_
 induces a directed graph called the *transition graph*, defined as
 follows:
 
-. The nodes of the transition graph are the initial transition specifiers,
-state definitions, and
+. The nodes of the transition graph are the state definitions and
 junction definitions that are transitive members of _M_.
+
+. The *initial node* of the transition graph is the state definition
+or junction definition referred to in the unique initial transition specifier
+that is an element of _M_.
 
 . The arcs of the transition graph are given by the 
 <<State-Machine-Behavior-Elements_Transition-Expressions,
-transition expressions>> _e_ that are parts of transitive members of _M_.
-Each transition expression represents an arc from an *initial node* to a 
-*terminal node*.
-The initial node is defined as follows:
+transition expressions>> _e_ that appear in (1) initial transition specifiers
+that are members of states that are transitive members of _M_ and (2)
+state transition specifiers that are transitive members of _M_ and (3)
+junction definitions that are transitive members of _M_.
+Each transition expression represents an arc from a *start node* to an
+*end node*.
+The start node is defined as follows:
 
 .. If _e_ appears in an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
 initial transition specifier>> _I_, then the initial node
-is _I_.
+node is the
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+immediately enclosing _I_.
 
 .. If _e_ appears in a
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,
@@ -102,13 +110,12 @@ in _e_.
 If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-. Let _D_ be the destination of the initial transition in _T_.
-Each state definition and each junction definition in
-_T_ must be reachable from _T_ in the transition graph.
+.  Each state definition and each junction definition in
+_T_ must be reachable from the initial node of _T_.
 
 . Let _S_ be the subgraph of _T_ consisting of all
-and only the junction definitions and the arcs whose initial
-and terminal nodes are junction definitions.
+and only the junction definitions and the arcs whose start
+and end nodes are junction definitions.
 There must be no cycles in _S_.
 
 ===== Typed Elements
