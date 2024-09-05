@@ -15,7 +15,7 @@ object CheckStateMachineSemantics {
       sma <- CheckStateMachineUses.defStateMachineAnnotatedNode(sma, aNode)
       sma <- CheckInitialTransitions.defStateMachineAnnotatedNode(sma, aNode)
       sma <- CheckSignalUses.defStateMachineAnnotatedNode(sma, aNode)
-      // TODO: Check transition graph
+      sma <- CheckTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check typed elements
       // TODO: Compute flattened state transition map
       // TODO: Compute flattened junction transition map
