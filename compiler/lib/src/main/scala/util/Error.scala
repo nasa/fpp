@@ -225,6 +225,8 @@ sealed trait Error {
           System.err.println("destination is defined here:")
           System.err.println(loc)
         })
+      case SemanticError.StateMachine.UnreachableNode(name, loc) =>
+        Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
         Error.print (Some(loc)) (s"too many ports connected here (found $numPorts, max is $arraySize)")
         System.err.println("for this component instance:")
@@ -525,6 +527,11 @@ object SemanticError {
       loc: Location,
       msg: String,
       destLoc: Option[Location] = None
+    ) extends Error
+    /** Unreachable node in the transition graph */
+    final case class UnreachableNode(
+      name: String,
+      loc: Location
     ) extends Error
   }
   /** Too many output ports */

@@ -9,6 +9,13 @@ case class TransitionGraph(
   arcMap: Map[TransitionGraph.Node, Set[TransitionGraph.Arc]] = Map()
 ) {
 
+  /** Adds a node to the graph */
+  def addNode(node: TransitionGraph.Node): TransitionGraph =
+    arcMap.get(node) match {
+      case Some(_) => this
+      case None => this.copy(arcMap = arcMap + (node -> Set()))
+    }
+
   /** Adds an arc to the graph */
   def addArc(arc: TransitionGraph.Arc): TransitionGraph = {
     val startNode = arc.getStartNode

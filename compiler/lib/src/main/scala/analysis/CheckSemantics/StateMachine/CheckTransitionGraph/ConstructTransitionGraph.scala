@@ -6,6 +6,34 @@ import fpp.compiler.util._
 /** Construct the transition graph */
 object ConstructTransitionGraph extends TransitionExprAnalyzer {
 
+  override def defStateAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val sym = StateMachineSymbol.State(aNode)
+    val soj = StateOrJunction.State(sym)
+    val node = TransitionGraph.Node(soj)
+    val transitionGraph = sma.transitionGraph.addNode(node)
+    super.defStateAnnotatedNode(
+      sma.copy(transitionGraph = transitionGraph),
+      aNode
+    )
+  }
+
+  override def defJunctionAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+  ) = {
+    val sym = StateMachineSymbol.Junction(aNode)
+    val soj = StateOrJunction.Junction(sym)
+    val node = TransitionGraph.Node(soj)
+    val transitionGraph = sma.transitionGraph.addNode(node)
+    super.defJunctionAnnotatedNode(
+      sma.copy(transitionGraph = transitionGraph),
+      aNode
+    )
+  }
+
   override def stateTransitionExpr(
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]],

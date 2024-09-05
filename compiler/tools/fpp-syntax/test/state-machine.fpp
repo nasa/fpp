@@ -59,7 +59,7 @@ state machine M {
     state S3
 
     @ Transition to S1
-    on s1 if g1 do { a1 } enter S1
+    on s1 if g1 do { a1 } enter J
     on s2 if g1 enter S1
 
     @ Transition to S1

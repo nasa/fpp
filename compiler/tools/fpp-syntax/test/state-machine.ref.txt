@@ -82,7 +82,7 @@ def state machine
       signal ident s1
       guard ident g1
       action ident a1
-      destination qual ident S1
+      destination qual ident J
     spec transition
       signal ident s2
       guard ident g1
