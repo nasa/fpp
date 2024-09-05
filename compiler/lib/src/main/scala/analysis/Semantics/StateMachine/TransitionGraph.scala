@@ -11,7 +11,7 @@ case class TransitionGraph(
 
   /** Adds an arc to the graph */
   def addArc(arc: TransitionGraph.Arc): TransitionGraph = {
-    val startNode = arc.startNode
+    val startNode = arc.getStartNode
     val arcs = arcMap.get(startNode).getOrElse(Set()) + arc
     this.copy(arcMap = arcMap + (startNode -> arcs))
   }
@@ -22,20 +22,35 @@ object TransitionGraph {
 
   case class Node(soj: StateOrJunction)
 
-  sealed trait TransitionInfo
-  object TransitionInfo {
-    case class Initial(aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]])
-      extends TransitionInfo
-    case class State(aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]])
-      extends TransitionInfo
-    case class Junction(aNode: AstNode[Ast.TransitionExpr])
-      extends TransitionInfo
+  sealed trait Arc {
+    def getStartNode: Node
+    def getEndNode: Node
   }
-
-  case class Arc(
-    startNode: Node,
-    transitionInfo: TransitionInfo,
-    endNode: Node
-  )
+  object Arc {
+    case class Initial(
+      startState: StateMachineSymbol.State,
+      aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]],
+      endNode: Node
+    ) extends Arc {
+      def getStartNode = Node(StateOrJunction.State(startState))
+      def getEndNode = endNode
+    }
+    case class State(
+      startState: StateMachineSymbol.State,
+      aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]],
+      endNode: Node
+    ) extends Arc {
+      def getStartNode = Node(StateOrJunction.State(startState))
+      def getEndNode = endNode
+    }
+    case class Junction(
+      startJunction: StateMachineSymbol.Junction,
+      aNode: AstNode[Ast.TransitionExpr],
+      endNode: Node
+    ) extends Arc {
+      def getStartNode = Node(StateOrJunction.Junction(startJunction))
+      def getEndNode = endNode
+    }
+  }
 
 }

@@ -11,10 +11,8 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]],
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
-    val startNode = getNodeFromSymbol(sma.parentSymbol.get)
     val endNode = getNodeFromExpr(sma, exprNode)
-    val info = TransitionGraph.TransitionInfo.State(aNode)
-    val arc = TransitionGraph.Arc(startNode, info, endNode)
+    val arc = TransitionGraph.Arc.State(sma.parentState.get, aNode, endNode)
     val transitionGraph = sma.transitionGraph.addArc(arc)
     Right(sma.copy(transitionGraph = transitionGraph))
   }
@@ -25,14 +23,12 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
     // Construct the end node
-    val endNode = getNodeFromSymbol(sma.useDefMap(exprNode.data.destination.id))
+    val endNode = getNodeFromExpr(sma, exprNode)
     // Update the transition graph
-    val transitionGraph = sma.parentSymbol match {
+    val transitionGraph = sma.parentState match {
       // We are in a state S. Record the arc from S.
-      case Some(startSymbol) =>
-        val startNode = getNodeFromSymbol(startSymbol)
-        val info = TransitionGraph.TransitionInfo.Initial(aNode)
-        val arc = TransitionGraph.Arc(startNode, info, endNode)
+      case Some(startState) =>
+        val arc = TransitionGraph.Arc.Initial(startState, aNode, endNode)
         sma.transitionGraph.addArc(arc)
       // We are not in a state, so this is the state machine initial
       // transition. Record it.
@@ -57,16 +53,18 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     junction: StateMachineSymbol.Junction,
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
-    val startNode = getNodeFromSymbol(junction)
-    val info = TransitionGraph.TransitionInfo.Junction(exprNode)
     val endNode = getNodeFromExpr(sma, exprNode)
-    val arc = TransitionGraph.Arc(startNode, info, endNode)
+    val arc = TransitionGraph.Arc.Junction(junction, exprNode, endNode)
     val transitionGraph = sma.transitionGraph.addArc(arc)
     Right(sma.copy(transitionGraph = transitionGraph))
   }
 
-  private def getNodeFromSymbol(s: StateMachineSymbol): TransitionGraph.Node = {
-    val soj = s match {
+  private def getNodeFromExpr(
+    sma: StateMachineAnalysis,
+    exprNode: AstNode[Ast.TransitionExpr]
+  ): TransitionGraph.Node = {
+    val sym = sma.useDefMap(exprNode.data.destination.id)
+    val soj = sym match {
       case state: StateMachineSymbol.State =>
         StateOrJunction.State(state)
       case junction: StateMachineSymbol.Junction =>
@@ -75,11 +73,5 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     }
     TransitionGraph.Node(soj)
   }
-
-  private def getNodeFromExpr(
-    sma: StateMachineAnalysis,
-    exprNode: AstNode[Ast.TransitionExpr]
-  ): TransitionGraph.Node =
-    getNodeFromSymbol(sma.useDefMap(exprNode.data.destination.id))
 
 }

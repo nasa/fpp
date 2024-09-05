@@ -58,13 +58,13 @@ trait TransitionExprAnalyzer
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    val parentSymbol = sma.parentSymbol
+    val parentState = sma.parentState
     for {
       sma <- super.defStateAnnotatedNode(
-        sma.copy(parentSymbol = Some(StateMachineSymbol.State(aNode))),
+        sma.copy(parentState = Some(StateMachineSymbol.State(aNode))),
         aNode
       )
-    } yield sma.copy(parentSymbol = parentSymbol)
+    } yield sma.copy(parentState = parentState)
   }
 
   override def specInitialTransitionAnnotatedNode(

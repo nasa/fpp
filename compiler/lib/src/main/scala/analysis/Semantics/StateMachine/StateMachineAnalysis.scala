@@ -21,6 +21,8 @@ case class StateMachineAnalysis(
   symbolScopeMap: Map[StateMachineSymbol,StateMachineScope] = Map(),
   /** The mapping from uses (by node ID) to their definitions */
   useDefMap: Map[AstNode.Id, StateMachineSymbol] = Map(),
+  /** The parent state */
+  parentState: Option[StateMachineSymbol.State] = None,
   /** The transition graph */
   transitionGraph: TransitionGraph = TransitionGraph(),
   // TODO
