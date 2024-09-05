@@ -11,8 +11,7 @@ object CheckTransitionGraph {
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ): Result.Result[StateMachineAnalysis] = {
     for {
-      sma <- Right(sma)
-      // TODO: Construct transition graph
+      sma <- ConstructTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check transition graph for reachability
       // TODO: Check for illegal cycles in the transition graph
       // TODO: Construct the reverse transition graph

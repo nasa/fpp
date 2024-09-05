@@ -22,6 +22,7 @@ case class StateMachineAnalysis(
   /** The mapping from uses (by node ID) to their definitions */
   useDefMap: Map[AstNode.Id, StateMachineSymbol] = Map(),
   /** The transition graph */
+  transitionGraph: TransitionGraph = TransitionGraph(),
   // TODO
 ) {
 

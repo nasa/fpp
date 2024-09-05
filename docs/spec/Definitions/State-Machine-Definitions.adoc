@@ -86,8 +86,7 @@ The start node is defined as follows:
 
 .. If _e_ appears in an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,
-initial transition specifier>> _I_, then the initial node
-node is the
+initial transition specifier>> _I_, then the initial node is the
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 immediately enclosing _I_.
 

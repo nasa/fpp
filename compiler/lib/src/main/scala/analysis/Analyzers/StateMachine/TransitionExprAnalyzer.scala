@@ -18,21 +18,21 @@ trait TransitionExprAnalyzer
   /** A transition expression in an external state transition */
   def stateTransitionExpr(
     sma: StateMachineAnalysis,
-    stateTransitionNode: AstNode[Ast.SpecStateTransition],
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]],
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
   /** A transition expression in an initial transition */
   def initialTransitionExpr(
     sma: StateMachineAnalysis,
-    initialTransitionNode: AstNode[Ast.SpecInitialTransition],
+    aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]],
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
   /** The transition expressions in a junction */
   def junctionTransitionExprs(
     sma: StateMachineAnalysis,
-    junctionNode: StateMachineSymbol.Junction,
+    junction: StateMachineSymbol.Junction,
     ifExprNode: AstNode[Ast.TransitionExpr],
     elseExprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
@@ -54,24 +54,35 @@ trait TransitionExprAnalyzer
     )
   }
 
+  override def defStateAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.DefState]]
+  ) = {
+    val parentSymbol = sma.parentSymbol
+    for {
+      sma <- super.defStateAnnotatedNode(
+        sma.copy(parentSymbol = Some(StateMachineSymbol.State(aNode))),
+        aNode
+      )
+    } yield sma.copy(parentSymbol = parentSymbol)
+  }
+
   override def specInitialTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) = {
-    val node = aNode._2
-    val data = node.data
-    initialTransitionExpr(sma, node, data.transition)
+    val transition = aNode._2.data.transition
+    initialTransitionExpr(sma, aNode, transition)
   }
 
   override def specStateTransitionAnnotatedNode(
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
   ) = {
-    val node = aNode._2
-    val data = node.data
+    val data = aNode._2.data
     data.transitionOrDo match {
       case Ast.TransitionOrDo.Transition(transition) =>
-        stateTransitionExpr(sma, node, transition)
+        stateTransitionExpr(sma, aNode, transition)
       case _ => Right(sma)
     }
   }
