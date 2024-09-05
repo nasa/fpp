@@ -1,5 +1,5 @@
 tests="
-ok_cycle
+cycle_ok
 unreachable_junction
 unreachable_state
 "
