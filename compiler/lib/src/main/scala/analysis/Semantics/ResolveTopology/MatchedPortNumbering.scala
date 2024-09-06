@@ -161,17 +161,21 @@ object MatchedPortNumbering {
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       Result.foldLeft (cs) (empty) ((m, c) => {
-        val piiRemote = c.getOtherEndpoint(pi).port
-        val ciRemote = piiRemote.componentInstance
-        m.get(ciRemote) match {
-          case Some(cPrev) => Left(
-            SemanticError.DuplicateMatchedConnection(
-              c.getLoc,
-              cPrev.getLoc,
-              portMatching.getLoc
+        if(c.connectionMatching.isUnmatched)
+          Right(m)
+        else {
+          val piiRemote = c.getOtherEndpoint(pi).port
+          val ciRemote = piiRemote.componentInstance
+          m.get(ciRemote) match {
+            case Some(cPrev) => Left(
+              SemanticError.DuplicateMatchedConnection(
+                c.getLoc,
+                cPrev.getLoc,
+                portMatching.getLoc
+              )
             )
-          )
-          case None => Right(m + (ciRemote -> c))
+            case None => Right(m + (ciRemote -> c))
+          }
         }
       })
     }

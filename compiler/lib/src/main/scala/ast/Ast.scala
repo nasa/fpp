@@ -374,7 +374,7 @@ object Ast {
 
     /** Connection */
     final case class Connection(
-      unmatched: Option[ConnectionMatching],
+      connectionMatching: ConnectionMatching,
       fromPort: AstNode[PortInstanceIdentifier],
       fromIndex: Option[AstNode[Expr]],
       toPort: AstNode[PortInstanceIdentifier],
