@@ -225,6 +225,8 @@ sealed trait Error {
           System.err.println("destination is defined here:")
           System.err.println(loc)
         })
+      case SemanticError.StateMachine.JunctionCycle(loc, msg) =>
+        Error.print (Some(loc)) (msg)
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
@@ -527,6 +529,11 @@ object SemanticError {
       loc: Location,
       msg: String,
       destLoc: Option[Location] = None
+    ) extends Error
+    /** Junction cycle */
+    final case class JunctionCycle(
+      loc: Location,
+      msg: String
     ) extends Error
     /** Unreachable node in the transition graph */
     final case class UnreachableNode(
