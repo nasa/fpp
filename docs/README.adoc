@@ -16,6 +16,6 @@ to regenerate the HTML files from the AsciiDoc source files.
 == Adding Keywords to FPP Specification
 . To add a new FPP keyword, first update the Lexical Elements section of the FPP spec. 
 . Next, update the `doc/code-prettify/run_prettify.js` file so it includes the new keyword.
-Doing this will add syntax highlighting the keyword in the FPP spec.
+Doing this will add syntax highlighting to the keyword in the FPP spec.
 . Finally, update `editors/emacs/fpp-mode.el` and `editors/vim/fpp.vim` so the emacs and vim
 editors syntax highlighting for the new keyword.
