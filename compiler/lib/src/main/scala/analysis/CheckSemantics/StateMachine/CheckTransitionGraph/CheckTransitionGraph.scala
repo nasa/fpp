@@ -14,9 +14,10 @@ object CheckTransitionGraph {
       sma <- ConstructTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
       _ <- CheckTGReachability.stateMachineAnalysis(sma)
       _ <- CheckJunctionCycles.stateMachineAnalysis(sma)
-      // TODO: Construct the reverse transition graph
     }
-    yield sma
+    yield sma.copy(
+      reverseTransitionGraph = sma.transitionGraph.getReverseGraph
+    )
   }
 
 }

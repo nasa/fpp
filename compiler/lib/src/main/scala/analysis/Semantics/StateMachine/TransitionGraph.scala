@@ -6,7 +6,7 @@ import fpp.compiler.util._
 /** An FPP transition graph */
 case class TransitionGraph(
   initialNode: Option[TransitionGraph.Node] = None,
-  arcMap: Map[TransitionGraph.Node, Set[TransitionGraph.Arc]] = Map()
+  arcMap: TransitionGraph.ArcMap = Map()
 ) {
 
   /** Adds a node to the graph */
@@ -23,9 +23,26 @@ case class TransitionGraph(
     this.copy(arcMap = arcMap + (startNode -> arcs))
   }
 
+  /** Adds a reverse arc to the graph */
+  def addReverseArc(arc: TransitionGraph.Arc): TransitionGraph = {
+    val endNode = arc.getEndNode
+    val arcs = arcMap.get(endNode).getOrElse(Set()) + arc
+    this.copy(arcMap = arcMap + (endNode -> arcs))
+  }
+
+  /** Gets the reverse of this transition graph */
+  def getReverseGraph: TransitionGraph = {
+    val tg = TransitionGraph(initialNode)
+    arcMap.values.foldLeft (tg) (
+      (tg, arcs) => arcs.foldLeft (tg) ((tg, a) => tg.addReverseArc(a))
+    )
+  }
+
 }
 
 object TransitionGraph {
+
+  type ArcMap = Map[Node, Set[Arc]]
 
   case class Node(soj: StateOrJunction)
 

@@ -25,6 +25,8 @@ case class StateMachineAnalysis(
   parentState: Option[StateMachineSymbol.State] = None,
   /** The transition graph */
   transitionGraph: TransitionGraph = TransitionGraph(),
+  /** The reverse transition graph */
+  reverseTransitionGraph: TransitionGraph = TransitionGraph(),
   // TODO
 ) {
 
