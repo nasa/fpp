@@ -49,6 +49,7 @@ object TransitionGraph {
   sealed trait Arc {
     def getStartNode: Node
     def getEndNode: Node
+    def getTypedElement: StateMachineTypedElement
     def showTransition: String
   }
   object Arc {
@@ -59,6 +60,7 @@ object TransitionGraph {
     ) extends Arc {
       def getStartNode = Node(StateOrJunction.State(startState))
       def getEndNode = endNode
+      def getTypedElement = StateMachineTypedElement.InitialTransition(aNode)
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
         val endName = endNode.soj.getName
@@ -72,6 +74,7 @@ object TransitionGraph {
     ) extends Arc {
       def getStartNode = Node(StateOrJunction.State(startState))
       def getEndNode = endNode
+      def getTypedElement = StateMachineTypedElement.StateTransition(aNode)
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
         val endName = endNode.soj.getName
@@ -85,6 +88,7 @@ object TransitionGraph {
     ) extends Arc {
       def getStartNode = Node(StateOrJunction.Junction(startJunction))
       def getEndNode = endNode
+      def getTypedElement = StateMachineTypedElement.Junction(startJunction.node)
       def showTransition = {
         val loc = Locations.get(aNode.id)
         val endName = endNode.soj.getName

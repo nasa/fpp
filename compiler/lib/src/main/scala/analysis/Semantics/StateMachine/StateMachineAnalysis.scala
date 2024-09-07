@@ -35,4 +35,30 @@ case class StateMachineAnalysis(
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
 
+  /** Gets the common type of two typed elements at a junction */
+  def commonTypeAtJunction(
+    junctionName: String,
+    te1: StateMachineTypedElement,
+    to1: Option[Type],
+    te2: StateMachineTypedElement
+  ): Result.Result[Option[Type]] = {
+    val to2 = typeOptionMap(te2)
+    (to1, to2) match {
+      case (Some(t1), Some(t2)) =>
+        Type.commonType(t1, t2) match {
+          case None => Left(
+            SemanticError.StateMachine.JunctionTypeMismatch(
+              junctionName,
+              Locations.get(te1.getNodeId),
+              t1.toString,
+              Locations.get(te2.getNodeId),
+              t2.toString
+            )
+          )
+          case to => Right(to)
+        }
+      case _ => Right(None)
+    }
+  }
+
 }
