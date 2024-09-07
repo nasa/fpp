@@ -11,6 +11,7 @@ object CheckStateMachineSemantics {
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ): Result.Result[StateMachineAnalysis] =
     aNode._2.data.members match {
+      // Internal state machine: check it
       case Some(_) =>
         for {
           sma <- EnterStateMachineSymbols.defStateMachineAnnotatedNode(sma, aNode)
@@ -18,11 +19,12 @@ object CheckStateMachineSemantics {
           sma <- CheckInitialTransitions.defStateMachineAnnotatedNode(sma, aNode)
           sma <- CheckSignalUses.defStateMachineAnnotatedNode(sma, aNode)
           sma <- CheckTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
-          // TODO: Check typed elements
+          sma <- CheckTypedElements.defStateMachineAnnotatedNode(sma, aNode)
           // TODO: Compute flattened state transition map
           // TODO: Compute flattened junction transition map
         }
         yield sma
+      // External state machine: do nothing
       case None => Right(sma)
     }
 

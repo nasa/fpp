@@ -27,6 +27,8 @@ case class StateMachineAnalysis(
   transitionGraph: TransitionGraph = TransitionGraph(),
   /** The reverse transition graph */
   reverseTransitionGraph: TransitionGraph = TransitionGraph(),
+  /** Map from typed elements to optional types */
+  typeOptionMap: Map[StateMachineTypedElement, Option[Type]] = Map()
   // TODO
 ) {
 
@@ -34,4 +36,3 @@ case class StateMachineAnalysis(
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
 
 }
-

@@ -227,6 +227,14 @@ sealed trait Error {
         })
       case SemanticError.StateMachine.JunctionCycle(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.StateMachine.JunctionTypeMismatch(
+        name, loc1, to1, loc2, to2
+      ) =>
+        Error.print (None) (s"type mismatch at junction $name")
+        System.err.println(loc1)
+        System.err.println(s"type option of transition is $to1")
+        System.err.println(loc2)
+        System.err.println(s"type option of transition is $to2")
       case SemanticError.StateMachine.UnreachableNode(name, loc) =>
         Error.print (Some(loc)) (s"$name is unreachable")
       case SemanticError.TooManyOutputPorts(loc, numPorts, arraySize, instanceLoc) =>
@@ -534,6 +542,14 @@ object SemanticError {
     final case class JunctionCycle(
       loc: Location,
       msg: String
+    ) extends Error
+    /** Junction type mismatch */
+    final case class JunctionTypeMismatch(
+      name: String,
+      loc1: Location,
+      to1: String,
+      loc2: Location,
+      to2: String
     ) extends Error
     /** Unreachable node in the transition graph */
     final case class UnreachableNode(
