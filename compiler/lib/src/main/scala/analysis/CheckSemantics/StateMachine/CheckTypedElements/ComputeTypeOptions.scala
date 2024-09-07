@@ -3,8 +3,8 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Check typed elements */
-object CheckTypedElements
+/** Compute type options */
+object ComputeTypeOptions
   extends StateMachineAnalysisVisitor
   with StateAnalyzer
 {
