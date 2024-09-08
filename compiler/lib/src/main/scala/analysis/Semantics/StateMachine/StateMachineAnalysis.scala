@@ -43,21 +43,17 @@ case class StateMachineAnalysis(
     te2: StateMachineTypedElement
   ): Result.Result[Option[Type]] = {
     val to2 = typeOptionMap(te2)
-    (to1, to2) match {
-      case (Some(t1), Some(t2)) =>
-        Type.commonType(t1, t2) match {
-          case None => Left(
-            SemanticError.StateMachine.JunctionTypeMismatch(
-              Locations.get(te.getNodeId),
-              Locations.get(te1.getNodeId),
-              t1.toString,
-              Locations.get(te2.getNodeId),
-              t2.toString
-            )
-          )
-          case to => Right(to)
-        }
-      case _ => Right(None)
+    TypeOption.commonType(to1, to2) match {
+      case Some(to) => Right(to)
+      case None => Left(
+        SemanticError.StateMachine.JunctionTypeMismatch(
+          Locations.get(te.getNodeId),
+          Locations.get(te1.getNodeId),
+          TypeOption.show(to1),
+          Locations.get(te2.getNodeId),
+          TypeOption.show(to2)
+        )
+      )
     }
   }
 
@@ -68,23 +64,17 @@ case class StateMachineAnalysis(
     teTo: Option[Type],
     siteName: String,
     siteTo: Option[Type]
-  ): Result.Result[Option[Type]] = {
-    lazy val error = SemanticError.StateMachine.CallSiteTypeMismatch(
-      loc,
-      teName,
-      TypeOption.show(teTo),
-      siteName,
-      TypeOption.show(siteTo)
+  ): Result.Result[Option[Type]] =
+    if TypeOption.isConvertibleTo(teTo, siteTo)
+    then Right(siteTo)
+    else Left(
+      SemanticError.StateMachine.CallSiteTypeMismatch(
+        loc,
+        teName,
+        TypeOption.show(teTo),
+        siteName,
+        TypeOption.show(siteTo)
+      )
     )
-    (teTo, siteTo) match {
-      case (Some(t1), Some(t2)) =>
-        t1.isConvertibleTo(t2) match {
-          case true => Right(Some(t2))
-          case false => Left(error)
-        }
-      case (_, None) => Right(None)
-      case (None, _) => Left(error)
-    }
-  }
 
 }
