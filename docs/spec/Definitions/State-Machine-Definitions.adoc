@@ -122,7 +122,11 @@ There must be no cycles in _S_.
 A *typed element* _e_ is an
 <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>,
 a
+<<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>,
+a
 <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>,
+a
+<<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>,
 or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
 A typed element _e_ *points to* a junction _J_ if
@@ -141,7 +145,8 @@ to all the typed elements in a state machine definition in
 the following way.
 If not, an error results.
 
-. The type option of each initial transition specifier is _None_.
+. The type option of each initial transition specifier, state entry
+specifier, and state exit specifier is _None_.
 
 . The type option of each state transition specifier _S_ is the type
 option specified in the definition of the signal specified in _S_
