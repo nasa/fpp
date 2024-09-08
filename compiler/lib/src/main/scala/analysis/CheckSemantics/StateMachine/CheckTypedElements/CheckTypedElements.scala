@@ -12,7 +12,7 @@ object CheckTypedElements {
   ): Result.Result[StateMachineAnalysis] = {
     for {
       sma <- ComputeTypeOptionMap.defStateMachineAnnotatedNode(sma, aNode)
-      // TODO: Check types of actions and guards
+      _ <- CheckActionAndGuardTypes.defStateMachineAnnotatedNode(sma, aNode)
     }
     yield sma
   }
