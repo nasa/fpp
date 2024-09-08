@@ -538,9 +538,9 @@ object SemanticError {
     /** Call site type mismatch */
     final case class CallSiteTypeMismatch(
       loc: Location,
-      teName: String,
+      teKind: String,
       teTy: String,
-      siteName: String,
+      siteKind: String,
       siteTy: String
     ) extends Error
     /** Duplicate signal */

@@ -60,9 +60,9 @@ case class StateMachineAnalysis(
   /** Convert one type option to another at a call site */
   def convertTypeOptionsAtCallSite(
     loc: Location,
-    teName: String,
+    teKind: String,
     teTo: Option[Type],
-    siteName: String,
+    siteKind: String,
     siteTo: Option[Type]
   ): Result.Result[Option[Type]] =
     if TypeOption.isConvertibleTo(teTo, siteTo)
@@ -70,9 +70,9 @@ case class StateMachineAnalysis(
     else Left(
       SemanticError.StateMachine.CallSiteTypeMismatch(
         loc,
-        teName,
+        teKind,
         TypeOption.show(teTo),
-        siteName,
+        siteKind,
         TypeOption.show(siteTo)
       )
     )

@@ -4,13 +4,16 @@ def state machine
   @ Action a1
   def action
     ident a1
-    type name U32
   @ Action a2
   def action
     ident a2
   @ Action a3
   def action
     ident a3
+  @ Action a4
+  def action
+    ident a4
+    type name U32
   @ Guard g1
   def guard
     ident g1

@@ -2,13 +2,16 @@
 state machine M {
 
   @ Action a1
-  action a1: U32
+  action a1
 
   @ Action a2
   action a2
 
   @ Action a3
   action a3
+
+  @ Action a4
+  action a4: U32
 
   @ Guard g1
   guard g1: U32
