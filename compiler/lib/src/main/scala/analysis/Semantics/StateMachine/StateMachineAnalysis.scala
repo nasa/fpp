@@ -61,4 +61,30 @@ case class StateMachineAnalysis(
     }
   }
 
+  /** Convert one type option to another at a call site */
+  def convertTypeOptionsAtCallSite(
+    loc: Location,
+    teName: String,
+    teTo: Option[Type],
+    siteName: String,
+    siteTo: Option[Type]
+  ): Result.Result[Option[Type]] = {
+    lazy val error = SemanticError.StateMachine.CallSiteTypeMismatch(
+      loc,
+      teName,
+      TypeOption.show(teTo),
+      siteName,
+      TypeOption.show(siteTo)
+    )
+    (teTo, siteTo) match {
+      case (Some(t1), Some(t2)) =>
+        t1.isConvertibleTo(t2) match {
+          case true => Right(Some(t2))
+          case false => Left(error)
+        }
+      case (_, None) => Right(None)
+      case (None, _) => Left(error)
+    }
+  }
+
 }

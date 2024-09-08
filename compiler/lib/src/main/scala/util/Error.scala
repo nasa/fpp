@@ -215,6 +215,16 @@ sealed trait Error {
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
         System.err.println(prevLoc)
+      case SemanticError.StateMachine.CallSiteTypeMismatch(
+        loc,
+        teKind,
+        teTy,
+        siteKind,
+        siteTy
+      ) =>
+        Error.print (Some(loc)) (s"type mismatch at $teKind")
+        System.err.println(s"type of $teKind is $teTy")
+        System.err.println(s"type of $siteKind is $siteTy")
       case SemanticError.StateMachine.DuplicateSignal(sigName, stateName, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate use of signal $sigName in state $stateName")
         System.err.println("previous use is here:")
@@ -525,6 +535,14 @@ object SemanticError {
   ) extends Error
   /** State machine semantic errors */
   object StateMachine {
+    /** Call site type mismatch */
+    final case class CallSiteTypeMismatch(
+      loc: Location,
+      teName: String,
+      teTy: String,
+      siteName: String,
+      siteTy: String
+    ) extends Error
     /** Duplicate signal */
     final case class DuplicateSignal(
       sigName: String,

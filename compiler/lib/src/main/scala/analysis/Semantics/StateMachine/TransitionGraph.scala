@@ -53,6 +53,7 @@ object TransitionGraph {
     def getStartNode: Node
     def getEndNode: Node
     def getTypedElement: StateMachineTypedElement
+    def showKind: String
     def showTransition: String
   }
   object Arc {
@@ -64,10 +65,11 @@ object TransitionGraph {
       def getStartNode = Node(StateOrJunction.State(startState))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.InitialTransition(aNode)
+      def showKind = "initial transition"
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
         val endName = endNode.soj.getName
-        s"initial transition at ${loc.file}:${loc.pos} to $endName"
+        s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
     case class State(
@@ -78,10 +80,11 @@ object TransitionGraph {
       def getStartNode = Node(StateOrJunction.State(startState))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.StateTransition(aNode)
+      def showKind = "state transition"
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
         val endName = endNode.soj.getName
-        s"state transition at ${loc.file}:${loc.pos} to $endName"
+        s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
     case class Junction(
@@ -92,10 +95,11 @@ object TransitionGraph {
       def getStartNode = Node(StateOrJunction.Junction(startJunction))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.Junction(startJunction.node)
+      def showKind = "junction transition"
       def showTransition = {
         val loc = Locations.get(aNode.id)
         val endName = endNode.soj.getName
-        s"junction transition at ${loc.file}:${loc.pos} to $endName"
+        s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
   }
