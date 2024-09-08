@@ -24,16 +24,16 @@ object ComputeTypeOptionMap
     val arcs = sma.reverseTransitionGraph.arcMap(node).toList
     arcs match {
       case Nil =>
-        // Handle the case where there are no arcs coming into J.
+        // Handle the case where no arc comes into J.
         // This happens when J is the initial node in the transition graph.
         Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
       case head :: tail => {
         // Handle the case where at least one arc comes into J.
-        val startTe = head.getTypedElement
+        val te0 = head.getTypedElement
         for {
-          sma <- visitTypedElement(sma, startTe)
-          startTo <- Right(sma.typeOptionMap(startTe))
-          smaTeTo <- Result.foldLeft (tail) ((sma, startTe, startTo)) {
+          sma0 <- visitTypedElement(sma, te0)
+          to0 <- Right(sma0.typeOptionMap(te0))
+          smaTeTo <- Result.foldLeft (tail) ((sma0, te0, to0)) {
             case ((sma1, te1, to1), arc) => {
               val name = sym.getUnqualifiedName
               val te2 = arc.getTypedElement
@@ -45,8 +45,7 @@ object ComputeTypeOptionMap
             }
           }
         } yield {
-          val sma = smaTeTo._1
-          val to = smaTeTo._3
+          val (sma, _, to) = smaTeTo
           sma.copy(typeOptionMap = sma.typeOptionMap + (te -> to))
         }
       }
