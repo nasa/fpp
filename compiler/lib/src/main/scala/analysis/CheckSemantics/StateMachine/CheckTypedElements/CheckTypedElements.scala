@@ -11,7 +11,7 @@ object CheckTypedElements {
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
   ): Result.Result[StateMachineAnalysis] = {
     for {
-      sma <- ComputeTypeOptions.defStateMachineAnnotatedNode(sma, aNode)
+      sma <- ComputeTypeOptionMap.defStateMachineAnnotatedNode(sma, aNode)
       // TODO: Check types of actions and guards
     }
     yield sma

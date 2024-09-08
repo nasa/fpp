@@ -4,7 +4,7 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** State machine typed element analyzer */
-object SmTypedElementAnalyzer
+trait SmTypedElementAnalyzer
   extends StateMachineAnalysisVisitor
   with StateAnalyzer
 {
@@ -37,16 +37,14 @@ object SmTypedElementAnalyzer
   def visitTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement
-  ): Result = if sma.typeOptionMap.contains(te)
-              then Right(sma)
-              else te match {
-                case it: StateMachineTypedElement.InitialTransition =>
-                  initialTransitionTypedElement(sma, it)
-                case j: StateMachineTypedElement.Junction =>
-                  junctionTypedElement(sma, j)
-                case st: StateMachineTypedElement.StateTransition =>
-                  stateTransitionTypedElement(sma, st)
-              }
+  ): Result = te match {
+    case it: StateMachineTypedElement.InitialTransition =>
+      initialTransitionTypedElement(sma, it)
+    case j: StateMachineTypedElement.Junction =>
+      junctionTypedElement(sma, j)
+    case st: StateMachineTypedElement.StateTransition =>
+      stateTransitionTypedElement(sma, st)
+  }
 
   override def defJunctionAnnotatedNode(
     sma: StateMachineAnalysis,

@@ -1,0 +1,76 @@
+package fpp.compiler.analysis
+
+import fpp.compiler.ast._
+import fpp.compiler.util._
+
+/** Compute the type option map */
+object ComputeTypeOptionMap
+  extends SmTypedElementAnalyzer
+{
+
+  override def initialTransitionTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.InitialTransition
+  ): Result =
+    Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
+
+  override def junctionTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.Junction
+  ): Result = {
+    val sym = StateMachineSymbol.Junction(te.aNode)
+    val soj = StateOrJunction.Junction(sym)
+    val node = TransitionGraph.Node(soj)
+    val arcs = sma.reverseTransitionGraph.arcMap(node).toList
+    arcs match {
+      case Nil =>
+        // Handle the case where there are no arcs coming into J.
+        // This happens when J is the initial node in the transition graph.
+        Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
+      case head :: tail => {
+        // Handle the case where at least one arc comes into J.
+        val startTe = head.getTypedElement
+        for {
+          sma <- visitTypedElement(sma, startTe)
+          startTo <- Right(sma.typeOptionMap(startTe))
+          smaTeTo <- Result.foldLeft (tail) ((sma, startTe, startTo)) {
+            case ((sma1, te1, to1), arc) => {
+              val name = sym.getUnqualifiedName
+              val te2 = arc.getTypedElement
+              for {
+                sma2 <- visitTypedElement(sma1, te2)
+                to2 <- sma2.commonTypeAtJunction(te, te1, to1, te2)
+              }
+              yield (sma2, te2, to2)
+            }
+          }
+        } yield {
+          val sma = smaTeTo._1
+          val to = smaTeTo._3
+          sma.copy(typeOptionMap = sma.typeOptionMap + (te -> to))
+        }
+      }
+    }
+  }
+
+  override def stateTransitionTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateTransition
+  ): Result = {
+    val signalId = te.aNode._2.data.signal.id
+    val signalSymbol @ StateMachineSymbol.Signal(_) = sma.useDefMap(signalId)
+    val signalDef = signalSymbol.node._2.data
+    val to = signalDef.typeName.map(node => sma.a.typeMap(node.id))
+    Right(
+      sma.copy(typeOptionMap = sma.typeOptionMap + (te -> to))
+    )
+  }
+
+  override def visitTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement
+  ): Result = if sma.typeOptionMap.contains(te)
+              then Right(sma)
+              else super.visitTypedElement(sma, te)
+
+}

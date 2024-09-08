@@ -32,7 +32,10 @@ case class TransitionGraph(
 
   /** Gets the reverse of this transition graph */
   def getReverseGraph: TransitionGraph = {
-    val tg = TransitionGraph(initialNode)
+    val tg = TransitionGraph(
+      initialNode,
+      initialNode.map(node => Map(node -> Set())).getOrElse(Map())
+    )
     arcMap.values.foldLeft (tg) (
       (tg, arcs) => arcs.foldLeft (tg) ((tg, a) => tg.addReverseArc(a))
     )
