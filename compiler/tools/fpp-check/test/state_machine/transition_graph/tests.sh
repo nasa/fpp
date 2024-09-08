@@ -2,6 +2,7 @@ tests="
 cycle_ok
 junction_cycle
 junction_u32_bool
+junction_u32_none
 unreachable_junction
 unreachable_state
 "
