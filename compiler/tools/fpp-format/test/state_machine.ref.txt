@@ -14,10 +14,10 @@ state machine M {
   action a4: U32
 
   @ Guard g1
-  guard g1: U32
+  guard g1
 
   @ Guard g2
-  guard g2
+  guard g2: U32
 
   @ Signal s1
   signal s1: U32

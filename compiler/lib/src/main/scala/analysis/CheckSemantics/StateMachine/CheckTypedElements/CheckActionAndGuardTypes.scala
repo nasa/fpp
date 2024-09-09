@@ -19,9 +19,14 @@ object CheckActionAndGuardTypes
   override def junctionTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.Junction
-  ): Result =
-    // TODO
-    default(sma)
+  ): Result = {
+    val data = te.aNode._2.data
+    for {
+      _ <- checkGuardType(sma, te, data.guard)
+      _ <- checkActionTypes(sma, te, data.ifTransition.data.actions)
+      _ <- checkActionTypes(sma, te, data.elseTransition.data.actions)
+    } yield sma
+  }
 
   override def stateEntryTypedElement(
     sma: StateMachineAnalysis,
@@ -39,13 +44,21 @@ object CheckActionAndGuardTypes
     checkActionTypes(sma, te, actions)
   }
 
-
   override def stateTransitionTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateTransition
-  ): Result =
-    // TODO
-    default(sma)
+  ): Result = {
+    val data = te.aNode._2.data
+    for {
+      _ <- data.guard.map(checkGuardType(sma, te, _)).getOrElse(Right(sma))
+      _ <- data.transitionOrDo match {
+        case Ast.TransitionOrDo.Transition(transition) =>
+          checkActionTypes(sma, te, transition.data.actions)
+        case Ast.TransitionOrDo.Do(actions) =>
+          checkActionTypes(sma, te, actions)
+      }
+    } yield sma
+  }
 
   // Check action types
   private def checkActionTypes(
@@ -62,17 +75,17 @@ object CheckActionAndGuardTypes
   }
 
   // Check guard types
-  private def checkGuardTypes(
+  private def checkGuardType(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement,
-    guards: List[AstNode[Ast.Ident]]
+    guard: AstNode[Ast.Ident]
   ): Result.Result[StateMachineAnalysis] = {
     val siteKind = "guard"
     def getTypeOption(sym: StateMachineSymbol): Option[Type] = {
       val guardSym @ StateMachineSymbol.Guard(_) = sym
       guardSym.node._2.data.typeName.map(tn => sma.a.typeMap(tn.id))
     }
-    checkCallSiteTypes(sma, te, guards, siteKind, getTypeOption)
+    checkCallSiteTypes(sma, te, List(guard), siteKind, getTypeOption)
   }
 
   // Check call site types

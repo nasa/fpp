@@ -17,10 +17,10 @@ def state machine
   @ Guard g1
   def guard
     ident g1
-    type name U32
   @ Guard g2
   def guard
     ident g2
+    type name U32
   @ Signal s1
   def signal
     ident s1
