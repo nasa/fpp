@@ -25,6 +25,16 @@ trait SmTypedElementAnalyzer
     te: StateMachineTypedElement.Junction
   ): Result = default(sma)
 
+  def stateEntryTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateEntry
+  ): Result = default(sma)
+
+  def stateExitTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateExit
+  ): Result = default(sma)
+
   def stateTransitionTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateTransition
@@ -42,6 +52,10 @@ trait SmTypedElementAnalyzer
       initialTransitionTypedElement(sma, it)
     case j: StateMachineTypedElement.Junction =>
       junctionTypedElement(sma, j)
+    case se: StateMachineTypedElement.StateEntry =>
+      stateEntryTypedElement(sma, se)
+    case se: StateMachineTypedElement.StateExit =>
+      stateExitTypedElement(sma, se)
     case st: StateMachineTypedElement.StateTransition =>
       stateTransitionTypedElement(sma, st)
   }
@@ -52,6 +66,22 @@ trait SmTypedElementAnalyzer
   ) = visitTypedElement(
     sma,
     StateMachineTypedElement.Junction(aNode)
+  )
+
+  override def specEntryAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) = visitTypedElement(
+    sma,
+    StateMachineTypedElement.StateEntry(aNode)
+  )
+
+  override def specExitAnnotatedNode(
+    sma: StateMachineAnalysis,
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) = visitTypedElement(
+    sma,
+    StateMachineTypedElement.StateExit(aNode)
   )
 
   override def specInitialTransitionAnnotatedNode(

@@ -23,6 +23,20 @@ object CheckActionAndGuardTypes
     // TODO
     default(sma)
 
+  override def stateEntryTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateEntry
+  ): Result =
+    // TODO
+    default(sma)
+
+  override def stateExitTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateExit
+  ): Result =
+    // TODO
+    default(sma)
+
   override def stateTransitionTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateTransition

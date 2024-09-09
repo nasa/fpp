@@ -52,6 +52,18 @@ object ComputeTypeOptionMap
     }
   }
 
+  override def stateEntryTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateEntry
+  ): Result =
+    Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
+
+  override def stateExitTypedElement(
+    sma: StateMachineAnalysis,
+    te: StateMachineTypedElement.StateExit
+  ): Result =
+    Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
+
   override def stateTransitionTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateTransition

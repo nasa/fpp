@@ -11,6 +11,20 @@ sealed trait StateMachineTypedElement {
 
 object StateMachineTypedElement {
 
+  final case class StateEntry(
+    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+  ) extends StateMachineTypedElement {
+    def getNodeId = aNode._2.id
+    def showKind = "entry actions"
+  }
+
+  final case class StateExit(
+    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+  ) extends StateMachineTypedElement {
+    def getNodeId = aNode._2.id
+    def showKind = "exit actions"
+  }
+
   final case class InitialTransition(
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) extends StateMachineTypedElement {
