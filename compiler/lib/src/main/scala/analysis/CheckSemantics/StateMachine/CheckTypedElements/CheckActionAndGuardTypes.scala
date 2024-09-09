@@ -26,16 +26,19 @@ object CheckActionAndGuardTypes
   override def stateEntryTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateEntry
-  ): Result =
-    // TODO
-    default(sma)
+  ): Result = {
+    val actions = te.aNode._2.data.actions
+    checkActionTypes(sma, te, actions)
+  }
 
   override def stateExitTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.StateExit
-  ): Result =
-    // TODO
-    default(sma)
+  ): Result = {
+    val actions = te.aNode._2.data.actions
+    checkActionTypes(sma, te, actions)
+  }
+
 
   override def stateTransitionTypedElement(
     sma: StateMachineAnalysis,
