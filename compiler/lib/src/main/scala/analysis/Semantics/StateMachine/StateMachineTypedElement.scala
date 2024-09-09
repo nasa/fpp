@@ -12,14 +12,14 @@ sealed trait StateMachineTypedElement {
 object StateMachineTypedElement {
 
   final case class StateEntry(
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
   ) extends StateMachineTypedElement {
     def getNodeId = aNode._2.id
     def showKind = "entry actions"
   }
 
   final case class StateExit(
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
   ) extends StateMachineTypedElement {
     def getNodeId = aNode._2.id
     def showKind = "exit actions"

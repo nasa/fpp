@@ -68,17 +68,17 @@ trait SmTypedElementAnalyzer
     StateMachineTypedElement.Junction(aNode)
   )
 
-  override def specEntryAnnotatedNode(
+  override def specStateEntryAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
   ) = visitTypedElement(
     sma,
     StateMachineTypedElement.StateEntry(aNode)
   )
 
-  override def specExitAnnotatedNode(
+  override def specStateExitAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
   ) = visitTypedElement(
     sma,
     StateMachineTypedElement.StateExit(aNode)

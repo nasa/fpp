@@ -214,9 +214,9 @@ object Ast {
     sealed trait Node
     final case class DefJunction(node: AstNode[Ast.DefJunction]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
-    final case class SpecEntry(node: AstNode[Ast.SpecEntry]) extends Node
-    final case class SpecExit(node: AstNode[Ast.SpecExit]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
+    final case class SpecStateEntry(node: AstNode[Ast.SpecStateEntry]) extends Node
+    final case class SpecStateExit(node: AstNode[Ast.SpecStateExit]) extends Node
     final case class SpecStateTransition(node: AstNode[Ast.SpecStateTransition]) extends Node
   }
 
@@ -226,12 +226,12 @@ object Ast {
   )
 
   /** State entry specifier */
-  final case class SpecEntry(
+  final case class SpecStateEntry(
     actions: List[AstNode[Ident]]
   )
 
   /** State exit specifier */
-  final case class SpecExit(
+  final case class SpecStateExit(
     actions: List[AstNode[Ident]]
   )
 

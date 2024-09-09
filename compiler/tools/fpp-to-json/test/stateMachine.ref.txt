@@ -440,7 +440,7 @@
                                       [
                                       ],
                                       {
-                                        "SpecEntry" : {
+                                        "SpecStateEntry" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {
@@ -471,7 +471,7 @@
                                       [
                                       ],
                                       {
-                                        "SpecExit" : {
+                                        "SpecStateExit" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {

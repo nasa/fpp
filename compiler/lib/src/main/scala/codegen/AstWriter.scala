@@ -390,16 +390,6 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def specEntryAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec entry") ++
-    actionList(data.actions).map(indentIn)
-  }
-
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -415,16 +405,6 @@ object AstWriter extends AstVisitor with LineUtils {
       addPrefix("format", string) (data.format.data),
       linesOpt(addPrefix("throttle", exprNode), data.throttle),
     ).map(indentIn)
-  }
-
-  override def specExitAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec exit") ++
-    actionList(data.actions).map(indentIn)
   }
 
   override def specIncludeAnnotatedNode(
@@ -560,6 +540,26 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def specStateEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state entry") ++
+    actionList(data.actions).map(indentIn)
+  }
+
+  override def specStateExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state exit") ++
+    actionList(data.actions).map(indentIn)
+  }
+
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
@@ -573,6 +573,18 @@ object AstWriter extends AstVisitor with LineUtils {
       linesOpt(addPrefix("priority", exprNode), data.priority),
       linesOpt(queueFull, data.queueFull)
     ).map(indentIn)
+  }
+
+  override def specStateTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("spec state transition") ++
+    (addPrefix("signal", applyToData(ident)) (data.signal) ++
+    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
+    transitionOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def specTlmChannelAnnotatedNode(
@@ -614,18 +626,6 @@ object AstWriter extends AstVisitor with LineUtils {
     val data = node.data
     lines("spec top import") ++
     qualIdent(data.top.data).map(indentIn)
-  }
-
-  override def specStateTransitionAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("spec transition") ++
-    (addPrefix("signal", applyToData(ident)) (data.signal) ++
-    linesOpt(addPrefix("guard", applyToData(ident)), data.guard) ++
-    transitionOrDo(data.transitionOrDo)).map(indentIn)
   }
 
   override def transUnit(in: In, tu: Ast.TransUnit) =

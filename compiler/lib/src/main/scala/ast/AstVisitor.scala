@@ -86,11 +86,7 @@ trait AstVisitor {
 
   def specContainerAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecContainer]]): Out = default(in)
 
-  def specEntryAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEntry]]): Out = default(in)
-
   def specEventAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecEvent]]): Out = default(in)
-
-  def specExitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecExit]]): Out = default(in)
 
   def specIncludeAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecInclude]]): Out = default(in)
 
@@ -109,6 +105,10 @@ trait AstVisitor {
   def specPortMatchingAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecPortMatching]]): Out = default(in)
 
   def specRecordAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecRecord]]): Out = default(in)
+
+  def specStateEntryAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateEntry]]): Out = default(in)
+
+  def specStateExitAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateExit]]): Out = default(in)
 
   def specStateMachineInstanceAnnotatedNode(in: In, node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]): Out = default(in)
 
@@ -205,9 +205,9 @@ trait AstVisitor {
       case Ast.StateMember.DefJunction(node1) => defJunctionAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.DefState(node1) => defStateAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecInitialTransition(node1) => specInitialTransitionAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecStateEntry(node1) => specStateEntryAnnotatedNode(in, (pre, node1, post))
+      case Ast.StateMember.SpecStateExit(node1) => specStateExitAnnotatedNode(in, (pre, node1, post))
       case Ast.StateMember.SpecStateTransition(node1) => specStateTransitionAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.SpecEntry(node1) => specEntryAnnotatedNode(in, (pre, node1, post))
-      case Ast.StateMember.SpecExit(node1) => specExitAnnotatedNode(in, (pre, node1, post))
     }
   }
 

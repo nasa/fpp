@@ -439,16 +439,6 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.defaultPriority) (" default priority ") (exprNode)
   }
 
-  override def specEntryAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("entry ").
-    join("")(actionList(data.actions))
-  }
-
   override def specEventAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecEvent]]
@@ -462,16 +452,6 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOptWithBreak (data.id) ("id ") (exprNode).
       joinWithBreak ("format ") (string(data.format.data)).
       joinOptWithBreak (data.throttle) ("throttle ") (exprNode)
-  }
-
-  override def specExitAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines("exit ").
-    join("")(actionList(data.actions))
   }
 
   override def specIncludeAnnotatedNode(
@@ -594,6 +574,26 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.id) (" id ") (exprNode)
   }
 
+  override def specStateEntryAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("entry ").
+    join("")(actionList(data.actions))
+  }
+
+  override def specStateExitAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines("exit ").
+    join("")(actionList(data.actions))
+  }
+
   override def specStateMachineInstanceAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
@@ -604,6 +604,17 @@ object FppWriter extends AstVisitor with LineUtils {
       join(": ") (qualIdent(data.stateMachine.data)).
       joinOptWithBreak (data.priority) ("priority ") (exprNode).
       joinOptWithBreak (data.queueFull) ("") (queueFull)
+  }
+
+  override def specStateTransitionAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"on ${ident(data.signal.data)}").
+    joinOpt(data.guard)(" if ")(applyToData(identAsLines)).
+    join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
   override def specTlmChannelAnnotatedNode(
@@ -639,17 +650,6 @@ object FppWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     Line.addPrefix("import ", qualIdent(data.top.data))
-  }
-
-  override def specStateTransitionAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines(s"on ${ident(data.signal.data)}").
-    joinOpt(data.guard)(" if ")(applyToData(identAsLines)).
-    join(" ")(transitionOrDo(data.transitionOrDo))
   }
 
   override def transUnit(

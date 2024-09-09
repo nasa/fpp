@@ -59,14 +59,14 @@ trait StateMachineUseAnalyzer
     yield sma
   }
 
-  override def specEntryAnnotatedNode(
+  override def specStateEntryAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecEntry]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateEntry]]
   ) = actions(sma, aNode._2.data.actions)
 
-  override def specExitAnnotatedNode(
+  override def specStateExitAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.SpecExit]]
+    aNode: Ast.Annotated[AstNode[Ast.SpecStateExit]]
   ) = actions(sma, aNode._2.data.actions)
 
   override def specInitialTransitionAnnotatedNode(

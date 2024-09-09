@@ -500,15 +500,15 @@ object Parser extends Parsers {
     }
   }
 
-  def specEntry: Parser[Ast.SpecEntry] = {
+  def specStateEntry: Parser[Ast.SpecStateEntry] = {
     entry ~> doExpr ^^ {
-      case actions => Ast.SpecEntry(actions)
+      case actions => Ast.SpecStateEntry(actions)
     }
   }
 
-  def specExit: Parser[Ast.SpecExit] = {
+  def specStateExit: Parser[Ast.SpecStateExit] = {
     exit ~> doExpr ^^ {
-      case actions => Ast.SpecExit(actions)
+      case actions => Ast.SpecStateExit(actions)
     }
   }
 
@@ -706,8 +706,8 @@ object Parser extends Parsers {
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
     node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
-    node(specEntry) ^^ { case n => Ast.StateMember.SpecEntry(n) } |
-    node(specExit) ^^ { case n => Ast.StateMember.SpecExit(n) } |
+    node(specStateEntry) ^^ { case n => Ast.StateMember.SpecStateEntry(n) } |
+    node(specStateExit) ^^ { case n => Ast.StateMember.SpecStateExit(n) } |
     node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specStateTransition) ^^ { case n => Ast.StateMember.SpecStateTransition(n) } |
     failure("state member expected")
