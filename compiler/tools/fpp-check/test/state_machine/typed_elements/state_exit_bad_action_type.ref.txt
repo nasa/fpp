@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_exit_bad_action_type.fpp:5.15
+    exit do { a }
+              ^
+error: type mismatch at exit actions
+type of exit actions is None
+type of action is U32
