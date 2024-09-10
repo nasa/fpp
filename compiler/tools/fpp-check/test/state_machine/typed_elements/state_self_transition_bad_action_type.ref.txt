@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_self_transition_bad_action_type.fpp:7.20
+    on s if g do { a }
+                   ^
+error: type mismatch at state transition
+type of state transition is None
+type of action is U32
