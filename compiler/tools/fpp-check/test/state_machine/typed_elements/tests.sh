@@ -4,5 +4,7 @@ junction_u32_bool
 junction_u32_bool_transitive
 junction_u32_none
 sm_initial_bad_action_type
+sm_initial_bad_guard_type
 state_initial_bad_action_type
+state_initial_bad_guard_type
 "
