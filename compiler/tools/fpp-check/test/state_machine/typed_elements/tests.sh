@@ -13,4 +13,5 @@ state_initial_bad_action_type
 state_initial_bad_guard_type
 state_junction_bad_else_action_type
 state_junction_bad_if_action_type
+state_transition_bad_guard_type
 "
