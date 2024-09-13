@@ -33,17 +33,31 @@ to a
 It specifies a guard for the transition.
 
 . The first form of the _transition-or-do_ syntax specifies an *external
-transition*, i.e., an optional list of actions and a target state.
-The target state in the transition expression may be the same as the
-enclosing state; in this case the transition is called a *self transition*.
-When making a self transition, the state machine runs the code associated with
-exiting and then re-entering the state.
+transition*, i.e., an optional list of actions and a target state or junction.
 
-. Second form of the _transition-or-do_ syntax specifies an
+. The second form of the _transition-or-do_ syntax specifies an
 *internal transition*, i.e., a list of actions to take while remaining
 in the same state.
-When making an internal transition, the exit and re-entry code is not run.
+When making an internal transition, the exit and entry code is not run.
 The do expression must be valid.
+
+. In any of the following cases of an external transition to a state target,
+the transition is called a *self transition*:
+
+..  The target is the same as the enclosing state.
+
+.. The target is a transitive substate of the enclosing state.
+
+.. The enclosing state is a transitive substate of the target.
+
++
+Each self transition has an associated *outer state*.
+In case 1, the outer state is the target state, which is also
+the enclosing state.
+In case 2, the outer state is the enclosing state.
+In case 3, the outer state is the target state.
+When making a self transition, the state machine runs the code associated with
+exiting and then reentering the outer state.
 
 ==== Examples
 
