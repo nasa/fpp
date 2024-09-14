@@ -12,13 +12,36 @@ case class ConstructFlattenedTransition(
   /** The interface method */
   def transition(transition: Transition): Transition =
     transition match {
-      case _: Transition.External => transition
-      case internal: Transition.Internal => internalTransition(internal)
+      case external: Transition.External => externalTransition(external)
+      case _: Transition.Internal => transition
     }
 
-  // Flatten an internal transition
-  private def internalTransition(transition: Transition.Internal): Transition =
-    transition
+  // Flatten an external transition
+  private def externalTransition(transition: Transition.External): Transition = {
+    val target = transition.target
+    val sourceStates = getParentStateList(source)
+    val targetStates = getParentStateList(target)
+    val prefix = {
+      val reversedPrefix =
+        getReversedCommonPrefix(sourceStates, targetStates)
+      val adjustedReversedPrefix = adjustForSelfTransition(
+        source,
+        sourceStates,
+        target,
+        targetStates,
+        reversedPrefix
+      )
+      adjustedReversedPrefix.reverse
+    }
+    val exitStates = removePrefix(prefix, sourceStates).reverse
+    val entryStates = removePrefix(prefix, targetStates)
+    val actions = List.concat(
+      exitStates.flatMap(getExitActions),
+      transition.actions,
+      entryStates.flatMap(getEntryActions)
+    )
+    Transition.External(actions, target)
+  }
 
   // Get the parent state list of a state or junction
   private def getParentStateList(soj: StateOrJunction):
