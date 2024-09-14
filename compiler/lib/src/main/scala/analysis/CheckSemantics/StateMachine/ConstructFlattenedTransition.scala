@@ -17,13 +17,14 @@ case class ConstructFlattenedTransition(
     }
 
   // Flatten an external transition
-  private def externalTransition(transition: Transition.External): Transition = {
+  private def externalTransition(transition: Transition.External):
+  Transition.External = {
     val target = transition.target
     val sourceStates = getParentStateList(source)
     val targetStates = getParentStateList(target)
     val prefix = {
       val reversedPrefix =
-        getReversedCommonPrefix(sourceStates, targetStates)
+        getReversedPrefix(sourceStates, targetStates)
       val adjustedReversedPrefix = adjustForSelfTransition(
         source,
         sourceStates,
@@ -45,15 +46,11 @@ case class ConstructFlattenedTransition(
 
   // Get the parent state list of a state or junction
   private def getParentStateList(soj: StateOrJunction):
-  List[StateMachineSymbol.State] = soj match {
-    case StateOrJunction.State(state) =>
-      sma.getParentStateList(state) :+ state
-    case StateOrJunction.Junction(junction) =>
-      sma.getParentStateList(junction)
-  }
+  List[StateMachineSymbol.State] =
+    sma.getParentStateList(soj.getSymbol)
 
   // Compute the reverse of the common prefix of two lists
-  private def getReversedCommonPrefix[T](
+  private def getReversedPrefix[T](
     list1: List[T],
     list2: List[T]
   ): List[T] = {
@@ -99,14 +96,13 @@ case class ConstructFlattenedTransition(
     prefix: List[T],
     list: List[T]
   ): List[T] = {
-    lazy val error = new InternalError("list does not have the specified prefix")
     (prefix, list) match {
       case (Nil, _) => list
       case (head1 :: tail1, head2 :: tail2) =>
         if head1 == head2
         then removePrefix(tail1, tail2)
-        else throw error
-      case _ => throw error
+        else list
+      case _ => list
     }
   }
 
