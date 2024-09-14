@@ -97,7 +97,7 @@ trait StateMachineUseAnalyzer
   ): Result =
     for {
       sma <- actions(sma, e.actions)
-      sma <- qualIdentNode(stateOrJunctionUse)(sma, e.destination)
+      sma <- qualIdentNode(stateOrJunctionUse)(sma, e.target)
     }
     yield sma
 

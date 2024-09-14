@@ -193,7 +193,7 @@ object Ast {
   /** Transition expression */
   final case class TransitionExpr(
     actions: List[AstNode[Ident]],
-    destination: AstNode[QualIdent]
+    target: AstNode[QualIdent]
   )
 
   /** Signal definition */

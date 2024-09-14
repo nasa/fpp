@@ -91,7 +91,7 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     sma: StateMachineAnalysis,
     exprNode: AstNode[Ast.TransitionExpr]
   ): TransitionGraph.Node = {
-    val sym = sma.useDefMap(exprNode.data.destination.id)
+    val sym = sma.useDefMap(exprNode.data.target.id)
     val soj = sym match {
       case state: StateMachineSymbol.State =>
         StateOrJunction.State(state)

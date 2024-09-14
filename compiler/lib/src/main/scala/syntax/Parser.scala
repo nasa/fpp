@@ -739,9 +739,9 @@ object Parser extends Parsers {
 
   def transitionExpr: Parser[Ast.TransitionExpr] =
     opt(doExpr) ~ (enter ~> node(qualIdent)) ^^ {
-      case actionsOpt ~ destination => Ast.TransitionExpr(
+      case actionsOpt ~ target => Ast.TransitionExpr(
         actionsOpt.getOrElse(Nil),
-        destination
+        target
       )
     }
 

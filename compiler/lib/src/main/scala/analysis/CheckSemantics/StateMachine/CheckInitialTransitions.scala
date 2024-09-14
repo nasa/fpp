@@ -39,7 +39,7 @@ object CheckInitialTransitions
   ) = {
     // Check that aNode leads to a state machine or junction
     // with the same parent symbol as sma
-    val destId = aNode._2.data.transition.data.destination.id
+    val destId = aNode._2.data.transition.data.target.id
     val destSymbol = sma.useDefMap(destId)
     checkForDestOutsideParent(
       sma,
@@ -118,7 +118,7 @@ object CheckInitialTransitions
       )
     }
 
-  // Checks for a transition destination outside the parent
+  // Checks for a transition target outside the parent
   // Returns the symbol path (error) or the set of visited symbols
   private def checkForDestOutsideParent(
     sma: StateMachineAnalysis,
@@ -138,14 +138,14 @@ object CheckInitialTransitions
         visitedSymbols <- if (destParentSymbol == parentSymbol)
                           then Right(visitedSymbols + destSymbol)
                           else Left(destSymbol :: errorSymbols)
-        // Recursively check junction destinations
+        // Recursively check junction targets
         visitedSymbols <- destSymbol match {
           // Junction: check it
           case StateMachineSymbol.Junction(aNode) =>
             for {
               // Recursively check the if transition
               visitedSymbols <- {
-                val ifDest = aNode._2.data.ifTransition.data.destination
+                val ifDest = aNode._2.data.ifTransition.data.target
                 val ifDestSymbol = sma.useDefMap(ifDest.id)
                 checkForDestOutsideParent(
                   sma,
@@ -157,7 +157,7 @@ object CheckInitialTransitions
               }
               // Recursively check the else transition
               visitedSymbols <- {
-                val elseDest = aNode._2.data.elseTransition.data.destination
+                val elseDest = aNode._2.data.elseTransition.data.target
                 val elseDestSymbol = sma.useDefMap(elseDest.id)
                 checkForDestOutsideParent(
                   sma,

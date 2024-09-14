@@ -817,7 +817,7 @@ object AstWriter extends AstVisitor with LineUtils {
   private def transitionExpr(transition: Ast.TransitionExpr) =
     List.concat(
       actionList(transition.actions),
-      addPrefix("destination", applyToData(qualIdent)) (transition.destination)
+      addPrefix("target", applyToData(qualIdent)) (transition.target)
     )
 
   private def transitionOrDo(tod: Ast.TransitionOrDo) =

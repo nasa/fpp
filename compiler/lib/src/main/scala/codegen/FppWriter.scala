@@ -65,7 +65,7 @@ object FppWriter extends AstVisitor with LineUtils {
   def transitionExpr(transition: Ast.TransitionExpr): Out = {
     val sep = if transition.actions.isEmpty then "enter " else " enter "
     actionList(transition.actions).
-    join(sep)(qualIdent(transition.destination.data))
+    join(sep)(qualIdent(transition.target.data))
   }
 
   def moduleMember(member: Ast.ModuleMember): Out = {

@@ -232,7 +232,7 @@ sealed trait Error {
       case SemanticError.StateMachine.InvalidInitialTransition(loc, msg, destLoc) =>
         Error.print (Some(loc)) (msg)
         destLoc.map(loc => {
-          System.err.println("destination is defined here:")
+          System.err.println("target is defined here:")
           System.err.println(loc)
         })
       case SemanticError.StateMachine.JunctionCycle(loc, msg) =>

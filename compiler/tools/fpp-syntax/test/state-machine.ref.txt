@@ -43,13 +43,13 @@ def state machine
   @ Initial transition
   spec initial
     action ident a1
-    destination qual ident J
+    target qual ident J
   @ Junction J
   def junction
     ident J
     guard ident g1
-    destination qual ident S1
-    destination qual ident S2
+    target qual ident S1
+    target qual ident S2
   @ State S1
   def state
     ident S1
@@ -66,17 +66,17 @@ def state machine
     spec initial
       action ident a1
       action ident a2
-      destination qual ident S3
+      target qual ident S3
     @ Junction J
     def junction
       ident J
       guard ident g1
       action ident a1
       action ident a2
-      destination qual ident S1
+      target qual ident S1
       action ident a2
       action ident a3
-      destination qual ident S2.S3
+      target qual ident S2.S3
     @ State S3
     def state
       ident S3
@@ -85,20 +85,20 @@ def state machine
       signal ident s1
       guard ident g1
       action ident a1
-      destination qual ident J
+      target qual ident J
     spec state transition
       signal ident s2
       guard ident g1
-      destination qual ident S1
+      target qual ident S1
     @ Transition to S1
     spec state transition
       signal ident s3
       guard ident g1
-      destination qual ident S1
+      target qual ident S1
     @ Transition to S1
     spec state transition
       signal ident s4
-      destination qual ident S1
+      target qual ident S1
     @ Internal transition
     spec state transition
       signal ident s5

@@ -12,7 +12,7 @@ object Transition {
 
   final case class External(
     actions: List[StateMachineSymbol.Action],
-    destination: StateOrJunction
+    target: StateOrJunction
   ) extends Transition {
     def getActions = actions
   }
