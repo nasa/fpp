@@ -33,14 +33,14 @@ object EnterStateMachineSymbols
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
-    val parentSymbol = sma.parentSymbol
+    val parentState = sma.parentState
     val symbol = StateMachineSymbol.State(aNode)
     for {
       sma <- visitNode(sma, aNode, StateMachineSymbol.State(_), List(StateMachineNameGroup.State))
       sma <- {
         val scope = StateMachineScope.empty
         val nestedScope = sma.nestedScope.push(scope)
-        val sma1 = sma.copy(nestedScope = nestedScope, parentSymbol = Some(symbol))
+        val sma1 = sma.copy(nestedScope = nestedScope, parentState = Some(symbol))
         super.defStateAnnotatedNode(sma1, aNode)
       }
     }
@@ -49,7 +49,7 @@ object EnterStateMachineSymbols
       val symbolScopeMap = sma.symbolScopeMap + (symbol -> scope)
       sma.copy(
         nestedScope = sma.nestedScope.pop,
-        parentSymbol = parentSymbol,
+        parentState = parentState,
         symbolScopeMap = symbolScopeMap
       )
     }
@@ -59,10 +59,10 @@ object EnterStateMachineSymbols
     sma: StateMachineAnalysis,
     s: StateMachineSymbol
   ): StateMachineAnalysis = {
-    val parentSymbolMap = sma.parentSymbol.fold (sma.parentSymbolMap) (ps =>
-      sma.parentSymbolMap + (s -> ps)
+    val parentStateMap = sma.parentState.fold (sma.parentStateMap) (ps =>
+      sma.parentStateMap + (s -> ps)
     )
-    sma.copy(parentSymbolMap = parentSymbolMap)
+    sma.copy(parentStateMap = parentStateMap)
   }
 
   private def visitNode[T](

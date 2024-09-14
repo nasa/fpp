@@ -27,7 +27,7 @@ object CheckInitialTransitions
     }
     // Visit the members
     _ <- super.defStateMachineAnnotatedNodeInternal(
-      sma.copy(parentSymbol = None),
+      sma.copy(parentState = None),
       aNode,
       members
     )
@@ -44,11 +44,11 @@ object CheckInitialTransitions
     checkForDestOutsideParent(
       sma,
       destSymbol,
-      sma.parentSymbol
+      sma.parentState
     ) match {
       case Left(symbols) =>
         val loc = Locations.get(aNode._2.id)
-        val msgHead = sma.parentSymbol match {
+        val msgHead = sma.parentState match {
           case Some(symbol) =>
             s"initial transition of state must go to state or junction defined in the same state"
           case None =>
@@ -88,7 +88,7 @@ object CheckInitialTransitions
         )
         // Visit the members
         _ <- super.defStateAnnotatedNode(
-          sma.copy(parentSymbol = Some(StateMachineSymbol.State(aNode))),
+          sma.copy(parentState = Some(StateMachineSymbol.State(aNode))),
           aNode
         )
       }
@@ -123,7 +123,7 @@ object CheckInitialTransitions
   private def checkForDestOutsideParent(
     sma: StateMachineAnalysis,
     destSymbol: StateMachineSymbol,
-    parentSymbol: Option[StateMachineSymbol],
+    parentState: Option[StateMachineSymbol],
     errorSymbols: List[StateMachineSymbol] = List(),
     visitedSymbols: Set[StateMachineSymbol] = Set()
   ): Either[List[StateMachineSymbol], Set[StateMachineSymbol]] =
@@ -132,10 +132,10 @@ object CheckInitialTransitions
     then Right(visitedSymbols)
     // We haven't visited the symbol
     else {
-      val destParentSymbol = sma.parentSymbolMap.get(destSymbol)
+      val destParentSymbol = sma.parentStateMap.get(destSymbol)
       for {
         // Check that the symbol is defined in the parent
-        visitedSymbols <- if (destParentSymbol == parentSymbol)
+        visitedSymbols <- if (destParentSymbol == parentState)
                           then Right(visitedSymbols + destSymbol)
                           else Left(destSymbol :: errorSymbols)
         // Recursively check junction targets
@@ -150,7 +150,7 @@ object CheckInitialTransitions
                 checkForDestOutsideParent(
                   sma,
                   ifDestSymbol,
-                  parentSymbol,
+                  parentState,
                   destSymbol :: errorSymbols,
                   visitedSymbols
                 )
@@ -162,7 +162,7 @@ object CheckInitialTransitions
                 checkForDestOutsideParent(
                   sma,
                   elseDestSymbol,
-                  parentSymbol,
+                  parentState,
                   destSymbol :: errorSymbols,
                   visitedSymbols
                 )

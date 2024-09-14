@@ -13,16 +13,14 @@ case class StateMachineAnalysis(
   scopeNameList: List[Name.Unqualified] = List(),
   /** The current state machine nested scope for symbol lookup */
   nestedScope: StateMachineNestedScope = StateMachineNestedScope.empty,
-  /** The current parent symbol */
-  parentSymbol: Option[StateMachineSymbol] = None,
+  /** The current parent state */
+  parentState: Option[StateMachineSymbol.State] = None,
   /** The mapping from symbols to their parent symbols */
-  parentSymbolMap: Map[StateMachineSymbol,StateMachineSymbol] = Map(),
+  parentStateMap: Map[StateMachineSymbol,StateMachineSymbol.State] = Map(),
   /** The mapping from symbols with scopes to their scopes */
   symbolScopeMap: Map[StateMachineSymbol,StateMachineScope] = Map(),
   /** The mapping from uses (by node ID) to their definitions */
   useDefMap: Map[AstNode.Id, StateMachineSymbol] = Map(),
-  /** The parent state */
-  parentState: Option[StateMachineSymbol.State] = None,
   /** The transition graph */
   transitionGraph: TransitionGraph = TransitionGraph(),
   /** The reverse transition graph */
@@ -33,7 +31,7 @@ case class StateMachineAnalysis(
 ) {
 
   /** Gets the qualified name of a symbol */
-  val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
+  val getQualifiedName = Analysis.getQualifiedNameFromMap (parentStateMap)
 
   /** Gets the common type of two typed elements at a junction */
   def commonTypeAtJunction(
