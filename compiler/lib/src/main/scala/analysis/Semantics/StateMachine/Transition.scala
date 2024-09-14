@@ -10,6 +10,7 @@ sealed trait Transition {
 
 object Transition {
 
+  /** An external transition */
   final case class External(
     actions: List[StateMachineSymbol.Action],
     target: StateOrJunction
@@ -17,9 +18,16 @@ object Transition {
     def getActions = actions
   }
 
+  /** An internal transition */
   final case class Internal(actions: List[StateMachineSymbol.Action])
     extends Transition {
       def getActions = actions
     }
+
+  /** A guarded transition */
+  case class  Guarded(
+    guard: StateMachineSymbol.Guard,
+    transition: Transition
+  )
 
 }

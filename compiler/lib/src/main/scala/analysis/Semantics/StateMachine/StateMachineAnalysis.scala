@@ -26,9 +26,26 @@ case class StateMachineAnalysis(
   /** The reverse transition graph */
   reverseTransitionGraph: TransitionGraph = TransitionGraph(),
   /** Map from typed elements to optional types */
-  typeOptionMap: Map[StateMachineTypedElement, Option[Type]] = Map()
+  typeOptionMap: Map[StateMachineTypedElement, Option[Type]] = Map(),
+  /** The current signal-transition map */
+  signalTransitionMap: StateMachineAnalysis.SignalTransitionMap = Map(),
+  /** The flattened state transtiion map */
+  flattenedStateTransitionMap: Map[AstNode.Id, StateMachineAnalysis.SignalTransitionMap] = Map()
   // TODO
 ) {
+
+  /** Gets the list of parent states, highest first */
+  def getParentStateList(s: StateMachineSymbol): List[StateMachineSymbol.State] = {
+    def helper(
+      s: StateMachineSymbol,
+      result: List[StateMachineSymbol.State]
+    ): List[StateMachineSymbol.State] =
+      parentStateMap.get(s) match {
+        case Some(state) => helper(state, state :: result)
+        case None => result
+      }
+    helper(s, Nil)
+  }
 
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentStateMap)
@@ -74,5 +91,13 @@ case class StateMachineAnalysis(
         TypeOption.show(siteTo)
       )
     )
+
+}
+
+object StateMachineAnalysis {
+
+  /** A signal-transition map */
+  type SignalTransitionMap =
+    Map[StateMachineSymbol.Signal, Transition.Guarded]
 
 }
