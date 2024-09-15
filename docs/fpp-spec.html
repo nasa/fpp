@@ -2950,7 +2950,11 @@ There must be no cycles in <em>S</em>.</p>
 <p>A <strong>typed element</strong> <em>e</em> is an
 <a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
 a
+<a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a>,
+a
 <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a>,
+a
+<a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
 or a
 <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
 A typed element <em>e</em> <strong>points to</strong> a junction <em>J</em> if</p>
@@ -2980,7 +2984,8 @@ If not, an error results.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The type option of each initial transition specifier is <em>None</em>.</p>
+<p>The type option of each initial transition specifier, state entry
+specifier, and state exit specifier is <em>None</em>.</p>
 </li>
 <li>
 <p>The type option of each state transition specifier <em>S</em> is the type
@@ -4505,18 +4510,40 @@ It specifies a guard for the transition.</p>
 </li>
 <li>
 <p>The first form of the <em>transition-or-do</em> syntax specifies an <strong>external
-transition</strong>, i.e., an optional list of actions and a target state.
-The target state in the transition expression may be the same as the
-enclosing state; in this case the transition is called a <strong>self transition</strong>.
-When making a self transition, the state machine runs the code associated with
-exiting and then re-entering the state.</p>
+transition</strong>, i.e., an optional list of actions and a target state or junction.</p>
 </li>
 <li>
-<p>Second form of the <em>transition-or-do</em> syntax specifies an
+<p>The second form of the <em>transition-or-do</em> syntax specifies an
 <strong>internal transition</strong>, i.e., a list of actions to take while remaining
 in the same state.
-When making an internal transition, the exit and re-entry code is not run.
+When making an internal transition, the exit and entry code is not run.
 The do expression must be valid.</p>
+</li>
+<li>
+<p>In any of the following cases of an external transition to a state target,
+the transition is called a <strong>self transition</strong>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>The target is the same as the enclosing state.</p>
+</li>
+<li>
+<p>The target is a transitive substate of the enclosing state.</p>
+</li>
+<li>
+<p>The enclosing state is a transitive substate of the target.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Each self transition has an associated <strong>outer state</strong>.
+In case 1, the outer state is the target state, which is also
+the enclosing state.
+In case 2, the outer state is the enclosing state.
+In case 3, the outer state is the target state.
+When making a self transition, the state machine runs the code associated with
+exiting and then reentering the outer state.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -10171,7 +10198,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-04 22:08:44 -0700
+Last updated 2024-09-13 16:00:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
