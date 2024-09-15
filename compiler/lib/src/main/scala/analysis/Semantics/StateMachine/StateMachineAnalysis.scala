@@ -30,7 +30,7 @@ case class StateMachineAnalysis(
   /** The current signal-transition map */
   signalTransitionMap: StateMachineAnalysis.SignalTransitionMap = Map(),
   /** The flattened state transtiion map */
-  flattenedStateTransitionMap: Map[AstNode.Id, StateMachineAnalysis.SignalTransitionMap] = Map()
+  flattenedStateTransitionMap: StateMachineAnalysis.FlattenedStateTransitionMap = Map()
   // TODO
 ) {
 
@@ -92,6 +92,39 @@ case class StateMachineAnalysis(
       )
     )
 
+  // Get an action symbol from an identifier node
+  def getActionSymbol(action: AstNode[Ast.Ident]):
+  StateMachineSymbol.Action = {
+    val sym = useDefMap(action.id)
+    val actionSym @ StateMachineSymbol.Action(_) = sym
+    actionSym
+  }
+
+  // Get a guard symbol from an identifier node
+  def getGuardSymbol(guard: AstNode[Ast.Ident]):
+  StateMachineSymbol.Guard = {
+    val sym = useDefMap(guard.id)
+    val guardSym @ StateMachineSymbol.Guard(_) = sym
+    guardSym
+  }
+
+  // Get a signal symbol from an identifier node
+  def getSignalSymbol(signal: AstNode[Ast.Ident]):
+  StateMachineSymbol.Signal = {
+    val sym = useDefMap(signal.id)
+    val signalSym @ StateMachineSymbol.Signal(_) = sym
+    signalSym
+  }
+
+  // Get a state or junction from a qualified identifier node
+  def getStateOrJunction(soj: AstNode[Ast.QualIdent]):
+  StateOrJunction =
+    useDefMap(soj.id) match {
+      case state: StateMachineSymbol.State => StateOrJunction.State(state)
+      case junction: StateMachineSymbol.Junction => StateOrJunction.Junction(junction)
+      case _ => throw new InternalError("expected state or junction")
+    }
+
 }
 
 object StateMachineAnalysis {
@@ -99,5 +132,9 @@ object StateMachineAnalysis {
   /** A signal-transition map */
   type SignalTransitionMap =
     Map[StateMachineSymbol.Signal, Transition.Guarded]
+
+  /** A flattened state transition map */
+  type FlattenedStateTransitionMap =
+    Map[StateMachineSymbol.State, StateMachineAnalysis.SignalTransitionMap]
 
 }

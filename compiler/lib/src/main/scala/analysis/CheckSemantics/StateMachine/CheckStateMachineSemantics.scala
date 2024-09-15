@@ -20,7 +20,7 @@ object CheckStateMachineSemantics {
           sma <- CheckSignalUses.defStateMachineAnnotatedNode(sma, aNode)
           sma <- CheckTransitionGraph.defStateMachineAnnotatedNode(sma, aNode)
           sma <- CheckTypedElements.defStateMachineAnnotatedNode(sma, aNode)
-          // TODO: Compute flattened state transition map
+          sma <- ComputeFlattenedStateTransitionMap.defStateMachineAnnotatedNode(sma, aNode)
           // TODO: Compute flattened junction transition map
         }
         yield sma

@@ -112,7 +112,7 @@ case class ConstructFlattenedTransition(
     s.node._2.data.members.flatMap(
       _.node._2 match {
         case Ast.StateMember.SpecStateEntry(node) =>
-          node.data.actions.map(getActionSymbol)
+          node.data.actions.map(sma.getActionSymbol)
         case _ => Nil
       }
     )
@@ -123,17 +123,9 @@ case class ConstructFlattenedTransition(
     s.node._2.data.members.flatMap(
       _.node._2 match {
         case Ast.StateMember.SpecStateExit(node) =>
-          node.data.actions.map(getActionSymbol)
+          node.data.actions.map(sma.getActionSymbol)
         case _ => Nil
       }
     )
-
-  // Get an action symbol from an identifier node
-  private def getActionSymbol(action: AstNode[Ast.Ident]):
-  StateMachineSymbol.Action = {
-    val sym = sma.useDefMap(action.id)
-    val actionSym @ StateMachineSymbol.Action(_) = sym
-    actionSym
-  }
 
 }

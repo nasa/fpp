@@ -26,7 +26,7 @@ object Transition {
 
   /** A guarded transition */
   case class  Guarded(
-    guard: StateMachineSymbol.Guard,
+    guardOpt: Option[StateMachineSymbol.Guard],
     transition: Transition
   )
 
