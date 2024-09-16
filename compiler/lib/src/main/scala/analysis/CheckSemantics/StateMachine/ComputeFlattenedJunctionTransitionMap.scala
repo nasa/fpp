@@ -12,6 +12,17 @@ object ComputeFlattenedJunctionTransitionMap
     sma: StateMachineAnalysis,
     junction: StateMachineSymbol.Junction,
     exprNode: AstNode[Ast.TransitionExpr]
-  ): Result = default(sma)
+  ): Result = {
+    val transition = {
+      val actions = exprNode.data.actions.map(sma.getActionSymbol)
+      val target = sma.getStateOrJunction(exprNode.data.target)
+      val transition0 = Transition.External(actions, target)
+      val source = StateOrJunction.Junction(junction)
+      val cft = ConstructFlattenedTransition(sma, source)
+      cft.transition(transition0)
+    }
+    val fjtm = sma.flattenedJunctionTransitionMap + (exprNode -> transition)
+    Right(sma.copy(flattenedJunctionTransitionMap = fjtm))
+  }
 
 }
