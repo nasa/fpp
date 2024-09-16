@@ -66,17 +66,7 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     Right(sma.copy(transitionGraph = transitionGraph))
   }
 
-  override def junctionTransitionExprs(
-    sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Junction,
-    ifExprNode: AstNode[Ast.TransitionExpr],
-    elseExprNode: AstNode[Ast.TransitionExpr]
-  ): Result = for {
-    sma <- junctionExpr(sma, junction, ifExprNode)
-    sma <- junctionExpr(sma, junction, elseExprNode)
-  } yield sma
-
-  private def junctionExpr(
+  override def junctionTransitionExpr(
     sma: StateMachineAnalysis,
     junction: StateMachineSymbol.Junction,
     exprNode: AstNode[Ast.TransitionExpr]

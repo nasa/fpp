@@ -29,12 +29,22 @@ trait TransitionExprAnalyzer
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
-  /** The transition expressions in a junction */
-  def junctionTransitionExprs(
+  /** The pair of transition expressions in a junction */
+  def junctionTransitionExprPair(
     sma: StateMachineAnalysis,
     junction: StateMachineSymbol.Junction,
     ifExprNode: AstNode[Ast.TransitionExpr],
     elseExprNode: AstNode[Ast.TransitionExpr]
+  ): Result = for {
+    sma <- junctionTransitionExpr(sma, junction, ifExprNode)
+    sma <- junctionTransitionExpr(sma, junction, elseExprNode)
+  } yield sma
+
+  /** A transition expression in a junction */
+  def junctionTransitionExpr(
+    sma: StateMachineAnalysis,
+    junction: StateMachineSymbol.Junction,
+    exprNode: AstNode[Ast.TransitionExpr]
   ): Result = default(sma)
 
   // ----------------------------------------------------------------------
@@ -46,7 +56,7 @@ trait TransitionExprAnalyzer
     aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
   ) = {
     val data = aNode._2.data
-    junctionTransitionExprs(
+    junctionTransitionExprPair(
       sma,
       StateMachineSymbol.Junction(aNode),
       data.ifTransition,
