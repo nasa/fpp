@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** An FPP connection */
 case class Connection(
-  connectionMatching: Connection.ConnectionMatching,
+  isUnmatched: Boolean,
   /** The from endpoint */
   from: Connection.Endpoint,
   /** The to endpoint */
@@ -104,6 +104,18 @@ case class Connection(
     }
   }
 
+  def checkMatchConstraint: Boolean = {
+    def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
+      pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
+
+    val fromPi = from.port.portInstance
+    val toPi = to.port.portInstance
+    val fromPml = from.port.componentInstance.component.portMatchingList
+    val toPml = to.port.componentInstance.component.portMatchingList
+
+    portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+  }
+
   /** Compare two connections */
   override def compare(that: Connection) = {
     val fromCompare = this.from.compare(that.from)
@@ -142,11 +154,16 @@ object Connection {
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
-        connectionMatching <- ConnectionMatching.fromAst(connection.connectionMatching, from, to)
-        connection <- Right(Connection(connectionMatching, from, to))
+        connection <- Right(Connection(connection.isUnmatched, from, to))
         _ <- connection.checkDirections
         _ <- connection.checkTypes
         _ <- connection.checkSerialWithTypedInput
+        _ <- {
+          if !connection.checkMatchConstraint & connection.isUnmatched then
+            Left(SemanticError.MissingPortMatching(connection.getLoc))
+          else 
+            Right(())
+        }           
       }
       yield connection
 
@@ -188,30 +205,6 @@ object Connection {
     }
   }
 
-  case class ConnectionMatching(
-    isUnmatched: Boolean
-  ) {
-
-    def checkMatchingPorts(from: Connection.Endpoint, to: Connection.Endpoint): Result.Result[Unit] = {
-      def checkMatch(pml: List[Component.PortMatching], pi: PortInstance): Result.Result[Unit] =
-        if(pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))) then Right(())
-        else Left(SemanticError.MissingPortMatching(pi.getLoc))
-  
-      val fromPi = from.port.portInstance
-      val toPi = to.port.portInstance
-      val fromPml = from.port.componentInstance.component.portMatchingList
-      val toPml = to.port.componentInstance.component.portMatchingList
-
-      if(fromPml.isEmpty & toPml.isEmpty) then Left(SemanticError.MissingPortMatching(from.loc))
-      else {
-        for {
-          _ <- if(!fromPml.isEmpty) then checkMatch(fromPml, fromPi) else Right(())
-          _ <- if(!toPml.isEmpty) then checkMatch(toPml, toPi) else Right(())
-        } yield Right(())
-      }
-    }
-  }
-
   object Endpoint {
 
     /** Constructs a connection endpoint from AST info */
@@ -229,26 +222,6 @@ object Connection {
         case None => Right(())
       }
     } yield endpoint
-
-  }
-
-  object ConnectionMatching {
-
-    def fromAst(
-      connectionMatchingAst: Ast.ConnectionMatching,
-      from: Connection.Endpoint, 
-      to: Connection.Endpoint
-    ): Result.Result[ConnectionMatching] = for {
-      connectionMatching <- connectionMatchingAst match {
-        case Ast.ConnectionMatching.Unmatched => Right(ConnectionMatching(true))
-        case _ => Right(ConnectionMatching(false))
-      }
-      _ <- {
-        if(connectionMatching.isUnmatched) then connectionMatching.checkMatchingPorts(from, to)
-        else Right(())
-      }
-    } yield connectionMatching
-    
   }
 
 }

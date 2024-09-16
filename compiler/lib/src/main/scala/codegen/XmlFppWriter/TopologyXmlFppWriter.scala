@@ -129,7 +129,7 @@ object TopologyXmlFppWriter extends LineUtils {
       }
       yield {
         Ast.SpecConnectionGraph.Connection(
-          Ast.ConnectionMatching.PossiblyMatched,
+          false,
           from._1,
           from._2,
           to._1,

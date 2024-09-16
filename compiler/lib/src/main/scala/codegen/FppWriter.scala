@@ -617,10 +617,11 @@ object FppWriter extends AstVisitor with LineUtils {
     addSuffix(s".${ident(pii.portName.data)}")
 
   private def connection(c: Ast.SpecConnectionGraph.Connection) =
-    portInstanceId(c.fromPort.data).
-    joinOpt (c.fromIndex) ("") (bracketExprNode).
-    join (" -> ") (portInstanceId(c.toPort.data)).
-    joinOpt (c.toIndex) ("") (bracketExprNode)
+    lines(if c.isUnmatched then "unmatched " else "").
+      join ("") (portInstanceId(c.fromPort.data)).
+      joinOpt (c.fromIndex) ("") (bracketExprNode).
+      join (" -> ") (portInstanceId(c.toPort.data)).
+      joinOpt (c.toIndex) ("") (bracketExprNode)
 
   private def typeNameNode(node: AstNode[Ast.TypeName]) = matchTypeNameNode((), node)
 
@@ -714,6 +715,7 @@ object FppWriter extends AstVisitor with LineUtils {
     "topology",
     "true",
     "type",
+    "unmatched",
     "update",
     "warning",
     "with",

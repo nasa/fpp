@@ -374,7 +374,7 @@ object Ast {
 
     /** Connection */
     final case class Connection(
-      connectionMatching: ConnectionMatching,
+      isUnmatched: Boolean,
       fromPort: AstNode[PortInstanceIdentifier],
       fromIndex: Option[AstNode[Expr]],
       toPort: AstNode[PortInstanceIdentifier],
@@ -704,16 +704,6 @@ object Ast {
     }
     case object Public extends Visibility {
       override def toString = "public"
-    }
-  }
-
-  sealed trait ConnectionMatching
-  object ConnectionMatching {
-    case object Unmatched extends ConnectionMatching {
-      override def toString = "unmatched"
-    }
-    case object PossiblyMatched extends ConnectionMatching {
-      override def toString = "possibly matched"
     }
   }
 }

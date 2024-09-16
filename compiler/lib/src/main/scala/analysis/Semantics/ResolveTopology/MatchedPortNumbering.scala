@@ -161,7 +161,7 @@ object MatchedPortNumbering {
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       Result.foldLeft (cs) (empty) ((m, c) => {
-        if(c.connectionMatching.isUnmatched)
+        if(c.isUnmatched)
           Right(m)
         else {
           val piiRemote = c.getOtherEndpoint(pi).port

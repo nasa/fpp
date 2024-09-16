@@ -49,7 +49,7 @@ object Parser extends Parsers {
     opt(unmatched) ~! connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case unmatched ~ (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(
-          unmatched.getOrElse(Ast.ConnectionMatching.PossiblyMatched),
+          unmatched.isDefined,
           fromPort,
           fromIndex,
           toPort,
@@ -914,7 +914,7 @@ object Parser extends Parsers {
 
   private def typeToken = accept("type", { case t : Token.TYPE => t })
 
-  private def unmatched = accept("unmatched", { case t : Token.UNMATCHED => Ast.ConnectionMatching.Unmatched })
+  private def unmatched = accept("unmatched", { case t : Token.UNMATCHED => t })
 
   private def update = accept("update", { case t : Token.UPDATE => t })
 
