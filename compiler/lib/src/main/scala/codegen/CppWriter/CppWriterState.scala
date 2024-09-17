@@ -127,39 +127,38 @@ case class CppWriterState(
 
   /** Write include directives for autocoded files */
   def writeIncludeDirectives(usedSymbols: Iterable[Symbol]): List[String] = {
-    def getDirectiveForSymbol(sym: Symbol): Option[String] =
+    def getDirectiveForSymbol(sym: Symbol): Option[String] = {
+      val name = getName(sym)
       for {
         fileName <- sym match {
-          case Symbol.AbsType(node) => getName(Symbol.AbsType(node)) match {
-            case name if isBuiltInType(name) => None
-            case name => Some(name)
-          }
-          case Symbol.Array(node) => Some(
-            ComputeCppFiles.FileNames.getArray(getName(Symbol.Array(node)))
+          case _: Symbol.AbsType =>
+            if isBuiltInType(name) then None else Some(name)
+          case _: Symbol.Array => Some(
+            ComputeCppFiles.FileNames.getArray(name)
           )
-          case Symbol.Component(node) => Some(
-            ComputeCppFiles.FileNames.getComponent(getName(Symbol.Component(node)))
+          case _: Symbol.Component => Some(
+            ComputeCppFiles.FileNames.getComponent(name)
           )
-          case Symbol.Enum(node) => Some(
-            ComputeCppFiles.FileNames.getEnum(getName(Symbol.Enum(node)))
+          case _: Symbol.Enum => Some(
+            ComputeCppFiles.FileNames.getEnum(name)
           )
-          case Symbol.Port(node) => Some(
-            ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
+          case _: Symbol.Port => Some(
+            ComputeCppFiles.FileNames.getPort(name)
           )
           case stateMachine: Symbol.StateMachine =>
-            val name = getName(stateMachine)
             val kind = StateMachine.getSymbolKind(stateMachine)
             Some(ComputeCppFiles.FileNames.getStateMachine(name, kind))
-          case Symbol.Struct(node) => Some(
-            ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))
+          case _: Symbol.Struct => Some(
+            ComputeCppFiles.FileNames.getStruct(name)
           )
-          case Symbol.Topology(node) => Some(
-            ComputeCppFiles.FileNames.getTopology(getName(Symbol.Topology(node)))
+          case _: Symbol.Topology => Some(
+            ComputeCppFiles.FileNames.getTopology(name)
           )
           case _ => None
         }
       }
       yield CppWriter.headerString(getIncludePath(sym, fileName))
+    }
 
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
   }
