@@ -146,9 +146,10 @@ case class CppWriterState(
           case Symbol.Port(node) => Some(
             ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
           )
-           case Symbol.StateMachine(node) => Some(
-            ComputeCppFiles.FileNames.getStateMachine(getName(Symbol.StateMachine(node)))
-          )
+          case stateMachine: Symbol.StateMachine =>
+            val name = getName(stateMachine)
+            val kind = StateMachine.getSymbolKind(stateMachine)
+            Some(ComputeCppFiles.FileNames.getStateMachine(name, kind))
           case Symbol.Struct(node) => Some(
             ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))
           )
