@@ -14,10 +14,14 @@ final case class StateMachineInstance(
   /** Gets the location of the state machine instance*/
   def getLoc: Location = Locations.get(aNode._2.id)
 
+  /** Gets the node ID */
   def getNodeId = aNode._2.id
 
   /** Gets the name of the state machine instance */
   def getName = aNode._2.data.name
+
+  /** Gets the state machine kind */
+  def getSmKind: StateMachine.Kind = StateMachine.getSymbolKind(symbol)
 
 }
 

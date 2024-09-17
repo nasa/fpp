@@ -143,6 +143,10 @@ abstract class ComponentCppWriterUtils(
   val stateMachineInstances: List[StateMachineInstance] =
     component.stateMachineInstanceMap.toList.map((_, sm) => sm).sortBy(_.getName)
 
+  /** List of external state machine instances */
+  val externalStateMachineInstances: List[StateMachineInstance] =
+    stateMachineInstances.filter(_.getSmKind == StateMachine.Kind.External)
+
   /** List of internal port instances sorted by name */
   val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.Internal => Some(i)
@@ -286,7 +290,13 @@ abstract class ComponentCppWriterUtils(
 
   val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
 
+  val externalSmInstancesByName =
+    smInstancesByName.filter(_._2.getSmKind == StateMachine.Kind.External)
+
   val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList
+
+  val externalSmSymbols =
+    smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.External)
 
   // Component properties
 
@@ -319,7 +329,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasContainers: Boolean = containersByName != Nil
 
-  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
+  val hasExternalStateMachineInstances: Boolean =
+    component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
 
   val hasProductGetPort: Boolean = productGetPort.isDefined
 

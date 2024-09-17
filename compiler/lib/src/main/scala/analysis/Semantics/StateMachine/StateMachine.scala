@@ -10,3 +10,19 @@ case class StateMachine(
   /** The state machine analysis */
   stateMachineAnalysis: StateMachineAnalysis
 )
+
+object StateMachine {
+
+  sealed trait Kind
+  object Kind {
+    case object External extends Kind
+    case object Internal extends Kind
+  }
+
+  def getSymbolKind(sym: Symbol.StateMachine): Kind =
+    sym.node._2.data.members match {
+      case None => Kind.External
+      case _ => Kind.Internal
+    }
+
+}

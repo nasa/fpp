@@ -5,7 +5,7 @@ import fpp.compiler.ast._
 import fpp.compiler.codegen._
 import io.circe.Decoder.state
 
-case class ComponentStateMachines(
+case class ComponentExternalStateMachines(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
@@ -16,11 +16,11 @@ case class ComponentStateMachines(
         Line.blank :: lines(s"//! State machine identifiers"),
         wrapInNamedEnum(
           "SmId",
-          smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
+          externalSmInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
         )
       )
     )
-    guardedList (hasStateMachineInstances) (List(lcm))
+    guardedList (hasExternalStateMachineInstances) (List(lcm))
   }
 
   def getFunctionMembers: List[CppDoc.Class.Member] = {
@@ -32,11 +32,11 @@ case class ComponentStateMachines(
 
   /** Gets the state machine interfaces */
   def getSmInterfaces: String =
-    smSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
+    externalSmSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
       sorted.mkString
 
   def getVariableMembers: List[CppDoc.Class.Member] =  {
-    val members = smInstancesByName.map(
+    val members = externalSmInstancesByName.map(
       (name, smi) => {
         val typeName = s.writeSymbol(smi.symbol)
         linesClassMember(
@@ -109,7 +109,7 @@ case class ComponentStateMachines(
         caseBody,
         "}"
       )
-    guardedList (hasStateMachineInstances) (caseStmt)
+    guardedList (hasExternalStateMachineInstances) (caseStmt)
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
@@ -125,7 +125,7 @@ case class ComponentStateMachines(
         smi => getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
-          ComponentStateMachines.signalParams(s, smi.symbol)
+          ComponentExternalStateMachines.signalParams(s, smi.symbol)
         )
       ),
       CppDoc.Lines.Hpp
@@ -176,14 +176,14 @@ case class ComponentStateMachines(
         writeSendMessageLogic(
           "msg", smi.queueFull, smi.priority,
           MessageType.StateMachine, smi.getName,
-          ComponentStateMachines.signalParams(s, smi.symbol)
+          ComponentExternalStateMachines.signalParams(s, smi.symbol)
         )
       )
 
       functionClassMember(
         Some(s"State machine base-class function for sendSignals"),
         s"${smi.getName}_stateMachineInvoke",
-        ComponentStateMachines.signalParams(s, smi.symbol),
+        ComponentExternalStateMachines.signalParams(s, smi.symbol),
         CppDoc.Type("void"),
         Line.blank :: intersperseBlankLines(
           List(serializeCode, sendLogicCode)
@@ -195,7 +195,7 @@ case class ComponentStateMachines(
     addAccessTagAndComment(
       "PROTECTED",
       "State machine function to push signals to the input queue",
-      guardedList (hasStateMachineInstances) (members)
+      guardedList (hasExternalStateMachineInstances) (members)
     )
   }
 
@@ -227,7 +227,7 @@ case class ComponentStateMachines(
 
 }
 
-object ComponentStateMachines {
+object ComponentExternalStateMachines {
 
   def signalParams(s: CppWriterState, sym: Symbol.StateMachine) = {
     val smName = s.writeSymbol(sym)
