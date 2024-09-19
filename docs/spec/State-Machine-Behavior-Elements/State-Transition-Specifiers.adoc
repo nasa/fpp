@@ -38,26 +38,33 @@ transition*, i.e., an optional list of actions and a target state or junction.
 . The second form of the _transition-or-do_ syntax specifies an
 *internal transition*, i.e., a list of actions to take while remaining
 in the same state.
-When making an internal transition, the exit and entry code is not run.
 The do expression must be valid.
 
-. In any of the following cases of an external transition to a state target,
-the transition is called a *self transition*:
+. Let _S_ be the enclosing state of a state transition specifier _T_.
 
-..  The target is the same as the enclosing state.
+.. If _S_ is a leaf state, then _T_ specifies an external or internal
+transition with source _S_.
 
-.. The target is a transitive substate of the enclosing state.
+.. Otherwise _T_ specifies one external or internal transition with source _S~i~_ 
+for each leaf state _S~i~_ that is transitively contained _S_.
 
-.. The enclosing state is a transitive substate of the target.
+. An external transition whose source is a leaf state _S_ is called a
+*self transition* if the target is a state _S'_, and one of the following is true:
+
+..  _S = S'_; or
+
+.. _S_ is a transitive substate of _S'_.
 
 +
 Each self transition has an associated *outer state*.
-In case 1, the outer state is the target state, which is also
-the enclosing state.
-In case 2, the outer state is the enclosing state.
-In case 3, the outer state is the target state.
-When making a self transition, the state machine runs the code associated with
-exiting and then reentering the outer state.
+In case (a), the outer state is the source state, which is also the
+target state.
+In case (b), the outer state is the target state.
+When a self transition occurs the state machine runs the exit actions
+for the outer state just before running the actions (if any)
+specified in the transition; and it runs the entry actions for the
+outer state just after running the actions (if any) specified
+in the transition.
 
 ==== Examples
 

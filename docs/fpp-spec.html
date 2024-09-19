@@ -4516,33 +4516,46 @@ transition</strong>, i.e., an optional list of actions and a target state or jun
 <p>The second form of the <em>transition-or-do</em> syntax specifies an
 <strong>internal transition</strong>, i.e., a list of actions to take while remaining
 in the same state.
-When making an internal transition, the exit and entry code is not run.
 The do expression must be valid.</p>
 </li>
 <li>
-<p>In any of the following cases of an external transition to a state target,
-the transition is called a <strong>self transition</strong>:</p>
+<p>Let <em>S</em> be the enclosing state of a state transition specifier <em>T</em>.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>The target is the same as the enclosing state.</p>
+<p>If <em>S</em> is a leaf state, then <em>T</em> specifies an external or internal
+transition with source <em>S</em>.</p>
 </li>
 <li>
-<p>The target is a transitive substate of the enclosing state.</p>
+<p>Otherwise <em>T</em> specifies one external or internal transition with source <em>S<sub>i</sub></em>
+for each leaf state <em>S<sub>i</sub></em> that is transitively contained <em>S</em>.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>The enclosing state is a transitive substate of the target.</p>
+<p>An external transition whose source is a leaf state <em>S</em> is called a
+<strong>self transition</strong> if the target is a state <em>S'</em>, and one of the following is true:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>S = S'</em>; or</p>
+</li>
+<li>
+<p><em>S</em> is a transitive substate of <em>S'</em>.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p>Each self transition has an associated <strong>outer state</strong>.
-In case 1, the outer state is the target state, which is also
-the enclosing state.
-In case 2, the outer state is the enclosing state.
-In case 3, the outer state is the target state.
-When making a self transition, the state machine runs the code associated with
-exiting and then reentering the outer state.</p>
+In case (a), the outer state is the source state, which is also the
+target state.
+In case (b), the outer state is the target state.
+When a self transition occurs the state machine runs the exit actions
+for the outer state just before running the actions (if any)
+specified in the transition; and it runs the entry actions for the
+outer state just after running the actions (if any) specified
+in the transition.</p>
 </div>
 </li>
 </ol>
@@ -10198,7 +10211,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-16 13:57:27 -0700
+Last updated 2024-09-18 20:41:26 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
