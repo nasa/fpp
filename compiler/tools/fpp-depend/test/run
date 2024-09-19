@@ -48,7 +48,7 @@ direct()
 filenames()
 {
   run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
-    filenames
+    ../../filenames/ok.fpp filenames
   compare filenames_generated_output && \
   compare filenames_ut_output
 }
@@ -56,7 +56,7 @@ filenames()
 filenames_auto()
 {
   run_test '-a -g filenames_auto_generated_output.out.txt -u filenames_auto_ut_output.out.txt' \
-    filenames
+    ../../filenames/ok.fpp filenames
   compare filenames_auto_generated_output && \
   compare filenames_auto_ut_output
 }
