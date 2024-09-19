@@ -56,14 +56,10 @@ for each leaf state _S~i~_ that is transitively contained _S_.
 .. _S_ is a transitive substate of _S'_.
 
 +
-Each self transition has an associated *outer state*.
-In case (a), the outer state is the source state, which is also the
-target state.
-In case (b), the outer state is the target state.
-When a self transition occurs the state machine runs the exit actions
-for the outer state just before running the actions (if any)
+When a self transition occurs, the state machine runs the exit actions
+for the target state just before running the actions (if any)
 specified in the transition; and it runs the entry actions for the
-outer state just after running the actions (if any) specified
+target state just after running the actions (if any) specified
 in the transition.
 
 ==== Examples
