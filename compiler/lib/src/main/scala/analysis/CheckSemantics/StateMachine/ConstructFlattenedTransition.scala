@@ -34,7 +34,10 @@ case class ConstructFlattenedTransition(
       adjustedReversedPrefix.reverse
     }
     val exitStates = removePrefix(prefix, sourceStates).reverse
-    val entryStates = removePrefix(prefix, targetStates)
+    val entryStates = removePrefix(prefix, targetStates).reverse match {
+      case _ :: tail => tail.reverse
+      case Nil => Nil
+    }
     val actions = List.concat(
       exitStates.flatMap(getExitActions),
       transition.actions,
