@@ -108,7 +108,7 @@ object PatternResolver {
   ) = {
     val from = Connection.Endpoint(loc, fromPii)
     val to = Connection.Endpoint(loc, toPii)
-    Connection(false, from, to)
+    Connection(from, to)
   }
 
   private def missingPort[T](

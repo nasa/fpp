@@ -5,11 +5,11 @@ import fpp.compiler.util._
 
 /** An FPP connection */
 case class Connection(
-  isUnmatched: Boolean,
   /** The from endpoint */
   from: Connection.Endpoint,
   /** The to endpoint */
-  to: Connection.Endpoint
+  to: Connection.Endpoint,
+  isUnmatched: Boolean = false
 ) extends Ordered[Connection] {
 
   override def toString = s"${from.toString} -> ${to.toString}"
@@ -104,7 +104,7 @@ case class Connection(
     }
   }
 
-  def checkMatchConstraint: Boolean = {
+  def isMatchConstrained: Boolean = {
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
 
@@ -154,16 +154,14 @@ object Connection {
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
-        connection <- Right(Connection(connection.isUnmatched, from, to))
+        connection <- Right(Connection(from, to, connection.isUnmatched))
         _ <- connection.checkDirections
         _ <- connection.checkTypes
         _ <- connection.checkSerialWithTypedInput
-        _ <- {
-          if !connection.checkMatchConstraint & connection.isUnmatched then
-            Left(SemanticError.MissingPortMatching(connection.getLoc))
-          else 
-            Right(())
-        }           
+        _ <- 
+          if !connection.isMatchConstrained && connection.isUnmatched 
+          then Left(SemanticError.MissingPortMatching(connection.getLoc))
+          else Right(())
       }
       yield connection
 

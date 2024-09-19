@@ -137,7 +137,11 @@ module DefinitionsAndSpecifiers {
     @< Private instance specifier
 
     @ Direct connection graph specifier
-    connections C { i1.p[0] -> i2.p[1] }
+    connections C { 
+      i1.p[0] -> i2.p[1]
+      unmatched i1.p1[0] -> i2.p2[0]
+      unmatched i1.p1 -> i2.p2
+    }
     @< Direct connection graph specifier
 
     @ Graph pattern specifier
