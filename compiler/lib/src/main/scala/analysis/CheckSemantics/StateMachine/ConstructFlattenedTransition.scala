@@ -27,7 +27,6 @@ case class ConstructFlattenedTransition(
         getReversedPrefix(sourceStates, targetStates)
       val adjustedReversedPrefix = adjustForSelfTransition(
         source,
-        sourceStates,
         target,
         targetStates,
         reversedPrefix
@@ -72,7 +71,6 @@ case class ConstructFlattenedTransition(
   // to account for a self transition
   private def adjustForSelfTransition(
     source: StateOrJunction,
-    sourceStates: List[StateMachineSymbol.State],
     target: StateOrJunction,
     targetStates: List[StateMachineSymbol.State],
     reversedPrefix: List[StateMachineSymbol.State]
@@ -84,7 +82,7 @@ case class ConstructFlattenedTransition(
         StateOrJunction.State(_),
         head :: tail
       ) =>
-        if ((prefix == sourceStates) || (prefix == targetStates))
+        if prefix == targetStates
         then tail
         else reversedPrefix
       case _ => reversedPrefix
