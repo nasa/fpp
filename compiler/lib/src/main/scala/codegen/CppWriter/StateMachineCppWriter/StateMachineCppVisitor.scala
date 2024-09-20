@@ -9,35 +9,35 @@ abstract class StateMachineCppVisitor(
   aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
 ) extends StateMachineCppWriterUtils(s, aNode), AstVisitor {
 
-  type In = List[Line]
+  type In = List[CppDoc.Class.Member]
 
-  type Out = List[Line]
+  type Out = List[CppDoc.Class.Member]
 
   def defStateAnnotatedNodeInner(
-    lines: List[Line],
+    mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]],
     substates: List[Ast.Annotated[AstNode[Ast.DefState]]]
-  ) = aNode._2.data.members.foldLeft (lines) (matchStateMember)
+  ) = aNode._2.data.members.foldLeft (mm) (matchStateMember)
 
   def defStateAnnotatedNodeLeaf(
-    lines: List[Line],
+    mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
-  ) = default(lines)
+  ) = default(mm)
 
-  override def default(lines: List[Line]) = lines
+  override def default(mm: List[CppDoc.Class.Member]) = mm
 
   override def defStateMachineAnnotatedNodeInternal(
-    lines: List[Line],
+    mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
     members: List[Ast.StateMachineMember]
-  ) = members.foldLeft (lines) (matchStateMachineMember)
+  ) = members.foldLeft (mm) (matchStateMachineMember)
 
   override def defStateAnnotatedNode(
-    lines: List[Line],
+    mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = StateMachine.getSubstates(aNode._2.data) match {
-    case Nil => defStateAnnotatedNodeLeaf(lines, aNode)
-    case substates => defStateAnnotatedNodeInner(lines, aNode, substates)
+    case Nil => defStateAnnotatedNodeLeaf(mm, aNode)
+    case substates => defStateAnnotatedNodeInner(mm, aNode, substates)
   }
 
 }

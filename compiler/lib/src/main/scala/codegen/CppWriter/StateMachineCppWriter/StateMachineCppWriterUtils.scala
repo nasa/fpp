@@ -36,16 +36,16 @@ abstract class StateMachineCppWriterUtils(
 
   val leafStates = StateMachine.getLeafStates(symbol)
 
+  def writeSmSymbolName(state: StateMachineSymbol) =
+    CppWriterState.identFromQualifiedSmSymbolName(stateMachine.sma, state)
+
   val commentedLeafStateNames =
     leafStates.toList.map(
       state => {
         val comment = AnnotationCppWriter.asStringOpt(state).map(lines).
           getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _)
-        val ident = CppWriterState.identFromQualifiedSmSymbolName(
-          stateMachine.sma,
-          StateMachineSymbol.State(state)
-        )
-        (comment, ident)
+        val name = writeSmSymbolName(StateMachineSymbol.State(state))
+        (comment, name)
       }
     ).sortBy(_._2)
 
@@ -53,6 +53,10 @@ abstract class StateMachineCppWriterUtils(
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
 
   val actionParamName = "__fprime_ac_param"
+
+  def getEnterFunctionName(soj: StateOrJunction) =
+    s"enter_${writeSmSymbolName(soj.getSymbol)}"
+
 
 
 }

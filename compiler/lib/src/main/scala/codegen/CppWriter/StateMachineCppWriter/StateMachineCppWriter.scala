@@ -158,7 +158,7 @@ case class StateMachineCppWriter(
     addAccessTagAndComment(
       "PRIVATE",
       "State and junction entry",
-      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
+      StateMachineEntryFns(s, aNode).write
     )
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
