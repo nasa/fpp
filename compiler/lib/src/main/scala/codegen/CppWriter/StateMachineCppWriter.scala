@@ -132,16 +132,14 @@ case class StateMachineCppWriter(
     addAccessTagAndComment(
       "PROTECTED",
       "Constructors and Destructors",
-      List(linesClassMember(lines("\n// TODO"))),
-      CppDoc.Lines.Hpp
+      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
 
   private def getInitMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
       "Initialization",
-      List(linesClassMember(lines("\n// TODO"))),
-      CppDoc.Lines.Hpp
+      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
 
   private def getActionMembers: List[CppDoc.Class.Member] =
@@ -156,8 +154,7 @@ case class StateMachineCppWriter(
     addAccessTagAndComment(
       "PRIVATE",
       "State and junction entry",
-      List(linesClassMember(lines("\n// TODO"))),
-      CppDoc.Lines.Hpp
+      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
