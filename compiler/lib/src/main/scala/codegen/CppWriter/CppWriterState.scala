@@ -203,4 +203,11 @@ object CppWriterState {
     "FwTlmPacketizeIdType" -> zero,
   )
 
+  /** Constructs a C++ identifier from a qualified state machine symbol name */
+  def identFromQualifiedSmSymbolName(
+    sma: StateMachineAnalysis,
+    s: StateMachineSymbol
+  ): String =
+    CppWriter.identFromQualifiedName(sma.getQualifiedName(s))
+
 }

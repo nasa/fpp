@@ -5,6 +5,26 @@ import fpp.compiler.analysis._
 /** Utilities for writing C++ */
 trait CppWriterUtils extends LineUtils {
 
+  /** Standard system hpp headers */
+  val standardSystemHppHeaders = List(
+    "FpConfig.hpp"
+  ).map(CppWriter.systemHeaderString)
+
+  /** Standard user hpp headers */
+  val standardUserHppHeaders = List(
+    "Fw/Types/ExternalString.hpp",
+    "Fw/Types/Serializable.hpp",
+    "Fw/Types/String.hpp"
+  ).map(CppWriter.headerString)
+
+  /** Standard system cpp headers */
+  val standardSystemCppHeaders = Nil
+
+  /** Standard user cpp headers */
+  val standardUserCppHeaders = List(
+    "Fw/Types/Assert.hpp"
+  ).map(CppWriter.headerString)
+
   /** Guards a value with a Boolean condition */
   def guardedValue[T] (default: T) (cond: Boolean) (value: => T) =
     if cond then value else default
@@ -80,6 +100,18 @@ trait CppWriterUtils extends LineUtils {
 
   def wrapInEnum(ll: List[Line]): List[Line] =
     wrapInScope("enum {", ll, "};")
+
+  def wrapInEnumClass(
+    name: String,
+    ll: List[Line],
+    tyOpt: Option[String]
+  ): List[Line] = {
+    val prefix = tyOpt match {
+      case Some(ty) => s"enum class $name : $ty {"
+      case None => s"enum class $name {"
+    }
+    wrapInScope(prefix, ll, "};")
+  }
 
   def wrapInSwitch(condition: String, body: List[Line]) =
     wrapInScope(s"switch ($condition) {", body, "}")

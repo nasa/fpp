@@ -15,6 +15,8 @@ case class StateMachineCppWriter(
 
   private val symbol = Symbol.StateMachine(aNode)
 
+  private val stateMachine: StateMachine = s.a.stateMachineMap(symbol)
+
   private val name = s.getName(symbol)
 
   private val className = s"${name}StateMachineBase"
@@ -29,6 +31,22 @@ case class StateMachineCppWriter(
   private val typeCppWriter = TypeCppWriter(s)
 
   private val astMembers = data.members.get
+
+  private val uninitStateName = "__FPRIME_AC_UNINITALIZED"
+
+  private val leafStates = StateMachine.getLeafStates(symbol)
+
+  private val commentedLeafStateNames =
+    leafStates.toList.map(
+      state => {
+        val commentOpt = AnnotationCppWriter.asStringOpt(state)
+        val ident = CppWriterState.identFromQualifiedSmSymbolName(
+          stateMachine.sma,
+          StateMachineSymbol.State(state)
+        )
+        (commentOpt, ident)
+      }
+    ).sortBy(_._2)
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -53,32 +71,102 @@ case class StateMachineCppWriter(
     hppIncludes :: cppIncludes :: wrapInNamespaces(namespaceIdentList, List(cls))
   }
 
-  private def writeIncludeDirectives = {
-    val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
-    s.writeIncludeDirectives(a.usedSymbolSet)
-  }
-
   private def getHppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "FpConfig.hpp",
-      "Fw/Types/ExternalString.hpp",
-      "Fw/Types/Serializable.hpp",
-      "Fw/Types/String.hpp"
-    ).map(CppWriter.headerString)
-    val symbolHeaders = writeIncludeDirectives
-    val headers = userHeaders ++ symbolHeaders
-    linesMember(addBlankPrefix(headers.sorted.map(line)))
+    val symbolHeaders = {
+      val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
+      s.writeIncludeDirectives(a.usedSymbolSet)
+    }
+    val userHeaders = List.concat(
+      standardUserHppHeaders,
+      symbolHeaders
+    ).sorted
+    val headerLines = List.concat(
+      addBlankPrefix(standardSystemHppHeaders.map(line)),
+      addBlankPrefix(userHeaders.map(line))
+    )
+    linesMember(headerLines)
   }
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "Fw/Types/Assert.hpp",
-      s"${s.getRelativePath(fileName).toString}.hpp",
-    ).sorted.map(CppWriter.headerString).map(line)
-    linesMember(Line.blank :: userHeaders, CppDoc.Lines.Cpp)
+    val userHeaders = List.concat(
+      standardUserCppHeaders,
+      List(s"${s.getRelativePath(fileName)}.hpp").map(CppWriter.headerString)
+    ).sorted
+    val headerLines = List.concat(
+      addBlankPrefix(standardSystemCppHeaders.map(line)),
+      addBlankPrefix(userHeaders.map(line))
+    )
+    linesMember(headerLines, CppDoc.Lines.Cpp)
   }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
-    Nil
+    List.concat(
+      getTypeMembers,
+      getConstructorDestructorMembers,
+      getInitMembers,
+      getActionMembers,
+      getEntryMembers,
+      getVariableMembers
+    )
+
+  private def getTypeMembers: List[CppDoc.Class.Member] = {
+    val pairs = (Some("//! The uninitialized state"), uninitStateName) ::
+      commentedLeafStateNames
+    val enumLines = pairs.flatMap {
+      case (commentOpt, name) => List.concat(
+        commentOpt.map(lines).getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _),
+        lines(name)
+      )
+    }
+    val stateEnumClass =
+      line("//! The state type") ::
+        wrapInEnumClass("State", enumLines, Some("FwEnumStoreType"))
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Types",
+      List(linesClassMember(stateEnumClass)),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  private def getConstructorDestructorMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Constructors and Destructors",
+      List(linesClassMember(lines("\n// TODO"))),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getInitMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Initialization",
+      List(linesClassMember(lines("\n// TODO"))),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getActionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Actions",
+      List(linesClassMember(lines("\n// TODO"))),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getEntryMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "State and junction entry",
+      List(linesClassMember(lines("\n// TODO"))),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getVariableMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Member variables",
+      List(linesClassMember(lines("\n// TODO"))),
+      CppDoc.Lines.Hpp
+    )
 
 }

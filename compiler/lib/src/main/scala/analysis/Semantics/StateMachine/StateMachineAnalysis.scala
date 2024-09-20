@@ -93,6 +93,14 @@ case class StateMachineAnalysis(
       )
     )
 
+  // Get a state symbol from an identifier node
+  def getStateSymbol(state: AstNode[Ast.QualIdent]):
+  StateMachineSymbol.State = {
+    val sym = useDefMap(state.id)
+    val stateSym @ StateMachineSymbol.State(_) = sym
+    stateSym
+  }
+
   // Get an action symbol from an identifier node
   def getActionSymbol(action: AstNode[Ast.Ident]):
   StateMachineSymbol.Action = {
