@@ -3,56 +3,11 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 
-/** Writes out C++ for struct definitions */
+/** Writes out C++ for state machine definitions */
 case class StateMachineCppWriter(
   s: CppWriterState,
   aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
-) extends CppWriterUtils {
-
-  private val node = aNode._2
-
-  private val data = node.data
-
-  private val symbol = Symbol.StateMachine(aNode)
-
-  private val stateMachine: StateMachine = s.a.stateMachineMap(symbol)
-
-  private val name = s.getName(symbol)
-
-  private val className = s"${name}StateMachineBase"
-
-  private val fileName = ComputeCppFiles.FileNames.getStateMachine(
-    name,
-    StateMachine.Kind.Internal
-  )
-
-  private val namespaceIdentList = s.getNamespaceIdentList(symbol)
-
-  private val typeCppWriter = TypeCppWriter(s)
-
-  private val astMembers = data.members.get
-
-  private val uninitStateName = "__FPRIME_AC_UNINITIALIZED"
-
-  private val leafStates = StateMachine.getLeafStates(symbol)
-
-  private val commentedLeafStateNames =
-    leafStates.toList.map(
-      state => {
-        val comment = AnnotationCppWriter.asStringOpt(state).map(lines).
-          getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _)
-        val ident = CppWriterState.identFromQualifiedSmSymbolName(
-          stateMachine.sma,
-          StateMachineSymbol.State(state)
-        )
-        (comment, ident)
-      }
-    ).sortBy(_._2)
-
-  private val actionSymbols =
-    StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
-
-  private val actionParamName = "__fprime_ac_param"
+) extends StateMachineCppWriterUtils(s, aNode) {
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
