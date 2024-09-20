@@ -19,6 +19,14 @@ object StateMachine {
     case object Internal extends Kind
   }
 
+  def getActions(stateMachine: Ast.DefStateMachine):
+  List[Ast.Annotated[AstNode[Ast.DefAction]]] =
+    stateMachine.members.getOrElse(Nil).collect {
+      case Ast.StateMachineMember(
+        (pre, Ast.StateMachineMember.DefAction(node), post)
+      ) => (pre, node, post)
+    }
+
   def getSubstates(state: Ast.DefState): List[Ast.Annotated[AstNode[Ast.DefState]]] =
     state.members.collect {
       case Ast.StateMember((pre, Ast.StateMember.DefState(node), post)) => (pre, node, post)

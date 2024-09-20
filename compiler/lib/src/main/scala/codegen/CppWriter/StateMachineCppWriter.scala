@@ -32,7 +32,7 @@ case class StateMachineCppWriter(
 
   private val astMembers = data.members.get
 
-  private val uninitStateName = "__FPRIME_AC_UNINITALIZED"
+  private val uninitStateName = "__FPRIME_AC_UNINITIALIZED"
 
   private val leafStates = StateMachine.getLeafStates(symbol)
 
@@ -48,6 +48,11 @@ case class StateMachineCppWriter(
         (comment, ident)
       }
     ).sortBy(_._2)
+
+  private val actionSymbols =
+    StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
+
+  private val actionParamName = "__fprime_ac_param"
 
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
@@ -132,7 +137,19 @@ case class StateMachineCppWriter(
     addAccessTagAndComment(
       "PROTECTED",
       "Constructors and Destructors",
-      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
+      List(
+        constructorClassMember(
+          Some("Constructor"),
+          Nil,
+          Nil,
+          Nil
+        ),
+        destructorClassMember(
+          Some("Destructor"),
+          Nil,
+          CppDoc.Class.Destructor.Virtual
+        )
+      )
     )
 
   private def getInitMembers: List[CppDoc.Class.Member] =
@@ -142,11 +159,43 @@ case class StateMachineCppWriter(
       List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
 
+  private def getActionFnName(sym: StateMachineSymbol.Action): String =
+    s"action_${sym.getUnqualifiedName}"
+
+  private def getActionFnParams(sym: StateMachineSymbol.Action):
+  List[CppDoc.Function.Param] = sym.node._2.data.typeName match {
+    case Some(node) =>
+      val paramCppType = {
+        val paramType = s.a.typeMap(node.id)
+        typeCppWriter.write(paramType)
+      }
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(paramCppType),
+          actionParamName,
+          Some("The action parameter")
+        )
+      )
+    case None => Nil
+  }
+
+  private def getActionMember(sym: StateMachineSymbol.Action):
+  CppDoc.Class.Member.Function = {
+    functionClassMember(
+      Some(s"Action ${sym.getUnqualifiedName}"),
+      getActionFnName(sym),
+      getActionFnParams(sym),
+      CppDoc.Type("void"),
+      Nil,
+      CppDoc.Function.PureVirtual
+    )
+  }
+
   private def getActionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "Actions",
-      List(linesClassMember(lines("\n// TODO"))),
+      actionSymbols.map(getActionMember),
       CppDoc.Lines.Hpp
     )
 
@@ -161,7 +210,19 @@ case class StateMachineCppWriter(
     addAccessTagAndComment(
       "PROTECTED",
       "Member variables",
-      List(linesClassMember(lines("\n// TODO"))),
+      List(
+        linesClassMember(
+          Line.blank ::
+          lines(
+            s"""|//! The state machine ID
+                |FwEnumStoreType m_id = 0;
+                |
+                |//! The state
+                |State m_state = State::$uninitStateName;"""
+
+          )
+        )
+      ),
       CppDoc.Lines.Hpp
     )
 
