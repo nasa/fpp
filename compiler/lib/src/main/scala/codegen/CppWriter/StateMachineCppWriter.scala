@@ -39,12 +39,13 @@ case class StateMachineCppWriter(
   private val commentedLeafStateNames =
     leafStates.toList.map(
       state => {
-        val commentOpt = AnnotationCppWriter.asStringOpt(state)
+        val comment = AnnotationCppWriter.asStringOpt(state).map(lines).
+          getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _)
         val ident = CppWriterState.identFromQualifiedSmSymbolName(
           stateMachine.sma,
           StateMachineSymbol.State(state)
         )
-        (commentOpt, ident)
+        (comment, ident)
       }
     ).sortBy(_._2)
 
@@ -110,21 +111,19 @@ case class StateMachineCppWriter(
     )
 
   private def getTypeMembers: List[CppDoc.Class.Member] = {
-    val pairs = (Some("//! The uninitialized state"), uninitStateName) ::
+    val pairs = (lines("//! The uninitialized state"), uninitStateName) ::
       commentedLeafStateNames
     val enumLines = pairs.flatMap {
-      case (commentOpt, name) => List.concat(
-        commentOpt.map(lines).getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _),
-        lines(name)
-      )
+      case (comment, name) => List.concat(comment, lines(s"$name,"))
     }
-    val stateEnumClass =
-      line("//! The state type") ::
-        wrapInEnumClass("State", enumLines, Some("FwEnumStoreType"))
+    val memberLines = List.concat(
+      CppDocWriter.writeDoxygenComment("//! The state type"),
+      wrapInEnumClass("State", enumLines, Some("FwEnumStoreType"))
+    )
     addAccessTagAndComment(
       "PROTECTED",
       "Types",
-      List(linesClassMember(stateEnumClass)),
+      List(linesClassMember(memberLines)),
       CppDoc.Lines.Hpp
     )
   }
