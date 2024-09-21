@@ -114,9 +114,6 @@ case class StateMachineCppWriter(
       List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
 
-  private def getActionFnName(sym: StateMachineSymbol.Action): String =
-    s"action_${sym.getUnqualifiedName}"
-
   private def getActionFnParams(sym: StateMachineSymbol.Action):
   List[CppDoc.Function.Param] = sym.node._2.data.typeName match {
     case Some(node) =>

@@ -35,7 +35,7 @@ abstract class StateMachineCppVisitor(
   override def defStateAnnotatedNode(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
-  ) = StateMachine.getSubstates(aNode._2.data) match {
+  ) = State.getSubstates(aNode._2.data) match {
     case Nil => defStateAnnotatedNodeLeaf(mm, aNode)
     case substates => defStateAnnotatedNodeInner(mm, aNode, substates)
   }

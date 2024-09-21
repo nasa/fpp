@@ -27,11 +27,6 @@ object StateMachine {
       ) => (pre, node, post)
     }
 
-  def getSubstates(state: Ast.DefState): List[Ast.Annotated[AstNode[Ast.DefState]]] =
-    state.members.collect {
-      case Ast.StateMember((pre, Ast.StateMember.DefState(node), post)) => (pre, node, post)
-    }
-
   def getLeafStates(sym: Symbol.StateMachine): Set[Ast.Annotated[AstNode[Ast.DefState]]] =
     LeafStateVisitor.defStateMachineAnnotatedNode(Set(), sym.node)
 
@@ -54,7 +49,7 @@ object StateMachine {
       aNode: Ast.Annotated[AstNode[Ast.DefState]]
     ): States = {
       val data = aNode._2.data
-      getSubstates(data) match {
+      State.getSubstates(data) match {
         case Nil => states + aNode
         case _ => data.members.foldLeft (states) (matchStateMember)
       }

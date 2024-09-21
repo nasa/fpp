@@ -17,6 +17,8 @@ abstract class StateMachineCppWriterUtils(
 
   val stateMachine: StateMachine = s.a.stateMachineMap(symbol)
 
+  val sma = stateMachine.sma
+
   val name = s.getName(symbol)
 
   val className = s"${name}StateMachineBase"
@@ -54,9 +56,26 @@ abstract class StateMachineCppWriterUtils(
 
   val actionParamName = "__fprime_ac_param"
 
+  def getActionFnName(sym: StateMachineSymbol.Action): String =
+    s"action_${sym.getUnqualifiedName}"
+
+  def writeActionCall (paramNameOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
+    val paramString = (paramNameOpt, sym.node._2.data.typeName) match {
+      case (Some(paramName), Some(_)) => paramName
+      case _ => ""
+    }
+    val actionFnName = getActionFnName(sym)
+    lines(s"this->$actionFnName($paramString);")
+  }
+
+  val writeNoArgActionCall = writeActionCall ((None))
+
   def getEnterFunctionName(soj: StateOrJunction) =
     s"enter_${writeSmSymbolName(soj.getSymbol)}"
 
-
+  def writeStateUpdate(sym: StateMachineSymbol.State) = {
+    val stateName = writeSmSymbolName(sym)
+    lines(s"this->m_state = State::$stateName;")
+  }
 
 }
