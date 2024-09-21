@@ -19,6 +19,27 @@ object StateMachine {
     case object Internal extends Kind
   }
 
+  def getSymbolKind(sym: Symbol.StateMachine): Kind =
+    sym.node._2.data.members match {
+      case None => Kind.External
+      case _ => Kind.Internal
+    }
+
+  def getInitialSpecifier(sm: Ast.DefStateMachine):
+  Ast.Annotated[AstNode[Ast.SpecInitialTransition]] = {
+    val specifiers = sm.members.getOrElse(Nil).collect {
+      case Ast.StateMachineMember(
+        (pre, Ast.StateMachineMember.SpecInitialTransition(node), post)
+      ) => (pre, node, post)
+    } 
+    specifiers match {
+      case head :: Nil => head
+      case _ => throw new InternalError(
+        "state machine must have exactly one initial transition specifier"
+      )
+    }
+  }
+
   def getActions(stateMachine: Ast.DefStateMachine):
   List[Ast.Annotated[AstNode[Ast.DefAction]]] =
     stateMachine.members.getOrElse(Nil).collect {
@@ -56,11 +77,5 @@ object StateMachine {
     }
 
   }
-
-  def getSymbolKind(sym: Symbol.StateMachine): Kind =
-    sym.node._2.data.members match {
-      case None => Kind.External
-      case _ => Kind.Internal
-    }
 
 }

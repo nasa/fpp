@@ -39,7 +39,7 @@ abstract class StateMachineCppWriterUtils(
   val leafStates = StateMachine.getLeafStates(symbol)
 
   def writeSmSymbolName(state: StateMachineSymbol) =
-    CppWriterState.identFromQualifiedSmSymbolName(stateMachine.sma, state)
+    CppWriterState.identFromQualifiedSmSymbolName(sma, state)
 
   val commentedLeafStateNames =
     leafStates.toList.map(
