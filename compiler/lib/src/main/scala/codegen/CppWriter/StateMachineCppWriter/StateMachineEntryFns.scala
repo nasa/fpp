@@ -34,10 +34,10 @@ case class StateMachineEntryFns(
     functionClassMember(
       Some(s"Enter state $stateName"),
       getEnterFunctionName(soj),
-      Nil,
+      List(signalParam),
       CppDoc.Type("void"),
       List.concat(
-        entryActionSymbols.flatMap(writeNoArgActionCall),
+        entryActionSymbols.flatMap(writeNoValueActionCall(signalParamName)),
         writeStateUpdate(stateSym)
       )
     ) :: mm

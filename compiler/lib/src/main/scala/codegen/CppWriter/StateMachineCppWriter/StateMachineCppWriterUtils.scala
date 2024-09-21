@@ -9,10 +9,6 @@ abstract class StateMachineCppWriterUtils(
   aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
 ) extends CppWriterUtils {
 
-  val node = aNode._2
-
-  val data = node.data
-
   val symbol = Symbol.StateMachine(aNode)
 
   val stateMachine: StateMachine = s.a.stateMachineMap(symbol)
@@ -32,9 +28,9 @@ abstract class StateMachineCppWriterUtils(
 
   val typeCppWriter = TypeCppWriter(s)
 
-  val astMembers = data.members.get
-
   val uninitStateName = "__FPRIME_AC_UNINITIALIZED"
+
+  val initialTransitionName = "__FPRIME_AC_INITIAL_TRANSITION"
 
   val leafStates = StateMachine.getLeafStates(symbol)
 
@@ -43,32 +39,49 @@ abstract class StateMachineCppWriterUtils(
 
   val commentedLeafStateNames =
     leafStates.toList.map(
-      state => {
-        val comment = AnnotationCppWriter.asStringOpt(state).map(lines).
-          getOrElse(Nil).map(CppDocWriter.addCommentPrefix ("//!") _)
-        val name = writeSmSymbolName(StateMachineSymbol.State(state))
-        (comment, name)
-      }
+      state => (
+        AnnotationCppWriter.writePreComment(state),
+        writeSmSymbolName(StateMachineSymbol.State(state))
+      )
     ).sortBy(_._2)
 
   val actionSymbols =
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
 
-  val actionParamName = "__fprime_ac_param"
+  val valueParamName = "value"
 
   def getActionFnName(sym: StateMachineSymbol.Action): String =
     s"action_${sym.getUnqualifiedName}"
 
-  def writeActionCall (paramNameOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
-    val paramString = (paramNameOpt, sym.node._2.data.typeName) match {
-      case (Some(paramName), Some(_)) => paramName
-      case _ => ""
+  val signalSymbols =
+    StateMachine.getSignals(aNode._2.data).map(StateMachineSymbol.Signal(_))
+
+  val signalParamName = "signal"
+
+  val signalParam = CppDoc.Function.Param(
+    CppDoc.Type("Signal"),
+    signalParamName,
+    Some("The signal")
+  )
+
+  val commentedSignalNames =
+    signalSymbols.map(
+      symbol => (
+        AnnotationCppWriter.writePreComment(symbol.node),
+        writeSmSymbolName(symbol)
+      )
+    ).sortBy(_._2)
+
+  def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
+    val args = (valueArgOpt, sym.node._2.data.typeName) match {
+      case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
+      case _ => signalArg
     }
     val actionFnName = getActionFnName(sym)
-    lines(s"this->$actionFnName($paramString);")
+    lines(s"this->$actionFnName($args);")
   }
 
-  val writeNoArgActionCall = writeActionCall ((None))
+  val writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
 
   def getEnterFunctionName(soj: StateOrJunction) =
     s"enter_${writeSmSymbolName(soj.getSymbol)}"

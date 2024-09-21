@@ -70,23 +70,43 @@ case class StateMachineCppWriter(
       getVariableMembers
     )
 
-  private def getTypeMembers: List[CppDoc.Class.Member] = {
-    val pairs = (lines("//! The uninitialized state"), uninitStateName) ::
-      commentedLeafStateNames
+  private def getEnumClassMember(
+    comment: String,
+    className: String,
+    pairs: List[(List[Line], String)]
+  ): CppDoc.Class.Member = {
     val enumLines = pairs.flatMap {
       case (comment, name) => List.concat(comment, lines(s"$name,"))
     }
     val memberLines = List.concat(
-      CppDocWriter.writeDoxygenComment("//! The state type"),
-      wrapInEnumClass("State", enumLines, Some("FwEnumStoreType"))
+      CppDocWriter.writeDoxygenComment(comment),
+      wrapInEnumClass(className, enumLines, Some("FwEnumStoreType"))
     )
+    linesClassMember(memberLines)
+  }
+
+  private def getStateEnumClassMember: CppDoc.Class.Member = {
+    val initialPair = (lines("//! The uninitialized state"), uninitStateName)
+    val pairs = initialPair :: commentedLeafStateNames
+    getEnumClassMember("The state type", "State", pairs)
+  }
+
+  private def getSignalEnumClassMember: CppDoc.Class.Member = {
+    val initialPair = (lines("//! The initial transition"), initialTransitionName)
+    val pairs = initialPair :: commentedSignalNames
+    getEnumClassMember("The signal type", "Signal", pairs)
+  }
+
+  private def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "Types",
-      List(linesClassMember(memberLines)),
+      List(
+        getStateEnumClassMember,
+        getSignalEnumClassMember
+      ),
       CppDoc.Lines.Hpp
     )
-  }
 
   private def getConstructorDestructorMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -107,28 +127,35 @@ case class StateMachineCppWriter(
       )
     )
 
-  private def getInitMembers: List[CppDoc.Class.Member] =
+  private def getInitMembers: List[CppDoc.Class.Member] = {
+    val initSpecifier = StateMachine.getInitialSpecifier(aNode._2.data)._2.data
+    val transition = initSpecifier.transition.data
+    val actionSymbols = transition.actions.map(sma.getActionSymbol)
     addAccessTagAndComment(
       "public",
       "Initialization",
       List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
     )
+  }
 
   private def getActionFnParams(sym: StateMachineSymbol.Action):
-  List[CppDoc.Function.Param] = sym.node._2.data.typeName match {
-    case Some(node) =>
-      val paramCppType = {
-        val paramType = s.a.typeMap(node.id)
-        typeCppWriter.write(paramType)
-      }
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type(paramCppType),
-          actionParamName,
-          Some("The action parameter")
+  List[CppDoc.Function.Param] = {
+    val valueParams = sym.node._2.data.typeName match {
+      case Some(node) =>
+        val paramCppType = {
+          val paramType = s.a.typeMap(node.id)
+          typeCppWriter.write(paramType)
+        }
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(paramCppType),
+            valueParamName,
+            Some("The value parameter")
+          )
         )
-      )
-    case None => Nil
+      case None => Nil
+    }
+    signalParam :: valueParams
   }
 
   private def getActionMember(sym: StateMachineSymbol.Action):

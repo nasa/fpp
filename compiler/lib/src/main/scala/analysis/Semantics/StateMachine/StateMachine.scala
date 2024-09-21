@@ -48,6 +48,14 @@ object StateMachine {
       ) => (pre, node, post)
     }
 
+  def getSignals(stateMachine: Ast.DefStateMachine):
+  List[Ast.Annotated[AstNode[Ast.DefSignal]]] =
+    stateMachine.members.getOrElse(Nil).collect {
+      case Ast.StateMachineMember(
+        (pre, Ast.StateMachineMember.DefSignal(node), post)
+      ) => (pre, node, post)
+    }
+
   def getLeafStates(sym: Symbol.StateMachine): Set[Ast.Annotated[AstNode[Ast.DefState]]] =
     LeafStateVisitor.defStateMachineAnnotatedNode(Set(), sym.node)
 
