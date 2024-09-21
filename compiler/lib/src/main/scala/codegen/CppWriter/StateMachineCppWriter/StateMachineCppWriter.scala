@@ -182,7 +182,7 @@ case class StateMachineCppWriter(
   private def getActionMember(sym: StateMachineSymbol.Action):
   CppDoc.Class.Member.Function = {
     functionClassMember(
-      Some(s"Action ${sym.getUnqualifiedName}"),
+      AnnotationCppWriter.asStringOpt(sym.node),
       getActionFunctionName(sym),
       getActionFunctionParams(sym),
       CppDoc.Type("void"),
