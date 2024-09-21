@@ -28,12 +28,11 @@ case class StateMachineEntryFns(
   ) = {
     val stateSym = StateMachineSymbol.State(aNode)
     val stateName = writeSmSymbolName(stateSym)
-    val soj = StateOrJunction.State(stateSym)
     val entryActionSymbols =
       State.getEntryActions(aNode._2.data).map(sma.getActionSymbol)
     functionClassMember(
       Some(s"Enter state $stateName"),
-      getEnterFunctionName(soj),
+      getEnterFunctionName(stateSym),
       List(signalParam),
       CppDoc.Type("void"),
       List.concat(

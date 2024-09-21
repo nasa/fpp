@@ -127,18 +127,39 @@ case class StateMachineCppWriter(
       )
     )
 
-  private def getInitMembers: List[CppDoc.Class.Member] = {
+  private def getInitMember: CppDoc.Class.Member = {
     val initSpecifier = StateMachine.getInitialSpecifier(aNode._2.data)._2.data
     val transition = initSpecifier.transition.data
     val actionSymbols = transition.actions.map(sma.getActionSymbol)
-    addAccessTagAndComment(
-      "public",
-      "Initialization",
-      List(linesClassMember(lines("\n// TODO"), CppDoc.Lines.Both))
+    val targetSymbol = sma.useDefMap(transition.target.id)
+    val signal = s"Signal::$initialTransitionName"
+    functionClassMember(
+      Some("Initialize the state machine"),
+      "init",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const FwEnumStoreType"),
+          "id",
+          Some("The state machine ID")
+        )
+      ),
+      CppDoc.Type("void"),
+      line("this->m_id = id;") :: List.concat(
+        actionSymbols.flatMap(writeNoValueActionCall (signal)),
+        writeEnterCall (signal) (targetSymbol)
+      )
     )
   }
 
-  private def getActionFnParams(sym: StateMachineSymbol.Action):
+  private def getInitMembers: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "public",
+      "Initialization",
+      List(getInitMember)
+    )
+  }
+
+  private def getActionFunctionParams(sym: StateMachineSymbol.Action):
   List[CppDoc.Function.Param] = {
     val valueParams = sym.node._2.data.typeName match {
       case Some(node) =>
@@ -162,8 +183,8 @@ case class StateMachineCppWriter(
   CppDoc.Class.Member.Function = {
     functionClassMember(
       Some(s"Action ${sym.getUnqualifiedName}"),
-      getActionFnName(sym),
-      getActionFnParams(sym),
+      getActionFunctionName(sym),
+      getActionFunctionParams(sym),
       CppDoc.Type("void"),
       Nil,
       CppDoc.Function.PureVirtual

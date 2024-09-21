@@ -50,7 +50,7 @@ abstract class StateMachineCppWriterUtils(
 
   val valueParamName = "value"
 
-  def getActionFnName(sym: StateMachineSymbol.Action): String =
+  def getActionFunctionName(sym: StateMachineSymbol.Action): String =
     s"action_${sym.getUnqualifiedName}"
 
   val signalSymbols =
@@ -77,18 +77,23 @@ abstract class StateMachineCppWriterUtils(
       case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
       case _ => signalArg
     }
-    val actionFnName = getActionFnName(sym)
-    lines(s"this->$actionFnName($args);")
+    val actionFunctionName = getActionFunctionName(sym)
+    lines(s"this->$actionFunctionName($args);")
   }
 
   val writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
 
-  def getEnterFunctionName(soj: StateOrJunction) =
-    s"enter_${writeSmSymbolName(soj.getSymbol)}"
+  def getEnterFunctionName(symbol: StateMachineSymbol) =
+    s"enter_${writeSmSymbolName(symbol)}"
 
   def writeStateUpdate(sym: StateMachineSymbol.State) = {
     val stateName = writeSmSymbolName(sym)
     lines(s"this->m_state = State::$stateName;")
+  }
+
+  def writeEnterCall (signalArg: String) (sym: StateMachineSymbol) = {
+    val enterFunctionName = getEnterFunctionName(sym)
+    lines(s"this->$enterFunctionName($signalArg);")
   }
 
 }
