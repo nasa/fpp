@@ -19,10 +19,11 @@ case class StateMachineEntryFns(
     val junctionName = writeSmSymbolName(junctionSym)
     val te = StateMachineTypedElement.Junction(aNode)
     val typeOpt = sma.typeOptionMap(te)
+    val valueArgOpt = typeOpt.map(_ => valueParamName)
     functionClassMember(
       Some(s"Enter junction $junctionName"),
       getEnterFunctionName(junctionSym),
-      writeParamsWithTypeOpt(typeOpt),
+      getParamsWithTypeOpt(typeOpt),
       CppDoc.Type("void"),
       Nil // TODO
     ) :: mm

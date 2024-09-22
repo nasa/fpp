@@ -37,10 +37,16 @@ abstract class StateMachineCppWriterUtils(
   val actionSymbols =
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
 
+  val guardSymbols =
+    StateMachine.getGuards(aNode._2.data).map(StateMachineSymbol.Guard(_))
+
   val valueParamName = "value"
 
   def getActionFunctionName(sym: StateMachineSymbol.Action): String =
     s"action_${sym.getUnqualifiedName}"
+
+  def getGuardFunctionName(sym: StateMachineSymbol.Guard): String =
+    s"guard_${sym.getUnqualifiedName}"
 
   val signalSymbols =
     StateMachine.getSignals(aNode._2.data).map(StateMachineSymbol.Signal(_))
@@ -99,11 +105,22 @@ abstract class StateMachineCppWriterUtils(
     lines(s"this->$functionName($args);")
   }
 
+  def writeGuardCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Guard) = {
+    val functionName = getGuardFunctionName(sym)
+    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    lines(s"this->$functionName($args);")
+  }
+
   def writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
 
   def writeNoValueEnterCall = (signalArg: String) => writeEnterCall (signalArg) (None)
 
-  def writeParamsWithTypeOpt(typeOpt: Option[Type]) = {
+  def writeNoValueGuardCall = (signalArg: String) => writeGuardCall (signalArg) (None)
+
+  def getParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
+    getParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
+
+  def getParamsWithTypeOpt(typeOpt: Option[Type]) = {
     val valueArgs = typeOpt match {
       case Some(t) =>
         List(
@@ -124,6 +141,14 @@ abstract class StateMachineCppWriterUtils(
   def writeStateUpdate(sym: StateMachineSymbol.State) = {
     val stateName = writeSmSymbolName(sym)
     lines(s"this->m_state = State::$stateName;")
+  }
+
+  def writeTransition(
+    transition: Transition,
+    valueArgOpt: Option[String]
+  ) = transition match {
+    case Transition.External(actions, target) => lines("// TODO")
+    case Transition.Internal(actions) => lines("// TODO")
   }
 
 }

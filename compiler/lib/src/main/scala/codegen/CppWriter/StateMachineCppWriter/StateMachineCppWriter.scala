@@ -66,6 +66,7 @@ case class StateMachineCppWriter(
       getConstructorDestructorMembers,
       getInitMembers,
       getActionMembers,
+      getGuardMembers,
       getEntryMembers,
       getVariableMembers
     )
@@ -160,24 +161,8 @@ case class StateMachineCppWriter(
   }
 
   private def getActionFunctionParams(sym: StateMachineSymbol.Action):
-  List[CppDoc.Function.Param] = {
-    val valueParams = sym.node._2.data.typeName match {
-      case Some(node) =>
-        val paramCppType = {
-          val paramType = s.a.typeMap(node.id)
-          typeCppWriter.write(paramType)
-        }
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(paramCppType),
-            valueParamName,
-            Some("The value parameter")
-          )
-        )
-      case None => Nil
-    }
-    signalParam :: valueParams
-  }
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
 
   private def getActionMember(sym: StateMachineSymbol.Action):
   CppDoc.Class.Member.Function = {
@@ -196,6 +181,30 @@ case class StateMachineCppWriter(
       "PROTECTED",
       "Actions",
       actionSymbols.map(getActionMember),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
+  private def getGuardMember(sym: StateMachineSymbol.Guard):
+  CppDoc.Class.Member.Function = {
+    functionClassMember(
+      AnnotationCppWriter.asStringOpt(sym.node),
+      getGuardFunctionName(sym),
+      getGuardFunctionParams(sym),
+      CppDoc.Type("void"),
+      Nil,
+      CppDoc.Function.PureVirtual
+    )
+  }
+
+  private def getGuardMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Guards",
+      guardSymbols.map(getGuardMember),
       CppDoc.Lines.Hpp
     )
 

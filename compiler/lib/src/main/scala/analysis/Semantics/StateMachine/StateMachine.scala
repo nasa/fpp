@@ -48,6 +48,14 @@ object StateMachine {
       ) => (pre, node, post)
     }
 
+  def getGuards(stateMachine: Ast.DefStateMachine):
+  List[Ast.Annotated[AstNode[Ast.DefGuard]]] =
+    stateMachine.members.getOrElse(Nil).collect {
+      case Ast.StateMachineMember(
+        (pre, Ast.StateMachineMember.DefGuard(node), post)
+      ) => (pre, node, post)
+    }
+
   def getSignals(stateMachine: Ast.DefStateMachine):
   List[Ast.Annotated[AstNode[Ast.DefSignal]]] =
     stateMachine.members.getOrElse(Nil).collect {
