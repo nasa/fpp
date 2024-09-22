@@ -72,13 +72,19 @@ abstract class StateMachineCppWriterUtils(
       )
     ).sortBy(_._2)
 
+  def writeParamsWithValueOpt[T](
+    signalArg: String,
+    valueArgOpt: Option[String],
+    typeOpt: Option[T]
+  ) = (valueArgOpt, typeOpt) match {
+    case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
+    case _ => signalArg
+  }
+
   def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
-    val args = (valueArgOpt, sym.node._2.data.typeName) match {
-      case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
-      case _ => signalArg
-    }
-    val actionFunctionName = getActionFunctionName(sym)
-    lines(s"this->$actionFunctionName($args);")
+    val functionName = getActionFunctionName(sym)
+    val args = writeParamsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    lines(s"this->$functionName($args);")
   }
 
   val writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
@@ -91,9 +97,18 @@ abstract class StateMachineCppWriterUtils(
     lines(s"this->m_state = State::$stateName;")
   }
 
-  def writeEnterCall (signalArg: String) (sym: StateMachineSymbol) = {
-    val enterFunctionName = getEnterFunctionName(sym)
-    lines(s"this->$enterFunctionName($signalArg);")
+  def writeEnterCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol) = {
+    val functionName = getEnterFunctionName(sym)
+    val typeOpt = sym match {
+      case StateMachineSymbol.Junction(aNode) =>
+        val te = StateMachineTypedElement.Junction(aNode)
+        sma.typeOptionMap.get(te)
+      case _ => None
+    }
+    val args = writeParamsWithValueOpt(signalArg, valueArgOpt, typeOpt)
+    lines(s"this->$functionName($args);")
   }
+
+  def writeNoValueEnterCall = (signalArg: String) => writeEnterCall (signalArg) (None)
 
 }
