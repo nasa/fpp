@@ -194,9 +194,10 @@ case class StateMachineCppWriter(
       AnnotationCppWriter.asStringOpt(sym.node),
       getGuardFunctionName(sym),
       getGuardFunctionParams(sym),
-      CppDoc.Type("void"),
+      CppDoc.Type("bool"),
       Nil,
-      CppDoc.Function.PureVirtual
+      CppDoc.Function.PureVirtual,
+      CppDoc.Function.Const
     )
   }
 

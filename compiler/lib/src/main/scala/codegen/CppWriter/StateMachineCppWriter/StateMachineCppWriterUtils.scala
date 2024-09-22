@@ -108,7 +108,7 @@ abstract class StateMachineCppWriterUtils(
   def writeGuardCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Guard) = {
     val functionName = getGuardFunctionName(sym)
     val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
-    lines(s"this->$functionName($args);")
+    s"this->$functionName($args)"
   }
 
   def writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
@@ -143,12 +143,16 @@ abstract class StateMachineCppWriterUtils(
     lines(s"this->m_state = State::$stateName;")
   }
 
-  def writeTransition(
-    transition: Transition,
-    valueArgOpt: Option[String]
-  ) = transition match {
-    case Transition.External(actions, target) => lines("// TODO")
-    case Transition.Internal(actions) => lines("// TODO")
+  def writeTransition (signalArg: String) (valueArgOpt: Option[String]) (transition: Transition): List[Line] = {
+    val (actions, entryLines) = transition match {
+      case Transition.External(actions, target) =>
+        (actions, writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol))
+      case Transition.Internal(actions) => (actions, Nil)
+    }
+    List.concat(
+      actions.flatMap(writeActionCall (signalParamName) (valueArgOpt)),
+      entryLines
+    )
   }
 
 }

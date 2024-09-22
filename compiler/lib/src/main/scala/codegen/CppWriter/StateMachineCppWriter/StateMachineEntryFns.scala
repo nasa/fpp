@@ -15,17 +15,26 @@ case class StateMachineEntryFns(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
   ) = {
+    val data = aNode._2.data
     val junctionSym = StateMachineSymbol.Junction(aNode)
     val junctionName = writeSmSymbolName(junctionSym)
     val te = StateMachineTypedElement.Junction(aNode)
     val typeOpt = sma.typeOptionMap(te)
     val valueArgOpt = typeOpt.map(_ => valueParamName)
+    val guardSym = sma.getGuardSymbol(data.guard)
+    val writeJunctionTransition = writeTransition (signalParamName) (valueArgOpt)
+    val ifTransition = sma.flattenedJunctionTransitionMap(data.ifTransition)
+    val elseTransition = sma.flattenedJunctionTransitionMap(data.elseTransition)
     functionClassMember(
       Some(s"Enter junction $junctionName"),
       getEnterFunctionName(junctionSym),
       getParamsWithTypeOpt(typeOpt),
       CppDoc.Type("void"),
-      Nil // TODO
+      wrapInIfElse(
+        writeGuardCall (signalParamName) (valueArgOpt) (guardSym),
+        writeJunctionTransition (ifTransition),
+        writeJunctionTransition (elseTransition)
+      )
     ) :: mm
   }
 
