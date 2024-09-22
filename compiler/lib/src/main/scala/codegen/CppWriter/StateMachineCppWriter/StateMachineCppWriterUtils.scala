@@ -34,17 +34,6 @@ abstract class StateMachineCppWriterUtils(
 
   val leafStates = StateMachine.getLeafStates(symbol)
 
-  def writeSmSymbolName(state: StateMachineSymbol) =
-    CppWriterState.identFromQualifiedSmSymbolName(sma, state)
-
-  val commentedLeafStateNames =
-    leafStates.toList.map(
-      state => (
-        AnnotationCppWriter.writePreComment(state),
-        writeSmSymbolName(StateMachineSymbol.State(state))
-      )
-    ).sortBy(_._2)
-
   val actionSymbols =
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
 
@@ -64,6 +53,56 @@ abstract class StateMachineCppWriterUtils(
     Some("The signal")
   )
 
+  def commentedLeafStateNames =
+    leafStates.toList.map(
+      state => (
+        AnnotationCppWriter.writePreComment(state),
+        writeSmSymbolName(StateMachineSymbol.State(state))
+      )
+    ).sortBy(_._2)
+
+  def commentedSignalNames =
+    signalSymbols.map(
+      symbol => (
+        AnnotationCppWriter.writePreComment(symbol.node),
+        writeSmSymbolName(symbol)
+      )
+    ).sortBy(_._2)
+
+  def getEnterFunctionName(symbol: StateMachineSymbol) =
+    s"enter_${writeSmSymbolName(symbol)}"
+
+  def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
+    val functionName = getActionFunctionName(sym)
+    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    lines(s"this->$functionName($args);")
+  }
+
+  def writeArgsWithValueOpt[T](
+    signalArg: String,
+    valueArgOpt: Option[String],
+    typeOpt: Option[T]
+  ) = (valueArgOpt, typeOpt) match {
+    case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
+    case _ => signalArg
+  }
+
+  def writeEnterCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol) = {
+    val functionName = getEnterFunctionName(sym)
+    val typeOpt = sym match {
+      case StateMachineSymbol.Junction(aNode) =>
+        val te = StateMachineTypedElement.Junction(aNode)
+        sma.typeOptionMap(te)
+      case _ => None
+    }
+    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, typeOpt)
+    lines(s"this->$functionName($args);")
+  }
+
+  def writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
+
+  def writeNoValueEnterCall = (signalArg: String) => writeEnterCall (signalArg) (None)
+
   def writeParamsWithTypeOpt(typeOpt: Option[Type]) = {
     val valueArgs = typeOpt match {
       case Some(t) =>
@@ -79,51 +118,12 @@ abstract class StateMachineCppWriterUtils(
     signalParam :: valueArgs
   }
 
-  val commentedSignalNames =
-    signalSymbols.map(
-      symbol => (
-        AnnotationCppWriter.writePreComment(symbol.node),
-        writeSmSymbolName(symbol)
-      )
-    ).sortBy(_._2)
-
-  def writeArgsWithValueOpt[T](
-    signalArg: String,
-    valueArgOpt: Option[String],
-    typeOpt: Option[T]
-  ) = (valueArgOpt, typeOpt) match {
-    case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
-    case _ => signalArg
-  }
-
-  def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
-    val functionName = getActionFunctionName(sym)
-    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
-    lines(s"this->$functionName($args);")
-  }
-
-  val writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
-
-  def getEnterFunctionName(symbol: StateMachineSymbol) =
-    s"enter_${writeSmSymbolName(symbol)}"
+  def writeSmSymbolName(state: StateMachineSymbol) =
+    CppWriterState.identFromQualifiedSmSymbolName(sma, state)
 
   def writeStateUpdate(sym: StateMachineSymbol.State) = {
     val stateName = writeSmSymbolName(sym)
     lines(s"this->m_state = State::$stateName;")
   }
-
-  def writeEnterCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol) = {
-    val functionName = getEnterFunctionName(sym)
-    val typeOpt = sym match {
-      case StateMachineSymbol.Junction(aNode) =>
-        val te = StateMachineTypedElement.Junction(aNode)
-        sma.typeOptionMap(te)
-      case _ => None
-    }
-    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, typeOpt)
-    lines(s"this->$functionName($args);")
-  }
-
-  def writeNoValueEnterCall = (signalArg: String) => writeEnterCall (signalArg) (None)
 
 }
