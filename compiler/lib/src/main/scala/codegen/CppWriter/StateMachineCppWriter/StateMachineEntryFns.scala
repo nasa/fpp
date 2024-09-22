@@ -14,7 +14,19 @@ case class StateMachineEntryFns(
   override def defJunctionAnnotatedNode(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
-  ) = default(mm) // TODO
+  ) = {
+    val junctionSym = StateMachineSymbol.Junction(aNode)
+    val junctionName = writeSmSymbolName(junctionSym)
+    val te = StateMachineTypedElement.Junction(aNode)
+    val typeOpt = sma.typeOptionMap(te)
+    functionClassMember(
+      Some(s"Enter junction $junctionName"),
+      getEnterFunctionName(junctionSym),
+      writeParamsWithTypeOpt(typeOpt),
+      CppDoc.Type("void"),
+      Nil // TODO
+    ) :: mm
+  }
 
   override def defStateAnnotatedNodeInner(
     mm: List[CppDoc.Class.Member],

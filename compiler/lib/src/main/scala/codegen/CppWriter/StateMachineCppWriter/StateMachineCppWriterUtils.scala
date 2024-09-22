@@ -64,6 +64,21 @@ abstract class StateMachineCppWriterUtils(
     Some("The signal")
   )
 
+  def writeParamsWithTypeOpt(typeOpt: Option[Type]) = {
+    val valueArgs = typeOpt match {
+      case Some(t) =>
+        List(
+          CppDoc.Function.Param(
+            CppDoc.Type(typeCppWriter.write(t)),
+            valueParamName,
+            Some("The value")
+          )
+        )
+      case None => Nil
+    }
+    signalParam :: valueArgs
+  }
+
   val commentedSignalNames =
     signalSymbols.map(
       symbol => (
@@ -72,7 +87,7 @@ abstract class StateMachineCppWriterUtils(
       )
     ).sortBy(_._2)
 
-  def writeParamsWithValueOpt[T](
+  def writeArgsWithValueOpt[T](
     signalArg: String,
     valueArgOpt: Option[String],
     typeOpt: Option[T]
@@ -83,7 +98,7 @@ abstract class StateMachineCppWriterUtils(
 
   def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
     val functionName = getActionFunctionName(sym)
-    val args = writeParamsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
     lines(s"this->$functionName($args);")
   }
 
@@ -102,10 +117,10 @@ abstract class StateMachineCppWriterUtils(
     val typeOpt = sym match {
       case StateMachineSymbol.Junction(aNode) =>
         val te = StateMachineTypedElement.Junction(aNode)
-        sma.typeOptionMap.get(te)
+        sma.typeOptionMap(te)
       case _ => None
     }
-    val args = writeParamsWithValueOpt(signalArg, valueArgOpt, typeOpt)
+    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, typeOpt)
     lines(s"this->$functionName($args);")
   }
 
