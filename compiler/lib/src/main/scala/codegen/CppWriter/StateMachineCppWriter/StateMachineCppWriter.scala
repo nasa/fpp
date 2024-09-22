@@ -20,45 +20,29 @@ case class StateMachineCppWriter(
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = getHppIncludes
-    val cppIncludes = getCppIncludes
-    val cls = classMember(
-      AnnotationCppWriter.asStringOpt(aNode),
-      className,
-      None,
-      getClassMembers
+  private def getActionFunctionParams(sym: StateMachineSymbol.Action):
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
+  private def getActionMember(sym: StateMachineSymbol.Action):
+  CppDoc.Class.Member.Function = {
+    functionClassMember(
+      AnnotationCppWriter.asStringOpt(sym.node),
+      getActionFunctionName(sym),
+      getActionFunctionParams(sym),
+      CppDoc.Type("void"),
+      Nil,
+      CppDoc.Function.PureVirtual
     )
-    hppIncludes :: cppIncludes :: wrapInNamespaces(namespaceIdentList, List(cls))
   }
 
-  private def getHppIncludes: CppDoc.Member = {
-    val symbolHeaders = {
-      val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
-      s.writeIncludeDirectives(a.usedSymbolSet)
-    }
-    val userHeaders = List.concat(
-      standardUserHppHeaders,
-      symbolHeaders
-    ).sorted
-    val headerLines = List.concat(
-      addBlankPrefix(standardSystemHppHeaders.map(line)),
-      addBlankPrefix(userHeaders.map(line))
+  private def getActionMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Actions",
+      actionSymbols.map(getActionMember),
+      CppDoc.Lines.Hpp
     )
-    linesMember(headerLines)
-  }
-
-  private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List.concat(
-      standardUserCppHeaders,
-      List(s"${s.getRelativePath(fileName)}.hpp").map(CppWriter.headerString)
-    ).sorted
-    val headerLines = List.concat(
-      addBlankPrefix(standardSystemCppHeaders.map(line)),
-      addBlankPrefix(userHeaders.map(line))
-    )
-    linesMember(headerLines, CppDoc.Lines.Cpp)
-  }
 
   private def getClassMembers: List[CppDoc.Class.Member] =
     List.concat(
@@ -69,44 +53,6 @@ case class StateMachineCppWriter(
       getGuardMembers,
       getEntryMembers,
       getVariableMembers
-    )
-
-  private def getEnumClassMember(
-    comment: String,
-    className: String,
-    pairs: List[(List[Line], String)]
-  ): CppDoc.Class.Member = {
-    val enumLines = pairs.flatMap {
-      case (comment, name) => List.concat(comment, lines(s"$name,"))
-    }
-    val memberLines = List.concat(
-      CppDocWriter.writeDoxygenComment(comment),
-      wrapInEnumClass(className, enumLines, Some("FwEnumStoreType"))
-    )
-    linesClassMember(memberLines)
-  }
-
-  private def getStateEnumClassMember: CppDoc.Class.Member = {
-    val initialPair = (lines("//! The uninitialized state"), uninitStateName)
-    val pairs = initialPair :: commentedLeafStateNames
-    getEnumClassMember("The state type", "State", pairs)
-  }
-
-  private def getSignalEnumClassMember: CppDoc.Class.Member = {
-    val initialPair = (lines("//! The initial transition"), initialTransitionName)
-    val pairs = initialPair :: commentedSignalNames
-    getEnumClassMember("The signal type", "Signal", pairs)
-  }
-
-  private def getTypeMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Types",
-      List(
-        getStateEnumClassMember,
-        getSignalEnumClassMember
-      ),
-      CppDoc.Lines.Hpp
     )
 
   private def getConstructorDestructorMembers: List[CppDoc.Class.Member] =
@@ -127,6 +73,81 @@ case class StateMachineCppWriter(
         )
       )
     )
+
+  private def getCppIncludes: CppDoc.Member = {
+    val userHeaders = List.concat(
+      standardUserCppHeaders,
+      List(s"${s.getRelativePath(fileName)}.hpp").map(CppWriter.headerString)
+    ).sorted
+    val headerLines = List.concat(
+      addBlankPrefix(standardSystemCppHeaders.map(line)),
+      addBlankPrefix(userHeaders.map(line))
+    )
+    linesMember(headerLines, CppDoc.Lines.Cpp)
+  }
+
+  private def getEntryMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "State and junction entry",
+      StateMachineEntryFns(s, aNode).write
+    )
+
+  private def getEnumClassMember(
+    comment: String,
+    className: String,
+    pairs: List[(List[Line], String)]
+  ): CppDoc.Class.Member = {
+    val enumLines = pairs.flatMap {
+      case (comment, name) => List.concat(comment, lines(s"$name,"))
+    }
+    val memberLines = List.concat(
+      CppDocWriter.writeDoxygenComment(comment),
+      wrapInEnumClass(className, enumLines, Some("FwEnumStoreType"))
+    )
+    linesClassMember(memberLines)
+  }
+
+  private def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
+  private def getGuardMember(sym: StateMachineSymbol.Guard):
+  CppDoc.Class.Member.Function = {
+    functionClassMember(
+      AnnotationCppWriter.asStringOpt(sym.node),
+      getGuardFunctionName(sym),
+      getGuardFunctionParams(sym),
+      CppDoc.Type("bool"),
+      Nil,
+      CppDoc.Function.PureVirtual,
+      CppDoc.Function.Const
+    )
+  }
+
+  private def getGuardMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Guards",
+      guardSymbols.map(getGuardMember),
+      CppDoc.Lines.Hpp
+    )
+
+  private def getHppIncludes: CppDoc.Member = {
+    val symbolHeaders = {
+      val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
+      s.writeIncludeDirectives(a.usedSymbolSet)
+    }
+    val userHeaders = List.concat(
+      standardUserHppHeaders,
+      symbolHeaders
+    ).sorted
+    val headerLines = List.concat(
+      addBlankPrefix(standardSystemHppHeaders.map(line)),
+      addBlankPrefix(userHeaders.map(line))
+    )
+    linesMember(headerLines)
+  }
 
   private def getInitMember: CppDoc.Class.Member = {
     val initSpecifier = StateMachine.getInitialSpecifier(aNode._2.data)._2.data
@@ -160,60 +181,39 @@ case class StateMachineCppWriter(
     )
   }
 
-  private def getActionFunctionParams(sym: StateMachineSymbol.Action):
-  List[CppDoc.Function.Param] =
-    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
-
-  private def getActionMember(sym: StateMachineSymbol.Action):
-  CppDoc.Class.Member.Function = {
-    functionClassMember(
-      AnnotationCppWriter.asStringOpt(sym.node),
-      getActionFunctionName(sym),
-      getActionFunctionParams(sym),
-      CppDoc.Type("void"),
-      Nil,
-      CppDoc.Function.PureVirtual
+  private def getMembers: List[CppDoc.Member] = {
+    val hppIncludes = getHppIncludes
+    val cppIncludes = getCppIncludes
+    val cls = classMember(
+      AnnotationCppWriter.asStringOpt(aNode),
+      className,
+      None,
+      getClassMembers
     )
+    hppIncludes :: cppIncludes :: wrapInNamespaces(namespaceIdentList, List(cls))
   }
 
-  private def getActionMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Actions",
-      actionSymbols.map(getActionMember),
-      CppDoc.Lines.Hpp
-    )
-
-  private def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
-  List[CppDoc.Function.Param] =
-    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
-
-  private def getGuardMember(sym: StateMachineSymbol.Guard):
-  CppDoc.Class.Member.Function = {
-    functionClassMember(
-      AnnotationCppWriter.asStringOpt(sym.node),
-      getGuardFunctionName(sym),
-      getGuardFunctionParams(sym),
-      CppDoc.Type("bool"),
-      Nil,
-      CppDoc.Function.PureVirtual,
-      CppDoc.Function.Const
-    )
+  private def getSignalEnumClassMember: CppDoc.Class.Member = {
+    val initialPair = (lines("//! The initial transition"), initialTransitionName)
+    val pairs = initialPair :: commentedSignalNames
+    getEnumClassMember("The signal type", "Signal", pairs)
   }
 
-  private def getGuardMembers: List[CppDoc.Class.Member] =
+  private def getStateEnumClassMember: CppDoc.Class.Member = {
+    val initialPair = (lines("//! The uninitialized state"), uninitStateName)
+    val pairs = initialPair :: commentedLeafStateNames
+    getEnumClassMember("The state type", "State", pairs)
+  }
+
+  private def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      "Guards",
-      guardSymbols.map(getGuardMember),
+      "Types",
+      List(
+        getStateEnumClassMember,
+        getSignalEnumClassMember
+      ),
       CppDoc.Lines.Hpp
-    )
-
-  private def getEntryMembers: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PRIVATE",
-      "State and junction entry",
-      StateMachineEntryFns(s, aNode).write
     )
 
   private def getVariableMembers: List[CppDoc.Class.Member] =
@@ -229,7 +229,6 @@ case class StateMachineCppWriter(
                 |
                 |//! The state
                 |State m_state = State::$uninitStateName;"""
-
           )
         )
       ),
