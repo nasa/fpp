@@ -25,7 +25,7 @@ case class StateMachineCppWriter(
     getParamsWithTypeNameOpt(sym.node._2.data.typeName)
 
   private def getActionMember(sym: StateMachineSymbol.Action):
-  CppDoc.Class.Member.Function = {
+  CppDoc.Class.Member.Function =
     functionClassMember(
       AnnotationCppWriter.asStringOpt(sym.node),
       getActionFunctionName(sym),
@@ -34,7 +34,6 @@ case class StateMachineCppWriter(
       Nil,
       CppDoc.Function.PureVirtual
     )
-  }
 
   private def getActionMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -49,6 +48,7 @@ case class StateMachineCppWriter(
       getTypeMembers,
       getConstructorDestructorMembers,
       getInitMembers,
+      getSendSignalMembers,
       getActionMembers,
       getGuardMembers,
       getEntryMembers,
@@ -133,6 +133,18 @@ case class StateMachineCppWriter(
       CppDoc.Lines.Hpp
     )
 
+  private def getGuardedTransitionLines (signal: StateMachineSymbol.Signal) (gt: Transition.Guarded):
+  List[Line] = {
+    val transitionLines = getTransitionLines(signal, gt.transition)
+    gt.guardOpt match {
+      case Some(guard) =>
+        val valueArgOpt = guard.node._2.data.typeName.map(_ => valueParamName)
+        val guardCall = writeGuardCall (writeSignalName(signal)) (valueArgOpt) (guard)
+        wrapInIf(guardCall, transitionLines)
+      case None => transitionLines
+    }
+  }
+
   private def getHppIncludes: CppDoc.Member = {
     val symbolHeaders = {
       val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
@@ -173,13 +185,12 @@ case class StateMachineCppWriter(
     )
   }
 
-  private def getInitMembers: List[CppDoc.Class.Member] = {
+  private def getInitMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "public",
       "Initialization",
       List(getInitMember)
     )
-  }
 
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
@@ -193,6 +204,49 @@ case class StateMachineCppWriter(
     hppIncludes :: cppIncludes :: wrapInNamespaces(namespaceIdentList, List(cls))
   }
 
+  private def getSendSignalFunctionParams(sym: StateMachineSymbol.Signal):
+  List[CppDoc.Function.Param] =
+    getValueParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
+  private def getSendSignalMember(sym: StateMachineSymbol.Signal):
+  CppDoc.Class.Member.Function = functionClassMember(
+    AnnotationCppWriter.asStringOpt(sym.node),
+    getSendSignalFunctionName(sym),
+    getSendSignalFunctionParams(sym),
+    CppDoc.Type("void"),
+    getSendSignalMemberLines(sym)
+  )
+
+  private def getSendSignalMemberCaseLines (signal: StateMachineSymbol.Signal) (state: StateMachineSymbol.State):
+  List[Line] = {
+    line( s"case ${writeStateName(state)}:") ::
+    List.concat(
+      sma.flattenedStateTransitionMap.get(signal).getOrElse(Map()).
+        get(state).map(getGuardedTransitionLines (signal)).getOrElse(Nil),
+      lines("break;")
+    ).map(indentIn)
+  }
+
+  private def getSendSignalMemberLines(signal: StateMachineSymbol.Signal):
+  List[Line] = wrapInSwitch(
+    "this->m_state",
+    List.concat(
+      leafStateSymbols.flatMap(getSendSignalMemberCaseLines (signal)),
+      lines(
+        """|default:
+           |  FW_ASSERT(0, static_cast<FwAssertArgType>(this->m_state));
+           |  break;"""
+      )
+    )
+  )
+
+  private def getSendSignalMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Send signal functions",
+      signalSymbols.map(getSendSignalMember)
+    )
+
   private def getSignalEnumClassMember: CppDoc.Class.Member = {
     val initialPair = (lines("//! The initial transition"), initialTransitionName)
     val pairs = initialPair :: commentedSignalNames
@@ -203,6 +257,23 @@ case class StateMachineCppWriter(
     val initialPair = (lines("//! The uninitialized state"), uninitStateName)
     val pairs = initialPair :: commentedLeafStateNames
     getEnumClassMember("The state type", "State", pairs)
+  }
+
+  private def getTransitionLines(signal: StateMachineSymbol.Signal, transition: Transition):
+  List[Line] =  {
+    val signalArg = writeSignalName(signal)
+    val valueArgOpt = signal.node._2.data.typeName.map(_ => valueParamName)
+    def writeActions(actions: List[StateMachineSymbol.Action]) =
+      actions.flatMap(writeActionCall (signalArg) (valueArgOpt))
+    transition match {
+      case Transition.External(actions, target) =>
+        List.concat(
+          writeActions(actions),
+          writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol)
+        )
+      case Transition.Internal(actions) =>
+        writeActions(actions)
+    }
   }
 
   private def getTypeMembers: List[CppDoc.Class.Member] =

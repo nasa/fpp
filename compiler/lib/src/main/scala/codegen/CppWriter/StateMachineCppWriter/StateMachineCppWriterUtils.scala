@@ -32,7 +32,8 @@ abstract class StateMachineCppWriterUtils(
 
   val initialTransitionName = "__FPRIME_AC_INITIAL_TRANSITION"
 
-  val leafStates = StateMachine.getLeafStates(symbol)
+  val leafStateSymbols =
+    StateMachine.getLeafStates(symbol).map(StateMachineSymbol.State(_)).toList.sortBy(writeSmSymbolName)
 
   val actionSymbols =
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
@@ -48,6 +49,9 @@ abstract class StateMachineCppWriterUtils(
   def getGuardFunctionName(sym: StateMachineSymbol.Guard): String =
     s"guard_${sym.getUnqualifiedName}"
 
+  def getSendSignalFunctionName(sym: StateMachineSymbol.Signal): String =
+    s"sendSignal_${sym.getUnqualifiedName}"
+
   val signalSymbols =
     StateMachine.getSignals(aNode._2.data).map(StateMachineSymbol.Signal(_))
 
@@ -60,10 +64,10 @@ abstract class StateMachineCppWriterUtils(
   )
 
   def commentedLeafStateNames =
-    leafStates.toList.map(
+    leafStateSymbols.toList.map(
       state => (
-        AnnotationCppWriter.writePreComment(state),
-        writeSmSymbolName(StateMachineSymbol.State(state))
+        AnnotationCppWriter.writePreComment(state.node),
+        writeSmSymbolName(state)
       )
     ).sortBy(_._2)
 
@@ -77,6 +81,27 @@ abstract class StateMachineCppWriterUtils(
 
   def getEnterFunctionName(symbol: StateMachineSymbol) =
     s"enter_${writeSmSymbolName(symbol)}"
+
+  def getParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
+    getParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
+
+  def getParamsWithTypeOpt(typeOpt: Option[Type]) =
+    signalParam :: getValueParamsWithTypeOpt(typeOpt)
+
+  def getValueParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
+    getValueParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
+
+  def getValueParamsWithTypeOpt(typeOpt: Option[Type]) = typeOpt match {
+    case Some(t) =>
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type(typeCppWriter.write(t)),
+          valueParamName,
+          Some("The value")
+        )
+      )
+    case None => Nil
+  }
 
   def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
     val functionName = getActionFunctionName(sym)
@@ -117,23 +142,11 @@ abstract class StateMachineCppWriterUtils(
 
   def writeNoValueGuardCall = (signalArg: String) => writeGuardCall (signalArg) (None)
 
-  def getParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
-    getParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
+  def writeSignalName(signal: StateMachineSymbol.Signal) =
+    s"Signal::${writeSmSymbolName(signal)}"
 
-  def getParamsWithTypeOpt(typeOpt: Option[Type]) = {
-    val valueArgs = typeOpt match {
-      case Some(t) =>
-        List(
-          CppDoc.Function.Param(
-            CppDoc.Type(typeCppWriter.write(t)),
-            valueParamName,
-            Some("The value")
-          )
-        )
-      case None => Nil
-    }
-    signalParam :: valueArgs
-  }
+  def writeStateName(state: StateMachineSymbol.State) =
+    s"State::${writeSmSymbolName(state)}"
 
   def writeSmSymbolName(state: StateMachineSymbol) =
     CppWriterState.identFromQualifiedSmSymbolName(sma, state)
