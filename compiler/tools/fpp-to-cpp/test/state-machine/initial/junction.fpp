@@ -1,27 +1,31 @@
 module FppTest {
 
-  @ A state machine with an initial junction
-  state machine Junction {
+  module SmInitial {
 
-    @ Action a
-    action a
+    @ A state machine with an initial junction
+    state machine Junction {
 
-    @ Guard g
-    guard g
+      @ Action a
+      action a
 
-    initial do { a } enter J
+      @ Guard g
+      guard g
 
-    @ Junction J
-    junction J { if g do { a } enter S else do { a, a } enter T }
+      initial do { a } enter J
 
-    @ State S
-    state S {
-      entry do { a }
-    }
+      @ Junction J
+      junction J { if g do { a } enter S else do { a, a } enter T }
 
-    @ State T
-    state T {
-      entry do { a, a }
+      @ State S
+      state S {
+        entry do { a }
+      }
+
+      @ State T
+      state T {
+        entry do { a, a }
+      }
+
     }
 
   }

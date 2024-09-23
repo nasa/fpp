@@ -1,23 +1,27 @@
 module FppTest {
 
-  @ A state machine with nested initial transitions
-  state machine Nested {
+  module SmInitial {
 
-    @ Action a
-    action a
+    @ A state machine with nested initial transitions
+    state machine Nested {
 
-    initial do { a } enter S
+      @ Action a
+      action a
 
-    @ State S
-    state S {
+      initial do { a } enter S
 
-      entry do { a, a }
+      @ State S
+      state S {
 
-      initial enter T
+        entry do { a, a }
 
-      @ State S.T
-      state T {
-        entry do { a, a, a }
+        initial enter T
+
+        @ State S.T
+        state T {
+          entry do { a, a, a }
+        }
+
       }
 
     }

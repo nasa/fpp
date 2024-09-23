@@ -1,16 +1,20 @@
 module FppTest {
 
-  @ A basic state machine
-  state machine Basic {
+  module SmInitial {
 
-    @ Action a
-    action a
+    @ A basic state machine
+    state machine Basic {
 
-    initial do { a } enter S
+      @ Action a
+      action a
 
-    @ State S
-    state S {
-      entry do { a, a }
+      initial do { a } enter S
+
+      @ State S
+      state S {
+        entry do { a, a }
+      }
+
     }
 
   }

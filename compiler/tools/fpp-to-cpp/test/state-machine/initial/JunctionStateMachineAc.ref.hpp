@@ -4,8 +4,8 @@
 // \brief  hpp file for Junction state machine
 // ======================================================================
 
-#ifndef FppTest_JunctionStateMachineAc_HPP
-#define FppTest_JunctionStateMachineAc_HPP
+#ifndef FppTest_SmInitial_JunctionStateMachineAc_HPP
+#define FppTest_SmInitial_JunctionStateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,110 +15,114 @@
 
 namespace FppTest {
 
-  //! A state machine with an initial junction
-  class JunctionStateMachineBase {
+  namespace SmInitial {
 
-    PROTECTED:
+    //! A state machine with an initial junction
+    class JunctionStateMachineBase {
 
-      // ----------------------------------------------------------------------
-      // Types
-      // ----------------------------------------------------------------------
+      PROTECTED:
 
-      //! The state type
-      enum class State : FwEnumStoreType {
-        //! The uninitialized state
-        __FPRIME_AC_UNINITIALIZED,
-        //! State S
-        S,
-        //! State T
-        T,
-      };
+        // ----------------------------------------------------------------------
+        // Types
+        // ----------------------------------------------------------------------
 
-      //! The signal type
-      enum class Signal : FwEnumStoreType {
-        //! The initial transition
-        __FPRIME_AC_INITIAL_TRANSITION,
-      };
+        //! The state type
+        enum class State : FwEnumStoreType {
+          //! The uninitialized state
+          __FPRIME_AC_UNINITIALIZED,
+          //! State S
+          S,
+          //! State T
+          T,
+        };
 
-    PROTECTED:
+        //! The signal type
+        enum class Signal : FwEnumStoreType {
+          //! The initial transition
+          __FPRIME_AC_INITIAL_TRANSITION,
+        };
 
-      // ----------------------------------------------------------------------
-      // Constructors and Destructors
-      // ----------------------------------------------------------------------
+      PROTECTED:
 
-      //! Constructor
-      JunctionStateMachineBase();
+        // ----------------------------------------------------------------------
+        // Constructors and Destructors
+        // ----------------------------------------------------------------------
 
-      //! Destructor
-      virtual ~JunctionStateMachineBase();
+        //! Constructor
+        JunctionStateMachineBase();
 
-    public:
+        //! Destructor
+        virtual ~JunctionStateMachineBase();
 
-      // ----------------------------------------------------------------------
-      // Initialization
-      // ----------------------------------------------------------------------
+      public:
 
-      //! Initialize the state machine
-      void init(
-          const FwEnumStoreType id //!< The state machine ID
-      );
+        // ----------------------------------------------------------------------
+        // Initialization
+        // ----------------------------------------------------------------------
 
-    PROTECTED:
+        //! Initialize the state machine
+        void init(
+            const FwEnumStoreType id //!< The state machine ID
+        );
 
-      // ----------------------------------------------------------------------
-      // Actions
-      // ----------------------------------------------------------------------
+      PROTECTED:
 
-      //! Action a
-      virtual void action_a(
-          Signal signal //!< The signal
-      ) = 0;
+        // ----------------------------------------------------------------------
+        // Actions
+        // ----------------------------------------------------------------------
 
-    PROTECTED:
+        //! Action a
+        virtual void action_a(
+            Signal signal //!< The signal
+        ) = 0;
 
-      // ----------------------------------------------------------------------
-      // Guards
-      // ----------------------------------------------------------------------
+      PROTECTED:
 
-      //! Guard g
-      virtual bool guard_g(
-          Signal signal //!< The signal
-      ) const = 0;
+        // ----------------------------------------------------------------------
+        // Guards
+        // ----------------------------------------------------------------------
 
-    PRIVATE:
+        //! Guard g
+        virtual bool guard_g(
+            Signal signal //!< The signal
+        ) const = 0;
 
-      // ----------------------------------------------------------------------
-      // State and junction entry
-      // ----------------------------------------------------------------------
+      PRIVATE:
 
-      //! Enter state T
-      void enter_T(
-          Signal signal //!< The signal
-      );
+        // ----------------------------------------------------------------------
+        // State and junction entry
+        // ----------------------------------------------------------------------
 
-      //! Enter state S
-      void enter_S(
-          Signal signal //!< The signal
-      );
+        //! Enter state T
+        void enter_T(
+            Signal signal //!< The signal
+        );
 
-      //! Enter junction J
-      void enter_J(
-          Signal signal //!< The signal
-      );
+        //! Enter state S
+        void enter_S(
+            Signal signal //!< The signal
+        );
 
-    PROTECTED:
+        //! Enter junction J
+        void enter_J(
+            Signal signal //!< The signal
+        );
 
-      // ----------------------------------------------------------------------
-      // Member variables
-      // ----------------------------------------------------------------------
+      PROTECTED:
 
-      //! The state machine ID
-      FwEnumStoreType m_id = 0;
+        // ----------------------------------------------------------------------
+        // Member variables
+        // ----------------------------------------------------------------------
 
-      //! The state
-      State m_state = State::__FPRIME_AC_UNINITIALIZED;
+        //! The state machine ID
+        FwEnumStoreType m_id = 0;
 
-  };
+        //! The state
+        State m_state = State::__FPRIME_AC_UNINITIALIZED;
+
+    };
+
+  }
 
 }
 
