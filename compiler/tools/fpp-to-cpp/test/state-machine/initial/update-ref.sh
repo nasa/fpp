@@ -9,3 +9,9 @@ junction()
   update "-p $PWD" junction
   move_cpp JunctionStateMachine
 }
+
+nested()
+{
+  update "-p $PWD" nested
+  move_cpp NestedStateMachine
+}
