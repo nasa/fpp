@@ -30,9 +30,9 @@ case class StateMachineAnalysis(
   /** The current signal-transition map */
   signalTransitionMap: StateMachineAnalysis.SignalTransitionMap = Map(),
   /** The flattened state transtiion map */
-  flattenedStateTransitionMap: StateMachineAnalysis.FlattenedStateTransitionMap = Map(),
+  flattenedStateTransitionMap: StateMachineAnalysis.SignalStateTransitionMap = Map(),
   /** The flattened junction transtiion map */
-  flattenedJunctionTransitionMap: StateMachineAnalysis.FlattenedJunctionTransitionMap = Map()
+  flattenedJunctionTransitionMap: StateMachineAnalysis.TransitionExprMap = Map()
 ) {
 
   /** Gets the list of parent states, highest first */
@@ -138,16 +138,20 @@ case class StateMachineAnalysis(
 
 object StateMachineAnalysis {
 
-  /** A signal-transition map */
+  /** A map from signals to guarded transitions */
   type SignalTransitionMap =
     Map[StateMachineSymbol.Signal, Transition.Guarded]
 
-  /** A flattened state transition map */
-  type FlattenedStateTransitionMap =
-    Map[StateMachineSymbol.State, StateMachineAnalysis.SignalTransitionMap]
+  /** A map from states to guarded transitions */
+  type StateTransitionMap =
+    Map[StateMachineSymbol.State, Transition.Guarded]
 
-  /** A flattened junction transition map */
-  type FlattenedJunctionTransitionMap =
+  /** A map from signals to state-transition maps */
+  type SignalStateTransitionMap =
+    Map[StateMachineSymbol.Signal, StateTransitionMap]
+
+  /** A map from transition expressions to transitions */
+  type TransitionExprMap =
     Map[AstNode[Ast.TransitionExpr], Transition]
 
 }

@@ -46,17 +46,17 @@ object ComputeFlattenedStateTransitionMap
     )
     getStateDefs(aNode._2.data) match {
       case Nil =>
-        val stm = sma.signalTransitionMap.map(
-          (s, gt) => {
-            val sourceSym = StateMachineSymbol.State(aNode)
-            val source = StateOrJunction.State(sourceSym)
-            val cft = ConstructFlattenedTransition(sma, source)
+        val fstm = sma.signalTransitionMap.foldLeft (sma.flattenedStateTransitionMap) {
+          case (fstm, (s, gt)) => {
+            val state = StateMachineSymbol.State(aNode)
+            val soj = StateOrJunction.State(state)
+            val cft = ConstructFlattenedTransition(sma, soj)
             val transition = cft.transition(gt.transition)
-            (s -> Transition.Guarded(gt.guardOpt, transition))
+            val gt1 = Transition.Guarded(gt.guardOpt, transition)
+            val map = fstm.get(s).getOrElse(Map()) + (state -> gt1)
+            fstm + (s -> map)
           }
-        )
-        val state = StateMachineSymbol.State(aNode)
-        val fstm = sma.flattenedStateTransitionMap + (state -> stm)
+        }
         Right(sma.copy(flattenedStateTransitionMap = fstm))
       case _ =>
         for {
