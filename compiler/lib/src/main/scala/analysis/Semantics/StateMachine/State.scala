@@ -38,6 +38,16 @@ object State {
     listToOpt(specifiers, "exit specifier")
   }
 
+  def getInitialSpecifier(state: Ast.DefState):
+  Option[Ast.Annotated[AstNode[Ast.SpecInitialTransition]]] = {
+    val specifiers = state.members.collect {
+      case Ast.StateMember(
+        (pre, Ast.StateMember.SpecInitialTransition(node), post)
+      ) => (pre, node, post)
+    } 
+    listToOpt(specifiers, "initial transition")
+  }
+
   def getExitActions(state: Ast.DefState): List[AstNode[Ast.Ident]] =
     getExitSpecifierOpt(state).map(_._2.data.actions).getOrElse(Nil)
 

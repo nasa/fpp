@@ -17,7 +17,7 @@ abstract class StateMachineCppVisitor(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]],
     substates: List[Ast.Annotated[AstNode[Ast.DefState]]]
-  ) = aNode._2.data.members.foldLeft (mm) (matchStateMember)
+  ) = aNode._2.data.members.reverse.foldLeft (mm) (matchStateMember)
 
   def defStateAnnotatedNodeLeaf(
     mm: List[CppDoc.Class.Member],

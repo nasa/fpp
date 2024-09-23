@@ -9,7 +9,7 @@ case class StateMachineEntryFns(
   aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]]
 ) extends StateMachineCppVisitor(s, aNode) {
 
-  def write = defStateMachineAnnotatedNode(Nil, aNode).reverse
+  def write = defStateMachineAnnotatedNode(Nil, aNode)
 
   override def defJunctionAnnotatedNode(
     mm: List[CppDoc.Class.Member],
@@ -25,7 +25,7 @@ case class StateMachineEntryFns(
     val writeJunctionTransition = writeTransition (signalParamName) (valueArgOpt)
     val ifTransition = sma.flattenedJunctionTransitionMap(data.ifTransition)
     val elseTransition = sma.flattenedJunctionTransitionMap(data.elseTransition)
-    functionClassMember(
+    val member = functionClassMember(
       Some(s"Enter junction $junctionName"),
       getEnterFunctionName(junctionSym),
       getParamsWithTypeOpt(typeOpt),
@@ -35,19 +35,42 @@ case class StateMachineEntryFns(
         writeJunctionTransition (ifTransition),
         writeJunctionTransition (elseTransition)
       )
-    ) :: mm
+    )
+    member :: mm
   }
 
   override def defStateAnnotatedNodeInner(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]],
     substates: List[Ast.Annotated[AstNode[Ast.DefState]]]
-  ) = default(mm) // TODO
+  ) = {
+    val members = super.defStateAnnotatedNodeInner(mm, aNode, substates)
+    val initSpecifier = State.getInitialSpecifier(aNode._2.data).get._2.data
+    val transition = initSpecifier.transition.data
+    val actionSymbols = transition.actions.map(sma.getActionSymbol)
+    val targetSymbol = sma.useDefMap(transition.target.id)
+    val initial = List.concat(
+      actionSymbols.flatMap(writeNoValueActionCall (signalParamName)),
+      writeNoValueEnterCall (signalParamName) (targetSymbol)
+    )
+    val member = getStateEnterFn(aNode, initial)
+    member :: members
+  }
 
   override def defStateAnnotatedNodeLeaf(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
+    val stateSym = StateMachineSymbol.State(aNode)
+    val update = writeStateUpdate(stateSym)
+    val member = getStateEnterFn(aNode, update)
+    member :: mm
+  }
+
+  private def getStateEnterFn(
+    aNode: Ast.Annotated[AstNode[Ast.DefState]],
+    initialOrUpdate: List[Line]
+  ): CppDoc.Class.Member = {
     val stateSym = StateMachineSymbol.State(aNode)
     val stateName = writeSmSymbolName(stateSym)
     val entryActionSymbols =
@@ -59,9 +82,9 @@ case class StateMachineEntryFns(
       CppDoc.Type("void"),
       List.concat(
         entryActionSymbols.flatMap(writeNoValueActionCall(signalParamName)),
-        writeStateUpdate(stateSym)
+        initialOrUpdate
       )
-    ) :: mm
+    ) 
   }
 
 }
