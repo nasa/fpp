@@ -295,7 +295,7 @@ Fw::SerializeStatus QueuedAsyncProductsComponentBase::DpContainer ::
 
 void QueuedAsyncProductsComponentBase ::
   init(
-      FwQueueSizeType queueDepth,
+      FwSizeType queueDepth,
       FwEnumStoreType instance
   )
 {
@@ -930,12 +930,12 @@ void QueuedAsyncProductsComponentBase ::
 #endif
   }
 
-  Os::Queue::QueueStatus qStat = this->createQueue(
+  Os::Queue::Status qStat = this->createQueue(
     queueDepth,
-    ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
+    static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
   );
   FW_ASSERT(
-    Os::Queue::QUEUE_OK == qStat,
+    Os::Queue::Status::OP_OK == qStat,
     static_cast<FwAssertArgType>(qStat)
   );
 }
@@ -1940,11 +1940,11 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1986,11 +1986,11 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -2165,11 +2165,11 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -2272,11 +2272,11 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -2379,11 +2379,11 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 10, _block);
+  Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 10, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -2486,16 +2486,16 @@ void QueuedAsyncProductsComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 5, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 5, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->incNumMsgDropped();
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -2931,13 +2931,13 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedAsyncProductsComponentBase ::
   ComponentIpcSerializableBuffer msg;
   FwQueuePriorityType priority = 0;
 
-  Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
+  Os::Queue::Status msgStatus = this->m_queue.receive(
     msg,
-    priority,
-    Os::Queue::QUEUE_BLOCKING
+    Os::Queue::BLOCKING,
+    priority
   );
   FW_ASSERT(
-    msgStatus == Os::Queue::QUEUE_OK,
+    msgStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(msgStatus)
   );
 
