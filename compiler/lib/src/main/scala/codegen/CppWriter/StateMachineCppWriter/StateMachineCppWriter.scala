@@ -133,21 +133,6 @@ case class StateMachineCppWriter(
       CppDoc.Lines.Hpp
     )
 
-  private def getGuardedTransitionLines
-    (signal: StateMachineSymbol.Signal)
-    (gt: Transition.Guarded):
-  List[Line] = {
-    val transitionLines = getTransitionLines(signal, gt.transition)
-    gt.guardOpt match {
-      case Some(guard) =>
-        val valueArgOpt = guard.node._2.data.typeName.map(_ => valueParamName)
-        val guardCall =
-          writeGuardCall (writeSignalName(signal)) (valueArgOpt) (guard)
-        wrapInIf(guardCall, transitionLines)
-      case None => transitionLines
-    }
-  }
-
   private def getHppIncludes: CppDoc.Member = {
     val symbolHeaders = {
       val Right(a) = UsedSymbols.defStateMachineAnnotatedNode(s.a, aNode)
@@ -227,7 +212,7 @@ case class StateMachineCppWriter(
     line( s"case ${writeStateName(state)}:") ::
     List.concat(
       sma.flattenedStateTransitionMap.get(signal).getOrElse(Map()).
-        get(state).map(getGuardedTransitionLines (signal)).getOrElse(Nil),
+        get(state).map(writeGuardedTransition (signal)).getOrElse(Nil),
       lines("break;")
     ).map(indentIn)
   }
@@ -262,26 +247,6 @@ case class StateMachineCppWriter(
     val initialPair = (lines("//! The uninitialized state"), uninitStateName)
     val pairs = initialPair :: commentedLeafStateNames
     getEnumClassMember("The state type", "State", pairs)
-  }
-
-  private def getTransitionLines(
-    signal: StateMachineSymbol.Signal,
-    transition: Transition
-  ): List[Line] =  {
-    val signalArg = writeSignalName(signal)
-    val valueArgOpt = signal.node._2.data.typeName.map(_ => valueParamName)
-    def writeActions(actions: List[StateMachineSymbol.Action]) = {
-      actions.flatMap(writeActionCall (signalArg) (valueArgOpt))
-    }
-    transition match {
-      case Transition.External(actions, target) =>
-        List.concat(
-          writeActions(actions),
-          writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol)
-        )
-      case Transition.Internal(actions) =>
-        writeActions(actions)
-    }
   }
 
   private def getTypeMembers: List[CppDoc.Class.Member] =

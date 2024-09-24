@@ -107,8 +107,8 @@ abstract class StateMachineCppWriterUtils(
   def writeActionCall
     (signalArg: String)
     (valueArgOpt: Option[String])
-    (sym: StateMachineSymbol.Action):
-  List[Line] = {
+    (sym: StateMachineSymbol.Action): List[Line] =
+  {
     val functionName = getActionFunctionName(sym)
     val args = writeArgsWithValueOpt(
       signalArg,
@@ -126,12 +126,11 @@ abstract class StateMachineCppWriterUtils(
     case (Some(valueArg), Some(_)) => s"$signalArg, $valueArg"
     case _ => signalArg
   }
-
   def writeEnterCall
     (signalArg: String)
     (valueArgOpt: Option[String])
-    (sym: StateMachineSymbol):
-  List[Line] = {
+    (sym: StateMachineSymbol): List[Line] =
+  {
     val functionName = getEnterFunctionName(sym)
     val typeOpt = sym match {
       case StateMachineSymbol.Junction(aNode) =>
@@ -157,6 +156,22 @@ abstract class StateMachineCppWriterUtils(
     s"this->$functionName($args)"
   }
 
+  def writeGuardedTransition
+    (signal: StateMachineSymbol.Signal)
+    (gt: Transition.Guarded): List[Line] =
+  {
+    val signalArg = writeSignalName(signal)
+    val valueArgOpt = signal.node._2.data.typeName.map(_ => valueParamName)
+    val transitionLines =
+      writeTransition (signalArg) (valueArgOpt) (gt.transition)
+    gt.guardOpt match {
+      case Some(guard) =>
+        val guardCall = writeGuardCall (signalArg) (valueArgOpt) (guard)
+        wrapInIf(guardCall, transitionLines)
+      case None => transitionLines
+    }
+  }
+
   def writeNoValueActionCall = (signalArg: String) =>
     writeActionCall (signalArg) (None)
 
@@ -169,11 +184,11 @@ abstract class StateMachineCppWriterUtils(
   def writeSignalName(signal: StateMachineSymbol.Signal) =
     s"Signal::${writeSmSymbolName(signal)}"
 
-  def writeStateName(state: StateMachineSymbol.State) =
-    s"State::${writeSmSymbolName(state)}"
-
   def writeSmSymbolName(state: StateMachineSymbol) =
     CppWriterState.identFromQualifiedSmSymbolName(sma, state)
+
+  def writeStateName(state: StateMachineSymbol.State) =
+    s"State::${writeSmSymbolName(state)}"
 
   def writeStateUpdate(sym: StateMachineSymbol.State) = {
     val stateName = writeSmSymbolName(sym)
@@ -183,15 +198,15 @@ abstract class StateMachineCppWriterUtils(
   def writeTransition
     (signalArg: String)
     (valueArgOpt: Option[String])
-    (transition: Transition):
-  List[Line] = {
+    (transition: Transition): List[Line] =
+  {
     val (actions, entryLines) = transition match {
       case Transition.External(actions, target) =>
         (actions, writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol))
       case Transition.Internal(actions) => (actions, Nil)
     }
     List.concat(
-      actions.flatMap(writeActionCall (signalParamName) (valueArgOpt)),
+      actions.flatMap(writeActionCall (signalArg) (valueArgOpt)),
       entryLines
     )
   }
