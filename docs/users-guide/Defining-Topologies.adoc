@@ -27,8 +27,8 @@ fit together.
 port P
 
 passive component C {
-  sync input port pIn: [3] P
-  output port pOut: [3] P
+  sync input port pIn: P
+  output port pOut: P
 }
 
 instance c1: C base id 0x100
@@ -115,12 +115,10 @@ and the name of a port of that component instance.
 
 In this example there are two connection graphs, each containing
 one connection:
-. A connection graph `C1` containing:
+
+. A connection graph `C1` containing a connection from `c1.pOut` to `c2.pIn`.
+
 . A connection from `c1.pOut` to `c2.pIn`.
-
-
-
-. A connection graph `C2` containing a connection from `c2.pOut` to `c1.pIn`.
 
 As shown, topologies and their members are
 <<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
