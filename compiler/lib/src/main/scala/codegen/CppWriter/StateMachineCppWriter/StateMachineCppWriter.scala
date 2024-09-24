@@ -167,8 +167,8 @@ case class StateMachineCppWriter(
       ),
       CppDoc.Type("void"),
       line("this->m_id = id;") :: List.concat(
-        actionSymbols.flatMap(writeNoValueActionCall (signal)),
-        writeNoValueEnterCall (signal) (targetSymbol)
+        actionSymbols.flatMap(writeActionCall (signal) (None)),
+        writeEnterCall (signal) (None) (targetSymbol)
       )
     )
   }

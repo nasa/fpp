@@ -172,15 +172,6 @@ abstract class StateMachineCppWriterUtils(
     }
   }
 
-  def writeNoValueActionCall = (signalArg: String) =>
-    writeActionCall (signalArg) (None)
-
-  def writeNoValueEnterCall = (signalArg: String) =>
-    writeEnterCall (signalArg) (None)
-
-  def writeNoValueGuardCall = (signalArg: String) =>
-    writeGuardCall (signalArg) (None)
-
   def writeSignalName(signal: StateMachineSymbol.Signal) =
     s"Signal::${writeSmSymbolName(signal)}"
 
@@ -200,15 +191,15 @@ abstract class StateMachineCppWriterUtils(
     (valueArgOpt: Option[String])
     (transition: Transition): List[Line] =
   {
-    val (actions, entryLines) = transition match {
-      case Transition.External(actions, target) =>
-        (actions, writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol))
-      case Transition.Internal(actions) => (actions, Nil)
-    }
-    List.concat(
-      actions.flatMap(writeActionCall (signalArg) (valueArgOpt)),
-      entryLines
+    val actionLines = transition.getActions.flatMap(
+      writeActionCall (signalArg) (valueArgOpt)
     )
+    val entryLines = transition.getTargetOpt match {
+      case Some(target) =>
+        writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol)
+      case None => Nil
+    }
+    List.concat(actionLines, entryLines)
   }
 
 }

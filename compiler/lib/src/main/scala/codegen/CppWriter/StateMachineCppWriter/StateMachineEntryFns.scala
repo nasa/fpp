@@ -50,8 +50,8 @@ case class StateMachineEntryFns(
     val actionSymbols = transition.actions.map(sma.getActionSymbol)
     val targetSymbol = sma.useDefMap(transition.target.id)
     val initial = List.concat(
-      actionSymbols.flatMap(writeNoValueActionCall (signalParamName)),
-      writeNoValueEnterCall (signalParamName) (targetSymbol)
+      actionSymbols.flatMap(writeActionCall (signalParamName) (None)),
+      writeEnterCall (signalParamName) (None) (targetSymbol)
     )
     val member = getStateEnterFn(aNode, initial)
     member :: members
@@ -81,7 +81,7 @@ case class StateMachineEntryFns(
       List(signalParam),
       CppDoc.Type("void"),
       List.concat(
-        entryActionSymbols.flatMap(writeNoValueActionCall(signalParamName)),
+        entryActionSymbols.flatMap(writeActionCall (signalParamName) (None)),
         initialOrUpdate
       )
     ) 

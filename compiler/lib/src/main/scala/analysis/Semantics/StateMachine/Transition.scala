@@ -6,6 +6,7 @@ import fpp.compiler.util._
 /** An FPP state machine transition */
 sealed trait Transition {
   def getActions: List[StateMachineSymbol.Action]
+  def getTargetOpt: Option[StateOrJunction]
 }
 
 object Transition {
@@ -16,12 +17,14 @@ object Transition {
     target: StateOrJunction
   ) extends Transition {
     def getActions = actions
+    def getTargetOpt = Some(target)
   }
 
   /** An internal transition */
   final case class Internal(actions: List[StateMachineSymbol.Action])
     extends Transition {
       def getActions = actions
+      def getTargetOpt = None
     }
 
   /** A guarded transition */
