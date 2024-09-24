@@ -15,12 +15,22 @@ module FppTest {
 
       @ State S
       state S {
-        @ A state transition
-        on s do { a } enter T
+
+        @ Exit
+        exit do { a }
+
+        @ State transition
+        on s do { a, a } enter T
+
       }
 
       @ State T
-      state T
+      state T {
+
+        @ Entry
+        entry do { a, a, a }
+
+      }
 
     }
 

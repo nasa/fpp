@@ -48,6 +48,8 @@ namespace FppTest {
       switch (this->m_state) {
         case State::S:
           this->action_a(Signal::s);
+          this->action_a(Signal::s);
+          this->action_a(Signal::s);
           this->enter_T(Signal::s);
           break;
         case State::T:
@@ -65,6 +67,9 @@ namespace FppTest {
     void BasicStateMachineBase ::
       enter_T(Signal signal)
     {
+      this->action_a(signal);
+      this->action_a(signal);
+      this->action_a(signal);
       this->m_state = State::T;
     }
 
