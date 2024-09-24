@@ -87,6 +87,9 @@ object ComputeCppFiles {
     /** Gets the C++ file name for generated ports */
     def getPort(baseName: String) = s"${baseName}PortAc"
 
+    /** Gets the C++ file name for generated state machines */
+    def getStateMachine(baseName: String) = s"${baseName}"
+
     /** Gets the C++ file name for generated structs */
     def getStruct(baseName: String) = s"${baseName}SerializableAc"
 

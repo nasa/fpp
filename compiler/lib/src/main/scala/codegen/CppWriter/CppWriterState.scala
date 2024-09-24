@@ -22,20 +22,6 @@ case class CppWriterState(
   locationMap: Map[String, Option[Location]] = Map()
 ) {
 
-  /** Adds the component name prefix to a name.
-   *  This is to work around the fact that we can't declare
-   *  constants inside component classes, because we are using
-   *  F Prime XML to generate the component classes. */
-  def addComponentNamePrefix(symbol: Symbol): String = {
-    val name = symbol.getUnqualifiedName
-    a.parentSymbolMap.get(symbol) match {
-      case Some(componentSymbol: Symbol.Component) =>
-        val componentName = componentSymbol.getUnqualifiedName
-        s"${componentName}_$name"
-      case _ => name
-    }
-  }
-
   /** Removes the longest prefix from a Java path */
   def removeLongestPathPrefix(path: File.JavaPath): File.JavaPath =
     File.removeLongestPrefix(pathPrefixes)(path)
@@ -159,6 +145,9 @@ case class CppWriterState(
           )
           case Symbol.Port(node) => Some(
             ComputeCppFiles.FileNames.getPort(getName(Symbol.Port(node)))
+          )
+           case Symbol.StateMachine(node) => Some(
+            ComputeCppFiles.FileNames.getStateMachine(getName(Symbol.StateMachine(node)))
           )
           case Symbol.Struct(node) => Some(
             ComputeCppFiles.FileNames.getStruct(getName(Symbol.Struct(node)))

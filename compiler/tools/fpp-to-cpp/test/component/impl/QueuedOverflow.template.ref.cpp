@@ -186,7 +186,7 @@ void QueuedOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Overflow hook implementations for 'hook' commands
+// Overflow hook implementations for commands
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::
@@ -201,8 +201,7 @@ void QueuedOverflow ::
 void QueuedOverflow ::
   CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(
       FwOpcodeType opCode,
-      U32 cmdSeq,
-      U32 u32
+      U32 cmdSeq
   )
 {
   // TODO

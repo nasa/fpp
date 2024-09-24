@@ -60,6 +60,8 @@ reside in the following *name groups*:
 
 . The *port name group*
 
+. The *state machine name group*
+
 . The *topology name group*
 
 . The *type name group*
@@ -73,7 +75,8 @@ Definitions reside in name groups as follows:
 * Array type definitions reside in the type name group.
 
 * Component definitions reside in the component name group,
-the value name group, and the type name group.
+the value name group, the type name group, and the
+state machine name group.
 
 * Component instance definitions reside in the component instance name group.
 
@@ -86,6 +89,8 @@ the value name group, and the type name group.
 * Module definitions reside in all the name groups.
 
 * Port definitions reside in the port name group.
+
+* State machine definitions reside in the state machine name group.
 
 * Struct type definitions reside in the type name group.
 

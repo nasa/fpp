@@ -13,6 +13,10 @@ def module
     default literal int 0
     format {} counts
   @< Array definition
+  @ State machine outside a component
+  def state machine
+    ident SO
+  @< State machine outside a component
   @ Component definition
   def component
     kind active
@@ -102,6 +106,27 @@ def module
       priority literal int 10
       queue full assert
     @< Async product receive port
+    @ Internal Component State machine definition
+    def state machine
+      ident S
+    @< State machine definition
+    @ State machine instance 1
+    spec state machine instance
+      ident s1
+      state machine qual ident S
+      priority literal int 10
+      queue full drop
+    @< State machine instance 1
+    @ State machine instance 2
+    spec state machine instance
+      ident s2
+      state machine qual ident S
+    @< State machine instance 2
+    @ State machine for outside definition
+    spec state machine instance
+      ident so
+      state machine qual ident SO
+    @< State machine for outside definition
     spec port instance general
       kind output
       ident p2

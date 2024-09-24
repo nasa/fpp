@@ -12,6 +12,12 @@ object UsedSymbols extends UseAnalyzer {
     use: Name.Qualified
   ) = addSymbol(a, node)
 
+  override def stateMachineUse(
+    a: Analysis,
+    node: AstNode[Ast.QualIdent],
+    use: Name.Qualified
+  ) = addSymbol(a, node)
+
   override def componentInstanceUse(
     a: Analysis,
     node: AstNode[Ast.QualIdent],
@@ -61,6 +67,7 @@ object UsedSymbols extends UseAnalyzer {
         case Symbol.EnumConstant(node) => defEnumConstantAnnotatedNode(a1, node)
         case Symbol.Module(node) => defModuleAnnotatedNode(a1, node)
         case Symbol.Port(node) => defPortAnnotatedNode(a1, node)
+        case Symbol.StateMachine(node) => defStateMachineAnnotatedNode(a1, node)
         case Symbol.Struct(node) => defStructAnnotatedNode(a1, node)
         case Symbol.Topology(node) => defTopologyAnnotatedNode(a1, node)
       }

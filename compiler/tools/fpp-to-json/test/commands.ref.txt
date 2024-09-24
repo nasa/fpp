@@ -936,6 +936,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,

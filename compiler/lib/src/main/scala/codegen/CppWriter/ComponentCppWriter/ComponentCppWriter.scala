@@ -27,6 +27,8 @@ case class ComponentCppWriter (
 
   private val paramWriter = ComponentParameters(s, aNode)
 
+  private val stateMachineWriter = ComponentStateMachines(s, aNode)
+
   private val kindStr = data.kind match {
     case Ast.ComponentKind.Active => "Active"
     case Ast.ComponentKind.Passive => "Passive"
@@ -56,6 +58,7 @@ case class ComponentCppWriter (
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
+    val smInterfaces = stateMachineWriter.getSmInterfaces
     val cls = classMember(
       Some(
         addSeparatedString(
@@ -64,7 +67,7 @@ case class ComponentCppWriter (
         )
       ),
       className,
-      Some(s"public Fw::$baseClassName"),
+      Some(s"public Fw::$baseClassName$smInterfaces"),
       getClassMembers
     )
     List(
@@ -180,6 +183,7 @@ case class ComponentCppWriter (
       getProtectedComponentFunctionMembers,
       portWriter.getProtectedFunctionMembers,
       internalPortWriter.getFunctionMembers,
+      stateMachineWriter.getFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
@@ -202,6 +206,7 @@ case class ComponentCppWriter (
       eventWriter.getVariableMembers,
       tlmWriter.getVariableMembers,
       paramWriter.getVariableMembers,
+      stateMachineWriter.getVariableMembers,
       getMsgSizeVariableMember,
       getMutexVariableMembers,
     )
@@ -214,7 +219,8 @@ case class ComponentCppWriter (
       eventWriter.getConstantMembers,
       tlmWriter.getConstantMembers,
       paramWriter.getConstantMembers,
-      dpWriter.getConstantMembers
+      dpWriter.getConstantMembers,
+      stateMachineWriter.getConstantMembers
     ).flatten
 
     if constants.isEmpty then Nil
@@ -283,6 +289,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
+        guardedList (hasStateMachineInstances) (List(stateMachineCppConstantName))
       ).map(s => line(s"$s,")),
       "};"
     )
@@ -325,6 +332,15 @@ case class ComponentCppWriter (
             ).mkString(" +\n")
           ),
           "];"
+        )
+      ),
+      guardedList (hasStateMachineInstances) (
+        lines(
+          s"""|// Size of statemachine sendSignals
+              |BYTE sendSignalsStatemachineSize[
+              |  2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
+              |];
+              |"""
         )
       )
     )
@@ -386,6 +402,9 @@ case class ComponentCppWriter (
         (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
       )
 
+    def writeStateMachineInit(name: String) =
+      line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
+
     val body = intersperseBlankLines(
       List(
         lines(
@@ -393,6 +412,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
+        smInstancesByName.map((name, _) => writeStateMachineInit(name)),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),
@@ -479,7 +499,8 @@ case class ComponentCppWriter (
               Some("\"\"")
             )
           ),
-          List(s"Fw::${kindStr}ComponentBase(compName)"),
+          s"Fw::${kindStr}ComponentBase(compName)" ::
+            smInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
           intersperseBlankLines(
             List(
               intersperseBlankLines(
@@ -807,6 +828,7 @@ case class ComponentCppWriter (
                     intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
+                    stateMachineWriter.writeDispatch,
                     lines(
                       """|default:
                          |  return MSG_DISPATCH_ERROR;

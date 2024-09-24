@@ -40,7 +40,7 @@ done > default-tests.sh
 
 include()
 {
-  run_test '-i' syntax include && \
+  run_test '-i' ../../fpp-syntax/test/syntax include && \
     $fpp_syntax include.out.txt
 }
 
@@ -52,7 +52,7 @@ kwd_names()
 
 no_include()
 {
-  run_test '' syntax no_include && \
+  run_test '' ../../fpp-syntax/test/syntax no_include && \
     $fpp_syntax no_include.out.txt
 }
 

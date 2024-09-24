@@ -40,6 +40,8 @@ on the same port can have different kinds.
 * The identifier names the command.
 
 * The parameter list specifies the command parameters.
+If there are command parameters, each parameter must be
+a <<Types_Displayable-Types,displayable type>>. 
 If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 

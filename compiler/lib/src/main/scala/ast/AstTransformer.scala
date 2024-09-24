@@ -54,6 +54,11 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.DefPort]]
   ): ResultAnnotatedNode[Ast.DefPort] = Right(default(in), node)
 
+  def defStateMachineAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.DefStateMachine]]
+  ): ResultAnnotatedNode[Ast.DefStateMachine] = Right(default(in), node)
+
   def defStructAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.DefStruct]]
@@ -102,11 +107,6 @@ trait AstTransformer {
     node: Ast.Annotated[AstNode[Ast.SpecCommand]]
   ): ResultAnnotatedNode[Ast.SpecCommand] = Right(default(in), node)
 
-  def specContainerAnnotatedNode(
-    in: In,
-    node: Ast.Annotated[AstNode[Ast.SpecContainer]]
-  ): ResultAnnotatedNode[Ast.SpecContainer] = Right(default(in), node)
-
   def specCompInstanceAnnotatedNode(
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecCompInstance]]
@@ -116,6 +116,11 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecConnectionGraph]]
   ): ResultAnnotatedNode[Ast.SpecConnectionGraph] = Right(default(in), node)
+
+  def specContainerAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecContainer]]
+  ): ResultAnnotatedNode[Ast.SpecContainer] = Right(default(in), node)
 
   def specEventAnnotatedNode(
     in: In,
@@ -161,6 +166,11 @@ trait AstTransformer {
     in: In,
     node: Ast.Annotated[AstNode[Ast.SpecRecord]]
   ): ResultAnnotatedNode[Ast.SpecRecord] = Right(default(in), node)
+
+  def specStateMachineInstanceAnnotatedNode(
+    in: In,
+    node: Ast.Annotated[AstNode[Ast.SpecStateMachineInstance]]
+  ): ResultAnnotatedNode[Ast.SpecStateMachineInstance] = Right(default(in), node)
 
   def specTlmChannelAnnotatedNode(
     in: In,
@@ -210,6 +220,8 @@ trait AstTransformer {
         transform(defConstantAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefConstant(_))
       case Ast.ComponentMember.DefEnum(node1) =>
         transform(defEnumAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefEnum(_))
+      case Ast.ComponentMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStateMachine(_))
       case Ast.ComponentMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.DefStruct(_))
       case Ast.ComponentMember.SpecCommand(node1) =>
@@ -230,6 +242,8 @@ trait AstTransformer {
         transform(specPortMatchingAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecPortMatching(_))
       case Ast.ComponentMember.SpecRecord(node1) =>
         transform(specRecordAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecRecord(_))
+      case Ast.ComponentMember.SpecStateMachineInstance(node1) =>
+        transform(specStateMachineInstanceAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecStateMachineInstance(_))
       case Ast.ComponentMember.SpecTlmChannel(node1) =>
         transform(specTlmChannelAnnotatedNode(in, (pre, node1, post)), Ast.ComponentMember.SpecTlmChannel(_))
     }
@@ -278,6 +292,8 @@ trait AstTransformer {
         transform(defModuleAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefModule(_))
       case Ast.ModuleMember.DefPort(node1) =>
         transform(defPortAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefPort(_))
+      case Ast.ModuleMember.DefStateMachine(node1) =>
+        transform(defStateMachineAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStateMachine(_))
       case Ast.ModuleMember.DefStruct(node1) =>
         transform(defStructAnnotatedNode(in, (pre, node1, post)), Ast.ModuleMember.DefStruct(_))
       case Ast.ModuleMember.DefTopology(node1) =>

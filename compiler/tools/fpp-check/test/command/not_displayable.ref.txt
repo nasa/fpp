@@ -1,0 +1,15 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:20.23
+  async command C(a1: S)
+                      ^
+error: type of command parameter is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:10.6
+  x: T
+     ^
+because this type is not displayable
+
+[ local path prefix ]/compiler/tools/fpp-check/test/command/not_displayable.fpp:7.1
+type T
+^
+Type is defined here

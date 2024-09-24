@@ -1,0 +1,55 @@
+=== State Machine Instance Specifiers
+
+A *state machine instance specifier* specifies an instantiated 
+<<Definitions_State-Machine-Definitions,state machine>> as part
+of a
+<<Definitions_Component-Definitions,component definition>>.
+
+==== Syntax
+
+`state machine instance`
+<<Lexical-Elements_Identifiers,_identifier_>>
+`:`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
+_[_
+`priority` <<Expressions,_expression_>>
+_]_
+_[_
+_queue-full-behavior_
+_]_
+
+_queue-full-behavior_ has the same syntax as for 
+<<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
+
+==== Semantics
+
+. The identifier names the state machine instance.
+
+. The qualified identifier must
+<<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
+a
+<<Definitions_State-Machine-Definitions,state machine definition>>.
+
+. The optional priority and queue full behavior have the same semantics as in 
+<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
+specifiers>>.
+
+==== Examples
+
+[source,fpp]
+----
+state machine M {
+  initial S
+  state S
+}
+
+passive component C {
+
+  @ m1 is an instance of state machine M
+  state machine instance m1: M
+
+  @ m2 is an instance of state machine M
+  state machine instance m2: M priority 10 drop
+
+}
+----

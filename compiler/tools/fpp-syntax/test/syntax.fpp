@@ -9,6 +9,10 @@ module DefinitionsAndSpecifiers {
   array A = [10] U32 default 0 format "{} counts"
   @< Array definition
 
+  @ State machine outside a component
+  state machine SO
+  @< State machine outside a component
+
   @ Component definition
   active component C {
 
@@ -44,6 +48,22 @@ module DefinitionsAndSpecifiers {
     @ Async product receive port
     async product recv port productRecvIn priority 10 assert
     @< Async product receive port
+
+    @ Internal Component State machine definition
+    state machine S
+    @< State machine definition
+
+    @ State machine instance 1
+    state machine instance s1: S priority 10 drop
+    @< State machine instance 1
+
+    @ State machine instance 2
+    state machine instance s2: S
+    @< State machine instance 2
+
+    @ State machine for outside definition
+    state machine instance so: SO
+    @< State machine for outside definition
 
     output port p2: [10] P
     @ Port matching specifier

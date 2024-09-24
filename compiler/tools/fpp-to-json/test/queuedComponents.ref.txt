@@ -1268,6 +1268,9 @@
       },
       "specPortMatchingList" : [
       ],
+      "stateMachineInstanceMap" : {
+        
+      },
       "portMatchingList" : [
       ],
       "defaultParamId" : 0,
@@ -1372,6 +1375,30 @@
     "61" : {
       "ScopeImpl" : {
         "map" : {
+          "StateMachine" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
+          "Value" : {
+            "NameSymbolMapImpl" : {
+              "map" : {
+                "EngineTemp" : {
+                  "Component" : {
+                    "nodeId" : 60,
+                    "unqualifiedName" : "EngineTemp"
+                  }
+                }
+              }
+            }
+          },
           "Port" : {
             "NameSymbolMapImpl" : {
               "map" : {
@@ -1397,18 +1424,6 @@
             }
           },
           "Type" : {
-            "NameSymbolMapImpl" : {
-              "map" : {
-                "EngineTemp" : {
-                  "Component" : {
-                    "nodeId" : 60,
-                    "unqualifiedName" : "EngineTemp"
-                  }
-                }
-              }
-            }
-          },
-          "Value" : {
             "NameSymbolMapImpl" : {
               "map" : {
                 "EngineTemp" : {

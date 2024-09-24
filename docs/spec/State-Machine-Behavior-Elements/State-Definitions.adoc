@@ -1,0 +1,91 @@
+=== State Definitions
+
+A *state definition* is part of a 
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It defines a state of a state machine.
+A state _S'_ defined inside a state _S_ expresses a hierarchy
+of states: _S'_ is a substate of _S_.
+
+==== Syntax
+
+`state` <<Lexical-Elements_Identifiers,_identifier_>>
+_[_ `{` _state-definition-member-sequence_ `}` _]_
+
+_state-definition-member-sequence_ is an 
+<<Element-Sequences,element sequence>> in
+which each element is a *state definition member*,
+and the terminating punctuation is a semicolon.
+A state definition member is one of the following:
+
+* An <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
+* A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+* A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
+
+==== Semantics
+
+. The identifier is the name of the state.
+
+. If the state definition member sequence _M_ is present,
+then it must obey the following rules:
+
+.. _M_ must contain exactly one initial transition specifier _I_.
+_I_ specifies the sub-state to enter on entry to the outer state.
+
+.. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
+transition specifiers>> that are members of _M_ may
+<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>> to the same
+signal definition.
+
+==== Examples
+
+[source,fpp]
+----
+state machine MonitorSm {
+
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
+  
+  action init2
+  action doCalibrate
+  action motorControl
+  action reportFault
+
+  guard calibrateReady
+
+  initial enter DEVICE_ON
+  
+  state DEVICE_ON {
+
+    initial do init2 enter INITIALIZING
+
+    state INITIALIZING {
+      on Complete enter IDLE
+    }
+
+    state IDLE {
+      on Drive enter DRIVING
+      on Calibrate if calibrateReady enter CALIBRATING
+    }
+
+    state CALIBRATING {
+      on RTI do doCalibrate
+      on Fault do reportFault enter Idle
+      on Complete enter IDLE
+    }
+
+    state DRIVING {
+      on RTI do motorControl
+      on Stop enter IDLE
+    }
+
+  }
+
+}
+----

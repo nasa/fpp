@@ -404,6 +404,7 @@ var IN_GLOBAL_SCOPE = false;
       // We use things that coerce to strings to make them compact when minified
       // and to defeat aggressive optimizers that fold large string constants.
       var FPP_KEYWORDS = [
+          "action," +
           "active," +
           "activity," +
           "always," +
@@ -423,24 +424,32 @@ var IN_GLOBAL_SCOPE = false;
           "cpu," +
           "default," +
           "diagnostic," +
+          "do," +
           "drop," +
+          "else," +
+          "enter" +
           "enum," +
           "event," +
           "fatal," +
           "format," +
           "get," +
+          "guard," +
           "guarded," +
           "health," +
           "high," +
           "hook," +
           "id," +
+          "if," +
           "import," +
           "include," +
+          "initial," +
           "input," +
           "instance," +
           "internal," +
+          "junction," +
           "locate," +
           "low," +
+          "machine," +
           "match," +
           "module," +
           "on," +
@@ -470,6 +479,7 @@ var IN_GLOBAL_SCOPE = false;
           "severity," +
           "size," +
           "stack," +
+          "state," +
           "string," +
           "struct," +
           "sync," +

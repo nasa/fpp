@@ -217,9 +217,9 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         }
         val queueFull = general.kind match {
           // Hook queue full option becomes drop in XML
-          case Kind.AsyncInput(_, Ast.QueueFull.Hook) => 
+          case Kind.AsyncInput(_, Ast.QueueFull.Hook) =>
             List(("full", Ast.QueueFull.Drop.toString))
-          case Kind.AsyncInput(_, queueFull) => 
+          case Kind.AsyncInput(_, queueFull) =>
             List(("full", queueFull.toString))
           case _ => Nil
         }
@@ -310,7 +310,7 @@ object ComponentXmlWriter extends AstVisitor with LineUtils {
         ),
         tlmChannel.format match {
           case Some(format) => List((
-            "format_string", 
+            "format_string",
             FormatXmlWriter.formatToString(format, List(data.typeName))
           ))
           case None => Nil

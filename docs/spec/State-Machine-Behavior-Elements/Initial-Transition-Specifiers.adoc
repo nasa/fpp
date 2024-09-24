@@ -1,0 +1,44 @@
+=== Initial Transition Specifiers
+
+An *initial transition specifier* is part of a
+<<Definitions_State-Machine-Definitions,state machine definition>>
+or a
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It specifies an initial transition, i.e., a transition taken
+when starting up a state machine or entering a state with
+substates.
+
+==== Syntax
+
+`initial` 
+<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
+
+==== Semantics
+
+The state definition or junction definition referred to in the
+enter expression must be a member of the same 
+state machine definition or state definition in which the initial
+transition specifier appears.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action initDevices
+
+  # When the state machine starts up, enter the ON state
+  initial enter ON
+
+  state ON {
+
+    # When entering the ON state, enter the POWERING_UP substate
+    initial do initDevices enter POWERING_UP
+
+    state POWERING_UP
+
+  }
+
+}
+----

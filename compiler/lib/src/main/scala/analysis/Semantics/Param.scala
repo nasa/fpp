@@ -47,6 +47,7 @@ object Param {
         default <- Result.mapOpt(data.default, computeDefaultValue)
         setOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.setOpcode)
         saveOpcodeOpt <- a.getNonnegativeBigIntValueOpt(data.saveOpcode)
+        _ <- a.checkDisplayableType(data.typeName.id, "type of parameter is not displayable")
       }
       yield {
         val (setOpcode, defaultOpcode1) = computeOpcode(setOpcodeOpt, defaultOpcode)

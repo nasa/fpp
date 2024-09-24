@@ -181,7 +181,7 @@ class ActiveOverflow :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Overflow hook implementations for 'hook' commands
+    // Overflow hook implementations for commands
     // ----------------------------------------------------------------------
 
     //! Overflow hook implementation for CMD_HOOK
@@ -193,8 +193,7 @@ class ActiveOverflow :
     //! Overflow hook implementation for CMD_PARAMS_PRIORITY_HOOK
     void CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(
         FwOpcodeType opCode, //!< The opcode
-        U32 cmdSeq, //!< The command sequence number
-        U32 u32
+        U32 cmdSeq //!< The command sequence number
     ) override;
 
 };
