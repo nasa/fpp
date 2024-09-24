@@ -36,7 +36,10 @@ case class StateMachineAnalysis(
 ) {
 
   /** Gets the list of parent states, highest first */
-  def getParentStateList(s: StateMachineSymbol): List[StateMachineSymbol.State] = {
+  def getParentStateList(
+    s: StateMachineSymbol,
+    start: List[StateMachineSymbol.State] = Nil
+  ): List[StateMachineSymbol.State] = {
     def helper(
       s: StateMachineSymbol,
       result: List[StateMachineSymbol.State]
@@ -45,7 +48,7 @@ case class StateMachineAnalysis(
         case Some(state) => helper(state, state :: result)
         case None => result
       }
-    helper(s, Nil)
+    helper(s, start)
   }
 
   /** Gets the qualified name of a symbol */

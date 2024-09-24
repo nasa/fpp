@@ -48,8 +48,13 @@ case class ConstructFlattenedTransition(
 
   // Get the parent state list of a state or junction
   private def getParentStateList(soj: StateOrJunction):
-  List[StateMachineSymbol.State] =
-    sma.getParentStateList(soj.getSymbol)
+  List[StateMachineSymbol.State] = {
+    val start = soj match {
+      case StateOrJunction.State(state) => List(state)
+      case StateOrJunction.Junction(_) => Nil
+    }
+    sma.getParentStateList(soj.getSymbol, start)
+  }
 
   // Compute the reverse of the common prefix of two lists
   private def getReversedPrefix[T](
