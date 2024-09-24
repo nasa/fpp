@@ -29,7 +29,6 @@ port P
 passive component C {
   sync input port pIn: [3] P
   output port pOut: [3] P
-  match pOut with pIn
 }
 
 instance c1: C base id 0x100
@@ -46,8 +45,6 @@ topology Simple {
   @ This code specifies a connection graph C1
   connections C1 {
     c1.pOut -> c2.pIn
-    unmatched c1.pOut[1] -> c2.pIn[1]
-    unmatched c1.pOut[2] -> c2.pIn[2]
   }
 
   @ This code specifies a connection graph C2
@@ -61,7 +58,6 @@ topology Simple {
 In this example, we define a <<Defining-Ports,port>> `P`.
 Then we define a <<Defining-Components,passive component>> `C`
 with an input port and an output port, both of type `P`.
-We specify that the output port and the input port are matched.
 We define two  <<Defining-Component-Instances,instances>> of
 `C`, `c1` and `c2`.
 We put these instances into a topology called `Simple`.
@@ -117,12 +113,11 @@ An endpoint is the name of a component instance
 (which in general may be a qualified name), a dot,
 and the name of a port of that component instance.
 
-In this example there are two connection graphs:
-
+In this example there are two connection graphs, each containing
+one connection:
 . A connection graph `C1` containing:
-.. A connection from `c1.pOut` to `c2.pIn`.
-.. An unmatched connection from `c1.pOut[1]` to `c2.pIn[1]`
-.. An unmatched connection from `c1.pOut[2]` to `c2.pIn[2]`
+. A connection from `c1.pOut` to `c2.pIn`.
+
 
 
 . A connection graph `C2` containing a connection from `c2.pOut` to `c1.pIn`.
@@ -248,8 +243,6 @@ In particular, serial to serial connections are allowed.
 * If a typed port _P_ is connected to a serial port in either direction,
 then the port type of _P_ may not specify a
 <<Defining-Ports_Returning-Values,return type>>.
-
-* `unmatched` specifiers must only be specified on connections that are match constrained.
 
 ==== Pattern Graph Specifiers
 

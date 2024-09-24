@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -327,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -7618,8 +7619,8 @@ fit together.</p>
 <pre class="prettyprint highlight"><code data-lang="fpp">port P
 
 passive component C {
-  sync input port pIn: P
-  output port pOut: P
+  sync input port pIn: [3] P
+  output port pOut: [3] P
 }
 
 instance c1: C base id 0x100
@@ -7717,13 +7718,12 @@ and the name of a port of that component instance.</p>
 </div>
 <div class="paragraph">
 <p>In this example there are two connection graphs, each containing
-one connection:</p>
+one connection:
+. A connection graph <code>C1</code> containing:
+. A connection from <code>c1.pOut</code> to <code>c2.pIn</code>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
-<li>
-<p>A connection graph <code>C1</code> containing a connection from <code>c1.pOut</code> to <code>c2.pIn</code>.</p>
-</li>
 <li>
 <p>A connection graph <code>C2</code> containing a connection from <code>c2.pOut</code> to <code>c1.pIn</code>.</p>
 </li>
@@ -8396,7 +8396,7 @@ must obey the following rules:</p>
 <ol class="arabic">
 <li>
 <p>When a component has the matching specifier
-<code>match p1 with p2</code>, for every connection between <code>p1</code>
+<code>match p1 with p2</code>, for every matched connection between <code>p1</code>
 and another component, there must be a corresponding
 connection between that other component and <code>p2</code>.</p>
 </li>
@@ -12530,7 +12530,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-27 14:20:30 -0700
+Last updated 2024-09-24 15:47:47 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
