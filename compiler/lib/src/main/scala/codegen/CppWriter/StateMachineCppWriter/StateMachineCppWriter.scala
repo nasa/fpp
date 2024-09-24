@@ -133,13 +133,16 @@ case class StateMachineCppWriter(
       CppDoc.Lines.Hpp
     )
 
-  private def getGuardedTransitionLines (signal: StateMachineSymbol.Signal) (gt: Transition.Guarded):
+  private def getGuardedTransitionLines
+    (signal: StateMachineSymbol.Signal)
+    (gt: Transition.Guarded):
   List[Line] = {
     val transitionLines = getTransitionLines(signal, gt.transition)
     gt.guardOpt match {
       case Some(guard) =>
         val valueArgOpt = guard.node._2.data.typeName.map(_ => valueParamName)
-        val guardCall = writeGuardCall (writeSignalName(signal)) (valueArgOpt) (guard)
+        val guardCall =
+          writeGuardCall (writeSignalName(signal)) (valueArgOpt) (guard)
         wrapInIf(guardCall, transitionLines)
       case None => transitionLines
     }
@@ -217,7 +220,9 @@ case class StateMachineCppWriter(
     getSendSignalMemberLines(sym)
   )
 
-  private def getSendSignalMemberCaseLines (signal: StateMachineSymbol.Signal) (state: StateMachineSymbol.State):
+  private def getSendSignalMemberCaseLines
+    (signal: StateMachineSymbol.Signal)
+    (state: StateMachineSymbol.State):
   List[Line] = {
     line( s"case ${writeStateName(state)}:") ::
     List.concat(
@@ -259,12 +264,15 @@ case class StateMachineCppWriter(
     getEnumClassMember("The state type", "State", pairs)
   }
 
-  private def getTransitionLines(signal: StateMachineSymbol.Signal, transition: Transition):
-  List[Line] =  {
+  private def getTransitionLines(
+    signal: StateMachineSymbol.Signal,
+    transition: Transition
+  ): List[Line] =  {
     val signalArg = writeSignalName(signal)
     val valueArgOpt = signal.node._2.data.typeName.map(_ => valueParamName)
-    def writeActions(actions: List[StateMachineSymbol.Action]) =
+    def writeActions(actions: List[StateMachineSymbol.Action]) = {
       actions.flatMap(writeActionCall (signalArg) (valueArgOpt))
+    }
     transition match {
       case Transition.External(actions, target) =>
         List.concat(

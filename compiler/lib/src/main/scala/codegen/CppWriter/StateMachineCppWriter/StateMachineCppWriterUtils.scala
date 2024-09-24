@@ -33,7 +33,8 @@ abstract class StateMachineCppWriterUtils(
   val initialTransitionName = "__FPRIME_AC_INITIAL_TRANSITION"
 
   val leafStateSymbols =
-    StateMachine.getLeafStates(symbol).map(StateMachineSymbol.State(_)).toList.sortBy(writeSmSymbolName)
+    StateMachine.getLeafStates(symbol).map(StateMachineSymbol.State(_)).
+      toList.sortBy(writeSmSymbolName)
 
   val actionSymbols =
     StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
@@ -103,9 +104,17 @@ abstract class StateMachineCppWriterUtils(
     case None => Nil
   }
 
-  def writeActionCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Action) = {
+  def writeActionCall
+    (signalArg: String)
+    (valueArgOpt: Option[String])
+    (sym: StateMachineSymbol.Action):
+  List[Line] = {
     val functionName = getActionFunctionName(sym)
-    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    val args = writeArgsWithValueOpt(
+      signalArg,
+      valueArgOpt,
+      sym.node._2.data.typeName
+    )
     lines(s"this->$functionName($args);")
   }
 
@@ -118,7 +127,11 @@ abstract class StateMachineCppWriterUtils(
     case _ => signalArg
   }
 
-  def writeEnterCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol) = {
+  def writeEnterCall
+    (signalArg: String)
+    (valueArgOpt: Option[String])
+    (sym: StateMachineSymbol):
+  List[Line] = {
     val functionName = getEnterFunctionName(sym)
     val typeOpt = sym match {
       case StateMachineSymbol.Junction(aNode) =>
@@ -130,17 +143,28 @@ abstract class StateMachineCppWriterUtils(
     lines(s"this->$functionName($args);")
   }
 
-  def writeGuardCall (signalArg: String) (valueArgOpt: Option[String]) (sym: StateMachineSymbol.Guard) = {
+  def writeGuardCall
+    (signalArg: String)
+    (valueArgOpt: Option[String])
+    (sym: StateMachineSymbol.Guard): String =
+  {
     val functionName = getGuardFunctionName(sym)
-    val args = writeArgsWithValueOpt(signalArg, valueArgOpt, sym.node._2.data.typeName)
+    val args = writeArgsWithValueOpt(
+      signalArg,
+      valueArgOpt,
+      sym.node._2.data.typeName
+    )
     s"this->$functionName($args)"
   }
 
-  def writeNoValueActionCall = (signalArg: String) => writeActionCall (signalArg) (None)
+  def writeNoValueActionCall = (signalArg: String) =>
+    writeActionCall (signalArg) (None)
 
-  def writeNoValueEnterCall = (signalArg: String) => writeEnterCall (signalArg) (None)
+  def writeNoValueEnterCall = (signalArg: String) =>
+    writeEnterCall (signalArg) (None)
 
-  def writeNoValueGuardCall = (signalArg: String) => writeGuardCall (signalArg) (None)
+  def writeNoValueGuardCall = (signalArg: String) =>
+    writeGuardCall (signalArg) (None)
 
   def writeSignalName(signal: StateMachineSymbol.Signal) =
     s"Signal::${writeSmSymbolName(signal)}"
@@ -156,7 +180,11 @@ abstract class StateMachineCppWriterUtils(
     lines(s"this->m_state = State::$stateName;")
   }
 
-  def writeTransition (signalArg: String) (valueArgOpt: Option[String]) (transition: Transition): List[Line] = {
+  def writeTransition
+    (signalArg: String)
+    (valueArgOpt: Option[String])
+    (transition: Transition):
+  List[Line] = {
     val (actions, entryLines) = transition match {
       case Transition.External(actions, target) =>
         (actions, writeEnterCall (signalArg) (valueArgOpt) (target.getSymbol))
