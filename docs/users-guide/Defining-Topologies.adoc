@@ -118,7 +118,7 @@ one connection:
 
 . A connection graph `C1` containing a connection from `c1.pOut` to `c2.pIn`.
 
-. A connection from `c1.pOut` to `c2.pIn`.
+. A connection graph `C2` containing a connection from `c2.pOut` to `c1.pIn`.
 
 As shown, topologies and their members are
 <<Writing-Comments-and-Annotations_Annotations,annotatable elements>>.
