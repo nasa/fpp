@@ -7,7 +7,7 @@ A *type option* is one of the following:
 . _None_, representing no value.
 
 Type options are used to specify the optional types associated with
-signals, actions, and guards in <<Definitions_State-Machine-Definitions,state 
+signals, actions, and guards in <<Definitions_State-Machine-Definitions,state
 machine definitions>>.
 
 === Conversion of Type Options
@@ -22,7 +22,11 @@ stem:[O_2] in the following cases.
 .. stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>.
 
 .. stem:[T_1] and stem:[T_2] are both
-<<Types_Primitive-Integer-Types,primitive integer types>>,
+<<Types_Primitive-Integer-Types,signed primitive integer types>>,
+and stem:[T_2] is at least as wide as stem:[T_1].
+
+.. stem:[T_1] and stem:[T_2] are both
+<<Types_Primitive-Integer-Types,unsigned primitive integer types>>,
 and stem:[T_2] is at least as wide as stem:[T_1].
 
 .. stem:[T_1] and stem:[T_2] are both
@@ -35,7 +39,7 @@ and stem:[T_2] is at least as wide as stem:[T_1].
 
 ==== Pairs of Type Options
 
-Here are the rules for resolving two type options stem:[O_1] and stem:[O_2] to 
+Here are the rules for resolving two type options stem:[O_1] and stem:[O_2] to
 a common type option stem:[O]:
 
 . If either or both of stem:[O_1] and stem:[O_2] is _None_, then
@@ -49,16 +53,20 @@ is computed as follows:
 .. If stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>,
 then let stem:[T] be stem:[T_1].
 
-.. Otherwise if stem:[T_1] and stem:[T_2] are both 
-<<Types_Primitive-Integer-Types,primitive integer types>>
+.. Otherwise if stem:[T_1] and stem:[T_2] are both
+<<Types_Primitive-Integer-Types,signed primitive integer types>>,
 then let stem:[T] be the wider of the two types.
 
-.. Otherwise if stem:[T_1] and stem:[T_2] are both 
+.. Otherwise if stem:[T_1] and stem:[T_2] are both
+<<Types_Primitive-Integer-Types,unsigned primitive integer types>>,
+then let stem:[T] be the wider of the two types.
+
+.. Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_Floating-Point-Types,floating-point types>>,
 then let stem:[T] be the wider of the two types.
 
-.. Otherwise if stem:[T_1] and stem:[T_2] are both 
-<<Types_String-Types,string types>>, then 
+.. Otherwise if stem:[T_1] and stem:[T_2] are both
+<<Types_String-Types,string types>>, then
 then let stem:[T] be `string`.
 
 .. Otherwise the attempted resolution is invalid.

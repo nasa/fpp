@@ -1,4 +1,5 @@
 tests="
+junction_i16_i32
 junction_i32_f32
 junction_u32_bool
 junction_u32_bool_transitive

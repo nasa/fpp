@@ -58,6 +58,7 @@ object Type {
   /** Primitive types */
   sealed trait Primitive extends Type {
     override def isPrimitive = true
+    def bitWidth: scala.Int
   }
 
   /** Primitive integer types */
@@ -76,6 +77,26 @@ object Type {
       case PrimitiveInt.U32 => "U32"
       case PrimitiveInt.U64 => "U64"
     }
+    override def bitWidth = kind match {
+      case PrimitiveInt.I8 => 8
+      case PrimitiveInt.I16 => 16
+      case PrimitiveInt.I32 => 32
+      case PrimitiveInt.I64 => 64
+      case PrimitiveInt.U8 => 8
+      case PrimitiveInt.U16 => 16
+      case PrimitiveInt.U32 => 32
+      case PrimitiveInt.U64 => 64
+    }
+    def signedness: PrimitiveInt.Signedness = kind match {
+      case PrimitiveInt.I8 => PrimitiveInt.Signed
+      case PrimitiveInt.I16 => PrimitiveInt.Signed
+      case PrimitiveInt.I32 => PrimitiveInt.Signed
+      case PrimitiveInt.I64 => PrimitiveInt.Signed
+      case PrimitiveInt.U8 => PrimitiveInt.Unsigned
+      case PrimitiveInt.U16 => PrimitiveInt.Unsigned
+      case PrimitiveInt.U32 => PrimitiveInt.Unsigned
+      case PrimitiveInt.U64 => PrimitiveInt.Unsigned
+    }
   }
 
   object PrimitiveInt {
@@ -88,6 +109,9 @@ object Type {
     case object U16 extends Kind
     case object U32 extends Kind
     case object U64 extends Kind
+    sealed trait Signedness
+    case object Signed extends Signedness
+    case object Unsigned extends Signedness
   }
 
   val I8: PrimitiveInt = PrimitiveInt(PrimitiveInt.I8)
@@ -108,6 +132,10 @@ object Type {
       case Float.F32 => "F32"
       case Float.F64 => "F64"
     }
+    override def bitWidth = kind match {
+      case Float.F32 => 32
+      case Float.F64 => 64
+    }
   }
 
   val F32: Float = Float(Float.F32)
@@ -121,6 +149,7 @@ object Type {
 
   /** The Boolean type */
   case object Boolean extends Type with Primitive {
+    override def bitWidth = 1
     override def getDefaultValue = Some(Value.Boolean(false))
     override def toString = "bool"
     override def isPromotableToArray = true

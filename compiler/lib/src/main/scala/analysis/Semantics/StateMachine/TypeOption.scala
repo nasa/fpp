@@ -12,18 +12,43 @@ object TypeOption {
   def show(to: T) = to.map(_.toString).getOrElse("None")
 
   /** Computes the common type option of two type options */
-  // TODO: This needs to implement the revised spec
   def commonType(to1: T, to2: T): Option[T] =
     (to1, to2) match {
       case (Some(t1), Some(t2)) =>
-        for { t <- Type.commonType(t1, t2) } yield Some(t)
+        if Type.areIdentical(t1, t2)
+        then Some(Some(t1))
+        else (t1, t2) match {
+          case (int1 : Type.PrimitiveInt, int2 : Type.PrimitiveInt) =>
+            if int1.signedness != int2.signedness
+            then None
+            else if int2.bitWidth > int2.bitWidth
+                 then Some(to2)
+                 else Some(to1)
+          case (float1 : Type.Float, float2 : Type.Float) =>
+            if float2.bitWidth > float1.bitWidth
+            then Some(to2)
+            else Some(to1)
+          case (Type.String(_), Type.String(_)) =>
+            Some(Some(Type.String(None)))
+          case _ => None
+        }
       case _ => Some(None)
     }
 
-  /** Converts to1 to to2 */
-  // TODO: This needs to implement the revised spec
+  /** Checks whether to1 is convertible to to2 */
   def isConvertibleTo(to1: T, to2: T): Boolean = (to1, to2) match {
-    case (Some(t1), Some(t2)) => t1.isConvertibleTo(t2)
+    case (Some(t1), Some(t2)) =>
+      if Type.areIdentical(t1, t2)
+        then true
+        else (t1, t2) match {
+          case (int1 : Type.PrimitiveInt, int2 : Type.PrimitiveInt) =>
+            (int1.signedness == int2.signedness) &&
+            (int2.bitWidth >= int1.bitWidth)
+          case (float1 : Type.Float, float2 : Type.Float) =>
+            (float2.bitWidth >= float1.bitWidth)
+          case (Type.String(_), Type.String(_)) => true
+          case _ => false
+        }
     case (_, None) => true
     case (None, _) => false
   }

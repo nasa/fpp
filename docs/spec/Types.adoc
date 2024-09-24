@@ -5,6 +5,8 @@
 The *primitive integer types* correspond to the 
 <<Type-Names_Primitive-Integer-Type-Names,primitive integer type names>>
 and are written in the same way, e.g., `U32`.
+The primitive integer types whose names start with `I` are *signed*.
+The primitive integer types whose names start with `U` are *unsigned*.
 
 === Floating-Point Types
 
