@@ -12,6 +12,7 @@ object TypeOption {
   def show(to: T) = to.map(_.toString).getOrElse("None")
 
   /** Computes the common type option of two type options */
+  // TODO: This needs to implement the revised spec
   def commonType(to1: T, to2: T): Option[T] =
     (to1, to2) match {
       case (Some(t1), Some(t2)) =>
@@ -20,6 +21,7 @@ object TypeOption {
     }
 
   /** Converts to1 to to2 */
+  // TODO: This needs to implement the revised spec
   def isConvertibleTo(to1: T, to2: T): Boolean = (to1, to2) match {
     case (Some(t1), Some(t2)) => t1.isConvertibleTo(t2)
     case (_, None) => true

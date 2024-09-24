@@ -9559,17 +9559,35 @@ machine definitions</a>.</p>
 <h3 id="Type-Options_Conversion-of-Type-Options">19.1. Conversion of Type Options</h3>
 <div class="paragraph">
 <p>We say that a type option \$O_1\$ <strong>may be converted to</strong> another type option
-\$O_2\$ if one of the following holds:</p>
+\$O_2\$ in the following cases.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>\$O_2\$ is <em>None</em>.</p>
+<p>Any type option may be converted to <em>None</em>.</p>
 </li>
 <li>
-<p>\$O_1\$ is <em>Some</em> \$T_1\$, \$O_2\$ is <em>Some</em> \$T_2\$,
-and \$T_1\$ <a href="#Type-Checking_Type-Conversion">may be converted to</a>
-\$T_2\$.</p>
+<p><em>Some</em> \$T_1\$ may be converted to <em>Some</em> \$T_2\$ in the following cases:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>\$T_1\$ and \$T_2\$ are <a href="#Type-Checking_Identical-Types">identical types</a>.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">primitive integer types</a>,
+and \$T_2\$ is at least as wide as \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both
+<a href="#Types_Floating-Point-Types">floating-point types</a>,
+and \$T_2\$ is at least as wide as \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both <a href="#Types_String-Types">string types</a>.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -9589,15 +9607,37 @@ a common type option \$O\$:</p>
 let \$O\$ be <em>None</em>.</p>
 </li>
 <li>
-<p>Otherwise if (a) \$O_1\$ is <em>Some</em> \$T_1\$ and (b)
-\$O_2\$ is <em>Some</em> \$T_2\$ and (c) \$T_1\$ and \$T_2\$
-have the
-<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$T\$,
-then let \$O\$ be <em>Some</em> \$T\$.</p>
+<p>Otherwise let \$O_1\$ be <em>Some</em> \$T_1\$, and let
+\$O_2\$ be <em>Some</em> \$T_2\$.
+Let \$O\$ be <em>Some</em> \$T\$, where \$T\$
+is computed as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If \$T_1\$ and \$T_2\$ are <a href="#Type-Checking_Identical-Types">identical types</a>,
+then let \$T\$ be \$T_1\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">primitive integer types</a>
+then let \$T\$ be the wider of the two types.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_Floating-Point-Types">floating-point types</a>,
+then let \$T\$ be the wider of the two types.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_String-Types">string types</a>, then
+then let \$T\$ be <code>string</code>.</p>
 </li>
 <li>
 <p>Otherwise the attempted resolution is invalid.
 Throw an error.</p>
+</li>
+</ol>
+</div>
 </li>
 </ol>
 </div>
@@ -10207,7 +10247,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-18 21:12:39 -0700
+Last updated 2024-09-24 08:44:52 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

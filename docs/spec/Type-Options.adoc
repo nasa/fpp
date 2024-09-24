@@ -13,13 +13,23 @@ machine definitions>>.
 === Conversion of Type Options
 
 We say that a type option stem:[O_1] *may be converted to* another type option
-stem:[O_2] if one of the following holds:
+stem:[O_2] in the following cases.
 
-. stem:[O_2] is _None_.
+. Any type option may be converted to _None_.
 
-. stem:[O_1] is _Some_ stem:[T_1], stem:[O_2] is _Some_ stem:[T_2],
-and stem:[T_1] <<Type-Checking_Type-Conversion,may be converted to>>
-stem:[T_2].
+. _Some_ stem:[T_1] may be converted to _Some_ stem:[T_2] in the following cases:
+
+.. stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>.
+
+.. stem:[T_1] and stem:[T_2] are both
+<<Types_Primitive-Integer-Types,primitive integer types>>,
+and stem:[T_2] is at least as wide as stem:[T_1].
+
+.. stem:[T_1] and stem:[T_2] are both
+<<Types_Floating-Point-Types,floating-point types>>,
+and stem:[T_2] is at least as wide as stem:[T_1].
+
+.. stem:[T_1] and stem:[T_2] are both <<Types_String-Types,string types>>.
 
 === Computing a Common Type Option
 
@@ -31,13 +41,27 @@ a common type option stem:[O]:
 . If either or both of stem:[O_1] and stem:[O_2] is _None_, then
 let stem:[O] be _None_.
 
-. Otherwise if (a) stem:[O_1] is _Some_ stem:[T_1] and (b)
-stem:[O_2] is _Some_ stem:[T_2] and (c) stem:[T_1] and stem:[T_2]
-have the
-<<Type-Checking_Computing-a-Common-Type,common type>> stem:[T],
-then let stem:[O] be _Some_ stem:[T].
+. Otherwise let stem:[O_1] be _Some_ stem:[T_1], and let
+stem:[O_2] be _Some_ stem:[T_2].
+Let stem:[O] be _Some_ stem:[T], where stem:[T]
+is computed as follows:
 
-. Otherwise the attempted resolution is invalid.
+.. If stem:[T_1] and stem:[T_2] are <<Type-Checking_Identical-Types,identical types>>,
+then let stem:[T] be stem:[T_1].
+
+.. Otherwise if stem:[T_1] and stem:[T_2] are both 
+<<Types_Primitive-Integer-Types,primitive integer types>>
+then let stem:[T] be the wider of the two types.
+
+.. Otherwise if stem:[T_1] and stem:[T_2] are both 
+<<Types_Floating-Point-Types,floating-point types>>,
+then let stem:[T] be the wider of the two types.
+
+.. Otherwise if stem:[T_1] and stem:[T_2] are both 
+<<Types_String-Types,string types>>, then 
+then let stem:[T] be `string`.
+
+.. Otherwise the attempted resolution is invalid.
 Throw an error.
 
 ==== Lists of Type Options
