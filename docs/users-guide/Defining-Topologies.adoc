@@ -739,6 +739,75 @@ component instances, we can't used automatic matched numbering.
 Instead we define a symbolic constant `Ports.StaticMemory.uplink`
 and use that twice to do the matching by hand.
 
+*Unmatched connections:*
+Unmatched connections can be used in a topology to bypass match 
+constraints that are specified in component definitions. Doing so 
+allows you to skip port matching requirements without receiving an 
+error if a match constraint is violated. 
+
+To specify that a connection is unmatched, start the connection
+with the `unmatched` keyword.
+
+[source,fpp]
+--------
+unmatched c1.pOut -> c2.pIn
+--------
+
+Note that unmatched connections are only allowed when a match
+constraint has been specified. In the below example, unmatched
+connections would not be valid since neither ports `pIn` or `pOut` 
+are match constrained.
+
+[source,fpp]
+--------
+Port P
+
+passive component C {
+  sync input port pIn: [3] P
+  output port pOut: [3] P
+}
+--------
+
+Below is a valid example for using unmatched connections:
+
+[source,fpp]
+--------
+Port P
+
+passive component C {
+  sync input port pIn: [3] P
+  output port pOut: [3] P
+
+  match pOut with pIn
+}
+
+instance c1: C base id 0x100
+instance c2: C base id 0x200
+
+topology T {
+
+  @ This specifier says that instance c1 is part of the topology
+  instance c1
+  @ This specifier says that instance c2 is part of the topology
+  instance c2
+
+  @ This code specifies a connection graph C1
+  connections C1 {
+    unmatched c1.pOut[0] -> c2.pIn[0]
+    unmatched c1.pOut[1] -> c2.pIn[1]
+  }
+
+}
+--------
+
+This example consists of a component `C` with ports `pOut` and `pIn` 
+that are match constrained by the matching specifier `match pOut with pIn`.
+In addition, The topology `T` contains two unmatched connections that go 
+from `c1.pOut[0]` to `c2.pIn[0]` and from `c1.pOut[1]` to `c2.pIn[1]`.
+Since `pOut` and `pIn` are match constrained, the unmatched keyword can be used 
+to mark the connection as unmatched and bypass the port matching requirement.
+
+
 ==== General Numbering
 
 After resolving 
