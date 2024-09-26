@@ -28,6 +28,9 @@ object GeneralPortNumbering {
     val pi = pii.portInstance
     val cs = t.getConnectionsFrom(pii).toArray.sorted
     val usedPortNumbers = t.getUsedPortNumbers(pi, cs)
+    // Initialize the PortNumberingState with an empty set as one 
+    // of its args since in GeneralPortNumbering we are only 
+    // working with one set of port numbers at a time
     val state = PortNumberingState.initial(Set(), usedPortNumbers)
     val (_, t1) = cs.foldLeft ((state, t)) ({ case ((s,t), c) =>
       t.getPortNumber(pi, c) match {

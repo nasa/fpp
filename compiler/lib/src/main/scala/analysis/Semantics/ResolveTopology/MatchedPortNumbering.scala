@@ -60,19 +60,23 @@ object MatchedPortNumbering {
           }
         case (Some(n1), None) =>
           // Only pi1 has a number: assign it to pi2
+          // Check to see if the port number is already in use
           if PortNumberingState.checkPortNumberInUse(n1, state.numbering.usedPorts2)
             then Left(SemanticError.PortNumberAlreadyInUse(n1))
           else {
             val t1 = t.assignPortNumber(pi2, c2, n1)
+            // Update the set of used ports so that the new port number is tracked
             val num = state.numbering.setUsedPorts(state.numbering.usedPorts1, state.numbering.usedPorts2 + n1)
             Right(state.copy(t = t1, numbering = num))
           }
         case (None, Some(n2)) =>
           // Only pi2 has a number: assign it to pi1
+          // Check to see if the port number is already in use
           if PortNumberingState.checkPortNumberInUse(n2, state.numbering.usedPorts1)
             then Left(SemanticError.PortNumberAlreadyInUse(n2))
           else {
             val t1 = t.assignPortNumber(pi1, c1, n2)
+            // Update the set of used ports so that the new port number is tracked
             val num = state.numbering.setUsedPorts(state.numbering.usedPorts1 + n2, state.numbering.usedPorts2)
             Right(state.copy(t = t1, numbering = num))
           }
@@ -81,12 +85,14 @@ object MatchedPortNumbering {
           val maxSize1 = pi1.getArraySize
           val maxSize2 = pi2.getArraySize
           val (numbering, n) = state.numbering.getPortNumber
+          // Check to see if the port number is out of range for either of the port array sizes
           if(n > maxSize1 - 1)
             then Left(SemanticError.PortNumberOutOfRange(n, pi1.toString, maxSize1))
           else if(n > maxSize2 - 1)
             then Left(SemanticError.PortNumberOutOfRange(n, pi2.toString, maxSize2))
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
+            // Update the set of used ports so that the new port number is tracked
             val num = state.numbering.setUsedPorts(state.numbering.usedPorts1 + n, state.numbering.usedPorts2 + n)
             Right(state.copy(t = t1, numbering = num))
           }
@@ -197,6 +203,7 @@ object MatchedPortNumbering {
       })
     }
 
+    // Computes the set of used ports for all connections at a specific port instance
     def computeUsedPortNumbers(pi: PortInstance): Result.Result[Set[Int]] = {
       val empty: Set[Int] = Set()
       val pii = PortInstanceIdentifier(ci, pi)
@@ -204,8 +211,9 @@ object MatchedPortNumbering {
       Result.foldLeft (cs) (empty) ((s, c) => {
         val used = t.getUsedPortNumbers(pi, List(c))
         val intersection = s.intersect(used)
+        // Do not allow duplicate port numbers
         if intersection.nonEmpty
-          then Left(SemanticError.MultipleConnectionsAtPortIndex(intersection.toString))
+          then Left(SemanticError.MultipleConnectionsAtPortIndex(intersection.mkString(", ")))
         else
           Right(s ++ used)
       })
