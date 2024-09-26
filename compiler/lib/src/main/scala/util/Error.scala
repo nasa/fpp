@@ -153,6 +153,8 @@ sealed trait Error {
         Error.print (Some(loc)) (msg)
         System.err.println(s"port definition is here:")
         System.err.println(defLoc)
+      case SemanticError.MultipleConnectionsAtPortIndex(portIndexString) =>
+        Error.print (None) (s"multiple connections appear at port indices $portIndexString")
       case SemanticError.InvalidPortInstanceId(loc, portName, componentName) =>
         Error.print (Some(loc)) (s"$portName is not a port instance of component $componentName")
       case SemanticError.InvalidPortKind(loc, msg, specLoc) =>
@@ -161,10 +163,14 @@ sealed trait Error {
         System.err.println(specLoc)
       case SemanticError.InvalidPortMatching(loc, msg) =>
         Error.print (Some(loc)) (msg)
+      case SemanticError.PortNumberAlreadyInUse(n) =>
+        Error.print (None) (s"port number $n is already in use")
       case SemanticError.InvalidPortNumber(loc, portNumber, port, arraySize, specLoc) =>
         Error.print (Some(loc)) (s"invalid port number $portNumber for port $port (max is ${arraySize - 1})")
         System.err.println(s"port instance is specified here:")
         System.err.println(specLoc)
+      case SemanticError.PortNumberOutOfRange(portNumber, port, arraySize) =>
+        Error.print (None) (s"port number $portNumber out of range for port $port (max is ${arraySize - 1})")
       case SemanticError.InvalidPriority(loc) =>
         Error.print (Some(loc)) ("only async input may have a priority")
       case SemanticError.InvalidQueueFull(loc) =>
@@ -425,6 +431,9 @@ object SemanticError {
     msg: String,
     defLoc: Location
   ) extends Error
+  final case class MultipleConnectionsAtPortIndex(
+    portIndexString: String
+  ) extends Error
   /** Invalid port instance identifier */
   final case class InvalidPortInstanceId(
     loc: Location,
@@ -439,6 +448,7 @@ object SemanticError {
   ) extends Error
   /** Invalid port matching */
   final case class InvalidPortMatching(loc: Location, msg: String) extends Error
+  final case class PortNumberAlreadyInUse(n: Int) extends Error
   /** Invalid port number */
   final case class InvalidPortNumber(
     loc: Location,
@@ -446,6 +456,12 @@ object SemanticError {
     port: String,
     size: Int,
     specLoc: Location
+  ) extends Error
+  /** Port number out of range */
+  final case class PortNumberOutOfRange(
+    portNumber: Int,
+    port: String,
+    size: Int,
   ) extends Error
   /** Invalid priority specifier */
   final case class InvalidPriority(loc: Location) extends Error

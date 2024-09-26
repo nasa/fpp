@@ -3335,6 +3335,20 @@ is <strong>match constrained</strong>. If a match constrained connection is mark
 <code>unmatched</code> then it is <strong>unmatched</strong>; otherwise it is <strong>matched</strong>.</p>
 </li>
 <li>
+<p>For each connection that appears from \$p_1\$ and \$p_2\$:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Compute the set of port numbers that are already in use.</p>
+</li>
+<li>
+<p>Check that the port numbers computed in the previous step to
+ensure there are no duplicate port numbers.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
 <p>For each matched connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
@@ -3356,8 +3370,8 @@ step are all the matched connections at <em>I</em> <code>.</code> \$p_2\$.</p>
 <li>
 <p>For each pair <em>P</em> with \$(c_1,c_2)\$ computed in step b, if <em>P</em>
 has both numbers assigned, check that the port numbers match.
-For each <em>P</em> that has exactly one port number assigned,
-assign the other one to match.</p>
+For each <em>P</em> that has exactly one port number assigned, check that the
+port number is not in use and assign it to match.</p>
 </li>
 <li>
 <p>Traverse the pairs \$(c_1,c_2)\$ computed in step b according to the
@@ -9801,7 +9815,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-24 15:46:05 -0700
+Last updated 2024-09-25 18:09:12 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

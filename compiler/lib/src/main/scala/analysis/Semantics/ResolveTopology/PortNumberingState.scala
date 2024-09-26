@@ -5,6 +5,8 @@ import fpp.compiler.util._
 
 /** Port numbering state */
 case class PortNumberingState private (
+  usedPorts1: Set[Int],
+  usedPorts2: Set[Int],
   /** The used port numbers */
   usedPortNumbers: Set[Int],
   /** The next port number */
@@ -19,7 +21,7 @@ case class PortNumberingState private (
       nextPortNumber,
       s
     )
-    PortNumberingState(s, n)
+    PortNumberingState(usedPorts1, usedPorts2, s, n)
   }
 
   /** Gets the next port number and updates the state */
@@ -28,14 +30,24 @@ case class PortNumberingState private (
     (s, nextPortNumber)
   }
 
+  def setUsedPorts(u1: Set[Int], u2: Set[Int]): PortNumberingState = {
+    val updatedUsedPortNumbers = u1 ++ u2
+    val updatedNextPortNumber = PortNumberingState.getNextNumber(
+      nextPortNumber,
+      updatedUsedPortNumbers
+    )
+    PortNumberingState(u1, u2, updatedUsedPortNumbers, nextPortNumber)
+  }
+
 }
 
 object PortNumberingState {
 
   /** Construct an initial state */
-  def initial(usedPortNumbers: Set[Int]): PortNumberingState = {
+  def initial(usedPorts1: Set[Int], usedPorts2: Set[Int]): PortNumberingState = {
+    val usedPortNumbers = usedPorts1 ++ usedPorts2
     val nextPortNumber = getNextNumber(0, usedPortNumbers)
-    PortNumberingState(usedPortNumbers, nextPortNumber)
+    PortNumberingState(usedPorts1, usedPorts2, usedPortNumbers, nextPortNumber)
   }
 
   /** Gets the next available port number */
@@ -46,5 +58,8 @@ object PortNumberingState {
       else helper(n + 1)
     helper(from)
   }
+
+  def checkPortNumberInUse(n: Int, used: Set[Int]) =
+    used.contains(n)
 
 }
