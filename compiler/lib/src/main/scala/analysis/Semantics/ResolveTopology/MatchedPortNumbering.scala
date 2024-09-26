@@ -90,6 +90,9 @@ object MatchedPortNumbering {
             then Left(SemanticError.PortNumberOutOfRange(n, pi1.toString, maxSize1))
           else if(n > maxSize2 - 1)
             then Left(SemanticError.PortNumberOutOfRange(n, pi2.toString, maxSize2))
+          // Check to see if the port number is already in use
+          else if PortNumberingState.checkPortNumberInUse(n, state.numbering.usedPortNumbers)
+            then Left(SemanticError.PortNumberAlreadyInUse(n))
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked
