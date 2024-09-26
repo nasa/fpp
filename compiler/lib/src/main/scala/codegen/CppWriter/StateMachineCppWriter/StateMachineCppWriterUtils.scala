@@ -89,6 +89,18 @@ abstract class StateMachineCppWriterUtils(
   def getParamsWithTypeOpt(typeOpt: Option[Type]) =
     signalParam :: getValueParamsWithTypeOpt(typeOpt)
 
+  def getValueParamType(t: Type): CppDoc.Type = {
+    val typeName = typeCppWriter.write(t)
+    val paramTypeName = t match {
+      case _: Type.AbsType => s"const $typeName&"
+      case _: Type.Array => s"const $typeName&"
+      case _: Type.String => s"const $typeName&"
+      case _: Type.Struct => s"const $typeName&"
+      case _ => typeName
+    }
+    CppDoc.Type(paramTypeName)
+  }
+
   def getValueParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
     getValueParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
 
@@ -96,7 +108,7 @@ abstract class StateMachineCppWriterUtils(
     case Some(t) =>
       List(
         CppDoc.Function.Param(
-          CppDoc.Type(typeCppWriter.write(t)),
+          getValueParamType(t),
           valueParamName,
           Some("The value")
         )
