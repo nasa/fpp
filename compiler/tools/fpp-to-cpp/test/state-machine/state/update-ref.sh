@@ -15,3 +15,9 @@ basic_self()
   update "-p $PWD" basic_self
   move_cpp BasicSelfStateMachine
 }
+
+basic_u32()
+{
+  update "-p $PWD" basic_u32
+  move_cpp BasicU32StateMachine
+}
