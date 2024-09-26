@@ -27,7 +27,7 @@ class QueuedSerialTester :
     static const FwEnumStoreType TEST_INSTANCE_ID = 0;
 
     // Queue depth supplied to the component instance under test
-    static const FwQueueSizeType TEST_INSTANCE_QUEUE_DEPTH = 10;
+    static const FwSizeType TEST_INSTANCE_QUEUE_DEPTH = 10;
 
   public:
 

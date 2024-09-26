@@ -93,7 +93,7 @@ case class ComponentTestImplWriter(
               lines(
                 s"""|
                     |// Queue depth supplied to the component instance under test
-                    |static const FwQueueSizeType $queueDepthConstantName = 10;
+                    |static const FwSizeType $queueDepthConstantName = 10;
                     |"""
               )
             )
