@@ -91,13 +91,9 @@ abstract class StateMachineCppWriterUtils(
 
   def getValueParamType(t: Type): CppDoc.Type = {
     val typeName = typeCppWriter.write(t)
-    val paramTypeName = t match {
-      case _: Type.AbsType => s"const $typeName&"
-      case _: Type.Array => s"const $typeName&"
-      case _: Type.String => s"const $typeName&"
-      case _: Type.Struct => s"const $typeName&"
-      case _ => typeName
-    }
+    val paramTypeName = if t.isPrimitive
+                        then typeName
+                        else s"const $typeName&"
     CppDoc.Type(paramTypeName)
   }
 
