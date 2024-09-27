@@ -1,23 +1,32 @@
+. ./fpp-flags.sh
+
 basic()
 {
-  update "-p $PWD" basic
+  update "$fpp_flags" basic
   move_cpp BasicStateMachine
 }
 
 basic_guard()
 {
-  update "-p $PWD" basic_guard
+  update "$fpp_flags" basic_guard
   move_cpp BasicGuardStateMachine
 }
 
 basic_self()
 {
-  update "-p $PWD" basic_self
+  update "$fpp_flags" basic_self
   move_cpp BasicSelfStateMachine
+}
+
+basic_test_abs_type()
+{
+  update "$fpp_flags" basic_test_abs_type
+  move_cpp BasicTestAbsTypeStateMachine
 }
 
 basic_u32()
 {
-  update "-p $PWD" basic_u32
+  update "$fpp_flags" basic_u32
   move_cpp BasicU32StateMachine
 }
+
