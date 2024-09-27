@@ -36,6 +36,12 @@ basic_test_enum()
   move_cpp BasicTestEnumStateMachine
 }
 
+basic_test_struct()
+{
+  update "$fpp_flags" basic_test_struct
+  move_cpp BasicTestStructStateMachine
+}
+
 basic_u32()
 {
   update "$fpp_flags" basic_u32

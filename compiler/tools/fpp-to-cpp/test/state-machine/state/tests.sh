@@ -5,5 +5,6 @@ basic_self
 basic_test_abs_type
 basic_test_array
 basic_test_enum
+basic_test_struct
 basic_u32
 "
