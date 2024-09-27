@@ -24,6 +24,12 @@ basic_test_abs_type()
   move_cpp BasicTestAbsTypeStateMachine
 }
 
+basic_test_array()
+{
+  update "$fpp_flags" basic_test_array
+  move_cpp BasicTestArrayStateMachine
+}
+
 basic_test_enum()
 {
   update "$fpp_flags" basic_test_enum
