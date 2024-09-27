@@ -18,6 +18,12 @@ basic_self()
     diff_cpp BasicSelfStateMachine
 }
 
+basic_string()
+{
+  run_test "$fpp_flags" basic_string && \
+    diff_cpp BasicStringStateMachine
+}
+
 basic_test_abs_type()
 {
   run_test "$fpp_flags" basic_test_abs_type && \

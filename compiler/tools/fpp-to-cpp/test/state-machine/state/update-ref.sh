@@ -18,6 +18,12 @@ basic_self()
   move_cpp BasicSelfStateMachine
 }
 
+basic_string()
+{
+  update "$fpp_flags" basic_string
+  move_cpp BasicStringStateMachine
+}
+
 basic_test_abs_type()
 {
   update "$fpp_flags" basic_test_abs_type
