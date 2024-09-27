@@ -4,6 +4,8 @@ cd `dirname $0`
 
 fprime_gcc=../../../../../scripts/fprime-gcc
 
+../harness/generate-cpp
+
 for file in `find . -name '*.ref.cpp'`
 do
   base=`basename $file .ref.cpp`

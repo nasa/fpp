@@ -24,6 +24,12 @@ basic_test_abs_type()
     diff_cpp BasicTestAbsTypeStateMachine
 }
 
+basic_test_enum()
+{
+  run_test "$fpp_flags" basic_test_enum && \
+    diff_cpp BasicTestEnumStateMachine
+}
+
 basic_u32()
 {
   run_test "$fpp_flags" basic_u32 && \
