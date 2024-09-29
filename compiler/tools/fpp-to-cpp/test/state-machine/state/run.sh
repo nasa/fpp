@@ -66,6 +66,12 @@ internal()
     diff_cpp InternalStateMachine
 }
 
+polymorphism()
+{
+  run_test "$fpp_flags" polymorphism && \
+    diff_cpp PolymorphismStateMachine
+}
+
 state_to_junction()
 {
   run_test "$fpp_flags" state_to_junction && \

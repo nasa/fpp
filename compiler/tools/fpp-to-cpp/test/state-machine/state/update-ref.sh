@@ -66,6 +66,12 @@ internal()
   move_cpp InternalStateMachine
 }
 
+polymorphism()
+{
+  update "$fpp_flags" polymorphism
+  move_cpp PolymorphismStateMachine
+}
+
 state_to_junction()
 {
   update "$fpp_flags" state_to_junction
