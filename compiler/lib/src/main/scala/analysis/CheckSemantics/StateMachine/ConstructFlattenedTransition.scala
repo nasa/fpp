@@ -20,34 +20,20 @@ case class ConstructFlattenedTransition(
   private def externalTransition(transition: Transition.External):
   Transition.External = {
     val target = transition.target
-    val sourceStates = getParentStateList(source)
-    val targetStates = getParentStateList(target)
-    val prefix = {
-      val reversedPrefix =
-        getReversedPrefix(sourceStates, targetStates)
-      val adjustedReversedPrefix = adjustForSelfTransition(
-        source,
-        target,
-        targetStates,
-        reversedPrefix
-      )
-      adjustedReversedPrefix.reverse
-    }
-    val exitStates = removePrefix(prefix, sourceStates).reverse
-    val entryStates = (target, removePrefix(prefix, targetStates).reverse) match {
-      case (_: StateOrJunction.State, _ :: tail) => tail.reverse
-      case (_, list) => list.reverse
-    }
+    val sourceStates = getSourceParentStateList(source)
+    val targetStates = getTargetParentStateList(target)
+    val (exitStates, entryStates) =
+      deleteLongestCommonPrefix(sourceStates, targetStates)
     val actions = List.concat(
-      exitStates.flatMap(getExitActions),
+      exitStates.reverse.flatMap(getExitActions),
       transition.actions,
       entryStates.flatMap(getEntryActions)
     )
     Transition.External(actions, target)
   }
 
-  // Get the parent state list of a state or junction
-  private def getParentStateList(soj: StateOrJunction):
+  // Get the parent state list of a source state or junction
+  private def getSourceParentStateList(soj: StateOrJunction):
   List[StateMachineSymbol.State] = {
     val start = soj match {
       case StateOrJunction.State(state) => List(state)
@@ -56,60 +42,20 @@ case class ConstructFlattenedTransition(
     sma.getParentStateList(soj.getSymbol, start)
   }
 
-  // Compute the reverse of the common prefix of two lists
-  private def getReversedPrefix[T](
+  // Get the parent state list of a target state or junction
+  private def getTargetParentStateList(soj: StateOrJunction):
+  List[StateMachineSymbol.State] = sma.getParentStateList(soj.getSymbol)
+
+  // Delete the longest common prefix of two lists
+  private def deleteLongestCommonPrefix[T](
     list1: List[T],
     list2: List[T]
-  ): List[T] = {
-    def helper(
-      list1: List[T],
-      list2: List[T],
-      result: List[T]
-    ): List[T] = (list1, list2) match {
-      case (head1 :: tail1, head2 :: tail2) =>
-        if head1 == head2
-        then helper(tail1, tail2, head1 :: result)
-        else result
-      case _ => result
-    }
-    helper(list1, list2, Nil)
-  }
-
-  // Adjust the reversed common prefix of a list of state symbols
-  // to account for a self transition
-  private def adjustForSelfTransition(
-    source: StateOrJunction,
-    target: StateOrJunction,
-    targetStates: List[StateMachineSymbol.State],
-    reversedPrefix: List[StateMachineSymbol.State]
-  ): List[StateMachineSymbol.State] = {
-    val prefix = reversedPrefix.reverse
-    (source, target, reversedPrefix) match {
-      case (
-        StateOrJunction.State(_),
-        StateOrJunction.State(_),
-        head :: tail
-      ) =>
-        if prefix == targetStates
-        then tail
-        else reversedPrefix
-      case _ => reversedPrefix
-    }
-  }
-
-  // Remove a prefix of a list
-  private def removePrefix[T](
-    prefix: List[T],
-    list: List[T]
-  ): List[T] = {
-    (prefix, list) match {
-      case (Nil, _) => list
-      case (head1 :: tail1, head2 :: tail2) =>
-        if head1 == head2
-        then removePrefix(tail1, tail2)
-        else list
-      case _ => list
-    }
+  ): (List[T], List[T]) = (list1, list2) match {
+    case (head1 :: tail1, head2 :: tail2) =>
+      if head1 == head2
+      then deleteLongestCommonPrefix(tail1, tail2)
+      else (list1, list2)
+    case _ => (list1, list2)
   }
 
   // Get the entry actions of a state symbol
