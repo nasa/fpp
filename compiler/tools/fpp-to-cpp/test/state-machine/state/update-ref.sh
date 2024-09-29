@@ -72,6 +72,12 @@ polymorphism()
   move_cpp PolymorphismStateMachine
 }
 
+state_to_child()
+{
+  update "$fpp_flags" state_to_child
+  move_cpp StateToChildStateMachine
+}
+
 state_to_junction()
 {
   update "$fpp_flags" state_to_junction

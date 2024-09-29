@@ -72,6 +72,12 @@ polymorphism()
     diff_cpp PolymorphismStateMachine
 }
 
+state_to_child()
+{
+  run_test "$fpp_flags" state_to_child && \
+    diff_cpp StateToChildStateMachine
+}
+
 state_to_junction()
 {
   run_test "$fpp_flags" state_to_junction && \
