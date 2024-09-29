@@ -20,7 +20,7 @@ module FppTest {
         @ Enter S
         entry do { a }
 
-        @ State transition
+        @ Internal transition
         on s do { a }
 
       }
