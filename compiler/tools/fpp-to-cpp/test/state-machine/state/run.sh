@@ -12,6 +12,12 @@ basic_guard()
     diff_cpp BasicGuardStateMachine
 }
 
+basic_internal()
+{
+  run_test "$fpp_flags" basic_internal && \
+    diff_cpp BasicInternalStateMachine
+}
+
 basic_self()
 {
   run_test "$fpp_flags" basic_self && \

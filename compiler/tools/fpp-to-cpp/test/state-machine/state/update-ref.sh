@@ -12,6 +12,12 @@ basic_guard()
   move_cpp BasicGuardStateMachine
 }
 
+basic_internal()
+{
+  update "$fpp_flags" basic_internal
+  move_cpp BasicInternalStateMachine
+}
+
 basic_self()
 {
   update "$fpp_flags" basic_self

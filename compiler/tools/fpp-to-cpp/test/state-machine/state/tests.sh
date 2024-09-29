@@ -1,6 +1,7 @@
 tests="
 basic
 basic_guard
+basic_internal
 basic_self
 basic_string
 basic_test_abs_type
