@@ -8,4 +8,5 @@ basic_test_array
 basic_test_enum
 basic_test_struct
 basic_u32
+state_to_state
 "

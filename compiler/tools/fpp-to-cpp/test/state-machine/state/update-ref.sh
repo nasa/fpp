@@ -54,3 +54,9 @@ basic_u32()
   move_cpp BasicU32StateMachine
 }
 
+state_to_state()
+{
+  update "$fpp_flags" state_to_state
+  move_cpp StateToStateStateMachine
+}
+

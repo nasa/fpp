@@ -54,3 +54,9 @@ basic_u32()
     diff_cpp BasicU32StateMachine
 }
 
+state_to_state()
+{
+  run_test "$fpp_flags" state_to_state && \
+    diff_cpp StateToStateStateMachine
+}
+
