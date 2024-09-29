@@ -60,6 +60,12 @@ basic_u32()
     diff_cpp BasicU32StateMachine
 }
 
+internal()
+{
+  run_test "$fpp_flags" internal && \
+    diff_cpp InternalStateMachine
+}
+
 state_to_junction()
 {
   run_test "$fpp_flags" state_to_junction && \

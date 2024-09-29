@@ -60,6 +60,12 @@ basic_u32()
   move_cpp BasicU32StateMachine
 }
 
+internal()
+{
+  update "$fpp_flags" internal
+  move_cpp InternalStateMachine
+}
+
 state_to_junction()
 {
   update "$fpp_flags" state_to_junction

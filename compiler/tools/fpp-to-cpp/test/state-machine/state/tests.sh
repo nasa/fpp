@@ -9,6 +9,7 @@ basic_test_array
 basic_test_enum
 basic_test_struct
 basic_u32
+internal
 state_to_junction
 state_to_self
 state_to_state
