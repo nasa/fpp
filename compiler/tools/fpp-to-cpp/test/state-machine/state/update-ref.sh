@@ -60,6 +60,12 @@ basic_u32()
   move_cpp BasicU32StateMachine
 }
 
+state_to_junction()
+{
+  update "$fpp_flags" state_to_junction
+  move_cpp StateToJunctionStateMachine
+}
+
 state_to_self()
 {
   update "$fpp_flags" state_to_self
