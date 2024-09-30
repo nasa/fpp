@@ -20,7 +20,7 @@ and the terminating punctuation is a comma.
 ==== Semantics
 
 Each identifier in the action sequence must 
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
 to an
 <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>.
 

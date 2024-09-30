@@ -13,7 +13,7 @@ substates.
 `initial` 
 <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
 
-==== Semantics
+==== Static Semantics
 
 The state definition or junction definition referred to in the
 transition expression must *lead to a member* of the same 
@@ -27,6 +27,12 @@ transition specifier appears.
 (respectively as state _S_) if it is a member of _M_ (respectively _S_)
 and the state or junction definitions referred to in _D_ lead to members of
 _M_ (respectively _S_).
+
+==== Dynamic Semantics
+
+To run an initial transition specifier _I_ with transition expression _E_,
+we <<State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics,
+run _E_ in the context of _I_>>.
 
 ==== Examples
 

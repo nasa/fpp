@@ -21,7 +21,7 @@ _]_
 _queue-full-behavior_ has the same syntax as for 
 <<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
 
-==== Semantics
+==== Static Semantics
 
 . The identifier names the state machine instance.
 
@@ -33,6 +33,23 @@ a
 . The optional priority and queue full behavior have the same semantics as in 
 <<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
 specifiers>>.
+
+==== Dynamic Semantics
+
+. Specifying one or more instances of a state machine _M_ in a component _C_
+causes the following code to be generated as part of _C_:
+
+.. Pure virtual functions corresponding to the actions and guards of _M_.
+
+.. For each signal _s_ of _M_, a function for sending _s_ to _M_.
+The signal function may or may not have a typed argument, depending
+on the definition of _s_.
+The signal and the argument, if any, are serialized on the component
+queue and dispatched from the queue in the ordinary way for
+an F Prime active or queued component.
+Upon dispatching a signal, the signal and argument, if any,
+are used to call the <<Definitions_State-Machine-Definitions_Dynamic-Semantics,
+function for sending _s_ to _M_>>.
 
 ==== Examples
 

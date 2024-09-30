@@ -18,16 +18,16 @@ _transition-or-do_ is one of the following:
 
 .  <<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
 
-==== Semantics
+==== Static Semantics
 
 . The identifier after the keyword `on` must
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>.
 It names the signal that causes the transition to occur.
 
 . If present, the optional identifier after the keyword `if` must
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
 to a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>.
 It specifies a guard for the transition.
@@ -40,27 +40,56 @@ transition*, i.e., an optional list of actions and a target state or junction.
 in the same state.
 The do expression must be valid.
 
-. Let _S_ be the enclosing state of a state transition specifier _T_.
+==== The State Transition Map
 
-.. If _S_ is a leaf state, then _T_ specifies an external or internal
-transition with source _S_.
+The set of all state transition specifiers in a state machine
+induces a *state transition map* _m: Signal x State -> GuardedTransition_,
+where a guarded transition is a pair consisting of an optional guard
+and a transition or do expression.
+The map _m_ is constructed as follows.
+Let _T_ be a state transition specifier with signal _s_, optional guard _g_,
+and transition or do expression _t_, defined in state _S_.
 
-.. Otherwise _T_ specifies one external or internal transition with source _S~i~_ 
-for each leaf state _S~i~_ that is transitively contained _S_.
+. If _S_ is a leaf state, then _m_ maps _(s, S)_ to _(g, t)_.
 
-. An external transition whose source is a leaf state _S_ is called a
-*self transition* if the target is a state _S'_, and one of the following is true:
+. Otherwise, for each leaf state _S~i~_ that is transitively
+contained in _S_, _m_ maps _(s, S~i~)_ to _(g, t)_, unless
+the mapping is overridden.
+Overriding occurs when another state _S'_ that is transitively contained in _S_
+maps _(s, S~i~)_ to _(g',t')_ according to items (1) or (2).
+In that case, the mapping lower in the hierarchy takes precedence.
+This overriding behavior is called *behavioral polymorphism*.
 
-..  _S = S'_; or
+==== Dynamic Semantics
 
-.. _S_ is a transitive substate of _S'_.
+Let _M_ be a state machine.
+Suppose _M_ is in state _S_.
+Let _m_ be the state transition map of _M_, defined in the previous section.
+Let _s_ be a signal of _M_.
+*Sending* signal _s_ to _M_ results in the following behavior:
 
-+
-When a self transition occurs, the state machine runs the exit actions
-for the target state just before running the actions (if any)
-specified in the transition; and it runs the entry actions for the
-target state just after running the actions (if any) specified
-in the transition.
+. If _(s,S)_ is not in the domain of _m_, then do nothing.
+
+. Otherwise
+
+.. Let _(g,t) =  m(s,S)_.
+
+.. Evaluate the guard _g_.
+If the result is `false`, then do nothing.
+Otherwise
+
+... If _t_ is a do expression _E_, then perform the actions 
+listed in _E_, if any, in the order listed.
+
+... Otherwise _t_ is a transition expression _E_.
+<<State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics,
+Run _E_ in the context of _S_>>.
+
+If any of the guard, do expression, or transition expression requires a
+typed argument _v_, then according to the static semantics, _v_ must
+be available, and it must have a compatible type.
+Use _v_ to evaluate the guard, run the do expression, or run
+the transition expression.
 
 ==== Examples
 

@@ -16,19 +16,80 @@ _]_
 `enter` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 
 
-==== Semantics
+==== Static Semantics
 
 . The do expression specifies the list of actions to be
 performed when making the transition.
 If there are no actions, the do expression may be omitted.
 
 . The qualified identifier after the keyword `enter` must
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
 to a 
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 It is the state or junction that is entered in the transition.
+
+==== Dynamic Semantics
+
+A transition expression _E_ is run in the context of an
+initial transition specifier, a leaf state definition,
+or a junction definition.
+
+. To run _E_ in the context of an initial transition specifier
+_I_, do the following:
+
+.. Perform the actions, if any, specified in _E_, in the order specified.
+
+.. Run the entry behavior of the 
+<<State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics,state>>
+or
+<<State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics,junction>>
+referred to in _E_.
+
++
+According to the static semantics, actions and the entry behavior must not require
+a typed argument.
+
+. To run _E_ in the context of a leaf state definition or junction definition _D_,
+do the following:
+
+.. Let _T_ be the state or junction which is the target of _E_.
+
+.. Let _P_ be the *lowest common ancestor* of _D_ and _T_.
+The lowest common ancestor is defined as follows:
+
+... A *point in the state hierarchy* is either the entire state machine
+or a state definition.
+
+... The lowest common ancestor of _D_ and _T_ is the lowest
+point in the state hierarchy such that (A)
+by descending from _P_ at least once it is possible to reach _D_ and (B)
+by descending from _P_ at least once it is possible to reach _T_.
+
+.. Ascend through the state hierarchy from _D_ to _P_.
+When passing out of a state _S_, perform the
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,
+exit actions>> of _S_, in the order specified.
+
+.. Perform the actions, if any, specified in _E_, in the order specified.
+
+.. Descend through the state hierarchy from _P_ to the point just above _T_.
+When passing into a state _S_, perform the
+<<State-Machine-Behavior-Elements_State-Definitions_Static-Semantics,
+entry actions>> of _S_, in the order specified.
+
+.. Run the entry behavior of the
+<<State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics,state>>
+or
+<<State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics,junction>>
+_T_.
+
++
+According to the static semantics, if any of the actions or the
+entry behavior requires a typed argument _v_, then _v_ must
+be available, and it must have a compatible type.
+Use _v_ to call the action or run the behavior.
 
 ==== Examples
 

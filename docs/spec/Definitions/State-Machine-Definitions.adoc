@@ -35,7 +35,7 @@ The *transitive members* of a state machine definition _M_ are
 (1) the elements of _M_ and (2)
 the members of any state definition that is a transitive member of _M_.
 
-==== Semantics
+==== Static Semantics
 
 . The identifier is the name of the state machine.
 
@@ -54,11 +54,11 @@ satisfy the following rules:
 The initial transition occurs when the state machine starts up.
 
 .. _M_ must satisfy the rules described
-<<Definitions_State-Machine-Definitions_Semantics_The-Transition-Graph,below>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_The-Transition-Graph,below>>
 for the induced transition graph.
 
 .. _M_ must satisfy the rules described
-<<Definitions_State-Machine-Definitions_Semantics_Typed-Elements,below>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Typed-Elements,below>>
 for typed elements.
 
 ===== The Transition Graph
@@ -103,7 +103,7 @@ _J_, then the initial node is _J_.
 
 +
 The terminal node is the state or junction definition
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,referred to>>
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,referred to>>
 in _e_.
 
 If the optional state machine member sequence is present, then
@@ -228,6 +228,33 @@ with the following modifications:
 . Each kind of definition resides in its own name group.
 
 . The brace-delimited definitions are state definitions.
+
+==== Dynamic Semantics
+
+A state machine _M_ has the following runtime behavior:
+
+. _M_ maintains a current state _S_.
+The current state is undefined until initialization occurs.
+From that point on, the current state is always a leaf state.
+
+. _M_ provides a function for initializing the state machine.
+It runs the
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics,
+behavior associated with the initial transition specifier of _M_>>.
+
+. For each signal _s_, _M_ provides a function for sending _s_.
+This function has a typed argument with type _T_ if and only if
+the <<State-Machine-Behavior-Elements_Signal-Definitions,definition of signal _s_>>
+has type _T_.
+It runs the
+<<State-Machine-Behavior-Elements_State-Transition-Specifiers_Dynamic-Semantics,
+behavior associated with _s_ in the current state _S_>>.
+This behavior may cause one or more actions to be performed,
+and it may cause the current state to change.
+
+The functions are called by the code that is generated when a
+state machine is <<Specifiers_State-Machine-Instance-Specifiers,instantiated>>
+as part of an active or queued component.
 
 ==== Examples
 

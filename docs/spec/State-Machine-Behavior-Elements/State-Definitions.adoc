@@ -26,7 +26,7 @@ A state definition member is one of the following:
 * A <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>
 * A <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>
 
-==== Semantics
+==== Static Semantics
 
 . The identifier is the name of the state.
 
@@ -38,18 +38,38 @@ one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
 
 .. _M_ may not contain more than one state entry specifier.
+If _M_ has a state entry specifier _S_, then the *entry actions* of
+_M_ are the actions specified in _S_, in the order specified.
+Otherwise _M_ has no entry actions.
 
 .. _M_ may not contain more than one state exit specifier.
+If _M_ has a state exit specifier _S_, then the *exit actions* of
+_M_ are the actions specified in _S_, in the order specified.
+Otherwise _M_ has no exit actions.
 
 .. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
 transition specifiers>> that are members of _M_ may
-<<Definitions_State-Machine-Definitions_Semantics_Scoping-of-Names,refer>> to the same
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>> to the same
 signal definition.
 
 . If the state definition member sequence _M_ is present and _M_
 contains at least one state definition, then the
 state definition is called an *inner state definition*.
 Otherwise it is called a *leaf state definition*.
+
+==== Dynamic Semantics
+
+Each state definition _S_ has the following *entry behavior*:
+
+. Run the entry actions, if any, of _S_.
+According to the static semantics, the entry actions must
+not require a typed argument.
+
+. If _S_ is an inner state, then run the
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics,
+behavior>> of the initial transition of _S_.
+
+. Otherwise set the current state of the state machine to _S_.
 
 ==== Examples
 
