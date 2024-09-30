@@ -87,9 +87,9 @@ object MatchedPortNumbering {
           val (numbering, n) = state.numbering.getPortNumber
           // Check to see if the port number is out of range for either of the port array sizes
           if(n > maxSize1 - 1)
-            then Left(SemanticError.PortNumberOutOfRange(n, pi1.toString, maxSize1))
+            then Left(SemanticError.InvalidPortNumber(pi1.getLoc, n, pi1.toString, maxSize1, pi1.getLoc))
           else if(n > maxSize2 - 1)
-            then Left(SemanticError.PortNumberOutOfRange(n, pi2.toString, maxSize2))
+            then Left(SemanticError.InvalidPortNumber(pi2.getLoc, n, pi2.toString, maxSize2, pi2.getLoc))
           // Check to see if the port number is already in use
           else if PortNumberingState.checkPortNumberInUse(n, state.numbering.usedPortNumbers)
             then Left(SemanticError.PortNumberAlreadyInUse(n))

@@ -200,7 +200,7 @@ sealed trait Error {
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
       case SemanticError.MultipleConnectionsAtPortIndex(portIndexString) =>
-        Error.print (None) (s"multiple connections appear at port indices $portIndexString")
+        Error.print (None) (s"multiple connections appear at port index $portIndexString")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -217,8 +217,6 @@ sealed trait Error {
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
       case SemanticError.PortNumberAlreadyInUse(n) =>
         Error.print (None) (s"port number $n is already in use")
-      case SemanticError.PortNumberOutOfRange(portNumber, port, arraySize) =>
-        Error.print (None) (s"port number $portNumber out of range for port $port (max is ${arraySize - 1})")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -512,12 +510,6 @@ object SemanticError {
   final case class PassiveStateMachine(loc: Location) extends Error
   /** Port number has already been assigned */
   final case class PortNumberAlreadyInUse(n: Int) extends Error
-  /** Port number out of range */
-  final case class PortNumberOutOfRange(
-    portNumber: Int,
-    port: String,
-    size: Int,
-  ) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,
