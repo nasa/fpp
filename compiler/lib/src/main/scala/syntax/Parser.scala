@@ -48,7 +48,7 @@ object Parser extends Parsers {
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionPort = node(portInstanceIdentifier) ~! opt(index)
-    opt(unmatched) ~! connectionPort ~! (rarrow ~>! connectionPort) ^^ {
+    opt(unmatched) ~ connectionPort ~! (rarrow ~>! connectionPort) ^^ {
       case unmatched ~ (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(
           unmatched.isDefined,
