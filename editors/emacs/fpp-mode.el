@@ -51,7 +51,7 @@
     "private" "queue"  "queued" "raw" "recv" "red"
     "ref" "reg" "resp" "save" "signal" "serial" "set" "severity"
     "size" "stack" "sync" "telemetry" "text" "throttle"
-    "time" "true"  "update" "enter" "warning" "with"
+    "time" "true" "unmatched" "update" "enter" "warning" "with"
     "yellow")
   "All non-definition keywords for FPP.")
 

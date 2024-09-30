@@ -195,8 +195,12 @@ sealed trait Error {
       case SemanticError.MissingConnection(loc, matchingLoc) =>
         Error.print (Some(loc)) ("no match for this connection")
         printMatchingLoc(matchingLoc)
+      case SemanticError.MissingPortMatching(loc) =>
+        Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
+      case SemanticError.MultipleConnectionsAtPortIndex(portIndexString) =>
+        Error.print (None) (s"multiple connections appear at port index $portIndexString")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -211,6 +215,8 @@ sealed trait Error {
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.PassiveStateMachine(loc) =>
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
+      case SemanticError.PortNumberAlreadyInUse(n) =>
+        Error.print (None) (s"port number $n is already in use")
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -483,6 +489,13 @@ object SemanticError {
     specMsg: String,
     portmsg: String
   ) extends Error
+  final case class MissingPortMatching(
+    loc: Location
+  ) extends Error
+  /** Multiple connections are using the same port index */
+  final case class MultipleConnectionsAtPortIndex(
+    portIndexString: String
+  ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
     maxId1: BigInt,
@@ -495,6 +508,8 @@ object SemanticError {
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error
   final case class PassiveStateMachine(loc: Location) extends Error
+  /** Port number has already been assigned */
+  final case class PortNumberAlreadyInUse(n: Int) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

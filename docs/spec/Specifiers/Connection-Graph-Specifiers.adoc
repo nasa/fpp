@@ -34,6 +34,9 @@ which each element is a *connection*,
 and the terminating punctuation is a comma.
 A connection is the following:
 
+_[_
+`unmatched`
+_]_
 <<Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
@@ -77,9 +80,15 @@ A direct graph specifier directly specifies a named connection graph.
 the connection graph.
 
 . The connection sequence specifies the set of connections in the graph.
-For each connection _C_:
+For each 
+<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
+match constrained>> connection _C_:
 
 .. For each of the two port instance identifiers _I_ appearing in _C_:
+
+... The optional keyword `unmatched`, if present, specifies that
+the connection is explicitly unmatched. `unmatched` must only be used on
+matched connections.
 
 ... The component instance named in _I_
 must be available in the enclosing topology,

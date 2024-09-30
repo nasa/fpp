@@ -129,6 +129,7 @@ object TopologyXmlFppWriter extends LineUtils {
       }
       yield {
         Ast.SpecConnectionGraph.Connection(
+          false,
           from._1,
           from._2,
           to._1,
