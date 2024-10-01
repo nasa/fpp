@@ -31,7 +31,7 @@ object StateMachine {
       case Ast.StateMachineMember(
         (pre, Ast.StateMachineMember.SpecInitialTransition(node), post)
       ) => (pre, node, post)
-    } 
+    }
     specifiers match {
       case head :: Nil => head
       case _ => throw new InternalError(

@@ -4,9 +4,9 @@ import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** ====================================================================== 
+/** ======================================================================
  *  Computes the names of the C++ files to generate
- *  Checks for duplicates that would cause a name collision. 
+ *  Checks for duplicates that would cause a name collision.
  *  ======================================================================*/
 trait ComputeCppFiles extends AstStateVisitor {
 
@@ -85,7 +85,7 @@ object ComputeCppFiles {
     def getEnum(baseName: String) = s"${baseName}EnumAc"
 
     /** Gets the C++ file name for state machines */
-    def getStateMachine(baseName: String, kind: StateMachine.Kind) = 
+    def getStateMachine(baseName: String, kind: StateMachine.Kind) =
       kind match {
         case StateMachine.Kind.External => s"${baseName}"
         case StateMachine.Kind.Internal => s"${baseName}StateMachineAc"

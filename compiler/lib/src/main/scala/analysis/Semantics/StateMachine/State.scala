@@ -44,7 +44,7 @@ object State {
       case Ast.StateMember(
         (pre, Ast.StateMember.SpecInitialTransition(node), post)
       ) => (pre, node, post)
-    } 
+    }
     listToOpt(specifiers, "initial transition")
   }
 

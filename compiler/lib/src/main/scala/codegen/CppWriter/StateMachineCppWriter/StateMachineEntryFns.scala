@@ -84,7 +84,7 @@ case class StateMachineEntryFns(
         entryActionSymbols.flatMap(writeActionCall (signalParamName) (None)),
         initialOrUpdate
       )
-    ) 
+    )
   }
 
 }
