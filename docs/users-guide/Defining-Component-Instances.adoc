@@ -339,6 +339,8 @@ type if its qualified {cpp} class name matches the qualified
 name of the FPP component.
 For example, the {cpp} class name `A::B` matches the FPP component
 name `A.B`.
+More generally, modules in FPP become namespaces in {cpp}, so
+dot qualifiers in FPP become double-colon qualifiers in {cpp}.
 
 If the names do not match, then you must provide the type
 associated with the implementation.
@@ -669,7 +671,7 @@ instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
   cmdSeq.allocateBuffer(
       0,
       Allocation::mallocator,
-      ConfigConstants::cmdSeq::BUFFER_SIZE
+      ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE
   );
   """
 
@@ -682,6 +684,15 @@ instance cmdSeq: Svc.CmdSequencer base id 0x0700 \
 
 The code for `configConstants` provides a constant `BUFFER_SIZE`
 that is used in the `configComponents` phase.
+The code generator places this code snippet in the
+namespace `ConfigConstants::SystemReference_cmdSeq`.
+Notice that the second part of the namespace uses the
+fully qualified name `SystemReference::cmdSeq`, and it replaces
+the double colon `::` with an underscore `_` to generate
+the name.
+We will explain this behavior further in the section on
+<<Defining-Component-Instances_Generation-of-Names,generation of names>>.
+
 The code for `configComponents` calls `allocateBuffer`, passing
 in an allocator object that is declared elsewhere.
 (In the section on
@@ -734,3 +745,59 @@ For more examples of init specifiers in action, see the rest of
 the file `SystemReference/Top/instances.fpp` in the F Prime repository.
 In particular, the init specifiers for the `comDriver` instance
 use the `state` value that we just mentioned.
+
+=== Generation of Names
+
+FPP uses the following rules to generate the names associated with
+component instances.
+First, as explained in the section on 
+<<Defining-Component-Instances_Specifying-the-Implementation,
+specifying the implementation>>,
+a component type `M.C` in FPP becomes the type `M::C` in {cpp}.
+Here `C` is a {cpp} class defined in namespace `M` that
+implements the behavior of component `C`.
+
+Second, a component instance _I_ defined in module _N_ becomes
+a {cpp} variable _I_ defined in namespace _N_.
+For example, this FPP code
+
+[source,fpp]
+--------
+module N {
+
+  instance i: M.C base id 0x100
+
+}
+--------
+
+becomes this code in the generated {cpp}:
+
+[source,c++]
+----
+namespace N {
+
+  M::C i;
+
+}
+----
+
+So the fully qualified name of the instance is `N.i` in FPP and `N::i`
+in {cpp}.
+
+Third, all other code related to instances is generated in the namespace of the
+top-level implementation.
+For example, in the System Reference example from the previous section,
+the top-level implementation is in the namespace `SystemReference`, so
+the code for configuring constants is generated in that namespace.
+We will have more to say about the top-level implementation in
+the section on <<Writing-C-Plus-Plus-Implementations_Implementing-Deployments,
+implementing deployments>>.
+
+Fourth, when generating the name of a constant associated with an instance,
+FPP uses the fully-qualified name of the instance, and it replaces
+the dots (in FPP) or the colons (in {cpp}) with underscores.
+For example, as discussed in the previous section, the configuration
+constants for the instance `SystemReference::cmdSeq` are placed in
+the namespace `ConfigConstants::SystemReference_cmdSeq`.
+This namespace, in turn, is placed in the namespace `SystemReference`
+according to the previous paragraph.
