@@ -98,7 +98,7 @@ class QueuedOverflowComponentBase :
 
     //! Initialize QueuedOverflowComponentBase object
     void init(
-        FwQueueSizeType queueDepth, //!< The queue depth
+        FwSizeType queueDepth, //!< The queue depth
         FwSizeType msgSize, //!< The message size
         FwEnumStoreType instance = 0 //!< The instance number
     );

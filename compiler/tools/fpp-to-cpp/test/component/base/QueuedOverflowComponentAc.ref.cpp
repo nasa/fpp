@@ -77,7 +77,7 @@ namespace {
 
 void QueuedOverflowComponentBase ::
   init(
-      FwQueueSizeType queueDepth,
+      FwSizeType queueDepth,
       FwSizeType msgSize,
       FwEnumStoreType instance
   )
@@ -415,9 +415,9 @@ void QueuedOverflowComponentBase ::
     static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
   );
 
-  Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
+  Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
   FW_ASSERT(
-    Os::Queue::QUEUE_OK == qStat,
+    Os::Queue::Status::OP_OK == qStat,
     static_cast<FwAssertArgType>(qStat)
   );
 }
@@ -1050,16 +1050,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->productRecvInHook_overflowHook(portNum, id, buffer, status);
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1168,11 +1168,11 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1275,11 +1275,11 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_BLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1382,16 +1382,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->incNumMsgDropped();
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1494,16 +1494,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->hookAsync_overflowHook(portNum, u32, f32, b, str1, e, a, s);
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1555,16 +1555,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msgSerBuff, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msgSerBuff, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->serialAsyncHook_overflowHook(portNum, buffer);
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1706,16 +1706,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->internalHookDrop_overflowHook();
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1791,16 +1791,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 0, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 0, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->CMD_HOOK_cmdOverflowHook(opCode, cmdSeq);
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1855,16 +1855,16 @@ void QueuedOverflowComponentBase ::
   );
 
   // Send message
-  Os::Queue::QueueBlocking _block = Os::Queue::QUEUE_NONBLOCKING;
-  Os::Queue::QueueStatus qStatus = this->m_queue.send(msg, 30, _block);
+  Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+  Os::Queue::Status qStatus = this->m_queue.send(msg, 30, _block);
 
-  if (qStatus == Os::Queue::QUEUE_FULL) {
+  if (qStatus == Os::Queue::Status::FULL) {
     this->CMD_PARAMS_PRIORITY_HOOK_cmdOverflowHook(opCode, cmdSeq);
     return;
   }
 
   FW_ASSERT(
-    qStatus == Os::Queue::QUEUE_OK,
+    qStatus == Os::Queue::OP_OK,
     static_cast<FwAssertArgType>(qStatus)
   );
 }
@@ -1927,17 +1927,17 @@ Fw::QueuedComponentBase::MsgDispatchStatus QueuedOverflowComponentBase ::
   Fw::ExternalSerializeBuffer msg(msgBuff,this->m_msgSize);
   FwQueuePriorityType priority = 0;
 
-  Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
+  Os::Queue::Status msgStatus = this->m_queue.receive(
     msg,
-    priority,
-    Os::Queue::QUEUE_NONBLOCKING
+    Os::Queue::NONBLOCKING,
+    priority
   );
-  if (Os::Queue::QUEUE_NO_MORE_MSGS == msgStatus) {
+  if (Os::Queue::Status::EMPTY == msgStatus) {
     return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
   }
   else {
     FW_ASSERT(
-      msgStatus == Os::Queue::QUEUE_OK,
+      msgStatus == Os::Queue::OP_OK,
       static_cast<FwAssertArgType>(msgStatus)
     );
   }
