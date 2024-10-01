@@ -1,6 +1,6 @@
 === State Machine Instance Specifiers
 
-A *state machine instance specifier* specifies an instantiated 
+A *state machine instance specifier* specifies an instantiated
 <<Definitions_State-Machine-Definitions,state machine>> as part
 of a
 <<Definitions_Component-Definitions,component definition>>.
@@ -18,7 +18,7 @@ _[_
 _queue-full-behavior_
 _]_
 
-_queue-full-behavior_ has the same syntax as for 
+_queue-full-behavior_ has the same syntax as for
 <<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
 
 ==== Static Semantics
@@ -30,8 +30,8 @@ _queue-full-behavior_ has the same syntax as for
 a
 <<Definitions_State-Machine-Definitions,state machine definition>>.
 
-. The optional priority and queue full behavior have the same semantics as in 
-<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
+. The optional priority and queue full behavior have the same semantics as in
+<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance
 specifiers>>.
 
 ==== Dynamic Semantics

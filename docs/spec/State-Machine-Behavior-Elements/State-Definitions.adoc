@@ -1,6 +1,6 @@
 === State Definitions
 
-A *state definition* is part of a 
+A *state definition* is part of a
 <<Definitions_State-Machine-Definitions,state machine definition>>
 or
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
@@ -13,7 +13,7 @@ of states: _S'_ is a substate of _S_.
 `state` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `{` _state-definition-member-sequence_ `}` _]_
 
-_state-definition-member-sequence_ is an 
+_state-definition-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a *state definition member*,
 and the terminating punctuation is a semicolon.
@@ -96,9 +96,9 @@ state machine MonitorSm {
   signal Fault
   signal RTI
   signal Stop
-  
+
   initial enter DEVICE_ON
-  
+
   state DEVICE_ON {
 
     initial do {

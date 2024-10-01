@@ -74,7 +74,7 @@ junction definitions that are transitive members of _M_.
 or junction definition referred to in the unique initial transition specifier
 that is an element of _M_.
 
-. The arcs of the transition graph are given by the 
+. The arcs of the transition graph are given by the
 <<State-Machine-Behavior-Elements_Transition-Expressions,
 transition expressions>> _e_ that appear in (1) initial transition specifiers
 that are members of states that are transitive members of _M_ and (2)

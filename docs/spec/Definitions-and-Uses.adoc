@@ -12,7 +12,7 @@ according to the
 A use is a *qualifying use* if it qualifies another use. For example, in
 the following code
 
-* The expression `M.a` contains the expression `M`, which is a qualifying use 
+* The expression `M.a` contains the expression `M`, which is a qualifying use
 of the module `M`. It qualifies the use `M.a`.
 * The expression `M.a` is not a qualifying use.
 
@@ -31,15 +31,15 @@ If a use _u_ is not a qualifying use, then we say it is a *non-qualifying use*.
 
 === Use-Def Graph
 
-The set of definitions and 
+The set of definitions and
 <<Definitions-and-Uses_Uses,non-qualifying uses>>
 in an FPP model induces a directed
 graph called the *use-def graph*. In this graph,
 
 . The nodes are the definitions.
 
-. There is an edge from each definition _d_ to the definitions 
-stem:[d_1, ..., d_n] corresponding to the non-qualifying uses 
+. There is an edge from each definition _d_ to the definitions
+stem:[d_1, ..., d_n] corresponding to the non-qualifying uses
 stem:[u_1, ..., u_n] appearing in _d_.
 
 For example, in the following code, the use-def graph has two nodes `a` and
@@ -86,10 +86,10 @@ However, it is a qualifying use.
 === Order of Definitions and Uses
 
 So long as the
-<<Definitions-and-Uses_Use-Def-Graph,use-def graph>> is acyclic, there is no 
+<<Definitions-and-Uses_Use-Def-Graph,use-def graph>> is acyclic, there is no
 constraint either on the ordering of
 definitions and uses within a
-<<Translation-Units-and-Models,translation unit>>, 
+<<Translation-Units-and-Models,translation unit>>,
 or on the distribution of definitions and uses among translation
 units. For example, if the definition `constant c = 0` appears anywhere
 in any translation unit of a model _M_, then the use of `c` as a

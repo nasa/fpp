@@ -28,15 +28,15 @@ Every value belongs to exactly one type.
 
 === Primitive Integer Values
 
-A *primitive integer value* is an ordinary (mathematical) integer value 
+A *primitive integer value* is an ordinary (mathematical) integer value
 together with a
-<<Types_Primitive-Integer-Types,primitive integer type>>. Formally, the set of 
+<<Types_Primitive-Integer-Types,primitive integer type>>. Formally, the set of
 primitive integer values
 is the disjoint union over the integer types of the values
 represented by each type:
 
-* An unsigned integer type of width stem:[w] represents integers in the 
-range stem:[[0, 2^w-1\]]. For example, `U8` represents the integers 
+* An unsigned integer type of width stem:[w] represents integers in the
+range stem:[[0, 2^w-1\]]. For example, `U8` represents the integers
 stem:[[0, 255\]].
 
 * A signed integer type of width stem:[w] represents integers in the range
@@ -64,7 +64,7 @@ over the types `F32` and `F64` of the values represented by each type:
 
 * The type `F64` represents all IEEE 8-byte floating-point values.
 
-We write a floating-point values analogously to primitive integer values. For 
+We write a floating-point values analogously to primitive integer values. For
 example, we write the value 1.0 at type `F32` as `1.0: F32`.
 
 === Boolean Values
@@ -93,19 +93,19 @@ An *anonymous array value* is a value associated with an anonymous
 array type.
 We write an anonymous array value similarly to an
 <<Expressions_Array-Expressions,array expression>>:
-an anonymous array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
-stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type 
+an anonymous array value has the form `[` stem:[v_1] `,` stem:[...] `,`
+stem:[v_n] `]`, where for each stem:[i in [1,n]], stem:[v_i] is a value of type
 stem:[T] for some stem:[T].
 The type of the value is _[_ stem:[n] _]_ stem:[T].
 
 === Array Values
 
 An *array value* is a value associated with an array type.
-We write an array value like an <<Values_Anonymous-Array-Values,anonymous array 
+We write an array value like an <<Values_Anonymous-Array-Values,anonymous array
 value>>, except that the value is annotated with an
 <<Types_Array-Types,array type>>.
 
-An array value has the form `[` stem:[v_1] `,` stem:[...] `,` 
+An array value has the form `[` stem:[v_1] `,` stem:[...] `,`
 stem:[v_n] `]` `:` stem:[Q],
 where
 
@@ -136,7 +136,7 @@ An *anonymous struct value* is a value associated with an
 type>>.
 We write an anonymous struct value stem:[v] similarly to a
 <<Expressions_Struct-Expressions,struct expression>>:
-a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,` 
+a struct value has the form `{` stem:[m_1] `=` stem:[v_1] `,` stem:[...] `,`
 stem:[m_n] `=` stem:[v_n] `}`,
 where for each stem:[i in [1,n]], stem:[v_i] is a value of type stem:[T_i].
 The type of stem:[v] is _{_ stem:[m_1] _:_ stem:[T_1] _,_ stem:[...] _,_
@@ -149,7 +149,7 @@ A *struct value* is a value associated with a
 We write a struct value similarly to an
 <<Values_Struct-Values,anonymous struct value>>,
 except that we annotate the value with a struct type:
-a struct value has the form `{` stem:[m_1] `:` stem:[v_1] `,` stem:[...] `,` 
+a struct value has the form `{` stem:[m_1] `:` stem:[v_1] `,` stem:[...] `,`
 stem:[m_n] `:` stem:[v_n] `}` `:` stem:[Q],
 where
 

@@ -30,7 +30,7 @@ corresponding member names and values.
 [source,fpp]
 ----
 # s is a struct value with members x = 0, y = 1
-constant s = { 
+constant s = {
   x = 0
   y = 1
 }

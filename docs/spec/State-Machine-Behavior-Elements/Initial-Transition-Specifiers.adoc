@@ -10,13 +10,13 @@ substates.
 
 ==== Syntax
 
-`initial` 
+`initial`
 <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
 
 ==== Static Semantics
 
 The state definition or junction definition referred to in the
-transition expression must *lead to a member* of the same 
+transition expression must *lead to a member* of the same
 state machine definition or state definition in which the initial
 transition specifier appears.
 

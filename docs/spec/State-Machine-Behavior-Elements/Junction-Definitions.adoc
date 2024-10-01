@@ -17,7 +17,7 @@ A junction is a branch point controlled by a
 
 ==== Static Semantics
 
-. The identifier after the keyword `junction` is the name of the junction. 
+. The identifier after the keyword `junction` is the name of the junction.
 
 . The identifier after the keyword `if` must
 <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>

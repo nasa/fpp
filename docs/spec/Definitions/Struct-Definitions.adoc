@@ -14,7 +14,7 @@ in which the elements are struct type members, and the terminating
 punctuation is a comma.
 A *struct type member* has the following syntax:
 
-<<Lexical-Elements_Identifiers,_identifier_>> `:` 
+<<Lexical-Elements_Identifiers,_identifier_>> `:`
 _[_
 `[` <<Expressions,_expression_>> `]`
 _]_
@@ -26,22 +26,22 @@ _]_
 ==== Semantics
 
 The identifier is the name _N_ of the type.  The definition associates the name
-_N_ with a 
+_N_ with a
 <<Types_Struct-Types,struct type>> _T_ representing a structure with named members, each
 of the specified type.  Each
 identifier appearing in the struct type member sequence must be distinct.
 
-The optional expression `[` _e_ `]` for a struct member specifies the 
+The optional expression `[` _e_ `]` for a struct member specifies the
 *size* of the member, i.e., the number of elements stored in the member.
 If present, _e_ must have a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and it must
-evaluate to a value greater than zero after conversion to 
+evaluate to a value greater than zero after conversion to
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then default size is one.
 If a member _m_ has size greater than one, then _m_
 is translated to an array in the implementation language.
 
-The optional format specifier for a struct member specifies a 
+The optional format specifier for a struct member specifies a
 <<Format-Strings,format string>>.
 The format is applied when displaying the struct member.
 There is one argument to the format string, which is the member value.

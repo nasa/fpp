@@ -78,7 +78,7 @@ Let _s_ be a signal of _M_.
 If the result is `false`, then do nothing.
 Otherwise
 
-... If _t_ is a do expression _E_, then perform the actions 
+... If _t_ is a do expression _E_, then perform the actions
 listed in _E_, if any, in the order listed.
 
 ... Otherwise _t_ is a transition expression _E_.
@@ -105,7 +105,7 @@ state machine Device {
 
   signal PowerOn
   signal RTI
-  
+
   initial enter OFF
 
   state OFF {

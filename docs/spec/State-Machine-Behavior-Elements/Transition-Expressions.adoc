@@ -24,7 +24,7 @@ If there are no actions, the do expression may be omitted.
 
 . The qualified identifier after the keyword `enter` must
 <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
-to a 
+to a
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 or a
 <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
@@ -41,7 +41,7 @@ _I_, do the following:
 
 .. Perform the actions, if any, specified in _E_, in the order specified.
 
-.. Run the entry behavior of the 
+.. Run the entry behavior of the
 <<State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics,state>>
 or
 <<State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics,junction>>
