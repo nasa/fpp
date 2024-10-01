@@ -1,6 +1,6 @@
 === Location Specifiers
 
-A *location specifier* specifies the 
+A *location specifier* specifies the
 <<Translation-Units-and-Models_Locations,location>>
 of a <<Definitions,definition>>.
 
@@ -8,59 +8,59 @@ of a <<Definitions,definition>>.
 
 A location specifier is one of the following:
 
-* A *component instance location specifier* `locate` `instance` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *component instance location specifier* `locate` `instance`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *component location specifier* `locate` `component` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *component location specifier* `locate` `component`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *constant location specifier* `locate` `constant` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *constant location specifier* `locate` `constant`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *port location specifier* `locate` `port` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *port location specifier* `locate` `port`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
 * A *state machine location specifier* `locate` `state` `machine`
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *topology location specifier* `locate` `topology` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *topology location specifier* `locate` `topology`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
-* A *type location specifier* `locate` `type` 
-<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at` 
+* A *type location specifier* `locate` `type`
+<<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>> `at`
 <<Expressions_String-Literals,_string-literal_>>
 
 ==== Semantics
 
-. The qualified identifier _Q_ is resolved like a 
-<<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>> 
+. The qualified identifier _Q_ is resolved like a
+<<Definitions-and-Uses_Uses,use>> that refers to a <<Definitions,definition>>
 as follows:
 
-.. A constant location specifier refers to a 
+.. A constant location specifier refers to a
 <<Definitions_Constant-Definitions,constant definition>>.
 
-.. A type location specifier refers to an 
-<<Definitions_Array-Definitions,array definition>>, 
+.. A type location specifier refers to an
+<<Definitions_Array-Definitions,array definition>>,
 <<Definitions_Enum-Definitions,enum definition>>,
 <<Definitions_Struct-Definitions,struct definition>>, or
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
 
-.. A port location specifier refers to a 
+.. A port location specifier refers to a
 <<Definitions_Port-Definitions,port definition>>.
 
-.. A component location specifier refers to a 
+.. A component location specifier refers to a
 <<Definitions_Component-Definitions,component definition>>.
 
-.. A component instance location specifier refers to a 
+.. A component instance location specifier refers to a
 <<Definitions_Component-Instance-Definitions,component instance definition>>.
 
-.. A topology location specifier refers to a 
+.. A topology location specifier refers to a
 <<Definitions_Topology-Definitions,topology definition>>.
 
 .. A state machine location specifier refers to a
@@ -68,7 +68,7 @@ as follows:
 
 . When a location specifier appears inside a
 <<Definitions_Module-Definitions,module definition _M_>>,
-_Q_ is implicitly qualified by the 
+_Q_ is implicitly qualified by the
 <<Scoping-of-Names_Names-of-Definitions,qualified name>>
 of _M_.
 
@@ -81,13 +81,13 @@ or translation.
 <<Translation-Units-and-Models_Locations,location>>
 of the specifier.
 The file must exist.
-After resolving 
+After resolving
 <<Specifiers_Include-Specifiers,include specifiers>>,
 the file must contain the definition referred to in the
 location specifier.
 
 . Multiple location specifiers for the same definition are allowed in a single
-<<Translation-Units-and-Models_Models,model>>, so long as the locations are all 
+<<Translation-Units-and-Models_Models,model>>, so long as the locations are all
 consistent.
 
 ==== Examples

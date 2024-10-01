@@ -4,7 +4,7 @@ In this section, we explain the rules used to assign types to
 expressions. FPP is a statically typed language. That means the
 following:
 
-* Type checking of expressions occurs during 
+* Type checking of expressions occurs during
 <<Analysis-and-Translation_Analysis,analysis>>.
 
 * If the type checking phase detects a violation of any of these rules,
@@ -58,9 +58,9 @@ literal expression>> is `string`.
 
 === Identifier Expressions
 
-To type an <<Expressions_Identifier-Expressions,identifier 
-expression>> stem:[e], the semantic analyzer 
-<<Scoping-of-Names_Resolution-of-Identifiers,resolves the identifier to a 
+To type an <<Expressions_Identifier-Expressions,identifier
+expression>> stem:[e], the semantic analyzer
+<<Scoping-of-Names_Resolution-of-Identifiers,resolves the identifier to a
 definition>> and uses the type given in the definition.
 
 **Example:**
@@ -78,7 +78,7 @@ To type a
 expression>> stem:[e] `.x`, the semantic analyzer does the following:
 
 . If stem:[e]`.x` is a
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that represents 
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> that represents
 the use of a definition according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,rules
 for resolving qualified identifiers>>, and the use is a valid
@@ -91,7 +91,7 @@ expression>>, then use the type given in the definition.
 
 [source,fpp]
 ----
-module M { 
+module M {
   constant a = 0 # The constant M.a has type Integer
 }
 constant b = M.a # Expression M.a represents a use of the definition M.a.
@@ -153,7 +153,7 @@ negation expression>> `-` stem:[e], the semantic analyzer does the following:
 
 . If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
 
-. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>> 
+. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_, then use _Integer_.
 
 . Otherwise throw an error.
@@ -175,14 +175,14 @@ constant f = -true # Error
 
 To type a
 <<Expressions_Arithmetic-Expressions,binary
-arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does 
+arithmetic expression>> stem:[e_1] _op_ stem:[e_2], the semantic analyzer does
 the following:
 
 . Compute the common type stem:[T] of stem:[e_1] and stem:[e_2].
 
 . If stem:[T] is a <<Types_Internal-Types_Numeric-Types,numeric type>>, then use stem:[T].
 
-. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>> 
+. Otherwise if stem:[T] <<Type-Checking_Type-Conversion,may be converted to>>
 _Integer_, then use _Integer_.
 
 . Otherwise throw an error.
@@ -225,10 +225,10 @@ constant e = ([ 1, 2, 3]) # Type is [3] Integer
 We say that types stem:[T_1] and stem:[T_2] are *identical* if one
 of the following holds:
 
-. stem:[T_1] and stem:[T_2] are 
+. stem:[T_1] and stem:[T_2] are
 <<Types_Internal-Types_Numeric-Types,numeric types>>
 with the same name, e.g., `U32` or _Integer_.
-In each case of a numeric type, the name of the type uniquely identifies 
+In each case of a numeric type, the name of the type uniquely identifies
 the type.
 
 . stem:[T_1] and stem:[T_2]
@@ -266,11 +266,11 @@ type>> may be converted to any other numeric type.
 . An <<Types_Enum-Types,enum type>> may be converted to a
 <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
-. If stem:[T_1] or stem:[T_2] or both are 
+. If stem:[T_1] or stem:[T_2] or both are
 <<Types_Array-Types,array types>>, then
 stem:[T_1] may be converted to stem:[T_2] if the conversion
 is allowed after replacing the array type or types with
-structurally equivalent 
+structurally equivalent
 <<Types_Internal-Types_Anonymous-Array-Types,anonymous array types>>.
 
 . An anonymous array type stem:[T_1 =] _[_ stem:[n] _]_ stem:[T'_1]
@@ -278,17 +278,17 @@ may be converted to the anonymous array type
 stem:[T_2 =] _[_ stem:[m] _]_ stem:[T'_2]
 if stem:[n = m] and stem:[T'_1] may be converted to stem:[T'_2].
 
-. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
+. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean
 type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string types>> stem:[T] 
+<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string types>> stem:[T]
 may be converted to an anonymous array type
 stem:[T_1] may be converted to the member type of stem:[T_2].
 
-. If stem:[T_1] or stem:[T_2] or both are 
+. If stem:[T_1] or stem:[T_2] or both are
 <<Types_Struct-Types,struct types>>, then
 stem:[T_1] may be converted to stem:[T_2] if the conversion
 is allowed after replacing the struct type or types with
-structurally equivalent 
+structurally equivalent
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct types>>.
 For purposes of structural equivalence, the member sizes of
 struct types are ignored.
@@ -296,8 +296,8 @@ For example, the struct type `S` defined by `struct S { x: [3] U32 }`
 is structurally equivalent to the anonymous struct type
 `{ x: U32 }`.
 
-. An anonymous struct type 
-stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_ 
+. An anonymous struct type
+stem:[T =]_{_ stem:[m_1] _:_ stem:[T_1] _,_
 stem:[...] _,_ stem:[m_1] _:_ stem:[T_n] _}_ may be converted to
 the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
@@ -305,30 +305,30 @@ the anonymous struct type stem:[T'] if for each stem:[i in [1,n\]],
 
 .. stem:[T_i] may be converted to stem:[T'_i].
 
-. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean 
+. A <<Types_Internal-Types_Numeric-Types,numeric type>> type, <<Types_The-Boolean-Type,Boolean
 type>>,
-<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string type>> stem:[T] 
+<<Types_Enum-Types,enum type>>, or <<Types_String-Types,string type>> stem:[T]
 may be converted to an
 <<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> stem:[T'] if
 for each member stem:[m_i] `:` stem:[T_i] of stem:[T'],
 stem:[T] may be converted to stem:[T_i].
 
-. Type convertibility is transitive: if stem:[T_1] may be converted to 
+. Type convertibility is transitive: if stem:[T_1] may be converted to
 stem:[T_2]
-and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1] 
+and stem:[T_2] may be converted to stem:[T_3], then stem:[T_1]
 may be converted to stem:[T_3].
 
 === Computing a Common Type
 
 ==== Pairs of Types
 
-Here are the rules for resolving two types stem:[T_1] and stem:[T_2] 
+Here are the rules for resolving two types stem:[T_1] and stem:[T_2]
 (e.g., the
-types of two subexpressions) to a common type stem:[T] (e.g., the type of 
+types of two subexpressions) to a common type stem:[T] (e.g., the type of
 the whole expression):
 
 . If stem:[T_1] and stem:[T_2] are
-<<Type-Checking_Identical-Types,identical types>>, then let 
+<<Type-Checking_Identical-Types,identical types>>, then let
 stem:[T] be stem:[T_1].
 
 . Otherwise if stem:[T_1] and stem:[T_2] are both
@@ -341,7 +341,7 @@ stem:[T] be stem:[T_1].
 . Otherwise if stem:[T_1] and stem:[T_2] are both
 <<Types_String-Types,string types>>, then use `string`.
 
-. Otherwise if stem:[T_1] or stem:[T_2] or both are enum types, then replace 
+. Otherwise if stem:[T_1] or stem:[T_2] or both are enum types, then replace
 the enum type or types with the representation type specified in the enum definitions and
 and reapply these rules.
 
@@ -353,12 +353,12 @@ anonymous array types and reapply these rules.
 and with member types stem:[T'_1] and stem:[T'_2], then apply these rules to resolve
 stem:[T'_1] and stem:[T'_2] to stem:[T'] and let stem:[T] be _[_ stem:[n] _]_ stem:[T'].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is
 convertible to an anonymous array type
 and the other
-one is an anonymous array type _[_ stem:[n] _]_ stem:[T''], then apply these 
+one is an anonymous array type _[_ stem:[n] _]_ stem:[T''], then apply these
 rules to resolve
-stem:[T'] and stem:[T''] to a common type stem:[T''']. Let stem:[T] be 
+stem:[T'] and stem:[T''] to a common type stem:[T''']. Let stem:[T] be
 the
 array type _[_ stem:[n] _]_ stem:[T'''].
 
@@ -378,11 +378,11 @@ use stem:[m_1] _:_ stem:[T']. Otherwise use stem:[m_1] _:_ stem:[T'_1].
 that stem:[T_1] has no member named stem:[m_2],
 use stem:[m_2] _:_ stem:[T'_2].
 
-. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is 
+. Otherwise if one of stem:[T_1] and stem:[T_2] is a type stem:[T'] that is
 convertible to an anonymous struct type and the other
-one is an anonymous struct type stem:[S], then apply these rules to resolve 
+one is an anonymous struct type stem:[S], then apply these rules to resolve
 stem:[T'] and each of the struct member types to a common type.
-Let stem:[T] be the struct type whose member names are the member names of 
+Let stem:[T] be the struct type whose member names are the member names of
 stem:[S] and
 whose member types are the corresponding common types.
 
@@ -395,13 +395,10 @@ stem:[T_1, ... , T_n], do the following:
 
 .  Check that stem:[n > 0]. If not, then throw an error.
 
-.  Compute the type stem:[T_1] of stem:[e_1].
+. Let stem:[T'_1] be stem:[T_1].
 
-.  For each stem:[i in [2,n]]
+.  For each stem:[i in [2,n]], compute the
+<<Type-Options_Computing-a-Common-Type-Option,
+common type option>> stem:[T'_i] of stem:[T'_(i-1)] and stem:[T_i].
 
-   ..  Compute the type stem:[T] of stem:[e_i].
-
-   ..  Compute the <<Type-Checking_Computing-a-Common-Type,common type>>
-stem:[T_i] of stem:[T_(i-1)] and stem:[T].
-
-.  Use stem:[T_n] as the common type of the list.
+.  Use stem:[T'_n] as the common type option of the list.

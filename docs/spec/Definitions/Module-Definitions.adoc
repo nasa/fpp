@@ -11,7 +11,7 @@ It is similar to a namespace in C++ or a package in Java or Scala.
 `{` _module-member-sequence_ `}`
 
 _module-member-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is a *module member*,
 and the terminating punctuation is a semicolon.
 A module member is one of the following:

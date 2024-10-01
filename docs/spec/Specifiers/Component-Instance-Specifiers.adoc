@@ -1,7 +1,7 @@
 === Component Instance Specifiers
 
-A *component instance specifier* 
-specifies that a 
+A *component instance specifier*
+specifies that a
 <<Definitions_Component-Instance-Definitions,component instance>>
 is part of a
 <<Definitions_Topology-Definitions,topology>>.
@@ -29,7 +29,7 @@ in any topology _T'_ into which _T_ is
 <<Specifiers_Topology-Import-Specifiers,imported>>.
 
 * If an instance is not declared private, then it is implicitly
-a *public instance*. This means the instance 
+a *public instance*. This means the instance
 appears in each topology _T'_ into which _T_ is
 <<Specifiers_Topology-Import-Specifiers,imported>>.
 
@@ -48,7 +48,7 @@ instance c: B base id 0x300 ...
 Topology T {
 
   # ----------------------------------------------------------------------
-  # Public instances 
+  # Public instances
   # ----------------------------------------------------------------------
 
   instance a

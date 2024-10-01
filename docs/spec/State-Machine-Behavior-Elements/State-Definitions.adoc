@@ -1,6 +1,6 @@
 === State Definitions
 
-A *state definition* is part of a 
+A *state definition* is part of a
 <<Definitions_State-Machine-Definitions,state machine definition>>
 or
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
@@ -13,7 +13,7 @@ of states: _S'_ is a substate of _S_.
 `state` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_ `{` _state-definition-member-sequence_ `}` _]_
 
-_state-definition-member-sequence_ is an 
+_state-definition-member-sequence_ is an
 <<Element-Sequences,element sequence>> in
 which each element is a *state definition member*,
 and the terminating punctuation is a semicolon.
@@ -23,21 +23,53 @@ A state definition member is one of the following:
 * A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
 * A <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition specifier>>
+* A <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>
+* A <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>
 
-==== Semantics
+==== Static Semantics
 
 . The identifier is the name of the state.
 
 . If the state definition member sequence _M_ is present,
 then it must obey the following rules:
 
-.. _M_ must contain exactly one initial transition specifier _I_.
+.. If _M_ contains at least one state definition, then _M_ must contain exactly
+one initial transition specifier _I_.
 _I_ specifies the sub-state to enter on entry to the outer state.
+
+.. _M_ may not contain more than one state entry specifier.
+If _M_ has a state entry specifier _S_, then the *entry actions* of
+_M_ are the actions specified in _S_, in the order specified.
+Otherwise _M_ has no entry actions.
+
+.. _M_ may not contain more than one state exit specifier.
+If _M_ has a state exit specifier _S_, then the *exit actions* of
+_M_ are the actions specified in _S_, in the order specified.
+Otherwise _M_ has no exit actions.
 
 .. No two <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state
 transition specifiers>> that are members of _M_ may
-<<Definitions_State-Machine-Definitions_Scoping-of-Names,refer>> to the same
+<<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>> to the same
 signal definition.
+
+. If the state definition member sequence _M_ is present and _M_
+contains at least one state definition, then the
+state definition is called an *inner state definition*.
+Otherwise it is called a *leaf state definition*.
+
+==== Dynamic Semantics
+
+Each state definition _S_ has the following *entry behavior*:
+
+. Run the entry actions, if any, of _S_.
+According to the static semantics, the entry actions must
+not require a typed argument.
+
+. If _S_ is an inner state, then run the
+<<State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics,
+behavior>> of the initial transition of _S_.
+
+. Otherwise set the current state of the state machine to _S_.
 
 ==== Examples
 
@@ -45,44 +77,62 @@ signal definition.
 ----
 state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-  
-  action init2
   action doCalibrate
+  action heaterOff
+  action heaterOn
+  action init1
+  action init2
+  action monitorOff
+  action monitorOn
   action motorControl
   action reportFault
+  action stopMotor
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+
   initial enter DEVICE_ON
-  
+
   state DEVICE_ON {
 
-    initial do init2 enter INITIALIZING
+    initial do {
+      init1
+      init2
+     } \
+     enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE
     }
 
     state IDLE {
+      entry do {
+        heaterOff
+        monitorOff
+      }
+      exit do {
+        heaterOn
+        monitorOn
+      }
       on Drive enter DRIVING
       on Calibrate if calibrateReady enter CALIBRATING
     }
 
     state CALIBRATING {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter IDLE
     }
 
     state DRIVING {
-      on RTI do motorControl
-      on Stop enter IDLE
+      on RTI do { motorControl }
+      on Stop do { stopMotor } enter IDLE
     }
 
   }

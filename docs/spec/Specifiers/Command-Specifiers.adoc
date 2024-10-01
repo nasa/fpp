@@ -5,7 +5,7 @@ A *command specifier* specifies a command as part of a
 
 ==== Syntax
 
-_command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>> 
+_command-kind_ `command` <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
@@ -41,19 +41,19 @@ on the same port can have different kinds.
 
 * The parameter list specifies the command parameters.
 If there are command parameters, each parameter must be
-a <<Types_Displayable-Types,displayable type>>. 
+a <<Types_Displayable-Types,displayable type>>.
 If there are no parameters, the list may be omitted.
 `ref` may not appear in any of the parameters.
 
 * The optional expression _e_ following `opcode` specifies the numeric
 opcode for the command.
-If _e_ is present, its type must be convertible to 
+If _e_ is present, its type must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
 If _e_ is not present, then the default opcode is either zero (for the first
 opcode appearing in a component) or the previous opcode plus one.
 
-* The optional expression _e_ appearing after the keyword `priority` specifies 
+* The optional expression _e_ appearing after the keyword `priority` specifies
 a priority for the command on the input queue.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
