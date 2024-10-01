@@ -48,7 +48,7 @@ direct()
 filenames()
 {
   run_test '-g filenames_generated_output.out.txt -u filenames_ut_output.out.txt' \
-    ../../filenames/ok.fpp filenames
+    ../../fpp-filenames/test/ok filenames
   compare filenames_generated_output && \
   compare filenames_ut_output
 }
@@ -56,7 +56,7 @@ filenames()
 filenames_auto()
 {
   run_test '-a -g filenames_auto_generated_output.out.txt -u filenames_auto_ut_output.out.txt' \
-    ../../filenames/ok.fpp filenames
+    ../../fpp-filenames/test/ok filenames
   compare filenames_auto_generated_output && \
   compare filenames_auto_ut_output
 }
@@ -64,7 +64,7 @@ filenames_auto()
 filenames_include()
 {
   run_test '-g filenames_include_generated_output.out.txt -u filenames_include_ut_output.out.txt' \
-    filenames_include
+    ../../fpp-filenames/test/include filenames_include
   compare filenames_include_generated_output && \
   compare filenames_include_ut_output
 }
@@ -72,7 +72,7 @@ filenames_include()
 filenames_include_auto()
 {
   run_test '-a -g filenames_include_auto_generated_output.out.txt -u filenames_include_auto_ut_output.out.txt' \
-    filenames_include
+    ../../fpp-filenames/test/include filenames_include
   compare filenames_include_auto_generated_output && \
   compare filenames_include_auto_ut_output
 }
