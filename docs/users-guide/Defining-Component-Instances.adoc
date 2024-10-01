@@ -750,7 +750,7 @@ use the `state` value that we just mentioned.
 
 FPP uses the following rules to generate the names associated with
 component instances.
-First, as explained in the section on 
+First, as explained in the section on
 <<Defining-Component-Instances_Specifying-the-Implementation,
 specifying the implementation>>,
 a component type `M.C` in FPP becomes the type `M::C` in {cpp}.
