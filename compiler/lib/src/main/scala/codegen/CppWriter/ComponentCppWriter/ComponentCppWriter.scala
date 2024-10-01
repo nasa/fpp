@@ -431,19 +431,19 @@ case class ComponentCppWriter (
                  |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |
-                 |Os::Queue::QueueStatus qStat = this->createQueue(queueDepth, this->m_msgSize);
+                 |Os::Queue::Status qStat = this->createQueue(queueDepth, this->m_msgSize);
                  |"""
             )
             else lines(
-              """|Os::Queue::QueueStatus qStat = this->createQueue(
+              """|Os::Queue::Status qStat = this->createQueue(
                  |  queueDepth,
-                 |  ComponentIpcSerializableBuffer::SERIALIZATION_SIZE
+                 |  static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
                  |);
                  |"""
             ),
             lines(
               """|FW_ASSERT(
-                 |  Os::Queue::QUEUE_OK == qStat,
+                 |  Os::Queue::Status::OP_OK == qStat,
                  |  static_cast<FwAssertArgType>(qStat)
                  |);
                  |"""
@@ -745,7 +745,7 @@ case class ComponentCppWriter (
     else {
       val assertMsgStatus = lines(
         """|FW_ASSERT(
-           |  msgStatus == Os::Queue::QUEUE_OK,
+           |  msgStatus == Os::Queue::OP_OK,
            |  static_cast<FwAssertArgType>(msgStatus)
            |);
            |"""
@@ -777,15 +777,15 @@ case class ComponentCppWriter (
               lines(
                 s"""|FwQueuePriorityType priority = 0;
                     |
-                    |Os::Queue::QueueStatus msgStatus = this->m_queue.receive(
+                    |Os::Queue::Status msgStatus = this->m_queue.receive(
                     |  msg,
-                    |  priority,
-                    |  Os::Queue::QUEUE_${if data.kind == Ast.ComponentKind.Queued then "NON" else ""}BLOCKING
+                    |  Os::Queue::${if data.kind == Ast.ComponentKind.Queued then "NON" else ""}BLOCKING,
+                    |  priority
                     |);
                     |""".stripMargin
               ),
               if data.kind == Ast.ComponentKind.Queued then wrapInIfElse(
-                "Os::Queue::QUEUE_NO_MORE_MSGS == msgStatus",
+                "Os::Queue::Status::EMPTY == msgStatus",
                 lines("return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;"),
                 assertMsgStatus
               )

@@ -318,7 +318,7 @@
                                             }
                                           }
                                         ],
-                                        "destination" : {
+                                        "target" : {
                                           "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
@@ -362,7 +362,7 @@
                                       "data" : {
                                         "actions" : [
                                         ],
-                                        "destination" : {
+                                        "target" : {
                                           "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
@@ -381,7 +381,7 @@
                                       "data" : {
                                         "actions" : [
                                         ],
-                                        "destination" : {
+                                        "target" : {
                                           "AstNode" : {
                                             "data" : {
                                               "Unqualified" : {
@@ -524,7 +524,7 @@
                                                           }
                                                         }
                                                       ],
-                                                      "destination" : {
+                                                      "target" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Unqualified" : {
@@ -580,7 +580,7 @@
                                                           }
                                                         }
                                                       ],
-                                                      "destination" : {
+                                                      "target" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Unqualified" : {
@@ -611,7 +611,7 @@
                                                           }
                                                         }
                                                       ],
-                                                      "destination" : {
+                                                      "target" : {
                                                         "AstNode" : {
                                                           "data" : {
                                                             "Qualified" : {
@@ -706,7 +706,7 @@
                                                               }
                                                             }
                                                           ],
-                                                          "destination" : {
+                                                          "target" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -760,7 +760,7 @@
                                                         "data" : {
                                                           "actions" : [
                                                           ],
-                                                          "destination" : {
+                                                          "target" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -815,7 +815,7 @@
                                                         "data" : {
                                                           "actions" : [
                                                           ],
-                                                          "destination" : {
+                                                          "target" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {
@@ -863,7 +863,7 @@
                                                         "data" : {
                                                           "actions" : [
                                                           ],
-                                                          "destination" : {
+                                                          "target" : {
                                                             "AstNode" : {
                                                               "data" : {
                                                                 "Unqualified" : {

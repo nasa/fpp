@@ -368,7 +368,7 @@
                                                                   "data" : {
                                                                     "actions" : [
                                                                     ],
-                                                                    "destination" : {
+                                                                    "target" : {
                                                                       "AstNode" : {
                                                                         "data" : {
                                                                           "Unqualified" : {

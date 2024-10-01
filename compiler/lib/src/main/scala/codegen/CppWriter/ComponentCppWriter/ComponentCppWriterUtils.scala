@@ -328,7 +328,7 @@ abstract class ComponentCppWriterUtils(
   val initParams: List[CppDoc.Function.Param] = List.concat(
     if data.kind != Ast.ComponentKind.Passive then List(
       CppDoc.Function.Param(
-        CppDoc.Type("FwQueueSizeType"),
+        CppDoc.Type("FwSizeType"),
         "queueDepth",
         Some("The queue depth")
       )
@@ -621,8 +621,8 @@ abstract class ComponentCppWriterUtils(
     arguments: List[CppDoc.Function.Param]
   ): List[Line] = {
     val queueBlocking = queueFull match {
-      case Ast.QueueFull.Block => "QUEUE_BLOCKING"
-      case _ => "QUEUE_NONBLOCKING"
+      case Ast.QueueFull.Block => "BLOCKING"
+      case _ => "NONBLOCKING"
     }
     val priorityNum = priority match {
       case Some(num) => num
@@ -633,20 +633,20 @@ abstract class ComponentCppWriterUtils(
       List(
         lines(
           s"""|// Send message
-              |Os::Queue::QueueBlocking _block = Os::Queue::$queueBlocking;
-              |Os::Queue::QueueStatus qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
+              |Os::Queue::BlockingType _block = Os::Queue::$queueBlocking;
+              |Os::Queue::Status qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
               |"""
         ),
         queueFull match {
           case Ast.QueueFull.Drop => lines(
-            """|if (qStatus == Os::Queue::QUEUE_FULL) {
+            """|if (qStatus == Os::Queue::Status::FULL) {
                |  this->incNumMsgDropped();
                |  return;
                |}
                |"""
           )
           case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::QUEUE_FULL) {
+            s"""|if (qStatus == Os::Queue::Status::FULL) {
                 |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
                 |  return;
                 |}
@@ -656,7 +656,7 @@ abstract class ComponentCppWriterUtils(
         },
         lines(
           """|FW_ASSERT(
-             |  qStatus == Os::Queue::QUEUE_OK,
+             |  qStatus == Os::Queue::OP_OK,
              |  static_cast<FwAssertArgType>(qStatus)
              |);
              |"""
