@@ -234,7 +234,7 @@ with the following modifications:
 
 ==== Dynamic Semantics
 
-A state machine _M_ has the following runtime behavior:
+An internal state machine _M_ has the following runtime behavior:
 
 . _M_ maintains a current state _S_.
 The current state is undefined until initialization occurs.
