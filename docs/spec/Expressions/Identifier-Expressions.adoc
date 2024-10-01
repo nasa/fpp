@@ -5,8 +5,8 @@ An *identifier expression* is an
 that refers to a
 <<Definitions_Constant-Definitions,constant definition>>
 or
-<<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>, 
-according to the 
+<<Definitions_Enumerated-Constant-Definitions,enumerated constant definition>>,
+according to the
 <<Scoping-of-Names_Resolution-of-Identifiers,rules for resolving identifiers>>.
 
 **Example:**

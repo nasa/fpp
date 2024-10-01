@@ -1,6 +1,6 @@
 == Evaluation
 
-*Evaluation* is the process of transforming an <<Expressions,expression>> into 
+*Evaluation* is the process of transforming an <<Expressions,expression>> into
 a <<Values,value>>.
 In FPP, all evaluation happens during
 <<Analysis-and-Translation_Analysis,analysis>>,
@@ -12,27 +12,27 @@ Evaluation of expressions occurs as stated in the
 <<Expressions,expression descriptions>>. Evaluation of integer
 expressions occurs at type <<Types_Internal-Types_Integer,_Integer_>>,
 using enough bits to represent the result without overflow.
-Evaluation of floating-point expressions occurs using 64-bit floating-point 
+Evaluation of floating-point expressions occurs using 64-bit floating-point
 arithmetic.
 
 === Type Conversion
 
-The following rules govern the conversion of a value stem:[v_1] of type 
+The following rules govern the conversion of a value stem:[v_1] of type
 stem:[T_1]
 to a value stem:[v_2] of type stem:[T_2].
 
 ==== Unsigned Primitive Integer Values
 
-. If stem:[T_1] and stem:[T_2] are both unsigned primitive integer types and 
+. If stem:[T_1] and stem:[T_2] are both unsigned primitive integer types and
 stem:[T_2] is
-narrower than stem:[T_1], then construct stem:[v_2] by truncating the 
+narrower than stem:[T_1], then construct stem:[v_2] by truncating the
 unsigned
-binary representation of stem:[v_1] to the width of stem:[v_2]. For 
+binary representation of stem:[v_1] to the width of stem:[v_2]. For
 example, converting `0x1234: U16` to `U8` yields `0x34: U8`.
 
-. Otherwise if stem:[T_1] and stem:[T_2] are both unsigned primitive integer 
+. Otherwise if stem:[T_1] and stem:[T_2] are both unsigned primitive integer
 types, then
-stem:[v_2] is the integer value of stem:[v_1] at the type of 
+stem:[v_2] is the integer value of stem:[v_1] at the type of
 stem:[v_2]. For example,
 converting `0x12: U8` to `U16` yields `0x12: U16`.
 
@@ -44,20 +44,20 @@ the two's complement binary representation of stem:[v_1] to the width of
 stem:[v_2]. For example, converting `-0x1234: I16` to `I8` yields `-0x34:
 I8`.
 
-. Otherwise if stem:[T_1] and stem:[T_2] are both signed primitive integer 
+. Otherwise if stem:[T_1] and stem:[T_2] are both signed primitive integer
 types, then stem:[v_2]
-is the integer value of stem:[v_1] at the type of stem:[v_2]. For 
+is the integer value of stem:[v_1] at the type of stem:[v_2]. For
 example, converting `-0x12: I8` to `I16` yields `-0x12: I16`.
 
 ==== Primitive Integer Values of Mixed Sign
 
-If stem:[T_1] and stem:[T_2] are primitive integer types with one signed and 
+If stem:[T_1] and stem:[T_2] are primitive integer types with one signed and
 one unsigned,
 then do the following:
 
-. Construct the value stem:[v] by converting stem:[v_1] to the type 
+. Construct the value stem:[v] by converting stem:[v_1] to the type
 stem:[T], where
-stem:[T] is signed if stem:[T_1] is signed and unsigned if 
+stem:[T] is signed if stem:[T_1] is signed and unsigned if
 stem:[T_1] is unsigned, and
 stem:[T] has the same width as stem:[T_2].
 
@@ -88,7 +88,7 @@ floating-point values to and from each other.
 If stem:[T_2] is an array type and stem:[T_1 = T_2], then
 let stem:[v_2 = v_1].
 
-Otherwise if stem:[T_1] is an anonymous array type and stem:[T_2] is an 
+Otherwise if stem:[T_1] is an anonymous array type and stem:[T_2] is an
 anonymous array type or array type, both with stem:[n] elements, then
 
 . Let stem:[T'_2] be the element type of stem:[T_2].
@@ -107,15 +107,15 @@ let stem:[v_2 = v_1].
 
 Otherwise if stem:[T_1] is an anonymous struct type and stem:[T_2] is
 an anonymous struct type or struct type
-such that for each member stem:[m] `:` stem:[v_m] of stem:[T_1] there is a member 
-stem:[m] `:` stem:[T_m] in stem:[T_2], then use the value of stem:[T_2] with 
+such that for each member stem:[m] `:` stem:[v_m] of stem:[T_1] there is a member
+stem:[m] `:` stem:[T_m] in stem:[T_2], then use the value of stem:[T_2] with
 the following members:
 
-. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is a member 
+. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is a member
 stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
 where stem:[v'_m] is the result of converting stem:[v_m] to stem:[T_m].
 
-. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is no member 
+. For each member stem:[m] `:` stem:[T_m] of stem:[T_2] such that there is no member
 stem:[m] `:` stem:[v_m] in stem:[v_1], add the member stem:[m] `:` stem:[v'_m],
 where stem:[v'_m] is the <<Types_Default-Values,default value>> at type stem:[T_m].
 

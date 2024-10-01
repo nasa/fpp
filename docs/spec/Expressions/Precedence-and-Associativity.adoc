@@ -3,7 +3,7 @@
 Ambiguity in parsing expressions is resolved with the following
 precedence table. Expressions appearing earlier in the table
 have higher precedence. For example, `-a.b` is parsed as `-(a.b)`
-and not `(-a).b`. Where necessary, each element in the ordering provides an 
+and not `(-a).b`. Where necessary, each element in the ordering provides an
 associativity for resolving expressions with equal precedence.
 
 [cols=",",options="header",]
