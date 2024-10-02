@@ -165,6 +165,7 @@ type FwSizeType
 type FwTimeBaseStoreType
 type FwTimeContextStoreType
 type FwTlmPacketizeIdType
+type FwTraceIdType
 ----
 
 Each of these types is an alias for a {cpp} integer type, and each
