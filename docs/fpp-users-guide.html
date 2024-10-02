@@ -610,6 +610,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-Component-Instances_Init-Specifiers_Writing-Init-Specifiers">11.3.2. Writing Init Specifiers</a></li>
 </ul>
 </li>
+<li><a href="#Defining-Component-Instances_Generation-of-Names">11.4. Generation of Names</a></li>
 </ul>
 </li>
 <li><a href="#Defining-Topologies">12. Defining Topologies</a>
@@ -7105,7 +7106,9 @@ The FPP translator can automatically infer the implementation
 type if its qualified C&#43;&#43; class name matches the qualified
 name of the FPP component.
 For example, the C&#43;&#43; class name <code>A::B</code> matches the FPP component
-name <code>A.B</code>.</p>
+name <code>A.B</code>.
+More generally, modules in FPP become namespaces in C&#43;&#43;, so
+dot qualifiers in FPP become double-colon qualifiers in C&#43;&#43;.</p>
 </div>
 <div class="paragraph">
 <p>If the names do not match, then you must provide the type
@@ -7513,7 +7516,7 @@ command sequencer instance <code>cmdSeq</code> from the
   cmdSeq.allocateBuffer(
       0,
       Allocation::mallocator,
-      ConfigConstants::cmdSeq::BUFFER_SIZE
+      ConfigConstants::SystemReference_cmdSeq::BUFFER_SIZE
   );
   """
 
@@ -7527,7 +7530,17 @@ command sequencer instance <code>cmdSeq</code> from the
 <div class="paragraph">
 <p>The code for <code>configConstants</code> provides a constant <code>BUFFER_SIZE</code>
 that is used in the <code>configComponents</code> phase.
-The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
+The code generator places this code snippet in the
+namespace <code>ConfigConstants::SystemReference_cmdSeq</code>.
+Notice that the second part of the namespace uses the
+fully qualified name <code>SystemReference::cmdSeq</code>, and it replaces
+the double colon <code>::</code> with an underscore <code>_</code> to generate
+the name.
+We will explain this behavior further in the section on
+<a href="#Defining-Component-Instances_Generation-of-Names">generation of names</a>.</p>
+</div>
+<div class="paragraph">
+<p>The code for <code>configComponents</code> calls <code>allocateBuffer</code>, passing
 in an allocator object that is declared elsewhere.
 (In the section on
 <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>, we will explain where this allocator
@@ -7582,6 +7595,67 @@ the file <code>SystemReference/Top/instances.fpp</code> in the F Prime repositor
 In particular, the init specifiers for the <code>comDriver</code> instance
 use the <code>state</code> value that we just mentioned.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-Component-Instances_Generation-of-Names">11.4. Generation of Names</h3>
+<div class="paragraph">
+<p>FPP uses the following rules to generate the names associated with
+component instances.
+First, as explained in the section on
+<a href="#Defining-Component-Instances_Specifying-the-Implementation">specifying the implementation</a>,
+a component type <code>M.C</code> in FPP becomes the type <code>M::C</code> in C&#43;&#43;.
+Here <code>C</code> is a C&#43;&#43; class defined in namespace <code>M</code> that
+implements the behavior of component <code>C</code>.</p>
+</div>
+<div class="paragraph">
+<p>Second, a component instance <em>I</em> defined in module <em>N</em> becomes
+a C&#43;&#43; variable <em>I</em> defined in namespace <em>N</em>.
+For example, this FPP code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">module N {
+
+  instance i: M.C base id 0x100
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>becomes this code in the generated C&#43;&#43;:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="c++">namespace N {
+
+  M::C i;
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So the fully qualified name of the instance is <code>N.i</code> in FPP and <code>N::i</code>
+in C&#43;&#43;.</p>
+</div>
+<div class="paragraph">
+<p>Third, all other code related to instances is generated in the namespace of the
+top-level implementation.
+For example, in the System Reference example from the previous section,
+the top-level implementation is in the namespace <code>SystemReference</code>, so
+the code for configuring constants is generated in that namespace.
+We will have more to say about the top-level implementation in
+the section on <a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
+<p>Fourth, when generating the name of a constant associated with an instance,
+FPP uses the fully-qualified name of the instance, and it replaces
+the dots (in FPP) or the colons (in C&#43;&#43;) with underscores.
+For example, as discussed in the previous section, the configuration
+constants for the instance <code>SystemReference::cmdSeq</code> are placed in
+the namespace <code>ConfigConstants::SystemReference_cmdSeq</code>.
+This namespace, in turn, is placed in the namespace <code>SystemReference</code>
+according to the previous paragraph.</p>
 </div>
 </div>
 </div>
@@ -12277,8 +12351,8 @@ if (state.hostName != nullptr &amp;&amp; state.portNumber != 0) {
     comDriver.startSocketTask(
         name,
         true,
-        ConfigConstants::comDriver::PRIORITY,
-        ConfigConstants::comDriver::STACK_SIZE
+        ConfigConstants::SystemReference_comDriver::PRIORITY,
+        ConfigConstants::SystemReference_comDriver::STACK_SIZE
     );
 }
 """</code></pre>
@@ -12344,21 +12418,21 @@ in the F Prime system reference repository:</p>
 
   // Health ping entries
   namespace PingEntries {
-    namespace blockDrv { enum { WARN = 3, FATAL = 5 }; }
-    namespace chanTlm { enum { WARN = 3, FATAL = 5 }; }
-    namespace cmdDisp { enum { WARN = 3, FATAL = 5 }; }
-    namespace cmdSeq { enum { WARN = 3, FATAL = 5 }; }
-    namespace eventLogger { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileDownlink { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileManager { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileUplink { enum { WARN = 3, FATAL = 5 }; }
-    namespace imageProcessor { enum {WARN = 3, FATAL = 5}; }
-    namespace prmDb { enum { WARN = 3, FATAL = 5 }; }
-    namespace processedImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
-    namespace rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace saveImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_blockDrv { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_chanTlm { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_cmdDisp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_cmdSeq { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_eventLogger { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileDownlink { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileManager { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileUplink { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_imageProcessor { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_prmDb { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_processedImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_saveImageBufferLogger { enum { WARN = 3, FATAL = 5 }; }
   }
 
 }</code></pre>
@@ -12530,7 +12604,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-01 08:57:40 -0700
+Last updated 2024-10-01 11:12:34 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
