@@ -22,7 +22,7 @@ for that state.
 `signal`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
-`:` 
+`:`
 <<Type-Names,_type-name_>>
 _]_
 

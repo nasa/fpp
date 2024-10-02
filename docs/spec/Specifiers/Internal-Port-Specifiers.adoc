@@ -1,7 +1,7 @@
 === Internal Port Specifiers
 
-An *internal port specifier* specifies 
-a single-use port for use in handlers of the enclosing 
+An *internal port specifier* specifies
+a single-use port for use in handlers of the enclosing
 <<Definitions_Component-Definitions,component>>.
 A component can use an internal port to send a message
 to itself.
@@ -22,7 +22,7 @@ _[_
 _queue-full-behavior_
 _]_
 
-_queue-full-behavior_ has the same syntax as for 
+_queue-full-behavior_ has the same syntax as for
 <<Specifiers_Port-Instance-Specifiers_Syntax,port instance specifiers>>.
 
 ==== Semantics
@@ -34,8 +34,8 @@ Each formal parameter is a piece of data carried on the port.
 The names of the formal parameters must be distinct.
 No formal parameter may be a `ref` parameter.
 
-The optional priority and queue full behavior have the same semantics as in 
-<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance 
+The optional priority and queue full behavior have the same semantics as in
+<<Specifiers_Port-Instance-Specifiers_Semantics, async input port instance
 specifiers>>.
 
 ==== Examples

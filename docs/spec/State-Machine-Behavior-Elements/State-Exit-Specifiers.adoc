@@ -1,0 +1,33 @@
+=== State Exit Specifiers
+
+A *state exit specifier* is part of a
+<<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
+It specifies the actions to take when exiting the state.
+
+==== Syntax
+
+`exit` <<State-Machine-Behavior-Elements_Do-Expressions,_do-expression_>>
+
+==== Semantics
+
+The do expression must be valid.
+
+==== Examples
+
+[source,fpp]
+----
+state machine Device {
+
+  action heaterOff
+  action monitorOff
+
+  state RUNNING {
+    exit do {
+      heaterOff
+      monitorOff
+    }
+
+  }
+
+}
+----

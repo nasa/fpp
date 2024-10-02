@@ -2,9 +2,11 @@
 
 === Primitive Integer Types
 
-The *primitive integer types* correspond to the 
+The *primitive integer types* correspond to the
 <<Type-Names_Primitive-Integer-Type-Names,primitive integer type names>>
 and are written in the same way, e.g., `U32`.
+The primitive integer types whose names start with `I` are *signed*.
+The primitive integer types whose names start with `U` are *unsigned*.
 
 === Floating-Point Types
 
@@ -15,7 +17,7 @@ and are written in the same way, e.g., `F64`.
 === Primitive Numeric Types
 
 The <<Types_Primitive-Integer-Types,primitive integer types>>
-together with the <<Types_Floating-Point-Types,floating-point types>> are 
+together with the <<Types_Floating-Point-Types,floating-point types>> are
 called the *primitive numeric types*.
 
 === The Boolean Type
@@ -47,7 +49,7 @@ An *array type* is a type associated with an
 There is one array type per array definition.
 Each array type is computed after resolving constants,
 so an array type has a constant integer value for its size.
-An array type is written using its 
+An array type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
@@ -74,7 +76,7 @@ name>>.
 An *abstract type* is a type associated with an
 <<Definitions_Abstract-Type-Definitions,abstract type definition>>.
 There is is one abstract type per abstract type definition.
-An abstract type is written using its 
+An abstract type is written using its
 <<Scoping-of-Names_Names-of-Definitions,unique qualified
 name>>.
 
@@ -90,13 +92,13 @@ to bit width.
 
 ==== Integer Types
 
-<<Types_Internal-Types_Integer,_Integer_>> together with the 
+<<Types_Internal-Types_Integer,_Integer_>> together with the
 <<Types_Primitive-Integer-Types,primitive integer types>> are called
 the *integer types*.
 
 ==== Numeric Types
 
-<<Types_Internal-Types_Integer,_Integer_>> together with the 
+<<Types_Internal-Types_Integer,_Integer_>> together with the
 <<Types_Primitive-Numeric-Types,primitive numeric types>> are called
 the *numeric types*.
 
@@ -135,24 +137,24 @@ A type *has numeric members* if it is one of the following:
 * A <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 * An <<Types_Array-Types,array type>> or
-<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>> whose 
+<<Types_Internal-Types_Anonymous-Array-Types,anonymous array type>> whose
 member type has numeric members.
 
 * A <<Types_Struct-Types,struct type>> or
-<<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose 
+<<Types_Internal-Types_Anonymous-Struct-Types,anonymous struct type>> whose
 member types all have numeric members.
 
 === Default Values
 
-Every type _T_ with a syntactic name in FPP has an associated *default 
+Every type _T_ with a syntactic name in FPP has an associated *default
 value*.
-In generated C++ code, this is the value that is used to initialize a variable 
+In generated C++ code, this is the value that is used to initialize a variable
 of type _T_
 when no other initializer is specified.
 Default values are important, because they ensure that in generated code,
 every variable is initialized when it is created.
 
-* The default value associated with each 
+* The default value associated with each
 <<Types_Primitive-Numeric-Types,primitive numeric type>> is zero.
 
 * The default value associated with
@@ -172,7 +174,7 @@ array definitions>> for examples.
 
 * The default value associated with an
 <<Types_Enum-Types,enum type>> is (1) the default value
-specified in the enum definition, if one is given; 
+specified in the enum definition, if one is given;
 otherwise (2) the first
 enumerated constant appearing in the enum definition.
 

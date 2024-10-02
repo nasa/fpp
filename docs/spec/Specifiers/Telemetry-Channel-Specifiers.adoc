@@ -7,21 +7,21 @@ A *telemetry channel definition* defines a telemetry channel as part of a
 
 `telemetry` <<Lexical-Elements_Identifiers,_identifier_>>
 `:` <<Type-Names,_type-name_>>
-_[_ 
+_[_
 `id` <<Expressions,_expression_>>
 _]_
-_[_ 
+_[_
 `update` _telemetry-update_
 _]_
-_[_ 
+_[_
 `format` <<Expressions_String-Literals,_string-literal_>>
 _]_
-_[_ 
+_[_
 `low` `{` _telemetry-limit-sequence_ `}`
-_]_ 
-_[_ 
+_]_
+_[_
 `high` `{` _telemetry-limit-sequence_ `}`
-_]_ 
+_]_
 
 _telemetry-update_ is one of the following:
 
@@ -66,7 +66,7 @@ If the specifier is not present, the default behavior is always.
 There is one argument to the format string, which is the channel value.
 
 . The optional high and low limit specifiers specify the high and low limits
-for the channel. 
+for the channel.
 The following rules apply:
 
 .. At most one of each kind of limit (red, orange, yellow) may appear
@@ -74,10 +74,10 @@ in each specifier.
 
 .. The type of the expression in each limit must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>> and must be
-<<Type-Checking_Type-Conversion,convertible to>> 
+<<Type-Checking_Type-Conversion,convertible to>>
 the type of the channel.
 
-.. The limit is applied to each telemetry channel with type _T_ and value _v_ 
+.. The limit is applied to each telemetry channel with type _T_ and value _v_
 as follows:
 
 ... If _T_ is a
@@ -85,7 +85,7 @@ as follows:
 limit is applied directly to _v_.
 
 ...  If _T_ is not itself a numeric type
-(e.g., it is an array), then the limit is applied recursively to each member 
+(e.g., it is an array), then the limit is applied recursively to each member
 value of _v_.
 
 ==== Examples

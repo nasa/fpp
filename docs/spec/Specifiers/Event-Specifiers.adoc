@@ -5,12 +5,12 @@ An *event specifier* specifies an event report as part of a
 
 ==== Syntax
 
-`event` 
+`event`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
 `(` <<Formal-Parameter-Lists,_param-list_>> `)`
 _]_
-`severity` _severity_ 
+`severity` _severity_
 _[_
 `id` <<Expressions,_expression_>>
 _]_
@@ -43,10 +43,10 @@ If there are no parameters, the list may be omitted.
 
 * The optional expression _e_ following `id` specifies the numeric
 identifier for the event.
-If _e_ is present, then the type of _e_ must be convertible to 
+If _e_ is present, then the type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
-If _e_ is not present, then the default identifier is either zero (for the 
+If _e_ is not present, then the default identifier is either zero (for the
 first
 event appearing in a component) or the previous event identifier plus one.
 
@@ -58,7 +58,7 @@ argument whose type is a <<Types_Internal-Types_Numeric-Types,numeric type>>.
 
 * The optional expression _e_ following `throttle` specifies the maximum number
 of times to emit the event before throttling it.
-The type of _e_ must be convertible to 
+The type of _e_ must be convertible to
 <<Types_Internal-Types_Integer,_Integer_>> and must evaluate to an integer
 in the range [0,2^31^).
 

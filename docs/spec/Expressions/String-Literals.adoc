@@ -55,7 +55,7 @@ unmatched double quote character.
 
 ==== Multiline String Literals
 
-A *multiline string literal* is a sequence of *multiline literal characters* enclosed 
+A *multiline string literal* is a sequence of *multiline literal characters* enclosed
 in sequences `"""` of three double quote characters.
 A multiline literal character is one of the following:
 
@@ -72,7 +72,7 @@ of the interpreted string is _c_.
 
 Whitespace inside a multiline string literal is trimmed as follows:
 
-. The first extended newline character, if any, after the first `"""` is 
+. The first extended newline character, if any, after the first `"""` is
 deleted from the interpreted string.
 
 . Any whitespace occurring in columns to the left of the first `"""`

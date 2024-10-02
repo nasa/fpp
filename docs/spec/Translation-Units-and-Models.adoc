@@ -11,7 +11,7 @@ e.g., on standard input.
 ==== Syntax
 
 A translation unit is an
-<<Element-Sequences,element sequence>> in which each 
+<<Element-Sequences,element sequence>> in which each
 element is a *translation unit member*,
 and the terminating punctuation is a semicolon.
 A translation unit member is syntactically identical to a
@@ -37,7 +37,7 @@ And here is a third one:
 
 [source,fpp]
 ----
-module M2 { 
+module M2 {
   constant a = M1.a
   constant b = M1.b
 }
@@ -68,14 +68,14 @@ unit:
 ----
 module M1 { constant a = 0 }
 module M1 { constant b = 1 }
-module M2 { 
+module M2 {
   constant a = M1.a
   constant b = M1.b
 }
 ----
 
 According to the
-<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics 
+<<Scoping-of-Names_Multiple-Definitions-with-the-Same-Qualified-Name_Module-Definitions,semantics
 of module definitions>>,
 this is also equivalent:
 
@@ -85,7 +85,7 @@ module M1 {
   constant a = 0
   constant b = 1
 }
-module M2 { 
+module M2 {
   constant a = M1.a
   constant b = M1.b
 }
@@ -100,12 +100,12 @@ unit 2 is not a valid model.
 
 Every syntactic element _E_ in a source model has an associated
 *location* _L_.
-The location is used when resolving <<Specifiers_Location-Specifiers,location 
+The location is used when resolving <<Specifiers_Location-Specifiers,location
 specifiers>> and
 <<Specifiers_Include-Specifiers,include specifiers>>
 during <<Analysis-and-Translation,analysis>>.
 
-. If _E_ is read in from a file, then _L_ is the absolute path 
+. If _E_ is read in from a file, then _L_ is the absolute path
 of the file.
 
 . If _E_ is read from standard input, then _L_ is the absolute path of the current
