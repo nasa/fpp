@@ -29,17 +29,17 @@ _T_ must be a <<Types_Displayable-Types,displayable type>>.
 
 * The optional expression _e_ following the keyword `default`
 specifies a default value for the parameter.
-If _e_ is present, then the type of _e_ must be 
+If _e_ is present, then the type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>> _T_.
 If _e_ is not present, then there is no default value for
-the parameter: 
+the parameter:
 When the parameter is used, then either (1) a value is
 available in the parameter database or (2) the use is
 invalid.
 
-* The optional expression _e_ after the keyword `id` specifies the 
+* The optional expression _e_ after the keyword `id` specifies the
 numeric identifier for the parameter.
-If _e_ is present, then the type of _e_ must be 
+If _e_ is present, then the type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>, and _e_ must evaluate
 to a nonnegative integer.
@@ -49,16 +49,16 @@ component) or the previous parameter identifier plus one.
 
 * The optional expression _e_ after the keywords `set` `opcode` specifies the
 opcode of the command for setting the parameter.
-If _e_ is present, then the type of _e_ must be 
+If _e_ is present, then the type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then the default value is either zero (for
 the first command appearing in a component) or the previous opcode
 plus one.
 
-* The optional expression _e_ after the keywords `save` `opcode` specifies 
+* The optional expression _e_ after the keywords `save` `opcode` specifies
 the opcode of the command for saving the parameter.
-If _e_ is present, then the type of _e_ must be 
+If _e_ is present, then the type of _e_ must be
 <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
 If _e_ is not present, then the default value is either zero (for

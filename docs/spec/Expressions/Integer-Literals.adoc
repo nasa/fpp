@@ -6,7 +6,7 @@ An *integer literal expression* is one of the following:
 representation of a nonnegative integer.
 
 * `0x` or `0X` followed by a sequence of hexadecimal digits
-`0` through `9`, `A` through `F`, or `a` through `f` denoting the hexadecimal 
+`0` through `9`, `A` through `F`, or `a` through `f` denoting the hexadecimal
 representation of a nonnegative
 integer.
 

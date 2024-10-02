@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.20">
-<title>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.1.0</title>
+<title>The F Prime Prime (FPP) Language Specification, v2.2.0</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,7 +436,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>The F Prime Prime (FPP) Language Specification, Unreleased, after v2.1.0</h1>
+<h1>The F Prime Prime (FPP) Language Specification, v2.2.0</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
@@ -526,10 +526,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_State-Machine-Definitions">5.10. State Machine Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Static-Semantics">5.10.2. Static Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Dynamic-Semantics">5.10.3. Dynamic Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
@@ -557,11 +556,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_Action-Definitions_Examples">6.1.3. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</a>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions">6.2. Do Expressions</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Syntax">6.2.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Semantics">6.2.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Enter-Expressions_Examples">6.2.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.2.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.2.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Do-Expressions_Examples">6.2.3. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_Guard-Definitions">6.3. Guard Definitions</a>
@@ -574,15 +573,17 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">6.4. Initial Transition Specifiers</a>
 <ul class="sectlevel3">
 <li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.4.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.4.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.4.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_Junction-Definitions">6.5. Junction Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Syntax">6.5.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.5.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Static-Semantics">6.5.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">6.5.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#State-Machine-Behavior-Elements_Signal-Definitions">6.6. Signal Definitions</a>
@@ -595,15 +596,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#State-Machine-Behavior-Elements_State-Definitions">6.7. State Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#State-Machine-Behavior-Elements_State-Definitions_Syntax">6.7.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">6.7.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">6.7.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.4. Examples</a></li>
 </ul>
 </li>
-<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</a>
+<li><a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">6.8. State Entry Specifiers</a>
 <ul class="sectlevel3">
-<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.8.1. Syntax</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.8.2. Semantics</a></li>
-<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.8.3. Examples</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers_Syntax">6.8.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers_Semantics">6.8.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers_Examples">6.8.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">6.9. State Exit Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers_Syntax">6.9.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers_Semantics">6.9.2. Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers_Examples">6.9.3. Examples</a></li>
+</ul>
+</li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">6.10. State Transition Specifiers</a>
+<ul class="sectlevel3">
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.10.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Static-Semantics">6.10.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_The-State-Transition-Map">6.10.3. The State Transition Map</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Dynamic-Semantics">6.10.4. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.10.5. Examples</a></li>
+</ul>
+</li>
+<li><a href="#State-Machine-Behavior-Elements_Transition-Expressions">6.11. Transition Expressions</a>
+<ul class="sectlevel3">
+<li><a href="#State-Machine-Behavior-Elements_Transition-Expressions_Syntax">6.11.1. Syntax</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Transition-Expressions_Static-Semantics">6.11.2. Static Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">6.11.3. Dynamic Semantics</a></li>
+<li><a href="#State-Machine-Behavior-Elements_Transition-Expressions_Examples">6.11.4. Examples</a></li>
 </ul>
 </li>
 </ul>
@@ -704,8 +730,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Specifiers_State-Machine-Instance-Specifiers">7.14. State Machine Instance Specifiers</a>
 <ul class="sectlevel3">
 <li><a href="#Specifiers_State-Machine-Instance-Specifiers_Syntax">7.14.1. Syntax</a></li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Semantics">7.14.2. Semantics</a></li>
-<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.14.2. Static Semantics</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.14.3. Dynamic Semantics</a></li>
+<li><a href="#Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.4. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Specifiers_Telemetry-Channel-Specifiers">7.15. Telemetry Channel Specifiers</a>
@@ -888,44 +915,55 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
-<li><a href="#Values">19. Values</a>
+<li><a href="#Type-Options">19. Type Options</a>
 <ul class="sectlevel2">
-<li><a href="#Values_Primitive-Integer-Values">19.1. Primitive Integer Values</a></li>
-<li><a href="#Values_Integer-Values">19.2. Integer Values</a></li>
-<li><a href="#Values_Floating-Point-Values">19.3. Floating-Point Values</a></li>
-<li><a href="#Values_Boolean-Values">19.4. Boolean Values</a></li>
-<li><a href="#Values_String-Values">19.5. String Values</a></li>
-<li><a href="#Values_Abstract-Type-Values">19.6. Abstract Type Values</a></li>
-<li><a href="#Values_Anonymous-Array-Values">19.7. Anonymous Array Values</a></li>
-<li><a href="#Values_Array-Values">19.8. Array Values</a></li>
-<li><a href="#Values_Enumeration-Values">19.9. Enumeration Values</a></li>
-<li><a href="#Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</a></li>
-<li><a href="#Values_Struct-Values">19.11. Struct Values</a></li>
-<li><a href="#Values_Serialized-Sizes">19.12. Serialized Sizes</a></li>
-</ul>
-</li>
-<li><a href="#Evaluation">20. Evaluation</a>
-<ul class="sectlevel2">
-<li><a href="#Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</a></li>
-<li><a href="#Evaluation_Type-Conversion">20.2. Type Conversion</a>
+<li><a href="#Type-Options_Conversion-of-Type-Options">19.1. Conversion of Type Options</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option">19.2. Computing a Common Type Option</a>
 <ul class="sectlevel3">
-<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</a></li>
-<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</a></li>
-<li><a href="#Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option_Pairs-of-Type-Options">19.2.1. Pairs of Type Options</a></li>
+<li><a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">19.2.2. Lists of Type Options</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#Analysis-and-Translation">21. Analysis and Translation</a>
+<li><a href="#Values">20. Values</a>
 <ul class="sectlevel2">
-<li><a href="#Analysis-and-Translation_Analysis">21.1. Analysis</a></li>
-<li><a href="#Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</a></li>
-<li><a href="#Analysis-and-Translation_Translation">21.3. Translation</a></li>
-<li><a href="#Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</a></li>
+<li><a href="#Values_Primitive-Integer-Values">20.1. Primitive Integer Values</a></li>
+<li><a href="#Values_Integer-Values">20.2. Integer Values</a></li>
+<li><a href="#Values_Floating-Point-Values">20.3. Floating-Point Values</a></li>
+<li><a href="#Values_Boolean-Values">20.4. Boolean Values</a></li>
+<li><a href="#Values_String-Values">20.5. String Values</a></li>
+<li><a href="#Values_Abstract-Type-Values">20.6. Abstract Type Values</a></li>
+<li><a href="#Values_Anonymous-Array-Values">20.7. Anonymous Array Values</a></li>
+<li><a href="#Values_Array-Values">20.8. Array Values</a></li>
+<li><a href="#Values_Enumeration-Values">20.9. Enumeration Values</a></li>
+<li><a href="#Values_Anonymous-Struct-Values">20.10. Anonymous Struct Values</a></li>
+<li><a href="#Values_Struct-Values">20.11. Struct Values</a></li>
+<li><a href="#Values_Serialized-Sizes">20.12. Serialized Sizes</a></li>
+</ul>
+</li>
+<li><a href="#Evaluation">21. Evaluation</a>
+<ul class="sectlevel2">
+<li><a href="#Evaluation_Evaluating-Expressions">21.1. Evaluating Expressions</a></li>
+<li><a href="#Evaluation_Type-Conversion">21.2. Type Conversion</a>
+<ul class="sectlevel3">
+<li><a href="#Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">21.2.2. Signed Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</a></li>
+<li><a href="#Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</a></li>
+<li><a href="#Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Analysis-and-Translation">22. Analysis and Translation</a>
+<ul class="sectlevel2">
+<li><a href="#Analysis-and-Translation_Analysis">22.1. Analysis</a></li>
+<li><a href="#Analysis-and-Translation_Analysis-Tools">22.2. Analysis Tools</a></li>
+<li><a href="#Analysis-and-Translation_Translation">22.3. Translation</a></li>
+<li><a href="#Analysis-and-Translation_Translation-Tools">22.4. Translation Tools</a></li>
 </ul>
 </li>
 </ul>
@@ -2759,9 +2797,7 @@ causes an implementation to be generated.</p>
 </div>
 <div class="paragraph">
 <p><strong>Implementation note:</strong>
-Support for state machines will be implemented in two phases.
-Phase 1 will implement external state machine definitions only.
-Phase 2 will add support for internal state machine definitions.</p>
+As of FPP v2.2.0, only external state machine definitions are implemented.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
@@ -2798,9 +2834,14 @@ A state machine member is one of the following:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>The <strong>transitive members</strong> of a state machine definition <em>M</em> are
+(1) the elements of <em>M</em> and (2)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</h4>
+<h4 id="Definitions_State-Machine-Definitions_Static-Semantics">5.10.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2826,17 +2867,21 @@ The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
 <p><em>M</em> must satisfy the rules described
-<a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">below</a>
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_The-Transition-Graph">below</a>
 for the induced transition graph.</p>
 </li>
+<li>
+<p><em>M</em> must satisfy the rules described
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Typed-Elements">below</a>
+for typed elements.</p>
+</li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</h4>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_The-Transition-Graph">The Transition Graph</h5>
 <div class="paragraph">
 <p>If present, the optional state machine member sequence <em>M</em>
 induces a directed graph called the <strong>transition graph</strong>, defined as
@@ -2845,24 +2890,30 @@ follows:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The nodes of the transition graph are the initial transition specifiers,
-state definitions, and
+<p>The nodes of the transition graph are the state definitions and
 junction definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
-<p>The <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
-the members of any state definition that is a transitive member of <em>M</em>.</p>
+<p>The <strong>initial node</strong> of the transition graph is the state definition
+or junction definition referred to in the unique initial transition specifier
+that is an element of <em>M</em>.</p>
 </li>
 <li>
-<p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
-Each enter expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
-The initial node is defined as follows:</p>
+<p>The arcs of the transition graph are given by the
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that appear in (1) initial transition specifiers
+that are members of states that are transitive members of <em>M</em> and (2)
+state transition specifiers that are transitive members of <em>M</em> and (3)
+junction definitions that are transitive members of <em>M</em>.
+Each transition expression represents an arc from a <strong>start node</strong> to an
+<strong>end node</strong>.
+The start node is defined as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>e</em> appears in an
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
-is <em>I</em>.</p>
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node is the
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+immediately enclosing <em>I</em>.</p>
 </li>
 <li>
 <p>If <em>e</em> appears in a
@@ -2879,10 +2930,9 @@ immediately enclosing <em>T</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>In any case,
-the terminal node is the state definition or junction definition
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
-in <em>e</em> after the keyword <code>enter</code>.</p>
+<p>The terminal node is the state or junction definition
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">referred to</a>
+in <em>e</em>.</p>
 </div>
 </li>
 </ol>
@@ -2894,20 +2944,96 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each state machine definition and each junction definition in
-<em>T</em> must be the terminal node of at least one arc.</p>
+<p>Each state definition and each junction definition in
+<em>T</em> must be reachable from the initial node of <em>T</em>.</p>
 </li>
 <li>
 <p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
-and only the junction definitions and the arcs whose initial
-and terminal nodes are junction definitions.
+and only the junction definitions and the arcs whose start
+and end nodes are junction definitions.
 There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</h4>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_Typed-Elements">Typed Elements</h5>
+<div class="paragraph">
+<p>A <strong>typed element</strong> <em>e</em> is an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
+a
+<a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a>,
+a
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a>,
+a
+<a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
+A typed element <em>e</em> <strong>points to</strong> a junction <em>J</em> if</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>e</em> is an initial transition specifier, and its transition expression
+refers to <em>J</em>; or</p>
+</li>
+<li>
+<p><em>e</em> is a state transition specifier with a transition expression that refers to
+<em>J</em>; or</p>
+</li>
+<li>
+<p><em>e</em> is a junction, and at least one of its transition expressions
+refers to <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>It must be possible to assign <a href="#Type-Options">type options</a>
+to all the typed elements in a state machine definition in
+the following way.
+If not, an error results.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The type option of each initial transition specifier, state entry
+specifier, and state exit specifier is <em>None</em>.</p>
+</li>
+<li>
+<p>The type option of each state transition specifier <em>S</em> is the type
+option specified in the definition of the signal specified in <em>S</em>
+after the keyword <code>on</code>.</p>
+</li>
+<li>
+<p>The type option of a junction <em>J</em> is the
+<a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">common type option</a> of the type options of the typed elements
+that point to <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For each typed element <em>e</em></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Let <em>O</em> be the type option assigned to <em>e</em> as described above.</p>
+</li>
+<li>
+<p>For every action <em>A</em> appearing in the list of <code>do</code> actions specified in <em>e</em>,
+<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
+the type option specified in <em>A</em>.</p>
+</li>
+<li>
+<p>For every guard <em>G</em> appearing in an <code>if</code> construct in <em>e</em>,
+<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
+the type option specified in <em>G</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">Scoping of Names</h5>
 <div class="paragraph">
 <p>Inside the optional state machine member sequence, the following
 rules govern the assignment of names to definitions and the resolution
@@ -2981,31 +3107,67 @@ with the following modifications:</p>
 </ol>
 </div>
 </div>
+</div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Dynamic-Semantics">5.10.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>An internal state machine <em>M</em> has the following runtime behavior:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>M</em> maintains a current state <em>S</em>.
+The current state is undefined until initialization occurs.
+From that point on, the current state is always a leaf state.</p>
+</li>
+<li>
+<p><em>M</em> provides a function for initializing the state machine.
+It runs the
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">behavior associated with the initial transition specifier of <em>M</em></a>.</p>
+</li>
+<li>
+<p>For each signal <em>s</em>, <em>M</em> provides a function for sending <em>s</em>.
+This function has a typed argument with type <em>T</em> if and only if
+the <a href="#State-Machine-Behavior-Elements_Signal-Definitions">definition of signal <em>s</em></a>
+has type <em>T</em>.
+It runs the
+<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Dynamic-Semantics">behavior associated with <em>s</em> in the current state <em>S</em></a>.
+This behavior may cause one or more actions to be performed,
+and it may cause the current state to change.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The functions are called by the code that is generated when a
+state machine is <a href="#Specifiers_State-Machine-Instance-Specifiers">instantiated</a>
+as part of an active or queued component.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-
-  action init2
   action doCalibrate
+  action init2
   action motorControl
   action reportFault
 
   guard calibrateReady
 
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
+
   initial enter DeviceOn
 
   state DeviceOn {
 
-    initial do init2 enter Initializing
+    initial do { init2 } enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -3017,13 +3179,13 @@ with the following modifications:</p>
     }
 
     state Calibrating {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do motorControl
+      on RTI do { motorControl }
       on Stop enter Idle
     }
 
@@ -3769,67 +3931,54 @@ state machine ActionDefs {
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_Enter-Expressions">6.2. Enter Expressions</h3>
+<h3 id="State-Machine-Behavior-Elements_Do-Expressions">6.2. Do Expressions</h3>
 <div class="paragraph">
-<p>An <strong>enter expression</strong> specifies a transition as part of an
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
-a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
+<p>An <strong>do expression</strong> specifies a list of actions as part of an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
 or
-a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
-The transition enters a state or junction and optionally performs
-some action.</p>
+a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Syntax">6.2.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Syntax">6.2.1. Syntax</h4>
 <div class="paragraph">
-<p><em>[</em>
-<code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
-<em>]</em>
-<code>enter</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+<p><code>do</code> <code>{</code> <em>action-sequence</em> <code>}</code></p>
+</div>
+<div class="paragraph">
+<p><em>action-sequence</em> is an
+<a href="#Element-Sequences">element sequence</a> in
+which each element is an <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
+and the terminating punctuation is a comma.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Semantics">6.2.2. Semantics</h4>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>If present, the optional identifier after the keyword <code>do</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Semantics">6.2.2. Semantics</h4>
+<div class="paragraph">
+<p>Each identifier in the action sequence must
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
 to an
-<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.
-It specifies an action to perform when making the transition.</p>
-</li>
-<li>
-<p>The qualified identifier after the keyword <code>enter</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to a
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
-or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
-It is the state or junction that is entered.</p>
-</li>
-</ol>
+<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Enter-Expressions_Examples">6.2.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Do-Expressions_Examples">6.2.3. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-  signal PowerOn
+  action powerActuator
+  action powerGyro
+  action powerGimbal
 
-  action getReady
-
-  guard initComplete
-
-  initial enter OFF
-
-  state OFF {
-    on PowerOn if initComplete do getReady enter ON
+  state ON {
+    entry do {
+      powerActuator
+      powerGyro
+      powerGimbal
+    }
   }
-
-  state ON
 
 }</code></pre>
 </div>
@@ -3920,25 +4069,47 @@ substates.</p>
 <h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Syntax">6.4.1. Syntax</h4>
 <div class="paragraph">
 <p><code>initial</code>
-<a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Semantics">6.4.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Static-Semantics">6.4.2. Static Semantics</h4>
 <div class="paragraph">
 <p>The state definition or junction definition referred to in the
-enter expression must be a member of the same
+transition expression must <strong>lead to a member</strong> of the same
 state machine definition or state definition in which the initial
 transition specifier appears.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A state definition <em>D</em> leads to a member of a state machine definition <em>M</em>
+(respectively a state <em>S</em>) if <em>D</em> is a member of <em>M</em> (respectively <em>S</em>).</p>
+</li>
+<li>
+<p>A junction definition <em>D</em> leads to a member of a state machine definition <em>M</em>
+(respectively as state <em>S</em>) if it is a member of <em>M</em> (respectively <em>S</em>)
+and the state or junction definitions referred to in <em>D</em> lead to members of
+<em>M</em> (respectively <em>S</em>).</p>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">6.4.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>To run an initial transition specifier <em>I</em> with transition expression <em>E</em>,
+we <a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">run <em>E</em> in the context of <em>I</em></a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Examples">6.4.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-  action initDevices
+  action initDev1
+  action initDev2
 
   # When the state machine starts up, enter the ON state
   initial enter ON
@@ -3946,7 +4117,11 @@ transition specifier appears.</p>
   state ON {
 
     # When entering the ON state, enter the POWERING_UP substate
-    initial do initDevices enter POWERING_UP
+    initial do {
+      initDev1
+      initDev2
+    } \
+    enter POWERING_UP
 
     state POWERING_UP
 
@@ -3972,13 +4147,13 @@ A junction is a branch point controlled by a
 <div class="paragraph">
 <p><code>junction</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <code>{</code>
-<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a>
-<code>else</code> <a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a>
+<code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
+<code>else</code> <a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a>
 <code>}</code></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Semantics">6.5.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Static-Semantics">6.5.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -3986,21 +4161,47 @@ A junction is a branch point controlled by a
 </li>
 <li>
 <p>The identifier after the keyword <code>if</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
 It specifies the guard that controls the branch.</p>
 </li>
 <li>
-<p>Each of the enter expressions must be valid.
-The first enter expression is run if the guard evaluates to <code>true</code>;
-otherwise the second enter expression is run.</p>
+<p>Each of the transition expressions must be valid.
+The first transition expression is run if the guard evaluates to <code>true</code>;
+otherwise the second transition expression is run.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">6.5.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>Each junction <em>J</em> has the following <strong>entry behavior</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Evaluate the guard of <em>J</em>.</p>
+</li>
+<li>
+<p>If <em>J</em> evaluates to <code>true</code>, then
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">run the <code>if</code> transition expression in the context of <em>J</em></a>.</p>
+</li>
+<li>
+<p>Otherwise run the <code>else</code> transition expression in the context of <em>J</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If any of the guard or the transition expressions requires a typed argument
+<em>v</em>, then according to the static semantics, <em>v</em> must be available,
+and it must have a compatible type.
+Use <em>v</em> to evaluate the guard or run the transition expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Junction-Definitions_Examples">6.5.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
@@ -4012,7 +4213,7 @@ otherwise the second enter expression is run.</p>
 
   junction J1 {
     if coldStart enter OFF \
-    else do initPower enter ON
+    else do { initPower } enter ON
   }
 
   state OFF
@@ -4136,11 +4337,17 @@ A state definition member is one of the following:</p>
 <li>
 <p>A <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a></p>
 </li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a></p>
+</li>
+<li>
+<p>A <a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a></p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Semantics">6.7.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">6.7.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4152,65 +4359,124 @@ then it must obey the following rules:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p><em>M</em> must contain exactly one initial transition specifier <em>I</em>.
+<p>If <em>M</em> contains at least one state definition, then <em>M</em> must contain exactly
+one initial transition specifier <em>I</em>.
 <em>I</em> specifies the sub-state to enter on entry to the outer state.</p>
+</li>
+<li>
+<p><em>M</em> may not contain more than one state entry specifier.
+If <em>M</em> has a state entry specifier <em>S</em>, then the <strong>entry actions</strong> of
+<em>M</em> are the actions specified in <em>S</em>, in the order specified.
+Otherwise <em>M</em> has no entry actions.</p>
+</li>
+<li>
+<p><em>M</em> may not contain more than one state exit specifier.
+If <em>M</em> has a state exit specifier <em>S</em>, then the <strong>exit actions</strong> of
+<em>M</em> are the actions specified in <em>S</em>, in the order specified.
+Otherwise <em>M</em> has no exit actions.</p>
 </li>
 <li>
 <p>No two <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state
 transition specifiers</a> that are members of <em>M</em> may
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a> to the same
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a> to the same
 signal definition.</p>
 </li>
 </ol>
 </div>
 </li>
+<li>
+<p>If the state definition member sequence <em>M</em> is present and <em>M</em>
+contains at least one state definition, then the
+state definition is called an <strong>inner state definition</strong>.
+Otherwise it is called a <strong>leaf state definition</strong>.</p>
+</li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">6.7.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>Each state definition <em>S</em> has the following <strong>entry behavior</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the entry actions, if any, of <em>S</em>.
+According to the static semantics, the entry actions must
+not require a typed argument.</p>
+</li>
+<li>
+<p>If <em>S</em> is an inner state, then run the
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">behavior</a> of the initial transition of <em>S</em>.</p>
+</li>
+<li>
+<p>Otherwise set the current state of the state machine to <em>S</em>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Definitions_Examples">6.7.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-  signal Complete
-  signal Drive
-  signal Calibrate
-  signal RTI
-  signal Stop
-  signal Fault
-
-  action init2
   action doCalibrate
+  action heaterOff
+  action heaterOn
+  action init1
+  action init2
+  action monitorOff
+  action monitorOn
   action motorControl
   action reportFault
+  action stopMotor
 
   guard calibrateReady
+
+  signal Calibrate
+  signal Complete
+  signal Drive
+  signal Fault
+  signal RTI
+  signal Stop
 
   initial enter DEVICE_ON
 
   state DEVICE_ON {
 
-    initial do init2 enter INITIALIZING
+    initial do {
+      init1
+      init2
+     } \
+     enter INITIALIZING
 
     state INITIALIZING {
       on Complete enter IDLE
     }
 
     state IDLE {
+      entry do {
+        heaterOff
+        monitorOff
+      }
+      exit do {
+        heaterOn
+        monitorOn
+      }
       on Drive enter DRIVING
       on Calibrate if calibrateReady enter CALIBRATING
     }
 
     state CALIBRATING {
-      on RTI do doCalibrate
-      on Fault do reportFault enter Idle
+      on RTI do { doCalibrate }
+      on Fault do { reportFault } enter Idle
       on Complete enter IDLE
     }
 
     state DRIVING {
-      on RTI do motorControl
-      on Stop enter IDLE
+      on RTI do { motorControl }
+      on Stop do { stopMotor } enter IDLE
     }
 
   }
@@ -4221,97 +4487,407 @@ signal definition.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.8. State Transition Specifiers</h3>
+<h3 id="State-Machine-Behavior-Elements_State-Entry-Specifiers">6.8. State Entry Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>state entry specifier</strong> is part of a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies the actions to take when entering the state.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Entry-Specifiers_Syntax">6.8.1. Syntax</h4>
+<div class="paragraph">
+<p><code>entry</code> <a href="#State-Machine-Behavior-Elements_Do-Expressions"><em>do-expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Entry-Specifiers_Semantics">6.8.2. Semantics</h4>
+<div class="paragraph">
+<p>The do expression must be valid.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Entry-Specifiers_Examples">6.8.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action heaterOn
+  action monitorOn
+
+  state RUNNING {
+    entry do {
+      heaterOn
+      monitorOn
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Exit-Specifiers">6.9. State Exit Specifiers</h3>
+<div class="paragraph">
+<p>A <strong>state exit specifier</strong> is part of a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
+It specifies the actions to take when exiting the state.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Exit-Specifiers_Syntax">6.9.1. Syntax</h4>
+<div class="paragraph">
+<p><code>exit</code> <a href="#State-Machine-Behavior-Elements_Do-Expressions"><em>do-expression</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Exit-Specifiers_Semantics">6.9.2. Semantics</h4>
+<div class="paragraph">
+<p>The do expression must be valid.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Exit-Specifiers_Examples">6.9.3. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action heaterOff
+  action monitorOff
+
+  state RUNNING {
+    exit do {
+      heaterOff
+      monitorOff
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_State-Transition-Specifiers">6.10. State Transition Specifiers</h3>
 <div class="paragraph">
 <p>A <strong>state transition specifier</strong> is part of a
 <a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>.
 It specifies a transition from the state in which it appears.</p>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.8.1. Syntax</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Syntax">6.10.1. Syntax</h4>
 <div class="paragraph">
 <p><code>on</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>[</em>
 <code>if</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a>
 <em>]</em>
-<em>enter-or-do</em></p>
+<em>transition-or-do</em></p>
 </div>
 <div class="paragraph">
-<p><em>enter-or-do</em> is one of the following:</p>
+<p><em>transition-or-do</em> is one of the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="#State-Machine-Behavior-Elements_Enter-Expressions"><em>enter-expression</em></a></p>
+<p><a href="#State-Machine-Behavior-Elements_Transition-Expressions"><em>transition-expression</em></a></p>
 </li>
 <li>
-<p><code>do</code> <a href="#Lexical-Elements_Identifiers"><em>identifier</em></a></p>
+<p><a href="#State-Machine-Behavior-Elements_Do-Expressions"><em>do-expression</em></a></p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Semantics">6.8.2. Semantics</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Static-Semantics">6.10.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>The identifier after the keyword <code>on</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Signal-Definitions">signal definition</a>.
 It names the signal that causes the transition to occur.</p>
 </li>
 <li>
 <p>If present, the optional identifier after the keyword <code>if</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
 to a
 <a href="#State-Machine-Behavior-Elements_Guard-Definitions">guard definition</a>.
 It specifies a guard for the transition.</p>
 </li>
 <li>
-<p>The first form of the syntax specifies a target state and an optional action.
-The enter expression must be valid.
-The target state in the enter expression may be the same as the
-enclosing state; in this case the transition is called a <strong>self transition</strong>.
-When making a self transition, the state machine runs the code associated with
-exiting and then re-entering the state.</p>
+<p>The first form of the <em>transition-or-do</em> syntax specifies an <strong>external
+transition</strong>, i.e., an optional list of actions and a target state or junction.</p>
 </li>
 <li>
-<p>Second form of the syntax specifies an
-<strong>internal transition</strong>, i.e., an action to take while remaining
+<p>The second form of the <em>transition-or-do</em> syntax specifies an
+<strong>internal transition</strong>, i.e., a list of actions to take while remaining
 in the same state.
-When making an internal transition, the exit and re-entry code is not run.
-The identifier after the keyword <code>do</code> must
-<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">refer</a>
-to an
-<a href="#State-Machine-Behavior-Elements_Action-Definitions">action definition</a>.</p>
+The do expression must be valid.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.8.3. Examples</h4>
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_The-State-Transition-Map">6.10.3. The State Transition Map</h4>
+<div class="paragraph">
+<p>The set of all state transition specifiers in a state machine
+induces a <strong>state transition map</strong> <em>m: Signal x State &#8594; GuardedTransition</em>,
+where a guarded transition is a pair consisting of an optional guard
+and a transition or do expression.
+The map <em>m</em> is constructed as follows.
+Let <em>T</em> be a state transition specifier with signal <em>s</em>, optional guard <em>g</em>,
+and transition or do expression <em>t</em>, defined in state <em>S</em>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>S</em> is a leaf state, then <em>m</em> maps <em>(s, S)</em> to <em>(g, t)</em>.</p>
+</li>
+<li>
+<p>Otherwise, for each leaf state <em>S<sub>i</sub></em> that is transitively
+contained in <em>S</em>, <em>m</em> maps <em>(s, S<sub>i</sub>)</em> to <em>(g, t)</em>, unless
+the mapping is overridden.
+Overriding occurs when another state <em>S'</em> that is transitively contained in <em>S</em>
+maps <em>(s, S<sub>i</sub>)</em> to <em>(g',t')</em> according to items (1) or (2).
+In that case, the mapping lower in the hierarchy takes precedence.
+This overriding behavior is called <strong>behavioral polymorphism</strong>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Dynamic-Semantics">6.10.4. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>Let <em>M</em> be a state machine.
+Suppose <em>M</em> is in state <em>S</em>.
+Let <em>m</em> be the state transition map of <em>M</em>, defined in the previous section.
+Let <em>s</em> be a signal of <em>M</em>.
+<strong>Sending</strong> signal <em>s</em> to <em>M</em> results in the following behavior:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>(s,S)</em> is not in the domain of <em>m</em>, then do nothing.</p>
+</li>
+<li>
+<p>Otherwise</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let <em>(g,t) =  m(s,S)</em>.</p>
+</li>
+<li>
+<p>Evaluate the guard <em>g</em>.
+If the result is <code>false</code>, then do nothing.
+Otherwise</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If <em>t</em> is a do expression <em>E</em>, then perform the actions
+listed in <em>E</em>, if any, in the order listed.</p>
+</li>
+<li>
+<p>Otherwise <em>t</em> is a transition expression <em>E</em>.
+<a href="#State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">Run <em>E</em> in the context of <em>S</em></a>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>If any of the guard, do expression, or transition expression requires a
+typed argument <em>v</em>, then according to the static semantics, <em>v</em> must
+be available, and it must have a compatible type.
+Use <em>v</em> to evaluate the guard, run the do expression, or run
+the transition expression.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_State-Transition-Specifiers_Examples">6.10.5. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
 
-  signal RTI
-  signal PowerOn
-
   action performStuff
-  action getReady
+  action powerHeater
+  action powerSensor
 
   guard initComplete
+
+  signal PowerOn
+  signal RTI
 
   initial enter OFF
 
   state OFF {
-    on PowerOn if initComplete do getReady enter ON
+    on PowerOn if initComplete do {
+      powerHeater
+      powerSensor
+    } \
+    enter ON
   }
 
   state ON {
-    on RTI do performStuff
+    on RTI do { performStuff }
   }
+
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="State-Machine-Behavior-Elements_Transition-Expressions">6.11. Transition Expressions</h3>
+<div class="paragraph">
+<p>An <strong>transition expression</strong> specifies a transition as part of an
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition</a>,
+a <a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition</a>,
+or
+a <a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction</a>.
+The transition performs zero or more actions and then
+enters a state or junction.</p>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Transition-Expressions_Syntax">6.11.1. Syntax</h4>
+<div class="paragraph">
+<p><em>[</em>
+<a href="#State-Machine-Behavior-Elements_Do-Expressions"><em>do-expression</em></a>
+<em>]</em>
+<code>enter</code> <a href="#Scoping-of-Names_Qualified-Identifiers"><em>qual-ident</em></a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Transition-Expressions_Static-Semantics">6.11.2. Static Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The do expression specifies the list of actions to be
+performed when making the transition.
+If there are no actions, the do expression may be omitted.</p>
+</li>
+<li>
+<p>The qualified identifier after the keyword <code>enter</code> must
+<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">refer</a>
+to a
+<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
+or a
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>
+It is the state or junction that is entered in the transition.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics">6.11.3. Dynamic Semantics</h4>
+<div class="paragraph">
+<p>A transition expression <em>E</em> is run in the context of an
+initial transition specifier, a leaf state definition,
+or a junction definition.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>To run <em>E</em> in the context of an initial transition specifier
+<em>I</em>, do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Perform the actions, if any, specified in <em>E</em>, in the order specified.</p>
+</li>
+<li>
+<p>Run the entry behavior of the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">state</a>
+or
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">junction</a>
+referred to in <em>E</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>According to the static semantics, actions and the entry behavior must not require
+a typed argument.</p>
+</div>
+</li>
+<li>
+<p>To run <em>E</em> in the context of a leaf state definition or junction definition <em>D</em>,
+do the following:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Let <em>T</em> be the state or junction which is the target of <em>E</em>.</p>
+</li>
+<li>
+<p>Let <em>P</em> be the <strong>lowest common ancestor</strong> of <em>D</em> and <em>T</em>.
+The lowest common ancestor is defined as follows:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>A <strong>point in the state hierarchy</strong> is either the entire state machine
+or a state definition.</p>
+</li>
+<li>
+<p>The lowest common ancestor of <em>D</em> and <em>T</em> is the lowest
+point in the state hierarchy such that (A)
+by descending from <em>P</em> at least once it is possible to reach <em>D</em> and (B)
+by descending from <em>P</em> at least once it is possible to reach <em>T</em>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Ascend through the state hierarchy from <em>D</em> to <em>P</em>.
+When passing out of a state <em>S</em>, perform the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">exit actions</a> of <em>S</em>, in the order specified.</p>
+</li>
+<li>
+<p>Perform the actions, if any, specified in <em>E</em>, in the order specified.</p>
+</li>
+<li>
+<p>Descend through the state hierarchy from <em>P</em> to the point just above <em>T</em>.
+When passing into a state <em>S</em>, perform the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Static-Semantics">entry actions</a> of <em>S</em>, in the order specified.</p>
+</li>
+<li>
+<p>Run the entry behavior of the
+<a href="#State-Machine-Behavior-Elements_State-Definitions_Dynamic-Semantics">state</a>
+or
+<a href="#State-Machine-Behavior-Elements_Junction-Definitions_Dynamic-Semantics">junction</a>
+<em>T</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>According to the static semantics, if any of the actions or the
+entry behavior requires a typed argument <em>v</em>, then <em>v</em> must
+be available, and it must have a compatible type.
+Use <em>v</em> to call the action or run the behavior.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="State-Machine-Behavior-Elements_Transition-Expressions_Examples">6.11.4. Examples</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine Device {
+
+  action initDev1
+  action initDev2
+
+  initial do {
+    initDev1
+    initDev2
+  } \
+  enter OFF
+
+  state OFF
 
 }</code></pre>
 </div>
@@ -6209,7 +6785,7 @@ of a
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Semantics">7.14.2. Semantics</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Static-Semantics">7.14.2. Static Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -6230,7 +6806,35 @@ specifiers</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.3. Examples</h4>
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Dynamic-Semantics">7.14.3. Dynamic Semantics</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Specifying one or more instances of a state machine <em>M</em> in a component <em>C</em>
+causes the following code to be generated as part of <em>C</em>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Pure virtual functions corresponding to the actions and guards of <em>M</em>.</p>
+</li>
+<li>
+<p>For each signal <em>s</em> of <em>M</em>, a function for sending <em>s</em> to <em>M</em>.
+The signal function may or may not have a typed argument, depending
+on the definition of <em>s</em>.
+The signal and the argument, if any, are serialized on the component
+queue and dispatched from the queue in the ordinary way for
+an F Prime active or queued component.
+Upon dispatching a signal, the signal and argument, if any,
+are used to call the <a href="#Definitions_State-Machine-Definitions_Dynamic-Semantics">function for sending <em>s</em> to <em>M</em></a>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Specifiers_State-Machine-Instance-Specifiers_Examples">7.14.4. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
@@ -8372,7 +8976,9 @@ translator does not matter.</p>
 <div class="paragraph">
 <p>The <strong>primitive integer types</strong> correspond to the
 <a href="#Type-Names_Primitive-Integer-Type-Names">primitive integer type names</a>
-and are written in the same way, e.g., <code>U32</code>.</p>
+and are written in the same way, e.g., <code>U32</code>.
+The primitive integer types whose names start with <code>I</code> are <strong>signed</strong>.
+The primitive integer types whose names start with <code>U</code> are <strong>unsigned</strong>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -9183,24 +9789,14 @@ whose member types are the corresponding common types.</p>
 <p>Check that \$n &gt; 0\$. If not, then throw an error.</p>
 </li>
 <li>
-<p>Compute the type \$T_1\$ of \$e_1\$.</p>
+<p>Let \$T'_1\$ be \$T_1\$.</p>
 </li>
 <li>
-<p>For each \$i in [2,n\$]</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Compute the type \$T\$ of \$e_i\$.</p>
+<p>For each \$i in [2,n\$], compute the
+<a href="#Type-Options_Computing-a-Common-Type-Option">common type option</a> \$T'_i\$ of \$T'_(i-1)\$ and \$T_i\$.</p>
 </li>
 <li>
-<p>Compute the <a href="#Type-Checking_Computing-a-Common-Type">common type</a>
-\$T_i\$ of \$T_(i-1)\$ and \$T\$.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Use \$T_n\$ as the common type of the list.</p>
+<p>Use \$T'_n\$ as the common type option of the list.</p>
 </li>
 </ol>
 </div>
@@ -9209,7 +9805,153 @@ whose member types are the corresponding common types.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Values">19. Values</h2>
+<h2 id="Type-Options">19. Type Options</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <strong>type option</strong> is one of the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><em>Some</em> \$T\$, representing a value of type \$T\$.</p>
+</li>
+<li>
+<p><em>None</em>, representing no value.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Type options are used to specify the optional types associated with
+signals, actions, and guards in <a href="#Definitions_State-Machine-Definitions">state
+machine definitions</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="Type-Options_Conversion-of-Type-Options">19.1. Conversion of Type Options</h3>
+<div class="paragraph">
+<p>We say that a type option \$O_1\$ <strong>may be converted to</strong> another type option
+\$O_2\$ in the following cases.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Any type option may be converted to <em>None</em>.</p>
+</li>
+<li>
+<p><em>Some</em> \$T_1\$ may be converted to <em>Some</em> \$T_2\$ in the following cases:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>\$T_1\$ and \$T_2\$ are <a href="#Type-Checking_Identical-Types">identical types</a>.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">signed primitive integer types</a>,
+and \$T_2\$ is at least as wide as \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">unsigned primitive integer types</a>,
+and \$T_2\$ is at least as wide as \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both
+<a href="#Types_Floating-Point-Types">floating-point types</a>,
+and \$T_2\$ is at least as wide as \$T_1\$.</p>
+</li>
+<li>
+<p>\$T_1\$ and \$T_2\$ are both <a href="#Types_String-Types">string types</a>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Type-Options_Computing-a-Common-Type-Option">19.2. Computing a Common Type Option</h3>
+<div class="sect3">
+<h4 id="Type-Options_Computing-a-Common-Type-Option_Pairs-of-Type-Options">19.2.1. Pairs of Type Options</h4>
+<div class="paragraph">
+<p>Here are the rules for resolving two type options \$O_1\$ and \$O_2\$ to
+a common type option \$O\$:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If either or both of \$O_1\$ and \$O_2\$ is <em>None</em>, then
+let \$O\$ be <em>None</em>.</p>
+</li>
+<li>
+<p>Otherwise let \$O_1\$ be <em>Some</em> \$T_1\$, and let
+\$O_2\$ be <em>Some</em> \$T_2\$.
+Let \$O\$ be <em>Some</em> \$T\$, where \$T\$
+is computed as follows:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If \$T_1\$ and \$T_2\$ are <a href="#Type-Checking_Identical-Types">identical types</a>,
+then let \$T\$ be \$T_1\$.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">signed primitive integer types</a>,
+then let \$T\$ be the wider of the two types.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_Primitive-Integer-Types">unsigned primitive integer types</a>,
+then let \$T\$ be the wider of the two types.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_Floating-Point-Types">floating-point types</a>,
+then let \$T\$ be the wider of the two types.</p>
+</li>
+<li>
+<p>Otherwise if \$T_1\$ and \$T_2\$ are both
+<a href="#Types_String-Types">string types</a>, then
+then let \$T\$ be <code>string</code>.</p>
+</li>
+<li>
+<p>Otherwise the attempted resolution is invalid.
+Throw an error.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">19.2.2. Lists of Type Options</h4>
+<div class="paragraph">
+<p>To compute a common type for a list of type options
+\$O_1, ... , O_n\$, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Check that \$n &gt; 0\$. If not, then throw an error.</p>
+</li>
+<li>
+<p>Let \$O'_1\$ be \$O_1\$.</p>
+</li>
+<li>
+<p>For each \$i in [2,n\$], compute the
+<a href="#Type-Checking_Computing-a-Common-Type">common type</a> \$O'_i\$ of
+\$O'_(i-1)\$ and \$O_i\$.</p>
+</li>
+<li>
+<p>Use \$O'_n\$ as the common type of the list.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Values">20. Values</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <strong>value</strong> is one of the following:</p>
@@ -9255,7 +9997,7 @@ whose member types are the corresponding common types.</p>
 <p>Every value belongs to exactly one type.</p>
 </div>
 <div class="sect2">
-<h3 id="Values_Primitive-Integer-Values">19.1. Primitive Integer Values</h3>
+<h3 id="Values_Primitive-Integer-Values">20.1. Primitive Integer Values</h3>
 <div class="paragraph">
 <p>A <strong>primitive integer value</strong> is an ordinary (mathematical) integer value
 together with a
@@ -9285,7 +10027,7 @@ U32</code> is distinct from the value <code>1: U8</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Integer-Values">19.2. Integer Values</h3>
+<h3 id="Values_Integer-Values">20.2. Integer Values</h3>
 <div class="paragraph">
 <p>An <strong>integer value</strong> is an ordinary (mathematical) integer value.
 It has type <em>Integer</em>.
@@ -9294,7 +10036,7 @@ For example, <code>1</code> is an integer value.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Floating-Point-Values">19.3. Floating-Point Values</h3>
+<h3 id="Values_Floating-Point-Values">20.3. Floating-Point Values</h3>
 <div class="paragraph">
 <p>A <strong>floating-point value</strong> is an IEEE floating-point value of 4- or 8-byte
 width. Formally, the set of floating-point values is the disjoint union
@@ -9316,14 +10058,14 @@ example, we write the value 1.0 at type <code>F32</code> as <code>1.0: F32</code
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Boolean-Values">19.4. Boolean Values</h3>
+<h3 id="Values_Boolean-Values">20.4. Boolean Values</h3>
 <div class="paragraph">
 <p>A <strong>Boolean value</strong> is one of the values <code>true</code> and <code>false</code>.
 Its type is <code>bool</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_String-Values">19.5. String Values</h3>
+<h3 id="Values_String-Values">20.5. String Values</h3>
 <div class="paragraph">
 <p>A <strong>string value</strong> is a sequence of characters that can be
 represented as a <a href="#Expressions_String-Literals">string literal expression</a>.
@@ -9333,7 +10075,7 @@ Its type is <code>string</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Abstract-Type-Values">19.6. Abstract Type Values</h3>
+<h3 id="Values_Abstract-Type-Values">20.6. Abstract Type Values</h3>
 <div class="paragraph">
 <p>An <strong>abstract type value</strong> is a value associated with an abstract
 type.
@@ -9342,7 +10084,7 @@ We write the value <code>value of type</code> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Array-Values">19.7. Anonymous Array Values</h3>
+<h3 id="Values_Anonymous-Array-Values">20.7. Anonymous Array Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous array value</strong> is a value associated with an anonymous
 array type.
@@ -9355,7 +10097,7 @@ The type of the value is <em>[</em> \$n\$ <em>]</em> \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Array-Values">19.8. Array Values</h3>
+<h3 id="Values_Array-Values">20.8. Array Values</h3>
 <div class="paragraph">
 <p>An <strong>array value</strong> is a value associated with an array type.
 We write an array value like an <a href="#Values_Anonymous-Array-Values">anonymous array
@@ -9386,7 +10128,7 @@ with member type \$T\$.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Enumeration-Values">19.9. Enumeration Values</h3>
+<h3 id="Values_Enumeration-Values">20.9. Enumeration Values</h3>
 <div class="paragraph">
 <p>An <strong>enumeration value</strong> is a value associated with an
 <a href="#Definitions_Enumerated-Constant-Definitions">enumerated constant definition</a>.
@@ -9398,7 +10140,7 @@ the enumerated constant definition appears.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Anonymous-Struct-Values">19.10. Anonymous Struct Values</h3>
+<h3 id="Values_Anonymous-Struct-Values">20.10. Anonymous Struct Values</h3>
 <div class="paragraph">
 <p>An <strong>anonymous struct value</strong> is a value associated with an
 <a href="#Types_Internal-Types_Anonymous-Struct-Types">anonymous struct
@@ -9413,7 +10155,7 @@ The type of \$v\$ is <em>{</em> \$m_1\$ <em>:</em> \$T_1\$ <em>,</em> \$...\$ <e
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Struct-Values">19.11. Struct Values</h3>
+<h3 id="Values_Struct-Values">20.11. Struct Values</h3>
 <div class="paragraph">
 <p>A <strong>struct value</strong> is a value associated with a
 <a href="#Types_Struct-Types">struct type</a>.
@@ -9445,7 +10187,7 @@ that refers to a
 </div>
 </div>
 <div class="sect2">
-<h3 id="Values_Serialized-Sizes">19.12. Serialized Sizes</h3>
+<h3 id="Values_Serialized-Sizes">20.12. Serialized Sizes</h3>
 <div class="paragraph">
 <p>Every value <em>v</em> whose type has a syntactic representation in FPP has a
 <strong>serialized size</strong>.  This is the number of bytes required to represent <em>v</em> in
@@ -9497,7 +10239,7 @@ is up to the implementer of <em>T</em> to provide the serialized size.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Evaluation">20. Evaluation</h2>
+<h2 id="Evaluation">21. Evaluation</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Evaluation</strong> is the process of transforming an <a href="#Expressions">expression</a> into
@@ -9507,7 +10249,7 @@ In FPP, all evaluation happens during
 in resolving expressions to compile-time constant values.</p>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Evaluating-Expressions">20.1. Evaluating Expressions</h3>
+<h3 id="Evaluation_Evaluating-Expressions">21.1. Evaluating Expressions</h3>
 <div class="paragraph">
 <p>Evaluation of expressions occurs as stated in the
 <a href="#Expressions">expression descriptions</a>. Evaluation of integer
@@ -9518,14 +10260,14 @@ arithmetic.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Evaluation_Type-Conversion">20.2. Type Conversion</h3>
+<h3 id="Evaluation_Type-Conversion">21.2. Type Conversion</h3>
 <div class="paragraph">
 <p>The following rules govern the conversion of a value \$v_1\$ of type
 \$T_1\$
 to a value \$v_2\$ of type \$T_2\$.</p>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">20.2.1. Unsigned Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Unsigned-Primitive-Integer-Values">21.2.1. Unsigned Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9547,7 +10289,7 @@ converting <code>0x12: U8</code> to <code>U16</code> yields <code>0x12: U16</cod
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">20.2.2. Signed Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Signed-Primitive-Integer-Values">21.2.2. Signed Primitive Integer Values</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -9567,7 +10309,7 @@ example, converting <code>-0x12: I8</code> to <code>I16</code> yields <code>-0x1
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">20.2.3. Primitive Integer Values of Mixed Sign</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-Integer-Values-of-Mixed-Sign">21.2.3. Primitive Integer Values of Mixed Sign</h4>
 <div class="paragraph">
 <p>If \$T_1\$ and \$T_2\$ are primitive integer types with one signed and
 one unsigned,
@@ -9592,7 +10334,7 @@ then do the following:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">20.2.4. Primitive and Non-Primitive Integer Values</h4>
+<h4 id="Evaluation_Type-Conversion_Primitive-and-Non-Primitive-Integer-Values">21.2.4. Primitive and Non-Primitive Integer Values</h4>
 <div class="paragraph">
 <p>If \$T_1\$ is <em>Integer</em> and \$T_2\$ is a primitive integer type, then
 proceed as if \$T_1\$ were a signed primitive integer
@@ -9607,7 +10349,7 @@ at type <em>Integer</em>. For example, converting
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">20.2.5. Floating-Point Values</h4>
+<h4 id="Evaluation_Type-Conversion_Floating-Point-Values">21.2.5. Floating-Point Values</h4>
 <div class="paragraph">
 <p>We use the standard rules for IEEE floating-point values to convert
 among integer values to and from floating-point values and
@@ -9615,7 +10357,7 @@ floating-point values to and from each other.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Array-Values">20.2.6. Array Values</h4>
+<h4 id="Evaluation_Type-Conversion_Array-Values">21.2.6. Array Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is an array type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -9643,7 +10385,7 @@ with value \$v'_i\$ at each element.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Evaluation_Type-Conversion_Structure-Values">20.2.7. Structure Values</h4>
+<h4 id="Evaluation_Type-Conversion_Structure-Values">21.2.7. Structure Values</h4>
 <div class="paragraph">
 <p>If \$T_2\$ is a struct type and \$T_1 = T_2\$, then
 let \$v_2 = v_1\$.</p>
@@ -9677,10 +10419,10 @@ where \$v'_m\$ is the <a href="#Types_Default-Values">default value</a> at type 
 </div>
 </div>
 <div class="sect1">
-<h2 id="Analysis-and-Translation">21. Analysis and Translation</h2>
+<h2 id="Analysis-and-Translation">22. Analysis and Translation</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis">21.1. Analysis</h3>
+<h3 id="Analysis-and-Translation_Analysis">22.1. Analysis</h3>
 <div class="paragraph">
 <p><strong>Analysis</strong> is the process of checking a source model.
 It usually involves the following steps:</p>
@@ -9697,7 +10439,7 @@ It usually involves the following steps:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Analysis-Tools">21.2. Analysis Tools</h3>
+<h3 id="Analysis-and-Translation_Analysis-Tools">22.2. Analysis Tools</h3>
 <div class="paragraph">
 <p>An <strong>analysis tool</strong> is a tool that reads in and analyzes FPP
 source files, but does not generate any code.
@@ -9721,7 +10463,7 @@ The command <code>cat file1.fpp file2.fpp | analyze</code> is functionally equiv
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation">21.3. Translation</h3>
+<h3 id="Analysis-and-Translation_Translation">22.3. Translation</h3>
 <div class="paragraph">
 <p><strong>Translation</strong> is the process of performing analysis and
 generating code.</p>
@@ -9746,7 +10488,7 @@ strategies. For example, we need to generate (1) C++ code for FSW and
 </div>
 </div>
 <div class="sect2">
-<h3 id="Analysis-and-Translation_Translation-Tools">21.4. Translation Tools</h3>
+<h3 id="Analysis-and-Translation_Translation-Tools">22.4. Translation Tools</h3>
 <div class="paragraph">
 <p>A <strong>translation tool</strong> is a tool that translates FPP source files.
 A translation tool typically accepts the following two kinds of
@@ -9785,7 +10527,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-08-27 14:18:25 -0700
+Last updated 2024-10-01 09:00:17 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

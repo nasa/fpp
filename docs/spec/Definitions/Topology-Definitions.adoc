@@ -12,17 +12,17 @@ The connections are merged graph by graph.
 
 ==== Syntax
 
-`topology` 
+`topology`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _topology-member-sequence_ `}`
 
 _topology-member-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is a *topology member*,
 and the terminating punctuation is a semicolon.
 A topology member is one of the following:
 
-* A <<Specifiers_Component-Instance-Specifiers,component 
+* A <<Specifiers_Component-Instance-Specifiers,component
 instance specifier>>
 
 * A <<Specifiers_Connection-Graph-Specifiers,connection graph specifier>>
@@ -40,7 +40,7 @@ according to the following algorithm:
 <<Definitions_Topology-Definitions_Semantics_Resolving-to-a-Partially-Numbered-Topology,
 partially numbered topology>> _T'_.
 
-. Apply 
+. Apply
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
 automatic numbering of ports>>
 to _T'_.
@@ -56,7 +56,7 @@ it is specified in the model source.
 appearing in _D_,
 if _E_ has a port number  expression _e_ in the FPP source, then
 <<Evaluation,evaluate>> _e_,
-<<Type-Checking_Type-Conversion,convert>> the result to a value _n_ of type 
+<<Type-Checking_Type-Conversion,convert>> the result to a value _n_ of type
 _Integer_, and assign the port number _n_ at that position.
 Check that _n_ is in bounds for the port instance being numbered.
 
@@ -91,18 +91,18 @@ connections C { a.b -> c.d, e.f -> g.h }
 
 . Compute the set _S_ of topologies transitively imported into _T_.
 
-. For each topology _T'_ in _S_, 
+. For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the instances>>
 of _T'_ into _T_.
 
-. Check that the connections discovered in step 3 are between port 
+. Check that the connections discovered in step 3 are between port
 instances present in _T_.
 
-. For each topology _T'_ in _S_, 
+. For each topology _T'_ in _S_,
 <<Specifiers_Topology-Import-Specifiers,import the connections>>
 of _T'_ into _T_.
 
-. Resolve 
+. Resolve
 <<Specifiers_Connection-Graph-Specifiers,graph pattern specifiers>>,
 adding connections to _T_.
 Add only connections that are not already present in _T_.
@@ -118,7 +118,7 @@ FPP automatically assigns port numbers as follows.
 *Check output port numbers:*
 At each output port _p_ of each component instance _I_, check that
 
-. The number of connections is in bounds for the 
+. The number of connections is in bounds for the
 size of _I_ `.` _p_.
 
 . There is no pair of connections stem:[c_1] and stem:[c_2]
@@ -140,30 +140,30 @@ For each instance _I_ in the topology:
 .  For each
 <<Specifiers_Port-Matching-Specifiers,port matching specifier>>
 `match` stem:[p_1] `with` stem:[p_2] appearing in the definition of _C_:
- 
+
 ..  For each connection stem:[c_1] with an endpoint at _I_ `.` stem:[p_1]:
- 
+
 ... Let _I'_ be the component instance at the other endpoint
 of stem:[c_1].
- 
+
 ... Check that there is one and only one connection
 stem:[c_2] from _I'_ to _I_ `.` stem:[p_2].
 
 .. Check that the connections stem:[c_2] computed in the previous
 step are all the connections at _I_ `.` stem:[p_2].
- 
+
 .. For each pair stem:[(c_1,c_2)] that has both port numbers assigned,
 check that the port numbers match.
 For each pair stem:[(c_1,c_2)] that has exactly one port number assigned,
 assign the other one to match.
- 
+
 .. Traverse the pairs stem:[(c_1,c_2)] according to the
 <<Definitions_Topology-Definitions_Semantics_Ordering-of-Connections,
 order>> of the connections stem:[c_1], least to greatest.
 For each pair stem:[(c_1,c_2)] that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at _I_ `.` stem:[p_1] and _I_ `.` stem:[p_2].
-A port number is available if (a) it is in bounds for the 
+A port number is available if (a) it is in bounds for the
 port instance being numbered; and (b)
 it is not already assigned to the same port instance
 in the topology.
@@ -174,7 +174,7 @@ have the same array size and
 the same port numbers assigned so far, so the lowest
 available port number is the same for both.
 
-*Apply general numbering:* 
+*Apply general numbering:*
 Fill in any remaining port numbers.
 
 . Traverse the connections
@@ -182,11 +182,11 @@ Fill in any remaining port numbers.
 in order>>, least to greatest.
 
 . For each output endpoint _P_ in each connection _C_,
-if no port number is already assigned, then assign the lowest available port 
+if no port number is already assigned, then assign the lowest available port
 number at position _P_.
 
 
-. For each input endpoint _P_ in each connection _C_, if no port number is 
+. For each input endpoint _P_ in each connection _C_, if no port number is
 already assigned, then assign the port number zero.
 
 See Example 4 in the <<Definitions_Topology-Definitions_Examples,Examples section>>.
@@ -229,7 +229,7 @@ and stem:[n_2].
 
 . Otherwise stem:[e_1] and stem:[e_2] are equal in the ordering.
 
-*Connections:* A *connection* is stem:[e_1] `pass:[->]` 
+*Connections:* A *connection* is stem:[e_1] `pass:[->]`
 stem:[e_2],
 where stem:[e_1] and stem:[e_2] are the connection endpoints.
 FPP orders connections stem:[c_1] and stem:[c_2] as follows:
@@ -245,7 +245,7 @@ stem:[e_2],
 then stem:[c_1] is less than (respectively greater than) stem:[c_2].
 
 . Otherwise if stem:[e'_1] is less than (respectively greater than)
-stem:[e'_2], then stem:[c_1] is less than (respectively greater than) 
+stem:[e'_2], then stem:[c_1] is less than (respectively greater than)
 stem:[c_2].
 
 . Otherwise stem:[c_1] and stem:[c_2] are equal in the ordering.
@@ -260,7 +260,7 @@ stem:[c_2].
 topology CDH {
 
   # ----------------------------------------------------------------------
-  # Public instances 
+  # Public instances
   # ----------------------------------------------------------------------
 
   instance commandDispatcher
@@ -275,7 +275,7 @@ topology CDH {
   instance timeSource
 
   # ----------------------------------------------------------------------
-  # Private instances 
+  # Private instances
   # ----------------------------------------------------------------------
 
   private instance socketGroundInterface
@@ -288,9 +288,9 @@ topology CDH {
   event connections instance eventLogger
   time connections instance timeSource
 
-  # ---------------------------------------------------------------------- 
+  # ----------------------------------------------------------------------
   # Connection graphs
-  # ---------------------------------------------------------------------- 
+  # ----------------------------------------------------------------------
 
   connections CommandSequences {
     commandSequencer.comCmdOut -> commandDispatcher.comCmdIn
@@ -331,13 +331,13 @@ topology CDH {
 topology AttitudeControl {
 
   # ----------------------------------------------------------------------
-  # Imported topologies 
+  # Imported topologies
   # ----------------------------------------------------------------------
 
   import CDH
 
   # ----------------------------------------------------------------------
-  # Public instances 
+  # Public instances
   # ----------------------------------------------------------------------
 
   instance acsRateGroup
@@ -345,7 +345,7 @@ topology AttitudeControl {
   ...
 
   # ----------------------------------------------------------------------
-  # Private instances 
+  # Private instances
   # ----------------------------------------------------------------------
 
   instance socketGroundInterface
@@ -396,7 +396,7 @@ topology AttitudeControl {
 topology Release {
 
   # ----------------------------------------------------------------------
-  # Imported topologies 
+  # Imported topologies
   # ----------------------------------------------------------------------
 
   import AttitudeControl
@@ -422,7 +422,7 @@ topology B {
   instance c
   instance d
   instance e
-  instance f 
+  instance f
 
   connections C1 {
     a.p1[0] -> c.p[0]

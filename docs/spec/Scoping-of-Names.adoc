@@ -21,13 +21,13 @@ a.b.c
 
 === Names of Definitions
 
-Every 
+Every
 <<Definitions,definition>>
  _D_ appearing in an FPP model has a unique *qualified
 name*. The qualified name is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> formed as follows:
 
-* If _D_ appears outside any 
+* If _D_ appears outside any
 <<Definitions,definition>> with a brace-delimited body, then
 the qualified name is the identifier _I_ appearing in _D_.
 
@@ -256,7 +256,7 @@ module M {
 === Resolution of Qualified Identifiers
 
 The following rules govern the resolution of
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifiers>>, i.e., 
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifiers>>, i.e.,
 associating qualified identifiers with definitions:
 
 . If a qualified identifier is an identifier, then resolve it as
@@ -269,10 +269,10 @@ following:
 
 .. Recursively resolve _Q_.
 
-.. If _Q_ refers to a <<Definitions,definition>> 
+.. If _Q_ refers to a <<Definitions,definition>>
 with a brace-delimited body, then do the following:
 
-... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.` 
+... Determine the <<Scoping-of-Names_Name-Groups,name group>> _S_ of _Q_ `.`
 _I_.
 
 ... Look in _D_ for a definition with identifier _I_ in name group _S_.

@@ -20,13 +20,13 @@ Source files for analysis are provided in one of two ways:
 2. On standard input, if there are no arguments.
 
 For example, the command `analyze file1.fpp file2.fpp`
-says to read in the translation units `file1.fpp` and `file2.fpp` and perform 
+says to read in the translation units `file1.fpp` and `file2.fpp` and perform
 analysis on the model consisting of these two translation units.
 The command `cat file1.fpp file2.fpp | analyze` is functionally equivalent.
 
 === Translation
 
-*Translation* is the process of performing analysis and 
+*Translation* is the process of performing analysis and
 generating code.
 
 Translation usually involves the following steps:
@@ -36,7 +36,7 @@ Translation usually involves the following steps:
 . If step (1) succeeded, code generation.
 
 FPP is intended to support a variety of translation
-strategies. For example, we need to generate (1) C++ code for FSW and 
+strategies. For example, we need to generate (1) C++ code for FSW and
 (2) XML, Python, or other code to export to ground tools.
 
 === Translation Tools
@@ -54,11 +54,11 @@ For example, when translating a component _C_, a tool may read
 in files containing the definitions of the ports used in _C_,
 but not translate those files.
 
-Source files for translation are provided as for 
+Source files for translation are provided as for
 <<Analysis-and-Translation_Analysis-Tools,analysis tools>>.
 Imported source files are specified as arguments to a `-i` flag.
 
 For example, the command `translate -i file1.fpp,file2.fpp file3.fpp`
 says to import `file1.fpp` and `file2.fpp` and translate `file3.fpp`.
-The command `translate -i file1.fpp,file2.fpp < file3.fpp` is functionally 
+The command `translate -i file1.fpp,file2.fpp < file3.fpp` is functionally
 equivalent.

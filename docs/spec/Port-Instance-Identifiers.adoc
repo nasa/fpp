@@ -19,11 +19,11 @@ For each port instance identifier _Q_ `.` _P_:
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a component instance _I_.
 
-. _I_ must refer to a <<Definitions_Component-Instance-Definitions,component 
+. _I_ must refer to a <<Definitions_Component-Instance-Definitions,component
 instance definition _I'_>>.
 
-. _I'_ must refer to a <<Definitions_Component-Definitions,component 
-definition _C_>>. 
+. _I'_ must refer to a <<Definitions_Component-Definitions,component
+definition _C_>>.
 
 . The identifier _P_
 must refer to a
@@ -38,7 +38,7 @@ a.b
 A.b.c
 ----
 
-In the first example, `a` names a component instance, and `b` names a port 
+In the first example, `a` names a component instance, and `b` names a port
 instance.
-In the second example, `A.b` names a component instance, and `c` names a 
+In the second example, `A.b` names a component instance, and `c` names a
 port instance.

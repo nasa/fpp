@@ -1,6 +1,6 @@
 === Init Specifiers
 
-An *init specifier* associates some code with a 
+An *init specifier* associates some code with a
 <<Definitions_Component-Instance-Definitions,
 component instance>>.
 Usually this is initialization code, hence the name.

@@ -8,7 +8,7 @@ A *topology import specifier* imports one topology into another one.
 
 ==== Semantics
 
-The qualified identifier must 
+The qualified identifier must
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,refer to>>
 a
 <<Definitions_Topology-Definitions,topology definition>>.
@@ -17,11 +17,11 @@ a
 FPP uses the following algorithm to import the instances
 of topology _T'_ into topology _T_:
 
-. Let _I_ be the set of 
+. Let _I_ be the set of
 <<Specifiers_Component-Instance-Specifiers,instances>>
 of _T_.
 
-. Let _I'_ be the set of 
+. Let _I'_ be the set of
 <<Specifiers_Component-Instance-Specifiers,public instances>>
 of _T'_.
 
@@ -47,7 +47,7 @@ with name stem:[N_i].
 If no such graph exists, then let stem:[G'_i] be the empty connection graph
 with name stem:[N_i].
 
-.. Let stem:[C_i] be the set of 
+.. Let stem:[C_i] be the set of
 <<Specifiers_Connection-Graph-Specifiers,connections>>
 of stem:[G_i] such that each of the two instances at
 the ends of the connection is in _I''_.
@@ -56,7 +56,7 @@ the ends of the connection is in _I''_.
 <<Specifiers_Connection-Graph-Specifiers,connections>>
 of stem:[G'_i] such that each of the two the instances at
 the ends of the connection is in _I''_, and the connection
-is defined by a direct or pattern specifier in _T'_ 
+is defined by a direct or pattern specifier in _T'_
 (i.e., not imported into _T'_ from another topology).
 
 .. Let stem:[C''_i] be the disjoint union of stem:[C_i] and stem:[C'_i].
@@ -123,7 +123,7 @@ topology B {
   instance c
   instance d
   instance e
-  instance f 
+  instance f
 
   connections C1 {
     a.p1 -> c.p

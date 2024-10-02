@@ -2,7 +2,7 @@
 
 An *enumerated constant definition* is an element of an
 <<Definitions_Enum-Definitions,enum
-definition>>. Like a 
+definition>>. Like a
 <<Definitions_Constant-Definitions,constant
 definition>>, it associates a value with a named constant. It also
 establishes that the constant is one of the values of the type defined
@@ -20,7 +20,7 @@ _]_
 If present, _expression_ must
 <<Evaluation,evaluate>>
 to a compile-time constant value _v_. At any model point where the
-<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> _Q_ refers to 
+<<Scoping-of-Names_Qualified-Identifiers,qualified identifier>> _Q_ refers to
 the enumerated constant definition according to the
 <<Scoping-of-Names_Resolution-of-Qualified-Identifiers,scoping
 rules for names>>, you can use _Q_ as a name for the value that results

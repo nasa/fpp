@@ -10,15 +10,29 @@ substates.
 
 ==== Syntax
 
-`initial` 
-<<State-Machine-Behavior-Elements_Enter-Expressions,_enter-expression_>>
+`initial`
+<<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
 
-==== Semantics
+==== Static Semantics
 
 The state definition or junction definition referred to in the
-enter expression must be a member of the same 
+transition expression must *lead to a member* of the same
 state machine definition or state definition in which the initial
 transition specifier appears.
+
+. A state definition _D_ leads to a member of a state machine definition _M_
+(respectively a state _S_) if _D_ is a member of _M_ (respectively _S_).
+
+. A junction definition _D_ leads to a member of a state machine definition _M_
+(respectively as state _S_) if it is a member of _M_ (respectively _S_)
+and the state or junction definitions referred to in _D_ lead to members of
+_M_ (respectively _S_).
+
+==== Dynamic Semantics
+
+To run an initial transition specifier _I_ with transition expression _E_,
+we <<State-Machine-Behavior-Elements_Transition-Expressions_Dynamic-Semantics,
+run _E_ in the context of _I_>>.
 
 ==== Examples
 
@@ -26,7 +40,8 @@ transition specifier appears.
 ----
 state machine Device {
 
-  action initDevices
+  action initDev1
+  action initDev2
 
   # When the state machine starts up, enter the ON state
   initial enter ON
@@ -34,7 +49,11 @@ state machine Device {
   state ON {
 
     # When entering the ON state, enter the POWERING_UP substate
-    initial do initDevices enter POWERING_UP
+    initial do {
+      initDev1
+      initDev2
+    } \
+    enter POWERING_UP
 
     state POWERING_UP
 

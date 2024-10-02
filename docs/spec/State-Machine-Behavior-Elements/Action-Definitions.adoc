@@ -13,7 +13,7 @@ Actions may carry data.
 `action`
 <<Lexical-Elements_Identifiers,_identifier_>>
 _[_
-`:` 
+`:`
 <<Type-Names,_type-name_>>
 _]_
 
@@ -25,7 +25,7 @@ _]_
 with the action.
 A value of type _T_ will be passed into the function associated with
 the action when it is called.
-If _type-name_ is not present, then there is no data associated with the 
+If _type-name_ is not present, then there is no data associated with the
 action.
 
 ==== Examples
