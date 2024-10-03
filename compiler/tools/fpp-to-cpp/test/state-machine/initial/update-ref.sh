@@ -1,17 +1,17 @@
 basic()
 {
-  update "-p $PWD" basic
+  update "-p $PWD" Basic
   move_cpp BasicStateMachine
 }
 
 junction()
 {
-  update "-p $PWD" junction
+  update "-p $PWD" Junction
   move_cpp JunctionStateMachine
 }
 
 nested()
 {
-  update "-p $PWD" nested
+  update "-p $PWD" Nested
   move_cpp NestedStateMachine
 }

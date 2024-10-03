@@ -2,12 +2,12 @@
 
 basic()
 {
-  update "$fpp_flags" basic
+  update "$fpp_flags" Basic
   move_cpp BasicStateMachine
 }
 
 basic_u32()
 {
-  update "$fpp_flags" basic_u32
+  update "$fpp_flags" BasicU32
   move_cpp BasicU32StateMachine
 }
