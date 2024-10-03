@@ -12,6 +12,12 @@ basic_guard()
     diff_cpp BasicGuardStateMachine
 }
 
+basic_guard_string()
+{
+  run_test "$fpp_flags" BasicGuardString && \
+    diff_cpp BasicGuardStringStateMachine
+}
+
 basic_guard_u32()
 {
   run_test "$fpp_flags" BasicGuardU32 && \

@@ -2,17 +2,17 @@ module FppTest {
 
   module SmState {
 
-    @ A basic state machine with a U32 guard
-    state machine BasicGuardU32 { 
+    @ A basic state machine with a string guard
+    state machine BasicGuardString { 
 
       @ Action a
-      action a: U32
+      action a: string
 
       @ Guard g
-      guard g: U32
+      guard g: string
 
       @ Signal s
-      signal s: U32
+      signal s: string
 
       initial enter S
 
