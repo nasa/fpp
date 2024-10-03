@@ -21,7 +21,7 @@ object TypeOption {
           case (int1 : Type.PrimitiveInt, int2 : Type.PrimitiveInt) =>
             if int1.signedness != int2.signedness
             then None
-            else if int2.bitWidth > int2.bitWidth
+            else if int2.bitWidth > int1.bitWidth
                  then Some(to2)
                  else Some(to1)
           case (float1 : Type.Float, float2 : Type.Float) =>
