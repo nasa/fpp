@@ -24,6 +24,12 @@ basic_guard_test_abs_type()
     diff_cpp BasicGuardTestAbsTypeStateMachine
 }
 
+basic_guard_test_array()
+{
+  run_test "$fpp_flags" BasicGuardTestArray && \
+    diff_cpp BasicGuardTestArrayStateMachine
+}
+
 basic_guard_u32()
 {
   run_test "$fpp_flags" BasicGuardU32 && \

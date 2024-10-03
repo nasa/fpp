@@ -24,6 +24,12 @@ basic_guard_test_abs_type()
   move_cpp BasicGuardTestAbsTypeStateMachine
 }
 
+basic_guard_test_array()
+{
+  update "$fpp_flags" BasicGuardTestArray
+  move_cpp BasicGuardTestArrayStateMachine
+}
+
 basic_guard_u32()
 {
   update "$fpp_flags" BasicGuardU32
