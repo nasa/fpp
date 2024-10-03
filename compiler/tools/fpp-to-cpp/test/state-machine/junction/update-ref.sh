@@ -11,3 +11,10 @@ basic_u32()
   update "$fpp_flags" BasicU32
   move_cpp BasicU32StateMachine
 }
+
+sequence()
+{
+  update "$fpp_flags" Sequence
+  move_cpp SequenceStateMachine
+}
+
