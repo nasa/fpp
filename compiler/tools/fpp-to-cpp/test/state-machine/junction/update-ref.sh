@@ -18,3 +18,8 @@ sequence()
   move_cpp SequenceStateMachine
 }
 
+sequence_u32()
+{
+  update "$fpp_flags" SequenceU32
+  move_cpp SequenceU32StateMachine
+}

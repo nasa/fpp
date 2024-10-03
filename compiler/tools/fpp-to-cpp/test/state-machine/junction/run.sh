@@ -17,3 +17,9 @@ sequence()
   run_test "$fpp_flags" Sequence && \
     diff_cpp SequenceStateMachine
 }
+
+sequence_u32()
+{
+  run_test "$fpp_flags" SequenceU32 && \
+    diff_cpp SequenceU32StateMachine
+}
