@@ -30,6 +30,12 @@ basic_guard_test_array()
     diff_cpp BasicGuardTestArrayStateMachine
 }
 
+basic_guard_test_enum()
+{
+  run_test "$fpp_flags" BasicGuardTestEnum && \
+    diff_cpp BasicGuardTestEnumStateMachine
+}
+
 basic_guard_u32()
 {
   run_test "$fpp_flags" BasicGuardU32 && \

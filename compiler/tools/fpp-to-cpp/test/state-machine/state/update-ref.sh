@@ -30,6 +30,12 @@ basic_guard_test_array()
   move_cpp BasicGuardTestArrayStateMachine
 }
 
+basic_guard_test_enum()
+{
+  update "$fpp_flags" BasicGuardTestEnum
+  move_cpp BasicGuardTestEnumStateMachine
+}
+
 basic_guard_u32()
 {
   update "$fpp_flags" BasicGuardU32
