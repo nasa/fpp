@@ -2,6 +2,7 @@ tests="
 basic
 basic_guard
 basic_guard_string
+basic_guard_test_abs_type
 basic_guard_u32
 basic_internal
 basic_self
