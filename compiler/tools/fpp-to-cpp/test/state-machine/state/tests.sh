@@ -1,6 +1,7 @@
 tests="
 basic
 basic_guard
+basic_guard_u32
 basic_internal
 basic_self
 basic_string

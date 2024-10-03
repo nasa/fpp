@@ -12,6 +12,12 @@ basic_guard()
   move_cpp BasicGuardStateMachine
 }
 
+basic_guard_u32()
+{
+  update "$fpp_flags" BasicGuardU32
+  move_cpp BasicGuardU32StateMachine
+}
+
 basic_internal()
 {
   update "$fpp_flags" BasicInternal
