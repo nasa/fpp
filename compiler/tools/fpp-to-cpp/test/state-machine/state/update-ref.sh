@@ -50,48 +50,48 @@ basic_test_enum()
 
 basic_test_struct()
 {
-  update "$fpp_flags" basic_test_struct
+  update "$fpp_flags" BasicTestStruct
   move_cpp BasicTestStructStateMachine
 }
 
 basic_u32()
 {
-  update "$fpp_flags" basic_u32
+  update "$fpp_flags" BasicU32
   move_cpp BasicU32StateMachine
 }
 
 internal()
 {
-  update "$fpp_flags" internal
+  update "$fpp_flags" Internal
   move_cpp InternalStateMachine
 }
 
 polymorphism()
 {
-  update "$fpp_flags" polymorphism
+  update "$fpp_flags" Polymorphism
   move_cpp PolymorphismStateMachine
 }
 
 state_to_child()
 {
-  update "$fpp_flags" state_to_child
+  update "$fpp_flags" StateToChild
   move_cpp StateToChildStateMachine
 }
 
 state_to_junction()
 {
-  update "$fpp_flags" state_to_junction
+  update "$fpp_flags" StateToJunction
   move_cpp StateToJunctionStateMachine
 }
 
 state_to_self()
 {
-  update "$fpp_flags" state_to_self
+  update "$fpp_flags" StateToSelf
   move_cpp StateToSelfStateMachine
 }
 
 state_to_state()
 {
-  update "$fpp_flags" state_to_state
+  update "$fpp_flags" StateToState
   move_cpp StateToStateStateMachine
 }

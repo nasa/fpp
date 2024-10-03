@@ -50,48 +50,48 @@ basic_test_enum()
 
 basic_test_struct()
 {
-  run_test "$fpp_flags" basic_test_struct && \
+  run_test "$fpp_flags" BasicTestStruct && \
     diff_cpp BasicTestStructStateMachine
 }
 
 basic_u32()
 {
-  run_test "$fpp_flags" basic_u32 && \
+  run_test "$fpp_flags" BasicU32 && \
     diff_cpp BasicU32StateMachine
 }
 
 internal()
 {
-  run_test "$fpp_flags" internal && \
+  run_test "$fpp_flags" Internal && \
     diff_cpp InternalStateMachine
 }
 
 polymorphism()
 {
-  run_test "$fpp_flags" polymorphism && \
+  run_test "$fpp_flags" Polymorphism && \
     diff_cpp PolymorphismStateMachine
 }
 
 state_to_child()
 {
-  run_test "$fpp_flags" state_to_child && \
+  run_test "$fpp_flags" StateToChild && \
     diff_cpp StateToChildStateMachine
 }
 
 state_to_junction()
 {
-  run_test "$fpp_flags" state_to_junction && \
+  run_test "$fpp_flags" StateToJunction && \
     diff_cpp StateToJunctionStateMachine
 }
 
 state_to_self()
 {
-  run_test "$fpp_flags" state_to_self && \
+  run_test "$fpp_flags" StateToSelf && \
     diff_cpp StateToSelfStateMachine
 }
 
 state_to_state()
 {
-  run_test "$fpp_flags" state_to_state && \
+  run_test "$fpp_flags" StateToState && \
     diff_cpp StateToStateStateMachine
 }
