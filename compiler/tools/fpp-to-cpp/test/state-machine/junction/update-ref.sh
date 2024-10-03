@@ -12,6 +12,12 @@ basic_u32()
   move_cpp BasicU32StateMachine
 }
 
+input_pair_u16_u32()
+{
+  update "$fpp_flags" InputPairU16U32
+  move_cpp InputPairU16U32StateMachine
+}
+
 sequence()
 {
   update "$fpp_flags" Sequence
