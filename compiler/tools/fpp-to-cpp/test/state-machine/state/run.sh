@@ -2,49 +2,49 @@
 
 basic()
 {
-  run_test "$fpp_flags" basic && \
+  run_test "$fpp_flags" Basic && \
     diff_cpp BasicStateMachine
 }
 
 basic_guard()
 {
-  run_test "$fpp_flags" basic_guard && \
+  run_test "$fpp_flags" BasicGuard && \
     diff_cpp BasicGuardStateMachine
 }
 
 basic_internal()
 {
-  run_test "$fpp_flags" basic_internal && \
+  run_test "$fpp_flags" BasicInternal && \
     diff_cpp BasicInternalStateMachine
 }
 
 basic_self()
 {
-  run_test "$fpp_flags" basic_self && \
+  run_test "$fpp_flags" BasicSelf && \
     diff_cpp BasicSelfStateMachine
 }
 
 basic_string()
 {
-  run_test "$fpp_flags" basic_string && \
+  run_test "$fpp_flags" BasicString && \
     diff_cpp BasicStringStateMachine
 }
 
 basic_test_abs_type()
 {
-  run_test "$fpp_flags" basic_test_abs_type && \
+  run_test "$fpp_flags" BasicTestAbsType && \
     diff_cpp BasicTestAbsTypeStateMachine
 }
 
 basic_test_array()
 {
-  run_test "$fpp_flags" basic_test_array && \
+  run_test "$fpp_flags" BasicTestArray && \
     diff_cpp BasicTestArrayStateMachine
 }
 
 basic_test_enum()
 {
-  run_test "$fpp_flags" basic_test_enum && \
+  run_test "$fpp_flags" BasicTestEnum && \
     diff_cpp BasicTestEnumStateMachine
 }
 
