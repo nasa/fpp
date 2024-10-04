@@ -18,6 +18,12 @@ input_pair_u16_u32()
   move_cpp InputPairU16U32StateMachine
 }
 
+junction_to-state
+{
+  update "$fpp_flags" JunctionToState
+  move_cpp JunctionToStateStateMachine
+}
+
 sequence()
 {
   update "$fpp_flags" Sequence
