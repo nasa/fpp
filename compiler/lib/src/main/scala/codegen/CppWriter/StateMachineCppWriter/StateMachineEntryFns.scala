@@ -61,10 +61,11 @@ case class StateMachineEntryFns(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
+    val members = super.defStateAnnotatedNodeLeaf(mm, aNode)
     val stateSym = StateMachineSymbol.State(aNode)
     val update = writeStateUpdate(stateSym)
     val member = getStateEnterFn(aNode, update)
-    member :: mm
+    member :: members
   }
 
   private def getStateEnterFn(

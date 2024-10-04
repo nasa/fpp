@@ -22,7 +22,7 @@ abstract class StateMachineCppVisitor(
   def defStateAnnotatedNodeLeaf(
     mm: List[CppDoc.Class.Member],
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
-  ) = default(mm)
+  ) = aNode._2.data.members.reverse.foldLeft (mm) (matchStateMember)
 
   override def default(mm: List[CppDoc.Class.Member]) = mm
 
