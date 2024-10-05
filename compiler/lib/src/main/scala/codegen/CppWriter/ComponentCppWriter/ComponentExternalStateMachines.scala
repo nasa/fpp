@@ -10,52 +10,12 @@ case class ComponentExternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  def getConstantMembers: List[CppDoc.Class.Member] = {
-    lazy val lcm = linesClassMember(
-      List.concat(
-        Line.blank :: lines(s"//! State machine identifiers"),
-        wrapInNamedEnum(
-          "SmId",
-          externalSmInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
-        )
-      )
-    )
-    guardedList (hasExternalStateMachineInstances) (List(lcm))
-  }
-
-  def getFunctionMembers: List[CppDoc.Class.Member] = {
-    List.concat(
-      getOverflowHooks,
-      getSignalSendMember
-    )
-  }
+  def getFunctionMembers: List[CppDoc.Class.Member] = getSignalSendMembers
 
   /** Gets the state machine interfaces */
   def getSmInterfaces: String =
     externalSmSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
       sorted.mkString
-
-  def getVariableMembers: List[CppDoc.Class.Member] =  {
-    val members = externalSmInstancesByName.map(
-      (name, smi) => {
-        val typeName = s.writeSymbol(smi.symbol)
-        linesClassMember(
-          Line.blank ::
-          lines(
-            s"""|//! State machine $name
-                |$typeName m_stateMachine_$name;
-                |"""
-          )
-        )
-      }
-    )
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"State machine instances",
-      members,
-      CppDoc.Lines.Hpp
-    )
-  }
 
   /** Writes the dispatch case, if any, for state machine instances */
   def writeDispatch: List[Line] = {
@@ -112,26 +72,7 @@ case class ComponentExternalStateMachines(
     guardedList (hasExternalStateMachineInstances) (caseStmt)
   }
 
-  private def getOverflowHooks: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      """|Overflow hooks for external state machine instances
-         |
-         |When sending a signal to a state machine instance, if
-         |the queue overflows and the instance is marked with 'hook' behavior,
-         |the corresponding function here is called.
-         |""",
-      stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-        smi => getVirtualOverflowHook(
-          smi.getName,
-          MessageType.StateMachine,
-          ComponentExternalStateMachines.signalParams(s, smi.symbol)
-        )
-      ),
-      CppDoc.Lines.Hpp
-    )
-
-  private def getSignalSendMember: List[CppDoc.Class.Member] = {
+  private def getSignalSendMembers: List[CppDoc.Class.Member] = {
     lazy val members = stateMachineInstances.map { smi =>
 
       val serializeCode =

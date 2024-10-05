@@ -324,6 +324,8 @@ abstract class ComponentCppWriterUtils(
 
   val hasProductRequestPort: Boolean = productRequestPort.isDefined
 
+  val hasStateMachineInstances: Boolean = component.hasStateMachineInstances
+
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
     if data.kind != Ast.ComponentKind.Passive then List(
