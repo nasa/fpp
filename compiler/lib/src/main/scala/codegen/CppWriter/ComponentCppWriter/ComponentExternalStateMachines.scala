@@ -9,6 +9,7 @@ case class ComponentExternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  /** Gets the function members */
   def getFunctionMembers: List[CppDoc.Class.Member] = getSignalSendMembers
 
   /** Gets the state machine interfaces */
@@ -21,42 +22,7 @@ case class ComponentExternalStateMachines(
     lazy val caseBody = 
       Line.blank ::
       List.concat(
-        lines(
-          s"""|// Deserialize the state machine ID to an FwEnumStoreType
-              |FwEnumStoreType enumStoreSmId = 0;
-              |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
-              |FW_ASSERT(
-              |  deserStatus == Fw::FW_SERIALIZE_OK,
-              |  static_cast<FwAssertArgType>(deserStatus)
-              |);
-              |// Cast it to the correct type
-              |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
-              |
-              |// Deserialize the state machine signal to an FwEnumStoreType.
-              |// This value will be cast to the correct type in the
-              |// switch statement that calls the state machine update function.
-              |FwEnumStoreType enumStoreSmSignal = 0;
-              |deserStatus = msg.deserialize(enumStoreSmSignal);
-              |FW_ASSERT(
-              |  deserStatus == Fw::FW_SERIALIZE_OK,
-              |  static_cast<FwAssertArgType>(deserStatus)
-              |);
-              |
-              |// Deserialize the state machine data
-              |Fw::SmSignalBuffer data;
-              |deserStatus = msg.deserialize(data);
-              |FW_ASSERT(
-              |  Fw::FW_SERIALIZE_OK == deserStatus,
-              |  static_cast<FwAssertArgType>(deserStatus)
-              |);
-              |
-              |// Make sure there was no data left over.
-              |// That means the buffer size was incorrect.
-              |FW_ASSERT(
-              |  msg.getBuffLeft() == 0,
-              |  static_cast<FwAssertArgType>(msg.getBuffLeft())
-              |);"""
-        ),
+        writeDeserializeSmVars,
         writeStateMachineUpdate,
         lines("\nbreak;")
       )
@@ -138,6 +104,43 @@ case class ComponentExternalStateMachines(
       guardedList (hasExternalStateMachineInstances) (members)
     )
   }
+
+  private val writeDeserializeSmVars = lines(
+    """|// Deserialize the state machine ID to an FwEnumStoreType
+       |FwEnumStoreType enumStoreSmId = 0;
+       |Fw::SerializeStatus deserStatus = msg.deserialize(enumStoreSmId);
+       |FW_ASSERT(
+       |  deserStatus == Fw::FW_SERIALIZE_OK,
+       |  static_cast<FwAssertArgType>(deserStatus)
+       |);
+       |// Cast it to the correct type
+       |SmId stateMachineId = static_cast<SmId>(enumStoreSmId);
+       |
+       |// Deserialize the state machine signal to an FwEnumStoreType.
+       |// This value will be cast to the correct type in the
+       |// switch statement that calls the state machine update function.
+       |FwEnumStoreType enumStoreSmSignal = 0;
+       |deserStatus = msg.deserialize(enumStoreSmSignal);
+       |FW_ASSERT(
+       |  deserStatus == Fw::FW_SERIALIZE_OK,
+       |  static_cast<FwAssertArgType>(deserStatus)
+       |);
+       |
+       |// Deserialize the state machine data
+       |Fw::SmSignalBuffer data;
+       |deserStatus = msg.deserialize(data);
+       |FW_ASSERT(
+       |  Fw::FW_SERIALIZE_OK == deserStatus,
+       |  static_cast<FwAssertArgType>(deserStatus)
+       |);
+       |
+       |// Make sure there was no data left over.
+       |// That means the buffer size was incorrect.
+       |FW_ASSERT(
+       |  msg.getBuffLeft() == 0,
+       |  static_cast<FwAssertArgType>(msg.getBuffLeft())
+       |);"""
+  )
 
   private def writeStateMachineUpdate: List[Line] =
     Line.blank ::
