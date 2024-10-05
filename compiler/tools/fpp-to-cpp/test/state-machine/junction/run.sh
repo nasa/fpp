@@ -18,6 +18,12 @@ input_pair_u16_u32()
     diff_cpp InputPairU16U32StateMachine
 }
 
+junction_to_junction()
+{
+  run_test "$fpp_flags" JunctionToJunction && \
+    diff_cpp JunctionToJunctionStateMachine
+}
+
 junction_to_state()
 {
   run_test "$fpp_flags" JunctionToState && \

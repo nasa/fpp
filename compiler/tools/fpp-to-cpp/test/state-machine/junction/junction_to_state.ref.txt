@@ -1,2 +1,0 @@
-fpp-to-cpp
-error: cannot open file [ local path prefix ]/fpp-to-cpp/test/state-machine/junction/junction_to_state.fpp
