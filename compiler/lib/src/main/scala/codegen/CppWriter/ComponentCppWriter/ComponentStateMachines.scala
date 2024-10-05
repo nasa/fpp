@@ -3,7 +3,6 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
-import io.circe.Decoder.state
 
 case class ComponentStateMachines(
   s: CppWriterState,
@@ -29,30 +28,31 @@ case class ComponentStateMachines(
     externalStateMachineWriter.getFunctionMembers
   )
 
-  def getVariableMembers: List[CppDoc.Class.Member] =  {
-    val members = smInstancesByName.map(
-      (name, smi) => {
-        val typeName = s.writeSymbol(smi.symbol)
-        linesClassMember(
-          Line.blank ::
-          lines(
-            s"""|//! State machine $name
-                |$typeName m_stateMachine_$name;
-                |"""
-          )
-        )
-      }
-    )
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"State machine instances",
-      members,
-      CppDoc.Lines.Hpp
+  def getVariableMembers: List[CppDoc.Class.Member] = getSmInstanceMembers
+
+  /** Writes the dispatch cases, if any, for state machine instances */
+  def writeDispatchCases: List[Line] = externalStateMachineWriter.writeDispatchCase
+
+  private def getSmInstanceMember(
+    name: Name.Unqualified,
+    smi: StateMachineInstance
+  ): CppDoc.Class.Member = {
+    val typeName = s.writeSymbol(smi.symbol)
+    linesClassMember(
+      Line.blank ::
+      lines(
+        s"""|//! State machine $name
+            |$typeName m_stateMachine_$name;"""
+      )
     )
   }
 
-  /** Writes the dispatch case, if any, for state machine instances */
-  def writeDispatch: List[Line] = externalStateMachineWriter.writeDispatch
+  private def getSmInstanceMembers: List[CppDoc.Class.Member] = addAccessTagAndComment(
+    "PRIVATE",
+    s"State machine instances",
+    smInstancesByName.map(getSmInstanceMember),
+    CppDoc.Lines.Hpp
+  )
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -61,8 +61,7 @@ case class ComponentStateMachines(
          |
          |When sending a signal to a state machine instance, if
          |the queue overflows and the instance is marked with 'hook' behavior,
-         |the corresponding function here is called.
-         |""",
+         |the corresponding function here is called.""",
       stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => getVirtualOverflowHook(
           smi.getName,

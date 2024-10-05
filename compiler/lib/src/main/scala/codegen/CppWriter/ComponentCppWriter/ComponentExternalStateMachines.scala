@@ -3,7 +3,6 @@ package fpp.compiler.codegen
 import fpp.compiler.analysis._
 import fpp.compiler.ast._
 import fpp.compiler.codegen._
-import io.circe.Decoder.state
 
 case class ComponentExternalStateMachines(
   s: CppWriterState,
@@ -17,8 +16,8 @@ case class ComponentExternalStateMachines(
     externalSmSymbols.map(symbol => s", public ${s.writeSymbol(symbol)}_Interface").
       sorted.mkString
 
-  /** Writes the dispatch case, if any, for state machine instances */
-  def writeDispatch: List[Line] = {
+  /** Writes the dispatch case, if any, for external state machine instances */
+  def writeDispatchCase: List[Line] = {
     lazy val caseBody = 
       Line.blank ::
       List.concat(

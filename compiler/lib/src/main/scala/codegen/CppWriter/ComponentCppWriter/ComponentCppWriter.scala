@@ -830,7 +830,7 @@ case class ComponentCppWriter (
                     intersperseBlankLines(serialAsyncInputPorts.map(writeAsyncPortDispatch)),
                     intersperseBlankLines(asyncCmds.map(writeAsyncCommandDispatch)),
                     intersperseBlankLines(internalPorts.map(writeInternalPortDispatch)),
-                    stateMachineWriter.writeDispatch,
+                    stateMachineWriter.writeDispatchCases,
                     lines(
                       """|default:
                          |  return MSG_DISPATCH_ERROR;
