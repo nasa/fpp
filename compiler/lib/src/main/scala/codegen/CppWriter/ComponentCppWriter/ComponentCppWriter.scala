@@ -289,7 +289,7 @@ case class ComponentCppWriter (
         serialAsyncInputPorts.map(portCppConstantName),
         asyncCmds.map((_, cmd) => commandCppConstantName(cmd)),
         internalPorts.map(internalPortCppConstantName),
-        guardedList (hasExternalStateMachineInstances) (List(stateMachineCppConstantName))
+        guardedList (hasExternalStateMachineInstances) (List(externalStateMachineCppConstantName))
       ).map(s => line(s"$s,")),
       "};"
     )

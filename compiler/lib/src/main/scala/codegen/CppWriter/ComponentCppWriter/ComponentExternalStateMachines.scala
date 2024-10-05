@@ -105,7 +105,7 @@ case class ComponentExternalStateMachines(
       Line.blank ::
       line(s"// Handle state machine signals") ::
       wrapInScope(
-        s"case $stateMachineCppConstantName: {",
+        s"case $externalStateMachineCppConstantName: {",
         caseBody,
         "}"
       )
@@ -140,7 +140,7 @@ case class ComponentExternalStateMachines(
               |Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
               |
               |// Serialize the message ID
-              |_status = msg.serialize(static_cast<FwEnumStoreType>($stateMachineCppConstantName));
+              |_status = msg.serialize(static_cast<FwEnumStoreType>($externalStateMachineCppConstantName));
               |FW_ASSERT (
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
