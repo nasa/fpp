@@ -405,7 +405,7 @@ case class ComponentCppWriter (
       )
 
     def writeStateMachineInit(name: String) =
-      line(s"this->m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
+      line(s"this->m_stateMachine_$name.init(static_cast<FwEnumStoreType>(${writeSmIdName(name)}));")
 
     val body = intersperseBlankLines(
       List(

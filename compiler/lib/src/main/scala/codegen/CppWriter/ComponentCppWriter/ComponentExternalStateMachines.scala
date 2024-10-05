@@ -94,7 +94,7 @@ case class ComponentExternalStateMachines(
               |  static_cast<FwAssertArgType>(_status)
               |);
               |
-              |_status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_${smi.getName.toUpperCase}));
+              |_status = msg.serialize(static_cast<FwEnumStoreType>(${writeSmIdName(smi.getName)}));
               |FW_ASSERT(
               |  _status == Fw::FW_SERIALIZE_OK,
               |  static_cast<FwAssertArgType>(_status)
@@ -151,10 +151,10 @@ case class ComponentExternalStateMachines(
           val enumName = s.getName(smi.symbol)
           Line.blank ::
           lines(
-            s"""|case STATE_MACHINE_${smi.getName.toUpperCase}: {
+            s"""|case ${writeSmIdName(smi.getName)}: {
                 |  ${smName}_Interface::${enumName}_Signals signal =
                 |    static_cast<${smName}_Interface::${enumName}_Signals>(enumStoreSmSignal);
-                |  this->m_stateMachine_${smi.getName}.update(stateMachineId, signal, data);
+                |  this->m_stateMachine_${smi.getName}.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
                 |  break;
                 |}"""
           )

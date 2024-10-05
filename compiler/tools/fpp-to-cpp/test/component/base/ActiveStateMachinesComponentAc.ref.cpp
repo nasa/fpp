@@ -76,12 +76,12 @@ namespace M {
     // Initialize base class
     Fw::ActiveComponentBase::init(instance);
 
-    this->m_stateMachine_sm1.init(STATE_MACHINE_SM1);
-    this->m_stateMachine_sm2.init(STATE_MACHINE_SM2);
-    this->m_stateMachine_sm3.init(STATE_MACHINE_SM3);
-    this->m_stateMachine_sm4.init(STATE_MACHINE_SM4);
-    this->m_stateMachine_sm5.init(STATE_MACHINE_SM5);
-    this->m_stateMachine_sm6.init(STATE_MACHINE_SM6);
+    this->m_stateMachine_sm1.init(static_cast<FwEnumStoreType>(SmId::sm1));
+    this->m_stateMachine_sm2.init(static_cast<FwEnumStoreType>(SmId::sm2));
+    this->m_stateMachine_sm3.init(static_cast<FwEnumStoreType>(SmId::sm3));
+    this->m_stateMachine_sm4.init(static_cast<FwEnumStoreType>(SmId::sm4));
+    this->m_stateMachine_sm5.init(static_cast<FwEnumStoreType>(SmId::sm5));
+    this->m_stateMachine_sm6.init(static_cast<FwEnumStoreType>(SmId::sm6));
 
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
@@ -144,7 +144,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM1));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm1));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -196,7 +196,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM2));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm2));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -248,7 +248,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM3));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm3));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -305,7 +305,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM4));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm4));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -357,7 +357,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM5));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm5));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -414,7 +414,7 @@ namespace M {
       static_cast<FwAssertArgType>(_status)
     );
 
-    _status = msg.serialize(static_cast<FwEnumStoreType>(STATE_MACHINE_SM6));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(SmId::sm6));
     FW_ASSERT(
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -528,45 +528,45 @@ namespace M {
         // Call the state machine update function
         switch (stateMachineId) {
 
-          case STATE_MACHINE_SM1: {
+          case SmId::sm1: {
             M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal =
               static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm1.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm1.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 
-          case STATE_MACHINE_SM2: {
+          case SmId::sm2: {
             M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal =
               static_cast<M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm2.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm2.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 
-          case STATE_MACHINE_SM3: {
+          case SmId::sm3: {
             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm3.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm3.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 
-          case STATE_MACHINE_SM4: {
+          case SmId::sm4: {
             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm4.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm4.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 
-          case STATE_MACHINE_SM5: {
+          case SmId::sm5: {
             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm5.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm5.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 
-          case STATE_MACHINE_SM6: {
+          case SmId::sm6: {
             M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal =
               static_cast<M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals>(enumStoreSmSignal);
-            this->m_stateMachine_sm6.update(stateMachineId, signal, data);
+            this->m_stateMachine_sm6.update(static_cast<FwEnumStoreType>(stateMachineId), signal, data);
             break;
           }
 

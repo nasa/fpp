@@ -593,6 +593,9 @@ abstract class ComponentCppWriterUtils(
       case Command.Param.Set => "set"
     }
 
+  /** Write a state machine identifier name */
+  def writeSmIdName(name: String) = s"SmId::${name}"
+
   /** Write the type of an internal port param as a C++ type */
   def writeInternalPortParamType(param: Ast.FormalParam): String =
     writeTypeAsInternalPortParamType(s.a.typeMap(param.typeName.id))

@@ -13,15 +13,14 @@ case class ComponentStateMachines(
   val externalStateMachineWriter = ComponentExternalStateMachines(s, aNode)
 
   def getConstantMembers: List[CppDoc.Class.Member] = {
-    lazy val lcm = linesClassMember(
-      List.concat(
-        CppDocWriter.writeDoxygenComment("State machine identifiers"),
-        wrapInNamedEnum(
-          "SmId",
-          smInstancesByName.map((name, _) => line(s"STATE_MACHINE_${name.toUpperCase},"))
-        )
-      )
+    lazy val enumLines = smInstancesByName.map(
+      (name, _) => line(s"$name,")
     )
+    lazy val memberLines = List.concat(
+      CppDocWriter.writeDoxygenComment("State machine identifiers"),
+      wrapInEnumClass("SmId", enumLines, Some("FwEnumStoreType"))
+    )
+    lazy val lcm = linesClassMember(memberLines)
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 

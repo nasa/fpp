@@ -38,13 +38,13 @@ namespace M {
       // ----------------------------------------------------------------------
 
       //! State machine identifiers
-      enum SmId {
-        STATE_MACHINE_SM1,
-        STATE_MACHINE_SM2,
-        STATE_MACHINE_SM3,
-        STATE_MACHINE_SM4,
-        STATE_MACHINE_SM5,
-        STATE_MACHINE_SM6,
+      enum class SmId : FwEnumStoreType {
+        sm1,
+        sm2,
+        sm3,
+        sm4,
+        sm5,
+        sm6,
       };
 
     public:
