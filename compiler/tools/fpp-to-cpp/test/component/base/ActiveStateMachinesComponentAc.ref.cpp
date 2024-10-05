@@ -76,12 +76,12 @@ namespace M {
     // Initialize base class
     Fw::ActiveComponentBase::init(instance);
 
-    m_stateMachine_sm1.init(STATE_MACHINE_SM1);
-    m_stateMachine_sm2.init(STATE_MACHINE_SM2);
-    m_stateMachine_sm3.init(STATE_MACHINE_SM3);
-    m_stateMachine_sm4.init(STATE_MACHINE_SM4);
-    m_stateMachine_sm5.init(STATE_MACHINE_SM5);
-    m_stateMachine_sm6.init(STATE_MACHINE_SM6);
+    this->m_stateMachine_sm1.init(STATE_MACHINE_SM1);
+    this->m_stateMachine_sm2.init(STATE_MACHINE_SM2);
+    this->m_stateMachine_sm3.init(STATE_MACHINE_SM3);
+    this->m_stateMachine_sm4.init(STATE_MACHINE_SM4);
+    this->m_stateMachine_sm5.init(STATE_MACHINE_SM5);
+    this->m_stateMachine_sm6.init(STATE_MACHINE_SM6);
 
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
@@ -117,7 +117,7 @@ namespace M {
   }
 
   // ----------------------------------------------------------------------
-  // State machine function to push signals to the input queue
+  // Functions for sending signals to external state machines
   // ----------------------------------------------------------------------
 
   void ActiveStateMachinesComponentBase ::

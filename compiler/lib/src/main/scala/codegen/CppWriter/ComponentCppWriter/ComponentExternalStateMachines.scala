@@ -115,7 +115,7 @@ case class ComponentExternalStateMachines(
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
-      """|Overflow hooks for state machine instances
+      """|Overflow hooks for external state machine instances
          |
          |When sending a signal to a state machine instance, if
          |the queue overflows and the instance is marked with 'hook' behavior,
@@ -181,7 +181,7 @@ case class ComponentExternalStateMachines(
       )
 
       functionClassMember(
-        Some(s"State machine base-class function for sendSignals"),
+        Some(s"Send a signal to state machine instance ${smi.getName}"),
         s"${smi.getName}_stateMachineInvoke",
         ComponentExternalStateMachines.signalParams(s, smi.symbol),
         CppDoc.Type("void"),
@@ -194,7 +194,7 @@ case class ComponentExternalStateMachines(
 
     addAccessTagAndComment(
       "PROTECTED",
-      "State machine function to push signals to the input queue",
+      "Functions for sending signals to external state machines",
       guardedList (hasExternalStateMachineInstances) (members)
     )
   }

@@ -403,7 +403,7 @@ case class ComponentCppWriter (
       )
 
     def writeStateMachineInit(name: String) =
-      line(s"m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
+      line(s"this->m_stateMachine_$name.init(STATE_MACHINE_${name.toUpperCase});")
 
     val body = intersperseBlankLines(
       List(

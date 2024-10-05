@@ -76,7 +76,7 @@ namespace M {
     PROTECTED:
 
       // ----------------------------------------------------------------------
-      // Overflow hooks for state machine instances
+      // Overflow hooks for external state machine instances
       //
       // When sending a signal to a state machine instance, if
       // the queue overflows and the instance is marked with 'hook' behavior,
@@ -92,40 +92,40 @@ namespace M {
     PROTECTED:
 
       // ----------------------------------------------------------------------
-      // State machine function to push signals to the input queue
+      // Functions for sending signals to external state machines
       // ----------------------------------------------------------------------
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm1
       void sm1_stateMachineInvoke(
           const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm2
       void sm2_stateMachineInvoke(
           const M::ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm3
       void sm3_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm4
       void sm4_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm5
       void sm5_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       );
 
-      //! State machine base-class function for sendSignals
+      //! Send a signal to state machine instance sm6
       void sm6_stateMachineInvoke(
           const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
