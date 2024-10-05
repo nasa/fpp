@@ -1,4 +1,5 @@
 tests="
+junction_f32_f64
 junction_i16_i32
 junction_i32_f32
 junction_u32_bool
@@ -15,6 +16,7 @@ state_initial_bad_action_type
 state_initial_bad_guard_type
 state_junction_bad_else_action_type
 state_junction_bad_if_action_type
+state_junction_bad_if_action_type_f32_f64
 state_junction_bad_if_action_type_i16_i32
 state_self_transition_bad_action_type
 state_transition_bad_guard_type

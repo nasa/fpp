@@ -1,7 +1,7 @@
 state machine M {
-  signal s1: I16
-  signal s2: I32
-  guard g: I32
+  signal s1: F32
+  signal s2: F64
+  guard g: F64
   initial enter S
   state S {
     initial enter T
