@@ -11,6 +11,8 @@ case class ComponentStateMachines(
 
   val externalStateMachineWriter = ComponentExternalStateMachines(s, aNode)
 
+  val internalStateMachineWriter = ComponentInternalStateMachines(s, aNode)
+
   def getConstantMembers: List[CppDoc.Class.Member] = {
     lazy val enumLines = smInstancesByName.map(
       (name, _) => line(s"$name,")
@@ -23,13 +25,21 @@ case class ComponentStateMachines(
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] =
-    externalStateMachineWriter.getFunctionMembers
+  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    externalStateMachineWriter.getFunctionMembers,
+    internalStateMachineWriter.getFunctionMembers
+  )
+
+  def getTypeMembers: List[CppDoc.Class.Member] =
+    internalStateMachineWriter.getFunctionMembers
 
   def getVariableMembers: List[CppDoc.Class.Member] = getSmInstanceMembers
 
   /** Writes the dispatch cases, if any, for state machine instances */
-  def writeDispatchCases: List[Line] = externalStateMachineWriter.writeDispatchCase
+  def writeDispatchCases: List[Line] = List.concat(
+    externalStateMachineWriter.writeDispatchCase,
+    internalStateMachineWriter.writeDispatchCase
+  )
 
   private def getSmInstanceMember(
     name: Name.Unqualified,
@@ -45,11 +55,12 @@ case class ComponentStateMachines(
     )
   }
 
-  private def getSmInstanceMembers: List[CppDoc.Class.Member] = addAccessTagAndComment(
-    "PRIVATE",
-    s"State machine instances",
-    smInstancesByName.map(getSmInstanceMember),
-    CppDoc.Lines.Hpp
-  )
+  private def getSmInstanceMembers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"State machine instances",
+      smInstancesByName.map(getSmInstanceMember),
+      CppDoc.Lines.Hpp
+    )
 
 }

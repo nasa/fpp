@@ -174,6 +174,7 @@ case class ComponentCppWriter (
 
       // Types
       dpWriter.getTypeMembers,
+      stateMachineWriter.getTypeMembers,
 
       // Public function members
       getPublicComponentFunctionMembers,
