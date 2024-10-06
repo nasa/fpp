@@ -10,7 +10,10 @@ case class ComponentExternalStateMachines(
 ) extends ComponentCppWriterUtils(s, aNode) {
 
   /** Gets the function members */
-  def getFunctionMembers: List[CppDoc.Class.Member] = getSignalSendMembers
+  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getOverflowHooks,
+    getSignalSendMembers
+  )
 
   /** Gets the state machine interfaces */
   def getSmInterfaces: String =
@@ -28,7 +31,7 @@ case class ComponentExternalStateMachines(
       )
     lazy val caseStmt =
       Line.blank ::
-      line(s"// Handle state machine signals") ::
+      line(s"// Handle signals to external state machines") ::
       wrapInScope(
         s"case $externalStateMachineCppConstantName: {",
         caseBody,
@@ -36,6 +39,25 @@ case class ComponentExternalStateMachines(
       )
     guardedList (hasExternalStateMachineInstances) (caseStmt)
   }
+
+  def getOverflowHooks: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      """|Overflow hooks for external state machine instances
+         |
+         |When sending a signal to a state machine instance, if
+         |the queue overflows and the instance is marked with 'hook' behavior,
+         |the corresponding function here is called.""",
+      stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+        smi => getVirtualOverflowHook(
+          smi.getName,
+          MessageType.StateMachine,
+          ComponentExternalStateMachines.signalParams(s, smi.symbol)
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
+
 
   private def getSignalSendMembers: List[CppDoc.Class.Member] = {
     lazy val members = stateMachineInstances.map { smi =>

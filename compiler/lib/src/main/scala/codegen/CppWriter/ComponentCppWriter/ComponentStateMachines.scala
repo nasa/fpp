@@ -23,10 +23,8 @@ case class ComponentStateMachines(
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
-    getOverflowHooks,
+  def getFunctionMembers: List[CppDoc.Class.Member] =
     externalStateMachineWriter.getFunctionMembers
-  )
 
   def getVariableMembers: List[CppDoc.Class.Member] = getSmInstanceMembers
 
@@ -53,23 +51,5 @@ case class ComponentStateMachines(
     smInstancesByName.map(getSmInstanceMember),
     CppDoc.Lines.Hpp
   )
-
-  private def getOverflowHooks: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      """|Overflow hooks for state machine instances
-         |
-         |When sending a signal to a state machine instance, if
-         |the queue overflows and the instance is marked with 'hook' behavior,
-         |the corresponding function here is called.""",
-      stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-        smi => getVirtualOverflowHook(
-          smi.getName,
-          MessageType.StateMachine,
-          ComponentExternalStateMachines.signalParams(s, smi.symbol)
-        )
-      ),
-      CppDoc.Lines.Hpp
-    )
 
 }

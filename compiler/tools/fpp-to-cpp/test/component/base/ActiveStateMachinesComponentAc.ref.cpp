@@ -487,7 +487,7 @@ namespace M {
 
     switch (msgType) {
 
-      // Handle state machine signals
+      // Handle signals to external state machines
       case EXTERNAL_STATEMACHINE_SENDSIGNALS: {
 
         // Deserialize the state machine ID to an FwEnumStoreType
