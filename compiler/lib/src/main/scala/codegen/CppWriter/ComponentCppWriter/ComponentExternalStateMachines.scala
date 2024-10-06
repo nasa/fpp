@@ -40,7 +40,7 @@ case class ComponentExternalStateMachines(
     guardedList (hasExternalStateMachineInstances) (caseStmt)
   }
 
-  def getOverflowHooks: List[CppDoc.Class.Member] =
+  private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       """|Overflow hooks for external state machine instances

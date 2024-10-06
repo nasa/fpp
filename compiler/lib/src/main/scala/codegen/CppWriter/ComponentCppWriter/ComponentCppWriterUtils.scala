@@ -318,6 +318,9 @@ abstract class ComponentCppWriterUtils(
   val hasExternalStateMachineInstances: Boolean =
     component.hasStateMachineInstancesOfKind(StateMachine.Kind.External)
 
+  val hasInternalStateMachineInstances: Boolean =
+    component.hasStateMachineInstancesOfKind(StateMachine.Kind.Internal)
+
   val hasProductGetPort: Boolean = productGetPort.isDefined
 
   val hasProductRecvPort: Boolean = productRecvPort.isDefined

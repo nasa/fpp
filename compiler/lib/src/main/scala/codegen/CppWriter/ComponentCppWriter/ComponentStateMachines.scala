@@ -31,7 +31,7 @@ case class ComponentStateMachines(
   )
 
   def getTypeMembers: List[CppDoc.Class.Member] =
-    internalStateMachineWriter.getFunctionMembers
+    internalStateMachineWriter.getTypeMembers
 
   def getVariableMembers: List[CppDoc.Class.Member] = getSmInstanceMembers
 
