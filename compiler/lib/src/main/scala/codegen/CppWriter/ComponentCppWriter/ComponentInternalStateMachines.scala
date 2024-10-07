@@ -9,8 +9,6 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val componentClassName = className
-
   /** Gets the function members */
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSignalSendFunctions,

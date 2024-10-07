@@ -10,23 +10,21 @@ abstract class ComponentCppWriterUtils(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends CppWriterUtils {
 
-  val node: AstNode[Ast.DefComponent] = aNode._2
+  val componentNode: AstNode[Ast.DefComponent] = aNode._2
 
-  val data: Ast.DefComponent = node.data
+  val componentData: Ast.DefComponent = componentNode.data
 
   val componentSymbol: Symbol.Component = Symbol.Component(aNode)
 
   val component: Component = s.a.componentMap(componentSymbol)
 
-  val name: String = s.getName(componentSymbol)
+  val componentName: String = s.getName(componentSymbol)
 
-  val namespaceIdentList: List[String] = s.getNamespaceIdentList(componentSymbol)
+  val componentNamespaceIdentList: List[String] = s.getNamespaceIdentList(componentSymbol)
 
-  val className: String = s"${name}ComponentBase"
+  val componentClassName: String = s"${componentName}ComponentBase"
 
-  val implClassName: String = name
-
-  val members: List[Ast.ComponentMember] = data.members
+  val componentImplClassName: String = componentName
 
   val formalParamsCppWriter: FormalParamsCppWriter = FormalParamsCppWriter(s)
 
@@ -335,7 +333,7 @@ abstract class ComponentCppWriterUtils(
 
   /** Parameters for the init function */
   val initParams: List[CppDoc.Function.Param] = List.concat(
-    if data.kind != Ast.ComponentKind.Passive then List(
+    if componentData.kind != Ast.ComponentKind.Passive then List(
       CppDoc.Function.Param(
         CppDoc.Type("FwSizeType"),
         "queueDepth",

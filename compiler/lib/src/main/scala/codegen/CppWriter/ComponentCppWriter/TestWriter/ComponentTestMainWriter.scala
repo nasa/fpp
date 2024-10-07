@@ -12,6 +12,8 @@ case class ComponentTestMainWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentTestMain(name)
 
+  private val name = componentName
+
   private val symbol = componentSymbol
 
   def write: CppDoc = {

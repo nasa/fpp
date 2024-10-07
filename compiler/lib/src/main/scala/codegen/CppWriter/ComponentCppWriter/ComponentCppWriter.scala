@@ -13,6 +13,14 @@ case class ComponentCppWriter (
 
   private val symbol = componentSymbol
 
+  private val data = componentData
+
+  private val name = componentName
+
+  private val className = componentClassName
+
+  private val namespaceIdentList = componentNamespaceIdentList
+
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
   private val dpWriter = ComponentDataProducts(s, aNode)

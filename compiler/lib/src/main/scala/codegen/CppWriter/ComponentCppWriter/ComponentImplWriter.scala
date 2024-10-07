@@ -11,7 +11,13 @@ case class ComponentImplWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
-  private val fileName = ComputeCppFiles.FileNames.getComponentImpl(name)
+  private val className = componentClassName
+
+  private val fileName = ComputeCppFiles.FileNames.getComponentImpl(componentName)
+
+  private val name = componentName
+
+  private val namespaceIdentList = componentNamespaceIdentList
 
   private val symbol = componentSymbol
 
@@ -33,7 +39,7 @@ case class ComponentImplWriter(
     val cppIncludes = getCppIncludes
     val cls = classMember(
       None,
-      implClassName,
+      componentImplClassName,
       Some(s"public $className"),
       getClassMembers
     )
@@ -74,7 +80,7 @@ case class ComponentImplWriter(
       "Component construction and destruction",
       List(
         constructorClassMember(
-          Some(s"Construct $implClassName object"),
+          Some(s"Construct $componentImplClassName object"),
           List(
             CppDoc.Function.Param(
               CppDoc.Type("const char* const"),
@@ -86,7 +92,7 @@ case class ComponentImplWriter(
           Nil
         ),
         destructorClassMember(
-          Some(s"Destroy $implClassName object"),
+          Some(s"Destroy $componentImplClassName object"),
           Nil,
         )
       )

@@ -12,6 +12,10 @@ case class ComponentGTestBaseWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentGTestBase(name)
 
+  private val name = componentName
+
+  private val namespaceIdentList = componentNamespaceIdentList
+
   private val relativeFileName = s.getRelativePath(fileName).toString
 
   private val symbol = componentSymbol
