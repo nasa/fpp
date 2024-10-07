@@ -14,6 +14,8 @@ case class ComponentGTestBaseWriter(
 
   private val relativeFileName = s.getRelativePath(fileName).toString
 
+  private val symbol = componentSymbol
+
   private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
 
   private val testerRelativeFileName = s.getRelativePath(testerFileName).toString

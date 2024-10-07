@@ -13,6 +13,8 @@ case class ComponentImplWriter(
 
   private val fileName = ComputeCppFiles.FileNames.getComponentImpl(name)
 
+  private val symbol = componentSymbol
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(

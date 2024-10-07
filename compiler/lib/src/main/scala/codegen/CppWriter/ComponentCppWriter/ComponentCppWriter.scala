@@ -11,6 +11,8 @@ case class ComponentCppWriter (
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val symbol = componentSymbol
+
   private val fileName = ComputeCppFiles.FileNames.getComponent(name)
 
   private val dpWriter = ComponentDataProducts(s, aNode)

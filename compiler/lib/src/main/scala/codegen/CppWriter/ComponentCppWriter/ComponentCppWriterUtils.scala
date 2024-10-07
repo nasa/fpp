@@ -16,13 +16,11 @@ abstract class ComponentCppWriterUtils(
 
   val componentSymbol: Symbol.Component = Symbol.Component(aNode)
 
-  val symbol: Symbol.Component = componentSymbol
+  val component: Component = s.a.componentMap(componentSymbol)
 
-  val component: Component = s.a.componentMap(symbol)
+  val name: String = s.getName(componentSymbol)
 
-  val name: String = s.getName(symbol)
-
-  val namespaceIdentList: List[String] = s.getNamespaceIdentList(symbol)
+  val namespaceIdentList: List[String] = s.getNamespaceIdentList(componentSymbol)
 
   val className: String = s"${name}ComponentBase"
 
