@@ -70,6 +70,13 @@ case class Analysis(
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
 
+  /** Gets the short name of a symbol */
+  def getShortName(symbol: Symbol): Name.Qualified = {
+    val name = getQualifiedName(symbol)
+    val ens = getEnclosingNames(symbol)
+    name.shortName(ens)
+  }
+
   /** Gets the list of enclosing identifiers for a symbol */
   def getEnclosingNames(s: Symbol): List[Ast.Ident] =
     parentSymbolMap.get(s) match {

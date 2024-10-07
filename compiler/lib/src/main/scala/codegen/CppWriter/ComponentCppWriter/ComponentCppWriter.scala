@@ -339,11 +339,19 @@ case class ComponentCppWriter (
       ),
       guardedList (hasExternalStateMachineInstances) (
         lines(
-          s"""|// Size of statemachine sendSignals
-              |BYTE sendSignalsStatemachineSize[
+          s"""|// Size of buffer for external state machine signals
+              |// The external SmSignalBuffer stores the signal data
+              |BYTE externalSmBufferSize[
               |  2 * sizeof(FwEnumStoreType) + Fw::SmSignalBuffer::SERIALIZED_SIZE
-              |];
-              |"""
+              |];"""
+        )
+      ),
+      guardedList (hasInternalStateMachineInstances) (
+        lines(
+          s"""|// Size of buffer for internal state machine signals
+              |// The internal SmSignalBuffer stores the state machine id, the
+              |// signal id, and the signal data
+              |BYTE internalSmBufferSize[$className::SmSignalBuffer::SERIALIZED_SIZE];"""
         )
       )
     )

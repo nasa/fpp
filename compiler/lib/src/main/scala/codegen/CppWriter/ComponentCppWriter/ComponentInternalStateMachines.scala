@@ -18,12 +18,16 @@ case class ComponentInternalStateMachines(
   )
 
   /** Gets the type members */
-  def getTypeMembers: List[CppDoc.Class.Member] = 
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Types for internal state machines",
-      List.concat(
-        SignalBufferWriter.getSignalBuffer,
+  def getTypeMembers: List[CppDoc.Class.Member] =
+    List.concat(
+      addAccessTagAndComment(
+        "public",
+        "Public types for internal state machines",
+        SignalBufferWriter.getSignalBuffer
+      ),
+      addAccessTagAndComment(
+        "PROTECTED",
+        "Protected types for internal state machines",
         getStateMachines
       )
     )
@@ -32,6 +36,20 @@ case class ComponentInternalStateMachines(
   def writeDispatchCase: List[Line] =
     // TODO
     Nil
+
+  private def getBufferSizeConstant: List[CppDoc.Class.Member] = {
+    lazy val member = linesClassMember(
+      List.concat(
+        CppDocWriter.writeDoxygenComment("The state machine signal buffer size"),
+        lines("static constexpr FwSizeType SM_SIGNAL_BUFFER_SIZE = SmSignalBuffer::SERIALIZED_SIZE;")
+      )
+    )
+    addAccessTagAndComment(
+      "public",
+      "Buffer size for internal state machines",
+      guardedList (hasInternalStateMachineInstances) (List(member))
+    )
+  }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     // TODO
@@ -73,7 +91,7 @@ case class ComponentInternalStateMachines(
       )
 
     /** The signal types and the signal string size */
-    private def signalTypesAndStringSize: (Set[Type], BigInt) =
+    private val signalTypesAndStringSize: (Set[Type], BigInt) =
       smSymbols.foldLeft ((Set(), BigInt(0))) {
         case ((ts, maxStringSize), sym) => {
           val signals = StateMachine.getSignals(sym.node._2.data)
@@ -106,8 +124,8 @@ case class ComponentInternalStateMachines(
       List(getSerializedSizeConstant)
 
     private def getFunctionMembers: List[CppDoc.Class.Member] =
+      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
       List(
-        linesClassMember(CppDocHppWriter.writeAccessTag("public")),
         linesClassMember(
           Line.blank ::
           lines(
@@ -165,8 +183,8 @@ case class ComponentInternalStateMachines(
       )
 
     private def getVariableMembers: List[CppDoc.Class.Member] =
+      linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
       List(
-        linesClassMember(CppDocHppWriter.writeAccessTag("private")),
         linesClassMember(
           Line.blank ::
           lines(
@@ -194,9 +212,17 @@ case class ComponentInternalStateMachines(
     extends ComponentCppWriterUtils(s, aNode)
   {
 
-    def getStateMachine: CppDoc.Class.Member =
-      // TODO
-      ???
+    def getStateMachine: CppDoc.Class.Member = {
+      val symbol = Symbol.StateMachine(sm.aNode)
+      val className = s.writeStateMachineImplType(symbol)
+      val baseClassName = s.writeSymbol(symbol)
+      classClassMember(
+        Some(s"Implementation for state machine $className"),
+        "SmSignalBuffer",
+        Some(s"public $baseClassName"),
+        Nil // TODO
+      )
+    }
   }
 
 }

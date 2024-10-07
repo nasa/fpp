@@ -44,14 +44,14 @@ case class CppWriterState(
 
   /** Constructs a C++ identifier from a qualified symbol name */
   def identFromQualifiedSymbolName(s: Symbol): String =
-    CppWriter.identFromQualifiedName(a.getQualifiedName(s))
+    CppWriterState.identFromQualifiedName(a.getQualifiedName(s))
 
   /** Constructs an include guard from a qualified name and a kind */
   def includeGuardFromQualifiedName(s: Symbol, name: String): String = {
     val guard = a.getEnclosingNames(s) match {
       case Nil => name
       case names =>
-        val prefix = CppWriter.identFromQualifiedName(
+        val prefix = CppWriterState.identFromQualifiedName(
           Name.Qualified.fromIdentList(names)
         )
         s"${prefix}_$name"
@@ -84,6 +84,16 @@ case class CppWriterState(
     }
   }
 
+  /** Writes the type of a state machine implementation */
+  def writeStateMachineImplType(symbol: Symbol.StateMachine) = {
+    StateMachine.getSymbolKind(symbol) match {
+      case StateMachine.Kind.External => writeSymbol(symbol)
+      case StateMachine.Kind.Internal =>
+        val shortName = a.getShortName(symbol)
+        CppWriterState.writeQualifiedName(shortName)
+    }
+  }
+
   /** Write an FPP symbol as C++ */
   def writeSymbol(sym: Symbol): String = {
     val qualifiedName = sym match {
@@ -95,7 +105,7 @@ case class CppWriterState(
         Name.Qualified.fromIdentList(identList)
       }
     }
-    CppWriter.writeQualifiedName(qualifiedName)
+    CppWriterState.writeQualifiedName(qualifiedName)
   }
 
   // Skip component names in qualifiers
@@ -157,7 +167,7 @@ case class CppWriterState(
           case _ => None
         }
       }
-      yield CppWriter.headerString(getIncludePath(sym, fileName))
+      yield CppWriterState.headerString(getIncludePath(sym, fileName))
     }
 
     usedSymbols.map(getDirectiveForSymbol).filter(_.isDefined).map(_.get).toList
@@ -204,11 +214,24 @@ object CppWriterState {
     "FwTraceIdType" -> zero,
   )
 
+  /** Construct a header string */
+  def headerString(s: String): String = {
+    val q = "\""
+    s"#include $q$s$q"
+  }
+
   /** Constructs a C++ identifier from a qualified state machine symbol name */
   def identFromQualifiedSmSymbolName(
     sma: StateMachineAnalysis,
     s: StateMachineSymbol
-  ): String =
-    CppWriter.identFromQualifiedName(sma.getQualifiedName(s))
+  ): String = identFromQualifiedName(sma.getQualifiedName(s))
+
+  /** Constructs a C++ identifier from a qualified name */
+  def identFromQualifiedName(name: Name.Qualified): String =
+    name.toString.replaceAll("\\.", "_")
+
+  /** Writes a qualified name */
+  def writeQualifiedName(name: Name.Qualified): String =
+    name.toString.replaceAll("\\.", "::")
 
 }

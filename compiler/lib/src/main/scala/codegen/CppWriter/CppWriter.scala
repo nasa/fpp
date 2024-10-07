@@ -60,10 +60,8 @@ object CppWriter extends LineUtils{
     CppDoc(description, hppFile, s"$fileNameBase.$cppFileExtension", members, toolName, fileBanner)
   }
 
-  def headerString(s: String): String = {
-    val q = "\""
-    s"#include $q$s$q"
-  }
+  /** Construct a header string */
+  def headerString: String => String = CppWriterState.headerString
 
   def systemHeaderString(s: String): String = s"#include <$s>"
 
@@ -127,12 +125,12 @@ object CppWriter extends LineUtils{
   }
 
   /** Constructs a C++ identifier from a qualified name */
-  def identFromQualifiedName(name: Name.Qualified): String =
-    name.toString.replaceAll("\\.", "_")
+  def identFromQualifiedName: Name.Qualified => String =
+    CppWriterState.identFromQualifiedName
 
   /** Writes a qualified name */
-  def writeQualifiedName(name: Name.Qualified): String =
-    name.toString.replaceAll("\\.", "::")
+  val writeQualifiedName: Name.Qualified => String =
+    CppWriterState.writeQualifiedName
 
   /** Writes an identifier */
   def writeId(id: BigInt): String = s"0x${id.toString(16).toUpperCase}"
