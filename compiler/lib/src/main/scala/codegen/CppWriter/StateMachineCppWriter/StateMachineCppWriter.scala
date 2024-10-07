@@ -48,6 +48,7 @@ case class StateMachineCppWriter(
       getActionMembers,
       getGuardMembers,
       getEntryMembers,
+      getGetterMembers,
       getVariableMembers
     )
 
@@ -104,6 +105,22 @@ case class StateMachineCppWriter(
     linesClassMember(memberLines)
   }
 
+  private def getGetterMembers: List[CppDoc.Class.Member] = {
+    val getState = functionClassMember(
+      Some("Get the state"),
+      "getState",
+      Nil,
+      CppDoc.Type(s"${s.writeSymbol(symbol)}::State"),
+      lines("return this->m_state;"),
+      CppDoc.Function.Final
+    )
+    addAccessTagAndComment(
+      "public",
+      "Getter functions",
+      List(getState)
+    )
+  }
+
   private def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
   List[CppDoc.Function.Param] =
     getParamsWithTypeNameOpt(sym.node._2.data.typeName)
@@ -153,7 +170,7 @@ case class StateMachineCppWriter(
     val signal = s"Signal::$initialTransitionName"
     functionClassMember(
       Some("Initialize the state machine"),
-      "init",
+      "initBase",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("const FwEnumStoreType"),
@@ -171,7 +188,7 @@ case class StateMachineCppWriter(
 
   private def getInitMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "public",
+      "protected",
       "Initialization",
       List(getInitMember)
     )
@@ -247,7 +264,7 @@ case class StateMachineCppWriter(
 
   private def getTypeMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
-      "PROTECTED",
+      "public",
       "Types",
       List(
         getStateEnumClassMember,

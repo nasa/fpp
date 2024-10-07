@@ -413,8 +413,13 @@ case class ComponentCppWriter (
         (p: PortInstance) => s"${p.getUnqualifiedName}_${p.getDirection.get.toString.capitalize}Port"
       )
 
-    def writeStateMachineInit(name: String) =
-      line(s"this->m_stateMachine_$name.init(static_cast<FwEnumStoreType>(${writeSmIdName(name)}));")
+    def writeStateMachineInit(smi: StateMachineInstance, name: String) =
+      smi.getSmKind match {
+        case StateMachine.Kind.External =>
+          line(s"this->m_stateMachine_$name.init(static_cast<FwEnumStoreType>(${writeSmIdName(name)}));")
+        case StateMachine.Kind.Internal =>
+          line(s"this->m_stateMachine_$name.init(${writeSmIdName(name)});")
+      }
 
     val body = intersperseBlankLines(
       List(
@@ -423,7 +428,7 @@ case class ComponentCppWriter (
               |Fw::$baseClassName::init(instance);
               |"""
         ),
-        smInstancesByName.map((name, _) => writeStateMachineInit(name)),
+        smInstancesByName.map((name, smi) => writeStateMachineInit(smi, name)),
         intersperseBlankLines(specialInputPorts.map(writePortConnections)),
         intersperseBlankLines(typedInputPorts.map(writePortConnections)),
         intersperseBlankLines(serialInputPorts.map(writePortConnections)),

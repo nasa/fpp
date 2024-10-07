@@ -84,19 +84,6 @@ case class CppWriterState(
     }
   }
 
-  /** Writes the type of a state machine implementation */
-  def writeStateMachineImplType(
-    component: Symbol.Component,
-    smSymbol: Symbol.StateMachine
-  ) = {
-    StateMachine.getSymbolKind(smSymbol) match {
-      case StateMachine.Kind.External => writeSymbol(smSymbol)
-      case StateMachine.Kind.Internal =>
-        val shortName = a.getShortName(smSymbol, component)
-        CppWriterState.identFromQualifiedName(shortName)
-    }
-  }
-
   /** Write an FPP symbol as C++ */
   def writeSymbol(sym: Symbol): String = {
     val qualifiedName = sym match {

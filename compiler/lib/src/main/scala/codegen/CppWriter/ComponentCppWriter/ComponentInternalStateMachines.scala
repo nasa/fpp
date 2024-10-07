@@ -62,7 +62,7 @@ case class ComponentInternalStateMachines(
     action: StateMachineSymbol.Action
   ): String = {
     object Utils extends StateMachineCppWriterUtils(s, sm.node)
-    val implName = s.writeStateMachineImplType(symbol, sm)
+    val implName = writeStateMachineImplType(sm)
     val baseName = Utils.getActionFunctionName(action)
     s"${implName}_$baseName"
   }
@@ -72,8 +72,14 @@ case class ComponentInternalStateMachines(
     action: StateMachineSymbol.Action
   ) = {
     object Utils extends StateMachineCppWriterUtils(s, sm.node)
-    val actionFunctionParams = Utils.getActionFunctionParams(action)
-    stateMachineIdParam :: actionFunctionParams
+    val smName = writeStateMachineImplType(sm)
+    val signalParam = CppDoc.Function.Param(
+      CppDoc.Type(s"${smName}::Signal"),
+      Utils.signalParamName,
+      Some("The signal")
+    )
+    val valueParams = Utils.getValueParamsWithTypeNameOpt(action.node._2.data.typeName)
+    stateMachineIdParam :: signalParam :: valueParams
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
@@ -95,7 +101,7 @@ case class ComponentInternalStateMachines(
         val sm = s.a.stateMachineMap(smSymbol)
         sm.actions.map(
           action => {
-            val smName = s.writeStateMachineImplType(symbol, sm.getSymbol)
+            val smName = writeStateMachineImplType(sm.getSymbol)
             val actionName = action.getUnqualifiedName
             functionClassMember(
               Some(s"Implementation for action $actionName of state machine $smName"),
@@ -264,7 +270,7 @@ case class ComponentInternalStateMachines(
     val stateMachine = s.a.stateMachineMap(smSymbol)
 
     def getStateMachine: CppDoc.Class.Member = {
-      val className = s.writeStateMachineImplType(symbol, smSymbol)
+      val className = writeStateMachineImplType(smSymbol)
       val baseClassName = s"${s.writeSymbol(smSymbol)}StateMachineBase"
       classClassMember(
         Some(s"Implementation for state machine ${className}"),

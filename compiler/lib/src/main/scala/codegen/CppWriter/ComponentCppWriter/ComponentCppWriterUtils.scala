@@ -14,7 +14,9 @@ abstract class ComponentCppWriterUtils(
 
   val data: Ast.DefComponent = node.data
 
-  val symbol: Symbol.Component = Symbol.Component(aNode)
+  val componentSymbol: Symbol.Component = Symbol.Component(aNode)
+
+  val symbol: Symbol.Component = componentSymbol
 
   val component: Component = s.a.componentMap(symbol)
 
@@ -865,6 +867,16 @@ abstract class ComponentCppWriterUtils(
     Nil,
     CppDoc.Function.PureVirtual
   )
+
+  /** Writes the type of a state machine implementation */
+  def writeStateMachineImplType(smSymbol: Symbol.StateMachine) = {
+    StateMachine.getSymbolKind(smSymbol) match {
+      case StateMachine.Kind.External => s.writeSymbol(smSymbol)
+      case StateMachine.Kind.Internal =>
+        val shortName = s.a.getShortName(smSymbol, componentSymbol)
+        CppWriterState.identFromQualifiedName(shortName)
+    }
+  }
 
   private def getPortTypeBaseName(
     p: PortInstance,
