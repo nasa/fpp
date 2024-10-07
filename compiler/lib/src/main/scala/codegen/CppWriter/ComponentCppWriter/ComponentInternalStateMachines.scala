@@ -110,37 +110,39 @@ case class ComponentInternalStateMachines(
       symbol => StateMachineWriter(symbol).getStateMachine
     )
 
-  private def getVirtualActions: List[CppDoc.Class.Member] = {
-    val functionMembers = internalSmSymbols.flatMap(
-      smSymbol => {
-        val sm = s.a.stateMachineMap(smSymbol)
-        sm.actions.map(
-          action => {
-            val smName = writeStateMachineImplType(sm.getSymbol)
-            val actionName = action.getUnqualifiedName
-            functionClassMember(
-              Some(
-                addSeparatedString(
-                  s"Implementation for action $actionName of state machine $smName",
-                  AnnotationCppWriter.asStringOpt(action.node)
-                )
-              ),
-              getComponentActionFunctionName(smSymbol, action),
-              getComponentActionFunctionParams(smSymbol, action),
-              CppDoc.Type("void"),
-              Nil,
-              CppDoc.Function.PureVirtual
-            )
-          }
+  private def getVirtualAction (sm: StateMachine) (action: StateMachineSymbol.Action):
+  CppDoc.Class.Member = {
+    val smSymbol = sm.getSymbol
+    val smName = writeStateMachineImplType(sm.getSymbol)
+    val actionName = action.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Implementation for action $actionName of state machine $smName",
+          AnnotationCppWriter.asStringOpt(action.node)
         )
-      }
+      ),
+      getComponentActionFunctionName(smSymbol, action),
+      getComponentActionFunctionParams(smSymbol, action),
+      CppDoc.Type("void"),
+      Nil,
+      CppDoc.Function.PureVirtual
     )
+  }
+
+  private def getVirtualActions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PROTECTED",
       "Functions to implement for internal state machine actions",
-      functionMembers,
+      internalSmSymbols.flatMap(getVirtualActionsForSm),
       CppDoc.Lines.Hpp
     )
+  }
+
+  private def getVirtualActionsForSm(smSymbol: Symbol.StateMachine):
+  List[CppDoc.Class.Member] = {
+    val sm = s.a.stateMachineMap(smSymbol)
+    sm.actions.map(getVirtualAction (sm))
   }
 
   private def getVirtualGuards: List[CppDoc.Class.Member] =
