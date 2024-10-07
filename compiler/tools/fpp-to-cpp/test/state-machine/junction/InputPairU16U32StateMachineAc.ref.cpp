@@ -32,10 +32,20 @@ namespace FppTest {
     // ----------------------------------------------------------------------
 
     void InputPairU16U32StateMachineBase ::
-      init(const FwEnumStoreType id)
+      initBase(const FwEnumStoreType id)
     {
       this->m_id = id;
       this->enter_S1(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+    }
+
+    // ----------------------------------------------------------------------
+    // Getter functions
+    // ----------------------------------------------------------------------
+
+    InputPairU16U32StateMachineBase::State InputPairU16U32StateMachineBase ::
+      getState() const
+    {
+      return this->m_state;
     }
 
     // ----------------------------------------------------------------------

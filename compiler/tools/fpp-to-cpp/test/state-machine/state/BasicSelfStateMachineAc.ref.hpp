@@ -20,7 +20,7 @@ namespace FppTest {
     //! A basic state machine with a self transition
     class BasicSelfStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -54,16 +54,25 @@ namespace FppTest {
         //! Destructor
         virtual ~BasicSelfStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        BasicSelfStateMachineBase::State getState() const;
 
       public:
 

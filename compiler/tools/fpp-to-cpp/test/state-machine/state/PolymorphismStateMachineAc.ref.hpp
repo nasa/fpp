@@ -20,7 +20,7 @@ namespace FppTest {
     //! A hierarchical state machine with behavioral polymorphism
     class PolymorphismStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -62,16 +62,25 @@ namespace FppTest {
         //! Destructor
         virtual ~PolymorphismStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        PolymorphismStateMachineBase::State getState() const;
 
       public:
 

@@ -20,7 +20,7 @@ namespace FppTest {
     //! A basic state machine with a U32 junction sequence
     class SequenceU32StateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -60,16 +60,25 @@ namespace FppTest {
         //! Destructor
         virtual ~SequenceU32StateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        SequenceU32StateMachineBase::State getState() const;
 
       public:
 

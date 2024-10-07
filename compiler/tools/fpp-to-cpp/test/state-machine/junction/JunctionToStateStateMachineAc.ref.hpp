@@ -21,7 +21,7 @@ namespace FppTest {
     //! with hierarchy
     class JunctionToStateStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -57,16 +57,25 @@ namespace FppTest {
         //! Destructor
         virtual ~JunctionToStateStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        JunctionToStateStateMachineBase::State getState() const;
 
       public:
 

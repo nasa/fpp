@@ -20,7 +20,7 @@ namespace FppTest {
     //! A basic state machine with U32 actions
     class BasicU32StateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -56,16 +56,25 @@ namespace FppTest {
         //! Destructor
         virtual ~BasicU32StateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        BasicU32StateMachineBase::State getState() const;
 
       public:
 

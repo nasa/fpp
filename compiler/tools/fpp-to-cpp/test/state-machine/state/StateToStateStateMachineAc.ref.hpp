@@ -21,7 +21,7 @@ namespace FppTest {
     //! with hierarchy
     class StateToStateStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -63,16 +63,25 @@ namespace FppTest {
         //! Destructor
         virtual ~StateToStateStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        StateToStateStateMachineBase::State getState() const;
 
       public:
 

@@ -32,11 +32,21 @@ namespace FppTest {
     // ----------------------------------------------------------------------
 
     void BasicStateMachineBase ::
-      init(const FwEnumStoreType id)
+      initBase(const FwEnumStoreType id)
     {
       this->m_id = id;
       this->action_a(Signal::__FPRIME_AC_INITIAL_TRANSITION);
       this->enter_S(Signal::__FPRIME_AC_INITIAL_TRANSITION);
+    }
+
+    // ----------------------------------------------------------------------
+    // Getter functions
+    // ----------------------------------------------------------------------
+
+    BasicStateMachineBase::State BasicStateMachineBase ::
+      getState() const
+    {
+      return this->m_state;
     }
 
     // ----------------------------------------------------------------------

@@ -20,7 +20,7 @@ namespace FppTest {
     //! A state machine with two inputs to a junction
     class InputPairU16U32StateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -60,16 +60,25 @@ namespace FppTest {
         //! Destructor
         virtual ~InputPairU16U32StateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        InputPairU16U32StateMachineBase::State getState() const;
 
       public:
 

@@ -20,7 +20,7 @@ namespace FppTest {
     //! A basic state machine with a guard
     class BasicGuardStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -56,16 +56,25 @@ namespace FppTest {
         //! Destructor
         virtual ~BasicGuardStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        BasicGuardStateMachineBase::State getState() const;
 
       public:
 

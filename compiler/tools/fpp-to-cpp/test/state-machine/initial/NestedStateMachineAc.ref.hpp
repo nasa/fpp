@@ -20,7 +20,7 @@ namespace FppTest {
     //! A state machine with nested initial transitions
     class NestedStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -52,16 +52,25 @@ namespace FppTest {
         //! Destructor
         virtual ~NestedStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        NestedStateMachineBase::State getState() const;
 
       PROTECTED:
 

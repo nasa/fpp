@@ -20,7 +20,7 @@ namespace FppTest {
     //! A state machine for testing state-to-child transitions
     class StateToChildStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -58,16 +58,25 @@ namespace FppTest {
         //! Destructor
         virtual ~StateToChildStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        StateToChildStateMachineBase::State getState() const;
 
       public:
 

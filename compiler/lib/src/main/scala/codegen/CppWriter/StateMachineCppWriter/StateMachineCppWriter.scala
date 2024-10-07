@@ -44,11 +44,11 @@ case class StateMachineCppWriter(
       getTypeMembers,
       getConstructorDestructorMembers,
       getInitMembers,
+      getGetterMembers,
       getSendSignalMembers,
       getActionMembers,
       getGuardMembers,
       getEntryMembers,
-      getGetterMembers,
       getVariableMembers
     )
 
@@ -110,9 +110,10 @@ case class StateMachineCppWriter(
       Some("Get the state"),
       "getState",
       Nil,
-      CppDoc.Type(s"${s.writeSymbol(symbol)}::State"),
+      CppDoc.Type(s"$className::State"),
       lines("return this->m_state;"),
-      CppDoc.Function.Final
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
     )
     addAccessTagAndComment(
       "public",

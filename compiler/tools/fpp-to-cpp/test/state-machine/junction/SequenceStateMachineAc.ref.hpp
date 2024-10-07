@@ -20,7 +20,7 @@ namespace FppTest {
     //! A basic state machine with a junction sequence
     class SequenceStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -60,16 +60,25 @@ namespace FppTest {
         //! Destructor
         virtual ~SequenceStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        SequenceStateMachineBase::State getState() const;
 
       public:
 

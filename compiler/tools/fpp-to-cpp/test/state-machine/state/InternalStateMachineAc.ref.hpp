@@ -20,7 +20,7 @@ namespace FppTest {
     //! A hierarchical state machine with an internal transition
     class InternalStateMachineBase {
 
-      PROTECTED:
+      public:
 
         // ----------------------------------------------------------------------
         // Types
@@ -58,16 +58,25 @@ namespace FppTest {
         //! Destructor
         virtual ~InternalStateMachineBase();
 
-      public:
+      protected:
 
         // ----------------------------------------------------------------------
         // Initialization
         // ----------------------------------------------------------------------
 
         //! Initialize the state machine
-        void init(
+        void initBase(
             const FwEnumStoreType id //!< The state machine ID
         );
+
+      public:
+
+        // ----------------------------------------------------------------------
+        // Getter functions
+        // ----------------------------------------------------------------------
+
+        //! Get the state
+        InternalStateMachineBase::State getState() const;
 
       public:
 
