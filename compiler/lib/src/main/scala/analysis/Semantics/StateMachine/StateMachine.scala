@@ -25,6 +25,8 @@ case class StateMachine(
 
   def getSymbol: Symbol.StateMachine = Symbol.StateMachine(aNode)
 
+  def getKind: StateMachine.Kind = StateMachine.getSymbolKind(getSymbol)
+
 }
 
 object StateMachine {

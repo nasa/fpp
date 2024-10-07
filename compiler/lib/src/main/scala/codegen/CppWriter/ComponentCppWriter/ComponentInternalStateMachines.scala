@@ -9,6 +9,8 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val componentClassName = className
+
   /** Gets the function members */
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSignalSendFunctions,
@@ -269,16 +271,48 @@ case class ComponentInternalStateMachines(
 
     val stateMachine = s.a.stateMachineMap(smSymbol)
 
+    val hasActionsOrGuards = stateMachine.hasActions || stateMachine.hasGuards
+
     def getStateMachine: CppDoc.Class.Member = {
-      val className = writeStateMachineImplType(smSymbol)
+      val smClassName = writeStateMachineImplType(smSymbol)
       val baseClassName = s"${s.writeSymbol(smSymbol)}StateMachineBase"
       classClassMember(
-        Some(s"Implementation for state machine ${className}"),
-        className,
+        Some(s"Implementation for state machine ${smClassName}"),
+        smClassName,
         Some(s"public $baseClassName"),
-        Nil // TODO
+        List.concat(
+          getConstructorMembers,
+          getInitMembers,
+          getActionMembers,
+          getGuardMembers,
+          getVariableMembers
+        )
       )
     }
+
+    private def getConstructorMembers: List[CppDoc.Class.Member] = Nil
+
+    private def getInitMembers: List[CppDoc.Class.Member] = Nil
+
+    private def getActionMembers: List[CppDoc.Class.Member] = Nil
+
+    private def getGuardMembers: List[CppDoc.Class.Member] = Nil
+
+    private def getVariableMembers: List[CppDoc.Class.Member] = {
+      lazy val members =
+        linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
+        List(
+          linesClassMember(
+            lines(
+              s"""|
+                  |//! The enclosing component
+                  |$componentClassName& component;"""
+            )
+          )
+        )
+      guardedList (hasActionsOrGuards) (members)
+    }
+
   }
 
 }
