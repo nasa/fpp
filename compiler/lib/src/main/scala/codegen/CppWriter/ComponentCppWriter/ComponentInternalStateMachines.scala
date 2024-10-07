@@ -305,6 +305,7 @@ case class ComponentInternalStateMachines(
         List.concat(
           getConstructorMembers,
           getInitMembers,
+          getGetterMembers,
           getActionMembers,
           getGuardMembers,
           getVariableMembers
@@ -322,7 +323,7 @@ case class ComponentInternalStateMachines(
         CppDoc.Type("void"),
         lines(
           s"""|this->m_component.$componentActionFunctionName(
-              |  static_cast<$componentClassName::SmId>(this->m_id),
+              |  this->getId(),
               |  signal,
               |  value
               |);"""
@@ -352,6 +353,20 @@ case class ComponentInternalStateMachines(
       )
       guardedList (hasActionsOrGuards) (members)
     }
+
+    private def getGetterMembers: List[CppDoc.Class.Member] =
+      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
+      List(
+        functionClassMember(
+          Some(s"Get the state machine id"),
+          "getId",
+          Nil,
+          CppDoc.Type(s"$componentClassName::SmId"),
+          lines(s"return static_cast<$componentClassName::SmId>(this->m_id);"),
+          CppDoc.Function.NonSV,
+          CppDoc.Function.Const
+        )
+      )
 
     private def getGuardMembers: List[CppDoc.Class.Member] = Nil
 
