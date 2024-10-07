@@ -332,8 +332,10 @@ case class ComponentInternalStateMachines(
     }
 
     private def getActionMembers: List[CppDoc.Class.Member] =
-      linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
-        stateMachine.actions.map(getActionMember)
+      guardedList (stateMachine.hasActions) (
+        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+          stateMachine.actions.map(getActionMember)
+      )
 
     private def getConstructorMembers: List[CppDoc.Class.Member] = {
       lazy val members = List(
