@@ -60,8 +60,9 @@ case class ComponentInternalStateMachines(
     Nil
 
   private def getStateMachines: List[CppDoc.Class.Member] =
-    // TODO
-    Nil
+    internalSmSymbols.map(
+      symbol => StateMachineWriter(symbol).getStateMachine
+    )
 
   private def getVirtualActions: List[CppDoc.Class.Member] =
     // TODO
@@ -92,7 +93,7 @@ case class ComponentInternalStateMachines(
 
     /** The signal types and the signal string size */
     private val signalTypesAndStringSize: (Set[Type], BigInt) =
-      smSymbols.foldLeft ((Set(), BigInt(0))) {
+      internalSmSymbols.foldLeft ((Set(), BigInt(0))) {
         case ((ts, maxStringSize), sym) => {
           val signals = StateMachine.getSignals(sym.node._2.data)
           signals.foldLeft ((ts, maxStringSize)) {
@@ -208,17 +209,18 @@ case class ComponentInternalStateMachines(
 
   }
 
-  private case class StateMachineWriter(sm: StateMachine)
+  private case class StateMachineWriter(smSymbol: Symbol.StateMachine)
     extends ComponentCppWriterUtils(s, aNode)
   {
 
+    val stateMachine = s.a.stateMachineMap(smSymbol)
+
     def getStateMachine: CppDoc.Class.Member = {
-      val symbol = Symbol.StateMachine(sm.aNode)
-      val className = s.writeStateMachineImplType(symbol)
-      val baseClassName = s.writeSymbol(symbol)
+      val className = s.writeStateMachineImplType(smSymbol)
+      val baseClassName = s"${s.writeSymbol(smSymbol)}StateMachineBase"
       classClassMember(
-        Some(s"Implementation for state machine $className"),
-        "SmSignalBuffer",
+        Some(s"Implementation for state machine ${className}"),
+        className,
         Some(s"public $baseClassName"),
         Nil // TODO
       )

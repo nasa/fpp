@@ -133,6 +133,10 @@ abstract class ComponentCppWriterUtils(
   val externalStateMachineInstances: List[StateMachineInstance] =
     stateMachineInstances.filter(_.getSmKind == StateMachine.Kind.External)
 
+  /** List of internal state machine instances */
+  val internalStateMachineInstances: List[StateMachineInstance] =
+    stateMachineInstances.filter(_.getSmKind == StateMachine.Kind.Internal)
+
   /** List of internal port instances sorted by name */
   val internalPorts: List[PortInstance.Internal] = component.portMap.toList.map((_, p) => p match {
     case i: PortInstance.Internal => Some(i)
@@ -283,6 +287,9 @@ abstract class ComponentCppWriterUtils(
 
   val externalSmSymbols =
     smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.External)
+
+  val internalSmSymbols =
+    smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.Internal)
 
   // Component properties
 
