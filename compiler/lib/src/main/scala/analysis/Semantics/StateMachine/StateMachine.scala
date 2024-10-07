@@ -23,6 +23,8 @@ case class StateMachine(
 
   val hasSignals = !signals.isEmpty
 
+  def getSymbol: Symbol.StateMachine = Symbol.StateMachine(aNode)
+
 }
 
 object StateMachine {

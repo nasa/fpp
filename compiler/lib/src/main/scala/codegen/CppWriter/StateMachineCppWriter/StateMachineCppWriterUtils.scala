@@ -80,6 +80,10 @@ abstract class StateMachineCppWriterUtils(
       )
     ).sortBy(_._2)
 
+  def getActionFunctionParams(sym: StateMachineSymbol.Action):
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
   def getEnterFunctionName(symbol: StateMachineSymbol) =
     s"enter_${writeSmSymbolName(symbol)}"
 

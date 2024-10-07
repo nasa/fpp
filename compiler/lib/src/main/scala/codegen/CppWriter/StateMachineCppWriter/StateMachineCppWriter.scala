@@ -20,10 +20,6 @@ case class StateMachineCppWriter(
     )
   }
 
-  private def getActionFunctionParams(sym: StateMachineSymbol.Action):
-  List[CppDoc.Function.Param] =
-    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
-
   private def getActionMember(sym: StateMachineSymbol.Action):
   CppDoc.Class.Member.Function =
     functionClassMember(

@@ -511,7 +511,16 @@ case class ComponentCppWriter (
             )
           ),
           s"Fw::${kindStr}ComponentBase(compName)" ::
-            externalSmInstancesByName.map((name, _) => s"m_stateMachine_$name(this)"),
+            smInstancesByName.map((name, smi) => {
+              val sm = s.a.stateMachineMap(smi.symbol)
+              val hasActionsOrGuards = sm.hasActions || sm.hasGuards
+              val args = (smi.getSmKind, hasActionsOrGuards) match {
+                case (StateMachine.Kind.External, _) => "this"
+                case (StateMachine.Kind.Internal, true) => "*this"
+                case (StateMachine.Kind.Internal, false) => ""
+              }
+              s"m_stateMachine_$name($args)",
+            }),
           intersperseBlankLines(
             List(
               intersperseBlankLines(

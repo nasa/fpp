@@ -280,13 +280,7 @@ abstract class ComponentCppWriterUtils(
 
   val smInstancesByName = component.stateMachineInstanceMap.toList.sortBy(_._1)
 
-  val externalSmInstancesByName =
-    smInstancesByName.filter(_._2.getSmKind == StateMachine.Kind.External)
-
-  val internalSmInstances =
-    smInstancesByName.filter(_._2.getSmKind == StateMachine.Kind.Internal)
-
-  val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList
+  val smSymbols = component.stateMachineInstanceMap.map(_._2.symbol).toSet.toList.sortBy(s.writeSymbol)
 
   val externalSmSymbols =
     smSymbols.filter(StateMachine.getSymbolKind(_) == StateMachine.Kind.External)

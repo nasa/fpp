@@ -37,6 +37,12 @@ case class ComponentInternalStateMachines(
     // TODO
     Nil
 
+  private val stateMachineIdParam = CppDoc.Function.Param(
+    CppDoc.Type("SmId"),
+    "smId",
+    Some("The state machine id")
+  )
+
   private def getBufferSizeConstant: List[CppDoc.Class.Member] = {
     lazy val member = linesClassMember(
       List.concat(
@@ -49,6 +55,25 @@ case class ComponentInternalStateMachines(
       "Buffer size for internal state machines",
       guardedList (hasInternalStateMachineInstances) (List(member))
     )
+  }
+
+  private def getComponentActionFunctionName(
+    sm: Symbol.StateMachine,
+    action: StateMachineSymbol.Action
+  ): String = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    val implName = s.writeStateMachineImplType(symbol, sm)
+    val baseName = Utils.getActionFunctionName(action)
+    s"${implName}_$baseName"
+  }
+
+  private def getComponentActionFunctionParams(
+    sm: Symbol.StateMachine,
+    action: StateMachineSymbol.Action
+  ) = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    val actionFunctionParams = Utils.getActionFunctionParams(action)
+    stateMachineIdParam :: actionFunctionParams
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
@@ -64,9 +89,32 @@ case class ComponentInternalStateMachines(
       symbol => StateMachineWriter(symbol).getStateMachine
     )
 
-  private def getVirtualActions: List[CppDoc.Class.Member] =
-    // TODO
-    Nil
+  private def getVirtualActions: List[CppDoc.Class.Member] = {
+    val functionMembers = internalSmSymbols.flatMap(
+      smSymbol => {
+        val sm = s.a.stateMachineMap(smSymbol)
+        sm.actions.map(
+          action => {
+            val smName = s.writeStateMachineImplType(symbol, sm.getSymbol)
+            val actionName = action.getUnqualifiedName
+            functionClassMember(
+              Some(s"Implementation for action $actionName of state machine $smName"),
+              getComponentActionFunctionName(smSymbol, action),
+              getComponentActionFunctionParams(smSymbol, action),
+              CppDoc.Type("void"),
+              Nil,
+              CppDoc.Function.PureVirtual
+            )
+          }
+        )
+      }
+    )
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Functions to implement for internal state machine actions",
+      functionMembers
+    )
+  }
 
   private def getVirtualGuards: List[CppDoc.Class.Member] =
     // TODO
@@ -216,7 +264,7 @@ case class ComponentInternalStateMachines(
     val stateMachine = s.a.stateMachineMap(smSymbol)
 
     def getStateMachine: CppDoc.Class.Member = {
-      val className = s.writeStateMachineImplType(smSymbol, symbol)
+      val className = s.writeStateMachineImplType(symbol, smSymbol)
       val baseClassName = s"${s.writeSymbol(smSymbol)}StateMachineBase"
       classClassMember(
         Some(s"Implementation for state machine ${className}"),

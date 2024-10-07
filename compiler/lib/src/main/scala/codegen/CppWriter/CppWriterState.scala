@@ -86,8 +86,8 @@ case class CppWriterState(
 
   /** Writes the type of a state machine implementation */
   def writeStateMachineImplType(
-    smSymbol: Symbol.StateMachine,
-    component: Symbol.Component
+    component: Symbol.Component,
+    smSymbol: Symbol.StateMachine
   ) = {
     StateMachine.getSymbolKind(smSymbol) match {
       case StateMachine.Kind.External => writeSymbol(smSymbol)
