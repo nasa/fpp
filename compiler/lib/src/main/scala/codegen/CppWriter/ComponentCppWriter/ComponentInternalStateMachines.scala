@@ -128,9 +128,9 @@ case class ComponentInternalStateMachines(
       linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
       List(
         linesClassMember(
-          Line.blank ::
           lines(
-            """|//! Get the buffer capacity
+            """|
+               |//! Get the buffer capacity
                |Fw::Serializable::SizeType getBuffCapacity() const {
                |  return sizeof(this->m_buff);
                |}
@@ -187,9 +187,9 @@ case class ComponentInternalStateMachines(
       linesClassMember(CppDocHppWriter.writeAccessTag("private")) ::
       List(
         linesClassMember(
-          Line.blank ::
           lines(
-            """|//! The buffer
+            """|
+               |//! The buffer
                |U8 m_buff[SERIALIZED_SIZE];"""
           )
         )
@@ -216,7 +216,7 @@ case class ComponentInternalStateMachines(
     val stateMachine = s.a.stateMachineMap(smSymbol)
 
     def getStateMachine: CppDoc.Class.Member = {
-      val className = s.writeStateMachineImplType(smSymbol)
+      val className = s.writeStateMachineImplType(smSymbol, symbol)
       val baseClassName = s"${s.writeSymbol(smSymbol)}StateMachineBase"
       classClassMember(
         Some(s"Implementation for state machine ${className}"),

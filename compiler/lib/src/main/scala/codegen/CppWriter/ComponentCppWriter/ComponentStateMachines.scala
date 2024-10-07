@@ -45,7 +45,7 @@ case class ComponentStateMachines(
     name: Name.Unqualified,
     smi: StateMachineInstance
   ): CppDoc.Class.Member = {
-    val typeName = s.writeStateMachineImplType(smi.symbol)
+    val typeName = s.writeStateMachineImplType(smi.symbol, symbol)
     linesClassMember(
       Line.blank ::
       lines(

@@ -70,11 +70,21 @@ case class Analysis(
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentSymbolMap)
 
-  /** Gets the short name of a symbol */
-  def getShortName(symbol: Symbol): Name.Qualified = {
+  /** Gets the short name of a symbol
+   *  When generating C++, we may need to keep the component prefix, because
+   *  it is part of the symbol name */
+  def getShortName(
+    symbol: Symbol,
+    context: Symbol,
+    componentPrefix: Analysis.ComponentPrefix = Analysis.ComponentPrefix.Omit
+  ): Name.Qualified = {
     val name = getQualifiedName(symbol)
-    val ens = getEnclosingNames(symbol)
-    name.shortName(ens)
+    val enclosingPrefix = getEnclosingNames(context)
+    val prefix = (context, componentPrefix) match {
+      case (_: Symbol.Component, Analysis.ComponentPrefix.Keep) => enclosingPrefix
+      case _ => enclosingPrefix :+ context.getUnqualifiedName
+    }
+    name.shortName(prefix)
   }
 
   /** Gets the list of enclosing identifiers for a symbol */
@@ -389,7 +399,7 @@ case class Analysis(
       checkDisplayableType(aNode._2.data.typeName.id, errorMsg)
     )
   }
-  
+
 }
 
 object Analysis {
@@ -533,4 +543,11 @@ object Analysis {
       }
     Name.Qualified.fromIdentList(getIdentList(Some(s), Nil))
   }
+
+  sealed trait ComponentPrefix
+  object ComponentPrefix {
+    case object Keep extends ComponentPrefix
+    case object Omit extends ComponentPrefix
+  }
+
 }

@@ -85,12 +85,15 @@ case class CppWriterState(
   }
 
   /** Writes the type of a state machine implementation */
-  def writeStateMachineImplType(symbol: Symbol.StateMachine) = {
-    StateMachine.getSymbolKind(symbol) match {
-      case StateMachine.Kind.External => writeSymbol(symbol)
+  def writeStateMachineImplType(
+    smSymbol: Symbol.StateMachine,
+    component: Symbol.Component
+  ) = {
+    StateMachine.getSymbolKind(smSymbol) match {
+      case StateMachine.Kind.External => writeSymbol(smSymbol)
       case StateMachine.Kind.Internal =>
-        val shortName = a.getShortName(symbol)
-        CppWriterState.writeQualifiedName(shortName)
+        val shortName = a.getShortName(smSymbol, component)
+        CppWriterState.identFromQualifiedName(shortName)
     }
   }
 
