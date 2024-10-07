@@ -95,10 +95,10 @@ case class ComponentInternalStateMachines(
     private val signalTypesAndStringSize: (Set[Type], BigInt) =
       internalSmSymbols.foldLeft ((Set(), BigInt(0))) {
         case ((ts, maxStringSize), sym) => {
-          val signals = StateMachine.getSignals(sym.node._2.data)
+          val signals = s.a.stateMachineMap(sym).signals
           signals.foldLeft ((ts, maxStringSize)) {
             case ((ts, maxStringSize), signal) =>
-              signal._2.data.typeName match {
+              signal.node._2.data.typeName match {
                 case Some(tn) =>
                   s.a.typeMap(tn.id) match {
                     case t: Type.String => (

@@ -9,7 +9,21 @@ case class StateMachine(
   aNode: Ast.Annotated[AstNode[Ast.DefStateMachine]],
   /** The state machine analysis */
   sma: StateMachineAnalysis
-)
+) {
+
+  val actions = StateMachine.getActions(aNode._2.data).map(StateMachineSymbol.Action(_))
+
+  val hasActions = !actions.isEmpty
+
+  val guards = StateMachine.getGuards(aNode._2.data).map(StateMachineSymbol.Guard(_))
+
+  val hasGuards = !guards.isEmpty
+
+  val signals = StateMachine.getSignals(aNode._2.data).map(StateMachineSymbol.Signal(_))
+
+  val hasSignals = !signals.isEmpty
+
+}
 
 object StateMachine {
 
