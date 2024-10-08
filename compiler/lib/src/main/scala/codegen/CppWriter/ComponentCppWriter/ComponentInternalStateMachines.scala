@@ -286,6 +286,7 @@ case class ComponentInternalStateMachines(
 
   }
 
+  /** Writes out the state machine implementations */
   private case class StateMachineWriter(smSymbol: Symbol.StateMachine)
     extends ComponentCppWriterUtils(s, aNode)
   {
