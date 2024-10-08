@@ -8,6 +8,12 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val signals = internalSmSymbols.flatMap(
+    smSymbol => s.a.stateMachineMap(smSymbol).signals
+  )
+
+  private val hasSignals = !signals.isEmpty
+
   /** Gets the anonymous namespace lines */
   def getAnonymousNamespaceLines: List[Line] =
     guardedList (hasInternalStateMachineInstances) (
@@ -108,7 +114,7 @@ case class ComponentInternalStateMachines(
     addAccessTagAndComment(
       "PROTECTED",
       "Signal send functions",
-      guardedList (hasInternalStateMachineInstances) (
+      guardedList (hasSignals) (
         List(
           linesClassMember(
             lines(
@@ -126,24 +132,45 @@ case class ComponentInternalStateMachines(
       )
     )
 
-  private def getSignalSendHelperFunctions: List[CppDoc.Class.Member] =
+  private def getSignalSendHelperFunctions: List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PRIVATE",
       "Signal send helper functions",
-      guardedList (hasInternalStateMachineInstances) (
+      guardedList (hasSignals) (
         getSignalSendStartFunction ::
         getSignalSendFinishFunctions
       )
     )
+  }
 
   private def getSignalSendStartFunction: CppDoc.Class.Member =
-    linesClassMember(
-      lines(
-        """|
-           |// TODO: A function signalSendStart for serializing a message ID,
-           |// a port number, a state machine instance id, and a signal id"""
+    functionClassMember(
+      Some("Start sending a signal to a state machine"),
+      "signalSendStart",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("SmId"),
+          "smId",
+          Some("The state machine ID (input)")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwEnumStoreType"),
+          "signal",
+          Some("The signal (input)")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The buffer (output)")
+        )
       ),
-      CppDoc.Lines.Both
+      CppDoc.Type("void"),
+      lines(
+        """|// TODO: Serialize the message ID
+           |// TODO: Serialize the port number
+           |// TODO: Serialize the state machine instance ID
+           |// TODO: Serialize the signal ID"""
+      )
     )
 
   private def getSmActionFunctionName(
