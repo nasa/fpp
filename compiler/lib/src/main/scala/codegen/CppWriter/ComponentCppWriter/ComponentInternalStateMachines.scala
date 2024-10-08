@@ -41,20 +41,6 @@ case class ComponentInternalStateMachines(
     Some("The state machine id")
   )
 
-  private def getBufferSizeConstant: List[CppDoc.Class.Member] = {
-    lazy val member = linesClassMember(
-      List.concat(
-        CppDocWriter.writeDoxygenComment("The state machine signal buffer size"),
-        lines("static constexpr FwSizeType SM_SIGNAL_BUFFER_SIZE = SmSignalBuffer::SERIALIZED_SIZE;")
-      )
-    )
-    addAccessTagAndComment(
-      "public",
-      "Buffer size for internal state machines",
-      guardedList (hasInternalStateMachineInstances) (List(member))
-    )
-  }
-
   private def getComponentActionFunctionName(
     sm: Symbol.StateMachine,
     action: StateMachineSymbol.Action
@@ -213,6 +199,7 @@ case class ComponentInternalStateMachines(
     sm.guards.map(getVirtualGuard (sm))
   }
 
+  /** Writes out the serialized size of the signal buffer */
   private object SignalBufferWriter extends ComponentCppWriterUtils(s, aNode) {
 
     def getLines: List[Line] = List.concat(
