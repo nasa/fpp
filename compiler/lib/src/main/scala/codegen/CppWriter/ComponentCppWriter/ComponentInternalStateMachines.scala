@@ -106,7 +106,7 @@ case class ComponentInternalStateMachines(
       CppDoc.Type("void"),
       lines(
         s"""|// TODO: Send the buffer to the input queue, using the
-            |// overflow behavior specified in ${smi.getName}"""
+            |// priority and overflow behavior specified in ${smi.getName}"""
       )
     )
   }
