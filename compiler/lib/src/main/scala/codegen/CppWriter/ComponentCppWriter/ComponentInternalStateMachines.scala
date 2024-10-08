@@ -69,6 +69,25 @@ case class ComponentInternalStateMachines(
   private def getComponentActionFunctionParams(
     sm: Symbol.StateMachine,
     action: StateMachineSymbol.Action
+  ) = getComponentParamsWithTypeNameOpt(sm, action.node._2.data.typeName)
+
+  private def getComponentGuardFunctionName(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): String = {
+    val implName = writeStateMachineImplType(sm)
+    val baseName = getSmGuardFunctionName(sm, guard)
+    s"${implName}_$baseName"
+  }
+
+  private def getComponentGuardFunctionParams(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ) = getComponentParamsWithTypeNameOpt(sm, guard.node._2.data.typeName)
+
+  private def getComponentParamsWithTypeNameOpt(
+    sm: Symbol.StateMachine,
+    typeNameOpt: Option[AstNode[Ast.TypeName]]
   ) = {
     object Utils extends StateMachineCppWriterUtils(s, sm.node)
     val smName = writeStateMachineImplType(sm)
@@ -77,7 +96,7 @@ case class ComponentInternalStateMachines(
       Utils.signalParamName,
       Some("The signal")
     )
-    val valueParams = Utils.getValueParamsWithTypeNameOpt(action.node._2.data.typeName)
+    val valueParams = Utils.getValueParamsWithTypeNameOpt(typeNameOpt)
     stateMachineIdParam :: signalParam :: valueParams
   }
 
@@ -103,6 +122,22 @@ case class ComponentInternalStateMachines(
   ): List[CppDoc.Function.Param] = {
     object Utils extends StateMachineCppWriterUtils(s, sm.node)
     Utils.getActionFunctionParams(action)
+  }
+
+  private def getSmGuardFunctionName(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): String = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    Utils.getGuardFunctionName(guard)
+  }
+
+  private def getSmGuardFunctionParams(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): List[CppDoc.Function.Param] = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    Utils.getGuardFunctionParams(guard)
   }
 
   private def getStateMachines: List[CppDoc.Class.Member] =
@@ -145,9 +180,40 @@ case class ComponentInternalStateMachines(
     sm.actions.map(getVirtualAction (sm))
   }
 
-  private def getVirtualGuards: List[CppDoc.Class.Member] =
-    // TODO
-    Nil
+  private def getVirtualGuard (sm: StateMachine) (guard: StateMachineSymbol.Guard):
+  CppDoc.Class.Member = {
+    val smSymbol = sm.getSymbol
+    val smName = writeStateMachineImplType(sm.getSymbol)
+    val guardName = guard.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Implementation for guard $guardName of state machine $smName",
+          AnnotationCppWriter.asStringOpt(guard.node)
+        )
+      ),
+      getComponentGuardFunctionName(smSymbol, guard),
+      getComponentGuardFunctionParams(smSymbol, guard),
+      CppDoc.Type("bool"),
+      Nil,
+      CppDoc.Function.PureVirtual
+    )
+  }
+
+  private def getVirtualGuards: List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Functions to implement for internal state machine guards",
+      internalSmSymbols.flatMap(getVirtualGuardsForSm),
+      CppDoc.Lines.Hpp
+    )
+  }
+
+  private def getVirtualGuardsForSm(smSymbol: Symbol.StateMachine):
+  List[CppDoc.Class.Member] = {
+    val sm = s.a.stateMachineMap(smSymbol)
+    sm.guards.map(getVirtualGuard (sm))
+  }
 
   private object SignalBufferWriter extends ComponentCppWriterUtils(s, aNode) {
 
@@ -318,18 +384,13 @@ case class ComponentInternalStateMachines(
       val actionName = action.getUnqualifiedName
       val componentActionFunctionName =
         getComponentActionFunctionName(smSymbol, action)
+      val args = writeComponentArgsWithTypeOpt(action.node._2.data.typeName)
       functionClassMember(
         Some(s"Implementation for action $actionName"),
         getSmActionFunctionName(smSymbol, action),
         getSmActionFunctionParams(smSymbol, action),
         CppDoc.Type("void"),
-        lines(
-          s"""|this->m_component.$componentActionFunctionName(
-              |  this->getId(),
-              |  signal,
-              |  value
-              |);"""
-        )
+        lines(s"this->m_component.$componentActionFunctionName($args);")
       )
     }
 
@@ -372,6 +433,20 @@ case class ComponentInternalStateMachines(
         )
       )
 
+    private def getGuardMember(guard: StateMachineSymbol.Guard) = {
+      val guardName = guard.getUnqualifiedName
+      val componentGuardFunctionName =
+        getComponentGuardFunctionName(smSymbol, guard)
+      val args = writeComponentArgsWithTypeOpt(guard.node._2.data.typeName)
+      functionClassMember(
+        Some(s"Implementation for guard $guardName"),
+        getSmGuardFunctionName(smSymbol, guard),
+        getSmGuardFunctionParams(smSymbol, guard),
+        CppDoc.Type("bool"),
+        lines(s"this->m_component.$componentGuardFunctionName($args);")
+      )
+    }
+
     private def getGuardMembers: List[CppDoc.Class.Member] = Nil
 
     private def getInitMembers: List[CppDoc.Class.Member] =
@@ -405,6 +480,12 @@ case class ComponentInternalStateMachines(
           )
         )
       guardedList (hasActionsOrGuards) (members)
+    }
+
+    private def writeComponentArgsWithTypeOpt[T](typeOpt: Option[T]): String = {
+      object Utils extends StateMachineCppWriterUtils(s, smSymbol.node)
+      val baseArgs = Utils.writeArgsWithValueOpt("signal", Some("value"), typeOpt)
+      s"this->getId(), $baseArgs"
     }
 
   }

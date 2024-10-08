@@ -122,10 +122,6 @@ case class StateMachineCppWriter(
     )
   }
 
-  private def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
-  List[CppDoc.Function.Param] =
-    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
-
   private def getGuardMember(sym: StateMachineSymbol.Guard):
   CppDoc.Class.Member.Function = {
     functionClassMember(

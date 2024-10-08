@@ -87,6 +87,10 @@ abstract class StateMachineCppWriterUtils(
   def getEnterFunctionName(symbol: StateMachineSymbol) =
     s"enter_${writeSmSymbolName(symbol)}"
 
+  def getGuardFunctionParams(sym: StateMachineSymbol.Guard):
+  List[CppDoc.Function.Param] =
+    getParamsWithTypeNameOpt(sym.node._2.data.typeName)
+
   def getParamsWithTypeNameOpt(typeNameOpt: Option[AstNode[Ast.TypeName]]) =
     getParamsWithTypeOpt(typeNameOpt.map(tn => s.a.typeMap(tn.id)))
 
