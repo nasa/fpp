@@ -14,8 +14,12 @@ case class ComponentInternalStateMachines(
       SignalBufferWriter.getLines
     )
 
-  /** Gets the function members */
-  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+  /** Gets the private function members */
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
+    getSignalSendHelperFunctions
+
+  /** Gets the protected function members */
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSignalSendFunctions,
     getOverflowHooks,
     getVirtualActions,
@@ -88,9 +92,59 @@ case class ComponentInternalStateMachines(
     // TODO
     Nil
 
+  private def getSignalSendFinishFunctions: List[CppDoc.Class.Member] =
+    List(
+      linesClassMember(
+        lines(
+          """|
+             |// TODO: For each state machine instance I, a function I_signalSendFinish
+             |// to send the IPC serializable buffer to I"""
+        ),
+        CppDoc.Lines.Both
+      )
+    )
+
   private def getSignalSendFunctions: List[CppDoc.Class.Member] =
-    // TODO
-    Nil
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Signal send functions",
+      guardedList (hasInternalStateMachineInstances) (
+        List(
+          linesClassMember(
+            lines(
+              """|
+                 |// TODO: For each state machine instance i, for each signal s of I,
+                 |// a function i_sendSignal_s that sends s to I.
+                 |// 1. Declare an IpcSerializableBuffer b.
+                 |// 2. Call signalSendStart(b, i, s)
+                 |// 3. If the signal has a data value, serialize it to b.
+                 |// 4. Call I_signalSendFinish(b)"""
+            ),
+            CppDoc.Lines.Both
+          )
+        )
+      )
+    )
+
+  private def getSignalSendHelperFunctions: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Signal send helper functions",
+      guardedList (hasInternalStateMachineInstances) (
+        getSignalSendStartFunction ::
+        getSignalSendFinishFunctions
+      )
+    )
+
+  private def getSignalSendStartFunction: CppDoc.Class.Member =
+    linesClassMember(
+      lines(
+        """|
+           |// TODO: A function signalSendStart for serializing a message ID,
+           |// a port number, a state machine instance id, and a signal id"""
+      ),
+      CppDoc.Lines.Both
+    )
 
   private def getSmActionFunctionName(
     sm: Symbol.StateMachine,

@@ -28,9 +28,12 @@ case class ComponentStateMachines(
     guardedList (hasStateMachineInstances) (List(lcm))
   }
 
-  def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
+    internalStateMachineWriter.getPrivateFunctionMembers
+
+  def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     externalStateMachineWriter.getFunctionMembers,
-    internalStateMachineWriter.getFunctionMembers
+    internalStateMachineWriter.getProtectedFunctionMembers
   )
 
   def getTypeMembers: List[CppDoc.Class.Member] =

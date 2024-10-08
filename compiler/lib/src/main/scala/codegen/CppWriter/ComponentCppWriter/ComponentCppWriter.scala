@@ -196,7 +196,7 @@ case class ComponentCppWriter (
       getProtectedComponentFunctionMembers,
       portWriter.getProtectedFunctionMembers,
       internalPortWriter.getFunctionMembers,
-      stateMachineWriter.getFunctionMembers,
+      stateMachineWriter.getProtectedFunctionMembers,
       cmdWriter.getProtectedFunctionMembers,
       eventWriter.getFunctionMembers,
       tlmWriter.getFunctionMembers,
@@ -211,6 +211,7 @@ case class ComponentCppWriter (
 
       // Private function members
       portWriter.getPrivateFunctionMembers,
+      stateMachineWriter.getPrivateFunctionMembers,
       paramWriter.getPrivateFunctionMembers,
       dpWriter.getPrivateDpFunctionMembers,
 
