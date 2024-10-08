@@ -45,12 +45,6 @@ case class ComponentInternalStateMachines(
     // TODO
     Nil
 
-  private val stateMachineIdParam = CppDoc.Function.Param(
-    CppDoc.Type("SmId"),
-    "smId",
-    Some("The state machine id")
-  )
-
   private def getComponentActionFunctionName(
     sm: Symbol.StateMachine,
     action: StateMachineSymbol.Action
@@ -103,7 +97,7 @@ case class ComponentInternalStateMachines(
       linesClassMember(
         lines(
           """|
-             |// TODO: For each state machine instance I, a function I_signalSendFinish
+             |// TODO: For each state machine instance I, a function I_sendSignalFinish
              |// to send the IPC serializable buffer to I"""
         ),
         CppDoc.Lines.Both
@@ -122,9 +116,9 @@ case class ComponentInternalStateMachines(
                  |// TODO: For each state machine instance i, for each signal s of I,
                  |// a function i_sendSignal_s that sends s to I.
                  |// 1. Declare an IpcSerializableBuffer b.
-                 |// 2. Call signalSendStart(b, i, s)
+                 |// 2. Call sendSignalStart(b, i, s)
                  |// 3. If the signal has a data value, serialize it to b.
-                 |// 4. Call I_signalSendFinish(b)"""
+                 |// 4. Call I_sendSignalFinish(b)"""
             ),
             CppDoc.Lines.Both
           )
@@ -146,7 +140,7 @@ case class ComponentInternalStateMachines(
   private def getSignalSendStartFunction: CppDoc.Class.Member =
     functionClassMember(
       Some("Start sending a signal to a state machine"),
-      "signalSendStart",
+      "sendSignalStart",
       List(
         CppDoc.Function.Param(
           CppDoc.Type("SmId"),
@@ -279,6 +273,12 @@ case class ComponentInternalStateMachines(
     val sm = s.a.stateMachineMap(smSymbol)
     sm.guards.map(getVirtualGuard (sm))
   }
+
+  private val stateMachineIdParam = CppDoc.Function.Param(
+    CppDoc.Type("SmId"),
+    "smId",
+    Some("The state machine id")
+  )
 
   /** Writes out the serialized size of the signal buffer */
   private object SignalBufferWriter extends ComponentCppWriterUtils(s, aNode) {
