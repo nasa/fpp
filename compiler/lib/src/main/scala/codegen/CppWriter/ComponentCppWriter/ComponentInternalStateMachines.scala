@@ -22,11 +22,11 @@ case class ComponentInternalStateMachines(
 
   /** Gets the private function members */
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
-    getSignalSendHelperFunctions
+    getSendSignalHelperFunctions
 
   /** Gets the protected function members */
   def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
-    getSignalSendFunctions,
+    getSendSignalFunctions,
     getOverflowHooks,
     getVirtualActions,
     getVirtualGuards
@@ -92,7 +92,7 @@ case class ComponentInternalStateMachines(
     // TODO
     Nil
 
-  private def getSignalSendFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
+  private def getSendSignalFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
     functionClassMember(
       Some("Finish sending a signal to a state machine"),
       s"${smi.getName}_sendSignalFinish",
@@ -111,43 +111,67 @@ case class ComponentInternalStateMachines(
     )
   }
 
-  private def getSignalSendFinishFunctions: List[CppDoc.Class.Member] =
-    internalStateMachineInstances.map(getSignalSendFinishFunction)
+  private def getSendSignalFinishFunctions: List[CppDoc.Class.Member] =
+    internalStateMachineInstances.map(getSendSignalFinishFunction)
 
-  private def getSignalSendFunctions: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PROTECTED",
-      "Signal send functions",
-      guardedList (hasSignals) (
-        List(
-          linesClassMember(
+  private def getSendSignalFunction(
+    smi: StateMachineInstance,
+    signal: StateMachineSymbol.Signal
+  ): CppDoc.Class.Member = {
+    val smName = writeStateMachineImplType(smi.symbol)
+    val signalUnqualifiedName = signal.getUnqualifiedName
+    val smiName = smi.getName
+    val smIdName = writeSmIdName(smiName)
+    val signalQualifiedName = s"$smName::Signal::$signalUnqualifiedName"
+    val signalArg = s"static_cast<FwEnumStoreType>($signalQualifiedName)"
+    object Utils extends StateMachineCppWriterUtils(s, smi.symbol.node)
+    val params = Utils.getValueParamsWithTypeNameOpt(signal.node._2.data.typeName)
+    functionClassMember(
+      Some(s"Send signal $signalUnqualifiedName to state machine $smiName"),
+      s"${smName}_sendSignal_${signalUnqualifiedName}",
+      params,
+      CppDoc.Type("void"),
+      List.concat(
+        lines(
+          s"""|ComponentIpcSerializableBuffer msg;
+              |this->sendSignalStart($smIdName, $signalArg, msg);"""
+        ),
+        params match {
+          case head :: _ =>
             lines(
-              """|
-                 |// TODO: For each state machine instance i, for each signal s of I,
-                 |// a function i_sendSignal_s that sends s to I.
-                 |// 1. Declare an IpcSerializableBuffer b.
-                 |// 2. Call sendSignalStart(b, i, s)
-                 |// 3. If the signal has a data value, serialize it to b.
-                 |// 4. Call I_sendSignalFinish(b)"""
-            ),
-            CppDoc.Lines.Both
-          )
-        )
-      )
-    )
-
-  private def getSignalSendHelperFunctions: List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Signal send helper functions",
-      guardedList (hasSignals) (
-        getSignalSendStartFunction ::
-        getSignalSendFinishFunctions
+              s"""|const Fw::SerializeStatus status = msg.serialize(${head.name});
+                  |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
+            )
+          case _ => Nil
+        },
+        lines(s"this->${smiName}_sendSignalFinish(msg);")
       )
     )
   }
 
-  private def getSignalSendStartFunction: CppDoc.Class.Member =
+  private def getSendSignalFunctions: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Signal send functions",
+      internalStateMachineInstances.flatMap(
+        smi => {
+          val sm = s.a.stateMachineMap(smi.symbol)
+          sm.signals.map(getSendSignalFunction(smi, _))
+        }
+      )
+    )
+
+  private def getSendSignalHelperFunctions: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Signal send helper functions",
+      guardedList (hasSignals) (
+        getSendSignalStartFunction ::
+        getSendSignalFinishFunctions
+      )
+    )
+
+  private def getSendSignalStartFunction: CppDoc.Class.Member =
     functionClassMember(
       Some("Start sending a signal to a state machine"),
       "sendSignalStart",
