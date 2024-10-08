@@ -92,17 +92,27 @@ case class ComponentInternalStateMachines(
     // TODO
     Nil
 
-  private def getSignalSendFinishFunctions: List[CppDoc.Class.Member] =
-    List(
-      linesClassMember(
-        lines(
-          """|
-             |// TODO: For each state machine instance I, a function I_sendSignalFinish
-             |// to send the IPC serializable buffer to I"""
-        ),
-        CppDoc.Lines.Both
+  private def getSignalSendFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
+    functionClassMember(
+      Some("Finish sending a signal to a state machine"),
+      s"${smi.getName}_sendSignalFinish",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The buffer with the data to send")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// TODO: Send the buffer to the input queue, using the
+            |// overflow behavior specified in ${smi.getName}"""
       )
     )
+  }
+
+  private def getSignalSendFinishFunctions: List[CppDoc.Class.Member] =
+    internalStateMachineInstances.map(getSignalSendFinishFunction)
 
   private def getSignalSendFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
@@ -162,7 +172,7 @@ case class ComponentInternalStateMachines(
       lines(
         """|// TODO: Serialize the message ID
            |// TODO: Serialize the port number
-           |// TODO: Serialize the state machine instance ID
+           |// TODO: Serialize the state machine ID
            |// TODO: Serialize the signal ID"""
       )
     )
