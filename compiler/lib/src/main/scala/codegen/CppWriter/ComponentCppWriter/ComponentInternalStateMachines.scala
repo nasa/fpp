@@ -128,7 +128,7 @@ case class ComponentInternalStateMachines(
     val params = Utils.getValueParamsWithTypeNameOpt(signal.node._2.data.typeName)
     functionClassMember(
       Some(s"Send signal $signalUnqualifiedName to state machine $smiName"),
-      s"${smName}_sendSignal_${signalUnqualifiedName}",
+      s"${smiName}_sendSignal_${signalUnqualifiedName}",
       params,
       CppDoc.Type("void"),
       List.concat(
