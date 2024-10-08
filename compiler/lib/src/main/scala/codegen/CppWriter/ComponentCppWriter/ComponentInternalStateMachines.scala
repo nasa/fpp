@@ -8,6 +8,12 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  /** Gets the anonymous namespace lines */
+  def getAnonymousNamespaceLines: List[Line] =
+    guardedList (hasInternalStateMachineInstances) (
+      SignalBufferWriter.getLines
+    )
+
   /** Gets the function members */
   def getFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSignalSendFunctions,
@@ -18,18 +24,10 @@ case class ComponentInternalStateMachines(
 
   /** Gets the type members */
   def getTypeMembers: List[CppDoc.Class.Member] =
-    List.concat(
-      addAccessTagAndComment(
-        "public",
-        "Public types for internal state machines",
-        SignalBufferWriter.getSignalBuffer,
-        CppDoc.Lines.Hpp
-      ),
-      addAccessTagAndComment(
-        "PROTECTED",
-        "Protected types for internal state machines",
-        getStateMachines
-      )
+    addAccessTagAndComment(
+      "PROTECTED",
+      "Types for internal state machines",
+      getStateMachines
     )
 
   /** Writes the dispatch case, if any, for internal state machine instances */
@@ -217,23 +215,17 @@ case class ComponentInternalStateMachines(
 
   private object SignalBufferWriter extends ComponentCppWriterUtils(s, aNode) {
 
-    def getSignalBuffer: List[CppDoc.Class.Member] =
-      guardedList (hasInternalStateMachineInstances) (
-        List(
-          classClassMember(
-            Some("""|Buffer for serializing internal state machine signals
-                    |This type is public so that it can be used in external size computations"""),
-            "SmSignalBuffer",
-            Some("public Fw::SerializeBufferBase"),
-            List.concat(
-              getTypeMembers,
-              getConstantMembers,
-              getFunctionMembers,
-              getVariableMembers
-            )
-          )
+    def getLines: List[Line] = List.concat(
+      CppDocWriter.writeComment("Constant definitions for the state machine signal buffer"),
+      wrapInNamespace(
+        "SmSignalBuffer",
+        List.concat(
+          guardedList (hasSignalTypes) (getSignalTypeUnion),
+          getSerializedSizeConstant,
+          List(Line.blank)
         )
       )
+    )
 
     /** The signal types and the signal string size */
     private val signalTypesAndStringSize: (Set[Type], BigInt) =
@@ -264,36 +256,8 @@ case class ComponentInternalStateMachines(
 
     private val hasSignalTypes: Boolean = !signalTypes.isEmpty
 
-    private def getConstantMembers: List[CppDoc.Class.Member] =
-      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
-      List(getSerializedSizeConstant)
-
-    private def getFunctionMembers: List[CppDoc.Class.Member] =
-      linesClassMember(CppDocHppWriter.writeAccessTag("public")) ::
-      List(
-        linesClassMember(
-          lines(
-            """|
-               |//! Get the buffer capacity
-               |Fw::Serializable::SizeType getBuffCapacity() const {
-               |  return sizeof(this->m_buff);
-               |}
-               |
-               |//! Get the buffer address (non-const)
-               |U8* getBuffAddr() {
-               |  return this->m_buff;
-               |}
-               |
-               |//! Get the buffer address (const)
-               |const U8* getBuffAddr() const {
-               |  return this->m_buff;
-               |}"""
-          )
-        )
-      )
-
-    private def getSerializedSizeConstant: CppDoc.Class.Member = {
-      val comment = CppDocWriter.writeDoxygenComment(
+    private def getSerializedSizeConstant: List[Line] = {
+      val comment = CppDocWriter.writeComment(
         "The serialized size"
       )
       val terms = "2 * sizeof(FwEnumStoreType)" ::
@@ -301,10 +265,10 @@ case class ComponentInternalStateMachines(
       val sum = s"${terms.mkString(" +\n")};"
       val constantLines = line("static constexpr FwSizeType SERIALIZED_SIZE =") ::
         lines(sum).map(indentIn)
-      linesClassMember(List.concat(comment, constantLines))
+      List.concat(comment, constantLines)
     }
 
-    private def getSignalTypeUnion: CppDoc.Class.Member = {
+    private def getSignalTypeUnion: List[Line] = {
       val members = signalTypes.map (
         t => {
           val cppType = writeSignalTypeName(t)
@@ -314,30 +278,12 @@ case class ComponentInternalStateMachines(
           line(s"BYTE $sizeIdent[$sizeExpr];")
         }
       )
-      val comment = CppDocWriter.writeDoxygenComment(
+      val comment = CppDocWriter.writeComment(
         "The union of the signal types, for sizing"
       )
       val union = wrapInScope("union SignalTypeUnion {", members, "};")
-      linesClassMember(List.concat(comment, union))
+      List.concat(comment, union)
     }
-
-    private def getTypeMembers: List[CppDoc.Class.Member] =
-      guardedList (hasSignalTypes) (
-        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
-        List(getSignalTypeUnion)
-      )
-
-    private def getVariableMembers: List[CppDoc.Class.Member] =
-      linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
-      List(
-        linesClassMember(
-          lines(
-            """|
-               |//! The buffer
-               |U8 m_buff[SERIALIZED_SIZE];"""
-          )
-        )
-      )
 
     private def writeSignalTypeName(t: Type) = t match {
       case t: Type.String => "string"

@@ -280,6 +280,7 @@ case class ComponentCppWriter (
             Line.blank :: wrapInAnonymousNamespace(
               intersperseBlankLines(
                 List(
+                  stateMachineWriter.getAnonymousNamespaceLines,
                   getMsgTypeEnum,
                   buffUnion,
                   getComponentIpcSerializableBufferClass(buffUnion)
@@ -361,7 +362,7 @@ case class ComponentCppWriter (
           s"""|// Size of buffer for internal state machine signals
               |// The internal SmSignalBuffer stores the state machine id, the
               |// signal id, and the signal data
-              |BYTE internalSmBufferSize[$className::SmSignalBuffer::SERIALIZED_SIZE];"""
+              |BYTE internalSmBufferSize[SmSignalBuffer::SERIALIZED_SIZE];"""
         )
       )
     )

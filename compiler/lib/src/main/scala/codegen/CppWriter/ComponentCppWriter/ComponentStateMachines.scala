@@ -13,6 +13,9 @@ case class ComponentStateMachines(
 
   val internalStateMachineWriter = ComponentInternalStateMachines(s, aNode)
 
+  def getAnonymousNamespaceLines: List[Line] =
+    internalStateMachineWriter.getAnonymousNamespaceLines
+
   def getConstantMembers: List[CppDoc.Class.Member] = {
     lazy val enumLines = smInstancesByName.map(
       (name, _) => line(s"$name,")
