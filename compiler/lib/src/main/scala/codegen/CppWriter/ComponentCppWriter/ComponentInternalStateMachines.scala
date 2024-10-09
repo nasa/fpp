@@ -8,11 +8,16 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  private val hookInstances =
+    internalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook)
+
+  private val hasHookInstances = hookInstances.nonEmpty
+
   private val signals = internalSmSymbols.flatMap(
     smSymbol => s.a.stateMachineMap(smSymbol).signals
   )
 
-  private val hasSignals = !signals.isEmpty
+  private val hasSignals = signals.nonEmpty
 
   /** Gets the anonymous namespace lines */
   def getAnonymousNamespaceLines: List[Line] =
@@ -96,7 +101,7 @@ case class ComponentInternalStateMachines(
          |When sending a signal to a state machine instance, if
          |the queue overflows and the instance is marked with 'hook' behavior,
          |the corresponding function here is called.""",
-      internalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+      hookInstances.map(
         smi => getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
@@ -245,7 +250,7 @@ case class ComponentInternalStateMachines(
   private def getSendSignalHelperFunctions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
-      "Signal send helper functions",
+      "Send signal helper functions",
       guardedList (hasSignals) (
         getSendSignalStartFunction ::
         getSendSignalFinishFunctions
