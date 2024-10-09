@@ -621,59 +621,73 @@ abstract class ComponentCppWriterUtils(
   def writeChannelType(t: Type, stringRep: String = "Fw::StringBase"): String =
     TypeCppWriter.getName(s, t, stringRep)
 
+  def writeQueueSendLines(
+    bufferName: String,
+    queueFull: Ast.QueueFull,
+    priority: Option[BigInt]
+  ): List[Line] = {
+    val queueBlocking = queueFull match {
+      case Ast.QueueFull.Block => "BLOCKING"
+      case _ => "NONBLOCKING"
+    }
+    val priorityNum = priority.getOrElse(BigInt(0))
+    lines(
+      s"""|// Send message
+          |Os::Queue::BlockingType _block = Os::Queue::$queueBlocking;
+          |Os::Queue::Status qStatus = this->m_queue.send($bufferName, $priorityNum, _block);"""
+    )
+  }
+
+  def writeQueueFullLines(
+    queueFull: Ast.QueueFull,
+    messageType: MessageType,
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] =
+    queueFull match {
+      case Ast.QueueFull.Drop => lines(
+        """|if (qStatus == Os::Queue::Status::FULL) {
+           |  this->incNumMsgDropped();
+           |  return;
+           |}
+           |"""
+      )
+      case Ast.QueueFull.Hook =>
+        val hookName = inputOverflowHookName(hookBaseName, messageType)
+        val hookArguments = hookParams.map(_.name).mkString(", ")
+        lines(
+          s"""|if (qStatus == Os::Queue::Status::FULL) {
+              |  this->$hookName($hookArguments);
+              |  return;
+              |}
+              |"""
+        )
+      case _ => Nil
+    }
+
+  def writeQueueAssert = lines(
+    """|FW_ASSERT(
+       |  qStatus == Os::Queue::OP_OK,
+       |  static_cast<FwAssertArgType>(qStatus)
+       |);
+       |"""
+  )
+
   /** Write send message logic */
   def writeSendMessageLogic(
     bufferName: String,
     queueFull: Ast.QueueFull,
     priority: Option[BigInt],
     messageType: MessageType,
-    name: String,
-    arguments: List[CppDoc.Function.Param]
-  ): List[Line] = {
-    val queueBlocking = queueFull match {
-      case Ast.QueueFull.Block => "BLOCKING"
-      case _ => "NONBLOCKING"
-    }
-    val priorityNum = priority match {
-      case Some(num) => num
-      case _ => BigInt(0)
-    }
-
-    intersperseBlankLines(
-      List(
-        lines(
-          s"""|// Send message
-              |Os::Queue::BlockingType _block = Os::Queue::$queueBlocking;
-              |Os::Queue::Status qStatus = this->m_queue.send($bufferName, $priorityNum, _block);
-              |"""
-        ),
-        queueFull match {
-          case Ast.QueueFull.Drop => lines(
-            """|if (qStatus == Os::Queue::Status::FULL) {
-               |  this->incNumMsgDropped();
-               |  return;
-               |}
-               |"""
-          )
-          case Ast.QueueFull.Hook => lines(
-            s"""|if (qStatus == Os::Queue::Status::FULL) {
-                |  this->${inputOverflowHookName(name, messageType)}(${arguments.map(_.name).mkString(", ")});
-                |  return;
-                |}
-                |"""
-          )
-          case _ => Nil
-        },
-        lines(
-          """|FW_ASSERT(
-             |  qStatus == Os::Queue::OP_OK,
-             |  static_cast<FwAssertArgType>(qStatus)
-             |);
-             |"""
-        )
-      )
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] = intersperseBlankLines(
+    List(
+      writeQueueSendLines(bufferName, queueFull, priority),
+      writeQueueFullLines(queueFull, messageType, hookBaseName, hookParams),
+      writeQueueAssert
     )
-  }
+  )
 
   /** Write an event format as C++ */
   def writeEventFormat(event: Event): String = {
