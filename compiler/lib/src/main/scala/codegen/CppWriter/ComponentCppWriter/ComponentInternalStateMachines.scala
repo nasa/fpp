@@ -435,6 +435,8 @@ case class ComponentInternalStateMachines(
     smSymbol: Symbol.StateMachine
   ): CppDoc.Class.Member = {
     val smName = writeStateMachineImplType(smSymbol)
+    val sm = s.a.stateMachineMap(smSymbol)
+    val signals = sm.signals
     functionClassMember(
       Some(s"Dispatch a signal to a state machine instance of type $smName"),
       s"${smName}_smDispatch",
@@ -456,11 +458,33 @@ case class ComponentInternalStateMachines(
         )
       ),
       CppDoc.Type("void"),
-      lines(
-        s"""|// TODO: Switch on the signal
-            |// TODO: Deserialize the data if necessary
-            |// TODO: Assert that no data is left in the buffer
-            |// TODO: Call the sendSignal function for sm and signal"""
+      wrapInSwitch(
+        "signal",
+        signals.flatMap(
+          signal => {
+            val signalName = signal.getUnqualifiedName
+            List.concat(
+              lines(s"case $smName::Signal::$signalName: {"),
+              (
+                signal.node._2.data.typeName match {
+                  case Some(t) => lines("  // TODO: Deserialize the data")
+                  case None => Nil
+                }
+              ),
+              lines(
+                s"""|  // TODO: Assert that no data is left in the buffer
+                    |  // TODO: Call the sendSignal function for sm and $signalName
+                    |  break;
+                    |}"""
+              )
+            )
+          }
+        ) ++
+        lines(
+          """|default:
+             |  FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+             |  break;"""
+        )
       )
     )
   }
