@@ -36,8 +36,7 @@ case class ComponentInternalStateMachines(
   /** Gets the private function members */
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSendSignalHelperFunctions,
-    getSmDispatchHelperFunctions,
-    getHookHelperFunctions
+    getSmDispatchHelperFunctions
   )
 
   /** Gets the protected function members */
@@ -188,13 +187,6 @@ case class ComponentInternalStateMachines(
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       ),
       CppDoc.Function.Static
-    )
-
-  private def getHookHelperFunctions: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Helper functions for state machine hooks",
-      guardedList (hasHookInstances) (List(getDeserializeSmIdAndSignal))
     )
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
@@ -389,6 +381,7 @@ case class ComponentInternalStateMachines(
       "Helper functions for state machine dispatch",
       guardedList (hasInternalStateMachineInstances) (
         getGeneralSmDispatchFunction ::
+        getDeserializeSmIdAndSignal ::
         getSpecializedSmDispatchFunctions
       )
     )
@@ -406,8 +399,14 @@ case class ComponentInternalStateMachines(
       ),
       CppDoc.Type("void"),
       lines(
-        s"""|// TODO: Deserialize the smId and signal
-            |// TODO: Switch on the smId and call the appropriate dispatch function"""
+        s"""|// Deserialize the state machine ID and signal
+            |FwEnumStoreType smId;
+            |FwEnumStoreType signal;
+            |$componentClassName::deserializeSmIdAndSignal(buffer, smId, signal);
+            |
+            |// TODO: Switch on the smId and call the appropriate dispatch function
+            |(void) smId;
+            |(void) signal;"""
       )
     )
 
@@ -437,9 +436,10 @@ case class ComponentInternalStateMachines(
       ),
       CppDoc.Type("void"),
       lines(
-        s"""|// TODO: Deserialize the data if necessary
+        s"""|// TODO: Switch on the signal
+            |// TODO: Deserialize the data if necessary
             |// TODO: Assert that no data is left in the buffer
-            |// TODO: Switch on the signal and call the sendSignal function for sm and signal"""
+            |// TODO: Call the sendSignal function for sm and signal"""
       )
     )
   }
