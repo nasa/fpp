@@ -8,6 +8,10 @@ case class ComponentInternalStateMachines(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentCppWriterUtils(s, aNode) {
 
+  // ----------------------------------------------------------------------
+  // Private constants
+  // ----------------------------------------------------------------------
+
   private val hookInstances =
     internalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook)
 
@@ -19,6 +23,10 @@ case class ComponentInternalStateMachines(
 
   private val hasSignals = signals.nonEmpty
 
+  // ----------------------------------------------------------------------
+  // Public functions
+  // ----------------------------------------------------------------------
+
   /** Gets the anonymous namespace lines */
   def getAnonymousNamespaceLines: List[Line] =
     guardedList (hasInternalStateMachineInstances) (
@@ -26,8 +34,10 @@ case class ComponentInternalStateMachines(
     )
 
   /** Gets the private function members */
-  def getPrivateFunctionMembers: List[CppDoc.Class.Member] =
-    getSendSignalHelperFunctions
+  def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getSendSignalHelperFunctions,
+    getHookHelperFunctions
+  )
 
   /** Gets the protected function members */
   def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
@@ -49,6 +59,47 @@ case class ComponentInternalStateMachines(
   def writeDispatchCase: List[Line] =
     // TODO
     Nil
+
+  // ----------------------------------------------------------------------
+  // Public overrides
+  // ----------------------------------------------------------------------
+
+  override def writeQueueFullLines(
+    queueFull: Ast.QueueFull,
+    messageType: MessageType,
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] =
+    queueFull match {
+      case Ast.QueueFull.Hook =>
+        val hookName = inputOverflowHookName(hookBaseName, messageType)
+        wrapInIf(
+          "qStatus == Os::Queue::Status::FULL",
+          lines(
+            s"""|
+                |// Deserialize the state machine ID and signal
+                |FwEnumStoreType smId;
+                |FwEnumStoreType signal;
+                |$componentClassName::deserializeSmIdAndSignal(buffer, smId, signal);
+                |
+                |// Call the overflow hook
+                |this->$hookName(static_cast<SmId>(smId), signal, buffer);
+                |
+                |// Continue execution
+                |return;"""
+          ) :+ Line.blank
+        )
+      case _ => super.writeQueueFullLines(
+        queueFull,
+        messageType,
+        hookBaseName,
+        hookParams
+      )
+    }
+
+  // ----------------------------------------------------------------------
+  // Private functions
+  // ----------------------------------------------------------------------
 
   private def getComponentActionFunctionName(
     sm: Symbol.StateMachine,
@@ -93,6 +144,52 @@ case class ComponentInternalStateMachines(
     stateMachineIdParam :: signalParam :: valueParams
   }
 
+  private def getDeserializeSmIdAndSignal: CppDoc.Class.Member =
+    functionClassMember(
+      Some("Deserialize the state machine ID and signal from the message buffer"),
+      "deserializeSmIdAndSignal",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The message buffer (input and output)")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwEnumStoreType&"),
+          "smId",
+          Some("The state machine ID (output)")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type("FwEnumStoreType&"),
+          "signal",
+          Some("The signal (output)")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// Move deserialization beyond the message type and port number
+            |Fw::SerializeStatus status =
+            |  buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
+            |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+            |
+            |// Deserialize the state machine ID
+            |status = buffer.deserialize(smId);
+            |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+            |
+            |// Deserialize the signal
+            |status = buffer.deserialize(signal);
+            |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
+      ),
+      CppDoc.Function.Static
+    )
+
+  private def getHookHelperFunctions: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Helper functions for state machine hooks",
+      guardedList (hasHookInstances) (List(getDeserializeSmIdAndSignal))
+    )
+
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
@@ -126,48 +223,6 @@ case class ComponentInternalStateMachines(
       ),
       CppDoc.Lines.Hpp
     )
-
-  override def writeQueueFullLines(
-    queueFull: Ast.QueueFull,
-    messageType: MessageType,
-    hookBaseName: String,
-    hookParams: List[CppDoc.Function.Param]
-  ): List[Line] =
-    queueFull match {
-      case Ast.QueueFull.Hook =>
-        val hookName = inputOverflowHookName(hookBaseName, messageType)
-        wrapInIf(
-          "qStatus == Os::Queue::Status::FULL",
-          lines(
-            s"""|
-                |// Move deserialization beyond the message type and port number
-                |Fw::SerializeStatus status = buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
-                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-                |
-                |// Deserialize the state machine ID
-                |FwEnumStoreType smIdEnumStore = 0;
-                |status = buffer.deserialize(smIdEnumStore);
-                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-                |const SmId smId = static_cast<SmId>(smIdEnumStore);
-                |
-                |// Deserialize the signal
-                |FwEnumStoreType signal = 0;
-                |status = buffer.deserialize(signal);
-                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
-                |
-                |// Call the overflow hook
-                |this->$hookName(smId, signal, buffer);
-                |
-                |return;"""
-          ) :+ Line.blank
-        )
-      case _ => super.writeQueueFullLines(
-        queueFull,
-        messageType,
-        hookBaseName,
-        hookParams
-      )
-    }
 
   private def getSendSignalFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
     functionClassMember(
@@ -212,6 +267,7 @@ case class ComponentInternalStateMachines(
       List.concat(
         lines(
           s"""|ComponentIpcSerializableBuffer buffer;
+              |// Serialize the message type, port number, state ID, and signal
               |this->sendSignalStart($smIdName, $signalArg, buffer);"""
         ),
         params match {
@@ -225,12 +281,16 @@ case class ComponentInternalStateMachines(
               case _ => s"buffer.serialize($paramName)"
             }
             lines(
-              s"""|const Fw::SerializeStatus status = $serializeExpr;
+              s"""|// Serialize the signal data
+                  |const Fw::SerializeStatus status = $serializeExpr;
                   |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
             )
           case _ => Nil
         },
-        lines(s"this->${smiName}_sendSignalFinish(buffer);")
+        lines(
+          s"""|// Send the message and handle overflow
+              |this->${smiName}_sendSignalFinish(buffer);"""
+        )
       )
     )
   }
@@ -280,14 +340,13 @@ case class ComponentInternalStateMachines(
       ),
       CppDoc.Type("void"),
       lines(
-        s"""|
-            |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+        s"""|Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |
             |// Serialize the message type
             |status = buffer.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
-            |// Serialize the port number number
+            |// Serialize the port number
             |status = buffer.serialize(static_cast<FwIndexType>(0));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
@@ -298,7 +357,7 @@ case class ComponentInternalStateMachines(
             |// Serialize the signal
             |status = buffer.serialize(static_cast<FwEnumStoreType>(signal));
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
-      ) :+ Line.blank
+      )
     )
 
   private def getSmActionFunctionName(
