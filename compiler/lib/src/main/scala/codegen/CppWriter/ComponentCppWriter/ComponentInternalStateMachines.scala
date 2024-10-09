@@ -36,6 +36,7 @@ case class ComponentInternalStateMachines(
   /** Gets the private function members */
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSendSignalHelperFunctions,
+    getSmDispatchHelperFunctions,
     getHookHelperFunctions
   )
 
@@ -57,8 +58,14 @@ case class ComponentInternalStateMachines(
 
   /** Writes the dispatch case, if any, for internal state machine instances */
   def writeDispatchCase: List[Line] =
-    // TODO
-    Nil
+    guardedList (hasInternalStateMachineInstances) (
+      CppDocWriter.writeComment("Handle signals to internal state machines") ++
+      lines(
+        s"""|case $internalStateMachineMsgType:
+            |  this->smDispatch(msg);
+            |  break;"""
+      )
+    )
 
   // ----------------------------------------------------------------------
   // Public overrides
@@ -375,6 +382,70 @@ case class ComponentInternalStateMachines(
     object Utils extends StateMachineCppWriterUtils(s, sm.node)
     Utils.getActionFunctionParams(action)
   }
+
+  private def getSmDispatchHelperFunctions =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Helper functions for state machine dispatch",
+      guardedList (hasInternalStateMachineInstances) (
+        getGeneralSmDispatchFunction ::
+        getSpecializedSmDispatchFunctions
+      )
+    )
+
+  private def getGeneralSmDispatchFunction =
+    functionClassMember(
+      Some("Dispatch a signal to a state machine instance"),
+      "smDispatch",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The message buffer")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// TODO: Deserialize the smId and signal
+            |// TODO: Switch on the smId and call the appropriate dispatch function"""
+      )
+    )
+
+  private def getSpecializedSmDispatchFunction(
+    smSymbol: Symbol.StateMachine
+  ): CppDoc.Class.Member = {
+    val smName = writeStateMachineImplType(smSymbol)
+    functionClassMember(
+      Some(s"Dispatch a signal to a state machine instance of type $smName"),
+      s"${smName}_smDispatch",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The message buffer")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type(s"$smName&"),
+          "sm",
+          Some("The state machine")
+        ),
+        CppDoc.Function.Param(
+          CppDoc.Type(s"$smName::Signal"),
+          "signal",
+          Some("The signal")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// TODO: Deserialize the data if necessary
+            |// TODO: Assert that no data is left in the buffer
+            |// TODO: Switch on the signal and call the sendSignal function for sm and signal"""
+      )
+    )
+  }
+
+  private def getSpecializedSmDispatchFunctions =
+    internalSmSymbols.map(getSpecializedSmDispatchFunction)
 
   private def getSmGuardFunctionName(
     sm: Symbol.StateMachine,
