@@ -400,13 +400,34 @@ case class ComponentInternalStateMachines(
       CppDoc.Type("void"),
       lines(
         s"""|// Deserialize the state machine ID and signal
-            |FwEnumStoreType smId;
-            |FwEnumStoreType signal;
-            |$componentClassName::deserializeSmIdAndSignal(buffer, smId, signal);
-            |
-            |// TODO: Switch on the smId and call the appropriate dispatch function
-            |(void) smId;
-            |(void) signal;"""
+            |FwEnumStoreType storedSmId;
+            |FwEnumStoreType storedSignal;
+            |$componentClassName::deserializeSmIdAndSignal(buffer, storedSmId, storedSignal);"""
+      ) ++
+      CppDocWriter.writeComment("Select the target state machine instance") ++
+      lines("const SmId smId = static_cast<SmId>(storedSmId);") ++
+      wrapInSwitch(
+        "smId",
+        internalStateMachineInstances.flatMap(
+          smi => {
+            val smName = writeStateMachineImplType(smi.symbol)
+            val smiName = smi.getName
+            val smIdName = writeSmIdName(smiName)
+            lines(
+              s"""|case $smIdName: {
+                  |  const $smName::Signal signal = static_cast<$smName::Signal>(storedSignal);
+                  |  this->${smName}_smDispatch(buffer, this->m_stateMachine_$smiName, signal);
+                  |  break;
+                  |}"""
+            )
+          }
+        ) ++
+        lines(
+          """|default:
+             |  FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+             |  break;"""
+
+        )
       )
     )
 
