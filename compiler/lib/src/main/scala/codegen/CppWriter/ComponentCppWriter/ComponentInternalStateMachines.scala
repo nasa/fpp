@@ -433,7 +433,7 @@ case class ComponentInternalStateMachines(
         }
       )
       val comment = CppDocWriter.writeComment(
-        "The union of the signal types, for sizing"
+        "Union for computing the max size of a signal type"
       )
       val union = wrapInScope("union SignalTypeUnion {", members, "};")
       List.concat(comment, union)
