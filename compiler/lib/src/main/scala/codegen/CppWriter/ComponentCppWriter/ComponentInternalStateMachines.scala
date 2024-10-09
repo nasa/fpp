@@ -122,21 +122,64 @@ case class ComponentInternalStateMachines(
       CppDoc.Lines.Hpp
     )
 
+  override def writeQueueFullLines(
+    queueFull: Ast.QueueFull,
+    messageType: MessageType,
+    hookBaseName: String,
+    hookParams: List[CppDoc.Function.Param]
+  ): List[Line] =
+    queueFull match {
+      case Ast.QueueFull.Hook =>
+        val hookName = inputOverflowHookName(hookBaseName, messageType)
+        wrapInIf(
+          "qStatus == Os::Queue::Status::FULL",
+          lines(
+            s"""|
+                |// Move deserialization beyond the message type and port number
+                |Fw::SerializeStatus status = buffer.moveDeserToOffset(ComponentIpcSerializableBuffer::DATA_OFFSET);
+                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+                |
+                |// Deserialize the state machine ID
+                |FwEnumStoreType smIdEnumStore = 0;
+                |status = buffer.deserialize(smIdEnumStore);
+                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+                |const SmId smId = static_cast<SmId>(smIdEnumStore);
+                |
+                |// Deserialize the signal
+                |FwEnumStoreType signal = 0;
+                |status = buffer.deserialize(signal);
+                |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+                |
+                |// Call the overflow hook
+                |this->$hookName(smId, signal, buffer);
+                |
+                |return;"""
+          ) :+ Line.blank
+        )
+      case _ => super.writeQueueFullLines(
+        queueFull,
+        messageType,
+        hookBaseName,
+        hookParams
+      )
+    }
+
   private def getSendSignalFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
     functionClassMember(
       Some("Finish sending a signal to a state machine"),
       s"${smi.getName}_sendSignalFinish",
       List(
         CppDoc.Function.Param(
-          CppDoc.Type("const Fw::SerializeBufferBase&"),
+          CppDoc.Type("Fw::SerializeBufferBase&"),
           "buffer",
           Some("The buffer with the data to send")
         )
       ),
       CppDoc.Type("void"),
-      lines(
-        s"""|// TODO: Send the buffer to the input queue, using the
-            |// priority and overflow behavior specified in ${smi.getName}"""
+      writeSendMessageLogic(
+        "buffer", smi.queueFull, smi.priority,
+        MessageType.StateMachine, smi.getName,
+        Nil
       )
     )
   }
