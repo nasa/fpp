@@ -140,7 +140,7 @@ namespace M {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PRIVATE:
+    PROTECTED:
 
       // ----------------------------------------------------------------------
       // State machine instances

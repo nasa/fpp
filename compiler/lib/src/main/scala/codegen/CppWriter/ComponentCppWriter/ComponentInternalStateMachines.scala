@@ -463,20 +463,34 @@ case class ComponentInternalStateMachines(
         signals.flatMap(
           signal => {
             val signalName = signal.getUnqualifiedName
-            List.concat(
-              lines(s"case $smName::Signal::$signalName: {"),
-              (
-                signal.node._2.data.typeName match {
-                  case Some(t) => lines("  // TODO: Deserialize the data")
-                  case None => Nil
-                }
+            val astTypeNameOpt = signal.node._2.data.typeName
+            val sendSignalArgs = astTypeNameOpt.map(_ => "value").getOrElse("")
+            wrapInScope(
+              s"case $smName::Signal::$signalName: {",
+              List.concat(
+                (
+                  astTypeNameOpt match {
+                    case Some(tn) =>
+                      val t = s.a.typeMap(tn.id)
+                      val cppTypeName = TypeCppWriter.getName(s, t)
+                      lines(
+                        s"""|// Deserialize the data
+                            |${writeVarDecl(s, cppTypeName, "value", t)}
+                            |const Fw::SerializeStatus status = buffer.deserialize(value);
+                            |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
+                      )
+                    case None => Nil
+                  }
+                ),
+                lines(
+                  s"""|// Assert no data left in buffer
+                      |FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+                      |// Call the sendSignal function for sm and $signalName
+                      |sm.sendSignal_$signalName($sendSignalArgs);
+                      |break;"""
+                )
               ),
-              lines(
-                s"""|  // TODO: Assert that no data is left in the buffer
-                    |  // TODO: Call the sendSignal function for sm and $signalName
-                    |  break;
-                    |}"""
-              )
+              "}"
             )
           }
         ) ++
