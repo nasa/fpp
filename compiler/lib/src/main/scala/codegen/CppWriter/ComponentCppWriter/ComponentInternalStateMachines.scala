@@ -189,6 +189,50 @@ case class ComponentInternalStateMachines(
       CppDoc.Function.Static
     )
 
+  private def getGeneralSmDispatchFunction =
+    functionClassMember(
+      Some("Dispatch a signal to a state machine instance"),
+      "smDispatch",
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("Fw::SerializeBufferBase&"),
+          "buffer",
+          Some("The message buffer")
+        )
+      ),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// Deserialize the state machine ID and signal
+            |FwEnumStoreType storedSmId;
+            |FwEnumStoreType storedSignal;
+            |$componentClassName::deserializeSmIdAndSignal(buffer, storedSmId, storedSignal);"""
+      ) ++
+      CppDocWriter.writeComment("Select the target state machine instance") ++
+      lines("const SmId smId = static_cast<SmId>(storedSmId);") ++
+      wrapInSwitch(
+        "smId",
+        internalStateMachineInstances.flatMap(
+          smi => {
+            val smName = writeStateMachineImplType(smi.symbol)
+            val smiName = smi.getName
+            val smIdName = writeSmIdName(smiName)
+            lines(
+              s"""|case $smIdName: {
+                  |  const $smName::Signal signal = static_cast<$smName::Signal>(storedSignal);
+                  |  this->${smName}_smDispatch(buffer, this->m_stateMachine_$smiName, signal);
+                  |  break;
+                  |}"""
+            )
+          }
+        ) ++
+        lines(
+          """|default:
+             |  FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
+             |  break;"""
+        )
+      )
+    )
+
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
@@ -386,50 +430,21 @@ case class ComponentInternalStateMachines(
       )
     )
 
-  private def getGeneralSmDispatchFunction =
-    functionClassMember(
-      Some("Dispatch a signal to a state machine instance"),
-      "smDispatch",
-      List(
-        CppDoc.Function.Param(
-          CppDoc.Type("Fw::SerializeBufferBase&"),
-          "buffer",
-          Some("The message buffer")
-        )
-      ),
-      CppDoc.Type("void"),
-      lines(
-        s"""|// Deserialize the state machine ID and signal
-            |FwEnumStoreType storedSmId;
-            |FwEnumStoreType storedSignal;
-            |$componentClassName::deserializeSmIdAndSignal(buffer, storedSmId, storedSignal);"""
-      ) ++
-      CppDocWriter.writeComment("Select the target state machine instance") ++
-      lines("const SmId smId = static_cast<SmId>(storedSmId);") ++
-      wrapInSwitch(
-        "smId",
-        internalStateMachineInstances.flatMap(
-          smi => {
-            val smName = writeStateMachineImplType(smi.symbol)
-            val smiName = smi.getName
-            val smIdName = writeSmIdName(smiName)
-            lines(
-              s"""|case $smIdName: {
-                  |  const $smName::Signal signal = static_cast<$smName::Signal>(storedSignal);
-                  |  this->${smName}_smDispatch(buffer, this->m_stateMachine_$smiName, signal);
-                  |  break;
-                  |}"""
-            )
-          }
-        ) ++
-        lines(
-          """|default:
-             |  FW_ASSERT(0, static_cast<FwAssertArgType>(smId));
-             |  break;"""
+  private def getSmGuardFunctionName(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): String = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    Utils.getGuardFunctionName(guard)
+  }
 
-        )
-      )
-    )
+  private def getSmGuardFunctionParams(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): List[CppDoc.Function.Param] = {
+    object Utils extends StateMachineCppWriterUtils(s, sm.node)
+    Utils.getGuardFunctionParams(guard)
+  }
 
   private def getSpecializedSmDispatchFunction(
     smSymbol: Symbol.StateMachine
@@ -505,22 +520,6 @@ case class ComponentInternalStateMachines(
 
   private def getSpecializedSmDispatchFunctions =
     internalSmSymbols.map(getSpecializedSmDispatchFunction)
-
-  private def getSmGuardFunctionName(
-    sm: Symbol.StateMachine,
-    guard: StateMachineSymbol.Guard
-  ): String = {
-    object Utils extends StateMachineCppWriterUtils(s, sm.node)
-    Utils.getGuardFunctionName(guard)
-  }
-
-  private def getSmGuardFunctionParams(
-    sm: Symbol.StateMachine,
-    guard: StateMachineSymbol.Guard
-  ): List[CppDoc.Function.Param] = {
-    object Utils extends StateMachineCppWriterUtils(s, sm.node)
-    Utils.getGuardFunctionParams(guard)
-  }
 
   private def getStateMachines: List[CppDoc.Class.Member] =
     internalSmSymbols.map(
