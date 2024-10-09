@@ -16,7 +16,7 @@ namespace M {
   namespace {
     enum MsgTypeEnum {
       ACTIVESTATEMACHINES_COMPONENT_EXIT = Fw::ActiveComponentBase::ACTIVE_COMPONENT_EXIT,
-      EXTERNAL_STATEMACHINE_SENDSIGNALS,
+      EXTERNAL_STATE_MACHINE_SIGNAL,
     };
 
     // Get the max size by constructing a union of the async input, command, and
@@ -132,7 +132,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -184,7 +184,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -236,7 +236,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -293,7 +293,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -345,7 +345,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -402,7 +402,7 @@ namespace M {
     Fw::SerializeStatus _status = Fw::FW_SERIALIZE_OK;
 
     // Serialize the message ID
-    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATEMACHINE_SENDSIGNALS));
+    _status = msg.serialize(static_cast<FwEnumStoreType>(EXTERNAL_STATE_MACHINE_SIGNAL));
     FW_ASSERT (
       _status == Fw::FW_SERIALIZE_OK,
       static_cast<FwAssertArgType>(_status)
@@ -489,7 +489,7 @@ namespace M {
     switch (msgType) {
 
       // Handle signals to external state machines
-      case EXTERNAL_STATEMACHINE_SENDSIGNALS: {
+      case EXTERNAL_STATE_MACHINE_SIGNAL: {
 
         // Deserialize the state machine ID to an FwEnumStoreType
         FwEnumStoreType enumStoreSmId = 0;

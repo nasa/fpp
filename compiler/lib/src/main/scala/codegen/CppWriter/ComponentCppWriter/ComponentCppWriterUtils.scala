@@ -715,7 +715,10 @@ abstract class ComponentCppWriterUtils(
     s"CMD_${cmd.getName.toUpperCase}"
 
   /** Get the name for the external state machine enumerated constant in cpp file */
-  def externalStateMachineCppConstantName = "EXTERNAL_STATEMACHINE_SENDSIGNALS"
+  def externalStateMachineCppConstantName = "EXTERNAL_STATE_MACHINE_SIGNAL"
+
+  /** Get the name for the internal state machine message id in cpp file */
+  def internalStateMachineMsgType = "INTERNAL_STATE_MACHINE_SIGNAL"
 
   /** Get the name for a port number getter function */
   def portNumGetterName(p: PortInstance) =

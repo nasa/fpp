@@ -138,8 +138,16 @@ case class ComponentInternalStateMachines(
         ),
         params match {
           case head :: _ =>
+            val paramName = head.name
+            val id = signal.node._2.data.typeName.get.id
+            val serializeExpr = s.a.typeMap(id) match {
+              case t: Type.String =>
+                val serialSize = writeStringSize(s, t)
+                s"$paramName.serialize(msg, $serialSize)"
+              case _ => s"msg.serialize($paramName)"
+            }
             lines(
-              s"""|const Fw::SerializeStatus status = msg.serialize(${head.name});
+              s"""|const Fw::SerializeStatus status = $serializeExpr;
                   |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
             )
           case _ => Nil
@@ -188,17 +196,31 @@ case class ComponentInternalStateMachines(
         ),
         CppDoc.Function.Param(
           CppDoc.Type("Fw::SerializeBufferBase&"),
-          "buffer",
-          Some("The buffer (output)")
+          "msg",
+          Some("The message buffer (output)")
         )
       ),
       CppDoc.Type("void"),
       lines(
-        """|// TODO: Serialize the message ID
-           |// TODO: Serialize the port number
-           |// TODO: Serialize the state machine ID
-           |// TODO: Serialize the signal ID"""
-      )
+        s"""|
+            |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
+            |
+            |// Serialize the message type
+            |status = msg.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
+            |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+            |
+            |// Serialize the port number number
+            |status = msg.serialize(static_cast<FwIndexType>(0));
+            |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+            |
+            |// Serialize the state machine ID
+            |status = msg.serialize(static_cast<FwEnumStoreType>(smId));
+            |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+            |
+            |// Serialize the signal
+            |status = msg.serialize(static_cast<FwEnumStoreType>(signal));
+            |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
+      ) :+ Line.blank
     )
 
   private def getSmActionFunctionName(
