@@ -78,11 +78,12 @@ namespace {
     public:
 
       enum {
-        // Max. message size = size of data + message id + port
-        SERIALIZATION_SIZE =
-          sizeof(BuffUnion) +
-          sizeof(FwEnumStoreType) +
-          sizeof(FwIndexType)
+        // Offset into data in buffer: Size of message ID and port number
+        DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+        // Max data size
+        MAX_DATA_SIZE = sizeof(BuffUnion),
+        // Max message size: Size of message id + size of port + max data size
+        SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
       };
 
       Fw::Serializable::SizeType getBuffCapacity() const {

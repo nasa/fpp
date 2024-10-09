@@ -378,6 +378,7 @@ case class ComponentCppWriter (
   }
 
   private def getComponentIpcSerializableBufferClass(buffUnion: List[Line]): List[Line] = {
+    val maxDataSize = if buffUnion.nonEmpty then "sizeof(BuffUnion)" else "0"
     lines(
       s"""|// Define a message buffer class large enough to handle all the
           |// asynchronous inputs to the component
@@ -388,11 +389,12 @@ case class ComponentCppWriter (
           |  public:
           |
           |    enum {
-          |      // Max. message size = size of data + message id + port
-          |      SERIALIZATION_SIZE =${if (buffUnion.nonEmpty) """
-          |        sizeof(BuffUnion) +""" else "" }
-          |        sizeof(FwEnumStoreType) +
-          |        sizeof(FwIndexType)
+          |      // Offset into data in buffer: Size of message ID and port number
+          |      DATA_OFFSET = sizeof(FwEnumStoreType) + sizeof(FwIndexType),
+          |      // Max data size
+          |      MAX_DATA_SIZE = $maxDataSize,
+          |      // Max message size: Size of message id + size of port + max data size
+          |      SERIALIZATION_SIZE = DATA_OFFSET + MAX_DATA_SIZE
           |    };
           |
           |    Fw::Serializable::SizeType getBuffCapacity() const {

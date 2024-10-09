@@ -10,7 +10,7 @@ case class ComponentGTestBaseWriter(
   aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
 ) extends ComponentTestUtils(s, aNode) {
 
-  private val fileName = ComputeCppFiles.FileNames.getComponentGTestBase(name)
+  private val fileName = ComputeCppFiles.FileNames.getComponentGTestBase(componentName)
 
   private val name = componentName
 
@@ -20,7 +20,7 @@ case class ComponentGTestBaseWriter(
 
   private val symbol = componentSymbol
 
-  private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(name)
+  private val testerFileName = ComputeCppFiles.FileNames.getComponentTesterBase(componentName)
 
   private val testerRelativeFileName = s.getRelativePath(testerFileName).toString
 

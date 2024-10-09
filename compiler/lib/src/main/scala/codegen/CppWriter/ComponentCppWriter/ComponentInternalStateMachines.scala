@@ -113,7 +113,7 @@ case class ComponentInternalStateMachines(
             ),
             CppDoc.Function.Param(
               CppDoc.Type("Fw::SerializeBufferBase&"),
-              "msg",
+              "buffer",
               Some("The message buffer")
             )
           )
@@ -163,8 +163,8 @@ case class ComponentInternalStateMachines(
       CppDoc.Type("void"),
       List.concat(
         lines(
-          s"""|ComponentIpcSerializableBuffer msg;
-              |this->sendSignalStart($smIdName, $signalArg, msg);"""
+          s"""|ComponentIpcSerializableBuffer buffer;
+              |this->sendSignalStart($smIdName, $signalArg, buffer);"""
         ),
         params match {
           case head :: _ =>
@@ -173,8 +173,8 @@ case class ComponentInternalStateMachines(
             val serializeExpr = s.a.typeMap(id) match {
               case t: Type.String =>
                 val serialSize = writeStringSize(s, t)
-                s"$paramName.serialize(msg, $serialSize)"
-              case _ => s"msg.serialize($paramName)"
+                s"$paramName.serialize(buffer, $serialSize)"
+              case _ => s"buffer.serialize($paramName)"
             }
             lines(
               s"""|const Fw::SerializeStatus status = $serializeExpr;
@@ -182,7 +182,7 @@ case class ComponentInternalStateMachines(
             )
           case _ => Nil
         },
-        lines(s"this->${smiName}_sendSignalFinish(msg);")
+        lines(s"this->${smiName}_sendSignalFinish(buffer);")
       )
     )
   }
@@ -226,7 +226,7 @@ case class ComponentInternalStateMachines(
         ),
         CppDoc.Function.Param(
           CppDoc.Type("Fw::SerializeBufferBase&"),
-          "msg",
+          "buffer",
           Some("The message buffer (output)")
         )
       ),
@@ -236,19 +236,19 @@ case class ComponentInternalStateMachines(
             |Fw::SerializeStatus status = Fw::FW_SERIALIZE_OK;
             |
             |// Serialize the message type
-            |status = msg.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
+            |status = buffer.serialize(static_cast<FwEnumStoreType>($internalStateMachineMsgType));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the port number number
-            |status = msg.serialize(static_cast<FwIndexType>(0));
+            |status = buffer.serialize(static_cast<FwIndexType>(0));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the state machine ID
-            |status = msg.serialize(static_cast<FwEnumStoreType>(smId));
+            |status = buffer.serialize(static_cast<FwEnumStoreType>(smId));
             |FW_ASSERT (status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
             |
             |// Serialize the signal
-            |status = msg.serialize(static_cast<FwEnumStoreType>(signal));
+            |status = buffer.serialize(static_cast<FwEnumStoreType>(signal));
             |FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));"""
       ) :+ Line.blank
     )
