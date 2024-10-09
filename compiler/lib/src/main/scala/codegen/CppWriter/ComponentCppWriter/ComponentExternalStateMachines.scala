@@ -48,7 +48,7 @@ case class ComponentExternalStateMachines(
          |When sending a signal to a state machine instance, if
          |the queue overflows and the instance is marked with 'hook' behavior,
          |the corresponding function here is called.""",
-      stateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+      externalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
         smi => getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,

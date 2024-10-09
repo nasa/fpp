@@ -89,8 +89,38 @@ case class ComponentInternalStateMachines(
   }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
-    // TODO
-    Nil
+    addAccessTagAndComment(
+      "PROTECTED",
+      """|Overflow hooks for internal state machine instances
+         |
+         |When sending a signal to a state machine instance, if
+         |the queue overflows and the instance is marked with 'hook' behavior,
+         |the corresponding function here is called.""",
+      internalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+        smi => getVirtualOverflowHook(
+          smi.getName,
+          MessageType.StateMachine,
+          List(
+            CppDoc.Function.Param(
+              CppDoc.Type("SmId"),
+              "smId",
+              Some("The state machine ID")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("FwEnumStoreType"),
+              "signal",
+              Some("The signal")
+            ),
+            CppDoc.Function.Param(
+              CppDoc.Type("Fw::SerializeBufferBase&"),
+              "msg",
+              Some("The message buffer")
+            )
+          )
+        )
+      ),
+      CppDoc.Lines.Hpp
+    )
 
   private def getSendSignalFinishFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
     functionClassMember(
