@@ -1,8 +1,8 @@
 
 // ======================================================================
-// \title  ActiveStateMachines_S1.h
+// \title  ActiveExternalStateMachines_S1.h
 // \author Auto-generated
-// \brief  header file for state machine ActiveStateMachines_S1
+// \brief  header file for state machine ActiveExternalStateMachines_S1
 //
 // ======================================================================
            
@@ -12,81 +12,81 @@
 #include <Fw/Sm/SmSignalBuffer.hpp>
 #include <config/FpConfig.hpp>
                                  
-namespace M {
+namespace ExternalSm {
 
-class ActiveStateMachines_S1_Interface {
+class ActiveExternalStateMachines_S1_Interface {
   public:
-    enum ActiveStateMachines_S1_Signals {
+    enum ActiveExternalStateMachines_S1_Signals {
       RTI_SIG,
       WAIT_SIG,
     };
 
                                  
-    virtual bool ActiveStateMachines_S1_g1(const FwEnumStoreType stateMachineId) = 0;
+    virtual bool ActiveExternalStateMachines_S1_g1(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual bool ActiveStateMachines_S1_g2(
+    virtual bool ActiveExternalStateMachines_S1_g2(
         const FwEnumStoreType stateMachineId, 
-        const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
+        const ActiveExternalStateMachines_S1_Interface::ActiveExternalStateMachines_S1_Signals signal, 
         const Fw::SmSignalBuffer &data) = 0;
                                  
                                  
-    virtual void ActiveStateMachines_S1_initLed(const FwEnumStoreType stateMachineId) = 0;
+    virtual void ActiveExternalStateMachines_S1_initLed(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual void ActiveStateMachines_S1_turnLedOn(const FwEnumStoreType stateMachineId) = 0;
+    virtual void ActiveExternalStateMachines_S1_turnLedOn(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual void ActiveStateMachines_S1_a1(const FwEnumStoreType stateMachineId) = 0;
+    virtual void ActiveExternalStateMachines_S1_a1(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual void ActiveStateMachines_S1_turnLedOff(const FwEnumStoreType stateMachineId) = 0;
+    virtual void ActiveExternalStateMachines_S1_turnLedOff(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual  void ActiveStateMachines_S1_a3(
+    virtual  void ActiveExternalStateMachines_S1_a3(
         const FwEnumStoreType stateMachineId, 
-        const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
+        const ActiveExternalStateMachines_S1_Interface::ActiveExternalStateMachines_S1_Signals signal, 
         const Fw::SmSignalBuffer &data) = 0;
                                  
                                  
-    virtual void ActiveStateMachines_S1_blinkLed(const FwEnumStoreType stateMachineId) = 0;
+    virtual void ActiveExternalStateMachines_S1_blinkLed(const FwEnumStoreType stateMachineId) = 0;
                                  
                                  
-    virtual  void ActiveStateMachines_S1_a2(
+    virtual  void ActiveExternalStateMachines_S1_a2(
         const FwEnumStoreType stateMachineId, 
-        const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
+        const ActiveExternalStateMachines_S1_Interface::ActiveExternalStateMachines_S1_Signals signal, 
         const Fw::SmSignalBuffer &data) = 0;
                                  
                                  
-    virtual  void ActiveStateMachines_S1_a4(
+    virtual  void ActiveExternalStateMachines_S1_a4(
         const FwEnumStoreType stateMachineId, 
-        const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
+        const ActiveExternalStateMachines_S1_Interface::ActiveExternalStateMachines_S1_Signals signal, 
         const Fw::SmSignalBuffer &data) = 0;
                                  
                                                                   
 };
 
-class ActiveStateMachines_S1 {
+class ActiveExternalStateMachines_S1 {
                                  
   private:
-    ActiveStateMachines_S1_Interface *parent;
+    ActiveExternalStateMachines_S1_Interface *parent;
                                  
   public:
                                  
-    ActiveStateMachines_S1(ActiveStateMachines_S1_Interface* parent) : parent(parent) {}
+    ActiveExternalStateMachines_S1(ActiveExternalStateMachines_S1_Interface* parent) : parent(parent) {}
   
-    enum ActiveStateMachines_S1_States {
+    enum ActiveExternalStateMachines_S1_States {
       ON,
       OFF,
       WAITING,
     };
     
-    enum ActiveStateMachines_S1_States state;
+    enum ActiveExternalStateMachines_S1_States state;
 
     void init(const FwEnumStoreType stateMachineId);
     void update(
         const FwEnumStoreType stateMachineId, 
-        const ActiveStateMachines_S1_Interface::ActiveStateMachines_S1_Signals signal, 
+        const ActiveExternalStateMachines_S1_Interface::ActiveExternalStateMachines_S1_Signals signal, 
         const Fw::SmSignalBuffer &data
     );
 };

@@ -1,10 +1,10 @@
 // ======================================================================
-// \title  ActiveStateMachines.cpp
+// \title  ActiveExternalStateMachines.cpp
 // \author [user name]
-// \brief  cpp file for ActiveStateMachines component implementation class
+// \brief  cpp file for ActiveExternalStateMachines component implementation class
 // ======================================================================
 
-#include "ActiveStateMachines.hpp"
+#include "ActiveExternalStateMachines.hpp"
 #include "FpConfig.hpp"
 
 namespace M {
@@ -13,15 +13,15 @@ namespace M {
   // Component construction and destruction
   // ----------------------------------------------------------------------
 
-  ActiveStateMachines ::
-    ActiveStateMachines(const char* const compName) :
-      ActiveStateMachinesComponentBase(compName)
+  ActiveExternalStateMachines ::
+    ActiveExternalStateMachines(const char* const compName) :
+      ActiveExternalStateMachinesComponentBase(compName)
   {
 
   }
 
-  ActiveStateMachines ::
-    ~ActiveStateMachines()
+  ActiveExternalStateMachines ::
+    ~ActiveExternalStateMachines()
   {
 
   }
@@ -30,9 +30,9 @@ namespace M {
   // Overflow hook implementations for state machines
   // ----------------------------------------------------------------------
 
-  void ActiveStateMachines ::
+  void ActiveExternalStateMachines ::
     sm5_stateMachineOverflowHook(
-        const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal,
+        const M::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal,
         const Fw::SmSignalBuffer& data
     )
   {

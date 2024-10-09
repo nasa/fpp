@@ -1,18 +1,18 @@
 // ======================================================================
-// \title  ActiveStateMachines.hpp
+// \title  ActiveExternalStateMachines.hpp
 // \author [user name]
-// \brief  hpp file for ActiveStateMachines component implementation class
+// \brief  hpp file for ActiveExternalStateMachines component implementation class
 // ======================================================================
 
-#ifndef M_ActiveStateMachines_HPP
-#define M_ActiveStateMachines_HPP
+#ifndef M_ActiveExternalStateMachines_HPP
+#define M_ActiveExternalStateMachines_HPP
 
-#include "ActiveStateMachinesComponentAc.hpp"
+#include "ActiveExternalStateMachinesComponentAc.hpp"
 
 namespace M {
 
-  class ActiveStateMachines :
-    public ActiveStateMachinesComponentBase
+  class ActiveExternalStateMachines :
+    public ActiveExternalStateMachinesComponentBase
   {
 
     public:
@@ -21,13 +21,13 @@ namespace M {
       // Component construction and destruction
       // ----------------------------------------------------------------------
 
-      //! Construct ActiveStateMachines object
-      ActiveStateMachines(
+      //! Construct ActiveExternalStateMachines object
+      ActiveExternalStateMachines(
           const char* const compName //!< The component name
       );
 
-      //! Destroy ActiveStateMachines object
-      ~ActiveStateMachines();
+      //! Destroy ActiveExternalStateMachines object
+      ~ActiveExternalStateMachines();
 
     PRIVATE:
 
@@ -37,7 +37,7 @@ namespace M {
 
       //! Overflow hook implementation for sm5
       void sm5_stateMachineOverflowHook(
-          const M::ActiveStateMachines_S2_Interface::ActiveStateMachines_S2_Signals signal, //!< The state machine signal
+          const M::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       ) override;
 

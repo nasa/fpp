@@ -43,12 +43,12 @@ active()
   diff_cpp ActiveCommandsComponent && \
   diff_cpp ActiveOverflowComponent && \
   diff_cpp ActiveEventsComponent && \
+  diff_cpp ActiveExternalStateMachinesComponent && \
   diff_cpp ActiveGetProductsComponent && \
   diff_cpp ActiveGuardedProductsComponent && \
   diff_cpp ActiveNoArgsPortsOnlyComponent && \
   diff_cpp ActiveParamsComponent && \
   diff_cpp ActiveSerialComponent && \
-  diff_cpp ActiveStateMachinesComponent && \
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent
