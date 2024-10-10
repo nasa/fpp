@@ -217,8 +217,13 @@ object MatchedPortNumbering {
           case Some(n) =>
             used.get(n) match {
               case Some(c) => 
-                if ((c != cRemote) && (ci == piiRemote.componentInstance))
-                  then Left(SemanticError.PortNumberAlreadyInUse(n, cRemote.getLoc, c.getLoc))
+                var cFromPii = c.from.port
+                var cToPii = c.to.port
+                var cRemoteFromPii = cRemote.from.port
+                var cRemoteToPii = cRemote.to.port
+                if ((c != cRemote) && (cFromPii == cRemoteFromPii || cToPii == cRemoteToPii)) {
+                  Left(SemanticError.PortNumberAlreadyInUse(n, c.getLoc, cRemote.getLoc))
+                }
                 else
                   Right(())
               case None => Right(())
