@@ -26,12 +26,18 @@ object GeneralPortNumbering {
     pii: PortInstanceIdentifier
   ): Topology = {
     val pi = pii.portInstance
-    val cs = t.getConnectionsFrom(pii).toArray.sorted
-    val usedPortNumbers = t.getUsedPortNumbers(pi, cs)
-    // Initialize the PortNumberingState with an empty set as one 
+    val cs = t.getConnectionsFrom(pii).toList.sorted
+    val usedPortNumbers = 
+      cs.foldLeft (Map[Int, Connection]()) ((m, c) =>
+        t.getPortNumber(pi, c) match {
+          case Some(n) => m + (n -> c)
+          case None => m
+        }
+      )
+    // Initialize the PortNumberingState with an empty map as one 
     // of its args since in GeneralPortNumbering we are only 
-    // working with one set of port numbers at a time
-    val state = PortNumberingState.initial(Set(), usedPortNumbers)
+    // working with one map of port numbers to connections at a time
+    val state = PortNumberingState.initial(Map(), usedPortNumbers)
     val (_, t1) = cs.foldLeft ((state, t)) ({ case ((s,t), c) =>
       t.getPortNumber(pi, c) match {
         case Some(n) => (s, t)

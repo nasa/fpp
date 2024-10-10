@@ -6644,6 +6644,9 @@ component instance and <code>p2</code>.</p>
 <p>The matched pairs in item 2 must be connected to the
 same port numbers at <code>p1</code> and <code>p2</code>.</p>
 </li>
+<li>
+<p>Multiple connections can not use the same port number even if the port is an input port.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -8395,6 +8398,9 @@ must obey the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
+<li>
+<p>Multiple connections can not use the same port number even if the port is an input port.</p>
+</li>
 <li>
 <p>When a component has the matching specifier
 <code>match p1 with p2</code>, for every matched connection between <code>p1</code>
@@ -12604,7 +12610,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-09-25 11:52:40 -0700
+Last updated 2024-10-09 13:50:38 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

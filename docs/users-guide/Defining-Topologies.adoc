@@ -698,6 +698,8 @@ Sequencer component.
 When you use matched numbering with direct graph specifiers, you
 must obey the following rules:
 
+. Multiple connections can not use the same port number even if the port is an input port.
+
 . When a component has the matching specifier
 `match p1 with p2`, for every matched connection between `p1`
 and another component, there must be a corresponding
