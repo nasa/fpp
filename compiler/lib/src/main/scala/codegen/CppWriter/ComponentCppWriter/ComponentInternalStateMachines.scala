@@ -41,6 +41,7 @@ case class ComponentInternalStateMachines(
 
   /** Gets the protected function members */
   def getProtectedFunctionMembers: List[CppDoc.Class.Member] = List.concat(
+    getStateGetterFunctions,
     getSendSignalFunctions,
     getOverflowHooks,
     getVirtualActions,
@@ -520,6 +521,27 @@ case class ComponentInternalStateMachines(
 
   private def getSpecializedSmDispatchFunctions =
     internalSmSymbols.map(getSpecializedSmDispatchFunction)
+
+  private def getStateGetterFunction(smi: StateMachineInstance): CppDoc.Class.Member = {
+    val smiName = smi.getName
+    val smName = writeStateMachineImplType(smi.symbol)
+    functionClassMember(
+      Some(s"Get the state of state machine instance $smiName"),
+      s"${smiName}_getState",
+      Nil,
+      CppDoc.Type(s"$smName::State", Some(s"$componentClassName::$smName::State")),
+      lines(s"return this->m_stateMachine_$smiName.getState();"),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+  }
+
+  private def getStateGetterFunctions: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PROTECTED",
+      "State getter functions",
+      internalStateMachineInstances.map(getStateGetterFunction)
+    )
 
   private def getStateMachines: List[CppDoc.Class.Member] =
     internalSmSymbols.map(
