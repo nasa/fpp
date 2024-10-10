@@ -7,7 +7,7 @@
 #include "ActiveExternalStateMachines.hpp"
 #include "FpConfig.hpp"
 
-namespace M {
+namespace ExternalSm {
 
   // ----------------------------------------------------------------------
   // Component construction and destruction
@@ -32,7 +32,7 @@ namespace M {
 
   void ActiveExternalStateMachines ::
     sm5_stateMachineOverflowHook(
-        const M::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal,
+        const ExternalSm::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal,
         const Fw::SmSignalBuffer& data
     )
   {

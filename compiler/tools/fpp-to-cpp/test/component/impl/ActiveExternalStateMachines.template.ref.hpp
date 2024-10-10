@@ -4,12 +4,12 @@
 // \brief  hpp file for ActiveExternalStateMachines component implementation class
 // ======================================================================
 
-#ifndef M_ActiveExternalStateMachines_HPP
-#define M_ActiveExternalStateMachines_HPP
+#ifndef ExternalSm_ActiveExternalStateMachines_HPP
+#define ExternalSm_ActiveExternalStateMachines_HPP
 
 #include "ActiveExternalStateMachinesComponentAc.hpp"
 
-namespace M {
+namespace ExternalSm {
 
   class ActiveExternalStateMachines :
     public ActiveExternalStateMachinesComponentBase
@@ -37,7 +37,7 @@ namespace M {
 
       //! Overflow hook implementation for sm5
       void sm5_stateMachineOverflowHook(
-          const M::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal, //!< The state machine signal
+          const ExternalSm::ActiveExternalStateMachines_S2_Interface::ActiveExternalStateMachines_S2_Signals signal, //!< The state machine signal
           const Fw::SmSignalBuffer& data //!< The state machine data
       ) override;
 

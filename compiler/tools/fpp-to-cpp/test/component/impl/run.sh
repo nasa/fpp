@@ -31,12 +31,12 @@ active()
   diff_template ActiveCommands && \
   diff_template ActiveOverflow && \
   diff_template ActiveEvents && \
+  diff_template ActiveExternalStateMachines && \
   diff_template ActiveGetProducts && \
   diff_template ActiveGuardedProducts && \
   diff_template ActiveNoArgsPortsOnly && \
   diff_template ActiveParams && \
   diff_template ActiveSerial && \
-  diff_template ActiveStateMachines && \
   diff_template ActiveSyncProducts && \
   diff_template ActiveTelemetry && \
   diff_template ActiveTest
