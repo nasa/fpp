@@ -140,7 +140,7 @@ namespace ExternalSm {
       //! Called in the message loop to dispatch a message from the queue
       virtual MsgDispatchStatus doDispatch();
 
-    PROTECTED:
+    PRIVATE:
 
       // ----------------------------------------------------------------------
       // State machine instances
