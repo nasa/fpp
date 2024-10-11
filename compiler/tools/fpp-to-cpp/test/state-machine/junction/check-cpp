@@ -12,5 +12,5 @@ do
   cp $base.ref.hpp $base.hpp
   cp $base.ref.cpp $base.cpp
   echo "compiling $base.cpp"
-  $fprime_gcc -Wno-unused-parameter -I$FPRIME/FppTest/state_machine/internal -I.. -c $base.cpp
+  $fprime_gcc -Wno-unused-parameter -I$FPRIME/FppTest/state_machine/internal -I.. -I../../fprime/config -c $base.cpp
 done
