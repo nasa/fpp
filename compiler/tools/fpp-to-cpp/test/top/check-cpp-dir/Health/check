@@ -16,4 +16,4 @@ do
 done
 
 echo '  compiling C++'
-fprime-gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -Wno-unused-variable -c HealthTopologyAc.cpp
+fprime-gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -c HealthTopologyAc.cpp
