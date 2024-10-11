@@ -3434,7 +3434,7 @@ Fw::Success::T ActiveGetProductsComponentBase ::
   const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
   if (status == Fw::Success::SUCCESS) {
     // Assign a fresh DpContainer into container
-    // This clears out all the state
+    // This action clears out all the container state
     container = DpContainer(globalId, buffer, baseId);
     container.setPriority(priority);
   }
