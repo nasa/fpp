@@ -1,6 +1,5 @@
 #!/bin/sh -e
 
-export FPRIME_GCC_FLAGS="-I../../../fprime -Wno-unused-parameter -Wno-unused-variable"
 fpp_to_cpp=../../../../../../bin/fpp-to-cpp
 
 echo '  removing old files'
@@ -18,4 +17,5 @@ do
 done
 
 echo '  compiling C++'
-fprime-gcc -I .. -c ParamsTopologyAc.cpp
+fprime-gcc -I.. -I../../../fprime -I../../../fprime/config -Wno-unused-parameter -Wno-unused-variable -c ParamsTopologyAc.cpp
+

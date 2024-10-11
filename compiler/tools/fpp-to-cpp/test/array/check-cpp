@@ -7,7 +7,6 @@
 cd `dirname $0`
 
 fprime_gcc=../../../../scripts/fprime-gcc
-export FPRIME_GCC_FLAGS="-Iinclude"
 
 ../fprime/generate_cpp
 
@@ -20,5 +19,5 @@ do
   cp $base.ref.hpp $base.hpp
   cp $base.ref.cpp $base.cpp
   echo "compiling $base.cpp"
-  $fprime_gcc -I../../.. -c $base.cpp -Wno-gnu-zero-variadic-macro-arguments
+  $fprime_gcc -Iinclude -Wno-gnu-zero-variadic-macro-arguments -c $base.cpp
 done
