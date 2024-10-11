@@ -1,6 +1,6 @@
 === Port Instance Specifiers
 
-A *port instance specifier* specifies an instantiated 
+A *port instance specifier* specifies an instantiated
 <<Definitions_Port-Definitions,port>> as part
 of a
 <<Definitions_Component-Definitions,component definition>>.
@@ -9,7 +9,7 @@ of a
 
 A port instance specifier is one of the following:
 
-* _general-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>> `:` 
+* _general-port-kind_ `port` <<Lexical-Elements_Identifiers,_identifier_>> `:`
 _[_
 `[` <<Expressions,_expression_>> `]`
 _]_
@@ -138,7 +138,7 @@ from a specific type at the other end of the connection.
 `priority` specifies a priority for the port instance.
 The type of _e_ must be <<Type-Checking_Type-Conversion,convertible to>>
 <<Types_Internal-Types_Integer,_Integer_>>.
-The priority applies to the component's message queue and may appear only for 
+The priority applies to the component's message queue and may appear only for
 `async input` ports.
 The meaning of the priority value is operating system-dependent.
 

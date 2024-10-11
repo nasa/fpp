@@ -4,7 +4,7 @@ A *connection graph specifier* specifies one or more *connection graphs*
 as part of a
 <<Definitions_Topology-Definitions,topology definition>>.
 A connection graph is a named set of *connections*.
-A connection connects an <<Specifiers_Port-Instance-Specifiers,output port 
+A connection connects an <<Specifiers_Port-Instance-Specifiers,output port
 instance>> of one
 <<Specifiers_Component-Instance-Specifiers,component instance>>
 to an
@@ -16,20 +16,20 @@ another.
 A connection graph specifier is one of the following:
 
 * A *direct graph specifier:*
-`connections` 
+`connections`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `{` _connection-sequence_ `}`
 
 * A *pattern graph specifier:*
 _pattern-kind_
-`connections` 
+`connections`
 `instance` <<Scoping-of-Names_Qualified-Identifiers,_qual-ident_>>
 _[_
 `{` _instance-sequence_ `}`
 _]_
 
 _connection-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is a *connection*,
 and the terminating punctuation is a comma.
 A connection is the following:
@@ -66,7 +66,7 @@ _pattern-kind_ is one of the following:
 . `time`
 
 _instance-sequence_ is an
-<<Element-Sequences,element sequence>> in 
+<<Element-Sequences,element sequence>> in
 which each element is a
 <<Scoping-of-Names_Qualified-Identifiers,qualified identifier>>,
 and the terminating punctuation is a comma.
@@ -97,14 +97,14 @@ either through
 or through
 <<Specifiers_Topology-Import-Specifiers,import>>.
 
-... The optional expression _e_ following the identifier, if it is present, 
+... The optional expression _e_ following the identifier, if it is present,
 represents a port number, i.e., an index into an
 array of port instances.
 The type of _e_ must be a
 <<Types_Internal-Types_Numeric-Types,numeric type>>, and
 _e_ must
 <<Evaluation,evaluate>> to a compile-time constant
-that becomes a non-negative integer _n_ when 
+that becomes a non-negative integer _n_ when
 <<Evaluation_Type-Conversion,converted to>> type _Integer_.
 _n_ must lie in the range [0,2^31^) and must be in bounds for the
 array size of the port instance specifier named in _I_.
@@ -126,7 +126,7 @@ instance _T_, then the <<Definitions_Port-Definitions,port type>>
 specified in _T_ may not have a return type.
 
 *Pattern graph specifiers.*
-A pattern graph specifier indirectly specifies one or more named connection 
+A pattern graph specifier indirectly specifies one or more named connection
 graphs
 by specifying a source component instance, a set of target component
 instances, and a pattern for connecting the source instance to each of the
@@ -161,11 +161,11 @@ from the output port of type `Fw::Cmd` of _I_ to the command input port
 of each target component.
 
 .. A connection graph named `CommandRegistration` consisting of all
-connections from the command registration output port of 
+connections from the command registration output port of
 each target component
 to the command registration input port of _I_.
 
-.. A connection graph named `CommandResponse` consisting of all connections 
+.. A connection graph named `CommandResponse` consisting of all connections
 from the command response output port of each target component
 to the command response input port of _I_.
 
@@ -183,7 +183,7 @@ ports of the target components of type `Svc.Ping`.
 . `param`: The source instance _I_ is a parameter database
 component.
 The generate connection graph has name `Parameters`
-and contains all connections for (a) getting 
+and contains all connections for (a) getting
 parameters from the database and (b) saving
 parameters to the database.
 
@@ -258,5 +258,5 @@ connections CommandResponse {
 }
 ----
 
-See also the <<Definitions_Topology-Definitions_Examples,examples for topology 
+See also the <<Definitions_Topology-Definitions_Examples,examples for topology
 definitions>>.

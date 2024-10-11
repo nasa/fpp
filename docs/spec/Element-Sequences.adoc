@@ -11,7 +11,7 @@ depending on the kind of sequence.
 
 For each element _e_ in the sequence:
 
-* You can always terminate _e_ with a sequence of one or more newlines. In 
+* You can always terminate _e_ with a sequence of one or more newlines. In
 this case no terminating punctuation is required.
 
 * You can omit the newline. In this case the terminating punctuation

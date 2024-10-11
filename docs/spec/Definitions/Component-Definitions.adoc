@@ -378,7 +378,7 @@ active component DeviceMgr {
   # ----------------------------------------------------------------------
   # Commands
   # ----------------------------------------------------------------------
-  
+
   @ Send a Start event to the specified device
   async command START(
     @ The device number

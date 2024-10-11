@@ -201,6 +201,7 @@ object CppWriterState {
     "FwTimeBaseStoreType" -> zero,
     "FwTimeContextStoreType" -> zero,
     "FwTlmPacketizeIdType" -> zero,
+    "FwTraceIdType" -> zero,
   )
 
 }

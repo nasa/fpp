@@ -177,7 +177,7 @@ For example:
 
 * `identifier%` is not a valid identifier, because it contains the character `%`.
 
-*Escaped keywords:* Any identifier may be preceded by the character `$`, with 
+*Escaped keywords:* Any identifier may be preceded by the character `$`, with
 no intervening space.
 An identifier `$` _I_ has the same meaning as _I_, except that if _I_ is a
 <<Lexical-Elements_Reserved-Words,reserved word>>, then _I_ is scanned
@@ -196,8 +196,8 @@ treated as an identifier and not as a reserved word.
 
 An *end-of-line token* is a sequence of one or more *newlines*.
 A newline (or line break) is the NL character (ASCII code 0x0A),
-optionally preceded by a CR 
-character (ASCII code 0x0D). End-of-line tokens separate the elements of 
+optionally preceded by a CR
+character (ASCII code 0x0D). End-of-line tokens separate the elements of
 <<Element-Sequences,element sequences>>.
 
 === Comments
@@ -205,15 +205,15 @@ character (ASCII code 0x0D). End-of-line tokens separate the elements of
 The lexer ignores <<Comments-and-Annotations_Comments,comments>>.
 Specifically:
 
-* A comment followed by a <<Lexical-Elements_End-of-Line-Tokens,newline>> is treated as 
+* A comment followed by a <<Lexical-Elements_End-of-Line-Tokens,newline>> is treated as
 a newline.
 
-* A comment at the end of a file, not followed by a newline, is 
+* A comment at the end of a file, not followed by a newline, is
 treated as no text.
 
 === Whitespace and Non-Printable Characters
 
-Apart from <<Lexical-Elements_End-of-Line-Tokens,end-of-line tokens>>, the 
+Apart from <<Lexical-Elements_End-of-Line-Tokens,end-of-line tokens>>, the
 lexer treats whitespace as follows:
 
 * Space characters are ignored, except to separate tokens.
@@ -225,11 +225,11 @@ in an FPP model outside of a string, comment, or annotation.
 
 === Explicit Line Continuations
 
-The character `\`, when appearing before a 
-<<Lexical-Elements_End-of-Line-Tokens,newline>>, 
+The character `\`, when appearing before a
+<<Lexical-Elements_End-of-Line-Tokens,newline>>,
 suppresses the newline.
 Both the `\` and the following newline are ignored, and no
-<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>, 
+<<Lexical-Elements_End-of-Line-Tokens,end-of-line token>>,
 is created.
 For example, this
 
@@ -313,7 +313,7 @@ is consumed by the `+` symbol:
 
 [source,fpp]
 ----
-constant a = 1 + 
+constant a = 1 +
   2
 ----
 
@@ -343,7 +343,7 @@ as if it were this
 constant a = [
   1
   2
-  3 
+  3
 ]
 ----
 

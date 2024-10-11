@@ -165,6 +165,7 @@ type FwSizeType
 type FwTimeBaseStoreType
 type FwTimeContextStoreType
 type FwTlmPacketizeIdType
+type FwTraceIdType
 ----
 
 Each of these types is an alias for a {cpp} integer type, and each
@@ -285,8 +286,8 @@ if (state.hostName != nullptr && state.portNumber != 0) {
     comDriver.startSocketTask(
         name,
         true,
-        ConfigConstants::comDriver::PRIORITY,
-        ConfigConstants::comDriver::STACK_SIZE
+        ConfigConstants::SystemReference_comDriver::PRIORITY,
+        ConfigConstants::SystemReference_comDriver::STACK_SIZE
     );
 }
 """
@@ -340,21 +341,21 @@ namespace SystemReference {
 
   // Health ping entries
   namespace PingEntries {
-    namespace blockDrv { enum { WARN = 3, FATAL = 5 }; }
-    namespace chanTlm { enum { WARN = 3, FATAL = 5 }; }
-    namespace cmdDisp { enum { WARN = 3, FATAL = 5 }; }
-    namespace cmdSeq { enum { WARN = 3, FATAL = 5 }; }
-    namespace eventLogger { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileDownlink { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileManager { enum { WARN = 3, FATAL = 5 }; }
-    namespace fileUplink { enum { WARN = 3, FATAL = 5 }; }
-    namespace imageProcessor { enum {WARN = 3, FATAL = 5}; }
-    namespace prmDb { enum { WARN = 3, FATAL = 5 }; }
-    namespace processedImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
-    namespace rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
-    namespace saveImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_blockDrv { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_chanTlm { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_cmdDisp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_cmdSeq { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_eventLogger { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileDownlink { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileManager { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_fileUplink { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_imageProcessor { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_prmDb { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_processedImageBufferLogger { enum {WARN = 3, FATAL = 5}; }
+    namespace SystemReference_rateGroup1Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_rateGroup2Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_rateGroup3Comp { enum { WARN = 3, FATAL = 5 }; }
+    namespace SystemReference_saveImageBufferLogger { enum { WARN = 3, FATAL = 5 }; }
   }
 
 }

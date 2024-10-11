@@ -12,7 +12,7 @@ to its ping input port at the same port number _n_.
 
 ==== Syntax
 
-`match` 
+`match`
 <<Lexical-Elements_Identifiers,_identifier_>>
 `with`
 <<Lexical-Elements_Identifiers,_identifier_>>
