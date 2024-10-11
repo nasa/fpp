@@ -31,7 +31,6 @@ fprime_gcc=../../../../../scripts/fprime-gcc
 ## Set compiler flags
 include_flags="-I../../../.. -I.. -I../../fprime -I../../fprime/config"
 warning_flags="
--Wno-gnu-zero-variadic-macro-arguments
 -Wno-sign-conversion
 -Wno-unused-parameter
 -Wno-vla-extension
