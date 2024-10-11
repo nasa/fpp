@@ -56,8 +56,7 @@ module M {
       # some connection at B index at j not equal to i going to same component instance
       unmatched c5.pOut[0] -> c5.pIn[0]
       unmatched c6.pOut[1] -> c5.pIn[1]
-      # implicit matched connections
-      c5.pOut -> c5.pIn
+      # implicit matched connection
       c6.pOut -> c5.pIn
       # explicit matched connection
       c5.pOut[2] -> c6.pIn[2]

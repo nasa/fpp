@@ -210,38 +210,14 @@ object MatchedPortNumbering {
       })
     }
 
-    def checkRemoteUsedPorts(piiRemote: PortInstanceIdentifier, used: Map[Int, Connection]) = {
-      val csRemote = t.getConnectionsAt(piiRemote).toList.sorted
-      Result.foldLeft (csRemote) (()) ((r, cRemote) => {
-        t.getPortNumber(piiRemote.portInstance, cRemote) match {
-          case Some(n) =>
-            used.get(n) match {
-              case Some(c) => 
-                var cFromPii = c.from.port
-                var cToPii = c.to.port
-                var cRemoteFromPii = cRemote.from.port
-                var cRemoteToPii = cRemote.to.port
-                if ((c != cRemote) && (cFromPii == cRemoteFromPii || cToPii == cRemoteToPii)) {
-                  Left(SemanticError.PortNumberAlreadyInUse(n, c.getLoc, cRemote.getLoc))
-                }
-                else
-                  Right(())
-              case None => Right(())
-            }
-          case None => Right(())
-        }
-      })
-    }
-
     // Computes the set of used ports for all connections at a specific port instance
     def computeUsedPortNumbers(pi: PortInstance): Result.Result[Map[Int, Connection]] = {
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
       Result.foldLeft (cs) (Map[Int, Connection]()) ((m, c) => {
         val piiRemote = c.getOtherEndpoint(pi).port
-        for {
-          used <- t.getPortNumber(pi, c) match {
-            case Some(n) => {
+        t.getPortNumber(pi, c) match {
+            case Some(n) =>
               m.get(n) match {
                 case Some(prevC) => 
                   val loc = c.getLoc
@@ -249,17 +225,10 @@ object MatchedPortNumbering {
                   Left(
                     SemanticError.DuplicateConnectionAtMatchedPort(loc, pi.toString, prevLoc, n)
                   )
-                case None => {
-                  Right(m + (n -> c))
-                }
+                case None => Right(m + (n -> c))
               }
-            }
-            case None => {
-              Right(m)
-            }
+            case None => Right(m)
           }
-          _ <- checkRemoteUsedPorts(piiRemote, used)
-        } yield used
       })
     }
 
