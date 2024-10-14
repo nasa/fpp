@@ -23,6 +23,11 @@
 #include "state-machine/state/BasicSelfStateMachineAc.hpp"
 #include "state-machine/state/BasicStateMachineAc.hpp"
 #include "state-machine/state/BasicStringStateMachineAc.hpp"
+#include "state-machine/state/BasicTestAbsTypeStateMachineAc.hpp"
+#include "state-machine/state/BasicTestArrayStateMachineAc.hpp"
+#include "state-machine/state/BasicTestEnumStateMachineAc.hpp"
+#include "state-machine/state/BasicTestStructStateMachineAc.hpp"
+#include "state-machine/state/BasicU32StateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -59,6 +64,11 @@ namespace FppTest {
         smStateBasicInternal,
         smStateBasicSelf,
         smStateBasicString,
+        smStateBasicTestAbsType,
+        smStateBasicTestArray,
+        smStateBasicTestEnum,
+        smStateBasicTestStruct,
+        smStateBasicU32,
       };
 
     PROTECTED:
@@ -552,6 +562,226 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine FppTest_SmState_BasicTestAbsType
+      class FppTest_SmState_BasicTestAbsType :
+        public FppTest::SmState::BasicTestAbsTypeStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicTestAbsType(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestAbsType& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_BasicTestArray
+      class FppTest_SmState_BasicTestArray :
+        public FppTest::SmState::BasicTestArrayStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicTestArray(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestArray& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_BasicTestEnum
+      class FppTest_SmState_BasicTestEnum :
+        public FppTest::SmState::BasicTestEnumStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicTestEnum(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestEnum& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_BasicTestStruct
+      class FppTest_SmState_BasicTestStruct :
+        public FppTest::SmState::BasicTestStructStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicTestStruct(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestStruct& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_BasicU32
+      class FppTest_SmState_BasicU32 :
+        public FppTest::SmState::BasicU32StateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicU32(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
       //! Implementation of state machine FppTest_SmStateActive_Basic
       class FppTest_SmStateActive_Basic :
         public FppTest::SmStateActive_BasicStateMachineBase
@@ -658,6 +888,21 @@ namespace FppTest {
       //! Get the state of state machine instance smStateBasicString
       FppTest_SmState_BasicString::State smStateBasicString_getState() const;
 
+      //! Get the state of state machine instance smStateBasicTestAbsType
+      FppTest_SmState_BasicTestAbsType::State smStateBasicTestAbsType_getState() const;
+
+      //! Get the state of state machine instance smStateBasicTestArray
+      FppTest_SmState_BasicTestArray::State smStateBasicTestArray_getState() const;
+
+      //! Get the state of state machine instance smStateBasicTestEnum
+      FppTest_SmState_BasicTestEnum::State smStateBasicTestEnum_getState() const;
+
+      //! Get the state of state machine instance smStateBasicTestStruct
+      FppTest_SmState_BasicTestStruct::State smStateBasicTestStruct_getState() const;
+
+      //! Get the state of state machine instance smStateBasicU32
+      FppTest_SmState_BasicU32::State smStateBasicU32_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -712,6 +957,31 @@ namespace FppTest {
       //! Send signal s to state machine smStateBasicString
       void smStateBasicString_sendSignal_s(
           const Fw::StringBase& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicTestAbsType
+      void smStateBasicTestAbsType_sendSignal_s(
+          const FppTest::SmHarness::TestAbsType& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicTestArray
+      void smStateBasicTestArray_sendSignal_s(
+          const FppTest::SmHarness::TestArray& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicTestEnum
+      void smStateBasicTestEnum_sendSignal_s(
+          const FppTest::SmHarness::TestEnum& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicTestStruct
+      void smStateBasicTestStruct_sendSignal_s(
+          const FppTest::SmHarness::TestStruct& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicU32
+      void smStateBasicU32_sendSignal_s(
+          U32 value //!< The value
       );
 
     PROTECTED:
@@ -838,6 +1108,91 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicString::Signal signal, //!< The signal
           const Fw::StringBase& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicTestAbsType
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicTestAbsType_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestAbsType::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmState_BasicTestAbsType
+      //!
+      //! Action b
+      virtual void FppTest_SmState_BasicTestAbsType_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestAbsType::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestAbsType& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicTestArray
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicTestArray_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestArray::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmState_BasicTestArray
+      //!
+      //! Action b
+      virtual void FppTest_SmState_BasicTestArray_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestArray::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestArray& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicTestEnum
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicTestEnum_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestEnum::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmState_BasicTestEnum
+      //!
+      //! Action b
+      virtual void FppTest_SmState_BasicTestEnum_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestEnum::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestEnum& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicTestStruct
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicTestStruct_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestStruct::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmState_BasicTestStruct
+      //!
+      //! Action b
+      virtual void FppTest_SmState_BasicTestStruct_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicTestStruct::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestStruct& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicU32
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicU32_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicU32::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmState_BasicU32
+      //!
+      //! Action b
+      virtual void FppTest_SmState_BasicU32_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicU32::Signal signal, //!< The signal
+          U32 value //!< The value
       ) = 0;
 
       //! Implementation for action a of state machine FppTest_SmStateActive_Basic
@@ -998,6 +1353,31 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
+      //! Finish sending a signal to a state machine
+      void smStateBasicTestAbsType_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicTestArray_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicTestEnum_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicTestStruct_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicU32_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -1093,6 +1473,41 @@ namespace FppTest {
           FppTest_SmState_BasicString::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestAbsType
+      void FppTest_SmState_BasicTestAbsType_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicTestAbsType& sm, //!< The state machine
+          FppTest_SmState_BasicTestAbsType::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestArray
+      void FppTest_SmState_BasicTestArray_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicTestArray& sm, //!< The state machine
+          FppTest_SmState_BasicTestArray::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestEnum
+      void FppTest_SmState_BasicTestEnum_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicTestEnum& sm, //!< The state machine
+          FppTest_SmState_BasicTestEnum::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicTestStruct
+      void FppTest_SmState_BasicTestStruct_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicTestStruct& sm, //!< The state machine
+          FppTest_SmState_BasicTestStruct::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicU32
+      void FppTest_SmState_BasicU32_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicU32& sm, //!< The state machine
+          FppTest_SmState_BasicU32::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type FppTest_SmStateActive_Basic
       void FppTest_SmStateActive_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
@@ -1141,6 +1556,21 @@ namespace FppTest {
 
       //! State machine smStateBasicString
       FppTest_SmState_BasicString m_stateMachine_smStateBasicString;
+
+      //! State machine smStateBasicTestAbsType
+      FppTest_SmState_BasicTestAbsType m_stateMachine_smStateBasicTestAbsType;
+
+      //! State machine smStateBasicTestArray
+      FppTest_SmState_BasicTestArray m_stateMachine_smStateBasicTestArray;
+
+      //! State machine smStateBasicTestEnum
+      FppTest_SmState_BasicTestEnum m_stateMachine_smStateBasicTestEnum;
+
+      //! State machine smStateBasicTestStruct
+      FppTest_SmState_BasicTestStruct m_stateMachine_smStateBasicTestStruct;
+
+      //! State machine smStateBasicU32
+      FppTest_SmState_BasicU32 m_stateMachine_smStateBasicU32;
 
   };
 

@@ -23,3 +23,13 @@ state machine instance smStateBasicInternal: SmState.BasicInternal
 state machine instance smStateBasicSelf: SmState.BasicSelf
 
 state machine instance smStateBasicString: SmState.BasicString
+
+state machine instance smStateBasicTestAbsType: SmState.BasicTestAbsType
+
+state machine instance smStateBasicTestArray: SmState.BasicTestArray
+
+state machine instance smStateBasicTestEnum: SmState.BasicTestEnum
+
+state machine instance smStateBasicTestStruct: SmState.BasicTestStruct
+
+state machine instance smStateBasicU32: SmState.BasicU32

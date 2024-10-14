@@ -13,3 +13,8 @@
 ../../state-machine/state/BasicInternal.fpp
 ../../state-machine/state/BasicSelf.fpp
 ../../state-machine/state/BasicString.fpp
+../../state-machine/state/BasicTestAbsType.fpp
+../../state-machine/state/BasicTestArray.fpp
+../../state-machine/state/BasicTestEnum.fpp
+../../state-machine/state/BasicTestStruct.fpp
+../../state-machine/state/BasicU32.fpp
