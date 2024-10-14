@@ -28,6 +28,10 @@ module FppTest {
 
     state machine instance basic: Basic
 
+    state machine instance smStateBasic: SmState.Basic priority 1 assert
+
+    state machine instance smStateBasicGuard: SmState.BasicGuard priority 2 block
+
   }
 
 }

@@ -2,3 +2,4 @@
 ../../state-machine/initial/Junction.fpp
 ../../state-machine/initial/Nested.fpp
 ../../state-machine/state/Basic.fpp
+../../state-machine/state/BasicGuard.fpp

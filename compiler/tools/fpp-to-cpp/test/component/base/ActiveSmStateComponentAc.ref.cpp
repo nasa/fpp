@@ -103,6 +103,62 @@ namespace FppTest {
     this->m_component.FppTest_ActiveSmState_Basic_action_a(this->getId(), signal);
   }
 
+  ActiveSmStateComponentBase::FppTest_SmState_Basic ::
+    FppTest_SmState_Basic(ActiveSmStateComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void ActiveSmStateComponentBase::FppTest_SmState_Basic ::
+    init(ActiveSmStateComponentBase::SmId smId)
+  {
+    this->initBase(static_cast<FwEnumStoreType>(smId));
+  }
+
+  ActiveSmStateComponentBase::SmId ActiveSmStateComponentBase::FppTest_SmState_Basic ::
+    getId() const
+  {
+    return static_cast<ActiveSmStateComponentBase::SmId>(this->m_id);
+  }
+
+  void ActiveSmStateComponentBase::FppTest_SmState_Basic ::
+    action_a(Signal signal)
+  {
+    this->m_component.FppTest_SmState_Basic_action_a(this->getId(), signal);
+  }
+
+  ActiveSmStateComponentBase::FppTest_SmState_BasicGuard ::
+    FppTest_SmState_BasicGuard(ActiveSmStateComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void ActiveSmStateComponentBase::FppTest_SmState_BasicGuard ::
+    init(ActiveSmStateComponentBase::SmId smId)
+  {
+    this->initBase(static_cast<FwEnumStoreType>(smId));
+  }
+
+  ActiveSmStateComponentBase::SmId ActiveSmStateComponentBase::FppTest_SmState_BasicGuard ::
+    getId() const
+  {
+    return static_cast<ActiveSmStateComponentBase::SmId>(this->m_id);
+  }
+
+  void ActiveSmStateComponentBase::FppTest_SmState_BasicGuard ::
+    action_a(Signal signal)
+  {
+    this->m_component.FppTest_SmState_BasicGuard_action_a(this->getId(), signal);
+  }
+
+  bool ActiveSmStateComponentBase::FppTest_SmState_BasicGuard ::
+    guard_g(Signal signal) const
+  {
+    return this->m_component.FppTest_SmState_BasicGuard_guard_g(this->getId(), signal);
+  }
+
   // ----------------------------------------------------------------------
   // Component initialization
   // ----------------------------------------------------------------------
@@ -117,6 +173,8 @@ namespace FppTest {
     Fw::ActiveComponentBase::init(instance);
 
     this->m_stateMachine_basic.init(SmId::basic);
+    this->m_stateMachine_smStateBasic.init(SmId::smStateBasic);
+    this->m_stateMachine_smStateBasicGuard.init(SmId::smStateBasicGuard);
 
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
@@ -135,7 +193,9 @@ namespace FppTest {
   ActiveSmStateComponentBase ::
     ActiveSmStateComponentBase(const char* compName) :
       Fw::ActiveComponentBase(compName),
-      m_stateMachine_basic(*this)
+      m_stateMachine_basic(*this),
+      m_stateMachine_smStateBasic(*this),
+      m_stateMachine_smStateBasicGuard(*this)
   {
 
   }
@@ -156,6 +216,18 @@ namespace FppTest {
     return this->m_stateMachine_basic.getState();
   }
 
+  ActiveSmStateComponentBase::FppTest_SmState_Basic::State ActiveSmStateComponentBase ::
+    smStateBasic_getState() const
+  {
+    return this->m_stateMachine_smStateBasic.getState();
+  }
+
+  ActiveSmStateComponentBase::FppTest_SmState_BasicGuard::State ActiveSmStateComponentBase ::
+    smStateBasicGuard_getState() const
+  {
+    return this->m_stateMachine_smStateBasicGuard.getState();
+  }
+
   // ----------------------------------------------------------------------
   // Signal send functions
   // ----------------------------------------------------------------------
@@ -168,6 +240,26 @@ namespace FppTest {
     this->sendSignalStart(SmId::basic, static_cast<FwEnumStoreType>(FppTest_ActiveSmState_Basic::Signal::s), buffer);
     // Send the message and handle overflow
     this->basic_sendSignalFinish(buffer);
+  }
+
+  void ActiveSmStateComponentBase ::
+    smStateBasic_sendSignal_s()
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasic, static_cast<FwEnumStoreType>(FppTest_SmState_Basic::Signal::s), buffer);
+    // Send the message and handle overflow
+    this->smStateBasic_sendSignalFinish(buffer);
+  }
+
+  void ActiveSmStateComponentBase ::
+    smStateBasicGuard_sendSignal_s()
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasicGuard, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuard::Signal::s), buffer);
+    // Send the message and handle overflow
+    this->smStateBasicGuard_sendSignalFinish(buffer);
   }
 
   // ----------------------------------------------------------------------
@@ -270,6 +362,32 @@ namespace FppTest {
     );
   }
 
+  void ActiveSmStateComponentBase ::
+    smStateBasic_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 1, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
+  void ActiveSmStateComponentBase ::
+    smStateBasicGuard_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::BLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 2, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
   // ----------------------------------------------------------------------
   // Helper functions for state machine dispatch
   // ----------------------------------------------------------------------
@@ -288,6 +406,16 @@ namespace FppTest {
       case SmId::basic: {
         const FppTest_ActiveSmState_Basic::Signal signal = static_cast<FppTest_ActiveSmState_Basic::Signal>(storedSignal);
         this->FppTest_ActiveSmState_Basic_smDispatch(buffer, this->m_stateMachine_basic, signal);
+        break;
+      }
+      case SmId::smStateBasic: {
+        const FppTest_SmState_Basic::Signal signal = static_cast<FppTest_SmState_Basic::Signal>(storedSignal);
+        this->FppTest_SmState_Basic_smDispatch(buffer, this->m_stateMachine_smStateBasic, signal);
+        break;
+      }
+      case SmId::smStateBasicGuard: {
+        const FppTest_SmState_BasicGuard::Signal signal = static_cast<FppTest_SmState_BasicGuard::Signal>(storedSignal);
+        this->FppTest_SmState_BasicGuard_smDispatch(buffer, this->m_stateMachine_smStateBasicGuard, signal);
         break;
       }
       default:
@@ -326,6 +454,48 @@ namespace FppTest {
   {
     switch (signal) {
       case FppTest_ActiveSmState_Basic::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
+    }
+  }
+
+  void ActiveSmStateComponentBase ::
+    FppTest_SmState_Basic_smDispatch(
+        Fw::SerializeBufferBase& buffer,
+        FppTest_SmState_Basic& sm,
+        FppTest_SmState_Basic::Signal signal
+    )
+  {
+    switch (signal) {
+      case FppTest_SmState_Basic::Signal::s: {
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s();
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
+    }
+  }
+
+  void ActiveSmStateComponentBase ::
+    FppTest_SmState_BasicGuard_smDispatch(
+        Fw::SerializeBufferBase& buffer,
+        FppTest_SmState_BasicGuard& sm,
+        FppTest_SmState_BasicGuard::Signal signal
+    )
+  {
+    switch (signal) {
+      case FppTest_SmState_BasicGuard::Signal::s: {
         // Assert no data left in buffer
         FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
         // Call the sendSignal function for sm and s
