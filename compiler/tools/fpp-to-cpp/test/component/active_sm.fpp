@@ -14,6 +14,12 @@ module FppTest {
 
     state machine instance smInitialJunction: SmInitial.Junction
 
+    include "../state-machine/initial/include/Nested.fpp"
+
+    state machine instance nested: Nested
+
+    state machine instance smInitialNested: SmInitial.Nested
+
   }
 
 }

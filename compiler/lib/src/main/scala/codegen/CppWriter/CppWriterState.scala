@@ -98,6 +98,10 @@ case class CppWriterState(
     CppWriterState.writeQualifiedName(qualifiedName)
   }
 
+  /** Write an FPP symbol as a C++ identifier */
+  def writeSymbolAsIdent(sym: Symbol): String =
+    writeSymbol(sym).replaceAll("::", "_")
+
   // Skip component names in qualifiers
   // Those appear in the prefixes of definition names
   private def removeComponentQualifiers(

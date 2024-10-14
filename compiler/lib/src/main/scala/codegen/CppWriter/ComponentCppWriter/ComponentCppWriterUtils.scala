@@ -885,9 +885,7 @@ abstract class ComponentCppWriterUtils(
   def writeStateMachineImplType(smSymbol: Symbol.StateMachine) = {
     StateMachine.getSymbolKind(smSymbol) match {
       case StateMachine.Kind.External => s.writeSymbol(smSymbol)
-      case StateMachine.Kind.Internal =>
-        val shortName = s.a.getShortName(smSymbol, componentSymbol)
-        CppWriterState.identFromQualifiedName(shortName)
+      case StateMachine.Kind.Internal => s.writeSymbolAsIdent(smSymbol)
     }
   }
 
