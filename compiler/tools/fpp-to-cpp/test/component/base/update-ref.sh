@@ -59,6 +59,7 @@ active_sm()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm
   move_cpp ActiveSmInitialComponent
+  move_cpp ActiveSmStateComponent
 }
 
 queued()

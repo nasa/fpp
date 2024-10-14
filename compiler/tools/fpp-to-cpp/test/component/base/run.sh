@@ -58,7 +58,8 @@ active()
 active_sm()
 {
   run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm && \
-  diff_cpp ActiveSmInitialComponent
+  diff_cpp ActiveSmInitialComponent && \
+  diff_cpp ActiveSmStateComponent
 }
 
 queued()

@@ -22,4 +22,12 @@ module FppTest {
 
   }
 
+  active component ActiveSmState {
+
+    include "../state-machine/state/include/Basic.fpp"
+
+    state machine instance basic: Basic
+
+  }
+
 }
