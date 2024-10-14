@@ -29,7 +29,7 @@ done
 fprime_gcc=../../../../../scripts/fprime-gcc
 
 ## Set compiler flags
-include_flags="-I.. -I../.. -I../../fprime -I../../fprime/config"
+include_flags="-I.. -I../.. -I../../fprime -I../../state-machine -I../../fprime/config"
 warning_flags="
 -Wno-sign-conversion
 -Wno-unused-parameter

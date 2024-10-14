@@ -1,6 +1,8 @@
+../../state-machine/harness/harness.fpp
 ../../state-machine/initial/Basic.fpp
 ../../state-machine/initial/Junction.fpp
 ../../state-machine/initial/Nested.fpp
 ../../state-machine/state/Basic.fpp
 ../../state-machine/state/BasicGuard.fpp
 ../../state-machine/state/BasicGuardString.fpp
+../../state-machine/state/BasicGuardTestAbsType.fpp

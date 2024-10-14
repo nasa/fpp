@@ -14,6 +14,7 @@
 #include "SmStateActive_BasicStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
+#include "state-machine/state/BasicGuardTestAbsTypeStateMachineAc.hpp"
 #include "state-machine/state/BasicStateMachineAc.hpp"
 
 namespace FppTest {
@@ -43,6 +44,7 @@ namespace FppTest {
         smStateBasic,
         smStateBasicGuard,
         smStateBasicGuardString,
+        smStateBasicGuardTestAbsType,
       };
 
     PROTECTED:
@@ -181,6 +183,53 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine FppTest_SmState_BasicGuardTestAbsType
+      class FppTest_SmState_BasicGuardTestAbsType :
+        public FppTest::SmState::BasicGuardTestAbsTypeStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicGuardTestAbsType(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestAbsType& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestAbsType& value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
       //! Implementation of state machine FppTest_SmStateActive_Basic
       class FppTest_SmStateActive_Basic :
         public FppTest::SmStateActive_BasicStateMachineBase
@@ -263,6 +312,9 @@ namespace FppTest {
       //! Get the state of state machine instance smStateBasicGuardString
       FppTest_SmState_BasicGuardString::State smStateBasicGuardString_getState() const;
 
+      //! Get the state of state machine instance smStateBasicGuardTestAbsType
+      FppTest_SmState_BasicGuardTestAbsType::State smStateBasicGuardTestAbsType_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -282,6 +334,28 @@ namespace FppTest {
       void smStateBasicGuardString_sendSignal_s(
           const Fw::StringBase& value //!< The value
       );
+
+      //! Send signal s to state machine smStateBasicGuardTestAbsType
+      void smStateBasicGuardTestAbsType_sendSignal_s(
+          const FppTest::SmHarness::TestAbsType& value //!< The value
+      );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Overflow hooks for internal state machine instances
+      //
+      // When sending a signal to a state machine instance, if
+      // the queue overflows and the instance is marked with 'hook' behavior,
+      // the corresponding function here is called.
+      // ----------------------------------------------------------------------
+
+      //! Overflow hook for state machine smStateBasicGuardTestAbsType
+      virtual void smStateBasicGuardTestAbsType_stateMachineOverflowHook(
+          SmId smId, //!< The state machine ID
+          FwEnumStoreType signal, //!< The signal
+          Fw::SerializeBufferBase& buffer //!< The message buffer
+      ) = 0;
 
     PROTECTED:
 
@@ -314,6 +388,15 @@ namespace FppTest {
           const Fw::StringBase& value //!< The value
       ) = 0;
 
+      //! Implementation for action a of state machine FppTest_SmState_BasicGuardTestAbsType
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicGuardTestAbsType_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardTestAbsType::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestAbsType& value //!< The value
+      ) = 0;
+
       //! Implementation for action a of state machine FppTest_SmStateActive_Basic
       //!
       //! Action a
@@ -343,6 +426,15 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardString::Signal signal, //!< The signal
           const Fw::StringBase& value //!< The value
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestAbsType
+      //!
+      //! Guard g
+      virtual bool FppTest_SmState_BasicGuardTestAbsType_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardTestAbsType::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestAbsType& value //!< The value
       ) = 0;
 
     PRIVATE:
@@ -387,6 +479,11 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
+      //! Finish sending a signal to a state machine
+      void smStateBasicGuardTestAbsType_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -426,6 +523,13 @@ namespace FppTest {
           FppTest_SmState_BasicGuardString::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestAbsType
+      void FppTest_SmState_BasicGuardTestAbsType_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicGuardTestAbsType& sm, //!< The state machine
+          FppTest_SmState_BasicGuardTestAbsType::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type FppTest_SmStateActive_Basic
       void FppTest_SmStateActive_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
@@ -450,6 +554,9 @@ namespace FppTest {
 
       //! State machine smStateBasicGuardString
       FppTest_SmState_BasicGuardString m_stateMachine_smStateBasicGuardString;
+
+      //! State machine smStateBasicGuardTestAbsType
+      FppTest_SmState_BasicGuardTestAbsType m_stateMachine_smStateBasicGuardTestAbsType;
 
   };
 
