@@ -6,3 +6,4 @@
 ../../state-machine/state/BasicGuard.fpp
 ../../state-machine/state/BasicGuardString.fpp
 ../../state-machine/state/BasicGuardTestAbsType.fpp
+../../state-machine/state/BasicGuardTestArray.fpp

@@ -9,3 +9,5 @@ state machine instance smStateBasicGuard: SmState.BasicGuard priority 2 block
 state machine instance smStateBasicGuardString: SmState.BasicGuardString priority 3 drop
 
 state machine instance smStateBasicGuardTestAbsType: SmState.BasicGuardTestAbsType priority 4 hook
+
+state machine instance smStateBasicGuardTestArray: SmState.BasicGuardTestArray
