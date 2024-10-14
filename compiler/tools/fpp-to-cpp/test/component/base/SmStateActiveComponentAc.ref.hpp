@@ -17,6 +17,8 @@
 #include "state-machine/state/BasicGuardTestAbsTypeStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardTestArrayStateMachineAc.hpp"
 #include "state-machine/state/BasicGuardTestEnumStateMachineAc.hpp"
+#include "state-machine/state/BasicGuardTestStructStateMachineAc.hpp"
+#include "state-machine/state/BasicGuardU32StateMachineAc.hpp"
 #include "state-machine/state/BasicStateMachineAc.hpp"
 
 namespace FppTest {
@@ -49,6 +51,8 @@ namespace FppTest {
         smStateBasicGuardTestAbsType,
         smStateBasicGuardTestArray,
         smStateBasicGuardTestEnum,
+        smStateBasicGuardTestStruct,
+        smStateBasicGuardU32,
       };
 
     PROTECTED:
@@ -328,6 +332,100 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine FppTest_SmState_BasicGuardTestStruct
+      class FppTest_SmState_BasicGuardTestStruct :
+        public FppTest::SmState::BasicGuardTestStructStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicGuardTestStruct(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestStruct& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              const FppTest::SmHarness::TestStruct& value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_BasicGuardU32
+      class FppTest_SmState_BasicGuardU32 :
+        public FppTest::SmState::BasicGuardU32StateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicGuardU32(
+              SmStateActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateActiveComponentBase& m_component;
+
+      };
+
       //! Implementation of state machine FppTest_SmStateActive_Basic
       class FppTest_SmStateActive_Basic :
         public FppTest::SmStateActive_BasicStateMachineBase
@@ -419,6 +517,12 @@ namespace FppTest {
       //! Get the state of state machine instance smStateBasicGuardTestEnum
       FppTest_SmState_BasicGuardTestEnum::State smStateBasicGuardTestEnum_getState() const;
 
+      //! Get the state of state machine instance smStateBasicGuardTestStruct
+      FppTest_SmState_BasicGuardTestStruct::State smStateBasicGuardTestStruct_getState() const;
+
+      //! Get the state of state machine instance smStateBasicGuardU32
+      FppTest_SmState_BasicGuardU32::State smStateBasicGuardU32_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -452,6 +556,16 @@ namespace FppTest {
       //! Send signal s to state machine smStateBasicGuardTestEnum
       void smStateBasicGuardTestEnum_sendSignal_s(
           const FppTest::SmHarness::TestEnum& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicGuardTestStruct
+      void smStateBasicGuardTestStruct_sendSignal_s(
+          const FppTest::SmHarness::TestStruct& value //!< The value
+      );
+
+      //! Send signal s to state machine smStateBasicGuardU32
+      void smStateBasicGuardU32_sendSignal_s(
+          U32 value //!< The value
       );
 
     PROTECTED:
@@ -529,6 +643,24 @@ namespace FppTest {
           const FppTest::SmHarness::TestEnum& value //!< The value
       ) = 0;
 
+      //! Implementation for action a of state machine FppTest_SmState_BasicGuardTestStruct
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicGuardTestStruct_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardTestStruct::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestStruct& value //!< The value
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_BasicGuardU32
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicGuardU32_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardU32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
       //! Implementation for action a of state machine FppTest_SmStateActive_Basic
       //!
       //! Action a
@@ -587,6 +719,24 @@ namespace FppTest {
           const FppTest::SmHarness::TestEnum& value //!< The value
       ) = 0;
 
+      //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestStruct
+      //!
+      //! Guard g
+      virtual bool FppTest_SmState_BasicGuardTestStruct_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardTestStruct::Signal signal, //!< The signal
+          const FppTest::SmHarness::TestStruct& value //!< The value
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmState_BasicGuardU32
+      //!
+      //! Guard g
+      virtual bool FppTest_SmState_BasicGuardU32_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardU32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -641,6 +791,16 @@ namespace FppTest {
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuardTestEnum_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicGuardTestStruct_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicGuardU32_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -704,6 +864,20 @@ namespace FppTest {
           FppTest_SmState_BasicGuardTestEnum::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardTestStruct
+      void FppTest_SmState_BasicGuardTestStruct_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicGuardTestStruct& sm, //!< The state machine
+          FppTest_SmState_BasicGuardTestStruct::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardU32
+      void FppTest_SmState_BasicGuardU32_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicGuardU32& sm, //!< The state machine
+          FppTest_SmState_BasicGuardU32::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type FppTest_SmStateActive_Basic
       void FppTest_SmStateActive_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
@@ -737,6 +911,12 @@ namespace FppTest {
 
       //! State machine smStateBasicGuardTestEnum
       FppTest_SmState_BasicGuardTestEnum m_stateMachine_smStateBasicGuardTestEnum;
+
+      //! State machine smStateBasicGuardTestStruct
+      FppTest_SmState_BasicGuardTestStruct m_stateMachine_smStateBasicGuardTestStruct;
+
+      //! State machine smStateBasicGuardU32
+      FppTest_SmState_BasicGuardU32 m_stateMachine_smStateBasicGuardU32;
 
   };
 

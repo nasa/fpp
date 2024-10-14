@@ -8,3 +8,5 @@
 ../../state-machine/state/BasicGuardTestAbsType.fpp
 ../../state-machine/state/BasicGuardTestArray.fpp
 ../../state-machine/state/BasicGuardTestEnum.fpp
+../../state-machine/state/BasicGuardTestStruct.fpp
+../../state-machine/state/BasicGuardU32.fpp

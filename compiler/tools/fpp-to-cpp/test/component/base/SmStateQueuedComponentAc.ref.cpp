@@ -23,6 +23,8 @@ namespace FppTest {
         BYTE size_of_FppTest_SmHarness_TestAbsType[FppTest::SmHarness::TestAbsType::SERIALIZED_SIZE];
         BYTE size_of_FppTest_SmHarness_TestArray[FppTest::SmHarness::TestArray::SERIALIZED_SIZE];
         BYTE size_of_FppTest_SmHarness_TestEnum[FppTest::SmHarness::TestEnum::SERIALIZED_SIZE];
+        BYTE size_of_FppTest_SmHarness_TestStruct[FppTest::SmHarness::TestStruct::SERIALIZED_SIZE];
+        BYTE size_of_U32[sizeof(U32)];
         BYTE size_of_string[Fw::StringBase::STATIC_SERIALIZED_SIZE(80)];
       };
 
@@ -291,6 +293,80 @@ namespace FppTest {
     return this->m_component.FppTest_SmState_BasicGuardTestEnum_guard_g(this->getId(), signal, value);
   }
 
+  SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct ::
+    FppTest_SmState_BasicGuardTestStruct(SmStateQueuedComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct ::
+    init(SmStateQueuedComponentBase::SmId smId)
+  {
+    this->initBase(static_cast<FwEnumStoreType>(smId));
+  }
+
+  SmStateQueuedComponentBase::SmId SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct ::
+    getId() const
+  {
+    return static_cast<SmStateQueuedComponentBase::SmId>(this->m_id);
+  }
+
+  void SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct ::
+    action_a(
+        Signal signal,
+        const FppTest::SmHarness::TestStruct& value
+    )
+  {
+    this->m_component.FppTest_SmState_BasicGuardTestStruct_action_a(this->getId(), signal, value);
+  }
+
+  bool SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct ::
+    guard_g(
+        Signal signal,
+        const FppTest::SmHarness::TestStruct& value
+    ) const
+  {
+    return this->m_component.FppTest_SmState_BasicGuardTestStruct_guard_g(this->getId(), signal, value);
+  }
+
+  SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32 ::
+    FppTest_SmState_BasicGuardU32(SmStateQueuedComponentBase& component) :
+      m_component(component)
+  {
+
+  }
+
+  void SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32 ::
+    init(SmStateQueuedComponentBase::SmId smId)
+  {
+    this->initBase(static_cast<FwEnumStoreType>(smId));
+  }
+
+  SmStateQueuedComponentBase::SmId SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32 ::
+    getId() const
+  {
+    return static_cast<SmStateQueuedComponentBase::SmId>(this->m_id);
+  }
+
+  void SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32 ::
+    action_a(
+        Signal signal,
+        U32 value
+    )
+  {
+    this->m_component.FppTest_SmState_BasicGuardU32_action_a(this->getId(), signal, value);
+  }
+
+  bool SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32 ::
+    guard_g(
+        Signal signal,
+        U32 value
+    ) const
+  {
+    return this->m_component.FppTest_SmState_BasicGuardU32_guard_g(this->getId(), signal, value);
+  }
+
   SmStateQueuedComponentBase::FppTest_SmStateQueued_Basic ::
     FppTest_SmStateQueued_Basic(SmStateQueuedComponentBase& component) :
       m_component(component)
@@ -336,6 +412,8 @@ namespace FppTest {
     this->m_stateMachine_smStateBasicGuardTestAbsType.init(SmId::smStateBasicGuardTestAbsType);
     this->m_stateMachine_smStateBasicGuardTestArray.init(SmId::smStateBasicGuardTestArray);
     this->m_stateMachine_smStateBasicGuardTestEnum.init(SmId::smStateBasicGuardTestEnum);
+    this->m_stateMachine_smStateBasicGuardTestStruct.init(SmId::smStateBasicGuardTestStruct);
+    this->m_stateMachine_smStateBasicGuardU32.init(SmId::smStateBasicGuardU32);
 
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
@@ -360,7 +438,9 @@ namespace FppTest {
       m_stateMachine_smStateBasicGuardString(*this),
       m_stateMachine_smStateBasicGuardTestAbsType(*this),
       m_stateMachine_smStateBasicGuardTestArray(*this),
-      m_stateMachine_smStateBasicGuardTestEnum(*this)
+      m_stateMachine_smStateBasicGuardTestEnum(*this),
+      m_stateMachine_smStateBasicGuardTestStruct(*this),
+      m_stateMachine_smStateBasicGuardU32(*this)
   {
 
   }
@@ -415,6 +495,18 @@ namespace FppTest {
     smStateBasicGuardTestEnum_getState() const
   {
     return this->m_stateMachine_smStateBasicGuardTestEnum.getState();
+  }
+
+  SmStateQueuedComponentBase::FppTest_SmState_BasicGuardTestStruct::State SmStateQueuedComponentBase ::
+    smStateBasicGuardTestStruct_getState() const
+  {
+    return this->m_stateMachine_smStateBasicGuardTestStruct.getState();
+  }
+
+  SmStateQueuedComponentBase::FppTest_SmState_BasicGuardU32::State SmStateQueuedComponentBase ::
+    smStateBasicGuardU32_getState() const
+  {
+    return this->m_stateMachine_smStateBasicGuardU32.getState();
   }
 
   // ----------------------------------------------------------------------
@@ -501,6 +593,32 @@ namespace FppTest {
     FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
     // Send the message and handle overflow
     this->smStateBasicGuardTestEnum_sendSignalFinish(buffer);
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasicGuardTestStruct_sendSignal_s(const FppTest::SmHarness::TestStruct& value)
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasicGuardTestStruct, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardTestStruct::Signal::s), buffer);
+    // Serialize the signal data
+    const Fw::SerializeStatus status = buffer.serialize(value);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    // Send the message and handle overflow
+    this->smStateBasicGuardTestStruct_sendSignalFinish(buffer);
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasicGuardU32_sendSignal_s(U32 value)
+  {
+    ComponentIpcSerializableBuffer buffer;
+    // Serialize the message type, port number, state ID, and signal
+    this->sendSignalStart(SmId::smStateBasicGuardU32, static_cast<FwEnumStoreType>(FppTest_SmState_BasicGuardU32::Signal::s), buffer);
+    // Serialize the signal data
+    const Fw::SerializeStatus status = buffer.serialize(value);
+    FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+    // Send the message and handle overflow
+    this->smStateBasicGuardU32_sendSignalFinish(buffer);
   }
 
   // ----------------------------------------------------------------------
@@ -706,6 +824,32 @@ namespace FppTest {
     );
   }
 
+  void SmStateQueuedComponentBase ::
+    smStateBasicGuardTestStruct_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
+  void SmStateQueuedComponentBase ::
+    smStateBasicGuardU32_sendSignalFinish(Fw::SerializeBufferBase& buffer)
+  {
+    // Send message
+    Os::Queue::BlockingType _block = Os::Queue::NONBLOCKING;
+    Os::Queue::Status qStatus = this->m_queue.send(buffer, 0, _block);
+
+    FW_ASSERT(
+      qStatus == Os::Queue::OP_OK,
+      static_cast<FwAssertArgType>(qStatus)
+    );
+  }
+
   // ----------------------------------------------------------------------
   // Helper functions for state machine dispatch
   // ----------------------------------------------------------------------
@@ -754,6 +898,16 @@ namespace FppTest {
       case SmId::smStateBasicGuardTestEnum: {
         const FppTest_SmState_BasicGuardTestEnum::Signal signal = static_cast<FppTest_SmState_BasicGuardTestEnum::Signal>(storedSignal);
         this->FppTest_SmState_BasicGuardTestEnum_smDispatch(buffer, this->m_stateMachine_smStateBasicGuardTestEnum, signal);
+        break;
+      }
+      case SmId::smStateBasicGuardTestStruct: {
+        const FppTest_SmState_BasicGuardTestStruct::Signal signal = static_cast<FppTest_SmState_BasicGuardTestStruct::Signal>(storedSignal);
+        this->FppTest_SmState_BasicGuardTestStruct_smDispatch(buffer, this->m_stateMachine_smStateBasicGuardTestStruct, signal);
+        break;
+      }
+      case SmId::smStateBasicGuardU32: {
+        const FppTest_SmState_BasicGuardU32::Signal signal = static_cast<FppTest_SmState_BasicGuardU32::Signal>(storedSignal);
+        this->FppTest_SmState_BasicGuardU32_smDispatch(buffer, this->m_stateMachine_smStateBasicGuardU32, signal);
         break;
       }
       default:
@@ -912,6 +1066,56 @@ namespace FppTest {
       case FppTest_SmState_BasicGuardTestEnum::Signal::s: {
         // Deserialize the data
         FppTest::SmHarness::TestEnum value;
+        const Fw::SerializeStatus status = buffer.deserialize(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s(value);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
+    }
+  }
+
+  void SmStateQueuedComponentBase ::
+    FppTest_SmState_BasicGuardTestStruct_smDispatch(
+        Fw::SerializeBufferBase& buffer,
+        FppTest_SmState_BasicGuardTestStruct& sm,
+        FppTest_SmState_BasicGuardTestStruct::Signal signal
+    )
+  {
+    switch (signal) {
+      case FppTest_SmState_BasicGuardTestStruct::Signal::s: {
+        // Deserialize the data
+        FppTest::SmHarness::TestStruct value;
+        const Fw::SerializeStatus status = buffer.deserialize(value);
+        FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
+        // Assert no data left in buffer
+        FW_ASSERT(buffer.getBuffLeft() == 0, static_cast<FwAssertArgType>(buffer.getBuffLeft()));
+        // Call the sendSignal function for sm and s
+        sm.sendSignal_s(value);
+        break;
+      }
+      default:
+        FW_ASSERT(0, static_cast<FwAssertArgType>(signal));
+        break;
+    }
+  }
+
+  void SmStateQueuedComponentBase ::
+    FppTest_SmState_BasicGuardU32_smDispatch(
+        Fw::SerializeBufferBase& buffer,
+        FppTest_SmState_BasicGuardU32& sm,
+        FppTest_SmState_BasicGuardU32::Signal signal
+    )
+  {
+    switch (signal) {
+      case FppTest_SmState_BasicGuardU32::Signal::s: {
+        // Deserialize the data
+        U32 value;
         const Fw::SerializeStatus status = buffer.deserialize(value);
         FW_ASSERT(status == Fw::FW_SERIALIZE_OK, static_cast<FwAssertArgType>(status));
         // Assert no data left in buffer

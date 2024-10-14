@@ -13,3 +13,7 @@ state machine instance smStateBasicGuardTestAbsType: SmState.BasicGuardTestAbsTy
 state machine instance smStateBasicGuardTestArray: SmState.BasicGuardTestArray
 
 state machine instance smStateBasicGuardTestEnum: SmState.BasicGuardTestEnum
+
+state machine instance smStateBasicGuardTestStruct: SmState.BasicGuardTestStruct
+
+state machine instance smStateBasicGuardU32: SmState.BasicGuardU32
