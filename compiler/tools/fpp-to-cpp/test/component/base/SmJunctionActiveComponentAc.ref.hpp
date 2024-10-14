@@ -13,6 +13,12 @@
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmJunctionActive_BasicStateMachineAc.hpp"
 #include "state-machine/junction/BasicStateMachineAc.hpp"
+#include "state-machine/junction/BasicU32StateMachineAc.hpp"
+#include "state-machine/junction/InputPairU16U32StateMachineAc.hpp"
+#include "state-machine/junction/JunctionToJunctionStateMachineAc.hpp"
+#include "state-machine/junction/JunctionToStateStateMachineAc.hpp"
+#include "state-machine/junction/SequenceStateMachineAc.hpp"
+#include "state-machine/junction/SequenceU32StateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -39,6 +45,12 @@ namespace FppTest {
       enum class SmId : FwEnumStoreType {
         basic,
         smJunctionBasic,
+        smJunctionBasicU32,
+        smJunctionInputPairU16U32,
+        smJunctionJunctionToJunction,
+        smJunctionJunctionToState,
+        smJunctionSequence,
+        smJunctionSequenceU32,
       };
 
     PROTECTED:
@@ -88,6 +100,337 @@ namespace FppTest {
           //! Implementation for guard g
           bool guard_g(
               Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_BasicU32
+      class FppTest_SmJunction_BasicU32 :
+        public FppTest::SmJunction::BasicU32StateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_BasicU32(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_InputPairU16U32
+      class FppTest_SmJunction_InputPairU16U32 :
+        public FppTest::SmJunction::InputPairU16U32StateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_InputPairU16U32(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_JunctionToJunction
+      class FppTest_SmJunction_JunctionToJunction :
+        public FppTest::SmJunction::JunctionToJunctionStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_JunctionToJunction(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS1
+          void action_exitS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g1
+          bool guard_g1(
+              Signal signal //!< The signal
+          ) const;
+
+          //! Implementation for guard g2
+          bool guard_g2(
+              Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_JunctionToState
+      class FppTest_SmJunction_JunctionToState :
+        public FppTest::SmJunction::JunctionToStateStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_JunctionToState(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS1
+          void action_exitS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS3
+          void action_enterS3(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_Sequence
+      class FppTest_SmJunction_Sequence :
+        public FppTest::SmJunction::SequenceStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_Sequence(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g1
+          bool guard_g1(
+              Signal signal //!< The signal
+          ) const;
+
+          //! Implementation for guard g2
+          bool guard_g2(
+              Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmJunctionActiveComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmJunction_SequenceU32
+      class FppTest_SmJunction_SequenceU32 :
+        public FppTest::SmJunction::SequenceU32StateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmJunction_SequenceU32(
+              SmJunctionActiveComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmJunctionActiveComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmJunctionActiveComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              U32 value //!< The value
+          );
+
+          //! Implementation for action b
+          void action_b(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g1
+          bool guard_g1(
+              Signal signal //!< The signal
+          ) const;
+
+          //! Implementation for guard g2
+          bool guard_g2(
+              Signal signal, //!< The signal
+              U32 value //!< The value
           ) const;
 
         PRIVATE:
@@ -185,6 +528,24 @@ namespace FppTest {
       //! Get the state of state machine instance smJunctionBasic
       FppTest_SmJunction_Basic::State smJunctionBasic_getState() const;
 
+      //! Get the state of state machine instance smJunctionBasicU32
+      FppTest_SmJunction_BasicU32::State smJunctionBasicU32_getState() const;
+
+      //! Get the state of state machine instance smJunctionInputPairU16U32
+      FppTest_SmJunction_InputPairU16U32::State smJunctionInputPairU16U32_getState() const;
+
+      //! Get the state of state machine instance smJunctionJunctionToJunction
+      FppTest_SmJunction_JunctionToJunction::State smJunctionJunctionToJunction_getState() const;
+
+      //! Get the state of state machine instance smJunctionJunctionToState
+      FppTest_SmJunction_JunctionToState::State smJunctionJunctionToState_getState() const;
+
+      //! Get the state of state machine instance smJunctionSequence
+      FppTest_SmJunction_Sequence::State smJunctionSequence_getState() const;
+
+      //! Get the state of state machine instance smJunctionSequenceU32
+      FppTest_SmJunction_SequenceU32::State smJunctionSequenceU32_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -196,6 +557,52 @@ namespace FppTest {
 
       //! Send signal s to state machine smJunctionBasic
       void smJunctionBasic_sendSignal_s();
+
+      //! Send signal s to state machine smJunctionBasicU32
+      void smJunctionBasicU32_sendSignal_s(
+          U32 value //!< The value
+      );
+
+      //! Send signal s1 to state machine smJunctionInputPairU16U32
+      void smJunctionInputPairU16U32_sendSignal_s1(
+          U16 value //!< The value
+      );
+
+      //! Send signal s2 to state machine smJunctionInputPairU16U32
+      void smJunctionInputPairU16U32_sendSignal_s2(
+          U32 value //!< The value
+      );
+
+      //! Send signal s to state machine smJunctionJunctionToJunction
+      void smJunctionJunctionToJunction_sendSignal_s();
+
+      //! Send signal s to state machine smJunctionJunctionToState
+      void smJunctionJunctionToState_sendSignal_s();
+
+      //! Send signal s to state machine smJunctionSequence
+      void smJunctionSequence_sendSignal_s();
+
+      //! Send signal s to state machine smJunctionSequenceU32
+      void smJunctionSequenceU32_sendSignal_s(
+          U32 value //!< The value
+      );
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Overflow hooks for internal state machine instances
+      //
+      // When sending a signal to a state machine instance, if
+      // the queue overflows and the instance is marked with 'hook' behavior,
+      // the corresponding function here is called.
+      // ----------------------------------------------------------------------
+
+      //! Overflow hook for state machine smJunctionJunctionToJunction
+      virtual void smJunctionJunctionToJunction_stateMachineOverflowHook(
+          SmId smId, //!< The state machine ID
+          FwEnumStoreType signal, //!< The signal
+          Fw::SerializeBufferBase& buffer //!< The message buffer
+      ) = 0;
 
     PROTECTED:
 
@@ -217,6 +624,121 @@ namespace FppTest {
       virtual void FppTest_SmJunction_Basic_action_b(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_Basic::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_BasicU32
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_BasicU32_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_BasicU32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmJunction_BasicU32
+      //!
+      //! Action b
+      virtual void FppTest_SmJunction_BasicU32_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_BasicU32::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_InputPairU16U32
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_InputPairU16U32_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_InputPairU16U32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for action exitS1 of state machine FppTest_SmJunction_JunctionToJunction
+      //!
+      //! Exit S1
+      virtual void FppTest_SmJunction_JunctionToJunction_action_exitS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_JunctionToJunction
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_JunctionToJunction_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmJunction_JunctionToJunction
+      //!
+      //! Enter S2
+      virtual void FppTest_SmJunction_JunctionToJunction_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS1 of state machine FppTest_SmJunction_JunctionToState
+      //!
+      //! Exit S1
+      virtual void FppTest_SmJunction_JunctionToState_action_exitS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_JunctionToState
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_JunctionToState_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmJunction_JunctionToState
+      //!
+      //! Enter S2
+      virtual void FppTest_SmJunction_JunctionToState_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS3 of state machine FppTest_SmJunction_JunctionToState
+      //!
+      //! Enter S3
+      virtual void FppTest_SmJunction_JunctionToState_action_enterS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_Sequence
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_Sequence_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_Sequence::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmJunction_Sequence
+      //!
+      //! Action b
+      virtual void FppTest_SmJunction_Sequence_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_Sequence::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmJunction_SequenceU32
+      //!
+      //! Action a
+      virtual void FppTest_SmJunction_SequenceU32_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_SequenceU32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for action b of state machine FppTest_SmJunction_SequenceU32
+      //!
+      //! Action b
+      virtual void FppTest_SmJunction_SequenceU32_action_b(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_SequenceU32::Signal signal //!< The signal
       ) = 0;
 
       //! Implementation for action a of state machine FppTest_SmJunctionActive_Basic
@@ -247,6 +769,81 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_Basic_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_Basic::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmJunction_BasicU32
+      //!
+      //! Guard g
+      virtual bool FppTest_SmJunction_BasicU32_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_BasicU32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmJunction_InputPairU16U32
+      //!
+      //! Guard g
+      virtual bool FppTest_SmJunction_InputPairU16U32_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_InputPairU16U32::Signal signal, //!< The signal
+          U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for guard g1 of state machine FppTest_SmJunction_JunctionToJunction
+      //!
+      //! Guard g1
+      virtual bool FppTest_SmJunction_JunctionToJunction_guard_g1(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g2 of state machine FppTest_SmJunction_JunctionToJunction
+      //!
+      //! Guard g2
+      virtual bool FppTest_SmJunction_JunctionToJunction_guard_g2(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmJunction_JunctionToState
+      //!
+      //! Guard g
+      virtual bool FppTest_SmJunction_JunctionToState_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g1 of state machine FppTest_SmJunction_Sequence
+      //!
+      //! Guard g1
+      virtual bool FppTest_SmJunction_Sequence_guard_g1(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_Sequence::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g2 of state machine FppTest_SmJunction_Sequence
+      //!
+      //! Guard g2
+      virtual bool FppTest_SmJunction_Sequence_guard_g2(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_Sequence::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g1 of state machine FppTest_SmJunction_SequenceU32
+      //!
+      //! Guard g1
+      virtual bool FppTest_SmJunction_SequenceU32_guard_g1(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_SequenceU32::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g2 of state machine FppTest_SmJunction_SequenceU32
+      //!
+      //! Guard g2
+      virtual bool FppTest_SmJunction_SequenceU32_guard_g2(
+          SmId smId, //!< The state machine id
+          FppTest_SmJunction_SequenceU32::Signal signal, //!< The signal
+          U32 value //!< The value
       ) = 0;
 
       //! Implementation for guard g of state machine FppTest_SmJunctionActive_Basic
@@ -289,6 +886,36 @@ namespace FppTest {
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
+      //! Finish sending a signal to a state machine
+      void smJunctionBasicU32_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smJunctionInputPairU16U32_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smJunctionJunctionToJunction_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smJunctionJunctionToState_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smJunctionSequence_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smJunctionSequenceU32_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -314,6 +941,48 @@ namespace FppTest {
           FppTest_SmJunction_Basic::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_BasicU32
+      void FppTest_SmJunction_BasicU32_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_BasicU32& sm, //!< The state machine
+          FppTest_SmJunction_BasicU32::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_InputPairU16U32
+      void FppTest_SmJunction_InputPairU16U32_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_InputPairU16U32& sm, //!< The state machine
+          FppTest_SmJunction_InputPairU16U32::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_JunctionToJunction
+      void FppTest_SmJunction_JunctionToJunction_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_JunctionToJunction& sm, //!< The state machine
+          FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_JunctionToState
+      void FppTest_SmJunction_JunctionToState_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_JunctionToState& sm, //!< The state machine
+          FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_Sequence
+      void FppTest_SmJunction_Sequence_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_Sequence& sm, //!< The state machine
+          FppTest_SmJunction_Sequence::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmJunction_SequenceU32
+      void FppTest_SmJunction_SequenceU32_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmJunction_SequenceU32& sm, //!< The state machine
+          FppTest_SmJunction_SequenceU32::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type FppTest_SmJunctionActive_Basic
       void FppTest_SmJunctionActive_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
@@ -332,6 +1001,24 @@ namespace FppTest {
 
       //! State machine smJunctionBasic
       FppTest_SmJunction_Basic m_stateMachine_smJunctionBasic;
+
+      //! State machine smJunctionBasicU32
+      FppTest_SmJunction_BasicU32 m_stateMachine_smJunctionBasicU32;
+
+      //! State machine smJunctionInputPairU16U32
+      FppTest_SmJunction_InputPairU16U32 m_stateMachine_smJunctionInputPairU16U32;
+
+      //! State machine smJunctionJunctionToJunction
+      FppTest_SmJunction_JunctionToJunction m_stateMachine_smJunctionJunctionToJunction;
+
+      //! State machine smJunctionJunctionToState
+      FppTest_SmJunction_JunctionToState m_stateMachine_smJunctionJunctionToState;
+
+      //! State machine smJunctionSequence
+      FppTest_SmJunction_Sequence m_stateMachine_smJunctionSequence;
+
+      //! State machine smJunctionSequenceU32
+      FppTest_SmJunction_SequenceU32 m_stateMachine_smJunctionSequenceU32;
 
   };
 
