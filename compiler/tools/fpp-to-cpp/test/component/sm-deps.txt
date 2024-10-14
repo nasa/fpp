@@ -7,3 +7,4 @@
 ../../state-machine/state/BasicGuardString.fpp
 ../../state-machine/state/BasicGuardTestAbsType.fpp
 ../../state-machine/state/BasicGuardTestArray.fpp
+../../state-machine/state/BasicGuardTestEnum.fpp

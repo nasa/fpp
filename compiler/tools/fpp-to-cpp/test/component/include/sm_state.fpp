@@ -11,3 +11,5 @@ state machine instance smStateBasicGuardString: SmState.BasicGuardString priorit
 state machine instance smStateBasicGuardTestAbsType: SmState.BasicGuardTestAbsType priority 4 hook
 
 state machine instance smStateBasicGuardTestArray: SmState.BasicGuardTestArray
+
+state machine instance smStateBasicGuardTestEnum: SmState.BasicGuardTestEnum
