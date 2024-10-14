@@ -22,7 +22,7 @@ namespace FppTest {
   //! \class SmStateQueuedComponentBase
   //! \brief Auto-generated base for SmStateQueued component
   class SmStateQueuedComponentBase :
-    public Fw::ActiveComponentBase
+    public Fw::QueuedComponentBase
   {
 
       // ----------------------------------------------------------------------
@@ -437,7 +437,7 @@ namespace FppTest {
           const FppTest::SmHarness::TestAbsType& value //!< The value
       ) = 0;
 
-    PRIVATE:
+    PROTECTED:
 
       // ----------------------------------------------------------------------
       // Message dispatch functions

@@ -6,7 +6,7 @@ module FppTest {
 
   }
 
-  active component SmStateQueued {
+  queued component SmStateQueued {
 
     include "include/sm_state.fpp"
 

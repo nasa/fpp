@@ -251,7 +251,7 @@ namespace FppTest {
     )
   {
     // Initialize base class
-    Fw::ActiveComponentBase::init(instance);
+    Fw::QueuedComponentBase::init(instance);
 
     this->m_stateMachine_basic.init(SmId::basic);
     this->m_stateMachine_smStateBasic.init(SmId::smStateBasic);
@@ -275,7 +275,7 @@ namespace FppTest {
 
   SmStateQueuedComponentBase ::
     SmStateQueuedComponentBase(const char* compName) :
-      Fw::ActiveComponentBase(compName),
+      Fw::QueuedComponentBase(compName),
       m_stateMachine_basic(*this),
       m_stateMachine_smStateBasic(*this),
       m_stateMachine_smStateBasicGuard(*this),
@@ -397,13 +397,18 @@ namespace FppTest {
 
     Os::Queue::Status msgStatus = this->m_queue.receive(
       msg,
-      Os::Queue::BLOCKING,
+      Os::Queue::NONBLOCKING,
       priority
     );
-    FW_ASSERT(
-      msgStatus == Os::Queue::OP_OK,
-      static_cast<FwAssertArgType>(msgStatus)
-    );
+    if (Os::Queue::Status::EMPTY == msgStatus) {
+      return Fw::QueuedComponentBase::MSG_DISPATCH_EMPTY;
+    }
+    else {
+      FW_ASSERT(
+        msgStatus == Os::Queue::OP_OK,
+        static_cast<FwAssertArgType>(msgStatus)
+      );
+    }
 
     // Reset to beginning of buffer
     msg.resetDeser();
