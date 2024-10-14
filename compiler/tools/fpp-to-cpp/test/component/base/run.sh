@@ -82,5 +82,5 @@ sm_initial()
 sm_state()
 {
   run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state && \
-  diff_cpp ActiveSmStateComponent
+  diff_cpp SmStateActiveComponent
 }

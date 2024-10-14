@@ -1,6 +1,6 @@
 module FppTest {
 
-  active component ActiveSmState {
+  active component SmStateActive {
 
     include "../state-machine/state/include/Basic.fpp"
 
