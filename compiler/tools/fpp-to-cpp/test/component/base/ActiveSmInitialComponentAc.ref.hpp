@@ -350,6 +350,23 @@ namespace FppTest {
     PROTECTED:
 
       // ----------------------------------------------------------------------
+      // Overflow hooks for internal state machine instances
+      //
+      // When sending a signal to a state machine instance, if
+      // the queue overflows and the instance is marked with 'hook' behavior,
+      // the corresponding function here is called.
+      // ----------------------------------------------------------------------
+
+      //! Overflow hook for state machine smInitialNested
+      virtual void smInitialNested_stateMachineOverflowHook(
+          SmId smId, //!< The state machine ID
+          FwEnumStoreType signal, //!< The signal
+          Fw::SerializeBufferBase& buffer //!< The message buffer
+      ) = 0;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
       // Functions to implement for internal state machine actions
       // ----------------------------------------------------------------------
 

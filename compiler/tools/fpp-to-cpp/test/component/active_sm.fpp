@@ -10,15 +10,15 @@ module FppTest {
 
     include "../state-machine/initial/include/Junction.fpp"
 
-    state machine instance $junction: Junction
+    state machine instance $junction: Junction priority 1 assert
 
-    state machine instance smInitialJunction: SmInitial.Junction
+    state machine instance smInitialJunction: SmInitial.Junction priority 2 block
 
-    include "../state-machine/initial/include/Nested.fpp"
+    include "../state-machine/initial/include/Nested.fpp" 
 
-    state machine instance nested: Nested
+    state machine instance nested: Nested priority 3 drop
 
-    state machine instance smInitialNested: SmInitial.Nested
+    state machine instance smInitialNested: SmInitial.Nested priority 4 hook
 
   }
 
