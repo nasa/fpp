@@ -2,7 +2,7 @@ module FppTest {
 
   module SmState {
 
-    include "include/BasicGuardTestEnum.fpp"
+    include "include/BasicGuardTestEnum.fppi"
 
   }
 
