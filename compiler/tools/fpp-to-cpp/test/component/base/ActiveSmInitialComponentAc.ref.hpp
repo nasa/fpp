@@ -8,11 +8,13 @@
 #define FppTest_ActiveSmInitialComponentAc_HPP
 
 #include "ActiveSmInitial_BasicStateMachineAc.hpp"
+#include "ActiveSmInitial_JunctionStateMachineAc.hpp"
 #include "FpConfig.hpp"
 #include "Fw/Comp/ActiveComponentBase.hpp"
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
+#include "state-machine/initial/JunctionStateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -38,7 +40,9 @@ namespace FppTest {
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
         basic,
+        junction,
         smInitialBasic,
+        smInitialJunction,
       };
 
     PROTECTED:
@@ -85,6 +89,51 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine Junction
+      class Junction :
+        public FppTest::ActiveSmInitial_JunctionStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          Junction(
+              ActiveSmInitialComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              ActiveSmInitialComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          ActiveSmInitialComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          ActiveSmInitialComponentBase& m_component;
+
+      };
+
       //! Implementation of state machine SmInitial_Basic
       class SmInitial_Basic :
         public FppTest::SmInitial::BasicStateMachineBase
@@ -115,6 +164,51 @@ namespace FppTest {
           void action_a(
               Signal signal //!< The signal
           );
+
+        PRIVATE:
+
+          //! The enclosing component
+          ActiveSmInitialComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine SmInitial_Junction
+      class SmInitial_Junction :
+        public FppTest::SmInitial::JunctionStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          SmInitial_Junction(
+              ActiveSmInitialComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              ActiveSmInitialComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          ActiveSmInitialComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal //!< The signal
+          ) const;
 
         PRIVATE:
 
@@ -158,8 +252,14 @@ namespace FppTest {
       //! Get the state of state machine instance basic
       Basic::State basic_getState() const;
 
+      //! Get the state of state machine instance junction
+      Junction::State junction_getState() const;
+
       //! Get the state of state machine instance smInitialBasic
       SmInitial_Basic::State smInitialBasic_getState() const;
+
+      //! Get the state of state machine instance smInitialJunction
+      SmInitial_Junction::State smInitialJunction_getState() const;
 
     PROTECTED:
 
@@ -175,12 +275,50 @@ namespace FppTest {
           Basic::Signal signal //!< The signal
       ) = 0;
 
+      //! Implementation for action a of state machine Junction
+      //!
+      //! Action a
+      virtual void Junction_action_a(
+          SmId smId, //!< The state machine id
+          Junction::Signal signal //!< The signal
+      ) = 0;
+
       //! Implementation for action a of state machine SmInitial_Basic
       //!
       //! Action a
       virtual void SmInitial_Basic_action_a(
           SmId smId, //!< The state machine id
           SmInitial_Basic::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine SmInitial_Junction
+      //!
+      //! Action a
+      virtual void SmInitial_Junction_action_a(
+          SmId smId, //!< The state machine id
+          SmInitial_Junction::Signal signal //!< The signal
+      ) = 0;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Functions to implement for internal state machine guards
+      // ----------------------------------------------------------------------
+
+      //! Implementation for guard g of state machine Junction
+      //!
+      //! Guard g
+      virtual bool Junction_guard_g(
+          SmId smId, //!< The state machine id
+          Junction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g of state machine SmInitial_Junction
+      //!
+      //! Guard g
+      virtual bool SmInitial_Junction_guard_g(
+          SmId smId, //!< The state machine id
+          SmInitial_Junction::Signal signal //!< The signal
       ) = 0;
 
     PRIVATE:
@@ -217,11 +355,25 @@ namespace FppTest {
           Basic::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type Junction
+      void Junction_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          Junction& sm, //!< The state machine
+          Junction::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type SmInitial_Basic
       void SmInitial_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
           SmInitial_Basic& sm, //!< The state machine
           SmInitial_Basic::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type SmInitial_Junction
+      void SmInitial_Junction_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          SmInitial_Junction& sm, //!< The state machine
+          SmInitial_Junction::Signal signal //!< The signal
       );
 
     PRIVATE:
@@ -233,8 +385,14 @@ namespace FppTest {
       //! State machine basic
       Basic m_stateMachine_basic;
 
+      //! State machine junction
+      Junction m_stateMachine_junction;
+
       //! State machine smInitialBasic
       SmInitial_Basic m_stateMachine_smInitialBasic;
+
+      //! State machine smInitialJunction
+      SmInitial_Junction m_stateMachine_smInitialJunction;
 
   };
 

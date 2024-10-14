@@ -8,6 +8,12 @@ module FppTest {
 
     state machine instance smInitialBasic: SmInitial.Basic
 
+    include "../state-machine/initial/include/Junction.fpp"
+
+    state machine instance $junction: Junction
+
+    state machine instance smInitialJunction: SmInitial.Junction
+
   }
 
 }

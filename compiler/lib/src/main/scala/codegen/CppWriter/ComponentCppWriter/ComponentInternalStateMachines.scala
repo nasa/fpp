@@ -802,11 +802,17 @@ case class ComponentInternalStateMachines(
         getSmGuardFunctionName(smSymbol, guard),
         getSmGuardFunctionParams(smSymbol, guard),
         CppDoc.Type("bool"),
-        lines(s"this->m_component.$componentGuardFunctionName($args);")
+        lines(s"return this->m_component.$componentGuardFunctionName($args);"),
+        CppDoc.Function.NonSV,
+        CppDoc.Function.Const
       )
     }
 
-    private def getGuardMembers: List[CppDoc.Class.Member] = Nil
+    private def getGuardMembers: List[CppDoc.Class.Member] =
+      guardedList (stateMachine.hasGuards) (
+        linesClassMember(CppDocHppWriter.writeAccessTag("PRIVATE")) ::
+          stateMachine.guards.map(getGuardMember)
+      )
 
     private def getInitMembers: List[CppDoc.Class.Member] =
       List(

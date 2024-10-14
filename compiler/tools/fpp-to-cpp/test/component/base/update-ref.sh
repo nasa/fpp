@@ -57,7 +57,7 @@ active()
 
 active_sm()
 {
-  update "-i `cat ../deps-comma.txt`,$test_dir/state-machine/initial/Basic.fpp" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm
   move_cpp ActiveSmInitialComponent
 }
 

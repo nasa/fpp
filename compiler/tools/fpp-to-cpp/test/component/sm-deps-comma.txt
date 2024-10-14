@@ -1,1 +1,1 @@
-../../state-machine/initial/Basic.fpp
+../../state-machine/initial/Basic.fpp,../../state-machine/initial/Junction.fpp,../../state-machine/initial/Nested.fpp
