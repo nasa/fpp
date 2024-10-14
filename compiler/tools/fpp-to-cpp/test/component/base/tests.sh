@@ -3,6 +3,7 @@ types
 empty
 passive
 active
-active_sm
 queued
+sm_initial
+sm_state
 "

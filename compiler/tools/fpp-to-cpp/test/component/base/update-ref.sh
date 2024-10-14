@@ -55,13 +55,6 @@ active()
   move_cpp ActiveTestComponent
 }
 
-active_sm()
-{
-  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm
-  move_cpp ActiveSmInitialComponent
-  move_cpp ActiveSmStateComponent
-}
-
 queued()
 {
   update "-i `cat ../deps-comma.txt`" "-p $component_dir,$fprime_dir ../queued" queued
@@ -78,4 +71,16 @@ queued()
   move_cpp QueuedSyncProductsComponent
   move_cpp QueuedTelemetryComponent
   move_cpp QueuedTestComponent
+}
+
+sm_initial()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
+  move_cpp ActiveSmInitialComponent
+}
+
+sm_state()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state
+  move_cpp ActiveSmStateComponent
 }
