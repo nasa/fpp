@@ -13,6 +13,7 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "state-machine/state/BasicGuardStateMachineAc.hpp"
+#include "state-machine/state/BasicGuardStringStateMachineAc.hpp"
 #include "state-machine/state/BasicStateMachineAc.hpp"
 
 namespace FppTest {
@@ -41,6 +42,7 @@ namespace FppTest {
         basic,
         smStateBasic,
         smStateBasicGuard,
+        smStateBasicGuardString,
       };
 
     PROTECTED:
@@ -170,6 +172,53 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine FppTest_SmState_BasicGuardString
+      class FppTest_SmState_BasicGuardString :
+        public FppTest::SmState::BasicGuardStringStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_BasicGuardString(
+              ActiveSmStateComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              ActiveSmStateComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          ActiveSmStateComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal, //!< The signal
+              const Fw::StringBase& value //!< The value
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal, //!< The signal
+              const Fw::StringBase& value //!< The value
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          ActiveSmStateComponentBase& m_component;
+
+      };
+
     public:
 
       // ----------------------------------------------------------------------
@@ -211,6 +260,9 @@ namespace FppTest {
       //! Get the state of state machine instance smStateBasicGuard
       FppTest_SmState_BasicGuard::State smStateBasicGuard_getState() const;
 
+      //! Get the state of state machine instance smStateBasicGuardString
+      FppTest_SmState_BasicGuardString::State smStateBasicGuardString_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -225,6 +277,11 @@ namespace FppTest {
 
       //! Send signal s to state machine smStateBasicGuard
       void smStateBasicGuard_sendSignal_s();
+
+      //! Send signal s to state machine smStateBasicGuardString
+      void smStateBasicGuardString_sendSignal_s(
+          const Fw::StringBase& value //!< The value
+      );
 
     PROTECTED:
 
@@ -256,6 +313,15 @@ namespace FppTest {
           FppTest_SmState_BasicGuard::Signal signal //!< The signal
       ) = 0;
 
+      //! Implementation for action a of state machine FppTest_SmState_BasicGuardString
+      //!
+      //! Action a
+      virtual void FppTest_SmState_BasicGuardString_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardString::Signal signal, //!< The signal
+          const Fw::StringBase& value //!< The value
+      ) = 0;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -268,6 +334,15 @@ namespace FppTest {
       virtual bool FppTest_SmState_BasicGuard_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuard::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmState_BasicGuardString
+      //!
+      //! Guard g
+      virtual bool FppTest_SmState_BasicGuardString_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_BasicGuardString::Signal signal, //!< The signal
+          const Fw::StringBase& value //!< The value
       ) = 0;
 
     PRIVATE:
@@ -304,6 +379,11 @@ namespace FppTest {
 
       //! Finish sending a signal to a state machine
       void smStateBasicGuard_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasicGuardString_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -346,6 +426,13 @@ namespace FppTest {
           FppTest_SmState_BasicGuard::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_BasicGuardString
+      void FppTest_SmState_BasicGuardString_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_BasicGuardString& sm, //!< The state machine
+          FppTest_SmState_BasicGuardString::Signal signal //!< The signal
+      );
+
     PRIVATE:
 
       // ----------------------------------------------------------------------
@@ -360,6 +447,9 @@ namespace FppTest {
 
       //! State machine smStateBasicGuard
       FppTest_SmState_BasicGuard m_stateMachine_smStateBasicGuard;
+
+      //! State machine smStateBasicGuardString
+      FppTest_SmState_BasicGuardString m_stateMachine_smStateBasicGuardString;
 
   };
 
