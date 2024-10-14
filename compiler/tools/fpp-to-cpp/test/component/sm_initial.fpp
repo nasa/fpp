@@ -1,6 +1,6 @@
 module FppTest {
 
-  active component ActiveSmInitial {
+  active component SmInitialActive {
 
     include "../state-machine/initial/include/Basic.fpp"
 

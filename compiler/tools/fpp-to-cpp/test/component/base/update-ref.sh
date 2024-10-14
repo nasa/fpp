@@ -76,7 +76,7 @@ queued()
 sm_initial()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
-  move_cpp ActiveSmInitialComponent
+  move_cpp SmInitialActiveComponent
 }
 
 sm_state()
