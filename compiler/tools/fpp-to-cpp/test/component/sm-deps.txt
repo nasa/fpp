@@ -18,3 +18,9 @@
 ../../state-machine/state/BasicTestEnum.fpp
 ../../state-machine/state/BasicTestStruct.fpp
 ../../state-machine/state/BasicU32.fpp
+../../state-machine/state/Internal.fpp
+../../state-machine/state/Polymorphism.fpp
+../../state-machine/state/StateToChild.fpp
+../../state-machine/state/StateToJunction.fpp
+../../state-machine/state/StateToSelf.fpp
+../../state-machine/state/StateToState.fpp

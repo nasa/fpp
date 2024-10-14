@@ -33,3 +33,15 @@ state machine instance smStateBasicTestEnum: SmState.BasicTestEnum
 state machine instance smStateBasicTestStruct: SmState.BasicTestStruct
 
 state machine instance smStateBasicU32: SmState.BasicU32
+
+state machine instance smStateInternal: SmState.Internal
+
+state machine instance smStatePolymorphism: SmState.Polymorphism
+
+state machine instance smStateStateToChild: SmState.StateToChild
+
+state machine instance smStateStateToJunction: SmState.StateToJunction
+
+state machine instance smStateStateToSelf: SmState.StateToSelf
+
+state machine instance smStateStateToState: SmState.StateToState

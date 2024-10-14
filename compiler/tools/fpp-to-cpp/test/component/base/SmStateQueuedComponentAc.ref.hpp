@@ -28,6 +28,12 @@
 #include "state-machine/state/BasicTestEnumStateMachineAc.hpp"
 #include "state-machine/state/BasicTestStructStateMachineAc.hpp"
 #include "state-machine/state/BasicU32StateMachineAc.hpp"
+#include "state-machine/state/InternalStateMachineAc.hpp"
+#include "state-machine/state/PolymorphismStateMachineAc.hpp"
+#include "state-machine/state/StateToChildStateMachineAc.hpp"
+#include "state-machine/state/StateToJunctionStateMachineAc.hpp"
+#include "state-machine/state/StateToSelfStateMachineAc.hpp"
+#include "state-machine/state/StateToStateStateMachineAc.hpp"
 
 namespace FppTest {
 
@@ -69,6 +75,12 @@ namespace FppTest {
         smStateBasicTestEnum,
         smStateBasicTestStruct,
         smStateBasicU32,
+        smStateInternal,
+        smStatePolymorphism,
+        smStateStateToChild,
+        smStateStateToJunction,
+        smStateStateToSelf,
+        smStateStateToState,
       };
 
     PROTECTED:
@@ -782,6 +794,347 @@ namespace FppTest {
 
       };
 
+      //! Implementation of state machine FppTest_SmState_Internal
+      class FppTest_SmState_Internal :
+        public FppTest::SmState::InternalStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_Internal(
+              SmStateQueuedComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateQueuedComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_Polymorphism
+      class FppTest_SmState_Polymorphism :
+        public FppTest::SmState::PolymorphismStateMachineBase
+      {
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_StateToChild
+      class FppTest_SmState_StateToChild :
+        public FppTest::SmState::StateToChildStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_StateToChild(
+              SmStateQueuedComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS2
+          void action_exitS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS3
+          void action_exitS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS3
+          void action_enterS3(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateQueuedComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_StateToJunction
+      class FppTest_SmState_StateToJunction :
+        public FppTest::SmState::StateToJunctionStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_StateToJunction(
+              SmStateQueuedComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS1
+          void action_exitS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS2
+          void action_exitS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS3
+          void action_exitS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS1
+          void action_enterS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS3
+          void action_enterS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS4
+          void action_enterS4(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! Implementation for guard g
+          bool guard_g(
+              Signal signal //!< The signal
+          ) const;
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateQueuedComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_StateToSelf
+      class FppTest_SmState_StateToSelf :
+        public FppTest::SmState::StateToSelfStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_StateToSelf(
+              SmStateQueuedComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS1
+          void action_exitS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS2
+          void action_exitS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS3
+          void action_exitS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS1
+          void action_enterS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS3
+          void action_enterS3(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateQueuedComponentBase& m_component;
+
+      };
+
+      //! Implementation of state machine FppTest_SmState_StateToState
+      class FppTest_SmState_StateToState :
+        public FppTest::SmState::StateToStateStateMachineBase
+      {
+
+        public:
+
+          //! Constructor
+          FppTest_SmState_StateToState(
+              SmStateQueuedComponentBase& component //!< The enclosing component
+          );
+
+        public:
+
+          //! Initialize the state machine
+          void init(
+              SmStateQueuedComponentBase::SmId smId //!< The state machine id
+          );
+
+        public:
+
+          //! Get the state machine id
+          SmStateQueuedComponentBase::SmId getId() const;
+
+        PRIVATE:
+
+          //! Implementation for action exitS1
+          void action_exitS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS2
+          void action_exitS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action exitS3
+          void action_exitS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action a
+          void action_a(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS1
+          void action_enterS1(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS2
+          void action_enterS2(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS3
+          void action_enterS3(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS4
+          void action_enterS4(
+              Signal signal //!< The signal
+          );
+
+          //! Implementation for action enterS5
+          void action_enterS5(
+              Signal signal //!< The signal
+          );
+
+        PRIVATE:
+
+          //! The enclosing component
+          SmStateQueuedComponentBase& m_component;
+
+      };
+
       //! Implementation of state machine FppTest_SmStateQueued_Basic
       class FppTest_SmStateQueued_Basic :
         public FppTest::SmStateQueued_BasicStateMachineBase
@@ -903,6 +1256,24 @@ namespace FppTest {
       //! Get the state of state machine instance smStateBasicU32
       FppTest_SmState_BasicU32::State smStateBasicU32_getState() const;
 
+      //! Get the state of state machine instance smStateInternal
+      FppTest_SmState_Internal::State smStateInternal_getState() const;
+
+      //! Get the state of state machine instance smStatePolymorphism
+      FppTest_SmState_Polymorphism::State smStatePolymorphism_getState() const;
+
+      //! Get the state of state machine instance smStateStateToChild
+      FppTest_SmState_StateToChild::State smStateStateToChild_getState() const;
+
+      //! Get the state of state machine instance smStateStateToJunction
+      FppTest_SmState_StateToJunction::State smStateStateToJunction_getState() const;
+
+      //! Get the state of state machine instance smStateStateToSelf
+      FppTest_SmState_StateToSelf::State smStateStateToSelf_getState() const;
+
+      //! Get the state of state machine instance smStateStateToState
+      FppTest_SmState_StateToState::State smStateStateToState_getState() const;
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -983,6 +1354,48 @@ namespace FppTest {
       void smStateBasicU32_sendSignal_s(
           U32 value //!< The value
       );
+
+      //! Send signal S1_internal to state machine smStateInternal
+      void smStateInternal_sendSignal_S1_internal();
+
+      //! Send signal S2_to_S3 to state machine smStateInternal
+      void smStateInternal_sendSignal_S2_to_S3();
+
+      //! Send signal poly to state machine smStatePolymorphism
+      void smStatePolymorphism_sendSignal_poly();
+
+      //! Send signal S2_to_S3 to state machine smStatePolymorphism
+      void smStatePolymorphism_sendSignal_S2_to_S3();
+
+      //! Send signal S1_to_S2 to state machine smStateStateToChild
+      void smStateStateToChild_sendSignal_S1_to_S2();
+
+      //! Send signal S2_to_S3 to state machine smStateStateToChild
+      void smStateStateToChild_sendSignal_S2_to_S3();
+
+      //! Send signal S1_to_S4 to state machine smStateStateToJunction
+      void smStateStateToJunction_sendSignal_S1_to_S4();
+
+      //! Send signal S1_to_J to state machine smStateStateToJunction
+      void smStateStateToJunction_sendSignal_S1_to_J();
+
+      //! Send signal S2_to_S3 to state machine smStateStateToJunction
+      void smStateStateToJunction_sendSignal_S2_to_S3();
+
+      //! Send signal S1_to_S1 to state machine smStateStateToSelf
+      void smStateStateToSelf_sendSignal_S1_to_S1();
+
+      //! Send signal S2_to_S3 to state machine smStateStateToSelf
+      void smStateStateToSelf_sendSignal_S2_to_S3();
+
+      //! Send signal S1_to_S4 to state machine smStateStateToState
+      void smStateStateToState_sendSignal_S1_to_S4();
+
+      //! Send signal S1_to_S5 to state machine smStateStateToState
+      void smStateStateToState_sendSignal_S1_to_S5();
+
+      //! Send signal S2_to_S3 to state machine smStateStateToState
+      void smStateStateToState_sendSignal_S2_to_S3();
 
     PROTECTED:
 
@@ -1195,6 +1608,246 @@ namespace FppTest {
           U32 value //!< The value
       ) = 0;
 
+      //! Implementation for action a of state machine FppTest_SmState_Internal
+      //!
+      //! Action a
+      virtual void FppTest_SmState_Internal_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_Internal::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToChild
+      //!
+      //! Exit S2
+      virtual void FppTest_SmState_StateToChild_action_exitS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToChild
+      //!
+      //! Exit S3
+      virtual void FppTest_SmState_StateToChild_action_exitS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_StateToChild
+      //!
+      //! Action a
+      virtual void FppTest_SmState_StateToChild_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToChild
+      //!
+      //! Enter S2
+      virtual void FppTest_SmState_StateToChild_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToChild
+      //!
+      //! Enter S3
+      virtual void FppTest_SmState_StateToChild_action_enterS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Exit S1
+      virtual void FppTest_SmState_StateToJunction_action_exitS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Exit S2
+      virtual void FppTest_SmState_StateToJunction_action_exitS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Exit S3
+      virtual void FppTest_SmState_StateToJunction_action_exitS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Action a
+      virtual void FppTest_SmState_StateToJunction_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Enter S1
+      virtual void FppTest_SmState_StateToJunction_action_enterS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Enter S2
+      virtual void FppTest_SmState_StateToJunction_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Enter S3
+      virtual void FppTest_SmState_StateToJunction_action_enterS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Enter S4
+      virtual void FppTest_SmState_StateToJunction_action_enterS4(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Exit S1
+      virtual void FppTest_SmState_StateToSelf_action_exitS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Exit S2
+      virtual void FppTest_SmState_StateToSelf_action_exitS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Exit S3
+      virtual void FppTest_SmState_StateToSelf_action_exitS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Action a
+      virtual void FppTest_SmState_StateToSelf_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Enter S1
+      virtual void FppTest_SmState_StateToSelf_action_enterS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Enter S2
+      virtual void FppTest_SmState_StateToSelf_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToSelf
+      //!
+      //! Enter S3
+      virtual void FppTest_SmState_StateToSelf_action_enterS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToState
+      //!
+      //! Exit S1
+      virtual void FppTest_SmState_StateToState_action_exitS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToState
+      //!
+      //! Exit S2
+      virtual void FppTest_SmState_StateToState_action_exitS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToState
+      //!
+      //! Exit S3
+      virtual void FppTest_SmState_StateToState_action_exitS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action a of state machine FppTest_SmState_StateToState
+      //!
+      //! Action a
+      virtual void FppTest_SmState_StateToState_action_a(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToState
+      //!
+      //! Enter S1
+      virtual void FppTest_SmState_StateToState_action_enterS1(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToState
+      //!
+      //! Enter S2
+      virtual void FppTest_SmState_StateToState_action_enterS2(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToState
+      //!
+      //! Enter S3
+      virtual void FppTest_SmState_StateToState_action_enterS3(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToState
+      //!
+      //! Enter S4
+      virtual void FppTest_SmState_StateToState_action_enterS4(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
+      //! Implementation for action enterS5 of state machine FppTest_SmState_StateToState
+      //!
+      //! Enter S5
+      virtual void FppTest_SmState_StateToState_action_enterS5(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      ) = 0;
+
       //! Implementation for action a of state machine FppTest_SmStateQueued_Basic
       //!
       //! Action a
@@ -1269,6 +1922,14 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardU32::Signal signal, //!< The signal
           U32 value //!< The value
+      ) = 0;
+
+      //! Implementation for guard g of state machine FppTest_SmState_StateToJunction
+      //!
+      //! Guard g
+      virtual bool FppTest_SmState_StateToJunction_guard_g(
+          SmId smId, //!< The state machine id
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
       ) = 0;
 
     PROTECTED:
@@ -1375,6 +2036,36 @@ namespace FppTest {
 
       //! Finish sending a signal to a state machine
       void smStateBasicU32_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateInternal_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStatePolymorphism_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateStateToChild_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateStateToJunction_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateStateToSelf_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateStateToState_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -1508,6 +2199,48 @@ namespace FppTest {
           FppTest_SmState_BasicU32::Signal signal //!< The signal
       );
 
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_Internal
+      void FppTest_SmState_Internal_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_Internal& sm, //!< The state machine
+          FppTest_SmState_Internal::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_Polymorphism
+      void FppTest_SmState_Polymorphism_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_Polymorphism& sm, //!< The state machine
+          FppTest_SmState_Polymorphism::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToChild
+      void FppTest_SmState_StateToChild_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_StateToChild& sm, //!< The state machine
+          FppTest_SmState_StateToChild::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToJunction
+      void FppTest_SmState_StateToJunction_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_StateToJunction& sm, //!< The state machine
+          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToSelf
+      void FppTest_SmState_StateToSelf_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_StateToSelf& sm, //!< The state machine
+          FppTest_SmState_StateToSelf::Signal signal //!< The signal
+      );
+
+      //! Dispatch a signal to a state machine instance of type FppTest_SmState_StateToState
+      void FppTest_SmState_StateToState_smDispatch(
+          Fw::SerializeBufferBase& buffer, //!< The message buffer
+          FppTest_SmState_StateToState& sm, //!< The state machine
+          FppTest_SmState_StateToState::Signal signal //!< The signal
+      );
+
       //! Dispatch a signal to a state machine instance of type FppTest_SmStateQueued_Basic
       void FppTest_SmStateQueued_Basic_smDispatch(
           Fw::SerializeBufferBase& buffer, //!< The message buffer
@@ -1571,6 +2304,24 @@ namespace FppTest {
 
       //! State machine smStateBasicU32
       FppTest_SmState_BasicU32 m_stateMachine_smStateBasicU32;
+
+      //! State machine smStateInternal
+      FppTest_SmState_Internal m_stateMachine_smStateInternal;
+
+      //! State machine smStatePolymorphism
+      FppTest_SmState_Polymorphism m_stateMachine_smStatePolymorphism;
+
+      //! State machine smStateStateToChild
+      FppTest_SmState_StateToChild m_stateMachine_smStateStateToChild;
+
+      //! State machine smStateStateToJunction
+      FppTest_SmState_StateToJunction m_stateMachine_smStateStateToJunction;
+
+      //! State machine smStateStateToSelf
+      FppTest_SmState_StateToSelf m_stateMachine_smStateStateToSelf;
+
+      //! State machine smStateStateToState
+      FppTest_SmState_StateToState m_stateMachine_smStateStateToState;
 
   };
 
