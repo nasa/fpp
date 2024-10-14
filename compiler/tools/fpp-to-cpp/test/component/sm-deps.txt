@@ -10,3 +10,6 @@
 ../../state-machine/state/BasicGuardTestEnum.fpp
 ../../state-machine/state/BasicGuardTestStruct.fpp
 ../../state-machine/state/BasicGuardU32.fpp
+../../state-machine/state/BasicInternal.fpp
+../../state-machine/state/BasicSelf.fpp
+../../state-machine/state/BasicString.fpp

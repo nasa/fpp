@@ -17,3 +17,9 @@ state machine instance smStateBasicGuardTestEnum: SmState.BasicGuardTestEnum
 state machine instance smStateBasicGuardTestStruct: SmState.BasicGuardTestStruct
 
 state machine instance smStateBasicGuardU32: SmState.BasicGuardU32
+
+state machine instance smStateBasicInternal: SmState.BasicInternal
+
+state machine instance smStateBasicSelf: SmState.BasicSelf
+
+state machine instance smStateBasicString: SmState.BasicString
