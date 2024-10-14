@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 types()
 {
@@ -52,6 +53,12 @@ active()
   diff_cpp ActiveSyncProductsComponent && \
   diff_cpp ActiveTelemetryComponent && \
   diff_cpp ActiveTestComponent
+}
+
+active_sm()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm && \
+  diff_cpp ActiveSmInitialComponent
 }
 
 queued()

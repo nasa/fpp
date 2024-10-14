@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 types()
 {
@@ -52,6 +53,12 @@ active()
   move_cpp ActiveSyncProductsComponent
   move_cpp ActiveTelemetryComponent
   move_cpp ActiveTestComponent
+}
+
+active_sm()
+{
+  update "-i `cat ../deps-comma.txt`,$test_dir/state-machine/initial/Basic.fpp" "-p $component_dir,$fprime_dir,$test_dir ../active_sm" active_sm
+  move_cpp ActiveSmInitialComponent
 }
 
 queued()
