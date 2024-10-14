@@ -882,22 +882,20 @@ abstract class ComponentCppWriterUtils(
   )
 
   /** Writes the type of a state machine implementation */
-  def writeStateMachineImplType(smSymbol: Symbol.StateMachine) = {
+  def writeStateMachineImplType(smSymbol: Symbol.StateMachine) =
     StateMachine.getSymbolKind(smSymbol) match {
       case StateMachine.Kind.External => s.writeSymbol(smSymbol)
       case StateMachine.Kind.Internal => s.writeSymbolAsIdent(smSymbol)
     }
-  }
 
   private def getPortTypeBaseName(
     p: PortInstance,
-  ): String = {
+  ): String =
     p.getType match {
       case Some(PortInstance.Type.DefPort(symbol)) => symbol.getUnqualifiedName
       case Some(PortInstance.Type.Serial) => "serial"
       case None => ""
     }
-  }
 
   /** Write a type as the type of a general port param */
   private def writeTypeAsGeneralPortParamType (symbol: Symbol.Port) (t: Type) =

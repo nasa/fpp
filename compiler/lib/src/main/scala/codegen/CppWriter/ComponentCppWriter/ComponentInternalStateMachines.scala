@@ -568,14 +568,13 @@ case class ComponentInternalStateMachines(
     )
   }
 
-  private def getVirtualActions: List[CppDoc.Class.Member] = {
+  private def getVirtualActions: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "Functions to implement for internal state machine actions",
       internalSmSymbols.flatMap(getVirtualActionsForSm),
       CppDoc.Lines.Hpp
     )
-  }
 
   private def getVirtualActionsForSm(smSymbol: Symbol.StateMachine):
   List[CppDoc.Class.Member] = {
@@ -603,14 +602,13 @@ case class ComponentInternalStateMachines(
     )
   }
 
-  private def getVirtualGuards: List[CppDoc.Class.Member] = {
+  private def getVirtualGuards: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PROTECTED",
       "Functions to implement for internal state machine guards",
       internalSmSymbols.flatMap(getVirtualGuardsForSm),
       CppDoc.Lines.Hpp
     )
-  }
 
   private def getVirtualGuardsForSm(smSymbol: Symbol.StateMachine):
   List[CppDoc.Class.Member] = {
