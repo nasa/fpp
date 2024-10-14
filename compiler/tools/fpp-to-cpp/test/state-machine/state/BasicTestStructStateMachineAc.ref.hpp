@@ -12,7 +12,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "harness/TestStructSerializableAc.hpp"
+#include "state-machine/harness/TestStructSerializableAc.hpp"
 
 namespace FppTest {
 

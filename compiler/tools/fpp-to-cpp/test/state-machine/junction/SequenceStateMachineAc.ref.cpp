@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "junction/SequenceStateMachineAc.hpp"
+#include "state-machine/junction/SequenceStateMachineAc.hpp"
 
 namespace FppTest {
 

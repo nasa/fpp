@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "state/BasicGuardTestArrayStateMachineAc.hpp"
+#include "state-machine/state/BasicGuardTestArrayStateMachineAc.hpp"
 
 namespace FppTest {
 

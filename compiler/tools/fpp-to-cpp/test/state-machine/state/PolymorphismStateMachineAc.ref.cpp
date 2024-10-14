@@ -5,7 +5,7 @@
 // ======================================================================
 
 #include "Fw/Types/Assert.hpp"
-#include "state/PolymorphismStateMachineAc.hpp"
+#include "state-machine/state/PolymorphismStateMachineAc.hpp"
 
 namespace FppTest {
 

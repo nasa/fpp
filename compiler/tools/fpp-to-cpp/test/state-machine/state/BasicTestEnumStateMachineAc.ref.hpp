@@ -12,7 +12,7 @@
 #include "Fw/Types/ExternalString.hpp"
 #include "Fw/Types/Serializable.hpp"
 #include "Fw/Types/String.hpp"
-#include "harness/TestEnumEnumAc.hpp"
+#include "state-machine/harness/TestEnumEnumAc.hpp"
 
 namespace FppTest {
 
