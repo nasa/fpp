@@ -2,7 +2,7 @@ module FppTest {
 
   module SmState {
 
-    include "include/BasicString.fpp"
+    include "include/BasicString.fppi"
 
   }
 
