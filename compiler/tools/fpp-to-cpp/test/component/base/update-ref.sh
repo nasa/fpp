@@ -84,4 +84,5 @@ sm_state()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state
   move_cpp SmStateActiveComponent
+  move_cpp SmStateQueuedComponent
 }
