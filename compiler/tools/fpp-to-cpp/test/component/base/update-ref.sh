@@ -80,6 +80,13 @@ sm_initial()
   move_cpp SmInitialQueuedComponent
 }
 
+sm_junction()
+{
+  update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_junction" sm_junction
+  move_cpp SmJunctionActiveComponent
+  move_cpp SmJunctionQueuedComponent
+}
+
 sm_state()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state

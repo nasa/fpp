@@ -80,6 +80,13 @@ sm_initial()
   diff_cpp SmInitialQueuedComponent
 }
 
+sm_junction()
+{
+  run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_junction" sm_junction && \
+  diff_cpp SmJunctionActiveComponent && \
+  diff_cpp SmJunctionQueuedComponent
+}
+
 sm_state()
 {
   run_test "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state && \
