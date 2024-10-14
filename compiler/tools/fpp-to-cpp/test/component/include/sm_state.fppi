@@ -1,4 +1,4 @@
-include "../../state-machine/state/include/Basic.fpp"
+include "../../state-machine/state/include/Basic.fppi"
 
 state machine instance basic: Basic
 
