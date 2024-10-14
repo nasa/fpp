@@ -2,7 +2,7 @@ module FppTest {
 
   module SmInitial {
 
-    include "include/Junction.fpp"
+    include "include/Junction.fppi"
 
   }
 

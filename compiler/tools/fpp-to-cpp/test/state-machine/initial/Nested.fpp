@@ -2,7 +2,7 @@ module FppTest {
 
   module SmInitial {
 
-    include "include/Nested.fpp"
+    include "include/Nested.fppi"
 
   }
 
