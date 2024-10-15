@@ -67,6 +67,24 @@ case class ComponentImplWriter(
       nonParamCmds.map(getCommandHandler)
     )
 
+  private def getCommandOverflowHook(opcode: Command.Opcode, cmd: Command):
+  CppDoc.Class.Member =
+    functionClassMember(
+      Some(s"Overflow hook implementation for ${cmd.getName}"),
+      inputOverflowHookName(cmd.getName, MessageType.Command),
+      opcodeParam :: cmdSeqParam :: Nil,
+      CppDoc.Type("void"),
+      lines("// TODO"),
+      CppDoc.Function.Override
+    )
+
+  private def getCommandOverflowHooks: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Overflow hook implementations for commands",
+      hookCmds.map(getCommandOverflowHook)
+    )
+
   private def getConstructor: CppDoc.Class.Member =
     constructorClassMember(
       Some(s"Construct $componentImplClassName object"),
@@ -125,6 +143,22 @@ case class ComponentImplWriter(
       addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line))
     )
 
+  private def getInputPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Overflow hook implementations for 'hook' input ports",
+      ports.map(p => {
+        functionClassMember(
+          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
+          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
+          portNumParam :: getPortFunctionParams(p),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      })
+    )
+
   private def getInternalInterfaceHandler(pi: PortInstance.Internal): CppDoc.Class.Member = {
     val portName = pi.getUnqualifiedName
     functionClassMember(
@@ -149,21 +183,6 @@ case class ComponentImplWriter(
       internalPorts.map(getInternalInterfaceHandler)
     )
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = getHppIncludes
-    val cppIncludes = getCppIncludes
-    val cls = classMember(
-      None,
-      componentImplClassName,
-      Some(s"public $className"),
-      getClassMembers
-    )
-    List.concat(
-      List(hppIncludes, cppIncludes),
-      wrapInNamespaces(namespaceIdentList, List(cls))
-    )
-  }
-
   private def getInternalPortOverflowHook(pi: PortInstance.Internal):
   CppDoc.Class.Member = {
     val portName = pi.getUnqualifiedName
@@ -184,23 +203,20 @@ case class ComponentImplWriter(
       internalHookPorts.map(getInternalPortOverflowHook)
     )
 
-  private def getCommandOverflowHook(opcode: Command.Opcode, cmd: Command):
-  CppDoc.Class.Member =
-    functionClassMember(
-      Some(s"Overflow hook implementation for ${cmd.getName}"),
-      inputOverflowHookName(cmd.getName, MessageType.Command),
-      opcodeParam :: cmdSeqParam :: Nil,
-      CppDoc.Type("void"),
-      lines("// TODO"),
-      CppDoc.Function.Override
+  private def getMembers: List[CppDoc.Member] = {
+    val hppIncludes = getHppIncludes
+    val cppIncludes = getCppIncludes
+    val cls = classMember(
+      None,
+      componentImplClassName,
+      Some(s"public $className"),
+      getClassMembers
     )
-
-  private def getCommandOverflowHooks: List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PRIVATE",
-      "Overflow hook implementations for commands",
-      hookCmds.map(getCommandOverflowHook)
+    List.concat(
+      List(hppIncludes, cppIncludes),
+      wrapInNamespaces(namespaceIdentList, List(cls))
     )
+  }
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     List.concat(
@@ -254,22 +270,6 @@ case class ComponentImplWriter(
       })
     )
   }
-
-  private def getInputPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"Overflow hook implementations for 'hook' input ports",
-      ports.map(p => {
-        functionClassMember(
-          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
-          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
-          portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          lines("// TODO"),
-          CppDoc.Function.Override
-        )
-      })
-    )
 
   private def getPublicMembers: List[CppDoc.Class.Member] =
     getConstructorsAndDestructors
