@@ -1868,7 +1868,7 @@ namespace FppTest {
       virtual bool FppTest_SmState_BasicGuard_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuard::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardString
       //!
@@ -1877,7 +1877,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardString::Signal signal, //!< The signal
           const Fw::StringBase& value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestAbsType
       //!
@@ -1886,7 +1886,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardTestAbsType::Signal signal, //!< The signal
           const FppTest::SmHarness::TestAbsType& value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestArray
       //!
@@ -1895,7 +1895,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardTestArray::Signal signal, //!< The signal
           const FppTest::SmHarness::TestArray& value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestEnum
       //!
@@ -1904,7 +1904,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardTestEnum::Signal signal, //!< The signal
           const FppTest::SmHarness::TestEnum& value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardTestStruct
       //!
@@ -1913,7 +1913,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardTestStruct::Signal signal, //!< The signal
           const FppTest::SmHarness::TestStruct& value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_BasicGuardU32
       //!
@@ -1922,7 +1922,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmState_BasicGuardU32::Signal signal, //!< The signal
           U32 value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmState_StateToJunction
       //!
@@ -1930,7 +1930,7 @@ namespace FppTest {
       virtual bool FppTest_SmState_StateToJunction_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmState_StateToJunction::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
     PRIVATE:
 

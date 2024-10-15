@@ -33,6 +33,38 @@ case class ComponentInternalStateMachines(
       SignalBufferWriter.getLines
     )
 
+  /** Gets the name of a component action function */
+  def getComponentActionFunctionName(
+    sm: Symbol.StateMachine,
+    action: StateMachineSymbol.Action
+  ): String = {
+    val implName = writeStateMachineImplType(sm)
+    val baseName = getSmActionFunctionName(sm, action)
+    s"${implName}_$baseName"
+  }
+
+  /** Gets the parameters of a component action function */
+  def getComponentActionFunctionParams(
+    sm: Symbol.StateMachine,
+    action: StateMachineSymbol.Action
+  ) = getComponentParamsWithTypeNameOpt(sm, action.node._2.data.typeName)
+
+  /** Gets the name of a component guard function */
+  def getComponentGuardFunctionName(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ): String = {
+    val implName = writeStateMachineImplType(sm)
+    val baseName = getSmGuardFunctionName(sm, guard)
+    s"${implName}_$baseName"
+  }
+
+  /** Gets the parameters of a component guard function */
+  def getComponentGuardFunctionParams(
+    sm: Symbol.StateMachine,
+    guard: StateMachineSymbol.Guard
+  ) = getComponentParamsWithTypeNameOpt(sm, guard.node._2.data.typeName)
+
   /** Gets the private function members */
   def getPrivateFunctionMembers: List[CppDoc.Class.Member] = List.concat(
     getSendSignalHelperFunctions,
@@ -107,34 +139,6 @@ case class ComponentInternalStateMachines(
   // ----------------------------------------------------------------------
   // Private functions
   // ----------------------------------------------------------------------
-
-  private def getComponentActionFunctionName(
-    sm: Symbol.StateMachine,
-    action: StateMachineSymbol.Action
-  ): String = {
-    val implName = writeStateMachineImplType(sm)
-    val baseName = getSmActionFunctionName(sm, action)
-    s"${implName}_$baseName"
-  }
-
-  private def getComponentActionFunctionParams(
-    sm: Symbol.StateMachine,
-    action: StateMachineSymbol.Action
-  ) = getComponentParamsWithTypeNameOpt(sm, action.node._2.data.typeName)
-
-  private def getComponentGuardFunctionName(
-    sm: Symbol.StateMachine,
-    guard: StateMachineSymbol.Guard
-  ): String = {
-    val implName = writeStateMachineImplType(sm)
-    val baseName = getSmGuardFunctionName(sm, guard)
-    s"${implName}_$baseName"
-  }
-
-  private def getComponentGuardFunctionParams(
-    sm: Symbol.StateMachine,
-    guard: StateMachineSymbol.Guard
-  ) = getComponentParamsWithTypeNameOpt(sm, guard.node._2.data.typeName)
 
   private def getComponentParamsWithTypeNameOpt(
     sm: Symbol.StateMachine,
@@ -598,7 +602,8 @@ case class ComponentInternalStateMachines(
       getComponentGuardFunctionParams(smSymbol, guard),
       CppDoc.Type("bool"),
       Nil,
-      CppDoc.Function.PureVirtual
+      CppDoc.Function.PureVirtual,
+      CppDoc.Function.Const
     )
   }
 

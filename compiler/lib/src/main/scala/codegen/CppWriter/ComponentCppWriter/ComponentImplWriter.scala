@@ -21,6 +21,8 @@ case class ComponentImplWriter(
 
   private val symbol = componentSymbol
 
+  private val internalSmWriter = ComponentInternalStateMachines(s, aNode)
+
   def write: CppDoc = {
     val includeGuard = s.includeGuardFromQualifiedName(symbol, fileName)
     CppWriter.createCppDoc(
@@ -34,10 +36,64 @@ case class ComponentImplWriter(
     )
   }
 
+  private def getActionImpl (sm: StateMachine) (action: StateMachineSymbol.Action):
+  CppDoc.Class.Member = {
+    val smSymbol = sm.getSymbol
+    val smName = writeStateMachineImplType(sm.getSymbol)
+    val actionName = action.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Implementation for action $actionName of state machine $smName",
+          AnnotationCppWriter.asStringOpt(action.node)
+        )
+      ),
+      internalSmWriter.getComponentActionFunctionName(smSymbol, action),
+      internalSmWriter.getComponentActionFunctionParams(smSymbol, action),
+      CppDoc.Type("void"),
+      lines("// TODO")
+    )
+  }
+
+  private def getGuardImpl (sm: StateMachine) (guard: StateMachineSymbol.Guard):
+  CppDoc.Class.Member = {
+    val smSymbol = sm.getSymbol
+    val smName = writeStateMachineImplType(sm.getSymbol)
+    val guardName = guard.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Implementation for guard $guardName of state machine $smName",
+          AnnotationCppWriter.asStringOpt(guard.node)
+        )
+      ),
+      internalSmWriter.getComponentGuardFunctionName(smSymbol, guard),
+      internalSmWriter.getComponentGuardFunctionParams(smSymbol, guard),
+      CppDoc.Type("bool"),
+      lines("// TODO"),
+      CppDoc.Function.PureVirtual,
+      CppDoc.Function.Const
+    )
+  }
+
+  private def getActionImpls: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Implementations for internal state machine actions",
+      internalSmSymbols.flatMap(getActionImplsForSm)
+    )
+
+  private def getActionImplsForSm(smSymbol: Symbol.StateMachine):
+  List[CppDoc.Class.Member] = {
+    val sm = s.a.stateMachineMap(smSymbol)
+    sm.actions.map(getActionImpl (sm))
+  }
+
   private def getClassMembers: List[CppDoc.Class.Member] =
     List.concat(
       getPublicMembers,
       getHandlers,
+      getActionImpls,
       getOverflowHooks
     )
 

@@ -769,7 +769,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_Basic_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_Basic::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmJunction_BasicU32
       //!
@@ -778,7 +778,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmJunction_BasicU32::Signal signal, //!< The signal
           U32 value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmJunction_InputPairU16U32
       //!
@@ -787,7 +787,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmJunction_InputPairU16U32::Signal signal, //!< The signal
           U32 value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g1 of state machine FppTest_SmJunction_JunctionToJunction
       //!
@@ -795,7 +795,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_JunctionToJunction_guard_g1(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g2 of state machine FppTest_SmJunction_JunctionToJunction
       //!
@@ -803,7 +803,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_JunctionToJunction_guard_g2(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_JunctionToJunction::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmJunction_JunctionToState
       //!
@@ -811,7 +811,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_JunctionToState_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_JunctionToState::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g1 of state machine FppTest_SmJunction_Sequence
       //!
@@ -819,7 +819,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_Sequence_guard_g1(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_Sequence::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g2 of state machine FppTest_SmJunction_Sequence
       //!
@@ -827,7 +827,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_Sequence_guard_g2(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_Sequence::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g1 of state machine FppTest_SmJunction_SequenceU32
       //!
@@ -835,7 +835,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunction_SequenceU32_guard_g1(
           SmId smId, //!< The state machine id
           FppTest_SmJunction_SequenceU32::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g2 of state machine FppTest_SmJunction_SequenceU32
       //!
@@ -844,7 +844,7 @@ namespace FppTest {
           SmId smId, //!< The state machine id
           FppTest_SmJunction_SequenceU32::Signal signal, //!< The signal
           U32 value //!< The value
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmJunctionQueued_Basic
       //!
@@ -852,7 +852,7 @@ namespace FppTest {
       virtual bool FppTest_SmJunctionQueued_Basic_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmJunctionQueued_Basic::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
     PROTECTED:
 

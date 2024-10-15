@@ -430,7 +430,7 @@ namespace FppTest {
       virtual bool FppTest_SmInitial_Junction_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmInitial_Junction::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
       //! Implementation for guard g of state machine FppTest_SmInitialActive_Junction
       //!
@@ -438,7 +438,7 @@ namespace FppTest {
       virtual bool FppTest_SmInitialActive_Junction_guard_g(
           SmId smId, //!< The state machine id
           FppTest_SmInitialActive_Junction::Signal signal //!< The signal
-      ) = 0;
+      ) const = 0;
 
     PRIVATE:
 
