@@ -55,27 +55,6 @@ case class ComponentImplWriter(
     )
   }
 
-  private def getGuardImpl (sm: StateMachine) (guard: StateMachineSymbol.Guard):
-  CppDoc.Class.Member = {
-    val smSymbol = sm.getSymbol
-    val smName = writeStateMachineImplType(sm.getSymbol)
-    val guardName = guard.getUnqualifiedName
-    functionClassMember(
-      Some(
-        addSeparatedString(
-          s"Implementation for guard $guardName of state machine $smName",
-          AnnotationCppWriter.asStringOpt(guard.node)
-        )
-      ),
-      internalSmWriter.getComponentGuardFunctionName(smSymbol, guard),
-      internalSmWriter.getComponentGuardFunctionParams(smSymbol, guard),
-      CppDoc.Type("bool"),
-      lines("// TODO"),
-      CppDoc.Function.PureVirtual,
-      CppDoc.Function.Const
-    )
-  }
-
   private def getActionImpls: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
@@ -94,6 +73,7 @@ case class ComponentImplWriter(
       getPublicMembers,
       getHandlers,
       getActionImpls,
+      getGuardImpls,
       getOverflowHooks
     )
 
@@ -205,6 +185,40 @@ case class ComponentImplWriter(
       )
     )
 
+  private def getGuardImpl (sm: StateMachine) (guard: StateMachineSymbol.Guard):
+  CppDoc.Class.Member = {
+    val smSymbol = sm.getSymbol
+    val smName = writeStateMachineImplType(sm.getSymbol)
+    val guardName = guard.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Implementation for guard $guardName of state machine $smName",
+          AnnotationCppWriter.asStringOpt(guard.node)
+        )
+      ),
+      internalSmWriter.getComponentGuardFunctionName(smSymbol, guard),
+      internalSmWriter.getComponentGuardFunctionParams(smSymbol, guard),
+      CppDoc.Type("bool"),
+      lines("// TODO"),
+      CppDoc.Function.NonSV,
+      CppDoc.Function.Const
+    )
+  }
+
+  private def getGuardImpls: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Implementations for internal state machine guards",
+      internalSmSymbols.flatMap(getGuardImplsForSm)
+    )
+
+  private def getGuardImplsForSm(smSymbol: Symbol.StateMachine):
+  List[CppDoc.Class.Member] = {
+    val sm = s.a.stateMachineMap(smSymbol)
+    sm.guards.map(getGuardImpl (sm))
+  }
+
   private def getHandlers: List[CppDoc.Class.Member] =
     List.concat(
       getInputPortHandlers(typedInputPorts),
@@ -241,12 +255,14 @@ case class ComponentImplWriter(
   }
 
   private def getInputPortHandlers(ports: List[PortInstance]):
-  List[CppDoc.Class.Member] =
+  List[CppDoc.Class.Member] = {
+    val kind = getPortListTypeString(ports)
     addAccessTagAndComment(
       "PRIVATE",
-      s"Handler implementations for ${getPortListTypeString(ports)} input ports",
+      s"Handler implementations for $kind input ports",
       ports.map(getInputPortHandler)
     )
+  }
 
   private def getInputPortOverflowHook(pi: PortInstance):
   CppDoc.Class.Member = {
@@ -262,12 +278,14 @@ case class ComponentImplWriter(
   }
 
   private def getInputPortOverflowHooks(ports: List[PortInstance]):
-  List[CppDoc.Class.Member] =
+  List[CppDoc.Class.Member] = {
+    val kind = getPortListTypeString(ports)
     addAccessTagAndComment(
       "PRIVATE",
-      s"Overflow hook implementations for ${getPortListTypeString(ports)} input ports",
+      s"Overflow hook implementations for $kind input ports",
       ports.map(getInputPortOverflowHook)
     )
+  }
 
   private def getInternalInterfaceHandler(pi: PortInstance.Internal):
   CppDoc.Class.Member = {
