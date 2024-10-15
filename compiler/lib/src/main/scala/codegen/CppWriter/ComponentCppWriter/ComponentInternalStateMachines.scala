@@ -23,24 +23,6 @@ case class ComponentInternalStateMachines(
 
   val hasSignals = signals.nonEmpty
 
-  val hookParams = List(
-    CppDoc.Function.Param(
-      CppDoc.Type("SmId"),
-      "smId",
-      Some("The state machine ID")
-    ),
-    CppDoc.Function.Param(
-      CppDoc.Type("FwEnumStoreType"),
-      "signal",
-      Some("The signal")
-    ),
-    CppDoc.Function.Param(
-      CppDoc.Type("Fw::SerializeBufferBase&"),
-      "buffer",
-      Some("The message buffer")
-    )
-  )
-
   // ----------------------------------------------------------------------
   // Public functions
   // ----------------------------------------------------------------------
@@ -268,7 +250,7 @@ case class ComponentInternalStateMachines(
         smi => getVirtualOverflowHook(
           smi.getName,
           MessageType.StateMachine,
-          hookParams
+          ComponentInternalStateMachines.hookParams
         )
       ),
       CppDoc.Lines.Hpp
@@ -859,5 +841,27 @@ case class ComponentInternalStateMachines(
     }
 
   }
+
+}
+
+object ComponentInternalStateMachines {
+
+  val hookParams = List(
+    CppDoc.Function.Param(
+      CppDoc.Type("SmId"),
+      "smId",
+      Some("The state machine ID")
+    ),
+    CppDoc.Function.Param(
+      CppDoc.Type("FwEnumStoreType"),
+      "signal",
+      Some("The signal")
+    ),
+    CppDoc.Function.Param(
+      CppDoc.Type("Fw::SerializeBufferBase&"),
+      "buffer",
+      Some("The message buffer")
+    )
+  )
 
 }

@@ -332,6 +332,24 @@ case class ComponentImplWriter(
       internalHookPorts.map(getInternalPortOverflowHook)
     )
 
+  private def getInternalSmOverflowHook(smi: StateMachineInstance):
+  CppDoc.Class.Member =
+    functionClassMember(
+      Some(s"Overflow hook implementation for ${smi.getName}"),
+      inputOverflowHookName(smi.getName, MessageType.StateMachine),
+      ComponentInternalStateMachines.hookParams,
+      CppDoc.Type("void"),
+      lines("// TODO"),
+      CppDoc.Function.Override
+    )
+
+  private def getInternalSmOverflowHooks: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Overflow hook implementations for internal state machines",
+      internalSmWriter.hookInstances.map(getInternalSmOverflowHook)
+    )
+
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
     val cppIncludes = getCppIncludes
@@ -354,7 +372,8 @@ case class ComponentImplWriter(
       ).flatMap(getInputPortOverflowHooks),
       getInternalPortOverflowHooks,
       getCommandOverflowHooks,
-      getExternalSmOverflowHooks
+      getExternalSmOverflowHooks,
+      getInternalSmOverflowHooks
     )
 
   private def getPublicMembers: List[CppDoc.Class.Member] =
