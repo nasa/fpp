@@ -49,7 +49,7 @@ on:
         type: boolean
 jobs:
   build-jars:
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-22.04"
     name: "Build Standard JARs"
     steps:
       - name: "Checkout repository"
@@ -90,7 +90,7 @@ jobs:
     outputs:
       native: ${{ steps.set-matrix.outputs.native }}
       tags: ${{ steps.set-matrix.outputs.tags }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - id: set-matrix
         shell: python
@@ -105,7 +105,7 @@ jobs:
                 "tag": "macosx_12_0_universal2"
               },
               {
-                "runner": "ubuntu-latest",
+                "runner": "ubuntu-22.04",
                 "tag": "manylinux2014_x86_64",
                 "container": "quay.io/pypa/manylinux2014_x86_64"
               }
@@ -174,7 +174,7 @@ jobs:
           ${{ inputs.test }}
   build-wheels:
     needs: [build-jars, build-native-images, generate-run-matricies]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
     steps:
@@ -242,7 +242,7 @@ jobs:
   publish-wheels:
     if: ${{ github.event_name == 'release' }}
     needs: [test-wheels, generate-run-matricies]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
     steps:
