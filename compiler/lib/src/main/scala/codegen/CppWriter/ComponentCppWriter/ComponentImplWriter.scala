@@ -143,7 +143,8 @@ case class ComponentImplWriter(
       addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line))
     )
 
-  private def getInputPortOverflowHook(pi: PortInstance): CppDoc.Class.Member = {
+  private def getInputPortOverflowHook(pi: PortInstance):
+  CppDoc.Class.Member = {
     val portName = pi.getUnqualifiedName
     functionClassMember(
       Some(s"Overflow hook implementation for $portName"),
@@ -155,14 +156,16 @@ case class ComponentImplWriter(
     )
   }
 
-  private def getInputPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
+  private def getInputPortOverflowHooks(ports: List[PortInstance]):
+  List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
       s"Overflow hook implementations for 'hook' input ports",
       ports.map(getInputPortOverflowHook)
     )
 
-  private def getInternalInterfaceHandler(pi: PortInstance.Internal): CppDoc.Class.Member = {
+  private def getInternalInterfaceHandler(pi: PortInstance.Internal):
+  CppDoc.Class.Member = {
     val portName = pi.getUnqualifiedName
     functionClassMember(
       Some(
@@ -251,7 +254,8 @@ case class ComponentImplWriter(
       getExternalSmOverflowHooks
     )
 
-  private def getPortHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+  private def getPortHandlers(ports: List[PortInstance]):
+  List[CppDoc.Class.Member] = {
     addAccessTagAndComment(
       "PRIVATE",
       s"Handler implementations for user-defined ${getPortListTypeString(ports)} input ports",
