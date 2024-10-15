@@ -41,6 +41,32 @@ case class ComponentImplWriter(
       getOverflowHooks
     )
 
+  private def getCommandHandler(opcode: Command.Opcode, cmd: Command.NonParam):
+  CppDoc.Class.Member =
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Handler implementation for command ${cmd.getName}",
+          AnnotationCppWriter.asStringOpt(cmd.aNode)
+        )
+      ),
+      commandHandlerName(cmd.getName),
+      opcodeParam ::cmdSeqParam :: cmdParamMap(opcode),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// TODO
+            |this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);"""
+      ),
+      CppDoc.Function.Override
+    )
+
+  private def getCommandHandlers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Handler implementations for commands",
+      nonParamCmds.map(getCommandHandler)
+    )
+
   private def getConstructor: CppDoc.Class.Member =
     constructorClassMember(
       Some(s"Construct $componentImplClassName object"),
@@ -70,74 +96,58 @@ case class ComponentImplWriter(
     )
   }
 
+  private def getDataProductHandlers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Handler implementations for data products",
+      containersByName.map(
+        (id, container) => getDpRecvHandler(container.getName, lines("// TODO"))
+      )
+    )
+
   private def getDestructor: CppDoc.Class.Member =
     destructorClassMember(
       Some(s"Destroy $componentImplClassName object"),
       Nil,
     )
 
-  private def getCommandHandler(opcode: Command.Opcode, cmd: Command.NonParam):
-  CppDoc.Class.Member =
-    functionClassMember(
-      Some(
-        addSeparatedString(
-          s"Handler implementation for command ${cmd.getName}",
-          AnnotationCppWriter.asStringOpt(cmd.aNode)
-        )
-      ),
-      commandHandlerName(cmd.getName),
-      opcodeParam ::cmdSeqParam :: cmdParamMap(opcode),
-      CppDoc.Type("void"),
-      lines(
-        s"""|// TODO
-            |this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);"""
-      ),
-      CppDoc.Function.Override
-    )
-
-  private def getHandlers: List[CppDoc.Class.Member] = {
+  private def getHandlers: List[CppDoc.Class.Member] =
     List.concat(
       getPortHandlers(typedInputPorts),
       getPortHandlers(serialInputPorts),
-      addAccessTagAndComment(
-        "PRIVATE",
-        s"Handler implementations for commands",
-        nonParamCmds.map(getCommandHandler)
-      ),
-      addAccessTagAndComment(
-        "PRIVATE",
-        s"Handler implementations for user-defined internal interfaces",
-        internalPorts.map(p =>
-          functionClassMember(
-            Some(
-              addSeparatedString(
-                s"Handler implementation for ${p.getUnqualifiedName}",
-                getPortComment(p)
-              )
-            ),
-            internalInterfaceHandlerName(p.getUnqualifiedName),
-            getPortFunctionParams(p),
-            CppDoc.Type("void"),
-            lines("// TODO"),
-            CppDoc.Function.Override
-          )
+      getCommandHandlers,
+      getInternalInterfaceHandlers,
+      getDataProductHandlers
+    )
+
+  private def getHppIncludes: CppDoc.Member =
+    linesMember(
+      addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line))
+    )
+
+  private def getInternalInterfaceHandler(pi: PortInstance.Internal): CppDoc.Class.Member = {
+    val portName = pi.getUnqualifiedName
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Handler implementation for $portName",
+          getPortComment(pi)
         )
       ),
-      addAccessTagAndComment(
-        "PRIVATE",
-        s"Handler implementations for data products",
-        containersByName.map(
-          (id, container) => getDpRecvHandler(container.getName, lines("// TODO"))
-        )
-      )
+      internalInterfaceHandlerName(portName),
+      getPortFunctionParams(pi),
+      CppDoc.Type("void"),
+      lines("// TODO"),
+      CppDoc.Function.Override
     )
   }
 
-  private def getHppIncludes: CppDoc.Member = {
-    linesMember(
-      addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line)),
+  private def getInternalInterfaceHandlers: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Handler implementations for user-defined internal interfaces",
+      internalPorts.map(getInternalInterfaceHandler)
     )
-  }
 
   private def getMembers: List[CppDoc.Member] = {
     val hppIncludes = getHppIncludes
