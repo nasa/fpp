@@ -53,7 +53,7 @@ jobs:
     name: "Build Standard JARs"
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: "Setup Native Image Tools"
@@ -64,7 +64,7 @@ jobs:
           ${{ inputs.build }} ${{ inputs.output-directory }}
         shell: bash
       - name: "Archiving JARs package"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: build-jar
           path: ${{ inputs.output-directory }}/*
@@ -80,7 +80,7 @@ jobs:
           ${{ inputs.test }}
           echo -e "Trace output files:\n$( find ${{ inputs.trace-directory }} -name *.json )"
       - name: "Archiving Tracing"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: jar-traces
           path: ${{ inputs.trace-directory }}/*.json
@@ -182,11 +182,11 @@ jobs:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
     steps:
       - name: "Checkout repository"
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: "Download Package"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: build-${{ matrix.tag }}
           path: ${{ inputs.output-directory }}
@@ -208,7 +208,7 @@ jobs:
           fprime-native-packager ${{ inputs.output-directory }} ${FLAGS}
         shell: bash
       - name: "Archiving Wheels"
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: wheels-${{ matrix.tag }}
           path: packages/dist/*
@@ -223,12 +223,12 @@ jobs:
       - name: "Setup Native Image Tools"
         uses: fprime-community/native-images-action@main
       - name: "Download Native Wheels"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: wheels-${{ matrix.run.tag }}
           path: ${{ inputs.output-directory }}/native
       - name: "Download JAR Wheels"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: wheels-jar
           path: ${{ inputs.output-directory }}/jars
@@ -250,7 +250,7 @@ jobs:
       matrix: ${{ fromJson(needs.generate-run-matricies.outputs.tags) }}
     steps:
       - name: "Download Package"
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v3
         with:
           name: wheels-${{ matrix.tag }}
           path: dist
