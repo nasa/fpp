@@ -143,20 +143,23 @@ case class ComponentImplWriter(
       addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line))
     )
 
+  private def getInputPortOverflowHook(pi: PortInstance): CppDoc.Class.Member = {
+    val portName = pi.getUnqualifiedName
+    functionClassMember(
+      Some(s"Overflow hook implementation for $portName"),
+      inputOverflowHookName(portName, MessageType.Port),
+      portNumParam :: getPortFunctionParams(pi),
+      CppDoc.Type("void"),
+      lines("// TODO"),
+      CppDoc.Function.Override
+    )
+  }
+
   private def getInputPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
       s"Overflow hook implementations for 'hook' input ports",
-      ports.map(p => {
-        functionClassMember(
-          Some(s"Overflow hook implementation for ${p.getUnqualifiedName}"),
-          inputOverflowHookName(p.getUnqualifiedName, MessageType.Port),
-          portNumParam :: getPortFunctionParams(p),
-          CppDoc.Type("void"),
-          lines("// TODO"),
-          CppDoc.Function.Override
-        )
-      })
+      ports.map(getInputPortOverflowHook)
     )
 
   private def getInternalInterfaceHandler(pi: PortInstance.Internal): CppDoc.Class.Member = {
@@ -218,6 +221,22 @@ case class ComponentImplWriter(
     )
   }
 
+  private def getExternalSmOverflowHooks: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "PRIVATE",
+      "Overflow hook implementations for external state machines",
+      externalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
+        smi => functionClassMember(
+          Some(s"Overflow hook implementation for ${smi.getName}"),
+          inputOverflowHookName(smi.getName, MessageType.StateMachine),
+          ComponentExternalStateMachines.signalParams(s, smi.symbol),
+          CppDoc.Type("void"),
+          lines("// TODO"),
+          CppDoc.Function.Override
+        )
+      )
+    )
+
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     List.concat(
       getInputPortOverflowHooks(
@@ -229,20 +248,7 @@ case class ComponentImplWriter(
       ),
       getInternalPortOverflowHooks,
       getCommandOverflowHooks,
-      addAccessTagAndComment(
-        "PRIVATE",
-        "Overflow hook implementations for state machines",
-        externalStateMachineInstances.filter(_.queueFull == Ast.QueueFull.Hook).map(
-          smi => functionClassMember(
-            Some(s"Overflow hook implementation for ${smi.getName}"),
-            inputOverflowHookName(smi.getName, MessageType.StateMachine),
-            ComponentExternalStateMachines.signalParams(s, smi.symbol),
-            CppDoc.Type("void"),
-            lines("// TODO"),
-            CppDoc.Function.Override
-          )
-        )
-      )
+      getExternalSmOverflowHooks
     )
 
   private def getPortHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {

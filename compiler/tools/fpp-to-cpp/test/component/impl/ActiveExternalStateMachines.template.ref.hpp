@@ -32,7 +32,7 @@ namespace ExternalSm {
     PRIVATE:
 
       // ----------------------------------------------------------------------
-      // Overflow hook implementations for state machines
+      // Overflow hook implementations for external state machines
       // ----------------------------------------------------------------------
 
       //! Overflow hook implementation for sm5

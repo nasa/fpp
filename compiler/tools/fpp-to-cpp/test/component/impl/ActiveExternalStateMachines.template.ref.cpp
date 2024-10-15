@@ -26,7 +26,7 @@ namespace ExternalSm {
   }
 
   // ----------------------------------------------------------------------
-  // Overflow hook implementations for state machines
+  // Overflow hook implementations for external state machines
   // ----------------------------------------------------------------------
 
   void ActiveExternalStateMachines ::
