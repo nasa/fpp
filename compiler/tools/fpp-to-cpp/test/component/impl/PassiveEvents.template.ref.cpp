@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveEvents component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveEvents.hpp"
 
 // ----------------------------------------------------------------------

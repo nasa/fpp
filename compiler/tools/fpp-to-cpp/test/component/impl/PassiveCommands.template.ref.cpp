@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveCommands component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveCommands.hpp"
 
 // ----------------------------------------------------------------------

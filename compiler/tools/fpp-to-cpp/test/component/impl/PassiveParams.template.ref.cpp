@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveParams component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveParams.hpp"
 
 // ----------------------------------------------------------------------

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedSerial component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedSerial.hpp"
 
 // ----------------------------------------------------------------------

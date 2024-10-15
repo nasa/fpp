@@ -34,70 +34,66 @@ case class ComponentImplWriter(
     )
   }
 
-  private def getMembers: List[CppDoc.Member] = {
-    val hppIncludes = getHppIncludes
-    val cppIncludes = getCppIncludes
-    val cls = classMember(
-      None,
-      componentImplClassName,
-      Some(s"public $className"),
-      getClassMembers
-    )
+  private def getClassMembers: List[CppDoc.Class.Member] =
     List.concat(
-      List(hppIncludes, cppIncludes),
-      wrapInNamespaces(namespaceIdentList, List(cls))
+      getPublicMembers,
+      getHandlers,
+      getOverflowHooks
     )
-  }
 
-  private def getHppIncludes: CppDoc.Member = {
-    linesMember(
-      addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line)),
+  private def getConstructor: CppDoc.Class.Member =
+    constructorClassMember(
+      Some(s"Construct $componentImplClassName object"),
+      List(
+        CppDoc.Function.Param(
+          CppDoc.Type("const char* const"),
+          "compName",
+          Some("The component name")
+        )
+      ),
+      List(s"$className(compName)"),
+      Nil
     )
-  }
+
+  private def getConstructorsAndDestructors: List[CppDoc.Class.Member] =
+    addAccessTagAndComment(
+      "public",
+      "Component construction and destruction",
+      List(getConstructor, getDestructor)
+    )
 
   private def getCppIncludes: CppDoc.Member = {
-    val userHeaders = List(
-      "FpConfig.hpp",
-      s.getIncludePath(symbol, fileName).toString
-    )
+    val userHeaders = List(s.getIncludePath(symbol, fileName).toString)
     linesMember(
       addBlankPrefix(userHeaders.sorted.map(CppWriter.headerString).map(line)),
       CppDoc.Lines.Cpp
     )
   }
 
-  private def getClassMembers: List[CppDoc.Class.Member] = {
-    List.concat(
-      getPublicMembers,
-      getHandlers,
-      getOverflowHooks
+  private def getDestructor: CppDoc.Class.Member =
+    destructorClassMember(
+      Some(s"Destroy $componentImplClassName object"),
+      Nil,
     )
-  }
 
-  private def getPublicMembers: List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "public",
-      "Component construction and destruction",
-      List(
-        constructorClassMember(
-          Some(s"Construct $componentImplClassName object"),
-          List(
-            CppDoc.Function.Param(
-              CppDoc.Type("const char* const"),
-              "compName",
-              Some("The component name")
-            )
-          ),
-          List(s"$className(compName)"),
-          Nil
-        ),
-        destructorClassMember(
-          Some(s"Destroy $componentImplClassName object"),
-          Nil,
+  private def getCommandHandler(opcode: Command.Opcode, cmd: Command.NonParam):
+  CppDoc.Class.Member =
+    functionClassMember(
+      Some(
+        addSeparatedString(
+          s"Handler implementation for command ${cmd.getName}",
+          AnnotationCppWriter.asStringOpt(cmd.aNode)
         )
-      )
+      ),
+      commandHandlerName(cmd.getName),
+      opcodeParam ::cmdSeqParam :: cmdParamMap(opcode),
+      CppDoc.Type("void"),
+      lines(
+        s"""|// TODO
+            |this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);"""
+      ),
+      CppDoc.Function.Override
     )
-  }
 
   private def getHandlers: List[CppDoc.Class.Member] = {
     List.concat(
@@ -106,31 +102,7 @@ case class ComponentImplWriter(
       addAccessTagAndComment(
         "PRIVATE",
         s"Handler implementations for commands",
-        nonParamCmds.map((opcode, cmd) =>
-          functionClassMember(
-            Some(
-              addSeparatedString(
-                s"Handler implementation for command ${cmd.getName}",
-                AnnotationCppWriter.asStringOpt(cmd.aNode)
-              )
-            ),
-            commandHandlerName(cmd.getName),
-            List.concat(
-              List(
-                opcodeParam,
-                cmdSeqParam,
-              ),
-              cmdParamMap(opcode)
-            ),
-            CppDoc.Type("void"),
-            lines(
-              s"""|// TODO
-                  |this->cmdResponse_out(opCode, cmdSeq, Fw::CmdResponse::OK);
-                  |"""
-            ),
-            CppDoc.Function.Override
-          )
-        )
+        nonParamCmds.map(getCommandHandler)
       ),
       addAccessTagAndComment(
         "PRIVATE",
@@ -161,30 +133,24 @@ case class ComponentImplWriter(
     )
   }
 
-  private def getPortHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
-    addAccessTagAndComment(
-      "PRIVATE",
-      s"Handler implementations for user-defined ${getPortListTypeString(ports)} input ports",
-      ports.map(p => {
-        val todoMsg = getPortReturnType(p) match {
-          case Some(_) => "// TODO return"
-          case None => "// TODO"
-        }
+  private def getHppIncludes: CppDoc.Member = {
+    linesMember(
+      addBlankPrefix(s.writeIncludeDirectives(List(symbol)).map(line)),
+    )
+  }
 
-        functionClassMember(
-          Some(
-            addSeparatedString(
-              s"Handler implementation for ${p.getUnqualifiedName}",
-              getPortComment(p)
-            )
-          ),
-          inputPortHandlerName(p.getUnqualifiedName),
-          portNumParam :: getPortFunctionParams(p),
-          getPortReturnTypeAsCppDocType(p),
-          lines(todoMsg),
-          CppDoc.Function.Override
-        )
-      })
+  private def getMembers: List[CppDoc.Member] = {
+    val hppIncludes = getHppIncludes
+    val cppIncludes = getCppIncludes
+    val cls = classMember(
+      None,
+      componentImplClassName,
+      Some(s"public $className"),
+      getClassMembers
+    )
+    List.concat(
+      List(hppIncludes, cppIncludes),
+      wrapInNamespaces(namespaceIdentList, List(cls))
     )
   }
 
@@ -241,6 +207,32 @@ case class ComponentImplWriter(
       )
     )
 
+  private def getPortHandlers(ports: List[PortInstance]): List[CppDoc.Class.Member] = {
+    addAccessTagAndComment(
+      "PRIVATE",
+      s"Handler implementations for user-defined ${getPortListTypeString(ports)} input ports",
+      ports.map(p => {
+        val todoMsg = getPortReturnType(p) match {
+          case Some(_) => "// TODO return"
+          case None => "// TODO"
+        }
+        functionClassMember(
+          Some(
+            addSeparatedString(
+              s"Handler implementation for ${p.getUnqualifiedName}",
+              getPortComment(p)
+            )
+          ),
+          inputPortHandlerName(p.getUnqualifiedName),
+          portNumParam :: getPortFunctionParams(p),
+          getPortReturnTypeAsCppDocType(p),
+          lines(todoMsg),
+          CppDoc.Function.Override
+        )
+      })
+    )
+  }
+
   private def getPortOverflowHooks(ports: List[PortInstance]): List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
@@ -256,5 +248,8 @@ case class ComponentImplWriter(
         )
       })
     )
+
+  private def getPublicMembers: List[CppDoc.Class.Member] =
+    getConstructorsAndDestructors
 
 }

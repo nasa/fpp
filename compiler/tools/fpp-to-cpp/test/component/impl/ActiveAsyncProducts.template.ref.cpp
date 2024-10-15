@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveAsyncProducts.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

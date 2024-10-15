@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedOverflow component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedOverflow.hpp"
 
 // ----------------------------------------------------------------------

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedNoArgsPortsOnly component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedNoArgsPortsOnly.hpp"
 
 // ----------------------------------------------------------------------

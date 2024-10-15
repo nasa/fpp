@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveExternalStateMachines.hpp"
-#include "FpConfig.hpp"
 
 namespace ExternalSm {
 

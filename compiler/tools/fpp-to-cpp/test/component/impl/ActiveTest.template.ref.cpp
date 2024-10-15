@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveTest.hpp"
-#include "FpConfig.hpp"
 
 namespace M {
 

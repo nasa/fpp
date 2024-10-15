@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveParams.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedParams component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedParams.hpp"
 
 // ----------------------------------------------------------------------

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedAsyncProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedAsyncProducts.hpp"
 
 // ----------------------------------------------------------------------

@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedGuardedProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------

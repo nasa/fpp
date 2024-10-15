@@ -5,7 +5,6 @@
 // ======================================================================
 
 #include "ActiveSerial.hpp"
-#include "FpConfig.hpp"
 
 // ----------------------------------------------------------------------
 // Component construction and destruction

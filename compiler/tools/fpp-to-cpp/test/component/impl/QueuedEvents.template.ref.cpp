@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedEvents component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedEvents.hpp"
 
 // ----------------------------------------------------------------------

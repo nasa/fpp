@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedCommands component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedCommands.hpp"
 
 // ----------------------------------------------------------------------

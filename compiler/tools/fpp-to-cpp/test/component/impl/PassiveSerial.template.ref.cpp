@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveSerial component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveSerial.hpp"
 
 // ----------------------------------------------------------------------

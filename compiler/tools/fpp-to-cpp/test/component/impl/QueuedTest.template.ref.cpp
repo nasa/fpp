@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedTest component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedTest.hpp"
 
 // ----------------------------------------------------------------------

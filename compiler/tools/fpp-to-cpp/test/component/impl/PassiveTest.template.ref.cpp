@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveTest component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveTest.hpp"
 
 // ----------------------------------------------------------------------

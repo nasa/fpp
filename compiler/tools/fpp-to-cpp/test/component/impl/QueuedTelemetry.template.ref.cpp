@@ -4,7 +4,6 @@
 // \brief  cpp file for QueuedTelemetry component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "QueuedTelemetry.hpp"
 
 // ----------------------------------------------------------------------

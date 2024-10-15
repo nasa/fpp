@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveGetProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveGetProducts.hpp"
 
 // ----------------------------------------------------------------------

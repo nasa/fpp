@@ -4,7 +4,6 @@
 // \brief  cpp file for PassiveGuardedProducts component implementation class
 // ======================================================================
 
-#include "FpConfig.hpp"
 #include "PassiveGuardedProducts.hpp"
 
 // ----------------------------------------------------------------------
