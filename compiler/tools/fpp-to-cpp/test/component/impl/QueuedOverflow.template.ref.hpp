@@ -30,7 +30,7 @@ class QueuedOverflow :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Handler implementations for user-defined typed input ports
+    // Handler implementations for typed input ports
     // ----------------------------------------------------------------------
 
     //! Handler implementation for assertAsync
@@ -92,7 +92,7 @@ class QueuedOverflow :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Handler implementations for user-defined serial input ports
+    // Handler implementations for serial input ports
     // ----------------------------------------------------------------------
 
     //! Handler implementation for serialAsyncHook
@@ -140,7 +140,7 @@ class QueuedOverflow :
   PRIVATE:
 
     // ----------------------------------------------------------------------
-    // Overflow hook implementations for 'hook' input ports
+    // Overflow hook implementations for typed input ports
     // ----------------------------------------------------------------------
 
     //! Overflow hook implementation for hookAsync
@@ -155,11 +155,23 @@ class QueuedOverflow :
         const S& s //!< A struct
     ) override;
 
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Overflow hook implementations for serial input ports
+    // ----------------------------------------------------------------------
+
     //! Overflow hook implementation for serialAsyncHook
     void serialAsyncHook_overflowHook(
         FwIndexType portNum, //!< The port number
         Fw::SerializeBufferBase& buffer //!< The serialization buffer
     ) override;
+
+  PRIVATE:
+
+    // ----------------------------------------------------------------------
+    // Overflow hook implementations for special input ports
+    // ----------------------------------------------------------------------
 
     //! Overflow hook implementation for productRecvInHook
     void productRecvInHook_overflowHook(

@@ -24,7 +24,7 @@ PassiveSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void PassiveSerial ::
@@ -112,7 +112,7 @@ void PassiveSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined serial input ports
+// Handler implementations for serial input ports
 // ----------------------------------------------------------------------
 
 void PassiveSerial ::

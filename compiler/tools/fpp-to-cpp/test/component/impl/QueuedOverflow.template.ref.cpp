@@ -24,7 +24,7 @@ QueuedOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::
@@ -88,7 +88,7 @@ void QueuedOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined serial input ports
+// Handler implementations for serial input ports
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::
@@ -136,7 +136,7 @@ void QueuedOverflow ::
 }
 
 // ----------------------------------------------------------------------
-// Overflow hook implementations for 'hook' input ports
+// Overflow hook implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedOverflow ::
@@ -154,6 +154,10 @@ void QueuedOverflow ::
   // TODO
 }
 
+// ----------------------------------------------------------------------
+// Overflow hook implementations for serial input ports
+// ----------------------------------------------------------------------
+
 void QueuedOverflow ::
   serialAsyncHook_overflowHook(
       FwIndexType portNum,
@@ -162,6 +166,10 @@ void QueuedOverflow ::
 {
   // TODO
 }
+
+// ----------------------------------------------------------------------
+// Overflow hook implementations for special input ports
+// ----------------------------------------------------------------------
 
 void QueuedOverflow ::
   productRecvInHook_overflowHook(

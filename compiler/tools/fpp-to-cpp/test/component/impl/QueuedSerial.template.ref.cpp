@@ -24,7 +24,7 @@ QueuedSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined typed input ports
+// Handler implementations for typed input ports
 // ----------------------------------------------------------------------
 
 void QueuedSerial ::
@@ -178,7 +178,7 @@ void QueuedSerial ::
 }
 
 // ----------------------------------------------------------------------
-// Handler implementations for user-defined serial input ports
+// Handler implementations for serial input ports
 // ----------------------------------------------------------------------
 
 void QueuedSerial ::

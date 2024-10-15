@@ -188,7 +188,7 @@ case class ComponentImplWriter(
   List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
-      s"Handler implementations for user-defined ${getPortListTypeString(ports)} input ports",
+      s"Handler implementations for ${getPortListTypeString(ports)} input ports",
       ports.map(getInputPortHandler)
     )
 
@@ -209,7 +209,7 @@ case class ComponentImplWriter(
   List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
-      s"Overflow hook implementations for 'hook' input ports",
+      s"Overflow hook implementations for ${getPortListTypeString(ports)} input ports",
       ports.map(getInputPortOverflowHook)
     )
 
@@ -273,13 +273,11 @@ case class ComponentImplWriter(
 
   private def getOverflowHooks: List[CppDoc.Class.Member] =
     List.concat(
-      getInputPortOverflowHooks(
-        List.concat(
-          typedHookPorts,
-          serialHookPorts,
-          dataProductHookPorts
-        )
-      ),
+      List(
+        typedHookPorts,
+        serialHookPorts,
+        dataProductHookPorts
+      ).flatMap(getInputPortOverflowHooks),
       getInternalPortOverflowHooks,
       getCommandOverflowHooks,
       getExternalSmOverflowHooks
