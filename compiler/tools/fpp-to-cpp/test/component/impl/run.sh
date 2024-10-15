@@ -1,5 +1,6 @@
 component_dir=`dirname $PWD`
 fprime_dir=`dirname $component_dir`/fprime
+test_dir=`dirname $component_dir`
 
 empty()
 {
@@ -58,4 +59,11 @@ queued()
   diff_template QueuedSyncProducts && \
   diff_template QueuedTelemetry && \
   diff_template QueuedTest
+}
+
+sm_initial()
+{
+  run_test "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial && \
+  diff_template SmInitialActive && \
+  diff_template SmInitialQueued
 }

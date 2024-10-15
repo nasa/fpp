@@ -51,7 +51,8 @@ case class ComponentImplWriter(
       internalSmWriter.getComponentActionFunctionName(smSymbol, action),
       internalSmWriter.getComponentActionFunctionParams(smSymbol, action),
       CppDoc.Type("void"),
-      lines("// TODO")
+      lines("// TODO"),
+      CppDoc.Function.Override
     )
   }
 
@@ -201,7 +202,7 @@ case class ComponentImplWriter(
       internalSmWriter.getComponentGuardFunctionParams(smSymbol, guard),
       CppDoc.Type("bool"),
       lines("// TODO"),
-      CppDoc.Function.NonSV,
+      CppDoc.Function.Override,
       CppDoc.Function.Const
     )
   }
