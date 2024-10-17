@@ -77,31 +77,22 @@ object MatchedPortNumbering {
           state.numbering.usedPorts1.get(n2) match {
             case Some(prevC) => Left(SemanticError.PortNumberAlreadyInUse(n2, c1.getLoc, prevC.getLoc))
             case None =>
-               val t1 = t.assignPortNumber(pi1, c1, n2)
+              val t1 = t.assignPortNumber(pi1, c1, n2)
               // Update the set of used ports so that the new port number is tracked
               val num = state.numbering.setUsedPorts(state.numbering.usedPorts1 + (n2 -> c1), state.numbering.usedPorts2)
               Right(state.copy(t = t1, numbering = num))
           }
         case (None, None) =>
           // Neither port has a number: assign a new one
-          val maxSize1 = pi1.getArraySize
-          val maxSize2 = pi2.getArraySize
           val (numbering, n) = state.numbering.getPortNumber
-          // Check to see if the port number is out of range for either of the port array sizes
-          if(n > maxSize1 - 1)
-            then Left(SemanticError.NoPortFoundByMatchedPortNumbering(pi1.getLoc))
-          else if(n > maxSize2 - 1)
-            then Left(SemanticError.NoPortFoundByMatchedPortNumbering(pi2.getLoc))
-          // Check to see if the port number is already in use
-          (state.numbering.usedPorts1.get(n), state.numbering.usedPorts2.get(n)) match {
-            case (Some(prevC), None) => Left(SemanticError.PortNumberAlreadyInUse(n, c2.getLoc, prevC.getLoc))
-            case (None, Some(prevC)) => Left(SemanticError.PortNumberAlreadyInUse(n, c1.getLoc, prevC.getLoc))
-            case (Some(prevC1), Some(prevC2)) => Left(SemanticError.PortNumberAlreadyInUse(n, c2.getLoc, prevC1.getLoc))
-            case (None, None) =>
-              val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
-              // Update the set of used ports so that the new port number is tracked
-              val num = state.numbering.setUsedPorts(state.numbering.usedPorts1 + (n -> c1), state.numbering.usedPorts2 + (n -> c2))
-              Right(state.copy(t = t1, numbering = num))
+          // Throw an error if the port number is out of range
+          if(n >= pi1.getArraySize)
+            then Left(SemanticError.NoPortFoundByMatchedPortNumbering(c1.getLoc, c2.getLoc))
+          else {
+            val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
+            // Update the set of used ports so that the new port number is tracked
+            val num = state.numbering.setUsedPorts(state.numbering.usedPorts1 + (n -> c1), state.numbering.usedPorts2 + (n -> c2))
+            Right(state.copy(t = t1, numbering = num))
           }
       }
     }
@@ -129,9 +120,9 @@ object MatchedPortNumbering {
       t: Topology,
       pi1: PortInstance,
       map1: ConnectionMap,
+      usedPorts1: Map[Int, Connection],
       pi2: PortInstance,
       map2: ConnectionMap,
-      usedPorts1: Map[Int, Connection],
       usedPorts2: Map[Int, Connection]
     ): State = {
       State(
@@ -140,7 +131,11 @@ object MatchedPortNumbering {
         map1,
         pi2,
         map2,
-        PortNumberingState.initial(usedPorts1, usedPorts2)
+        PortNumberingState.initial(
+          usedPorts1=usedPorts1, 
+          usedPorts2=usedPorts2, 
+          usedPortNumbers=Set(usedPorts1.keys.toList:_*) ++ Set(usedPorts2.keys.toList:_*)
+        )
       )
     }
 
@@ -242,7 +237,7 @@ object MatchedPortNumbering {
       usedPorts2 <- computeUsedPortNumbers(pi2)
       _ <- checkForMissingConnections(loc, map1, map2)
       state <- {
-        val state = State.initial(t, pi1, map1, pi2, map2, usedPorts1, usedPorts2)
+        val state = State.initial(t, pi1, map1, usedPorts1, pi2, map2, usedPorts2)
         State.assignNumbers(loc, state)
       }
     }

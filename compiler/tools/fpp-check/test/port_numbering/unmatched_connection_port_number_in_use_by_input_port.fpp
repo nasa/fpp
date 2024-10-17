@@ -10,8 +10,16 @@ module M {
     match pOut with pIn
   }
 
+  passive component C2 {
+
+    output port pOut: [4] P
+    sync input port pIn: [4] P
+
+  }
+
+
   instance c1: C1 base id 0x100
-  instance c2: C1 base id 0x200
+  instance c2: C2 base id 0x200
   
   topology T {
 

@@ -202,8 +202,11 @@ sealed trait Error {
         Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
-      case SemanticError.NoPortFoundByMatchedPortNumbering(loc) =>
-        Error.print (Some(loc)) (s"matched port numbering could not find an available port number on both sides of the matching")        
+      case SemanticError.NoPortFoundByMatchedPortNumbering(loc1, loc2) =>
+        Error.print (None) (s"matched port numbering could not find an available port number on both sides of the matching")        
+        System.err.println("connections are defined here")
+        System.err.println(loc1)
+        System.err.println(loc2)
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -506,7 +509,8 @@ object SemanticError {
   ) extends Error
   /** Matched port numbering could not find a valid port number */
   final case class NoPortFoundByMatchedPortNumbering(
-    loc: Location
+    loc1: Location,
+    loc2: Location
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(

@@ -1,9 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/unmatched_connection_port_number_in_use_3.fpp:26.7
-      c2.pOut -> c1.pIn
-      ^
-error: port number 0 is already in use
-previous usage is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/unmatched_connection_port_number_in_use_3.fpp:27.17
-      unmatched c2.pOut[0] -> c3.pIn
-                ^
