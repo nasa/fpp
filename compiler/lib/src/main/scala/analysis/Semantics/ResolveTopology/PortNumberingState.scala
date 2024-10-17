@@ -40,7 +40,7 @@ case class PortNumberingState private (
       nextPortNumber,
       updatedUsedPortNumbers
     )
-    PortNumberingState(usedPortNumbers, updatedNextPortNumber, u1, u2)
+    PortNumberingState(updatedUsedPortNumbers, updatedNextPortNumber, u1, u2)
   }
 
 }
