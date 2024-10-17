@@ -1,0 +1,5 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/connection_direct/invalid_unmatched_connection.fpp:23.15
+    unmatched c1.p1Out[0] -> c2.p1In[0]
+              ^
+error: unmatched connection must go from or to a matched port

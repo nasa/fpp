@@ -278,7 +278,7 @@ object AstWriter extends AstVisitor with LineUtils {
   ) =  {
     def direct(g: Ast.SpecConnectionGraph.Direct) = {
       def connection(c: Ast.SpecConnectionGraph.Connection) = {
-        lines("connection") ++ (
+        lines(if c.isUnmatched then "unmatched connection" else "connection") ++ (
           addPrefix("from port", portInstanceIdentifier) (c.fromPort.data) ++
           linesOpt(addPrefix("index", exprNode), c.fromIndex) ++
           addPrefix("to port", portInstanceIdentifier) (c.toPort.data) ++

@@ -300,6 +300,14 @@ def module
         index literal int 0
         to port qual ident i2.p
         index literal int 1
+      unmatched connection
+        from port qual ident i1.p1
+        index literal int 0
+        to port qual ident i2.p2
+        index literal int 0
+      unmatched connection
+        from port qual ident i1.p1
+        to port qual ident i2.p2
     @< Direct connection graph specifier
     @ Graph pattern specifier
     spec connection graph pattern

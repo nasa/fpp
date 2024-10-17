@@ -8,7 +8,11 @@ case class PortNumberingState private (
   /** The used port numbers */
   usedPortNumbers: Set[Int],
   /** The next port number */
-  nextPortNumber: Int
+  nextPortNumber: Int,
+  /** First map of used ports for port instance 1 */
+  usedPorts1: Map[Int, Connection] = Map(),
+  /** Second map of used ports for port instance 2 */
+  usedPorts2: Map[Int, Connection] = Map()
 ) {
 
   /** Marks the next port number as used and generates
@@ -19,7 +23,7 @@ case class PortNumberingState private (
       nextPortNumber,
       s
     )
-    PortNumberingState(s, n)
+    PortNumberingState(s, n, usedPorts1, usedPorts2)
   }
 
   /** Gets the next port number and updates the state */
@@ -28,14 +32,25 @@ case class PortNumberingState private (
     (s, nextPortNumber)
   }
 
+  // Takes in the updated sets, updated the usedPortNumbers set 
+  // (ie: union of usedPorts1 and usedPorts2) and figure out the new next port number 
+  def setUsedPorts(u1: Map[Int, Connection], u2: Map[Int, Connection]): PortNumberingState = {
+    val updatedUsedPortNumbers = Set(u1.keys.toList:_*) ++ Set(u2.keys.toList:_*)
+    val updatedNextPortNumber = PortNumberingState.getNextNumber(
+      nextPortNumber,
+      updatedUsedPortNumbers
+    )
+    PortNumberingState(updatedUsedPortNumbers, updatedNextPortNumber, u1, u2)
+  }
+
 }
 
 object PortNumberingState {
 
   /** Construct an initial state */
-  def initial(usedPortNumbers: Set[Int]): PortNumberingState = {
+  def initial(usedPortNumbers: Set[Int], usedPorts1: Map[Int, Connection] = Map(), usedPorts2: Map[Int, Connection] = Map()): PortNumberingState = {
     val nextPortNumber = getNextNumber(0, usedPortNumbers)
-    PortNumberingState(usedPortNumbers, nextPortNumber)
+    PortNumberingState(usedPortNumbers, nextPortNumber, usedPorts1, usedPorts2)
   }
 
   /** Gets the next available port number */

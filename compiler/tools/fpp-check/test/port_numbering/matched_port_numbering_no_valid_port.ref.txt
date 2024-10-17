@@ -1,0 +1,9 @@
+fpp-check
+error: matched port numbering could not find an available port number on both sides of the matching
+connections are defined here
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/matched_port_numbering_no_valid_port.fpp:38.7
+      c2.pOut -> c1.pIn
+      ^
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/matched_port_numbering_no_valid_port.fpp:37.7
+      c1.pOut -> c2.pIn
+      ^

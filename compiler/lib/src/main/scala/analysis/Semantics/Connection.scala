@@ -8,7 +8,8 @@ case class Connection(
   /** The from endpoint */
   from: Connection.Endpoint,
   /** The to endpoint */
-  to: Connection.Endpoint
+  to: Connection.Endpoint,
+  isUnmatched: Boolean = false
 ) extends Ordered[Connection] {
 
   override def toString = s"${from.toString} -> ${to.toString}"
@@ -103,6 +104,19 @@ case class Connection(
     }
   }
 
+  /** Checks to see if a connection is match constrained */
+  def isMatchConstrained: Boolean = {
+    def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
+      pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
+
+    val fromPi = from.port.portInstance
+    val toPi = to.port.portInstance
+    val fromPml = from.port.componentInstance.component.portMatchingList
+    val toPml = to.port.componentInstance.component.portMatchingList
+
+    portMatchingExists(fromPml, fromPi) || portMatchingExists(toPml, toPi)
+  }
+
   /** Compare two connections */
   override def compare(that: Connection) = {
     val fromCompare = this.from.compare(that.from)
@@ -141,10 +155,14 @@ object Connection {
       for {
         from <- Endpoint.fromAst(a, connection.fromPort, connection.fromIndex)
         to <- Endpoint.fromAst(a, connection.toPort, connection.toIndex)
-        connection <- Right(Connection(from, to))
+        connection <- Right(Connection(from, to, connection.isUnmatched))
         _ <- connection.checkDirections
         _ <- connection.checkTypes
         _ <- connection.checkSerialWithTypedInput
+        _ <- 
+          if !connection.isMatchConstrained && connection.isUnmatched 
+          then Left(SemanticError.MissingPortMatching(connection.getLoc))
+          else Right(())
       }
       yield connection
 
@@ -184,7 +202,6 @@ object Connection {
         else Left(SemanticError.InvalidPortNumber(loc, n, name, size, specLoc))
       case None => Right(())
     }
-
   }
 
   object Endpoint {
@@ -204,7 +221,6 @@ object Connection {
         case None => Right(())
       }
     } yield endpoint
-
   }
 
 }

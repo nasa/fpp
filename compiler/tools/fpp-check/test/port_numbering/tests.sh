@@ -1,8 +1,12 @@
 tests="
+duplicate_input_connection_at_matched_port
 duplicate_matched_connection
 duplicate_output_connection
+matched_port_numbering_no_valid_port
 mismatched_port_numbers
 ok
 negative_port_number
 too_many_output_ports
+unmatched_connection_port_number_in_use_by_input_port
+unmatched_connection_port_number_in_use_by_output_port
 "

@@ -45,6 +45,9 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
+      case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, prevLoc, n) =>
+        Error.print (Some(loc)) (s"duplicate connection at matched port $port[$n]")
+        printPrevLoc(prevLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -195,8 +198,15 @@ sealed trait Error {
       case SemanticError.MissingConnection(loc, matchingLoc) =>
         Error.print (Some(loc)) ("no match for this connection")
         printMatchingLoc(matchingLoc)
+      case SemanticError.MissingPortMatching(loc) =>
+        Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
+      case SemanticError.NoPortFoundByMatchedPortNumbering(loc1, loc2) =>
+        Error.print (None) (s"matched port numbering could not find an available port number on both sides of the matching")        
+        System.err.println("connections are defined here")
+        System.err.println(loc1)
+        System.err.println(loc2)
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -211,6 +221,10 @@ sealed trait Error {
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.PassiveStateMachine(loc) =>
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
+      case SemanticError.PortNumberAlreadyInUse(n, loc, prevLoc) =>
+        Error.print (Some(loc)) (s"port number $n is already in use")
+        System.err.println("previous usage is here:")
+        System.err.println(prevLoc)
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -265,6 +279,13 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
+  /** Duplicate connections at matched port */
+  final case class DuplicateConnectionAtMatchedPort(
+    loc: Location,
+    port: String,
+    prevLoc: Location,
+    n: Int
+  ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
     kind: String,
@@ -483,6 +504,14 @@ object SemanticError {
     specMsg: String,
     portmsg: String
   ) extends Error
+  final case class MissingPortMatching(
+    loc: Location
+  ) extends Error
+  /** Matched port numbering could not find a valid port number */
+  final case class NoPortFoundByMatchedPortNumbering(
+    loc1: Location,
+    loc2: Location
+  ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(
     maxId1: BigInt,
@@ -495,6 +524,8 @@ object SemanticError {
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error
   final case class PassiveStateMachine(loc: Location) extends Error
+  /** Port number has already been assigned */
+  final case class PortNumberAlreadyInUse(n: Int, loc: Location, prevLoc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

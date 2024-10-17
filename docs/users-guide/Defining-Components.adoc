@@ -2677,6 +2677,9 @@ component instance and `p2`.
 . The matched pairs in item 2 must be connected to the
 same port numbers at `p1` and `p2`.
 
+. Multiple connections can not use the same port number even if the port is an input port.
+
+
 In this case we call `p1` and `p2` a pair of
 *matched ports*.
 For example:
