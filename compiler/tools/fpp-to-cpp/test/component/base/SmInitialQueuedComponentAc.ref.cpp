@@ -253,10 +253,12 @@ namespace FppTest {
     // Initialize base class
     Fw::QueuedComponentBase::init(instance);
 
-    this->m_stateMachine_basic.init(SmId::basic);
+    this->m_stateMachine_basic1.init(SmId::basic1);
+    this->m_stateMachine_basic2.init(SmId::basic2);
     this->m_stateMachine_junction.init(SmId::junction);
     this->m_stateMachine_nested.init(SmId::nested);
-    this->m_stateMachine_smInitialBasic.init(SmId::smInitialBasic);
+    this->m_stateMachine_smInitialBasic1.init(SmId::smInitialBasic1);
+    this->m_stateMachine_smInitialBasic2.init(SmId::smInitialBasic2);
     this->m_stateMachine_smInitialJunction.init(SmId::smInitialJunction);
     this->m_stateMachine_smInitialNested.init(SmId::smInitialNested);
 
@@ -316,10 +318,12 @@ namespace FppTest {
   SmInitialQueuedComponentBase ::
     SmInitialQueuedComponentBase(const char* compName) :
       Fw::QueuedComponentBase(compName),
-      m_stateMachine_basic(*this),
+      m_stateMachine_basic1(*this),
+      m_stateMachine_basic2(*this),
       m_stateMachine_junction(*this),
       m_stateMachine_nested(*this),
-      m_stateMachine_smInitialBasic(*this),
+      m_stateMachine_smInitialBasic1(*this),
+      m_stateMachine_smInitialBasic2(*this),
       m_stateMachine_smInitialJunction(*this),
       m_stateMachine_smInitialNested(*this)
   {
@@ -372,9 +376,15 @@ namespace FppTest {
   // ----------------------------------------------------------------------
 
   SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Basic::State SmInitialQueuedComponentBase ::
-    basic_getState() const
+    basic1_getState() const
   {
-    return this->m_stateMachine_basic.getState();
+    return this->m_stateMachine_basic1.getState();
+  }
+
+  SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Basic::State SmInitialQueuedComponentBase ::
+    basic2_getState() const
+  {
+    return this->m_stateMachine_basic2.getState();
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction::State SmInitialQueuedComponentBase ::
@@ -390,9 +400,15 @@ namespace FppTest {
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitial_Basic::State SmInitialQueuedComponentBase ::
-    smInitialBasic_getState() const
+    smInitialBasic1_getState() const
   {
-    return this->m_stateMachine_smInitialBasic.getState();
+    return this->m_stateMachine_smInitialBasic1.getState();
+  }
+
+  SmInitialQueuedComponentBase::FppTest_SmInitial_Basic::State SmInitialQueuedComponentBase ::
+    smInitialBasic2_getState() const
+  {
+    return this->m_stateMachine_smInitialBasic2.getState();
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitial_Junction::State SmInitialQueuedComponentBase ::
@@ -503,9 +519,14 @@ namespace FppTest {
     // Select the target state machine instance
     const SmId smId = static_cast<SmId>(storedSmId);
     switch (smId) {
-      case SmId::basic: {
+      case SmId::basic1: {
         const FppTest_SmInitialQueued_Basic::Signal signal = static_cast<FppTest_SmInitialQueued_Basic::Signal>(storedSignal);
-        this->FppTest_SmInitialQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic, signal);
+        this->FppTest_SmInitialQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic1, signal);
+        break;
+      }
+      case SmId::basic2: {
+        const FppTest_SmInitialQueued_Basic::Signal signal = static_cast<FppTest_SmInitialQueued_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitialQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic2, signal);
         break;
       }
       case SmId::junction: {
@@ -518,9 +539,14 @@ namespace FppTest {
         this->FppTest_SmInitialQueued_Nested_smDispatch(buffer, this->m_stateMachine_nested, signal);
         break;
       }
-      case SmId::smInitialBasic: {
+      case SmId::smInitialBasic1: {
         const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
-        this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic, signal);
+        this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic1, signal);
+        break;
+      }
+      case SmId::smInitialBasic2: {
+        const FppTest_SmInitial_Basic::Signal signal = static_cast<FppTest_SmInitial_Basic::Signal>(storedSignal);
+        this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic2, signal);
         break;
       }
       case SmId::smInitialJunction: {

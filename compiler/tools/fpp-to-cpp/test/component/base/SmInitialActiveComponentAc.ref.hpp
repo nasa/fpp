@@ -41,10 +41,12 @@ namespace FppTest {
 
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
-        basic,
+        basic1,
+        basic2,
         junction,
         nested,
-        smInitialBasic,
+        smInitialBasic1,
+        smInitialBasic2,
         smInitialJunction,
         smInitialNested,
       };
@@ -329,8 +331,11 @@ namespace FppTest {
       // State getter functions
       // ----------------------------------------------------------------------
 
-      //! Get the state of state machine instance basic
-      FppTest_SmInitialActive_Basic::State basic_getState() const;
+      //! Get the state of state machine instance basic1
+      FppTest_SmInitialActive_Basic::State basic1_getState() const;
+
+      //! Get the state of state machine instance basic2
+      FppTest_SmInitialActive_Basic::State basic2_getState() const;
 
       //! Get the state of state machine instance junction
       FppTest_SmInitialActive_Junction::State junction_getState() const;
@@ -338,8 +343,11 @@ namespace FppTest {
       //! Get the state of state machine instance nested
       FppTest_SmInitialActive_Nested::State nested_getState() const;
 
-      //! Get the state of state machine instance smInitialBasic
-      FppTest_SmInitial_Basic::State smInitialBasic_getState() const;
+      //! Get the state of state machine instance smInitialBasic1
+      FppTest_SmInitial_Basic::State smInitialBasic1_getState() const;
+
+      //! Get the state of state machine instance smInitialBasic2
+      FppTest_SmInitial_Basic::State smInitialBasic2_getState() const;
 
       //! Get the state of state machine instance smInitialJunction
       FppTest_SmInitial_Junction::State smInitialJunction_getState() const;
@@ -515,8 +523,11 @@ namespace FppTest {
       // State machine instances
       // ----------------------------------------------------------------------
 
-      //! State machine basic
-      FppTest_SmInitialActive_Basic m_stateMachine_basic;
+      //! State machine basic1
+      FppTest_SmInitialActive_Basic m_stateMachine_basic1;
+
+      //! State machine basic2
+      FppTest_SmInitialActive_Basic m_stateMachine_basic2;
 
       //! State machine junction
       FppTest_SmInitialActive_Junction m_stateMachine_junction;
@@ -524,8 +535,11 @@ namespace FppTest {
       //! State machine nested
       FppTest_SmInitialActive_Nested m_stateMachine_nested;
 
-      //! State machine smInitialBasic
-      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic;
+      //! State machine smInitialBasic1
+      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic1;
+
+      //! State machine smInitialBasic2
+      FppTest_SmInitial_Basic m_stateMachine_smInitialBasic2;
 
       //! State machine smInitialJunction
       FppTest_SmInitial_Junction m_stateMachine_smInitialJunction;

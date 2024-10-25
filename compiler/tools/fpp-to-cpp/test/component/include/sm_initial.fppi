@@ -1,8 +1,12 @@
 include "../../state-machine/initial/include/Basic.fppi"
 
-state machine instance basic: Basic
+state machine instance basic1: Basic
 
-state machine instance smInitialBasic: SmInitial.Basic
+state machine instance basic2: Basic
+
+state machine instance smInitialBasic1: SmInitial.Basic
+
+state machine instance smInitialBasic2: SmInitial.Basic
 
 include "../../state-machine/initial/include/Junction.fppi"
 
