@@ -58,8 +58,10 @@ namespace FppTest {
 
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
-        basic,
-        smStateBasic,
+        basic1,
+        basic2,
+        smStateBasic1,
+        smStateBasic2,
         smStateBasicGuard,
         smStateBasicGuardString,
         smStateBasicGuardTestAbsType,
@@ -1205,11 +1207,17 @@ namespace FppTest {
       // State getter functions
       // ----------------------------------------------------------------------
 
-      //! Get the state of state machine instance basic
-      FppTest_SmStateActive_Basic::State basic_getState() const;
+      //! Get the state of state machine instance basic1
+      FppTest_SmStateActive_Basic::State basic1_getState() const;
 
-      //! Get the state of state machine instance smStateBasic
-      FppTest_SmState_Basic::State smStateBasic_getState() const;
+      //! Get the state of state machine instance basic2
+      FppTest_SmStateActive_Basic::State basic2_getState() const;
+
+      //! Get the state of state machine instance smStateBasic1
+      FppTest_SmState_Basic::State smStateBasic1_getState() const;
+
+      //! Get the state of state machine instance smStateBasic2
+      FppTest_SmState_Basic::State smStateBasic2_getState() const;
 
       //! Get the state of state machine instance smStateBasicGuard
       FppTest_SmState_BasicGuard::State smStateBasicGuard_getState() const;
@@ -1280,11 +1288,17 @@ namespace FppTest {
       // Signal send functions
       // ----------------------------------------------------------------------
 
-      //! Send signal s to state machine basic
-      void basic_sendSignal_s();
+      //! Send signal s to state machine basic1
+      void basic1_sendSignal_s();
 
-      //! Send signal s to state machine smStateBasic
-      void smStateBasic_sendSignal_s();
+      //! Send signal s to state machine basic2
+      void basic2_sendSignal_s();
+
+      //! Send signal s to state machine smStateBasic1
+      void smStateBasic1_sendSignal_s();
+
+      //! Send signal s to state machine smStateBasic2
+      void smStateBasic2_sendSignal_s();
 
       //! Send signal s to state machine smStateBasicGuard
       void smStateBasicGuard_sendSignal_s();
@@ -1955,12 +1969,22 @@ namespace FppTest {
       );
 
       //! Finish sending a signal to a state machine
-      void basic_sendSignalFinish(
+      void basic1_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
       //! Finish sending a signal to a state machine
-      void smStateBasic_sendSignalFinish(
+      void basic2_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasic1_sendSignalFinish(
+          Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
+      );
+
+      //! Finish sending a signal to a state machine
+      void smStateBasic2_sendSignalFinish(
           Fw::SerializeBufferBase& buffer //!< The buffer with the data to send
       );
 
@@ -2254,11 +2278,17 @@ namespace FppTest {
       // State machine instances
       // ----------------------------------------------------------------------
 
-      //! State machine basic
-      FppTest_SmStateActive_Basic m_stateMachine_basic;
+      //! State machine basic1
+      FppTest_SmStateActive_Basic m_stateMachine_basic1;
 
-      //! State machine smStateBasic
-      FppTest_SmState_Basic m_stateMachine_smStateBasic;
+      //! State machine basic2
+      FppTest_SmStateActive_Basic m_stateMachine_basic2;
+
+      //! State machine smStateBasic1
+      FppTest_SmState_Basic m_stateMachine_smStateBasic1;
+
+      //! State machine smStateBasic2
+      FppTest_SmState_Basic m_stateMachine_smStateBasic2;
 
       //! State machine smStateBasicGuard
       FppTest_SmState_BasicGuard m_stateMachine_smStateBasicGuard;

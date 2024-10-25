@@ -1,8 +1,12 @@
 include "../../state-machine/state/include/Basic.fppi"
 
-state machine instance basic: Basic
+state machine instance basic1: Basic
 
-state machine instance smStateBasic: SmState.Basic priority 1 assert
+state machine instance basic2: Basic
+
+state machine instance smStateBasic1: SmState.Basic priority 1 assert
+
+state machine instance smStateBasic2: SmState.Basic priority 2 drop
 
 state machine instance smStateBasicGuard: SmState.BasicGuard priority 2 block
 
