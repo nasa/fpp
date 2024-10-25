@@ -26,6 +26,19 @@ namespace FppTest {
   }
 
   // ----------------------------------------------------------------------
+  // Handler implementations for typed input ports
+  // ----------------------------------------------------------------------
+
+  void SmJunctionQueued ::
+    schedIn_handler(
+        FwIndexType portNum,
+        U32 context
+    )
+  {
+    // TODO
+  }
+
+  // ----------------------------------------------------------------------
   // Implementations for internal state machine actions
   // ----------------------------------------------------------------------
 

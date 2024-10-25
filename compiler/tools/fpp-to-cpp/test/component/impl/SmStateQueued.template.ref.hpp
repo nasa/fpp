@@ -32,6 +32,18 @@ namespace FppTest {
     PRIVATE:
 
       // ----------------------------------------------------------------------
+      // Handler implementations for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Handler implementation for schedIn
+      void schedIn_handler(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      ) override;
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
       // Implementations for internal state machine actions
       // ----------------------------------------------------------------------
 
