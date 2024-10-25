@@ -8,6 +8,8 @@ module FppTest {
 
   queued component SmInitialQueued {
 
+    sync input port schedIn: Svc.Sched
+
     include "include/sm_initial.fppi"
 
   }

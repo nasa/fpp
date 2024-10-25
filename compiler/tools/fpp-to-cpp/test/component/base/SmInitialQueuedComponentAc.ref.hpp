@@ -14,6 +14,7 @@
 #include "SmInitialQueued_BasicStateMachineAc.hpp"
 #include "SmInitialQueued_JunctionStateMachineAc.hpp"
 #include "SmInitialQueued_NestedStateMachineAc.hpp"
+#include "Svc/Sched/SchedPortAc.hpp"
 #include "state-machine/initial/BasicStateMachineAc.hpp"
 #include "state-machine/initial/JunctionStateMachineAc.hpp"
 #include "state-machine/initial/NestedStateMachineAc.hpp"
@@ -38,6 +39,11 @@ namespace FppTest {
       // ----------------------------------------------------------------------
       // Constants
       // ----------------------------------------------------------------------
+
+      //! Enumerations for numbers of typed input ports
+      enum {
+        NUM_SCHEDIN_INPUT_PORTS = 1,
+      };
 
       //! State machine identifiers
       enum class SmId : FwEnumStoreType {
@@ -309,6 +315,19 @@ namespace FppTest {
           FwEnumStoreType instance = 0 //!< The instance number
       );
 
+    public:
+
+      // ----------------------------------------------------------------------
+      // Getters for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get typed input port at index
+      //!
+      //! \return schedIn[portNum]
+      Svc::InputSchedPort* get_schedIn_InputPort(
+          FwIndexType portNum //!< The port number
+      );
+
     PROTECTED:
 
       // ----------------------------------------------------------------------
@@ -322,6 +341,43 @@ namespace FppTest {
 
       //! Destroy SmInitialQueuedComponentBase object
       virtual ~SmInitialQueuedComponentBase();
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Getters for numbers of typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Get the number of schedIn input ports
+      //!
+      //! \return The number of schedIn input ports
+      FwIndexType getNum_schedIn_InputPorts() const;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Handlers to implement for typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Handler for input port schedIn
+      virtual void schedIn_handler(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      ) = 0;
+
+    PROTECTED:
+
+      // ----------------------------------------------------------------------
+      // Port handler base-class functions for typed input ports
+      //
+      // Call these functions directly to bypass the corresponding ports
+      // ----------------------------------------------------------------------
+
+      //! Handler base-class function for input port schedIn
+      void schedIn_handlerBase(
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
 
     PROTECTED:
 
@@ -452,6 +508,19 @@ namespace FppTest {
     PRIVATE:
 
       // ----------------------------------------------------------------------
+      // Calls for messages received on typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Callback for port schedIn
+      static void m_p_schedIn_in(
+          Fw::PassiveComponentBase* callComp, //!< The component instance
+          FwIndexType portNum, //!< The port number
+          U32 context //!< The call order
+      );
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
       // Helper functions for state machine dispatch
       // ----------------------------------------------------------------------
 
@@ -508,6 +577,15 @@ namespace FppTest {
           FppTest_SmInitialQueued_Nested& sm, //!< The state machine
           FppTest_SmInitialQueued_Nested::Signal signal //!< The signal
       );
+
+    PRIVATE:
+
+      // ----------------------------------------------------------------------
+      // Typed input ports
+      // ----------------------------------------------------------------------
+
+      //! Input port schedIn
+      Svc::InputSchedPort m_schedIn_InputPort[NUM_SCHEDIN_INPUT_PORTS];
 
     PRIVATE:
 
