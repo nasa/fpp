@@ -976,6 +976,30 @@ namespace FppTest {
     this->m_stateMachine_smStateStateToSelf.init(SmId::smStateStateToSelf);
     this->m_stateMachine_smStateStateToState.init(SmId::smStateStateToState);
 
+    // Connect input port schedIn
+    for (
+      FwIndexType port = 0;
+      port < static_cast<FwIndexType>(this->getNum_schedIn_InputPorts());
+      port++
+    ) {
+      this->m_schedIn_InputPort[port].init();
+      this->m_schedIn_InputPort[port].addCallComp(
+        this,
+        m_p_schedIn_in
+      );
+      this->m_schedIn_InputPort[port].setPortNum(port);
+
+#if FW_OBJECT_NAMES == 1
+      Fw::ObjectName portName;
+      portName.format(
+        "%s_schedIn_InputPort[%" PRI_PlatformIntType "]",
+        this->m_objName.toChar(),
+        port
+      );
+      this->m_schedIn_InputPort[port].setObjName(portName.toChar());
+#endif
+    }
+
     Os::Queue::Status qStat = this->createQueue(
       queueDepth,
       static_cast<FwSizeType>(ComponentIpcSerializableBuffer::SERIALIZATION_SIZE)
@@ -984,6 +1008,21 @@ namespace FppTest {
       Os::Queue::Status::OP_OK == qStat,
       static_cast<FwAssertArgType>(qStat)
     );
+  }
+
+  // ----------------------------------------------------------------------
+  // Getters for typed input ports
+  // ----------------------------------------------------------------------
+
+  Svc::InputSchedPort* SmStateQueuedComponentBase ::
+    get_schedIn_InputPort(FwIndexType portNum)
+  {
+    FW_ASSERT(
+      portNum < this->getNum_schedIn_InputPorts(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+
+    return &this->m_schedIn_InputPort[portNum];
   }
 
   // ----------------------------------------------------------------------
@@ -1024,6 +1063,41 @@ namespace FppTest {
     ~SmStateQueuedComponentBase()
   {
 
+  }
+
+  // ----------------------------------------------------------------------
+  // Getters for numbers of typed input ports
+  // ----------------------------------------------------------------------
+
+  FwIndexType SmStateQueuedComponentBase ::
+    getNum_schedIn_InputPorts() const
+  {
+    return static_cast<FwIndexType>(FW_NUM_ARRAY_ELEMENTS(this->m_schedIn_InputPort));
+  }
+
+  // ----------------------------------------------------------------------
+  // Port handler base-class functions for typed input ports
+  //
+  // Call these functions directly to bypass the corresponding ports
+  // ----------------------------------------------------------------------
+
+  void SmStateQueuedComponentBase ::
+    schedIn_handlerBase(
+        FwIndexType portNum,
+        U32 context
+    )
+  {
+    // Make sure port number is valid
+    FW_ASSERT(
+      portNum < this->getNum_schedIn_InputPorts(),
+      static_cast<FwAssertArgType>(portNum)
+    );
+
+    // Call handler function
+    this->schedIn_handler(
+      portNum,
+      context
+    );
   }
 
   // ----------------------------------------------------------------------
@@ -1578,6 +1652,25 @@ namespace FppTest {
     }
 
     return MSG_DISPATCH_OK;
+  }
+
+  // ----------------------------------------------------------------------
+  // Calls for messages received on typed input ports
+  // ----------------------------------------------------------------------
+
+  void SmStateQueuedComponentBase ::
+    m_p_schedIn_in(
+        Fw::PassiveComponentBase* callComp,
+        FwIndexType portNum,
+        U32 context
+    )
+  {
+    FW_ASSERT(callComp);
+    SmStateQueuedComponentBase* compPtr = static_cast<SmStateQueuedComponentBase*>(callComp);
+    compPtr->schedIn_handlerBase(
+      portNum,
+      context
+    );
   }
 
   // ----------------------------------------------------------------------
