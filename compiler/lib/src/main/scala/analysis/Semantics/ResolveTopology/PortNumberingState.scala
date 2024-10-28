@@ -48,7 +48,11 @@ case class PortNumberingState private (
 object PortNumberingState {
 
   /** Construct an initial state */
-  def initial(usedPortNumbers: Set[Int], usedPorts1: Map[Int, Connection] = Map(), usedPorts2: Map[Int, Connection] = Map()): PortNumberingState = {
+  def initial(
+    usedPortNumbers: Set[Int],
+    usedPorts1: Map[Int, Connection] = Map(),
+    usedPorts2: Map[Int, Connection] = Map()
+  ): PortNumberingState = {
     val nextPortNumber = getNextNumber(0, usedPortNumbers)
     PortNumberingState(usedPortNumbers, nextPortNumber, usedPorts1, usedPorts2)
   }
