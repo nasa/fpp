@@ -27,12 +27,10 @@ do
 done
 
 fprime_gcc=../../../../../scripts/fprime-gcc
-export FPRIME_GCC_FLAGS="-I../../fprime"
 
 ## Set compiler flags
-include_flags="-I../../../.. -I.."
+include_flags="-I../../../.. -I.. -I../../fprime -I../../fprime/config"
 warning_flags="
--Wno-gnu-zero-variadic-macro-arguments
 -Wno-sign-conversion
 -Wno-unused-parameter
 -Wno-vla-extension

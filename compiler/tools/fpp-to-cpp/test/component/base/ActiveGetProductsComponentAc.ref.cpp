@@ -3433,9 +3433,9 @@ Fw::Success::T ActiveGetProductsComponentBase ::
   Fw::Buffer buffer;
   const Fw::Success::T status = this->productGetOut_out(0, globalId, size, buffer);
   if (status == Fw::Success::SUCCESS) {
-    container.setId(globalId);
-    container.setBuffer(buffer);
-    container.setBaseId(baseId);
+    // Assign a fresh DpContainer into container
+    // This action clears out all the container state
+    container = DpContainer(globalId, buffer, baseId);
     container.setPriority(priority);
   }
   return status;
