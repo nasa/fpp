@@ -202,6 +202,7 @@ object Connection {
         else Left(SemanticError.InvalidPortNumber(loc, n, name, size, specLoc))
       case None => Right(())
     }
+
   }
 
   object Endpoint {
@@ -221,6 +222,7 @@ object Connection {
         case None => Right(())
       }
     } yield endpoint
+
   }
 
 }

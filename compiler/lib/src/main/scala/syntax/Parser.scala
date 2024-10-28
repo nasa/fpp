@@ -398,9 +398,7 @@ object Parser extends Parsers {
   def specConnectionGraph: Parser[Ast.SpecConnectionGraph] = {
     def directGraph = {
       (connections ~> ident) ~! (lbrace ~>! elementSequence(connection, comma) <~! rbrace) ^^ {
-        case ident ~ connections => {
-          Ast.SpecConnectionGraph.Direct(ident, connections)
-        }
+        case ident ~ connections => Ast.SpecConnectionGraph.Direct(ident, connections)
       }
     }
     def patternGraph = {
