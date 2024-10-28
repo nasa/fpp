@@ -3491,6 +3491,10 @@ For each instance <em>I</em> in the topology:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>For each of <em>i</em> = 1 and <em>i</em> = 2, check that no two distinct connections
+at <em>I</em> <code>.</code> \$p_i\$ have the same port number assigned to them.</p>
+</li>
+<li>
 <p>Any connection that names <em>I</em> <code>.</code> \$p_1\$ or <em>I</em> <code>.</code> \$p_2\$
 is <strong>match constrained</strong>. If a match constrained connection is marked
 <code>unmatched</code> then it is <strong>unmatched</strong>; otherwise it is <strong>matched</strong>.</p>
@@ -3504,8 +3508,8 @@ is <strong>match constrained</strong>. If a match constrained connection is mark
 of \$c_1\$.</p>
 </li>
 <li>
-<p>Check that there is one
-and only one connection \$c_2\$ from <em>I'</em> to <em>I</em> <code>.</code> \$p_2\$.</p>
+<p>Check that there is one and only one matched connection
+\$c_2\$ between <em>I'</em> and <em>I</em> <code>.</code> \$p_2\$.</p>
 </li>
 </ol>
 </div>
@@ -3515,33 +3519,64 @@ and only one connection \$c_2\$ from <em>I'</em> to <em>I</em> <code>.</code> \$
 step are all the matched connections at <em>I</em> <code>.</code> \$p_2\$.</p>
 </li>
 <li>
-<p>For each pair <em>P</em> with \$(c_1,c_2)\$ computed in step b, if <em>P</em>
-has both numbers assigned, check that the port numbers match.
-For each <em>P</em> that has exactly one port number assigned,
-assign the other one to match.</p>
+<p>For each pair \$(c_1,c_2)\$ computed in step c:</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>If \$c_1\$ has a port number \$n_1\$ assigned at <em>I</em> <code>.</code> \$p_1\$ and
+\$c_2\$ has a port number \$n_2\$ assigned at
+<em>I</em> <code>.</code> \$p_2\$, then check that \$n_1 = n_2\$.</p>
 </li>
 <li>
-<p>Traverse the pairs \$(c_1,c_2)\$ computed in step b according to the
+<p>Otherwise if \$c_1\$ has a port number <em>n</em> assigned at <em>I</em> <code>.</code> \$p_1\$,</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>If no connection at <em>I</em> <code>.</code> \$p_2\$ has port number <em>n</em> assigned to it,
+then assign <em>n</em> to \$c_2\$ at <em>I</em> <code>.</code> \$p_2\$.</p>
+</li>
+<li>
+<p>Otherwise an error occurs.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Otherwise if \$c_2\$ has a port number <em>n</em> assigned at <em>I</em> <code>.</code> \$p_2\$,</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>If no connection at <em>I</em> <code>.</code> \$p_1\$ has port number <em>n</em> assigned to it,
+then assign <em>n</em> to \$c_1\$ at <em>I</em> <code>.</code> \$p_1\$.</p>
+</li>
+<li>
+<p>Otherwise an error occurs.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Traverse the pairs \$(c_1,c_2)\$ computed in step c according to the
 <a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
 For each pair \$(c_1,c_2)\$ that does not yet have assigned
 port numbers, find the lowest available port number
 and assign it at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
-A port number is available if (a) it is in bounds for the
-port instance being numbered; and (b)
-it is not already assigned to the same port instance
-in the topology.</p>
+A port number <em>n</em> is available if (a) <em>n</em> is in bounds for <em>I</em> <code>.</code> \$p_1\$
+and <em>I</em> <code>.</code> \$p_2\$; and (b)
+<em>n</em> is not already assigned to a connection at <em>I</em> <code>.</code> \$p_1\$; and (c)
+<em>n</em> is not already assigned to a connection at <em>I</em> <code>.</code> \$p_2\$.
+If no port number is available, then an error occurs.
+Note that \$p_1\$ and \$p_2\$
+<a href="#Specifiers_Port-Matching-Specifiers_Semantics">are required to have the
+same size for their port arrays</a>.</p>
 </li>
 </ol>
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Note that in the last step,
-the two ports <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$.
-have the same array size and
-the same port numbers assigned so far, so the lowest
-available port number is the same for both.</p>
 </div>
 <div class="paragraph">
 <p><strong>Apply general numbering:</strong>
@@ -5232,15 +5267,15 @@ For each connection <em>C</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
+<p>The optional keyword <code>unmatched</code> is allowed only if <em>C</em> is
+<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">match constrained</a>.
+In this case, if the keyword <code>unmatched</code> is present, then <em>C</em> is
+unmatched.</p>
+</li>
+<li>
 <p>For each of the two port instance identifiers <em>I</em> appearing in <em>C</em>:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
-<li>
-<p>The optional keyword <code>unmatched</code> may be present only if <em>I</em> is
-<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">match constrained</a>.
-In this case, if the keyword <code>unmatched</code> is present, then <em>I</em> is
-unmatched.</p>
-</li>
 <li>
 <p>The component instance named in <em>I</em>
 must be available in the enclosing topology,
@@ -10542,7 +10577,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 09:38:39 -0700
+Last updated 2024-10-28 13:44:00 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

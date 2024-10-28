@@ -82,13 +82,13 @@ the connection graph.
 . The connection sequence specifies the set of connections in the graph.
 For each connection _C_:
 
-.. For each of the two port instance identifiers _I_ appearing in _C_:
-
-... The optional keyword `unmatched` may be present only if _I_ is
+.. The optional keyword `unmatched` is allowed only if _C_ is
 <<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
 match constrained>>.
-In this case, if the keyword `unmatched` is present, then _I_ is
+In this case, if the keyword `unmatched` is present, then _C_ is
 unmatched.
+
+.. For each of the two port instance identifiers _I_ appearing in _C_:
 
 ... The component instance named in _I_
 must be available in the enclosing topology,
