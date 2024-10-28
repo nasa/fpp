@@ -80,15 +80,15 @@ A direct graph specifier directly specifies a named connection graph.
 the connection graph.
 
 . The connection sequence specifies the set of connections in the graph.
-For each 
-<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
-match constrained>> connection _C_:
+For each connection _C_:
 
 .. For each of the two port instance identifiers _I_ appearing in _C_:
 
-... The optional keyword `unmatched`, if present, specifies that
-the connection is explicitly unmatched. `unmatched` must only be used on
-matched connections.
+... The optional keyword `unmatched` may be present only if _I_ is
+<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
+match constrained>>.
+In this case, if the keyword `unmatched` is present, then _I_ is
+unmatched.
 
 ... The component instance named in _I_
 must be available in the enclosing topology,

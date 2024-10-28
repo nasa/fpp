@@ -5228,8 +5228,7 @@ the connection graph.</p>
 </li>
 <li>
 <p>The connection sequence specifies the set of connections in the graph.
-For each
-<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">match constrained</a> connection <em>C</em>:</p>
+For each connection <em>C</em>:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -5237,9 +5236,10 @@ For each
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
-<p>The optional keyword <code>unmatched</code>, if present, specifies that
-the connection is explicitly unmatched. <code>unmatched</code> must only be used on
-matched connections.</p>
+<p>The optional keyword <code>unmatched</code> may be present only if <em>I</em> is
+<a href="#Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports">match constrained</a>.
+In this case, if the keyword <code>unmatched</code> is present, then <em>I</em> is
+unmatched.</p>
 </li>
 <li>
 <p>The component instance named in <em>I</em>
@@ -10542,7 +10542,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 09:21:39 -0700
+Last updated 2024-10-28 09:38:39 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
