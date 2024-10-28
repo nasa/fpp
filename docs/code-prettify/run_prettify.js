@@ -427,9 +427,11 @@ var IN_GLOBAL_SCOPE = false;
           "do," +
           "drop," +
           "else," +
-          "enter" +
+          "enter," +
+          "entry," +
           "enum," +
           "event," +
+          "exit," +
           "fatal," +
           "format," +
           "get," +
@@ -477,6 +479,7 @@ var IN_GLOBAL_SCOPE = false;
           "serial," +
           "set," +
           "severity," +
+          "signal," +
           "size," +
           "stack," +
           "state," +
