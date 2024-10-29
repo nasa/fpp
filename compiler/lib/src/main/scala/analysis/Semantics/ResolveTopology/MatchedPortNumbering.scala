@@ -9,6 +9,9 @@ object MatchedPortNumbering {
   // A mapping from component instances to connections
   private type ConnectionMap = Map[ComponentInstance, Connection]
 
+  // A mapping from port numbers to connections
+  type UsedPortMap = Map[Int, Connection]
+
   // State for matched numbering
   private case class State private(
     // The topology
@@ -22,7 +25,7 @@ object MatchedPortNumbering {
     // The map from component instances to connections for port 2
     map2: ConnectionMap,
     // Port numbering state
-    numbering: PortNumberingState
+    numbering: MatchedPortNumberingState
   )
 
   private object State {
@@ -44,7 +47,8 @@ object MatchedPortNumbering {
       (n1Opt, n2Opt) match {
         case (Some(n1), Some(n2)) =>
           // Both ports have a number: check that they match
-          if (n1 == n2) Right(state)
+          if (n1 == n2)
+            Right(state)
           else {
             // Error: numbers don't match
             val p1Loc = c1.getThisEndpoint(pi1).loc
@@ -145,19 +149,21 @@ object MatchedPortNumbering {
       t: Topology,
       pi1: PortInstance,
       map1: ConnectionMap,
-      usedPorts1: Map[Int, Connection],
+      usedPorts1: UsedPortMap,
       pi2: PortInstance,
       map2: ConnectionMap,
-      usedPorts2: Map[Int, Connection]
+      usedPorts2: UsedPortMap
     ): State = {
+      // Compute the used port numbers
+      val usedPortNumbers = usedPorts1.keys.toSet ++ usedPorts2.keys.toSet
       State(
         t,
         pi1,
         map1,
         pi2,
         map2,
-        PortNumberingState.initial(
-          usedPorts1.keys.toSet ++ usedPorts2.keys.toSet,
+        MatchedPortNumberingState.initial(
+          usedPortNumbers,
           usedPorts1,
           usedPorts2
         )
@@ -206,7 +212,7 @@ object MatchedPortNumbering {
     portMatching: Component.PortMatching
   ) = {
     // Map remote components to connections at pi
-    def constructMap(pi: PortInstance) = {
+    def computeConnectionMap(pi: PortInstance): Result.Result[ConnectionMap] = {
       val empty: ConnectionMap = Map()
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
@@ -230,11 +236,12 @@ object MatchedPortNumbering {
       })
     }
 
-    // Computes the set of used ports for all connections at a specific port instance
-    def computeUsedPortNumbers(pi: PortInstance): Result.Result[Map[Int, Connection]] = {
+    // Map port numbers to connections at pi
+    def computeUsedPortMap(pi: PortInstance): Result.Result[UsedPortMap] = {
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
-      Result.foldLeft (cs) (Map[Int, Connection]()) ((m, c) => {
+      val empty: UsedPortMap = Map()
+      Result.foldLeft (cs) (empty) ((m, c) => {
         val piiRemote = c.getOtherEndpoint(pi).port
         t.getPortNumber(pi, c) match {
             case Some(n) =>
@@ -262,10 +269,10 @@ object MatchedPortNumbering {
     val pi2 = portMatching.instance2
     val loc = portMatching.getLoc
     for {
-      map1 <- constructMap(pi1)
-      map2 <- constructMap(pi2)
-      usedPorts1 <- computeUsedPortNumbers(pi1)
-      usedPorts2 <- computeUsedPortNumbers(pi2)
+      map1 <- computeConnectionMap(pi1)
+      map2 <- computeConnectionMap(pi2)
+      usedPorts1 <- computeUsedPortMap(pi1)
+      usedPorts2 <- computeUsedPortMap(pi2)
       _ <- checkForMissingConnections(loc, map1, map2)
       state <- {
         val state = State.initial(t, pi1, map1, usedPorts1, pi2, map2, usedPorts2)
