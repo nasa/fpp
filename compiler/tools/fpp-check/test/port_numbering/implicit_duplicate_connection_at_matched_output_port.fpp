@@ -17,7 +17,6 @@ module M {
 
   }
 
-
   instance c1: C1 base id 0x100
   instance c2: C2 base id 0x200
   instance c3: C2 base id 0x300
