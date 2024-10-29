@@ -154,19 +154,13 @@ object MatchedPortNumbering {
       map2: ConnectionMap,
       usedPorts2: UsedPortMap
     ): State = {
-      // Compute the used port numbers
-      val usedPortNumbers = usedPorts1.keys.toSet ++ usedPorts2.keys.toSet
       State(
         t,
         pi1,
         map1,
         pi2,
         map2,
-        MatchedPortNumberingState.initial(
-          usedPortNumbers,
-          usedPorts1,
-          usedPorts2
-        )
+        MatchedPortNumberingState.initial(usedPorts1, usedPorts2)
       )
     }
 

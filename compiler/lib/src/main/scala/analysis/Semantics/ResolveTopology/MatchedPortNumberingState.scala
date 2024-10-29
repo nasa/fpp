@@ -5,7 +5,7 @@ import fpp.compiler.util._
 
 /** Matched port numbering state */
 case class MatchedPortNumberingState private (
-  /** The used port numbers */
+  /** The port numbering state */
   usedPortNumbers: Set[Int],
   /** The next port number */
   nextPortNumber: Int,
@@ -19,7 +19,7 @@ case class MatchedPortNumberingState private (
    *  a new one */
   def usePortNumber: MatchedPortNumberingState = {
     val s = usedPortNumbers + nextPortNumber
-    val n = MatchedPortNumberingState.getNextNumber(
+    val n = PortNumberingState.getNextNumber(
       nextPortNumber,
       s
     )
@@ -39,7 +39,7 @@ case class MatchedPortNumberingState private (
     u2: MatchedPortNumberingState.UsedPortMap
   ): MatchedPortNumberingState = {
     val updatedUsedPortNumbers = u1.keys.toSet ++ u2.keys.toSet
-    val updatedNextPortNumber = MatchedPortNumberingState.getNextNumber(
+    val updatedNextPortNumber = PortNumberingState.getNextNumber(
       nextPortNumber,
       updatedUsedPortNumbers
     )
@@ -50,26 +50,14 @@ case class MatchedPortNumberingState private (
 
 object MatchedPortNumberingState {
 
-  /** A mapping from port numbers to connections **/
+  /** A mapping from used port numbers to connections **/
   type UsedPortMap = Map[Int, Connection]
 
   /** Construct an initial state */
-  def initial(
-    usedPortNumbers: Set[Int],
-    usedPorts1: UsedPortMap = Map(),
-    usedPorts2: UsedPortMap = Map()
-  ): MatchedPortNumberingState = {
-    val nextPortNumber = getNextNumber(0, usedPortNumbers)
-    MatchedPortNumberingState(usedPortNumbers, nextPortNumber, usedPorts1, usedPorts2)
-  }
-
-  /** Gets the next available port number */
-  def getNextNumber(from: Int, used: Set[Int]): Int = {
-    def helper(n: Int): Int =
-      if (!used.contains(n))
-        n
-      else helper(n + 1)
-    helper(from)
+  def initial(upm1: UsedPortMap, upm2: UsedPortMap): MatchedPortNumberingState = {
+    val usedPortNumbers = upm1.keys.toSet ++ upm2.keys.toSet
+    val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
+    MatchedPortNumberingState(usedPortNumbers, nextPortNumber, upm1, upm2)
   }
 
 }
