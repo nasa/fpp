@@ -55,34 +55,9 @@ case class MatchedPortNumberingState private (
   def updateUsedPorts1(n: Int, c: Connection): MatchedPortNumberingState =
     usePortNumber(n).copy(usedPorts1 = this.usedPorts1 + (n -> c))
 
-//  {
-//    val usedPortNumbers = this.usedPortNumbers + n
-//    val nextPortNumber = PortNumberingState.getNextNumber(
-//      this.nextPortNumber,
-//      usedPortNumbers
-//    )
-//    val usedPorts1 = this.usedPorts1 + (n -> c)
-//    this.copy(
-//      usedPortNumbers = usedPortNumbers,
-//      nextPortNumber = nextPortNumber,
-//      usedPorts1 = usedPorts1
-//    )
-//  }
-
   /** Adds a mapping to usedPorts2 */
-  def updateUsedPorts2(n: Int, c: Connection): MatchedPortNumberingState = {
-    val usedPortNumbers = this.usedPortNumbers + n
-    val nextPortNumber = PortNumberingState.getNextNumber(
-      this.nextPortNumber,
-      usedPortNumbers
-    )
-    val usedPorts2 = this.usedPorts2 + (n -> c)
-    this.copy(
-      usedPortNumbers = usedPortNumbers,
-      nextPortNumber = nextPortNumber,
-      usedPorts2 = usedPorts2
-    )
-  }
+  def updateUsedPorts2(n: Int, c: Connection): MatchedPortNumberingState =
+    usePortNumber(n).copy(usedPorts2 = this.usedPorts2 + (n -> c))
 
 }
 
