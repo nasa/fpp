@@ -8,6 +8,7 @@ module M {
     sync input port pIn: [4] P
 
     match pOut with pIn
+
   }
 
   passive component C2 {
@@ -16,6 +17,7 @@ module M {
     sync input port pIn: [4] P
 
     match pOut with pIn
+
   }
 
   instance c1: C1 base id 0x100
@@ -29,6 +31,7 @@ module M {
     instance c3
 
     connections P {
+
       unmatched c1.pOut -> c2.pIn[0]
       unmatched c1.pOut -> c2.pIn[1]
       unmatched c1.pOut -> c2.pIn[2]
@@ -36,7 +39,9 @@ module M {
 
       c1.pOut -> c2.pIn
       c2.pOut -> c1.pIn
+
     }
+
   }
 
 }

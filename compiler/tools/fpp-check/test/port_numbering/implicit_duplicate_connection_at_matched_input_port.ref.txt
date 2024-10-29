@@ -1,10 +1,10 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:31.7
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:32.7
       c2.pOut -> c1.pIn
       ^
 error: implicit duplicate connection at matched port pIn[0]
 connection is implied here:
-[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:30.7
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:31.7
       c1.pOut[0] -> c2.pIn
       ^
 because of matching specified here:
@@ -12,6 +12,6 @@ because of matching specified here:
     match pOut with pIn
     ^
 conflicting connection is here:
-[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:32.17
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/implicit_duplicate_connection_at_matched_input_port.fpp:33.17
       unmatched c2.pOut -> c1.pIn[0]
                 ^
