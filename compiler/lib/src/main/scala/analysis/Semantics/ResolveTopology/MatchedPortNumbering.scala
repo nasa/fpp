@@ -97,7 +97,7 @@ object MatchedPortNumbering {
       }
     }
 
-    // For each pair of connections (c1, c2), check that numbers 
+    // For each pair of connections (c1, c2), check that numbers
     // match and/or assign numbers
     def assignNumbers(
       matchingLoc: Location,
@@ -132,9 +132,9 @@ object MatchedPortNumbering {
         pi2,
         map2,
         PortNumberingState.initial(
-          usedPorts1=usedPorts1, 
-          usedPorts2=usedPorts2, 
-          usedPortNumbers=Set(usedPorts1.keys.toList:_*) ++ Set(usedPorts2.keys.toList:_*)
+          usedPorts1.keys.toSet ++ usedPorts2.keys.toSet,
+          usedPorts1,
+          usedPorts2
         )
       )
     }
@@ -214,7 +214,7 @@ object MatchedPortNumbering {
         t.getPortNumber(pi, c) match {
             case Some(n) =>
               m.get(n) match {
-                case Some(prevC) => 
+                case Some(prevC) =>
                   val loc = c.getLoc
                   val prevLoc = prevC.getLoc
                   Left(
