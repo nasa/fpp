@@ -94,7 +94,6 @@ object MatchedPortNumbering {
                   matchingLoc,
                   prevC.getLoc
                 )
-                //SemanticError.PortNumberAlreadyInUse(n2, c1.getLoc, prevC.getLoc)
               )
             case None =>
               val t1 = t.assignPortNumber(pi1, c1, n2)
@@ -107,8 +106,13 @@ object MatchedPortNumbering {
           val (numbering, n) = state.numbering.getPortNumber
           // Return an error if the port number is out of range
           if(n >= pi1.getArraySize)
-            then Left(
-              SemanticError.NoPortFoundByMatchedPortNumbering(c1.getLoc, c2.getLoc))
+            Left(
+              SemanticError.NoPortAvailableForMatchedNumbering(
+                c1.getLoc,
+                c2.getLoc,
+                matchingLoc
+              )
+            )
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked

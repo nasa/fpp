@@ -39,9 +39,9 @@ sealed trait Error {
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
-      case FileError.CannotOpen(locOpt, name) => 
+      case FileError.CannotOpen(locOpt, name) =>
         Error.print (locOpt) (s"cannot open file $name")
-      case FileError.CannotResolvePath(loc, name) => 
+      case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
@@ -71,7 +71,7 @@ sealed trait Error {
         loc,
         prevLoc,
         matchingLoc
-      ) => 
+      ) =>
         Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
         printPrevLoc(prevLoc)
         printMatchingLoc(matchingLoc)
@@ -103,7 +103,7 @@ sealed trait Error {
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
         printPrevLoc(prevLoc)
-      case SemanticError.EmptyArray(loc) => 
+      case SemanticError.EmptyArray(loc) =>
         Error.print (Some(loc)) ("array expression may not be empty")
       case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
         loc,
@@ -218,11 +218,14 @@ sealed trait Error {
         Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
-      case SemanticError.NoPortFoundByMatchedPortNumbering(loc1, loc2) =>
-        Error.print (None) (s"matched port numbering could not find an available port number on both sides of the matching")        
-        System.err.println("connections are defined here")
+      case SemanticError.NoPortAvailableForMatchedNumbering(loc1, loc2, matchingLoc) =>
+        Error.print (None) (s"no port available for matched numbering")
+        System.err.println("matched connections are specified here:")
         System.err.println(loc1)
         System.err.println(loc2)
+        printMatchingLoc(matchingLoc)
+        System.err.println("note: to be available, a port number must be in bounds and " ++
+                           "unassigned at both of the matched ports")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -530,9 +533,10 @@ object SemanticError {
     loc: Location
   ) extends Error
   /** Matched port numbering could not find a valid port number */
-  final case class NoPortFoundByMatchedPortNumbering(
+  final case class NoPortAvailableForMatchedNumbering(
     loc1: Location,
-    loc2: Location
+    loc2: Location,
+    matchingLoc: Location
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(

@@ -1,5 +1,5 @@
 tests="
-duplicate_input_connection_at_matched_port
+duplicate_connection_at_matched_port
 duplicate_matched_connection
 duplicate_output_connection
 matched_port_numbering_no_valid_port
