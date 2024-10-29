@@ -218,7 +218,12 @@ object MatchedPortNumbering {
                   val loc = c.getLoc
                   val prevLoc = prevC.getLoc
                   Left(
-                    SemanticError.DuplicateConnectionAtMatchedPort(loc, pi.toString, prevLoc, n)
+                    SemanticError.DuplicateConnectionAtMatchedPort(
+                      loc,
+                      pi.toString,
+                      n,
+                      prevLoc
+                    )
                   )
                 case None => Right(m + (n -> c))
               }
