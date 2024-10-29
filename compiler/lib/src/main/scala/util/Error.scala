@@ -105,6 +105,21 @@ sealed trait Error {
         printPrevLoc(prevLoc)
       case SemanticError.EmptyArray(loc) => 
         Error.print (Some(loc)) ("array expression may not be empty")
+      case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
+        loc,
+        port,
+        portNum,
+        implyingLoc,
+        matchingLoc,
+        prevLoc
+      ) =>
+        Error.print (Some(loc)) (s"implicit duplicate connection at matched port $port[$portNum]")
+        System.err.println("connection is implied here:")
+        System.err.println(implyingLoc)
+        System.err.println("because of matching specified here:")
+        System.err.println(matchingLoc)
+        System.err.println("conflicting connection is here:")
+        System.err.println(prevLoc)
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
@@ -222,10 +237,6 @@ sealed trait Error {
         Error.print (Some(loc)) ("passive component may not have async input")
       case SemanticError.PassiveStateMachine(loc) =>
         Error.print (Some(loc)) ("passive component may not have a state machine instance")
-      case SemanticError.PortNumberAlreadyInUse(n, loc, prevLoc) =>
-        Error.print (Some(loc)) (s"port number $n is already in use")
-        System.err.println("previous usage is here:")
-        System.err.println(prevLoc)
       case SemanticError.RedefinedSymbol(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"redefinition of symbol ${name}")
         System.err.println("previous definition is here:")
@@ -280,7 +291,7 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
-  /** Duplicate connections at matched port */
+  /** Duplicate connection at matched port */
   final case class DuplicateConnectionAtMatchedPort(
     loc: Location,
     port: String,
@@ -376,6 +387,15 @@ object SemanticError {
   final case class DuplicateTopology(
     name: String,
     loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Implicit duplicate connection at matched port */
+  final case class ImplicitDuplicateConnectionAtMatchedPort(
+    loc: Location,
+    port: String,
+    portNum: Int,
+    implyingLoc: Location,
+    matchingLoc: Location,
     prevLoc: Location
   ) extends Error
   /** Inconsistent location specifiers */
@@ -526,8 +546,6 @@ object SemanticError {
   /** Passive async input */
   final case class PassiveAsync(loc: Location) extends Error
   final case class PassiveStateMachine(loc: Location) extends Error
-  /** Port number has already been assigned */
-  final case class PortNumberAlreadyInUse(n: Int, loc: Location, prevLoc: Location) extends Error
   /** Redefined symbol */
   final case class RedefinedSymbol(
     name: String,

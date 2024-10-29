@@ -65,14 +65,14 @@ object MatchedPortNumbering {
           u2.get(n1) match {
             case Some(prevC) =>
               Left(
-                SemanticError.PortNumberAlreadyInUse(n1, c2.getLoc, prevC.getLoc)
-//                SemanticError.DuplicateConnectionAtMatchedPort(
-//                  c2.getLoc,
-//                  pi2.toString,
-//                  n1,
-//                  prevC.getLoc,
-//                  matchingLoc
-//                )
+                SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
+                  c2.getLoc,
+                  pi2.toString,
+                  n1,
+                  c1.getLoc,
+                  matchingLoc,
+                  prevC.getLoc,
+                )
               )
             case None =>
               val t1 = t.assignPortNumber(pi2, c2, n1)
@@ -85,7 +85,17 @@ object MatchedPortNumbering {
           // Check to see if the port number is already in use
           state.numbering.usedPorts1.get(n2) match {
             case Some(prevC) =>
-              Left(SemanticError.PortNumberAlreadyInUse(n2, c1.getLoc, prevC.getLoc))
+              Left(
+                SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
+                  c1.getLoc,
+                  pi1.toString,
+                  n2,
+                  c2.getLoc,
+                  matchingLoc,
+                  prevC.getLoc
+                )
+                //SemanticError.PortNumberAlreadyInUse(n2, c1.getLoc, prevC.getLoc)
+              )
             case None =>
               val t1 = t.assignPortNumber(pi1, c1, n2)
               // Update the set of used ports so that the new port number is tracked
@@ -97,7 +107,8 @@ object MatchedPortNumbering {
           val (numbering, n) = state.numbering.getPortNumber
           // Return an error if the port number is out of range
           if(n >= pi1.getArraySize)
-            then Left(SemanticError.NoPortFoundByMatchedPortNumbering(c1.getLoc, c2.getLoc))
+            then Left(
+              SemanticError.NoPortFoundByMatchedPortNumbering(c1.getLoc, c2.getLoc))
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked
