@@ -54,10 +54,10 @@ object MatchedPortNumberingState {
   type UsedPortMap = Map[Int, Connection]
 
   /** Construct an initial state */
-  def initial(upm1: UsedPortMap, upm2: UsedPortMap): MatchedPortNumberingState = {
-    val usedPortNumbers = upm1.keys.toSet ++ upm2.keys.toSet
+  def initial(map1: UsedPortMap, map2: UsedPortMap): MatchedPortNumberingState = {
+    val usedPortNumbers = map1.keys.toSet ++ map2.keys.toSet
     val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
-    MatchedPortNumberingState(usedPortNumbers, nextPortNumber, upm1, upm2)
+    MatchedPortNumberingState(usedPortNumbers, nextPortNumber, map1, map2)
   }
 
 }
