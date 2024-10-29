@@ -45,9 +45,10 @@ sealed trait Error {
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
-      case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc) =>
+      case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
         Error.print (Some(loc)) (s"duplicate connection at matched port $port[$portNum]")
         printPrevLoc(prevLoc)
+        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -284,7 +285,8 @@ object SemanticError {
     loc: Location,
     port: String,
     portNum: Int,
-    prevLoc: Location
+    prevLoc: Location,
+    matchingLoc: Location
   ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
