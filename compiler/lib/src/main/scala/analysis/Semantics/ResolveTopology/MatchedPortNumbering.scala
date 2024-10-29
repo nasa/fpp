@@ -102,7 +102,8 @@ object MatchedPortNumbering {
             case None =>
               val t1 = t.assignPortNumber(pi1, c1, n2)
               // Update the set of used ports so that the new port number is tracked
-              val numbering = state.numbering.setUsedPorts(u1 + (n2 -> c1), u2)
+              //val numbering = state.numbering.setUsedPorts(u1 + (n2 -> c1), u2)
+              val numbering = state.numbering.updateUsedPorts1(n2, c1)
               Right(state.copy(t = t1, numbering = numbering))
           }
         case (None, None) =>

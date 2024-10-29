@@ -15,20 +15,25 @@ case class MatchedPortNumberingState private (
   usedPorts2: MatchedPortNumberingState.UsedPortMap = Map()
 ) {
 
-  /** Marks the next port number as used and generates
+  /** Marks the specified port number as used and generates
    *  a new one */
-  def usePortNumber: MatchedPortNumberingState = {
-    val s = usedPortNumbers + nextPortNumber
-    val n = PortNumberingState.getNextNumber(
+  def usePortNumber(n: Int): MatchedPortNumberingState = {
+    val s = usedPortNumbers + n
+    val n1 = PortNumberingState.getNextNumber(
       nextPortNumber,
       s
     )
-    MatchedPortNumberingState(s, n, usedPorts1, usedPorts2)
+    MatchedPortNumberingState(s, n1, usedPorts1, usedPorts2)
   }
+
+  /** Marks the next port number as used and generates
+   *  a new one */
+  def useNextPortNumber: MatchedPortNumberingState =
+    usePortNumber(nextPortNumber)
 
   /** Gets the next port number and updates the state */
   def getPortNumber: (MatchedPortNumberingState, Int) = {
-    val s = usePortNumber
+    val s = useNextPortNumber
     (s, nextPortNumber)
   }
 
@@ -44,6 +49,36 @@ case class MatchedPortNumberingState private (
       updatedUsedPortNumbers
     )
     MatchedPortNumberingState(updatedUsedPortNumbers, updatedNextPortNumber, u1, u2)
+  }
+
+  /** Adds a mapping to usedPorts1 */
+  def updateUsedPorts1(n: Int, c: Connection): MatchedPortNumberingState = {
+    val usedPortNumbers = this.usedPortNumbers + n
+    val nextPortNumber = PortNumberingState.getNextNumber(
+      this.nextPortNumber,
+      usedPortNumbers
+    )
+    val usedPorts1 = this.usedPorts1 + (n -> c)
+    this.copy(
+      usedPortNumbers = usedPortNumbers,
+      nextPortNumber = nextPortNumber,
+      usedPorts1 = usedPorts1
+    )
+  }
+
+  /** Adds a mapping to usedPorts2 */
+  def updateUsedPorts2(n: Int, c: Connection): MatchedPortNumberingState = {
+    val usedPortNumbers = this.usedPortNumbers + n
+    val nextPortNumber = PortNumberingState.getNextNumber(
+      this.nextPortNumber,
+      usedPortNumbers
+    )
+    val usedPorts2 = this.usedPorts2 + (n -> c)
+    this.copy(
+      usedPortNumbers = usedPortNumbers,
+      nextPortNumber = nextPortNumber,
+      usedPorts2 = usedPorts2
+    )
   }
 
 }
