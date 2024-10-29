@@ -121,7 +121,6 @@ object MatchedPortNumbering {
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked
-            //val numbering = state.numbering.setUsedPorts(u1 + (n -> c1), u2 + (n -> c2))
             val numbering = state.numbering.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2)
             Right(state.copy(t = t1, numbering = numbering))
           }

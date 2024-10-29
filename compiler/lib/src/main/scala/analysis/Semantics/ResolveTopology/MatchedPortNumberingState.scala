@@ -6,13 +6,15 @@ import fpp.compiler.util._
 /** Matched port numbering state */
 case class MatchedPortNumberingState private (
   /** The port numbering state */
+  portNumberingState: PortNumberingState,
+  /** The used port numbers */
   usedPortNumbers: Set[Int],
   /** The next port number */
   nextPortNumber: Int,
   /** Map from port numbers to connections for port instance 1 */
-  usedPorts1: MatchedPortNumberingState.UsedPortMap = Map(),
+  usedPorts1: MatchedPortNumberingState.UsedPortMap,
   /** Map from port numbers to connections for port instance 2 */
-  usedPorts2: MatchedPortNumberingState.UsedPortMap = Map()
+  usedPorts2: MatchedPortNumberingState.UsedPortMap
 ) {
 
   /** Marks the specified port number as used and generates
@@ -23,7 +25,10 @@ case class MatchedPortNumberingState private (
       nextPortNumber,
       s
     )
-    MatchedPortNumberingState(s, n1, usedPorts1, usedPorts2)
+    MatchedPortNumberingState(
+      portNumberingState.usePortNumber(n),
+      s, n1, usedPorts1, usedPorts2
+    )
   }
 
   /** Marks the next port number as used and generates
@@ -55,8 +60,9 @@ object MatchedPortNumberingState {
   /** Construct an initial state */
   def initial(map1: UsedPortMap, map2: UsedPortMap): MatchedPortNumberingState = {
     val usedPortNumbers = map1.keys.toSet ++ map2.keys.toSet
+    val portNumberingState = PortNumberingState.initial(usedPortNumbers)
     val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
-    MatchedPortNumberingState(usedPortNumbers, nextPortNumber, map1, map2)
+    MatchedPortNumberingState(portNumberingState, usedPortNumbers, nextPortNumber, map1, map2)
   }
 
 }
