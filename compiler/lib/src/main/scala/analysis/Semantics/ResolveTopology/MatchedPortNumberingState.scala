@@ -37,20 +37,6 @@ case class MatchedPortNumberingState private (
     (s, nextPortNumber)
   }
 
-  // Takes in the updated sets, updated the usedPortNumbers set
-  // (ie: union of usedPorts1 and usedPorts2) and figure out the new next port number
-  def setUsedPorts(
-    u1: MatchedPortNumberingState.UsedPortMap,
-    u2: MatchedPortNumberingState.UsedPortMap
-  ): MatchedPortNumberingState = {
-    val updatedUsedPortNumbers = u1.keys.toSet ++ u2.keys.toSet
-    val updatedNextPortNumber = PortNumberingState.getNextNumber(
-      nextPortNumber,
-      updatedUsedPortNumbers
-    )
-    MatchedPortNumberingState(updatedUsedPortNumbers, updatedNextPortNumber, u1, u2)
-  }
-
   /** Adds a mapping to usedPorts1 */
   def updateUsedPorts1(n: Int, c: Connection): MatchedPortNumberingState =
     usePortNumber(n).copy(usedPorts1 = this.usedPorts1 + (n -> c))
