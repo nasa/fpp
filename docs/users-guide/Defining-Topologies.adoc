@@ -698,10 +698,8 @@ Sequencer component.
 When you use matched numbering with direct graph specifiers, you
 must obey the following rules:
 
-. Multiple connections can not use the same port number even if the port is an input port.
-
 . When a component has the matching specifier
-`match p1 with p2`, for every matched connection between `p1`
+`match p1 with p2`, for every connection between `p1`
 and another component, there must be a corresponding
 connection between that other component and `p2`.
 
@@ -712,16 +710,102 @@ For example, you may not connect `p1[0]` to another component
 and `p2[1]` to the same component, because this connection
 forces a mismatch.
 
+. Duplicate connections at the same port number of `p1` or
+`p2` are not allowed, even if `p1` or `p2` are input ports.
+
 If you violate these rules, you will get an error during
 analysis.
+You can relax these rules by writing unmatched connections,
+as described below.
+
+*Unmatched connections:*
+Occasionally you may need to relax the rules for using matched ports.
+For example, you may need to match pairs of connections that use
+the F Prime hub pattern to cross a network boundary.
+In this case, although the connections are logically matched
+at the endpoints, they all go through a single hub instance
+on the side of the boundary that has the matched ports, and so they do not obey the
+simple rules for matching given here.
+
+When a connection goes to or from a matched port,
+we say that it is *match constrained*.
+Ordinarily a match constrained connection must obey the
+rules for matching stated above.
+To relax the rules, you can write an *unmatched* connection.
+To do this, write the keyword `unmatched` at the start of the connection
+specifier.
+Here is an example:
+
+[source,fpp]
+--------
+Port P
+
+passive component Source {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+
+  match pOut with pIn
+}
+
+passive component Target {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+}
+
+instance source: Source base id 0x100
+instance target: Target base id 0x200
+
+topology T {
+
+  instance source
+  instance target
+
+  connections C {
+    unmatched source.pOut[0] -> target.pIn[0]
+    unmatched target.pOut[0] -> source.pIn[0]
+    unmatched source.pOut[1] -> target.pIn[1]
+    unmatched target.pOut[1] -> source.pIn[1]
+  }
+
+}
+--------
+
+In this example, there are two pairs of connections between the
+`pIn` and `pOut` connections of the instances `source` and `target`.
+The ports of `source` are match constrained, so ordinarily
+the connections would need to obey the matching rules.
+The connections do partially obey the rules: for example,
+there are no duplicate numbers, and the numbers match.
+However, both pairs of connections go to and from the same
+instance `target`; ordinarily this is not allowed for
+match constrained connections.
+To allow it, we need to use unmatched ports as shown.
+
+Note the following about using unmatched ports:
+
+. When connections are marked `unmatched`, the analyzer cannot check that the
+port numbers assigned to the connections conform to any particular pattern.
+If you need the port numbers to follow a pattern, as in the example shown 
+above, then you must use explicit numbering.
+For a suggestion on how to do this, see the discussion of manual matching 
+below.
+
+. Unmatched ports must still obey the rule that distinct
+connections at a matched port must have distinct port numbers.
+
+. The `unmatched` keyword is allowed only for connections that
+are match constrained, i.e., that go to or from a matched port.
+If you try to write an unmatched connection and the connection
+is not match constrained, then you will get an error.
 
 *Manual matching:*
-Automatic matched numbering works when each matched pair of connections
+Port matching specifiers work well when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
 If the matching does not follow this pattern, then automatic matched
-numbering will not work, and you will need to use explicit port
-numbers to express the matching.
+numbering will not work, and it is usually better not to 
+use a port matching specifier at all.
+Instead, you can use explicit port numbers to express the matching.
 For example, the Ref topology contains these connections:
 
 [source,fpp]
@@ -740,75 +824,6 @@ Since the allocation and deallocation connections go to different
 component instances, we can't used automatic matched numbering.
 Instead we define a symbolic constant `Ports.StaticMemory.uplink`
 and use that twice to do the matching by hand.
-
-*Unmatched connections:*
-Unmatched connections can be used in a topology to bypass match 
-constraints that are specified in component definitions. Doing so 
-allows you to skip port matching requirements without receiving an 
-error if a match constraint is violated. 
-
-To specify that a connection is unmatched, start the connection
-with the `unmatched` keyword.
-
-[source,fpp]
---------
-unmatched c1.pOut -> c2.pIn
---------
-
-Note that unmatched connections are only allowed when a match
-constraint has been specified. In the below example, unmatched
-connections would not be valid since neither ports `pIn` or `pOut` 
-are match constrained.
-
-[source,fpp]
---------
-Port P
-
-passive component C {
-  sync input port pIn: [3] P
-  output port pOut: [3] P
-}
---------
-
-Below is a valid example for using unmatched connections:
-
-[source,fpp]
---------
-Port P
-
-passive component C {
-  sync input port pIn: [3] P
-  output port pOut: [3] P
-
-  match pOut with pIn
-}
-
-instance c1: C base id 0x100
-instance c2: C base id 0x200
-
-topology T {
-
-  @ This specifier says that instance c1 is part of the topology
-  instance c1
-  @ This specifier says that instance c2 is part of the topology
-  instance c2
-
-  @ This code specifies a connection graph C1
-  connections C1 {
-    unmatched c1.pOut[0] -> c2.pIn[0]
-    unmatched c1.pOut[1] -> c2.pIn[1]
-  }
-
-}
---------
-
-This example consists of a component `C` with ports `pOut` and `pIn` 
-that are match constrained by the matching specifier `match pOut with pIn`.
-In addition, The topology `T` contains two unmatched connections that go 
-from `c1.pOut[0]` to `c2.pIn[0]` and from `c1.pOut[1]` to `c2.pIn[1]`.
-Since `pOut` and `pIn` are match constrained, the unmatched keyword can be used 
-to mark the connection as unmatched and bypass the port matching requirement.
-
 
 ==== General Numbering
 
