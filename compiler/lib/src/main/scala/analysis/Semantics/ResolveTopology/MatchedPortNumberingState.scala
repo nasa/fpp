@@ -20,26 +20,21 @@ case class MatchedPortNumberingState private (
   /** Marks the specified port number as used and generates
    *  a new one */
   def usePortNumber(n: Int): MatchedPortNumberingState = {
-    val s = usedPortNumbers + n
-    val n1 = PortNumberingState.getNextNumber(
-      nextPortNumber,
-      s
-    )
     MatchedPortNumberingState(
       portNumberingState.usePortNumber(n),
-      s, n1, usedPorts1, usedPorts2
+      Set(), 0, usedPorts1, usedPorts2
     )
   }
 
   /** Marks the next port number as used and generates
    *  a new one */
   def useNextPortNumber: MatchedPortNumberingState =
-    usePortNumber(nextPortNumber)
+    this.copy(portNumberingState = portNumberingState.useNextPortNumber)
 
   /** Gets the next port number and updates the state */
   def getPortNumber: (MatchedPortNumberingState, Int) = {
-    val s = useNextPortNumber
-    (s, nextPortNumber)
+    val (pns, pn) = portNumberingState.getPortNumber
+    (this.copy(portNumberingState = pns), pn)
   }
 
   /** Adds a mapping to usedPorts1 */
@@ -61,8 +56,8 @@ object MatchedPortNumberingState {
   def initial(map1: UsedPortMap, map2: UsedPortMap): MatchedPortNumberingState = {
     val usedPortNumbers = map1.keys.toSet ++ map2.keys.toSet
     val portNumberingState = PortNumberingState.initial(usedPortNumbers)
-    val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
-    MatchedPortNumberingState(portNumberingState, usedPortNumbers, nextPortNumber, map1, map2)
+    //val nextPortNumber = PortNumberingState.getNextNumber(0, usedPortNumbers)
+    MatchedPortNumberingState(portNumberingState, Set(), 0, map1, map2)
   }
 
 }
