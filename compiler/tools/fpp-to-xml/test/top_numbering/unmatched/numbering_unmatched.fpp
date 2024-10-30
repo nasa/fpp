@@ -1,6 +1,6 @@
 module M {
 
-  constant numPorts = 4
+  constant numPorts = 5
 
   port P
 
@@ -33,6 +33,13 @@ module M {
   instance source4: Source base id 0x400
   instance target41: Source base id 0x4100
   instance target42: Source base id 0x4200
+
+  instance source5: Source base id 0x500
+  instance target51: Source base id 0x5100
+  instance target52: Source base id 0x5200
+  instance target53: Source base id 0x5300
+  instance target54: Source base id 0x5400
+  instance target55: Source base id 0x5500
 
   topology T {
 
@@ -79,6 +86,32 @@ module M {
     connections Case4 {
       unmatched source4.pOut[0] -> target41.pIn[0]
       unmatched target42.pOut[1] -> source4.pIn[1]
+    }
+
+    # Case 5: Mixed matched and unmatched connections
+
+    instance source5
+    instance target51
+    instance target52
+    instance target53
+    instance target54
+    instance target55
+
+    connections Case5 {
+      # Matched connections with explicit numbering
+      source5.pOut[0] -> target51.pIn
+      target51.pOut -> source5.pIn[0]
+      # Matched connections with implicit numbering at pOut
+      source5.pOut -> target52.pIn
+      target52.pOut -> source5.pIn[1]
+      # Matched connections with implicit numbering at pIn
+      source5.pOut[2] -> target53.pIn
+      target53.pOut -> source5.pIn
+      # Matched connections with implicit numbering on both sides
+      source5.pOut -> target54.pIn
+      target54.pOut -> source5.pIn
+      # Unmatched connection
+      unmatched source5.pOut -> target55.pIn
     }
 
   }
