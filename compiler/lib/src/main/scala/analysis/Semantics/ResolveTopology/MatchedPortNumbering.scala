@@ -10,7 +10,7 @@ object MatchedPortNumbering {
   private type ConnectionMap = Map[ComponentInstance, Connection]
 
   // A mapping from port numbers to connections
-  type UsedPortMap = Map[Int, Connection]
+  private type UsedPortMap = Map[Int, Connection]
 
   // State for matched port numbering
   private case class State private(
@@ -25,8 +25,38 @@ object MatchedPortNumbering {
     // The map from component instances to connections for port 2
     map2: ConnectionMap,
     // Port numbering state
-    numbering: MatchedPortNumberingState
-  )
+    numbering: MatchedPortNumberingState,
+    numbering1: PortNumberingState,
+    // Map from port numbers to connections for port instance 1
+    upm1: UsedPortMap,
+    // Map from port numbers to connections for port instance 2
+    upm2: UsedPortMap
+  ) {
+
+    // Marks the specified port number as used and generates a new one
+    def usePortNumber(n: Int): State =
+      this.copy(numbering = numbering.usePortNumber(n))
+
+    // Marks the next port number as used and generates a new one
+    def useNextPortNumber: State =
+      this.copy(numbering = numbering.useNextPortNumber)
+
+    // Gets the next port number and updates the state
+    def getPortNumber: (State, Int) = {
+      val (s, n) = numbering.getPortNumber
+      (this.copy(numbering = s), n)
+    }
+
+    // Adds a mapping to usedPorts1
+    def updateUsedPorts1(n: Int, c: Connection): State =
+      usePortNumber(n).copy(upm1 = this.upm1 + (n -> c))
+
+
+    // Adds a mapping to usedPorts2
+    def updateUsedPorts2(n: Int, c: Connection): State =
+      usePortNumber(n).copy(upm2 = this.upm2 + (n -> c))
+
+  }
 
   private object State {
 
@@ -149,18 +179,23 @@ object MatchedPortNumbering {
       t: Topology,
       pi1: PortInstance,
       map1: ConnectionMap,
-      usedPorts1: UsedPortMap,
+      up1: UsedPortMap,
       pi2: PortInstance,
       map2: ConnectionMap,
-      usedPorts2: UsedPortMap
+      up2: UsedPortMap
     ): State = {
+      // Compute used port numbers
+      val usedPortNumbers = up1.keys.toSet ++ up2.keys.toSet
       State(
         t,
         pi1,
         map1,
         pi2,
         map2,
-        MatchedPortNumberingState.initial(usedPorts1, usedPorts2)
+        MatchedPortNumberingState.initial(up1, up2),
+        PortNumberingState.initial(usedPortNumbers),
+        up1,
+        up2
       )
     }
 
