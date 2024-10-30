@@ -25,8 +25,8 @@ object MatchedPortNumbering {
     // The map from component instances to connections for port 2
     map2: ConnectionMap,
     // Port numbering state
-    numbering: MatchedPortNumberingState,
-    numbering1: PortNumberingState,
+    //numbering: MatchedPortNumberingState,
+    numbering: PortNumberingState,
     // Map from port numbers to connections for port instance 1
     upm1: UsedPortMap,
     // Map from port numbers to connections for port instance 2
@@ -72,8 +72,8 @@ object MatchedPortNumbering {
       val n1Opt = t.getPortNumber(pi1, c1)
       val pi2 = state.pi2
       val n2Opt = t.getPortNumber(pi2, c2)
-      val u1 = state.numbering.usedPorts1
-      val u2 = state.numbering.usedPorts2
+      //val upm1 = state.upm1 //state.numbering.usedPorts1
+      //val upm2 = state.upm2 //state.numbering.usedPorts2
       (n1Opt, n2Opt) match {
         case (Some(n1), Some(n2)) =>
           // Both ports have a number: check that they match
@@ -96,7 +96,7 @@ object MatchedPortNumbering {
         case (Some(n1), None) =>
           // Only pi1 has a number: assign it to pi2
           // Check to see if the port number is already assigned
-          u2.get(n1) match {
+          state.upm2.get(n1) match {
             case Some(prevC) =>
               Left(
                 SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
@@ -111,13 +111,13 @@ object MatchedPortNumbering {
             case None =>
               val t1 = t.assignPortNumber(pi2, c2, n1)
               // Update the set of used ports so that the new port number is tracked
-              val numbering = state.numbering.updateUsedPorts2(n1, c2)
-              Right(state.copy(t = t1, numbering = numbering))
+              //state.numbering.updateUsedPorts2(n1, c2)
+              Right(state.updateUsedPorts2(n1, c2).copy(t = t1))
           }
         case (None, Some(n2)) =>
           // Only pi2 has a number: assign it to pi1
           // Check to see if the port number is already in use
-          state.numbering.usedPorts1.get(n2) match {
+          state.upm1.get(n2) match {
             case Some(prevC) =>
               Left(
                 SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
@@ -132,12 +132,13 @@ object MatchedPortNumbering {
             case None =>
               val t1 = t.assignPortNumber(pi1, c1, n2)
               // Update the set of used ports so that the new port number is tracked
-              val numbering = state.numbering.updateUsedPorts1(n2, c1)
-              Right(state.copy(t = t1, numbering = numbering))
+              //val numbering = state.updateUsedPorts1(n2, c1) //state.numbering.updateUsedPorts1(n2, c1)
+              //Right(state.copy(t = t1, numbering = numbering))
+              Right(state.updateUsedPorts1(n2, c1).copy(t = t1))
           }
         case (None, None) =>
           // Neither port has a number: assign a new one
-          val (numbering, n) = state.numbering.getPortNumber
+          val (state1, n) = state.getPortNumber //state.numbering.getPortNumber
           // Return an error if the port number is out of range
           if(n >= pi1.getArraySize)
             Left(
@@ -150,8 +151,9 @@ object MatchedPortNumbering {
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked
-            val numbering = state.numbering.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2)
-            Right(state.copy(t = t1, numbering = numbering))
+            //val numbering = state.updateUsedPorts(n, c1).updateUsedPorts(n, c2) 
+            //state.numbering.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2)
+            Right(state1.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2).copy(t = t1))
           }
       }
     }
@@ -192,7 +194,7 @@ object MatchedPortNumbering {
         map1,
         pi2,
         map2,
-        MatchedPortNumberingState.initial(up1, up2),
+        //MatchedPortNumberingState.initial(up1, up2),
         PortNumberingState.initial(usedPortNumbers),
         up1,
         up2
