@@ -104,7 +104,7 @@ case class Connection(
     }
   }
 
-  /** Checks to see if a connection is match constrained */
+  /** Checks whether a connection is match constrained */
   def isMatchConstrained: Boolean = {
     def portMatchingExists(pml: List[Component.PortMatching], pi: PortInstance): Boolean =
       pml.exists(pm => pi.equals(pm.instance1) || pi.equals(pm.instance2))
