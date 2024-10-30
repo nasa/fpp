@@ -12,7 +12,7 @@ passive component C2 {
 
 passive component C3 {
   output port pOut: [5] P2
-  sync input port pIn: [5] P2 
+  sync input port pIn: [5] P2
   match pOut with pIn
 }
 

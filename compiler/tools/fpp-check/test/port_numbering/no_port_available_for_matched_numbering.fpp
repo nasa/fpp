@@ -4,8 +4,8 @@ module M {
 
   passive component C1 {
 
-    output port pOut: [4] P
-    sync input port pIn: [4] P
+    output port pOut: [2] P
+    sync input port pIn: [2] P
 
     match pOut with pIn
 
@@ -13,16 +13,21 @@ module M {
 
   passive component C2 {
 
-    output port pOut: [4] P
-    sync input port pIn: [4] P
+    output port pOut: [2] P
+    sync input port pIn: [2] P
 
-    match pOut with pIn
+  }
+
+  passive component C3 {
+
+    output port pOut: P
+    sync input port pIn: P
 
   }
 
   instance c1: C1 base id 0x100
-  instance c2: C1 base id 0x200
-  instance c3: C1 base id 0x300
+  instance c2: C2 base id 0x200
+  instance c3: C2 base id 0x300
 
   topology T {
 
@@ -32,10 +37,8 @@ module M {
 
     connections P {
 
-      unmatched c1.pOut -> c2.pIn[0]
-      unmatched c1.pOut -> c2.pIn[1]
-      unmatched c1.pOut -> c2.pIn[2]
-      unmatched c2.pOut -> c2.pIn[3]
+      unmatched c1.pOut[0] -> c3.pIn
+      unmatched c3.pOut -> c1.pIn[1]
 
       c1.pOut -> c2.pIn
       c2.pOut -> c1.pIn
