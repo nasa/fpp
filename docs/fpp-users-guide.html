@@ -8482,20 +8482,118 @@ For example, you may not connect <code>p1[0]</code> to another component
 and <code>p2[1]</code> to the same component, because this connection
 forces a mismatch.</p>
 </li>
+<li>
+<p>Duplicate connections at the same port number of <code>p1</code> or
+<code>p2</code> are not allowed, even if <code>p1</code> or <code>p2</code> are input ports.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
 <p>If you violate these rules, you will get an error during
-analysis.</p>
+analysis.
+You can relax these rules by writing unmatched connections,
+as described below.</p>
+</div>
+<div class="paragraph">
+<p><strong>Unmatched connections:</strong>
+Occasionally you may need to relax the rules for using matched ports.
+For example, you may need to match pairs of connections that use
+the F Prime hub pattern to cross a network boundary.
+In this case, although the connections are logically matched
+at the endpoints, they all go through a single hub instance
+on the side of the boundary that has the matched ports, and so they do not obey the
+simple rules for matching given here.</p>
+</div>
+<div class="paragraph">
+<p>When a connection goes to or from a matched port,
+we say that it is <strong>match constrained</strong>.
+Ordinarily a match constrained connection must obey the
+rules for matching stated above.
+To relax the rules, you can write an <strong>unmatched</strong> connection.
+To do this, write the keyword <code>unmatched</code> at the start of the connection
+specifier.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">Port P
+
+passive component Source {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+
+  match pOut with pIn
+}
+
+passive component Target {
+  sync input port pIn: [2] P
+  output port pOut: [2] P
+}
+
+instance source: Source base id 0x100
+instance target: Target base id 0x200
+
+topology T {
+
+  instance source
+  instance target
+
+  connections C {
+    unmatched source.pOut[0] -&gt; target.pIn[0]
+    unmatched target.pOut[0] -&gt; source.pIn[0]
+    unmatched source.pOut[1] -&gt; target.pIn[1]
+    unmatched target.pOut[1] -&gt; source.pIn[1]
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, there are two pairs of connections between the
+<code>pIn</code> and <code>pOut</code> connections of the instances <code>source</code> and <code>target</code>.
+The ports of <code>source</code> are match constrained, so ordinarily
+the connections would need to obey the matching rules.
+The connections do partially obey the rules: for example,
+there are no duplicate numbers, and the numbers match.
+However, both pairs of connections go to and from the same
+instance <code>target</code>; ordinarily this is not allowed for
+match constrained connections.
+To allow it, we need to use unmatched ports as shown.</p>
+</div>
+<div class="paragraph">
+<p>Note the following about using unmatched ports:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When connections are marked <code>unmatched</code>, the analyzer cannot check that the
+port numbers assigned to the connections conform to any particular pattern.
+If you need the port numbers to follow a pattern, as in the example shown
+above, then you must use explicit numbering.
+For a suggestion on how to do this, see the discussion of manual matching
+below.</p>
+</li>
+<li>
+<p>Unmatched ports must still obey the rule that distinct
+connections at a matched port must have distinct port numbers.</p>
+</li>
+<li>
+<p>The <code>unmatched</code> keyword is allowed only for connections that
+are match constrained, i.e., that go to or from a matched port.
+If you try to write an unmatched connection and the connection
+is not match constrained, then you will get an error.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><strong>Manual matching:</strong>
-Automatic matched numbering works when each matched pair of connections
+Port matching specifiers work well when each matched pair of connections
 goes between the same two components, one of which
 has a matched pair of ports.
 If the matching does not follow this pattern, then automatic matched
-numbering will not work, and you will need to use explicit port
-numbers to express the matching.
+numbering will not work, and it is usually better not to
+use a port matching specifier at all.
+Instead, you can use explicit port numbers to express the matching.
 For example, the Ref topology contains these connections:</p>
 </div>
 <div class="listingblock">
@@ -11996,7 +12094,7 @@ when running <code>fpp-to-xml</code>:</p>
 With this option, <code>fpp-to-json</code> generates the AST and the
 location map only; it doesn&#8217;t generate the Analysis data structure.
 Because semantic analysis is not run, you don&#8217;t have to present
-a complete or syntactically correct FPP model to the tool.</p>
+a complete or semantically correct FPP model to the tool.</p>
 </li>
 </ul>
 </div>
@@ -12605,7 +12703,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-02 15:34:21 -0700
+Last updated 2024-10-30 11:41:16 -0700
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

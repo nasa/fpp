@@ -4,6 +4,7 @@ internal_port
 invalid_directions
 invalid_port_instance
 invalid_port_number
+invalid_unmatched_connection
 mismatched_port_types
 ok
 serial_to_typed_with_return

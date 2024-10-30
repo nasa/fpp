@@ -48,9 +48,10 @@ object Parser extends Parsers {
 
   def connection: Parser[Ast.SpecConnectionGraph.Connection] = {
     def connectionPort = node(portInstanceIdentifier) ~! opt(index)
-    connectionPort ~! (rarrow ~>! connectionPort) ^^ {
-      case (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
+    opt(unmatched) ~ connectionPort ~! (rarrow ~>! connectionPort) ^^ {
+      case unmatched ~ (fromPort ~ fromIndex) ~ (toPort ~ toIndex) => {
         Ast.SpecConnectionGraph.Connection(
+          unmatched.isDefined,
           fromPort,
           fromIndex,
           toPort,
@@ -933,6 +934,8 @@ object Parser extends Parsers {
   private def trueToken = accept("true", { case t : Token.TRUE => t })
 
   private def typeToken = accept("type", { case t : Token.TYPE => t })
+
+  private def unmatched = accept("unmatched", { case t : Token.UNMATCHED => t })
 
   private def update = accept("update", { case t : Token.UPDATE => t })
 

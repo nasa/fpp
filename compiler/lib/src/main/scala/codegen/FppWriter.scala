@@ -575,10 +575,11 @@ object FppWriter extends AstVisitor with LineUtils {
     Line.addPrefixAndSuffix("[", exprNode(en), "]")
 
   private def connection(c: Ast.SpecConnectionGraph.Connection) =
-    portInstanceId(c.fromPort.data).
-    joinOpt (c.fromIndex) ("") (bracketExprNode).
-    join (" -> ") (portInstanceId(c.toPort.data)).
-    joinOpt (c.toIndex) ("") (bracketExprNode)
+    lines(if c.isUnmatched then "unmatched " else "").
+      join ("") (portInstanceId(c.fromPort.data)).
+      joinOpt (c.fromIndex) ("") (bracketExprNode).
+      join (" -> ") (portInstanceId(c.toPort.data)).
+      joinOpt (c.toIndex) ("") (bracketExprNode)
 
   private def defEnumConstant(dec: Ast.DefEnumConstant) =
     lines(ident(dec.name)).joinOpt (dec.value) (" = ") (exprNode)
