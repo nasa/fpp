@@ -476,6 +476,7 @@ object Ast {
 
     /** Connection */
     final case class Connection(
+      isUnmatched: Boolean,
       fromPort: AstNode[PortInstanceIdentifier],
       fromIndex: Option[AstNode[Expr]],
       toPort: AstNode[PortInstanceIdentifier],
@@ -818,5 +819,4 @@ object Ast {
       override def toString = "public"
     }
   }
-
 }

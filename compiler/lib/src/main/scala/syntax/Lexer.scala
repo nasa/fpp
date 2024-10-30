@@ -337,6 +337,7 @@ object Lexer extends RegexParsers {
     ("topology", (u: Unit) => Token.TOPOLOGY()),
     ("true", (u: Unit) => Token.TRUE()),
     ("type", (u: Unit) => Token.TYPE()),
+    ("unmatched", (u: Unit) => Token.UNMATCHED()),
     ("update", (u: Unit) => Token.UPDATE()),
     ("warning", (u: Unit) => Token.WARNING()),
     ("with", (u: Unit) => Token.WITH()),
