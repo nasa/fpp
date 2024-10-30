@@ -20,17 +20,16 @@ object MatchedPortNumbering {
     pi1: PortInstance,
     // The map from component instances to connections for port 1
     map1: ConnectionMap,
+    // The map from port numbers to connections for port instance 1
+    upm1: UsedPortMap,
     // The port instance for port 2
     pi2: PortInstance,
     // The map from component instances to connections for port 2
     map2: ConnectionMap,
-    // Port numbering state
-    //numbering: MatchedPortNumberingState,
-    numbering: PortNumberingState,
-    // Map from port numbers to connections for port instance 1
-    upm1: UsedPortMap,
     // Map from port numbers to connections for port instance 2
-    upm2: UsedPortMap
+    upm2: UsedPortMap,
+    // Port numbering state
+    numbering: PortNumberingState
   ) {
 
     // Marks the specified port number as used and generates a new one
@@ -72,8 +71,6 @@ object MatchedPortNumbering {
       val n1Opt = t.getPortNumber(pi1, c1)
       val pi2 = state.pi2
       val n2Opt = t.getPortNumber(pi2, c2)
-      //val upm1 = state.upm1 //state.numbering.usedPorts1
-      //val upm2 = state.upm2 //state.numbering.usedPorts2
       (n1Opt, n2Opt) match {
         case (Some(n1), Some(n2)) =>
           // Both ports have a number: check that they match
@@ -110,9 +107,9 @@ object MatchedPortNumbering {
               )
             case None =>
               val t1 = t.assignPortNumber(pi2, c2, n1)
-              // Update the set of used ports so that the new port number is tracked
-              //state.numbering.updateUsedPorts2(n1, c2)
-              Right(state.updateUsedPorts2(n1, c2).copy(t = t1))
+              // Add n1 -> c2 to the port connection map
+              val state1 = state.updateUsedPorts2(n1, c2)
+              Right(state1.copy(t = t1))
           }
         case (None, Some(n2)) =>
           // Only pi2 has a number: assign it to pi1
@@ -131,10 +128,9 @@ object MatchedPortNumbering {
               )
             case None =>
               val t1 = t.assignPortNumber(pi1, c1, n2)
-              // Update the set of used ports so that the new port number is tracked
-              //val numbering = state.updateUsedPorts1(n2, c1) //state.numbering.updateUsedPorts1(n2, c1)
-              //Right(state.copy(t = t1, numbering = numbering))
-              Right(state.updateUsedPorts1(n2, c1).copy(t = t1))
+              // Add n2 -> c1 to the port connection map
+              val state1 = state.updateUsedPorts1(n2, c1)
+              Right(state1.copy(t = t1))
           }
         case (None, None) =>
           // Neither port has a number: assign a new one
@@ -151,9 +147,8 @@ object MatchedPortNumbering {
           else {
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
             // Update the set of used ports so that the new port number is tracked
-            //val numbering = state.updateUsedPorts(n, c1).updateUsedPorts(n, c2) 
-            //state.numbering.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2)
-            Right(state1.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2).copy(t = t1))
+            val state2 = state1.updateUsedPorts1(n, c1).updateUsedPorts2(n, c2)
+            Right(state2.copy(t = t1))
           }
       }
     }
@@ -181,23 +176,22 @@ object MatchedPortNumbering {
       t: Topology,
       pi1: PortInstance,
       map1: ConnectionMap,
-      up1: UsedPortMap,
+      upm1: UsedPortMap,
       pi2: PortInstance,
       map2: ConnectionMap,
-      up2: UsedPortMap
+      upm2: UsedPortMap
     ): State = {
-      // Compute used port numbers
-      val usedPortNumbers = up1.keys.toSet ++ up2.keys.toSet
+      // Compute the used port numbers
+      val usedPortNumbers = upm1.keys.toSet ++ upm2.keys.toSet
       State(
         t,
         pi1,
         map1,
+        upm1,
         pi2,
         map2,
-        //MatchedPortNumberingState.initial(up1, up2),
-        PortNumberingState.initial(usedPortNumbers),
-        up1,
-        up2
+        upm2,
+        PortNumberingState.initial(usedPortNumbers)
       )
     }
 
