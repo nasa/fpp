@@ -19,8 +19,7 @@ case class PortNumberingState private (
     PortNumberingState(s, n1)
   }
 
-  /** Marks the next port number as used and generates
-   *  a new one */
+  /** Marks the next port number as used and generates a new one */
   def useNextPortNumber: PortNumberingState =
     usePortNumber(nextPortNumber)
 

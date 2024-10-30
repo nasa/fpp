@@ -74,11 +74,12 @@ object MatchedPortNumbering {
       val n2Opt = t.getPortNumber(pi2, c2)
       (n1Opt, n2Opt) match {
         case (Some(n1), Some(n2)) =>
-          // Both ports have a number: check that they match
+          // Both ports have a number
           if (n1 == n2)
+            // Numbers match: OK, nothing to do
             Right(state)
           else {
-            // Error: numbers don't match
+            // Numbers don't match: error
             val p1Loc = c1.getThisEndpoint(pi1).loc
             val p2Loc = c2.getThisEndpoint(pi2).loc
             Left(
@@ -91,51 +92,53 @@ object MatchedPortNumbering {
               )
             )
           }
-        case (Some(n1), None) =>
-          // Only pi1 has a number: assign it to pi2
-          // Check to see if the port number is already assigned
-          state.pcm2.get(n1) match {
+        case (Some(n), None) =>
+          // Only pi1 has a number
+          state.pcm2.get(n) match {
             case Some(prevC) =>
+              // Number is already assigned at pi2: error
               Left(
                 SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
                   c2.getLoc,
                   pi2.toString,
-                  n1,
+                  n,
                   c1.getLoc,
                   matchingLoc,
                   prevC.getLoc,
                 )
               )
             case None =>
-              val t1 = t.assignPortNumber(pi2, c2, n1)
-              val state1 = state.updatePortConnectionMap2(n1, c2)
+              // Assign the number to c2 at pi2 and update the state
+              val t1 = t.assignPortNumber(pi2, c2, n)
+              val state1 = state.updatePortConnectionMap2(n, c2)
               Right(state1.copy(t = t1))
           }
-        case (None, Some(n2)) =>
-          // Only pi2 has a number: assign it to pi1
-          // Check to see if the port number is already in use
-          state.pcm1.get(n2) match {
+        case (None, Some(n)) =>
+          // Only pi2 has a number
+          state.pcm1.get(n) match {
             case Some(prevC) =>
+              // Number is already assigned at pi1: error
               Left(
                 SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
                   c1.getLoc,
                   pi1.toString,
-                  n2,
+                  n,
                   c2.getLoc,
                   matchingLoc,
                   prevC.getLoc
                 )
               )
             case None =>
-              val t1 = t.assignPortNumber(pi1, c1, n2)
-              val state1 = state.updatePortConnectionMap1(n2, c1)
+              // Assign the number to c1 at pi1 and update the state
+              val t1 = t.assignPortNumber(pi1, c1, n)
+              val state1 = state.updatePortConnectionMap1(n, c1)
               Right(state1.copy(t = t1))
           }
         case (None, None) =>
-          // Neither port has a number: assign a new one
+          // Neither port has a number; get a new one
           val (state1, n) = state.getPortNumber
-          // Return an error if the port number is out of range
           if(n >= pi1.getArraySize)
+            // Port number is out of range: error
             Left(
               SemanticError.NoPortAvailableForMatchedNumbering(
                 c1.getLoc,
@@ -144,8 +147,10 @@ object MatchedPortNumbering {
               )
             )
           else {
+            // Assign the number to both sides and update the state
             val t1 = t.assignPortNumber(pi1, c1, n).assignPortNumber(pi2, c2, n)
-            val state2 = state1.updatePortConnectionMap1(n, c1).updatePortConnectionMap2(n, c2)
+            val state2 = state1.updatePortConnectionMap1(n, c1).
+              updatePortConnectionMap2(n, c2)
             Right(state2.copy(t = t1))
           }
       }
@@ -260,6 +265,7 @@ object MatchedPortNumbering {
     }
 
     // Map port numbers to connections at pi
+    // While computing the map, enforce the rule against duplicate connections
     def computePortConnectionMap(pi: PortInstance): Result.Result[PortConnectionMap] = {
       val pii = PortInstanceIdentifier(ci, pi)
       val cs = t.getConnectionsAt(pii).toList.sorted
