@@ -225,7 +225,7 @@ sealed trait Error {
         System.err.println(loc2)
         printMatchingLoc(matchingLoc)
         System.err.println("note: to be available, a port number must be in bounds and " ++
-                           "unassigned at both of the matched ports")
+                           "unassigned at each of the matched ports")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
