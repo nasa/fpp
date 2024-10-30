@@ -1,5 +1,5 @@
-numbering_matched()
+numbering_unmatched()
 {
-  update "-p $PWD" unmatched_connections
-  move_xml PPort C1Component C2Component TTopologyApp
+  update "-p $PWD" numbering_unmatched
+  move_xml PPort C1Component TTopologyApp
 }

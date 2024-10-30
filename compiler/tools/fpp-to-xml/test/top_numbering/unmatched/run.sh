@@ -1,5 +1,5 @@
-numbering_matched()
+numbering_unmatched()
 {
-  run_test "-p $PWD" unmatched_connections && \
-    diff_xml PPort C1Component C2Component TTopologyApp
+  run_test "-p $PWD" numbering_unmatched && \
+    diff_xml PPort C1Component TTopologyApp
 }
