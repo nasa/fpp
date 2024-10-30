@@ -12,7 +12,7 @@ object MatchedPortNumbering {
   // A mapping from port numbers to connections
   type UsedPortMap = Map[Int, Connection]
 
-  // State for matched numbering
+  // State for matched port numbering
   private case class State private(
     // The topology
     t: Topology,
@@ -81,7 +81,6 @@ object MatchedPortNumbering {
             case None =>
               val t1 = t.assignPortNumber(pi2, c2, n1)
               // Update the set of used ports so that the new port number is tracked
-              //val numbering = state.numbering.setUsedPorts(u1, u2 + (n1 -> c2))
               val numbering = state.numbering.updateUsedPorts2(n1, c2)
               Right(state.copy(t = t1, numbering = numbering))
           }
