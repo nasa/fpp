@@ -239,7 +239,7 @@ object MatchedPortNumbering {
     ci: ComponentInstance,
     portMatching: Component.PortMatching
   ) = {
-    // Map remote components to connections at pi
+    // Map remote component instances to connections at pi
     def computeInstanceConnectionMap(pi: PortInstance): Result.Result[InstanceConnectionMap] = {
       val empty: InstanceConnectionMap = Map()
       val pii = PortInstanceIdentifier(ci, pi)
@@ -298,10 +298,10 @@ object MatchedPortNumbering {
     val pi2 = portMatching.instance2
     val loc = portMatching.getLoc
     for {
-      icm1 <- computeInstanceConnectionMap(pi1)
-      icm2 <- computeInstanceConnectionMap(pi2)
       pcm1 <- computePortConnectionMap(pi1)
       pcm2 <- computePortConnectionMap(pi2)
+      icm1 <- computeInstanceConnectionMap(pi1)
+      icm2 <- computeInstanceConnectionMap(pi2)
       _ <- checkForMissingConnections(loc, icm1, icm2)
       state <- {
         val state = State.initial(t, pi1, icm1, pcm1, pi2, icm2, pcm2)
