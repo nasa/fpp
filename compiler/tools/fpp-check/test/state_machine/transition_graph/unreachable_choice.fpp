@@ -3,5 +3,5 @@ state machine M {
   signal s
   initial enter S
   state S
-  choice J { if g enter S else enter S }
+  choice C { if g enter S else enter S }
 }

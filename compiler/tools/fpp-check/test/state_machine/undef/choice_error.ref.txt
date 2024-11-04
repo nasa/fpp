@@ -1,5 +1,5 @@
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/undef/choice_error.fpp:3.17
-  initial enter J
+  initial enter C
                 ^
-error: undefined symbol J
+error: undefined symbol C

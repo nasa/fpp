@@ -1,7 +1,7 @@
 state machine M {
   guard g
-  initial enter J1
-  choice J1 { if g enter S else enter J2 }
-  choice J2 { if g enter S else enter J1 }
+  initial enter C1
+  choice C1 { if g enter S else enter C2 }
+  choice C2 { if g enter S else enter C1 }
   state S
 }

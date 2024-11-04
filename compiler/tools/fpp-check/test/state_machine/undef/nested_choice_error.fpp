@@ -3,6 +3,6 @@ state machine M {
   initial enter S
   state S {
     state T
-    initial enter J
+    initial enter C
   }
 }
