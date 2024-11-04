@@ -4,7 +4,7 @@ state machine M {
   initial enter S
   state S {
     initial enter J
-    junction J { if g enter T else do { a } enter T }
+    choice J { if g enter T else do { a } enter T }
     state T
   }
 }

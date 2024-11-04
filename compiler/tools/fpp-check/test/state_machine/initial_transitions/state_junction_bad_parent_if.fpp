@@ -7,7 +7,7 @@ state machine M {
       state U
     }
     initial enter J1
-    junction J1 { if g enter J2 else enter T }
-    junction J2 { if g enter T.U else enter T }
+    choice J1 { if g enter J2 else enter T }
+    choice J2 { if g enter T.U else enter T }
   }
 }

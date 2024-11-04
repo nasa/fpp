@@ -1,7 +1,7 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/sm_junction_bad_else_action_type.fpp:5.39
-  junction J { if g enter S else do { a } enter S }
-                                      ^
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/sm_junction_bad_else_action_type.fpp:5.37
+  choice J { if g enter S else do { a } enter S }
+                                    ^
 error: type mismatch at junction
 type of junction is None
 type of action is U32

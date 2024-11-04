@@ -4,7 +4,7 @@ state machine M {
   initial enter S
   state S {
     on s enter J
-    junction J { if g enter S1 else enter S2 }
+    choice J { if g enter S1 else enter S2 }
   }
   state S1 {
     on s enter S

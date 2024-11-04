@@ -17,7 +17,7 @@ namespace FppTest {
 
   namespace SmJunction {
 
-    //! A basic state machine with a junction sequence
+    //! A basic state machine with a choice sequence
     class SequenceStateMachineBase {
 
       public:

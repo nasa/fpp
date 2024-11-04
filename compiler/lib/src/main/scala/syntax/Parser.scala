@@ -148,7 +148,7 @@ object Parser extends Parsers {
   }
 
   def defJunction: Parser[Ast.DefJunction] = {
-    (junction ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
+    (choice ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
       (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
       case ident ~ guard ~ ifTransition ~ elseTransition =>
         Ast.DefJunction(ident, guard, ifTransition, elseTransition)
@@ -938,7 +938,7 @@ object Parser extends Parsers {
 
   private def internal = accept("internal", { case t : Token.INTERNAL => t })
 
-  private def junction = accept("junction", { case t : Token.JUNCTION => t })
+  private def choice = accept("choice", { case t : Token.CHOICE => t })
 
   private def lbrace = accept("{", { case t : Token.LBRACE => t })
 

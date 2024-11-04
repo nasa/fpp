@@ -17,7 +17,7 @@ namespace FppTest {
 
   namespace SmJunction {
 
-    //! A basic state machine with a U32 junction
+    //! A basic state machine with a U32 choice
     class BasicU32StateMachineBase {
 
       public:

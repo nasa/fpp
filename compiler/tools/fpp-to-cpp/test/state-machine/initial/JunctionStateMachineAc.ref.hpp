@@ -17,7 +17,7 @@ namespace FppTest {
 
   namespace SmInitial {
 
-    //! A state machine with an initial junction
+    //! A state machine with an initial choice
     class JunctionStateMachineBase {
 
       public:

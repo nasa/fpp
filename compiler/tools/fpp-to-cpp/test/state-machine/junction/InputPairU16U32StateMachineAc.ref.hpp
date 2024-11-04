@@ -17,7 +17,7 @@ namespace FppTest {
 
   namespace SmJunction {
 
-    //! A state machine with two inputs to a junction
+    //! A state machine with two inputs to a choice
     class InputPairU16U32StateMachineBase {
 
       public:

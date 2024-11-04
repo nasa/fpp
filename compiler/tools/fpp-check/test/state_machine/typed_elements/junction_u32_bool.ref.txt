@@ -1,6 +1,6 @@
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/junction_u32_bool.fpp:8.5
-    junction J { if g enter T else enter T }
+    choice J { if g enter T else enter T }
     ^
 error: type mismatch at junction
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/junction_u32_bool.fpp:9.5

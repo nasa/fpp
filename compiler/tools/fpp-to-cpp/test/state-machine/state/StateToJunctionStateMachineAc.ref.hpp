@@ -17,7 +17,7 @@ namespace FppTest {
 
   namespace SmState {
 
-    //! A state machine for testing state-to-junction transitions
+    //! A state machine for testing state-to-choice transitions
     //! with hierarchy
     class StateToJunctionStateMachineBase {
 
