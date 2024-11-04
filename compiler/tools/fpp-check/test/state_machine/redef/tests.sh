@@ -2,11 +2,11 @@ tests="
 action
 choice
 guard
-nested_junction
+nested_choice
 nested_state
 ok
 signal
 state
-state_junction
+state_choice
 state_shadow_ok
 "
