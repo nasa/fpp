@@ -6,8 +6,8 @@ state machine M {
       initial enter U
       state U
     }
-    initial enter J1
-    choice J1 { if g enter J2 else enter T }
-    choice J2 { if g enter T.U else enter T }
+    initial enter C1
+    choice C1 { if g enter C2 else enter T }
+    choice C2 { if g enter T.U else enter T }
   }
 }

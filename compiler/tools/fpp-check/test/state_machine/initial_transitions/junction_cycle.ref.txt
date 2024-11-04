@@ -1,6 +1,0 @@
-fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/junction_cycle.fpp:4.3
-  choice J { if g enter J else enter J }
-  ^
-error: encountered a junction cycle:
-  junction transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/initial_transitions/junction_cycle.fpp:4.19 to junction J
