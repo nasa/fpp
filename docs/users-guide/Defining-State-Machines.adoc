@@ -38,6 +38,10 @@ State machine definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
 A state machine definition is an
 <<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+Once you define a state machine, you can
+<<Defining-Components_State-Machine-Instances,
+instantiate it as part of a component>>.
+
 
 === External State Machines
 
@@ -51,9 +55,6 @@ state machine M
 ----
 
 This code defines an external state machine with name `M`.
-You can then
-<<Defining-Components_State-Machine-Instances,instantiate>>
-the state machine `M` in a component definition.
 
 When you define an external state machine `M`, you must provide
 an implementation for `M`, as discussed in the section
@@ -65,15 +66,133 @@ the state machine `M` is defined.
 
 === Basic Internal State Machines
 
-TODO
+The most basic useful internal state machine `M` consists of the following:
 
-* States
-* Initial transition specifiers
-* State transition specifiers
+* Several *state definitions*.
+These define the states of `M`.
 
-* Rules
-** Exactly one initial transition specifier
-** Every state must be reachable
+* An *initial transition specifier*.
+This specifies the state that an instance of `M` is in when it starts up.
+
+* One or more *signals* that cause `M` to change state.
+The external environment (typically an F Prime component)
+sends signals to instance of `M`.
+
+* One or more *state transition specifiers*.
+These tell each instance of `M` what to do when it receives a signal.
+
+Here is an example:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    on deviceOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    on deviceOn enter ON
+
+  }
+
+}
+----
+
+This example defines a state machine `Device` that represents
+a device with on-off behavior.
+There are two states, `ON` and `OFF`.
+The initial transition specifier `initial enter OFF`
+says that the state machine is in state `OFF` when it starts up.
+There are two signals: `deviceOn` for turning the device
+on and `deviceOff` for turning the device off.
+There are two state transition specifiers:
+
+* A specifier that says to enter state `OFF` 
+on receiving the `deviceOff` signal in state `ON`.
+
+* A specifier that says to enter state `ON`
+on receiving the `deviceOn` signal in state `OFF`.
+
+State transition specifiers cause transitions from the states
+in which they appear.
+In this example, if the state machine receives signal
+`deviceOn` in state `ON`
+or signal `deviceOff` in state `OFF`, then it takes no action.
+
+*Rules for writing state machine definitions:*
+State machine definitions must conform to the following rules:
+
+. A state machine definition and each of its members is an
+<<Writing-Comments-and-Annotations_Annotations,annotatable element>>.
+For example, you can annotate the `Device` state machine as shown above.
+The members of a state machine definition form an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a semicolon as the optional
+terminating punctuation.
+The same rules apply to the members of a state definition.
+
+. Each state machine definition must have exactly one
+initial transition specifier that names a state of
+the state machine.
+For example, if we deleted the initial transition specifier
+from the example above and passed the result through
+`fpp-check`, and error would occur.
+
+. Every state definition must be reachable from the initial
+transition specifier or from a state transition specifier.
+For example, if we deleted the state transition specifier
+in the state `ON` from the example above and passed
+the result through `fpp-check`, an error would occur.
+In this case, there would be no way to reach the `ON` state.
+
+*Simple state definitions:*
+If a state definition has no transitions, then you can omit
+the braces.
+For example, here is a revised version of the `Device` state
+machine that has an off-on transition but no on-off transition:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-only behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    on deviceOn enter ON
+
+  }
+
+}
+----
 
 === Actions
 
@@ -86,7 +205,7 @@ TODO
 
 TODO
 
-=== Typed Signals
+=== Typed Signals and Actions
 
 TODO
 
@@ -112,6 +231,7 @@ TODO
 * Rules
 ** Reachability
 ** No junction cycles
+** Types must work out at junctions
 
 === State Hierarchy
 
@@ -120,6 +240,10 @@ TODO
 ==== States within States
 
 TODO
+
+* Rules
+** Exactly one initial transition specifier
+** Initial transition specifier must lead to a peer state
 
 ==== Inherited Transitions
 
@@ -132,3 +256,6 @@ TODO
 ==== Junctions within States
 
 TODO
+
+* Rules
+** Initial transition specifier must lead to a peer state or junction

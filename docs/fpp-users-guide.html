@@ -524,7 +524,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</a></li>
 <li><a href="#Defining-State-Machines_Actions">9.3. Actions</a></li>
 <li><a href="#Defining-State-Machines_Entry-and-Exit-Specifiers">9.4. Entry and Exit Specifiers</a></li>
-<li><a href="#Defining-State-Machines_Typed-Signals">9.5. Typed Signals</a></li>
+<li><a href="#Defining-State-Machines_Typed-Signals-and-Actions">9.5. Typed Signals and Actions</a></li>
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</a></li>
 <li><a href="#Defining-State-Machines_Transitions-to-Self">9.7. Transitions to Self</a></li>
 <li><a href="#Defining-State-Machines_Internal-Transitions">9.8. Internal Transitions</a></li>
@@ -3573,7 +3573,9 @@ definitions.</p>
 <p>State machine definitions may appear at the top level or inside a
 <a href="#Defining-Modules">module definition</a>.
 A state machine definition is an
-<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.</p>
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+Once you define a state machine, you can
+<a href="#Defining-Components_State-Machine-Instances">instantiate it as part of a component</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-State-Machines_External-State-Machines">9.1. External State Machines</h3>
@@ -3588,10 +3590,7 @@ name of the state machine:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This code defines an external state machine with name <code>M</code>.
-You can then
-<a href="#Defining-Components_State-Machine-Instances">instantiate</a>
-the state machine <code>M</code> in a component definition.</p>
+<p>This code defines an external state machine with name <code>M</code>.</p>
 </div>
 <div class="paragraph">
 <p>When you define an external state machine <code>M</code>, you must provide
@@ -3605,33 +3604,158 @@ the state machine <code>M</code> is defined.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>The most basic useful internal state machine <code>M</code> consists of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>States</p>
+<p>Several <strong>state definitions</strong>.
+These define the states of <code>M</code>.</p>
 </li>
 <li>
-<p>Initial transition specifiers</p>
+<p>An <strong>initial transition specifier</strong>.
+This specifies the state that an instance of <code>M</code> is in when it starts up.</p>
 </li>
 <li>
-<p>State transition specifiers</p>
+<p>One or more <strong>signals</strong> that cause <code>M</code> to change state.
+The external environment (typically an F Prime component)
+sends signals to instance of <code>M</code>.</p>
 </li>
 <li>
-<p>Rules</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Exactly one initial transition specifier</p>
-</li>
-<li>
-<p>Every state must be reachable</p>
+<p>One or more <strong>state transition specifiers</strong>.
+These tell each instance of <code>M</code> what to do when it receives a signal.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    on deviceOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    on deviceOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This example defines a state machine <code>Device</code> that represents
+a device with on-off behavior.
+There are two states, <code>ON</code> and <code>OFF</code>.
+The initial transition specifier <code>initial enter OFF</code>
+says that the state machine is in state <code>OFF</code> when it starts up.
+There are two signals: <code>deviceOn</code> for turning the device
+on and <code>deviceOff</code> for turning the device off.
+There are two state transition specifiers:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A specifier that says to enter state <code>OFF</code>
+on receiving the <code>deviceOff</code> signal in state <code>ON</code>.</p>
+</li>
+<li>
+<p>A specifier that says to enter state <code>ON</code>
+on receiving the <code>deviceOn</code> signal in state <code>OFF</code>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>State transition specifiers cause transitions from the states
+in which they appear.
+In this example, if the state machine receives signal
+<code>deviceOn</code> in state <code>ON</code>
+or signal <code>deviceOff</code> in state <code>OFF</code>, then it takes no action.</p>
+</div>
+<div class="paragraph">
+<p><strong>Rules for writing state machine definitions:</strong>
+State machine definitions must conform to the following rules:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A state machine definition and each of its members is an
+<a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
+For example, you can annotate the <code>Device</code> state machine as shown above.
+The members of a state machine definition form an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a semicolon as the optional
+terminating punctuation.
+The same rules apply to the members of a state definition.</p>
+</li>
+<li>
+<p>Each state machine definition must have exactly one
+initial transition specifier that names a state of
+the state machine.
+For example, if we deleted the initial transition specifier
+from the example above and passed the result through
+<code>fpp-check</code>, and error would occur.</p>
+</li>
+<li>
+<p>Every state definition must be reachable from the initial
+transition specifier or from a state transition specifier.
+For example, if we deleted the state transition specifier
+in the state <code>ON</code> from the example above and passed
+the result through <code>fpp-check</code>, an error would occur.
+In this case, there would be no way to reach the <code>ON</code> state.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Simple state definitions:</strong>
+If a state definition has no transitions, then you can omit
+the braces.
+For example, here is a revised version of the <code>Device</code> state
+machine that has an off-on transition but no on-off transition:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-only behavior
+state machine Device {
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    on deviceOn enter ON
+
+  }
+
+}</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -3657,7 +3781,7 @@ the state machine <code>M</code> is defined.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Typed-Signals">9.5. Typed Signals</h3>
+<h3 id="Defining-State-Machines_Typed-Signals-and-Actions">9.5. Typed Signals and Actions</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3703,6 +3827,9 @@ the state machine <code>M</code> is defined.</p>
 <li>
 <p>No junction cycles</p>
 </li>
+<li>
+<p>Types must work out at junctions</p>
+</li>
 </ul>
 </div>
 </li>
@@ -3718,6 +3845,23 @@ the state machine <code>M</code> is defined.</p>
 <h4 id="Defining-State-Machines_State-Hierarchy_States-within-States">9.10.1. States within States</h4>
 <div class="paragraph">
 <p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rules</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Exactly one initial transition specifier</p>
+</li>
+<li>
+<p>Initial transition specifier must lead to a peer state</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -3736,6 +3880,20 @@ the state machine <code>M</code> is defined.</p>
 <h4 id="Defining-State-Machines_State-Hierarchy_Junctions-within-States">9.10.4. Junctions within States</h4>
 <div class="paragraph">
 <p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Rules</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Initial transition specifier must lead to a peer state or junction</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -12847,7 +13005,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-03 18:34:36 -0800
+Last updated 2024-11-04 09:33:30 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
