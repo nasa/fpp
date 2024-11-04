@@ -3,7 +3,7 @@ state machine M {
   initial enter S
   state S {
     state T
-    initial enter J
-    choice J { if g enter T else enter T }
+    initial enter C
+    choice C { if g enter T else enter T }
   }
 }
