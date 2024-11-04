@@ -1,6 +1,6 @@
 fpp-check
 [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_choice_bad_guard_type.fpp:6.19
-    choice J { if g enter T else enter T }
+    choice C { if g enter T else enter T }
                   ^
 error: type mismatch at junction
 type of junction is None

@@ -3,8 +3,8 @@ state machine M {
   guard g
   initial enter S
   state S {
-    initial enter J
-    choice J { if g do { a } enter T else enter T }
+    initial enter C
+    choice C { if g do { a } enter T else enter T }
     state T
   }
 }

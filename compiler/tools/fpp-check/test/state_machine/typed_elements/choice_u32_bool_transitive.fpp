@@ -5,10 +5,10 @@ state machine M {
   initial enter S
   state S {
     initial enter T
-    choice J { if g enter J1 else enter T }
-    choice J1 { if g enter T else enter T }
-    on s1 enter J
-    on s2 enter J1
+    choice C { if g enter C1 else enter T }
+    choice C1 { if g enter T else enter T }
+    on s1 enter C
+    on s2 enter C1
     state T
   }
 }
