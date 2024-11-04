@@ -27,12 +27,12 @@ which each element is a *state machine member*,
 and the terminating punctuation is a semicolon.
 A state machine member is one of the following:
 
-* An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
+* A <<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
 * A <<State-Machine-Behavior-Elements_Guard-Definitions,guard definition>>
 * A <<State-Machine-Behavior-Elements_Initial-Transition-Specifiers,initial transition specifier>>
-* A <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
 * A <<State-Machine-Behavior-Elements_Signal-Definitions,signal definition>>
 * A <<State-Machine-Behavior-Elements_State-Definitions,state definition>>
+* An <<State-Machine-Behavior-Elements_Action-Definitions,action definition>>
 
 The *transitive members* of a state machine definition _M_ are
 (1) the elements of _M_ and (2)
@@ -71,10 +71,10 @@ induces a directed graph called the *transition graph*, defined as
 follows:
 
 . The nodes of the transition graph are the state definitions and
-junction definitions that are transitive members of _M_.
+choice definitions that are transitive members of _M_.
 
 . The *initial node* of the transition graph is the state definition
-or junction definition referred to in the unique initial transition specifier
+or choice definition referred to in the unique initial transition specifier
 that is an element of _M_.
 
 . The arcs of the transition graph are given by the
@@ -82,7 +82,7 @@ that is an element of _M_.
 transition expressions>> _e_ that appear in (1) initial transition specifiers
 that are members of states that are transitive members of _M_ and (2)
 state transition specifiers that are transitive members of _M_ and (3)
-junction definitions that are transitive members of _M_.
+choice definitions that are transitive members of _M_.
 Each transition expression represents an arc from a *start node* to an
 *end node*.
 The start node is defined as follows:
@@ -101,23 +101,23 @@ node is the
 immediately enclosing _T_.
 
 .. If _e_ appears in a
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>
+<<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>
 _J_, then the initial node is _J_.
 
 +
-The terminal node is the state or junction definition
+The terminal node is the state or choice definition
 <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,referred to>>
 in _e_.
 
 If the optional state machine member sequence is present, then
 the transition graph _T_ must satisfy the following rules:
 
-.  Each state definition and each junction definition in
+.  Each state definition and each choice definition in
 _T_ must be reachable from the initial node of _T_.
 
 . Let _S_ be the subgraph of _T_ consisting of all
-and only the junction definitions and the arcs whose start
-and end nodes are junction definitions.
+and only the choice definitions and the arcs whose start
+and end nodes are choice definitions.
 There must be no cycles in _S_.
 
 ===== Typed Elements
@@ -131,8 +131,8 @@ a
 a
 <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>,
 or a
-<<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
-A typed element _e_ *points to* a junction _J_ if
+<<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>.
+A typed element _e_ *points to* a choice _J_ if
 
 . _e_ is an initial transition specifier, and its transition expression
 refers to _J_; or
@@ -140,7 +140,7 @@ refers to _J_; or
 . _e_ is a state transition specifier with a transition expression that refers to
 _J_; or
 
-. _e_ is a junction, and at least one of its transition expressions
+. _e_ is a choice, and at least one of its transition expressions
 refers to _J_.
 
 It must be possible to assign <<Type-Options,type options>>
@@ -155,7 +155,7 @@ specifier, and state exit specifier is _None_.
 option specified in the definition of the signal specified in _S_
 after the keyword `on`.
 
-. The type option of a junction _J_ is the
+. The type option of a choice _J_ is the
 <<Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options,
 common type option>> of the type options of the typed elements
 that point to _J_.
@@ -180,7 +180,7 @@ of names in uses.
 
 *State machine member definitions:*
 There are five kinds of *state machine member definitions*:
-Action definitions, guard definitions, junction definitions, state
+Action definitions, guard definitions, choice definitions, state
 definitions, and state machine signal definitions.
 
 *Qualified names:*
@@ -213,7 +213,7 @@ state machine S {
 
 *Conflicting names:*
 Each kind of definition resides in its own name group, except
-that states and junctions both reside in the state name group.
+that states and choices both reside in the state name group.
 No two state machine definitions that reside in the same name group
 may have the same qualified name.
 

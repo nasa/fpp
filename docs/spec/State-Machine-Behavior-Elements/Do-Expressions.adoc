@@ -6,7 +6,7 @@ a <<State-Machine-Behavior-Elements_State-Transition-Specifiers,state transition
 a <<State-Machine-Behavior-Elements_State-Entry-Specifiers,state entry specifier>>,
 a <<State-Machine-Behavior-Elements_State-Exit-Specifiers,state exit specifier>>,
 or
-a <<State-Machine-Behavior-Elements_Junction-Definitions,junction definition>>.
+a <<State-Machine-Behavior-Elements_Choice-Definitions,choice definition>>.
 
 ==== Syntax
 

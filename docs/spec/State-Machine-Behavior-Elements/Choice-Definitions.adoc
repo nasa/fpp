@@ -1,15 +1,15 @@
-=== Junction Definitions
+=== Choice Definitions
 
-A *junction definition* specifies a junction as part of a
+A *choice definition* specifies a choice as part of a
 <<Definitions_State-Machine-Definitions,state machine definition>>
 or
 <<State-Machine-Behavior-Elements_State-Definitions,state definition>>.
-A junction is a branch point controlled by a
+A choice is a branch point controlled by a
 <<State-Machine-Behavior-Elements_Guard-Definitions,guard>>.
 
 ==== Syntax
 
-`junction` <<Lexical-Elements_Identifiers,_identifier_>>
+`choice` <<Lexical-Elements_Identifiers,_identifier_>>
 `{`
 `if` <<Lexical-Elements_Identifiers,_identifier_>> <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
 `else` <<State-Machine-Behavior-Elements_Transition-Expressions,_transition-expression_>>
@@ -17,7 +17,7 @@ A junction is a branch point controlled by a
 
 ==== Static Semantics
 
-. The identifier after the keyword `junction` is the name of the junction.
+. The identifier after the keyword `choice` is the name of the choice.
 
 . The identifier after the keyword `if` must
 <<Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names,refer>>
@@ -31,7 +31,7 @@ otherwise the second transition expression is run.
 
 ==== Dynamic Semantics
 
-Each junction _J_ has the following *entry behavior*:
+Each choice _J_ has the following *entry behavior*:
 
 . Evaluate the guard of _J_.
 
@@ -57,7 +57,7 @@ state machine Device {
 
   initial enter J1
 
-  junction J1 {
+  choice J1 {
     if coldStart enter OFF \
     else do { initPower } enter ON
   }
