@@ -1,5 +1,5 @@
 fpp-check
-[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_junction_bad_if_action_type_i16_i32.fpp:9.26
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/typed_elements/state_choice_bad_if_action_type_i16_i32.fpp:9.26
     choice J { if g do { a } enter T else enter T }
                          ^
 error: type mismatch at junction
