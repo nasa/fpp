@@ -66,7 +66,8 @@ the state machine `M` is defined.
 
 === Basic Internal State Machines
 
-The most basic useful internal state machine `M` consists of the following:
+The most basic internal state machine `M` that has any useful
+behavior consists of the following:
 
 * Several *state definitions*.
 These define the states of `M`.
@@ -131,7 +132,7 @@ on receiving the `deviceOff` signal in state `ON`.
 * A specifier that says to enter state `ON`
 on receiving the `deviceOn` signal in state `OFF`.
 
-State transition specifiers cause transitions from the states
+In general, state transition specifiers cause transitions from the states
 in which they appear.
 In this example, if the state machine receives signal
 `deviceOn` in state `ON`
@@ -162,6 +163,9 @@ For example, if we deleted the state transition specifier
 in the state `ON` from the example above and passed
 the result through `fpp-check`, an error would occur.
 In this case, there would be no way to reach the `ON` state.
+
+. Every state name must be unique, and every signal name
+must be unique.
 
 *Simple state definitions:*
 If a state definition has no transitions, then you can omit
@@ -196,10 +200,97 @@ state machine Device {
 
 === Actions
 
-TODO
+An *action* is a function that a state machine calls when it takes
+a transition.
+In the FPP model, actions are abstract:
+In the {cpp} back end they become pure virtual functions that
+you implement.
 
-* On initial transitions
-* On state transitions
+To specify an action, you write the keyword `action` followed
+by the name of the action.
+As with <<Defining-State-Machines_Basic-Internal-State-Machines,signals>>,
+every action name must be unique.
+To specify that an action should be run, you write the keyword `do`
+followed by a list of action names enclosed in curly braces.
+You can do this in an initial transition specifier or in a
+state transition specifier.
+
+As an example, here is the `Device` state machine from the
+previous section, with actions added:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from off to on
+  action offOnAction
+
+  @ An action on the transition from on to off
+  action onOffAction
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on deviceOff do { onOffAction } enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on deviceOn do { offOnAction } enter ON
+
+  }
+
+}
+----
+
+In this example there are four actions:
+`initialAction1`, `initialAction2`, `onAction`, and `offAction`.
+The behavior of each of these actions is specified in the {cpp}
+implementation; for example, each could emit an 
+<<Defining-Components_Events,F Prime event>>.
+The state machine has the following behavior:
+
+* On startup, do `initialAction1`, do `initialAction2`, and
+enter the `OFF` state.
+
+* In state `OFF`, on receiving the `deviceOn` signal, do
+`offOnAction` and enter the `ON` state.
+
+* In state `ON`, on receiving the `deviceOff` signal, do
+`onOffAction` and enter the `OFF` state.
+
+To do an action means to call the corresponding action function.
+
+When multiple actions appear in an action list, as in the initial
+transition specifier shown above, the actions occur in the order
+listed.
+Each action list is an
+<<Defining-Constants_Multiple-Definitions-and-Element-Sequences,
+element sequence>> with a comma as the optional
+terminating punctuation.
 
 === Entry and Exit Specifiers
 
@@ -221,7 +312,7 @@ TODO
 
 TODO
 
-=== Junctions
+=== Choices
 
 TODO
 
@@ -230,8 +321,8 @@ TODO
 
 * Rules
 ** Reachability
-** No junction cycles
-** Types must work out at junctions
+** No choice cycles
+** Types must work out at choices
 
 === State Hierarchy
 
@@ -253,9 +344,9 @@ TODO
 
 TODO
 
-==== Junctions within States
+==== Choices within States
 
 TODO
 
 * Rules
-** Initial transition specifier must lead to a peer state or junction
+** Initial transition specifier must lead to a peer state or choice

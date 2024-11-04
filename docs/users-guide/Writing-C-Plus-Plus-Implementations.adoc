@@ -26,8 +26,8 @@ This process is covered in detail in the F Prime user's guide;
 we won't cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won't cover it in this manual.
-Here we focus on items (1) and (4): implementing abstract types
-and implementing deployments.
+Here we focus on items (1), (2), and (5): implementing abstract types,
+implementing external state machines, and implementing deployments.
 
 === Implementing Abstract Types
 

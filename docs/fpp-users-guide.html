@@ -528,13 +528,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</a></li>
 <li><a href="#Defining-State-Machines_Transitions-to-Self">9.7. Transitions to Self</a></li>
 <li><a href="#Defining-State-Machines_Internal-Transitions">9.8. Internal Transitions</a></li>
-<li><a href="#Defining-State-Machines_Junctions">9.9. Junctions</a></li>
+<li><a href="#Defining-State-Machines_Choices">9.9. Choices</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy">9.10. State Hierarchy</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_State-Hierarchy_States-within-States">9.10.1. States within States</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.10.2. Inherited Transitions</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy_Transitions-to-Self">9.10.3. Transitions to Self</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy_Junctions-within-States">9.10.4. Junctions within States</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy_Choices-within-States">9.10.4. Choices within States</a></li>
 </ul>
 </li>
 </ul>
@@ -3604,7 +3604,8 @@ the state machine <code>M</code> is defined.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</h3>
 <div class="paragraph">
-<p>The most basic useful internal state machine <code>M</code> consists of the following:</p>
+<p>The most basic internal state machine <code>M</code> that has any useful
+behavior consists of the following:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3686,7 +3687,7 @@ on receiving the <code>deviceOn</code> signal in state <code>OFF</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>State transition specifiers cause transitions from the states
+<p>In general, state transition specifiers cause transitions from the states
 in which they appear.
 In this example, if the state machine receives signal
 <code>deviceOn</code> in state <code>ON</code>
@@ -3722,6 +3723,10 @@ For example, if we deleted the state transition specifier
 in the state <code>ON</code> from the example above and passed
 the result through <code>fpp-check</code>, an error would occur.
 In this case, there would be no way to reach the <code>ON</code> state.</p>
+</li>
+<li>
+<p>Every state name must be unique, and every signal name
+must be unique.</p>
 </li>
 </ol>
 </div>
@@ -3761,17 +3766,108 @@ state machine Device {
 <div class="sect2">
 <h3 id="Defining-State-Machines_Actions">9.3. Actions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>An <strong>action</strong> is a function that a state machine calls when it takes
+a transition.
+In the FPP model, actions are abstract:
+In the C&#43;&#43; back end they become pure virtual functions that
+you implement.</p>
+</div>
+<div class="paragraph">
+<p>To specify an action, you write the keyword <code>action</code> followed
+by the name of the action.
+As with <a href="#Defining-State-Machines_Basic-Internal-State-Machines">signals</a>,
+every action name must be unique.
+To specify that an action should be run, you write the keyword <code>do</code>
+followed by a list of action names enclosed in curly braces.
+You can do this in an initial transition specifier or in a
+state transition specifier.</p>
+</div>
+<div class="paragraph">
+<p>As an example, here is the <code>Device</code> state machine from the
+previous section, with actions added:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from off to on
+  action offOnAction
+
+  @ An action on the transition from on to off
+  action onOffAction
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on deviceOff do { onOffAction } enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on deviceOn do { offOnAction } enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example there are four actions:
+<code>initialAction1</code>, <code>initialAction2</code>, <code>onAction</code>, and <code>offAction</code>.
+The behavior of each of these actions is specified in the C&#43;&#43;
+implementation; for example, each could emit an
+<a href="#Defining-Components_Events">F Prime event</a>.
+The state machine has the following behavior:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>On initial transitions</p>
+<p>On startup, do <code>initialAction1</code>, do <code>initialAction2</code>, and
+enter the <code>OFF</code> state.</p>
 </li>
 <li>
-<p>On state transitions</p>
+<p>In state <code>OFF</code>, on receiving the <code>deviceOn</code> signal, do
+<code>offOnAction</code> and enter the <code>ON</code> state.</p>
+</li>
+<li>
+<p>In state <code>ON</code>, on receiving the <code>deviceOff</code> signal, do
+<code>onOffAction</code> and enter the <code>OFF</code> state.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>To do an action means to call the corresponding action function.</p>
+</div>
+<div class="paragraph">
+<p>When multiple actions appear in an action list, as in the initial
+transition specifier shown above, the actions occur in the order
+listed.
+Each action list is an
+<a href="#Defining-Constants_Multiple-Definitions-and-Element-Sequences">element sequence</a> with a comma as the optional
+terminating punctuation.</p>
 </div>
 </div>
 <div class="sect2">
@@ -3805,7 +3901,7 @@ state machine Device {
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Junctions">9.9. Junctions</h3>
+<h3 id="Defining-State-Machines_Choices">9.9. Choices</h3>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3825,10 +3921,10 @@ state machine Device {
 <p>Reachability</p>
 </li>
 <li>
-<p>No junction cycles</p>
+<p>No choice cycles</p>
 </li>
 <li>
-<p>Types must work out at junctions</p>
+<p>Types must work out at choices</p>
 </li>
 </ul>
 </div>
@@ -3877,7 +3973,7 @@ state machine Device {
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_Junctions-within-States">9.10.4. Junctions within States</h4>
+<h4 id="Defining-State-Machines_State-Hierarchy_Choices-within-States">9.10.4. Choices within States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -3888,7 +3984,7 @@ state machine Device {
 <div class="ulist">
 <ul>
 <li>
-<p>Initial transition specifier must lead to a peer state or junction</p>
+<p>Initial transition specifier must lead to a peer state or choice</p>
 </li>
 </ul>
 </div>
@@ -12442,8 +12538,8 @@ This process is covered in detail in the F Prime user&#8217;s guide;
 we won&#8217;t cover it further here.
 Similarly, implementing libraries is unrelated to FPP, so we
 won&#8217;t cover it in this manual.
-Here we focus on items (1) and (4): implementing abstract types
-and implementing deployments.</p>
+Here we focus on items (1), (2), and (5): implementing abstract types,
+implementing external state machines, and implementing deployments.</p>
 </div>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-Abstract-Types">15.1. Implementing Abstract Types</h3>
@@ -13005,7 +13101,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-04 09:33:30 -0800
+Last updated 2024-11-04 10:50:13 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
