@@ -14,14 +14,14 @@ basic_u32()
 
 choice_to_choice()
 {
-  update "$fpp_flags" JunctionToJunction
-  move_cpp JunctionToJunctionStateMachine
+  update "$fpp_flags" ChoiceToChoice
+  move_cpp ChoiceToChoiceStateMachine
 }
 
 choice_to_state()
 {
-  update "$fpp_flags" JunctionToState
-  move_cpp JunctionToStateStateMachine
+  update "$fpp_flags" ChoiceToState
+  move_cpp ChoiceToStateStateMachine
 }
 
 input_pair_u16_u32()

@@ -4,8 +4,8 @@
 // \brief  hpp file for Basic state machine
 // ======================================================================
 
-#ifndef FppTest_SmJunction_BasicStateMachineAc_HPP
-#define FppTest_SmJunction_BasicStateMachineAc_HPP
+#ifndef FppTest_SmChoice_BasicStateMachineAc_HPP
+#define FppTest_SmChoice_BasicStateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     //! A basic state machine with a choice
     class BasicStateMachineBase {
@@ -130,8 +130,8 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction J
-        void enter_J(
+        //! Enter junction C
+        void enter_C(
             Signal signal //!< The signal
         );
 

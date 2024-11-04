@@ -116,8 +116,8 @@ state_to_child()
 
 state_to_choice()
 {
-  run_test "$fpp_flags" StateToJunction && \
-    diff_cpp StateToJunctionStateMachine
+  run_test "$fpp_flags" StateToChoice && \
+    diff_cpp StateToChoiceStateMachine
 }
 
 state_to_self()

@@ -283,68 +283,68 @@ namespace FppTest {
           FppTest_SmState_StateToChild::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS1 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S1
-      void FppTest_SmState_StateToJunction_action_exitS1(
+      void FppTest_SmState_StateToChoice_action_exitS1(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS2 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S2
-      void FppTest_SmState_StateToJunction_action_exitS2(
+      void FppTest_SmState_StateToChoice_action_exitS2(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action exitS3 of state machine FppTest_SmState_StateToChoice
       //!
       //! Exit S3
-      void FppTest_SmState_StateToJunction_action_exitS3(
+      void FppTest_SmState_StateToChoice_action_exitS3(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action a of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action a of state machine FppTest_SmState_StateToChoice
       //!
       //! Action a
-      void FppTest_SmState_StateToJunction_action_a(
+      void FppTest_SmState_StateToChoice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS1 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S1
-      void FppTest_SmState_StateToJunction_action_enterS1(
+      void FppTest_SmState_StateToChoice_action_enterS1(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS2 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S2
-      void FppTest_SmState_StateToJunction_action_enterS2(
+      void FppTest_SmState_StateToChoice_action_enterS2(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS3 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S3
-      void FppTest_SmState_StateToJunction_action_enterS3(
+      void FppTest_SmState_StateToChoice_action_enterS3(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToJunction
+      //! Implementation for action enterS4 of state machine FppTest_SmState_StateToChoice
       //!
       //! Enter S4
-      void FppTest_SmState_StateToJunction_action_enterS4(
+      void FppTest_SmState_StateToChoice_action_enterS4(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) override;
 
       //! Implementation for action exitS1 of state machine FppTest_SmState_StateToSelf
@@ -551,12 +551,12 @@ namespace FppTest {
           U32 value //!< The value
       ) const override;
 
-      //! Implementation for guard g of state machine FppTest_SmState_StateToJunction
+      //! Implementation for guard g of state machine FppTest_SmState_StateToChoice
       //!
       //! Guard g
-      bool FppTest_SmState_StateToJunction_guard_g(
+      bool FppTest_SmState_StateToChoice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmState_StateToJunction::Signal signal //!< The signal
+          FppTest_SmState_StateToChoice::Signal signal //!< The signal
       ) const override;
 
     PRIVATE:

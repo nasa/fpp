@@ -116,8 +116,8 @@ state_to_child()
 
 state_to_choice()
 {
-  update "$fpp_flags" StateToJunction
-  move_cpp StateToJunctionStateMachine
+  update "$fpp_flags" StateToChoice 1>&2
+  move_cpp StateToChoiceStateMachine
 }
 
 state_to_self()

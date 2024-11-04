@@ -4,8 +4,8 @@
 // \brief  hpp file for Sequence state machine
 // ======================================================================
 
-#ifndef FppTest_SmJunction_SequenceStateMachineAc_HPP
-#define FppTest_SmJunction_SequenceStateMachineAc_HPP
+#ifndef FppTest_SmChoice_SequenceStateMachineAc_HPP
+#define FppTest_SmChoice_SequenceStateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     //! A basic state machine with a choice sequence
     class SequenceStateMachineBase {
@@ -142,13 +142,13 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction J2
-        void enter_J2(
+        //! Enter junction C2
+        void enter_C2(
             Signal signal //!< The signal
         );
 
-        //! Enter junction J1
-        void enter_J1(
+        //! Enter junction C1
+        void enter_C1(
             Signal signal //!< The signal
         );
 

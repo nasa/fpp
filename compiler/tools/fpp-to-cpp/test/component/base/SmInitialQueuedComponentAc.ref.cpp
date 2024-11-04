@@ -103,35 +103,35 @@ namespace FppTest {
     this->m_component.FppTest_SmInitial_Basic_action_a(this->getId(), signal);
   }
 
-  SmInitialQueuedComponentBase::FppTest_SmInitial_Junction ::
-    FppTest_SmInitial_Junction(SmInitialQueuedComponentBase& component) :
+  SmInitialQueuedComponentBase::FppTest_SmInitial_Choice ::
+    FppTest_SmInitial_Choice(SmInitialQueuedComponentBase& component) :
       m_component(component)
   {
 
   }
 
-  void SmInitialQueuedComponentBase::FppTest_SmInitial_Junction ::
+  void SmInitialQueuedComponentBase::FppTest_SmInitial_Choice ::
     init(SmInitialQueuedComponentBase::SmId smId)
   {
     this->initBase(static_cast<FwEnumStoreType>(smId));
   }
 
-  SmInitialQueuedComponentBase::SmId SmInitialQueuedComponentBase::FppTest_SmInitial_Junction ::
+  SmInitialQueuedComponentBase::SmId SmInitialQueuedComponentBase::FppTest_SmInitial_Choice ::
     getId() const
   {
     return static_cast<SmInitialQueuedComponentBase::SmId>(this->m_id);
   }
 
-  void SmInitialQueuedComponentBase::FppTest_SmInitial_Junction ::
+  void SmInitialQueuedComponentBase::FppTest_SmInitial_Choice ::
     action_a(Signal signal)
   {
-    this->m_component.FppTest_SmInitial_Junction_action_a(this->getId(), signal);
+    this->m_component.FppTest_SmInitial_Choice_action_a(this->getId(), signal);
   }
 
-  bool SmInitialQueuedComponentBase::FppTest_SmInitial_Junction ::
+  bool SmInitialQueuedComponentBase::FppTest_SmInitial_Choice ::
     guard_g(Signal signal) const
   {
-    return this->m_component.FppTest_SmInitial_Junction_guard_g(this->getId(), signal);
+    return this->m_component.FppTest_SmInitial_Choice_guard_g(this->getId(), signal);
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitial_Nested ::
@@ -184,35 +184,35 @@ namespace FppTest {
     this->m_component.FppTest_SmInitialQueued_Basic_action_a(this->getId(), signal);
   }
 
-  SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction ::
-    FppTest_SmInitialQueued_Junction(SmInitialQueuedComponentBase& component) :
+  SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice ::
+    FppTest_SmInitialQueued_Choice(SmInitialQueuedComponentBase& component) :
       m_component(component)
   {
 
   }
 
-  void SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction ::
+  void SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice ::
     init(SmInitialQueuedComponentBase::SmId smId)
   {
     this->initBase(static_cast<FwEnumStoreType>(smId));
   }
 
-  SmInitialQueuedComponentBase::SmId SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction ::
+  SmInitialQueuedComponentBase::SmId SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice ::
     getId() const
   {
     return static_cast<SmInitialQueuedComponentBase::SmId>(this->m_id);
   }
 
-  void SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction ::
+  void SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice ::
     action_a(Signal signal)
   {
-    this->m_component.FppTest_SmInitialQueued_Junction_action_a(this->getId(), signal);
+    this->m_component.FppTest_SmInitialQueued_Choice_action_a(this->getId(), signal);
   }
 
-  bool SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction ::
+  bool SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice ::
     guard_g(Signal signal) const
   {
-    return this->m_component.FppTest_SmInitialQueued_Junction_guard_g(this->getId(), signal);
+    return this->m_component.FppTest_SmInitialQueued_Choice_guard_g(this->getId(), signal);
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Nested ::
@@ -255,11 +255,11 @@ namespace FppTest {
 
     this->m_stateMachine_basic1.init(SmId::basic1);
     this->m_stateMachine_basic2.init(SmId::basic2);
-    this->m_stateMachine_junction.init(SmId::junction);
+    this->m_stateMachine_choice.init(SmId::choice);
     this->m_stateMachine_nested.init(SmId::nested);
     this->m_stateMachine_smInitialBasic1.init(SmId::smInitialBasic1);
     this->m_stateMachine_smInitialBasic2.init(SmId::smInitialBasic2);
-    this->m_stateMachine_smInitialJunction.init(SmId::smInitialJunction);
+    this->m_stateMachine_smInitialChoice.init(SmId::smInitialChoice);
     this->m_stateMachine_smInitialNested.init(SmId::smInitialNested);
 
     // Connect input port schedIn
@@ -320,11 +320,11 @@ namespace FppTest {
       Fw::QueuedComponentBase(compName),
       m_stateMachine_basic1(*this),
       m_stateMachine_basic2(*this),
-      m_stateMachine_junction(*this),
+      m_stateMachine_choice(*this),
       m_stateMachine_nested(*this),
       m_stateMachine_smInitialBasic1(*this),
       m_stateMachine_smInitialBasic2(*this),
-      m_stateMachine_smInitialJunction(*this),
+      m_stateMachine_smInitialChoice(*this),
       m_stateMachine_smInitialNested(*this)
   {
 
@@ -387,10 +387,10 @@ namespace FppTest {
     return this->m_stateMachine_basic2.getState();
   }
 
-  SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Junction::State SmInitialQueuedComponentBase ::
-    junction_getState() const
+  SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Choice::State SmInitialQueuedComponentBase ::
+    choice_getState() const
   {
-    return this->m_stateMachine_junction.getState();
+    return this->m_stateMachine_choice.getState();
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitialQueued_Nested::State SmInitialQueuedComponentBase ::
@@ -411,10 +411,10 @@ namespace FppTest {
     return this->m_stateMachine_smInitialBasic2.getState();
   }
 
-  SmInitialQueuedComponentBase::FppTest_SmInitial_Junction::State SmInitialQueuedComponentBase ::
-    smInitialJunction_getState() const
+  SmInitialQueuedComponentBase::FppTest_SmInitial_Choice::State SmInitialQueuedComponentBase ::
+    smInitialChoice_getState() const
   {
-    return this->m_stateMachine_smInitialJunction.getState();
+    return this->m_stateMachine_smInitialChoice.getState();
   }
 
   SmInitialQueuedComponentBase::FppTest_SmInitial_Nested::State SmInitialQueuedComponentBase ::
@@ -529,9 +529,9 @@ namespace FppTest {
         this->FppTest_SmInitialQueued_Basic_smDispatch(buffer, this->m_stateMachine_basic2, signal);
         break;
       }
-      case SmId::junction: {
-        const FppTest_SmInitialQueued_Junction::Signal signal = static_cast<FppTest_SmInitialQueued_Junction::Signal>(storedSignal);
-        this->FppTest_SmInitialQueued_Junction_smDispatch(buffer, this->m_stateMachine_junction, signal);
+      case SmId::choice: {
+        const FppTest_SmInitialQueued_Choice::Signal signal = static_cast<FppTest_SmInitialQueued_Choice::Signal>(storedSignal);
+        this->FppTest_SmInitialQueued_Choice_smDispatch(buffer, this->m_stateMachine_choice, signal);
         break;
       }
       case SmId::nested: {
@@ -549,9 +549,9 @@ namespace FppTest {
         this->FppTest_SmInitial_Basic_smDispatch(buffer, this->m_stateMachine_smInitialBasic2, signal);
         break;
       }
-      case SmId::smInitialJunction: {
-        const FppTest_SmInitial_Junction::Signal signal = static_cast<FppTest_SmInitial_Junction::Signal>(storedSignal);
-        this->FppTest_SmInitial_Junction_smDispatch(buffer, this->m_stateMachine_smInitialJunction, signal);
+      case SmId::smInitialChoice: {
+        const FppTest_SmInitial_Choice::Signal signal = static_cast<FppTest_SmInitial_Choice::Signal>(storedSignal);
+        this->FppTest_SmInitial_Choice_smDispatch(buffer, this->m_stateMachine_smInitialChoice, signal);
         break;
       }
       case SmId::smInitialNested: {
@@ -601,10 +601,10 @@ namespace FppTest {
   }
 
   void SmInitialQueuedComponentBase ::
-    FppTest_SmInitial_Junction_smDispatch(
+    FppTest_SmInitial_Choice_smDispatch(
         Fw::SerializeBufferBase& buffer,
-        FppTest_SmInitial_Junction& sm,
-        FppTest_SmInitial_Junction::Signal signal
+        FppTest_SmInitial_Choice& sm,
+        FppTest_SmInitial_Choice::Signal signal
     )
   {
     switch (signal) {
@@ -643,10 +643,10 @@ namespace FppTest {
   }
 
   void SmInitialQueuedComponentBase ::
-    FppTest_SmInitialQueued_Junction_smDispatch(
+    FppTest_SmInitialQueued_Choice_smDispatch(
         Fw::SerializeBufferBase& buffer,
-        FppTest_SmInitialQueued_Junction& sm,
-        FppTest_SmInitialQueued_Junction::Signal signal
+        FppTest_SmInitialQueued_Choice& sm,
+        FppTest_SmInitialQueued_Choice::Signal signal
     )
   {
     switch (signal) {

@@ -6,8 +6,8 @@ basic()
 
 choice()
 {
-  update "-p $PWD" Junction
-  move_cpp JunctionStateMachine
+  update "-p $PWD" Choice
+  move_cpp ChoiceStateMachine
 }
 
 nested()

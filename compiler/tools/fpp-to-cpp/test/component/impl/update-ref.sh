@@ -64,8 +64,8 @@ queued()
 sm_choice()
 {
   update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice
-  move_template SmJunctionActive
-  move_template SmJunctionQueued
+  move_template SmChoiceActive && \
+  move_template SmChoiceQueued
 }
 
 sm_initial()

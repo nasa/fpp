@@ -9,7 +9,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     // ----------------------------------------------------------------------
     // Constructors and Destructors
@@ -57,7 +57,7 @@ namespace FppTest {
     {
       switch (this->m_state) {
         case State::S1:
-          this->enter_J1(Signal::s, value);
+          this->enter_C1(Signal::s, value);
           break;
         case State::S2:
           break;
@@ -94,7 +94,7 @@ namespace FppTest {
     }
 
     void SequenceU32StateMachineBase ::
-      enter_J2(
+      enter_C2(
           Signal signal,
           U32 value
       )
@@ -110,7 +110,7 @@ namespace FppTest {
     }
 
     void SequenceU32StateMachineBase ::
-      enter_J1(
+      enter_C1(
           Signal signal,
           U32 value
       )
@@ -119,7 +119,7 @@ namespace FppTest {
         this->enter_S2(signal);
       }
       else {
-        this->enter_J2(signal, value);
+        this->enter_C2(signal, value);
       }
     }
 

@@ -8,11 +8,11 @@ state machine instance smInitialBasic1: SmInitial.Basic
 
 state machine instance smInitialBasic2: SmInitial.Basic
 
-include "../../state-machine/initial/include/Junction.fppi"
+include "../../state-machine/initial/include/Choice.fppi"
 
-state machine instance $junction: Junction priority 1 assert
+state machine instance $choice: Choice priority 1 assert
 
-state machine instance smInitialJunction: SmInitial.Junction priority 2 block
+state machine instance smInitialChoice: SmInitial.Choice priority 2 block
 
 include "../../state-machine/initial/include/Nested.fppi" 
 

@@ -14,14 +14,14 @@ basic_u32()
 
 choice_to_choice()
 {
-  run_test "$fpp_flags" JunctionToJunction && \
-    diff_cpp JunctionToJunctionStateMachine
+  run_test "$fpp_flags" ChoiceToChoice && \
+    diff_cpp ChoiceToChoiceStateMachine
 }
 
 choice_to_state()
 {
-  run_test "$fpp_flags" JunctionToState && \
-    diff_cpp JunctionToStateStateMachine
+  run_test "$fpp_flags" ChoiceToState && \
+    diff_cpp ChoiceToStateStateMachine
 }
 
 input_pair_u16_u32()

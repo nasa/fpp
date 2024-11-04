@@ -4,8 +4,8 @@
 // \brief  hpp file for InputPairU16U32 state machine
 // ======================================================================
 
-#ifndef FppTest_SmJunction_InputPairU16U32StateMachineAc_HPP
-#define FppTest_SmJunction_InputPairU16U32StateMachineAc_HPP
+#ifndef FppTest_SmChoice_InputPairU16U32StateMachineAc_HPP
+#define FppTest_SmChoice_InputPairU16U32StateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     //! A state machine with two inputs to a choice
     class InputPairU16U32StateMachineBase {
@@ -136,8 +136,8 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction J
-        void enter_J(
+        //! Enter junction C
+        void enter_C(
             Signal signal, //!< The signal
             U32 value //!< The value
         );

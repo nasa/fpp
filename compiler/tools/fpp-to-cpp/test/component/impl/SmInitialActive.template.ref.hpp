@@ -43,12 +43,12 @@ namespace FppTest {
           FppTest_SmInitial_Basic::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action a of state machine FppTest_SmInitial_Junction
+      //! Implementation for action a of state machine FppTest_SmInitial_Choice
       //!
       //! Action a
-      void FppTest_SmInitial_Junction_action_a(
+      void FppTest_SmInitial_Choice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmInitial_Junction::Signal signal //!< The signal
+          FppTest_SmInitial_Choice::Signal signal //!< The signal
       ) override;
 
       //! Implementation for action a of state machine FppTest_SmInitial_Nested
@@ -67,12 +67,12 @@ namespace FppTest {
           FppTest_SmInitialActive_Basic::Signal signal //!< The signal
       ) override;
 
-      //! Implementation for action a of state machine FppTest_SmInitialActive_Junction
+      //! Implementation for action a of state machine FppTest_SmInitialActive_Choice
       //!
       //! Action a
-      void FppTest_SmInitialActive_Junction_action_a(
+      void FppTest_SmInitialActive_Choice_action_a(
           SmId smId, //!< The state machine id
-          FppTest_SmInitialActive_Junction::Signal signal //!< The signal
+          FppTest_SmInitialActive_Choice::Signal signal //!< The signal
       ) override;
 
       //! Implementation for action a of state machine FppTest_SmInitialActive_Nested
@@ -89,20 +89,20 @@ namespace FppTest {
       // Implementations for internal state machine guards
       // ----------------------------------------------------------------------
 
-      //! Implementation for guard g of state machine FppTest_SmInitial_Junction
+      //! Implementation for guard g of state machine FppTest_SmInitial_Choice
       //!
       //! Guard g
-      bool FppTest_SmInitial_Junction_guard_g(
+      bool FppTest_SmInitial_Choice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmInitial_Junction::Signal signal //!< The signal
+          FppTest_SmInitial_Choice::Signal signal //!< The signal
       ) const override;
 
-      //! Implementation for guard g of state machine FppTest_SmInitialActive_Junction
+      //! Implementation for guard g of state machine FppTest_SmInitialActive_Choice
       //!
       //! Guard g
-      bool FppTest_SmInitialActive_Junction_guard_g(
+      bool FppTest_SmInitialActive_Choice_guard_g(
           SmId smId, //!< The state machine id
-          FppTest_SmInitialActive_Junction::Signal signal //!< The signal
+          FppTest_SmInitialActive_Choice::Signal signal //!< The signal
       ) const override;
 
     PRIVATE:

@@ -76,20 +76,20 @@ queued()
 sm_choice()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice
-  move_cpp SmJunctionActiveComponent
-  move_cpp SmJunctionQueuedComponent
+  move_cpp SmChoiceActiveComponent && \
+  move_cpp SmChoiceQueuedComponent
 }
 
 sm_initial()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
-  move_cpp SmInitialActiveComponent
+  move_cpp SmInitialActiveComponent && \
   move_cpp SmInitialQueuedComponent
 }
 
 sm_state()
 {
   update "-i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_state" sm_state
-  move_cpp SmStateActiveComponent
+  move_cpp SmStateActiveComponent && \
   move_cpp SmStateQueuedComponent
 }

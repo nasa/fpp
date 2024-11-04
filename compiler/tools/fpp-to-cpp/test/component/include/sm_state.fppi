@@ -44,7 +44,7 @@ state machine instance smStatePolymorphism: SmState.Polymorphism
 
 state machine instance smStateStateToChild: SmState.StateToChild
 
-state machine instance smStateStateToJunction: SmState.StateToJunction
+state machine instance smStateStateToChoice: SmState.StateToChoice
 
 state machine instance smStateStateToSelf: SmState.StateToSelf
 

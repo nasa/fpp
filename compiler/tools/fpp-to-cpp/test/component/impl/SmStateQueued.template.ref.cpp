@@ -307,72 +307,72 @@ namespace FppTest {
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_exitS1(
+    FppTest_SmState_StateToChoice_action_exitS1(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_exitS2(
+    FppTest_SmState_StateToChoice_action_exitS2(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_exitS3(
+    FppTest_SmState_StateToChoice_action_exitS3(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_a(
+    FppTest_SmState_StateToChoice_action_a(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_enterS1(
+    FppTest_SmState_StateToChoice_action_enterS1(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_enterS2(
+    FppTest_SmState_StateToChoice_action_enterS2(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_enterS3(
+    FppTest_SmState_StateToChoice_action_enterS3(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
   }
 
   void SmStateQueued ::
-    FppTest_SmState_StateToJunction_action_enterS4(
+    FppTest_SmState_StateToChoice_action_enterS4(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     )
   {
     // TODO
@@ -605,9 +605,9 @@ namespace FppTest {
   }
 
   bool SmStateQueued ::
-    FppTest_SmState_StateToJunction_guard_g(
+    FppTest_SmState_StateToChoice_guard_g(
         SmId smId,
-        FppTest_SmState_StateToJunction::Signal signal
+        FppTest_SmState_StateToChoice::Signal signal
     ) const
   {
     // TODO

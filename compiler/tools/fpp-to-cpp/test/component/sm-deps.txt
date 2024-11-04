@@ -1,13 +1,13 @@
 ../../state-machine/choice/Basic.fpp
 ../../state-machine/choice/BasicU32.fpp
+../../state-machine/choice/ChoiceToChoice.fpp
+../../state-machine/choice/ChoiceToState.fpp
 ../../state-machine/choice/InputPairU16U32.fpp
-../../state-machine/choice/JunctionToJunction.fpp
-../../state-machine/choice/JunctionToState.fpp
 ../../state-machine/choice/Sequence.fpp
 ../../state-machine/choice/SequenceU32.fpp
 ../../state-machine/harness/harness.fpp
 ../../state-machine/initial/Basic.fpp
-../../state-machine/initial/Junction.fpp
+../../state-machine/initial/Choice.fpp
 ../../state-machine/initial/Nested.fpp
 ../../state-machine/state/Basic.fpp
 ../../state-machine/state/BasicGuard.fpp
@@ -28,6 +28,6 @@
 ../../state-machine/state/Internal.fpp
 ../../state-machine/state/Polymorphism.fpp
 ../../state-machine/state/StateToChild.fpp
-../../state-machine/state/StateToJunction.fpp
+../../state-machine/state/StateToChoice.fpp
 ../../state-machine/state/StateToSelf.fpp
 ../../state-machine/state/StateToState.fpp

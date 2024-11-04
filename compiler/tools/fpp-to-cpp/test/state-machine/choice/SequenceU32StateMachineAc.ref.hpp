@@ -4,8 +4,8 @@
 // \brief  hpp file for SequenceU32 state machine
 // ======================================================================
 
-#ifndef FppTest_SmJunction_SequenceU32StateMachineAc_HPP
-#define FppTest_SmJunction_SequenceU32StateMachineAc_HPP
+#ifndef FppTest_SmChoice_SequenceU32StateMachineAc_HPP
+#define FppTest_SmChoice_SequenceU32StateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     //! A basic state machine with a U32 choice sequence
     class SequenceU32StateMachineBase {
@@ -146,14 +146,14 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction J2
-        void enter_J2(
+        //! Enter junction C2
+        void enter_C2(
             Signal signal, //!< The signal
             U32 value //!< The value
         );
 
-        //! Enter junction J1
-        void enter_J1(
+        //! Enter junction C1
+        void enter_C1(
             Signal signal, //!< The signal
             U32 value //!< The value
         );

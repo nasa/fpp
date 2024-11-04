@@ -4,8 +4,8 @@
 // \brief  hpp file for BasicU32 state machine
 // ======================================================================
 
-#ifndef FppTest_SmJunction_BasicU32StateMachineAc_HPP
-#define FppTest_SmJunction_BasicU32StateMachineAc_HPP
+#ifndef FppTest_SmChoice_BasicU32StateMachineAc_HPP
+#define FppTest_SmChoice_BasicU32StateMachineAc_HPP
 
 #include <FpConfig.hpp>
 
@@ -15,7 +15,7 @@
 
 namespace FppTest {
 
-  namespace SmJunction {
+  namespace SmChoice {
 
     //! A basic state machine with a U32 choice
     class BasicU32StateMachineBase {
@@ -134,8 +134,8 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction J
-        void enter_J(
+        //! Enter junction C
+        void enter_C(
             Signal signal, //!< The signal
             U32 value //!< The value
         );
