@@ -1,9 +1,9 @@
 tests="
 basic
 basic_u32
+choice_to_choice
+choice_to_state
 input_pair_u16_u32
-junction_to_junction
-junction_to_state
 sequence
 sequence_u32
 "

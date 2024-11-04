@@ -4,7 +4,7 @@ basic()
     diff_cpp BasicStateMachine
 }
 
-junction()
+choice()
 {
   run_test "-p $PWD" Junction && \
     diff_cpp JunctionStateMachine

@@ -114,7 +114,7 @@ state_to_child()
   move_cpp StateToChildStateMachine
 }
 
-state_to_junction()
+state_to_choice()
 {
   update "$fpp_flags" StateToJunction
   move_cpp StateToJunctionStateMachine

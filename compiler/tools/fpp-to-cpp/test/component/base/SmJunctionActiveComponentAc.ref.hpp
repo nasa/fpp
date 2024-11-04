@@ -12,13 +12,13 @@
 #include "Fw/Port/InputSerializePort.hpp"
 #include "Fw/Port/OutputSerializePort.hpp"
 #include "SmJunctionActive_BasicStateMachineAc.hpp"
-#include "state-machine/junction/BasicStateMachineAc.hpp"
-#include "state-machine/junction/BasicU32StateMachineAc.hpp"
-#include "state-machine/junction/InputPairU16U32StateMachineAc.hpp"
-#include "state-machine/junction/JunctionToJunctionStateMachineAc.hpp"
-#include "state-machine/junction/JunctionToStateStateMachineAc.hpp"
-#include "state-machine/junction/SequenceStateMachineAc.hpp"
-#include "state-machine/junction/SequenceU32StateMachineAc.hpp"
+#include "state-machine/choice/BasicStateMachineAc.hpp"
+#include "state-machine/choice/BasicU32StateMachineAc.hpp"
+#include "state-machine/choice/InputPairU16U32StateMachineAc.hpp"
+#include "state-machine/choice/JunctionToJunctionStateMachineAc.hpp"
+#include "state-machine/choice/JunctionToStateStateMachineAc.hpp"
+#include "state-machine/choice/SequenceStateMachineAc.hpp"
+#include "state-machine/choice/SequenceU32StateMachineAc.hpp"
 
 namespace FppTest {
 

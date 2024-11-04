@@ -1,4 +1,4 @@
-include "../../state-machine/junction/include/Basic.fppi"
+include "../../state-machine/choice/include/Basic.fppi"
 
 state machine instance basic: Basic
 

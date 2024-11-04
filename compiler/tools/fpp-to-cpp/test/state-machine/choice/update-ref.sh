@@ -12,22 +12,22 @@ basic_u32()
   move_cpp BasicU32StateMachine
 }
 
-input_pair_u16_u32()
-{
-  update "$fpp_flags" InputPairU16U32
-  move_cpp InputPairU16U32StateMachine
-}
-
-junction_to_junction()
+choice_to_choice()
 {
   update "$fpp_flags" JunctionToJunction
   move_cpp JunctionToJunctionStateMachine
 }
 
-junction_to_state()
+choice_to_state()
 {
   update "$fpp_flags" JunctionToState
   move_cpp JunctionToStateStateMachine
+}
+
+input_pair_u16_u32()
+{
+  update "$fpp_flags" InputPairU16U32
+  move_cpp InputPairU16U32StateMachine
 }
 
 sequence()

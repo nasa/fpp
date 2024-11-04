@@ -114,7 +114,7 @@ state_to_child()
     diff_cpp StateToChildStateMachine
 }
 
-state_to_junction()
+state_to_choice()
 {
   run_test "$fpp_flags" StateToJunction && \
     diff_cpp StateToJunctionStateMachine

@@ -2,7 +2,7 @@ module FppTest {
 
   active component SmJunctionActive {
 
-    include "include/sm_junction.fppi"
+    include "include/sm_choice.fppi"
 
   }
 
@@ -10,7 +10,7 @@ module FppTest {
 
     sync input port schedIn: Svc.Sched
 
-    include "include/sm_junction.fppi"
+    include "include/sm_choice.fppi"
 
   }
 

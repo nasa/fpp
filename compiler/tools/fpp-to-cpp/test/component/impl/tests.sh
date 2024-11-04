@@ -4,6 +4,6 @@ passive
 active
 queued
 sm_initial
-sm_junction
+sm_choice
 sm_state
 "

@@ -4,7 +4,7 @@ basic()
   move_cpp BasicStateMachine
 }
 
-junction()
+choice()
 {
   update "-p $PWD" Junction
   move_cpp JunctionStateMachine

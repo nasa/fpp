@@ -12,22 +12,22 @@ basic_u32()
     diff_cpp BasicU32StateMachine
 }
 
-input_pair_u16_u32()
-{
-  run_test "$fpp_flags" InputPairU16U32 && \
-    diff_cpp InputPairU16U32StateMachine
-}
-
-junction_to_junction()
+choice_to_choice()
 {
   run_test "$fpp_flags" JunctionToJunction && \
     diff_cpp JunctionToJunctionStateMachine
 }
 
-junction_to_state()
+choice_to_state()
 {
   run_test "$fpp_flags" JunctionToState && \
     diff_cpp JunctionToStateStateMachine
+}
+
+input_pair_u16_u32()
+{
+  run_test "$fpp_flags" InputPairU16U32 && \
+    diff_cpp InputPairU16U32StateMachine
 }
 
 sequence()

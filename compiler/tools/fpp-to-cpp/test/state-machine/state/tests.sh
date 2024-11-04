@@ -18,7 +18,7 @@ basic_u32
 internal
 polymorphism
 state_to_child
-state_to_junction
+state_to_choice
 state_to_self
 state_to_state
 "

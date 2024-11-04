@@ -61,18 +61,18 @@ queued()
   move_template QueuedTest
 }
 
+sm_choice()
+{
+  update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_choice" sm_choice
+  move_template SmJunctionActive
+  move_template SmJunctionQueued
+}
+
 sm_initial()
 {
   update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_initial" sm_initial
   move_template SmInitialActive
   move_template SmInitialQueued
-}
-
-sm_junction()
-{
-  update "-t -i `cat ../deps-comma.txt`,`cat ../sm-deps-comma.txt`" "-p $component_dir,$fprime_dir,$test_dir ../sm_junction" sm_junction
-  move_template SmJunctionActive
-  move_template SmJunctionQueued
 }
 
 sm_state()
