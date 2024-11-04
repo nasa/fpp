@@ -31,9 +31,8 @@ it provides a complete specification in FPP of the state machine behavior.
 The FPP back end uses this specification to generate code;
 no external tool is required.
 
-As of the current version of FPP, only external state machines
-are implemented.
-Support for internal state machines is in development.
+The following subsections describe both kinds of state machine
+definitions.
 
 State machine definitions may appear at the top level or inside a
 <<Defining-Modules,module definition>>.
@@ -64,7 +63,72 @@ The external implementation must have a header file `M.hpp`
 located in the same directory as the FPP file where
 the state machine `M` is defined.
 
-=== Internal State Machines
+=== Basic Internal State Machines
 
-Support for internal state machines is in development.
-It will be available in a future release of FPP.
+TODO
+
+* States
+* Initial transition specifiers
+* State transition specifiers
+
+* Rules
+** Exactly one initial transition specifier
+** Every state must be reachable
+
+=== Actions
+
+TODO
+
+* On initial transitions
+* On state transitions
+
+=== Entry and Exit Specifiers
+
+TODO
+
+=== Typed Signals
+
+TODO
+
+=== Guarded Transitions
+
+TODO
+
+=== Transitions to Self
+
+TODO
+
+=== Internal Transitions
+
+TODO
+
+=== Junctions
+
+TODO
+
+* Basic
+* With actions
+
+* Rules
+** Reachability
+** No junction cycles
+
+=== State Hierarchy
+
+TODO
+
+==== States within States
+
+TODO
+
+==== Inherited Transitions
+
+TODO
+
+==== Transitions to Self
+
+TODO
+
+==== Junctions within States
+
+TODO

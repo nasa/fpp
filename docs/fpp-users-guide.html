@@ -521,7 +521,22 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines">9. Defining State Machines</a>
 <ul class="sectlevel2">
 <li><a href="#Defining-State-Machines_External-State-Machines">9.1. External State Machines</a></li>
-<li><a href="#Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</a></li>
+<li><a href="#Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</a></li>
+<li><a href="#Defining-State-Machines_Actions">9.3. Actions</a></li>
+<li><a href="#Defining-State-Machines_Entry-and-Exit-Specifiers">9.4. Entry and Exit Specifiers</a></li>
+<li><a href="#Defining-State-Machines_Typed-Signals">9.5. Typed Signals</a></li>
+<li><a href="#Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</a></li>
+<li><a href="#Defining-State-Machines_Transitions-to-Self">9.7. Transitions to Self</a></li>
+<li><a href="#Defining-State-Machines_Internal-Transitions">9.8. Internal Transitions</a></li>
+<li><a href="#Defining-State-Machines_Junctions">9.9. Junctions</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy">9.10. State Hierarchy</a>
+<ul class="sectlevel3">
+<li><a href="#Defining-State-Machines_State-Hierarchy_States-within-States">9.10.1. States within States</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.10.2. Inherited Transitions</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy_Transitions-to-Self">9.10.3. Transitions to Self</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy_Junctions-within-States">9.10.4. Junctions within States</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#Defining-Components">10. Defining Components</a>
@@ -3551,9 +3566,8 @@ no external tool is required.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>As of the current version of FPP, only external state machines
-are implemented.
-Support for internal state machines is in development.</p>
+<p>The following subsections describe both kinds of state machine
+definitions.</p>
 </div>
 <div class="paragraph">
 <p>State machine definitions may appear at the top level or inside a
@@ -3589,10 +3603,140 @@ the state machine <code>M</code> is defined.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</h3>
+<h3 id="Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</h3>
 <div class="paragraph">
-<p>Support for internal state machines is in development.
-It will be available in a future release of FPP.</p>
+<p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>States</p>
+</li>
+<li>
+<p>Initial transition specifiers</p>
+</li>
+<li>
+<p>State transition specifiers</p>
+</li>
+<li>
+<p>Rules</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Exactly one initial transition specifier</p>
+</li>
+<li>
+<p>Every state must be reachable</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Actions">9.3. Actions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On initial transitions</p>
+</li>
+<li>
+<p>On state transitions</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Entry-and-Exit-Specifiers">9.4. Entry and Exit Specifiers</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Typed-Signals">9.5. Typed Signals</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Transitions-to-Self">9.7. Transitions to Self</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Internal-Transitions">9.8. Internal Transitions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_Junctions">9.9. Junctions</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Basic</p>
+</li>
+<li>
+<p>With actions</p>
+</li>
+<li>
+<p>Rules</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reachability</p>
+</li>
+<li>
+<p>No junction cycles</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_State-Hierarchy">9.10. State Hierarchy</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_State-Hierarchy_States-within-States">9.10.1. States within States</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.10.2. Inherited Transitions</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_State-Hierarchy_Transitions-to-Self">9.10.3. Transitions to Self</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_State-Hierarchy_Junctions-within-States">9.10.4. Junctions within States</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
 </div>
 </div>
 </div>
@@ -12703,7 +12847,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-31 15:04:21 -0700
+Last updated 2024-11-03 18:34:36 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
