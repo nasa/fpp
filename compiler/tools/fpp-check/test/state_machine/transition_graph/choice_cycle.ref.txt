@@ -1,0 +1,7 @@
+fpp-check
+[ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:4.3
+  choice J1 { if g enter S else enter J2 }
+  ^
+error: encountered a junction cycle:
+  junction transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:4.33 to junction J2
+  junction transition at [ local path prefix ]/compiler/tools/fpp-check/test/state_machine/transition_graph/choice_cycle.fpp:5.33 to junction J1
