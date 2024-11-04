@@ -1,7 +1,7 @@
 tests="
 action
+choice
 guard
-junction
 nested_junction
 nested_state
 ok
