@@ -32,7 +32,7 @@ case class ConstructFlattenedTransition(
     Transition.External(actions, target)
   }
 
-  // Get the parent state list of a source state or junction
+  // Get the parent state list of a source state or choice
   private def getSourceParentStateList(soj: StateOrChoice):
   List[StateMachineSymbol.State] = {
     val start = soj match {
@@ -42,7 +42,7 @@ case class ConstructFlattenedTransition(
     sma.getParentStateList(soj.getSymbol, start)
   }
 
-  // Get the parent state list of a target state or junction
+  // Get the parent state list of a target state or choice
   private def getTargetParentStateList(soj: StateOrChoice):
   List[StateMachineSymbol.State] = sma.getParentStateList(soj.getSymbol)
 

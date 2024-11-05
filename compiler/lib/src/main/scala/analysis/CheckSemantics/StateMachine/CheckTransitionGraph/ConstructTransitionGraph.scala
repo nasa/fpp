@@ -66,13 +66,13 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     Right(sma.copy(transitionGraph = transitionGraph))
   }
 
-  override def junctionTransitionExpr(
+  override def choiceTransitionExpr(
     sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Choice,
+    choice: StateMachineSymbol.Choice,
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
     val endNode = getNodeFromExpr(sma, exprNode)
-    val arc = TransitionGraph.Arc.Choice(junction, exprNode, endNode)
+    val arc = TransitionGraph.Arc.Choice(choice, exprNode, endNode)
     val transitionGraph = sma.transitionGraph.addArc(arc)
     Right(sma.copy(transitionGraph = transitionGraph))
   }
@@ -85,9 +85,9 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     val soj = sym match {
       case state: StateMachineSymbol.State =>
         StateOrChoice.State(state)
-      case junction: StateMachineSymbol.Choice =>
-        StateOrChoice.Choice(junction)
-      case _ => throw new InternalError("transition should go to state or junction")
+      case choice: StateMachineSymbol.Choice =>
+        StateOrChoice.Choice(choice)
+      case _ => throw new InternalError("transition should go to state or choice")
     }
     TransitionGraph.Node(soj)
   }

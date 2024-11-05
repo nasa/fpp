@@ -95,7 +95,7 @@ object TransitionGraph {
       def getStartNode = Node(StateOrChoice.Choice(startChoice))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.Choice(startChoice.node)
-      def showKind = "junction transition"
+      def showKind = "choice transition"
       def showTransition = {
         val loc = Locations.get(aNode.id)
         val endName = endNode.soj.getName

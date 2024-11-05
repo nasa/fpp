@@ -16,8 +16,8 @@ case class StateMachineEntryFns(
     aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
     val data = aNode._2.data
-    val junctionSym = StateMachineSymbol.Choice(aNode)
-    val junctionName = writeSmSymbolName(junctionSym)
+    val choiceSym = StateMachineSymbol.Choice(aNode)
+    val choiceName = writeSmSymbolName(choiceSym)
     val te = StateMachineTypedElement.Choice(aNode)
     val typeOpt = sma.typeOptionMap(te)
     val valueArgOpt = typeOpt.map(_ => valueParamName)
@@ -26,8 +26,8 @@ case class StateMachineEntryFns(
     val ifTransition = sma.flattenedChoiceTransitionMap(data.ifTransition)
     val elseTransition = sma.flattenedChoiceTransitionMap(data.elseTransition)
     val member = functionClassMember(
-      Some(s"Enter choice $junctionName"),
-      getEnterFunctionName(junctionSym),
+      Some(s"Enter choice $choiceName"),
+      getEnterFunctionName(choiceSym),
       getParamsWithTypeOpt(typeOpt),
       CppDoc.Type("void"),
       wrapInIfElse(

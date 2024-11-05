@@ -20,7 +20,7 @@ trait SmTypedElementAnalyzer
     te: StateMachineTypedElement.InitialTransition
   ): Result = default(sma)
 
-  def junctionTypedElement(
+  def choiceTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.Choice
   ): Result = default(sma)
@@ -51,7 +51,7 @@ trait SmTypedElementAnalyzer
     case it: StateMachineTypedElement.InitialTransition =>
       initialTransitionTypedElement(sma, it)
     case j: StateMachineTypedElement.Choice =>
-      junctionTypedElement(sma, j)
+      choiceTypedElement(sma, j)
     case se: StateMachineTypedElement.StateEntry =>
       stateEntryTypedElement(sma, se)
     case se: StateMachineTypedElement.StateExit =>

@@ -43,7 +43,7 @@ object StateMachineTypedElement {
     aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) extends StateMachineTypedElement {
     def getNodeId = aNode._2.id
-    def showKind = "junction"
+    def showKind = "choice"
   }
 
 }

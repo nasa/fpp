@@ -35,7 +35,7 @@ trait StateMachineUseAnalyzer
     use: Name.Unqualified
   ): Result = default(sma)
 
-  /** A use of a state definition or junction definition */
+  /** A use of a state definition or choice definition */
   def stateOrChoiceUse(
     sma: StateMachineAnalysis,
     node: AstNode[Ast.QualIdent],

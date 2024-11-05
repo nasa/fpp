@@ -56,7 +56,7 @@ object AstWriter extends AstVisitor with LineUtils {
     val (_, node, _) = aNode
     val data = node.data
     val guard = data.guard
-    lines("def junction") ++
+    lines("def choice") ++
     (ident(data.name) ++
     addPrefix("guard", applyToData(ident)) (data.guard) ++
     transitionExpr(data.ifTransition.data) ++

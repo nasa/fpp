@@ -14,7 +14,7 @@ object ComputeTypeOptionMap
   ): Result =
     Right(sma.copy(typeOptionMap = sma.typeOptionMap + (te -> None)))
 
-  override def junctionTypedElement(
+  override def choiceTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.Choice
   ): Result = {

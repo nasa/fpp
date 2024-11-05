@@ -37,7 +37,7 @@ object CheckInitialTransitions
     sma: StateMachineAnalysis,
     aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]]
   ) = {
-    // Check that aNode leads to a state machine or junction
+    // Check that aNode leads to a state machine or choice
     // with the same parent symbol as sma
     val destId = aNode._2.data.transition.data.target.id
     val destSymbol = sma.useDefMap(destId)
@@ -50,9 +50,9 @@ object CheckInitialTransitions
         val loc = Locations.get(aNode._2.id)
         val msgHead = sma.parentState match {
           case Some(symbol) =>
-            s"initial transition of state must go to state or junction defined in the same state"
+            s"initial transition of state must go to state or choice defined in the same state"
           case None =>
-            s"initial transition of state machine may not go to a state or junction defined in a substate"
+            s"initial transition of state machine may not go to a state or choice defined in a substate"
         }
         val msgPaths = symbols.reverse.map(
           s => s"\ntransition path goes here:\n${Locations.get(s.getNodeId)}"
@@ -138,7 +138,7 @@ object CheckInitialTransitions
         visitedSymbols <- if (destParentSymbol == parentState)
                           then Right(visitedSymbols + destSymbol)
                           else Left(destSymbol :: errorSymbols)
-        // Recursively check junction targets
+        // Recursively check choice targets
         visitedSymbols <- destSymbol match {
           // Choice: check it
           case StateMachineSymbol.Choice(aNode) =>
@@ -168,7 +168,7 @@ object CheckInitialTransitions
                 )
               }
             } yield visitedSymbols
-          // Not a junction: nothing to do
+          // Not a choice: nothing to do
           case _ => Right(visitedSymbols)
         }
       }

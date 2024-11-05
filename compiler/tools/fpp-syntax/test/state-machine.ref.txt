@@ -45,7 +45,7 @@ def state machine
     action ident a1
     target qual ident C
   @ Choice C
-  def junction
+  def choice
     ident C
     guard ident g1
     target qual ident S1
@@ -68,7 +68,7 @@ def state machine
       action ident a2
       target qual ident S3
     @ Choice C
-    def junction
+    def choice
       ident C
       guard ident g1
       action ident a1

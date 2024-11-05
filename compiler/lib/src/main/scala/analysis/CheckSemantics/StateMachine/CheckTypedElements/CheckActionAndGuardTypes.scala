@@ -16,7 +16,7 @@ object CheckActionAndGuardTypes
     checkActionTypes(sma, te, actions)
   }
 
-  override def junctionTypedElement(
+  override def choiceTypedElement(
     sma: StateMachineAnalysis,
     te: StateMachineTypedElement.Choice
   ): Result = {

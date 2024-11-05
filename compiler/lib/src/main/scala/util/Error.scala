@@ -269,7 +269,7 @@ sealed trait Error {
       case SemanticError.StateMachine.ChoiceTypeMismatch(
         loc, toLoc1, to1, toLoc2, to2
       ) =>
-        Error.print (Some(loc)) (s"type mismatch at junction")
+        Error.print (Some(loc)) (s"type mismatch at choice")
         System.err.println(toLoc1)
         System.err.println(s"type of transition is $to1")
         System.err.println(toLoc2)

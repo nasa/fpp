@@ -3,7 +3,7 @@ package fpp.compiler.analysis
 import fpp.compiler.ast._
 import fpp.compiler.util._
 
-/** Checks for junction cycles */
+/** Checks for choice cycles */
 object CheckChoiceCycles {
 
   def stateMachineAnalysis(sma: StateMachineAnalysis): Result.Result[Unit] = {
@@ -32,7 +32,7 @@ object CheckChoiceCycles {
     then {
       val loc = Locations.get(j.getNodeId)
       val msg = (
-        "encountered a junction cycle:" ::
+        "encountered a choice cycle:" ::
         s.pathList.reverse.map(_.showTransition)
       ).mkString("\n  ")
       Left(SemanticError.StateMachine.ChoiceCycle(loc, msg))

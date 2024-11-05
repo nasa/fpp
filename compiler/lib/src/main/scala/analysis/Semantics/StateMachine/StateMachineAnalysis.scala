@@ -31,7 +31,7 @@ case class StateMachineAnalysis(
   signalTransitionMap: StateMachineAnalysis.SignalTransitionMap = Map(),
   /** The flattened state transtiion map */
   flattenedStateTransitionMap: StateMachineAnalysis.SignalStateTransitionMap = Map(),
-  /** The flattened junction transtiion map */
+  /** The flattened choice transtiion map */
   flattenedChoiceTransitionMap: StateMachineAnalysis.TransitionExprMap = Map()
 ) {
 
@@ -54,7 +54,7 @@ case class StateMachineAnalysis(
   /** Gets the qualified name of a symbol */
   val getQualifiedName = Analysis.getQualifiedNameFromMap (parentStateMap)
 
-  /** Gets the common type of two typed elements at a junction */
+  /** Gets the common type of two typed elements at a choice */
   def commonTypeAtChoice(
     te: StateMachineTypedElement.Choice,
     te1: StateMachineTypedElement,
@@ -128,13 +128,13 @@ case class StateMachineAnalysis(
     signalSym
   }
 
-  // Get a state or junction from a qualified identifier node
+  // Get a state or choice from a qualified identifier node
   def getStateOrChoice(soj: AstNode[Ast.QualIdent]):
   StateOrChoice =
     useDefMap(soj.id) match {
       case state: StateMachineSymbol.State => StateOrChoice.State(state)
-      case junction: StateMachineSymbol.Choice => StateOrChoice.Choice(junction)
-      case _ => throw new InternalError("expected state or junction")
+      case choice: StateMachineSymbol.Choice => StateOrChoice.Choice(choice)
+      case _ => throw new InternalError("expected state or choice")
     }
 
 }
