@@ -10,8 +10,8 @@ object CheckChoiceCycles {
     val nodes = sma.transitionGraph.arcMap.keys.toList
     for {
       _ <- Result.foldLeft (nodes) (State(sma)) {
-        case (s, TransitionGraph.Node(StateOrChoice.Choice(j))) =>
-          visit(s.clearPath, j)
+        case (s, TransitionGraph.Node(StateOrChoice.Choice(c))) =>
+          visit(s.clearPath, c)
         case (s, _) => Right(s)
       }
     } yield ()
@@ -26,11 +26,11 @@ object CheckChoiceCycles {
     def clearPath: State = this.copy(pathSet = Set(), pathList = Nil)
   }
 
-  private def visit(s: State, j: StateMachineSymbol.Choice):
+  private def visit(s: State, c: StateMachineSymbol.Choice):
   Result.Result[State] =
-    if s.pathSet.contains(j)
+    if s.pathSet.contains(c)
     then {
-      val loc = Locations.get(j.getNodeId)
+      val loc = Locations.get(c.getNodeId)
       val msg = (
         "encountered a choice cycle:" ::
         s.pathList.reverse.map(_.showTransition)
@@ -38,21 +38,21 @@ object CheckChoiceCycles {
       Left(SemanticError.StateMachine.ChoiceCycle(loc, msg))
     }
     else {
-      val s1 = s.copy(pathSet = s.pathSet + j)
-      val soc = StateOrChoice.Choice(j)
+      val s1 = s.copy(pathSet = s.pathSet + c)
+      val soc = StateOrChoice.Choice(c)
       val node = TransitionGraph.Node(soc)
       val nodes = s.sma.transitionGraph.arcMap(node).toList
       for {
         s <- Result.foldLeft (nodes) (s1) (
           (s, a) => a.getEndNode.soc match {
-            case StateOrChoice.Choice(j1) => {
+            case StateOrChoice.Choice(c1) => {
               val s2 = s.copy(pathList = a :: s.pathList)
-              visit(s2, j1)
+              visit(s2, c1)
             }
             case _ => Right(s)
           }
         )
-      } yield s.copy(visited = s.visited + j)
+      } yield s.copy(visited = s.visited + c)
     }
 
 }

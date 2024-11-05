@@ -50,8 +50,8 @@ trait SmTypedElementAnalyzer
   ): Result = te match {
     case it: StateMachineTypedElement.InitialTransition =>
       initialTransitionTypedElement(sma, it)
-    case j: StateMachineTypedElement.Choice =>
-      choiceTypedElement(sma, j)
+    case c: StateMachineTypedElement.Choice =>
+      choiceTypedElement(sma, c)
     case se: StateMachineTypedElement.StateEntry =>
       stateEntryTypedElement(sma, se)
     case se: StateMachineTypedElement.StateExit =>
