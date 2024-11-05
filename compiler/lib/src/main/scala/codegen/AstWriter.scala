@@ -49,6 +49,20 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
+  override def defChoiceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    val guard = data.guard
+    lines("def junction") ++
+    (ident(data.name) ++
+    addPrefix("guard", applyToData(ident)) (data.guard) ++
+    transitionExpr(data.ifTransition.data) ++
+    transitionExpr(data.elseTransition.data)).map(indentIn)
+  }
+
   override def defComponentAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
@@ -120,20 +134,6 @@ object AstWriter extends AstVisitor with LineUtils {
       ident(data.name) ++
       linesOpt(typeNameNode, data.typeName)
     ).map(indentIn)
-  }
-
-  override def defChoiceAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    val guard = data.guard
-    lines("def junction") ++
-    (ident(data.name) ++
-    addPrefix("guard", applyToData(ident)) (data.guard) ++
-    transitionExpr(data.ifTransition.data) ++
-    transitionExpr(data.elseTransition.data)).map(indentIn)
   }
 
   override def defModuleAnnotatedNode(

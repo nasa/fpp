@@ -138,6 +138,20 @@ object FppWriter extends AstVisitor with LineUtils {
       joinOpt (data.format) (" format ") (applyToData(string))
   }
 
+  override def defChoiceAnnotatedNode(
+    in: In,
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = {
+    val (_, node, _) = aNode
+    val data = node.data
+    lines(s"choice ${ident(data.name)} {") ++
+    (lines(s"if ${data.guard.data}").
+    join(" ")(transitionExpr(data.ifTransition.data))).map(indentIn).
+    joinWithBreak("")(lines("else")).
+    join(" ")(transitionExpr(data.elseTransition.data)) ++
+    lines("}")
+  }
+
   override def defComponentAnnotatedNode(
     in: In,
     aNode: Ast.Annotated[AstNode[Ast.DefComponent]]
@@ -201,21 +215,6 @@ object FppWriter extends AstVisitor with LineUtils {
     lines(s"guard ${ident(data.name)}").
     joinOpt (data.typeName) (": ") (typeNameNode)
   }
-
-  override def defChoiceAnnotatedNode(
-    in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
-  ) = {
-    val (_, node, _) = aNode
-    val data = node.data
-    lines(s"choice ${ident(data.name)} {") ++
-    (lines(s"if ${data.guard.data}").
-    join(" ")(transitionExpr(data.ifTransition.data))).map(indentIn).
-    joinWithBreak("")(lines("else")).
-    join(" ")(transitionExpr(data.elseTransition.data)) ++
-    lines("}")
-  }
-
 
   override def defModuleAnnotatedNode(
     in: In,
