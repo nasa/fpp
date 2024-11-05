@@ -33,18 +33,18 @@ case class ConstructFlattenedTransition(
   }
 
   // Get the parent state list of a source state or choice
-  private def getSourceParentStateList(soj: StateOrChoice):
+  private def getSourceParentStateList(soc: StateOrChoice):
   List[StateMachineSymbol.State] = {
-    val start = soj match {
+    val start = soc match {
       case StateOrChoice.State(state) => List(state)
       case StateOrChoice.Choice(_) => Nil
     }
-    sma.getParentStateList(soj.getSymbol, start)
+    sma.getParentStateList(soc.getSymbol, start)
   }
 
   // Get the parent state list of a target state or choice
-  private def getTargetParentStateList(soj: StateOrChoice):
-  List[StateMachineSymbol.State] = sma.getParentStateList(soj.getSymbol)
+  private def getTargetParentStateList(soc: StateOrChoice):
+  List[StateMachineSymbol.State] = sma.getParentStateList(soc.getSymbol)
 
   // Delete the longest common prefix of two lists
   private def deleteLongestCommonPrefix[T](

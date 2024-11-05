@@ -39,12 +39,12 @@ object CheckChoiceCycles {
     }
     else {
       val s1 = s.copy(pathSet = s.pathSet + j)
-      val soj = StateOrChoice.Choice(j)
-      val node = TransitionGraph.Node(soj)
+      val soc = StateOrChoice.Choice(j)
+      val node = TransitionGraph.Node(soc)
       val nodes = s.sma.transitionGraph.arcMap(node).toList
       for {
         s <- Result.foldLeft (nodes) (s1) (
-          (s, a) => a.getEndNode.soj match {
+          (s, a) => a.getEndNode.soc match {
             case StateOrChoice.Choice(j1) => {
               val s2 = s.copy(pathList = a :: s.pathList)
               visit(s2, j1)

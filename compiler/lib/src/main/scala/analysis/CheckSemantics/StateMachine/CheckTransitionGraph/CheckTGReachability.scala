@@ -14,8 +14,8 @@ object CheckTGReachability {
         if reachableNodes.contains(node)
         then Right(())
         else {
-          val loc = Locations.get(node.soj.getSymbol.getNodeId)
-          val name = node.soj.getName
+          val loc = Locations.get(node.soc.getSymbol.getNodeId)
+          val name = node.soc.getName
           Left(SemanticError.StateMachine.UnreachableNode(name, loc))
         }
     )

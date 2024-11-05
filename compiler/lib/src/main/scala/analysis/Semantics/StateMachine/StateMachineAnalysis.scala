@@ -129,9 +129,9 @@ case class StateMachineAnalysis(
   }
 
   // Get a state or choice from a qualified identifier node
-  def getStateOrChoice(soj: AstNode[Ast.QualIdent]):
+  def getStateOrChoice(soc: AstNode[Ast.QualIdent]):
   StateOrChoice =
-    useDefMap(soj.id) match {
+    useDefMap(soc.id) match {
       case state: StateMachineSymbol.State => StateOrChoice.State(state)
       case choice: StateMachineSymbol.Choice => StateOrChoice.Choice(choice)
       case _ => throw new InternalError("expected state or choice")

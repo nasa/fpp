@@ -19,8 +19,8 @@ object ComputeTypeOptionMap
     te: StateMachineTypedElement.Choice
   ): Result = {
     val sym = StateMachineSymbol.Choice(te.aNode)
-    val soj = StateOrChoice.Choice(sym)
-    val node = TransitionGraph.Node(soj)
+    val soc = StateOrChoice.Choice(sym)
+    val node = TransitionGraph.Node(soc)
     val arcs = sma.reverseTransitionGraph.arcMap(node).toList
     arcs match {
       case Nil =>

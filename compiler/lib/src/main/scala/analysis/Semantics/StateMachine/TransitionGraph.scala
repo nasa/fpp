@@ -47,7 +47,7 @@ object TransitionGraph {
 
   type ArcMap = Map[Node, Set[Arc]]
 
-  case class Node(soj: StateOrChoice)
+  case class Node(soc: StateOrChoice)
 
   sealed trait Arc {
     def getStartNode: Node
@@ -68,7 +68,7 @@ object TransitionGraph {
       def showKind = "initial transition"
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
-        val endName = endNode.soj.getName
+        val endName = endNode.soc.getName
         s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
@@ -83,7 +83,7 @@ object TransitionGraph {
       def showKind = "state transition"
       def showTransition = {
         val loc = Locations.get(aNode._2.id)
-        val endName = endNode.soj.getName
+        val endName = endNode.soc.getName
         s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
@@ -98,7 +98,7 @@ object TransitionGraph {
       def showKind = "choice transition"
       def showTransition = {
         val loc = Locations.get(aNode.id)
-        val endName = endNode.soj.getName
+        val endName = endNode.soc.getName
         s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
