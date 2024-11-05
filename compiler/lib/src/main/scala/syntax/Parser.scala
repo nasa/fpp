@@ -147,11 +147,11 @@ object Parser extends Parsers {
     }
   }
 
-  def defJunction: Parser[Ast.DefJunction] = {
+  def defChoice: Parser[Ast.DefChoice] = {
     (choice ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
       (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
       case ident ~ guard ~ ifTransition ~ elseTransition =>
-        Ast.DefJunction(ident, guard, ifTransition, elseTransition)
+        Ast.DefChoice(ident, guard, ifTransition, elseTransition)
     }
   }
 
@@ -697,7 +697,7 @@ object Parser extends Parsers {
     node(defSignal) ^^ { case n => Ast.StateMachineMember.DefSignal(n) } |
     node(defAction) ^^ { case n => Ast.StateMachineMember.DefAction(n) } |
     node(defGuard) ^^ { case n => Ast.StateMachineMember.DefGuard(n) } |
-    node(defJunction) ^^ { case n => Ast.StateMachineMember.DefJunction(n) } |
+    node(defChoice) ^^ { case n => Ast.StateMachineMember.DefChoice(n) } |
     failure("state machine member expected")
   }
 
@@ -705,7 +705,7 @@ object Parser extends Parsers {
     annotatedElementSequence(stateMachineMemberNode, semi, Ast.StateMachineMember(_))
 
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
-    node(defJunction) ^^ { case n => Ast.StateMember.DefJunction(n) } |
+    node(defChoice) ^^ { case n => Ast.StateMember.DefChoice(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
     node(specStateEntry) ^^ { case n => Ast.StateMember.SpecStateEntry(n) } |
     node(specStateExit) ^^ { case n => Ast.StateMember.SpecStateExit(n) } |

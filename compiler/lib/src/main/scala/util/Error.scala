@@ -264,9 +264,9 @@ sealed trait Error {
           System.err.println("target is defined here:")
           System.err.println(loc)
         })
-      case SemanticError.StateMachine.JunctionCycle(loc, msg) =>
+      case SemanticError.StateMachine.ChoiceCycle(loc, msg) =>
         Error.print (Some(loc)) (msg)
-      case SemanticError.StateMachine.JunctionTypeMismatch(
+      case SemanticError.StateMachine.ChoiceTypeMismatch(
         loc, toLoc1, to1, toLoc2, to2
       ) =>
         Error.print (Some(loc)) (s"type mismatch at junction")
@@ -611,13 +611,13 @@ object SemanticError {
       msg: String,
       destLoc: Option[Location] = None
     ) extends Error
-    /** Junction cycle */
-    final case class JunctionCycle(
+    /** Choice cycle */
+    final case class ChoiceCycle(
       loc: Location,
       msg: String
     ) extends Error
-    /** Junction type mismatch */
-    final case class JunctionTypeMismatch(
+    /** Choice type mismatch */
+    final case class ChoiceTypeMismatch(
       loc: Location,
       toLoc1: Location,
       to1: String,

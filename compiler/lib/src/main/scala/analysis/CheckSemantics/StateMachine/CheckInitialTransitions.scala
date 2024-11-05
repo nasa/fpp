@@ -140,8 +140,8 @@ object CheckInitialTransitions
                           else Left(destSymbol :: errorSymbols)
         // Recursively check junction targets
         visitedSymbols <- destSymbol match {
-          // Junction: check it
-          case StateMachineSymbol.Junction(aNode) =>
+          // Choice: check it
+          case StateMachineSymbol.Choice(aNode) =>
             for {
               // Recursively check the if transition
               visitedSymbols <- {

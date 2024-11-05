@@ -34,7 +34,7 @@ object CheckStateMachineUses extends StateMachineUseAnalyzer {
     use: Name.Unqualified
   ): Result = helpers.visitIdentNode (StateMachineNameGroup.Signal) (sma, node)
 
-  override def stateOrJunctionUse(
+  override def stateOrChoiceUse(
     sma: StateMachineAnalysis,
     node: AstNode[Ast.QualIdent],
     use: Name.Qualified

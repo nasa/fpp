@@ -11,7 +11,7 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     aNode: Ast.Annotated[AstNode[Ast.DefState]]
   ) = {
     val sym = StateMachineSymbol.State(aNode)
-    val soj = StateOrJunction.State(sym)
+    val soj = StateOrChoice.State(sym)
     val node = TransitionGraph.Node(soj)
     val transitionGraph = sma.transitionGraph.addNode(node)
     super.defStateAnnotatedNode(
@@ -20,15 +20,15 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     )
   }
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
-    val sym = StateMachineSymbol.Junction(aNode)
-    val soj = StateOrJunction.Junction(sym)
+    val sym = StateMachineSymbol.Choice(aNode)
+    val soj = StateOrChoice.Choice(sym)
     val node = TransitionGraph.Node(soj)
     val transitionGraph = sma.transitionGraph.addNode(node)
-    super.defJunctionAnnotatedNode(
+    super.defChoiceAnnotatedNode(
       sma.copy(transitionGraph = transitionGraph),
       aNode
     )
@@ -68,11 +68,11 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
 
   override def junctionTransitionExpr(
     sma: StateMachineAnalysis,
-    junction: StateMachineSymbol.Junction,
+    junction: StateMachineSymbol.Choice,
     exprNode: AstNode[Ast.TransitionExpr]
   ): Result = {
     val endNode = getNodeFromExpr(sma, exprNode)
-    val arc = TransitionGraph.Arc.Junction(junction, exprNode, endNode)
+    val arc = TransitionGraph.Arc.Choice(junction, exprNode, endNode)
     val transitionGraph = sma.transitionGraph.addArc(arc)
     Right(sma.copy(transitionGraph = transitionGraph))
   }
@@ -84,9 +84,9 @@ object ConstructTransitionGraph extends TransitionExprAnalyzer {
     val sym = sma.useDefMap(exprNode.data.target.id)
     val soj = sym match {
       case state: StateMachineSymbol.State =>
-        StateOrJunction.State(state)
-      case junction: StateMachineSymbol.Junction =>
-        StateOrJunction.Junction(junction)
+        StateOrChoice.State(state)
+      case junction: StateMachineSymbol.Choice =>
+        StateOrChoice.Choice(junction)
       case _ => throw new InternalError("transition should go to state or junction")
     }
     TransitionGraph.Node(soj)

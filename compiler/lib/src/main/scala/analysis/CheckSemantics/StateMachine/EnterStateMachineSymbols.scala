@@ -19,10 +19,10 @@ object EnterStateMachineSymbols
     aNode: Ast.Annotated[AstNode[Ast.DefGuard]]
   ) = visitNode(sma, aNode, StateMachineSymbol.Guard(_), List(StateMachineNameGroup.Guard))
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
-  ) = visitNode(sma, aNode, StateMachineSymbol.Junction(_), List(StateMachineNameGroup.State))
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
+  ) = visitNode(sma, aNode, StateMachineSymbol.Choice(_), List(StateMachineNameGroup.State))
 
   override def defSignalAnnotatedNode(
     sma: StateMachineAnalysis,

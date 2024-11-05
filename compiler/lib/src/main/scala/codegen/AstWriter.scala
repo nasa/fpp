@@ -122,9 +122,9 @@ object AstWriter extends AstVisitor with LineUtils {
     ).map(indentIn)
   }
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     in: In,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
     val (_, node, _) = aNode
     val data = node.data

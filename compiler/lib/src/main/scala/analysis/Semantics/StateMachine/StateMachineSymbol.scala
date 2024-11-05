@@ -18,7 +18,7 @@ object StateMachineSymbol {
     override def getUnqualifiedName = node._2.data.name
   }
 
-  final case class Junction(node: Ast.Annotated[AstNode[Ast.DefJunction]]) extends StateMachineSymbol {
+  final case class Choice(node: Ast.Annotated[AstNode[Ast.DefChoice]]) extends StateMachineSymbol {
     override def getNodeId = node._2.id
     override def getUnqualifiedName = node._2.data.name
   }

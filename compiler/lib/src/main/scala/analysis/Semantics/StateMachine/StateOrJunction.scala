@@ -4,21 +4,21 @@ import fpp.compiler.ast._
 import fpp.compiler.util._
 
 /** An FPP state or junction */
-sealed trait StateOrJunction {
+sealed trait StateOrChoice {
   def getSymbol: StateMachineSymbol
   def getName: String
 }
 
-object StateOrJunction {
+object StateOrChoice {
 
   final case class State(symbol: StateMachineSymbol.State)
-    extends StateOrJunction {
+    extends StateOrChoice {
       def getSymbol = symbol
       def getName = s"state ${symbol.getUnqualifiedName}"
     }
 
-  final case class Junction(symbol: StateMachineSymbol.Junction)
-    extends StateOrJunction {
+  final case class Choice(symbol: StateMachineSymbol.Choice)
+    extends StateOrChoice {
       def getSymbol = symbol
       def getName = s"junction ${symbol.getUnqualifiedName}"
     }

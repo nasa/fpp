@@ -47,7 +47,7 @@ object TransitionGraph {
 
   type ArcMap = Map[Node, Set[Arc]]
 
-  case class Node(soj: StateOrJunction)
+  case class Node(soj: StateOrChoice)
 
   sealed trait Arc {
     def getStartNode: Node
@@ -62,7 +62,7 @@ object TransitionGraph {
       aNode: Ast.Annotated[AstNode[Ast.SpecInitialTransition]],
       endNode: Node
     ) extends Arc {
-      def getStartNode = Node(StateOrJunction.State(startState))
+      def getStartNode = Node(StateOrChoice.State(startState))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.InitialTransition(aNode)
       def showKind = "initial transition"
@@ -77,7 +77,7 @@ object TransitionGraph {
       aNode: Ast.Annotated[AstNode[Ast.SpecStateTransition]],
       endNode: Node
     ) extends Arc {
-      def getStartNode = Node(StateOrJunction.State(startState))
+      def getStartNode = Node(StateOrChoice.State(startState))
       def getEndNode = endNode
       def getTypedElement = StateMachineTypedElement.StateTransition(aNode)
       def showKind = "state transition"
@@ -87,14 +87,14 @@ object TransitionGraph {
         s"$showKind at ${loc.file}:${loc.pos} to $endName"
       }
     }
-    case class Junction(
-      startJunction: StateMachineSymbol.Junction,
+    case class Choice(
+      startChoice: StateMachineSymbol.Choice,
       aNode: AstNode[Ast.TransitionExpr],
       endNode: Node
     ) extends Arc {
-      def getStartNode = Node(StateOrJunction.Junction(startJunction))
+      def getStartNode = Node(StateOrChoice.Choice(startChoice))
       def getEndNode = endNode
-      def getTypedElement = StateMachineTypedElement.Junction(startJunction.node)
+      def getTypedElement = StateMachineTypedElement.Choice(startChoice.node)
       def showKind = "junction transition"
       def showTransition = {
         val loc = Locations.get(aNode.id)

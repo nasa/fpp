@@ -35,7 +35,7 @@ object ComputeFlattenedStateTransitionMap
         val transition = sts.transitionOrDo match {
           case Ast.TransitionOrDo.Transition(transition) =>
             val actions = transition.data.actions.map(sma.getActionSymbol)
-            val target = sma.getStateOrJunction(transition.data.target)
+            val target = sma.getStateOrChoice(transition.data.target)
             Transition.External(actions, target)
           case Ast.TransitionOrDo.Do(actions) =>
             Transition.Internal(actions.map(sma.getActionSymbol))
@@ -49,7 +49,7 @@ object ComputeFlattenedStateTransitionMap
         val fstm = stm.foldLeft (sma.flattenedStateTransitionMap) {
           case (fstm, (s, gt)) => {
             val state = StateMachineSymbol.State(aNode)
-            val soj = StateOrJunction.State(state)
+            val soj = StateOrChoice.State(state)
             val cft = ConstructFlattenedTransition(sma, soj)
             val transition = cft.transition(gt.transition)
             val gt1 = Transition.Guarded(gt.guardOpt, transition)

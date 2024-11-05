@@ -149,8 +149,8 @@ abstract class StateMachineCppWriterUtils(
   {
     val functionName = getEnterFunctionName(sym)
     val typeOpt = sym match {
-      case StateMachineSymbol.Junction(aNode) =>
-        val te = StateMachineTypedElement.Junction(aNode)
+      case StateMachineSymbol.Choice(aNode) =>
+        val te = StateMachineTypedElement.Choice(aNode)
         sma.typeOptionMap(te)
       case _ => None
     }

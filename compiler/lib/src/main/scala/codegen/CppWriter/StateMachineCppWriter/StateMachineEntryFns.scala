@@ -11,20 +11,20 @@ case class StateMachineEntryFns(
 
   def write = defStateMachineAnnotatedNode(Nil, aNode)
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     mm: List[CppDoc.Class.Member],
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = {
     val data = aNode._2.data
-    val junctionSym = StateMachineSymbol.Junction(aNode)
+    val junctionSym = StateMachineSymbol.Choice(aNode)
     val junctionName = writeSmSymbolName(junctionSym)
-    val te = StateMachineTypedElement.Junction(aNode)
+    val te = StateMachineTypedElement.Choice(aNode)
     val typeOpt = sma.typeOptionMap(te)
     val valueArgOpt = typeOpt.map(_ => valueParamName)
     val guardSym = sma.getGuardSymbol(data.guard)
-    val writeJunctionTransition = writeTransition (signalParamName) (valueArgOpt)
-    val ifTransition = sma.flattenedJunctionTransitionMap(data.ifTransition)
-    val elseTransition = sma.flattenedJunctionTransitionMap(data.elseTransition)
+    val writeChoiceTransition = writeTransition (signalParamName) (valueArgOpt)
+    val ifTransition = sma.flattenedChoiceTransitionMap(data.ifTransition)
+    val elseTransition = sma.flattenedChoiceTransitionMap(data.elseTransition)
     val member = functionClassMember(
       Some(s"Enter choice $junctionName"),
       getEnterFunctionName(junctionSym),
@@ -32,8 +32,8 @@ case class StateMachineEntryFns(
       CppDoc.Type("void"),
       wrapInIfElse(
         writeGuardCall (signalParamName) (valueArgOpt) (guardSym),
-        writeJunctionTransition (ifTransition),
-        writeJunctionTransition (elseTransition)
+        writeChoiceTransition (ifTransition),
+        writeChoiceTransition (elseTransition)
       )
     )
     member :: mm

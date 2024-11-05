@@ -22,7 +22,7 @@ trait SmTypedElementAnalyzer
 
   def junctionTypedElement(
     sma: StateMachineAnalysis,
-    te: StateMachineTypedElement.Junction
+    te: StateMachineTypedElement.Choice
   ): Result = default(sma)
 
   def stateEntryTypedElement(
@@ -50,7 +50,7 @@ trait SmTypedElementAnalyzer
   ): Result = te match {
     case it: StateMachineTypedElement.InitialTransition =>
       initialTransitionTypedElement(sma, it)
-    case j: StateMachineTypedElement.Junction =>
+    case j: StateMachineTypedElement.Choice =>
       junctionTypedElement(sma, j)
     case se: StateMachineTypedElement.StateEntry =>
       stateEntryTypedElement(sma, se)
@@ -60,12 +60,12 @@ trait SmTypedElementAnalyzer
       stateTransitionTypedElement(sma, st)
   }
 
-  override def defJunctionAnnotatedNode(
+  override def defChoiceAnnotatedNode(
     sma: StateMachineAnalysis,
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) = visitTypedElement(
     sma,
-    StateMachineTypedElement.Junction(aNode)
+    StateMachineTypedElement.Choice(aNode)
   )
 
   override def specStateEntryAnnotatedNode(

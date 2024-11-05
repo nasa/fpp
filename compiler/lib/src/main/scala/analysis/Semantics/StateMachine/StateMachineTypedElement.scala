@@ -39,8 +39,8 @@ object StateMachineTypedElement {
     def showKind = "state transition"
   }
 
-  final case class Junction(
-    aNode: Ast.Annotated[AstNode[Ast.DefJunction]]
+  final case class Choice(
+    aNode: Ast.Annotated[AstNode[Ast.DefChoice]]
   ) extends StateMachineTypedElement {
     def getNodeId = aNode._2.id
     def showKind = "junction"

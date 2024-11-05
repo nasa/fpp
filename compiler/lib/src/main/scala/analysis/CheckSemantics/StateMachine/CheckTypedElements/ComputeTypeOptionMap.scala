@@ -16,10 +16,10 @@ object ComputeTypeOptionMap
 
   override def junctionTypedElement(
     sma: StateMachineAnalysis,
-    te: StateMachineTypedElement.Junction
+    te: StateMachineTypedElement.Choice
   ): Result = {
-    val sym = StateMachineSymbol.Junction(te.aNode)
-    val soj = StateOrJunction.Junction(sym)
+    val sym = StateMachineSymbol.Choice(te.aNode)
+    val soj = StateOrChoice.Choice(sym)
     val node = TransitionGraph.Node(soj)
     val arcs = sma.reverseTransitionGraph.arcMap(node).toList
     arcs match {
@@ -39,7 +39,7 @@ object ComputeTypeOptionMap
               val te2 = arc.getTypedElement
               for {
                 sma2 <- visitTypedElement(sma1, te2)
-                to2 <- sma2.commonTypeAtJunction(te, te1, to1, te2)
+                to2 <- sma2.commonTypeAtChoice(te, te1, to1, te2)
               }
               yield (sma2, te2, to2)
             }
