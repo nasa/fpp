@@ -523,7 +523,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_External-State-Machines">9.1. External State Machines</a></li>
 <li><a href="#Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</a></li>
 <li><a href="#Defining-State-Machines_Actions">9.3. Actions</a></li>
-<li><a href="#Defining-State-Machines_Entry-and-Exit-Specifiers">9.4. Entry and Exit Specifiers</a></li>
+<li><a href="#Defining-State-Machines_State-Entry-and-Exit-Specifiers">9.4. State Entry and Exit Specifiers</a></li>
 <li><a href="#Defining-State-Machines_Typed-Signals-and-Actions">9.5. Typed Signals and Actions</a></li>
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</a></li>
 <li><a href="#Defining-State-Machines_Transitions-to-Self">9.7. Transitions to Self</a></li>
@@ -3793,7 +3793,8 @@ previous section, with actions added:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
 state machine Device {
 
   @ Initial action 1
@@ -3802,10 +3803,10 @@ state machine Device {
   @ Initial action 2
   action initialAction2
 
-  @ An action on the transition from off to on
+  @ An action on the transition from OFF to ON
   action offOnAction
 
-  @ An action on the transition from on to off
+  @ An action on the transition from ON to OFF
   action onOffAction
 
   @ A signal for turning the device on
@@ -3822,7 +3823,7 @@ state machine Device {
   state ON {
 
     @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    @ Before entering the OFF state, do offAction
+    @ Before entering the OFF state, do onOffAction
     on deviceOff do { onOffAction } enter OFF
 
   }
@@ -3831,7 +3832,7 @@ state machine Device {
   state OFF {
 
     @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    @ Before entering the ON state, do onAction
+    @ Before entering the ON state, do offOnAction
     on deviceOn do { offOnAction } enter ON
 
   }
@@ -3841,7 +3842,7 @@ state machine Device {
 </div>
 <div class="paragraph">
 <p>In this example there are four actions:
-<code>initialAction1</code>, <code>initialAction2</code>, <code>onAction</code>, and <code>offAction</code>.
+<code>initialAction1</code>, <code>initialAction2</code>, <code>offOnAction</code>, and <code>onOffAction</code>.
 The behavior of each of these actions is specified in the C&#43;&#43;
 implementation; for example, each could emit an
 <a href="#Defining-Components_Events">F Prime event</a>.
@@ -3873,9 +3874,114 @@ terminating punctuation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Entry-and-Exit-Specifiers">9.4. Entry and Exit Specifiers</h3>
+<h3 id="Defining-State-Machines_State-Entry-and-Exit-Specifiers">9.4. State Entry and Exit Specifiers</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>In addition to doing actions on transitions, a state machine
+can do actions on entry to or exit from a state.
+To specify these actions, you write <strong>state entry specifiers</strong>
+and <strong>state exit specifiers</strong>.
+For example, here is the <code>Device</code> state machine from
+the previous section, with state entry and exit specifiers
+added to the <code>ON</code> and <code>OFF</code> states:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions and on state entry and exit
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ An action on entering the OFF state
+  action enterOff
+
+  @ An action on exiting the OFF state
+  action exitOff
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on deviceOff do { onOffAction } enter OFF
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ On entering the OFF state, do enterOff
+    entry do { enterOff }
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on deviceOn do { offOnAction } enter ON
+
+    @ On exiting the OFF state, do exitOff
+    exit do { exitOff }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As with actions on transitions, each entry or exit specifier names
+a list of actions, and they are done in the order named.
+The entry actions are done just before entering the state,
+and the exit actions are done just before exiting the state.
+For example, if the state machine is in state <code>OFF</code> and it
+receives a <code>deviceOn</code> signal, then it runs the following behavior,
+in the following order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Exit state <code>OFF</code>. On exit, do <code>exitOff</code>.</p>
+</li>
+<li>
+<p>Transition from <code>OFF</code> to <code>ON</code>. On the transition, do <code>offOnAction</code>.</p>
+</li>
+<li>
+<p>Enter state <code>ON</code>. On entry, do <code>enterOn</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each state may have at most one entry specifier and at most one
+exit specifier.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13103,7 +13209,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-05 09:16:13 -0800
+Last updated 2024-11-05 09:37:28 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

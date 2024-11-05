@@ -224,7 +224,8 @@ previous section, with actions added:
 
 [source,fpp]
 ----
-@ A state machine representing a device with on-off behavior
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
 state machine Device {
 
   @ Initial action 1
@@ -233,10 +234,10 @@ state machine Device {
   @ Initial action 2
   action initialAction2
 
-  @ An action on the transition from off to on
+  @ An action on the transition from OFF to ON
   action offOnAction
 
-  @ An action on the transition from on to off
+  @ An action on the transition from ON to OFF
   action onOffAction
 
   @ A signal for turning the device on
@@ -253,7 +254,7 @@ state machine Device {
   state ON {
 
     @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    @ Before entering the OFF state, do offAction
+    @ Before entering the OFF state, do onOffAction
     on deviceOff do { onOffAction } enter OFF
 
   }
@@ -262,7 +263,7 @@ state machine Device {
   state OFF {
 
     @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    @ Before entering the ON state, do onAction
+    @ Before entering the ON state, do offOnAction
     on deviceOn do { offOnAction } enter ON
 
   }
@@ -271,7 +272,7 @@ state machine Device {
 ----
 
 In this example there are four actions:
-`initialAction1`, `initialAction2`, `onAction`, and `offAction`.
+`initialAction1`, `initialAction2`, `offOnAction`, and `onOffAction`.
 The behavior of each of these actions is specified in the {cpp}
 implementation; for example, each could emit an 
 <<Defining-Components_Events,F Prime event>>.
@@ -294,9 +295,105 @@ Each action list is an
 element sequence>> with a comma as the optional
 terminating punctuation.
 
-=== Entry and Exit Specifiers
+=== State Entry and Exit Specifiers
 
-TODO
+In addition to doing actions on transitions, a state machine
+can do actions on entry to or exit from a state.
+To specify these actions, you write *state entry specifiers*
+and *state exit specifiers*.
+For example, here is the `Device` state machine from
+the previous section, with state entry and exit specifiers
+added to the `ON` and `OFF` states:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions and on state entry and exit
+state machine Device {
+
+  @ Initial action 1
+  action initialAction1
+
+  @ Initial action 2
+  action initialAction2
+
+  @ An action on the transition from OFF to ON
+  action offOnAction
+
+  @ An action on the transition from ON to OFF
+  action onOffAction
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ An action on entering the OFF state
+  action enterOff
+
+  @ An action on exiting the OFF state
+  action exitOff
+
+  @ A signal for turning the device on
+  signal deviceOn
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial do { initialAction1, initialAction2 } enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ Before entering the OFF state, do offAction
+    on deviceOff do { onOffAction } enter OFF
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ On entering the OFF state, do enterOff
+    entry do { enterOff }
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do onAction
+    on deviceOn do { offOnAction } enter ON
+
+    @ On exiting the OFF state, do exitOff
+    exit do { exitOff }
+
+  }
+
+}
+----
+
+As with actions on transitions, each entry or exit specifier names
+a list of actions, and they are done in the order named.
+The entry actions are done just before entering the state,
+and the exit actions are done just before exiting the state.
+For example, if the state machine is in state `OFF` and it
+receives a `deviceOn` signal, then it runs the following behavior,
+in the following order:
+
+* Exit state `OFF`. On exit, do `exitOff`.
+
+* Transition from `OFF` to `ON`. On the transition, do `offOnAction`.
+
+* Enter state `ON`. On entry, do `enterOn`.
+
+Each state may have at most one entry specifier and at most one
+exit specifier.
 
 === Typed Signals and Actions
 
