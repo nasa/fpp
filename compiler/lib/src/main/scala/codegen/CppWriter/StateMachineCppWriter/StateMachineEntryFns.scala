@@ -26,7 +26,7 @@ case class StateMachineEntryFns(
     val ifTransition = sma.flattenedJunctionTransitionMap(data.ifTransition)
     val elseTransition = sma.flattenedJunctionTransitionMap(data.elseTransition)
     val member = functionClassMember(
-      Some(s"Enter junction $junctionName"),
+      Some(s"Enter choice $junctionName"),
       getEnterFunctionName(junctionSym),
       getParamsWithTypeOpt(typeOpt),
       CppDoc.Type("void"),

@@ -92,7 +92,7 @@ namespace FppTest {
     }
 
     // ----------------------------------------------------------------------
-    // State and junction entry
+    // State and choice entry
     // ----------------------------------------------------------------------
 
     void PolymorphismStateMachineBase ::

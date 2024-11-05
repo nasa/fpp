@@ -87,7 +87,7 @@ namespace FppTest {
     }
 
     // ----------------------------------------------------------------------
-    // State and junction entry
+    // State and choice entry
     // ----------------------------------------------------------------------
 
     void InputPairU16U32StateMachineBase ::

@@ -86,7 +86,7 @@ case class StateMachineCppWriter(
   private def getEntryMembers: List[CppDoc.Class.Member] =
     addAccessTagAndComment(
       "PRIVATE",
-      "State and junction entry",
+      "State and choice entry",
       StateMachineEntryFns(s, aNode).write
     )
 

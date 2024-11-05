@@ -160,7 +160,7 @@ namespace FppTest {
       PRIVATE:
 
         // ----------------------------------------------------------------------
-        // State and junction entry
+        // State and choice entry
         // ----------------------------------------------------------------------
 
         //! Enter state S4
@@ -168,7 +168,7 @@ namespace FppTest {
             Signal signal //!< The signal
         );
 
-        //! Enter junction S4_C
+        //! Enter choice S4_C
         void enter_S4_C(
             Signal signal //!< The signal
         );
