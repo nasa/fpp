@@ -80,6 +80,14 @@ object Parser extends Parsers {
     }
   }
 
+  def defChoice: Parser[Ast.DefChoice] = {
+    (choice ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
+      (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
+      case ident ~ guard ~ ifTransition ~ elseTransition =>
+        Ast.DefChoice(ident, guard, ifTransition, elseTransition)
+    }
+  }
+
   def defComponent: Parser[Ast.DefComponent] = {
     componentKind ~! (component ~>! ident) ~! (lbrace ~>! componentMembers <~! rbrace) ^^ {
       case kind ~ name ~ members => Ast.DefComponent(kind, name, members)
@@ -144,14 +152,6 @@ object Parser extends Parsers {
   def defGuard: Parser[Ast.DefGuard] = {
     (guard ~> ident) ~! opt(colon ~>! node(typeName)) ^^ {
       case ident ~ typeName => Ast.DefGuard(ident, typeName)
-    }
-  }
-
-  def defChoice: Parser[Ast.DefChoice] = {
-    (choice ~> ident) ~! (lbrace ~> ifToken ~> node(ident)) ~! node(transitionExpr) ~!
-      (elseToken ~> node(transitionExpr)) <~! rbrace ^^ {
-      case ident ~ guard ~ ifTransition ~ elseTransition =>
-        Ast.DefChoice(ident, guard, ifTransition, elseTransition)
     }
   }
 
@@ -707,9 +707,9 @@ object Parser extends Parsers {
   def stateMemberNode: Parser[Ast.StateMember.Node] = {
     node(defChoice) ^^ { case n => Ast.StateMember.DefChoice(n) } |
     node(defState) ^^ { case n => Ast.StateMember.DefState(n) } |
+    node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specStateEntry) ^^ { case n => Ast.StateMember.SpecStateEntry(n) } |
     node(specStateExit) ^^ { case n => Ast.StateMember.SpecStateExit(n) } |
-    node(specInitialTransition) ^^ { case n => Ast.StateMember.SpecInitialTransition(n) } |
     node(specStateTransition) ^^ { case n => Ast.StateMember.SpecStateTransition(n) } |
     failure("state member expected")
   }

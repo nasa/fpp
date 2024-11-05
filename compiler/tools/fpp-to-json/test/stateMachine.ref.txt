@@ -346,7 +346,7 @@
                           "Choice C"
                         ],
                         {
-                          "DefJunction" : {
+                          "DefChoice" : {
                             "node" : {
                               "AstNode" : {
                                 "data" : {
@@ -552,7 +552,7 @@
                                         "Choice C"
                                       ],
                                       {
-                                        "DefJunction" : {
+                                        "DefChoice" : {
                                           "node" : {
                                             "AstNode" : {
                                               "data" : {

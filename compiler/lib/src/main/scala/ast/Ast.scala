@@ -163,8 +163,8 @@ object Ast {
   object StateMachineMember {
     sealed trait Node
     final case class DefAction(node: AstNode[Ast.DefAction]) extends Node
-    final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefChoice(node: AstNode[Ast.DefChoice]) extends Node
+    final case class DefGuard(node: AstNode[Ast.DefGuard]) extends Node
     final case class DefSignal(node: AstNode[Ast.DefSignal]) extends Node
     final case class DefState(node: AstNode[Ast.DefState]) extends Node
     final case class SpecInitialTransition(node: AstNode[Ast.SpecInitialTransition]) extends Node
@@ -176,18 +176,18 @@ object Ast {
     typeName: Option[AstNode[TypeName]]
   )
 
-  /** Guard definition */
-  final case class DefGuard(
-    name: Ident,
-    typeName: Option[AstNode[TypeName]]
-  )
-
   /** Choice definition */
   final case class DefChoice(
     name: Ident,
     guard: AstNode[Ident],
     ifTransition: AstNode[TransitionExpr],
     elseTransition: AstNode[TransitionExpr]
+  )
+
+  /** Guard definition */
+  final case class DefGuard(
+    name: Ident,
+    typeName: Option[AstNode[TypeName]]
   )
 
   /** Transition expression */
