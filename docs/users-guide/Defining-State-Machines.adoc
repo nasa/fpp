@@ -41,7 +41,8 @@ A state machine definition is an
 Once you define a state machine, you can
 <<Defining-Components_State-Machine-Instances,
 instantiate it as part of a component>>.
-
+The component can then send the signals that cause the state
+transitions.
 
 === External State Machines
 
@@ -66,7 +67,7 @@ the state machine `M` is defined.
 
 === Basic Internal State Machines
 
-The most basic internal state machine `M` that has any useful
+The simplest internal state machine `M` that has any useful
 behavior consists of the following:
 
 * Several *state definitions*.
@@ -214,7 +215,7 @@ To specify an action, you write the keyword `action` followed
 by the name of the action.
 As with <<Defining-State-Machines_Basic-Internal-State-Machines,signals>>,
 every action name must be unique.
-To specify that an action should be done, you write the keyword `do`
+To do an action, you write the keyword `do`
 followed by a list of action names enclosed in curly braces.
 You can do this in an initial transition specifier or in a
 state transition specifier.
@@ -397,7 +398,98 @@ exit specifier.
 
 === Typed Signals and Actions
 
-TODO
+Optionally, signals and actions may carry data values.
+To specify that a signal or action carries a data value,
+you write a colon and a data type at the end of the
+signal or action specifier.
+For example, here is a `Device` state machine in which
+the `deviceOn` signal and the `offOnAction` each carries
+a `U32` counter value:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ An action on the transition from OFF to ON
+  @ The value counts the number of times this action has occurred
+  action offOnAction: U32
+
+  @ A signal for turning the device on
+  @ The value counts the number of times this signal has been received
+  signal deviceOn: U32
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    on deviceOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction, passing the data from
+    @ the signal into the action
+    on deviceOn do { offOnAction } enter ON
+
+  }
+
+}
+----
+
+When you send the `deviceOn` signal to an instance of
+this state machine, you are required to provide a `U32` value.
+When the state machine is in the `OFF` state and it receives
+this signal, it does action `offOnAction` as shown.
+The function that defines the behavior of `offOnAction` has
+a single argument of type `U32`.
+The value provided when the signal is sent is passed as the
+argument to this function.
+
+Here are the rules for writing typed signals and actions:
+
+* When you do an action that has a type, a value
+compatible with that type must be available.
+For example, we can't do the `offOnAction` in the `deviceOff` transition shown 
+above, because no `U32`
+value is available there.
+Similarly, no action done in a
+<<Defining-State-Machines_State-Entry-and-Exit-Specifiers,
+state entry or exit specifier>> may carry a value,
+because no values are available on entry to or exit
+from a state.
+
+* The type that appears in a signal or an action can
+be any FPP type.
+In the example above we used a simple `U32` type,
+but we could have used, for example, be a struct or array type.
+
+* When doing an action with a value, you don't have to
+make the types exactly match.
+For example, you are permitted to pass a `U16` value
+to an action that requires a `U32` value.
+However, the type of the value must be convertible to the type
+specified in the action.
+The type conversion rules are spelled out in full in
+_The FPP Language Specification_.
+In general, the analyzer will allow a conversion if it
+can be safely done for all values of the original type.
+
+* If an action _A_ does not carry any value, then you
+can do _A_ in a context where a value is available.
+For example, in the code shown above, the `deviceOn`
+transition could do some other action that carries no value.
+In this case the value is ignored when doing the action.
 
 === Guarded Transitions
 

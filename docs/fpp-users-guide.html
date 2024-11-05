@@ -3575,7 +3575,9 @@ definitions.</p>
 A state machine definition is an
 <a href="#Writing-Comments-and-Annotations_Annotations">annotatable element</a>.
 Once you define a state machine, you can
-<a href="#Defining-Components_State-Machine-Instances">instantiate it as part of a component</a>.</p>
+<a href="#Defining-Components_State-Machine-Instances">instantiate it as part of a component</a>.
+The component can then send the signals that cause the state
+transitions.</p>
 </div>
 <div class="sect2">
 <h3 id="Defining-State-Machines_External-State-Machines">9.1. External State Machines</h3>
@@ -3604,7 +3606,7 @@ the state machine <code>M</code> is defined.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</h3>
 <div class="paragraph">
-<p>The most basic internal state machine <code>M</code> that has any useful
+<p>The simplest internal state machine <code>M</code> that has any useful
 behavior consists of the following:</p>
 </div>
 <div class="ulist">
@@ -3782,7 +3784,7 @@ Running the function for an action <em>A</em> is called
 by the name of the action.
 As with <a href="#Defining-State-Machines_Basic-Internal-State-Machines">signals</a>,
 every action name must be unique.
-To specify that an action should be done, you write the keyword <code>do</code>
+To do an action, you write the keyword <code>do</code>
 followed by a list of action names enclosed in curly braces.
 You can do this in an initial transition specifier or in a
 state transition specifier.</p>
@@ -3987,7 +3989,107 @@ exit specifier.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Typed-Signals-and-Actions">9.5. Typed Signals and Actions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Optionally, signals and actions may carry data values.
+To specify that a signal or action carries a data value,
+you write a colon and a data type at the end of the
+signal or action specifier.
+For example, here is a <code>Device</code> state machine in which
+the <code>deviceOn</code> signal and the <code>offOnAction</code> each carries
+a <code>U32</code> counter value:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with actions on transitions
+state machine Device {
+
+  @ An action on the transition from OFF to ON
+  @ The value counts the number of times this action has occurred
+  action offOnAction: U32
+
+  @ A signal for turning the device on
+  @ The value counts the number of times this signal has been received
+  signal deviceOn: U32
+
+  @ A signal for turning the device off
+  signal deviceOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    on deviceOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ Before entering the ON state, do offOnAction, passing the data from
+    @ the signal into the action
+    on deviceOn do { offOnAction } enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you send the <code>deviceOn</code> signal to an instance of
+this state machine, you are required to provide a <code>U32</code> value.
+When the state machine is in the <code>OFF</code> state and it receives
+this signal, it does action <code>offOnAction</code> as shown.
+The function that defines the behavior of <code>offOnAction</code> has
+a single argument of type <code>U32</code>.
+The value provided when the signal is sent is passed as the
+argument to this function.</p>
+</div>
+<div class="paragraph">
+<p>Here are the rules for writing typed signals and actions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>When you do an action that has a type, a value
+compatible with that type must be available.
+For example, we can&#8217;t do the <code>offOnAction</code> in the <code>deviceOff</code> transition shown
+above, because no <code>U32</code>
+value is available there.
+Similarly, no action done in a
+<a href="#Defining-State-Machines_State-Entry-and-Exit-Specifiers">state entry or exit specifier</a> may carry a value,
+because no values are available on entry to or exit
+from a state.</p>
+</li>
+<li>
+<p>The type that appears in a signal or an action can
+be any FPP type.
+In the example above we used a simple <code>U32</code> type,
+but we could have used, for example, be a struct or array type.</p>
+</li>
+<li>
+<p>When doing an action with a value, you don&#8217;t have to
+make the types exactly match.
+For example, you are permitted to pass a <code>U16</code> value
+to an action that requires a <code>U32</code> value.
+However, the type of the value must be convertible to the type
+specified in the action.
+The type conversion rules are spelled out in full in
+<em>The FPP Language Specification</em>.
+In general, the analyzer will allow a conversion if it
+can be safely done for all values of the original type.</p>
+</li>
+<li>
+<p>If an action <em>A</em> does not carry any value, then you
+can do <em>A</em> in a context where a value is available.
+For example, in the code shown above, the <code>deviceOn</code>
+transition could do some other action that carries no value.
+In this case the value is ignored when doing the action.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -13209,7 +13311,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-05 09:37:28 -0800
+Last updated 2024-11-05 10:55:37 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
