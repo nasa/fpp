@@ -198,6 +198,8 @@ state machine Device {
 }
 ----
 
+Notice that state `ON` has a simple definition with no curly braces.
+
 === Actions
 
 An *action* is a function that a state machine calls at a
