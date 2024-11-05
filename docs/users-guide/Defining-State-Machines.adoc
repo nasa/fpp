@@ -200,17 +200,19 @@ state machine Device {
 
 === Actions
 
-An *action* is a function that a state machine calls when it takes
-a transition.
+An *action* is a function that a state machine calls at a
+specified point in its behavior.
 In the FPP model, actions are abstract:
 In the {cpp} back end they become pure virtual functions that
 you implement.
+Running the function for an action _A_ is called 
+*doing* _A_.
 
 To specify an action, you write the keyword `action` followed
 by the name of the action.
 As with <<Defining-State-Machines_Basic-Internal-State-Machines,signals>>,
 every action name must be unique.
-To specify that an action should be run, you write the keyword `do`
+To specify that an action should be done, you write the keyword `do`
 followed by a list of action names enclosed in curly braces.
 You can do this in an initial transition specifier or in a
 state transition specifier.
@@ -281,8 +283,6 @@ enter the `OFF` state.
 
 * In state `ON`, on receiving the `deviceOff` signal, do
 `onOffAction` and enter the `OFF` state.
-
-To do an action means to call the corresponding action function.
 
 When multiple actions appear in an action list, as in the initial
 transition specifier shown above, the actions occur in the order

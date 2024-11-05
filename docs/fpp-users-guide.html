@@ -791,16 +791,16 @@ We recommend that you read this document before consulting that one.</p>
 <div class="paragraph">
 <p><strong>Overview:</strong> The rest of this document proceeds as follows.
 Section 2 explains how to get up and running with FPP.
-Sections 3 through 11 describe the elements of an FPP
+Sections 3 through 12 describe the elements of an FPP
 model, starting with the simplest elements (constants
 and types) and working towards the most complex (components
 and topologies).
-Section 12 explains how to specify a model as a collection
+Section 13 explains how to specify a model as a collection
 of files: for example, it covers the management of dependencies
 between files.
-Section 13 explains how to analyze FPP models and how
+Section 14 explains how to analyze FPP models and how
 to translate FPP models to and from XML, to C&#43;&#43;, and to JSON.
-Section 14 explains how to write a C&#43;&#43; implementation
+Section 15 explains how to write a C&#43;&#43; implementation
 against the code generated from an FPP model.</p>
 </div>
 </div>
@@ -3766,18 +3766,20 @@ state machine Device {
 <div class="sect2">
 <h3 id="Defining-State-Machines_Actions">9.3. Actions</h3>
 <div class="paragraph">
-<p>An <strong>action</strong> is a function that a state machine calls when it takes
-a transition.
+<p>An <strong>action</strong> is a function that a state machine calls at a
+specified point in its behavior.
 In the FPP model, actions are abstract:
 In the C&#43;&#43; back end they become pure virtual functions that
-you implement.</p>
+you implement.
+Running the function for an action <em>A</em> is called
+<strong>doing</strong> <em>A</em>.</p>
 </div>
 <div class="paragraph">
 <p>To specify an action, you write the keyword <code>action</code> followed
 by the name of the action.
 As with <a href="#Defining-State-Machines_Basic-Internal-State-Machines">signals</a>,
 every action name must be unique.
-To specify that an action should be run, you write the keyword <code>do</code>
+To specify that an action should be done, you write the keyword <code>do</code>
 followed by a list of action names enclosed in curly braces.
 You can do this in an initial transition specifier or in a
 state transition specifier.</p>
@@ -3857,9 +3859,6 @@ enter the <code>OFF</code> state.</p>
 <code>onOffAction</code> and enter the <code>OFF</code> state.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>To do an action means to call the corresponding action function.</p>
 </div>
 <div class="paragraph">
 <p>When multiple actions appear in an action list, as in the initial
@@ -13101,7 +13100,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-04 10:50:13 -0800
+Last updated 2024-11-05 09:14:25 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
