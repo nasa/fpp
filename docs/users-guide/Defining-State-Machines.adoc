@@ -67,21 +67,21 @@ the state machine `M` is defined.
 
 === Basic Internal State Machines
 
-The simplest internal state machine `M` that has any useful
+The simplest internal state machine _M_ that has any useful
 behavior consists of the following:
 
 * Several *state definitions*.
-These define the states of `M`.
+These define the states of _M_.
 
 * An *initial transition specifier*.
-This specifies the state that an instance of `M` is in when it starts up.
+This specifies the state that an instance of _M_ is in when it starts up.
 
-* One or more *signals* that cause `M` to change state.
+* One or more *signal definitions*.
 The external environment (typically an F Prime component)
-sends signals to instance of `M`.
+sends signals to instances of _M_.
 
 * One or more *state transition specifiers*.
-These tell each instance of `M` what to do when it receives a signal.
+These tell each instance of _M_ what to do when it receives a signal.
 
 Here is an example:
 
@@ -91,10 +91,10 @@ Here is an example:
 state machine Device {
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   initial enter OFF
@@ -102,16 +102,16 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    on deviceOff enter OFF
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    on deviceOn enter ON
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
 
   }
 
@@ -123,21 +123,24 @@ a device with on-off behavior.
 There are two states, `ON` and `OFF`.
 The initial transition specifier `initial enter OFF`
 says that the state machine is in state `OFF` when it starts up.
-There are two signals: `deviceOn` for turning the device
-on and `deviceOff` for turning the device off.
+There are two signals: `cmdOn` for turning the device
+on and `cmdOff` for turning the device off.
 There are two state transition specifiers:
 
 * A specifier that says to enter state `OFF` 
-on receiving the `deviceOff` signal in state `ON`.
+on receiving the `cmdOff` signal in state `ON`.
 
 * A specifier that says to enter state `ON`
-on receiving the `deviceOn` signal in state `OFF`.
+on receiving the `cmdOn` signal in state `OFF`.
 
-In general, state transition specifiers cause transitions from the states
-in which they appear.
+In general, a state transition specifier causes a transitions only
+from the state in which it appears.
+If a state machine instance receives a signal _s_, and it is
+in a state _S_ that specifies no behavior for signal _s_,
+then nothing happens.
 In this example, if the state machine receives signal
-`deviceOn` in state `ON`
-or signal `deviceOff` in state `OFF`, then it takes no action.
+`cmdOn` in state `ON`
+or signal `cmdOff` in state `OFF`, then it takes no action.
 
 *Rules for writing state machine definitions:*
 State machine definitions must conform to the following rules:
@@ -168,6 +171,11 @@ In this case, there would be no way to reach the `ON` state.
 . Every state name must be unique, and every signal name
 must be unique.
 
+. Each state may have at most one state transition specifier
+for each signal _s_.
+For example, if we added another transition to state `ON`
+on signal `cmdOff`, the FPP analyzer would report an error.
+
 *Simple state definitions:*
 If a state definition has no transitions, then you can omit
 the braces.
@@ -180,7 +188,7 @@ machine that has an off-on transition but no on-off transition:
 state machine Device {
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ The initial state is OFF
   initial enter OFF
@@ -191,8 +199,8 @@ state machine Device {
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    on deviceOn enter ON
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
 
   }
 
@@ -211,7 +219,7 @@ you implement.
 Running the function for an action _A_ is called 
 *doing* _A_.
 
-To specify an action, you write the keyword `action` followed
+To define an action, you write the keyword `action` followed
 by the name of the action.
 As with <<Defining-State-Machines_Basic-Internal-State-Machines,signals>>,
 every action name must be unique.
@@ -242,10 +250,10 @@ state machine Device {
   action onOffAction
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   @ Before entering the initial state, do initialAction1 and then initialAction2
@@ -254,18 +262,18 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
     @ Before entering the OFF state, do onOffAction
-    on deviceOff do { onOffAction } enter OFF
+    on cmdOff do { onOffAction } enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do offOnAction
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
   }
 
@@ -282,10 +290,10 @@ The state machine has the following behavior:
 * On startup, do `initialAction1`, do `initialAction2`, and
 enter the `OFF` state.
 
-* In state `OFF`, on receiving the `deviceOn` signal, do
+* In state `OFF`, on receiving the `cmdOn` signal, do
 `offOnAction` and enter the `ON` state.
 
-* In state `ON`, on receiving the `deviceOff` signal, do
+* In state `ON`, on receiving the `cmdOff` signal, do
 `onOffAction` and enter the `OFF` state.
 
 When multiple actions appear in an action list, as in the initial
@@ -337,10 +345,10 @@ state machine Device {
   action exitOff
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   @ Before entering the initial state, do initialAction1 and then initialAction2
@@ -352,9 +360,9 @@ state machine Device {
     @ On entering the ON state, do enterOn
     entry do { enterOn }
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
     @ Before entering the OFF state, do offAction
-    on deviceOff do { onOffAction } enter OFF
+    on cmdOff do { onOffAction } enter OFF
 
     @ On exiting the ON state, do exitOn
     exit do { exitOn }
@@ -367,9 +375,9 @@ state machine Device {
     @ On entering the OFF state, do enterOff
     entry do { enterOff }
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do onAction
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
     @ On exiting the OFF state, do exitOff
     exit do { exitOff }
@@ -384,7 +392,7 @@ a list of actions, and they are done in the order named.
 The entry actions are done just before entering the state,
 and the exit actions are done just before exiting the state.
 For example, if the state machine is in state `OFF` and it
-receives a `deviceOn` signal, then it runs the following behavior,
+receives a `cmdOn` signal, then it runs the following behavior,
 in the following order:
 
 * Exit state `OFF`. On exit, do `exitOff`.
@@ -403,7 +411,7 @@ To specify that a signal or action carries a data value,
 you write a colon and a data type at the end of the
 signal or action specifier.
 For example, here is a `Device` state machine in which
-the `deviceOn` signal and the `offOnAction` each carries
+the `cmdOn` signal and the `offOnAction` each carries
 a `U32` counter value:
 
 [source,fpp]
@@ -418,10 +426,10 @@ state machine Device {
 
   @ A signal for turning the device on
   @ The value counts the number of times this signal has been received
-  signal deviceOn: U32
+  signal cmdOn: U32
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   initial enter OFF
@@ -429,25 +437,25 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    on deviceOff enter OFF
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do offOnAction, passing the data from
     @ the signal into the action
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
   }
 
 }
 ----
 
-When you send the `deviceOn` signal to an instance of
+When you send the `cmdOn` signal to an instance of
 this state machine, you are required to provide a `U32` value.
 When the state machine is in the `OFF` state and it receives
 this signal, it does action `offOnAction` as shown.
@@ -460,7 +468,7 @@ Here are the rules for writing typed signals and actions:
 
 * When you do an action that has a type, a value
 compatible with that type must be available.
-For example, we can't do the `offOnAction` in the `deviceOff` transition shown 
+For example, we can't do the `offOnAction` in the `cmdOff` transition shown 
 above, because no `U32`
 value is available there.
 Similarly, no action done in a
@@ -471,8 +479,11 @@ from a state.
 
 * The type that appears in a signal or an action can
 be any FPP type.
-In the example above we used a simple `U32` type,
-but we could have used, for example, be a struct or array type.
+In the example above we used a simple `U32` type;
+we could have used, for example, a struct or array type.
+In particular, you can use a struct type to send several
+data values, with each value represented as a member
+of the struct.
 
 * When doing an action with a value, you don't have to
 make the types exactly match.
@@ -486,14 +497,123 @@ In general, the analyzer will allow a conversion if it
 can be safely done for all values of the original type.
 
 * If an action _A_ does not carry any value, then you
-can do _A_ in a context where a value is available.
-For example, in the code shown above, the `deviceOn`
+can do _A_ in any context, even if a value is available there.
+For example, in the code shown above, the `cmdOn`
 transition could do some other action that carries no value.
 In this case the value is ignored when doing the action.
 
 === Guarded Transitions
 
-TODO
+Sometimes it is useful to specify that a transition should occur
+only if a certain condition is true.
+For example, you may want to turn on a device, but only if
+it is safe to do so.
+We call this kind of transition a *guarded transition*.
+To specify this transition, you define a *guard*, which
+is an abstract function that returns a Boolean value.
+Then you use the guard in a transition.
+Here is an example:
+
+[source,fpp]
+----
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}
+----
+
+In this example, there is one guard, `powerOnIsSafe`.
+The implementation of this function will return true
+if it is safe to power on the device; otherwise it will
+return false.
+In state `OFF`, the transition on signal `cmdOn` is
+now guarded: when the signal is received in this state,
+the transition occurs if and only if `powerOnIsSafe`
+evaluates to `true`.
+
+As with actions, each guard must have a unique name.
+Also as with actions, a guard can have a type; if it does,
+the type must match the type of the signal at the point
+where the guard is evaluated.
+For example, here is a revised version of the previous
+state machine that adds a value of type `DeviceStatus`
+to the guard `powerOnIsSafe`:
+
+[source,fpp]
+----
+@ A type representing the status of a device
+type DeviceStatus
+
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  @ The DeviceStatus value provides the current device status
+  guard powerOnIsSafe: DeviceStatus
+
+  @ A signal for turning the device on
+  @ The DeviceStatus value provides the current device status
+  signal cmdOn: DeviceStatus
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}
+----
+
+When you send the signal `cmdOn` to an instance of this state
+machine, you must provide a value of type `DeviceStatus`.
+When the state machine instance evaluates the guard `powerOnIsSafe`,
+it passes in the value as an argument to the function.
 
 === Transitions to Self
 

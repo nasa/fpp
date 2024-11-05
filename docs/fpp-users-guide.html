@@ -3606,27 +3606,27 @@ the state machine <code>M</code> is defined.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Basic-Internal-State-Machines">9.2. Basic Internal State Machines</h3>
 <div class="paragraph">
-<p>The simplest internal state machine <code>M</code> that has any useful
+<p>The simplest internal state machine <em>M</em> that has any useful
 behavior consists of the following:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p>Several <strong>state definitions</strong>.
-These define the states of <code>M</code>.</p>
+These define the states of <em>M</em>.</p>
 </li>
 <li>
 <p>An <strong>initial transition specifier</strong>.
-This specifies the state that an instance of <code>M</code> is in when it starts up.</p>
+This specifies the state that an instance of <em>M</em> is in when it starts up.</p>
 </li>
 <li>
-<p>One or more <strong>signals</strong> that cause <code>M</code> to change state.
+<p>One or more <strong>signal definitions</strong>.
 The external environment (typically an F Prime component)
-sends signals to instance of <code>M</code>.</p>
+sends signals to instances of <em>M</em>.</p>
 </li>
 <li>
 <p>One or more <strong>state transition specifiers</strong>.
-These tell each instance of <code>M</code> what to do when it receives a signal.</p>
+These tell each instance of <em>M</em> what to do when it receives a signal.</p>
 </li>
 </ul>
 </div>
@@ -3639,10 +3639,10 @@ These tell each instance of <code>M</code> what to do when it receives a signal.
 state machine Device {
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   initial enter OFF
@@ -3650,16 +3650,16 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    on deviceOff enter OFF
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    on deviceOn enter ON
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
 
   }
 
@@ -3672,28 +3672,31 @@ a device with on-off behavior.
 There are two states, <code>ON</code> and <code>OFF</code>.
 The initial transition specifier <code>initial enter OFF</code>
 says that the state machine is in state <code>OFF</code> when it starts up.
-There are two signals: <code>deviceOn</code> for turning the device
-on and <code>deviceOff</code> for turning the device off.
+There are two signals: <code>cmdOn</code> for turning the device
+on and <code>cmdOff</code> for turning the device off.
 There are two state transition specifiers:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p>A specifier that says to enter state <code>OFF</code>
-on receiving the <code>deviceOff</code> signal in state <code>ON</code>.</p>
+on receiving the <code>cmdOff</code> signal in state <code>ON</code>.</p>
 </li>
 <li>
 <p>A specifier that says to enter state <code>ON</code>
-on receiving the <code>deviceOn</code> signal in state <code>OFF</code>.</p>
+on receiving the <code>cmdOn</code> signal in state <code>OFF</code>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>In general, state transition specifiers cause transitions from the states
-in which they appear.
+<p>In general, a state transition specifier causes a transitions only
+from the state in which it appears.
+If a state machine instance receives a signal <em>s</em>, and it is
+in a state <em>S</em> that specifies no behavior for signal <em>s</em>,
+then nothing happens.
 In this example, if the state machine receives signal
-<code>deviceOn</code> in state <code>ON</code>
-or signal <code>deviceOff</code> in state <code>OFF</code>, then it takes no action.</p>
+<code>cmdOn</code> in state <code>ON</code>
+or signal <code>cmdOff</code> in state <code>OFF</code>, then it takes no action.</p>
 </div>
 <div class="paragraph">
 <p><strong>Rules for writing state machine definitions:</strong>
@@ -3730,6 +3733,12 @@ In this case, there would be no way to reach the <code>ON</code> state.</p>
 <p>Every state name must be unique, and every signal name
 must be unique.</p>
 </li>
+<li>
+<p>Each state may have at most one state transition specifier
+for each signal <em>s</em>.
+For example, if we added another transition to state <code>ON</code>
+on signal <code>cmdOff</code>, the FPP analyzer would report an error.</p>
+</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -3745,7 +3754,7 @@ machine that has an off-on transition but no on-off transition:</p>
 state machine Device {
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ The initial state is OFF
   initial enter OFF
@@ -3756,8 +3765,8 @@ state machine Device {
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
-    on deviceOn enter ON
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
 
   }
 
@@ -3780,7 +3789,7 @@ Running the function for an action <em>A</em> is called
 <strong>doing</strong> <em>A</em>.</p>
 </div>
 <div class="paragraph">
-<p>To specify an action, you write the keyword <code>action</code> followed
+<p>To define an action, you write the keyword <code>action</code> followed
 by the name of the action.
 As with <a href="#Defining-State-Machines_Basic-Internal-State-Machines">signals</a>,
 every action name must be unique.
@@ -3812,10 +3821,10 @@ state machine Device {
   action onOffAction
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   @ Before entering the initial state, do initialAction1 and then initialAction2
@@ -3824,18 +3833,18 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
     @ Before entering the OFF state, do onOffAction
-    on deviceOff do { onOffAction } enter OFF
+    on cmdOff do { onOffAction } enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do offOnAction
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
   }
 
@@ -3857,11 +3866,11 @@ The state machine has the following behavior:</p>
 enter the <code>OFF</code> state.</p>
 </li>
 <li>
-<p>In state <code>OFF</code>, on receiving the <code>deviceOn</code> signal, do
+<p>In state <code>OFF</code>, on receiving the <code>cmdOn</code> signal, do
 <code>offOnAction</code> and enter the <code>ON</code> state.</p>
 </li>
 <li>
-<p>In state <code>ON</code>, on receiving the <code>deviceOff</code> signal, do
+<p>In state <code>ON</code>, on receiving the <code>cmdOff</code> signal, do
 <code>onOffAction</code> and enter the <code>OFF</code> state.</p>
 </li>
 </ul>
@@ -3917,10 +3926,10 @@ state machine Device {
   action exitOff
 
   @ A signal for turning the device on
-  signal deviceOn
+  signal cmdOn
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   @ Before entering the initial state, do initialAction1 and then initialAction2
@@ -3932,9 +3941,9 @@ state machine Device {
     @ On entering the ON state, do enterOn
     entry do { enterOn }
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
     @ Before entering the OFF state, do offAction
-    on deviceOff do { onOffAction } enter OFF
+    on cmdOff do { onOffAction } enter OFF
 
     @ On exiting the ON state, do exitOn
     exit do { exitOn }
@@ -3947,9 +3956,9 @@ state machine Device {
     @ On entering the OFF state, do enterOff
     entry do { enterOff }
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do onAction
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
     @ On exiting the OFF state, do exitOff
     exit do { exitOff }
@@ -3965,7 +3974,7 @@ a list of actions, and they are done in the order named.
 The entry actions are done just before entering the state,
 and the exit actions are done just before exiting the state.
 For example, if the state machine is in state <code>OFF</code> and it
-receives a <code>deviceOn</code> signal, then it runs the following behavior,
+receives a <code>cmdOn</code> signal, then it runs the following behavior,
 in the following order:</p>
 </div>
 <div class="ulist">
@@ -3994,7 +4003,7 @@ To specify that a signal or action carries a data value,
 you write a colon and a data type at the end of the
 signal or action specifier.
 For example, here is a <code>Device</code> state machine in which
-the <code>deviceOn</code> signal and the <code>offOnAction</code> each carries
+the <code>cmdOn</code> signal and the <code>offOnAction</code> each carries
 a <code>U32</code> counter value:</p>
 </div>
 <div class="listingblock">
@@ -4009,10 +4018,10 @@ state machine Device {
 
   @ A signal for turning the device on
   @ The value counts the number of times this signal has been received
-  signal deviceOn: U32
+  signal cmdOn: U32
 
   @ A signal for turning the device off
-  signal deviceOff
+  signal cmdOff
 
   @ The initial state is OFF
   initial enter OFF
@@ -4020,18 +4029,18 @@ state machine Device {
   @ The ON state
   state ON {
 
-    @ In the ON state, a deviceOff signal causes a transition to the OFF state
-    on deviceOff enter OFF
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
 
   }
 
   @ The OFF state
   state OFF {
 
-    @ In the OFF state, a deviceOff signal causes a transition to the ON state
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
     @ Before entering the ON state, do offOnAction, passing the data from
     @ the signal into the action
-    on deviceOn do { offOnAction } enter ON
+    on cmdOn do { offOnAction } enter ON
 
   }
 
@@ -4039,7 +4048,7 @@ state machine Device {
 </div>
 </div>
 <div class="paragraph">
-<p>When you send the <code>deviceOn</code> signal to an instance of
+<p>When you send the <code>cmdOn</code> signal to an instance of
 this state machine, you are required to provide a <code>U32</code> value.
 When the state machine is in the <code>OFF</code> state and it receives
 this signal, it does action <code>offOnAction</code> as shown.
@@ -4056,7 +4065,7 @@ argument to this function.</p>
 <li>
 <p>When you do an action that has a type, a value
 compatible with that type must be available.
-For example, we can&#8217;t do the <code>offOnAction</code> in the <code>deviceOff</code> transition shown
+For example, we can&#8217;t do the <code>offOnAction</code> in the <code>cmdOff</code> transition shown
 above, because no <code>U32</code>
 value is available there.
 Similarly, no action done in a
@@ -4067,8 +4076,11 @@ from a state.</p>
 <li>
 <p>The type that appears in a signal or an action can
 be any FPP type.
-In the example above we used a simple <code>U32</code> type,
-but we could have used, for example, be a struct or array type.</p>
+In the example above we used a simple <code>U32</code> type;
+we could have used, for example, a struct or array type.
+In particular, you can use a struct type to send several
+data values, with each value represented as a member
+of the struct.</p>
 </li>
 <li>
 <p>When doing an action with a value, you don&#8217;t have to
@@ -4084,8 +4096,8 @@ can be safely done for all values of the original type.</p>
 </li>
 <li>
 <p>If an action <em>A</em> does not carry any value, then you
-can do <em>A</em> in a context where a value is available.
-For example, in the code shown above, the <code>deviceOn</code>
+can do <em>A</em> in any context, even if a value is available there.
+For example, in the code shown above, the <code>cmdOn</code>
 transition could do some other action that carries no value.
 In this case the value is ignored when doing the action.</p>
 </li>
@@ -4095,7 +4107,119 @@ In this case the value is ignored when doing the action.</p>
 <div class="sect2">
 <h3 id="Defining-State-Machines_Guarded-Transitions">9.6. Guarded Transitions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>Sometimes it is useful to specify that a transition should occur
+only if a certain condition is true.
+For example, you may want to turn on a device, but only if
+it is safe to do so.
+We call this kind of transition a <strong>guarded transition</strong>.
+To specify this transition, you define a <strong>guard</strong>, which
+is an abstract function that returns a Boolean value.
+Then you use the guard in a transition.
+Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  guard powerOnIsSafe
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, there is one guard, <code>powerOnIsSafe</code>.
+The implementation of this function will return true
+if it is safe to power on the device; otherwise it will
+return false.
+In state <code>OFF</code>, the transition on signal <code>cmdOn</code> is
+now guarded: when the signal is received in this state,
+the transition occurs if and only if <code>powerOnIsSafe</code>
+evaluates to <code>true</code>.</p>
+</div>
+<div class="paragraph">
+<p>As with actions, each guard must have a unique name.
+Also as with actions, a guard can have a type; if it does,
+the type must match the type of the signal at the point
+where the guard is evaluated.
+For example, here is a revised version of the previous
+state machine that adds a value of type <code>DeviceStatus</code>
+to the guard <code>powerOnIsSafe</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A type representing the status of a device
+type DeviceStatus
+
+@ A device state machine with a guarded transition
+state machine Device {
+
+  @ A guard for checking whether the device is in a safe state for power-on
+  @ The DeviceStatus value provides the current device status
+  guard powerOnIsSafe: DeviceStatus
+
+  @ A signal for turning the device on
+  @ The DeviceStatus value provides the current device status
+  signal cmdOn: DeviceStatus
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    @ if powerOnIsSafe evaluates to true. Otherwise no transition occurs.
+    on cmdOn if powerOnIsSafe enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When you send the signal <code>cmdOn</code> to an instance of this state
+machine, you must provide a value of type <code>DeviceStatus</code>.
+When the state machine instance evaluates the guard <code>powerOnIsSafe</code>,
+it passes in the value as an argument to the function.</p>
 </div>
 </div>
 <div class="sect2">
@@ -13311,7 +13435,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-05 10:55:37 -0800
+Last updated 2024-11-05 15:24:54 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
