@@ -647,7 +647,7 @@ In this case the following behavior occurs:
 
 * The state machine does the actions specified in the transition, if any.
 
-* The state machine does the entry actions for _S_ if any.
+* The state machine does the entry actions for _S_, if any.
 
 Note that on a self transition, the state machine exits and
 reenters _S_.
