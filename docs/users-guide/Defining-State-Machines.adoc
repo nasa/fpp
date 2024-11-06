@@ -70,9 +70,8 @@ the state machine `M` is defined.
 In the remainder of this section, we explain how to define internal
 state machines in FPP.
 The behavior of these state machines closely follows the behavior
-described for 
-https://www.omg.org/spec/UML/2.5.1/PDF[state machines in the
-Universal Modeling Language (UML)]. 
+described for state machines in the
+https://www.omg.org/spec/UML/2.5.1/PDF[Universal Modeling Language (UML)]. 
 UML is a graphical language and FPP is a textual language,
 but each of the concepts in the FPP language is motivated
 by a corresponding UML concept.
@@ -809,12 +808,15 @@ carry data of a compatible type.
 TODO
 
 * Basic
+
 * With actions
+** Types must be compatible
+
+* Chaining of choices
 
 * Rules
 ** Reachability
 ** No choice cycles
-** Types must work out at choices
 
 === State Hierarchy
 
@@ -826,7 +828,7 @@ TODO
 
 * Rules
 ** Exactly one initial transition specifier
-** Initial transition specifier must lead to a peer state
+** Initial transition specifier must go through peer choices to a peer state
 
 ==== Inherited Transitions
 

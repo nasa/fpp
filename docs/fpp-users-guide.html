@@ -3610,9 +3610,8 @@ the state machine <code>M</code> is defined.</p>
 <p>In the remainder of this section, we explain how to define internal
 state machines in FPP.
 The behavior of these state machines closely follows the behavior
-described for
-<a href="https://www.omg.org/spec/UML/2.5.1/PDF">state machines in the
-Universal Modeling Language (UML)</a>.
+described for state machines in the
+<a href="https://www.omg.org/spec/UML/2.5.1/PDF">Universal Modeling Language (UML)</a>.
 UML is a graphical language and FPP is a textual language,
 but each of the concepts in the FPP language is motivated
 by a corresponding UML concept.
@@ -4451,6 +4450,16 @@ carry data of a compatible type.</p>
 </li>
 <li>
 <p>With actions</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Types must be compatible</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Chaining of choices</p>
 </li>
 <li>
 <p>Rules</p>
@@ -4461,9 +4470,6 @@ carry data of a compatible type.</p>
 </li>
 <li>
 <p>No choice cycles</p>
-</li>
-<li>
-<p>Types must work out at choices</p>
 </li>
 </ul>
 </div>
@@ -4491,7 +4497,7 @@ carry data of a compatible type.</p>
 <p>Exactly one initial transition specifier</p>
 </li>
 <li>
-<p>Initial transition specifier must lead to a peer state</p>
+<p>Initial transition specifier must go through peer choices to a peer state</p>
 </li>
 </ul>
 </div>
@@ -13640,7 +13646,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-05 20:32:27 -0800
+Last updated 2024-11-05 20:45:34 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
