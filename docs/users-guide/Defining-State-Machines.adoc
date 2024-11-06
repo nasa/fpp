@@ -1,9 +1,9 @@
 == Defining State Machines
 
 A *hierarchical state machine* (state machine for short)
-specifies the following:
+is a software subsystem that specifies the following:
 
-* A set of *states* that a system can be in.
+* A set of *states* that the system can be in.
 The states can be arranged in a hierarchy (i.e.,
 states may have substates).
 
@@ -65,9 +65,26 @@ The external implementation must have a header file `M.hpp`
 located in the same directory as the FPP file where
 the state machine `M` is defined.
 
-=== Basic Internal State Machines
+=== Internal State Machines
 
-The simplest internal state machine _M_ that has any useful
+In the remainder of this section, we explain how to define internal
+state machines in FPP.
+The behavior of these state machines closely follows the behavior
+described for 
+https://www.omg.org/spec/UML/2.5.1/PDF[state machines in the
+Universal Modeling Language (UML)]. 
+UML is a graphical language and FPP is a textual language,
+but each of the concepts in the FPP language is motivated
+by a corresponding UML concept.
+Note that FPP does not represent every aspect of UML state machines:
+because our goal is to support embedded and flight software,
+we focus on a subset of UML state machine behavior that is
+(1) simple and unambiguous and (2) sufficient for embedded
+applications that use F Prime.
+
+=== States, Transitions, and Signals
+
+The simplest state machine _M_ that has any useful
 behavior consists of the following:
 
 * Several *state definitions*.
@@ -221,7 +238,7 @@ Running the function for an action _A_ is called
 
 To define an action, you write the keyword `action` followed
 by the name of the action.
-As with <<Defining-State-Machines_Basic-Internal-State-Machines,signals>>,
+As with <<Defining-State-Machines_States-Transitions-and-Signals,signals>>,
 every action name must be unique.
 To do an action, you write the keyword `do`
 followed by a list of action names enclosed in curly braces.
