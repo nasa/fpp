@@ -723,7 +723,86 @@ it receives a `cmdReset` signal, the following behavior occurs:
 
 === Internal Transitions
 
-TODO
+An internal transition is like a
+<<Defining-State-Machines_Self-Transitions,self transition>>,
+except that there is no exit and reentry.
+To write a self transition, you write the `on` and `do`
+parts of a transition and omit the `enter` part.
+For example, here is a device state machine with a `reset`
+action that causes an internal transition:
+
+[source,fpp]
+----
+@ A state machine representing a device with on-off behavior,
+@ with an internal transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes an internal transition
+    on cmdReset do { reset }
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}
+----
+
+In this example, when the state machine is in state `ON` and it
+receives a `cmdReset` signal, it does the `reset` action and
+performs no other behavior.
+
+An internal transition may have a guard.
+For example, we could define a guard `resetIsSafe` and 
+write the internal transition as follows:
+
+[source,fpp]
+--------
+on cmdReset if resetIsSafe do { reset }
+--------
+
+As with other transitions, if the signal carries data, then
+any actions and guards names in an internal transition may
+carry data of a compatible type.
 
 === Choices
 
