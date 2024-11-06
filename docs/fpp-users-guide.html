@@ -527,14 +527,14 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_State-Entry-and-Exit-Specifiers">9.5. State Entry and Exit Specifiers</a></li>
 <li><a href="#Defining-State-Machines_Typed-Signals-and-Actions">9.6. Typed Signals and Actions</a></li>
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.7. Guarded Transitions</a></li>
-<li><a href="#Defining-State-Machines_Transitions-to-Self">9.8. Transitions to Self</a></li>
+<li><a href="#Defining-State-Machines_Self-Transitions">9.8. Self Transitions</a></li>
 <li><a href="#Defining-State-Machines_Internal-Transitions">9.9. Internal Transitions</a></li>
 <li><a href="#Defining-State-Machines_Choices">9.10. Choices</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy">9.11. State Hierarchy</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_State-Hierarchy_States-within-States">9.11.1. States within States</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy_Transitions-to-Self">9.11.3. Transitions to Self</a></li>
+<li><a href="#Defining-State-Machines_State-Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</a></li>
 <li><a href="#Defining-State-Machines_State-Hierarchy_Choices-within-States">9.11.4. Choices within States</a></li>
 </ul>
 </li>
@@ -3549,14 +3549,14 @@ these state changes as a state machine.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>An <strong>external</strong> state machine definition is similar to
+<p>An <strong>external</strong> state machine definition is like
 an <a href="#Defining-Types_Abstract-Type-Definitions">abstract type definition</a>:
 it tells the analyzer that a state machine exists with a specified
 name, but it says nothing about the state machine behavior.
 An external tool must provide the state machine implementation.</p>
 </li>
 <li>
-<p>An <strong>internal</strong> state machine definition is similar to an
+<p>An <strong>internal</strong> state machine definition is like an
 <a href="#Defining-Types_Array-Type-Definitions">array type definition</a>
 or
 <a href="#Defining-Types_Struct-Type-Definitions">struct type definition</a>:
@@ -3709,12 +3709,18 @@ on receiving the <code>cmdOn</code> signal in state <code>OFF</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>In general, a state transition specifier causes a transitions only
-from the state in which it appears.
-If a state machine instance receives a signal <em>s</em>, and it is
-in a state <em>S</em> that specifies no behavior for signal <em>s</em>,
+<p>In general, a state transition specifier causes a transition
+from the state <em>S</em> in which it appears to the state <em>T</em> that
+appears after the keyword <code>enter</code>.
+We say that <em>S</em> is the <strong>source</strong> of the transition,
+and <em>T</em> is the <strong>target</strong> of the transition.</p>
+</div>
+<div class="paragraph">
+<p>If a state machine instance receives a signal <em>s</em>, and it is
+in a state <em>S</em> that specifies no behavior for signal <em>s</em>
+(i.e., there is no transition with source <em>S</em> and signal <em>s</em>),
 then nothing happens.
-In this example, if the state machine receives signal
+In the example above, if the state machine receives signal
 <code>cmdOn</code> in state <code>ON</code>
 or signal <code>cmdOff</code> in state <code>OFF</code>, then it takes no action.</p>
 </div>
@@ -3802,8 +3808,8 @@ state machine Device {
 <div class="paragraph">
 <p>An <strong>action</strong> is a function that a state machine calls at a
 specified point in its behavior.
-In the FPP model, actions are abstract:
-In the C&#43;&#43; back end they become pure virtual functions that
+In the FPP model, actions are abstract;
+in the C&#43;&#43; back end they become pure virtual functions that
 you implement.
 Running the function for an action <em>A</em> is called
 <strong>doing</strong> <em>A</em>.</p>
@@ -3909,7 +3915,7 @@ terminating punctuation.</p>
 <div class="paragraph">
 <p>In addition to doing actions on transitions, a state machine
 can do actions on entry to or exit from a state.
-To specify these actions, you write <strong>state entry specifiers</strong>
+To do actions like this, you write <strong>state entry specifiers</strong>
 and <strong>state exit specifiers</strong>.
 For example, here is the <code>Device</code> state machine from
 the previous section, with state entry and exit specifiers
@@ -3990,7 +3996,7 @@ state machine Device {
 </div>
 <div class="paragraph">
 <p>As with actions on transitions, each entry or exit specifier names
-a list of actions, and they are done in the order named.
+a list of actions, and the actions are done in the order named.
 The entry actions are done just before entering the state,
 and the exit actions are done just before exiting the state.
 For example, if the state machine is in state <code>OFF</code> and it
@@ -4069,7 +4075,7 @@ state machine Device {
 </div>
 <div class="paragraph">
 <p>When you send the <code>cmdOn</code> signal to an instance of
-this state machine, you are required to provide a <code>U32</code> value.
+this state machine, you must provide a <code>U32</code> value.
 When the state machine is in the <code>OFF</code> state and it receives
 this signal, it does action <code>offOnAction</code> as shown.
 The function that defines the behavior of <code>offOnAction</code> has
@@ -4243,9 +4249,106 @@ it passes in the value as an argument to the function.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Transitions-to-Self">9.8. Transitions to Self</h3>
+<h3 id="Defining-State-Machines_Self-Transitions">9.8. Self Transitions</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>When a state transition has the same state <em>S</em> as its source
+and its target, we call the transition a <strong>self transition</strong>.
+In this case the following behavior occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The state machine does the exit actions for <em>S</em>, if any.</p>
+</li>
+<li>
+<p>The state machine does the actions specified in the transition, if any.</p>
+</li>
+<li>
+<p>The state machine does the entry actions for <em>S</em> if any.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Note that on a self transition, the state machine exits and
+reenters <em>S</em>.
+This behavior is a special case of a more general behavior that we will
+discuss below in connection with state hierarchy.</p>
+</div>
+<div class="paragraph">
+<p>As an example, consider the following state machine:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A state machine representing a device with on-off behavior,
+@ with a self transition
+state machine Device {
+
+  @ An action on entering the ON state
+  action enterOn
+
+  @ An action to perform on reset
+  action reset
+
+  @ An action on exiting the ON state
+  action exitOn
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for resetting the device
+  signal cmdReset
+
+  @ The initial state is OFF
+  @ Before entering the initial state, do initialAction1 and then initialAction2
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ On entering the ON state, do enterOn
+    entry do { enterOn }
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdReset signal causes a self transition
+    on cmdReset do { reset } enter ON
+
+    @ On exiting the ON state, do exitOn
+    exit do { exitOn }
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ In the OFF state, a cmdOff signal causes a transition to the ON state
+    on cmdOn enter ON
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, when the state machine is in the <code>ON</code> state and
+it receives a <code>cmdReset</code> signal, the following behavior occurs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Do action <code>exitOn</code>.</p>
+</li>
+<li>
+<p>Do action <code>reset</code>.</p>
+</li>
+<li>
+<p>Do action <code>enterOn</code>.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
@@ -4321,7 +4424,7 @@ it passes in the value as an argument to the function.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_Transitions-to-Self">9.11.3. Transitions to Self</h4>
+<h4 id="Defining-State-Machines_State-Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -13455,7 +13558,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-05 15:54:26 -0800
+Last updated 2024-11-05 20:16:29 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
