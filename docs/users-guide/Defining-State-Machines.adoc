@@ -237,8 +237,8 @@ specified point in its behavior.
 In the FPP model, actions are abstract;
 in the {cpp} back end they become pure virtual functions that
 you implement.
-Running the function for an action _A_ is called 
-*doing* _A_.
+When a state machine instance calls the function associated with
+an action _A_, we say that it *does* _A_.
 
 To define an action, you write the keyword `action` followed
 by the name of the action.
@@ -1056,7 +1056,8 @@ hierarchical state machines in FPP.
 
 In this section we explain how to define and use substates.
 
-*An example:*
+===== An Example
+
 Here is an example of a state machine with substates:
 
 [source,fpp]
@@ -1165,7 +1166,8 @@ enters the `OFF.UNSAFE` state.
 . In state `OFF.UNSAFE`, when _m_ receives signal
 `cmdSafe`, it enters the `OFF.SAFE` state.
 
-*Rules for substates:*
+===== Rules for Substates
+
 Here are the rules for defining substates:
 
 . Each parent state _S_ must have exactly one initial transition
@@ -1182,15 +1184,146 @@ Rule 1 ensures that the final target of every transition,
 after following all initial transition specifiers, is a
 *leaf state*, i.e., a state that has no substates.
 
+===== Ancestors and Descendants
+
+When a state _S_ is a parent of a state _S'_, we say that _S_ is an
+*ancestor* of _S'_ in the state hierarchy.
+We also say that _S_ is an ancestor of _S'_ if it is a parent of
+an ancestor of _S'_.
+For example, if _S_ is a parent of a parent of _S'_, then
+_S_ is an ancestor of _S'_.
+
+When a state _S_ is a an ancestor of a state _S'_, we
+say that _S'_ is a *descendant* of _S_.
+For example, _S'_ is a descendant of _S_ if _S'_
+is a child of _S_, or if _S'_ is a child of a child of
+_S_.
+
 ==== Inherited Transitions
 
+In general, when a transition _T_ is defined in a parent state _S_,
+_T_ behaves as if it were defined in each of the
+<<Defining-State-Machines_Hierarchy_Substates_Rules-for-Substates,
+leaf states>> that is a
+<<Defining-State-Machines_Hierarchy_Substates_Ancestors-and-Descendants,
+descendant of _T_>>.
+In this case we say that _T_ is *inherited* by each of the leaf states.
+There is an important exception to this rule:
+When a state _S_ defines a transition _T_ on a signal _s_,
+and a state _S'_ under _S_ defines another transition _T'_
+on the same signal _s_, the behavior of _T'_ takes precedence
+over the inherited transition _T_ in the behavior of _S'_.
+This rule is called *behavioral polymorphism* for transitions.
+
+Here is an example that illustrates inherited transitions
+and behavioral polymorphism:
+
+[source,fpp]
+----
+@ A device state machine with inherited transitions and behavioral polymorphism
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is DEVICE
+  initial enter DEVICE
+
+  @ The DEVICE state
+  state DEVICE {
+
+    @ The initial state is OFF
+    initial enter OFF
+
+    @ In the DEVICE state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+    @ The ON state
+    state ON {
+
+      @ In the ON state, a cmdOff signal causes a transition to the OFF state
+      on cmdOff enter OFF
+
+    }
+
+    @ The OFF state
+    state OFF {
+
+      @ The initial state is SAFE
+      initial enter SAFE
+
+      @ The state OFF.SAFE
+      @ In this state, it is safe to turn on the device    
+      state SAFE {
+
+        @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+        on cmdOn enter ON
+
+      }
+
+      @ The state OFF.UNSAFE
+      @ In this state, it is not safe to turn on the device
+      state UNSAFE {
+
+        @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+        on cmdSafe enter SAFE
+
+        @ In the UNSAFE state, a cmdUnsafe signal causes no action
+        on cmdUnsafe do { }
+
+      }
+
+    }
+
+  }
+
+}
+----
+
+Here we have rewritten the `Device` state machine from the previous section
+so that all the states in that example are now substates of a single state
+`DEVICE`.
+By doing this, we can have a single transition out of `DEVICE` on signal
+`cmdUnsafe`.
+Before we had to write out the same transition twice,
+once in the state `ON` and once in the state `OFF.SAFE`.
+Here we can write the transition once in the ancestor state, and
+it is inherited by all the descendants.
+
+There is one catch, though: in the previous example, we did not define
+the transition on `cmdUnsafe` in the state `OFF.UNSAFE`.
+Here, if we use inheritance in the obvious way, the transition will
+be inherited by all the descendants of `DEVICE`, including `OFF.UNSAFE`,
+so the behavior will not be exactly the same as for the previous
+state machine.
+This may not matter much in this example, but it would matter if the
+the state `DEVICE.OFF.UNSAFE` had entry or exit actions; in this case
+transition from `UNSAFE` to itself (which is a
+<<Defining-State-Machines_Self-Transitions,self transition)
+would cause an exit from and reentry to the state, which we may not want.
+
+To remedy this situation, we use behavioral polymorphism.
+In the state `DEVICE.OFF.UNSAFE`, we define an
+<<Defining-State-Machines_Internal-Transitions,internal transition>>
+that has an empty list of actions and so does nothing.
+This transition overrides the transition provided in the ancestor state,
+so it restores the behavior that, on receipt of the signal
+`cmdUnsafe` in the state `DEVICE.OFF.UNSAFE`, nothing happens.
+
+==== Transitions Across State Boundaries
+
 TODO
 
-==== Transitions That Cross State Boundaries
-
-TODO
-
-==== Transitions to Parent States
+==== Transitions to Ancestor States
 
 TODO
 

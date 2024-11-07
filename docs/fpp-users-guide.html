@@ -534,8 +534,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.11.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Transitions-That-Cross-State-Boundaries">9.11.3. Transitions That Cross State Boundaries</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.4. Transitions to Parent States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Transitions-Across-State-Boundaries">9.11.3. Transitions Across State Boundaries</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Ancestor-States">9.11.4. Transitions to Ancestor States</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.5. Choices within States</a></li>
 </ul>
 </li>
@@ -3811,8 +3811,8 @@ specified point in its behavior.
 In the FPP model, actions are abstract;
 in the C&#43;&#43; back end they become pure virtual functions that
 you implement.
-Running the function for an action <em>A</em> is called
-<strong>doing</strong> <em>A</em>.</p>
+When a state machine instance calls the function associated with
+an action <em>A</em>, we say that it <strong>does</strong> <em>A</em>.</p>
 </div>
 <div class="paragraph">
 <p>To define an action, you write the keyword <code>action</code> followed
@@ -4753,9 +4753,10 @@ hierarchical state machines in FPP.</p>
 <div class="paragraph">
 <p>In this section we explain how to define and use substates.</p>
 </div>
+<div class="sect4">
+<h5 id="Defining-State-Machines_Hierarchy_Substates_An-Example">An Example</h5>
 <div class="paragraph">
-<p><strong>An example:</strong>
-Here is an example of a state machine with substates:</p>
+<p>Here is an example of a state machine with substates:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4892,9 +4893,11 @@ enters the <code>OFF.UNSAFE</code> state.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect4">
+<h5 id="Defining-State-Machines_Hierarchy_Substates_Rules-for-Substates">Rules for Substates</h5>
 <div class="paragraph">
-<p><strong>Rules for substates:</strong>
-Here are the rules for defining substates:</p>
+<p>Here are the rules for defining substates:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4919,20 +4922,157 @@ after following all initial transition specifiers, is a
 <strong>leaf state</strong>, i.e., a state that has no substates.</p>
 </div>
 </div>
+<div class="sect4">
+<h5 id="Defining-State-Machines_Hierarchy_Substates_Ancestors-and-Descendants">Ancestors and Descendants</h5>
+<div class="paragraph">
+<p>When a state <em>S</em> is a parent of a state <em>S'</em>, we say that <em>S</em> is an
+<strong>ancestor</strong> of <em>S'</em> in the state hierarchy.
+We also say that <em>S</em> is an ancestor of <em>S'</em> if it is a parent of
+an ancestor of <em>S'</em>.
+For example, if <em>S</em> is a parent of a parent of <em>S'</em>, then
+<em>S</em> is an ancestor of <em>S'</em>.</p>
+</div>
+<div class="paragraph">
+<p>When a state <em>S</em> is a an ancestor of a state <em>S'</em>, we
+say that <em>S'</em> is a <strong>descendant</strong> of <em>S</em>.
+For example, <em>S'</em> is a descendant of <em>S</em> if <em>S'</em>
+is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
+<em>S</em>.</p>
+</div>
+</div>
+</div>
 <div class="sect3">
 <h4 id="Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>In general, when a transition <em>T</em> is defined in a parent state <em>S</em>,
+<em>T</em> behaves as if it were defined in each of the
+<a href="#Defining-State-Machines_Hierarchy_Substates_Rules-for-Substates">leaf states</a> that is a
+<a href="#Defining-State-Machines_Hierarchy_Substates_Ancestors-and-Descendants">descendant of <em>T</em></a>.
+In this case we say that <em>T</em> is <strong>inherited</strong> by each of the leaf states.
+There is an important exception to this rule:
+When a state <em>S</em> defines a transition <em>T</em> on a signal <em>s</em>,
+and a state <em>S'</em> under <em>S</em> defines another transition <em>T'</em>
+on the same signal <em>s</em>, the behavior of <em>T'</em> takes precedence
+over the inherited transition <em>T</em> in the behavior of <em>S'</em>.
+This rule is called <strong>behavioral polymorphism</strong> for transitions.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example that illustrates inherited transitions
+and behavioral polymorphism:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with inherited transitions and behavioral polymorphism
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is DEVICE
+  initial enter DEVICE
+
+  @ The DEVICE state
+  state DEVICE {
+
+    @ The initial state is OFF
+    initial enter OFF
+
+    @ In the DEVICE state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+    @ The ON state
+    state ON {
+
+      @ In the ON state, a cmdOff signal causes a transition to the OFF state
+      on cmdOff enter OFF
+
+    }
+
+    @ The OFF state
+    state OFF {
+
+      @ The initial state is SAFE
+      initial enter SAFE
+
+      @ The state OFF.SAFE
+      @ In this state, it is safe to turn on the device
+      state SAFE {
+
+        @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+        on cmdOn enter ON
+
+      }
+
+      @ The state OFF.UNSAFE
+      @ In this state, it is not safe to turn on the device
+      state UNSAFE {
+
+        @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+        on cmdSafe enter SAFE
+
+        @ In the UNSAFE state, a cmdUnsafe signal causes no action
+        on cmdUnsafe do { }
+
+      }
+
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Here we have rewritten the <code>Device</code> state machine from the previous section
+so that all the states in that example are now substates of a single state
+<code>DEVICE</code>.
+By doing this, we can have a single transition out of <code>DEVICE</code> on signal
+<code>cmdUnsafe</code>.
+Before we had to write out the same transition twice,
+once in the state <code>ON</code> and once in the state <code>OFF.SAFE</code>.
+Here we can write the transition once in the ancestor state, and
+it is inherited by all the descendants.</p>
+</div>
+<div class="paragraph">
+<p>There is one catch, though: in the previous example, we did not define
+the transition on <code>cmdUnsafe</code> in the state <code>OFF.UNSAFE</code>.
+Here, if we use inheritance in the obvious way, the transition will
+be inherited by all the descendants of <code>DEVICE</code>, including <code>OFF.UNSAFE</code>,
+so the behavior will not be exactly the same as for the previous
+state machine.
+This may not matter much in this example, but it would matter if the
+the state <code>DEVICE.OFF.UNSAFE</code> had entry or exit actions; in this case
+transition from <code>UNSAFE</code> to itself (which is a
+&lt;&lt;Defining-State-Machines_Self-Transitions,self transition)
+would cause an exit from and reentry to the state, which we may not want.</p>
+</div>
+<div class="paragraph">
+<p>To remedy this situation, we use behavioral polymorphism.
+In the state <code>DEVICE.OFF.UNSAFE</code>, we define an
+<a href="#Defining-State-Machines_Internal-Transitions">internal transition</a>
+that has an empty list of actions and so does nothing.
+This transition overrides the transition provided in the ancestor state,
+so it restores the behavior that, on receipt of the signal
+<code>cmdUnsafe</code> in the state <code>DEVICE.OFF.UNSAFE</code>, nothing happens.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Transitions-That-Cross-State-Boundaries">9.11.3. Transitions That Cross State Boundaries</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Transitions-Across-State-Boundaries">9.11.3. Transitions Across State Boundaries</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.4. Transitions to Parent States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Ancestor-States">9.11.4. Transitions to Ancestor States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -14066,7 +14206,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-06 16:55:17 -0800
+Last updated 2024-11-06 17:44:07 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
