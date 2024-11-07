@@ -1348,10 +1348,10 @@ In previous sections on
 entry and exit actions>> and
 <<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
 self transitions>>,
-we explained how entry and exit actions occur for a state transition
-in a state machine without hierarchy.
-That behavior is a special case of a more general behavior
-for state machines with hierarchy.
+we explained how entry and exit actions occur for state transitions
+in state machines without hierarchy.
+Each of the behaviors described there is a special case of a more general
+behavior for state machines with hierarchy.
 We describe the more general behavior now.
 
 *General behavior:*
@@ -1387,24 +1387,32 @@ the exit actions of _A1_, the exit actions of _A_,
 the actions of _T_, the entry actions of _B_, and the
 entry actions of _B1_.
 
-Remember that _T_ must 
+Remember also that _T_ must 
 <<Defining-State-Machines_Hierarchy_Substates,go to a leaf state>>,
 following initial transitions if necessary.
 Any actions specified in those transitions are done as well,
 after the transitions described above, and in the order that
 the initial transitions are run.
 
-Notice also that this behavior agrees with the more specific
-behavior that we described in the section on 
+*Special cases:*
+The behavior described above agrees with the behavior
+that we described in the section on 
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
-entry and exit actions>>.
+entry and exit actions for state machines without hierarchy>>.
 When a state machine _M_ has no hierarchy, a transition _T_ always
 goes from a state _S1_ to a state _S2_, both of which are
 children of _M_ in the hierarchy tree.
 So we always exit _S1_, do the actions of _T_, and enter _S2_.
 
-*Transitions to ancestor states:*
-TODO
+This behavior also agrees with the behavior that we described for
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
+self transitions>>.
+When _S1_ and _S2_ are the same state _S_, the least common
+ancestor _N_ of _S1_ and _S2_ is the parent of _S_.
+So we exit _S_ to go up to _N_, do the actions of _T_, and
+reenter _S_.
+
+TODO: Transitions to ancestor and descendant states
 
 ==== Choices within States
 

@@ -5103,10 +5103,10 @@ so it restores the behavior that, on receipt of the signal
 <p>In previous sections on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and
 <a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>,
-we explained how entry and exit actions occur for a state transition
-in a state machine without hierarchy.
-That behavior is a special case of a more general behavior
-for state machines with hierarchy.
+we explained how entry and exit actions occur for state transitions
+in state machines without hierarchy.
+Each of the behaviors described there is a special case of a more general
+behavior for state machines with hierarchy.
 We describe the more general behavior now.</p>
 </div>
 <div class="paragraph">
@@ -5151,7 +5151,7 @@ the actions of <em>T</em>, the entry actions of <em>B</em>, and the
 entry actions of <em>B1</em>.</p>
 </div>
 <div class="paragraph">
-<p>Remember that <em>T</em> must
+<p>Remember also that <em>T</em> must
 <a href="#Defining-State-Machines_Hierarchy_Substates">go to a leaf state</a>,
 following initial transitions if necessary.
 Any actions specified in those transitions are done as well,
@@ -5159,17 +5159,25 @@ after the transitions described above, and in the order that
 the initial transitions are run.</p>
 </div>
 <div class="paragraph">
-<p>Notice also that this behavior agrees with the more specific
-behavior that we described in the section on
-<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a>.
+<p><strong>Special cases:</strong>
+The behavior described above agrees with the behavior
+that we described in the section on
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions for state machines without hierarchy</a>.
 When a state machine <em>M</em> has no hierarchy, a transition <em>T</em> always
 goes from a state <em>S1</em> to a state <em>S2</em>, both of which are
 children of <em>M</em> in the hierarchy tree.
 So we always exit <em>S1</em>, do the actions of <em>T</em>, and enter <em>S2</em>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Transitions to ancestor states:</strong>
-TODO</p>
+<p>This behavior also agrees with the behavior that we described for
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>.
+When <em>S1</em> and <em>S2</em> are the same state <em>S</em>, the least common
+ancestor <em>N</em> of <em>S1</em> and <em>S2</em> is the parent of <em>S</em>.
+So we exit <em>S</em> to go up to <em>N</em>, do the actions of <em>T</em>, and
+reenter <em>S</em>.</p>
+</div>
+<div class="paragraph">
+<p>TODO: Transitions to ancestor and descendant states</p>
 </div>
 </div>
 <div class="sect3">
@@ -14301,7 +14309,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 09:49:22 -0800
+Last updated 2024-11-07 10:15:38 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
