@@ -664,7 +664,8 @@ In this case the following behavior occurs:
 Note that on a self transition, the state machine exits and
 reenters _S_.
 This behavior is a special case of a more general behavior that we will
-discuss <<Defining-State-Machines_Hierarchy_More-on-Entry-and-Exit-Actions,below>>
+discuss 
+<<Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions-with-Hierarchy,below>>
 in connection with state hierarchy.
 
 As an example, consider the following state machine:
@@ -1376,7 +1377,7 @@ This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the next section.
 
-==== More on Entry and Exit Actions
+==== Entry and Exit Actions with Hierarchy
 
 In previous sections on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
@@ -1498,7 +1499,7 @@ be the exit actions of _S1_, if any.
 . Do enter actions to get from _P_ to _S2_.
 The first actions will be the entry actions of _S1_, if any.
 
-==== Choices within States
+==== Choices with Hierarchy
 
 TODO
 
