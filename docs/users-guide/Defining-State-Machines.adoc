@@ -665,7 +665,7 @@ Note that on a self transition, the state machine exits and
 reenters _S_.
 This behavior is a special case of a more general behavior that we will
 discuss 
-<<Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions-with-Hierarchy,below>>
+<<Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions,below>>
 in connection with state hierarchy.
 
 As an example, consider the following state machine:
@@ -1377,7 +1377,7 @@ This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the next section.
 
-==== Entry and Exit Actions with Hierarchy
+==== Entry and Exit Actions
 
 In previous sections on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
@@ -1466,7 +1466,7 @@ reenter _S_.
 It is also important to consider and understand the special
 case of a flattened state transition _T_ from a state _S_~1~ to a state _S_~2~,
 where _S_~2~ is an ancestor of _S_~1~.
-We may call this kind of transition an *ancestor state transition*.
+We call this kind of transition an *ancestor state transition*.
 Note the following:
 
 * An ancestor state transition is not a self transition, because
@@ -1499,7 +1499,7 @@ be the exit actions of _S_~1~, if any.
 . Do enter actions to get from _P_ to _S_~2~.
 The first actions will be the entry actions of _S_~1~, if any.
 
-==== Choices with Hierarchy
+==== Choices
 
 TODO
 

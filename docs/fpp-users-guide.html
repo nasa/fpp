@@ -541,8 +541,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions-with-Hierarchy">9.6.3. Entry and Exit Actions with Hierarchy</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Choices-with-Hierarchy">9.6.4. Choices with Hierarchy</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices">9.6.4. Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -4294,7 +4294,7 @@ In this case the following behavior occurs:</p>
 reenters <em>S</em>.
 This behavior is a special case of a more general behavior that we will
 discuss
-<a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions-with-Hierarchy">below</a>
+<a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">below</a>
 in connection with state hierarchy.</p>
 </div>
 <div class="paragraph">
@@ -5136,7 +5136,7 @@ in the next section.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions-with-Hierarchy">9.6.3. Entry and Exit Actions with Hierarchy</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
 <div class="paragraph">
 <p>In previous sections on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and on
@@ -5234,7 +5234,7 @@ reenter <em>S</em>.</p>
 <p>It is also important to consider and understand the special
 case of a flattened state transition <em>T</em> from a state <em>S</em><sub>1</sub> to a state <em>S</em><sub>2</sub>,
 where <em>S</em><sub>2</sub> is an ancestor of <em>S</em><sub>1</sub>.
-We may call this kind of transition an <strong>ancestor state transition</strong>.
+We call this kind of transition an <strong>ancestor state transition</strong>.
 Note the following:</p>
 </div>
 <div class="ulist">
@@ -5284,7 +5284,7 @@ The first actions will be the entry actions of <em>S</em><sub>1</sub>, if any.</
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Choices-with-Hierarchy">9.6.4. Choices with Hierarchy</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.4. Choices</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -14412,7 +14412,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 13:26:16 -0800
+Last updated 2024-11-07 13:28:22 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
