@@ -1308,7 +1308,7 @@ state machine.
 This may not matter much in this example, but it would matter if the
 the state `DEVICE.OFF.UNSAFE` had entry or exit actions; in this case
 transition from `UNSAFE` to itself (which is a
-<<Defining-State-Machines_Self-Transitions,self transition)
+<<Defining-State-Machines_Self-Transitions,self transition>>)
 would cause an exit from and reentry to the state, which we may not want.
 
 To remedy this situation, we use behavioral polymorphism.
