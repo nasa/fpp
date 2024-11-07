@@ -1360,16 +1360,16 @@ This move flattens the hierarchy on the left
 side of the transition.
 
 When there is no hierarchy, a syntactic transition from state
-_S1_ to _S2_ generates exactly one flattened transition,
-also from _S1_ to _S2_.
+_S_~1~ to _S_~2~ generates exactly one flattened transition,
+also from _S_~1~ to _S_~2~.
 Once we have hierarchy, however, syntactic and flattened
 state transitions may be different.
 For example, it is possible to write a syntactic state transition
-that "`looks like`" it goes from a state _S1_ to a state
-_S2_, but, if _S1_ is a parent state, actually represents
+that "`looks like`" it goes from a state _S_~1~ to a state
+_S_~2~, but, if _S_~1~ is a parent state, actually represents
 several flattened state transitions.
-For each leaf descendant _L_ of _S1_, there is a flattened
-state transition from _L_ to _S2_.
+For each leaf descendant _L_ of _S_~1~, there is a flattened
+state transition from _L_ to _S_~2~.
 Note in particular that whereas a syntactic state transition may
 have a parent state as its source, a flattened state transition always
 has a leaf state as its source.
@@ -1394,38 +1394,38 @@ We now describe the more general behavior.
 Suppose, in the course of running an instance of a state machine _M_,
 a <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
 flattened state transition>> _T_
-occurs from state _S1_ to state _S2_.
+occurs from state _S_~1~ to state _S_~2~.
 By the definition of a flattened state transition, we may assume
-that _S1_ is a leaf state.
+that _S_~1~ is a leaf state.
 When carrying out the transition _T_, the state machine instance will do
 actions as follows:
 
-. Compute the *least common ancestor* of _S1_ and _S2_.
+. Compute the *least common ancestor* of _S_~1~ and _S_~2~.
 This is the unique node _N_ of the <<Defining-State-Machines_Hierarchy_Substates,
-hierarchy tree>> of _M_ such that (a) _N_ is an ancestor of _S1_,
-(b) _N_ is an ancestor of _S2_, and (c) there is no node _N'_
+hierarchy tree>> of _M_ such that (a) _N_ is an ancestor of _S_~1~,
+(b) _N_ is an ancestor of _S_~2~, and (c) there is no node _N'_
 that is a descendant of _N_ and that satisfies properties (a) and (b).
 
-. Traverse the hierarchy tree upwards from _S1_ to _N_.
+. Traverse the hierarchy tree upwards from _S_~1~ to _N_.
 At each point where the traversal passes out of a state _S_, in the
 order of the traversal, do the exit actions of _S_, if any.
 
 . Do the actions specified in _T_, if any.
 
-. Traverse the hierarchy tree downwards from _N_ to _S2_.
+. Traverse the hierarchy tree downwards from _N_ to _S_~2~.
 At each point where the traversal enters a state _S_, in the
 order of the traversal, do the entry actions of _S_, if any.
 
 For example, suppose that _M_ has a state _S_ with substates
-_A_ and _B_, _A_ has substate _A1_, and _B_ has substate _B1_.
-Suppose that _T_ goes from _A1_ to _B1_.
+_A_ and _B_, _A_ has substate _A'_, and _B_ has substate _B'_.
+Suppose that _T_ goes from _A'_ to _B'_.
 Then least common ancestor is _S_, and the following actions
 would be done, in the following order:
-the exit actions of _A1_, the exit actions of _A_,
+the exit actions of _A'_, the exit actions of _A_,
 the actions of _T_, the entry actions of _B_, and the
-entry actions of _B1_.
+entry actions of _B'_.
 
-Remember also that if _B1_ is not a leaf state, then _T_ will
+Remember also that if _B'_ is not a leaf state, then _T_ will
 <<Defining-State-Machines_Hierarchy_Substates,follow
 one or more initial transitions to go to a leaf state>>.
 In this case, any actions specified in those transitions are done as well,
@@ -1450,22 +1450,22 @@ behavior that we described in the section on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
 entry and exit actions for state machines without hierarchy>>.
 When a state machine _M_ has no hierarchy, a flattened state transition _T_
-always goes from a state _S1_ to a state _S2_, both of which are
+always goes from a state _S_~1~ to a state _S_~2~, both of which are
 children of _M_ in the hierarchy tree.
-So we always exit _S1_, do the actions of _T_, and enter _S2_.
+So we always exit _S_~1~, do the actions of _T_, and enter _S_~2~.
 
 The general behavior also agrees with the behavior that we previously
 described for
 <<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
 self transitions>>.
-When _S1_ and _S2_ are the same state _S_, the least common
-ancestor of _S1_ and _S2_ is the parent _P_ of _S_.
+When _S_~1~ and _S_~2~ are the same state _S_, the least common
+ancestor of _S_~1~ and _S_~2~ is the parent _P_ of _S_.
 So we exit _S_ to go up to _P_, do the actions of _T_, and
 reenter _S_.
 
 It is also important to consider and understand the special
-case of a flattened state transition _T_ from a state _S1_ to a state _S2_,
-where _S2_ is an ancestor of _S1_.
+case of a flattened state transition _T_ from a state _S_~1~ to a state _S_~2~,
+where _S_~2~ is an ancestor of _S_~1~.
 We may call this kind of transition an *ancestor state transition*.
 Note the following:
 
@@ -1473,31 +1473,31 @@ Note the following:
 a state is never an ancestor of itself.
 
 * Suppose that some state _S_ is a parent state, and the definition of _S_ 
-contains a syntactic transition _Ts_ that enters _S_.
-Then _Ts_ looks like a self transition (it is defined in _S_,
+contains a syntactic transition _T~s~_ that enters _S_.
+Then _T~s~_ looks like a self transition (it is defined in _S_,
 and its target is _S_).
 However, by the rules for
 <<Defining-State-Machines_Hierarchy_Inherited-Transitions,inherited 
 transitions>>,
-_Ts_ in fact represents one or more flattened state transitions _T_,
+_T~s~_ in fact represents one or more flattened state transitions _T_,
 each of which has a leaf descendant of _S_ as its source, and so
 is an ancestor state transition.
 
-* We do not have to consider the case where _S1_ is an ancestor
-of _S2_: if _T_ is flattened, then _S1_ is a leaf state,
+* We do not have to consider the case where _S_~1~ is an ancestor
+of _S_~2~: if _T_ is flattened, then _S_~1~ is a leaf state,
 and leaf states have no descendants.
 
 When _T_ is an ancestor state transition, the least common ancestor
-of _S1_ and _S2_ is the parent _P_ of _S2_.
+of _S_~1~ and _S_~2~ is the parent _P_ of _S_~2~.
 Therefore the following behavior occurs:
 
-. Do exit actions to get from _S1_ to _P_. The last actions will
-be the exit actions of _S1_, if any.
+. Do exit actions to get from _S_~1~ to _P_. The last actions will
+be the exit actions of _S_~1~, if any.
 
 . Do the actions of _T_, if any.
 
-. Do enter actions to get from _P_ to _S2_.
-The first actions will be the entry actions of _S1_, if any.
+. Do enter actions to get from _P_ to _S_~2~.
+The first actions will be the entry actions of _S_~1~, if any.
 
 ==== Choices with Hierarchy
 
