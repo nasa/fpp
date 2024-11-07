@@ -45,14 +45,10 @@ object LayoutWriter extends AstStateVisitor with LineUtils {
         cl.foldLeft(List[Line]()) ((l, c) => {
             var fromCi = c.from.port.componentInstance
             var fromPi = c.from.port.portInstance
-            var maybeFromPn = topology.getPortNumber(fromPi, c)
+            var fromPn = topology.fromPortNumberMap(c) 
             var toCi = c.to.port.componentInstance
             var toPi = c.to.port.portInstance
-            var maybeToPn = topology.getPortNumber(toPi, c)
-            val (fromPn, toPn) = (maybeFromPn, maybeToPn) match {
-                case (Some(fromN), Some(toN)) => (fromN, toN)
-                case (_, _) => (0, 0) // throw an error here? for now just returning 0
-            }
+            var toPn = topology.toPortNumberMap(c)
             l ++ List(
                 line(fromCi.getUnqualifiedName), 
                 line(fromPi.toString), 

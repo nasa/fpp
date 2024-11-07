@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -327,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -11661,19 +11662,6 @@ annotations back to comments.</p>
 <div class="sect2">
 <h3 id="Analyzing-and-Translating-Models_Visualizing-Topologies">14.7. Visualizing Topologies</h3>
 <div class="paragraph">
-<p>When FPP translates a topology <em>T</em> to XML, as discussed in the section on
-<a href="#Analyzing-and-Translating-Models_Generating-XML">generating XML</a>,
-it adds special comments that can be read by a companion tool called
-<code>fprime-layout</code>.
-<code>fprime-layout</code> reads a topology XML file and produces a
-<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
-in which the component instances are shapes, the ports are smaller shapes,
-and the connections are arrows between the ports.
-<code>fprime-layout</code> produces one visualization for each
-<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
-topology.</p>
-</div>
-<div class="paragraph">
 <p>Topology visualization is an important part of the FPP work flow:</p>
 </div>
 <div class="ulist">
@@ -11692,13 +11680,75 @@ the auto-generated connections of the pattern graph specifiers.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Using <code>fprime-layout</code>, you can do the following:</p>
+<p><strong>Tool name:</strong> The tool for generating layout txt files is called
+<code>fpp-to-layout</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Procedure:</strong>
+The usual procedure for running <code>fpp-to-layout</code> is as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Identify one or more files <em>F</em> that you want to translate.</p>
+</li>
+<li>
+<p><a href="#Specifying-Models-as-Files_Computing-Dependencies">Compute the dependencies</a> <em>D</em> of <em>F</em>.</p>
+</li>
+<li>
+<p>If <em>D</em> is empty, then run <code>fpp-to-dict</code> <em>F</em>.</p>
+</li>
+<li>
+<p>Otherwise run <code>fpp-to-layout -i</code> <em>D<sub>1</sub></em> <code>,</code> &#8230;&#8203; <code>,</code> <em>D<sub>n</sub></em> <em>F</em>, where <em>D<sub>i</sub></em> are the
+names of the dependencies.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Input:</strong> As with the tools described above, you can provide input to
+<code>fpp-to-layout</code>
+either through named files or through standard input.</p>
+</div>
+<div class="paragraph">
+<p><strong>Tool behavior:</strong>
+For each topology <em>T</em> defined in the input files <em>F</em>, <code>fpp-to-layout</code> creates a directory for
+<em>T</em> <code>TLayout</code> and writes layout <code>txt</code> files for each of the connection graphs in <em>T</em>.</p>
+</div>
+<div class="paragraph">
+<p>The layout file format is specified in the
+<a href="https://github.com/fprime-community/fprime-layout/wiki/Topology-Input">FPL Input Format Wiki</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+<code>fpp-to-layout</code> provides the following options:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Extract the connection graphs from a topology XML file.</p>
+<p>The <code>-d</code> option works in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions"><code>fpp-to-cpp</code></a>.</p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>See the <a href="https://github.com/nasa/fpp/wiki/fpp-to-layout">FPP wiki</a> for details.</p>
+</div>
+<div class="paragraph">
+<p><code>fpp-to-layout</code> generates text files that can be read by a companion tool called
+<code>fprime-layout</code>.
+<code>fprime-layout</code> reads topology connection graph text files and produces a
+<strong>topology visualization</strong>, i.e., a graphical rendering of the topology
+in which the component instances are shapes, the ports are smaller shapes,
+and the connections are arrows between the ports.
+<code>fprime-layout</code> produces one visualization for each
+<a href="#Defining-Topologies_Connection-Graphs">connection graph</a> in the
+topology.</p>
+</div>
+<div class="paragraph">
+<p>Using <code>fprime-layout</code>, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
 <p>Render the connection graphs as EPS (Encapsulated PostScript),
 generating one EPS file for each connection graph.</p>
@@ -12605,7 +12655,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-02 15:34:21 -0700
+Last updated 2024-11-07 11:36:16 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

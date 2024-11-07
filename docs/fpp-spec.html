@@ -140,7 +140,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #content::before{content:none}
 #header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
 #header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
-#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header>h1:only-child{border-bottom:1px solid #dddddf;padding-bottom:8px}
 #header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
 #header .details span:first-child{margin-left:-.125em}
 #header .details span.email a{color:rgba(0,0,0,.85)}
@@ -162,6 +162,7 @@ p a>code:hover{color:rgba(0,0,0,.9)}
 #toctitle{color:#7a2518;font-size:1.2em}
 @media screen and (min-width:768px){#toctitle{font-size:1.375em}
 body.toc2{padding-left:15em;padding-right:0}
+body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
 #toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
 #toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
 #toc.toc2>ul{font-size:.9em;margin-bottom:0}
@@ -327,7 +328,7 @@ a.image{text-decoration:none;display:inline-block}
 a.image object{pointer-events:none}
 sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
 sup.footnote a,sup.footnoteref a{text-decoration:none}
-sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+sup.footnote a:active,sup.footnoteref a:active,#footnotes .footnote a:first-of-type:active{text-decoration:underline}
 #footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
 #footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
 #footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
@@ -526,9 +527,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Definitions_State-Machine-Definitions">5.10. State Machine Definitions</a>
 <ul class="sectlevel3">
 <li><a href="#Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Static-Semantics">5.10.2. Static Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Dynamic-Semantics">5.10.3. Dynamic Semantics</a></li>
-<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</a></li>
+<li><a href="#Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</a></li>
 </ul>
 </li>
 <li><a href="#Definitions_Struct-Definitions">5.11. Struct Definitions</a>
@@ -2797,7 +2799,9 @@ causes an implementation to be generated.</p>
 </div>
 <div class="paragraph">
 <p><strong>Implementation note:</strong>
-As of FPP v2.2.0, only external state machine definitions are implemented.</p>
+Support for state machines will be implemented in two phases.
+Phase 1 will implement external state machine definitions only.
+Phase 2 will add support for internal state machine definitions.</p>
 </div>
 <div class="sect3">
 <h4 id="Definitions_State-Machine-Definitions_Syntax">5.10.1. Syntax</h4>
@@ -2834,14 +2838,9 @@ A state machine member is one of the following:</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>The <strong>transitive members</strong> of a state machine definition <em>M</em> are
-(1) the elements of <em>M</em> and (2)
-the members of any state definition that is a transitive member of <em>M</em>.</p>
-</div>
 </div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Static-Semantics">5.10.2. Static Semantics</h4>
+<h4 id="Definitions_State-Machine-Definitions_Semantics">5.10.2. Semantics</h4>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2867,21 +2866,17 @@ The initial transition occurs when the state machine starts up.</p>
 </li>
 <li>
 <p><em>M</em> must satisfy the rules described
-<a href="#Definitions_State-Machine-Definitions_Static-Semantics_The-Transition-Graph">below</a>
+<a href="#Definitions_State-Machine-Definitions_The-Transition-Graph">below</a>
 for the induced transition graph.</p>
 </li>
-<li>
-<p><em>M</em> must satisfy the rules described
-<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Typed-Elements">below</a>
-for typed elements.</p>
-</li>
 </ol>
 </div>
 </li>
 </ol>
 </div>
-<div class="sect4">
-<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_The-Transition-Graph">The Transition Graph</h5>
+</div>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_The-Transition-Graph">5.10.3. The Transition Graph</h4>
 <div class="paragraph">
 <p>If present, the optional state machine member sequence <em>M</em>
 induces a directed graph called the <strong>transition graph</strong>, defined as
@@ -2890,30 +2885,24 @@ follows:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The nodes of the transition graph are the state definitions and
+<p>The nodes of the transition graph are the initial transition specifiers,
+state definitions, and
 junction definitions that are transitive members of <em>M</em>.</p>
 </li>
 <li>
-<p>The <strong>initial node</strong> of the transition graph is the state definition
-or junction definition referred to in the unique initial transition specifier
-that is an element of <em>M</em>.</p>
+<p>The <strong>transitive members</strong> of <em>M</em> are (i) the elements of <em>M</em> and (ii)
+the members of any state definition that is a transitive member of <em>M</em>.</p>
 </li>
 <li>
-<p>The arcs of the transition graph are given by the
-<a href="#State-Machine-Behavior-Elements_Transition-Expressions">transition expressions</a> <em>e</em> that appear in (1) initial transition specifiers
-that are members of states that are transitive members of <em>M</em> and (2)
-state transition specifiers that are transitive members of <em>M</em> and (3)
-junction definitions that are transitive members of <em>M</em>.
-Each transition expression represents an arc from a <strong>start node</strong> to an
-<strong>end node</strong>.
-The start node is defined as follows:</p>
+<p>The arcs of the transition graph are given by the <a href="#State-Machine-Behavior-Elements_Enter-Expressions">enter expressions</a> <em>e</em> that are parts of transitive members of <em>M</em>.
+Each enter expression represents an arc from an <strong>initial node</strong> to a <strong>terminal node</strong>.
+The initial node is defined as follows:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
 <p>If <em>e</em> appears in an
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node is the
-<a href="#State-Machine-Behavior-Elements_State-Definitions">state definition</a>
-immediately enclosing <em>I</em>.</p>
+<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a> <em>I</em>, then the initial node
+is <em>I</em>.</p>
 </li>
 <li>
 <p>If <em>e</em> appears in a
@@ -2930,9 +2919,10 @@ immediately enclosing <em>T</em>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>The terminal node is the state or junction definition
-<a href="#Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">referred to</a>
-in <em>e</em>.</p>
+<p>In any case,
+the terminal node is the state definition or junction definition
+<a href="#Definitions_State-Machine-Definitions_Scoping-of-Names">referred to</a>
+in <em>e</em> after the keyword <code>enter</code>.</p>
 </div>
 </li>
 </ol>
@@ -2944,96 +2934,20 @@ the transition graph <em>T</em> must satisfy the following rules:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Each state definition and each junction definition in
-<em>T</em> must be reachable from the initial node of <em>T</em>.</p>
+<p>Each state machine definition and each junction definition in
+<em>T</em> must be the terminal node of at least one arc.</p>
 </li>
 <li>
 <p>Let <em>S</em> be the subgraph of <em>T</em> consisting of all
-and only the junction definitions and the arcs whose start
-and end nodes are junction definitions.
+and only the junction definitions and the arcs whose initial
+and terminal nodes are junction definitions.
 There must be no cycles in <em>S</em>.</p>
 </li>
 </ol>
 </div>
 </div>
-<div class="sect4">
-<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_Typed-Elements">Typed Elements</h5>
-<div class="paragraph">
-<p>A <strong>typed element</strong> <em>e</em> is an
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers">initial transition specifier</a>,
-a
-<a href="#State-Machine-Behavior-Elements_State-Entry-Specifiers">state entry specifier</a>,
-a
-<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers">state transition specifier</a>,
-a
-<a href="#State-Machine-Behavior-Elements_State-Exit-Specifiers">state exit specifier</a>,
-or a
-<a href="#State-Machine-Behavior-Elements_Junction-Definitions">junction definition</a>.
-A typed element <em>e</em> <strong>points to</strong> a junction <em>J</em> if</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><em>e</em> is an initial transition specifier, and its transition expression
-refers to <em>J</em>; or</p>
-</li>
-<li>
-<p><em>e</em> is a state transition specifier with a transition expression that refers to
-<em>J</em>; or</p>
-</li>
-<li>
-<p><em>e</em> is a junction, and at least one of its transition expressions
-refers to <em>J</em>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>It must be possible to assign <a href="#Type-Options">type options</a>
-to all the typed elements in a state machine definition in
-the following way.
-If not, an error results.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>The type option of each initial transition specifier, state entry
-specifier, and state exit specifier is <em>None</em>.</p>
-</li>
-<li>
-<p>The type option of each state transition specifier <em>S</em> is the type
-option specified in the definition of the signal specified in <em>S</em>
-after the keyword <code>on</code>.</p>
-</li>
-<li>
-<p>The type option of a junction <em>J</em> is the
-<a href="#Type-Options_Computing-a-Common-Type-Option_Lists-of-Type-Options">common type option</a> of the type options of the typed elements
-that point to <em>J</em>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>For each typed element <em>e</em></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Let <em>O</em> be the type option assigned to <em>e</em> as described above.</p>
-</li>
-<li>
-<p>For every action <em>A</em> appearing in the list of <code>do</code> actions specified in <em>e</em>,
-<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
-the type option specified in <em>A</em>.</p>
-</li>
-<li>
-<p>For every guard <em>G</em> appearing in an <code>if</code> construct in <em>e</em>,
-<em>O</em> must be <a href="#Type-Options_Conversion-of-Type-Options">convertible to</a>
-the type option specified in <em>G</em>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect4">
-<h5 id="Definitions_State-Machine-Definitions_Static-Semantics_Scoping-of-Names">Scoping of Names</h5>
+<div class="sect3">
+<h4 id="Definitions_State-Machine-Definitions_Scoping-of-Names">5.10.4. Scoping of Names</h4>
 <div class="paragraph">
 <p>Inside the optional state machine member sequence, the following
 rules govern the assignment of names to definitions and the resolution
@@ -3107,67 +3021,31 @@ with the following modifications:</p>
 </ol>
 </div>
 </div>
-</div>
 <div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Dynamic-Semantics">5.10.3. Dynamic Semantics</h4>
-<div class="paragraph">
-<p>An internal state machine <em>M</em> has the following runtime behavior:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><em>M</em> maintains a current state <em>S</em>.
-The current state is undefined until initialization occurs.
-From that point on, the current state is always a leaf state.</p>
-</li>
-<li>
-<p><em>M</em> provides a function for initializing the state machine.
-It runs the
-<a href="#State-Machine-Behavior-Elements_Initial-Transition-Specifiers_Dynamic-Semantics">behavior associated with the initial transition specifier of <em>M</em></a>.</p>
-</li>
-<li>
-<p>For each signal <em>s</em>, <em>M</em> provides a function for sending <em>s</em>.
-This function has a typed argument with type <em>T</em> if and only if
-the <a href="#State-Machine-Behavior-Elements_Signal-Definitions">definition of signal <em>s</em></a>
-has type <em>T</em>.
-It runs the
-<a href="#State-Machine-Behavior-Elements_State-Transition-Specifiers_Dynamic-Semantics">behavior associated with <em>s</em> in the current state <em>S</em></a>.
-This behavior may cause one or more actions to be performed,
-and it may cause the current state to change.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The functions are called by the code that is generated when a
-state machine is <a href="#Specifiers_State-Machine-Instance-Specifiers">instantiated</a>
-as part of an active or queued component.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.4. Examples</h4>
+<h4 id="Definitions_State-Machine-Definitions_Examples">5.10.5. Examples</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="fpp">state machine MonitorSm {
 
-  action doCalibrate
+  signal Complete
+  signal Drive
+  signal Calibrate
+  signal RTI
+  signal Stop
+  signal Fault
+
   action init2
+  action doCalibrate
   action motorControl
   action reportFault
 
   guard calibrateReady
 
-  signal Calibrate
-  signal Complete
-  signal Drive
-  signal Fault
-  signal RTI
-  signal Stop
-
   initial enter DeviceOn
 
   state DeviceOn {
 
-    initial do { init2 } enter Initializing
+    initial do init2 enter Initializing
 
     state Initializing {
       on Complete enter Idle
@@ -3179,13 +3057,13 @@ as part of an active or queued component.</p>
     }
 
     state Calibrating {
-      on RTI do { doCalibrate }
-      on Fault do { reportFault } enter Idle
+      on RTI do doCalibrate
+      on Fault do reportFault enter Idle
       on Complete enter Idle
     }
 
     state Driving {
-      on RTI do { motorControl }
+      on RTI do motorControl
       on Stop enter Idle
     }
 
@@ -3490,7 +3368,16 @@ For each instance <em>I</em> in the topology:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>For each connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
+<p>Any connection that names <em>I</em> <code>.</code> \$p_1\$ or <em>I</em> <code>.</code> \$p_2\$
+is <strong>match constrained</strong>. If a match constrained connection is marked
+<code>unmatched</code> then it is <strong>unmatched</strong>; otherwise it is <strong>matched</strong>.</p>
+</li>
+<li>
+<p>For each of the connections at <em>I</em> <code>.</code> \$p_1\$ and <em>I</em> <code>.</code> \$p_2\$,
+check that there are not multiple connections at the same port number.</p>
+</li>
+<li>
+<p>For each matched connection \$c_1\$ with an endpoint at <em>I</em> <code>.</code> \$p_1\$:</p>
 <div class="olist lowerroman">
 <ol class="lowerroman" type="i">
 <li>
@@ -3498,24 +3385,24 @@ For each instance <em>I</em> in the topology:</p>
 of \$c_1\$.</p>
 </li>
 <li>
-<p>Check that there is one and only one connection
-\$c_2\$ from <em>I'</em> to <em>I</em> <code>.</code> \$p_2\$.</p>
+<p>Check that there is one
+and only one connection \$c_2\$ from <em>I'</em> to <em>I</em> <code>.</code> \$p_2\$.</p>
 </li>
 </ol>
 </div>
 </li>
 <li>
 <p>Check that the connections \$c_2\$ computed in the previous
-step are all the connections at <em>I</em> <code>.</code> \$p_2\$.</p>
+step are all the matched connections at <em>I</em> <code>.</code> \$p_2\$.</p>
 </li>
 <li>
-<p>For each pair \$(c_1,c_2)\$ that has both port numbers assigned,
-check that the port numbers match.
-For each pair \$(c_1,c_2)\$ that has exactly one port number assigned,
-assign the other one to match.</p>
+<p>For each pair <em>P</em> with \$(c_1,c_2)\$ computed in step b, if <em>P</em>
+has both numbers assigned, check that the port numbers match.
+For each <em>P</em> that has exactly one port number assigned, check that the
+port number is not in use and assign it to match.</p>
 </li>
 <li>
-<p>Traverse the pairs \$(c_1,c_2)\$ according to the
+<p>Traverse the pairs \$(c_1,c_2)\$ computed in step b according to the
 <a href="#Definitions_Topology-Definitions_Semantics_Ordering-of-Connections">order</a> of the connections \$c_1\$, least to greatest.
 For each pair \$(c_1,c_2)\$ that does not yet have assigned
 port numbers, find the lowest available port number
@@ -10527,7 +10414,7 @@ equivalent.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-02 15:33:46 -0700
+Last updated 2024-11-07 11:34:52 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
