@@ -1353,6 +1353,10 @@ for a state machine _M_.
 A flattened state transition is a transition that results from
 applying the rules for transition inheritance to a syntactic
 state transition.
+We say the transition is "`flattened`" because we create
+it by moving the left side of the transition down to a leaf state.
+This move flattens the hierarchy on the left
+side of the transition.
 
 When there is no hierarchy, a syntactic transition from state
 _S1_ to _S2_ generates exactly one flattened transition,
@@ -1390,7 +1394,7 @@ Suppose, in the course of running an instance of a state machine _M_,
 a <<Defining-State-Machines_Hierarchy_Inherited-Transitions,
 flattened state transition>> _T_
 occurs from state _S1_ to state _S2_.
-Because of the behavior of inherited transitions, we may assume
+By the definition of a flattened state transition, we may assume
 that _S1_ is a leaf state.
 When carrying out the transition _T_, the state machine instance will do
 actions as follows:

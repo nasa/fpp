@@ -5108,7 +5108,11 @@ A syntactic state transition is a state transition in the FPP source
 for a state machine <em>M</em>.
 A flattened state transition is a transition that results from
 applying the rules for transition inheritance to a syntactic
-state transition.</p>
+state transition.
+We say the transition is &#8220;flattened&#8221; because we create
+it by moving the left side of the transition down to a leaf state.
+This move flattens the hierarchy on the left
+side of the transition.</p>
 </div>
 <div class="paragraph">
 <p>When there is no hierarchy, a syntactic transition from state
@@ -5147,7 +5151,7 @@ We now describe the more general behavior.</p>
 Suppose, in the course of running an instance of a state machine <em>M</em>,
 a <a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">flattened state transition</a> <em>T</em>
 occurs from state <em>S1</em> to state <em>S2</em>.
-Because of the behavior of inherited transitions, we may assume
+By the definition of a flattened state transition, we may assume
 that <em>S1</em> is a leaf state.
 When carrying out the transition <em>T</em>, the state machine instance will do
 actions as follows:</p>
@@ -14407,7 +14411,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 11:46:54 -0800
+Last updated 2024-11-07 11:54:43 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
