@@ -541,7 +541,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_More-on-Entry-and-Exit-Actions">9.6.3. More on Entry and Exit Actions</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.6.4. Choices within States</a></li>
 </ul>
 </li>
@@ -4293,7 +4293,8 @@ In this case the following behavior occurs:</p>
 <p>Note that on a self transition, the state machine exits and
 reenters <em>S</em>.
 This behavior is a special case of a more general behavior that we will
-discuss below in connection with state hierarchy.</p>
+discuss <a href="#Defining-State-Machines_Hierarchy_More-on-Entry-and-Exit-Actions">below</a>
+in connection with state hierarchy.</p>
 </div>
 <div class="paragraph">
 <p>As an example, consider the following state machine:</p>
@@ -5118,15 +5119,19 @@ state transitions may be different.
 For example, it is possible to write a syntactic state transition
 that &#8220;looks like&#8221; it goes from a state <em>S1</em> to a state
 <em>S2</em>, but, if <em>S1</em> is a parent state, actually represents
-several flattened state transitions, one from each of the descendants
-of <em>S1</em> to <em>S2</em>.
+several flattened state transitions.
+For each leaf descendant <em>L</em> of <em>S1</em>, there is a flattened
+state transition from <em>L</em> to <em>S2</em>.
+Note in particular that whereas a syntactic state transition may
+have a parent state as its source, a flattened state transition always
+has a leaf state as its source.
 This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the next section.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
+<h4 id="Defining-State-Machines_Hierarchy_More-on-Entry-and-Exit-Actions">9.6.3. More on Entry and Exit Actions</h4>
 <div class="paragraph">
 <p>In previous sections on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and on
@@ -5194,9 +5199,9 @@ that emphasizes ease of understanding.
 As stated, it is inefficient because it
 recomputes the least common ancestor every time a flattened state
 transition occurs.
-In fact all the sequences of actions for flattened state transitions
-can be computed before generating code, and it is more efficient
-to do this.
+In fact all the sequences of exit and entry actions for flattened
+state transitions can be computed before generating code, and
+it is more efficient to do this.
 This is how the FPP code generator works.
 For more details, see the algorithm descriptions on the
 <a href="https://github.com/nasa/fpp/wiki/Checking-Semantics">FPP wiki</a>.</p>
@@ -5241,8 +5246,9 @@ and its target is <em>S</em>).
 However, by the rules for
 <a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">inherited
 transitions</a>,
-in fact it represents one or more flattened state transitions <em>T</em>,
-each of which is an ancestor state transition.</p>
+<em>Ts</em> in fact represents one or more flattened state transitions <em>T</em>,
+each of which has a leaf descendant of <em>S</em> as its source, and so
+is an ancestor state transition.</p>
 </li>
 <li>
 <p>We do not have to consider the case where <em>S1</em> is an ancestor
@@ -14401,7 +14407,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 11:32:43 -0800
+Last updated 2024-11-07 11:46:54 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

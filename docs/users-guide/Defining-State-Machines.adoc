@@ -664,7 +664,8 @@ In this case the following behavior occurs:
 Note that on a self transition, the state machine exits and
 reenters _S_.
 This behavior is a special case of a more general behavior that we will
-discuss below in connection with state hierarchy.
+discuss <<Defining-State-Machines_Hierarchy_More-on-Entry-and-Exit-Actions,below>>
+in connection with state hierarchy.
 
 As an example, consider the following state machine:
 
@@ -1361,13 +1362,17 @@ state transitions may be different.
 For example, it is possible to write a syntactic state transition
 that "`looks like`" it goes from a state _S1_ to a state
 _S2_, but, if _S1_ is a parent state, actually represents
-several flattened state transitions, one from each of the descendants
-of _S1_ to _S2_.
+several flattened state transitions.
+For each leaf descendant _L_ of _S1_, there is a flattened
+state transition from _L_ to _S2_.
+Note in particular that whereas a syntactic state transition may
+have a parent state as its source, a flattened state transition always
+has a leaf state as its source.
 This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
 in the next section.
 
-==== Entry and Exit Actions
+==== More on Entry and Exit Actions
 
 In previous sections on
 <<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
@@ -1427,9 +1432,9 @@ that emphasizes ease of understanding.
 As stated, it is inefficient because it
 recomputes the least common ancestor every time a flattened state
 transition occurs.
-In fact all the sequences of actions for flattened state transitions
-can be computed before generating code, and it is more efficient
-to do this.
+In fact all the sequences of exit and entry actions for flattened
+state transitions can be computed before generating code, and
+it is more efficient to do this.
 This is how the FPP code generator works.
 For more details, see the algorithm descriptions on the
 https://github.com/nasa/fpp/wiki/Checking-Semantics[FPP wiki].
@@ -1469,8 +1474,9 @@ and its target is _S_).
 However, by the rules for
 <<Defining-State-Machines_Hierarchy_Inherited-Transitions,inherited 
 transitions>>,
-in fact it represents one or more flattened state transitions _T_,
-each of which is an ancestor state transition.
+_Ts_ in fact represents one or more flattened state transitions _T_,
+each of which has a leaf descendant of _S_ as its source, and so
+is an ancestor state transition.
 
 * We do not have to consider the case where _S1_ is an ancestor
 of _S2_: if _T_ is flattened, then _S1_ is a leaf state,
