@@ -1501,7 +1501,96 @@ The first actions will be the entry actions of _S_~1~, if any.
 
 ==== Choices
 
+Like state definitions, choice definitions are hierarchical.
+That is, you may define a choice inside a state.
+The names of choices are qualified by the enclosing
+state names
+<<Defining-State-Machines_Hierarchy_Substates,as for the
+names of substates>>.
+For example, you can write this:
+
+[source,fpp]
+--------
+state machine M {
+  ...
+  state S {
+    ...
+    choice C { ... }
+    ...
+  }
+
+}
+--------
+
+In this example, the qualified name of the choice is `S.C`.
+Inside state `S`, you can refer to the choice as `S.C` or `C`.
+Outside state `S`, you must refer to it as `S.C`.
+    
+*Initial transitions to choices:*
+When an initial transition _I_ goes to a choice _C_,
+_C_ and _I_ must have the same parent _P_ in the
+<<Defining-State-Machines_Hierarchy_Substates,hierarchy tree>>.
+In addition, each transition out of _C_ must go to a state
+or choice with parent _P_; and if it goes
+to a choice, then each transition out of that choice must
+go to a state or choice with parent _P_, and so forth.
+Another way to say this is that (since no choice cycles are
+allowed) each transition path out of _I_ must go through
+zero or more choices with parent _P_
+to a state with parent _P_.
+
+For example, this state machine is allowed:
+
+[source,fpp]
+----
+state machine ValidChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    initial enter C
+
+    @ This choice is valid: C, S2, and S3 all have parent S1
+    choice C { if g enter S2 else enter S3 }
+
+    state S2
+
+    state S3
+
+  }
+
+}
+----
+
+But this one is not:
+
+
+[source,fpp]
+--------
+state machine InvalidChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    initial enter C
+
+    @ This choice is invalid: C has parent S1, but S2 and S3 have parent InvalidChoice
+    choice C { if g enter S2 else enter S3 }
+
+  }
+
+  state S2
+
+  state S3
+
+}
+--------
+
 TODO
 
-* Rules
-** Initial transition specifier must lead to a peer state or choice

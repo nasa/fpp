@@ -5286,21 +5286,102 @@ The first actions will be the entry actions of <em>S</em><sub>1</sub>, if any.</
 <div class="sect3">
 <h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.4. Choices</h4>
 <div class="paragraph">
+<p>Like state definitions, choice definitions are hierarchical.
+That is, you may define a choice inside a state.
+The names of choices are qualified by the enclosing
+state names
+<a href="#Defining-State-Machines_Hierarchy_Substates">as for the
+names of substates</a>.
+For example, you can write this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine M {
+  ...
+  state S {
+    ...
+    choice C { ... }
+    ...
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this example, the qualified name of the choice is <code>S.C</code>.
+Inside state <code>S</code>, you can refer to the choice as <code>S.C</code> or <code>C</code>.
+Outside state <code>S</code>, you must refer to it as <code>S.C</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Initial transitions to choices:</strong>
+When an initial transition <em>I</em> goes to a choice <em>C</em>,
+<em>C</em> and <em>I</em> must have the same parent <em>P</em> in the
+<a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a>.
+In addition, each transition out of <em>C</em> must go to a state
+or choice with parent <em>P</em>; and if it goes
+to a choice, then each transition out of that choice must
+go to a state or choice with parent <em>P</em>, and so forth.
+Another way to say this is that (since no choice cycles are
+allowed) each transition path out of <em>I</em> must go through
+zero or more choices with parent <em>P</em>
+to a state with parent <em>P</em>.</p>
+</div>
+<div class="paragraph">
+<p>For example, this state machine is allowed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine ValidChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    initial enter C
+
+    @ This choice is valid: C, S2, and S3 all have parent S1
+    choice C { if g enter S2 else enter S3 }
+
+    state S2
+
+    state S3
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But this one is not:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine InvalidChoice {
+
+  guard g
+
+  initial enter S1
+
+  state S1 {
+
+    initial enter C
+
+    @ This choice is invalid: C has parent S1, but S2 and S3 have parent InvalidChoice
+    choice C { if g enter S2 else enter S3 }
+
+  }
+
+  state S2
+
+  state S3
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p>TODO</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Rules</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Initial transition specifier must lead to a peer state or choice</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -14412,7 +14493,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 13:28:22 -0800
+Last updated 2024-11-07 15:21:11 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
