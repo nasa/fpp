@@ -529,13 +529,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.7. Guarded Transitions</a></li>
 <li><a href="#Defining-State-Machines_Self-Transitions">9.8. Self Transitions</a></li>
 <li><a href="#Defining-State-Machines_Internal-Transitions">9.9. Internal Transitions</a></li>
-<li><a href="#Defining-State-Machines_Choice-Definitions">9.10. Choice Definitions</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy">9.11. State Hierarchy</a>
+<li><a href="#Defining-State-Machines_Choices">9.10. Choices</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy">9.11. Hierarchy</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_State-Hierarchy_States-within-States">9.11.1. States within States</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</a></li>
-<li><a href="#Defining-State-Machines_State-Hierarchy_Choices-within-States">9.11.4. Choices within States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_States-within-States">9.11.1. States within States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</a></li>
 </ul>
 </li>
 </ul>
@@ -4439,7 +4439,7 @@ carry data of a compatible type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_Choice-Definitions">9.10. Choice Definitions</h3>
+<h3 id="Defining-State-Machines_Choices">9.10. Choices</h3>
 <div class="paragraph">
 <p>A <strong>choice definition</strong> is a state machine member that
 defines a branch point for one or more transitions.
@@ -4621,28 +4621,28 @@ more than a few levels of choices; otherwise the state
 machine can be complex and hard to understand.</p>
 </div>
 <div class="paragraph">
-<p><strong>The type of a choice:</strong>
+<p><strong>The type associated with a choice:</strong>
 Like initial transitions and state transitions, the
 transitions out of a choice may
-<a href="#Defining-State-Machines_Typed-Signals-and-Actions">carry a value</a>.
-To determine whether a choice <em>C</em> carries a value, and if so
-what type it has, we use the following rules:</p>
+<a href="#Defining-State-Machines_Typed-Signals-and-Actions">carry value</a>.
+To determine whether the transitions of a choice <em>C</em> carry a value,
+and if so what type that value has, we use the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If any of the transitions going into <em>C</em> carries no value,
-then neither of the choice transitions carries a value.</p>
+<p>If some transitions into <em>C</em> carries no value,
+then neither of the transitions out of the choice carries a value.</p>
 </li>
 <li>
-<p>Otherwise if all of the incoming transitions carry
-a value of the same type <em>T</em>, then each of the choice
-transitions carries a value of type <em>T</em>.</p>
+<p>Otherwise if all of the transitions into <em>C</em> carry
+a value of the same type <em>T</em>, then each of the
+transitions out of <em>C</em> carries a value of type <em>T</em>.</p>
 </li>
 <li>
 <p>Otherwise if the incoming types can be resolved to
-a common type <em>T</em>, then each of the transitions carries
-a value of type <em>T</em>.
+a common type <em>T</em>, then each of the transitions out of <em>C</em>
+carries a value of type <em>T</em>.
 The rules for resolving common types are given in
 <em>The FPP Language Specification</em>.
 The basic idea is to find a type to which it is always
@@ -4672,9 +4672,9 @@ Then we could revise the <code>ON_OR_ERROR</code> choice to read as follows:</p>
 <div class="paragraph">
 <p>As for other kinds of transitions, the actions done in choice
 transitions may carry values.
-In this case, the type named in the action definition may be
-compatible with the type associated with the transition,
-as discussed above.</p>
+If an action <em>A</em> done in a transition of a choice <em>C</em> carries a value,
+the type named in the definition of <em>A</em> must be
+compatible with the type associated with <em>C</em>, as discussed above.</p>
 </div>
 <div class="paragraph">
 <p><strong>Rules for choice definitions:</strong>
@@ -4702,12 +4702,53 @@ go to <code>C3</code>, and <code>C3</code> to go to <code>C1</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_State-Hierarchy">9.11. State Hierarchy</h3>
+<h3 id="Defining-State-Machines_Hierarchy">9.11. Hierarchy</h3>
 <div class="paragraph">
-<p>TODO</p>
+<p>As with UML state machines, FPP state machines can have <strong>hierarchy</strong>.
+That is, we can do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Define states within other states.
+When a state <em>T</em> is defined within a state <em>S</em>, <em>S</em> is called the
+<strong>parent</strong> of <em>T</em>, and <em>T</em> is called a <strong>substate</strong> of <em>S</em>.</p>
+</li>
+<li>
+<p>Define choices within states.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Using hierarchy, we can do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Group related substates under a single parent.
+This lets us express the state machine structure in a
+disciplined and modular way.</p>
+</li>
+<li>
+<p>Define behaviors of a parent state that are inherited
+by its substates.
+This saves having to redefine the behavior for each
+substate.</p>
+</li>
+<li>
+<p>Control the way that entry and exit actions occur
+when transitions cross state boundaries.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A state machine with hierarchy is called a
+<strong>hierarchical state machine</strong>.
+In the following subsections, we explain how to define
+hierarchical state machines in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_States-within-States">9.11.1. States within States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_States-within-States">9.11.1. States within States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -4730,19 +4771,19 @@ go to <code>C3</code>, and <code>C3</code> to go to <code>C1</code>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Hierarchy_Choices-within-States">9.11.4. Choices within States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -13870,7 +13911,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-06 12:00:46 -0800
+Last updated 2024-11-06 16:07:09 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

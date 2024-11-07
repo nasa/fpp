@@ -803,7 +803,7 @@ As with other transitions, if the signal carries data, then
 any actions and guards names in an internal transition may
 carry data of a compatible type.
 
-=== Choice Definitions
+=== Choices
 
 A *choice definition* is a state machine member that
 defines a branch point for one or more transitions.
@@ -960,24 +960,24 @@ Note though, that it is usually a good idea not to have
 more than a few levels of choices; otherwise the state
 machine can be complex and hard to understand.
 
-*The type of a choice:*
+*The type associated with a choice:*
 Like initial transitions and state transitions, the
 transitions out of a choice may 
 <<Defining-State-Machines_Typed-Signals-and-Actions,
-carry a value>>.
-To determine whether a choice _C_ carries a value, and if so
-what type it has, we use the following rules:
+carry value>>.
+To determine whether the transitions of a choice _C_ carry a value,
+and if so what type that value has, we use the following rules:
 
-. If any of the transitions going into _C_ carries no value,
-then neither of the choice transitions carries a value.
+. If some transitions into _C_ carries no value,
+then neither of the transitions out of the choice carries a value.
 
-. Otherwise if all of the incoming transitions carry
-a value of the same type _T_, then each of the choice
-transitions carries a value of type _T_.
+. Otherwise if all of the transitions into _C_ carry
+a value of the same type _T_, then each of the 
+transitions out of _C_ carries a value of type _T_.
 
 . Otherwise if the incoming types can be resolved to
-a common type _T_, then each of the transitions carries
-a value of type _T_.
+a common type _T_, then each of the transitions out of _C_
+carries a value of type _T_.
 The rules for resolving common types are given in
 _The FPP Language Specification_.
 The basic idea is to find a type to which it is always
@@ -1002,9 +1002,9 @@ choice ON_OR_ERROR {
 
 As for other kinds of transitions, the actions done in choice
 transitions may carry values.
-In this case, the type named in the action definition may be
-compatible with the type associated with the transition,
-as discussed above.
+If an action _A_ done in a transition of a choice _C_ carries a value,
+the type named in the definition of _A_ must be
+compatible with the type associated with _C_, as discussed above.
 
 *Rules for choice definitions:*
 Choice definitions must conform to the following rules:
@@ -1022,9 +1022,35 @@ back to `C1`.
 Nor is it permissible for `C1` to go to `C2`, `C2` to
 go to `C3`, and `C3` to go to `C1`.
 
-=== State Hierarchy
+=== Hierarchy
 
-TODO
+As with UML state machines, FPP state machines can have *hierarchy*.
+That is, we can do the following:
+
+. Define states within other states.
+When a state _T_ is defined within a state _S_, _S_ is called the
+*parent* of _T_, and _T_ is called a *substate* of _S_.
+
+. Define choices within states.
+
+Using hierarchy, we can do the following:
+
+. Group related substates under a single parent.
+This lets us express the state machine structure in a
+disciplined and modular way.
+
+. Define behaviors of a parent state that are inherited
+by its substates.
+This saves having to redefine the behavior for each
+substate.
+
+. Control the way that entry and exit actions occur
+when transitions cross state boundaries.
+
+A state machine with hierarchy is called a
+*hierarchical state machine*.
+In the following subsections, we explain how to define 
+hierarchical state machines in FPP.
 
 ==== States within States
 
