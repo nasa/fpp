@@ -31,7 +31,7 @@ case object LayoutWriterState {
   /** Gets the layout directory name for a topology definition */
   def getTopologyDirectoryName(baseName: String): String = s"${baseName}Layout"
 
-  /** Gets the text filename for a connection group */
-  def getConnectionGroupFileName(baseName: String): String = s"${baseName}.txt"
+  /** Gets the text filename for a connection graph */
+  def getConnectionGraphFileName(baseName: String): String = s"${baseName}.txt"
 
 }

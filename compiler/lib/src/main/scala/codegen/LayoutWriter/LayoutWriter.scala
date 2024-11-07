@@ -27,9 +27,9 @@ object LayoutWriter extends AstStateVisitor with LineUtils {
         val directoryName = LayoutWriterState.getTopologyDirectoryName(name)
         // Given the topology symbol, lookup topology in analysis topology map
         val topology = s.a.topologyMap(topSymbol)
-        for((cGroupName, connections) <- topology.connectionMap) yield {
+        for((cGraphName, connections) <- topology.connectionMap) yield {
             val cLines = getConnectionLayoutLines(topology, connections)
-            val fileName = LayoutWriterState.getConnectionGroupFileName(cGroupName)
+            val fileName = LayoutWriterState.getConnectionGraphFileName(cGraphName)
             writeLinesToFile(s, directoryName, fileName, cLines)
         }
         Right(s)
