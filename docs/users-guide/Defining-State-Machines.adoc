@@ -325,7 +325,7 @@ Each action list is an
 element sequence>> with a comma as the optional
 terminating punctuation.
 
-=== State Entry and Exit Specifiers
+=== Entry and Exit Specifiers
 
 In addition to doing actions on transitions, a state machine
 can do actions on entry to or exit from a state.
@@ -493,7 +493,7 @@ For example, we can't do the `offOnAction` in the `cmdOff` transition shown
 above, because no `U32`
 value is available there.
 Similarly, no action done in a
-<<Defining-State-Machines_State-Entry-and-Exit-Specifiers,
+<<Defining-State-Machines_Entry-and-Exit-Specifiers,
 state entry or exit specifier>> may carry a value,
 because no values are available on entry to or exit
 from a state.
@@ -964,12 +964,12 @@ machine can be complex and hard to understand.
 Like initial transitions and state transitions, the
 transitions out of a choice may 
 <<Defining-State-Machines_Typed-Signals-and-Actions,
-carry value>>.
+carry a value>>.
 To determine whether the transitions of a choice _C_ carry a value,
 and if so what type that value has, we use the following rules:
 
-. If some transitions into _C_ carries no value,
-then neither of the transitions out of the choice carries a value.
+. If any transition into _C_ carries no value,
+then transitions out of _C_ carry no value.
 
 . Otherwise if all of the transitions into _C_ carry
 a value of the same type _T_, then each of the 
@@ -1029,19 +1029,19 @@ That is, we can do the following:
 
 . Define states within other states.
 When a state _T_ is defined within a state _S_, _S_ is called the
-*parent* of _T_, and _T_ is called a *substate* of _S_.
+*parent* of _T_, and _T_ is called a *substate* or *child* of _S_.
 
 . Define choices within states.
 
 Using hierarchy, we can do the following:
 
 . Group related substates under a single parent.
-This lets us express the state machine structure in a
+This grouping lets us express the state machine structure in a
 disciplined and modular way.
 
 . Define behaviors of a parent state that are inherited
 by its substates.
-This saves having to redefine the behavior for each
+The parent behavior saves having to redefine the behavior for each
 substate.
 
 . Control the way that entry and exit actions occur
@@ -1052,15 +1052,141 @@ A state machine with hierarchy is called a
 In the following subsections, we explain how to define 
 hierarchical state machines in FPP.
 
-==== States within States
+==== Substates
+
+In this section we explain how to define and use substates.
+
+*An example:*
+Here is an example of a state machine with substates:
+
+[source,fpp]
+----
+@ A device state machine with substates
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ The initial state is SAFE
+    initial enter SAFE
+
+    @ The state OFF.SAFE
+    @ In this state, it is safe to turn on the device    
+    state SAFE {
+
+      @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+      on cmdOn enter ON
+
+      @ In the SAFE state, a cmdUnsafe signal causes a transition to the UNSAFE state
+      on cmdUnsafe enter UNSAFE
+
+    }
+
+    @ The state OFF.UNSAFE
+    @ In this state, it is not safe to turn on the device
+    state UNSAFE {
+
+      @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+      on cmdSafe enter SAFE
+
+    }
+
+  }
+
+}
+----
+
+This state machine has four states: `ON`, `OFF`, `OFF.SAFE`, and `OFF.UNSAFE`.
+The last two states are substates of `OFF`.
+Notice the following:
+
+. The substates are defined syntactically within the parent state.
+
+. The full names of the substates are qualified by the name of the parent state.
+
+. Inside the scope of the parent state, you can refer
+to the substates by the shorter name that omits the implied qualifier.
+The way the qualification works for state names is identical to the
+way it works for <<Defining-Modules,module names>>.
+
+An instance _m_ of this state machine has the following behavior:
+
+. When _m_ starts up, it runs its initial transition specifier, just as for 
+<<Defining-State-Machines_States-Transitions-and-Signals, a state machine 
+without hierarchy>>.
+The state machine enters state `OFF`.
+`OFF` is a parent state, so it in turn has an initial transition
+specifier which is run.
+The state machine enters `OFF.SAFE`.
+
+. In state `ON`, the following behavior occurs:
+
+.. When _m_ receives signal `cmdOff`, it enters state
+`OFF`. This entry causes it to enter state `OFF.SAFE` as discussed above.
+
+.. When _m_ receives signal `cmdUnsafe`, it goes
+directly to `OFF.UNSAFE`, bypassing the `OFF` state and its initial
+transition.
+
+. In state `OFF.SAFE`, the following behavior occurs:
+
+.. When _m_ receives signal `cmdOn`, it enters
+the `ON` state.
+
+.. When _m_ receives signal `cmdUnsafe`, it
+enters the `OFF.UNSAFE` state.
+
+. In state `OFF.UNSAFE`, when _m_ receives signal
+`cmdSafe`, it enters the `OFF.SAFE` state.
+
+*Rules for substates:*
+Here are the rules for defining substates:
+
+. Each parent state _S_ must have exactly one initial transition
+specifier that enters a substate of _S_.
+
+. Each state, including parents and substates, must be reachable
+from the initial transition of the state machine or from
+a state transition.
+
+. Substates may themselves be parents (i.e., may have substates),
+to any depth.
+
+Rule 1 ensures that the final target of every transition,
+after following all initial transition specifiers, is a
+*leaf state*, i.e., a state that has no substates.
+
+==== Inherited Transitions
 
 TODO
 
-* Rules
-** Exactly one initial transition specifier
-** Initial transition specifier must go through peer choices to a peer state
-
-==== Inherited Transitions
+==== Transitions That Cross State Boundaries
 
 TODO
 

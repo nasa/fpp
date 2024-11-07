@@ -524,7 +524,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</a></li>
 <li><a href="#Defining-State-Machines_States-Transitions-and-Signals">9.3. States, Transitions, and Signals</a></li>
 <li><a href="#Defining-State-Machines_Actions">9.4. Actions</a></li>
-<li><a href="#Defining-State-Machines_State-Entry-and-Exit-Specifiers">9.5. State Entry and Exit Specifiers</a></li>
+<li><a href="#Defining-State-Machines_Entry-and-Exit-Specifiers">9.5. Entry and Exit Specifiers</a></li>
 <li><a href="#Defining-State-Machines_Typed-Signals-and-Actions">9.6. Typed Signals and Actions</a></li>
 <li><a href="#Defining-State-Machines_Guarded-Transitions">9.7. Guarded Transitions</a></li>
 <li><a href="#Defining-State-Machines_Self-Transitions">9.8. Self Transitions</a></li>
@@ -532,10 +532,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Choices">9.10. Choices</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy">9.11. Hierarchy</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_Hierarchy_States-within-States">9.11.1. States within States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Substates">9.11.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Transitions-That-Cross-State-Boundaries">9.11.3. Transitions That Cross State Boundaries</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.4. Transitions to Parent States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.5. Choices within States</a></li>
 </ul>
 </li>
 </ul>
@@ -3910,7 +3911,7 @@ terminating punctuation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_State-Entry-and-Exit-Specifiers">9.5. State Entry and Exit Specifiers</h3>
+<h3 id="Defining-State-Machines_Entry-and-Exit-Specifiers">9.5. Entry and Exit Specifiers</h3>
 <div class="paragraph">
 <p>In addition to doing actions on transitions, a state machine
 can do actions on entry to or exit from a state.
@@ -4094,7 +4095,7 @@ For example, we can&#8217;t do the <code>offOnAction</code> in the <code>cmdOff<
 above, because no <code>U32</code>
 value is available there.
 Similarly, no action done in a
-<a href="#Defining-State-Machines_State-Entry-and-Exit-Specifiers">state entry or exit specifier</a> may carry a value,
+<a href="#Defining-State-Machines_Entry-and-Exit-Specifiers">state entry or exit specifier</a> may carry a value,
 because no values are available on entry to or exit
 from a state.</p>
 </li>
@@ -4624,15 +4625,15 @@ machine can be complex and hard to understand.</p>
 <p><strong>The type associated with a choice:</strong>
 Like initial transitions and state transitions, the
 transitions out of a choice may
-<a href="#Defining-State-Machines_Typed-Signals-and-Actions">carry value</a>.
+<a href="#Defining-State-Machines_Typed-Signals-and-Actions">carry a value</a>.
 To determine whether the transitions of a choice <em>C</em> carry a value,
 and if so what type that value has, we use the following rules:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>If some transitions into <em>C</em> carries no value,
-then neither of the transitions out of the choice carries a value.</p>
+<p>If any transition into <em>C</em> carries no value,
+then transitions out of <em>C</em> carry no value.</p>
 </li>
 <li>
 <p>Otherwise if all of the transitions into <em>C</em> carry
@@ -4712,7 +4713,7 @@ That is, we can do the following:</p>
 <li>
 <p>Define states within other states.
 When a state <em>T</em> is defined within a state <em>S</em>, <em>S</em> is called the
-<strong>parent</strong> of <em>T</em>, and <em>T</em> is called a <strong>substate</strong> of <em>S</em>.</p>
+<strong>parent</strong> of <em>T</em>, and <em>T</em> is called a <strong>substate</strong> or <strong>child</strong> of <em>S</em>.</p>
 </li>
 <li>
 <p>Define choices within states.</p>
@@ -4726,13 +4727,13 @@ When a state <em>T</em> is defined within a state <em>S</em>, <em>S</em> is call
 <ol class="arabic">
 <li>
 <p>Group related substates under a single parent.
-This lets us express the state machine structure in a
+This grouping lets us express the state machine structure in a
 disciplined and modular way.</p>
 </li>
 <li>
 <p>Define behaviors of a parent state that are inherited
 by its substates.
-This saves having to redefine the behavior for each
+The parent behavior saves having to redefine the behavior for each
 substate.</p>
 </li>
 <li>
@@ -4748,26 +4749,174 @@ In the following subsections, we explain how to define
 hierarchical state machines in FPP.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_States-within-States">9.11.1. States within States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Substates">9.11.1. Substates</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>In this section we explain how to define and use substates.</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="paragraph">
+<p><strong>An example:</strong>
+Here is an example of a state machine with substates:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="fpp">@ A device state machine with substates
+state machine Device {
+
+  @ A signal for turning the device on
+  signal cmdOn
+
+  @ A signal for turning the device off
+  signal cmdOff
+
+  @ A signal for indicating that the device is in an unsafe state
+  signal cmdUnsafe
+
+  @ A signal for indicating that the device is in a safe state
+  signal cmdSafe
+
+  @ The initial state is OFF
+  initial enter OFF
+
+  @ The ON state
+  state ON {
+
+    @ In the ON state, a cmdOff signal causes a transition to the OFF state
+    on cmdOff enter OFF
+
+    @ In the ON state, a cmdUnsafe signal causes a transition to OFF.UNSAFE
+    on cmdUnsafe enter OFF.UNSAFE
+
+  }
+
+  @ The OFF state
+  state OFF {
+
+    @ The initial state is SAFE
+    initial enter SAFE
+
+    @ The state OFF.SAFE
+    @ In this state, it is safe to turn on the device
+    state SAFE {
+
+      @ In the SAFE state, a cmdOff signal causes a transition to the ON state
+      on cmdOn enter ON
+
+      @ In the SAFE state, a cmdUnsafe signal causes a transition to the UNSAFE state
+      on cmdUnsafe enter UNSAFE
+
+    }
+
+    @ The state OFF.UNSAFE
+    @ In this state, it is not safe to turn on the device
+    state UNSAFE {
+
+      @ In the UNSAFE state, a cmdSafe signal causes a transition to the SAFE state
+      on cmdSafe enter SAFE
+
+    }
+
+  }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This state machine has four states: <code>ON</code>, <code>OFF</code>, <code>OFF.SAFE</code>, and <code>OFF.UNSAFE</code>.
+The last two states are substates of <code>OFF</code>.
+Notice the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Rules</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Exactly one initial transition specifier</p>
+<p>The substates are defined syntactically within the parent state.</p>
 </li>
 <li>
-<p>Initial transition specifier must go through peer choices to a peer state</p>
+<p>The full names of the substates are qualified by the name of the parent state.</p>
 </li>
-</ul>
+<li>
+<p>Inside the scope of the parent state, you can refer
+to the substates by the shorter name that omits the implied qualifier.
+The way the qualification works for state names is identical to the
+way it works for <a href="#Defining-Modules">module names</a>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>An instance <em>m</em> of this state machine has the following behavior:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When <em>m</em> starts up, it runs its initial transition specifier, just as for
+<a href="#Defining-State-Machines_States-Transitions-and-Signals">a state machine
+without hierarchy</a>.
+The state machine enters state <code>OFF</code>.
+<code>OFF</code> is a parent state, so it in turn has an initial transition
+specifier which is run.
+The state machine enters <code>OFF.SAFE</code>.</p>
+</li>
+<li>
+<p>In state <code>ON</code>, the following behavior occurs:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>When <em>m</em> receives signal <code>cmdOff</code>, it enters state
+<code>OFF</code>. This entry causes it to enter state <code>OFF.SAFE</code> as discussed above.</p>
+</li>
+<li>
+<p>When <em>m</em> receives signal <code>cmdUnsafe</code>, it goes
+directly to <code>OFF.UNSAFE</code>, bypassing the <code>OFF</code> state and its initial
+transition.</p>
+</li>
+</ol>
 </div>
 </li>
-</ul>
+<li>
+<p>In state <code>OFF.SAFE</code>, the following behavior occurs:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>When <em>m</em> receives signal <code>cmdOn</code>, it enters
+the <code>ON</code> state.</p>
+</li>
+<li>
+<p>When <em>m</em> receives signal <code>cmdUnsafe</code>, it
+enters the <code>OFF.UNSAFE</code> state.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>In state <code>OFF.UNSAFE</code>, when <em>m</em> receives signal
+<code>cmdSafe</code>, it enters the <code>OFF.SAFE</code> state.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Rules for substates:</strong>
+Here are the rules for defining substates:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Each parent state <em>S</em> must have exactly one initial transition
+specifier that enters a substate of <em>S</em>.</p>
+</li>
+<li>
+<p>Each state, including parents and substates, must be reachable
+from the initial transition of the state machine or from
+a state transition.</p>
+</li>
+<li>
+<p>Substates may themselves be parents (i.e., may have substates),
+to any depth.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Rule 1 ensures that the final target of every transition,
+after following all initial transition specifiers, is a
+<strong>leaf state</strong>, i.e., a state that has no substates.</p>
 </div>
 </div>
 <div class="sect3">
@@ -4777,13 +4926,19 @@ hierarchical state machines in FPP.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.3. Transitions to Parent States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Transitions-That-Cross-State-Boundaries">9.11.3. Transitions That Cross State Boundaries</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Parent-States">9.11.4. Transitions to Parent States</h4>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Choices-within-States">9.11.5. Choices within States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -13911,7 +14066,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-06 16:07:09 -0800
+Last updated 2024-11-06 16:55:17 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
