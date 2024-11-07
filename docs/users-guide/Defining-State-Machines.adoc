@@ -1210,7 +1210,7 @@ descendant of _T_>>.
 In this case we say that _T_ is *inherited* by each of the leaf states.
 There is an important exception to this rule:
 When a state _S_ defines a transition _T_ on a signal _s_,
-and a state _S'_ under _S_ defines another transition _T'_
+and a descendant _S'_ of _S_ defines another transition _T'_
 on the same signal _s_, the behavior of _T'_ takes precedence
 over the inherited transition _T_ in the behavior of _S'_.
 This rule is called *behavioral polymorphism* for transitions.
@@ -1289,8 +1289,10 @@ state machine Device {
 }
 ----
 
-Here we have rewritten the `Device` state machine from the previous section
-so that all the states in that example are now substates of a single state
+Here we have rewritten the 
+<<Defining-State-Machines_Hierarchy_Substates_An-Example,
+`Device` state machine from the previous section>>
+so that all the states in that example are descendants of a single state
 `DEVICE`.
 By doing this, we can have a single transition out of `DEVICE` on signal
 `cmdUnsafe`.
@@ -1319,12 +1321,11 @@ This transition overrides the transition provided in the ancestor state,
 so it restores the behavior that, on receipt of the signal
 `cmdUnsafe` in the state `DEVICE.OFF.UNSAFE`, nothing happens.
 
-==== Transitions Across State Boundaries
+==== Exit and Entry Actions on Transitions
 
 TODO
 
-==== Transitions to Ancestor States
-
+*Transitions to ancestor states:*
 TODO
 
 ==== Choices within States

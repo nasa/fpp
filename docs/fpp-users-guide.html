@@ -534,9 +534,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.11.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.11.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Transitions-Across-State-Boundaries">9.11.3. Transitions Across State Boundaries</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Transitions-to-Ancestor-States">9.11.4. Transitions to Ancestor States</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.5. Choices within States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Exit-and-Entry-Actions-on-Transitions">9.11.3. Exit and Entry Actions on Transitions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</a></li>
 </ul>
 </li>
 </ul>
@@ -4951,7 +4950,7 @@ is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
 In this case we say that <em>T</em> is <strong>inherited</strong> by each of the leaf states.
 There is an important exception to this rule:
 When a state <em>S</em> defines a transition <em>T</em> on a signal <em>s</em>,
-and a state <em>S'</em> under <em>S</em> defines another transition <em>T'</em>
+and a descendant <em>S'</em> of <em>S</em> defines another transition <em>T'</em>
 on the same signal <em>s</em>, the behavior of <em>T'</em> takes precedence
 over the inherited transition <em>T</em> in the behavior of <em>S'</em>.
 This rule is called <strong>behavioral polymorphism</strong> for transitions.</p>
@@ -5032,8 +5031,9 @@ state machine Device {
 </div>
 </div>
 <div class="paragraph">
-<p>Here we have rewritten the <code>Device</code> state machine from the previous section
-so that all the states in that example are now substates of a single state
+<p>Here we have rewritten the
+<a href="#Defining-State-Machines_Hierarchy_Substates_An-Example"><code>Device</code> state machine from the previous section</a>
+so that all the states in that example are descendants of a single state
 <code>DEVICE</code>.
 By doing this, we can have a single transition out of <code>DEVICE</code> on signal
 <code>cmdUnsafe</code>.
@@ -5066,19 +5066,17 @@ so it restores the behavior that, on receipt of the signal
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Transitions-Across-State-Boundaries">9.11.3. Transitions Across State Boundaries</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Exit-and-Entry-Actions-on-Transitions">9.11.3. Exit and Entry Actions on Transitions</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
-</div>
-<div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Transitions-to-Ancestor-States">9.11.4. Transitions to Ancestor States</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p><strong>Transitions to ancestor states:</strong>
+TODO</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Choices-within-States">9.11.5. Choices within States</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Choices-within-States">9.11.4. Choices within States</h4>
 <div class="paragraph">
 <p>TODO</p>
 </div>
@@ -14206,7 +14204,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-06 17:44:57 -0800
+Last updated 2024-11-06 17:54:43 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
