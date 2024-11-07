@@ -4950,14 +4950,16 @@ When a state <em>S</em> is a parent of a state <em>S'</em>, we say that <em>S</e
 We also say that <em>S</em> is an ancestor of <em>S'</em> if it is a parent of
 an ancestor of <em>S'</em>.
 For example, if <em>S</em> is a parent of a parent of <em>S'</em>, then
-<em>S</em> is an ancestor of <em>S'</em>.</p>
+<em>S</em> is an ancestor of <em>S'</em>.
+Note that a sate is never an ancestor of itself.</p>
 </div>
 <div class="paragraph">
 <p>When a state <em>S</em> is a an ancestor of a state <em>S'</em>, we
 say that <em>S'</em> is a <strong>descendant</strong> of <em>S</em>.
 For example, <em>S'</em> is a descendant of <em>S</em> if <em>S'</em>
 is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
-<em>S</em>.</p>
+<em>S</em>.
+Note that a sate is never a descendant of itself.</p>
 </div>
 <div class="paragraph">
 <p>In order to make the state hierarchy into a tree, we also
@@ -4987,7 +4989,8 @@ over the inherited transition <em>T</em> in the behavior of <em>S'</em>.
 This rule is called <strong>behavioral polymorphism</strong> for transitions.</p>
 </div>
 <div class="paragraph">
-<p>Here is an example that illustrates inherited transitions
+<p><strong>Example:</strong>
+Here is an example that illustrates inherited transitions
 and behavioral polymorphism:</p>
 </div>
 <div class="listingblock">
@@ -5096,6 +5099,31 @@ This transition overrides the transition provided in the ancestor state,
 so it restores the behavior that, on receipt of the signal
 <code>cmdUnsafe</code> in the state <code>DEVICE.OFF.UNSAFE</code>, nothing happens.</p>
 </div>
+<div class="paragraph">
+<p><strong>Syntactic and flattened state transitions:</strong>
+Once we introduce substates and inheritance, it is useful to
+distinguish <strong>syntactic state transitions</strong> from <strong>flattened state transitions</strong>.
+A syntactic state transition is a state transition in the FPP source
+for a state machine <em>M</em>.
+A flattened state transition is a transition that results from
+applying the rules for transition inheritance to a syntactic
+state transition.</p>
+</div>
+<div class="paragraph">
+<p>When there is no hierarchy, a syntactic transition from state
+<em>S1</em> to <em>S2</em> generates exactly one flattened transition,
+also from <em>S1</em> to <em>S2</em>.
+Once we have hierarchy, however, syntactic and flattened
+state transitions may be different.
+For example, it is possible to write a syntactic state transition
+that &#8220;looks like&#8221; it goes from a state <em>S1</em> to a state
+<em>S2</em>, but, if <em>S1</em> is a parent state, actually represents
+several flattened state transitions, one from each of the descendants
+of <em>S1</em> to <em>S2</em>.
+This distinction between syntactic and flattened state transitions
+will be useful when we discuss entry and exit actions
+in the next section.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
@@ -5107,14 +5135,15 @@ we explained how entry and exit actions occur for state transitions
 in state machines without hierarchy.
 Each of the behaviors described there is a special case of a more general
 behavior for state machines with hierarchy.
-We describe the more general behavior now.</p>
+We now describe the more general behavior.</p>
 </div>
 <div class="paragraph">
 <p><strong>General behavior:</strong>
 Suppose, in the course of running an instance of a state machine <em>M</em>,
-a transition <em>T</em> occurs from state <em>S1</em> to state <em>S2</em>.
-Because of the behavior of
-<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">inherited transitions</a>, we may assume that <em>S1</em> is a leaf state.
+a <a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">flattened state transition</a> <em>T</em>
+occurs from state <em>S1</em> to state <em>S2</em>.
+Because of the behavior of inherited transitions, we may assume
+that <em>S1</em> is a leaf state.
 When carrying out the transition <em>T</em>, the state machine instance will do
 actions as follows:</p>
 </div>
@@ -5145,7 +5174,8 @@ order of the traversal, do the entry actions of <em>S</em>, if any.</p>
 <p>For example, suppose that <em>M</em> has a state <em>S</em> with substates
 <em>A</em> and <em>B</em>, <em>A</em> has substate <em>A1</em>, and <em>B</em> has substate <em>B1</em>.
 Suppose that <em>T</em> goes from <em>A1</em> to <em>B1</em>.
-Then the following actions would be done, in the following order:
+Then least common ancestor is <em>S</em>, and the following actions
+would be done, in the following order:
 the exit actions of <em>A1</em>, the exit actions of <em>A</em>,
 the actions of <em>T</em>, the entry actions of <em>B</em>, and the
 entry actions of <em>B1</em>.</p>
@@ -5159,12 +5189,25 @@ after the transitions described above, and in the order that
 the initial transitions are run.</p>
 </div>
 <div class="paragraph">
+<p>Finally, the algorithm above is described in a way
+that emphasizes ease of understanding.
+As stated, it is inefficient because it
+recomputes the least common ancestor every time a flattened state
+transition occurs.
+In fact all the sequences of actions for flattened state transitions
+can be computed before generating code, and it is more efficient
+to do this.
+This is how the FPP code generator works.
+For more details, see the algorithm descriptions on the
+<a href="https://github.com/nasa/fpp/wiki/Checking-Semantics">FPP wiki</a>.</p>
+</div>
+<div class="paragraph">
 <p><strong>Special cases:</strong>
 The general behavior described above agrees with the special-case
 behavior that we described in the section on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions for state machines without hierarchy</a>.
-When a state machine <em>M</em> has no hierarchy, a transition <em>T</em> always
-goes from a state <em>S1</em> to a state <em>S2</em>, both of which are
+When a state machine <em>M</em> has no hierarchy, a flattened state transition <em>T</em>
+always goes from a state <em>S1</em> to a state <em>S2</em>, both of which are
 children of <em>M</em> in the hierarchy tree.
 So we always exit <em>S1</em>, do the actions of <em>T</em>, and enter <em>S2</em>.</p>
 </div>
@@ -5178,7 +5221,55 @@ So we exit <em>S</em> to go up to <em>P</em>, do the actions of <em>T</em>, and
 reenter <em>S</em>.</p>
 </div>
 <div class="paragraph">
-<p>TODO: Transitions to ancestor and descendant states</p>
+<p>It is also important to consider and understand the special
+case of a flattened state transition <em>T</em> from a state <em>S1</em> to a state <em>S2</em>,
+where <em>S2</em> is an ancestor of <em>S1</em>.
+We may call this kind of transition an <strong>ancestor state transition</strong>.
+Note the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>An ancestor state transition is not a self transition, because
+a state is never an ancestor of itself.</p>
+</li>
+<li>
+<p>Suppose that some state <em>S</em> is a parent state, and the definition of <em>S</em>
+contains a syntactic transition <em>Ts</em> that enters <em>S</em>.
+Then <em>Ts</em> looks like a self transition (it is defined in <em>S</em>,
+and its target is <em>S</em>).
+However, by the rules for
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">inherited
+transitions</a>,
+in fact it represents one or more flattened state transitions <em>T</em>,
+each of which is an ancestor state transition.</p>
+</li>
+<li>
+<p>We do not have to consider the case where <em>S1</em> is an ancestor
+of <em>S2</em>: if <em>T</em> is flattened, then <em>S1</em> is a leaf state,
+and leaf states have no descendants.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>When <em>T</em> is an ancestor state transition, the least common ancestor
+of <em>S1</em> and <em>S2</em> is the parent <em>P</em> of <em>S2</em>.
+Therefore the following behavior occurs:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Do exit actions to get from <em>S1</em> to <em>P</em>. The last actions will
+be the exit actions of <em>S1</em>, if any.</p>
+</li>
+<li>
+<p>Do the actions of <em>T</em>, if any.</p>
+</li>
+<li>
+<p>Do enter actions to get from <em>P</em> to <em>S2</em>.
+The first actions will be the entry actions of <em>S1</em>, if any.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
@@ -14310,7 +14401,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 10:36:49 -0800
+Last updated 2024-11-07 11:32:43 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
