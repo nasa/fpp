@@ -520,8 +520,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li><a href="#Defining-State-Machines">9. Defining State Machines</a>
 <ul class="sectlevel2">
-<li><a href="#Defining-State-Machines_External-State-Machines">9.1. External State Machines</a></li>
-<li><a href="#Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</a></li>
+<li><a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</a></li>
+<li><a href="#Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</a></li>
 <li><a href="#Defining-State-Machines_Actions">9.3. Actions</a>
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Actions_Actions-in-Transitions">9.3.1. Actions in Transitions</a></li>
@@ -529,11 +529,11 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Actions_Typed-Signals-and-Actions">9.3.3. Typed Signals and Actions</a></li>
 </ul>
 </li>
-<li><a href="#Defining-State-Machines_State-Transitions">9.4. State Transitions</a>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</a>
 <ul class="sectlevel3">
-<li><a href="#Defining-State-Machines_State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</a></li>
-<li><a href="#Defining-State-Machines_State-Transitions_Self-Transitions">9.4.2. Self Transitions</a></li>
-<li><a href="#Defining-State-Machines_State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</a></li>
+<li><a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</a></li>
 </ul>
 </li>
 <li><a href="#Defining-State-Machines_Choices">9.5. Choices</a></li>
@@ -541,7 +541,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <ul class="sectlevel3">
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Exit-and-Entry-Actions">9.6.3. Exit and Entry Actions</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Choices-within-States">9.6.4. Choices within States</a></li>
 </ul>
 </li>
@@ -3588,9 +3588,10 @@ The component can then send the signals that cause the state
 transitions.</p>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_External-State-Machines">9.1. External State Machines</h3>
+<h3 id="Defining-State-Machines_Writing-a-State-Machine-Definition">9.1. Writing a State Machine Definition</h3>
 <div class="paragraph">
-<p>To define an external state machine, you write the keywords
+<p><strong>External state machines:</strong>
+To define an external state machine, you write the keywords
 <code>state</code> <code>machine</code> followed by an identifier, which is the
 name of the state machine:</p>
 </div>
@@ -3610,11 +3611,9 @@ The external implementation must have a header file <code>M.hpp</code>
 located in the same directory as the FPP file where
 the state machine <code>M</code> is defined.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Defining-State-Machines_Internal-State-Machines">9.2. Internal State Machines</h3>
 <div class="paragraph">
-<p>In the remainder of this section, we explain how to define internal
+<p><strong>Internal state machines:</strong>
+In the following subsections, we explain how to define internal
 state machines in FPP.
 The behavior of these state machines closely follows the behavior
 described for state machines in the
@@ -3627,6 +3626,14 @@ because our goal is to support embedded and flight software,
 we focus on a subset of UML state machine behavior that is
 (1) simple and unambiguous and (2) sufficient for embedded
 applications that use F Prime.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="Defining-State-Machines_States-Signals-and-Transitions">9.2. States, Signals, and Transitions</h3>
+<div class="paragraph">
+<p>In this section we explain the concepts of states,
+signals, and transitions.
+These are the basic building blocks of FPP state machines.</p>
 </div>
 <div class="paragraph">
 <p><strong>Basic state machines:</strong>
@@ -3823,7 +3830,7 @@ an action <em>A</em>, we say that it <strong>does</strong> <em>A</em>.</p>
 <div class="paragraph">
 <p>To define an action, you write the keyword <code>action</code> followed
 by the name of the action.
-As with <a href="#Defining-State-Machines_Internal-State-Machines">signals</a>,
+As with <a href="#Defining-State-Machines_States-Signals-and-Transitions">signals</a>,
 every action name must be unique.
 To do an action, you write the keyword <code>do</code>
 followed by a list of action names enclosed in curly braces.
@@ -4138,14 +4145,14 @@ In this case the value is ignored when doing the action.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Defining-State-Machines_State-Transitions">9.4. State Transitions</h3>
+<h3 id="Defining-State-Machines_More-on-State-Transitions">9.4. More on State Transitions</h3>
 <div class="paragraph">
 <p>In this section, we provide more details on how to write
-<a href="#Defining-State-Machines_Internal-State-Machines">state transitions</a>
+<a href="#Defining-State-Machines_States-Signals-and-Transitions">state transitions</a>
 in FPP state machines.</p>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">9.4.1. Guarded Transitions</h4>
 <div class="paragraph">
 <p>Sometimes it is useful to specify that a transition should occur
 only if a certain condition is true.
@@ -4263,7 +4270,7 @@ it passes in the value as an argument to the function.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Transitions_Self-Transitions">9.4.2. Self Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</h4>
 <div class="paragraph">
 <p>When a state transition has the same state <em>S</em> as its source
 and its target, we call the transition a <strong>self transition</strong>.
@@ -4366,10 +4373,10 @@ it receives a <code>cmdReset</code> signal, the following behavior occurs:</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</h4>
+<h4 id="Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">9.4.3. Internal Transitions</h4>
 <div class="paragraph">
 <p>An internal transition is like a
-<a href="#Defining-State-Machines_State-Transitions_Self-Transitions">self transition</a>,
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transition</a>,
 except that there is no exit and reentry.
 To write a self transition, you write the <code>on</code> and <code>do</code>
 parts of a transition and omit the <code>enter</code> part.
@@ -4476,7 +4483,7 @@ of a transition.</p>
 <p>The name of a</p>
 </li>
 <li>
-<p><a href="#Defining-State-Machines_State-Transitions_Guarded-Transitions">guard</a>
+<p><a href="#Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions">guard</a>
 <em>G</em>.
 The evaluation of <em>G</em> selects which branch of the choice to
 follow.</p>
@@ -4866,7 +4873,7 @@ way it works for <a href="#Defining-Modules">module names</a>.</p>
 <ol class="arabic">
 <li>
 <p>When <em>m</em> starts up, it runs its initial transition specifier, just as for
-<a href="#Defining-State-Machines_Internal-State-Machines">a state machine
+<a href="#Defining-State-Machines_States-Signals-and-Transitions">a state machine
 without hierarchy</a>.
 The state machine enters state <code>OFF</code>.
 <code>OFF</code> is a parent state, so it in turn has an initial transition
@@ -4937,7 +4944,7 @@ after following all initial transition specifiers, is a
 <strong>leaf state</strong>, i.e., a state that has no substates.</p>
 </div>
 <div class="paragraph">
-<p><strong>Ancestors and descendants:</strong>
+<p><strong>The hierarchy tree:</strong>
 When a state <em>S</em> is a parent of a state <em>S'</em>, we say that <em>S</em> is an
 <strong>ancestor</strong> of <em>S'</em> in the state hierarchy.
 We also say that <em>S</em> is an ancestor of <em>S'</em> if it is a parent of
@@ -4951,6 +4958,17 @@ say that <em>S'</em> is a <strong>descendant</strong> of <em>S</em>.
 For example, <em>S'</em> is a descendant of <em>S</em> if <em>S'</em>
 is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
 <em>S</em>.</p>
+</div>
+<div class="paragraph">
+<p>In order to make the state hierarchy into a tree, we also
+say that the entire state machine <em>M</em> is a parent of every top-level
+state in the state machine.
+This means that (1) <em>M</em> is an ancestor of every
+state in <em>M</em> and (2) every state in <em>M</em> is a descendant of <em>M</em>.
+We will say that the tree constructed in this way is the
+<strong>hierarchy tree</strong> for <em>M</em>, and that each of <em>M</em> and every state
+in <em>M</em> is a <strong>node</strong> in the hierarchy tree.
+In particular, <em>M</em> is the root node of the hierarchy tree.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5065,13 +5083,13 @@ state machine.
 This may not matter much in this example, but it would matter if the
 the state <code>DEVICE.OFF.UNSAFE</code> had entry or exit actions; in this case
 transition from <code>UNSAFE</code> to itself (which is a
-<a href="#Defining-State-Machines_State-Transitions_Self-Transitions">self transition</a>)
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transition</a>)
 would cause an exit from and reentry to the state, which we may not want.</p>
 </div>
 <div class="paragraph">
 <p>To remedy this situation, we use behavioral polymorphism.
 In the state <code>DEVICE.OFF.UNSAFE</code>, we define an
-<a href="#Defining-State-Machines_State-Transitions_Internal-Transitions">internal
+<a href="#Defining-State-Machines_More-on-State-Transitions_Internal-Transitions">internal
 transition</a>
 that has an empty list of actions and so does nothing.
 This transition overrides the transition provided in the ancestor state,
@@ -5080,9 +5098,74 @@ so it restores the behavior that, on receipt of the signal
 </div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Exit-and-Entry-Actions">9.6.3. Exit and Entry Actions</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</h4>
 <div class="paragraph">
-<p>TODO</p>
+<p>In previous sections on
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>,
+we explained how entry and exit actions occur for a state transition
+in a state machine without hierarchy.
+That behavior is a special case of a more general behavior
+for state machines with hierarchy.
+We describe the more general behavior now.</p>
+</div>
+<div class="paragraph">
+<p><strong>General behavior:</strong>
+Suppose, in the course of running an instance of a state machine <em>M</em>,
+a transition <em>T</em> occurs from state <em>S1</em> to state <em>S2</em>.
+Because of the behavior of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">inherited transitions</a>, we may assume that <em>S1</em> is a leaf state.
+When carrying out the transition <em>T</em>, the state machine instance will do
+actions as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Compute the <strong>least common ancestor</strong> of <em>S1</em> and <em>S2</em>.
+This is the unique node <em>N</em> of the <a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a> of <em>M</em> such that (a) <em>N</em> is an ancestor of <em>S1</em>,
+(b) <em>N</em> is an ancestor of <em>S2</em>, and (c) there is no node <em>N'</em>
+that is a descendant of <em>N</em> and that satisfies properties (a) and (b).</p>
+</li>
+<li>
+<p>Traverse the hierarchy tree upwards from <em>S1</em> to <em>N</em>.
+At each point where the traversal passes out of a state <em>S</em>, in the
+order of the traversal, do the exit actions of <em>S</em>, if any.</p>
+</li>
+<li>
+<p>Do the actions specified in <em>T</em>, if any.</p>
+</li>
+<li>
+<p>Traverse the hierarchy tree downwards from <em>N</em> to <em>S2</em>.
+At each point where the traversal enters a state <em>S</em>, in the
+order of the traversal, do the entry actions of <em>S</em>, if any.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For example, suppose that <em>M</em> has a state <em>S</em> with substates
+<em>A</em> and <em>B</em>, <em>A</em> has substate <em>A1</em>, and <em>B</em> has substate <em>B1</em>.
+Suppose that <em>T</em> goes from <em>A1</em> to <em>B1</em>.
+Then the following actions would be done, in the following order:
+the exit actions of <em>A1</em>, the exit actions of <em>A</em>,
+the actions of <em>T</em>, the entry actions of <em>B</em>, and the
+entry actions of <em>B1</em>.</p>
+</div>
+<div class="paragraph">
+<p>Remember that <em>T</em> must
+<a href="#Defining-State-Machines_Hierarchy_Substates">go to a leaf state</a>,
+following initial transitions if necessary.
+Any actions specified in those transitions are done as well,
+after the transitions described above, and in the order that
+the initial transitions are run.</p>
+</div>
+<div class="paragraph">
+<p>Notice also that this behavior agrees with the more specific
+behavior that we described in the section on
+<a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a>.
+When a state machine <em>M</em> has no hierarchy, a transition <em>T</em> always
+goes from a state <em>S1</em> to a state <em>S2</em>, both of which are
+children of <em>M</em> in the hierarchy tree.
+So we always exit <em>S1</em>, do the actions of <em>T</em>, and enter <em>S2</em>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Transitions to ancestor states:</strong>
@@ -13632,7 +13715,7 @@ These are types that are named in the FPP model but are defined
 directly in C&#43;&#43;.</p>
 </li>
 <li>
-<p>Implementations of <a href="#Defining-State-Machines_External-State-Machines">external state machines</a>.</p>
+<p>Implementations of <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machines</a>.</p>
 </li>
 <li>
 <p>Implementations of
@@ -13848,7 +13931,7 @@ and the types will be displayable.</p>
 <div class="sect2">
 <h3 id="Writing-C-Plus-Plus-Implementations_Implementing-External-State-Machines">15.2. Implementing External State Machines</h3>
 <div class="paragraph">
-<p>An <a href="#Defining-State-Machines_External-State-Machines">external state machine</a> refers to a state machine implementation
+<p>An <a href="#Defining-State-Machines_Writing-a-State-Machine-Definition">external state machine</a> refers to a state machine implementation
 supplied outside the FPP model.
 To implement an external state machine, you can use
 the <a href="https://github.com/JPLOpenSource/STARS/tree/main">State Autocoding for
@@ -14218,7 +14301,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 08:57:32 -0800
+Last updated 2024-11-07 09:49:22 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

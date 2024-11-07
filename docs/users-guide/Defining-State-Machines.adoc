@@ -44,8 +44,9 @@ instantiate it as part of a component>>.
 The component can then send the signals that cause the state
 transitions.
 
-=== External State Machines
+=== Writing a State Machine Definition
 
+*External state machines:*
 To define an external state machine, you write the keywords
 `state` `machine` followed by an identifier, which is the
 name of the state machine:
@@ -65,9 +66,8 @@ The external implementation must have a header file `M.hpp`
 located in the same directory as the FPP file where
 the state machine `M` is defined.
 
-=== Internal State Machines
-
-In the remainder of this section, we explain how to define internal
+*Internal state machines:*
+In the following subsections, we explain how to define internal
 state machines in FPP.
 The behavior of these state machines closely follows the behavior
 described for state machines in the
@@ -80,6 +80,12 @@ because our goal is to support embedded and flight software,
 we focus on a subset of UML state machine behavior that is
 (1) simple and unambiguous and (2) sufficient for embedded
 applications that use F Prime.
+
+=== States, Signals, and Transitions
+
+In this section we explain the concepts of states,
+signals, and transitions.
+These are the basic building blocks of FPP state machines.
 
 *Basic state machines:*
 The simplest state machine _M_ that has any useful
@@ -243,7 +249,7 @@ an action _A_, we say that it *does* _A_.
 
 To define an action, you write the keyword `action` followed
 by the name of the action.
-As with <<Defining-State-Machines_Internal-State-Machines,signals>>,
+As with <<Defining-State-Machines_States-Signals-and-Transitions,signals>>,
 every action name must be unique.
 To do an action, you write the keyword `do`
 followed by a list of action names enclosed in curly braces.
@@ -524,10 +530,10 @@ For example, in the code shown above, the `cmdOn`
 transition could do some other action that carries no value.
 In this case the value is ignored when doing the action.
 
-=== State Transitions
+=== More on State Transitions
 
 In this section, we provide more details on how to write
-<<Defining-State-Machines_Internal-State-Machines,state transitions>>
+<<Defining-State-Machines_States-Signals-and-Transitions,state transitions>>
 in FPP state machines.
 
 ==== Guarded Transitions
@@ -730,7 +736,7 @@ it receives a `cmdReset` signal, the following behavior occurs:
 ==== Internal Transitions
 
 An internal transition is like a
-<<Defining-State-Machines_State-Transitions_Self-Transitions,self transition>>,
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self transition>>,
 except that there is no exit and reentry.
 To write a self transition, you write the `on` and `do`
 parts of a transition and omit the `enter` part.
@@ -824,7 +830,7 @@ The most basic choice definition consists of the following:
 of a transition.
 
 * The name of a 
-* <<Defining-State-Machines_State-Transitions_Guarded-Transitions,guard>>
+* <<Defining-State-Machines_More-on-State-Transitions_Guarded-Transitions,guard>>
 _G_.
 The evaluation of _G_ selects which branch of the choice to
 follow.
@@ -1146,7 +1152,7 @@ way it works for <<Defining-Modules,module names>>.
 An instance _m_ of this state machine has the following behavior:
 
 . When _m_ starts up, it runs its initial transition specifier, just as for 
-<<Defining-State-Machines_Internal-State-Machines, a state machine 
+<<Defining-State-Machines_States-Signals-and-Transitions, a state machine 
 without hierarchy>>.
 The state machine enters state `OFF`.
 `OFF` is a parent state, so it in turn has an initial transition
@@ -1190,7 +1196,7 @@ Rule 1 ensures that the final target of every transition,
 after following all initial transition specifiers, is a
 *leaf state*, i.e., a state that has no substates.
 
-*Ancestors and descendants:*
+*The hierarchy tree:*
 When a state _S_ is a parent of a state _S'_, we say that _S_ is an
 *ancestor* of _S'_ in the state hierarchy.
 We also say that _S_ is an ancestor of _S'_ if it is a parent of
@@ -1203,6 +1209,16 @@ say that _S'_ is a *descendant* of _S_.
 For example, _S'_ is a descendant of _S_ if _S'_
 is a child of _S_, or if _S'_ is a child of a child of
 _S_.
+
+In order to make the state hierarchy into a tree, we also
+say that the entire state machine _M_ is a parent of every top-level
+state in the state machine.
+This means that (1) _M_ is an ancestor of every
+state in _M_ and (2) every state in _M_ is a descendant of _M_.
+We will say that the tree constructed in this way is the
+*hierarchy tree* for _M_, and that each of _M_ and every state
+in _M_ is a *node* in the hierarchy tree.
+In particular, _M_ is the root node of the hierarchy tree.
 
 ==== Inherited Transitions
 
@@ -1313,21 +1329,79 @@ state machine.
 This may not matter much in this example, but it would matter if the
 the state `DEVICE.OFF.UNSAFE` had entry or exit actions; in this case
 transition from `UNSAFE` to itself (which is a
-<<Defining-State-Machines_State-Transitions_Self-Transitions,self transition>>)
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,self transition>>)
 would cause an exit from and reentry to the state, which we may not want.
 
 To remedy this situation, we use behavioral polymorphism.
 In the state `DEVICE.OFF.UNSAFE`, we define an
-<<Defining-State-Machines_State-Transitions_Internal-Transitions,internal 
+<<Defining-State-Machines_More-on-State-Transitions_Internal-Transitions,internal 
 transition>>
 that has an empty list of actions and so does nothing.
 This transition overrides the transition provided in the ancestor state,
 so it restores the behavior that, on receipt of the signal
 `cmdUnsafe` in the state `DEVICE.OFF.UNSAFE`, nothing happens.
 
-==== Exit and Entry Actions
+==== Entry and Exit Actions
 
-TODO
+In previous sections on
+<<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
+entry and exit actions>> and
+<<Defining-State-Machines_More-on-State-Transitions_Self-Transitions,
+self transitions>>,
+we explained how entry and exit actions occur for a state transition
+in a state machine without hierarchy.
+That behavior is a special case of a more general behavior
+for state machines with hierarchy.
+We describe the more general behavior now.
+
+*General behavior:*
+Suppose, in the course of running an instance of a state machine _M_,
+a transition _T_ occurs from state _S1_ to state _S2_.
+Because of the behavior of 
+<<Defining-State-Machines_Hierarchy_Inherited-Transitions,
+inherited transitions>>, we may assume that _S1_ is a leaf state.
+When carrying out the transition _T_, the state machine instance will do
+actions as follows:
+
+. Compute the *least common ancestor* of _S1_ and _S2_.
+This is the unique node _N_ of the <<Defining-State-Machines_Hierarchy_Substates,
+hierarchy tree>> of _M_ such that (a) _N_ is an ancestor of _S1_,
+(b) _N_ is an ancestor of _S2_, and (c) there is no node _N'_
+that is a descendant of _N_ and that satisfies properties (a) and (b).
+
+. Traverse the hierarchy tree upwards from _S1_ to _N_.
+At each point where the traversal passes out of a state _S_, in the
+order of the traversal, do the exit actions of _S_, if any.
+
+. Do the actions specified in _T_, if any.
+
+. Traverse the hierarchy tree downwards from _N_ to _S2_.
+At each point where the traversal enters a state _S_, in the
+order of the traversal, do the entry actions of _S_, if any.
+
+For example, suppose that _M_ has a state _S_ with substates
+_A_ and _B_, _A_ has substate _A1_, and _B_ has substate _B1_.
+Suppose that _T_ goes from _A1_ to _B1_.
+Then the following actions would be done, in the following order:
+the exit actions of _A1_, the exit actions of _A_,
+the actions of _T_, the entry actions of _B_, and the
+entry actions of _B1_.
+
+Remember that _T_ must 
+<<Defining-State-Machines_Hierarchy_Substates,go to a leaf state>>,
+following initial transitions if necessary.
+Any actions specified in those transitions are done as well,
+after the transitions described above, and in the order that
+the initial transitions are run.
+
+Notice also that this behavior agrees with the more specific
+behavior that we described in the section on 
+<<Defining-State-Machines_Actions_Entry-and-Exit-Actions,
+entry and exit actions>>.
+When a state machine _M_ has no hierarchy, a transition _T_ always
+goes from a state _S1_ to a state _S2_, both of which are
+children of _M_ in the hierarchy tree.
+So we always exit _S1_, do the actions of _T_, and enter _S2_.
 
 *Transitions to ancestor states:*
 TODO
