@@ -1,0 +1,14 @@
+fpp-check
+error: no port available for matched numbering
+matched connections are specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/no_port_available_for_matched_numbering.fpp:43.7
+      c1.pOut -> c2.pIn
+      ^
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/no_port_available_for_matched_numbering.fpp:44.7
+      c2.pOut -> c1.pIn
+      ^
+port matching is specified here:
+[ local path prefix ]/compiler/tools/fpp-check/test/port_numbering/no_port_available_for_matched_numbering.fpp:10.5
+    match pOut with pIn
+    ^
+note: to be available, a port number must be in bounds and unassigned at each of the matched ports

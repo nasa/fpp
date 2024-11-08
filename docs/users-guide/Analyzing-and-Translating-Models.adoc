@@ -1494,5 +1494,5 @@ when running `fpp-to-xml`:
 With this option, `fpp-to-json` generates the AST and the
 location map only; it doesn't generate the Analysis data structure.
 Because semantic analysis is not run, you don't have to present
-a complete or syntactically correct FPP model to the tool.
+a complete or semantically correct FPP model to the tool.
 

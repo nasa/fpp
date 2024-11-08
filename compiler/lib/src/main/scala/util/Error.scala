@@ -43,12 +43,16 @@ sealed trait Error {
       case CodeGenError.EmptyStruct(loc) =>
         Error.print (Some(loc)) (s"cannot write XML for an empty struct")
       case IncludeError.Cycle(loc, msg) => Error.print (Some(loc)) (msg)
-      case FileError.CannotOpen(locOpt, name) => 
+      case FileError.CannotOpen(locOpt, name) =>
         Error.print (locOpt) (s"cannot open file $name")
-      case FileError.CannotResolvePath(loc, name) => 
+      case FileError.CannotResolvePath(loc, name) =>
         Error.print (Some(loc)) (s"cannot resolve path $name")
       case SemanticError.DivisionByZero(loc) =>
         Error.print (Some(loc)) ("division by zero")
+      case SemanticError.DuplicateConnectionAtMatchedPort(loc, port, portNum, prevLoc, matchingLoc) =>
+        Error.print (Some(loc)) (s"duplicate connection at matched port $port[$portNum]")
+        printPrevLoc(prevLoc)
+        printMatchingLoc(matchingLoc)
       case SemanticError.DuplicateDictionaryName(kind, name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate ${kind} name ${name}")
         printPrevLoc(prevLoc)
@@ -71,7 +75,7 @@ sealed trait Error {
         loc,
         prevLoc,
         matchingLoc
-      ) => 
+      ) =>
         Error.print (Some(loc)) ("duplicate connection between a matched port array and a single instance")
         printPrevLoc(prevLoc)
         printMatchingLoc(matchingLoc)
@@ -103,8 +107,23 @@ sealed trait Error {
       case SemanticError.DuplicateTopology(name, loc, prevLoc) =>
         Error.print (Some(loc)) (s"duplicate topology ${name}")
         printPrevLoc(prevLoc)
-      case SemanticError.EmptyArray(loc) => 
+      case SemanticError.EmptyArray(loc) =>
         Error.print (Some(loc)) ("array expression may not be empty")
+      case SemanticError.ImplicitDuplicateConnectionAtMatchedPort(
+        loc,
+        port,
+        portNum,
+        implyingLoc,
+        matchingLoc,
+        prevLoc
+      ) =>
+        Error.print (Some(loc)) (s"implicit duplicate connection at matched port $port[$portNum]")
+        System.err.println("connection is implied here:")
+        System.err.println(implyingLoc)
+        System.err.println("because of matching specified here:")
+        System.err.println(matchingLoc)
+        System.err.println("conflicting connection is here:")
+        System.err.println(prevLoc)
       case SemanticError.InconsistentSpecLoc(loc, path, prevLoc, prevPath) =>
         Error.print (Some(loc)) (s"inconsistent location path ${path}")
         System.err.println(prevLoc)
@@ -199,8 +218,18 @@ sealed trait Error {
       case SemanticError.MissingConnection(loc, matchingLoc) =>
         Error.print (Some(loc)) ("no match for this connection")
         printMatchingLoc(matchingLoc)
+      case SemanticError.MissingPortMatching(loc) =>
+        Error.print (Some(loc)) ("unmatched connection must go from or to a matched port")
       case SemanticError.MissingPort(loc, specMsg, portMsg) =>
         Error.print (Some(loc)) (s"component with $specMsg must have $portMsg")
+      case SemanticError.NoPortAvailableForMatchedNumbering(loc1, loc2, matchingLoc) =>
+        Error.print (None) (s"no port available for matched numbering")
+        System.err.println("matched connections are specified here:")
+        System.err.println(loc1)
+        System.err.println(loc2)
+        printMatchingLoc(matchingLoc)
+        System.err.println("note: to be available, a port number must be in bounds and " ++
+                           "unassigned at each of the matched ports")
       case SemanticError.OverlappingIdRanges(
         maxId1, name1, loc1, baseId2, name2, loc2
       ) =>
@@ -271,6 +300,14 @@ object SemanticError {
   final case class EmptyArray(loc: Location) extends Error
   /** Division by zero */
   final case class DivisionByZero(loc: Location) extends Error
+  /** Duplicate connection at matched port */
+  final case class DuplicateConnectionAtMatchedPort(
+    loc: Location,
+    port: String,
+    portNum: Int,
+    prevLoc: Location,
+    matchingLoc: Location
+  ) extends Error
   /** Duplicate name in dictionary */
   final case class DuplicateDictionaryName(
     kind: String,
@@ -359,6 +396,15 @@ object SemanticError {
   final case class DuplicateTopology(
     name: String,
     loc: Location,
+    prevLoc: Location
+  ) extends Error
+  /** Implicit duplicate connection at matched port */
+  final case class ImplicitDuplicateConnectionAtMatchedPort(
+    loc: Location,
+    port: String,
+    portNum: Int,
+    implyingLoc: Location,
+    matchingLoc: Location,
     prevLoc: Location
   ) extends Error
   /** Inconsistent location specifiers */
@@ -488,6 +534,15 @@ object SemanticError {
     loc: Location,
     specMsg: String,
     portmsg: String
+  ) extends Error
+  final case class MissingPortMatching(
+    loc: Location
+  ) extends Error
+  /** Matched port numbering could not find a valid port number */
+  final case class NoPortAvailableForMatchedNumbering(
+    loc1: Location,
+    loc2: Location,
+    matchingLoc: Location
   ) extends Error
   /** Overlapping ID ranges */
   final case class OverlappingIdRanges(

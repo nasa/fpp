@@ -34,6 +34,9 @@ which each element is a *connection*,
 and the terminating punctuation is a comma.
 A connection is the following:
 
+_[_
+`unmatched`
+_]_
 <<Port-Instance-Identifiers,_port-instance-id_>>
 _[_
 `[`
@@ -60,6 +63,8 @@ _pattern-kind_ is one of the following:
 
 . `telemetry`
 
+. `text` `event`
+
 . `time`
 
 _instance-sequence_ is an
@@ -78,6 +83,12 @@ the connection graph.
 
 . The connection sequence specifies the set of connections in the graph.
 For each connection _C_:
+
+.. The optional keyword `unmatched` is allowed only if _C_ is
+<<Definitions_Topology-Definitions_Semantics_Automatic-Numbering-of-Ports,
+match constrained>>.
+In this case, if the keyword `unmatched` is present, then _C_ is
+unmatched.
 
 .. For each of the two port instance identifiers _I_ appearing in _C_:
 

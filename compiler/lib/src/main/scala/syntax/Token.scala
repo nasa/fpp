@@ -117,7 +117,7 @@ object Token {
   final case class U32() extends Token
   final case class U64() extends Token
   final case class U8() extends Token
-  final case class UNUSED() extends Token
+  final case class UNMATCHED() extends Token
   final case class UPDATE() extends Token
   final case class WARNING() extends Token
   final case class WITH() extends Token
