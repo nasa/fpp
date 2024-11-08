@@ -1022,6 +1022,25 @@ If an action _A_ done in a transition of a choice _C_ carries a value,
 the type named in the definition of _A_ must be
 compatible with the type associated with _C_, as discussed above.
 
+*Entry and exit actions:*
+When a transition _T_ of a state machine _M_
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, let _I_ be an instance of _M_, and
+suppose _I_ is carrying out a transition _T_.
+
+* If _T_ goes from a choice _C_ to a state _S_,
+then _I_
+does the actions of _T_ followed by the entry actions of _S_.
+
+* If _T_ goes from a state _S_ to a choice _C_,
+then _I_
+does the exit actions of _S_ followed by the actions of _T_.
+
+* If _T_ goes from a choice _C_~1~ to a choice _C_~2~,
+then _I_ does the actions of _T_.
+
 *Rules for choice definitions:*
 Choice definitions must conform to the following rules:
 
@@ -1142,11 +1161,11 @@ This state machine has four states: `ON`, `OFF`, `OFF.SAFE`, and `OFF.UNSAFE`.
 The last two states are substates of `OFF`.
 Notice the following:
 
-. The substates are defined syntactically within the parent state.
+* The substates are defined syntactically within the parent state.
 
-. The full names of the substates are qualified by the name of the parent state.
+* The full names of the substates are qualified by the name of the parent state.
 
-. Inside the scope of the parent state, you can refer
+* Inside the scope of the parent state, you can refer
 to the substates by the shorter name that omits the implied qualifier.
 The way the qualification works for state names is identical to the
 way it works for <<Defining-Modules,module names>>.
@@ -1364,11 +1383,10 @@ _S_~1~ to _S_~2~ generates exactly one flattened transition,
 also from _S_~1~ to _S_~2~.
 Once we have hierarchy, however, syntactic and flattened
 state transitions may be different.
-For example, it is possible to write a syntactic state transition
-that "`looks like`" it goes from a state _S_~1~ to a state
-_S_~2~, but, if _S_~1~ is a parent state, actually represents
-several flattened state transitions.
-For each leaf descendant _L_ of _S_~1~, there is a flattened
+For example, if _S_~1~ is a parent state, then a syntactic state transition
+that from a state _S_~1~ to a state
+_S_~2~ may represent several flattened state transitions.
+For each descendant _L_ of _S_~1~ that is a leaf state, there is a flattened
 state transition from _L_ to _S_~2~.
 Note in particular that whereas a syntactic state transition may
 have a parent state as its source, a flattened state transition always
@@ -1594,5 +1612,16 @@ state machine InvalidInitialChoice {
 }
 --------
 
-TODO
-
+*Entry and exit actions:*
+As in the <<Defining-State-Machines_Choices,non-hierarchical case>>,
+when a transition _T_ of a state machine _M_
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, suppose that _M_ has a state _S_ with substates
+_A_ and _B_, _A_ has a choice _C_, and _B_ has substate _B'_.
+Suppose that _T_ goes from _C_ to _B'_.
+Then least common ancestor is _S_, and the following actions
+would be done, in the following order:
+the exit actions of _A_, the actions of _T_, the entry actions of _B_, and the
+entry actions of _B'_.

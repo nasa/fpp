@@ -4705,6 +4705,33 @@ the type named in the definition of <em>A</em> must be
 compatible with the type associated with <em>C</em>, as discussed above.</p>
 </div>
 <div class="paragraph">
+<p><strong>Entry and exit actions:</strong>
+When a transition <em>T</em> of a state machine <em>M</em>
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, let <em>I</em> be an instance of <em>M</em>, and
+suppose <em>I</em> is carrying out a transition <em>T</em>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If <em>T</em> goes from a choice <em>C</em> to a state <em>S</em>,
+then <em>I</em>
+does the actions of <em>T</em> followed by the entry actions of <em>S</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> goes from a state <em>S</em> to a choice <em>C</em>,
+then <em>I</em>
+does the exit actions of <em>S</em> followed by the actions of <em>T</em>.</p>
+</li>
+<li>
+<p>If <em>T</em> goes from a choice <em>C</em><sub>1</sub> to a choice <em>C</em><sub>2</sub>,
+then <em>I</em> does the actions of <em>T</em>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
 <p><strong>Rules for choice definitions:</strong>
 Choice definitions must conform to the following rules:</p>
 </div>
@@ -4852,8 +4879,8 @@ state machine Device {
 The last two states are substates of <code>OFF</code>.
 Notice the following:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
 <p>The substates are defined syntactically within the parent state.</p>
 </li>
@@ -4866,7 +4893,7 @@ to the substates by the shorter name that omits the implied qualifier.
 The way the qualification works for state names is identical to the
 way it works for <a href="#Defining-Modules">module names</a>.</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="paragraph">
 <p>An instance <em>m</em> of this state machine has the following behavior:</p>
@@ -5121,11 +5148,10 @@ side of the transition.</p>
 also from <em>S</em><sub>1</sub> to <em>S</em><sub>2</sub>.
 Once we have hierarchy, however, syntactic and flattened
 state transitions may be different.
-For example, it is possible to write a syntactic state transition
-that &#8220;looks like&#8221; it goes from a state <em>S</em><sub>1</sub> to a state
-<em>S</em><sub>2</sub>, but, if <em>S</em><sub>1</sub> is a parent state, actually represents
-several flattened state transitions.
-For each leaf descendant <em>L</em> of <em>S</em><sub>1</sub>, there is a flattened
+For example, if <em>S</em><sub>1</sub> is a parent state, then a syntactic state transition
+that from a state <em>S</em><sub>1</sub> to a state
+<em>S</em><sub>2</sub> may represent several flattened state transitions.
+For each descendant <em>L</em> of <em>S</em><sub>1</sub> that is a leaf state, there is a flattened
 state transition from <em>L</em> to <em>S</em><sub>2</sub>.
 Note in particular that whereas a syntactic state transition may
 have a parent state as its source, a flattened state transition always
@@ -5383,7 +5409,19 @@ to a state with parent <em>P</em>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>TODO</p>
+<p><strong>Entry and exit actions:</strong>
+As in the <a href="#Defining-State-Machines_Choices">non-hierarchical case</a>,
+when a transition <em>T</em> of a state machine <em>M</em>
+goes to or from a choice, entry and
+exit actions are done as if each choice were a state with
+no entry and or exit actions.
+For example, suppose that <em>M</em> has a state <em>S</em> with substates
+<em>A</em> and <em>B</em>, <em>A</em> has a choice <em>C</em>, and <em>B</em> has substate <em>B'</em>.
+Suppose that <em>T</em> goes from <em>C</em> to <em>B'</em>.
+Then least common ancestor is <em>S</em>, and the following actions
+would be done, in the following order:
+the exit actions of <em>A</em>, the actions of <em>T</em>, the entry actions of <em>B</em>, and the
+entry actions of <em>B'</em>.</p>
 </div>
 </div>
 </div>
@@ -14495,7 +14533,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 16:48:02 -0800
+Last updated 2024-11-07 17:57:46 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
