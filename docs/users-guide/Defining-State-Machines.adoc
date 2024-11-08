@@ -1427,8 +1427,9 @@ entry actions of _B'_.
 
 Remember also that if _B'_ is not a leaf state, then _T_ will
 <<Defining-State-Machines_Hierarchy_Substates,follow
-one or more initial transitions to go to a leaf state>>.
-In this case, any actions specified in those transitions are done as well,
+one or more transitions to go to a leaf state>>.
+In this case, any actions specified in those transitions are
+done as well,
 after the transitions described above, and in the order that
 the initial transitions are run.
 
