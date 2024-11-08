@@ -5170,8 +5170,7 @@ in the next section.</p>
 we explained how entry and exit actions occur for state transitions
 in state machines without hierarchy.
 Each of the behaviors described there is a special case of a more general
-behavior for state machines with hierarchy.
-We now describe the more general behavior.</p>
+behavior for state machines with hierarchy, which we now describe.</p>
 </div>
 <div class="paragraph">
 <p><strong>General behavior:</strong>
@@ -5236,7 +5235,7 @@ state transitions can be computed before generating code, and
 it is more efficient to do this.
 This is how the FPP code generator works.
 For more details, see the algorithm descriptions on the
-<a href="https://github.com/nasa/fpp/wiki/Checking-Semantics">FPP wiki</a>.</p>
+<a href="https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map">FPP wiki</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Special cases:</strong>
@@ -5348,8 +5347,8 @@ In addition, each transition out of <em>C</em> must go to a state
 or choice with parent <em>P</em>; and if it goes
 to a choice, then each transition out of that choice must
 go to a state or choice with parent <em>P</em>, and so forth.
-Another way to say this is that (since no cycles are
-allowed in transitions through choices) each transition
+Another way to say this is that (since no cycles of transitions
+through choices are allowed) each transition
 path out of <em>I</em> must go through zero or more choices with parent <em>P</em>
 to a state with parent <em>P</em>.</p>
 </div>
@@ -5413,8 +5412,8 @@ to a state with parent <em>P</em>.</p>
 As in the <a href="#Defining-State-Machines_Choices">non-hierarchical case</a>,
 when a transition <em>T</em> of a state machine <em>M</em>
 goes to or from a choice, entry and
-exit actions are done as if each choice were a state with
-no entry and or exit actions.
+exit actions occur as if each choice were a state with
+no entry or exit actions.
 For example, suppose that <em>M</em> has a state <em>S</em> with substates
 <em>A</em> and <em>B</em>, <em>A</em> has a choice <em>C</em>, and <em>B</em> has substate <em>B'</em>.
 Suppose that <em>T</em> goes from <em>C</em> to <em>B'</em>.
@@ -14533,7 +14532,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 17:57:46 -0800
+Last updated 2024-11-07 18:07:38 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

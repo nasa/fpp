@@ -1405,8 +1405,7 @@ self transitions>>,
 we explained how entry and exit actions occur for state transitions
 in state machines without hierarchy.
 Each of the behaviors described there is a special case of a more general
-behavior for state machines with hierarchy.
-We now describe the more general behavior.
+behavior for state machines with hierarchy, which we now describe.
 
 *General behavior:*
 Suppose, in the course of running an instance of a state machine _M_,
@@ -1461,7 +1460,7 @@ state transitions can be computed before generating code, and
 it is more efficient to do this.
 This is how the FPP code generator works.
 For more details, see the algorithm descriptions on the
-https://github.com/nasa/fpp/wiki/Checking-Semantics[FPP wiki].
+https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map[FPP wiki].
 
 *Special cases:*
 The general behavior described above agrees with the special-case
@@ -1553,8 +1552,8 @@ In addition, each transition out of _C_ must go to a state
 or choice with parent _P_; and if it goes
 to a choice, then each transition out of that choice must
 go to a state or choice with parent _P_, and so forth.
-Another way to say this is that (since no cycles are
-allowed in transitions through choices) each transition
+Another way to say this is that (since no cycles of transitions
+through choices are allowed) each transition
 path out of _I_ must go through zero or more choices with parent _P_
 to a state with parent _P_.
 
@@ -1616,8 +1615,8 @@ state machine InvalidInitialChoice {
 As in the <<Defining-State-Machines_Choices,non-hierarchical case>>,
 when a transition _T_ of a state machine _M_
 goes to or from a choice, entry and
-exit actions are done as if each choice were a state with
-no entry and or exit actions.
+exit actions occur as if each choice were a state with
+no entry or exit actions.
 For example, suppose that _M_ has a state _S_ with substates
 _A_ and _B_, _A_ has a choice _C_, and _B_ has substate _B'_.
 Suppose that _T_ goes from _C_ to _B'_.
