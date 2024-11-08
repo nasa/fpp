@@ -1,12 +1,17 @@
 
-multiple_tops()
-{
-  update '' multiple_tops
-}
-
 direct()
 {
   update '' direct
+}
+
+duplicate()
+{
+  update '' duplicate
+}
+
+multiple_tops()
+{
+  update '' multiple_tops
 }
 
 pattern()

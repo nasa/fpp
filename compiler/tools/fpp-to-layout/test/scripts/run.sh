@@ -11,6 +11,13 @@ compare()
   diff -u $topDir'LayoutRef/'$outfile.ref.txt $topDir'Layout/'$outfile.txt > $outfile.diff.txt 2>&1
 }
 
+compare_out()
+{
+  outfile=$1
+  diff -u $outfile.ref.txt $outfile.out.txt > $outfile.diff.txt 2>&1
+}
+
+
 run_test()
 {
   args=$1

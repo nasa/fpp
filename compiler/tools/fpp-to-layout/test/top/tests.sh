@@ -1,5 +1,6 @@
 tests="
-multiple_tops
 direct
+duplicate
+multiple_tops
 pattern
 "

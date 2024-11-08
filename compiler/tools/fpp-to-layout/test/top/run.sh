@@ -1,19 +1,28 @@
+direct()
+{
+  run_test '' direct && \
+    compare TDirect C && \
+    compare_out direct
+}
+
+duplicate()
+{
+  run_test '' duplicate && \
+    compare_out duplicate
+}
+
 mutliple_tops()
 {
   run_test "" multiple_tops && \
     compare T1 C1 && \
     compare T1 C2 && \
-    compare T2 C
+    compare T2 C && \
+    compare_out multiple_tops
 }
 
 pattern()
 {
   run_test "" pattern && \
-    compare TPattern Health
-}
-
-direct()
-{
-  run_test '' direct && \
-    compare TDirect C
+    compare TPattern Health && \
+    compare_out pattern
 }

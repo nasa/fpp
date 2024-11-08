@@ -1,3 +1,10 @@
+c5
+pOut
+0
+c6
+pIn
+0
+
 c3
 pOut
 0
