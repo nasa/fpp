@@ -542,7 +542,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Defining-State-Machines_Hierarchy_Substates">9.6.1. Substates</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">9.6.2. Inherited Transitions</a></li>
 <li><a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">9.6.3. Entry and Exit Actions</a></li>
-<li><a href="#Defining-State-Machines_Hierarchy_Choices">9.6.4. Choices</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</a></li>
+<li><a href="#Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</a></li>
 </ul>
 </li>
 </ul>
@@ -4273,7 +4274,8 @@ it passes in the value as an argument to the function.</p>
 <h4 id="Defining-State-Machines_More-on-State-Transitions_Self-Transitions">9.4.2. Self Transitions</h4>
 <div class="paragraph">
 <p>When a state transition has the same state <em>S</em> as its source
-and its target, we call the transition a <strong>self transition</strong>.
+and its target, and <em>S</em> has no substates, we call the transition
+a <strong>self transition</strong>.
 In this case the following behavior occurs:</p>
 </div>
 <div class="ulist">
@@ -4295,7 +4297,10 @@ reenters <em>S</em>.
 This behavior is a special case of a more general behavior that we will
 discuss
 <a href="#Defining-State-Machines_Hierarchy_Entry-and-Exit-Actions">below</a>
-in connection with state hierarchy.</p>
+in connection with state hierarchy.
+<a href="#Defining-State-Machines_Hierarchy_Directly-Related-States">Below</a>
+we will also generalize the concept of a self transition to
+the case of a state with substates.</p>
 </div>
 <div class="paragraph">
 <p>As an example, consider the following state machine:</p>
@@ -5148,17 +5153,16 @@ side of the transition.</p>
 also from <em>S</em><sub>1</sub> to <em>S</em><sub>2</sub>.
 Once we have hierarchy, however, syntactic and flattened
 state transitions may be different.
-For example, if <em>S</em><sub>1</sub> is a parent state, then a syntactic state transition
-that from a state <em>S</em><sub>1</sub> to a state
-<em>S</em><sub>2</sub> may represent several flattened state transitions.
-For each descendant <em>L</em> of <em>S</em><sub>1</sub> that is a leaf state, there is a flattened
+For example, suppose that <em>S</em><sub>1</sub> is a parent state,
+and let <em>T</em> be a syntactic transition from <em>S</em><sub>1</sub> to <em>S</em><sub>2</sub>.
+Then for each descendant <em>L</em> of <em>S</em><sub>1</sub> that is a leaf state, there is a flattened
 state transition from <em>L</em> to <em>S</em><sub>2</sub>.
 Note in particular that whereas a syntactic state transition may
 have a parent state as its source, a flattened state transition always
 has a leaf state as its source.
 This distinction between syntactic and flattened state transitions
 will be useful when we discuss entry and exit actions
-in the next section.</p>
+in the following sections.</p>
 </div>
 </div>
 <div class="sect3">
@@ -5167,8 +5171,8 @@ in the next section.</p>
 <p>In previous sections on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions</a> and on
 <a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>,
-we explained how entry and exit actions occur for state transitions
-in state machines without hierarchy.
+we explained the order in which actions occur during a transition between
+states without hierarchy.
 Each of the behaviors described there is a special case of a more general
 behavior for state machines with hierarchy, which we now describe.</p>
 </div>
@@ -5176,47 +5180,47 @@ behavior for state machines with hierarchy, which we now describe.</p>
 <p><strong>General behavior:</strong>
 Suppose, in the course of running an instance of a state machine <em>M</em>,
 a <a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">flattened state transition</a> <em>T</em>
-occurs from state <em>S</em><sub>1</sub> to state <em>S</em><sub>2</sub>.
-By the definition of a flattened state transition, we may assume
-that <em>S</em><sub>1</sub> is a leaf state.
+occurs from state <em>L</em> to state <em>S</em>.
+By the definition of a flattened state transition, we know
+that <em>L</em> is a leaf state.
 When carrying out the transition <em>T</em>, the state machine instance will do
 actions as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Compute the <strong>least common ancestor</strong> of <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub>.
-This is the unique node <em>N</em> of the <a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a> of <em>M</em> such that (a) <em>N</em> is an ancestor of <em>S</em><sub>1</sub>,
-(b) <em>N</em> is an ancestor of <em>S</em><sub>2</sub>, and (c) there is no node <em>N'</em>
+<p>Compute the <strong>least common ancestor</strong> of <em>L</em> and <em>S</em>.
+This is the unique node <em>N</em> of the <a href="#Defining-State-Machines_Hierarchy_Substates">hierarchy tree</a> of <em>M</em> such that (a) <em>N</em> is an ancestor of <em>L</em>,
+(b) <em>N</em> is an ancestor of <em>S</em>, and (c) there is no node <em>N'</em>
 that is a descendant of <em>N</em> and that satisfies properties (a) and (b).</p>
 </li>
 <li>
-<p>Traverse the hierarchy tree upwards from <em>S</em><sub>1</sub> to <em>N</em>.
-At each point where the traversal passes out of a state <em>S</em>, in the
-order of the traversal, do the exit actions of <em>S</em>, if any.</p>
+<p>Traverse the hierarchy tree upwards from <em>L</em> to <em>N</em>.
+At each point where the traversal passes out of a state <em>S'</em>, in the
+order of the traversal, do the exit actions of <em>S'</em>, if any.</p>
 </li>
 <li>
 <p>Do the actions specified in <em>T</em>, if any.</p>
 </li>
 <li>
-<p>Traverse the hierarchy tree downwards from <em>N</em> to <em>S</em><sub>2</sub>.
-At each point where the traversal enters a state <em>S</em>, in the
-order of the traversal, do the entry actions of <em>S</em>, if any.</p>
+<p>Traverse the hierarchy tree downwards from <em>N</em> to <em>S</em>.
+At each point where the traversal enters a state <em>S'</em>, in the
+order of the traversal, do the entry actions of <em>S'</em>, if any.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>For example, suppose that <em>M</em> has a state <em>S</em> with substates
-<em>A</em> and <em>B</em>, <em>A</em> has substate <em>A'</em>, and <em>B</em> has substate <em>B'</em>.
-Suppose that <em>T</em> goes from <em>A'</em> to <em>B'</em>.
-Then least common ancestor is <em>S</em>, and the following actions
+<p>For example, suppose that <em>M</em> has a state <em>A</em> with substates
+<em>B</em> and <em>C</em>, <em>B</em> has substate <em>D</em>, and <em>C</em> has substate <em>E</em>.
+Suppose that <em>T</em> goes from <em>C</em> to <em>E</em>.
+Then least common ancestor is <em>A</em>, and the following actions
 would be done, in the following order:
-the exit actions of <em>A'</em>, the exit actions of <em>A</em>,
-the actions of <em>T</em>, the entry actions of <em>B</em>, and the
-entry actions of <em>B'</em>.</p>
+the exit actions of <em>C</em>, the exit actions of <em>B</em>,
+the actions of <em>T</em>, the entry actions of <em>C</em>, and the
+entry actions of <em>E</em>.</p>
 </div>
 <div class="paragraph">
-<p>Remember also that if <em>B'</em> is not a leaf state, then <em>T</em> will
+<p>Remember also that if <em>E</em> is not a leaf state, then <em>T</em> will
 <a href="#Defining-State-Machines_Hierarchy_Substates">follow
 one or more transitions to go to a leaf state</a>.
 In this case, any actions specified in those transitions are
@@ -5238,79 +5242,154 @@ For more details, see the algorithm descriptions on the
 <a href="https://github.com/nasa/fpp/wiki/Compute-Flattened-State-Transition-Map">FPP wiki</a>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Special cases:</strong>
+<p><strong>The special case of no hierarchy:</strong>
 The general behavior described above agrees with the special-case
 behavior that we described in the section on
 <a href="#Defining-State-Machines_Actions_Entry-and-Exit-Actions">entry and exit actions for state machines without hierarchy</a>.
-When a state machine <em>M</em> has no hierarchy, a flattened state transition <em>T</em>
-always goes from a state <em>S</em><sub>1</sub> to a state <em>S</em><sub>2</sub>, both of which are
-children of <em>M</em> in the hierarchy tree.
-So we always exit <em>S</em><sub>1</sub>, do the actions of <em>T</em>, and enter <em>S</em><sub>2</sub>.</p>
+When a state machine <em>M</em> has no hierarchy, a every state transition <em>T</em>
+is a flattened transition that goes from a leaf state <em>L</em> to a leaf
+state <em>S</em>, both of which are children of <em>M</em> in the hierarchy tree.
+So we always exit <em>L</em>, do the actions of <em>T</em>, and enter <em>S</em>.</p>
 </div>
 <div class="paragraph">
-<p>The general behavior also agrees with the behavior that we previously
+<p>In particular,
+the general behavior agrees with the behavior that we previously
 described for
 <a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self transitions</a>.
-When <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> are the same state <em>S</em>, the least common
-ancestor of <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> is the parent <em>P</em> of <em>S</em>.
+When <em>L</em> and <em>S</em> are the same leaf state, the least common
+ancestor of <em>L</em> and <em>S</em> is the parent <em>P</em> of <em>S</em>.
 So we exit <em>S</em> to go up to <em>P</em>, do the actions of <em>T</em>, and
 reenter <em>S</em>.</p>
 </div>
-<div class="paragraph">
-<p>It is also important to consider and understand the special
-case of a flattened state transition <em>T</em> from a state <em>S</em><sub>1</sub> to a state <em>S</em><sub>2</sub>,
-where <em>S</em><sub>2</sub> is an ancestor of <em>S</em><sub>1</sub>.
-We call this kind of transition an <strong>ancestor state transition</strong>.
-Note the following:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>An ancestor state transition is not a self transition, because
-a state is never an ancestor of itself.</p>
-</li>
-<li>
-<p>Suppose that some state <em>S</em> is a parent state, and the definition of <em>S</em>
-contains a syntactic transition <em>T<sub>s</sub></em> that enters <em>S</em>.
-Then <em>T<sub>s</sub></em> looks like a self transition (it is defined in <em>S</em>,
-and its target is <em>S</em>).
-However, by the rules for
-<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">inherited
-transitions</a>,
-<em>T<sub>s</sub></em> in fact represents one or more flattened state transitions <em>T</em>,
-each of which has a leaf descendant of <em>S</em> as its source, and so
-is an ancestor state transition.</p>
-</li>
-<li>
-<p>We do not have to consider the case where <em>S</em><sub>1</sub> is an ancestor
-of <em>S</em><sub>2</sub>: if <em>T</em> is flattened, then <em>S</em><sub>1</sub> is a leaf state,
-and leaf states have no descendants.</p>
-</li>
-</ul>
+<div class="sect3">
+<h4 id="Defining-State-Machines_Hierarchy_Directly-Related-States">9.6.4. Directly Related States</h4>
+<div class="paragraph">
+<p>Let <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> be states.
+If <em>S</em><sub>1</sub> is equal to S<sub>2</sub>, or <em>S</em><sub>1</sub> is an ancestor of S<sub>2</sub>, or S<sub>2</sub>
+is an ancestor of <em>S</em><sub>1</sub>, then we say that <em>S</em><sub>1</sub> and S<sub>2</sub> are
+<strong>directly related</strong> in the hierarchy tree.</p>
 </div>
 <div class="paragraph">
-<p>When <em>T</em> is an ancestor state transition, the least common ancestor
-of <em>S</em><sub>1</sub> and <em>S</em><sub>2</sub> is the parent <em>P</em> of <em>S</em><sub>2</sub>.
+<p>In this section we divide all transitions between
+directly related states into several categories, which we describe.
+In each category, the behavior that we describe follows from the general behavior
+presented in the previous section.
+However, in some cases the behavior may be subtle or surprising.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to ancestors:</strong>
+When a transition <em>T</em> goes from a leaf state <em>L</em> to a state <em>A</em>
+that is an ancestor of <em>L</em>, we call <em>T</em> a
+<strong>flattened transition to an ancestor</strong>.
+The least common ancestor
+of <em>L</em> and <em>A</em> is the parent <em>P</em> of <em>A</em>.
 Therefore the following behavior occurs:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Do exit actions to get from <em>S</em><sub>1</sub> to <em>P</em>. The last actions will
-be the exit actions of <em>S</em><sub>1</sub>, if any.</p>
+<p>Do exit actions to get from <em>L</em> to <em>P</em>. The last actions will
+be the exit actions of <em>A</em>, if any.</p>
 </li>
 <li>
 <p>Do the actions of <em>T</em>, if any.</p>
 </li>
 <li>
-<p>Do enter actions to get from <em>P</em> to <em>S</em><sub>2</sub>.
-The first actions will be the entry actions of <em>S</em><sub>1</sub>, if any.</p>
+<p>Do the entry actions of <em>A</em>, if any.</p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to ancestors:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>A</em> that is defined in the state <em>S</em>,
+where <em>A</em> is an ancestor of <em>S</em>.
+We call this kind of state transition a
+<strong>syntactic transition to an ancestor</strong>.
+If <em>S</em> is a leaf state, then it represents
+a flattened transition to the ancestor <em>A</em>.
+Otherwise it represents one flattened transition
+to the ancestor <em>A</em> for each descendant of <em>S</em> that
+is a leaf state.
+Because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to self:</strong>
+A <strong>flattened transition to self</strong> is a transition
+from a leaf state <em>L</em> to itself.
+This is what we previously called a
+<a href="#Defining-State-Machines_More-on-State-Transitions_Self-Transitions">self
+transition</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to self:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>S</em> that is defined in the state <em>S</em>.
+In general we call this kind of state transition a
+<strong>syntactic transition to self</strong>.
+If <em>S</em> is a leaf state, then <em>T</em> a flattened
+transition to self.
+In particular, when there is no hierarchy, every syntactic
+transition to self is a self transition.
+If <em>S</em> is not a leaf state, then <em>T</em> is flattened
+to one or more transitions from leaf states <em>L</em> that are
+descendants of <em>S</em>.
+Each of these transitions is a flattened transition
+to the ancestor <em>S</em>.
+Because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
+<div class="paragraph">
+<p><strong>Flattened transitions to descendants:</strong>
+In theory, a <strong>flattened transition to a descendant</strong> would
+be a transition from a leaf node <em>L</em> to a descendant <em>D</em> of <em>L</em>.
+However, leaf nodes have no descendants, so no such transition
+is possible.
+We include the category for completeness.
+It has no members.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syntactic transitions to descendants:</strong>
+Consider a state transition <em>T</em> of the form
+<code>on</code> <em>s</em> <code>enter</code> <em>D</em> that is defined in the state <em>S</em>,
+where <em>D</em> is a descendant of <em>S</em>.
+We call this kind of state transition a
+<strong>syntactic transition to a descendant</strong>.
+By symmetry with syntactic transitions to ancestors,
+you might expect that the first behavior when
+making such a transition is to exit and reenter <em>S</em>.
+However, this is not what happens.
+Instead, <em>T</em> represents one flattened transition
+from each leaf state that is a descendant of <em>S</em>.
+The flattened transitions have the following properties:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If <em>D</em> is a leaf state, then the flattened
+transition out of <em>D</em> (and only that transition)
+is a flattened transition to self.</p>
+</li>
+<li>
+<p>Otherwise (a) none of the flattened transitions
+is a flattened transition to self, and (b) the
+flattened transitions out of the descendants of <em>D</em>
+are flattened transitions to the ancestor <em>D</em>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In either case, because of
+<a href="#Defining-State-Machines_Hierarchy_Inherited-Transitions">behavioral polymorphism</a>, any of the flattened transitions may
+be overridden.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.4. Choices</h4>
+<h4 id="Defining-State-Machines_Hierarchy_Choices">9.6.5. Choices</h4>
 <div class="paragraph">
 <p>Like state definitions, choice definitions are hierarchical.
 That is, you may define a choice inside a state.
@@ -5334,7 +5413,8 @@ For example, you can write this:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>In this example, the qualified name of the choice is <code>S.C</code>.
+<p>The dots represent omitted text needed to make the state machine valid.
+In this example, the qualified name of the choice is <code>S.C</code>.
 Inside state <code>S</code>, you can refer to the choice as <code>S.C</code> or <code>C</code>.
 Outside state <code>S</code>, you must refer to it as <code>S.C</code>.</p>
 </div>
@@ -5412,7 +5492,7 @@ to a state with parent <em>P</em>.</p>
 As in the <a href="#Defining-State-Machines_Choices">non-hierarchical case</a>,
 when a transition <em>T</em> of a state machine <em>M</em>
 goes to or from a choice, entry and
-exit actions occur as if each choice were a state with
+exit actions occur as if each choice were a leaf state with
 no entry or exit actions.
 For example, suppose that <em>M</em> has a state <em>S</em> with substates
 <em>A</em> and <em>B</em>, <em>A</em> has a choice <em>C</em>, and <em>B</em> has substate <em>B'</em>.
@@ -14532,7 +14612,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 18:07:38 -0800
+Last updated 2024-11-08 15:15:17 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
