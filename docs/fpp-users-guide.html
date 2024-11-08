@@ -4953,7 +4953,7 @@ We also say that <em>S</em> is an ancestor of <em>S'</em> if it is a parent of
 an ancestor of <em>S'</em>.
 For example, if <em>S</em> is a parent of a parent of <em>S'</em>, then
 <em>S</em> is an ancestor of <em>S'</em>.
-Note that a sate is never an ancestor of itself.</p>
+Note that a state is never an ancestor of itself.</p>
 </div>
 <div class="paragraph">
 <p>When a state <em>S</em> is a an ancestor of a state <em>S'</em>, we
@@ -4961,7 +4961,7 @@ say that <em>S'</em> is a <strong>descendant</strong> of <em>S</em>.
 For example, <em>S'</em> is a descendant of <em>S</em> if <em>S'</em>
 is a child of <em>S</em>, or if <em>S'</em> is a child of a child of
 <em>S</em>.
-Note that a sate is never a descendant of itself.</p>
+Note that a state is never a descendant of itself.</p>
 </div>
 <div class="paragraph">
 <p>In order to make the state hierarchy into a tree, we also
@@ -5321,9 +5321,9 @@ In addition, each transition out of <em>C</em> must go to a state
 or choice with parent <em>P</em>; and if it goes
 to a choice, then each transition out of that choice must
 go to a state or choice with parent <em>P</em>, and so forth.
-Another way to say this is that (since no choice cycles are
-allowed) each transition path out of <em>I</em> must go through
-zero or more choices with parent <em>P</em>
+Another way to say this is that (since no cycles are
+allowed in transitions through choices) each transition
+path out of <em>I</em> must go through zero or more choices with parent <em>P</em>
 to a state with parent <em>P</em>.</p>
 </div>
 <div class="paragraph">
@@ -5331,7 +5331,7 @@ to a state with parent <em>P</em>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine ValidChoice {
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine ValidInitialChoice {
 
   guard g
 
@@ -5339,9 +5339,9 @@ to a state with parent <em>P</em>.</p>
 
   state S1 {
 
+    @ This initial transition is valid: C, S2, and S3 all have parent S1
     initial enter C
 
-    @ This choice is valid: C, S2, and S3 all have parent S1
     choice C { if g enter S2 else enter S3 }
 
     state S2
@@ -5358,7 +5358,7 @@ to a state with parent <em>P</em>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="fpp">state machine InvalidChoice {
+<pre class="prettyprint highlight"><code data-lang="fpp">state machine InvalidInitialChoice {
 
   guard g
 
@@ -5366,9 +5366,10 @@ to a state with parent <em>P</em>.</p>
 
   state S1 {
 
+    @ This initial transition is invalid: C has parent S1,
+    @ but S2 and S3 have parent InvalidInitialChoice
     initial enter C
 
-    @ This choice is invalid: C has parent S1, but S2 and S3 have parent InvalidChoice
     choice C { if g enter S2 else enter S3 }
 
   }
@@ -14493,7 +14494,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-07 15:21:11 -0800
+Last updated 2024-11-07 16:26:57 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>

@@ -1205,14 +1205,14 @@ We also say that _S_ is an ancestor of _S'_ if it is a parent of
 an ancestor of _S'_.
 For example, if _S_ is a parent of a parent of _S'_, then
 _S_ is an ancestor of _S'_.
-Note that a sate is never an ancestor of itself.
+Note that a state is never an ancestor of itself.
 
 When a state _S_ is a an ancestor of a state _S'_, we
 say that _S'_ is a *descendant* of _S_.
 For example, _S'_ is a descendant of _S_ if _S'_
 is a child of _S_, or if _S'_ is a child of a child of
 _S_.
-Note that a sate is never a descendant of itself.
+Note that a state is never a descendant of itself.
 
 In order to make the state hierarchy into a tree, we also
 say that the entire state machine _M_ is a parent of every top-level
@@ -1534,16 +1534,16 @@ In addition, each transition out of _C_ must go to a state
 or choice with parent _P_; and if it goes
 to a choice, then each transition out of that choice must
 go to a state or choice with parent _P_, and so forth.
-Another way to say this is that (since no choice cycles are
-allowed) each transition path out of _I_ must go through
-zero or more choices with parent _P_
+Another way to say this is that (since no cycles are
+allowed in transitions through choices) each transition
+path out of _I_ must go through zero or more choices with parent _P_
 to a state with parent _P_.
 
 For example, this state machine is allowed:
 
 [source,fpp]
 ----
-state machine ValidChoice {
+state machine ValidInitialChoice {
 
   guard g
 
@@ -1551,9 +1551,9 @@ state machine ValidChoice {
 
   state S1 {
 
+    @ This initial transition is valid: C, S2, and S3 all have parent S1
     initial enter C
 
-    @ This choice is valid: C, S2, and S3 all have parent S1
     choice C { if g enter S2 else enter S3 }
 
     state S2
@@ -1570,7 +1570,7 @@ But this one is not:
 
 [source,fpp]
 --------
-state machine InvalidChoice {
+state machine InvalidInitialChoice {
 
   guard g
 
@@ -1578,9 +1578,10 @@ state machine InvalidChoice {
 
   state S1 {
 
+    @ This initial transition is invalid: C has parent S1,
+    @ but S2 and S3 have parent InvalidInitialChoice
     initial enter C
 
-    @ This choice is invalid: C has parent S1, but S2 and S3 have parent InvalidChoice
     choice C { if g enter S2 else enter S3 }
 
   }
