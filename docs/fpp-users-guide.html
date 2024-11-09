@@ -710,9 +710,9 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus">14.3. Generating C Plus Plus</a>
 <ul class="sectlevel3">
 <li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">14.3.1. Constant Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.2. Topology Definitions</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">14.3.3. Types, Ports, and Components</a></li>
-<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.4. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">14.3.2. Types, Ports, State Machines, and Components</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.3. Component Implementation and Unit Test Code</a></li>
+<li><a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.4. Topology Definitions</a></li>
 </ul>
 </li>
 <li><a href="#Analyzing-and-Translating-Models_Identifying-Generated-Files">14.4. Identifying Generated Files</a>
@@ -12601,6 +12601,14 @@ translated to C&#43;&#43; files.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _E</em> <code>EnumAc.{hpp,cpp}</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State machine <em>M</em> outside any component</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>M</em> <code>StateMachineAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State machine <em>M</em> in component <em>C</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>C</em> <code><em></code> _M</em> <code>StateMachineAc.{hpp,cpp}</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Struct <em>S</em> outside any component</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>S</em> <code>SerializableAc.{hpp,cpp}</code></p></td>
 </tr>
@@ -12847,75 +12855,33 @@ This is similar to the <code>-s</code> option for
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.2. Topology Definitions</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-State-Machines-and-Components">14.3.2. Types, Ports, State Machines, and Components</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
-from the source files.
-For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
-writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
-These files define two public functions:
-<code>setup</code> for setting up the topology, and
-<code>teardown</code>, for tearing down the topology.
-The function definitions come from the definition of <em>T</em> and
-from the
-<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
-for the component instances used in <em>T</em>.
-You can call these functions from a handwritten <code>main</code>
-function.
-We will explain how to write this <code>main</code> function in the
-section on
-<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+<p>To generate code for type, port, state machine, and component definitions, you
+run <code>fpp-to-cpp</code> in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">constant definitions</a>, with one exception:
+the translator ignores the <code>-g</code> option, because the include guard comes from
+the qualified name of the definition.
+For example, a component whose qualified name in FPP is <code>A.B.C</code>
+uses the name <code>A_B_CComponentAc_HPP</code> in its include guard.</p>
 </div>
 <div class="paragraph">
-<p>As an example, you can do the following:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
-</li>
-<li>
-<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
-</li>
-<li>
-<p>Press return, control-D, and return.</p>
-</li>
-<li>
-<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
-and <code>SimpleTopologyAc.cpp</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
-in the F Prime repository.
-Currently these files are checked in at <code>Ref/Top</code>.
-Once we have integrated FPP with CMake, these files will be auto-generated
-by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>Options:</strong>
-When translating topologies,
-the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
-<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
-The <code>-g</code> option is ignored, because
-the include guard prefix comes from the name of the topology.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Types-Ports-and-Components">14.3.3. Types, Ports, and Components</h4>
-<div class="paragraph">
-<p>C&#43;&#43; code generation for types, ports, and components works similarly
-to the corresponding code generation from XML.
+<p>Once you generate C&#43;&#43; code for these definitions, you can use it to
+write a flight software implementation.
 The <a href="https://github.com/nasa/fprime/blob/master/docs/UsersGuide/guide.md">F
-Prime User&#8217;s Guide</a> describes how to use this generated code
-to write flight software implementations.</p>
+Prime User&#8217;s Guide</a> explains how to do this.</p>
+</div>
+<div class="paragraph">
+<p>For more information about the generated code for data products,
+for state machines, and for state machine instances, see the
+<a href="https://github.com/nasa/fprime/blob/devel/docs/Design/general.md">F Prime design
+documentation</a>.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.4. Component Implementation and Unit Test Code</h4>
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Component-Implementation-and-Unit-Test-Code">14.3.3. Component Implementation and Unit Test Code</h4>
 <div class="paragraph">
-<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component "templates" or
+<p><code>fpp-to-cpp</code> has options <code>-t</code> and <code>-u</code> for generating component &#8220;templates&#8221; or
 partial implementations and for generating unit test code.
 Here we cover the mechanics of using these options.
 For more information on implementing and testing components in F Prime, see
@@ -13013,6 +12979,62 @@ is not generated.</p>
 <code>UT_AUTO_HELPERS</code>. With this feature enabled, you don&#8217;t have to manage the
 file <em>C</em> <code>TesterHelpers.cpp</code> as part of your unit test source files; the
 build system does it for you.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Topology-Definitions">14.3.4. Topology Definitions</h4>
+<div class="paragraph">
+<p><code>fpp-to-cpp</code> also extracts <a href="#Defining-Topologies">topology definitions</a>
+from the source files.
+For each topology <em>T</em> defined in the source files, <code>fpp-to-cpp</code>
+writes files <em>T</em> <code>TopologyAc.hpp</code> and <em>T</em> <code>TopologyAc.cpp</code>.
+These files define two public functions:
+<code>setup</code> for setting up the topology, and
+<code>teardown</code>, for tearing down the topology.
+The function definitions come from the definition of <em>T</em> and
+from the
+<a href="#Defining-Component-Instances_Init-Specifiers">init specifiers</a>
+for the component instances used in <em>T</em>.
+You can call these functions from a handwritten <code>main</code>
+function.
+We will explain how to write this <code>main</code> function in the
+section on
+<a href="#Writing-C-Plus-Plus-Implementations_Implementing-Deployments">implementing deployments</a>.</p>
+</div>
+<div class="paragraph">
+<p>As an example, you can do the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On the command line, run <code>fpp-to-cpp -p $PWD</code>.</p>
+</li>
+<li>
+<p>Copy the text of the <a href="#Defining-Topologies_A-Simple-Example">simple topology example</a> and paste it into the terminal.</p>
+</li>
+<li>
+<p>Press return, control-D, and return.</p>
+</li>
+<li>
+<p>Examine the generated files <code>SimpleTopologyAc.hpp</code>
+and <code>SimpleTopologyAc.cpp</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can examine the files <code>RefTopologyAc.hpp</code> and <code>RefTopologyAc.cpp</code>
+in the F Prime repository.
+Currently these files are checked in at <code>Ref/Top</code>.
+Once we have integrated FPP with CMake, these files will be auto-generated
+by CMake and will be located at <code>Ref/build-fprime-automatic-native/F-Prime/Ref/Top</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Options:</strong>
+When translating topologies,
+the <code>-d</code>, <code>-n</code>, and <code>-p</code> options work in the same way as for
+<a href="#Analyzing-and-Translating-Models_Generating-C-Plus-Plus_Constant-Definitions">translating constant definitions</a>.
+The <code>-g</code> option is ignored, because
+the include guard prefix comes from the name of the topology.</p>
 </div>
 </div>
 </div>
@@ -14612,7 +14634,7 @@ function, you may.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-08 15:15:17 -0800
+Last updated 2024-11-09 11:46:53 -0800
 </div>
 </div>
 <script src="code-prettify/run_prettify.js"></script>
